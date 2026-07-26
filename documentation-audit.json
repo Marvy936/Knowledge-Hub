@@ -1123,15 +1123,15 @@
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
       "title": "Static analysis, linting a type checking",
-      "words": 2967,
-      "headings": 42,
-      "sections": 42,
-      "findings": 99,
-      "critical": 20,
-      "high": 20,
-      "medium": 18,
-      "low": 41,
-      "score": 517,
+      "words": 2893,
+      "headings": 46,
+      "sections": 46,
+      "findings": 76,
+      "critical": 23,
+      "high": 18,
+      "medium": 15,
+      "low": 20,
+      "score": 503,
       "grade": "D"
     },
     {
@@ -63283,33 +63283,6 @@
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`.",
@@ -63317,44 +63290,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `YAML`, `JSON`, `AST`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "1. Mentálny model",
-      "line": 11,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "2. Čo patrí do statickej kontrolnej vrstvy",
-      "line": 27,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.1",
+      "line": 42,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "2. Čo patrí do statickej kontrolnej vrstvy",
-      "line": 27,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.1",
+      "line": 42,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -63362,8 +63308,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "2. Čo patrí do statickej kontrolnej vrstvy",
-      "line": 27,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.1",
+      "line": 42,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -63371,35 +63317,35 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "2. Čo patrí do statickej kontrolnej vrstvy",
-      "line": 27,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "2. Čo patrí do statickej kontrolnej vrstvy",
-      "line": 27,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `YAML`, `JSON`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "3. Prečo je statická analýza hodnotná",
+      "section": "2. Nosný scenár: Atlas Orders 3.9.1",
       "line": 42,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SARIF`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "4. Parsing, AST a symbol resolution",
-      "line": 56,
+      "section": "4. Source a build context ako vstup dôkazu",
+      "line": 104,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "4. Source a build context ako vstup dôkazu",
+      "line": 104,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source revision a submodules;`, `language a compiler version;`, `target platform a feature flags;`, `dependency lock a module path;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "4. Source a build context ako vstup dôkazu",
+      "line": 104,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -63407,17 +63353,125 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "5. Control-flow graph",
-      "line": 72,
+      "section": "4. Source a build context ako vstup dôkazu",
+      "line": 104,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "5. Parsing, AST a symbol resolution",
+      "line": 120,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "7. Call graph a interprocedurálna analýza",
+      "line": 154,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "9. Sources, sinks, validators a sanitizers",
+      "line": 202,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "9. Sources, sinks, validators a sanitizers",
+      "line": 202,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "10. Compiler diagnostics",
+      "line": 210,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "13. Formatter",
+      "line": 270,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší diff noise;`, `menej konfliktov o whitespace;`, `jednoduchší review behavior zmien;`, `reprodukovateľný generated output;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "13. Formatter",
+      "line": 270,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "14. Linter",
+      "line": 284,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "17. Soundness a completeness",
+      "line": 330,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "17. Soundness a completeness",
+      "line": 330,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "18. Finding triage",
+      "line": 341,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "5. Control-flow graph",
-      "line": 72,
+      "section": "18. Finding triage",
+      "line": 341,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rule ID a severity;`, `file, symbol a source revision;`, `evidence alebo data-flow path;`, `analyzer a ruleset version;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "18. Finding triage",
+      "line": 341,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -63425,674 +63479,35 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "5. Control-flow graph",
-      "line": 72,
+      "section": "18. Finding triage",
+      "line": 341,
       "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "18. Finding triage",
+      "line": 341,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "5. Control-flow graph",
-      "line": 72,
+      "section": "18. Finding triage",
+      "line": 341,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "6. Call graph a interprocedurálna analýza",
-      "line": 95,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "6. Call graph a interprocedurálna analýza",
-      "line": 95,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "7. Data-flow facts",
-      "line": 111,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "7. Data-flow facts",
-      "line": 111,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "7. Data-flow facts",
-      "line": 111,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "7. Data-flow facts",
-      "line": 111,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "8. Taint analysis",
-      "line": 124,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "Sanitizers a validators",
-      "line": 143,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "9. Compiler diagnostics",
-      "line": 149,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "10. Formatter a linter",
-      "line": 168,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "10. Formatter a linter",
-      "line": 168,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aké riziko alebo maintenance problém rieši;`, `akú má presnosť;`, `či je auto-fix bezpečný;`, `ako vyzerá oprávnený suppression;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "10. Formatter a linter",
-      "line": 168,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "11. Type checking",
-      "line": 191,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 58 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "11. Type checking",
-      "line": 191,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesprávny argument alebo návratový typ;`, `neobslúžený null alebo optional stav;`, `nekompatibilnú generic instantiation;`, `neúplný union alebo variant handling;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "11. Type checking",
-      "line": 191,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "11. Type checking",
-      "line": 191,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "12. Nullability a stavové typy",
-      "line": 214,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "12. Nullability a stavové typy",
-      "line": 214,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "13. Soundness, completeness a undecidability",
-      "line": 230,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "13. Soundness, completeness a undecidability",
-      "line": 230,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "13. Soundness, completeness a undecidability",
-      "line": 230,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "14. Security finding nie je exploit dôkaz",
-      "line": 242,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "14. Security finding nie je exploit dôkaz",
-      "line": 242,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je source reálne attacker-controlled;`, `je path reachable v nasadzovanom artifacte;`, `má sink nebezpečné semantics;`, `existuje vhodná validácia mimo modelu analyzátora;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "14. Security finding nie je exploit dôkaz",
-      "line": 242,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "14. Security finding nie je exploit dôkaz",
-      "line": 242,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "14. Security finding nie je exploit dôkaz",
-      "line": 242,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "16. Dead code a reachability",
-      "line": 264,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "16. Dead code a reachability",
-      "line": 264,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "17. Architecture a dependency rules",
-      "line": 272,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "18. Configuration, policy a Infrastructure as Code",
-      "line": 287,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "18. Configuration, policy a Infrastructure as Code",
-      "line": 287,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoring source;`, `rendered template;`, `dependency lock alebo module graph;`, `Terraform plan;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "18. Configuration, policy a Infrastructure as Code",
-      "line": 287,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "18. Configuration, policy a Infrastructure as Code",
-      "line": 287,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "18. Configuration, policy a Infrastructure as Code",
-      "line": 287,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "19. Toolchain a configuration provenance",
-      "line": 310,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 42 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "19. Toolchain a configuration provenance",
-      "line": 310,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `commit alebo source revision;`, `analyzer a plugin versions;`, `config a ruleset version;`, `target platform a language version;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "19. Toolchain a configuration provenance",
-      "line": 310,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "19. Toolchain a configuration provenance",
-      "line": 310,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "19. Toolchain a configuration provenance",
-      "line": 310,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "19. Toolchain a configuration provenance",
-      "line": 310,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "21. Suppression governance",
-      "line": 343,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "21. Suppression governance",
-      "line": 343,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presné rule ID a minimálny scope;`, `technické zdôvodnenie;`, `ownera;`, `issue alebo risk-acceptance referenciu;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "21. Suppression governance",
-      "line": 343,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "21. Suppression governance",
-      "line": 343,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "21. Suppression governance",
-      "line": 343,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "21. Suppression governance",
-      "line": 343,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "22. Incremental a affected analysis",
-      "line": 359,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `editor alebo pre-commit analýzu changed files;`, `PR affected analysis s dependency graphom;`, `autoritatívny širší CI run;`, `periodický clean run bez cache;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "22. Incremental a affected analysis",
-      "line": 359,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "22. Incremental a affected analysis",
-      "line": 359,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`, `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "24. Gate policy",
-      "line": 390,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "24. Gate policy",
-      "line": 390,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "24. Gate policy",
-      "line": 390,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "24. Gate policy",
-      "line": 390,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "24. Gate policy",
-      "line": 390,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "24. Gate policy",
-      "line": 390,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "25. Tool failure verzus clean result",
-      "line": 405,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "26. Reportovanie a developer experience",
-      "line": 418,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "27. Meranie účinnosti",
-      "line": 426,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "27. Meranie účinnosti",
-      "line": 426,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `findings podľa severity a rule;`, `first-seen a age;`, `time to remediation;`, `suppression a baseline trend;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "27. Meranie účinnosti",
-      "line": 426,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "27. Meranie účinnosti",
-      "line": 426,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "28. Diagnostický workflow",
-      "line": 442,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "28. Diagnostický workflow",
-      "line": 442,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "28. Diagnostický workflow",
-      "line": 442,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potvrď presný commit a analyzovanú path;`, `over verziu analyzátora, pluginov a konfigurácie;`, `skontroluj language target, build flags a generated sources;`, `reprodukuj command bez cache;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "28. Diagnostický workflow",
-      "line": 442,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "28. Diagnostický workflow",
-      "line": 442,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "28. Diagnostický workflow",
-      "line": 442,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "28. Diagnostický workflow",
-      "line": 442,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "28. Diagnostický workflow",
-      "line": 442,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "29. Časté omyly",
-      "line": 457,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "„Všetky warnings treba okamžite blokovať“",
-      "line": 467,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "„Changed-file scan stačí“",
-      "line": 475,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "30. Prevádzkový checklist",
-      "line": 483,
+      "section": "Náprava",
+      "line": 374,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -64100,8 +63515,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "30. Prevádzkový checklist",
-      "line": 483,
+      "section": "Náprava",
+      "line": 374,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64109,26 +63524,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "30. Prevádzkový checklist",
-      "line": 483,
+      "section": "Náprava",
+      "line": 374,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "30. Prevádzkový checklist",
-      "line": 483,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je toolchain a ruleset pinovaný a reprodukovateľný?`, `Sú generated a excluded paths explicitné?`, `Má každý blocking rule pomenované riziko a remediation?`, `Rozlišuje pipeline findings, incomplete run a infrastructure failure?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "30. Prevádzkový checklist",
-      "line": 483,
+      "section": "Náprava",
+      "line": 374,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -64136,8 +63542,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "30. Prevádzkový checklist",
-      "line": 483,
+      "section": "Náprava",
+      "line": 374,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64145,8 +63551,107 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "30. Prevádzkový checklist",
-      "line": 483,
+      "section": "Náprava",
+      "line": 374,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `INCOMPLETE`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "Root cause",
+      "line": 395,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "Náprava",
+      "line": 399,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "Náprava",
+      "line": 399,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "Náprava",
+      "line": 399,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "Náprava",
+      "line": 399,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `optional state sa modeluje typom a explicitným branchom;`, `suppression sa odstráni;`, `regression test pokrýva missing, invalid a valid header;`, `suppression count a age sa ratchetujú.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "Náprava",
+      "line": 399,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "Náprava",
+      "line": 399,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "22. Suppression lifecycle",
+      "line": 425,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "22. Suppression lifecycle",
+      "line": 425,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný rule ID;`, `najmenší scope;`, `technický dôvod;`, `ownera;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "22. Suppression lifecycle",
+      "line": 425,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "22. Suppression lifecycle",
+      "line": 425,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64154,8 +63659,251 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "30. Prevádzkový checklist",
-      "line": 483,
+      "section": "22. Suppression lifecycle",
+      "line": 425,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "23. Blocking a advisory rules",
+      "line": 440,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "23. Blocking a advisory rules",
+      "line": 440,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compiler/type error;`, `high-confidence null dereference;`, `zakázanú architecture dependency;`, `new secret finding;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "23. Blocking a advisory rules",
+      "line": 440,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "23. Blocking a advisory rules",
+      "line": 440,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "23. Blocking a advisory rules",
+      "line": 440,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "25. Incremental analysis a cache",
+      "line": 468,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "25. Incremental analysis a cache",
+      "line": 468,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a dependency revision;`, `compiler flags;`, `tool a plugin versions;`, `ruleset a suppression config;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "25. Incremental analysis a cache",
+      "line": 468,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "25. Incremental analysis a cache",
+      "line": 468,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "28. Failure artifacts a provenance",
+      "line": 519,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "28. Failure artifacts a provenance",
+      "line": 519,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "28. Failure artifacts a provenance",
+      "line": 519,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source/synthetic merge commit;`, `build command a resolved flags;`, `analyzer, compiler, plugin a ruleset versions;`, `included/excluded file inventory;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "28. Failure artifacts a provenance",
+      "line": 519,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "28. Failure artifacts a provenance",
+      "line": 519,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "29. Diagnostický workflow",
+      "line": 536,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "29. Diagnostický workflow",
+      "line": 536,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "29. Diagnostický workflow",
+      "line": 536,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potvrď source commit, target a authoritative build command;`, `over compiler flags, platform a generated sources;`, `skontroluj, či analyzovaný file/symbol patrí do inventory;`, `reprodukuj finding rovnakou tool a ruleset verziou;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "29. Diagnostický workflow",
+      "line": 536,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "29. Diagnostický workflow",
+      "line": 536,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "30. Referenčné pravidlá",
+      "line": 551,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "30. Referenčné pravidlá",
+      "line": 551,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "30. Referenčné pravidlá",
+      "line": 551,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "30. Referenčné pravidlá",
+      "line": 551,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Statický výsledok patrí konkrétnemu source a build contextu.`, `Data-flow rule potrebuje explicitné sources, sinks a validators.`, `Zelený analyzer nepreukazuje runtime behavior.`, `Blocking rules majú byť presné, reprodukovateľné a vlastnené.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "30. Referenčné pravidlá",
+      "line": 551,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "30. Referenčné pravidlá",
+      "line": 551,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "30. Referenčné pravidlá",
+      "line": 551,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "30. Referenčné pravidlá",
+      "line": 551,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64163,12 +63911,57 @@
     },
     {
       "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
-      "section": "30. Prevádzkový checklist",
-      "line": 483,
+      "section": "30. Referenčné pravidlá",
+      "line": 551,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAST`, `scope`",
       "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "31. Časté omyly",
+      "line": 566,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "„Compiler prešiel, program funguje“",
+      "line": 568,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "„Type checker validuje JSON“",
+      "line": 576,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "„SAST green znamená žiadnu injection alebo authorization chybu“",
+      "line": 580,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/static-analysis-linting-type-checking.md",
+      "section": "„Incremental run vždy stačí pre pull request“",
+      "line": 592,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/test-pyramid.md",
