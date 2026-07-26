@@ -6,464 +6,426 @@
 - Level: L2
 - Domain: CI/CD and Release Engineering
 
-## 1. Definícia
-
-Ring deployment rozdeľuje release do stabilných, vopred definovaných production cohorts. Každý ring má vlastný risk profil, membership, support model, observation contract a promotion podmienky.
+Ring deployment riadi release cez stabilné production cohorts s odlišným risk profilom, workloadom, support modelom a recovery schopnosťou. Ring nie je iba percento trafficu ani environment name. Je to dlhšie žijúca release boundary, ktorá udržiava explicitnú informáciu o tom, kto používa ktorú release identity.
 
 ```text
-ring 0 internal
-→ ring 1 early adopters
-→ ring 2 limited production
-→ ring 3 broad production
-→ ring 4 critical/regulatory population
+immutable release subject
+→ versionované ring membership a inventory
+→ ring-specific entry contract
+→ deployment a exposure
+→ ring-specific observation
+→ promote / pause / abort / inconclusive
+→ ďalší ring alebo partial recovery
+→ skew reduction a cleanup
 ```
 
-Ring nie je iba percento trafficu ani názov environmentu. Je to dlhšie žijúca release boundary, ktorá umožňuje kontrolovať, kto používa ktorú verziu.
+Hlavná cena ring rollout-u je version skew: viac produkčných cohort používa rôzne verzie nad spoločnými API, databázou, eventmi, caches a clients.
 
-## 2. Ring verzus canary
+## 1. Nosný model: release inventory naprieč stabilnými cohortami
 
-Canary často používa dočasný traffic weight alebo malú náhodnú vzorku. Ring používa stabilnú a organizačne významnú skupinu:
-
-- interní používatelia,
-- pilotní zákazníci,
-- región,
-- device update channel,
-- tenant tier,
-- compliance segment.
-
-V rámci jedného ring-u možno vykonať canary. Ring určuje cohort; canary určuje postupnú expozíciu v jej vnútri.
-
-## 3. Mental model: release inventory naprieč cohortami
-
-V jednom okamihu môže systém obsahovať viac aktívnych release stavov:
+V jednom okamihu môže Atlas vyzerať takto:
 
 ```text
-ring 0 → version N
-ring 1 → version N
-ring 2 → version N-1
-ring 3 → version N-1
+ring 0 internal         → M2
+ring 1 pilot tenants    → M2
+ring 2 general small    → M_prev
+ring 3 large tenants    → M_prev
+ring 4 regulated        → M_prev
 ```
 
-To vytvára version skew a support matrix. Bez inventory nie je jasné, kto používa čo, ktoré contracts musia zostať kompatibilné a kam smerovať recovery.
-
-## 4. Ring identity a membership contract
-
-Každý ring potrebuje:
-
-- stable ring ID,
-- membership rule version,
-- member inventory alebo deterministické pravidlo,
-- artifact/config identity,
-- entry a exit criteria,
-- maximum exposure,
-- support a escalation ownera,
-- rollout status.
-
-Membership zmena je produkčná policy change a musí byť auditovaná.
-
-## 5. Návrh poradia
-
-Poradie má zvyšovať dôkaz a rozširovať blast radius podľa rizika. Posudzuj:
-
-- business criticality,
-- workload a data distribution,
-- integration complexity,
-- support coverage,
-- recovery schopnosť,
-- regulation a residency,
-- device/client downgrade možnosti,
-- shared dependency topology.
-
-Najväčší alebo najkritickejší zákazník nemá byť prvým produkčným dôkazom iba preto, že generuje veľa trafficu.
-
-## 6. Stable membership
-
-Membership musí byť:
-
-- deterministický,
-- konzistentný naprieč services,
-- odolný proti náhodnému reshuffle,
-- dostupný pre telemetry,
-- versionovaný,
-- privacy-safe.
-
-Pri user-level assignment používaj stabilný subject key. Pri tenant ring-u musí celý cross-service workflow rešpektovať rovnaký ring.
-
-## 7. Ring state machine
-
-Pre každý ring:
+Release inventory musí pre každý ring spájať:
 
 ```text
-not eligible
-→ admitted
-→ artifact deployed
-→ exposure enabled
-→ observing
-→ accepted / paused / aborted / inconclusive
-→ retained alebo advanced
+ring ID a membership revision
++ member/workload inventory
++ release manifest a rendered config
++ exposure state
++ support owner
++ observation verdict
++ recovery eligibility
 ```
 
-Celý release:
+Bez inventory nemožno odpovedať:
+
+- kto je zasiahnutý incidentom;
+- ktoré contracts musia zostať kompatibilné;
+- či je partial rollback bezpečný;
+- ktoré support a communication pravidlá platia;
+- ako dlho môže version skew pokračovať.
+
+## 2. Nosný scenár: Atlas Orders 3.11.0 naprieč tenant rings
+
+Atlas rozdeľuje tenants:
 
 ```text
-ring 0 accepted
-→ ring 1
-→ ring 2
-→ ...
-→ final ring
-→ skew reduction
-→ old version retirement
+ring 0
+→ interné a synthetic tenants
+
+ring 1
+→ dobrovoľní pilotní zákazníci s priamym support channelom
+
+ring 2
+→ small a medium tenants s bežnými integráciami
+
+ring 3
+→ large tenants s vysokým order volume a custom webhooks
+
+ring 4
+→ regulované tenants s dlhším approval a audit cycle
 ```
 
-## 8. Entry contract
+Všetky ringy dostávajú rovnaký immutable release manifest `M2`. Rozdiely v config alebo flags sú explicitné a versionované, nie skryté per-ring rebuildy.
 
-Pred vstupom do ring-u over:
-
-- predchádzajúci ring verdict,
-- evidence freshness,
-- immutable artifact a config,
-- compatibility s ringmi na staršej verzii,
-- support a on-call readiness,
-- ring-specific integrations,
-- capacity a quotas,
-- communication,
-- recovery eligibility.
-
-## 9. Observation contract
-
-Pre každý ring definuj:
-
-- minimálnu vzorku,
-- minimálnu a maximálnu duration,
-- technické a business guardrails,
-- ring-specific workflows,
-- delayed outcomes,
-- promotion/abort/inconclusive policy,
-- approval podľa risku.
-
-Fixná krátka duration pre všetky ringy ignoruje rare workflows a business cycles.
-
-## 10. Ring 0 a interné používanie
-
-Ring 0 môže obsahovať:
-
-- development a operations tímy,
-- synthetic identities,
-- interné workflows,
-- test tenants.
-
-Je užitočný na rýchlu diagnostiku, ale nereprezentuje externé permissions, data scale ani používateľské správanie. Nemá byť jediným dôkazom.
-
-## 11. Early-adopter ring
-
-Potrebuje:
-
-- informed opt-in alebo zmluvný model,
-- support channel,
-- known-issues komunikáciu,
-- opt-out/recovery,
-- jasný SLA,
-- privacy a compliance kontrolu.
-
-Early adopters nie sú nevedomí testeri kritickej zmeny.
-
-## 12. Tenant rings
-
-Počet tenantov nie je podiel trafficu. Jeden tenant môže dominovať:
-
-- requestom,
-- dátam,
-- custom integrations,
-- queue volume,
-- support impactu.
-
-Ring capacity a risk meraj podľa workloadu a business dopadu, nie iba countu členov.
-
-## 13. Regionálne ringy
-
-Zohľadni:
-
-- data residency,
-- latency a traffic pattern,
-- region-specific dependencies,
-- failover topology,
-- support timezone,
-- shared global control plane,
-- shared database alebo event stream.
-
-Regionálny ring neobmedzí blast radius, ak zmena mutuje globálny shared state.
-
-## 14. Device a client rings
-
-Client rollout používa channels ako:
+Release 3.11.0 mení riskDecision flow. Ring poradie má získať postupne širší dôkaz:
 
 ```text
-internal → beta → preview → stable → LTS
+functional correctness
+→ external integration behavior
+→ workload scale
+→ regulated workflow a audit evidence
 ```
 
-Rieš:
+## 3. Membership je produkčná policy
 
-- update eligibility,
-- podpis a download integrity,
-- offline clients,
-- auto-update cadence,
-- minimum server compatibility,
-- downgrade možnosti,
-- version telemetry,
-- support/EOL.
+Ring membership musí byť stabilný a auditovateľný:
 
-Server môže rollbacknúť za minúty; klient môže zostať starý mesiace.
+```text
+membership revision H12
+subject tenant T42
+→ ring 3
+```
 
-## 15. Ring-specific configuration
+Rule môže používať tenant tier, opt-in, region, compliance class alebo device channel. Musí však byť:
 
-Zámerné rozdiely sú možné, ale musia byť explicitné. Zachovaj:
+- deterministická;
+- konzistentná naprieč API, workers a clients;
+- privacy-safe;
+- dostupná v telemetry;
+- chránená revision compare-and-swap;
+- vysvetliteľná supportu.
 
-- artifact digest,
-- rendered config revision,
-- flags,
-- membership policy,
-- environment/dependency differences,
-- deployment timestamp.
+Membership change mení blast radius a experiment population. Preto je to production change s auditom, ownerom a invalidation semantics pre predchádzajúcu evidence.
 
-Ak neskorší ring používa inú config, dôkaz z predchádzajúceho ring-u sa musí prehodnotiť.
+## 4. Ring poradie vychádza z failure risks
 
-## 16. Version skew contract
+Atlas nepoužíva jednoduché „od najmenšieho po najväčší“. Každý ring testuje inú neistotu:
 
-Dlhý rollout vyžaduje kompatibilitu:
+```text
+ring 0
+→ rýchla diagnostika, ale nereprezentatívne identity a data scale
 
-- API a clients,
-- event producers/consumers,
-- DB schema,
-- cache/session formatov,
-- auth claims,
-- background workers,
-- feature flags.
+ring 1
+→ reálni users a integrations pri silnom support kontakte
 
-Definuj maximálne podporovaný skew a deadline na dokončenie rollout-u. Nekonečný partial rollout je release debt.
+ring 2
+→ broad behavior a region mix
 
-## 17. Shared mutable state
+ring 3
+→ high-scale queues, DB pools, custom webhooks a large-tenant workflows
 
-Neskorší ring na starej verzii môže čítať state vytvorený novším ringom. Preto:
+ring 4
+→ regulatory evidence, long outcome latency a change-window constraints
+```
 
-- používať expand-contract,
-- udržiavať forward-tolerant consumers,
-- versionovať cache keys,
-- oddeliť irreversible mutations,
-- merať cross-ring workflows,
-- posúdiť rollback eligibility každého ring-u.
+Najkritickejší zákazník nie je dobrý prvý dôkaz len preto, že generuje veľa trafficu. Naopak ring 0 nemôže byť jediný dôkaz, pretože obchádza externé identity, client skew a produkčný data mix.
 
-## 18. Ring promotion
+## 5. Entry contract chráni prechod do širšieho risku
 
-Promotion je decision nad evidence, nie iba zmena membership percentage. Výsledky:
+Pred ringom 3 Atlas overí:
 
-- promote next ring,
-- extend observation,
-- pause,
-- abort current ring,
-- rollback affected rings,
-- roll-forward fix,
-- inconclusive.
+```text
+predchádzajúce ring verdicts complete a fresh
++ M2 a config identity nezmenené
++ ring 3 membership H12 stabilná
++ large-tenant capacity a webhook quotas pripravené
++ old/new contracts kompatibilné s rings na M_prev
++ support a communication pripravené
++ partial recovery eligible
+```
 
-Evidence sa viaže na release/ring/config identities.
+Ak ring 3 používa inú config revision než ring 2, výsledok ring 2 sa neprenáša automaticky. Nový deployment subject potrebuje vlastnú evidence.
 
-## 19. Partial rollback
+## 6. Observation contract je ring-specific
 
-Rollback jedného ring-u môže byť nebezpečný, ak:
+Každý ring má spoločné release guardrails, ale aj vlastné outcomes.
 
-- novšia verzia zmenila shared state,
-- cross-ring workflow posiela nové events,
-- clients komunikujú medzi ringmi,
-- schema contract sa už posunul.
+Pre ring 3:
 
-Recovery môže vyžadovať flag disable alebo fix-forward vo všetkých dotknutých ringoch.
+```text
+technical
+→ DB wait, queue age, webhook retry, requests per tenant
 
-## 20. Ring concurrency
+functional
+→ CreateOrder completion, idempotency, custom webhook delivery
 
-Nepovoľ neauditované paralelné verzie toho istého release v jednom ring-u. Použi ring lock a generation state.
+business
+→ large-tenant abandonment, reconciliation completion, support signal
 
-Viac releaseov môže byť v rôznych ringoch iba s explicitnou compatibility a inventory policy.
+sample
+→ minimum number large-tenant orders a integration variants
 
-## 21. Support a communication
+duration
+→ dostatočná pre async webhook a reconciliation latency
+```
 
-Každý ring potrebuje:
+Fixná hodinová observation pre všetky ringy by mohla byť dostatočná pre HTTP errors, ale nie pre večerný batch alebo mesačný regulated workflow.
 
-- ownera,
-- support readiness,
-- audience-specific release notes,
-- known-issues channel,
-- escalation,
-- status a release identity,
-- rollback/disable komunikáciu.
+## 7. Version skew je explicitný compatibility contract
 
-Support musí vedieť zistiť ring a verziu konkrétneho používateľa bez citlivého alebo neauditovaného lookupu.
+Počas rollout-u musí M2 koexistovať s `M_prev`:
 
-## 22. Observability
+- API clients v rôznych rings;
+- old/new event producers a consumers;
+- shared database schema;
+- cache a session formats;
+- authentication claims;
+- worker a scheduler generations;
+- feature flags a config.
 
-Telemetry dimensions:
+Atlas určí maximálny podporovaný skew:
 
-- ring ID,
-- artifact/release version,
-- membership policy version,
-- deployment wave,
-- config revision,
-- region/tenant/client channel.
+```text
+M2 vs M_prev podporované do deadline D
+M2 nesmie emitovať contract, ktorý M_prev consumer odmietne
+schema contract phase sa nezačne pred uzavretím rollback windowu
+```
 
-Porovnávanie ringov musí zohľadniť odlišný workload. Ring 0 nie je automaticky control pre final ring.
+Permanentný partial rollout nie je stabilný cieľ. Je to rastúci support, security a compatibility debt.
 
-## 23. Delayed validation
+## 8. Shared state môže prekročiť hranicu ring-u
 
-Neskoršie ringy môžu obsahovať:
+Ring 1 môže vytvoriť row alebo event, ktorý neskôr spracuje ring 3 na starej verzii. Regionálny ring môže zapisovať do globálnej databázy. Obmedzená membership teda nemusí znamenať obmedzený state blast radius.
 
-- rare operations,
-- mesačné cycles,
-- regulované workflows,
-- high-scale data,
-- offline clients.
+Atlas používa:
 
-Promotion contract musí rešpektovať ich outcome latency. Po final ring-u pokračuje support a telemetry validation.
+```text
+expand-contract schema
+forward-tolerant consumers
+versioned cache keys
+cross-ring workflow telemetry
+fencing pre global workers
+irreversible mutations až po relevantnom rollout milestone
+```
 
-## 24. Emergency release
+Partial rollback jedného ring-u je bezpečný iba ak staršia verzia rozumie state-u vytvorenému novšími ringmi.
 
-Emergency môže ringy skrátiť alebo preskočiť, ale musí zachovať:
+## 9. Support a communication sú súčasť runtime operability
 
-- immutable artifact,
-- minimálne safety gates,
-- explicitný risk acceptance,
-- bounded first exposure,
-- observability,
-- recovery plan,
-- audit trail,
-- follow-up návrat k štandardnému modelu.
+Support musí z privacy-safe lookupu zistiť:
 
-## 25. Ring retirement a cleanup
+```text
+tenant T42
+→ ring 3
+→ manifest M2
+→ config C17
+→ membership H12
+→ current rollout state observing
+```
 
-Po full rollout-e:
+Každý ring má ownera, known-issues channel, audience-specific release notes, opt-out alebo recovery model a escalation path.
 
-- odstráň staré membership výnimky,
-- zjednoť config/flags,
-- ukonči old support state,
-- aktualizuj inventory,
-- odstráň obsolete code paths,
-- archivuj release evidence.
+Ak používateľ hlási chybu a support nevie určiť jeho ring/version, incidentná segmentácia stráca prvý observation point.
 
-Ring framework môže zostať, release-specific cohort state nie.
+## 10. Worked failure: API a worker používali odlišnú membership revision
 
-## 26. Failure taxonomy
+Atlas API načítalo membership `H12`, ale worker fleet mala stale `H11`. Tenant T42 bol v API ring 3, no worker ho stále považoval za ring 2.
 
-- membership inconsistency,
-- ring-specific config drift,
-- workload representativeness failure,
-- compatibility/skew failure,
-- support readiness failure,
-- telemetry ambiguity,
-- partial rollback incompatibility,
-- rollout stall,
-- emergency bypass debt.
+```text
+API M2 prijme order a zapíše nový risk state
+→ worker M_prev podľa H11 spracuje rovnaký tenant
+→ old worker nepozná nový state transition
+→ event sa retryuje
+→ queue lag rastie iba pre časť tenantov
+→ dashboard podľa API ring ID ukazuje neúplný obraz
+```
 
-## 27. Metriky stratégie
+### Príčina
 
-- time per ring,
-- promotion/abort rate,
-- ring-specific change fail rate,
-- maximum version skew age,
-- membership drift incidents,
-- percentage population with unknown version/ring,
-- partial rollout duration,
-- rollback eligibility failures,
-- support contacts per ring,
-- final-ring escaped defects.
+Ring membership sa považovala za routing detail, nie za cross-service production contract. Telemetry niesla ring podľa lokálneho evaluatoru bez membership revision.
 
-## 28. Typické anti-patterny
+### Dôsledok
 
-### Ring je iba environment name
+Incident nebol čistý „ring 3 release failure“. Bol to inconsistent cohort boundary naprieč API a workerom.
 
-Ring reprezentuje production cohort, nie dev/stage/prod.
+### Trvalá náprava
 
-### Každý ring dostane iný build
+```text
+membership revision v každom evente a trace
+→ atomic publish alebo compatible transition H11 → H12
+→ worker precondition na supported membership revision
+→ cross-service membership consistency synthetic
+→ inventory reconciliation
+```
 
-Nie je zachovaná artifact identity.
+## 11. Worked failure: počet tenants skryl dominantný workload
 
-### Membership sa mení bez versioningu
+Ring 3 obsahoval iba 3 % tenantov, ale jeden large tenant generoval 28 % order volume.
 
-Výsledky a incident scope sa nedajú rekonštruovať.
+```text
+membership count vyzerá malý
+→ promotion sa označí ako bounded exposure
+→ large tenant spustí paralelný import
+→ DB pool, webhook quotas a queue partitions sa saturujú
+→ shared dependencies degradujú aj pre staršie rings
+```
 
-### Percento tenantov = percento trafficu
+### Príčina
 
-Ignoruje workload skew.
+Blast radius sa odhadoval počtom členov, nie workloadom, shared dependencies a business dopadom.
 
-### Najkritickejší zákazník prvý
+### Náprava
 
-Blast radius rastie bez predchádzajúceho dôkazu.
+Atlas pridal workload-weighted inventory, per-tenant capacity budget, dominant-member check a samostatný pre-ring canary pre najväčšieho tenanta.
 
-### Rollout ostane mesiace v polovici
+## 12. Kauzálny diagnostický walkthrough
 
-Compatibility, support a security debt rastú.
+Symptom: po vstupe do ring 3 rastie queue lag iba pre niektoré tenants a časť ich API requests je zdravá.
 
-### Partial rollback bez shared-state analýzy
+### Krok 1 — stabilizuj release inventory
 
-Staršia verzia nemusí tolerovať nový state.
+```text
+ring 3 manifest M2
+config C17
+membership H12
+worker membership observed H11/H12 mixed
+rollout generation R31
+```
 
-## 29. Diagnostický postup
+### Krok 2 — formuluj konkurenčné hypotézy
 
-1. Over ring membership policy a konkrétny subject.
-2. Zisti artifact/config identity v každom ring-u.
-3. Skontroluj version skew a rollout generation.
-4. Porovnaj workload a integrations medzi zdravým a chybným ringom.
-5. Over telemetry dimensions a sample sufficiency.
-6. Skontroluj shared state a cross-ring events.
-7. Posúď partial rollback eligibility.
-8. Pri rollout stall-e urč blokujúce entry/exit criteria.
-9. Po recovery aktualizuj inventory a support state.
-10. Uzavri release-specific cleanup.
+```text
+H1: M2 code regression zasahuje celý ring 3
+H2: workload skew preťažuje shared queue
+H3: API a workers nesú konzistentne odlišné ring membership
+H4: ring-specific config alebo integration spôsobuje failure
+H5: globálny broker incident náhodou koreluje s promotion
+```
 
-## 30. Rozhodovací rámec
+### Krok 3 — vyber observation points
 
-1. Aké failure risks odlišujú jednotlivé ringy?
-2. Ako je membership stabilný a auditovateľný?
-3. Aký workload a business impact každý ring reprezentuje?
-4. Aký je maximálny podporovaný version skew?
-5. Ktoré shared-state contracts musia zostať kompatibilné?
-6. Aká observation duration zodpovedá ring outcomes?
-7. Ako sa posudzuje promotion a inconclusive stav?
-8. Je partial rollback bezpečný?
-9. Ako support zistí ring a verziu?
-10. Aký deadline zabráni permanentnému partial rollout-u?
+- error/lag podľa artifact digestu a tenant testuje H1;
+- work volume a partition saturation podľa tenant testujú H2;
+- membership revision v API trace, evente a worker evaluation testuje H3;
+- config/integration revision podľa tenant testuje H4;
+- ostatné služby a rings na brokeri testujú H5.
 
-## 31. Kontrolný checklist
+Atlas nájde, že problematické events nesú API `H12`, ale worker loguje `H11`; broker mimo týchto partitionov je zdravý. H3 vysvetľuje selektívny failure.
 
-- ring IDs a membership sú versionované,
-- release inventory je úplný,
-- rovnaký immutable artifact sa promuje,
-- config rozdiely sú explicitné,
-- entry/exit criteria sú evidence-based,
-- workload reprezentatívnosť je známa,
-- version skew limit existuje,
-- DB/events/cache/sessions sú compatible,
-- telemetry obsahuje ring/version,
-- support a komunikácia sú pripravené,
-- partial rollback eligibility je overená,
-- rollout má deadline a cleanup.
+### Krok 4 — containment podľa boundary
 
-## 32. Kontrolné otázky
+Promotion do ďalšieho ring-u sa zastaví. Nový risk transition sa flagom vypne pre affected tenants, worker membership sa zosúladí a poison events sa po tolerant-reader fixe replaynú.
 
-1. Čo odlišuje ring deployment od canary weightu?
-2. Prečo ring vyžaduje release inventory?
-3. Ako membership inconsistency poškodí workflow aj evidence?
-4. Prečo počet tenantov nevyjadruje blast radius?
-5. Ako regionálne ringy súvisia s globálnym shared state?
-6. Prečo client rings vytvárajú dlhší version skew?
-7. Čo musí obsahovať promotion contract?
-8. Kedy partial rollback nie je bezpečný?
-9. Ako sa meria a obmedzuje rollout stall?
-10. Čo treba odstrániť po full promotion?
+Rollback API samotného by nevyriešil už emitované events ani stale worker policy.
 
-## Summary
+### Krok 5 — over outcome
 
-Ring deployment riadi release cez stabilné production cohorts s rastúcim rizikom, reprezentatívnosťou alebo kritickosťou. Vyžaduje versionované membership pravidlá, úplný release inventory, ring-specific observation contracts a jasný maximálny version skew. Najväčšou technickou výzvou je dlhšie obdobie viacerých verzií nad spoločnou databázou, eventmi, cache a clients. Promotion aj partial rollback musia byť založené na evidence a shared-state compatibility; po dokončení treba odstrániť release-specific cohort a flag debt.
+Recovery vyžaduje:
 
-## Glossary impact
+```text
+jedna membership revision naprieč API/workermi
+event retries a queue age klesajú
+cross-ring functional invariant prejde
+support inventory zobrazuje správny state
+```
 
-Relevantné pojmy: ring deployment, deployment ring, rollout wave, ring membership, release inventory, version skew, ring entry criteria, ring exit criteria, early-adopter ring, client channel, partial rollback a rollout stall.
+### Krok 6 — vráť learning
+
+Incident sa mení na atomic membership rollout contract, membership revision propagation SLO a cross-service ring consistency gate.
+
+## 13. Partial recovery je decision nad shared state-om
+
+Možnosti:
+
+- pause current ring;
+- disable feature pre current ring;
+- rollback affected ring;
+- roll-forward fix iba v current ring;
+- fix-forward vo všetkých rings, ak shared state prekročil hranicu;
+- zastaviť global producer/worker;
+- reconciliation alebo data repair.
+
+Partial rollback nie je bezpečný, ak M2 už vytvorilo state alebo events, ktorým `M_prev` nerozumie. Recovery sa vyberá podľa failure domainu, nie podľa ring labelu.
+
+## 14. Rollout deadline a cleanup obmedzujú skew debt
+
+Po final ring-u Atlas:
+
+```text
+zjednotí manifest/config/flags
+→ odstráni release-specific membership exceptions
+→ ukončí old support state
+→ uzavrie rollback window
+→ odstráni obsolete code paths
+→ archivuje ring evidence
+```
+
+Ak rollout ostane mesiace v polovici, pribúdajú test combinations, security fixes pre viac verzií, support ambiguity a nemožnosť contract cleanupu.
+
+## 15. Diagnostický runbook
+
+1. Potvrď ring membership policy, revision a konkrétny subject.
+2. Zostav release inventory manifest/config/exposure pre všetky ringy.
+3. Urči version skew, rollout generation a deadline.
+4. Porovnaj workload, integrations a support context medzi healthy a failed ringom.
+5. Over telemetry dimensions vrátane membership revision.
+6. Skontroluj shared state, cross-ring events a global dependencies.
+7. Formuluj code, workload, membership, config a dependency hypotézy.
+8. Posúď partial rollback alebo feature-disable eligibility.
+9. Po recovery reconciliuj inventory, queues a support state.
+10. Uzavri rollout stall a release-specific cleanup actions.
+
+## 16. Referenčné pravidlá
+
+- Ring je stabilná production cohort, nie environment name.
+- Membership je versionovaná production policy.
+- Release inventory spája ring, subject, config, exposure a recovery state.
+- Rovnaký immutable artifact sa promuje naprieč rings.
+- Ring poradie zvyšuje konkrétnu fidelity, nie iba percento.
+- Počet members nevyjadruje workload ani blast radius.
+- Observation contract je ring-specific.
+- Version skew má compatibility contract a deadline.
+- Shared state môže prekročiť ring boundary.
+- Partial rollback potrebuje cross-ring state analysis.
+- Support musí vedieť určiť ring a release identity subjektu.
+
+## 17. Časté omyly
+
+### „Ring je dev, stage a prod“
+
+Ringy sú production cohorts, nie environment lifecycle.
+
+### „3 % tenantov je malý blast radius“
+
+Jeden tenant môže dominovať workloadu alebo shared dependencies.
+
+### „Membership stačí vyhodnotiť na ingress-e“
+
+Celý cross-service workflow musí používať kompatibilnú ring identity.
+
+### „Každý ring môže mať vlastný build“
+
+Potom sa nepromuje jeden overený release subject.
+
+### „Partial rollback ovplyvní iba jeden ring“
+
+Shared database a events môžu preniesť nový state do ostatných rings.
+
+## 18. Zhrnutie
+
+Atlas ring lifecycle je:
+
+```text
+immutable release subject
+→ stable membership a complete inventory
+→ risk-specific entry contract
+→ ring deployment/exposure
+→ workload-aware observation
+→ promote/pause/abort/inconclusive
+→ cross-ring-compatible recovery
+→ skew deadline a cleanup
+```
+
+Ring deployment poskytuje kontrolu nad tým, kto používa ktorú verziu, ale tým zároveň vytvára distribuovaný multi-version systém. Je bezpečný iba vtedy, keď membership, inventory, compatibility a support fungujú ako jedna release control plane, nie ako nezávislé zoznamy tenantov.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
