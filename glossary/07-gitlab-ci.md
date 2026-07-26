@@ -4,6 +4,10 @@
 
 Versionovaný reusable pipeline contract publikovaný v GitLabe a používaný cez `include:component` s explicitnou verziou, inputs a definovaným behaviorom. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
+## Configuration subject — GitLab CI/CD
+
+Presná identity pipeline compilation rozhodnutia tvorená source alebo candidate SHA, pipeline source, root CI revision, resolved include/component versions, resolved configuration digest, expected job inventory a relevantný runner/executor context. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
+
 ## Container scanning — GitLab
 
 Security scan konkrétneho container image digestu zameraný najmä na známe vulnerabilities v OS packages a podľa capability scanneru aj ďalšom image obsahu. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
@@ -43,6 +47,10 @@ Runner worker alebo execution instance vytvorená pre jeden job alebo krátky wo
 ## Executor — GitLab Runner
 
 Mechanizmus určujúci runtime jobu, napríklad Docker container, Kubernetes pod, autoscaled instance alebo host shell. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
+
+## Expected job inventory — GitLab CI/CD
+
+Strojovo overiteľná množina jobs, shards, child pipelines a reports, ktoré musia pre konkrétny configuration subject vzniknúť alebo byť explicitne označené ako not applicable. Odlišuje complete pass od false-green pipeline s chýbajúcou evidence. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
 ## External secret provider — GitLab CI/CD
 
@@ -127,6 +135,14 @@ Explicitný directed acyclic graph job dependencies vytvorený cez `needs`, ktor
 ## Outdated deployment — GitLab
 
 Deployment zo staršieho pipeline, ktorý sa pokúša prepísať environment po tom, čo už bol nasadený novší pipeline alebo artifact. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
+
+## Pipeline creation policy — GitLab CI/CD
+
+Versionovaný `workflow:rules` contract určujúci, pre ktoré pipeline sources, refs a dostupný variable context má pipeline vzniknúť a aký účel daný run plní. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
+
+## Pipeline verdict completeness — GitLab
+
+Vlastnosť pipeline verdictu dokazujúca, že všetky required jobs, shards, child/downstream pipelines, reports a artifacts pre daný subject vznikli a boli zahrnuté do gate rozhodnutia. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
 ## Report artifact — GitLab
 
