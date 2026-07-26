@@ -969,15 +969,15 @@
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
       "title": "Chaos testing",
-      "words": 3666,
-      "headings": 51,
-      "sections": 51,
-      "findings": 179,
-      "critical": 46,
-      "high": 49,
-      "medium": 35,
-      "low": 49,
-      "score": 1131,
+      "words": 2460,
+      "headings": 38,
+      "sections": 38,
+      "findings": 90,
+      "critical": 25,
+      "high": 26,
+      "medium": 13,
+      "low": 26,
+      "score": 585,
       "grade": "D"
     },
     {
@@ -51574,24 +51574,6 @@
       "path": "docs/04-testing-and-quality/chaos-testing.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: Testing and Software Quality`.",
@@ -51601,24 +51583,6 @@
       "path": "docs/04-testing-and-quality/chaos-testing.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "1. Definícia",
-      "line": 9,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51626,8 +51590,71 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "2. Čo chaos experiment skutočne overuje",
-      "line": 28,
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "3. Steady state je používateľský výsledok",
+      "line": 72,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "3. Steady state je používateľský výsledok",
+      "line": 72,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CreateOrder acceptance rate zostane nad dohodnutou hranicou;`, `používateľ dostane explicitný pending alebo retry-safe výsledok;`, `nevznikne žiadna duplicate payment authorization;`, `queue oldest-message age zostane bounded;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "3. Steady state je používateľský výsledok",
+      "line": 72,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "3. Steady state je používateľský výsledok",
+      "line": 72,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "3. Steady state je používateľský výsledok",
+      "line": 72,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "4. Vyvrátiteľná hypotéza",
+      "line": 87,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "5. Experiment contract",
+      "line": 104,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -51635,17 +51662,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "2. Čo chaos experiment skutočne overuje",
-      "line": 28,
+      "section": "5. Experiment contract",
+      "line": 104,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "14 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "2. Čo chaos experiment skutočne overuje",
-      "line": 28,
+      "section": "5. Experiment contract",
+      "line": 104,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -51653,35 +51680,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "2. Čo chaos experiment skutočne overuje",
-      "line": 28,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "3. Resilience nie je iba availability",
-      "line": 53,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 49 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "3. Resilience nie je iba availability",
-      "line": 53,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupnosť kritického journey,`, `správnosť finančných alebo dátových side effects,`, `bounded latency a error rate,`, `tenant isolation a authorization,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "3. Resilience nie je iba availability",
-      "line": 53,
+      "section": "5. Experiment contract",
+      "line": 104,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -51689,35 +51689,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "3. Resilience nie je iba availability",
-      "line": 53,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`",
-      "score": 4
+      "section": "5. Experiment contract",
+      "line": 104,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "4. Steady state",
-      "line": 71,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 46 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "4. Steady state",
-      "line": 71,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `checkout success rate zostáva nad 99,5 %,`, `p95 latency zostáva pod 500 ms,`, `nevznikne žiadna duplicitná platba,`, `authorization deny rate pre zakázanú cestu zostane 100 %,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "4. Steady state",
-      "line": 71,
+      "section": "5. Experiment contract",
+      "line": 104,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -51725,26 +51707,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "4. Steady state",
-      "line": 71,
-      "severity": "medium",
+      "section": "5. Experiment contract",
+      "line": 104,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `burn rate`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `workload`, `identity`, `blast radius`",
+      "score": 7
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "6. Experiment contract",
-      "line": 110,
+      "section": "8. Fault model",
+      "line": 165,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "6. Experiment contract",
-      "line": 110,
+      "section": "8. Fault model",
+      "line": 165,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -51752,44 +51734,44 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "6. Experiment contract",
-      "line": 110,
+      "section": "8. Fault model",
+      "line": 165,
       "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "6. Experiment contract",
-      "line": 110,
+      "section": "8. Fault model",
+      "line": 165,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `Blast radius`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `resource`, `identity`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "7. Experiment validity",
-      "line": 132,
+      "section": "9. Target identity a blast radius",
+      "line": 181,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 57 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "9. Target identity a blast radius",
+      "line": 181,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden interný tenant;`, `jednu worker cohortu;`, `5 % syntetického alebo production trafficu;`, `jednu availability zone;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "7. Experiment validity",
-      "line": 132,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "7. Experiment validity",
-      "line": 132,
+      "section": "9. Target identity a blast radius",
+      "line": 181,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -51797,8 +51779,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "7. Experiment validity",
-      "line": 132,
+      "section": "9. Target identity a blast radius",
+      "line": 181,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51806,44 +51788,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "8. Baseline a preconditions",
-      "line": 146,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "8. Baseline a preconditions",
-      "line": 146,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny artifact a konfiguráciu,`, `dostatočnú zdravú kapacitu,`, `stabilné SLI v baseline okne,`, `funkčné dashboardy a alerty,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "8. Baseline a preconditions",
-      "line": 146,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "8. Baseline a preconditions",
-      "line": 146,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "8. Baseline a preconditions",
-      "line": 146,
+      "section": "9. Target identity a blast radius",
+      "line": 181,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -51851,152 +51797,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "8. Baseline a preconditions",
-      "line": 146,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "9. Fault model",
-      "line": 164,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "9. Fault model",
-      "line": 164,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "9. Fault model",
-      "line": 164,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "9. Fault model",
-      "line": 164,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "10. Target identity a scope",
-      "line": 180,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "10. Target identity a scope",
-      "line": 180,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target UID alebo stabilnú identitu,`, `namespace, cluster, account a region,`, `labels/selectors a ich aktuálny match,`, `počet zasiahnutých instances,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "10. Target identity a scope",
-      "line": 180,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "10. Target identity a scope",
-      "line": 180,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "10. Target identity a scope",
-      "line": 180,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "10. Target identity a scope",
-      "line": 180,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "11. Blast radius",
-      "line": 197,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 44 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "11. Blast radius",
-      "line": 197,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jedna instance alebo pod,`, `jedna availability zone,`, `jeden read-only workflow,`, `jeden izolovaný tenant,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "11. Blast radius",
-      "line": 197,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "11. Blast radius",
-      "line": 197,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "11. Blast radius",
-      "line": 197,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "11. Blast radius",
-      "line": 197,
+      "section": "9. Target identity a blast radius",
+      "line": 181,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
@@ -52004,26 +51806,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "12. Safety state machine",
-      "line": 216,
+      "section": "10. Safety state machine",
+      "line": 208,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "12. Safety state machine",
-      "line": 216,
+      "section": "10. Safety state machine",
+      "line": 208,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scope allowlist a denylist,`, `technický approval podľa rizika,`, `automatický experiment timeout,`, `independent kill switch,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowlist/denylist scope;`, `intensity a duration limit;`, `live guardrail evaluation;`, `independent kill switch;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "12. Safety state machine",
-      "line": 216,
+      "section": "10. Safety state machine",
+      "line": 208,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -52031,8 +51833,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "12. Safety state machine",
-      "line": 216,
+      "section": "10. Safety state machine",
+      "line": 208,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
@@ -52040,179 +51842,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "13. Kill switch",
-      "line": 248,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 53 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "13. Kill switch",
-      "line": 248,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je dostupný z nezávislého control pathu,`, `má minimálne potrebné oprávnenia,`, `je otestovaný pred experimentom,`, `má audit trail,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "14. Abort criteria",
-      "line": 263,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "14. Abort criteria",
-      "line": 263,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `error rate prekročí 2 % počas 60 sekúnd,`, `vznikne prvá duplicitná finančná transakcia,`, `authorization invariant je porušený,`, `backlog prekročí 100 000 správ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "14. Abort criteria",
-      "line": 263,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "14. Abort criteria",
-      "line": 263,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "14. Abort criteria",
-      "line": 263,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `burn rate`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "15. Observation points",
-      "line": 282,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "15. Observation points",
-      "line": 282,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "15. Observation points",
-      "line": 282,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "15. Observation points",
-      "line": 282,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "15. Observation points",
-      "line": 282,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `CPU`, `ID`, `Control plane`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "16. Experiment ladder",
-      "line": 298,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "17. Tabletop exercise",
-      "line": 316,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "17. Tabletop exercise",
-      "line": 316,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `region je nedostupný,`, `alert prichádza on-call tímu,`, `tím identifikuje blast radius,`, `používa runbook a rozhoduje o failoveri,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "17. Tabletop exercise",
-      "line": 316,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "17. Tabletop exercise",
-      "line": 316,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "17. Tabletop exercise",
-      "line": 316,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "17. Tabletop exercise",
-      "line": 316,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "18. Process a instance failure",
-      "line": 342,
+      "section": "12. Deadlines, retries a unknown outcome",
+      "line": 258,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -52220,53 +51851,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "18. Process a instance failure",
-      "line": 342,
+      "section": "12. Deadlines, retries a unknown outcome",
+      "line": 258,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "18. Process a instance failure",
-      "line": 342,
+      "section": "12. Deadlines, retries a unknown outcome",
+      "line": 258,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection draining a client retry,`, `idempotency nejasne dokončených writes,`, `leader election alebo lease expiration,`, `session affinity,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `end-to-end deadline propagation;`, `klasifikáciu retryable a non-retryable failures;`, `bounded attempts a retry budget;`, `exponential backoff a jitter;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "18. Process a instance failure",
-      "line": 342,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "19. Network faults",
-      "line": 371,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "19. Network faults",
-      "line": 371,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency a jitter,`, `packet loss,`, `bandwidth limit,`, `connection reset,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "19. Network faults",
-      "line": 371,
+      "section": "12. Deadlines, retries a unknown outcome",
+      "line": 258,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -52274,8 +51878,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "19. Network faults",
-      "line": 371,
+      "section": "12. Deadlines, retries a unknown outcome",
+      "line": 258,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -52283,467 +51887,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "19. Network faults",
-      "line": 371,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `MTU`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "20. Dependency degradation",
-      "line": 398,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "20. Dependency degradation",
-      "line": 398,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomalé responses,`, `partial alebo segment-specific errors,`, `malformed či schema-valid, ale nesprávne dáta,`, `rate limiting a quota exhaustion,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "20. Dependency degradation",
-      "line": 398,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "20. Dependency degradation",
-      "line": 398,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "21. Resource pressure",
-      "line": 414,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "21. Resource pressure",
-      "line": 414,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "21. Resource pressure",
-      "line": 414,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU saturation alebo throttling,`, `memory pressure a OOM,`, `disk alebo inode exhaustion,`, `file-descriptor exhaustion,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "21. Resource pressure",
-      "line": 414,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "21. Resource pressure",
-      "line": 414,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "21. Resource pressure",
-      "line": 414,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "21. Resource pressure",
-      "line": 414,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `OOM`, `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "22. Messaging a data faults",
-      "line": 439,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "18 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "22. Messaging a data faults",
-      "line": 439,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `duplicitný event,`, `out-of-order delivery,`, `oneskorenie alebo replay,`, `poison message,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "22. Messaging a data faults",
-      "line": 439,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "23. Data-integrity boundary",
-      "line": 469,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "23. Data-integrity boundary",
-      "line": 469,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "23. Data-integrity boundary",
-      "line": 469,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `žiadne writes,`, `iba syntetické alebo označené records,`, `idempotentné a kompenzovateľné writes,`, `produkčné writes s overenými constraints a recovery,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "23. Data-integrity boundary",
-      "line": 469,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "23. Data-integrity boundary",
-      "line": 469,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "23. Data-integrity boundary",
-      "line": 469,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "23. Data-integrity boundary",
-      "line": 469,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "24. Recovery je samostatná fáza",
-      "line": 491,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "24. Recovery je samostatná fáza",
-      "line": 491,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backlog drain a jeho rýchlosť,`, `cache warming,`, `replica synchronization a lag,`, `leader election stability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "24. Recovery je samostatná fáza",
-      "line": 491,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "24. Recovery je samostatná fáza",
-      "line": 491,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "24. Recovery je samostatná fáza",
-      "line": 491,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "24. Recovery je samostatná fáza",
-      "line": 491,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "25. Disaster recovery experiments",
-      "line": 512,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "25. Disaster recovery experiments",
-      "line": 512,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backup dostupnosť, integrity a encryption keys,`, `restore do izolovaného prostredia,`, `RPO a skutočne stratené dáta,`, `RTO od rozhodnutia po použiteľný business outcome,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "25. Disaster recovery experiments",
-      "line": 512,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "25. Disaster recovery experiments",
-      "line": 512,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "25. Disaster recovery experiments",
-      "line": 512,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `DNS`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "26. Game day",
-      "line": 532,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "26. Game day",
-      "line": 532,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má jasný experiment contract,`, `používa realistický, ale bezpečný scenár,`, `nie je skúškou alebo pascou pre jednotlivca,`, `zachytáva presnú timeline,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "26. Game day",
-      "line": 532,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "26. Game day",
-      "line": 532,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "27. Automatizované chaos experimenty",
-      "line": 549,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "27. Automatizované chaos experimenty",
-      "line": 549,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypotéza a target sú stabilné,`, `fault injection je deterministicky ohraničený,`, `blast radius je malý,`, `prechecks a abort rules sú automatizované,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "27. Automatizované chaos experimenty",
-      "line": 549,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "27. Automatizované chaos experimenty",
-      "line": 549,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "29. SLO a error budget",
-      "line": 589,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "29. SLO a error budget",
-      "line": 589,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či fault neprekročí SLO,`, `ako rýchlo sa spotrebúva error budget,`, `či alert reaguje pred neprijateľným dopadom,`, `či graceful degradation chráni kritický journey,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "29. SLO a error budget",
-      "line": 589,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "29. SLO a error budget",
-      "line": 589,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "29. SLO a error budget",
-      "line": 589,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `error budget`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "30. Evidence a experiment provenance",
-      "line": 601,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "30. Evidence a experiment provenance",
-      "line": 601,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `experiment definition a version,`, `artifact a configuration identity,`, `target preview a skutočne zasiahnuté resources,`, `start/stop timestamps,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "30. Evidence a experiment provenance",
-      "line": 601,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "30. Evidence a experiment provenance",
-      "line": 601,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "30. Evidence a experiment provenance",
-      "line": 601,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "30. Evidence a experiment provenance",
-      "line": 601,
+      "section": "12. Deadlines, retries a unknown outcome",
+      "line": 258,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -52751,26 +51896,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "31. Learning a remediation closure",
-      "line": 621,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 44 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "31. Learning a remediation closure",
-      "line": 621,
+      "section": "14. Recovery je samostatná fáza dôkazu",
+      "line": 296,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oprava timeout/retry alebo idempotency mechanizmu,`, `bounded queue alebo load shedding,`, `nový alert alebo SLI,`, `zlepšenie telemetry,`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "31. Learning a remediation closure",
-      "line": 621,
+      "section": "14. Recovery je samostatná fáza dôkazu",
+      "line": 296,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `návrat latency a error rate;`, `vyprázdnenie queue a oldest-message age;`, `skončenie retry stormu;`, `uvoľnenie DB connections a workers;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "14. Recovery je samostatná fáza dôkazu",
+      "line": 296,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -52778,53 +51923,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "31. Learning a remediation closure",
-      "line": 621,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "31. Learning a remediation closure",
-      "line": 621,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "32. Metriky programu",
-      "line": 652,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "32. Metriky programu",
-      "line": 652,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `coverage kritických failure domains a recovery paths,`, `podiel potvrdených, vyvrátených, inconclusive a invalid experimentov,`, `experiment abort rate a dôvody,`, `neplánované rozšírenie blast radiusu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "32. Metriky programu",
-      "line": 652,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "32. Metriky programu",
-      "line": 652,
+      "section": "14. Recovery je samostatná fáza dôkazu",
+      "line": 296,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -52832,8 +51932,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "32. Metriky programu",
-      "line": 652,
+      "section": "14. Recovery je samostatná fáza dôkazu",
+      "line": 296,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -52841,17 +51941,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "32. Metriky programu",
-      "line": 652,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `recovery time`, `reliability`",
-      "score": 4
+      "section": "15. Worked failure: brownout vytvoril retry amplification a duplicity",
+      "line": 313,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "33. Diagnostický postup pri neočakávanom výsledku",
-      "line": 671,
+      "section": "Náprava",
+      "line": 333,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -52859,8 +51959,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "33. Diagnostický postup pri neočakávanom výsledku",
-      "line": 671,
+      "section": "Náprava",
+      "line": 333,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -52868,8 +51968,314 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "33. Diagnostický postup pri neočakávanom výsledku",
-      "line": 671,
+      "section": "Náprava",
+      "line": 333,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "Náprava",
+      "line": 333,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jedna order/payment idempotency identity prechádza celým workflowom;`, `edge nere-tryuje non-idempotent write bez explicitného contractu;`, `worker má bounded attempts, deadline a jitter;`, `provider timeout spúšťa reconciliation, nie slepý nový charge;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "Náprava",
+      "line": 333,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "Náprava",
+      "line": 333,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "Náprava",
+      "line": 333,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "Náprava",
+      "line": 333,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "16. Worked failure: fault skončil, systém sa nezotavil",
+      "line": 343,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "Náprava",
+      "line": 362,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "Náprava",
+      "line": 362,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "Náprava",
+      "line": 362,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "Náprava",
+      "line": 362,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `recovery phase má samostatný state a metrics;`, `worker concurrency sa po obnove rampuje;`, `expired jobs majú explicitnú cancel/reconcile semantiku;`, `oldest-message age a terminal-state completeness sú blocking criteria;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "Náprava",
+      "line": 362,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "17. Experiment v stagingu verzus produkcii",
+      "line": 371,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "17. Experiment v stagingu verzus produkcii",
+      "line": 371,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `overenie fault mechanismu a tooling-u;`, `safety state machine;`, `runbook rehearsal;`, `známe topology a dependency failures;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "17. Experiment v stagingu verzus produkcii",
+      "line": 371,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "17. Experiment v stagingu verzus produkcii",
+      "line": 371,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "17. Experiment v stagingu verzus produkcii",
+      "line": 371,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "17. Experiment v stagingu verzus produkcii",
+      "line": 371,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "20. Evidence a report",
+      "line": 424,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "20. Evidence a report",
+      "line": 424,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "20. Evidence a report",
+      "line": 424,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypotézu a rozhodovací význam;`, `artifact, config, topology a workload provenance;`, `baseline interval;`, `target preview a skutočne zasiahnuté resources;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "20. Evidence a report",
+      "line": 424,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "20. Evidence a report",
+      "line": 424,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "20. Evidence a report",
+      "line": 424,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "20. Evidence a report",
+      "line": 424,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "22. Diagnostický postup",
+      "line": 459,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "22. Diagnostický postup",
+      "line": 459,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "22. Diagnostický postup",
+      "line": 459,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over, či fault bol skutočne aplikovaný podľa contractu.`, `Potvrď zdravý baseline a complete observability.`, `Skontroluj business correctness, nie iba process availability.`, `Vyhodnoť guardrail a abort behavior.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "22. Diagnostický postup",
+      "line": 459,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "22. Diagnostický postup",
+      "line": 459,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "22. Diagnostický postup",
+      "line": 459,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "22. Diagnostický postup",
+      "line": 459,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`, `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 475,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 475,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 475,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -52877,8 +52283,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "33. Diagnostický postup pri neočakávanom výsledku",
-      "line": 671,
+      "section": "23. Referenčné pravidlá",
+      "line": 475,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Chaos experiment začína konkrétnym failure riskom a hypotézou.`, `Steady state vyjadruje používateľský alebo business outcome.`, `Target preview a allowlist chránia scope.`, `Blast radius zahŕňa downstream amplification.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/chaos-testing.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 475,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -52886,8 +52301,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "33. Diagnostický postup pri neočakávanom výsledku",
-      "line": 671,
+      "section": "23. Referenčné pravidlá",
+      "line": 475,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -52895,8 +52310,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "33. Diagnostický postup pri neočakávanom výsledku",
-      "line": 671,
+      "section": "23. Referenčné pravidlá",
+      "line": 475,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -52904,8 +52319,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "33. Diagnostický postup pri neočakávanom výsledku",
-      "line": 671,
+      "section": "23. Referenčné pravidlá",
+      "line": 475,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -52913,17 +52328,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "33. Diagnostický postup pri neočakávanom výsledku",
-      "line": 671,
-      "severity": "high",
+      "section": "23. Referenčné pravidlá",
+      "line": 475,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `policy`, `blast radius`, `scope`",
-      "score": 7
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `Blast radius`",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "34. Typické anti-patterny",
-      "line": 686,
+      "section": "24. Časté omyly",
+      "line": 490,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -52931,8 +52346,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Chaos bez hypotézy",
-      "line": 688,
+      "section": "„Chaos testing znamená náhodne vypínať veci“",
+      "line": 492,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -52940,8 +52355,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Náhodné vypínanie produkcie",
-      "line": 692,
+      "section": "„Pods zostali ready, hypotéza prešla“",
+      "line": 496,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -52949,8 +52364,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Experiment iba podľa infra metrík",
-      "line": 696,
+      "section": "„Po odstránení faultu je experiment hotový“",
+      "line": 504,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -52958,228 +52373,12 @@
     },
     {
       "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Test iba v stagingu ako dôkaz produkcie",
-      "line": 700,
+      "section": "„Viac chaosu znamená vyššiu odolnosť“",
+      "line": 512,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Kill switch v rovnakom fault domaine",
-      "line": 704,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Abort bez recovery observation",
-      "line": 708,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Chaos na produkčných dátach bez integrity oracle",
-      "line": 712,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Game day ako skúška ľudí",
-      "line": 716,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Chaos framework ako cieľ",
-      "line": 720,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Remediation backlog bez ownera",
-      "line": 728,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "35. Praktický rozhodovací rámec",
-      "line": 732,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "35. Praktický rozhodovací rámec",
-      "line": 732,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "35. Praktický rozhodovací rámec",
-      "line": 732,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Akú konkrétnu resilience vlastnosť a failure mode overujeme?`, `Aký používateľsky významný steady state má zostať zachovaný?`, `Aký mechanizmus má podľa hypotézy fungovať?`, `Je systém v zdravom baseline stave?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "35. Praktický rozhodovací rámec",
-      "line": 732,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "35. Praktický rozhodovací rámec",
-      "line": 732,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "35. Praktický rozhodovací rámec",
-      "line": 732,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "35. Praktický rozhodovací rámec",
-      "line": 732,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "35. Praktický rozhodovací rámec",
-      "line": 732,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "36. Kontrolný checklist",
-      "line": 754,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "36. Kontrolný checklist",
-      "line": 754,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "36. Kontrolný checklist",
-      "line": 754,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypotéza je konkrétna a vyvrátiteľná,`, `steady state je používateľsky relevantný,`, `baseline je zdravý,`, `artifact, config a topology sú identifikované,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "36. Kontrolný checklist",
-      "line": 754,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "36. Kontrolný checklist",
-      "line": 754,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "36. Kontrolný checklist",
-      "line": 754,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "36. Kontrolný checklist",
-      "line": 754,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "36. Kontrolný checklist",
-      "line": 754,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Summary",
-      "line": 799,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/chaos-testing.md",
-      "section": "Summary",
-      "line": 799,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/code-coverage-and-quality-gates.md",
