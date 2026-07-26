@@ -3446,6 +3446,10 @@ Viacfázový model databázovej alebo contract zmeny: najprv sa pridá kompatibi
 
 Backward-compatible database alebo API migration pattern, ktorý najprv pridá nový model, následne rolloutne kompatibilný software a až v neskoršom kroku odstráni starú kompatibilitu. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Expected result inventory
+
+Pred vykonaním fan-out-u deklarovaná množina required a optional result identities pre konkrétny immutable subject. Fan-in ju porovnáva s prijatými výsledkami, aby odhalil chýbajúci, duplicitný, stale alebo nevytvorený job či shard. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
+
 ## Experiment contract
 
 Explicitný popis hypotézy, steady state, faultu, scope, blast radiusu, trvania, abort criteria, recovery, ownershipu a dôkazov chaos experimentu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
@@ -4445,6 +4449,10 @@ Controller behavior, pri ktorom opakované spracovanie rovnakého desired a actu
 ## Identity
 
 Reprezentácia osoby, workloadu, zariadenia alebo organizácie používaná naprieč identity a access lifecycle-om. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Identity-aware fan-in
+
+Agregácia, ktorá pred verdictom overí expected inventory aj zhodu subjectu, variantu, shardu, child runu a attempt identity každého výsledku. Zelené prijaté reporty nestačia, ak výsledný set nie je úplný a porovnateľný. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
 
 ## Identity-aware proxy
 
@@ -6837,6 +6845,10 @@ Pomenovanie alternatívnej konfigurácie rovnakého providera používané napr�
 ## Provider configuration — Terraform
 
 Runtime nastavenie providera, napríklad region, endpoint alebo authentication context, ktoré resource alebo module používa na API operácie. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
+## Provider–consumer contract — CI/CD
+
+Versionovaný behaviorálny contract medzi providerom reusable capability a consumerom. Definuje input/output schema, resolved graph semantics, permissions, artifact a evidence identity, failure propagation, compatibility, support a migration lifecycle. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
 
 ## Provider interpretation drift
 
