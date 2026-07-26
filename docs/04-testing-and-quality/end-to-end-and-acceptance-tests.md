@@ -1,502 +1,462 @@
 # End-to-end a acceptance tests
 
-End-to-end test a acceptance test odpovedajú na dve odlišné otázky. E2E opisuje šírku vykonanej technickej cesty; acceptance opisuje, či pozorovaný výsledok spĺňa dohodnutú používateľskú, business alebo prevádzkovú potrebu.
+End-to-end test a acceptance test odpovedajú na dve rozdielne otázky:
 
 ```text
 E2E scope
 → cez ktoré reálne boundaries test prešiel?
 
 Acceptance purpose
-→ aké kritérium prijateľnosti tento dôkaz podporuje?
+→ aký používateľský, business alebo prevádzkový výsledok musí byť prijateľný?
 ```
 
-Jeden test môže byť súčasne E2E aj acceptance testom, ale nie každý acceptance test musí používať celý systém a nie každý E2E test poskytuje dostatočný dôkaz business prijateľnosti.
+Jeden test môže byť súčasne E2E aj acceptance testom. Nie každý acceptance dôkaz však potrebuje celý systém a nie každý široký E2E tok má dostatočný oracle na prijatie release-u.
 
-## 1. Mentálny model: journey, boundaries, oracle a rozhodnutie
+## 1. Cieľ kapitoly
 
-Užitočný E2E alebo acceptance test musí explicitne definovať štyri veci:
+Nosný model kapitoly je:
 
-- **journey —** používateľský alebo systémový tok od počiatočného stavu po pozorovateľný výsledok,
-- **boundaries —** procesy, služby, siete, identity, storage a externé systémy, ktoré sú v teste reálne zahrnuté,
-- **oracle —** pravidlo, ktoré rozhodne, či výsledok spĺňa technický aj business kontrakt,
-- **decision —** rozhodnutie, ktoré test podporuje, napríklad merge, deployment, release alebo prevádzkové prijatie.
+```text
+potreba alebo kritický výsledok
+→ acceptance criterion
+→ kritická journey
+→ reálne a nahradené boundaries
+→ kontrolovaný počiatočný stav
+→ vykonanie konkrétneho artifactu
+→ technický a business oracle
+→ dôkaz s blind spots
+→ merge, release alebo prevádzkové rozhodnutie
+```
 
-Bez tejto štvorice vzniká drahý systémový scenár, ktorého failure sa ťažko interpretuje a ktorého zelený výsledok nemusí dokazovať nič podstatné.
+Široký test má zmysel iba vtedy, keď vykonáva boundary, ktorú lacnejší scope nevie dôveryhodne reprezentovať.
 
-## 2. End-to-end test
+## 2. Nosný scenár: Atlas objednávka
 
-E2E test vykonáva tok cez viac produkčne relevantných vrstiev. Typický webový journey môže vyzerať takto:
+Atlas pripravuje release `orders-api` 3.9.0. Kritická používateľská potreba znie:
+
+> Autentifikovaný zákazník odošle objednávku raz, sklad sa rezervuje, platba sa autorizuje, potvrdenie sa zobrazí a systém zachová auditnú stopu aj pri opakovanom requeste.
+
+Acceptance criterion:
+
+```gherkin
+Given zákazník patrí do tenanta A a produkt je dostupný
+And checkout používa idempotency key K
+When zákazník odošle objednávku
+Then vznikne presne jedna objednávka
+And vznikne najviac jedna platobná autorizácia
+And skladová rezervácia patrí tenantovi A
+And zákazník uvidí potvrdenie do 30 sekúnd
+And audit obsahuje customer ID, tenant ID a correlation ID
+```
+
+Táto journey spája technické hranice s prijateľným výsledkom:
 
 ```text
 browser
-→ DNS a TLS
-→ reverse proxy alebo load balancer
+→ public DNS a TLS
+→ reverse proxy
 → frontend
-→ API
-→ databáza
-→ message broker
+→ orders-api
+→ PostgreSQL transaction/outbox
+→ broker
 → worker
-→ externý sandbox
-→ výsledok v UI alebo verejnom API
+→ payment sandbox
+→ používateľské potvrdenie a audit
 ```
 
-Rozsah musí byť pomenovaný presne. Test, ktorý používa reálny frontend a API, ale fake databázu a stub externého providera, je stále hodnotný systémový test, no nedokazuje produkčné SQL, transakčné ani providerové správanie.
+## 3. E2E scope nie je acceptance oracle
 
-## 3. Acceptance test
+E2E opisuje vykonanú cestu. Ak test prejde cez browser, proxy, API a databázu, poskytuje dôkaz o wiring-u a spolupráci týchto vrstiev.
 
-Acceptance test overuje konkrétne kritérium prijateľnosti. Kritérium má vyjadrovať pozorovateľný výsledok, nie interný spôsob implementácie.
+Acceptance opisuje význam výsledku. HTTP `200`, viditeľná stránka alebo vytvorený DB riadok samy osebe nedokazujú, že objednávka vznikla presne raz, patrí správnemu tenantovi a nevytvorila duplicitnú platbu.
 
-```gherkin
-Given zákazník má aktívny účet a produkt je dostupný
-When odošle objednávku s unikátnym idempotency key
-Then objednávka je prijatá presne raz
-And skladová rezervácia je vytvorená
-And zákazník vidí potvrdenie
-And auditná stopa obsahuje identitu a correlation ID
-```
-
-Acceptance test môže byť vykonaný na unit, API, component, E2E alebo manuálnej úrovni. Rozhodujúca je väzba na requirement a acceptance oracle, nie použitý framework.
-
-## 4. E2E verzus acceptance
-
-| Otázka | E2E test | Acceptance test |
-|---|---|---|
-| Primárny význam | technický scope toku | prijateľnosť výsledku |
-| Typický oracle | systémový stav a verejné rozhranie | business alebo prevádzkové kritérium |
-| Typická cena | vysoká | závisí od scope |
-| Typický vlastník | engineering alebo QA | product, business, operations a engineering |
-| Hlavné riziko | wiring, deployment a cross-boundary failure | vytvorenie nesprávneho alebo neprevádzkovateľného riešenia |
-
-Silná stratégia často implementuje väčšinu acceptance pravidiel na nižších vrstvách a iba kritické journeys opakuje cez E2E cestu.
-
-## 5. User Acceptance Testing
-
-User Acceptance Testing, skrátene UAT, poskytuje dôkaz, že systém zodpovedá reálnemu používateľskému alebo organizačnému procesu. Vykonáva ho alebo formálne schvaľuje business používateľ, product owner, doménový expert alebo reprezentatívny stakeholder.
-
-UAT môže overovať napríklad:
-
-- **workflow fit —** kroky zodpovedajú reálnej práci a nevytvárajú neudržateľné obchádzky,
-- **business rules —** výpočty, rozhodnutia a výnimky zodpovedajú doménovým pravidlám,
-- **reporting —** výsledné výstupy majú správny význam, úplnosť a auditnú stopu,
-- **usability —** používateľ vie dosiahnuť cieľ bez neprimeranej podpory alebo nejasných krokov,
-- **regulačné očakávania —** workflow uchováva potrebné schválenia, evidenciu a segregation of duties.
-
-UAT nemá byť náhradou technickej QA. Stakeholder nemá manuálne objavovať chyby schémy, validácie, authorization alebo retry logiky, ktoré mali byť automatizované skôr.
-
-## 6. Operational Acceptance Testing
-
-Operational Acceptance Testing, skrátene OAT, overuje, či je systém prevádzkovateľný počas normálnej prevádzky aj failure scenárov.
-
-OAT zahŕňa najmä:
-
-- **observability —** logs, metrics, traces, dashboards a alerts umožňujú odhaliť a lokalizovať problém,
-- **deployment —** rollout používa známy artifact, má health gates a neporušuje kompatibilitu,
-- **rollback alebo roll-forward —** recovery cesta je vykonateľná v požadovanom čase,
-- **backup a restore —** dáta sa dajú obnoviť a výsledok je použiteľný,
-- **failover —** redundantná cesta prevezme workload bez neprijateľného dopadu,
-- **capacity —** systém zvláda očakávané zaťaženie s definovanou rezervou,
-- **access a support —** on-call rola má oprávnenia, runbooky a jasný escalation path,
-- **maintenance —** patching, certificate rotation a dependency lifecycle majú bezpečný postup.
-
-Funkčne správna aplikácia bez použiteľného alertingu, recovery a ownershipu nie je pripravená na produkčné prijatie.
-
-## 7. Výber kritických journeys
-
-E2E suite nemá kopírovať všetky kombinácie business logiky. Má chrániť malé množstvo ciest, ktorých zlyhanie má vysoký dopad alebo ktoré prechádzajú rizikovými boundaries.
-
-Kandidát journey posudzuj podľa:
-
-1. business kritickosti,
-2. finančného, bezpečnostného alebo regulačného dopadu,
-3. frekvencie použitia,
-4. počtu integračných boundaries,
-5. historickej poruchovosti,
-6. zložitosti recovery,
-7. možnosti zachytiť rovnaké riziko lacnejším testom.
-
-Typické kritické journeys sú login s federovanou identitou, checkout a platba, tenant isolation, vytvorenie a asynchrónne spracovanie objednávky, reset hesla, administratívne schválenie, compliance export a disaster-recovery tok.
-
-## 8. Journey inventory a coverage mapa
-
-Pre každý kritický journey eviduj:
+Pre Atlas sú potrebné oba pohľady:
 
 ```text
-journey ID
-→ business owner
-→ vstupný stav
-→ kroky a boundaries
+E2E evidence
+→ request prešiel reálnou deployment cestou
+
+Acceptance evidence
+→ výsledný business state spĺňa dohodnuté invariants
+```
+
+## 4. Výber kritickej journey
+
+E2E suite nemá kopírovať každú kombináciu business pravidiel. Kritická journey je vhodná, keď:
+
+- jej zlyhanie má vysoký finančný, bezpečnostný alebo prevádzkový dopad;
+- prechádza boundary, ktorú nižší test nevykonáva reálne;
+- kombinuje routing, identity, persistence alebo asynchronous processing;
+- historicky zlyhávala pri deploymente alebo integrácii;
+- výsledok ovplyvňuje release alebo prevádzkové prijatie;
+- rovnaký dôkaz nemožno lacnejšie získať v unit, integration, component alebo contract scope-e.
+
+Výpočet dane patrí primárne do unit testov. PostgreSQL constraint do integration testu. Globálny checkout journey má overiť iba reprezentatívne kritické varianty.
+
+## 5. Journey contract
+
+Každý E2E alebo acceptance test má explicitne uviesť:
+
+```text
+journey identity
+→ business/operational owner
+→ testovaný requirement alebo risk
+→ počiatočný stav
+→ reálne boundaries
+→ nahradené dependencies
+→ kroky
 → očakávané side effects
-→ oracle
-→ environment
-→ trigger
-→ blocking/advisory význam
+→ oracle a deadline
+→ artifact a environment identity
 → failure artifacts
+→ rozhodovací význam
 ```
 
-Takáto mapa odhaľuje duplicitu, nepokryté kritické cesty a scenáre, ktoré sa označujú ako E2E, hoci obchádzajú rozhodujúcu vrstvu.
+Bez tejto mapy názov „E2E“ nehovorí, čo test skutočne dokazuje.
 
-## 9. Black-box, gray-box a white-box systémové testy
+## 6. Artifact a environment provenance
 
-### Black-box E2E
+Zelený výsledok je platný iba pre konkrétny vykonaný obsah. Atlas run zaznamená:
 
-Black-box test používa iba verejné rozhrania a pozorovateľné výsledky. Poskytuje vysokú fidelity používateľskej cesty, ale setup a diagnostika bývajú drahšie.
+- source commit a release version;
+- immutable image digest;
+- deployment revision;
+- databázovú schema verziu;
+- feature-flag snapshot;
+- proxy, identity a dependency konfiguráciu relevantnú pre journey;
+- browser/runtime a test-tool version;
+- environment a test-run identity.
 
-### Gray-box E2E
+Ak test používa mutable tag `latest`, ktorý sa medzi testom a promotion zmenil, evidence sa nedá priradiť k releasovanému artifactu.
 
-Gray-box test vykonáva verejný journey, no používa kontrolované interné rozhranie na prípravu dát, zrýchlenie času alebo získanie diagnostického stavu. Tento kompromis je vhodný, pokiaľ helper neobchádza behavior, ktorý test deklaruje ako predmet dôkazu.
+## 7. Fidelity podľa testovaného rizika
 
-### White-box systémový test
+Test environment nemusí kopírovať produkciu vo všetkom. Musí zachovať vlastnosti relevantné pre failure mode.
 
-White-box test pozná interné komponenty a môže overovať koordináciu, interné events alebo stav. Je užitočný pre technickú verifikáciu, no jeho assertiony nemajú byť zamieňané za používateľský acceptance dôkaz.
+Pre Atlas journey sú kritické:
 
-## 10. Artifact a environment identity
+- rovnaký image digest a entrypoint;
+- reálny proxy route, Host a TLS/SNI behavior;
+- rovnaký identity a tenant-authorization model;
+- kompatibilný PostgreSQL engine a migrácie;
+- reálny broker delivery model;
+- payment sandbox alebo contract-verified simulator;
+- rovnaký outbox a worker lifecycle.
 
-E2E výsledok je dôveryhodný iba vtedy, keď je známe, čo presne bolo testované. Test run má zaznamenať:
-
-- source commit alebo release tag,
-- immutable artifact digest,
-- deployment manifest alebo environment revision,
-- databázovú schema verziu,
-- feature-flag snapshot,
-- kritické dependency versions,
-- browser, runtime a test framework version,
-- čas a identity test runu.
-
-Bez provenance môže zelený test patriť inému buildu než artifact, ktorý bol neskôr nasadený.
-
-## 11. Environment fidelity
-
-Produkčne podobné prostredie nemusí mať identickú kapacitu, ale musí zachovať vlastnosti relevantné pre testované riziko.
-
-Pre identity journey je kritická rovnaká federácia, token semantics a authorization policy. Pre databázový tok je kritická kompatibilná engine verzia, constraints a migration state. Pre deployment test sú rozhodujúce rovnaké image, entrypoint, probes, proxy a network policy.
-
-Fidelity má byť zdokumentovaná ako explicitná matica:
+Rozdiely sa evidujú:
 
 ```text
-vlastnosť
-→ produkcia
-→ test environment
-→ rozdiel
+produkčná vlastnosť
+→ testovacia náhrada
 → riziko rozdielu
-→ kompenzačný dôkaz
+→ kompenzačný contract, sandbox alebo production signal
 ```
 
-## 12. Environment lifecycle a ownership
+## 8. Počiatočný stav a fixtures
 
-E2E prostredie môže byť:
+Fixture má vytvoriť minimálny možný stav bez obídenia predmetu testu.
 
-- **ephemeral per change —** poskytuje silnú izoláciu, ale startup a provisioning zvyšujú feedback time,
-- **pooled ephemeral —** zrýchľuje testy, no vyžaduje reset a lease mechanizmus,
-- **shared persistent —** znižuje provisioning cost, ale zvyšuje drift, contention a ownership problémy,
-- **production canary —** poskytuje najvyššiu fidelity, ale potrebuje blast-radius guardrails.
+Legitímne:
 
-Každý model musí definovať provision, readiness, exclusive alebo shared use, reset, cleanup, retention artifacts a ownera pri zlyhaní infraštruktúry.
+- vytvoriť zákazníka cez test-only identity API;
+- seednúť produkt a zásobu cez versioned fixture boundary;
+- použiť payment sandbox;
+- prideliť unikátny tenant, order prefix a correlation ID.
 
-## 13. Test data contract
+Nelegitímne pre túto journey:
 
-E2E dáta musia byť identifikovateľné, izolované, opakovateľne vytvoriteľné a bezpečne odstrániteľné. Každý run má používať unikátny namespace, tenant, correlation prefix alebo resource tag.
+- vložiť finálnu objednávku priamo do DB;
+- označiť platbu za autorizovanú bez vykonania payment boundary;
+- zapísať finálny event priamo do consumer databázy;
+- obísť authorization middleware interným admin endpointom.
 
-Test data nesmú obsahovať reálne osobné alebo produkčné secrets. Pri potrebe realistických dát sa používa syntetický alebo riadne anonymizovaný dataset s kontrolou reidentifikačného rizika.
+Gray-box setup je prijateľný, iba ak nevytvára nemožný stav a nepreskakuje boundary, ktorú test deklaruje ako dôkaz.
 
-## 14. Príprava stavu bez obchádzania testu
+## 9. Test data a bezpečnosť
 
-Predpríprava cez verejné API poskytuje vyššiu fidelity, ale môže výrazne predĺžiť test. Gray-box fixture API alebo priama databázová príprava môže byť prijateľná, pokiaľ:
+Každý run používa:
 
-1. fixture nevytvára nemožný stav,
-2. rešpektuje relevantné invariants,
-3. neobchádza vrstvu, ktorú journey testuje,
-4. je versioned spolu s aplikáciou,
-5. má jasný cleanup a bezpečnostnú hranicu.
+- unikátny tenant alebo namespace;
+- test-only identity s minimálnymi oprávneniami;
+- syntetické dáta;
+- idempotency a correlation keys;
+- resource tags alebo TTL;
+- cleanup obmedzený na vlastnené resources.
 
-Ak test overuje vytvorenie objednávky, priame vloženie finálnej objednávky do databázy by odstránilo hlavný predmet testu.
+Destruktívny alebo finančný journey musí zlyhať zatvorene, ak target environment nie je explicitne povolený. Test nesmie odoslať reálnu platbu, email alebo objednávku.
 
-## 15. Stateful a destructive journeys
+## 10. Synchronný a asynchrónny oracle
 
-Testy, ktoré vykonávajú platbu, delete, email, export alebo infraštruktúrnu mutation, potrebujú kontrolovaný sandbox a jednoznačný cleanup. Destruktívne kroky musia používať test-only accounts, resource tags a environment allowlist.
-
-Bezpečnostná podmienka má zlyhať zatvorene:
+Prvá response potvrdzuje iba prijatie requestu. Atlas journey potrebuje viac pozorovaní:
 
 ```text
-ak environment identity nie je explicitne testovacia
-→ destructive journey sa nespustí
+POST /orders
+→ response contract
+→ persisted order a idempotency record
+→ outbox event
+→ broker delivery
+→ payment authorization
+→ terminal order state
+→ confirmation v UI/API
+→ audit event
 ```
 
-## 16. Synchronné a asynchrónne oracles
-
-Synchronný tok môže overiť okamžitú response a stav. Asynchrónny journey potrebuje eventual-consistency kontrakt:
+Asynchrónne čakanie používa condition-based polling s deadline:
 
 ```text
-udalosť sa má prejaviť do 30 sekúnd
-→ polluj pozorovateľnú podmienku
-→ používaj bounded interval a deadline
-→ pri failure zachovaj posledný stav a correlation ID
+opakuj diskriminačný probe
+→ krátky interval
+→ posledný pozorovaný stav
+→ skonči pri splnení podmienky alebo po 30 s
 ```
 
-Pevný `sleep` buď čaká zbytočne dlho, alebo zlyhá pri pomalšom, ale stále platnom spracovaní. Condition-based waiting dáva rýchlejší úspech a lepší diagnostický dôkaz.
+Pevný `sleep` je súčasne pomalý aj flaky. Failure musí uviesť posledný terminal/non-terminal state, correlation ID a elapsed time.
 
-## 17. Čas ako testovateľná dependency
+## 11. Silný acceptance oracle
 
-Workflow s expiry, scheduled jobom alebo retry delay nemá čakať reálne hodiny. Použi controllable clock, test-only time advancement alebo kratší explicitný environment contract.
+Atlas oracle overuje:
 
-Časová manipulácia nesmie obísť scheduler, TTL alebo persistence behavior, ktoré sú predmetom testu. Preto treba pomenovať, ktorá časová vrstva je simulovaná a ktorá ostáva reálna.
+- zákazník vidí správny order ID a konečný stav;
+- objednávka patrí tenantovi A;
+- existuje presne jeden business order;
+- rovnaký idempotency key nevytvorí ďalší side effect;
+- skladová rezervácia a platobná autorizácia korešpondujú s order ID;
+- event a audit obsahujú správnu identity a correlation;
+- nevznikol zakázaný side effect v inom tenantovi;
+- výsledok vznikol v deklarovanom deadline.
 
-## 18. Browser automation
+Priame čítanie interných tabuliek používaj iba na diagnostiku alebo na invariant, ktorý verejná boundary nevie pozorovať. Test sa nemá viazať na nepodstatné interné kroky.
 
-UI test má používať selectors založené na stabilnom používateľskom kontrakte:
+## 12. Browser a verejný contract
 
-- semantic role,
-- accessible name,
-- form label,
-- explicitný test ID tam, kde význam nemožno vyjadriť semanticky.
+UI test používa stabilné selectors:
 
-Krehké selectors podľa generovanej CSS class, DOM pozície alebo vizuálnej hierarchie viažu test na implementáciu. Test musí čakať na pozorovateľný stav aplikácie, nie na pevný čas.
+- semantic role;
+- accessible name;
+- form label;
+- explicitný test ID iba tam, kde význam nemožno vyjadriť semanticky.
 
-## 19. Page, screen a domain models
-
-Page object centralizuje selectors a technické interakcie. Domain-oriented test API navyše vyjadruje používateľský zámer:
+Domain-oriented test API má vyjadriť zámer:
 
 ```text
 customer.sign_in()
 customer.place_order(product)
-customer.wait_for_confirmation()
+customer.wait_for_confirmation(order_id)
 ```
 
-Abstrakcia má skrývať mechanický detail, nie business význam. Page object, ktorý obsahuje rozsiahlu rozhodovaciu logiku alebo automaticky prehltne failures, sťažuje diagnostiku a vytvára druhú implementáciu aplikácie.
+Nemá prehĺtať failures ani implementovať druhú verziu business logiky.
 
-## 20. Service virtualization a externé systémy
+## 13. Externé dependencies
 
-Externé závislosti možno nahradiť payment sandboxom, email catcherom, fake identity providerom alebo protokolovým simulátorom. Tým sa zlepší determinism a kontrola failure scenárov, ale zníži sa fidelity voči reálnemu providerovi.
-
-Kritická integrácia preto potrebuje kombináciu:
-
-- contract testu,
-- deterministického component alebo E2E testu so simulátorom,
-- periodického testu proti oficiálnemu sandboxu,
-- produkčného synthetic signálu a monitoring-u skutočných volaní.
-
-## 21. Acceptance criteria a oracle design
-
-Silné acceptance kritérium je pozorovateľné, jednoznačné, merateľné a viazané na výsledok.
-
-Slabé:
+Payment provider možno reprezentovať viacerými dôkazmi:
 
 ```text
-Systém má byť používateľsky prívetivý.
+consumer/provider contract test
+→ deterministický simulator pre failure paths
+→ periodický test proti oficiálnemu sandboxu
+→ produkčná telemetry a synthetic guardrail
 ```
 
-Silnejšie:
+Simulator zvyšuje determinism, ale nepreukazuje reálny provider networking, credentials, quotas ani nezdokumentované behavior. Blind spot musí byť explicitný.
+
+## 14. User a operational acceptance
+
+User Acceptance Testing overuje, či workflow zodpovedá reálnej práci a doménovým pravidlám. Nemá nahrádzať automatizované testy authorization, schema alebo retry logiky.
+
+Operational Acceptance Testing overuje, či je release prevádzkovateľný:
+
+- artifact možno bezpečne nasadiť a identifikovať;
+- alerts a traces vedú k diagnóze;
+- rollback alebo roll-forward je vykonateľný;
+- on-call identity má potrebné oprávnenia;
+- backup/restore, failover alebo degraded mode spĺňajú svoj contract;
+- recovery je merateľná.
+
+Funkčne správny systém bez diagnostiky a recovery nie je prijateľný pre produkciu.
+
+## 15. Worked failure: fixture vytvorila false green
+
+Atlas E2E test pripravoval objednávku interným fixture endpointom:
 
 ```text
-Používateľ s platnými údajmi dokončí registráciu bez podpory,
-do 2 minút dostane potvrdenie a vznikne jedna auditovaná identita.
+fixture vytvorila order v stave PAID
+→ UI otvorilo detail objednávky
+→ test videl potvrdenie
+→ suite bola zelená
 ```
 
-Automatizovaný oracle môže overiť čas, potvrdenie a identitu. Skutočnú zrozumiteľnosť workflowu môže stále potrebovať usability validation s používateľmi.
-
-## 22. Business a technické assertions
-
-Journey nemá končiť assertionom „stránka sa zobrazila“. Pre kritický tok overuj primeranú kombináciu:
-
-- verejný výsledok pre používateľa,
-- business invariant,
-- persistentný stav,
-- počet a identitu side effects,
-- authorization a tenant scope,
-- event alebo audit trail,
-- observability metadata,
-- neprítomnosť zakázaného vedľajšieho efektu.
-
-Assertions musia zostať na správnej hranici. Priame čítanie každej internej tabuľky môže urobiť E2E test krehkým voči bezpečnému refaktoringu.
-
-## 23. BDD a executable specification
-
-Behavior-Driven Development používa scenáre `Given`, `When`, `Then` na discovery a zdieľaný jazyk medzi productom, QA a engineeringom. Hodnota vzniká v objasnení pravidiel, príkladov a výnimiek, nie v samotnej Gherkin syntaxi.
-
-Anti-patternom je scenár, ktorý opisuje každé kliknutie, kopíruje implementáciu alebo obsahuje desiatky technických krokov. Taký text nie je stabilnou business špecifikáciou.
-
-## 24. Segmentácia suite podľa rozhodnutia
-
-E2E testy rozdeľ podľa rozhodnutia a časového rozpočtu:
-
-- **PR critical path —** krátka blocking sada chráni najdôležitejšie journeys pred merge,
-- **deployment smoke —** overí nový artifact a základný wiring po deploymente,
-- **full regression —** širšia sada pokrýva významné historické riziká,
-- **compatibility matrix —** cielené behy overujú browser, device alebo podporovanú verziu,
-- **pre-release acceptance —** poskytuje formálny dôkaz pre release rozhodnutie,
-- **scheduled resilience journey —** overuje dlhšie recovery alebo cross-system scenáre.
-
-Každá skupina musí mať trigger, time budget, ownera, blocking význam a retention artifacts.
-
-## 25. Parallelizácia a sharding
-
-E2E suite sa môže deliť podľa historického trvania alebo journey skupín. Paralelizácia vyžaduje izolované tenants, účty, queues, files, ports a resource names.
-
-Riziká zahŕňajú spoločné rate limits, environment saturation, poradie dependent tests a cleanup collision. Ak paralelizácia sama vytvára náhodné failures, test suite prestáva merať aplikáciu a začína merať vlastnú contention chybu.
-
-## 26. Failure artifacts
-
-Pri každom failure uchovaj minimálne:
-
-- presný test a krok,
-- screenshot alebo relevantný response payload,
-- browser trace, video alebo network archive podľa typu testu,
-- console output,
-- request, correlation a trace ID,
-- server-side logs a event timeline,
-- artifact digest a environment revision,
-- test-data identifiers,
-- timestampy v jednotnej timezone,
-- posledný pozorovaný stav pri polling-u.
-
-Artifacts musia byť redigované, aby neobsahovali passwords, tokens alebo osobné údaje.
-
-## 27. Diagnostika failure podľa observation pointu
-
-Pri failure postupuj od symptómu k jednotlivým observation points:
+V produkcii však reálny flow zlyhal:
 
 ```text
-runner a test framework
-→ browser alebo klient
-→ DNS/TLS/network
-→ proxy a routing
-→ application logs a traces
-→ databáza a broker
-→ externý sandbox
-→ business state
+POST /orders
+→ DB commit
+→ outbox event chýbal
+→ worker nikdy nevolal payment provider
+→ používateľ čakal bez potvrdenia
 ```
 
-Najprv rozlíš test-code failure, environment failure a product failure. Iba product failure má priamo blokovať release bez potreby ďalšej infraštruktúrnej interpretácie; environment failure však stále potrebuje ownera a opravu, inak gate nie je spoľahlivý.
+### Root cause
 
-## 28. Flaky výsledok a rerun semantics
+Fixture preskočila presne tie boundaries, ktoré mal test dokazovať: command handler, transaction/outbox, broker a worker.
 
-Rerun je diagnostický nástroj, nie spôsob, ako premeniť červený výsledok na zelený.
+### Náprava
 
-Systém má evidovať:
+- fixture vytvára iba zákazníka, produkt a zásobu;
+- journey spúšťa objednávku verejným API alebo UI;
+- condition-based oracle čaká na terminal state;
+- test overí order, outbox/event, payment sandbox a audit;
+- nižší integration test samostatne chráni atomicitu order + outbox.
 
-- first-attempt result,
-- počet pokusov,
-- výsledok každého pokusu,
-- failure signature,
-- environment a worker identity,
-- klasifikáciu product/test/environment,
-- issue a ownera pri quarantine.
+E2E test má vykonávať kritickú cestu, nie iba kontrolovať jej konečný obraz.
 
-Blocking rozhodnutie má používať explicitnú policy. Napríklad známy quarantined test môže byť advisory, ale nový neznámy failure nesmie byť automaticky ignorovaný po úspešnom rerune.
+## 16. Worked failure: product alebo environment?
 
-## 29. Produkčná validation
+Po deploymente test zlyhal na TLS ešte pred aplikáciou. Rerun z interného cluster runnera prešiel.
 
-Niektoré vlastnosti možno dôveryhodne potvrdiť až s reálnou federáciou identity, traffic distribúciou, regionálnou latency, provider quotas alebo používateľským správaním.
-
-Používajú sa:
-
-- synthetic transactions,
-- canary releases,
-- feature flags,
-- SLI/SLO guardrails,
-- real-user monitoring,
-- business metrics,
-- kontrolované experimenty.
-
-Produkčný test musí používať bezpečné test data, malý blast radius, kill switch a jasný rollback alebo abort mechanizmus.
-
-## 30. Operational acceptance príklad
-
-Pred release payment služby môže OAT scenár vyzerať takto:
+Observation points:
 
 ```text
-1. nasadiť konkrétny artifact digest,
-2. vykonať syntetickú autorizáciu v sandboxe,
-3. potvrdiť trace cez proxy, API a worker,
-4. simulovať timeout providera,
-5. overiť bounded retry bez duplicity,
-6. skontrolovať alert a runbook link,
-7. vykonať rollback,
-8. potvrdiť obnovu služby a konzistenciu dát.
+external runner
+→ public DNS OK
+→ TLS certificate hostname mismatch
+→ proxy/application neboli dosiahnuté
+
+cluster runner
+→ internal service DNS
+→ bez public certificate boundary
+→ test prešiel
 ```
 
-Taký test neposudzuje iba funkciu, ale aj prevádzkovú pripravenosť a recovery.
+Failure bol environment/deployment wiring problém, nie business logic. Release sa napriek tomu nemohol považovať za prijateľný, pretože používateľská cesta zostala nefunkčná.
 
-## 31. Časté anti-patterny
+## 17. Failure artifacts
 
-### Každá kombinácia cez browser
+Pri failure uchovaj:
 
-Kombinatorická business logika patrí do unit, property-based alebo API testov. E2E má chrániť reprezentatívne kritické cesty.
+- testovaný artifact a environment revision;
+- presný krok a first-attempt result;
+- screenshot alebo response payload;
+- browser/network trace podľa scope-u;
+- request, correlation a trace ID;
+- relevantné server logs a event timeline;
+- order, payment a broker identifiers;
+- fixture a feature-flag snapshot;
+- posledný stav pri polling-u;
+- timestamps v jednotnej timezone.
 
-### Zelený test bez artifact provenance
+Artifacts musia byť redigované a viazané na konkrétny attempt.
 
-Nie je jasné, či sa testoval build, ktorý sa bude releasovať.
+## 18. Diagnostický postup
 
-### Shared admin account
+1. Potvrď artifact digest, environment revision a feature flags.
+2. Over, že fixture vytvorila očakávaný počiatočný stav.
+3. Nájdite prvý odlišný observation point, nie posledný UI symptóm.
+4. Koreluj browser/client čas, request ID, trace a events.
+5. Rozlíš runner/test-code, fixture/data, environment a product failure.
+6. Over deadline a posledný pozorovaný asynchronous state.
+7. Reprodukuj najmenším scope-om, ktorý ponechá podozrivú boundary reálnu.
+8. Zachovaj artifacts pred cleanupom.
+9. Oprav root cause alebo dočasne quarantine s ownerom a expiráciou.
+10. Po náprave over first-attempt pass na rovnakom artifacte.
 
-Paralelné testy si menia permissions a stav, čo vytvára order dependency a bezpečnostné riziko.
+Rerun bez analýzy nevytvára nový dôkaz o pôvodnom failure.
 
-### Priama databázová skratka cez predmet testu
+## 19. Segmentácia podľa rozhodnutia
 
-Fixture obíde validation alebo workflow, ktorý mal journey dokázať.
+```text
+PR critical journey
+→ krátky blocking dôkaz pre merge
 
-### Pevné sleeps
+deployment journey
+→ artifact, routing a základný business tok
 
-Test je pomalý a zároveň flaky, pretože nečaká na konkrétnu podmienku.
+pre-release acceptance
+→ formálne funkčné a operational criteria
 
-### UAT až na konci projektu
+scheduled broader journey
+→ compatibility, recovery alebo dlhší asynchronous tok
 
-Business neistota sa odhalí neskoro. Acceptance examples majú vznikať už počas discovery a refinementu.
+production synthetic/canary
+→ realita identity, trafficu a dependency pathu
+```
 
-### Rerun-until-green
+Každá skupina má trigger, time budget, ownera, blocking význam a retention artifacts.
 
-Prvý failure sa stratí a suite prestane poskytovať dôveryhodný gate.
+## 20. Referenčné pravidlá
 
-## 32. Diagnostický workflow
+- E2E scope a acceptance účel vždy pomenúvaj oddelene.
+- Vyber iba journeys s unikátnou cross-boundary dôkaznou hodnotou.
+- Väčšinu business kombinácií testuj nižšie.
+- Testuj immutable artifact s jasnou environment identity.
+- Fixture nesmie obísť predmet dôkazu.
+- Asynchrónny oracle používa condition a deadline, nie sleep.
+- Acceptance oracle overuje business state aj zakázané side effects.
+- Destruktívne testy používajú allowlist a fail-closed target check.
+- First-attempt failure a artifacts sa nikdy neprepisujú rerunom.
+- Produkčná validation dopĺňa, nie nahrádza predprodukčný dôkaz.
 
-1. Identifikuj testovaný artifact, environment revision a feature flags.
-2. Potvrď, že setup vytvoril očakávaný počiatočný stav.
-3. Lokalizuj prvý odlišný observation point, nie posledný viditeľný symptóm.
-4. Koreluj klientsky čas, request ID, trace a serverové events.
-5. Rozlíš product, test-code, data a environment failure.
-6. Over eventual-consistency deadline a posledný pozorovaný stav.
-7. Reprodukuj najmenším scope-om, ktorý zachováva failure boundary.
-8. Zachovaj artifacts pred cleanupom environmentu.
-9. Oprav root cause alebo dočasne quarantine s ownerom a deadline.
-10. Po oprave over first-attempt pass a odstráň dočasnú výnimku.
+## 21. Časté omyly
 
-## 33. Prevádzkový checklist
+### „E2E znamená celý podnikový stack“
 
-Pred zaradením E2E alebo acceptance testu do gate over:
+Nie. Scope má definovaný začiatok, koniec a explicitne nahradené dependencies.
 
-- journey a acceptance criterion sú explicitné,
-- scope a nahradené dependencies sú zdokumentované,
-- artifact a environment identity sa ukladajú,
-- setup nevytvára nemožný stav,
-- test data sú izolované a bezpečné,
-- čakanie je condition-based a bounded,
-- assertions overujú business aj technický výsledok,
-- failure artifacts sú dostatočné a redigované,
-- test je samostatne spustiteľný a paralelizovateľný alebo má deklarovaný lock,
-- rerun a quarantine policy sú explicitné,
-- test má ownera, time budget a jasný rozhodovací význam.
+### „Acceptance test musí ísť cez browser“
 
-## 34. Zhrnutie
+Nie. Acceptance opisuje účel a oracle; môže bežať v API, component alebo inom vhodnom scope-e.
 
-E2E test poskytuje dôkaz o spolupráci produkčne relevantných boundaries. Acceptance test poskytuje dôkaz, že výsledok spĺňa dohodnutú potrebu. Silná stratégia vyberá iba kritické journeys, viaže ich na immutable artifact a známe prostredie, kontroluje test data a čas, zhromažďuje diagnostické artifacts a dopĺňa predprodukčné dôkazy bezpečnou produkčnou validation.
+### „Stránka sa zobrazila, journey prešla“
 
-## 35. Kontrolné otázky
+UI render nepreukazuje business invariants ani side effects.
+
+### „Priama DB fixture iba zrýchľuje test“
+
+Môže odstrániť boundary, ktorú mal test vykonať.
+
+### „Produkčne podobné prostredie je automaticky dostatočné“
+
+Dostatočné je iba pre explicitne zachované vlastnosti a známe blind spots.
+
+### „Rerun prešiel, failure bol flaky“
+
+Rerun neklasifikuje príčinu. Intermittent product race môže prejsť na druhý pokus.
+
+## 22. Zhrnutie
+
+Dôveryhodný E2E a acceptance test je decision-oriented journey:
+
+```text
+kritická potreba
+→ acceptance criterion
+→ reálne boundaries
+→ konkrétny artifact a environment
+→ kontrolovaný setup
+→ journey execution
+→ technický + business oracle
+→ evidence a blind spots
+→ release alebo operational decision
+```
+
+Atlas objednávka potrebuje široký test iba na potvrdenie cross-boundary toku. Lokálne pravidlá, SQL atomicita a interface kompatibilita zostávajú v nižších, rýchlejších vrstvách.
+
+## 23. Kontrolné otázky
 
 1. Aký je rozdiel medzi E2E scope-om a acceptance účelom?
 2. Prečo acceptance test nemusí byť E2E testom?
-3. Ktoré kritériá určujú výber kritického journey?
-4. Čo musí obsahovať artifact a environment provenance?
-5. Kedy je gray-box setup legitímny a kedy obchádza predmet testu?
-6. Ako sa testuje eventual consistency bez pevného sleepu?
-7. Aký je rozdiel medzi UAT a Operational Acceptance Testing?
-8. Ako service virtualization mení fidelity?
-9. Ktoré artifacts sú potrebné pri E2E failure?
-10. Prečo rerun-until-green ničí dôveryhodnosť gate-u?
-11. Ako bezpečne vykonávať produkčný synthetic journey?
-12. Ako odlíšiš product failure od environment failure?
+3. Ktoré failure modes odôvodňujú kritickú journey?
+4. Čo musí obsahovať journey contract?
+5. Prečo je artifact provenance súčasťou dôkazu?
+6. Kedy gray-box fixture obchádza predmet testu?
+7. Ako sa testuje eventual consistency bez pevného sleepu?
+8. Aké business a technické assertions potrebuje Atlas objednávka?
+9. Ako service virtualization mení fidelity?
+10. Čo navyše dokazuje Operational Acceptance Testing?
+11. Ako rozlíšiš product failure od environment failure?
+12. Prečo rerun-until-green ničí gate?
 
 ## Glossary impact
 
-Relevantné pojmy: end-to-end test, acceptance test, User Acceptance Testing, Operational Acceptance Testing, critical journey, black-box test, gray-box test, environment fidelity, artifact provenance, eventual consistency, service virtualization, synthetic transaction, failure artifact a quarantine.
+Relevantné pojmy: end-to-end test, acceptance test, critical journey, journey contract, User Acceptance Testing, Operational Acceptance Testing, black-box test, gray-box fixture, artifact provenance, environment fidelity, eventual consistency, condition-based waiting, service virtualization, synthetic transaction, failure artifact a quarantine.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
