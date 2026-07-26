@@ -1389,15 +1389,15 @@
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
       "title": "Release management",
-      "words": 3136,
-      "headings": 64,
-      "sections": 64,
-      "findings": 215,
-      "critical": 76,
-      "high": 68,
-      "medium": 31,
-      "low": 40,
-      "score": 1603,
+      "words": 2919,
+      "headings": 50,
+      "sections": 50,
+      "findings": 135,
+      "critical": 43,
+      "high": 45,
+      "medium": 21,
+      "low": 26,
+      "score": 982,
       "grade": "D"
     },
     {
@@ -80455,15 +80455,6 @@
       "path": "docs/05-ci-cd-and-release/release-management.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -80482,10 +80473,10 @@
       "path": "docs/05-ci-cd-and-release/release-management.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
@@ -80498,1736 +80489,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "1. Definícia",
-      "line": 9,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "1. Definícia",
-      "line": 9,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "3. Release unit",
-      "line": 61,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "3. Release unit",
-      "line": 61,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "3. Release unit",
-      "line": 61,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden application artifact,`, `viac koordinovaných services,`, `frontend, backend a mobile compatibility set,`, `application artifacts a migrations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "3. Release unit",
-      "line": 61,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "3. Release unit",
-      "line": 61,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "3. Release unit",
-      "line": 61,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "3. Release unit",
-      "line": 61,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "3. Release unit",
-      "line": 61,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "4. Release identity",
-      "line": 85,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "4. Release identity",
-      "line": 85,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release ID alebo logical version,`, `release-manifest digest,`, `component artifact digests,`, `source commits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "4. Release identity",
-      "line": 85,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "4. Release identity",
-      "line": 85,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "4. Release identity",
-      "line": 85,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "5. Release manifest",
-      "line": 99,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "5. Release manifest",
-      "line": 99,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "5. Release manifest",
-      "line": 99,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable alebo content-addressed,`, `podpísaný podľa policy,`, `prepojený na provenance componentov,`, `validovaný proti compatibility pravidlám,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "5. Release manifest",
-      "line": 99,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "5. Release manifest",
-      "line": 99,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "6. Release record",
-      "line": 124,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "6. Release record",
-      "line": 124,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release identity a current state,`, `candidate a final manifest digest,`, `component/source identities,`, `zmenu od predchádzajúceho podporovaného release,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "6. Release record",
-      "line": 124,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "6. Release record",
-      "line": 124,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "6. Release record",
-      "line": 124,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "6. Release record",
-      "line": 124,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "6. Release record",
-      "line": 124,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EOL`, `identity`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "7. Change inventory",
-      "line": 150,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "7. Change inventory",
-      "line": 150,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `features a user-visible behavior,`, `fixes,`, `security changes,`, `dependency a base-image updates,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "7. Change inventory",
-      "line": 150,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "7. Change inventory",
-      "line": 150,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "8. Scope admission",
-      "line": 168,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "8. Scope admission",
-      "line": 168,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "8. Scope admission",
-      "line": 168,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je integrovaná do správnej mainline/release line,`, `artifact alebo component candidate existuje,`, `ownership a risk classification sú známe,`, `required tests a reviews sú dostupné,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "8. Scope admission",
-      "line": 168,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "8. Scope admission",
-      "line": 168,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "10. Candidate supersession",
-      "line": 196,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "10. Candidate supersession",
-      "line": 196,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `starý a nový manifest digest,`, `presný delta scope,`, `dôvod,`, `ktoré evidence sa dá znovu použiť,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "10. Candidate supersession",
-      "line": 196,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "10. Candidate supersession",
-      "line": 196,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "10. Candidate supersession",
-      "line": 196,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RC1`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "11. Release readiness packet",
-      "line": 217,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "11. Release readiness packet",
-      "line": 217,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact/manifest identity a provenance,`, `change inventory a risk classification,`, `functional, contract a regression evidence,`, `performance/capacity evidence podľa rizika,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "11. Release readiness packet",
-      "line": 217,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "11. Release readiness packet",
-      "line": 217,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "11. Release readiness packet",
-      "line": 217,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "12. Readiness verdicts",
-      "line": 238,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "12. Readiness verdicts",
-      "line": 238,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "12. Readiness verdicts",
-      "line": 238,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "12. Readiness verdicts",
-      "line": 238,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "12. Readiness verdicts",
-      "line": 238,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "12. Readiness verdicts",
-      "line": 238,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `freshness`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "13. Release cadence",
-      "line": 250,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "14. Release train admission",
-      "line": 272,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "14. Release train admission",
-      "line": 272,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable candidate identity do cutoffu,`, `complete readiness packet,`, `žiadne unresolved required blockers,`, `known dependency ordering,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "14. Release train admission",
-      "line": 272,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "14. Release train admission",
-      "line": 272,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "15. Scope freeze verzus code freeze",
-      "line": 286,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mainline pokračuje,`, `release scope je immutable cez manifest,`, `fixes sa aplikujú cielene,`, `každá zmena vytvorí nový candidate,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "15. Scope freeze verzus code freeze",
-      "line": 286,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "15. Scope freeze verzus code freeze",
-      "line": 286,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "16. Release branch",
-      "line": 302,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "16. Release branch",
-      "line": 302,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "16. Release branch",
-      "line": 302,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilizácia candidate-u,`, `backport fixes,`, `LTS/security support,`, `oddelený cadence pre distribučný produkt.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "16. Release branch",
-      "line": 302,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "16. Release branch",
-      "line": 302,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "16. Release branch",
-      "line": 302,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LTS`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "17. Multi-component consistency",
-      "line": 328,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "17. Multi-component consistency",
-      "line": 328,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový API producer s nepodporovaným starým consumerom,`, `frontend očakáva capability, ktorú backend flag ešte neposkytuje,`, `worker spracúva event schema, ktorú API ešte nepublikuje,`, `migration contract prebehne pred odstránením starých pods,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "17. Multi-component consistency",
-      "line": 328,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "17. Multi-component consistency",
-      "line": 328,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "17. Multi-component consistency",
-      "line": 328,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "18. Producer/consumer coordination",
-      "line": 342,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "19. Databázový release lifecycle",
-      "line": 356,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "19. Databázový release lifecycle",
-      "line": 356,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migration IDs a status,`, `lock/runtime expectations,`, `backfill checkpoint,`, `old/new application compatibility,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "19. Databázový release lifecycle",
-      "line": 356,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "20. Event-driven release lifecycle",
-      "line": 380,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "20. Event-driven release lifecycle",
-      "line": 380,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "20. Event-driven release lifecycle",
-      "line": 380,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `uložené staré messages,`, `parallel producer/consumer versions,`, `backward/forward schema compatibility,`, `replay a poison messages,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "20. Event-driven release lifecycle",
-      "line": 380,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "21. Deployment verzus release exposure",
-      "line": 395,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "21. Deployment verzus release exposure",
-      "line": 395,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `feature flags,`, `rings,`, `tenant allowlist,`, `canary traffic,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "21. Deployment verzus release exposure",
-      "line": 395,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "22. Rollout plan",
-      "line": 418,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "22. Rollout plan",
-      "line": 418,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "22. Rollout plan",
-      "line": 418,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `initial target cohort,`, `rollout kroky alebo rings,`, `minimálne observation windows,`, `promotion metrics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "22. Rollout plan",
-      "line": 418,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "22. Rollout plan",
-      "line": 418,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "23. Release approval",
-      "line": 435,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "23. Release approval",
-      "line": 435,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo je v scope,`, `presný manifest digest,`, `delta od posledného release,`, `risk a reversibility,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "23. Release approval",
-      "line": 435,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "23. Release approval",
-      "line": 435,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "23. Release approval",
-      "line": 435,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "23. Release approval",
-      "line": 435,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "24. Separation of duties",
-      "line": 452,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "24. Separation of duties",
-      "line": 452,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autora zmeny,`, `code reviewerov,`, `build identity,`, `evidence producerov,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "24. Separation of duties",
-      "line": 452,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "25. Release window",
-      "line": 466,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "25. Release window",
-      "line": 466,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `support a on-call coverage,`, `traffic a business criticality,`, `external dependency support,`, `regulated change periods,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "25. Release window",
-      "line": 466,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "25. Release window",
-      "line": 466,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery time`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "26. Communication plan",
-      "line": 481,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "26. Communication plan",
-      "line": 481,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "26. Communication plan",
-      "line": 481,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `end users,`, `administrators,`, `API integrators,`, `support a operations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "26. Communication plan",
-      "line": 481,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "26. Communication plan",
-      "line": 481,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "27. Release notes",
-      "line": 504,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "27. Release notes",
-      "line": 504,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nové capabilities,`, `opravy a security zmeny,`, `breaking changes,`, `deprecations a removals,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "27. Release notes",
-      "line": 504,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "27. Release notes",
-      "line": 504,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "27. Release notes",
-      "line": 504,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EOL`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "29. Post-deploy verification",
-      "line": 537,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "29. Post-deploy verification",
-      "line": 537,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "29. Post-deploy verification",
-      "line": 537,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny artifact/manifest digest,`, `config a schema revision,`, `desired počet healthy instances,`, `routing a feature-flag stav,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "29. Post-deploy verification",
-      "line": 537,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "30. Post-release validation",
-      "line": 551,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "30. Post-release validation",
-      "line": 551,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `functional journey completion,`, `business KPIs,`, `user/support signals,`, `authorization a data correctness,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "30. Post-release validation",
-      "line": 551,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "30. Post-release validation",
-      "line": 551,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "30. Post-release validation",
-      "line": 551,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "31. Hypercare",
-      "line": 566,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "31. Hypercare",
-      "line": 566,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupného release ownera,`, `zvýšenú dashboard/alert pozornosť,`, `support triage channel,`, `business KPI review,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "31. Hypercare",
-      "line": 566,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "31. Hypercare",
-      "line": 566,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KPI`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "32. Abort, rollback, roll-forward a disable",
-      "line": 581,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "32. Abort, rollback, roll-forward a disable",
-      "line": 581,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "32. Abort, rollback, roll-forward a disable",
-      "line": 581,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `database/event compatibility,`, `external side effects,`, `client versions,`, `queue/backlog state,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "32. Abort, rollback, roll-forward a disable",
-      "line": 581,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "32. Abort, rollback, roll-forward a disable",
-      "line": 581,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "32. Abort, rollback, roll-forward a disable",
-      "line": 581,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "33. Rollback eligibility",
-      "line": 602,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "33. Rollback eligibility",
-      "line": 602,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "33. Rollback eligibility",
-      "line": 602,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `starý artifact/release manifest je dostupný,`, `provenance a trust policy ho povoľujú,`, `config a secrets references existujú,`, `databáza a events sú backward-compatible,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "33. Rollback eligibility",
-      "line": 602,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "33. Rollback eligibility",
-      "line": 602,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "33. Rollback eligibility",
-      "line": 602,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "34. Emergency release a hotfix",
-      "line": 616,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "34. Emergency release a hotfix",
-      "line": 616,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný incident/risk dôvod,`, `source review primeraný situácii,`, `immutable artifact a provenance,`, `kritické targeted tests,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "34. Emergency release a hotfix",
-      "line": 616,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "34. Emergency release a hotfix",
-      "line": 616,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "35. Hotfix source of truth",
-      "line": 635,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "35. Hotfix source of truth",
-      "line": 635,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oprava v affected release line,`, `forward propagation do mainline a novších lines,`, `samostatná version a artifact digest,`, `testy pre každú podporovanú line,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "35. Hotfix source of truth",
-      "line": 635,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "35. Hotfix source of truth",
-      "line": 635,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "35. Hotfix source of truth",
-      "line": 635,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "36. Supported version policy",
-      "line": 650,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "36. Supported version policy",
-      "line": 650,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "36. Supported version policy",
-      "line": 650,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latest only,`, `current a previous major/minor,`, `LTS lines,`, `security-only support,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "36. Supported version policy",
-      "line": 650,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "36. Supported version policy",
-      "line": 650,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LTS`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "37. Deprecation a end of life",
-      "line": 672,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "37. Deprecation a end of life",
-      "line": 672,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "37. Deprecation a end of life",
-      "line": 672,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poslednú podporovanú version,`, `dátum ukončenia,`, `typ supportu do termínu,`, `migration path,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "37. Deprecation a end of life",
-      "line": 672,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "38. Release revocation",
-      "line": 698,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "38. Release revocation",
-      "line": 698,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zablokovať nové deployments,`, `zastaviť rollout/exposure,`, `označiť artifacts ako nepovolené,`, `upozorniť active environments,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "38. Release revocation",
-      "line": 698,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "39. Uzatvorenie release recordu",
-      "line": 713,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "39. Uzatvorenie release recordu",
-      "line": 713,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment a exposure dosiahli plánovaný stav,`, `required validation windows prešli,`, `abort/rollback stav je vyriešený,`, `known issues a support ownership sú zaznamenané,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "39. Uzatvorenie release recordu",
-      "line": 713,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "39. Uzatvorenie release recordu",
-      "line": 713,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "39. Uzatvorenie release recordu",
-      "line": 713,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "39. Uzatvorenie release recordu",
-      "line": 713,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EOL`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "40. Release retrospective",
-      "line": 728,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "40. Release retrospective",
-      "line": 728,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "40. Release retrospective",
-      "line": 728,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo spôsobilo delay alebo incident,`, `kvalitu readiness evidence,`, `správnosť risk classification,`, `approval a waiting time,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "40. Release retrospective",
-      "line": 728,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "40. Release retrospective",
-      "line": 728,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "41. Metriky",
-      "line": 744,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "41. Metriky",
-      "line": 744,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "41. Metriky",
-      "line": 744,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release frequency,`, `lead time od change po release,`, `čas ready-to-release waiting,`, `candidate count a supersession rate,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "41. Metriky",
-      "line": 744,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "41. Metriky",
-      "line": 744,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "41. Metriky",
-      "line": 744,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery time`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "42. Diagnostický postup",
-      "line": 768,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "42. Diagnostický postup",
-      "line": 768,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "42. Diagnostický postup",
-      "line": 768,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj release/manifest digest a current state;`, `zisti presný deployment a exposure scope;`, `porovnaj candidate, approved a deployed identities;`, `over config, infrastructure a schema revisions;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "42. Diagnostický postup",
-      "line": 768,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "42. Diagnostický postup",
-      "line": 768,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "42. Diagnostický postup",
-      "line": 768,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `scope`, `freshness`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "43. Typické anti-patterny",
-      "line": 785,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Release je manuálny checklist v tickete",
-      "line": 787,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Final artifact sa po schválení rebuildne",
-      "line": 791,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Scope sa mení počas rollout-u",
-      "line": 795,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Veľký mesačný release bundle",
-      "line": 799,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Approval bez risk packetu",
-      "line": 803,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Deployment = release = validation",
-      "line": 807,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Rollback plán ignoruje mutable state",
-      "line": 811,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Hotfix iba v release branch",
-      "line": 815,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Release branch bez EOL",
-      "line": 819,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Hypercare bez exit criteria",
-      "line": 823,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Release record sa nikdy neuzavrie",
-      "line": 827,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "44. Praktický rozhodovací rámec",
-      "line": 831,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "44. Praktický rozhodovací rámec",
-      "line": 831,
+      "section": "3. Build, deployment a release sú tri odlišné udalosti",
+      "line": 96,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -82235,35 +80498,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "44. Praktický rozhodovací rámec",
-      "line": 831,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "18 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. Release unit určuje subject rozhodnutia",
+      "line": 118,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "44. Praktický rozhodovací rámec",
-      "line": 831,
+      "section": "4. Release unit určuje subject rozhodnutia",
+      "line": 118,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "17 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Čo presne tvorí release unit?`, `Aká immutable identity a manifest ju reprezentujú?`, `Aké changes sú v scope a ktoré nie?`, `Aká admission/readiness policy platí?`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré component digests boli testované spolu;`, `ktorá config revision patrí candidate-u;`, `ktorú migration approval pokrýva;`, `čo sa má nasadiť alebo vrátiť;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "44. Praktický rozhodovací rámec",
-      "line": 831,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "44. Praktický rozhodovací rámec",
-      "line": 831,
+      "section": "4. Release unit určuje subject rozhodnutia",
+      "line": 118,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -82271,17 +80525,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "44. Praktický rozhodovací rámec",
-      "line": 831,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "44. Praktický rozhodovací rámec",
-      "line": 831,
+      "section": "4. Release unit určuje subject rozhodnutia",
+      "line": 118,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -82289,17 +80534,224 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "44. Praktický rozhodovací rámec",
-      "line": 831,
+      "section": "6. Scope admission predchádza candidate assembly",
+      "line": 155,
       "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "6. Scope admission predchádza candidate assembly",
+      "line": 155,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `integrovaný source candidate;`, `immutable component artifact;`, `ownera a risk classification;`, `changelog alebo release-note fragment;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "6. Scope admission predchádza candidate assembly",
+      "line": 155,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "6. Scope admission predchádza candidate assembly",
+      "line": 155,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "8. Supersession je explicitná zmena subjectu",
+      "line": 188,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "8. Supersession je explicitná zmena subjectu",
+      "line": 188,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `old a new manifest digest;`, `presný delta scope;`, `dôvod;`, `ktoré evidence zostávajú použiteľné;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "8. Supersession je explicitná zmena subjectu",
+      "line": 188,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "8. Supersession je explicitná zmena subjectu",
+      "line": 188,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "8. Supersession je explicitná zmena subjectu",
+      "line": 188,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `EOL`, `identity`, `scope`, `policy`, `blast radius`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "10. Readiness má viac než dva stavy",
+      "line": 228,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "10. Readiness má viac než dva stavy",
+      "line": 228,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "45. Kontrolný checklist",
-      "line": 852,
+      "section": "10. Readiness má viac než dva stavy",
+      "line": 228,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "10. Readiness má viac než dva stavy",
+      "line": 228,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "10. Readiness má viac než dva stavy",
+      "line": 228,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "10. Readiness má viac než dva stavy",
+      "line": 228,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "11. Risk classification určuje požadovanú evidence a rollout",
+      "line": 242,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "11. Risk classification určuje požadovanú evidence a rollout",
+      "line": 242,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `response contract additive spôsobom;`, `nový downstream risk call;`, `config a timeout behavior;`, `expand database migration;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "11. Risk classification určuje požadovanú evidence a rollout",
+      "line": 242,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "11. Risk classification určuje požadovanú evidence a rollout",
+      "line": 242,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "11. Risk classification určuje požadovanú evidence a rollout",
+      "line": 242,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "12. Approval je decision nad immutable subjectom",
+      "line": 264,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "12. Approval je decision nad immutable subjectom",
+      "line": 264,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manifestu alebo component digestu;`, `relevantnej config;`, `migration state;`, `policy alebo environment precondition;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "12. Approval je decision nad immutable subjectom",
+      "line": 264,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "12. Approval je decision nad immutable subjectom",
+      "line": 264,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "14. Multi-component compatibility sa overuje na úrovni setu",
+      "line": 304,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -82307,26 +80759,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "45. Kontrolný checklist",
-      "line": 852,
+      "section": "15. Databázová zmena je release lifecycle shared state-u",
+      "line": 329,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "45. Kontrolný checklist",
-      "line": 852,
+      "section": "15. Databázová zmena je release lifecycle shared state-u",
+      "line": 329,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release unit a manifest sú immutable,`, `change inventory je úplné,`, `candidate nebol po evidence rebuildnutý,`, `readiness packet patrí správnemu manifestu,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migration IDs a applied stav;`, `lock a runtime assumptions;`, `backfill checkpoint;`, `old/new reader-writer compatibility;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "45. Kontrolný checklist",
-      "line": 852,
+      "section": "15. Databázová zmena je release lifecycle shared state-u",
+      "line": 329,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -82334,8 +80786,242 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "45. Kontrolný checklist",
-      "line": 852,
+      "section": "16. Event a async state prežívajú deployment",
+      "line": 356,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "16. Event a async state prežívajú deployment",
+      "line": 356,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `events vytvorené old API;`, `events vytvorené new API;`, `old a new workers;`, `backlog z observation window;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "16. Event a async state prežívajú deployment",
+      "line": 356,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "16. Event a async state prežívajú deployment",
+      "line": 356,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "17. Deployment najprv vytvorí nový runtime state",
+      "line": 379,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "17. Deployment najprv vytvorí nový runtime state",
+      "line": 379,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manifest digest bežiacich instances;`, `rendered config C17;`, `migration applied state;`, `desired a healthy replica count;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "17. Deployment najprv vytvorí nový runtime state",
+      "line": 379,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "17. Deployment najprv vytvorí nový runtime state",
+      "line": 379,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `C17`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "18. Exposure je samostatný riadený prechod",
+      "line": 394,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "18. Exposure je samostatný riadený prechod",
+      "line": 394,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "18. Exposure je samostatný riadený prechod",
+      "line": 394,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný cohort a assignment rule;`, `minimálnu observation window;`, `technical, functional a business metrics;`, `promotion a abort thresholds;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "18. Exposure je samostatný riadený prechod",
+      "line": 394,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "18. Exposure je samostatný riadený prechod",
+      "line": 394,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "19. Technical, functional a business oracles sa nesmú zamieňať",
+      "line": 415,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "Technical oracle",
+      "line": 419,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "Functional oracle",
+      "line": 425,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "Business oracle",
+      "line": 434,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "Business oracle",
+      "line": 434,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "20. Observation window vychádza z failure latency",
+      "line": 445,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "20. Observation window vychádza z failure latency",
+      "line": 445,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "20. Observation window vychádza z failure latency",
+      "line": 445,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `synchronous HTTP failure sa prejaví rýchlo;`, `memory leak potrebuje dlhšie zaťaženie;`, `async backlog sa môže prejaviť po desiatkach minút;`, `settlement alebo reconciliation môže mať hodinové oneskorenie;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "20. Observation window vychádza z failure latency",
+      "line": 445,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "20. Observation window vychádza z failure latency",
+      "line": 445,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "21. Abort zastaví rast blast radiusu",
+      "line": 457,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "21. Abort zastaví rast blast radiusu",
+      "line": 457,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vrátiť flag exposure na 0 %;`, `ponechať M2 nasadený;`, `zachovať evidence a cohort data;`, `opraviť config alebo pripraviť M3;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "21. Abort zastaví rast blast radiusu",
+      "line": 457,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "21. Abort zastaví rast blast radiusu",
+      "line": 457,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -82343,8 +81029,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "45. Kontrolný checklist",
-      "line": 852,
+      "section": "21. Abort zastaví rast blast radiusu",
+      "line": 457,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `M2`, `M3`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "22. Rollback, roll-forward a disable riešia iné stavy",
+      "line": 475,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "22. Rollback, roll-forward a disable riešia iné stavy",
+      "line": 475,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "22. Rollback, roll-forward a disable riešia iné stavy",
+      "line": 475,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "22. Rollback, roll-forward a disable riešia iné stavy",
+      "line": 475,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "22. Rollback, roll-forward a disable riešia iné stavy",
+      "line": 475,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -82352,17 +81083,296 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "45. Kontrolný checklist",
-      "line": 852,
+      "section": "22. Rollback, roll-forward a disable riešia iné stavy",
+      "line": 475,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `M3`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "23. Recovery eligibility sa overuje pred releaseom",
+      "line": 496,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "23. Recovery eligibility sa overuje pred releaseom",
+      "line": 496,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "23. Recovery eligibility sa overuje pred releaseom",
+      "line": 496,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `component artifacts a manifest sú dostupné;`, `trust policy ich povoľuje;`, `old config a secret references existujú;`, `expanded schema zostáva old-reader/writer compatible;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "23. Recovery eligibility sa overuje pred releaseom",
+      "line": 496,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "23. Recovery eligibility sa overuje pred releaseom",
+      "line": 496,
       "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "23. Recovery eligibility sa overuje pred releaseom",
+      "line": 496,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "Root cause",
+      "line": 524,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "Náprava",
+      "line": 528,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "Náprava",
+      "line": 528,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "Náprava",
+      "line": 528,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "Náprava",
+      "line": 528,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manifest obsahuje rendered-config revision;`, `evidence deklaruje subject vrstvy, ktoré pokrýva;`, `config delta invaliduje component, capacity a rollout evidence;`, `approval sa automaticky zruší pri zmene manifestu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "Náprava",
+      "line": 528,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "Recovery",
+      "line": 552,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "26. Communication je súčasť release contractu",
+      "line": 568,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "26. Communication je súčasť release contractu",
+      "line": 568,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user-visible capability a known limitations;`, `API additive field a compatibility guidance;`, `operator config a observability zmeny;`, `support diagnostické signály;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "26. Communication je súčasť release contractu",
+      "line": 568,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "26. Communication je súčasť release contractu",
+      "line": 568,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "26. Communication je súčasť release contractu",
+      "line": 568,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "45. Kontrolný checklist",
-      "line": 852,
+      "section": "26. Communication je súčasť release contractu",
+      "line": 568,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "27. Emergency release je zrýchlený, nie neauditovaný flow",
+      "line": 583,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "27. Emergency release je zrýchlený, nie neauditovaný flow",
+      "line": 583,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident a risk dôvod;`, `review primeraný zmene;`, `immutable artifact a provenance;`, `targeted invariant a regression tests;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "27. Emergency release je zrýchlený, nie neauditovaný flow",
+      "line": 583,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "27. Emergency release je zrýchlený, nie neauditovaný flow",
+      "line": 583,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "27. Emergency release je zrýchlený, nie neauditovaný flow",
+      "line": 583,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "28. Hotfix sa musí forward-propagovať",
+      "line": 599,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "29. Release nekončí po promotion na 100 %",
+      "line": 613,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "29. Release nekončí po promotion na 100 %",
+      "line": 613,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "29. Release nekončí po promotion na 100 %",
+      "line": 613,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target deployment a exposure sú potvrdené;`, `required validation windows prešli;`, `async backlog a reconciliation sú stabilné;`, `known issues majú ownerov;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "29. Release nekončí po promotion na 100 %",
+      "line": 613,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "29. Release nekončí po promotion na 100 %",
+      "line": 613,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "29. Release nekončí po promotion na 100 %",
+      "line": 613,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "29. Release nekončí po promotion na 100 %",
+      "line": 613,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EOL`, `policy`",
@@ -82370,8 +81380,125 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Summary",
-      "line": 897,
+      "section": "30. Support, deprecation a end of life sú pokračovaním state machine",
+      "line": 627,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "30. Support, deprecation a end of life sú pokračovaním state machine",
+      "line": 627,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "30. Support, deprecation a end of life sú pokračovaním state machine",
+      "line": 627,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backport scope;`, `vulnerability response;`, `test matrix;`, `artifact retention;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "30. Support, deprecation a end of life sú pokračovaním state machine",
+      "line": 627,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "30. Support, deprecation a end of life sú pokračovaním state machine",
+      "line": 627,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "31. Release revocation zachováva forenznú stopu",
+      "line": 659,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "31. Release revocation zachováva forenznú stopu",
+      "line": 659,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "31. Release revocation zachováva forenznú stopu",
+      "line": 659,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť exposure;`, `zablokovať nové deployments;`, `označiť component artifacts ako nepovolené;`, `upozorniť aktívne environments;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "31. Release revocation zachováva forenznú stopu",
+      "line": 659,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "32. Diagnostický postup",
+      "line": 672,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "32. Diagnostický postup",
+      "line": 672,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "32. Diagnostický postup",
+      "line": 672,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `identifikuj release ID, manifest digest a current state;`, `porovnaj candidate, approved, deployed a exposed identities;`, `potvrď component, config, infrastructure, migration a flag revisions;`, `over completeness a freshness evidence po poslednom supersession;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "32. Diagnostický postup",
+      "line": 672,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "32. Diagnostický postup",
+      "line": 672,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -82379,11 +81506,164 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/release-management.md",
-      "section": "Summary",
-      "line": 897,
+      "section": "32. Diagnostický postup",
+      "line": 672,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `freshness`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 689,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 689,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 689,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 689,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Approval je risk decision, nie náhrada evidence.`, `Cadence nemení quality bar.`, `Deployment a user exposure sú samostatné osi.`, `Promotion používa technical, functional aj business oracles.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 689,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 689,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 689,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 689,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 689,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EOL`, `blast radius`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "34. Časté omyly",
+      "line": 704,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "„Zelený deployment znamená úspešný release“",
+      "line": 706,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "„Approval platí, kým sa nezmení source commit“",
+      "line": 710,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "„100 % instances znamená 100 % používateľov“",
+      "line": 718,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "„Rollback je vždy najrýchlejšia recovery“",
+      "line": 722,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "„Hotfix v release branch stačí“",
+      "line": 726,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "35. Zhrnutie",
+      "line": 730,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/release-management.md",
+      "section": "35. Zhrnutie",
+      "line": 730,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
