@@ -1585,15 +1585,15 @@
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
       "title": "Protected branches a environments",
-      "words": 2632,
-      "headings": 51,
-      "sections": 51,
-      "findings": 126,
-      "critical": 39,
-      "high": 35,
-      "medium": 24,
-      "low": 28,
-      "score": 874,
+      "words": 1872,
+      "headings": 42,
+      "sections": 42,
+      "findings": 102,
+      "critical": 43,
+      "high": 38,
+      "medium": 13,
+      "low": 8,
+      "score": 866,
       "grade": "D"
     },
     {
@@ -88886,44 +88886,17 @@
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "2. Protected branch subject",
-      "line": 31,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "1. Nosný scenár: Atlas Payments release",
+      "line": 19,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "2. Protected branch subject",
-      "line": 31,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priamy push,`, `merge do branchu,`, `force push a history rewrite,`, `deletion alebo neúmyselnú zmenu kritického refu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "2. Protected branch subject",
-      "line": 31,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "2. Protected branch subject",
-      "line": 31,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "2. Protected branch subject",
-      "line": 31,
+      "section": "1. Nosný scenár: Atlas Payments release",
+      "line": 19,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -88931,827 +88904,8 @@
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "2. Protected branch subject",
-      "line": 31,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `enforcement`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "3. Branch-rule resolution",
-      "line": 44,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "4. Allowed to push verzus allowed to merge",
-      "line": 69,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Allowed to push",
-      "line": 73,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Allowed to push",
-      "line": 73,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Allowed to push",
-      "line": 73,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `merge-request review,`, `approval rules,`, `unresolved discussions,`, `merge-result pipeline,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Allowed to push",
-      "line": 73,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "5. Direct-push bypass",
-      "line": 99,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "5. Direct-push bypass",
-      "line": 99,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity a jej ownera,`, `povolený use case,`, `branch scope,`, `token alebo workload-identity scope,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "5. Direct-push bypass",
-      "line": 99,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "5. Direct-push bypass",
-      "line": 99,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "5. Direct-push bypass",
-      "line": 99,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "6. Force push a history rewrite",
-      "line": 121,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "6. Force push a history rewrite",
-      "line": 121,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schválený SHA prestane byť reachable,`, `audit a incident reconstruction sa skomplikujú,`, `downstream branches a forks sa rozídu,`, `malicious actor môže skryť predchádzajúcu zmenu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "6. Force push a history rewrite",
-      "line": 121,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "6. Force push a history rewrite",
-      "line": 121,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "6. Force push a history rewrite",
-      "line": 121,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "7. Unprotect ako capability escalation",
-      "line": 147,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "7. Unprotect ako capability escalation",
-      "line": 147,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `project a group Owners,`, `custom roles s policy-management capabilities,`, `API automation tokens,`, `administrator identities,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "7. Unprotect ako capability escalation",
-      "line": 147,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "7. Unprotect ako capability escalation",
-      "line": 147,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "7. Unprotect ako capability escalation",
-      "line": 147,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "7. Unprotect ako capability escalation",
-      "line": 147,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "8. Protected tags",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production release pipelines,`, `artifact/package publication,`, `version a changelog automation,`, `signing alebo provenance workflows,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "8. Protected tags",
-      "line": 170,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "8. Protected tags",
-      "line": 170,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "9. Code Owner enforcement",
-      "line": 196,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "9. Code Owner enforcement",
-      "line": 196,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target branch protection,`, `matching path patternu,`, `eligible Code Owner membershipu,`, `branch/approval rule nastavenia,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "9. Code Owner enforcement",
-      "line": 196,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "9. Code Owner enforcement",
-      "line": 196,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "11. Environment identity a názov",
-      "line": 238,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "11. Environment identity a názov",
-      "line": 238,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kanonické environment naming rules,`, `environment tier metadata,`, `allowed patterns v shared deployment template,`, `lint/policy kontrolu job definitions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "11. Environment identity a názov",
-      "line": 238,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "11. Environment identity a názov",
-      "line": 238,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "12. Allowed to deploy",
-      "line": 263,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "12. Allowed to deploy",
-      "line": 263,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `actor alebo job identity,`, `project/group membership path,`, `protected ref context,`, `environment name match,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "12. Allowed to deploy",
-      "line": 263,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "12. Allowed to deploy",
-      "line": 263,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "12. Allowed to deploy",
-      "line": 263,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "13. Deploy job ako privileged program",
-      "line": 280,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "13. Deploy job ako privileged program",
-      "line": 280,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline definition revision,`, `source/ref contextu,`, `included templates a scripts,`, `runner/executor trustu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "13. Deploy job ako privileged program",
-      "line": 280,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "13. Deploy job ako privileged program",
-      "line": 280,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "13. Deploy job ako privileged program",
-      "line": 280,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "14. Protected variables",
-      "line": 305,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "14. Protected variables",
-      "line": 305,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malicious pipeline code na trusted ref,`, `kompromitovaný included template alebo action,`, `log, artifact alebo cache leakage,`, `príliš široký runner host access,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "14. Protected variables",
-      "line": 305,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "14. Protected variables",
-      "line": 305,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "14. Protected variables",
-      "line": 305,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "15. Environment-scoped variables",
-      "line": 320,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "15. Environment-scoped variables",
-      "line": 320,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact a wildcard matching,`, `precedence pri viacerých variables s rovnakým key,`, `fallback na broader scope,`, `environment name vytvorený jobom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "15. Environment-scoped variables",
-      "line": 320,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "15. Environment-scoped variables",
-      "line": 320,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "16. Deployment approval",
-      "line": 353,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "16. Deployment approval",
-      "line": 353,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable artifact digest,`, `configuration/infrastructure revision,`, `target environment,`, `risk classification,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "16. Deployment approval",
-      "line": 353,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "16. Deployment approval",
-      "line": 353,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "16. Deployment approval",
-      "line": 353,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "16. Deployment approval",
-      "line": 353,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "17. Deployment record",
-      "line": 371,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "18. Deployment concurrency",
-      "line": 390,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "18. Deployment concurrency",
-      "line": 390,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "18. Deployment concurrency",
-      "line": 390,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource group alebo deployment lock,`, `serialized environment mutation,`, `cancellation superseded runs,`, `optimistic check current deployment generation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "18. Deployment concurrency",
-      "line": 390,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "18. Deployment concurrency",
-      "line": 390,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "20. Review apps",
-      "line": 428,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "20. Review apps",
-      "line": 428,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique a nefalšovateľné environment/resource names,`, `izolované namespaces/accounts,`, `žiadne production credentials,`, `obmedzené network egress a dependencies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "20. Review apps",
-      "line": 428,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "20. Review apps",
-      "line": 428,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "20. Review apps",
-      "line": 428,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "20. Review apps",
-      "line": 428,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "21. Environment tiers",
-      "line": 446,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "21. Environment tiers",
-      "line": 446,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interpretovať deployment metrics,`, `aplikovať governance a reporting,`, `rozlíšiť review/testing/staging/production targets,`, `analyzovať frequency a change-failure rate.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "21. Environment tiers",
-      "line": 446,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "22. Deployment freeze",
-      "line": 457,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "22. Deployment freeze",
-      "line": 457,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected branch a environment,`, `fresh quality gates,`, `progressive rollout,`, `recovery capability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "22. Deployment freeze",
-      "line": 457,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "24. Break-glass lifecycle",
-      "line": 492,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "24. Break-glass lifecycle",
-      "line": 492,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "24. Break-glass lifecycle",
-      "line": 492,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či branch/environment ostali protected,`, `ktoré refs, variables a deployments sa zmenili,`, `či temporary tokens expirovali,`, `či chýbajúce reviews/gates boli doplnené,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "24. Break-glass lifecycle",
-      "line": 492,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "25. Policy as Code a drift detection",
-      "line": 516,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "25. Policy as Code a drift detection",
-      "line": 516,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected branch/tag patterns,`, `direct-push, merge a force-push capabilities,`, `Code Owner enforcement,`, `allowed deployers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "25. Policy as Code a drift detection",
-      "line": 516,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "25. Policy as Code a drift detection",
-      "line": 516,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "25. Policy as Code a drift detection",
-      "line": 516,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `enforcement`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Developer môže pushnúť priamo na main",
-      "line": 543,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Code Owner approval sa nevyžaduje",
-      "line": 547,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Production deploy job je nedostupný",
-      "line": 551,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Protected variable chýba",
-      "line": 555,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Review app dostala production credential",
-      "line": 559,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "27. Typické anti-patterny",
-      "line": 571,
+      "section": "2. Source a runtime authorization sú oddelené",
+      "line": 50,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -89759,8 +88913,8 @@
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Protected main, ale production môže deployovať každý Developer",
-      "line": 573,
+      "section": "Source boundary",
+      "line": 52,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -89768,116 +88922,26 @@
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Allowed to push a allowed to merge sa považujú za to isté",
-      "line": 577,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Maintainer môže unprotect, push a re-protect bez auditovateľného procesu",
-      "line": 581,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Chránený branch, ale nechránený release tag",
-      "line": 585,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Production secrets na každom protected ref-e",
-      "line": 589,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Protection iba podľa environment mena bez naming policy",
-      "line": 593,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Review app zdedí produkčné identity",
-      "line": 597,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Deployment bez serialization",
-      "line": 601,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Emergency znamená globálne vypnutie ochrán",
-      "line": 605,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 609,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 609,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 609,
+      "section": "Source boundary",
+      "line": 52,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 609,
+      "section": "Source boundary",
+      "line": 52,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "14 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktoré branches a tags sú trusted source/release boundaries?`, `Kto smie pushovať, mergeovať, force-pushovať a meniť protection?`, `Ako sa riešia overlapping rules?`, `Ktoré automation identities potrebujú direct ref mutation?`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direct push;`, `merge;`, `force push a history rewrite;`, `branch/tag deletion;`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 609,
+      "section": "Source boundary",
+      "line": 52,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -89885,80 +88949,44 @@
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 609,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 609,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 609,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "28. Praktický rozhodovací rámec",
-      "line": 609,
+      "section": "Source boundary",
+      "line": 52,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `enforcement`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `enforcement`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "29. Kontrolný checklist",
-      "line": 627,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "29. Kontrolný checklist",
-      "line": 627,
+      "section": "Runtime boundary",
+      "line": 63,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "29. Kontrolný checklist",
-      "line": 627,
+      "section": "Runtime boundary",
+      "line": 63,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "29. Kontrolný checklist",
-      "line": 627,
+      "section": "Runtime boundary",
+      "line": 63,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "15 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `critical branches a release tags majú explicitné rules;`, `direct push je zakázaný alebo úzko odôvodnený;`, `force push a unprotect sú silne obmedzené;`, `overlapping rules boli testované;`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto alebo čo smie deployovať;`, `target environment identity;`, `deployment approvals;`, `environment-scoped credentials;`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "29. Kontrolný checklist",
-      "line": 627,
+      "section": "Runtime boundary",
+      "line": 63,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -89966,8 +88994,701 @@
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "29. Kontrolný checklist",
-      "line": 627,
+      "section": "Runtime boundary",
+      "line": 63,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "4. Allowed to push a allowed to merge",
+      "line": 105,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Allowed to push",
+      "line": 107,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Allowed to push",
+      "line": 107,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Allowed to push",
+      "line": 107,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MR review;`, `approvals;`, `discussions;`, `merged-result pipeline;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Allowed to push",
+      "line": 107,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Allowed to push",
+      "line": 107,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "6. Protected tags a release identity",
+      "line": 148,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "6. Protected tags a release identity",
+      "line": 148,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release pipelines;`, `package/container publication;`, `signing a provenance;`, `support/backport lines.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "6. Protected tags a release identity",
+      "line": 148,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "8. Environment naming je security-relevant input",
+      "line": 182,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "8. Environment naming je security-relevant input",
+      "line": 182,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kanonické environment names;`, `explicitný deployment tier;`, `shared trusted template;`, `lint/policy nad environment declaration;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "8. Environment naming je security-relevant input",
+      "line": 182,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "8. Environment naming je security-relevant input",
+      "line": 182,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "10. Deploy job je privilegovaný program",
+      "line": 221,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "10. Deploy job je privilegovaný program",
+      "line": 221,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "10. Deploy job je privilegovaný program",
+      "line": 221,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CI definition revision;`, `source/ref contextu;`, `included templates a scripts;`, `runner/executor trustu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "10. Deploy job je privilegovaný program",
+      "line": 221,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "10. Deploy job je privilegovaný program",
+      "line": 221,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "11. Protected a environment-scoped variables",
+      "line": 244,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "11. Protected a environment-scoped variables",
+      "line": 244,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malicious code na trusted refe;`, `kompromitovaným include/template;`, `log/artifact/cache leakage;`, `príliš širokým runner hostom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "11. Protected a environment-scoped variables",
+      "line": 244,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "12. Deployment approval musí patriť immutable subjectu",
+      "line": 268,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "12. Deployment approval musí patriť immutable subjectu",
+      "line": 268,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest;`, `config/infrastructure revision;`, `target environment;`, `risk a evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "12. Deployment approval musí patriť immutable subjectu",
+      "line": 268,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "12. Deployment approval musí patriť immutable subjectu",
+      "line": 268,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "13. Deployment serialization a generation",
+      "line": 282,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "14. Review apps sú untrusted runtime boundary",
+      "line": 307,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "14. Review apps sú untrusted runtime boundary",
+      "line": 307,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "14. Review apps sú untrusted runtime boundary",
+      "line": 307,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique environment/resource identity;`, `izolovaný namespace/account;`, `žiadne production credentials;`, `bounded network access;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "14. Review apps sú untrusted runtime boundary",
+      "line": 307,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "14. Review apps sú untrusted runtime boundary",
+      "line": 307,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "15. Worked failure: overlapping rule povolila direct push",
+      "line": 323,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Dôsledok",
+      "line": 338,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 342,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 342,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 342,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 342,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstrániť permissive overlap;`, `explicitne nastaviť direct push na critical refs;`, `testovať rule matrix cez reprezentatívne identities;`, `auditovať direct push a protection changes;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 342,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Príčina",
+      "line": 361,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Dôsledok",
+      "line": 365,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 369,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 369,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 369,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 369,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `canonical environment allowlist v trusted component-e;`, `job policy over resolved CI config;`, `environment tier a external target mapping;`, `cloud identity trust iba pre trusted deploy job/ref;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 369,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 369,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Príčina",
+      "line": 381,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 385,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 385,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 385,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 385,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden environment resource group;`, `candidate generation compare-and-swap;`, `superseded-run cancellation;`, `deployment idempotency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 385,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Náprava",
+      "line": 385,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "18. Kauzálny diagnostický walkthrough",
+      "line": 393,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 1 — stabilizuj subjects",
+      "line": 397,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 2 — konkurenčné hypotézy",
+      "line": 408,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 3 — observation points",
+      "line": 420,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 3 — observation points",
+      "line": 420,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 3 — observation points",
+      "line": 420,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `branch audit a matching rules testujú H1;`, `pipeline source a resolved job rules testujú H2;`, `environment record a protection match testujú H3;`, `variable provenance testuje H4;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 3 — observation points",
+      "line": 420,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 3 — observation points",
+      "line": 420,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 3 — observation points",
+      "line": 420,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H5`, `H7`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 4 — containment",
+      "line": 432,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 4 — containment",
+      "line": 432,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 4 — containment",
+      "line": 432,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 4 — containment",
+      "line": 432,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `revoke/rotate cloud key;`, `stop neautorizovaný job/environment;`, `obnov intended digest cez trusted deployment workflow;`, `audit artifacts, logs a runtime mutations.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 4 — containment",
+      "line": 432,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 5 — verify outcome",
+      "line": 439,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "Krok 6 — skorší control",
+      "line": 449,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "19. Break-glass a drift",
+      "line": 453,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "19. Break-glass a drift",
+      "line": 453,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "20. Diagnostický runbook",
+      "line": 476,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "20. Diagnostický runbook",
+      "line": 476,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "20. Diagnostický runbook",
+      "line": 476,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "20. Diagnostický runbook",
+      "line": 476,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Urči source, artifact, job a runtime target identity.`, `Vyhodnoť všetky matching branch/tag rules.`, `Rozlíš push, merge, unprotect a deploy capabilities.`, `Skontroluj pipeline source a resolved deploy job.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "20. Diagnostický runbook",
+      "line": 476,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "20. Diagnostický runbook",
+      "line": 476,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -89975,8 +89696,8 @@
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "29. Kontrolný checklist",
-      "line": 627,
+      "section": "20. Diagnostický runbook",
+      "line": 476,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -89984,8 +89705,8 @@
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "29. Kontrolný checklist",
-      "line": 627,
+      "section": "20. Diagnostický runbook",
+      "line": 476,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -89993,17 +89714,71 @@
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "29. Kontrolný checklist",
-      "line": 627,
+      "section": "20. Diagnostický runbook",
+      "line": 476,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `enforcement`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `workload`, `freshness`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Summary",
-      "line": 664,
+      "section": "21. Referenčné pravidlá",
+      "line": 489,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 489,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 489,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 489,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Protected ref a protected environment sú dve boundaries.`, `Unprotect je policy-management capability.`, `Environment name je security-relevant input.`, `Deploy job je privilegovaný program.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 489,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 489,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 489,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -90011,12 +89786,21 @@
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
-      "section": "Summary",
-      "line": 664,
+      "section": "21. Referenčné pravidlá",
+      "line": 489,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/protected-branches-and-environments.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 489,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
+      "score": 4
     },
     {
       "path": "docs/06-gitlab/runners-and-executors.md",
