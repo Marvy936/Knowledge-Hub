@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11650**
-- Total words: **579,613**
-- Findings: **26656** (critical 8705, high 9664, medium 3704, low 4583)
+- Audited conceptual sections: **11626**
+- Total words: **578,701**
+- Findings: **26510** (critical 8660, high 9622, medium 3674, low 4554)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -38,7 +38,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1603 | 76 | 68 | 31 | 40 | 3136 | `docs/05-ci-cd-and-release/release-management.md` |
 | D | 1511 | 73 | 64 | 30 | 22 | 2295 | `docs/11-cloud-and-aws/rds.md` |
 | D | 1499 | 65 | 79 | 21 | 21 | 2459 | `docs/12-observability/alertmanager.md` |
-| D | 1482 | 65 | 62 | 42 | 46 | 3462 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
 | D | 1474 | 70 | 67 | 27 | 16 | 2255 | `docs/06-gitlab/container-and-package-registry.md` |
 | D | 1470 | 71 | 64 | 27 | 18 | 2384 | `docs/12-observability/fluent-bit.md` |
 | D | 1465 | 70 | 64 | 23 | 28 | 2503 | `docs/12-observability/elasticsearch-opensearch.md` |
@@ -215,6 +214,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 489 | 19 | 27 | 13 | 1 | 1428 | `docs/09-kubernetes/serviceaccount.md` |
 | D | 478 | 16 | 33 | 8 | 0 | 1400 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | D | 473 | 25 | 14 | 10 | 22 | 2494 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
+| D | 467 | 20 | 20 | 12 | 17 | 2550 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
 | D | 454 | 18 | 27 | 6 | 4 | 1468 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
 | D | 453 | 19 | 25 | 7 | 2 | 1256 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | D | 453 | 17 | 28 | 7 | 3 | 1447 | `docs/10-helm-and-cka/named-templates.md` |
@@ -5795,133 +5795,46 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 60, `outline-instead-of-explanation` — **4. Reusable script a tool**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 81, `bare-bullet-items` — **5. Reusable job contract**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input names, types, defaults a allowed values,`, `secret alebo workload-identity requirements,`, `runtime image a architecture,`, `runner capabilities,`.
-- **CRITICAL** line 101, `outline-instead-of-explanation` — **6. Reusable workflow contract**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 126, `bare-bullet-items` — **7. Resolved template identity**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consumer commit SHA,`, `reusable workflow alebo template revision,`, `všetky transitive include revisions,`, `rendered/resolved configuration digest,`.
-- **CRITICAL** line 165, `bare-bullet-items` — **9. Compatibility contract**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmenu default value alebo precedence,`, `zmenu artifact name, path alebo media type,`, `zmenu output schema,`, `zmenu required permissions,`.
-- **CRITICAL** line 203, `outline-instead-of-explanation` — **11. Centralizácia verzus autonómia**: 6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 218, `bare-bullet-items` — **12. Provider ownership a service model**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dokumentovaný owner a support channel,`, `compatibility a release policy,`, `security review a dependency update proces,`, `representative test suite,`.
-- **CRITICAL** line 218, `outline-instead-of-explanation` — **12. Provider ownership a service model**: 8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 233, `bare-bullet-items` — **13. Consumer responsibilities**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pinovať podporovanú provider version,`, `validovať inputs a repository assumptions,`, `deklarovať potrebné permissions a secrets,`, `spracovať outputs podľa contractu,`.
-- **CRITICAL** line 233, `outline-instead-of-explanation` — **13. Consumer responsibilities**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 248, `bare-bullet-items` — **14. Parallel execution a critical path**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstrániť zbytočné stage barriers,`, `začať nezávislé checks skôr,`, `rozdeliť veľký suite na shards,`, `presunúť reusable setup do pinovaného image,`.
-- **CRITICAL** line 248, `outline-instead-of-explanation` — **14. Parallel execution a critical path**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 299, `bare-bullet-items` — **17. Fan-in a completeness**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poznať očakávaný počet a identity výsledkov,`, `rozlíšiť required a optional children,`, `odmietnuť duplicate alebo výsledok z iného artifactu,`, `rozpoznať missing, canceled a timed-out child,`.
-- **CRITICAL** line 299, `outline-instead-of-explanation` — **17. Fan-in a completeness**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 323, `bare-bullet-items` — **18. Matrix pipeline**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `support matrix zdroj pravdy,`, `required a experimental kombinácie,`, `expected job identities,`, `concurrency limits,`.
-- **CRITICAL** line 323, `outline-instead-of-explanation` — **18. Matrix pipeline**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 345, `bare-bullet-items` — **19. Selective matrix**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `representative smoke matrix v pull requeste,`, `affected combinations podľa componentu,`, `oldest a newest supported runtime ako povinné boundaries,`, `full matrix pred releaseom,`.
-- **CRITICAL** line 345, `outline-instead-of-explanation` — **19. Selective matrix**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 358, `bare-bullet-items` — **20. Test sharding**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `statické rozdelenie podľa files,`, `hash test ID,`, `historical-duration balancing,`, `dynamic work stealing,`.
-- **CRITICAL** line 358, `outline-instead-of-explanation` — **20. Test sharding**: 13 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 381, `bare-bullet-items` — **21. Shard imbalance**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `p50/p95 shard duration,`, `rozdiel najrýchlejší verzus najpomalší shard,`, `test setup overhead,`, `historické outliers,`.
-- **CRITICAL** line 381, `outline-instead-of-explanation` — **21. Shard imbalance**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 396, `bare-bullet-items` — **22. Shared-state race conditions**: 18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnakú databázu alebo schema,`, `statický tenant alebo test account,`, `object-storage prefix,`, `mutable artifact tag,`.
-- **CRITICAL** line 396, `outline-instead-of-explanation` — **22. Shared-state race conditions**: 18 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 438, `bare-bullet-items` — **24. Retry identity**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový attempt toho istého jobu,`, `nový job instance,`, `nový child pipeline,`, `celý nový pipeline run.`.
-- **CRITICAL** line 458, `bare-bullet-items` — **25. Cache pri paralelizácii**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shared base cache je read-only,`, `jeden designated writer publikuje po úspešnom jobe,`, `publication je atomic,`, `untrusted jobs nezapisujú do trusted namespace,`.
-- **CRITICAL** line 458, `outline-instead-of-explanation` — **25. Cache pri paralelizácii**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 474, `bare-bullet-items` — **26. Concurrency limits a backpressure**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runner pools,`, `CI organization quota,`, `registry throughput,`, `package mirrors,`.
-- **CRITICAL** line 474, `outline-instead-of-explanation` — **26. Concurrency limits a backpressure**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 489, `bare-bullet-items` — **27. Resource-aware scheduling**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU-heavy compilation,`, `memory-heavy static analysis,`, `I/O-heavy dependency restore,`, `network-heavy artifact transfer,`.
-- **CRITICAL** line 504, `bare-bullet-items` — **28. Fail-fast**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cieľom je čo najrýchlejší merge feedback,`, `ďalšie results nepridajú významnú diagnostickú hodnotu,`, `cancellation je bezpečná,`, `cleanup a report upload zostanú aktívne.`.
-- **CRITICAL** line 504, `outline-instead-of-explanation` — **28. Fail-fast**: 8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 524, `bare-bullet-items` — **29. Continue-on-error a optional support**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný risk dôvod,`, `ownera,`, `označenie experimental/advisory,`, `expiráciu alebo maturity criteria,`.
-- **CRITICAL** line 524, `outline-instead-of-explanation` — **29. Continue-on-error a optional support**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 539, `bare-bullet-items` — **30. Child pipelines**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `child input identity,`, `inherited a explicitné permissions,`, `artifacts a outputs,`, `completion/failure propagation,`.
-- **CRITICAL** line 557, `bare-bullet-items` — **31. Multi-project pipelines**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `short-lived scoped authentication,`, `immutable source a artifact identity,`, `versioned request/response contract,`, `idempotency key,`.
-- **CRITICAL** line 557, `outline-instead-of-explanation` — **31. Multi-project pipelines**: 9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 575, `bare-bullet-items` — **32. Reusable deployment workflow**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest alebo release-manifest digest,`, `target environment identity,`, `config revision,`, `rollout strategy a guardrails,`.
-- **CRITICAL** line 575, `outline-instead-of-explanation` — **32. Reusable deployment workflow**: 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 591, `bare-bullet-items` — **33. Permission inheritance**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či callee môže rozšíriť práva alebo iba zúžiť,`, `ktoré secrets sa prenášajú explicitne,`, `či nested workflow dostane rovnaké credentials,`, `či untrusted branch môže zvoliť privileged reusable workflow,`.
-- **CRITICAL** line 591, `outline-instead-of-explanation` — **33. Permission inheritance**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 610, `bare-bullet-items` — **Static contract tests**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input/output schema,`, `resolved config,`, `DAG cycles a missing dependencies,`, `permission policy,`.
-- **CRITICAL** line 610, `no-prose-concept` — **Static contract tests**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 610, `outline-instead-of-explanation` — **Static contract tests**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 618, `bare-bullet-items` — **Unit tests tools/scripts**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `argument parsing,`, `error classes,`, `idempotency,`, `plan generation,`.
-- **CRITICAL** line 618, `no-prose-concept` — **Unit tests tools/scripts**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 618, `outline-instead-of-explanation` — **Unit tests tools/scripts**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 626, `bare-bullet-items` — **Component tests**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `disposable runner,`, `artifact publication a retrieval,`, `reports a outputs,`, `failure/cancel/cleanup paths.`.
-- **CRITICAL** line 626, `no-prose-concept` — **Component tests**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 626, `outline-instead-of-explanation` — **Component tests**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 633, `bare-bullet-items` — **Representative consumer fixtures**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchá služba,`, `monorepo,`, `Windows/Linux workload,`, `protected deployment,`.
-- **CRITICAL** line 633, `no-prose-concept` — **Representative consumer fixtures**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 633, `outline-instead-of-explanation` — **Representative consumer fixtures**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 642, `no-prose-concept` — **Canary rollout**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 648, `bare-bullet-items` — **35. Observability providera**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet consumerov podľa version,`, `adoption a migration rate,`, `failure rate podľa provider revision,`, `critical-path contribution,`.
-- **CRITICAL** line 648, `outline-instead-of-explanation` — **35. Observability providera**: 10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 665, `outline-instead-of-explanation` — **36. Performance a cost model**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 679, `outline-instead-of-explanation` — **37. Diagnostický postup**: 11 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 695, `empty-section` — **38. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 737, `bare-bullet-items` — **39. Praktický rozhodovací rámec**: 15 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorá úroveň reuse je najnižšia a stále dostatočná?`, `Kto je provider a kto consumer?`, `Aký je explicitný input/output a failure contract?`, `Aká immutable provider version sa používa?`.
-- **CRITICAL** line 737, `no-prose-concept` — **39. Praktický rozhodovací rámec**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 737, `outline-instead-of-explanation` — **39. Praktický rozhodovací rámec**: 17 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 757, `bare-bullet-items` — **40. Kontrolný checklist**: 17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contract je versionovaný a dokumentovaný,`, `provider revision a transitive dependencies sú pinned,`, `resolved graph a permissions sú auditovateľné,`, `inputs majú typy, defaults a validation,`.
-- **CRITICAL** line 757, `outline-instead-of-explanation` — **40. Kontrolný checklist**: 17 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 97, `bare-bullet-items` — **3. Provider a consumer vlastnia odlišné časti systému**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input a output schema;`, `graph semantics;`, `tool a runtime dependencies;`, `maximálny permission envelope;`.
+- **CRITICAL** line 97, `outline-instead-of-explanation` — **3. Provider a consumer vlastnia odlišné časti systému**: 13 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 146, `bare-bullet-items` — **5. Provider contract musí pokryť správanie, nie iba názvy inputov**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmení default z publish=false na true ;`, `premenuje artifact alebo output field;`, `zmení required runner OS;`, `rozšíri permissions;`.
+- **CRITICAL** line 146, `outline-instead-of-explanation` — **5. Provider contract musí pokryť správanie, nie iba názvy inputov**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 183, `bare-bullet-items` — **6. Consumer binduje immutable provider identity**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consumer commit;`, `provider a transitive include revisions;`, `tool a image digests;`, `typed inputs bez secret materialu;`.
+- **CRITICAL** line 227, `bare-bullet-items` — **8. Critical path nie je súčet jobov**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `wall-clock latency;`, `critical path;`, `queue time;`, `total compute;`.
+- **CRITICAL** line 289, `bare-bullet-items` — **10. Matrix a sharding sú inventory problémy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoznačný test inventory;`, `auditovateľné assignment pravidlo;`, `izolované test data;`, `deterministic seed alebo zaznamenanú randomizáciu;`.
+- **CRITICAL** line 337, `bare-bullet-items` — **12. Paralelné jobs musia zdieľať identitu, nie mutable state**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-run database schema alebo tenant;`, `unique object-storage prefix;`, `immutable artifact names;`, `per-platform cache namespace;`.
+- **CRITICAL** line 412, `bare-bullet-items` — **16. Child a multi-project pipeline musia propagovať výsledok**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable child input;`, `inherited a explicitné permissions;`, `completion a failure propagation;`, `artifacts a outputs;`.
+- **CRITICAL** line 445, `bare-bullet-items` — **18. Provider zmenu rolloutuje ako produktovú zmenu**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failure rate podľa provider revision;`, `resolved-graph a permission diffs;`, `critical-path contribution a queue time;`, `artifact/evidence completeness;`.
+- **CRITICAL** line 445, `outline-instead-of-explanation` — **18. Provider zmenu rolloutuje ako produktovú zmenu**: 7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 489, `bare-bullet-items` — **Náprava**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fan-out manifest deklaruje required result identities pred schedulingo`, `variant result obsahuje child digest a platform identity;`, `unknown selector state spúšťa conservative full matrix;`, `provider fixture overuje amd64/arm64 graph a missing-child failure;`.
+- **CRITICAL** line 489, `no-prose-concept` — **Náprava**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 489, `outline-instead-of-explanation` — **Náprava**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 514, `no-prose-concept` — **Náprava**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 514, `outline-instead-of-explanation` — **Náprava**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 522, `outline-instead-of-explanation` — **21. Diagnostický postup**: 11 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 540, `no-prose-concept` — **22. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 540, `outline-instead-of-explanation` — **22. Referenčné pravidlá**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 556, `empty-section` — **23. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 45, `list-heavy-section` — **3. Úrovne reuse**: 8 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 81, `list-heavy-section` — **5. Reusable job contract**: 13 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 101, `single-sentence-concept` — **6. Reusable workflow contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 126, `list-heavy-section` — **7. Resolved template identity**: 9 odrážok a iba 42 slov súvislého vysvetlenia.
-- **HIGH** line 165, `list-heavy-section` — **9. Compatibility contract**: 11 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 203, `bare-bullet-items` — **11. Centralizácia verzus autonómia**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `platforma poskytuje opinionated golden paths,`, `kritické security a provenance controls sú centrálne enforced,`, `escape hatch je explicitný, auditovaný a časovo obmedzený,`, `provider meria adopciu, overrides a failure rate.`.
-- **HIGH** line 323, `single-sentence-concept` — **18. Matrix pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 358, `single-sentence-concept` — **20. Test sharding**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 396, `single-sentence-concept` — **22. Shared-state race conditions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 438, `list-heavy-section` — **24. Retry identity**: 10 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 489, `list-heavy-section` — **27. Resource-aware scheduling**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 539, `list-heavy-section` — **30. Child pipelines**: 9 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 606, `single-sentence-concept` — **34. Testing reusable components**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 610, `list-first-introduction` — **Static contract tests**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 618, `list-first-introduction` — **Unit tests tools/scripts**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 626, `list-first-introduction` — **Component tests**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 633, `list-first-introduction` — **Representative consumer fixtures**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 642, `bare-bullet-items` — **Canary rollout**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `sleduje failure, runtime a permission changes,`, `až potom rozširuje adoption.`.
-- **HIGH** line 642, `list-first-introduction` — **Canary rollout**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 648, `single-sentence-concept` — **35. Observability providera**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 665, `single-sentence-concept` — **36. Performance a cost model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 679, `bare-bullet-items` — **37. Diagnostický postup**: 8 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `identifikuj consumer commit a provider/template revisions;`, `získaj resolved graph digest a effective permissions;`, `over immutable artifact identity použitú všetkými branches;`, `porovnaj expected a actual child/shard inventory;`.
-- **HIGH** line 679, `single-sentence-concept` — **37. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 697, `single-sentence-concept` — **Reuse ako copy-paste YAML**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 701, `single-sentence-concept` — **Floating template pre všetkých consumerov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 705, `single-sentence-concept` — **Template s implicitnými admin permissions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 709, `single-sentence-concept` — **Fan-out z mutable tagu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 713, `single-sentence-concept` — **Fan-in bez expected inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 717, `single-sentence-concept` — **Maximum parallelism bez capacity budgetu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 721, `single-sentence-concept` — **Retry bez attempt identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 725, `single-sentence-concept` — **Child pipeline fire-and-forget**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 729, `single-sentence-concept` — **Optional job bez lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 733, `single-sentence-concept` — **Centralizácia bez escape hatchu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 737, `list-first-introduction` — **39. Praktický rozhodovací rámec**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 757, `single-sentence-concept` — **40. Kontrolný checklist**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 45, `term-before-explanation` — **3. Úrovne reuse**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CLI`, `API`, `CI`, `policy`
-- **HIGH** line 101, `thin-concept-section` — **6. Reusable workflow contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 218, `thin-concept-section` — **12. Provider ownership a service model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 233, `thin-concept-section` — **13. Consumer responsibilities**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 299, `thin-concept-section` — **17. Fan-in a completeness**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 323, `thin-concept-section` — **18. Matrix pipeline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 358, `thin-concept-section` — **20. Test sharding**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 396, `thin-concept-section` — **22. Shared-state race conditions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 458, `thin-concept-section` — **25. Cache pri paralelizácii**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 474, `thin-concept-section` — **26. Concurrency limits a backpressure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 489, `term-before-explanation` — **27. Resource-aware scheduling**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU-`, `O-`, `GPU`, `workload`
-- **HIGH** line 504, `thin-concept-section` — **28. Fail-fast**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 524, `thin-concept-section` — **29. Continue-on-error a optional support**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 591, `thin-concept-section` — **33. Permission inheritance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 610, `thin-concept-section` — **Static contract tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 618, `thin-concept-section` — **Unit tests tools/scripts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 626, `thin-concept-section` — **Component tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 633, `thin-concept-section` — **Representative consumer fixtures**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 642, `thin-concept-section` — **Canary rollout**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 648, `thin-concept-section` — **35. Observability providera**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 665, `thin-concept-section` — **36. Performance a cost model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 679, `thin-concept-section` — **37. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 737, `thin-concept-section` — **39. Praktický rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 757, `thin-concept-section` — **40. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 183, `list-heavy-section` — **6. Consumer binduje immutable provider identity**: 8 odrážok a iba 42 slov súvislého vysvetlenia.
+- **HIGH** line 183, `single-sentence-concept` — **6. Consumer binduje immutable provider identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 227, `list-heavy-section` — **8. Critical path nie je súčet jobov**: 7 odrážok a iba 61 slov súvislého vysvetlenia.
+- **HIGH** line 289, `list-heavy-section` — **10. Matrix a sharding sú inventory problémy**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 337, `list-heavy-section` — **12. Paralelné jobs musia zdieľať identitu, nie mutable state**: 7 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 412, `list-heavy-section` — **16. Child a multi-project pipeline musia propagovať výsledok**: 8 odrážok a iba 47 slov súvislého vysvetlenia.
+- **HIGH** line 471, `single-sentence-concept` — **19. Worked failure: arm64 shard zmizol a fan-in zostal zelený**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 489, `list-first-introduction` — **Náprava**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 498, `single-sentence-concept` — **20. Worked failure: retry zmiešal dva artifacty**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 514, `list-first-introduction` — **Náprava**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 522, `bare-bullet-items` — **21. Diagnostický postup**: 6 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `načítaj resolved graph digest a effective permissions;`, `identifikuj jeden immutable artifact alebo release-manifest subject;`, `porovnaj expected fan-out inventory s vytvorenými jobs;`, `porovnaj expected inventory s prijatými results;`.
+- **HIGH** line 540, `list-first-introduction` — **22. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 558, `single-sentence-concept` — **„Reusable pipeline je centrálna YAML šablóna“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 562, `single-sentence-concept` — **„Viac paralelných jobs vždy znamená rýchlejšiu pipeline“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 566, `single-sentence-concept` — **„Fan-in je zelený, keď všetky doručené reports sú zelené“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 574, `single-sentence-concept` — **„Optional job môžeme ignorovať“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 489, `thin-concept-section` — **Náprava**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 514, `thin-concept-section` — **Náprava**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 540, `thin-concept-section` — **22. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/05-ci-cd-and-release/ring-deployment.md`
 
@@ -19419,19 +19332,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3978 | 408 | 0 | 0 | 4386 |
-| `single-sentence-concept` | 0 | 3972 | 0 | 0 | 3972 |
-| `outline-instead-of-explanation` | 3789 | 0 | 0 | 0 | 3789 |
-| `thin-concept-section` | 0 | 3375 | 0 | 0 | 3375 |
-| `term-before-explanation` | 0 | 441 | 2541 | 0 | 2982 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1870 | 1870 |
-| `example-not-explicit` | 0 | 0 | 0 | 1792 | 1792 |
-| `short-concept-section` | 0 | 0 | 1163 | 0 | 1163 |
-| `list-first-introduction` | 0 | 1084 | 0 | 0 | 1084 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 921 | 921 |
+| `bare-bullet-items` | 3958 | 406 | 0 | 0 | 4364 |
+| `single-sentence-concept` | 0 | 3960 | 0 | 0 | 3960 |
+| `outline-instead-of-explanation` | 3768 | 0 | 0 | 0 | 3768 |
+| `thin-concept-section` | 0 | 3355 | 0 | 0 | 3355 |
+| `term-before-explanation` | 0 | 439 | 2522 | 0 | 2961 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1858 | 1858 |
+| `example-not-explicit` | 0 | 0 | 0 | 1779 | 1779 |
+| `short-concept-section` | 0 | 0 | 1152 | 0 | 1152 |
+| `list-first-introduction` | 0 | 1080 | 0 | 0 | 1080 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 917 | 917 |
 | `empty-section` | 492 | 0 | 0 | 0 | 492 |
-| `no-prose-concept` | 446 | 0 | 0 | 0 | 446 |
-| `list-heavy-section` | 0 | 384 | 0 | 0 | 384 |
+| `no-prose-concept` | 442 | 0 | 0 | 0 | 442 |
+| `list-heavy-section` | 0 | 382 | 0 | 0 | 382 |
 
 ## Required remediation pattern
 

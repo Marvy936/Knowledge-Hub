@@ -1403,15 +1403,15 @@
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
       "title": "Reusable a parallel pipelines",
-      "words": 3462,
-      "headings": 59,
-      "sections": 59,
-      "findings": 215,
-      "critical": 65,
-      "high": 62,
-      "medium": 42,
-      "low": 46,
-      "score": 1482,
+      "words": 2550,
+      "headings": 35,
+      "sections": 35,
+      "findings": 69,
+      "critical": 20,
+      "high": 20,
+      "medium": 12,
+      "low": 17,
+      "score": 467,
       "grade": "D"
     },
     {
@@ -83074,24 +83074,6 @@
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
@@ -83101,10 +83083,10 @@
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
@@ -83112,103 +83094,31 @@
       "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CD`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "1. Definícia",
-      "line": 9,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "2. Mental model: provider, consumer a runtime graph",
-      "line": 25,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "2. Mental model: provider, consumer a runtime graph",
-      "line": 25,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "3. Úrovne reuse",
-      "line": 45,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "3. Úrovne reuse",
-      "line": 45,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "3. Úrovne reuse",
-      "line": 45,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "3. Úrovne reuse",
-      "line": 45,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "3. Úrovne reuse",
-      "line": 45,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "3. Úrovne reuse",
-      "line": 45,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CLI`, `API`, `CI`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "4. Reusable script a tool",
-      "line": 60,
+      "section": "3. Provider a consumer vlastnia odlišné časti systému",
+      "line": 97,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "detail": "13 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "4. Reusable script a tool",
-      "line": 60,
+      "section": "3. Provider a consumer vlastnia odlišné časti systému",
+      "line": 97,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input a output schema;`, `graph semantics;`, `tool a runtime dependencies;`, `maximálny permission envelope;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "3. Provider a consumer vlastnia odlišné časti systému",
+      "line": 97,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -83216,8 +83126,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "4. Reusable script a tool",
-      "line": 60,
+      "section": "3. Provider a consumer vlastnia odlišné časti systému",
+      "line": 97,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -83225,8 +83135,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "4. Reusable script a tool",
-      "line": 60,
+      "section": "3. Provider a consumer vlastnia odlišné časti systému",
+      "line": 97,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -83234,314 +83144,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "4. Reusable script a tool",
-      "line": 60,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "5. Reusable job contract",
-      "line": 81,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "13 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "5. Reusable job contract",
-      "line": 81,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input names, types, defaults a allowed values,`, `secret alebo workload-identity requirements,`, `runtime image a architecture,`, `runner capabilities,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "5. Reusable job contract",
-      "line": 81,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "5. Reusable job contract",
-      "line": 81,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "5. Reusable job contract",
-      "line": 81,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "5. Reusable job contract",
-      "line": 81,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "5. Reusable job contract",
-      "line": 81,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "6. Reusable workflow contract",
-      "line": 101,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "6. Reusable workflow contract",
-      "line": 101,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "6. Reusable workflow contract",
-      "line": 101,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "6. Reusable workflow contract",
-      "line": 101,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "6. Reusable workflow contract",
-      "line": 101,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "7. Resolved template identity",
-      "line": 126,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 42 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "7. Resolved template identity",
-      "line": 126,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consumer commit SHA,`, `reusable workflow alebo template revision,`, `všetky transitive include revisions,`, `rendered/resolved configuration digest,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "7. Resolved template identity",
-      "line": 126,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "7. Resolved template identity",
-      "line": 126,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "7. Resolved template identity",
-      "line": 126,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "7. Resolved template identity",
-      "line": 126,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "7. Resolved template identity",
-      "line": 126,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `policy`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "8. Versioning reusable components",
-      "line": 152,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "8. Versioning reusable components",
-      "line": 152,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "8. Versioning reusable components",
-      "line": 152,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "9. Compatibility contract",
-      "line": 165,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "9. Compatibility contract",
-      "line": 165,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmenu default value alebo precedence,`, `zmenu artifact name, path alebo media type,`, `zmenu output schema,`, `zmenu required permissions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "9. Compatibility contract",
-      "line": 165,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "9. Compatibility contract",
-      "line": 165,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "9. Compatibility contract",
-      "line": 165,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "9. Compatibility contract",
-      "line": 165,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "10. Contract negotiation a capability detection",
-      "line": 185,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "11. Centralizácia verzus autonómia",
-      "line": 203,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "11. Centralizácia verzus autonómia",
-      "line": 203,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `platforma poskytuje opinionated golden paths,`, `kritické security a provenance controls sú centrálne enforced,`, `escape hatch je explicitný, auditovaný a časovo obmedzený,`, `provider meria adopciu, overrides a failure rate.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "11. Centralizácia verzus autonómia",
-      "line": 203,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "11. Centralizácia verzus autonómia",
-      "line": 203,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "11. Centralizácia verzus autonómia",
-      "line": 203,
+      "section": "3. Provider a consumer vlastnia odlišné časti systému",
+      "line": 97,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -83549,89 +83153,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "12. Provider ownership a service model",
-      "line": 218,
+      "section": "4. Reuse boundary má byť čo najnižšia, ale úplná",
+      "line": 120,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "5. Provider contract musí pokryť správanie, nie iba názvy inputov",
+      "line": 146,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "12. Provider ownership a service model",
-      "line": 218,
+      "section": "5. Provider contract musí pokryť správanie, nie iba názvy inputov",
+      "line": 146,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dokumentovaný owner a support channel,`, `compatibility a release policy,`, `security review a dependency update proces,`, `representative test suite,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmení default z publish=false na true ;`, `premenuje artifact alebo output field;`, `zmení required runner OS;`, `rozšíri permissions;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "12. Provider ownership a service model",
-      "line": 218,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "12. Provider ownership a service model",
-      "line": 218,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "13. Consumer responsibilities",
-      "line": 233,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "13. Consumer responsibilities",
-      "line": 233,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pinovať podporovanú provider version,`, `validovať inputs a repository assumptions,`, `deklarovať potrebné permissions a secrets,`, `spracovať outputs podľa contractu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "13. Consumer responsibilities",
-      "line": 233,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "14. Parallel execution a critical path",
-      "line": 248,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "14. Parallel execution a critical path",
-      "line": 248,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstrániť zbytočné stage barriers,`, `začať nezávislé checks skôr,`, `rozdeliť veľký suite na shards,`, `presunúť reusable setup do pinovaného image,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "14. Parallel execution a critical path",
-      "line": 248,
+      "section": "5. Provider contract musí pokryť správanie, nie iba názvy inputov",
+      "line": 146,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -83639,17 +83189,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "15. DAG dependencies",
-      "line": 269,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "15. DAG dependencies",
-      "line": 269,
+      "section": "5. Provider contract musí pokryť správanie, nie iba názvy inputov",
+      "line": 146,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -83657,53 +83198,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "15. DAG dependencies",
-      "line": 269,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "17. Fan-in a completeness",
-      "line": 299,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "17. Fan-in a completeness",
-      "line": 299,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poznať očakávaný počet a identity výsledkov,`, `rozlíšiť required a optional children,`, `odmietnuť duplicate alebo výsledok z iného artifactu,`, `rozpoznať missing, canceled a timed-out child,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "17. Fan-in a completeness",
-      "line": 299,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "17. Fan-in a completeness",
-      "line": 299,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "17. Fan-in a completeness",
-      "line": 299,
+      "section": "5. Provider contract musí pokryť správanie, nie iba názvy inputov",
+      "line": 146,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -83711,332 +83207,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "17. Fan-in a completeness",
-      "line": 299,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "18. Matrix pipeline",
-      "line": 323,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "18. Matrix pipeline",
-      "line": 323,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "18. Matrix pipeline",
-      "line": 323,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `support matrix zdroj pravdy,`, `required a experimental kombinácie,`, `expected job identities,`, `concurrency limits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "18. Matrix pipeline",
-      "line": 323,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "18. Matrix pipeline",
-      "line": 323,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "19. Selective matrix",
-      "line": 345,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "19. Selective matrix",
-      "line": 345,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `representative smoke matrix v pull requeste,`, `affected combinations podľa componentu,`, `oldest a newest supported runtime ako povinné boundaries,`, `full matrix pred releaseom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "19. Selective matrix",
-      "line": 345,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "19. Selective matrix",
-      "line": 345,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "20. Test sharding",
-      "line": 358,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "20. Test sharding",
-      "line": 358,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "20. Test sharding",
-      "line": 358,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `statické rozdelenie podľa files,`, `hash test ID,`, `historical-duration balancing,`, `dynamic work stealing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "20. Test sharding",
-      "line": 358,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "20. Test sharding",
-      "line": 358,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "20. Test sharding",
-      "line": 358,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "20. Test sharding",
-      "line": 358,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "21. Shard imbalance",
-      "line": 381,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "21. Shard imbalance",
-      "line": 381,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `p50/p95 shard duration,`, `rozdiel najrýchlejší verzus najpomalší shard,`, `test setup overhead,`, `historické outliers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "21. Shard imbalance",
-      "line": 381,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "21. Shard imbalance",
-      "line": 381,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "22. Shared-state race conditions",
-      "line": 396,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "22. Shared-state race conditions",
-      "line": 396,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "18 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "22. Shared-state race conditions",
-      "line": 396,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnakú databázu alebo schema,`, `statický tenant alebo test account,`, `object-storage prefix,`, `mutable artifact tag,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "22. Shared-state race conditions",
-      "line": 396,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "22. Shared-state race conditions",
-      "line": 396,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "22. Shared-state race conditions",
-      "line": 396,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "22. Shared-state race conditions",
-      "line": 396,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "24. Retry identity",
-      "line": 438,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "24. Retry identity",
-      "line": 438,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový attempt toho istého jobu,`, `nový job instance,`, `nový child pipeline,`, `celý nový pipeline run.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "24. Retry identity",
-      "line": 438,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "24. Retry identity",
-      "line": 438,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "25. Cache pri paralelizácii",
-      "line": 458,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "25. Cache pri paralelizácii",
-      "line": 458,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shared base cache je read-only,`, `jeden designated writer publikuje po úspešnom jobe,`, `publication je atomic,`, `untrusted jobs nezapisujú do trusted namespace,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "25. Cache pri paralelizácii",
-      "line": 458,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "25. Cache pri paralelizácii",
-      "line": 458,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "25. Cache pri paralelizácii",
-      "line": 458,
+      "section": "5. Provider contract musí pokryť správanie, nie iba názvy inputov",
+      "line": 146,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
@@ -84044,332 +83216,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "26. Concurrency limits a backpressure",
-      "line": 474,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "26. Concurrency limits a backpressure",
-      "line": 474,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runner pools,`, `CI organization quota,`, `registry throughput,`, `package mirrors,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "26. Concurrency limits a backpressure",
-      "line": 474,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "26. Concurrency limits a backpressure",
-      "line": 474,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "26. Concurrency limits a backpressure",
-      "line": 474,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "27. Resource-aware scheduling",
-      "line": 489,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "27. Resource-aware scheduling",
-      "line": 489,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU-heavy compilation,`, `memory-heavy static analysis,`, `I/O-heavy dependency restore,`, `network-heavy artifact transfer,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "27. Resource-aware scheduling",
-      "line": 489,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "27. Resource-aware scheduling",
-      "line": 489,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU-`, `O-`, `GPU`, `workload`",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "28. Fail-fast",
-      "line": 504,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "28. Fail-fast",
-      "line": 504,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cieľom je čo najrýchlejší merge feedback,`, `ďalšie results nepridajú významnú diagnostickú hodnotu,`, `cancellation je bezpečná,`, `cleanup a report upload zostanú aktívne.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "28. Fail-fast",
-      "line": 504,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "28. Fail-fast",
-      "line": 504,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "28. Fail-fast",
-      "line": 504,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "29. Continue-on-error a optional support",
-      "line": 524,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "29. Continue-on-error a optional support",
-      "line": 524,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný risk dôvod,`, `ownera,`, `označenie experimental/advisory,`, `expiráciu alebo maturity criteria,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "29. Continue-on-error a optional support",
-      "line": 524,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "29. Continue-on-error a optional support",
-      "line": 524,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "30. Child pipelines",
-      "line": 539,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "30. Child pipelines",
-      "line": 539,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `child input identity,`, `inherited a explicitné permissions,`, `artifacts a outputs,`, `completion/failure propagation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "30. Child pipelines",
-      "line": 539,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "30. Child pipelines",
-      "line": 539,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "30. Child pipelines",
-      "line": 539,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "31. Multi-project pipelines",
-      "line": 557,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "31. Multi-project pipelines",
-      "line": 557,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `short-lived scoped authentication,`, `immutable source a artifact identity,`, `versioned request/response contract,`, `idempotency key,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "31. Multi-project pipelines",
-      "line": 557,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "31. Multi-project pipelines",
-      "line": 557,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "32. Reusable deployment workflow",
-      "line": 575,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "32. Reusable deployment workflow",
-      "line": 575,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest alebo release-manifest digest,`, `target environment identity,`, `config revision,`, `rollout strategy a guardrails,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "32. Reusable deployment workflow",
-      "line": 575,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "32. Reusable deployment workflow",
-      "line": 575,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "33. Permission inheritance",
-      "line": 591,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "33. Permission inheritance",
-      "line": 591,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či callee môže rozšíriť práva alebo iba zúžiť,`, `ktoré secrets sa prenášajú explicitne,`, `či nested workflow dostane rovnaké credentials,`, `či untrusted branch môže zvoliť privileged reusable workflow,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "33. Permission inheritance",
-      "line": 591,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "33. Permission inheritance",
-      "line": 591,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "33. Permission inheritance",
-      "line": 591,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "34. Testing reusable components",
-      "line": 606,
+      "section": "6. Consumer binduje immutable provider identity",
+      "line": 183,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -84377,152 +83225,197 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Static contract tests",
-      "line": 610,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Static contract tests",
-      "line": 610,
+      "section": "6. Consumer binduje immutable provider identity",
+      "line": 183,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 42 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Static contract tests",
-      "line": 610,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Static contract tests",
-      "line": 610,
+      "section": "6. Consumer binduje immutable provider identity",
+      "line": 183,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input/output schema,`, `resolved config,`, `DAG cycles a missing dependencies,`, `permission policy,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consumer commit;`, `provider a transitive include revisions;`, `tool a image digests;`, `typed inputs bez secret materialu;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Static contract tests",
-      "line": 610,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Static contract tests",
-      "line": 610,
+      "section": "6. Consumer binduje immutable provider identity",
+      "line": 183,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`, `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Unit tests tools/scripts",
-      "line": 618,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Unit tests tools/scripts",
-      "line": 618,
+      "section": "8. Critical path nie je súčet jobov",
+      "line": 227,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 61 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Unit tests tools/scripts",
-      "line": 618,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Unit tests tools/scripts",
-      "line": 618,
+      "section": "8. Critical path nie je súčet jobov",
+      "line": 227,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `argument parsing,`, `error classes,`, `idempotency,`, `plan generation,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `wall-clock latency;`, `critical path;`, `queue time;`, `total compute;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Unit tests tools/scripts",
-      "line": 618,
+      "section": "10. Matrix a sharding sú inventory problémy",
+      "line": 289,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Component tests",
-      "line": 626,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Component tests",
-      "line": 626,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 40 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Component tests",
-      "line": 626,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Component tests",
-      "line": 626,
+      "section": "10. Matrix a sharding sú inventory problémy",
+      "line": 289,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `disposable runner,`, `artifact publication a retrieval,`, `reports a outputs,`, `failure/cancel/cleanup paths.`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoznačný test inventory;`, `auditovateľné assignment pravidlo;`, `izolované test data;`, `deterministic seed alebo zaznamenanú randomizáciu;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Component tests",
-      "line": 626,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "10. Matrix a sharding sú inventory problémy",
+      "line": 289,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Representative consumer fixtures",
-      "line": 633,
+      "section": "12. Paralelné jobs musia zdieľať identitu, nie mutable state",
+      "line": 337,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "12. Paralelné jobs musia zdieľať identitu, nie mutable state",
+      "line": 337,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-run database schema alebo tenant;`, `unique object-storage prefix;`, `immutable artifact names;`, `per-platform cache namespace;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "13. Cache nesmie niesť release evidence",
+      "line": 360,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "15. Cancellation a fail-fast sú súčasťou graph contractu",
+      "line": 396,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "16. Child a multi-project pipeline musia propagovať výsledok",
+      "line": 412,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "16. Child a multi-project pipeline musia propagovať výsledok",
+      "line": 412,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable child input;`, `inherited a explicitné permissions;`, `completion a failure propagation;`, `artifacts a outputs;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "16. Child a multi-project pipeline musia propagovať výsledok",
+      "line": 412,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "18. Provider zmenu rolloutuje ako produktovú zmenu",
+      "line": 445,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "18. Provider zmenu rolloutuje ako produktovú zmenu",
+      "line": 445,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failure rate podľa provider revision;`, `resolved-graph a permission diffs;`, `critical-path contribution a queue time;`, `artifact/evidence completeness;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "18. Provider zmenu rolloutuje ako produktovú zmenu",
+      "line": 445,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "18. Provider zmenu rolloutuje ako produktovú zmenu",
+      "line": 445,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "18. Provider zmenu rolloutuje ako produktovú zmenu",
+      "line": 445,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "19. Worked failure: arm64 shard zmizol a fan-in zostal zelený",
+      "line": 471,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "Náprava",
+      "line": 489,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -84530,8 +83423,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Representative consumer fixtures",
-      "line": 633,
+      "section": "Náprava",
+      "line": 489,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -84539,8 +83432,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Representative consumer fixtures",
-      "line": 633,
+      "section": "Náprava",
+      "line": 489,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -84548,17 +83441,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Representative consumer fixtures",
-      "line": 633,
+      "section": "Náprava",
+      "line": 489,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchá služba,`, `monorepo,`, `Windows/Linux workload,`, `protected deployment,`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fan-out manifest deklaruje required result identities pred schedulingo`, `variant result obsahuje child digest a platform identity;`, `unknown selector state spúšťa conservative full matrix;`, `provider fixture overuje amd64/arm64 graph a missing-child failure;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Representative consumer fixtures",
-      "line": 633,
+      "section": "Náprava",
+      "line": 489,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -84566,17 +83459,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Representative consumer fixtures",
-      "line": 633,
+      "section": "Náprava",
+      "line": 489,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "Náprava",
+      "line": 489,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Canary rollout",
-      "line": 642,
+      "section": "20. Worked failure: retry zmiešal dva artifacty",
+      "line": 498,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "Náprava",
+      "line": 514,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -84584,8 +83495,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Canary rollout",
-      "line": 642,
+      "section": "Náprava",
+      "line": 514,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -84593,53 +83504,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Canary rollout",
-      "line": 642,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `sleduje failure, runtime a permission changes,`, `až potom rozširuje adoption.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Canary rollout",
-      "line": 642,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "35. Observability providera",
-      "line": 648,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "35. Observability providera",
-      "line": 648,
+      "section": "Náprava",
+      "line": 514,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "35. Observability providera",
-      "line": 648,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet consumerov podľa version,`, `adoption a migration rate,`, `failure rate podľa provider revision,`, `critical-path contribution,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "35. Observability providera",
-      "line": 648,
+      "section": "Náprava",
+      "line": 514,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -84647,53 +83522,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "35. Observability providera",
-      "line": 648,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "21. Diagnostický postup",
+      "line": 522,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "36. Performance a cost model",
-      "line": 665,
+      "section": "21. Diagnostický postup",
+      "line": 522,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `načítaj resolved graph digest a effective permissions;`, `identifikuj jeden immutable artifact alebo release-manifest subject;`, `porovnaj expected fan-out inventory s vytvorenými jobs;`, `porovnaj expected inventory s prijatými results;`.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "36. Performance a cost model",
-      "line": 665,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "21. Diagnostický postup",
+      "line": 522,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "36. Performance a cost model",
-      "line": 665,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "36. Performance a cost model",
-      "line": 665,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "36. Performance a cost model",
-      "line": 665,
+      "section": "21. Diagnostický postup",
+      "line": 522,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -84701,44 +83558,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "36. Performance a cost model",
-      "line": 665,
+      "section": "21. Diagnostický postup",
+      "line": 522,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "37. Diagnostický postup",
-      "line": 679,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "37. Diagnostický postup",
-      "line": 679,
+      "section": "22. Referenčné pravidlá",
+      "line": 540,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "37. Diagnostický postup",
-      "line": 679,
+      "section": "22. Referenčné pravidlá",
+      "line": 540,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `identifikuj consumer commit a provider/template revisions;`, `získaj resolved graph digest a effective permissions;`, `over immutable artifact identity použitú všetkými branches;`, `porovnaj expected a actual child/shard inventory;`.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "37. Diagnostický postup",
-      "line": 679,
+      "section": "22. Referenčné pravidlá",
+      "line": 540,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "22. Referenčné pravidlá",
+      "line": 540,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -84746,8 +83603,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "37. Diagnostický postup",
-      "line": 679,
+      "section": "22. Referenčné pravidlá",
+      "line": 540,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "22. Referenčné pravidlá",
+      "line": 540,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -84755,17 +83621,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "37. Diagnostický postup",
-      "line": 679,
+      "section": "22. Referenčné pravidlá",
+      "line": 540,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
+      "section": "22. Referenčné pravidlá",
+      "line": 540,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "38. Typické anti-patterny",
-      "line": 695,
+      "section": "23. Časté omyly",
+      "line": 556,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -84773,8 +83648,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Reuse ako copy-paste YAML",
-      "line": 697,
+      "section": "„Reusable pipeline je centrálna YAML šablóna“",
+      "line": 558,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -84782,8 +83657,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Floating template pre všetkých consumerov",
-      "line": 701,
+      "section": "„Viac paralelných jobs vždy znamená rýchlejšiu pipeline“",
+      "line": 562,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -84791,8 +83666,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Template s implicitnými admin permissions",
-      "line": 705,
+      "section": "„Fan-in je zelený, keď všetky doručené reports sú zelené“",
+      "line": 566,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -84800,8 +83675,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Fan-out z mutable tagu",
-      "line": 709,
+      "section": "„Optional job môžeme ignorovať“",
+      "line": 574,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -84809,197 +83684,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Fan-in bez expected inventory",
-      "line": 713,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Maximum parallelism bez capacity budgetu",
-      "line": 717,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Retry bez attempt identity",
-      "line": 721,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Child pipeline fire-and-forget",
-      "line": 725,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Optional job bez lifecycle",
-      "line": 729,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Centralizácia bez escape hatchu",
-      "line": 733,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "39. Praktický rozhodovací rámec",
-      "line": 737,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "39. Praktický rozhodovací rámec",
-      "line": 737,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "39. Praktický rozhodovací rámec",
-      "line": 737,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "39. Praktický rozhodovací rámec",
-      "line": 737,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorá úroveň reuse je najnižšia a stále dostatočná?`, `Kto je provider a kto consumer?`, `Aký je explicitný input/output a failure contract?`, `Aká immutable provider version sa používa?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "39. Praktický rozhodovací rámec",
-      "line": 737,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "39. Praktický rozhodovací rámec",
-      "line": 737,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "39. Praktický rozhodovací rámec",
-      "line": 737,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "39. Praktický rozhodovací rámec",
-      "line": 737,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "40. Kontrolný checklist",
-      "line": 757,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "40. Kontrolný checklist",
-      "line": 757,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "40. Kontrolný checklist",
-      "line": 757,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contract je versionovaný a dokumentovaný,`, `provider revision a transitive dependencies sú pinned,`, `resolved graph a permissions sú auditovateľné,`, `inputs majú typy, defaults a validation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "40. Kontrolný checklist",
-      "line": 757,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "40. Kontrolný checklist",
-      "line": 757,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "40. Kontrolný checklist",
-      "line": 757,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Summary",
-      "line": 799,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md",
-      "section": "Summary",
-      "line": 799,
+      "section": "24. Zhrnutie",
+      "line": 582,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
