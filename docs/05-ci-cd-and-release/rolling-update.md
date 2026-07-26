@@ -6,582 +6,453 @@
 - Level: L2
 - Domain: CI/CD and Release Engineering
 
-## 1. Definícia
-
-Rolling update postupne nahrádza instances starej verzie novou bez vypnutia celej fleet naraz. Počas rollout-u preto existuje mixed-version obdobie, v ktorom staré aj nové instances obsluhujú traffic alebo pracujú nad rovnakým runtime stavom.
+Rolling update postupne vymieňa starú fleet za novú. Dostupnosť zachováva tým, že po určitý čas existujú obe generácie súčasne. Táto výhoda zároveň vytvára hlavnú failure boundary: old a new code, data contracts, queues, caches a sessions musia bezpečne koexistovať.
 
 ```text
-O O O O
-→ N O O O
-→ N N O O
-→ N N N O
-→ N N N N
+old fleet healthy
+→ vytvor new batch
+→ over functional readiness a capacity
+→ priraď časť trafficu/worku
+→ porovnaj old/new evidence
+→ drain a odstráň old batch
+→ opakuj
+→ full new fleet
+→ delayed observation
 ```
 
-`O` je old generation a `N` new generation. Stratégia znižuje okamžitý blast radius a môže zachovať dostupnosť, ale jej bezpečnosť závisí od compatibility, capacity, readiness, termination a rollout-control mechanizmov.
+Rolling update preto nie je „zero-downtime deployment mode“. Je to kontrolovaná výmena capacity pod mixed-version compatibility contractom.
 
-## 2. Mental model: kontrolovaná výmena capacity
+## 1. Nosný model: capacity exchange s dočasným overlapom
 
-Rolling update je state machine nad dvoma generáciami a jednou spoločnou službou:
+V každom okamihu platí:
 
 ```text
-desired fleet
+desired service capacity
 = old available
 + new available
-+ temporarily unavailable/pending
+- unavailable alebo pending capacity
 ```
 
-Controller opakovane:
-
-1. vytvorí alebo aktivuje časť novej capacity,
-2. overí readiness,
-3. presunie traffic,
-4. drainuje a odstráni starú capacity,
-5. vyhodnotí, či môže pokračovať.
-
-Názov stratégie v orchestrátore nezaručuje zero downtime. Ak je readiness slabá, surge nemožný alebo fleet príliš malá, rolling update môže spôsobiť výrazný capacity dip.
-
-## 3. Základný predpoklad: mixed-version compatibility
-
-Počas overlapu musia bezpečne koexistovať:
-
-- staré a nové API behavior,
-- staré a nové databázové očakávania,
-- producers a consumers udalostí,
-- cache a session formáty,
-- background workers,
-- config a feature flags,
-- starí a noví clients.
-
-Compatibility nie je iba syntaktická. Nová verzia môže používať rovnakú schema, ale zmeniť význam hodnoty, retry semantics alebo ordering.
-
-Ak sa nedá vytvoriť bezpečné mixed-version okno, použi inú stratégiu alebo viacfázovú migráciu.
-
-## 4. Deployment subject a rollout generation
-
-Každý rollout musí byť viazaný na:
-
-- new artifact digest,
-- previous artifact digest,
-- config a secret-reference revision,
-- deployment generation/revision,
-- database a migration state,
-- rollout policy version,
-- target environment a topology,
-- ownera a pipeline run.
-
-Mutable image tag alebo implicitná config zmena môže spôsobiť, že instances jednej „verzie“ nemajú rovnaký obsah.
-
-## 5. Rolling state machine
+Controller opakovane vykonáva päť rozhodnutí:
 
 ```text
-planned
-→ prechecks
-→ new batch scheduling
-→ new batch starting
-→ new batch ready
-→ traffic observing
-→ old batch draining
-→ old batch removed
-→ next batch
-→ full new generation
-→ post-rollout observing
-→ completed
+1. koľko new capacity smie vytvoriť
+2. kedy je new capacity funkčne ready
+3. koľko trafficu alebo worku jej priradiť
+4. či evidence povoľuje pokračovanie
+5. koľko old capacity možno bezpečne drainovať
 ```
 
-Alternatívne stavy:
+Ak chýba compatibility, rollout môže poškodiť shared state. Ak chýba capacity headroom, rollout môže vytvoriť outage. Ak chýba version-level evidence, controller iba pomalšie rozšíri chybu na celú fleet.
 
-- paused,
-- inconclusive,
-- progressing too slowly,
-- aborting,
-- rolling back,
-- rolling forward,
-- degraded mixed state.
+## 2. Nosný scenár: Atlas Orders API 3.11.0
 
-Controller musí vedieť presne oznámiť, koľko old/new/pending/unavailable capacity existuje.
-
-## 6. Batch size
-
-Batch môže byť vyjadrený absolútnym počtom, percentom, zónou alebo ringom.
-
-Menší batch:
-
-- znižuje blast radius,
-- zvyšuje počet observation bodov,
-- predlžuje rollout,
-- udržiava mixed-version stav dlhšie.
-
-Väčší batch:
-
-- skracuje rollout,
-- zvyšuje capacity shock,
-- znižuje čas na detekciu pred širším dopadom.
-
-Percentá vždy prepočítaj na absolútne čísla. Pri dvoch replikách znamená jedna nedostupná 50 % capacity.
-
-## 7. Maximum unavailable
-
-`max unavailable` určuje, aká časť desired fleet môže byť počas rollout-u nedostupná.
+Atlas nasadzuje release manifest `M2` do fleet desiatich Orders API instances v troch availability zones.
 
 ```text
-replicas = 10
-max unavailable = 2
-→ cieľ je zachovať približne aspoň 8 available
+old artifact = D_old
+new artifact = D_new
+rendered config = C17
+database phase = expanded schema S_expand
+rollout policy = maxSurge 2, maxUnavailable 1
+batch ordering = najviac jedna instance per zone
 ```
 
-Skontroluj rounding pravidlá konkrétnej platformy. Pri malej fleet môže percento zaokrúhlené nahor vytvoriť nečakane veľký outage.
-
-Hodnota musí rešpektovať:
-
-- aktuálny utilization headroom,
-- failure jednej ďalšej instance,
-- disruption budget,
-- dependency limits,
-- požadované SLO.
-
-## 8. Maximum surge
-
-`max surge` povoľuje dočasnú capacity nad desired count.
+Plánovaný rollout:
 
 ```text
-replicas = 10
-max surge = 2
-→ počas rollout-u môže existovať 12 instances
+10 old / 0 new
+→ 10 old / 2 new starting
+→ 10 old / 2 new ready
+→ observation batch 1
+→ drain 2 old
+→ 8 old / 2 new
+→ ďalší batch
+...
+→ 0 old / 10 new
+→ post-rollout watch
 ```
 
-Surge potrebuje rezervu v:
+New API pridáva optional `riskDecision`, ale počas overlapu musí:
 
-- CPU a memory,
-- IP addresses a load-balancer targets,
-- database connections,
-- message partitions alebo licenses,
-- external API quotas,
-- storage attachments,
-- zone capacity.
+- stále čítať rows vytvorené old API;
+- zapisovať format čitateľný old workerom;
+- emitovať iba event contract tolerovaný old consumers;
+- používať cache a session format kompatibilný s oboma generáciami;
+- zachovať idempotency semantics.
 
-Surge bez reálnej rezervy vedie k pending instances a stuck rollout-u.
+## 3. `maxSurge` a `maxUnavailable` sú absolútne capacity rozhodnutia
 
-## 9. Capacity model
+`maxSurge=2` povoľuje dočasne dvanásť instances. `maxUnavailable=1` povoľuje jednu nedostupnú instance voči desired countu.
 
-Bez surge:
+Tieto hodnoty sa nesmú hodnotiť iba ako percentá. Pri malej fleet môže zaokrúhlenie zmeniť význam:
 
 ```text
-stop old
-→ capacity klesne
-→ start new
+2 replicas
+maxUnavailable = 50 %
+→ platforma môže odstaviť 1
+→ strata 50 % capacity
 ```
 
-So surge:
+Atlas pred rolloutom prepočíta:
 
 ```text
-start new
-→ wait ready
-→ route
-→ drain old
-→ remove old
+available throughput old fleet
+- peak utilization
+- failure reserve jednej ďalšej instance
++ reálne schedulovateľný surge throughput
 ```
 
-Zachovanie počtu instances neznamená zachovanie throughputu. Nová verzia môže mať inú resource efficiency, cold cache alebo pomalší startup.
+Surge existuje iba vtedy, keď sú dostupné aj downstream zdroje:
 
-## 10. Prechecks
+- CPU, memory a zone capacity;
+- load-balancer targets a IPs;
+- database connections;
+- broker partitions alebo consumer slots;
+- external API quotas;
+- licenses a storage throughput.
 
-Pred prvým batchom over:
+Dvanásť ready pods nie je dôkaz dvanásťnásobnej použiteľnej capacity, ak všetky zdieľajú rovnaký vyčerpaný DB pool.
 
-- artifact a config identity,
-- cluster/host capacity pre surge,
-- database a event compatibility,
-- healthy baseline,
-- version-level telemetry,
-- rollout a abort policy,
-- rollback eligibility,
-- autoscaler a disruption-controller interakcie,
-- žiadny prebiehajúci incident alebo konfliktujúci deployment.
+## 4. Mixed-version compatibility je vstupná precondition
 
-## 11. Startup, readiness a liveness
+Atlas pred prvým batchom overí kombinácie, ktoré počas rollout-u skutočne vzniknú:
+
+```text
+old API + old worker + expanded schema
+new API + old worker + expanded schema
+old API + new worker + expanded schema
+new API + new worker + expanded schema
+```
+
+Compatibility zahŕňa:
+
+- syntax aj behavior API;
+- database reads a writes;
+- event schema, ordering a unknown values;
+- queue retry a idempotency;
+- cache key význam a serialization;
+- session formát;
+- config a feature flags;
+- old/new client správanie.
+
+Schema-additive zmena nemusí byť behaviorálne kompatibilná. Nový producer môže napríklad pridať enum hodnotu, ktorú old consumer nedokáže spracovať.
+
+Ak sa bezpečné overlap okno nedá vytvoriť, rolling update nie je vhodná stratégia bez predchádzajúcej expand alebo compatibility fázy.
+
+## 5. Functional readiness chráni traffic boundary
+
+Nová instance prechádza:
+
+```text
+scheduled
+→ image pulled
+→ process started
+→ startup complete
+→ dependencies connected
+→ functional synthetic passed
+→ minimum-ready window
+→ traffic eligible
+```
 
 Rozlišuj:
 
-- **Startup probe —** aplikácia ešte inicializuje a nemá byť restartovaná pre pomalý štart.
-- **Readiness probe —** instance smie prijímať traffic.
-- **Liveness probe —** proces je unrecoverably stuck a má byť reštartovaný.
+- startup probe: proces ešte inicializuje;
+- liveness: proces je unrecoverably stuck;
+- readiness: instance dokáže bezpečne obslúžiť relevantný request.
 
-Readiness má overovať relevantný request path, nie iba otvorený TCP port. Príliš slabá readiness rozšíri chybu; príliš prísna readiness môže pri dependency degradácii vyradiť celú fleet.
+Atlas readiness pre Orders nevykoná iba `/health`. Vytvorí kontrolný read/write request s izolovanou identitou, overí authorization, database path a idempotentný retry. Potom čaká minimum-ready duration, aby odhalil warm-up alebo pool instability.
 
-## 12. Readiness stability
+Slabá readiness vloží chybnú new capacity do trafficu. Príliš prísna readiness viazaná na globálne degraded dependency môže vyradiť old aj new fleet naraz. Readiness musí hodnotiť schopnosť instance obslúžiť traffic, nie predstierať úplnú health analýzu celého sveta.
 
-Jednorazový pass nemusí stačiť. Nová instance môže byť krátko ready a následne zlyhať pri warm-up alebo load-e.
+## 6. Traffic weight sa neodvodzuje iba z počtu instances
 
-Použi podľa rizika:
+Pri `8 old / 2 new` nemusí new generation dostať presne 20 % requests. Rozdelenie menia:
 
-- minimum ready duration,
-- startup smoke,
-- initial traffic cap,
-- stabilization window,
-- consecutive-success requirement,
-- dependency a pool health.
+- persistent connections;
+- session affinity;
+- zone-aware routing;
+- rozdielna response latency;
+- connection pool reuse;
+- request hashing;
+- long-lived streams.
 
-## 13. Traffic a load-balancing semantics
+Version-level telemetry preto zaznamenáva skutočné requests, sessions a work items podľa artifact digestu. Observation gate porovnáva normalizované outcomes, nie iba replica counts.
 
-Počas rollout-u traffic smeruje na obe generácie. Skontroluj:
+## 7. Old batch sa odstraňuje až po drain boundary
 
-- load-balancer health-check lag,
-- sticky sessions,
-- connection reuse,
-- zone-aware routing,
-- long-lived connections,
-- request hashing,
-- per-instance load,
-- routing propagation.
-
-Weight podľa počtu instances nemusí znamenať rovnaký podiel requests, najmä pri persistent connections.
-
-## 14. Graceful termination
-
-Bezpečný removal old instance:
+Bezpečné odstránenie:
 
 ```text
-mark not ready
-→ wait routing propagation
+old instance marked not ready
+→ routing propagation
 → stop new work intake
-→ drain active work
-→ checkpoint/requeue
+→ drain active requests/connections
+→ checkpoint alebo requeue queue work
 → release locks
 → terminate
 ```
 
-Over WebSockets, streaming, queue acknowledgements, scheduled work, pre-stop hook a termination grace period. Instance ukončená pred routing propagation môže stále dostávať requests.
+Ak platforma ukončí pod skôr než load balancer prestane posielať requests, používateľ dostane reset. Ak worker ackne položku pred side effectom a potom sa ukončí, work sa stratí. Ak ju neackne po side effecte, retry môže vytvoriť duplicitu.
 
-## 15. Database compatibility
+Termination grace period preto vychádza z reálneho request a work lifecycle-u, nie z univerzálnych tridsiatich sekúnd.
 
-Preferovaný expand-contract flow:
+## 8. Observation gate medzi batchmi je rozhodovací mechanizmus
+
+Po každom batchi Atlas skladá evidence:
 
 ```text
-expand schema
-→ deploy code kompatibilný so starou aj novou cestou
-→ backfill/migrate
-→ prepnúť reads/writes
-→ odstrániť old generation
-→ contract schema neskôr
+subject = D_new + C17 + batch ID + current old/new counts
+
+technical
+→ error rate, p95/p99, restarts, saturation, dependency retries
+
+functional
+→ CreateOrder completion, idempotency, authorization, event completion
+
+business
+→ accepted-order rate, rejection distribution, support signal
 ```
 
-Nedovoľ `DROP`, rename alebo semantic change, ktorú old instances nevedia tolerovať. Migration status musí byť súčasťou rollout evidence.
+Verdict je:
 
-## 16. Events a queues
+- `continue` — evidence complete a thresholds splnené;
+- `pause` — treba dlhšie okno alebo triage;
+- `abort` — rollout nesmie rozšíriť exposure;
+- `rollback` — previous generation je state-compatible;
+- `roll-forward` — návrat je nebezpečnejší než oprava;
+- `inconclusive` — chýba porovnateľná alebo úplná evidence.
 
-Počas overlapu môžu old a new producers/consumers používať rovnaký stream.
+Missing telemetry nie je povolenie pokračovať.
 
-Kontroluj:
+## 9. Topology-aware ordering chráni failure domains
 
-- backward a forward schema compatibility,
-- unknown fields a enum values,
-- event ordering,
-- duplicate delivery,
-- poison-message behavior,
-- partition rebalancing,
-- idempotency,
-- retry/dead-letter semantics.
+Atlas nevymení naraz celú zónu. Každý batch rozloží new instances tak, aby náhodný zone failure neodstránil spolu s rolloutom väčšinu capacity.
 
-Nový producer nesmie emitovať contract, ktorý stále aktívny old consumer odmietne alebo zle interpretuje.
+```text
+batch 1 → jedna new instance v zone A a B
+batch 2 → jedna new instance v zone C a A
+```
 
-## 17. Cache a session compatibility
+Controller rešpektuje anti-affinity, disruption budgets a current node health. Rollout, autoscaler a plánovaná node maintenance nesmú nezávisle predpokladať tú istú rezervu.
 
-Riziká:
+## 10. Autoscaler a rollout musia mať explicitný ownership
 
-- nový serialization format,
-- rovnaký key s novým významom,
-- old version číta new entry,
-- session schema drift,
-- global invalidation a stampede.
+Autoscaler môže počas rollout-u:
 
-Možnosti:
+- zvýšiť desired count pre cold-start latency;
+- spotrebovať surge quota;
+- scale-downovať old alebo new generation;
+- meniť requests per instance;
+- skresliť version-level porovnanie.
 
-- versioned namespaces,
-- backward-compatible readers,
-- dual-read/write,
-- stateless tokens,
-- krátkodobá affinity iba ako transition pomoc.
+Atlas preto zaznamenáva desired count a autoscaler decision pri každom batchi. Observation používa request-normalized metrics a rollout controller vie rozlíšiť plánovanú capacity exchange od autoscaling mutation.
 
-Affinity nesmie skrývať nekompatibilitu, ktorú neskôr odhalí reconnect alebo scale event.
+## 11. Worked failure: new producer rozbil stále aktívny old worker
 
-## 18. Background jobs a schedulers
+New API začalo emitovať event stav `PENDING_REVIEW`. Schema registry zmenu označil ako additive, ale old worker používal exhaustívny enum switch.
 
-Rolling web fleet neznamená bezpečný rolling worker fleet. Rieš:
+```text
+2 new API instances prijmú časť orders
+→ emitujú PENDING_REVIEW
+→ 8 old workers načítajú event
+→ deserialization alebo switch zlyhá
+→ message sa retryuje
+→ poison queue a lag rastú
+→ API request metrics zostávajú prevažne zelené
+```
 
-- single-active schedulers,
-- leader election,
-- partition ownership,
-- job format compatibility,
-- in-flight checkpoint,
-- old/new worker concurrency,
-- idempotency side effects.
+### Príčina
 
-Worker rollout môže potrebovať samostatné poradie voči API producerom.
+Rollout overoval new API s new workerom, nie reálne mixed combinations. Tím zamieňal syntaktickú schema compatibility za behaviorálnu consumer compatibility.
 
-## 19. Topology-aware ordering
+### Dôsledok
 
-Nevymieňaj naraz celú failure domain. Rollout môže postupovať:
+Binary rollback API nezmazal poison messages. Recovery vyžadovala pause, zastavenie nového event variantu feature flagom, tolerantný old-worker patch a replay po oprave.
 
-- po nodes,
-- po availability zones,
-- po regions,
-- po rings,
-- po tenant segments.
+### Trvalá náprava
 
-Controller musí rešpektovať anti-affinity a disruption budgets. Inak môže plánovaný rollout skombinovaný s náhodným failure odstrániť celú zónovú capacity.
+```text
+old-consumer/new-producer contract fixture
+→ explicitná enum openness policy
+→ event variant feature gate
+→ poison-message guardrail per producer digest
+→ expand producer až po tolerant-reader rollout-e
+```
 
-## 20. Observation gate medzi batchmi
+## 12. Worked failure: readiness pass vytvoril capacity dip
 
-Po každom batchi vyhodnoť:
+New Orders process označil readiness za true hneď po otvorení portu. Pri prvom produkčnom loade však lazy-inicializoval rules engine a otvoril veľký DB pool.
 
-- error-rate delta old verzus new,
-- p95/p99 latency,
-- saturation a requests per instance,
-- restart/probe failures,
-- dependency errors,
-- queue lag,
-- business success,
-- security a authorization anomalies.
+```text
+new pod ready
+→ controller okamžite drainuje old pod
+→ new pod dostane traffic
+→ cold initialization zvýši latency
+→ clients retryujú
+→ DB connection pressure rastie
+→ ďalšie new pods sa tiež označia ready
+→ rollout znižuje effective throughput batch za batchom
+```
 
-Výsledky:
+Replica count vyzeral správne, ale použiteľná capacity klesala.
 
-- continue,
-- pause,
-- abort,
-- rollback,
-- inconclusive pre chýbajúce alebo nedostatočné dáta.
+### Príčina
 
-Rolling update bez observation gate iba pomalšie šíri chybu.
+Readiness neobsahovala critical path ani minimum-ready window. `maxUnavailable` počítal ready objects, nie reálny throughput. Observation gate nemal requests-per-instance a retry-amplification signál.
 
-## 21. Evidence freshness a comparability
+### Recovery
 
-Canary-like porovnanie batchu je platné iba ak:
+Atlas pause-nul rollout, prestal odstraňovať old pods, znížil traffic weight new generation, predhrial rules engine a pools a obnovil pokračovanie až po stabilnej functional readiness.
 
-- old a new traffic sú porovnateľné,
-- config a dependencies sú známe,
-- metrics obsahujú version digest,
-- observation window má dostatok vzoriek,
-- autoscaling alebo region incident neskresľuje porovnanie.
+## 13. Kauzálny diagnostický walkthrough
 
-## 22. Pause a resume
+Symptom: po druhom batchi rastie p99 a error rate, ale celkový počet `Ready` pods neklesol.
 
-Pause musí zachovať stabilný mixed state:
+### Krok 1 — zafixuj rollout identity a state
 
-- current old/new counts,
-- active artifact digests,
-- routing a traffic distribution,
-- database migration phase,
-- pending cleanup,
-- reason a owner.
+```text
+rollout generation R17
+old digest D_old = 6 instances
+new digest D_new = 4 instances
+config C17
+batch 2 observing
+maxSurge 2 / maxUnavailable 1
+```
 
-Resume musí znovu overiť freshness preconditions. Po hodinách môže environment alebo policy vyzerať inak než pri pause.
+Bez tejto identity by dashboard mohol miešať predchádzajúci batch, autoscaler alebo inú config revision.
 
-## 23. Autoscaling interaction
+### Krok 2 — formuluj odlišné mechanizmy
 
-Autoscaler môže:
+```text
+H1: code regression na každom new requeste
+H2: new capacity je cold alebo poddimenzovaná
+H3: globálna DB degradácia zasahuje obe generácie
+H4: routing stále posiela traffic drainovaným old pods
+```
 
-- meniť desired replica count počas rollout-u,
-- reagovať na cold-start latency,
-- spotrebovať surge rezervu,
-- scale-downovať nesprávnu generáciu,
-- skresliť per-version metrics.
+### Krok 3 — použi diskriminačné observation points
 
-Definuj ownership desired countu a otestuj rollout pri scale-up aj scale-down udalosti.
+- error a latency podľa digestu rozlišujú H1/H2 od H3;
+- requests a CPU/DB connections per instance rozlišujú H1 od H2;
+- old-target request count po `not ready` testuje H4;
+- DB telemetry ostatných služieb testuje globálnu H3.
 
-## 24. Concurrency a deployment locks
+Výsledok:
 
-Dva súbežné rollouty do jednej fleet vytvárajú nejasnú generáciu a recovery path. Použi environment lock, generation compare-and-swap alebo deployment queue.
+```text
+old latency normálna
+new latency vysoká iba prvé minúty
+new requests per instance 2.3× old
+new DB pools otvárajú connection burst
+old drain routing je korektný
+```
 
-Novší rollout môže starší supersedovať iba po bezpečnom cancel/cleanup a explicitnom state transition.
+H2 vysvetľuje symptom. Nejde o univerzálnu code chybu ani globálny DB incident.
 
-## 25. Rollback eligibility
+### Krok 4 — zastav príčinný transition
 
-Rolling rollback je bezpečný len ak:
+Pause zabráni ďalšiemu odstraňovaniu old capacity. Zníženie new traffic weightu a warm-up stabilizujú new pods. Slepý rollback by spustil ďalší rolling transition a zbytočne zväčšil churn.
 
-- previous artifact je dostupný,
-- database/cache/session/events zostali kompatibilné,
-- new writes sú čitateľné starou verziou,
-- rollout neaktivoval nevratné external side effects,
-- traffic a background work možno znovu presunúť.
+### Krok 5 — over outcome
 
-Orchestrátorová funkcia `undo` neoveruje tieto podmienky.
+Pokračovanie je povolené až keď:
 
-## 26. Rolling rollback
+```text
+new minimum-ready window prejde pod loadom
+requests per instance sú porovnateľné
+DB connection headroom je zdravý
+retry rate sa vráti k baseline
+business completion ostáva zdravá
+```
 
-Rollback sám trvá ďalší rollout:
+### Krok 6 — vráť learning do modelu
+
+Failure sa zmení na warm-up synthetic, minimum-ready duration, per-version capacity gate a test rollout-u pri autoscaler scale-up udalosti.
+
+## 14. Rolling rollback je ďalší rollout
+
+Rollback neprepne pointer okamžite. Musí znovu vytvárať previous generation a postupne odstraňovať chybnú.
 
 ```text
 mixed old/new bad state
 → pause forward rollout
-→ introduce previous generation
-→ verify
-→ replace failed generation batch by batch
+→ potvrď rollback eligibility
+→ vytvor previous generation
+→ functional readiness
+→ batch-by-batch replacement
+→ observation
 ```
 
-Počas rollbacku môže existovať až trojica relevantných stavov: pôvodná verzia, chybná nová verzia a opravená/rollback generation. Udržiavaj presnú identity.
+Ak new generation už zmenila schema, cache, sessions alebo events nekompatibilne, previous version nemusí byť eligible. Vtedy Atlas preferuje feature disable, worker containment alebo roll-forward fix.
 
-## 27. Roll-forward
+Platformové `undo` pozná desired object revision. Nevie automaticky dokázať data compatibility.
 
-Roll-forward je vhodný pri nevratných state changes. Najprv rozhodni, či:
+## 15. Diagnostický runbook
 
-- pause-ni chybnú expozíciu,
-- scale-down-ni new generation,
-- vypni feature flag,
-- zastav producers/consumers,
-- nasadíš fix ako novú immutable generation.
+1. Urči rollout generation, batch a old/new/pending/unavailable counts.
+2. Potvrď artifact, config, migration a policy identity každej generácie.
+3. Prepočítaj `maxSurge` a `maxUnavailable` na absolútnu použiteľnú capacity.
+4. Rozlíš scheduling, startup, readiness, routing a runtime failure.
+5. Porovnaj skutočné requests/work per digest, nie iba replica count.
+6. Over mixed-version DB, event, cache, session a worker compatibility.
+7. Pri termination probléme skontroluj routing propagation a active work.
+8. Pri pause znovu over freshness a environment state pred resume.
+9. Rozhodni rollback alebo roll-forward podľa mutable-state compatibility.
+10. Po recovery over business a data invariants a pridaj skorší control.
 
-## 28. Progress deadline a timeouts
+## 16. Referenčné pravidlá
 
-Namiesto jedného veľkého timeoutu meraj:
+- Rolling update vymieňa capacity a zámerne vytvára mixed-version obdobie.
+- `maxSurge` a `maxUnavailable` sa hodnotia absolútne aj voči downstream headroomu.
+- Funkčná readiness predchádza trafficu a odstráneniu old capacity.
+- Replica count nie je automaticky throughput.
+- Old/new contracts musia pokrývať DB, events, cache, sessions a workers.
+- Observation gate potrebuje version-level technical, functional a business evidence.
+- Topology-aware ordering nesmie spotrebovať celú failure-domain rezervu.
+- Missing evidence vedie k `inconclusive`, nie k pokračovaniu.
+- Rolling rollback je ďalší rollout.
+- Diagnostika odlišuje code effect, capacity effect, global dependency a routing failure.
 
-- scheduling,
-- image/artifact pull,
-- startup,
-- readiness,
-- minimum-ready duration,
-- traffic observation,
-- drain,
-- batch progress.
+## 17. Časté omyly
 
-Progress deadline má viesť k pause/abort rozhodnutiu a diagnostickým artifacts, nie iba k označeniu `failed`.
+### „Rolling update znamená zero downtime“
 
-## 29. Failure taxonomy
+Dostupnosť závisí od kompatibility, functional readiness a reálnej rezervy.
 
-- scheduling/capacity failure,
-- startup failure,
-- readiness instability,
-- traffic/runtime regression,
-- drain/termination failure,
-- compatibility failure,
-- observation-system failure,
-- rollout-controller failure,
-- rollback-ineligible state.
+### „Ready pods znamenajú zachovanú capacity“
 
-Každá trieda potrebuje iný recovery postup.
+Cold alebo pomalšia new generation môže mať výrazne nižší throughput.
 
-## 30. Observability a deployment record
+### „Additive event schema je kompatibilná“
 
-Zachovaj:
+Old consumer môže mať closed enum alebo iný behaviorálny predpoklad.
 
-- deployment generation a policy,
-- old/new digests a counts v čase,
-- max unavailable/surge,
-- batch transitions,
-- scheduling/probe events,
-- traffic distribution,
-- version-level SLIs,
-- pause/abort/rollback decisions,
-- migration a config state.
+### „Rollback je okamžitý“
 
-## 31. Metriky stratégie
+Je to ďalší batch rollout a môže byť data-nekompatibilný.
 
-Sleduj:
+### „Percentuálne hodnoty fungujú rovnako pri každej fleet“
 
-- rollout duration a p95,
-- batch observation time,
-- stuck rollout rate,
-- capacity dip,
-- pending/scheduling failures,
-- readiness false-positive incidents,
-- drain timeout rate,
-- rollback duration a success,
-- mixed-version compatibility incidents,
-- change exposure before detection.
+Rounding pri dvoch alebo troch replikách môže vytvoriť veľký absolútny outage.
 
-## 32. Typické anti-patterny
+## 18. Zhrnutie
 
-### Readiness je iba otvorený port
+Atlas rolling lifecycle je:
 
-Instance sa zaradí do trafficu pred funkčnou pripravenosťou.
+```text
+immutable old/new generations
+→ mixed-version compatibility evidence
+→ capacity a topology preconditions
+→ new batch scheduling
+→ functional readiness + minimum-ready window
+→ version-aware traffic observation
+→ old batch drain
+→ continue/pause/abort/recover
+→ full new fleet + delayed watch
+```
 
-### `maxUnavailable` hodnotený iba percentom
-
-Pri malej fleet vznikne nečakaný absolútny outage.
-
-### Surge bez rezervy
-
-Nové instances zostanú pending a rollout sa nepohne.
-
-### Nekompatibilná migration na začiatku
-
-Old generation okamžite zlyhá.
-
-### Žiadna version-level telemetry
-
-Nie je možné odlíšiť regresiu od globálneho incidentu.
-
-### Automatické pokračovanie pri missing metrics
-
-Absencia dôkazu sa zmení na false promotion.
-
-### Súbežné rollouty
-
-Generácie, cleanup a rollback relation sú nejednoznačné.
-
-## 33. Diagnostický postup
-
-1. Urči rollout generation a aktuálne old/new/pending counts.
-2. Over artifact/config identity každej generácie.
-3. Skontroluj scheduling, quotas a surge rezervu.
-4. Rozlíš startup, readiness a liveness failures.
-5. Over skutočný traffic a requests per version.
-6. Skontroluj database/event/cache compatibility.
-7. Pri old termination probléme analyzuj routing propagation a active work.
-8. Pri pause over evidence freshness pred resume.
-9. Posúď rollback eligibility podľa mutable state.
-10. Po recovery over business a data invariants.
-
-## 34. Rozhodovací rámec
-
-1. Môžu old a new verzie bezpečne koexistovať?
-2. Aká absolútna capacity strata je prijateľná?
-3. Aký surge je reálne schedulovateľný?
-4. Čo presne znamená readiness?
-5. Ako sa drainujú requests, connections a consumers?
-6. Aké compatibility windows potrebujú DB, events, cache a sessions?
-7. Aké topology ordering znižuje failure-domain risk?
-8. Ktoré metrics rozhodujú medzi continue/pause/abort?
-9. Čo sa stane pri missing telemetry?
-10. Ako autoscaler interaguje s rolloutom?
-11. Je rollback kompatibilný s aktuálnym stavom?
-12. Aký record umožní reprodukciu rollout-u?
-
-## 35. Kontrolný checklist
-
-- artifact a config identities sú immutable,
-- mixed-version compatibility je otestovaná,
-- max unavailable/surge sú posúdené absolútne,
-- surge capacity a quotas existujú,
-- startup/readiness/liveness sú oddelené,
-- graceful drain je overený,
-- DB/event/cache/session migration je viacfázová,
-- telemetry obsahuje version labels,
-- batch observation a inconclusive stav sú definované,
-- deployment lock zabraňuje súbehu,
-- autoscaler interakcia je známa,
-- rollback eligibility je vyhodnotená,
-- progress timeouty publikujú evidence.
-
-## 36. Kontrolné otázky
-
-1. Prečo rolling update vytvára mixed-version obdobie?
-2. Aký je rozdiel medzi `max unavailable` a `max surge`?
-3. Prečo počet ready instances nemusí znamenať zachovaný throughput?
-4. Ako sa odlišujú startup, readiness a liveness probes?
-5. Prečo je minimum-ready duration užitočná?
-6. Ako expand-contract chráni old generation?
-7. Aké problémy vznikajú pri eventoch, cache a sessions?
-8. Ako topology-aware rollout znižuje riziko?
-9. Prečo pause potrebuje freshness recheck?
-10. Prečo orchestrátorové undo nedokazuje bezpečný rollback?
-
-## Summary
-
-Rolling update je kontrolovaná výmena capacity, počas ktorej stará a nová generácia zdieľajú traffic a mutable state. Zachovanie dostupnosti závisí od reálnej surge capacity, absolútne posúdeného `max unavailable`, funkčnej readiness, graceful termination a mixed-version compatibility databázy, eventov, cache a sessions. Bez version-level telemetry a observation gate stratégia iba spomaľuje úplné rozšírenie chyby. Rollback je ďalší rollout a je možný len vtedy, keď ho dovoľuje aktuálny stav systému.
-
-## Glossary impact
-
-Relevantné pojmy: rolling update, rollout generation, mixed-version compatibility, maximum unavailable, maximum surge, minimum ready duration, topology-aware rollout, progress deadline, version-level telemetry, rolling rollback a capacity dip.
+Rolling update bezpečne znižuje blast radius iba vtedy, keď controller nevymieňa počty objektov, ale dôveryhodnú použiteľnú capacity. Jeho hlavnou cenou je dočasný systém dvoch generácií, ktorého contracts a mutable state musia byť navrhnuté ešte pred prvým batchom.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
