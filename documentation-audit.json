@@ -1067,15 +1067,15 @@
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
       "title": "Security a infrastructure tests",
-      "words": 3538,
-      "headings": 68,
-      "sections": 68,
-      "findings": 215,
-      "critical": 78,
-      "high": 67,
-      "medium": 31,
-      "low": 39,
-      "score": 1622,
+      "words": 2219,
+      "headings": 48,
+      "sections": 48,
+      "findings": 102,
+      "critical": 31,
+      "high": 48,
+      "medium": 11,
+      "low": 12,
+      "score": 801,
       "grade": "D"
     },
     {
@@ -59375,1475 +59375,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "1. Mentálny model",
-      "line": 21,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "1. Mentálny model",
-      "line": 21,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "1. Mentálny model",
-      "line": 21,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký asset alebo prevádzkový výsledok chránime?`, `Pred akým actorom, failure alebo misconfiguration?`, `Ktorá kontrola má riziko znížiť?`, `Aký test dokáže, že kontrola funguje alebo zlyhá?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "1. Mentálny model",
-      "line": 21,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "1. Mentálny model",
-      "line": 21,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "1. Mentálny model",
-      "line": 21,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "4. Assets a security properties",
-      "line": 66,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "4. Assets a security properties",
-      "line": 66,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `customer data,`, `identity a authorization decision,`, `signing key,`, `CI runner,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "4. Assets a security properties",
-      "line": 66,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "4. Assets a security properties",
-      "line": 66,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "4. Assets a security properties",
-      "line": 66,
+      "section": "Metadata",
+      "line": 3,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `identity`, `control plane`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "5. Trust boundaries",
-      "line": 82,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "5. Trust boundaries",
-      "line": 82,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `internet → edge proxy,`, `user session → backend authorization,`, `service → service,`, `tenant → shared storage,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "5. Trust boundaries",
-      "line": 82,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "5. Trust boundaries",
-      "line": 82,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "5. Trust boundaries",
-      "line": 82,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `workload`, `control plane`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "7. Control-to-evidence mapa",
-      "line": 112,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "7. Control-to-evidence mapa",
-      "line": 112,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "7. Control-to-evidence mapa",
-      "line": 112,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "8. Statické a dynamické security vrstvy",
-      "line": 125,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "8. Statické a dynamické security vrstvy",
-      "line": 125,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a data-flow analysis,`, `dependency a artifact analysis,`, `configuration a IaC policy,`, `runtime API a protocol testy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "8. Statické a dynamické security vrstvy",
-      "line": 125,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "8. Statické a dynamické security vrstvy",
-      "line": 125,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "8. Statické a dynamické security vrstvy",
-      "line": 125,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`, `identity`, `enforcement`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "9. SAST",
-      "line": 140,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "9. SAST",
-      "line": 140,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source-to-sink injection flow,`, `unsafe deserialization,`, `insecure cryptographic API,`, `hardcoded credentials,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "9. SAST",
-      "line": 140,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "9. SAST",
-      "line": 140,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "9. SAST",
-      "line": 140,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "9. SAST",
-      "line": 140,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "10. DAST",
-      "line": 156,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "12. SCA",
-      "line": 168,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "12. SCA",
-      "line": 168,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direct a transitive dependency,`, `build-time a runtime component,`, `package version a artifact digest,`, `fixed version dostupnosť,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "12. SCA",
-      "line": 168,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "12. SCA",
-      "line": 168,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "14. Secret scanning",
-      "line": 202,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "14. Secret scanning",
-      "line": 202,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `overiť, či hodnota je reálna,`, `okamžite ju revoke-nuť alebo rotovať,`, `zistiť exposure interval a access logs,`, `odstrániť secret zo súčasného source,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "14. Secret scanning",
-      "line": 202,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "14. Secret scanning",
-      "line": 202,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "15. Supply-chain testing",
-      "line": 218,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "16. SBOM",
-      "line": 236,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "16. SBOM",
-      "line": 236,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SBOM patrí k rovnakému artifact digestu,`, `obsahuje direct aj relevantné transitive components,`, `formát sa dá parsovať,`, `generovanie je súčasťou trusted build procesu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "16. SBOM",
-      "line": 236,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "16. SBOM",
-      "line": 236,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "16. SBOM",
-      "line": 236,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "16. SBOM",
-      "line": 236,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "17. Provenance a signature verification",
-      "line": 249,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "17. Provenance a signature verification",
-      "line": 249,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validný artifact je prijatý,`, `nepodpísaný artifact je odmietnutý,`, `podpis inej identity je odmietnutý,`, `zmenený artifact neprejde,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "17. Provenance a signature verification",
-      "line": 249,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "18. Authentication tests",
-      "line": 262,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "18. Authentication tests",
-      "line": 262,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci credential,`, `nesprávny formát,`, `invalid signature,`, `neznámy issuer,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "18. Authentication tests",
-      "line": 262,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "18. Authentication tests",
-      "line": 262,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `step-up`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "20. Object-level a function-level authorization",
-      "line": 291,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "20. Object-level a function-level authorization",
-      "line": 291,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "20. Object-level a function-level authorization",
-      "line": 291,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "20. Object-level a function-level authorization",
-      "line": 291,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "20. Object-level a function-level authorization",
-      "line": 291,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "20. Object-level a function-level authorization",
-      "line": 291,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`, `scope`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "21. Privilege escalation a confused deputy",
-      "line": 303,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "21. Privilege escalation a confused deputy",
-      "line": 303,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "21. Privilege escalation a confused deputy",
-      "line": 303,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `z používateľa na iného používateľa,`, `z tenant A do tenant B,`, `z bežnej role na admin,`, `zo service accountu na cloud control plane,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "21. Privilege escalation a confused deputy",
-      "line": 303,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "21. Privilege escalation a confused deputy",
-      "line": 303,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "21. Privilege escalation a confused deputy",
-      "line": 303,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "22. Input security tests",
-      "line": 315,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "22. Input security tests",
-      "line": 315,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "22. Input security tests",
-      "line": 315,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SQL, command, LDAP a template injection,`, `path traversal a archive extraction,`, `SSRF a URL parsing,`, `unsafe deserialization,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "22. Input security tests",
-      "line": 315,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "22. Input security tests",
-      "line": 315,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "22. Input security tests",
-      "line": 315,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SQL`, `LDAP`, `SSRF`, `URL`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "23. Output a browser security tests",
-      "line": 331,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "23. Output a browser security tests",
-      "line": 331,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "23. Output a browser security tests",
-      "line": 331,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `context-appropriate output encoding,`, `Content Security Policy podľa threat modelu,`, `cookie flags a session scope,`, `clickjacking protection,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "23. Output a browser security tests",
-      "line": 331,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "23. Output a browser security tests",
-      "line": 331,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CORS`, `Policy`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "24. Fuzzing",
-      "line": 346,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "24. Fuzzing",
-      "line": 346,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target parser alebo API,`, `input grammar alebo seed corpus,`, `sanitizers a runtime instrumentation,`, `resource limits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "24. Fuzzing",
-      "line": 346,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "24. Fuzzing",
-      "line": 346,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "24. Fuzzing",
-      "line": 346,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "25. Infrastructure as Code testovacie vrstvy",
-      "line": 362,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "27. Module a rendering tests",
-      "line": 386,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "27. Module a rendering tests",
-      "line": 386,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "27. Module a rendering tests",
-      "line": 386,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `naming a tags,`, `defaults,`, `optional branches,`, `dependency wiring,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "27. Module a rendering tests",
-      "line": 386,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "27. Module a rendering tests",
-      "line": 386,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "28. Static policy tests",
-      "line": 400,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "28. Static policy tests",
-      "line": 400,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `storage nie je public,`, `management port nie je otvorený širokému internetu,`, `encryption je zapnuté,`, `production deletion protection je aktívna,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "28. Static policy tests",
-      "line": 400,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "28. Static policy tests",
-      "line": 400,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "28. Static policy tests",
-      "line": 400,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "29. Plan a change-set testing",
-      "line": 414,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "29. Plan a change-set testing",
-      "line": 414,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neočakávané destroys a replacements,`, `privilege expansion,`, `public exposure,`, `zmenu encryption alebo retention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "29. Plan a change-set testing",
-      "line": 414,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "29. Plan a change-set testing",
-      "line": 414,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "29. Plan a change-set testing",
-      "line": 414,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "29. Plan a change-set testing",
-      "line": 414,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "30. Apply v sandboxe",
-      "line": 429,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "30. Apply v sandboxe",
-      "line": 429,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "30. Apply v sandboxe",
-      "line": 429,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelený account, project alebo subscription,`, `least-privilege test identity,`, `resource prefix a tags,`, `cost a quota limits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "30. Apply v sandboxe",
-      "line": 429,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "30. Apply v sandboxe",
-      "line": 429,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "31. Effective runtime state",
-      "line": 443,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "31. Effective runtime state",
-      "line": 443,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bucket public access je reálne blokovaný,`, `TLS endpoint používa očakávaný certificate a protocol,`, `IAM principal nemôže vykonať zakázanú action,`, `network path je z nepovolenej zóny nedostupný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "31. Effective runtime state",
-      "line": 443,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "31. Effective runtime state",
-      "line": 443,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "31. Effective runtime state",
-      "line": 443,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `UID`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "32. Policy as Code lifecycle",
-      "line": 456,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "32. Policy as Code lifecycle",
-      "line": 456,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `názov a bezpečnostný dôvod,`, `scope a applicability,`, `allow aj deny examples,`, `severity a blocking semantics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "32. Policy as Code lifecycle",
-      "line": 456,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "32. Policy as Code lifecycle",
-      "line": 456,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "34. Cloud IAM tests",
-      "line": 486,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "34. Cloud IAM tests",
-      "line": 486,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolenú action,`, `zakázanú action,`, `access k cudziemu resource,`, `privilege delegation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "34. Cloud IAM tests",
-      "line": 486,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "34. Cloud IAM tests",
-      "line": 486,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `delegation`, `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "35. Network security tests",
-      "line": 501,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "35. Network security tests",
-      "line": 501,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingress a egress,`, `IPv4 a IPv6,`, `DNS resolution,`, `public a private load balancer,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "35. Network security tests",
-      "line": 501,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "35. Network security tests",
-      "line": 501,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "35. Network security tests",
-      "line": 501,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "36. Kubernetes a container tests",
-      "line": 518,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "36. Kubernetes a container tests",
-      "line": 518,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "36. Kubernetes a container tests",
-      "line": 518,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image digest a trusted registry,`, `non-root user,`, `read-only root filesystem,`, `minimal capabilities,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "36. Kubernetes a container tests",
-      "line": 518,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "36. Kubernetes a container tests",
-      "line": 518,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "36. Kubernetes a container tests",
-      "line": 518,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `enforcement`, `resource`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "38. Backup a restore tests",
-      "line": 554,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "38. Backup a restore tests",
-      "line": 554,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `restore do izolovaného prostredia,`, `dostupnosť encryption keys,`, `integrity a completeness,`, `application a transaction consistency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "38. Backup a restore tests",
-      "line": 554,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "38. Backup a restore tests",
-      "line": 554,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "38. Backup a restore tests",
-      "line": 554,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "39. Resilience a failure security scenáre",
-      "line": 570,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "39. Resilience a failure security scenáre",
-      "line": 570,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "39. Resilience a failure security scenáre",
-      "line": 570,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expired certificate,`, `revoked credential,`, `KMS alebo secret-manager outage,`, `DNS alebo identity-provider failure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "39. Resilience a failure security scenáre",
-      "line": 570,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "39. Resilience a failure security scenáre",
-      "line": 570,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `DNS`, `API`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "40. Destructive test safety",
-      "line": 587,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "40. Destructive test safety",
-      "line": 587,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "40. Destructive test safety",
-      "line": 587,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný target allowlist,`, `environment identity assertion,`, `maximálny blast radius,`, `time a cost limit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "40. Destructive test safety",
-      "line": 587,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "40. Destructive test safety",
-      "line": 587,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "42. Test data a privacy",
-      "line": 609,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "42. Test data a privacy",
-      "line": 609,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zákaz nekontrolovaných produkčných kópií,`, `anonymizáciu a reidentifikačné riziko,`, `data minimization,`, `retention a cleanup,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "42. Test data a privacy",
-      "line": 609,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "44. Detection a response validation",
-      "line": 630,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "44. Detection a response validation",
-      "line": 630,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `relevantný audit event vznikne,`, `event obsahuje identity, resource, action a čas,`, `pipeline ho doručí bez neprijateľného delay,`, `alert má primeranú severity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "44. Detection a response validation",
-      "line": 630,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "44. Detection a response validation",
-      "line": 630,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "44. Detection a response validation",
-      "line": 630,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "45. Findings triage",
-      "line": 644,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "45. Findings triage",
-      "line": 644,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "45. Findings triage",
-      "line": 644,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `affected asset, version a environment,`, `presnú evidence a reprodukciu,`, `preconditions a attack path,`, `business a technical impact,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "45. Findings triage",
-      "line": 644,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "45. Findings triage",
-      "line": 644,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "45. Findings triage",
-      "line": 644,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "46. False positives a false negatives",
-      "line": 661,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "46. False positives a false negatives",
-      "line": 661,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `confirmed finding rate,`, `suppression rate,`, `reopen a recurrence,`, `defect escape,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "46. False positives a false negatives",
-      "line": 661,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "46. False positives a false negatives",
-      "line": 661,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "47. Security quality gates",
-      "line": 677,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "47. Security quality gates",
-      "line": 677,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signál má dostatočnú presnosť,`, `asset a impact sú známe,`, `finding je reprodukovateľný,`, `remediation alebo bezpečný exception proces existuje,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "47. Security quality gates",
-      "line": 677,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "48. Tool failure semantics",
-      "line": 690,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.0",
+      "line": 39,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
@@ -60851,17 +59393,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "48. Tool failure semantics",
-      "line": 690,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.0",
+      "line": 39,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scan completed, no findings,`, `scan completed with findings,`, `scan incomplete,`, `rules alebo vulnerability feed sú stale,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zákaznícke a objednávkové dáta;`, `tenant authorization decision;`, `auditná stopa;`, `release artifact a deployment identity;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "48. Tool failure semantics",
-      "line": 690,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.0",
+      "line": 39,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -60869,8 +59411,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "49. Exceptions a risk acceptance",
-      "line": 703,
+      "section": "2. Nosný scenár: Atlas Orders 3.9.0",
+      "line": 39,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `control plane`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "3. Security verzus infrastructure pohľad",
+      "line": 73,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -60878,71 +59429,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "49. Exceptions a risk acceptance",
-      "line": 703,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "49. Exceptions a risk acceptance",
-      "line": 703,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétny finding alebo policy,`, `asset a scope,`, `business dôvod,`, `risk ownera,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "49. Exceptions a risk acceptance",
-      "line": 703,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "49. Exceptions a risk acceptance",
-      "line": 703,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "50. Retest a closure",
-      "line": 719,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "50. Retest a closure",
-      "line": 719,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pôvodná reprodukcia už nefunguje,`, `nevznikol alternate bypass,`, `regression test chráni failure class,`, `deployment obsahuje fix,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "50. Retest a closure",
-      "line": 719,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "51. Security test report",
-      "line": 732,
+      "section": "4. Threat-informed test contract",
+      "line": 97,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -60950,26 +59438,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "51. Security test report",
-      "line": 732,
+      "section": "4. Threat-informed test contract",
+      "line": 97,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "51. Security test report",
-      "line": 732,
+      "section": "4. Threat-informed test contract",
+      "line": 97,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scope a excluded areas,`, `testovaný artifact a environment,`, `threat alebo control mapu,`, `použité tools a versions,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `asset a požadovanú property;`, `actor alebo failure source;`, `entry point a trust boundary;`, `abuse path alebo zakázaný effective state;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "51. Security test report",
-      "line": 732,
+      "section": "4. Threat-informed test contract",
+      "line": 97,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -60977,8 +59465,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "51. Security test report",
-      "line": 732,
+      "section": "4. Threat-informed test contract",
+      "line": 97,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -60986,17 +59474,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "52. Diagnostika nálezu",
-      "line": 749,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
+      "section": "4. Threat-informed test contract",
+      "line": 97,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "52. Diagnostika nálezu",
-      "line": 749,
+      "section": "5. Atlas abuse case: cross-tenant export",
+      "line": 114,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "5. Atlas abuse case: cross-tenant export",
+      "line": 114,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -61004,116 +59501,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "52. Diagnostika nálezu",
-      "line": 749,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "52. Diagnostika nálezu",
-      "line": 749,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potvrď artifact, component a version.`, `Zisti runtime presence a reachability.`, `Rekonštruuj attacker preconditions a trust boundary.`, `Over exposure a existing controls.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "52. Diagnostika nálezu",
-      "line": 749,
+      "section": "6. Control-to-evidence mapa",
+      "line": 137,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "52. Diagnostika nálezu",
-      "line": 749,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "52. Diagnostika nálezu",
-      "line": 749,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "52. Diagnostika nálezu",
-      "line": 749,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "53. Diagnostika IaC a policy failure",
-      "line": 762,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "53. Diagnostika IaC a policy failure",
-      "line": 762,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "53. Diagnostika IaC a policy failure",
-      "line": 762,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "53. Diagnostika IaC a policy failure",
-      "line": 762,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Identifikuj source, rendered output a plan.`, `Urči, na ktorej transformačnej vrstve vznikla chyba.`, `Zobraz presnú resource path a effective value.`, `Over policy scope, mode a exception.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "53. Diagnostika IaC a policy failure",
-      "line": 762,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "53. Diagnostika IaC a policy failure",
-      "line": 762,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "53. Diagnostika IaC a policy failure",
-      "line": 762,
+      "section": "6. Control-to-evidence mapa",
+      "line": 137,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -61121,17 +59519,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "53. Diagnostika IaC a policy failure",
-      "line": 762,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `policy`, `scope`",
-      "score": 4
+      "section": "7. Vrstvy bezpečnostného dôkazu",
+      "line": 148,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "54. Časté anti-patterny",
-      "line": 773,
+      "section": "8. Source, dependency a artifact evidence",
+      "line": 174,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -61139,8 +59537,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "Scanner prešiel, systém je bezpečný",
-      "line": 775,
+      "section": "Dependency analysis",
+      "line": 180,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -61148,107 +59546,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "CVE severity je naše riziko",
-      "line": 779,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "Validné IaC znamená bezpečný deployment",
-      "line": 783,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "Policy existuje, preto je enforced",
-      "line": 787,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "Podpis sa generuje, ale neoveruje",
-      "line": 791,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "Všetky testy používajú admin účet",
-      "line": 795,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "Pentest raz ročne stačí",
-      "line": 799,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "Test environment môže obsahovať produkčné dáta",
-      "line": 803,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "Scanner outage znamená zelený gate",
-      "line": 807,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "55. Prevádzkový checklist",
-      "line": 811,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "55. Prevádzkový checklist",
-      "line": 811,
+      "section": "Artifact identity",
+      "line": 193,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "55. Prevádzkový checklist",
-      "line": 811,
+      "section": "Artifact identity",
+      "line": 193,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `asset a trust boundary sú známe,`, `scope a excluded paths sú zdokumentované,`, `artifact a environment provenance sa ukladajú,`, `authentication a test identities sú bezpečné,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validný podpísaný artifact je prijatý;`, `nepodpísaný alebo zmenený artifact je odmietnutý;`, `podpis nesprávnej identity neprejde;`, `admission decision je auditovaný.`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "55. Prevádzkový checklist",
-      "line": 811,
+      "section": "Artifact identity",
+      "line": 193,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -61256,17 +59573,89 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "55. Prevádzkový checklist",
-      "line": 811,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "Artifact identity",
+      "line": 193,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "55. Prevádzkový checklist",
-      "line": 811,
+      "section": "9. IaC evidence lifecycle",
+      "line": 204,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Source/render",
+      "line": 222,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Apply",
+      "line": 234,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Effective state",
+      "line": 238,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "10. Enforcement test",
+      "line": 242,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "11. Authentication a authorization matrix",
+      "line": 257,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "11. Authentication a authorization matrix",
+      "line": 257,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `missing, malformed alebo invalid signature;`, `wrong issuer/audience;`, `expired alebo not-yet-valid token;`, `revoked credential;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "11. Authentication a authorization matrix",
+      "line": 257,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "11. Authentication a authorization matrix",
+      "line": 257,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -61274,8 +59663,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "55. Prevádzkový checklist",
-      "line": 811,
+      "section": "11. Authentication a authorization matrix",
+      "line": 257,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -61283,21 +59672,615 @@
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "55. Prevádzkový checklist",
-      "line": 811,
-      "severity": "high",
+      "section": "11. Authentication a authorization matrix",
+      "line": 257,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`, `enforcement`, `failure semantics`",
-      "score": 7
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
-      "section": "56. Zhrnutie",
-      "line": 830,
+      "section": "12. Input a parser boundaries",
+      "line": 287,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "12. Input a parser boundaries",
+      "line": 287,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `injection;`, `path traversal a archive extraction;`, `SSRF a URL parsing;`, `unsafe deserialization;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "12. Input a parser boundaries",
+      "line": 287,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "12. Input a parser boundaries",
+      "line": 287,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "12. Input a parser boundaries",
+      "line": 287,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSRF`, `URL`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "13. Fuzzing ako doplnkový experiment",
+      "line": 304,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "13. Fuzzing ako doplnkový experiment",
+      "line": 304,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target a input grammar/corpus;`, `runtime instrumentation;`, `resource a time limits;`, `crash/hang/invariant oracle;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "13. Fuzzing ako doplnkový experiment",
+      "line": 304,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "13. Fuzzing ako doplnkový experiment",
+      "line": 304,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "14. Network a workload infrastructure tests",
+      "line": 317,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "14. Network a workload infrastructure tests",
+      "line": 317,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolenú internú admin path;`, `zakázanú internetovú path;`, `IPv4 aj IPv6 podľa supportu;`, `stateful return path;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "14. Network a workload infrastructure tests",
+      "line": 317,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "15. Kubernetes a runtime identity",
+      "line": 343,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "15. Kubernetes a runtime identity",
+      "line": 343,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "15. Kubernetes a runtime identity",
+      "line": 343,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable image digest a trusted registry;`, `non-root user a effective UID;`, `read-only filesystem;`, `capabilities a seccomp/MAC profile;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "15. Kubernetes a runtime identity",
+      "line": 343,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "15. Kubernetes a runtime identity",
+      "line": 343,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `MAC`, `scope`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Root cause",
+      "line": 378,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 382,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 382,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 382,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 382,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CI deny fixture testuje policy decision;`, `admission/enforcement integration test predloží zakázaný resource;`, `plan gate blokuje public management port;`, `post-apply network test skúsi zakázaný source;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 382,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 382,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `policy`, `enforcement`, `resource`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "17. Worked failure: API authorization bola zelená, export leakol",
+      "line": 391,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Root cause",
+      "line": 403,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 407,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 407,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 407,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 407,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `tenant ID sa odvodzuje z authenticated contextu;`, `worker používa tenant-scoped query/DB control;`, `component/E2E abuse test overí celý export;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 407,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 407,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "Náprava",
+      "line": 407,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `DB`, `E2E`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "19. Findings a contextual risk",
+      "line": 433,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "19. Findings a contextual risk",
+      "line": 433,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "19. Findings a contextual risk",
+      "line": 433,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `affected artifact, asset a environment;`, `reprodukciu a evidence;`, `attacker preconditions a trust boundary;`, `runtime presence/reachability;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "19. Findings a contextual risk",
+      "line": 433,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "19. Findings a contextual risk",
+      "line": 433,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "21. Exceptions a risk acceptance",
+      "line": 465,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "21. Exceptions a risk acceptance",
+      "line": 465,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "21. Exceptions a risk acceptance",
+      "line": 465,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétny finding/control;`, `asset a scope;`, `business dôvod;`, `risk ownera;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "21. Exceptions a risk acceptance",
+      "line": 465,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "21. Exceptions a risk acceptance",
+      "line": 465,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "23. Failure artifacts a diagnostika",
+      "line": 497,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "23. Failure artifacts a diagnostika",
+      "line": 497,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "19 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "23. Failure artifacts a diagnostika",
+      "line": 497,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "17 z 19 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source, rendered output a plan;`, `policy/rule version a mode;`, `artifact digest, SBOM/provenance identity;`, `test identity a source location;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "23. Failure artifacts a diagnostika",
+      "line": 497,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "23. Failure artifacts a diagnostika",
+      "line": 497,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "23. Failure artifacts a diagnostika",
+      "line": 497,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "23. Failure artifacts a diagnostika",
+      "line": 497,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`, `identity`, `freshness`",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 524,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 524,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 524,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 524,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Security test začína threatom alebo abuse case-om.`, `Infrastructure test sleduje source až po effective behavior.`, `Scanner je observation tool, nie security verdict.`, `CVE severity potrebuje runtime a business context.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 524,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 524,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 524,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 524,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 524,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CVE`, `SBOM`, `Policy`, `enforcement`, `resource`, `identity`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "25. Časté omyly",
+      "line": 540,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "„Scanner prešiel, systém je bezpečný“",
+      "line": 542,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "„Validné IaC znamená bezpečný deployment“",
+      "line": 546,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "„Policy existuje, preto je enforced“",
+      "line": 550,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "„API authorization test chráni všetky background flows“",
+      "line": 554,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "„CVE severity je naše riziko“",
+      "line": 558,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "„Scanner outage znamená no findings“",
+      "line": 562,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/security-and-infrastructure-tests.md",
+      "section": "„Fix je commitnutý, finding možno zavrieť“",
+      "line": 566,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/shift-left.md",
