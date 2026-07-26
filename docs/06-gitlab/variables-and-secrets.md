@@ -6,572 +6,532 @@
 - Level: L2
 - Domain: GitLab
 
-GitLab CI/CD variables prenášajú configuration a runtime hodnoty do pipelines a jobs. Nie každá variable je secret a nie každý secret má byť uložený v GitLabe. Bezpečný návrh musí vysvetliť, odkiaľ hodnota pochádza, ktorá hodnota vyhrá, v ktorej fáze existuje, ktorému jobu sa sprístupní, čo s ňou môže job urobiť a ako sa hodnota rotuje alebo revokuje.
-
-## 1. Mental model
+GitLab CI/CD variable je vstup do pipeline alebo jobu. Môže niesť bežnú konfiguráciu, citlivú hodnotu, user-controlled parameter alebo identity assertion. Bezpečnosť nevytvára checkbox `masked`; vzniká až po vyriešení source-u, precedence, availability phase, pipeline trustu, runtime exposure, propagation, cleanupu a revocation lifecycle-u.
 
 ```text
-value source
-→ precedence a scope resolution
+value contract
+→ possible sources a precedence
 → pipeline/job eligibility
-→ runtime injection alebo secret retrieval
-→ použitie
-→ redaction a audit
+→ effective non-secret configuration
+→ job identity assertion
+→ short-lived secret/credential retrieval
+→ bounded use
+→ redaction a propagation controls
 → cleanup
-→ expiration / rotation / revocation
+→ rotation, expiration alebo revocation
 ```
 
-Secret bezpečnosť nie je vlastnosť jedného checkboxu. Je výsledkom celého exposure graphu.
+Kritické pravidlo: hodnota zobrazená v GitLab settings nie je automaticky hodnota, ktorú job skutočne použil.
 
-## 2. Kategórie hodnôt
+## 1. Nosný model: effective-value a credential lifecycle
 
-Rozlišuj:
+Pre každý key existujú dve odlišné otázky:
 
-- **Public configuration —** napríklad názov komponentu alebo build mode bez citlivosti.
-- **Internal configuration —** nie je tajná, ale nemusí patriť do verejného repository.
-- **Secret material —** password, private key, API token alebo signing key.
-- **Identity assertion —** krátkodobý ID token, ktorý dokazuje job context.
-- **Derived credential —** short-lived cloud alebo Vault credential získaný federáciou.
-- **Generated metadata —** artifact digest, environment URL alebo release ID.
-- **User-controlled input —** manual alebo trigger parameter, ktorý musí byť validovaný.
+```text
+Aká effective hodnota vznikla?
+→ source + precedence + scope + phase + forwarding
 
-Kategória určuje storage, scope, logging, retention a incident response.
+Akú capability táto hodnota alebo identity poskytla?
+→ runtime exposure + provider authorization + use + lifetime
+```
 
-## 3. Variable sources
+Konfiguračná chyba môže zvoliť nesprávny environment. Secret exposure môže umožniť neautorizovanú operáciu. OIDC claim môže byť správny, ale provider policy príliš široká.
+
+Troubleshooting preto nesmie vypisovať všetky variables. Musí rekonštruovať provenance bez odhalenia hodnôt.
+
+## 2. Nosný scenár: Atlas production deployment
+
+Atlas deploy job používa:
+
+```text
+RELEASE_MANIFEST = immutable non-secret release identity
+DEPLOY_ENV = typed enum, canonical value production
+CLOUD_ROLE = non-secret provider role identifier
+VAULT_PATH = non-secret secret path
+GitLab ID token = krátkodobá identity assertion
+cloud credential = derived short-lived secret
+```
+
+Desired flow:
+
+```text
+protected main pipeline
+→ resolved deploy job
+→ kanonický environment production
+→ release manifest určí artifact digest D42
+→ GitLab vydá ID token pre audience cloud-sts
+→ provider overí project/ref/environment/job claims
+→ vydá 10-minútový deploy credential
+→ job nasadí iba D42 do Atlas production
+→ credential expiruje a temporary files sa odstránia
+```
+
+Manual operator smie zvoliť iba schválený release manifest z typed inputu. Nesmie voľným textom prepísať digest, cloud role, secret path alebo command.
+
+## 3. Hodnoty majú odlišné kategórie
+
+- **Public configuration:** build mode alebo component name.
+- **Internal configuration:** endpoint alebo feature matrix bez secretu.
+- **Secret material:** static token, private key alebo password.
+- **Identity assertion:** ID token dokazujúci job context.
+- **Derived credential:** krátkodobý cloud/Vault credential.
+- **Generated metadata:** artifact digest, deployment ID alebo URL.
+- **User-controlled input:** manual, API, schedule alebo trigger parameter.
+
+Tieto kategórie nemajú rovnaký storage ani lifecycle. Artifact digest patrí do provenance, private key nie. ID token má krátku lifetime a audience, statický token potrebuje rotation a revocation.
+
+## 4. Value source a provenance
 
 Hodnota môže pochádzať z:
 
-- `.gitlab-ci.yml`,
-- predefined variables,
-- project, group alebo instance settings,
-- pipeline policy alebo triggera,
-- manual pipeline inputu,
-- schedule,
-- downstream pipeline forwarding,
-- dotenv reportu,
-- external secret provideru,
-- runtime aplikácie alebo deployment platformy.
+```text
+root/resolved CI configuration
+predefined GitLab context
+project/group/instance settings
+pipeline policy alebo trigger
+manual/API/schedule input
+downstream forwarding
+dotenv/report artifact
+external secret provider
+runtime platform
+```
 
-Každý source má inú dôveru. Hodnota z chráneného group settingu a hodnota z manual inputu nesmú byť považované za ekvivalentné iba preto, že používajú rovnaký key.
+Provenance record pre citlivý key neukladá hodnotu. Ukladá:
 
-## 4. Effective value
+```text
+key name
+source type a scope
+source revision/ID
+protected/environment match
+override decision
+effective-value fingerprint alebo version
+consumer job
+```
 
-Pri duplicitnom key vzniká effective value podľa GitLab precedence pravidiel a konkrétneho pipeline contextu.
+Rovnaký key z group settingu a manual triggera nemá rovnakú dôveru.
 
-Bezpečný postup:
+## 5. Precedence je authorization boundary
 
-1. inventarizuj všetky možné sources,
-2. urč povolené override body,
-3. zisti, ktorá hodnota vyhrá,
-4. over scope a pipeline source,
-5. validuj výsledok pred citlivou operáciou,
-6. zaloguj ne-secretnú identitu rozhodnutia.
+Ak viaceré sources definujú rovnaký key, GitLab vytvorí effective value podľa platformových precedence pravidiel a konkrétneho pipeline contextu.
 
-Nepoužívaj rovnaký key na rozdielne významy. `TARGET` ako branch, environment aj hostname vytvára neauditovateľný override model.
+Bezpečný návrh:
 
-## 5. Override authorization
+```text
+inventarizuj sources
+→ explicitne povoľ alebo zakáž override
+→ vyrieš precedence
+→ validuj effective value
+→ viaž decision na immutable subject
+```
 
-Security-sensitive hodnoty nemajú byť ľubovoľne prepísateľné používateľom alebo upstream pipeline.
+Security-sensitive keys:
 
-Chráň najmä:
+- artifact digest alebo release manifest;
+- environment a deployment tier;
+- cloud role alebo identity audience;
+- registry namespace;
+- secret path;
+- migration/restore mode;
+- destructive-operation flag.
 
-- artifact digest,
-- deployment environment,
-- image alebo template reference,
-- cloud role/identity,
-- secret path,
-- registry namespace,
-- destructive-operation flag,
-- migration mode.
+Tieto keys nemajú byť neobmedzene prepísateľné manual alebo upstream variable-om.
 
-Manual input `DEPLOY_IMAGE=...` môže obísť build a promotion evidence. Preferuj výber z overeného release manifestu alebo presný digest validovaný proti registry policy.
+## 6. Availability phase určuje, kde možno hodnotu použiť
 
-## 6. Availability phases
+Rozlišuj:
 
-Nie každá variable existuje v každej fáze:
+```text
+pre-pipeline / pipeline creation
+→ include a workflow selection
 
-- pri pipeline creation,
-- pri job graph construction,
-- pri runner execution,
-- po upstream jobe,
-- v downstream pipeline.
+pipeline graph
+→ job rules a job definition
 
-`workflow:rules` alebo job `rules` nemôžu spoľahlivo používať hodnotu, ktorá vznikne až počas script execution. Phase mismatch môže vytvoriť missing jobs alebo neočakávané defaults.
+runner execution
+→ runtime variables, file secrets a tokens
 
-## 7. Variable type
+after-job output
+→ dotenv, artifacts a downstream metadata
+```
 
-GitLab podporuje bežnú variable a file-type variable.
+Job output nemôže spätne rozhodnúť, či ten istý job alebo pipeline vznikne. Ak runtime discovery určuje ďalší graph, vytvor plan artifact a child pipeline s explicitným contractom.
 
-File type vytvorí dočasný súbor a environment variable obsahuje jeho path. Je vhodný pre:
+Phase mismatch často vyzerá ako prázdna variable alebo chýbajúci job, ale mechanizmus je nesprávne načasovanie, nie nevyhnutne secret distribution failure.
 
-- CA bundle,
-- certificate,
-- kubeconfig,
-- JSON credential document,
-- signing material,
-- tool configuration s citlivým obsahom.
+## 7. Scope a environment identity
 
-Job má čítať path, nie vypisovať súbor. Cleanup musí odstrániť dočasný file aj pri cancellation alebo failure.
+Protected variable filtruje podľa trusted ref contextu. Environment-scoped variable filtruje podľa deklarovaného environment name/patternu.
 
-## 8. Masked value
+```text
+value source
++ protected eligibility
++ canonical environment match
++ pipeline/ref context
++ precedence
+→ available alebo absent
+```
 
-Masking sa pokúša redigovať presnú hodnotu v job logu. Chráni pred náhodným vypísaním, nie pred úmyselnou exfiltráciou.
+Ak deploy job deklaruje `production-new`, variable scoped na `production` môže chýbať — alebo širší wildcard môže nečakane vyhrať. Environment name je security input a musí byť kanonický, trusted a mapovaný na skutočný runtime target.
 
-Secret môže uniknúť cez:
+Protected variable neznamená, že ju môže dostať iba bezpečný code. Chránený ref môže obsahovať kompromitovaný include alebo škodlivú zmenu.
 
-- encoding alebo hash fragmenty,
-- rozdelenie na časti,
-- process arguments,
-- artifact alebo cache,
-- debug dump,
-- HTTP request,
-- child process environment,
-- external logs,
-- malicious script.
+## 8. Masked, hidden a file-type riešia odlišné problémy
 
-Job, ktorý dostane secret, musí byť považovaný za schopný secret odoslať.
+### Masked
 
-## 9. Hidden value
+Rediguje presnú hodnotu v GitLab job logu. Nezastaví encoding, fragmentáciu, artifact upload, network exfiltration ani úmyselný script.
 
-Hidden variable znižuje možnosť neskoršieho zobrazenia hodnoty v UI. Neobmedzuje runtime job, ktorý ju dostane.
+### Hidden
 
-Hidden state rieši human readback. Protected scope, trusted code, runner isolation a external-secret policy riešia execution exposure.
+Znižuje human readback z UI. Runtime job ju stále dostane.
 
-## 10. Protected variable
+### File type
 
-Protected variable je dostupná iba v eligible protected-ref context-e podľa GitLab pravidiel.
+Vytvorí temporary file a variable nesie jeho path. Je vhodný pre certifikát, CA bundle, kubeconfig alebo JSON secret, ale potrebuje cleanup aj pri cancellation.
 
-Bezpečnosť závisí aj od:
+Job, ktorý secret dostane, sa musí považovať za schopný ho prečítať a odoslať.
 
-- protection branchu alebo tagu,
-- allowed-to-push a allowed-to-merge policy,
-- pipeline code a included templates,
-- runner poolu,
-- fork/MR contextu,
-- downstream pipeline forwarding,
-- environment scope.
+## 9. Pipeline trust predchádza secret injection
 
-Protected variable neznamená production-only variable.
+Atlas oddeľuje:
 
-## 11. Environment scope
+```text
+untrusted MR validation
+→ bez production secrets a privileged identity
 
-Environment scope obmedzuje hodnotu podľa názvu environmentu alebo patternu.
+trusted post-merge build
+→ iba build-scoped credentials
 
-Riziká:
+release/deploy job
+→ exact protected context + environment + short-lived identity
+```
 
-- job deklaruje podobný, ale nechránený názov,
-- wildcard match je širší než očakávanie,
-- staging fallback vyhrá nad production-specific hodnotou,
-- review app sa pomenuje ako produkčný scope,
-- environment sa určuje z user-controlled inputu.
+Fork alebo MR pipeline nemá dostať secrets iba preto, aby bola identická s main pipeline. Funkčnú validáciu možno vykonať so synthetic credentials alebo isolated test targetom.
 
-Environment name je súčasť authorization contractu. Musí byť kanonický, validovaný a chránený spolu s deploy jobom.
+## 10. ID token a workload federation
 
-## 12. Group a instance variables
-
-Vyšší namespace scope zväčšuje blast radius. Group variable používaj iba vtedy, keď:
-
-- skutočne patrí celej group boundary,
-- všetky dedičné projekty majú rovnakú dôveru,
-- owner a consumers sú známi,
-- environment/protected scopes obmedzujú exposure,
-- project transfer alebo subgroup zmena je auditovaná.
-
-Secret pre jednu aplikáciu nemá byť dostupný stovkám projektov iba kvôli pohodliu.
-
-## 13. Variable expansion a composition
-
-Expansion môže skladať hodnoty z iných variables, ale komplikuje precedence, quoting a masking.
-
-Preferuj:
-
-- jasné atomic values,
-- explicitné composition v kontrolovanom scripte,
-- validované enumy,
-- pevné command templates,
-- žiadne `eval` nad variable obsahom.
-
-Variable je data, nie shell code.
-
-## 14. Manual a trigger inputs
-
-Manual alebo trigger variable je user-controlled input. Validuj:
-
-- type,
-- enum alebo allowlist,
-- dĺžku,
-- format,
-- environment,
-- URL/hostname,
-- artifact digest,
-- path traversal,
-- destructive intent.
-
-Citlivý input má byť typed a policy-bound. Voľný text nie je vhodný na výber produkčnej identity alebo commandu.
-
-## 15. Downstream a child pipelines
-
-Variables môžu prechádzať do child alebo multi-project pipeline. Pred forwardingom urči:
-
-- ktoré keys sú potrebné,
-- či sú secrets,
-- aký je target-project trust,
-- kto môže meniť downstream pipeline code,
-- aký runner a environment downstream používa,
-- či sa hodnoty ukladajú v logs, dotenv alebo artifacts.
-
-Preferuj explicitný allowlist. Forward všetkého runtime environmentu vytvára neviditeľný privilege propagation.
-
-## 16. Dotenv report
-
-Dotenv report je vhodný pre non-secret metadata, napríklad:
-
-- artifact digest,
-- version,
-- environment URL,
-- deployment ID,
-- generated path.
-
-Je to artifact s vlastným access a retention modelom. Nepoužívaj ho ako implicitný secret transport, pokiaľ nie je celý downstream a storage lifecycle navrhnutý pre citlivé dáta.
-
-## 17. Predefined variables
-
-Predefined variables poskytujú context projektu, commitu, pipeline, jobu, registry a environmentu.
-
-Pri security rozhodnutí over:
-
-- pipeline source,
-- ref a jeho protected stav,
-- source/target project,
-- commit SHA,
-- environment identity,
-- job identity,
-- availability phase.
-
-Samotný branch name nie je dôkaz trusted pipeline contextu.
-
-## 18. `CI_JOB_TOKEN`
-
-`CI_JOB_TOKEN` je krátkodobá GitLab job identity pre podporované API a cross-project operácie.
-
-Navrhni:
-
-- explicitný inbound allowlist target projektu,
-- minimum required endpoints,
-- source-project trust,
-- protected-ref podmienku podľa rizika,
-- žiadne logovanie alebo artifact export,
-- audit použitia,
-- oddelenie read a publish use cases.
-
-Job token nemá byť univerzálny organization-wide service credential.
-
-## 19. ID tokens a OIDC federation
-
-Preferovaný model pre cloud alebo secret provider:
+Preferovaný production model:
 
 ```text
 GitLab job
 → podpísaný ID token
-→ provider overí issuer, audience a claims
-→ vydá krátkodobý credential
-→ job vykoná scoped operáciu
+→ provider overí issuer + audience + claims
+→ provider vydá bounded credential
+→ job vykoná konkrétnu operáciu
 → credential expiruje
 ```
 
-Provider policy má overovať podľa potreby:
+Provider policy podľa rizika overuje:
 
-- issuer,
-- audience,
-- project alebo namespace,
-- ref a protection,
-- environment,
-- pipeline source,
-- job účel,
-- token lifetime.
+- project/namespace;
+- source/ref a protected status;
+- pipeline source;
+- environment;
+- job name alebo purpose;
+- audience;
+- token lifetime;
+- prípadne release/deployment subject.
 
-Audience musí byť konkrétna. Provider nemá akceptovať token určený inej službe.
+Príliš všeobecná audience alebo namespace wildcard môže premeniť krátkodobý token na širokú capability.
 
-## 20. External secret provider
+## 11. `CI_JOB_TOKEN` a cross-project propagation
 
-External provider oddeľuje secret storage a authorization od GitLab variable storage.
+`CI_JOB_TOKEN` je krátkodobá GitLab job identity pre podporované API a cross-project operácie. Target project má explicitne povoliť relevantný source project a minimum capability.
 
-Lifecycle:
+Downstream forwarding potrebuje allowlist:
+
+```text
+metadata keys
+→ explicitne forward
+
+secret keys
+→ radšej znovu získať z identity v downstream context-e
+```
+
+Forward všetkých variables môže preniesť privilege do projektu s iným ownerom, CI code-om, runnerom a environment policy.
+
+## 12. External secret provider
+
+External provider oddeľuje storage a authorization od GitLab settings:
 
 ```text
 job identity
-→ authenticate/federate
-→ authorize konkrétny secret path
-→ issue lease alebo value
-→ use
+→ authorize secret path
+→ issue value/lease
+→ bounded use
 → revoke/expire
 → audit
 ```
 
-Výhody:
+To neznižuje riziko, ak job môže čítať príliš široký path, vypísať secret alebo ho uložiť do artifactu. Provider audit a GitLab job provenance musia byť korelovateľné.
 
-- kratšia životnosť,
-- centrálna rotácia,
-- presnejší access policy,
-- usage logs,
-- menší počet statických credentials.
+## 13. Manual a trigger input je nedôveryhodné data
 
-External provider nepomôže, ak job dostane príliš širokú role alebo secret vypíše do artifactu.
-
-## 21. Token taxonomy
-
-Rozlišuj:
-
-- personal access token,
-- project access token,
-- group access token,
-- deploy token,
-- `CI_JOB_TOKEN`,
-- runner authentication token,
-- ID token,
-- cloud/provider derived credential.
-
-Každý typ má inú subject identity, scope, lifetime, revocation a audit. Osobný token človeka nie je vhodná trvalá automation identity.
-
-## 22. Secret rotation
-
-Rotation contract:
-
-1. identifikuj secret a ownera,
-2. inventarizuj consumers,
-3. vytvor novú hodnotu alebo key version,
-4. zabezpeč dual-validity alebo kontrolovaný cutover,
-5. rolloutni consumers,
-6. over použitie novej hodnoty,
-7. revokuj starú,
-8. skontroluj zlyhané alebo offline consumers,
-9. uchovaj audit evidence.
-
-Rotation, ktorá iba zmení GitLab variable, môže nechať starý credential aktívny u providera.
-
-## 23. Expiration a revocation
-
-Každá non-human credential potrebuje:
-
-- účel,
-- ownera,
-- scope,
-- expiration,
-- rotation cadence,
-- usage telemetry,
-- revocation runbook.
-
-Expiration je plánovaný koniec. Revocation je okamžité zneplatnenie pri incidente, zmene ownershipu alebo nepotrebnosti.
-
-## 24. Secret cleanup
-
-Po jobe odstráň:
-
-- file-type variable files,
-- temporary certificates a keys,
-- cloud CLI profiles,
-- kubeconfig,
-- package-manager auth,
-- mounted secret volumes,
-- generated tokens,
-- debug output.
-
-Persistent runner musí overiť cleanup aj pri cancellation. Ephemeral worker znižuje riziko, ale persistent volumes a external logs môžu secret zachovať.
-
-## 25. Logs, traces a debugging
-
-Kontroluj:
-
-- shell tracing,
-- environment dumps,
-- HTTP debug headers,
-- PowerShell verbose/debug output,
-- crash dumps,
-- tool config print,
-- third-party CI observability agents.
-
-Redakcia GitLab logu nemusí odstrániť secret z externého log backendu. Debug režim pre production credentials musí mať explicitný approval a cleanup.
-
-## 26. Artifacts a cache
-
-Pred uploadom kontroluj:
-
-- `.env`,
-- credential directories,
-- kubeconfig,
-- certificates,
-- package auth files,
-- debug archives,
-- Terraform state/plan s citlivými hodnotami,
-- generated configuration.
-
-Použi explicitné paths. `untracked` alebo celý workspace je nebezpečný default.
-
-## 27. Fork a untrusted MR pipelines
-
-Untrusted code nesmie dostať citlivé variables iba preto, aby pipeline bola „rovnaká ako na main“.
-
-Bezpečný model:
+Atlas povoľuje:
 
 ```text
-untrusted MR validation
-→ bez production secrets a privileged runnera
-→ merge/review
-→ trusted post-merge build/deploy
+release_manifest = výber z approved inventory
+environment = enum staging|production
+operation = enum deploy|verify|rollback
 ```
 
-Ak maintainer spúšťa parent-project pipeline pre fork MR, musí presne rozumieť, ktorý pipeline code a commit sa vykoná.
+Nepovoľuje:
 
-## 28. Secret leak response
+```text
+IMAGE = ľubovoľný registry path
+CLOUD_ROLE = ľubovoľný ARN/identifier
+COMMAND = voľný shell text
+SECRET_PATH = ľubovoľný path
+```
 
-Pri podozrení na leak:
+Input sa validuje pred získaním privilegovanej identity. Validácia po cloud login-e už vytvorila zbytočne široké exposure okno.
 
-1. revokuj credential u zdrojového provideru,
-2. zastav jobs, ktoré ho môžu ďalej používať,
-3. identifikuj logs, artifacts, caches a downstream pipelines,
-4. rotuj súvisiace alebo odvodené credentials,
-5. audituj API, registry, cloud a deployment activity,
-6. odstráň alebo obmedz citlivé uložené dáta podľa možností,
-7. oprav exposure path,
-8. pridaj prevention alebo detection kontrolu,
-9. dokumentuj incident a affected scope.
+## 14. Logs, artifacts, cache a child processes rozširujú exposure graph
 
-Odstránenie hodnoty z GitLab UI secret nerevokuje.
+Secret môže zostať v:
 
-## 29. Committed secret
+- shell trace alebo environment dump-e;
+- process arguments a crash dump-e;
+- package-manager configu;
+- dotenv reporte;
+- artifacte alebo cache;
+- child process environment-e;
+- external observability agentovi;
+- persistent workspace alebo volume.
 
-Ak sa secret dostane do Git history:
+Masking GitLab trace nerieši externý log backend. Upload celého workspace-u je neprijateľný pri jobe s production credentials.
 
-- okamžite ho revokuj,
-- urč, kde bol pushnutý alebo mirrorovaný,
-- prehľadaj pipelines, artifacts a packages,
-- rotuj dependent credentials,
-- podľa potreby rewrite-ni history, ale nepovažuj to za revokáciu,
-- pridaj secret detection a pre-commit prevention.
+## 15. Rotation a revocation sú state transitions
 
-Secret možno existuje v klonoch aj po history rewrite.
+Rotation:
 
-## 30. Observability a inventory
+```text
+consumer inventory
+→ vytvor novú version
+→ dual-validity alebo controlled cutover
+→ rollout consumers
+→ over usage novej version
+→ revoke starú
+→ over offline/stale consumers
+```
 
-Sleduj:
+Zmena GitLab variable bez revokácie u providera ponecháva starý token aktívny.
 
-- počet secrets podľa scope-u,
-- credentials bez ownera alebo expiry,
-- blížiace sa expirácie,
-- group-wide secret exposure,
-- OIDC/provider authorization failures,
-- stale alebo nepoužívané tokens,
-- manual overrides citlivých keys,
-- secret-detection findings,
-- rotation success a failed consumers.
+Revocation pri incidente:
 
-Neloguj samotné hodnoty. Používaj secret ID, version alebo provider path.
+```text
+revoke source credential/lease
+→ stop active jobs
+→ audit derived credentials a usage
+→ rotate related secrets
+→ odstráň exposure artifacts/cache/logs podľa možností
+→ oprav policy
+```
 
-## 31. Diagnostický postup
+Vymazanie secretu z UI nie je revocation.
 
-Keď variable chýba alebo má nesprávnu hodnotu:
+## 16. Worked failure: manual variable prepísala schválený artifact digest
 
-1. identifikuj pipeline source a job,
-2. zisti všetky sources rovnakého key,
-3. aplikuj precedence,
-4. over protected ref a environment scope,
-5. over availability phase,
-6. skontroluj manual/trigger/downstream forwarding,
-7. over expansion a quoting,
-8. over runner injection a file cleanup,
-9. pri external providerovi over issuer, audience, claims a lease,
-10. nezverejňuj hodnotu pri diagnostike.
+Atlas deploy pipeline mala YAML default `RELEASE_MANIFEST=approved/3.12.0`. Operátor pri manuálnom spustení zadal rovnaký key s hodnotou ukazujúcou na testovací manifest.
 
-## 32. Typické anti-patterny
+```text
+manual pipeline variable má vyššiu effective precedence
+→ deploy job načíta testovací manifest
+→ environment a cloud role sú produkčné
+→ job nasadí digest, ktorý nebol predmetom production approvalu
+```
 
-### Všetko je uložené ako variable
+### Príčina
 
-Configuration, identity aj long-lived secrets nemajú rovnaký lifecycle.
+Security-sensitive identity bola modelovaná ako voľne prepísateľná variable. Approval patrila inému manifestu než effective runtime value.
 
-### Masked znamená bezpečný
+### Dôsledok
 
-Malicious job môže hodnotu transformovať alebo odoslať.
+GitLab UI zobrazoval úspešný authorized job, ale release provenance chain bol prerušený.
 
-### Group secret pre jednu službu
+### Trvalá náprava
 
-Blast radius zahŕňa všetky dedičné projekty.
+```text
+manual input je typed release ID
+→ trusted job ho mapuje na server-side approved manifest
+→ digest sa overí voči approval recordu
+→ effective manifest ID je auditované
+→ arbitrary override rovnakého keya je zakázaný
+```
 
-### Personal token ako produkčná automation identity
+## 17. Worked failure: masking nezabránil úniku static tokenu
 
-Lifecycle závisí od človeka a jeho membershipu.
+Debug job na protected branchi použil masked `PACKAGE_TOKEN`. Script vytvoril support archive:
 
-### Free-text manual deployment input
+```text
+env a package-manager config
+→ support/debug directory
+→ artifacts: untracked
+→ token sa uloží do config file-u
+→ GitLab trace token neukáže
+→ artifact ho však obsahuje
+```
 
-Používateľ môže zvoliť neoverený artifact, target alebo command.
+### Príčina
 
-### Forward všetkých variables downstream
+Tím zamieňal log redaction za runtime confinement. Artifact publication contract neobsahoval forbidden-secret scan ani explicitné paths.
 
-Privilege sa neviditeľne prenáša do iného project a pipeline trust contextu.
+### Recovery
 
-### Rotácia bez revokácie starej hodnoty
+Atlas revokoval token u registry providera, zastavil jobs, auditoval pulls/pushes, odstránil dostupné artifacts a rotoval dependent credentials.
 
-Pôvodný credential ostáva použiteľný.
+### Trvalá náprava
 
-## 33. Praktický rozhodovací rámec
+- short-lived job credential namiesto static tokenu;
+- explicitné artifact paths;
+- secret scan pred uploadom;
+- package config v temporary directory;
+- cleanup aj pri failure;
+- protected job bez nepotrebného debug režimu.
 
-Pre každú citlivú hodnotu odpovedz:
+## 18. Worked failure: rotation zlomila offline consumer a starý token ostal platný
 
-1. Je to configuration, secret alebo identity assertion?
-2. Kde je source of truth?
-3. Ktoré sources ju môžu prepísať?
-4. V ktorej fáze je dostupná?
-5. Ktoré projects, refs, environments a jobs ju dostanú?
-6. Môže prejsť do downstream pipeline, artifactu alebo cache?
-7. Je vhodnejší external provider a short-lived credential?
-8. Ako sa hodnota rotuje a revokuje?
-9. Ako sa čistí po jobe?
-10. Ako sa zistí a rieši leak?
+Tím zmenil GitLab group variable na nový API token a označil rotation za hotovú. Nočný schedule v inom projekte stále používal skopírovaný project token a provider starý token nerevokoval.
 
-## 34. Kontrolný checklist
+```text
+hlavné pipelines používajú new token
+→ dashboard vyzerá zdravo
+→ offline schedule používa old token
+→ old token ostáva aktívny bez ownera
+→ incidentný blast radius sa nezmenšil
+```
 
-- hodnoty sú klasifikované;
-- effective-value precedence je známa;
-- critical keys nemožno ľubovoľne override-nuť;
-- protected a environment scopes sú testované;
-- environment name je kanonický;
-- untrusted jobs nemajú secrets;
-- downstream forwarding používa allowlist;
-- OIDC claims a audience sú presné;
-- static credentials majú ownera a expiry;
-- external secret leases sú krátkodobé;
-- artifacts, caches a logs sú kontrolované;
-- rotation zahŕňa revokáciu;
-- leak response je zdokumentovaný.
+### Príčina
 
-## 35. Kontrolné otázky
+Chýbal consumer inventory a provider-side revocation proof.
 
-1. Aký je rozdiel medzi variable, secretom a identity tokenom?
-2. Ako vzniká effective value pri viacerých sources?
-3. Prečo masking nezastaví úmyselnú exfiltráciu?
-4. Čo protected variable skutočne obmedzuje?
-5. Prečo environment scope závisí od dôveryhodného environment name?
-6. Ktoré variables môžu byť dostupné pri pipeline creation?
-7. Aké riziko prináša downstream forwarding?
-8. Ako funguje OIDC workload federation?
-9. Aký je rozdiel medzi expiration a revocation?
-10. Prečo rotation nekončí zmenou hodnoty v GitLabe?
-11. Ako bezpečne diagnostikovať chýbajúcu variable?
-12. Čo treba urobiť po committed secret incidente?
+### Náprava
 
-## Summary
+Token dostal central owner, version telemetry, expiry a usage inventory. Rotation gate čaká na novú version u všetkých consumers a následné provider revocation confirmation.
 
-GitLab variable je mechanizmus prenosu hodnoty, nie automaticky bezpečný secret store. Dôveryhodný návrh pozná source, precedence, phase, scope, pipeline trust, runtime exposure, downstream propagation, cleanup a lifecycle hodnoty. Masking chráni najmä pred náhodným logovaním. Pre citlivé produkčné oprávnenia je silnejší model GitLab ID token, presná provider policy a krátkodobý credential. Rotation, revocation a leak response musia pokrývať aj providera, logs, artifacts, cache a všetkých consumers.
+## 19. Kauzálny diagnostický walkthrough
 
-## Glossary impact
+Symptom: production deploy job dostane `AccessDenied`, hoci príslušná GitLab variable existuje a predchádzajúci deployment prešiel.
 
-Relevantné pojmy: CI/CD variable, effective value, variable precedence, file-type variable, masked variable, hidden variable, protected variable, environment scope, external secret provider, ID token, OIDC federation, workload identity, `CI_JOB_TOKEN`, deploy token, secret rotation, revocation a variable forwarding.
+### Krok 1 — stabilizuj execution subject bez zobrazenia secretu
 
-## Oficiálna dokumentácia
+```text
+pipeline P815 / job deploy_production
+source SHA S45 / resolved config C21
+pipeline source a protected status
+environment name production
+variable key/version provenance
+ID-token audience a claims fingerprint
+provider role/policy revision
+```
 
-- [CI/CD variables](https://docs.gitlab.com/ci/variables/)
-- [Use external secrets in CI/CD](https://docs.gitlab.com/ci/secrets/)
-- [ID token authentication](https://docs.gitlab.com/ci/secrets/id_token_authentication/)
-- [CI/CD job token](https://docs.gitlab.com/ci/jobs/ci_job_token/)
+### Krok 2 — formuluj konkurenčné hypotézy
+
+```text
+H1: variable nie je dostupná pre tento ref/environment
+H2: iný source s vyššou precedence vytvoril nesprávnu effective value
+H3: file/variable injection na runneri zlyhala
+H4: OIDC issuer/audience/claims nezodpovedajú provider policy
+H5: derived credential expiroval alebo bol revoked
+H6: downstream job nedostal alebo nesprávne forwardol metadata
+H7: cloud operation presahuje credential scope
+```
+
+### Krok 3 — diskriminačné observation points
+
+- variable provenance a scope match testujú H1/H2;
+- runner prepare logs bez hodnoty testujú H3;
+- token claims a STS/Vault audit testujú H4;
+- issue/expiry/revocation timestamps testujú H5;
+- parent/downstream key inventory testuje H6;
+- cloud authorization decision testuje H7.
+
+Atlas zistí, že job deklaroval environment `prod`, zatiaľ čo provider trust aj variable scope očakávali `production`. H1/H4 vysvetľujú failure; secret samotný nebol chybný.
+
+### Krok 4 — oprav identity contract, nie hodnotu
+
+Environment name sa vráti na canonical `production`; job získa nový ID token a derived credential. Kopírovanie static keya do jobu by obišlo správnu policy.
+
+### Krok 5 — over outcome
+
+```text
+canonical environment matchuje GitLab aj provider policy
+credential je short-lived a job-scoped
+deployuje iba approved digest
+po jobe credential expiruje
+temporary files a downstream propagation sú prázdne
+```
+
+### Krok 6 — vráť learning
+
+Finding sa zmení na environment-name lint, provider-claim fixture a effective-value provenance panel.
+
+## 20. Diagnostický runbook
+
+1. Urči pipeline/job/source/environment subject.
+2. Klasifikuj key ako config, secret, identity assertion alebo user input.
+3. Inventarizuj všetky sources a vyrieš precedence.
+4. Over availability phase, protected status a environment scope.
+5. Skontroluj explicitný downstream/child forwarding.
+6. Pri federation over issuer, audience, claims, policy a lease lifetime.
+7. Rozlíš absent value, wrong effective value, injection failure a authorization denial.
+8. Diagnostikuj cez IDs, versions a fingerprints, nie výpis hodnoty.
+9. Over cleanup, expiry a provider-side revocation.
+10. Zmeň finding na scope, override, claim alebo lifecycle control.
+
+## 21. Referenčné pravidlá
+
+- Variable je transport hodnoty, nie automaticky secret store.
+- Effective value vzniká zo source-u, precedence, scope-u a phase.
+- Critical keys nemajú byť voľne override-nuteľné.
+- Masking rieši náhodný log leak, nie malicious execution.
+- Protected scope závisí od trusted refu, code-u, runnera a environmentu.
+- Environment name je authorization input.
+- Secret sa má získavať čo najneskôr a na čo najkratší čas.
+- Downstream forwarding potrebuje allowlist.
+- OIDC bezpečnosť závisí od audience a presných claims.
+- Rotation končí provider revocation a consumer verification.
+- Leak response pokrýva logs, artifacts, cache, derived credentials a externé systémy.
+
+## 22. Časté omyly
+
+### „Variable existuje, job ju určite používa“
+
+Scope, precedence, phase alebo forwarding môžu vytvoriť inú effective hodnotu alebo absenciu.
+
+### „Masked znamená bezpečný secret“
+
+Job ho môže uložiť do artifactu alebo odoslať po sieti.
+
+### „Protected variable je production-only“
+
+Rozhoduje protected ref context, nie automaticky runtime target.
+
+### „OIDC odstráni potrebu authorization návrhu“
+
+Príliš široká provider policy vydá krátkodobý, ale stále neprimeraný credential.
+
+### „Rotation je zmena hodnoty v GitLabe“
+
+Bez consumer cutoveru a revokácie starého credentialu lifecycle nie je uzavretý.
+
+## 23. Zhrnutie
+
+Dôveryhodný Atlas value lifecycle je:
+
+```text
+klasifikovaný value contract
+→ rekonštruovateľné sources a precedence
+→ correct phase a trusted eligibility
+→ validated effective config
+→ job-scoped identity assertion
+→ short-lived credential
+→ bounded use a propagation
+→ verified cleanup
+→ rotation/revocation evidence
+```
+
+Variable troubleshooting sa nekončí kontrolou jedného settings riadku. Musí dokázať, ktorá effective hodnota a identity vznikli pre konkrétny job, prečo provider povolil alebo odmietol operáciu a či exposure capability po jobe skutočne zanikla.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
