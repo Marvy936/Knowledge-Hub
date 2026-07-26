@@ -1790,6 +1790,10 @@ Deterministický hash configuration contentu vložený do Pod template metadata,
 
 Neželaný rozdiel medzi deklaráciami, ktoré majú reprezentovať rovnaký environment alebo policy, napríklad divergentné branches, repositories alebo neaplikované emergency zmeny. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
 
+## Configuration identity — GitLab CI
+
+Reprodukčný subject pipeline zahŕňajúci source SHA, pipeline source, root CI revision, resolved configuration digest, include/component identities, policy a variable context a runner/executor identity. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
+
 ## Configuration management
 
 Riadenie požadovaného runtime stavu operačných systémov, aplikácií, zariadení alebo služieb pomocou opakovateľných a overiteľných zmien. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
@@ -3493,6 +3497,10 @@ Viacfázový model databázovej alebo contract zmeny: najprv sa pridá kompatibi
 ## Expand/contract migration
 
 Backward-compatible database alebo API migration pattern, ktorý najprv pridá nový model, následne rolloutne kompatibilný software a až v neskoršom kroku odstráni starú kompatibilitu. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
+## Expected job inventory — GitLab CI
+
+Explicitný manifest jobs, child pipelines a reports, ktoré musia pre konkrétny pipeline subject existovať alebo preukázateľne nebyť applicable. Odlišuje complete pass od false-green runu s ticho chýbajúcou evidence. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
 ## Expected job inventory — GitLab CI/CD
 
@@ -7521,6 +7529,10 @@ Výsledná configuration po interpolation, merge, profiles, includes a overrides
 ## Resolved config digest
 
 Immutable digest effective pipeline konfigurácie po spracovaní includes, templates, inheritance, inputs, generated graphu a policy revisions. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
+
+## Resolved configuration — GitLab CI
+
+Výsledná GitLab CI konfigurácia po načítaní a zlúčení root súboru, includes a components a po aplikovaní konfiguračných semantics. Je skutočným review a provenance subjectom pipeline, nie iba root `.gitlab-ci.yml`. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
 ## Resolved configuration — GitLab CI/CD
 
