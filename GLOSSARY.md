@@ -1178,6 +1178,10 @@ Stabilná skupina requestov, používateľov, tenantov alebo instances vystaven�
 
 Deployment stratégia postupne zvyšujúca produkčnú exposure novej verzie pri súbežnom porovnávaní so stable baseline a explicitných promotion/abort kritériách. Pozri [Canary deployment](docs/05-ci-cd-and-release/canary-deployment.md).
 
+## Canary experiment subject
+
+Presná identity jedného canary decisionu tvorená stable a canary release manifestom, rendered configom, feature-flag revision, cohort policy a saltom, rollout krokom, metrics query revision, analysis policy a observation window. Pozri [Canary deployment](docs/05-ci-cd-and-release/canary-deployment.md).
+
 ## Canary node pool
 
 Malá skupina Nodes s novou Kubernetes, OS, runtime alebo add-on verziou použitá na overenie compatibility pred širším rolloutom. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
@@ -7921,6 +7925,10 @@ Timestampovaná hodnota patriaca ku konkrétnej Prometheus time series. Pozri [P
 ## Sample ratio mismatch
 
 Významný rozdiel medzi plánovaným a reálnym pomerom experimentálnych variantov, ktorý môže signalizovať assignment, exposure, crash, logging alebo eligibility problém. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
+
+## Sample sufficiency — canary
+
+Stav, keď canary krok nazbieral dostatočný počet relevantných requests, sessions alebo business outcomes, potrebné segmentové zastúpenie a observation čas primeraný failure latency. Percento trafficu samo tento stav nedokazuje. Pozri [Canary deployment](docs/05-ci-cd-and-release/canary-deployment.md).
 
 ## Sampling — telemetry
 
