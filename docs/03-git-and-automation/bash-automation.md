@@ -8,123 +8,111 @@
 - Predpoklady: [Shell, Bash, pipes, redirection a exit codes](../01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md), [Processes, threads, PID a signals](../01-linux-and-systems/processes-threads-pid-signals.md)
 - Súvisiace témy: idempotencia, process orchestration, file locking, CI entrypoints, structured data
 
-## 1. Definícia
+## 1. Cieľ kapitoly
 
-Bash je interaktívny shell aj programovací jazyk vhodný najmä na skladanie existujúcich procesov, prácu so súbormi a orchestration systémových nástrojov.
+Bash je vhodný na automatizáciu vtedy, keď doménovú prácu vykonávajú existujúce programy a shell ich spája do kontrolovaného procesu.
 
-Je silný, keď väčšinu doménovej práce už vykonávajú spoľahlivé CLI programy:
-
-```text
-validate input
-→ zavolať nástroje
-→ prepojiť streams
-→ vyhodnotiť exit status
-→ vykonať malý počet kontrolovaných mutations
-→ overiť výsledok
-```
-
-Bash nie je bezpečný automaticky. Interaktívny one-liner sa nestane produkčným skriptom iba uložením do `.sh` súboru. Produkčný skript potrebuje explicitný kontrakt vstupov, výstupov, exit codes, side effects, concurrency, retry, cleanup a observability.
-
-## 2. Kedy je Bash vhodný
-
-Silné prípady:
-
-- bootstrap a provisioning wrappers,
-- deployment a CI job entrypoints,
-- filesystem a process orchestration,
-- diagnostické utility,
-- krátke admin workflows,
-- spájanie `git`, `curl`, `jq`, `kubectl`, `aws`, `sed`, `awk` a podobných nástrojov,
-- malé transformácie s jasne definovaným textovým alebo structured-data vstupom.
-
-Slabé prípady:
-
-- zložitý dátový model,
-- rozsiahle JSON/YAML transformácie bez špecializovaného parsera,
-- robustný HTTP klient s komplexným retry a auth lifecycle,
-- dlhodobá daemon služba,
-- veľká paralelná pipeline s komplikovaným schedulingom,
-- multiplatformová aplikácia s výrazne rozdielnymi systémami,
-- doménová logika vyžadujúca typy, knižnice a unit-test izoláciu.
-
-Praktický signál na prechod k Pythonu alebo inému jazyku:
+Dobrý Bash skript nie je uložený one-liner. Je to malý orchestration program s explicitným lifecycle-om:
 
 ```text
-väčšina riadkov už neriadi procesy,
-ale parsuje dáta, simuluje typy a implementuje vlastný framework
+input
+→ validation
+→ current-state observation
+→ plan
+→ bounded mutation
+→ postcondition verification
+→ cleanup a stable exit status
 ```
 
-## 3. Execution model
+Tento model je nosnou témou celej kapitoly. Quoting, arrays, pipelines, traps, locking, retry aj logging sú mechanizmy, ktoré chránia konkrétnu fázu lifecycle-u.
 
-Shell najprv interpretuje source text a až potom spúšťa výsledný príkaz.
+## 2. Nosný scenár: Atlas config deployer
 
-Zjednodušený model:
+Tím Atlas prevádzkuje službu `orders-api`. Potrebuje CI entrypoint, ktorý:
 
-```text
-source text
-→ lexical parsing a syntax
-→ brace/tilde/parameter/command/arithmetic expansion
-→ word splitting
-→ pathname expansion (globbing)
-→ redirections
-→ command lookup
-→ process alebo builtin execution
-→ exit status
-```
+1. prijme environment a cestu k šablóne,
+2. vyrenderuje konfiguráciu,
+3. overí syntax,
+4. porovná desired content s aktuálnym súborom,
+5. pri zmene vykoná atomické nahradenie,
+6. reloadne službu,
+7. overí readiness endpoint,
+8. pri chybe zachová dôkaz a vráti stabilný exit code.
 
-Presné poradie má výnimky podľa syntaktického kontextu, ale hlavná diagnostická myšlienka je:
-
-> argument, ktorý program dostane, nemusí byť rovnaký text, ktorý vidíš v skripte.
-
-Príklad:
+Rozhranie:
 
 ```bash
-target='report *.txt'
-printf '%s\n' $target
+./deploy-config.sh \
+  --environment prod \
+  --template ./config/orders.conf.tpl \
+  --target /etc/atlas/orders.conf \
+  --dry-run
 ```
 
-Nequoted expansion môže vytvoriť viac arguments a expandovať glob ešte pred spustením `printf`.
+Skript môže byť spustený:
 
-Over skutočné arguments bezpečným debugom:
+- lokálne administrátorom,
+- v CI,
+- cez systemd unit,
+- bez TTY,
+- s minimálnym environmentom,
+- opakovane alebo súbežne.
 
-```bash
-printf 'arg=<%q>\n' "$@" >&2
+Preto nemožno spoliehať na interaktívny shell state, aktuálny directory ani manuálnu interpretáciu outputu.
+
+## 3. Kedy Bash použiť a kedy prestať
+
+Bash je silný, keď workflow pozostáva najmä z:
+
+```text
+filesystem operations
++ process execution
++ stream composition
++ malý počet state transitions
 ```
 
-`%q` je Bash-specific reprezentácia vhodná na diagnostiku, nie portable serialization formát.
+Atlas skript používa `envsubst`, validator, `cmp`, `install`, `systemctl` a `curl`. Shell riadi poradie a interpretuje ich výsledky.
 
-## 4. Shebang a interpreter contract
+Bash je slabá voľba, keď väčšina programu:
+
+- implementuje komplikovaný dátový model,
+- ručne parsuje JSON alebo YAML,
+- potrebuje rozsiahle retry a API state machines,
+- riadi veľa paralelných závislostí,
+- potrebuje typované reusable API a izolované unit tests.
+
+Praktická hranica:
+
+```text
+Ak shell prevažne spúšťa programy, Bash je prirodzený.
+Ak prevažne simuluje aplikačný runtime, zvoľ Python alebo iný jazyk.
+```
+
+## 4. Interpreter je dependency contract
+
+Skript začína explicitným interpreterom:
 
 ```bash
 #!/usr/bin/env bash
 ```
 
-`env` vyhľadá `bash` cez aktuálny `PATH`.
+`env` nájde `bash` cez `PATH`. To zvyšuje prenosnosť, ale znamená, že interpreter závisí od execution environmentu.
 
-Výhoda:
-
-- funguje aj tam, kde Bash nie je v `/bin/bash`.
-
-Riziko:
-
-- interpreter závisí od environmentu a `PATH`,
-- privileged alebo vysoko kontrolovaný skript môže spustiť neočakávaný binary.
-
-Alternatíva pre známe prostredie:
+V kontrolovanom image môže byť vhodnejšie:
 
 ```bash
 #!/bin/bash
 ```
 
-Skript spustený takto:
+Spustenie:
 
 ```bash
-sh script.sh
+sh deploy-config.sh
 ```
 
-ignoruje Bash shebang a používa `sh`. Ak používa arrays, `[[ ]]`, process substitution alebo `mapfile`, musí byť spustený Bashom.
+ignoruje Bash shebang a použije `sh`. Ak skript používa arrays, `[[ ]]`, `mapfile`, process substitution alebo `BASH_SOURCE`, musí byť spustený Bashom.
 
-Over version:
+Version contract:
 
 ```bash
 if ((BASH_VERSINFO[0] < 5)); then
@@ -133,304 +121,102 @@ if ((BASH_VERSINFO[0] < 5)); then
 fi
 ```
 
-Version check je súčasť dependency contractu, nie workaround po incidente.
+## 5. Shell najprv vytvorí argument vector
 
-## 5. Script lifecycle
-
-Produkčný automation flow má byť čitateľný ako fázy:
+Pred spustením programu Bash vykoná parsing a expansions:
 
 ```text
-parse
-→ validate
-→ observe current state
-→ calculate plan
-→ optionally display dry-run
-→ acquire lock
-→ apply bounded mutations
-→ verify postconditions
-→ release resources
-→ return stable exit status
+source text
+→ parameter/command/arithmetic expansion
+→ word splitting
+→ pathname expansion
+→ redirections
+→ command execution
 ```
 
-Tento model oddeľuje:
+Pre Atlas je zásadné, že program nemusí dostať rovnaký text, aký vizuálne vidíme v skripte.
 
-- chybný vstup,
-- nesplnenú precondition,
-- plán bez zmien,
-- úspešnú mutation,
-- partial failure,
-- verify failure,
-- interruption.
-
-Skript, ktorý hneď počas parsovania mení systém, sa ťažšie testuje a bezpečne prerušuje.
-
-## 6. Exit-status contract
-
-Unix command vracia integer status. Konvencia:
-
-```text
-0       úspech
-1       všeobecné zlyhanie alebo false podľa príkazu
-2       usage/syntax error v mnohých CLI
-126     command existuje, ale nemožno ho vykonať
-127     command not found
-128+N   často termination signal N
-```
-
-Nie každý nenulový status znamená rovnakú kategóriu chyby.
-
-Príklad `grep`:
-
-```text
-0 match nájdený
-1 match nenájdený
-2 runtime alebo input error
-```
-
-Správne:
+Nebezpečné:
 
 ```bash
-if grep -Fxq -- "$needle" "$file"; then
-  found=true
-else
-  status=$?
-  if ((status == 1)); then
-    found=false
-  else
-    printf 'grep failed with status %d\n' "$status" >&2
-    exit "$status"
-  fi
-fi
+target='orders config.conf'
+rm $target
 ```
 
-Automatizácia musí interpretovať exit status podľa contractu konkrétneho nástroja.
-
-## 7. Strict mode a jeho limity
-
-Častý základ:
-
-```bash
-set -Eeuo pipefail
-```
-
-Význam:
-
-- `-e` — shell sa v mnohých nehandled failure kontextoch ukončí,
-- `-E` — `ERR` trap sa dedí do functions, command substitutions a subshells podľa Bash pravidiel,
-- `-u` — čítanie nenastavenej premennej je chyba,
-- `pipefail` — pipeline status je status pravého najneskoršieho zlyhaného commandu, inak nula.
-
-### `set -e` nie je exception system
-
-Jeho správanie závisí od syntaktického kontextu. Failure nemusí ukončiť shell napríklad v podmienkach `if`, po `!`, v časti `&&`/`||` listu alebo v pipeline podľa konfigurácie.
-
-Nejasné:
-
-```bash
-set -e
-some_command
-```
-
-Lepšie pre očakávanú chybu:
-
-```bash
-if ! output=$(some_command); then
-  printf 'some_command failed\n' >&2
-  exit 1
-fi
-```
-
-Ale pozor: pri `!` je `$?` po podmienke status negovaného výsledku. Ak potrebuješ pôvodný status:
-
-```bash
-set +e
-output=$(some_command)
-status=$?
-set -e
-
-if ((status != 0)); then
-  printf 'some_command failed: %d\n' "$status" >&2
-  exit "$status"
-fi
-```
-
-Často je čitateľnejšia explicitná helper function než dynamické prepínanie `-e`.
-
-### `set -u`
-
-Použi default alebo required expansion:
-
-```bash
-region=${REGION:-eu-central-1}
-: "${TOKEN:?TOKEN must be set}"
-```
-
-Rozlišuj:
-
-- unset variable,
-- nastavená prázdna hodnota,
-- explicitný default.
-
-### `pipefail`
-
-Bez `pipefail`:
-
-```bash
-producer | consumer
-```
-
-môže vrátiť nulu, ak `consumer` uspel, hoci `producer` zlyhal.
-
-S `pipefail` sa failure zviditeľní, ale stále treba vedieť, ktorý člen zlyhal:
-
-```bash
-set +e
-producer | transform | consumer
-statuses=("${PIPESTATUS[@]}")
-set -e
-printf 'statuses=%s\n' "${statuses[*]}" >&2
-```
-
-`PIPESTATUS` treba zachytiť okamžite; ďalší príkaz ho zmení.
-
-## 8. Quoting ako dátový kontrakt
+Nequoted expansion môže vytvoriť viac argumentov a vykonať globbing.
 
 Bezpečný default:
 
 ```bash
-printf '%s\n' "$value"
-cp -- "$source" "$destination"
 rm -- "$target"
+printf 'target=<%q>\n' "$target" >&2
 ```
 
-Double quotes zachovajú jednu expanded hodnotu ako jeden argument, s osobitným správaním pre `"$@"` a arrays.
+`--` oddeľuje options od positional arguments, ak ho daný program podporuje. Chráni aj path začínajúcu znakom `-`.
 
-### Single quotes
+## 6. Argument list nie je command string
+
+Zlé skladanie:
 
 ```bash
-printf '%s\n' '$HOME'
+options="--template $template --target $target"
+render_tool $options
 ```
 
-Obsah sa neexpanduje.
+String neuchová spoľahlivé hranice argumentov.
 
-### Double quotes
-
-```bash
-printf '%s\n' "$HOME"
-```
-
-Parameter a command substitutions sa expandujú, ale word splitting a pathname expansion sa na výsledok bežne nevykonajú.
-
-### Unquoted expansion
-
-Použi iba vtedy, keď zámerne potrebuješ konkrétne shell splitting/globbing semantics a sú zdokumentované. V produkčnom skripte je to zriedkavé.
-
-## 9. Argument list nie je string
-
-Nesprávne:
+Použi array:
 
 ```bash
-options='--header Authorization: Bearer token'
-curl $options "$url"
-```
-
-String nemá spoľahlivú hranicu arguments.
-
-Správne:
-
-```bash
-options=(
-  --fail-with-body
-  --header "Authorization: Bearer $token"
-  --connect-timeout 5
+render_args=(
+  --environment "$environment"
+  --template "$template"
+  --target "$rendered_file"
 )
 
-curl "${options[@]}" -- "$url"
-```
-
-Array zachová presnú argument boundaries.
-
-## 10. Arrays
-
-Indexed array:
-
-```bash
-services=(api worker scheduler)
-services+=(notifications)
-
-for service in "${services[@]}"; do
-  printf '%s\n' "$service"
-done
+render_tool "${render_args[@]}"
 ```
 
 Rozdiel:
 
 ```text
-"${array[@]}"  každý element je samostatný argument
-"${array[*]}"  všetky elementy sa spoja podľa prvého znaku IFS
+"${array[@]}"  každý element zostane samostatný argument
+"${array[*]}"  elementy sa spoja do jedného stringu
 ```
 
-Associative array:
+Nevytváraj command z nedôveryhodného vstupu cez `eval`. `eval` spustí ďalšie kolo shell parsing-u a vytvorí command-injection boundary.
 
-```bash
-declare -A ports=(
-  [api]=8080
-  [metrics]=9090
-)
+## 7. Parse a validate pred prvou mutation
 
-printf '%s\n' "${ports[api]}"
-```
-
-Bash arrays neobsahujú NUL byte a nie sú portable do POSIX `sh`.
-
-## 11. Positional arguments a `"$@"`
-
-Forwardovanie všetkých arguments:
-
-```bash
-run_tool() {
-  tool --fixed-option "$@"
-}
-```
-
-Použi `"$@"`, nie `$*` ani unquoted `$@`.
-
-Po odobratí argumentu:
-
-```bash
-command=$1
-shift
-run_subcommand "$command" "$@"
-```
-
-Pred čítaním `$1` over počet arguments, najmä pri `set -u`.
-
-## 12. Argument parsing
-
-Jednoduchý long-option parser:
+Atlas parser rozlišuje usage chybu od runtime failure:
 
 ```bash
 usage() {
-  printf 'Usage: %s --environment NAME [--dry-run]\n' "${0##*/}"
+  printf 'Usage: %s --environment NAME --template PATH --target PATH [--dry-run]\n' \
+    "${0##*/}"
 }
 
 environment=
+template=
+target=
 dry_run=false
 
 while (($#)); do
   case $1 in
     --environment)
-      (($# >= 2)) || {
-        printf 'Missing value for --environment\n' >&2
-        usage >&2
-        exit 2
-      }
+      (($# >= 2)) || { usage >&2; exit 2; }
       environment=$2
       shift 2
       ;;
-    --environment=*)
-      environment=${1#*=}
-      shift
+    --template)
+      (($# >= 2)) || { usage >&2; exit 2; }
+      template=$2
+      shift 2
+      ;;
+    --target)
+      (($# >= 2)) || { usage >&2; exit 2; }
+      target=$2
+      shift 2
       ;;
     --dry-run)
       dry_run=true
@@ -444,34 +230,16 @@ while (($#)); do
       shift
       break
       ;;
-    -*)
-      printf 'Unknown option: %s\n' "$1" >&2
+    *)
+      printf 'Unknown argument: %s\n' "$1" >&2
       usage >&2
       exit 2
       ;;
-    *)
-      break
-      ;;
   esac
 done
-
-[[ -n $environment ]] || {
-  printf 'Environment is required\n' >&2
-  exit 2
-}
 ```
 
-Parser má oddeliť:
-
-- usage errors,
-- semantic validation,
-- runtime preconditions.
-
-Nikdy nespoliehaj, že prvý ne-option argument nemôže začínať `-`; podporuj `--`.
-
-## 13. Input validation
-
-Validácia má byť allowlist-oriented.
+Semantic validation:
 
 ```bash
 case $environment in
@@ -481,345 +249,322 @@ case $environment in
     exit 2
     ;;
 esac
+
+[[ -f $template && -r $template ]] || {
+  printf 'Template is not a readable regular file: %s\n' "$template" >&2
+  exit 2
+}
 ```
 
-Path validation musí rozlíšiť:
+Validation má byť allowlist-oriented. Pri security-sensitive paths samotné `test` checks neodstránia TOCTOU race; treba použiť bezpečný file-descriptor alebo API model.
 
-- existenciu,
-- file type,
-- ownership,
-- permissions,
-- symlink policy,
-- canonical location,
-- race medzi checkom a použitím.
+## 8. Execution environment musí byť explicitný
 
-Príklad:
+Skript, ktorý funguje interaktívne, môže zlyhať v CI alebo systemd pre odlišný:
+
+- interpreter,
+- `PATH`,
+- working directory,
+- user a groups,
+- umask,
+- locale a timezone,
+- mounted filesystem,
+- credential context.
+
+Atlas deklaruje stabilný `PATH` iba preto, že image má známe umiestnenie nástrojov:
 
 ```bash
-[[ -f $config ]] || die "Config is not a regular file: $config"
-[[ -r $config ]] || die "Config is not readable: $config"
+readonly PATH='/usr/sbin:/usr/bin:/sbin:/bin'
+export PATH
+umask 077
 ```
 
-Pre security-sensitive path operácie samotné predbežné checks nemusia odstrániť TOCTOU race. Preferuj API alebo file-descriptor model, ktorý vykoná bezpečnú operáciu priamo.
+Required variables:
 
-## 14. Functions a scope
+```bash
+: "${ATLAS_CONFIG_SOURCE:?ATLAS_CONFIG_SOURCE must be set}"
+```
+
+Neloguju sa celé environmenty. Vypisujú sa iba allowlisted ne-secret hodnoty.
+
+Path relatívna k scriptu:
+
+```bash
+script_dir=$(
+  cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1
+  pwd -P
+)
+```
+
+Toto je vedomé rozhodnutie. Niektoré inputs majú byť relatívne ku caller working directory, iné k umiestneniu scriptu.
+
+## 9. Exit status je typovaný výsledok, nie iba nula alebo chyba
+
+Unix process vracia integer status. Bežný contract:
+
+```text
+0    úspech alebo no-change
+2    usage/input error
+70   interná chyba podľa zvoleného contractu
+75   dočasný/concurrency failure podľa zvoleného contractu
+126  nemožno vykonať command
+127  command not found
+```
+
+Konkrétny tool môže mať vlastné semantics. `grep` napríklad používa:
+
+```text
+0  match
+1  bez matchu
+2  runtime chyba
+```
+
+Preto sa očakávaný `1` nesmie automaticky interpretovať ako incident:
+
+```bash
+if grep -Fxq -- "$desired" "$target"; then
+  changed=false
+else
+  status=$?
+  if ((status == 1)); then
+    changed=true
+  else
+    printf 'grep failed: %d\n' "$status" >&2
+    exit "$status"
+  fi
+fi
+```
+
+## 10. Strict mode je ochranná sieť, nie exception system
+
+Bežný základ:
+
+```bash
+set -Eeuo pipefail
+```
+
+- `-e` ukončí shell v mnohých neošetrených failure contexts,
+- `-E` rozšíri `ERR` trap do ďalších contexts,
+- `-u` odhalí čítanie nenastavenej premennej,
+- `pipefail` sprístupní failure v skoršej časti pipeline.
+
+`set -e` má syntaktické výnimky v `if`, `!`, `&&`, `||` a ďalších contexts. Očakávanú chybu spracuj explicitne:
+
+```bash
+if output=$(query_tool --json); then
+  :
+else
+  status=$?
+  printf 'query failed: %d\n' "$status" >&2
+  exit "$status"
+fi
+```
+
+Pipeline diagnostika:
+
+```bash
+set +e
+producer | transform | consumer
+statuses=("${PIPESTATUS[@]}")
+set -e
+```
+
+`PIPESTATUS` treba zachytiť okamžite. Ďalší command ho prepíše.
+
+## 11. Streams musia mať stabilný contract
+
+Produkčný CLI má oddeliť:
+
+```text
+stdout  primárne dáta alebo machine-readable result
+stderr  logs, warnings a diagnostics
+status  výsledná failure category
+```
+
+Log helper:
 
 ```bash
 log() {
   local level=$1
   shift
-  printf '%s level=%s message=%q\n' \
-    "$(date -Is)" "$level" "$*" >&2
+  printf '%s level=%s operation=%s phase=%s message=%q\n' \
+    "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    "$level" \
+    "$operation_id" \
+    "$phase" \
+    "$*" >&2
 }
 ```
 
-Používaj `local`:
-
-```bash
-calculate_plan() {
-  local input=$1
-  local result
-  result=$(tool -- "$input") || return
-  printf '%s\n' "$result"
-}
-```
-
-Function vracia integer status cez `return`, nie ľubovoľnú hodnotu.
-
-Dátový output posielaj na stdout. Logy na stderr. Ak function mieša oboje, command substitution môže zachytiť logy ako dáta.
-
-## 15. Stdout, stderr a structured output
-
-Stabilný CLI contract:
-
-```text
-stdout  machine-readable result alebo primárny output
-stderr  logs, warnings, diagnostics
-status  success/failure category
-```
-
-Text pre človeka:
-
-```bash
-printf 'Deployment completed\n'
-```
-
-JSON pre automation:
+JSON sa neskladá ručne:
 
 ```bash
 jq -n \
   --arg environment "$environment" \
-  --arg status success \
-  '{environment: $environment, status: $status}'
+  --argjson changed "$changed" \
+  '{environment: $environment, changed: $changed}'
 ```
 
-Nevytváraj JSON ručným string concatenation, ak hodnoty môžu obsahovať quotes, newline alebo backslash.
+`set -x` môže vypísať expanded secrets. Nie je bezpečný default pre CI logging.
 
-## 16. Command lookup a dependencies
+## 12. Observe a plan bez side effects
+
+Atlas najprv vyrenderuje desired file do bezpečného temporary directory:
 
 ```bash
-require_command() {
-  local name=$1
-  command -v "$name" >/dev/null 2>&1 || {
-    printf 'Missing required command: %s\n' "$name" >&2
-    exit 127
-  }
-}
+tmp_dir=$(mktemp -d) || exit 1
+rendered_file=$tmp_dir/orders.conf
+
+ATLAS_ENV=$environment envsubst \
+  <"$template" \
+  >"$rendered_file"
+
+orders-config-validator -- "$rendered_file"
 ```
 
-Over aj:
-
-- version,
-- required feature flags,
-- GNU/BSD/BusyBox variant,
-- configuration a plugins,
-- authentication context.
-
-Príklad version probe má byť založený na stabilnom machine-readable outpute, nie lokalizovanom human texte, ak nástroj taký output poskytuje.
-
-## 17. Command execution a status capture
-
-Jednoduché:
+Potom určí plán:
 
 ```bash
-if output=$(tool query --json); then
-  process "$output"
+if [[ -e $target ]] && cmp -s -- "$rendered_file" "$target"; then
+  action=NO_CHANGE
 else
-  status=$?
-  printf 'Query failed: %d\n' "$status" >&2
-  exit "$status"
+  action=UPDATE
 fi
 ```
 
-Pozor na assignments:
+Dry-run prechádza rovnakým parsingom, validation a planningom:
 
 ```bash
-local output=$(tool)
+printf 'action=%s target=%q environment=%q\n' \
+  "$action" "$target" "$environment"
+
+if [[ $dry_run == true ]]; then
+  exit 0
+fi
 ```
 
-Status môže byť status `local`, nie spoľahlivo command substitution v zamýšľanom význame.
+Dry-run, ktorý iba preskočí posledný mutation command, nie je dôveryhodný. Musí vypočítať reálny plán a priznať neistoty dostupné až počas apply.
 
-Bezpečnejšie:
+## 13. Lock chráni mutation boundary
+
+Dve súbežné spustenia môžu obe pozorovať starý stav a následne si prepisovať výsledok.
+
+Advisory lock:
 
 ```bash
-local output
-output=$(tool)
+exec 9>/run/lock/atlas-orders-config.lock
+if ! flock -n 9; then
+  printf 'Another deployment is running\n' >&2
+  exit 75
+fi
 ```
 
-## 18. Command substitution
+Existencia lock file nie je lock. Súbor môže zostať po páde procesu. `flock` viaže lock na otvorený file description a uvoľní sa po zatvorení descriptoru.
+
+Limity:
+
+- chráni iba cooperating processes,
+- network filesystem môže mať odlišné semantics,
+- distributed workflow potrebuje distributed coordination alebo idempotent conflict model,
+- príliš široký lock znižuje throughput.
+
+## 14. Apply má byť bounded a idempotentný
+
+Ak nie je zmena:
 
 ```bash
-version=$(tool version)
+if [[ $action == NO_CHANGE ]]; then
+  changed=false
+else
+  changed=true
+fi
 ```
 
-Vlastnosti:
-
-- trailing newline sa odstránia,
-- NUL byte nemožno zachovať v Bash variable,
-- veľký output sa načíta do memory,
-- command substitution beží v subshell environment-e,
-- `set -e` inheritance má historické a konfiguračné nuansy.
-
-Nie je vhodná na streaming ani binary payload.
-
-## 19. Čítanie textových riadkov
+Atomické file replacement:
 
 ```bash
-while IFS= read -r line || [[ -n $line ]]; do
-  printf '%s\n' "$line"
-done < "$file"
+target_dir=${target%/*}
+staged_file=$(mktemp --tmpdir="$target_dir" '.orders.conf.tmp.XXXXXX')
+
+install -m 0640 -o root -g atlas -- "$rendered_file" "$staged_file"
+orders-config-validator -- "$staged_file"
+mv -fT -- "$staged_file" "$target"
+staged_file=
 ```
 
-- `IFS=` zachová leading a trailing whitespace,
-- `-r` nevykoná backslash escape processing,
-- doplnková podmienka spracuje posledný riadok bez newline.
+Dôležité mechanizmy:
 
-Textový riadok nie je vhodný univerzálny formát pre filenames.
+1. temporary file vznikne na rovnakom filesysteme,
+2. syntax a permissions sa overia pred aktiváciou,
+3. rename sprístupní celý nový file naraz,
+4. opakované spustenie s rovnakým desired content skončí ako `NO_CHANGE`.
 
-## 20. NUL-delimited paths
+`mv` medzi filesystems môže byť copy plus delete a neposkytuje rovnakú atomicitu.
 
-Filename môže obsahovať whitespace aj newline, ale nie NUL.
+Idempotencia neznamená iba „druhý run nezlyhá“. Znamená:
 
-Bezpečný pattern:
+```text
+rovnaký desired input
+→ rovnaký konečný state
+→ bez akumulácie vedľajších účinkov
+```
+
+## 15. Verify je samostatná fáza
+
+Úspešný `mv` ani `systemctl reload` ešte nedokazuje používateľský výsledok.
 
 ```bash
-while IFS= read -r -d '' file; do
-  printf 'file=<%q>\n' "$file"
-done < <(find . -type f -print0)
+systemctl reload orders-api
+systemctl is-active --quiet orders-api
+
+curl \
+  --fail \
+  --silent \
+  --show-error \
+  --connect-timeout 2 \
+  --max-time 5 \
+  -- http://127.0.0.1:8080/ready \
+  >/dev/null
 ```
 
-Alebo:
+Verification má kontrolovať správnu postcondition:
 
-```bash
-mapfile -d '' files < <(find . -type f -print0)
-for file in "${files[@]}"; do
-  process_file "$file"
-done
-```
+- cieľový content alebo digest,
+- parser validity,
+- service state,
+- readiness semantics,
+- očakávanú config generation/version,
+- neprítomnosť neočakávaného driftu.
 
-Over podporu `mapfile -d` v požadovanej Bash version.
+Ak apply uspel a verify zlyhal, ide o partial failure. Skript ho nesmie označiť za úspech iba preto, že mutation command vrátil nulu.
 
-## 21. Pipelines a subshells
-
-Pipeline:
-
-```bash
-producer | transform | consumer
-```
-
-Jednotlivé commands typicky bežia v samostatných processes/subshell contexts. Assignment v pipeline loop nemusí zostať v parent shelli.
-
-Problematické:
-
-```bash
-count=0
-printf '%s\n' a b c | while IFS= read -r item; do
-  ((count += 1))
-done
-printf '%s\n' "$count"
-```
-
-Bezpečnejší variant:
-
-```bash
-count=0
-while IFS= read -r item; do
-  ((count += 1))
-done < <(printf '%s\n' a b c)
-printf '%s\n' "$count"
-```
-
-Process substitution vytvára vlastný process pre producer, ale loop zostáva v aktuálnom shell kontexte.
-
-## 22. Redirections
-
-```bash
-command >output.log 2>error.log
-command >>combined.log 2>&1
-```
-
-Poradie je významné:
-
-```bash
-command >file 2>&1
-```
-
-obidva streams smerujú do `file`.
-
-```bash
-command 2>&1 >file
-```
-
-stderr sa najprv duplikuje na pôvodný stdout a stdout sa potom presmeruje do `file`.
-
-Pre vlastný file descriptor:
-
-```bash
-exec 3>audit.log
-printf 'event=started\n' >&3
-```
-
-File descriptor musí byť uzavretý alebo sa zavrie pri exit-e procesu:
-
-```bash
-exec 3>&-
-```
-
-## 23. Temporary files
-
-Nikdy nepoužívaj predvídateľné temp meno:
-
-```bash
-/tmp/my-script.tmp
-```
-
-Použi:
-
-```bash
-tmp_dir=$(mktemp -d) || {
-  printf 'Unable to create temporary directory\n' >&2
-  exit 1
-}
-```
-
-Cleanup:
+## 16. Cleanup musí zachovať primárny výsledok
 
 ```bash
 cleanup() {
   local status=$?
-  if [[ -n ${tmp_dir:-} && -d $tmp_dir ]]; then
-    rm -rf -- "$tmp_dir"
+
+  if [[ -n ${staged_file:-} && -e $staged_file ]]; then
+    rm -f -- "$staged_file" || true
   fi
+
+  if [[ -n ${tmp_dir:-} && -d $tmp_dir ]]; then
+    rm -rf -- "$tmp_dir" || true
+  fi
+
   return "$status"
 }
 
 trap cleanup EXIT
 ```
 
-Pri privileged skripte over:
+Cleanup má byť jednoduchý a idempotentný. Nesmie prepísať pôvodný exit status vlastným sekundárnym failure.
 
-- bezpečný parent directory,
-- restrictive umask,
-- symlink policy,
-- ownership.
+`EXIT` trap sa nespustí po `SIGKILL` alebo hard crashi. Temporary-file naming a startup cleanup preto musia zniesť pozostatky starého runu.
 
-```bash
-umask 077
-```
+## 17. Signals a child process lifecycle
 
-Cleanup nesmie prepisovať pôvodný exit status neúmyselne.
-
-## 24. Traps
-
-Bash trap reaguje na shell events alebo signals.
-
-```bash
-on_error() {
-  local status=$1
-  local line=$2
-  local command=$3
-  printf 'status=%d line=%d command=%q\n' \
-    "$status" "$line" "$command" >&2
-}
-
-trap 'status=$?; on_error "$status" "$LINENO" "$BASH_COMMAND"; exit "$status"' ERR
-```
-
-Nuansy:
-
-- trap source string sa interpretuje pri triggeri,
-- `$?` treba zachytiť pred ďalším command-o-m,
-- `ERR` sa nespustí vo všetkých kontextoch, podobne ako `errexit`,
-- recursion v error handleri môže zakryť pôvodnú chybu,
-- `EXIT` sa spustí pri normálnom aj chybovom ukončení shellu, nie pri `SIGKILL`.
-
-Trap má byť jednoduchý a idempotentný.
-
-## 25. Signal handling a graceful termination
-
-```bash
-terminate=false
-
-on_term() {
-  terminate=true
-}
-
-trap on_term INT TERM
-```
-
-Dlhší loop:
-
-```bash
-for item in "${items[@]}"; do
-  if [[ $terminate == true ]]; then
-    printf 'Termination requested; stopping before next item\n' >&2
-    exit 143
-  fi
-  process_item "$item"
-done
-```
-
-Pri child processoch treba signal forwardovať:
+Scheduler alebo container runtime môže poslať `SIGTERM`. Skript má zastaviť začínanie novej práce a forwardovať signal dlhému child procesu.
 
 ```bash
 child_pid=
@@ -830,9 +575,9 @@ on_term() {
   fi
 }
 
-trap on_term INT TERM
+trap on_term TERM INT
 
-long_running_command &
+long_running_validator &
 child_pid=$!
 wait "$child_pid"
 status=$?
@@ -840,611 +585,147 @@ child_pid=
 exit "$status"
 ```
 
-Wrapper ako PID 1 v kontajneri má navyše riešiť signal forwarding a zombie reaping; často je vhodný init wrapper alebo `exec`.
-
-## 26. `exec` a process replacement
+Pre čistý wrapper entrypoint môže byť správne:
 
 ```bash
-exec application --config "$config"
+exec orders-api --config "$target"
 ```
 
-`exec` nahradí shell proces cieľovým programom:
+`exec` nahradí shell proces aplikáciou. Signals a exit status potom prechádzajú priamo, ale shell už po úspešnom `exec` nevykoná ďalší cleanup.
 
-- program dostane pôvodné signals priamo,
-- shell už nevykoná ďalší cleanup po úspešnom `exec`,
-- exit status procesu sa stane statusom wrapperu.
+## 18. Retry iba pri známej neistote
 
-Použitie je vhodné pre container entrypoint po dokončení prípravných krokov.
+Retry potrebuje:
 
-## 27. Background jobs a `wait`
-
-```bash
-run_a &
-pid_a=$!
-run_b &
-pid_b=$!
+```text
+retryable failure class
++ per-attempt timeout
++ bounded attempts
++ backoff a jitter
++ total time budget
++ idempotent operation alebo idempotency key
 ```
 
-Každý child treba `wait`-núť a vyhodnotiť:
-
-```bash
-status=0
-
-if ! wait "$pid_a"; then
-  status=1
-fi
-
-if ! wait "$pid_b"; then
-  status=1
-fi
-
-exit "$status"
-```
-
-Pri fail-fast parallel execution treba:
-
-- zastaviť ostatných children,
-- čakať na ich ukončenie,
-- zachovať primárny failure reason,
-- cleanupnúť partial outputs.
-
-Bash sám neposkytuje plnohodnotný task scheduler. Pri komplikovanej paralelizácii zváž iný nástroj.
-
-## 28. Idempotencia
-
-Idempotentný skript smeruje current state k desired state.
-
-Slabé:
-
-```bash
-printf '%s\n' 'export APP_ENV=prod' >> ~/.profile
-```
-
-Každé spustenie pridá ďalší riadok.
-
-Lepšie:
-
-```bash
-line='export APP_ENV=prod'
-touch ~/.profile
-grep -Fxq -- "$line" ~/.profile || printf '%s\n' "$line" >> ~/.profile
-```
-
-Ešte lepšie:
-
-- vlastniť celý managed fragment,
-- porovnať desired a current content,
-- nahradiť ho atomicky,
-- overiť parserom alebo aplikáciou.
-
-Idempotencia nie je iba „príkaz nezlyhá druhýkrát“. Výsledný stav musí byť rovnaký a nesmie akumulovať vedľajšie účinky.
-
-## 29. Plan, apply a verify
-
-```bash
-current=$(read_current_state)
-desired=$(calculate_desired_state)
-plan=$(calculate_plan "$current" "$desired")
-```
-
-Dry-run:
-
-```bash
-if [[ $dry_run == true ]]; then
-  print_plan "$plan"
-  exit 0
-fi
-```
-
-Apply:
-
-```bash
-apply_plan "$plan"
-```
-
-Verify:
-
-```bash
-verify_state "$desired"
-```
-
-Dry-run musí:
-
-- parsovať a validovať vstupy,
-- overiť preconditions,
-- vypočítať presný plán,
-- nevolať mutation APIs,
-- jasne označiť neistoty, ktoré možno zistiť až pri apply.
-
-## 30. Atomic file update
-
-Bezpečný model:
-
-```bash
-target=/etc/myapp/config.yaml
-target_dir=${target%/*}
-
-tmp=$(mktemp --tmpdir="$target_dir" '.config.yaml.tmp.XXXXXX')
-cleanup_file=$tmp
-
-generate_config >"$tmp"
-validate_config "$tmp"
-chmod 0640 "$tmp"
-chown root:myapp "$tmp"
-mv -fT -- "$tmp" "$target"
-cleanup_file=
-```
-
-Dôležité:
-
-- temporary file je na rovnakom filesysteme ako target,
-- validácia prebehne pred rename,
-- permissions a ownership sú nastavené pred aktiváciou,
-- rename je atomický pre observers v rámci podporovaných filesystem semantics,
-- directory durability môže pri crash-consistency požiadavkách vyžadovať fsync model mimo jednoduchého Bash skriptu.
-
-`mv` cez filesystems je copy+delete a nie je rovnaká atomic operácia.
-
-## 31. Backup a rollback
-
-Pred mutation definuj recovery:
-
-```bash
-backup=$(mktemp --tmpdir="$target_dir" '.config.backup.XXXXXX')
-cp --preserve=mode,ownership,timestamps -- "$target" "$backup"
-```
-
-Rollback má byť:
-
-- testovateľný,
-- idempotentný,
-- obmedzený na vlastnené state,
-- spustený iba pri jasnej failure kategórii.
-
-Nie každá partial mutation je bezpečne automaticky revertovateľná. Pri databázach, remote APIs alebo externých side effects môže byť vhodnejšia kompenzačná operácia než „undo“.
-
-## 32. Locking a concurrency
-
-Advisory file lock:
-
-```bash
-exec 9>/run/lock/my-job.lock
-if ! flock -n 9; then
-  printf 'Another instance is running\n' >&2
-  exit 0
-fi
-```
-
-Definuj policy:
-
-- wait,
-- fail,
-- no-op,
-- replace stale owner.
-
-Lock file existencia sama nie je spoľahlivý lock. Process môže zomrieť a súbor zostať.
-
-`flock` lock sa viaže na open file description a uvoľní sa pri zatvorení descriptoru/process exit-e.
-
-Limity:
-
-- advisory lock chráni iba cooperating processes,
-- network filesystem semantics sa môžu líšiť,
-- distributed jobs potrebujú distributed coordination alebo idempotentný conflict model,
-- lock granularity ovplyvňuje throughput.
-
-## 33. Retry policy
-
-Retry má byť explicitný a bounded.
+Jednoduchý wrapper:
 
 ```bash
 retry() {
   local max_attempts=$1
-  local delay=$2
-  shift 2
+  shift
 
   local attempt status
   for ((attempt = 1; attempt <= max_attempts; attempt++)); do
     if "$@"; then
       return 0
     fi
+
     status=$?
-
-    if ((attempt == max_attempts)); then
-      return "$status"
-    fi
-
-    sleep "$delay"
+    ((attempt == max_attempts)) && return "$status"
+    sleep "$attempt"
   done
 }
 ```
 
-Produkčný retry má navyše riešiť:
+Tento wrapper ešte nevie, ktoré statuses sú retryable. Produkčný caller musí klasifikovať failure.
 
-- ktoré statuses sú retryable,
-- per-attempt timeout,
-- exponential backoff,
-- jitter,
-- total time budget,
-- idempotency mutation,
-- server `Retry-After`,
-- logging attemptov.
+Neopakuj slepo ne-idempotentný `POST` po timeout-e. Server mohol operáciu vykonať, hoci odpoveď neprišla.
 
-Neopakuj slepo ne-idempotentnú operáciu po timeout-e, ak nevieš, či bola vykonaná.
+## 19. Práca s filenames a structured data
 
-## 34. Timeouts
-
-Externý command bez timeoutu môže blokovať job donekonečna.
-
-GNU example:
+Textový riadok nie je univerzálny filename format. Filename môže obsahovať newline, ale nie NUL.
 
 ```bash
-timeout --signal=TERM --kill-after=5s 30s command args...
+while IFS= read -r -d '' file; do
+  process_file "$file"
+done < <(find . -type f -print0)
 ```
 
-Portability sa líši. `timeout` nemusí byť dostupný na BSD/macOS bez coreutils.
-
-HTTP nástroju nastav jeho vlastné timeouty:
+Pri čítaní bežného textu:
 
 ```bash
-curl \
-  --connect-timeout 5 \
-  --max-time 30 \
-  --retry 3 \
-  --retry-all-errors \
-  --retry-delay 1 \
-  --fail-with-body \
-  -- "$url"
+while IFS= read -r line || [[ -n $line ]]; do
+  process_line "$line"
+done < "$file"
 ```
 
-Retry flags musia zodpovedať idempotency a konkrétnej curl version.
-
-## 35. Logging
-
-Log má odpovedať:
-
-- čo skript robil,
-- s akým logical operation ID,
-- nad akým targetom,
-- v ktorej fáze,
-- s akým výsledkom a trvaním.
+JSON parsuj `jq`, YAML YAML parserom a human-formatted CLI tabuľku nepovažuj za stabilný machine contract.
 
 ```bash
-log() {
-  local level=$1
-  shift
-  printf '%s level=%s script=%s pid=%d message=%q\n' \
-    "$(date -Is)" "$level" "${0##*/}" "$$" "$*" >&2
-}
+version=$(jq -er '.version' -- "$manifest")
 ```
 
-Nevypisuj:
+Treba odlíšiť missing property, `null`, parser error a validnú prázdnu hodnotu podľa konkrétneho schema contractu.
 
-- tokens,
-- passwords,
-- celé environmenty,
-- private keys,
-- sensitive request bodies.
+## 20. Worked failure: pipeline je zelená, config sa nenasadil
 
-`set -x` môže leaknúť secrets cez expanded commands. V CI ho používaj kontrolovane a dočasne.
-
-## 36. Observability a operation identity
-
-Pre opakovateľný job:
+Pôvodná CI implementácia:
 
 ```bash
-operation_id=${OPERATION_ID:-"$(date -u +%Y%m%dT%H%M%SZ)-$$"}
+render_config | tee "$target"
+systemctl reload orders-api
 ```
 
-Loguj phases:
+Incident:
+
+- `render_config` zlyhal po vytvorení partial outputu,
+- `tee` úspešne zapísal neúplný file a vrátil `0`,
+- pipeline bez `pipefail` bola vyhodnotená ako úspešná,
+- reload command sa vykonal,
+- služba zostala aktívna so starým in-memory configom,
+- CI označilo deployment za green.
+
+Mechanistická diagnostika:
 
 ```text
-phase=validate
-phase=plan
-phase=apply
-phase=verify
-phase=cleanup
+source command failure
+→ pipeline status prevzatý z tee
+→ partial mutation cieľového file
+→ reload bez parser validation
+→ chýbajúca readiness/config-version verification
+→ false success
 ```
 
-Metriky alebo summary môžu obsahovať:
+Náprava:
 
-- duration,
-- changed/no-change,
-- attempt count,
-- processed item count,
-- failure category,
-- rollback status.
+1. renderovať do temporary file,
+2. zachytiť producer status,
+3. validovať celý file,
+4. porovnať current a desired state,
+5. atomicky nahradiť target,
+6. reloadnúť,
+7. overiť readiness a config generation.
 
-Skript môže byť malý, ale prevádzkovo stále potrebuje dôkaz úspechu.
+Samotné pridanie `set -o pipefail` by zviditeľnilo failure, ale nevyriešilo partial file mutation. Problém bol v lifecycle dizajne, nie iba v jednej shell option.
 
-## 37. Security: command injection
+## 21. Worked failure: funguje lokálne, nie v CI
 
-Nikdy nepoužívaj neoverený vstup cez `eval`:
+Lokálne skript našiel `orders-config-validator`; v CI hlásil `command not found`.
+
+Pozorovania:
 
 ```bash
-eval "$user_input"
+printf 'bash=%q\n' "$BASH_VERSION" >&2
+printf 'uid=%s gid=%s\n' "$(id -u)" "$(id -g)" >&2
+printf 'pwd=%q\n' "$PWD" >&2
+printf 'path=%q\n' "$PATH" >&2
+command -V orders-config-validator >&2 || true
 ```
 
-Ani quoting okolo `eval` neodstráni druhé kolo shell parsing-u.
-
-Bezpečnejšie:
-
-- mapovať povolenú operáciu cez `case`,
-- arguments ukladať v array,
-- používať parser konkrétneho dátového formátu,
-- nikdy nevytvárať shell source z user inputu.
-
-## 38. Option injection
-
-Filename:
+Príčina:
 
 ```text
---preserve-root
+interaktívny shell startup files
+→ lokálne rozšírený PATH
+→ validator dostupný
+
+CI non-interactive shell
+→ minimálny PATH
+→ command resolution failure 127
 ```
 
-môže byť interpretovaný ako option.
+Náprava je deklarovať dependency v image alebo job-e, overiť version a používať kontrolovaný `PATH`. Kopírovanie celého lokálneho environmentu do CI by iba skrylo contract.
 
-Použi:
-
-```bash
-rm -- "$file"
-cp -- "$source" "$destination"
-```
-
-Nie každý command podporuje `--`; over contract konkrétneho nástroja. Alternatívou môže byť absolute alebo `./`-prefixed path.
-
-## 39. PATH hijacking
-
-Privileged skript nemá slepo dôverovať caller `PATH`.
-
-```bash
-readonly PATH='/usr/sbin:/usr/bin:/sbin:/bin'
-export PATH
-```
-
-Ale hard-coded PATH musí zodpovedať platforme.
-
-Ďalšie riziká:
-
-- shell functions alebo aliases pri sourced execution,
-- environment variables ovplyvňujúce tools,
-- dynamic loader variables,
-- writable command directories.
-
-Pre privileged automation preferuj minimálne oprávnenia a spúšťanie konkrétnych operations cez kontrolovaný interface, nie celý shell ako root.
-
-## 40. Secrets
-
-Secret v command argumente môže byť viditeľný cez process listing alebo job metadata.
-
-Preferuj podľa tool supportu:
-
-- stdin,
-- protected file descriptor,
-- temporary file s `umask 077`,
-- environment iba ak threat model a platforma to umožňujú,
-- workload identity namiesto dlhodobého static secretu.
-
-Cleanup secret file musí prebehnúť aj pri error-e, ale secure deletion na moderných filesystems a SSD nie je garantovaná jednoduchým overwrite.
-
-## 41. Sourcing verzus execution
-
-Execution:
-
-```bash
-./script.sh
-```
-
-vytvorí nový process.
-
-Sourcing:
-
-```bash
-source script.sh
-```
-
-vykoná code v aktuálnom shelli a môže meniť:
-
-- variables,
-- functions,
-- working directory,
-- shell options,
-- traps.
-
-Library file má byť navrhnutý na sourcing. Executable script má chrániť entrypoint:
-
-```bash
-main() {
-  :
-}
-
-if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
-  main "$@"
-fi
-```
-
-## 42. Working directory a script location
-
-Cron, CI a systemd môžu spustiť skript z iného directory.
-
-Nejasné:
-
-```bash
-cat config/defaults.yaml
-```
-
-Script directory:
-
-```bash
-script_dir=$(
-  cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1
-  pwd -P
-)
-```
-
-Symlink-aware resolution je zložitejšia a musí byť vedomou policy. Niekedy má path zostať relatívna k caller working directory; inokedy k script file.
-
-## 43. Environment contract
-
-Skript má dokumentovať required variables:
-
-```bash
-: "${API_URL:?API_URL must be set}"
-: "${TOKEN:?TOKEN must be set}"
-```
-
-Neloguj celý `env`. Pri diagnostike vypíš iba allowlisted ne-secret hodnoty.
-
-Rozdiely medzi interaktívnym shellom, CI, cron a systemd:
-
-- iný `PATH`,
-- iný working directory,
-- žiadny TTY,
-- minimálny environment,
-- iný user/group,
-- iný umask,
-- iné locale a timezone,
-- iný shell.
-
-## 44. Locale, timezone a determinism
-
-Textové nástroje môžu závisieť od locale.
-
-```bash
-export LC_ALL=C
-```
-
-môže stabilizovať sorting a parsing, ale mení Unicode a human-language semantics. Použi iba tam, kde je byte-oriented contract správny.
-
-Čas:
-
-```bash
-date -u +%Y-%m-%dT%H:%M:%SZ
-```
-
-Pre timestampy v machine outpute používaj explicitnú timezone.
-
-## 45. Portability
-
-Rozlišuj:
-
-- Bash script,
-- POSIX `sh` script,
-- GNU userland,
-- BSD/macOS userland,
-- BusyBox/Alpine.
-
-Príklady rozdielov:
-
-- `sed -i`,
-- `date` parsing,
-- `readlink -f`,
-- `mktemp` syntax,
-- `stat` format,
-- `xargs` options.
-
-Portable contract má byť testovaný na podporovaných platforms. „Fungovalo na Ubuntu“ nie je portability dôkaz.
-
-## 46. Structured data
-
-JSON:
-
-```bash
-value=$(jq -er '.config.value' -- "$file")
-```
-
-- `-e` dá meaningful status podľa výsledku,
-- `-r` vráti raw string,
-- stále treba odlíšiť `null`, missing field a parser error podľa contractu.
-
-YAML parsuj YAML parserom, nie `grep`/`sed`, ak syntax môže obsahovať nested structures, anchors, quoting alebo multiline values.
-
-Tabuľkový human output CLI nie je stabilný parser contract. Preferuj `--json`, `--output json` alebo explicitné fields.
-
-## 47. Dry-run
-
-Dry-run nemá byť:
-
-```bash
-if ! $dry_run; then
-  final_mutation
-fi
-```
-
-Musí prejsť rovnakým:
-
-- parsingom,
-- validation,
-- state observation,
-- planningom,
-- permission/precondition checks, ak sú read-only.
-
-Output má presne uviesť:
-
-```text
-CREATE file X
-UPDATE service Y from version A to B
-DELETE stale entry Z
-NO CHANGE resource Q
-```
-
-Ak server rozhoduje dynamicky až pri apply, dry-run musí neistotu priznať.
-
-## 48. Verification
-
-Úspešný command status nie je automaticky úspešný používateľský výsledok.
-
-Po mutation over:
-
-- desired file content,
-- parser validity,
-- service reload status,
-- health endpoint,
-- expected resource version,
-- neprítomnosť neočakávaného driftu.
-
-Príklad:
-
-```bash
-systemctl reload myapp
-systemctl is-active --quiet myapp
-curl --fail --silent --show-error --max-time 5 \
-  http://127.0.0.1:8080/health >/dev/null
-```
-
-Health check musí reprezentovať správnu readiness semantics.
-
-## 49. Testing
-
-Testuj minimálne:
-
-- happy path,
-- invalid arguments,
-- missing dependency,
-- empty input,
-- paths s spaces, tabs a newline,
-- filenames začínajúce `-`,
-- repeated run,
-- no-change run,
-- partial mutation failure,
-- verify failure,
-- signal interruption,
-- concurrent invocation,
-- timeout,
-- retryable a non-retryable errors,
-- cleanup po failure.
-
-Nástroje:
-
-- ShellCheck,
-- shfmt,
-- Bats,
-- containerized integration tests,
-- test harness v Pythone alebo inom jazyku.
-
-ShellCheck odhaľuje patterns, nie business correctness.
-
-## 50. Produkčný skeleton
+## 22. Produkčný skeleton Atlas skriptu
 
 ```bash
 #!/usr/bin/env bash
@@ -1453,22 +734,23 @@ set -Eeuo pipefail
 readonly SCRIPT_NAME=${0##*/}
 readonly PATH='/usr/sbin:/usr/bin:/sbin:/bin'
 export PATH
-
 umask 077
 
+operation_id=${OPERATION_ID:-"$(date -u +%Y%m%dT%H%M%SZ)-$$"}
+phase=bootstrap
+environment=
+template=
+target=
 dry_run=false
-lock_fd=9
 tmp_dir=
+staged_file=
 
 log() {
   local level=$1
   shift
-  printf '%s level=%s script=%s pid=%d message=%q\n' \
+  printf '%s level=%s operation=%s phase=%s script=%s message=%q\n' \
     "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-    "$level" \
-    "$SCRIPT_NAME" \
-    "$$" \
-    "$*" >&2
+    "$level" "$operation_id" "$phase" "$SCRIPT_NAME" "$*" >&2
 }
 
 die() {
@@ -1480,205 +762,182 @@ die() {
 
 cleanup() {
   local status=$?
-  if [[ -n ${tmp_dir:-} && -d $tmp_dir ]]; then
-    rm -rf -- "$tmp_dir"
-  fi
+  [[ -z ${staged_file:-} || ! -e $staged_file ]] || rm -f -- "$staged_file" || true
+  [[ -z ${tmp_dir:-} || ! -d $tmp_dir ]] || rm -rf -- "$tmp_dir" || true
   return "$status"
 }
 
-on_error() {
-  local status=$1
-  local line=$2
-  local command=$3
-  log error "status=$status line=$line command=$command"
-}
-
 trap cleanup EXIT
-trap 'status=$?; on_error "$status" "$LINENO" "$BASH_COMMAND"; exit "$status"' ERR
-trap 'log warn "termination requested"; exit 143' TERM
-trap 'log warn "interrupted"; exit 130' INT
+trap 'status=$?; log error "status=$status line=$LINENO command=$BASH_COMMAND"; exit "$status"' ERR
 
 parse_args() {
   while (($#)); do
     case $1 in
-      --dry-run)
-        dry_run=true
-        shift
-        ;;
-      -h|--help)
-        printf 'Usage: %s [--dry-run]\n' "$SCRIPT_NAME"
-        exit 0
-        ;;
-      *)
-        die 2 "unknown argument: $1"
-        ;;
+      --environment) environment=${2:?}; shift 2 ;;
+      --template) template=${2:?}; shift 2 ;;
+      --target) target=${2:?}; shift 2 ;;
+      --dry-run) dry_run=true; shift ;;
+      *) die 2 "unknown argument: $1" ;;
     esac
   done
 }
 
-validate() {
-  command -v flock >/dev/null 2>&1 || die 127 'flock is required'
-}
-
-acquire_lock() {
-  exec {lock_fd}>/run/lock/my-job.lock
-  flock -n "$lock_fd" || die 75 'another instance is running'
+validate_inputs() {
+  case $environment in dev|stage|prod) ;; *) die 2 'invalid environment' ;; esac
+  [[ -f $template && -r $template ]] || die 2 'template is not readable'
+  command -v envsubst >/dev/null || die 127 'envsubst is required'
+  command -v orders-config-validator >/dev/null || die 127 'validator is required'
+  command -v flock >/dev/null || die 127 'flock is required'
 }
 
 main() {
   parse_args "$@"
-  validate
 
-  tmp_dir=$(mktemp -d) || die 1 'unable to create temporary directory'
+  phase=validate
+  validate_inputs
 
-  # current=$(observe_state)
-  # plan=$(calculate_plan "$current")
-  # print_plan "$plan"
-  # [[ $dry_run == true ]] && return 0
+  phase=observe
+  tmp_dir=$(mktemp -d) || die 1 'cannot create temporary directory'
+  rendered_file=$tmp_dir/orders.conf
+  ATLAS_ENV=$environment envsubst <"$template" >"$rendered_file"
+  orders-config-validator -- "$rendered_file"
 
-  acquire_lock
+  if [[ -e $target ]] && cmp -s -- "$rendered_file" "$target"; then
+    action=NO_CHANGE
+  else
+    action=UPDATE
+  fi
 
-  # apply_plan "$plan"
-  # verify_postconditions
+  phase=plan
+  printf 'action=%s target=%q environment=%q\n' "$action" "$target" "$environment"
+  [[ $dry_run == false ]] || return 0
+  [[ $action == UPDATE ]] || return 0
 
-  log info 'completed successfully'
+  phase=lock
+  exec 9>/run/lock/atlas-orders-config.lock
+  flock -n 9 || die 75 'another deployment is running'
+
+  phase=apply
+  target_dir=${target%/*}
+  staged_file=$(mktemp --tmpdir="$target_dir" '.orders.conf.tmp.XXXXXX')
+  install -m 0640 -o root -g atlas -- "$rendered_file" "$staged_file"
+  orders-config-validator -- "$staged_file"
+  mv -fT -- "$staged_file" "$target"
+  staged_file=
+  systemctl reload orders-api
+
+  phase=verify
+  systemctl is-active --quiet orders-api
+  curl --fail --silent --show-error --connect-timeout 2 --max-time 5 \
+    -- http://127.0.0.1:8080/ready >/dev/null
+
+  phase=complete
+  log info 'configuration deployed and verified'
 }
 
 main "$@"
 ```
 
-Skeleton je iba štruktúra. Konkrétny skript musí definovať:
+Skeleton ukazuje poradie a boundaries. Reálny skript ešte potrebuje konkrétny rollback alebo compensation model, service-specific readiness a presnú exit-code policy.
 
-- input schema,
-- exact exit codes,
-- mutation ownership,
-- timeout a retry policy,
-- lock scope,
-- rollback/compensation,
-- verification evidence.
+## 23. Testing podľa lifecycle-u
 
-## 51. Troubleshooting: funguje interaktívne, nie v CI/cron
+Testy nemajú kontrolovať iba happy path syntax.
 
-Zachyť bezpečný kontext:
+### Input a argument boundaries
 
-```bash
-printf 'shell=%s\n' "$BASH_VERSION" >&2
-printf 'uid=%s gid=%s\n' "$(id -u)" "$(id -g)" >&2
-printf 'pwd=%q\n' "$PWD" >&2
-printf 'path=%q\n' "$PATH" >&2
-printf 'umask=%s\n' "$(umask)" >&2
-```
+- chýbajúci option value,
+- neplatný environment,
+- paths so spaces, newline a leading `-`,
+- odlišný caller working directory,
+- chýbajúci alebo nesprávny interpreter.
 
-Kontroluj:
+### Planning
 
-- skutočný interpreter,
-- environment allowlist,
-- working directory,
-- TTY dependency,
-- file permissions,
-- mounted paths,
-- locale/timezone,
-- CLI versions,
-- authentication context.
+- target neexistuje,
+- content je identický,
+- desired content sa líši,
+- dry-run nevykoná mutation,
+- validator odmietne output pred apply.
 
-## 52. Troubleshooting: pipeline skryla chybu
+### Apply a concurrency
 
-```bash
-set -o pipefail
-set +e
-producer | transform | consumer
-statuses=("${PIPESTATUS[@]}")
-set -e
-```
+- druhé spustenie je no-op,
+- súbežný run rešpektuje lock policy,
+- rename a permissions sú správne,
+- partial mutation failure zachová evidence.
 
-Potom identifikuj:
+### Verify a recovery
 
-- ktorý process zlyhal,
-- či downstream skončil skôr a producer dostal `SIGPIPE`,
-- či partial output bol prijatý ako validný,
-- či pipeline vytvorila partial mutation.
+- reload zlyhá,
+- service je active, ale readiness zlyhá,
+- cleanup zachová primárny status,
+- SIGTERM zastaví child proces,
+- retry nezdvojí side effect.
 
-`SIGPIPE` nemusí znamenať incident, ak consumer zámerne skončil po získaní dostatočných dát. Contract musí byť explicitný.
+Nástroje môžu zahŕňať ShellCheck, shfmt, Bats a containerized integration tests. ShellCheck odhaľuje patterns, nie business correctness.
 
-## 53. Troubleshooting: cleanup zmenil status
+## 24. Referenčné pravidlá
 
-Zlý cleanup command môže vrátiť iný status než pôvodné zlyhanie.
+- Parameter expansions quote-ni, pokiaľ zámerne nepotrebuješ splitting alebo globbing.
+- Command arguments ukladaj do arrays, nie do jedného stringu.
+- Používaj `--` alebo inú option-injection ochranu podľa contractu nástroja.
+- Dátový output posielaj na stdout, logs na stderr.
+- External status interpretuj podľa konkrétneho tool contractu.
+- Temporary files vytváraj bezpečne a cleanup rob idempotentne.
+- Mutation oddeľ od planningu a verification.
+- Retry musí byť bounded a bezpečný voči duplicitnému side effectu.
+- Secrets neposielaj do command line, trace outputu ani globálnych logs.
+- Pre zložité dátové a concurrency workflows zvoľ silnejší runtime.
 
-Správny pattern:
-
-```bash
-cleanup() {
-  local status=$?
-  rm -rf -- "$tmp_dir" || true
-  exit "$status"
-}
-```
-
-Pri `EXIT` trap-e je často vhodnejšie `return "$status"` alebo explicitný `exit` podľa call contextu; handler musí byť otestovaný, aby nevytvoril recursion.
-
-## 54. Troubleshooting: repeated run poškodzuje state
-
-1. Porovnaj current a desired state pred mutation.
-2. Identifikuj append-only alebo create-only príkazy.
-3. Over unique identifiers a deduplication.
-4. Skontroluj retry po nejasnom timeout-e.
-5. Pridaj no-change path.
-6. Zaveď atomic replacement alebo compare-and-swap.
-7. Testuj druhé a súbežné spustenie.
-8. Over konečný state, nie iba exit status.
-
-## 55. Časté omyly
+## 25. Časté omyly
 
 ### „`set -e` vyrieši error handling“
 
-Nie. Má kontextové výnimky a nepozná doménový význam statusov.
+Nevyrieši syntaktické výnimky ani doménový význam exit statuses.
 
-### „Všetko treba quote-nuť“
+### „Quoting je iba štýl“
 
-Quoting je bezpečný default pre parameter expansion, ale shell syntax má kontexty, kde quotes menia zamýšľané správanie. Dôležité je rozumieť argument boundaries.
+Quoting určuje argument boundaries, a teda dáta odovzdané programu.
 
-### „Textový riadok bezpečne reprezentuje filename“
+### „Dry-run znamená preskočiť posledný command“
 
-Filename môže obsahovať newline. Použi NUL-delimited stream.
+Dôveryhodný dry-run vykoná validation, observation a planning bez mutations.
 
-### „Lock file existencia znamená, že job beží“
+### „Command vrátil nulu, automatizácia uspela“
 
-Nie. Použi skutočný locking primitive a definovanú stale-owner policy.
+Úspech musí potvrdiť postcondition a používateľský outcome.
 
-### „Dry-run je iba preskočenie mutation“
+### „Lock file znamená, že proces beží“
 
-Musí vypočítať a zobraziť reálny plán po validácii.
-
-### „Command uspel, teda automation uspela“
-
-Treba overiť postcondition a používateľský výsledok.
+Existencia súboru nie je synchronization primitive.
 
 ### „Retry vždy zvyšuje spoľahlivosť“
 
-Môže duplikovať side effect alebo zosilniť overload.
+Pri nejasnom výsledku môže duplikovať mutation alebo zosilniť overload.
 
-### „Bash je prenosný medzi všetkými Unix systémami“
+### „Bash je rovnaký na každom Unix systéme“
 
-Bash version aj externé userland nástroje sa líšia.
+Líšia sa Bash versions, GNU/BSD/BusyBox tools, filesystems aj process environment.
 
-## 56. Kontrolné otázky
+## 26. Kontrolné otázky
 
-1. Prečo program nemusí dostať rovnaké arguments, aké vizuálne vidíš v skripte?
-2. Aký je rozdiel medzi `"${array[@]}"` a stringom obsahujúcim options?
-3. Prečo `set -e` nie je exception handling systém?
-4. Čo zmení `pipefail` a ako zistíš konkrétny zlyhaný člen pipeline?
-5. Ako spracuješ filenames obsahujúce spaces aj newline?
-6. Ako trap zachová pôvodný exit status?
-7. Kedy má entrypoint použiť `exec`?
-8. Ako navrhneš atomic file update a verify fázu?
-9. Aké podmienky musí spĺňať bezpečný retry?
-10. Ako rozlíšiš stdout data contract, stderr logging a exit-status contract?
-11. Prečo `eval` a mutable command string vytvárajú injection riziko?
-12. Ktoré signály ukazujú, že automatizácia už patrí do Pythonu alebo špecializovaného nástroja?
+1. Aký lifecycle má produkčný Bash automation skript?
+2. Prečo program nemusí dostať rovnaké arguments, aké vidíš v source texte?
+3. Prečo sa options ukladajú do array a nie do stringu?
+4. Čo `set -e` chráni a kde sú jeho limity?
+5. Ako rozlíšiš stdout, stderr a exit-status contract?
+6. Prečo musí dry-run vypočítať skutočný plán?
+7. Ako atomické file replacement znižuje partial-state window?
+8. Čo musí overiť postcondition fáza po úspešnom command-e?
+9. Prečo existencia lock file nie je lock?
+10. Aké podmienky musí spĺňať bezpečný retry?
+11. Ako zachová cleanup pôvodný exit status?
+12. Ktoré signály ukazujú, že workflow už nepatrí do Bashu?
 
 ## Glossary impact
 
-Relevantné pojmy: shell expansion, word splitting, pathname expansion, quoting, argument vector, exit status, `errexit`, `pipefail`, `PIPESTATUS`, subshell, process substitution, trap, signal forwarding, idempotent script, atomic rename, advisory lock, command injection, option injection, NUL-delimited stream, dry-run a postcondition verification.
+Relevantné pojmy: shell expansion, word splitting, pathname expansion, quoting, argument vector, strict mode, exit status, pipeline, `PIPESTATUS`, dry-run, current state, desired state, idempotencia, atomic rename, advisory lock, trap, signal forwarding, retry budget, postcondition verification, command injection, option injection.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
