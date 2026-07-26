@@ -22,6 +22,10 @@ Route alebo Gateway status condition indikujúca, že zodpovedný controller pri
 
 PV/PVC contract opisujúci podporovaný spôsob mount accessu, napríklad ReadWriteOnce, ReadOnlyMany, ReadWriteMany alebo ReadWriteOncePod; nepredstavuje application-level locking ani databázový clustering. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Access path — GitLab
+
+Konkrétna cesta, cez ktorú subject získal capability nad resource-om, napríklad direct membership, parent-group inheritance, group sharing, custom role, protected-resource rule alebo token scope. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
 ## Access review
 
 Pravidelné alebo event-driven overenie, či principal stále potrebuje pridelené permissions, či ich scope a duration zostávajú primerané a či access možno odstrániť. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
@@ -2590,6 +2594,10 @@ Podiel deploymentov, ktoré sú neplánovanou opravou predchádzajúceho deploym
 
 Stabilná rollout skupina používateľov, tenantov, zariadení alebo regiónov s definovaným risk profilom, membershipom a promotion contractom. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
 
+## Deployment subject — GitLab
+
+Presná identity runtime mutation tvorená artifact digestom, rendered config alebo infrastructure revision, trusted deployment job definition, target environmentom, actor/job identity a rollout policy. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
 ## Deprecated API caller
 
 Klient, controller, chart, operator alebo automation používajúca Kubernetes API verziu, ktorá bude alebo už bola odstránená, aj keď deklaratívne manifests už môžu byť migrované. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
@@ -3101,6 +3109,14 @@ Compute a storage platforma umiestnená bližšie k používateľom, zariadeniam
 ## Effective access
 
 Výsledná množina permissions po vyhodnotení direct a inherited assignments, groups, roles, conditions, boundaries, resource policies a explicit denies. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Effective access — GitLab
+
+Výsledná množina capabilities subjectu nad konkrétnym resource-om po vyhodnotení všetkých direct, inherited, shared, tokenových, custom-role a resource-policy access paths. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## Effective branch policy — GitLab
+
+Capability-specific výsledok všetkých project a inherited group branch rules, ktoré matchujú konkrétny branch alebo pattern. Nesmie sa odhadovať iba podľa jednej viditeľnej rule. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
 
 ## Effective capability set
 
@@ -5489,6 +5505,10 @@ Najlepší spoločný ancestor dvoch commitov používaný ako base pri three-wa
 ## Merge commit
 
 Commit s dvoma alebo viacerými parents, ktorý explicitne zaznamenáva integráciu rozdielnych ancestry vetiev. Pozri [Merge a rebase](docs/03-git-and-automation/merge-and-rebase.md).
+
+## Merge decision subject — GitLab
+
+Presný obsah a context merge rozhodnutia: MR ID, source SHA, target alebo merge-base state, diff identity, merged-result alebo merge-train candidate a relevantná policy revision. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
 
 ## Merge queue
 
@@ -8733,6 +8753,10 @@ Logická skupina jobs alebo broad ordering barrier v pipeline. Stage nie je samo
 ## Staging area
 
 Používateľský názov pre Git index ako pripravovaný snapshot ďalšieho commitu. Pozri [Working tree, staging area a repository](docs/03-git-and-automation/working-tree-staging-repository.md).
+
+## Stale approval — GitLab
+
+Approval, ktorý bol udelený pre starší source SHA, target context, candidate alebo policy revision a už neposkytuje dôkaz pre aktuálny merge subject. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
 
 ## Staleness — Prometheus
 
