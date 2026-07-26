@@ -1798,6 +1798,10 @@ Riadenie požadovaného runtime stavu operačných systémov, aplikácií, zaria
 
 Nahradenie container instance po zmene runtime environment alebo inej immutable container configuration, pretože už spustený process bežne neprevezme nové hodnoty automaticky. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
+## Configuration subject — GitLab CI/CD
+
+Presná identity pipeline compilation rozhodnutia tvorená source alebo candidate SHA, pipeline source, root CI revision, resolved include/component versions, resolved configuration digest, expected job inventory a relevantný runner/executor context. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
+
 ## Conftest
 
 Nástroj používajúci OPA/Rego na testovanie structured configuration, napríklad YAML, JSON alebo Terraform planov, pred runtime enforcementom. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
@@ -3489,6 +3493,10 @@ Viacfázový model databázovej alebo contract zmeny: najprv sa pridá kompatibi
 ## Expand/contract migration
 
 Backward-compatible database alebo API migration pattern, ktorý najprv pridá nový model, následne rolloutne kompatibilný software a až v neskoršom kroku odstráni starú kompatibilitu. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
+## Expected job inventory — GitLab CI/CD
+
+Strojovo overiteľná množina jobs, shards, child pipelines a reports, ktoré musia pre konkrétny configuration subject vzniknúť alebo byť explicitne označené ako not applicable. Odlišuje complete pass od false-green pipeline s chýbajúcou evidence. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
 ## Expected result inventory
 
@@ -6470,6 +6478,10 @@ Dočasné znovupoužiteľné dáta určené na zrýchlenie pipeline, napríklad 
 
 Runtime inštancia versionovaného delivery workflowu vytvorená konkrétnym triggerom a viazaná na candidate, event context, variables, jobs, permissions, artifacts a results. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
+## Pipeline creation policy — GitLab CI/CD
+
+Versionovaný `workflow:rules` contract určujúci, pre ktoré pipeline sources, refs a dostupný variable context má pipeline vzniknúť a aký účel daný run plní. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
+
 ## Pipeline instance
 
 Konkrétny runtime run po vyhodnotení workflow definície, trigger payloadu, candidate identity, conditions, matrix, permissions a environment policy. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
@@ -6485,6 +6497,10 @@ Komponent medzi receiverom a exporterom, ktorý môže vykonávať batching, fil
 ## Pipeline — shell
 
 Reťaz procesov, v ktorej stdout jedného procesu smeruje do stdin ďalšieho. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## Pipeline verdict completeness — GitLab
+
+Vlastnosť pipeline verdictu dokazujúca, že všetky required jobs, shards, child/downstream pipelines, reports a artifacts pre daný subject vznikli a boli zahrnuté do gate rozhodnutia. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
 ## PKCE
 
