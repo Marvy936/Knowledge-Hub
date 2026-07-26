@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11774**
-- Total words: **588,594**
-- Findings: **27481** (critical 8933, high 9849, medium 3874, low 4825)
+- Audited conceptual sections: **11784**
+- Total words: **588,677**
+- Findings: **27480** (critical 8939, high 9855, medium 3867, low 4819)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -186,6 +186,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 650 | 27 | 32 | 16 | 11 | 1415 | `docs/08-container-fundamentals-and-docker/docker-architecture.md` |
 | D | 644 | 29 | 29 | 14 | 10 | 1651 | `docs/09-kubernetes/requests-limits-qos.md` |
 | D | 643 | 26 | 32 | 11 | 28 | 2923 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
+| D | 642 | 30 | 28 | 12 | 15 | 2582 | `docs/04-testing-and-quality/mocks-stubs-fakes.md` |
 | D | 635 | 26 | 32 | 14 | 14 | 2164 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | D | 633 | 26 | 25 | 21 | 31 | 2970 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
 | D | 631 | 29 | 28 | 12 | 14 | 2911 | `docs/03-git-and-automation/bash-automation.md` |
@@ -198,7 +199,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 579 | 23 | 18 | 19 | 72 | 5784 | `docs/13-security-and-identity/secrets-management.md` |
 | D | 575 | 21 | 39 | 5 | 0 | 1338 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | D | 569 | 23 | 17 | 24 | 50 | 3942 | `docs/13-security-and-identity/threat-modeling.md` |
-| D | 564 | 24 | 22 | 19 | 21 | 2499 | `docs/04-testing-and-quality/mocks-stubs-fakes.md` |
 | D | 551 | 18 | 37 | 10 | 4 | 1166 | `docs/09-kubernetes/deployment.md` |
 | D | 544 | 23 | 26 | 11 | 23 | 2520 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | D | 544 | 31 | 15 | 13 | 5 | 1262 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
@@ -3675,52 +3675,64 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/04-testing-and-quality/mocks-stubs-fakes.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 27, `bare-bullet-items` — **2. Test seam**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čas a timezone;`, `randomness a ID generation;`, `sieť a externé API;`, `databáza alebo message broker;`.
-- **CRITICAL** line 71, `bare-bullet-items` — **5. Stub**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource existuje alebo neexistuje;`, `dependency vráti timeout;`, `token je expirovaný;`, `API odpovie rate limitom;`.
-- **CRITICAL** line 93, `bare-bullet-items` — **6. Fake**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `in-memory repository;`, `fake clock s manuálnym posunom času;`, `local object-store emulator;`, `fake message bus;`.
-- **CRITICAL** line 151, `bare-bullet-items` — **10. Interaction-based verification**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `side effect je samotným contractom;`, `nesmie vzniknúť žiadne volanie;`, `počet pokusov ovplyvňuje finančný alebo bezpečnostný dopad;`, `poradie je protokolová požiadavka;`.
-- **CRITICAL** line 151, `outline-instead-of-explanation` — **10. Interaction-based verification**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 183, `bare-bullet-items` — **12. Over-specification**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `relevantný side effect nastal alebo nenastal;`, `business fields majú správne hodnoty;`, `idempotency identity je zachovaná;`, `security-sensitive call používa správny principal;`.
-- **CRITICAL** line 233, `outline-instead-of-explanation` — **15. Call count semantics**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 245, `bare-bullet-items` — **16. Asynchrónne interactions**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `await completion future;`, `controllable executor;`, `in-memory queue s explicitným drain;`, `condition polling s timeoutom;`.
-- **CRITICAL** line 245, `outline-instead-of-explanation` — **16. Asynchrónne interactions**: 6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 260, `bare-bullet-items` — **17. Time a clock**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pevný čas;`, `kontrolovaný advance;`, `monotonic a wall-clock rozlíšenie podľa potreby;`, `expiry a lease scenarios;`.
-- **CRITICAL** line 289, `bare-bullet-items` — **19. Network a HTTP doubles**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connect timeout alebo refusal;`, `read timeout;`, `partial a pomalý stream;`, `malformed payload;`.
-- **CRITICAL** line 308, `bare-bullet-items` — **20. Database fakes**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transactions a isolation;`, `unique a foreign-key constraints;`, `null semantics;`, `collation a case sensitivity;`.
-- **CRITICAL** line 325, `bare-bullet-items` — **21. Message-broker fakes**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `at-least-once delivery;`, `redelivery;`, `partition ordering;`, `consumer groups;`.
-- **CRITICAL** line 340, `bare-bullet-items` — **22. Simulátor a emulator**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporované API a versions;`, `consistency model;`, `IAM a policy behavior;`, `quotas a throttling;`.
-- **CRITICAL** line 386, `bare-bullet-items` — **25. Kedy použiť reálnu dependency**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je rýchlo a hermeticky spustiteľná;`, `jej semantics sú hlavným rizikom;`, `potrebujeme reálny protocol, serializer, transaction alebo filesystem `, `drift fake-u by bol drahý;`.
-- **CRITICAL** line 401, `bare-bullet-items` — **26. Kedy použiť double**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `testujeme lokálnu rozhodovaciu logiku;`, `dependency je externá, drahá alebo nedostupná;`, `potrebujeme reprodukovať zriedkavý failure;`, `musíme riadiť čas, random alebo ID;`.
-- **CRITICAL** line 401, `outline-instead-of-explanation` — **26. Kedy použiť double**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 414, `bare-bullet-items` — **27. Reset a izolácia**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prepared responses;`, `recorded calls;`, `fake database;`, `queues a pending callbacks;`.
-- **CRITICAL** line 439, `outline-instead-of-explanation` — **29. Diagnostický workflow**: 10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 454, `empty-section` — **30. Časté omyly**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 480, `no-prose-concept` — **31. Prevádzkový checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 480, `outline-instead-of-explanation` — **31. Prevádzkový checklist**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 43, `bare-bullet-items` — **2. Nosný scenár: Atlas CreateOrder a platba**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `domain calculation alebo transition je chybná;`, `order a outbox nie sú atomické;`, `rovnaký idempotency key vytvorí viac payment attempts;`, `payment timeout má unknown outcome;`.
+- **CRITICAL** line 43, `outline-instead-of-explanation` — **2. Nosný scenár: Atlas CreateOrder a platba**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 87, `bare-bullet-items` — **3. Test seam**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository a unit-of-work port;`, `outbox publisher boundary;`, `Payments API client;`, `clock a scheduler;`.
+- **CRITICAL** line 234, `bare-bullet-items` — **12. Interaction verification**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesmie vzniknúť žiadne volanie;`, `počet attempts mení finančný alebo bezpečnostný dopad;`, `poradie je protokolová požiadavka;`, `call obsahuje principal, tenant alebo idempotency identity;`.
+- **CRITICAL** line 234, `outline-instead-of-explanation` — **12. Interaction verification**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 286, `outline-instead-of-explanation` — **15. Call count a retry semantics**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 305, `bare-bullet-items` — **17. Async execution bez sleepu**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `awaitable future;`, `controllable executor;`, `in-memory queue s drain() ;`, `virtual scheduler;`.
+- **CRITICAL** line 305, `outline-instead-of-explanation` — **17. Async execution bez sleepu**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 403, `bare-bullet-items` — **Náprava**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `simulator podporuje timeout-before-commit aj timeout-after-commit;`, `payment request používa stabilný idempotency key;`, `worker po unknown outcome vykoná reconciliation;`, `interaction test overí, že retry nemení identity;`.
+- **CRITICAL** line 403, `no-prose-concept` — **Náprava**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 403, `outline-instead-of-explanation` — **Náprava**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 412, `bare-bullet-items` — **23. Database fake a real engine**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transaction atomicity;`, `unique a foreign-key constraints;`, `isolation a locks;`, `null/collation semantics;`.
+- **CRITICAL** line 412, `outline-instead-of-explanation` — **23. Database fake a real engine**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 436, `bare-bullet-items` — **Náprava**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository port definuje compound identity;`, `component test overí dva tenanty s rovnakým key;`, `fake zlyhá explicitne pri nepodporovanej semantics;`, `critical constraints sú dokumentované mimo fake implementation detailu`.
+- **CRITICAL** line 436, `no-prose-concept` — **Náprava**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 436, `outline-instead-of-explanation` — **Náprava**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 444, `bare-bullet-items` — **25. Broker fake a delivery model**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `at-least-once delivery;`, `acknowledgement a redelivery;`, `partition ordering;`, `consumer groups;`.
+- **CRITICAL** line 444, `outline-instead-of-explanation` — **25. Broker fake a delivery model**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 458, `bare-bullet-items` — **26. Simulator, emulator a sandbox**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API a version support;`, `consistency model;`, `IAM/policy behavior;`, `quotas a throttling;`.
+- **CRITICAL** line 458, `outline-instead-of-explanation` — **26. Simulator, emulator a sandbox**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 502, `bare-bullet-items` — **29. Kedy je reálna dependency lacnejšia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je rýchlo a hermeticky spustiteľná;`, `jej semantics sú predmetom testu;`, `container/embedded server je jednoduchší než údržba fake-u;`, `protocol, transaction alebo filesystem behavior je kritický;`.
+- **CRITICAL** line 502, `outline-instead-of-explanation` — **29. Kedy je reálna dependency lacnejšia**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 515, `bare-bullet-items` — **30. Reset, ownership a paralelnosť**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prepared responses;`, `recorded calls;`, `fake state;`, `queues a callbacks;`.
+- **CRITICAL** line 515, `outline-instead-of-explanation` — **30. Reset, ownership a paralelnosť**: 8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 536, `bare-bullet-items` — **32. Diagnostický workflow**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomenuj behavior a failure boundary;`, `zobraz real/double mapu;`, `urči rolu double-u v tomto teste;`, `skontroluj, ktoré semantics sľubuje;`.
+- **CRITICAL** line 536, `outline-instead-of-explanation` — **32. Diagnostický workflow**: 12 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 553, `bare-bullet-items` — **33. Referenčné pravidlá**: 12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pred testom je explicitná real/double mapa.`, `Použi najjednoduchší double s dostatočnou fidelity.`, `State-based verification je default, keď je výsledok pozorovateľný.`, `Interaction assertions chránia iba významný boundary contract.`.
+- **CRITICAL** line 553, `no-prose-concept` — **33. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 553, `outline-instead-of-explanation` — **33. Referenčné pravidlá**: 14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 570, `empty-section` — **34. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 93, `list-heavy-section` — **6. Fake**: 6 odrážok a iba 64 slov súvislého vysvetlenia.
-- **HIGH** line 260, `list-heavy-section` — **17. Time a clock**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 289, `list-heavy-section` — **19. Network a HTTP doubles**: 10 odrážok a iba 51 slov súvislého vysvetlenia.
-- **HIGH** line 308, `list-heavy-section` — **20. Database fakes**: 8 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 325, `list-heavy-section` — **21. Message-broker fakes**: 8 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 340, `list-heavy-section` — **22. Simulátor a emulator**: 6 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 386, `list-heavy-section` — **25. Kedy použiť reálnu dependency**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 414, `list-heavy-section` — **27. Reset a izolácia**: 8 odrážok a iba 45 slov súvislého vysvetlenia.
-- **HIGH** line 439, `bare-bullet-items` — **29. Diagnostický workflow**: 6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pomenuj behavior a boundary, ktoré test chráni;`, `porovnaj configured response s reálnym contractom;`, `over reset state a paralelnú izoláciu;`, `skontroluj call order, count a matcher strictness;`.
-- **HIGH** line 439, `single-sentence-concept` — **29. Diagnostický workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 456, `single-sentence-concept` — **„Každá dependency má byť mock“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 460, `single-sentence-concept` — **„In-memory database sa správa ako produkčná databáza“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 468, `single-sentence-concept` — **„Viac interaction assertions znamená vyššiu presnosť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 472, `single-sentence-concept` — **„Fake netreba testovať“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 476, `single-sentence-concept` — **„Pevný sleep stačí pre async mock“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 480, `bare-bullet-items` — **31. Prevádzkový checklist**: 8 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Je jasné, aké správanie a boundary test overuje?`, `Používa test najjednoduchší double, ktorý poskytuje potrebný dôkaz?`, `Sú relevantné semantics testované aj s reálnou dependency?`, `Preferuje test state/output pred incidental interactions?`.
-- **HIGH** line 480, `list-first-introduction` — **31. Prevádzkový checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 439, `thin-concept-section` — **29. Diagnostický workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 480, `thin-concept-section` — **31. Prevádzkový checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 43, `single-sentence-concept` — **2. Nosný scenár: Atlas CreateOrder a platba**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 87, `list-heavy-section` — **3. Test seam**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 101, `single-sentence-concept` — **4. Real/double boundary map**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 286, `bare-bullet-items` — **15. Call count a retry semantics**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `never — zakázaný side effect;`, `at most N — bounded retry;`.
+- **HIGH** line 381, `single-sentence-concept` — **22. Worked failure: payment fake zaručoval nemožný timeout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 403, `list-first-introduction` — **Náprava**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 432, `single-sentence-concept` — **Root cause**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 436, `list-first-introduction` — **Náprava**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 536, `single-sentence-concept` — **32. Diagnostický workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 553, `list-first-introduction` — **33. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 572, `single-sentence-concept` — **„Každá dependency má byť mock“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 576, `single-sentence-concept` — **„Mock dokazuje integráciu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 580, `single-sentence-concept` — **„In-memory database sa správa ako PostgreSQL“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 584, `single-sentence-concept` — **„Viac call assertions znamená presnejší test“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 588, `single-sentence-concept` — **„Timeout znamená, že side effect nenastal“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 592, `single-sentence-concept` — **„Fake netreba testovať“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 596, `single-sentence-concept` — **„Pevný sleep stabilizuje async mock“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 43, `thin-concept-section` — **2. Nosný scenár: Atlas CreateOrder a platba**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 234, `thin-concept-section` — **12. Interaction verification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 403, `thin-concept-section` — **Náprava**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 412, `thin-concept-section` — **23. Database fake a real engine**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 436, `thin-concept-section` — **Náprava**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 458, `thin-concept-section` — **26. Simulator, emulator a sandbox**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 502, `thin-concept-section` — **29. Kedy je reálna dependency lacnejšia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 515, `thin-concept-section` — **30. Reset, ownership a paralelnosť**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 536, `thin-concept-section` — **32. Diagnostický workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 553, `thin-concept-section` — **33. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/04-testing-and-quality/performance-load-stress-tests.md`
 
@@ -19832,19 +19844,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4115 | 406 | 0 | 0 | 4521 |
-| `single-sentence-concept` | 0 | 4040 | 0 | 0 | 4040 |
-| `outline-instead-of-explanation` | 3895 | 0 | 0 | 0 | 3895 |
-| `thin-concept-section` | 0 | 3451 | 0 | 0 | 3451 |
+| `bare-bullet-items` | 4114 | 405 | 0 | 0 | 4519 |
+| `single-sentence-concept` | 0 | 4046 | 0 | 0 | 4046 |
+| `outline-instead-of-explanation` | 3901 | 0 | 0 | 0 | 3901 |
+| `thin-concept-section` | 0 | 3458 | 0 | 0 | 3458 |
 | `term-before-explanation` | 0 | 443 | 2639 | 0 | 3082 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1975 | 1975 |
-| `example-not-explicit` | 0 | 0 | 0 | 1875 | 1875 |
-| `short-concept-section` | 0 | 0 | 1235 | 0 | 1235 |
-| `list-first-introduction` | 0 | 1055 | 0 | 0 | 1055 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 975 | 975 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1974 | 1974 |
+| `example-not-explicit` | 0 | 0 | 0 | 1873 | 1873 |
+| `short-concept-section` | 0 | 0 | 1228 | 0 | 1228 |
+| `list-first-introduction` | 0 | 1056 | 0 | 0 | 1056 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 972 | 972 |
 | `empty-section` | 499 | 0 | 0 | 0 | 499 |
-| `list-heavy-section` | 0 | 454 | 0 | 0 | 454 |
-| `no-prose-concept` | 424 | 0 | 0 | 0 | 424 |
+| `list-heavy-section` | 0 | 447 | 0 | 0 | 447 |
+| `no-prose-concept` | 425 | 0 | 0 | 0 | 425 |
 
 ## Required remediation pattern
 

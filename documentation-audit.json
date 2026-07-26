@@ -1039,15 +1039,15 @@
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
       "title": "Mocks, stubs a fakes",
-      "words": 2499,
-      "headings": 40,
-      "sections": 40,
-      "findings": 86,
-      "critical": 24,
-      "high": 22,
-      "medium": 19,
-      "low": 21,
-      "score": 564,
+      "words": 2582,
+      "headings": 50,
+      "sections": 50,
+      "findings": 85,
+      "critical": 30,
+      "high": 28,
+      "medium": 12,
+      "low": 15,
+      "score": 642,
       "grade": "D"
     },
     {
@@ -57451,33 +57451,6 @@
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`.",
@@ -57487,10 +57460,10 @@
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
@@ -57503,548 +57476,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "2. Test seam",
-      "line": 27,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čas a timezone;`, `randomness a ID generation;`, `sieť a externé API;`, `databáza alebo message broker;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "2. Test seam",
-      "line": 27,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "3. Taxonómia doubles",
-      "line": 44,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "5. Stub",
-      "line": 71,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource existuje alebo neexistuje;`, `dependency vráti timeout;`, `token je expirovaný;`, `API odpovie rate limitom;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "5. Stub",
-      "line": 71,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "6. Fake",
-      "line": 93,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 64 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "6. Fake",
-      "line": 93,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `in-memory repository;`, `fake clock s manuálnym posunom času;`, `local object-store emulator;`, `fake message bus;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "10. Interaction-based verification",
-      "line": 151,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "10. Interaction-based verification",
-      "line": 151,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `side effect je samotným contractom;`, `nesmie vzniknúť žiadne volanie;`, `počet pokusov ovplyvňuje finančný alebo bezpečnostný dopad;`, `poradie je protokolová požiadavka;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "10. Interaction-based verification",
-      "line": 151,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "10. Interaction-based verification",
-      "line": 151,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "10. Interaction-based verification",
-      "line": 151,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "12. Over-specification",
-      "line": 183,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `relevantný side effect nastal alebo nenastal;`, `business fields majú správne hodnoty;`, `idempotency identity je zachovaná;`, `security-sensitive call používa správny principal;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "12. Over-specification",
-      "line": 183,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "12. Over-specification",
-      "line": 183,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "13. Strict a loose mocks",
-      "line": 205,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "13. Strict a loose mocks",
-      "line": 205,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "15. Call count semantics",
-      "line": 233,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "15. Call count semantics",
-      "line": 233,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "15. Call count semantics",
-      "line": 233,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "15. Call count semantics",
-      "line": 233,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "15. Call count semantics",
-      "line": 233,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `N-`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "16. Asynchrónne interactions",
-      "line": 245,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "16. Asynchrónne interactions",
-      "line": 245,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `await completion future;`, `controllable executor;`, `in-memory queue s explicitným drain;`, `condition polling s timeoutom;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "16. Asynchrónne interactions",
-      "line": 245,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "16. Asynchrónne interactions",
-      "line": 245,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "17. Time a clock",
-      "line": 260,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "17. Time a clock",
-      "line": 260,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pevný čas;`, `kontrolovaný advance;`, `monotonic a wall-clock rozlíšenie podľa potreby;`, `expiry a lease scenarios;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "17. Time a clock",
-      "line": 260,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "17. Time a clock",
-      "line": 260,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "19. Network a HTTP doubles",
-      "line": 289,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 51 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "19. Network a HTTP doubles",
-      "line": 289,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connect timeout alebo refusal;`, `read timeout;`, `partial a pomalý stream;`, `malformed payload;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "19. Network a HTTP doubles",
-      "line": 289,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "19. Network a HTTP doubles",
-      "line": 289,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "20. Database fakes",
-      "line": 308,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "20. Database fakes",
-      "line": 308,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transactions a isolation;`, `unique a foreign-key constraints;`, `null semantics;`, `collation a case sensitivity;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "20. Database fakes",
-      "line": 308,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "20. Database fakes",
-      "line": 308,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "21. Message-broker fakes",
-      "line": 325,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "21. Message-broker fakes",
-      "line": 325,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `at-least-once delivery;`, `redelivery;`, `partition ordering;`, `consumer groups;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "21. Message-broker fakes",
-      "line": 325,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "21. Message-broker fakes",
-      "line": 325,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "22. Simulátor a emulator",
-      "line": 340,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "22. Simulátor a emulator",
-      "line": 340,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporované API a versions;`, `consistency model;`, `IAM a policy behavior;`, `quotas a throttling;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "22. Simulátor a emulator",
-      "line": 340,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "22. Simulátor a emulator",
-      "line": 340,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "22. Simulátor a emulator",
-      "line": 340,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `IAM`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "25. Kedy použiť reálnu dependency",
-      "line": 386,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "25. Kedy použiť reálnu dependency",
-      "line": 386,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je rýchlo a hermeticky spustiteľná;`, `jej semantics sú hlavným rizikom;`, `potrebujeme reálny protocol, serializer, transaction alebo filesystem `, `drift fake-u by bol drahý;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "25. Kedy použiť reálnu dependency",
-      "line": 386,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "25. Kedy použiť reálnu dependency",
-      "line": 386,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "26. Kedy použiť double",
-      "line": 401,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "26. Kedy použiť double",
-      "line": 401,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `testujeme lokálnu rozhodovaciu logiku;`, `dependency je externá, drahá alebo nedostupná;`, `potrebujeme reprodukovať zriedkavý failure;`, `musíme riadiť čas, random alebo ID;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "26. Kedy použiť double",
-      "line": 401,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "26. Kedy použiť double",
-      "line": 401,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "26. Kedy použiť double",
-      "line": 401,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "26. Kedy použiť double",
-      "line": 401,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "27. Reset a izolácia",
-      "line": 414,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "27. Reset a izolácia",
-      "line": 414,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prepared responses;`, `recorded calls;`, `fake database;`, `queues a pending callbacks;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "28. Secrets a sensitive data",
-      "line": 431,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "29. Diagnostický workflow",
-      "line": 439,
+      "section": "2. Nosný scenár: Atlas CreateOrder a platba",
+      "line": 43,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -58052,26 +57485,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "29. Diagnostický workflow",
-      "line": 439,
+      "section": "2. Nosný scenár: Atlas CreateOrder a platba",
+      "line": 43,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "29. Diagnostický workflow",
-      "line": 439,
-      "severity": "high",
+      "section": "2. Nosný scenár: Atlas CreateOrder a platba",
+      "line": 43,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pomenuj behavior a boundary, ktoré test chráni;`, `porovnaj configured response s reálnym contractom;`, `over reset state a paralelnú izoláciu;`, `skontroluj call order, count a matcher strictness;`.",
-      "score": 8
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `domain calculation alebo transition je chybná;`, `order a outbox nie sú atomické;`, `rovnaký idempotency key vytvorí viac payment attempts;`, `payment timeout má unknown outcome;`.",
+      "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "29. Diagnostický workflow",
-      "line": 439,
+      "section": "2. Nosný scenár: Atlas CreateOrder a platba",
+      "line": 43,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -58079,8 +57512,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "29. Diagnostický workflow",
-      "line": 439,
+      "section": "2. Nosný scenár: Atlas CreateOrder a platba",
+      "line": 43,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -58088,8 +57521,629 @@
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "30. Časté omyly",
-      "line": 454,
+      "section": "2. Nosný scenár: Atlas CreateOrder a platba",
+      "line": 43,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "3. Test seam",
+      "line": 87,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "3. Test seam",
+      "line": 87,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository a unit-of-work port;`, `outbox publisher boundary;`, `Payments API client;`, `clock a scheduler;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "3. Test seam",
+      "line": 87,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "3. Test seam",
+      "line": 87,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "3. Test seam",
+      "line": 87,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "4. Real/double boundary map",
+      "line": 101,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "9. Spy",
+      "line": 197,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "12. Interaction verification",
+      "line": 234,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "12. Interaction verification",
+      "line": 234,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesmie vzniknúť žiadne volanie;`, `počet attempts mení finančný alebo bezpečnostný dopad;`, `poradie je protokolová požiadavka;`, `call obsahuje principal, tenant alebo idempotency identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "12. Interaction verification",
+      "line": 234,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "12. Interaction verification",
+      "line": 234,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "12. Interaction verification",
+      "line": 234,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "15. Call count a retry semantics",
+      "line": 286,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "15. Call count a retry semantics",
+      "line": 286,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `never — zakázaný side effect;`, `at most N — bounded retry;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "15. Call count a retry semantics",
+      "line": 286,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "15. Call count a retry semantics",
+      "line": 286,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "15. Call count a retry semantics",
+      "line": 286,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "17. Async execution bez sleepu",
+      "line": 305,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "17. Async execution bez sleepu",
+      "line": 305,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `awaitable future;`, `controllable executor;`, `in-memory queue s drain() ;`, `virtual scheduler;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "17. Async execution bez sleepu",
+      "line": 305,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "17. Async execution bez sleepu",
+      "line": 305,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "17. Async execution bez sleepu",
+      "line": 305,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "22. Worked failure: payment fake zaručoval nemožný timeout",
+      "line": 381,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 403,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 403,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 403,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 403,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `simulator podporuje timeout-before-commit aj timeout-after-commit;`, `payment request používa stabilný idempotency key;`, `worker po unknown outcome vykoná reconciliation;`, `interaction test overí, že retry nemení identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 403,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 403,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "23. Database fake a real engine",
+      "line": 412,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "23. Database fake a real engine",
+      "line": 412,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transaction atomicity;`, `unique a foreign-key constraints;`, `isolation a locks;`, `null/collation semantics;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "23. Database fake a real engine",
+      "line": 412,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Root cause",
+      "line": 432,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository port definuje compound identity;`, `component test overí dva tenanty s rovnakým key;`, `fake zlyhá explicitne pri nepodporovanej semantics;`, `critical constraints sú dokumentované mimo fake implementation detailu`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "25. Broker fake a delivery model",
+      "line": 444,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "25. Broker fake a delivery model",
+      "line": 444,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `at-least-once delivery;`, `acknowledgement a redelivery;`, `partition ordering;`, `consumer groups;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "25. Broker fake a delivery model",
+      "line": 444,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "25. Broker fake a delivery model",
+      "line": 444,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "26. Simulator, emulator a sandbox",
+      "line": 458,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "26. Simulator, emulator a sandbox",
+      "line": 458,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API a version support;`, `consistency model;`, `IAM/policy behavior;`, `quotas a throttling;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "26. Simulator, emulator a sandbox",
+      "line": 458,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "26. Simulator, emulator a sandbox",
+      "line": 458,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `IAM`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "29. Kedy je reálna dependency lacnejšia",
+      "line": 502,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "29. Kedy je reálna dependency lacnejšia",
+      "line": 502,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je rýchlo a hermeticky spustiteľná;`, `jej semantics sú predmetom testu;`, `container/embedded server je jednoduchší než údržba fake-u;`, `protocol, transaction alebo filesystem behavior je kritický;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "29. Kedy je reálna dependency lacnejšia",
+      "line": 502,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "29. Kedy je reálna dependency lacnejšia",
+      "line": 502,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "30. Reset, ownership a paralelnosť",
+      "line": 515,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "30. Reset, ownership a paralelnosť",
+      "line": 515,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prepared responses;`, `recorded calls;`, `fake state;`, `queues a callbacks;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "30. Reset, ownership a paralelnosť",
+      "line": 515,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "32. Diagnostický workflow",
+      "line": 536,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "32. Diagnostický workflow",
+      "line": 536,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "32. Diagnostický workflow",
+      "line": 536,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomenuj behavior a failure boundary;`, `zobraz real/double mapu;`, `urči rolu double-u v tomto teste;`, `skontroluj, ktoré semantics sľubuje;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "32. Diagnostický workflow",
+      "line": 536,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "32. Diagnostický workflow",
+      "line": 536,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "32. Diagnostický workflow",
+      "line": 536,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 553,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 553,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 553,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 553,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pred testom je explicitná real/double mapa.`, `Použi najjednoduchší double s dostatočnou fidelity.`, `State-based verification je default, keď je výsledok pozorovateľný.`, `Interaction assertions chránia iba významný boundary contract.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 553,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 553,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 553,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "33. Referenčné pravidlá",
+      "line": 553,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "34. Časté omyly",
+      "line": 570,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -58098,7 +58152,7 @@
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
       "section": "„Každá dependency má byť mock“",
-      "line": 456,
+      "line": 572,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -58106,8 +58160,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "„In-memory database sa správa ako produkčná databáza“",
-      "line": 460,
+      "section": "„Mock dokazuje integráciu“",
+      "line": 576,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -58115,8 +58169,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "„Viac interaction assertions znamená vyššiu presnosť“",
-      "line": 468,
+      "section": "„In-memory database sa správa ako PostgreSQL“",
+      "line": 580,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "„Viac call assertions znamená presnejší test“",
+      "line": 584,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
+      "section": "„Timeout znamená, že side effect nenastal“",
+      "line": 588,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -58125,7 +58197,7 @@
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
       "section": "„Fake netreba testovať“",
-      "line": 472,
+      "line": 592,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -58133,93 +58205,12 @@
     },
     {
       "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "„Pevný sleep stačí pre async mock“",
-      "line": 476,
+      "section": "„Pevný sleep stabilizuje async mock“",
+      "line": 596,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "31. Prevádzkový checklist",
-      "line": 480,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "31. Prevádzkový checklist",
-      "line": 480,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "31. Prevádzkový checklist",
-      "line": 480,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "31. Prevádzkový checklist",
-      "line": 480,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Je jasné, aké správanie a boundary test overuje?`, `Používa test najjednoduchší double, ktorý poskytuje potrebný dôkaz?`, `Sú relevantné semantics testované aj s reálnou dependency?`, `Preferuje test state/output pred incidental interactions?`.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "31. Prevádzkový checklist",
-      "line": 480,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "31. Prevádzkový checklist",
-      "line": 480,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "31. Prevádzkový checklist",
-      "line": 480,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "31. Prevádzkový checklist",
-      "line": 480,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/mocks-stubs-fakes.md",
-      "section": "31. Prevádzkový checklist",
-      "line": 480,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/performance-load-stress-tests.md",
