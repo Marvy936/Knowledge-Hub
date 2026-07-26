@@ -12,6 +12,10 @@ Kontrolovaný produktový experiment porovnávajúci výsledok kontrolnej a expe
 
 Maximálny rozsah používateľov, trafficu, dát, komponentov alebo failure domains, ktoré môže zmena, incident alebo experiment ovplyvniť. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## Brownout
+
+Čiastočné alebo premenlivé zlyhanie dependency, pri ktorom služba odpovedá pomaly, iba niektorým requestom alebo s neúplným výsledkom namiesto úplného outage-u. Brownout často drží resources a spúšťa retry amplification. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## Canary release
 
 Postupné sprístupnenie novej verzie malej časti trafficu alebo používateľov s porovnávaním technických a business signálov pred širšou promotion. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
@@ -28,6 +32,10 @@ Praktická forma riadeného fault experimentu overujúca konkrétnu steady-state
 
 Skupina používateľov, requestov alebo systémových instances, ktorá nedostane experimentálnu zmenu a poskytuje súbežnú baseline na porovnanie. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
+## Controlled exposure
+
+Riadené sprístupňovanie release-u alebo feature obmedzenej cohrte s explicitnou artifact, configuration a routing identitou, guardrails a rozhodovacími kritériami. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
 ## Dark launch
 
 Nasadenie capability do produkčného prostredia bez jej priameho sprístupnenia používateľom, používané na overenie integrácie, capacity alebo prevádzkového správania. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
@@ -36,9 +44,17 @@ Nasadenie capability do produkčného prostredia bez jej priameho sprístupnenia
 
 Informácia o kvalite alebo riziku získaná v najskoršom bode, v ktorom má kontrola dostatočnú fidelity a diagnostickú hodnotu. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
 
+## Evidence placement
+
+Rozhodnutie, v ktorej najskoršej vrstve delivery možno získať dostatočne spoľahlivý dôkaz bez odstránenia relevantnej failure boundary. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
+
 ## Experiment contract
 
 Explicitný popis hypotézy, steady state, faultu, scope, blast radiusu, trvania, abort criteria, recovery, ownershipu a dôkazov chaos experimentu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Experiment validity
+
+Vlastnosť experimentu, pri ktorej baseline, target, fault, workload a observation zodpovedajú deklarovanému contractu natoľko, aby výsledok mohol potvrdiť alebo vyvrátiť hypotézu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
 ## Fault injection
 
@@ -72,6 +88,14 @@ Technický mechanizmus umožňujúci rýchlo zastaviť fault injection, experime
 
 Riadené odmietanie alebo obmedzenie časti práce pri preťažení, aby systém chránil kritické workflow a zabránil úplnému kolapsu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## Matched cohort
+
+Experimentálna alebo kontrolná skupina zostavená tak, aby bola porovnateľná podľa významných vlastností, napríklad tenant size, regiónu, zariadenia alebo workloadu. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
+## Post-promotion watch
+
+Observation obdobie po dosiahnutí plnej expozície, ktoré sleduje oneskorené, kumulatívne alebo segmentovo zriedkavé failures pred uzavretím release rozhodnutia. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
 ## Progressive delivery
 
 Delivery model, ktorý postupne zvyšuje exposure novej verzie alebo funkcionality podľa observability, experimentálnych metrík a automatizovaných promotion či rollback pravidiel. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
@@ -84,9 +108,21 @@ Overenie technického, funkčného a business výsledku zmeny v skutočnom produ
 
 Zber performance a error telemetry zo skutočných používateľských klientov a sessions s možnosťou segmentácie podľa zariadenia, browsera, regiónu alebo journey. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
+## Recovery observation
+
+Samostatná fáza resilience experimentu po odstránení faultu, ktorá overuje backlog drain, reconciliation, návrat resources a splnenie recovery deadline. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
 ## Resilience engineering
 
 Disciplína navrhovania a zlepšovania schopnosti sociotechnického systému predvídať, absorbovať, zotaviť sa a učiť sa z porúch a variability. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Retry amplification
+
+Násobenie pôvodného workloadu, keď client, proxy a služby nezávisle retryujú rovnaké zlyhanie a vytvoria viac pokusov na jednu business operáciu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Rollout state machine
+
+Explicitné stavy produkčnej expozície s povolenými transitions, observation window, success criteria, abort thresholds a rollback alebo roll-forward akciami. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
 ## RPO — Recovery Point Objective
 
@@ -95,6 +131,10 @@ Maximálne prijateľné množstvo dát vyjadrené časovým bodom, ktoré môže
 ## RTO — Recovery Time Objective
 
 Maximálny prijateľný čas na obnovenie služby alebo business capability po katastrofickom zlyhaní. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Safety state machine
+
+Riadený lifecycle fault experimentu od prechecks cez fault activation a removal až po recovery a cleanup, pričom každý stav má povolené transitions, timeouty a safety guardrails. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
 ## Shadow traffic
 
@@ -107,6 +147,10 @@ Presun vhodných rozhodnutí, kontrol a feedbacku do skorších fáz delivery, k
 ## Shift-right
 
 Rozšírenie validácie, observability a experimentovania do deploymentu a produkcie s kontrolovaným blast radiusom a jasnými rozhodovacími kritériami. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
+## Signal latency
+
+Čas medzi vznikom zmeny alebo failure a dostupnosťou dostatočne úplného signálu pre rollout či experiment decision. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
 
 ## Steady state — chaos engineering
 
