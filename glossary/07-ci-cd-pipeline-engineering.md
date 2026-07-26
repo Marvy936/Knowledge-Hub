@@ -48,13 +48,17 @@ Stav, keď nedôveryhodný alebo chybný pipeline uloží cache, ktorú neskôr 
 
 Samostatný pipeline run vytvorený parent pipelineom pre component, matrix časť alebo dynamicky generovaný workflow, s explicitnými input/output a failure-propagation pravidlami. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
 
+## Cleanup transition
+
+Povinný pipeline alebo job transition, ktorý po success, failure, timeout alebo cancellation uvoľní locks, credentials a temporary resources a zachová dostupné evidence. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
 ## Critical path — pipeline
 
 Najdlhšia dependency cesta od triggeru po požadovaný výsledok pipeline. Určuje minimálnu možnú duration pri danom grafe bez ohľadu na súčet všetkých job durations. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
 ## DAG — CI/CD
 
-Directed Acyclic Graph vyjadrujúci explicitné dependencies medzi jobs. Umožňuje spustiť job hneď po dokončení jeho skutočných upstream dependencies. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+Directed Acyclic Graph vyjadrujúci explicitné dependencies medzi jobs vrátane ordering-u, artifact flowu a failure propagation. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
 ## Deployment lock
 
@@ -72,6 +76,10 @@ Rozdiel medzi deklarovaným desired state environmentu a jeho skutočným runtim
 
 Pravidlá určujúce, či test result, scan, review alebo approval stále patrí k aktuálnemu commitu, artifactu, policy a environment state. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
 
+## Execution contract — job
+
+Deklarované runtime, inputs, permissions, resources, timeout, retries, outputs, success criteria a cleanup semantics jedného samostatne plánovaného jobu. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
 ## Executor — CI/CD
 
 Mechanizmus použitý runnerom na vykonanie jobu, napríklad host shell, container, virtual machine alebo Kubernetes pod. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
@@ -86,15 +94,23 @@ Policy, pri ktorej nedostupná kontrola neblokuje operáciu, ale vytvorí vidite
 
 ## Fan-in — pipeline
 
-Bod pipeline grafu, v ktorom downstream job čaká na výsledky viacerých upstream jobs alebo shards. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
+Bod pipeline grafu, v ktorom downstream job čaká na výsledky viacerých upstream jobs alebo shards a overuje ich úplnosť. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
 
 ## Fan-out — pipeline
 
 Rozdelenie jedného vstupu, artifactu alebo test suite do viacerých paralelných jobs. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
 
+## Incomplete verdict
+
+Výsledok signalizujúci, že autoritatívne rozhodnutie nemožno urobiť, pretože chýba required job, shard, report, artifact alebo tool execution status. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
 ## Job — CI/CD
 
 Najmenšia samostatne plánovaná execution unit pipeline s vlastným runtime, inputs, permissions, commands, timeoutom, resultom a outputs. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
+## Job attempt
+
+Jedno konkrétne vykonanie jobu vrátane runnera, časov, logs a verdictu; retry vytvára nový attempt a nesmie prepísať evidence predchádzajúceho pokusu. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
 ## Matrix pipeline
 
@@ -102,11 +118,15 @@ Pipeline model generujúci viac jobs z kombinácie dimensions ako OS, architectu
 
 ## Pipeline — CI/CD
 
-Runtime inštancia versionovaného delivery workflowu vytvorená konkrétnym triggerom a viazaná na commit, event context, variables, jobs, artifacts a results. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+Runtime inštancia versionovaného delivery workflowu vytvorená konkrétnym triggerom a viazaná na candidate, event context, variables, jobs, permissions, artifacts a results. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
 ## Pipeline as Code
 
 Správa delivery workflowu ako versionovaného, reviewovateľného, testovateľného a policy-validovaného zdrojového kódu. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
+
+## Pipeline instance
+
+Konkrétny runtime run po vyhodnotení workflow definície, trigger payloadu, candidate identity, conditions, matrix, permissions a environment policy. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
 ## Promotion evidence
 
@@ -136,6 +156,10 @@ Agent alebo execution capacity, ktorá prijme job od CI control plane a vykoná 
 
 Oddelená skupina runners s definovanými capabilities, trust levelom, network accessom a scaling policy. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
+## Service readiness — pipeline
+
+Stav, keď testovacia dependency nielen beží ako proces, ale dokáže spracovať relevantnú operáciu v deklarovanom deadline. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
+
 ## Stage — CI/CD
 
 Logická skupina jobs alebo broad ordering barrier v pipeline. Stage nie je samostatná execution unit a pri presnom DAG modeli nemusí určovať všetky dependencies. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
@@ -159,3 +183,7 @@ Udalosť alebo explicitný pokyn, ktorý vytvorí pipeline run a určí jeho com
 ## Workflow template
 
 Versionovaný reusable opis viacerých jobs, dependencies a policy hooks poskytujúci štandardnú delivery capability pre viaceré projects. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
+
+## Workspace lifecycle
+
+Životný cyklus job workspace-u od čistého vytvorenia cez checkout a execution po upload explicitných outputs, credential revoke a odstránenie temporary state. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
