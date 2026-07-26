@@ -36,9 +36,21 @@ Používateľ alebo skupina priradená k paths v `CODEOWNERS`; pri správnej pro
 
 Reprodukčný subject pipeline zahŕňajúci source SHA, pipeline source, root CI revision, resolved configuration digest, include/component identities, policy a variable context a runner/executor identity. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
+## Continuous rescanning — GitLab
+
+Opakované vyhodnotenie podporovaných package, SBOM a image digestov voči novej vulnerability intelligence bez potreby source zmeny, s následným mapovaním na releases, effective deployments, ownerov a exposure. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
+## Deployed-artifact correlation — GitLab
+
+Auditovateľná väzba `finding/advisory → component alebo image digest → release manifest → deployment record → effective runtime digest → environment, owner a exposure`. Umožňuje odlíšiť opravu v source od skutočne opraveného runtime-u. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
+## Deployment state divergence — GitLab
+
+Rozdiel medzi desired state-om, GitLab recorded state-om a effective runtime state-om deploymentu. Môže vzniknúť pri asynchrónnej reconciliation, nesprávnom targete, stale generation, partial mutation alebo drift-e. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
+
 ## Deployment subject — GitLab
 
-Presná identity runtime mutation tvorená artifact digestom, rendered config alebo infrastructure revision, trusted deployment job definition, target environmentom, actor/job identity a rollout policy. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+Presná identity runtime mutation tvorená artifact digestom, rendered config alebo infrastructure revision, trusted deployment job definition, target environmentom, actor/job identity a rollout policy. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md) a [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
 
 ## Direct membership — GitLab
 
@@ -64,6 +76,10 @@ Hodnota, ktorú konkrétny pipeline alebo job skutočne použije po vyhodnotení
 
 Používateľ, ktorého membership, role a approval-rule context oprávňujú poskytnúť approval započítaný pre konkrétny merge request. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
 
+## Environment identity — GitLab
+
+Kanonické mapovanie GitLab environment name a tieru na skutočný cloud account, cluster, namespace, region, data/config boundary, ownera, protection policy a runtime identity. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
+
 ## Environment-scoped variable — GitLab
 
 CI/CD variable dostupná iba jobs, ktorých deklarovaný environment zodpovedá nastavenému scope alebo patternu. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
@@ -75,6 +91,10 @@ Explicitný manifest jobs, child pipelines a reports, ktoré musia pre konkrétn
 ## Expected output inventory — GitLab CI
 
 Manifest artifacts, reports, shards, variants alebo platforms, ktoré musí konkrétny producer/fan-in workflow vytvoriť. Actual-only agregácia bez tohto manifestu môže ticho vyhodnotiť missing output ako pass. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
+## Expected scanner inventory — GitLab
+
+Manifest security controls, analyzer jobs, reportov, componentov a platforiem, ktoré musia existovať alebo mať explicitný not-applicable/unsupported verdict pre konkrétny scan subject. Chýbajúca položka znamená incomplete evidence, nie clean result. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
 
 ## GitLab group
 
@@ -91,6 +111,10 @@ Hierarchický path a ownership context pre user, group, subgroup alebo project r
 ## GitLab project
 
 Základná GitLab pracovná jednotka obsahujúca repository a podľa konfigurácie merge requests, issues, CI/CD, variables, registries, environments, security a membership. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## GitOps deployment correlation — GitLab
+
+Väzba medzi source pipeline, release manifestom, desired-state repository commitom, controller reconciliation ID, runtime targetom a effective digestom. Odlišuje úspešný configuration request od dokončeného deploymentu. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
 
 ## Group sharing — GitLab
 
@@ -124,6 +148,10 @@ CI/CD variable sprístupnená iba pipeline contextom na protected refs podľa Gi
 
 Presná identity publish rozhodnutia zahŕňajúca source/candidate SHA, resolved pipeline config, build jobs a attempts, artifact a platform digests, runner/toolchain provenance, version, SBOM/scan/signature evidence, publisher identity, namespace a release policy. Pozri [Container a package registry](docs/06-gitlab/container-and-package-registry.md).
 
+## Release manifest — GitLab
+
+Immutable alebo versionované mapovanie pomenovaného release-u na component digests/package checksums, config, infrastructure a schema revisions, security evidence a support metadata. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
+
 ## Resolved configuration — GitLab CI
 
 Výsledná GitLab CI konfigurácia po načítaní a zlúčení root súboru, includes a components a po aplikovaní konfiguračných semantics. Je skutočným review a provenance subjectom pipeline, nie iba root `.gitlab-ci.yml`. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
@@ -140,6 +168,14 @@ Identity job runtime-u zahŕňajúca source a resolved config, job attempt, runn
 
 Auditovateľné mapovanie requested image/package reference na resolved OCI index alebo package checksum, platform manifest digest, pull/mirror source a digest skutočne používaný aktívnym workloadom. Pozri [Container a package registry](docs/06-gitlab/container-and-package-registry.md).
 
+## Security evidence verdict — GitLab
+
+Výsledok, ktorý odlišuje complete clean scan, findings, incomplete scanner/report inventory, invalid subject, analyzer/tool error, unsupported coverage a approved skip. Zelený job bez complete report evidence nie je clean verdict. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
+## Security scan subject — GitLab
+
+Immutable source, resolved dependency graph, SBOM, package checksum, OCI platform digest, IaC plan alebo deployment identity, ku ktorej patria analyzer execution, report a finding evidence. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
 ## Stale approval — GitLab
 
 Approval, ktorý bol udelený pre starší source SHA, target context, candidate alebo policy revision a už neposkytuje dôkaz pre aktuálny merge subject. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
@@ -147,3 +183,7 @@ Approval, ktorý bol udelený pre starší source SHA, target context, candidate
 ## Subgroup — GitLab
 
 Group vnorená v parent group, používaná na delegovanie ownershipu, členstva a policy pre podmnožinu projects. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
+
+## Vulnerability record — GitLab
+
+Dlhšie žijúci spravovaný security risk odvodený z jedného alebo viacerých findings, s ownerom, contextual riskom, remediation SLA, exception/expiration a verification históriou. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
