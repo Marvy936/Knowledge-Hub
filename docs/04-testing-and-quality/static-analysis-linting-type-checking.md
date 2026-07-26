@@ -6,513 +6,632 @@
 - Úroveň: L2 — rozumiem mechanizmu
 - Doména: Testing and Software Quality
 - Predpoklady: [Security a infrastructure tests](security-and-infrastructure-tests.md), [YAML, JSON a regular expressions](../03-git-and-automation/yaml-json-regular-expressions.md)
-- Súvisiace témy: compiler diagnostics, AST, control-flow graph, data-flow analysis, taint analysis, soundness, baseline, suppression, incremental analysis
+- Súvisiace témy: compiler diagnostics, AST, control-flow graph, call graph, data-flow analysis, taint analysis, soundness, baseline, suppression, incremental analysis
 
-## 1. Mentálny model
-
-Statická analýza odvodzuje vlastnosti programu alebo konfigurácie bez vykonania celého produkčného workflowu. Nástroj číta source, bytecode, intermediate representation alebo deklaratívny input, vytvorí interný model a porovná ho s jazykovými, typovými, bezpečnostnými alebo architektonickými pravidlami.
+Statická kontrolná vrstva odvodzuje vlastnosti source kódu alebo konfigurácie bez vykonania celého produkčného workflowu. Jej sila spočíva v skorom a presne lokalizovanom feedbacku; jej hranicou je, že pracuje s modelom programu, nie so skutočným runtime výsledkom.
 
 ```text
-source a configuration
+source a build context
 → parse a symbol resolution
-→ AST/CFG/call graph/data-flow model
+→ AST, CFG, call graph a data-flow model
 → pravidlá a typové constraints
-→ findings s location a evidence
-→ triage, remediation alebo suppression
-→ autoritatívny CI výsledok
+→ finding s location a evidence pathom
+→ triage, fix alebo expirovateľná suppression
+→ autoritatívny CI verdict
+→ runtime dôkaz v príslušnej vyššej vrstve
 ```
 
-Výsledok je kontrolný signál o analyzovanom modeli. Nie je to dôkaz, že celý systém funguje v runtime, že business pravidlo je správne alebo že externá dependency sa bude správať podľa očakávania.
+Formatter, linter, type checker a security analyzer preto nie sú štyri názvy pre tú istú kontrolu. Každý z nich vytvára iný interný model, hľadá inú triedu failure a poskytuje inak silný dôkaz.
 
-## 2. Čo patrí do statickej kontrolnej vrstvy
+## 1. Cieľ kapitoly
 
-Statická vrstva zahŕňa viac odlišných mechanizmov. Ich výsledky sa nemajú interpretovať ako jedna homogénna kategória.
-
-- **Parser a compiler diagnostics** — odmietajú syntakticky neplatný program, neznáme symboly, neplatné typové operácie alebo platformovo nepodporovaný kód.
-- **Formatter** — deterministicky normalizuje reprezentáciu kódu; rieši diffs a konzistentnosť, nie správnosť business behavioru.
-- **Linter** — kontroluje suspicious patterns, conventions, portability, chybnú prácu s API a ďalšie pravidlá, ktoré compiler nemusí vynucovať.
-- **Type checker** — overuje konzistenciu deklarovaných alebo odvodených typov, nullability a generických kontraktov.
-- **Data-flow a control-flow analýza** — sleduje možné cesty vykonania, hodnoty a propagáciu stavu medzi blokmi alebo funkciami.
-- **Security static analysis** — hľadá paths od nedôveryhodného source k nebezpečnému sinku, unsafe API alebo chýbajúcu validáciu.
-- **Architecture checks** — vynucujú dependency direction, public API surface, ownership alebo zákaz importov medzi vrstvami.
-- **Configuration a schema checks** — parsujú YAML, JSON, Terraform, Kubernetes alebo pipeline definície a overujú ich voči schéme alebo policy.
-
-Kvalitný pipeline rozlišuje, ktorý nástroj vytvoril finding, aké má pokrytie a aké rozhodnutie má výsledok podporiť.
-
-## 3. Prečo je statická analýza hodnotná
-
-Statická kontrola môže bežať ešte pred zostavením deployovateľného systému a často dáva feedback v sekundách až minútach. Tým skracuje vzdialenosť medzi vznikom chyby a jej diagnostikou.
-
-Jej silné vlastnosti sú:
-
-- **široký codebase reach** — analyzátor môže prejsť aj paths, ktoré runtime test v konkrétnom behu nevykoná;
-- **deterministickejší vstup** — rovnaký source, konfigurácia a toolchain majú typicky vytvoriť rovnaký výsledok;
-- **presná lokalizácia** — finding môže ukázať file, line, symbol, path propagácie a rule ID;
-- **nízka environment fidelity requirement** — veľa kontrol nepotrebuje databázu, sieť ani produkčné credentials;
-- **automatizovateľnosť** — výsledok možno publikovať ako editor diagnostic, pull-request annotation, SARIF alebo machine-readable report.
-
-Statická kontrola však nevie sama overiť skutočnú latency, behavior databázovej transakcie, platnosť credentials, runtime policy enforcement ani používateľský výsledok. Preto dopĺňa dynamické testy a observability, nie ich nahrádza.
-
-## 4. Parsing, AST a symbol resolution
-
-Analyzátor najprv potrebuje porozumieť syntaxe a symbolom. Abstract Syntax Tree reprezentuje štruktúru programu nezávisle od väčšiny formatting detailov.
+Nosný rozhodovací model kapitoly je:
 
 ```text
-source text
-→ tokens
-→ syntax tree / AST
-→ scopes a symbol table
-→ type a semantic information
+riziko alebo jazykový invariant
+→ zvoliť statický model, ktorý ho vie reprezentovať
+→ spustiť nástroj v reálnom build contexte
+→ vyhodnotiť finding, confidence a blind spots
+→ priradiť blocking alebo advisory význam
+→ opraviť source alebo riadene potlačiť konkrétny nález
+→ potvrdiť výsledok compilerom, testom alebo runtime kontrolou
 ```
 
-Na AST možno spoľahlivejšie rozlíšiť napríklad function call od textu v komentári. Symbol resolution určí, na ktorú function, class, variable alebo import sa referencia skutočne viaže.
+Statická analýza nie je náhrada testov. Je najnižšia spoľahlivá vrstva pre failures, ktoré možno odvodiť zo source alebo deklaratívneho modelu bez potreby reálneho execution environmentu.
 
-Ak analyzátor nemá správny compiler mode, generated source, build flags, module path alebo dependency metadata, môže vytvoriť falošné findingy alebo časť kódu úplne vynechať. Tool invocation preto musí reprodukovať reálny build context.
+## 2. Nosný scenár: Atlas Orders 3.9.1
 
-## 5. Control-flow graph
-
-Control-Flow Graph reprezentuje možné prechody medzi basic blocks programu.
+Atlas pripravuje zmenu exportu objednávok. HTTP handler prijme filter, vytvorí `ExportCommand`, uloží job a worker neskôr vytvorí CSV v object storage.
 
 ```text
-entry
-→ condition
-  ├─ true path
-  └─ false path
-→ merge
-→ return
-```
-
-CFG umožňuje odhaliť napríklad:
-
-- **unreachable branch** — cesta sa podľa analyzovaných podmienok nedá vykonať;
-- **missing return** — niektorá cesta nekončí požadovanou hodnotou;
-- **use before initialization** — premenná nemusí byť definovaná na každej ceste;
-- **resource leak** — file alebo lock sa na niektorej failure path neuvoľní;
-- **null dereference** — po konkrétnom branchi môže hodnota zostať null.
-
-Presnosť CFG závisí od jazyka. Reflection, dynamic dispatch, runtime code generation a native extensions môžu obmedziť, čo vie nástroj spoľahlivo odvodiť.
-
-## 6. Call graph a interprocedurálna analýza
-
-Call graph modeluje možné volania medzi functions a methods. Interprocedurálna analýza prenáša informáciu cez tieto hranice.
-
-```text
-HTTP handler
-→ parser
-→ domain service
+POST /exports
+→ parse request
+→ authenticated tenant context
+→ ExportCommand
 → repository
-→ SQL builder
+→ queue event
+→ export worker
+→ CSV serializer
+→ object storage
 ```
 
-Bez interprocedurálnej analýzy môže nástroj vidieť iba lokálnu function a prehliadnuť, že nedôveryhodný input sa po viacerých volaniach dostane k shell commandu. Na druhej strane celý call graph veľkého programu je drahý a pri dynamic dispatch môže obsahovať veľa hypotetických hrán.
+Zmena prináša štyri staticky detegovateľné riziká:
 
-Analyzátory preto používajú aproximácie. Tie zlepšujú škálovateľnosť, ale menia pomer false positives a false negatives.
+1. request field `tenantId` sa môže dostať do commandu namiesto server-owned tenant identity;
+2. optional `Retry-After` header sa môže použiť bez kontroly `None`;
+3. export filename sa môže skladať z nedôveryhodného vstupu a dostať do filesystem pathu;
+4. nový worker package môže importovať internú persistence vrstvu, čím obíde povolenú architektonickú boundary.
 
-## 7. Data-flow facts
-
-Data-flow analýza sleduje vlastnosti hodnôt cez assignments, branches a calls. Typické facts sú:
-
-- **nullability** — hodnota môže alebo nemôže byť null;
-- **constant propagation** — analyzátor pozná konkrétnu konštantu;
-- **range information** — integer je napríklad vždy medzi 1 a 65535;
-- **ownership alebo lifetime** — resource bol otvorený, prenesený alebo uvoľnený;
-- **taint state** — hodnota pochádza z nedôveryhodného source;
-- **initialization state** — object alebo field už bol pripravený.
-
-Facts sa pri spojení control-flow vetiev musia zlúčiť. Ak je value validná iba v jednej vetve, po merge pointe ju analyzátor nemôže automaticky považovať za validnú všade.
-
-## 8. Taint analysis
-
-Taint analysis sleduje cestu nedôveryhodných dát od source cez propagáciu až k sinku.
-
-```text
-request parameter
-→ string concatenation
-→ helper function
-→ shell command sink
-```
-
-### Sources
-
-Source je miesto, kde do systému vstupuje nedôveryhodná alebo citlivá hodnota. Môže to byť HTTP request, message, environment variable, uploaded file, database record, external API alebo command-line argument.
-
-### Sinks
-
-Sink je operácia, kde nesprávne spracovanie vytvára riziko. Príkladom je SQL execution, shell command, HTML rendering, filesystem path, deserialization, template engine, redirect URL alebo logging citlivých dát.
-
-### Sanitizers a validators
-
-Sanitizer musí byť správny pre konkrétny sink. HTML escaping nechráni SQL query a URL encoding nechráni shell command. Analyzer potrebuje poznať, ktoré functions reálne validujú, escapujú alebo parametrizujú hodnotu.
-
-Custom wrappery bez modelu môžu spôsobiť false positive alebo false negative. Preto je dôležité udržiavať analyzátorové models spolu s aplikačnými abstractions.
-
-## 9. Compiler diagnostics
-
-Compiler diagnostics majú najbližšie k jazykovým invariantom. Zahŕňajú syntax errors, neznáme symbols, type mismatch, invalid generics, unsafe conversions, unsupported platform API alebo unreachable code.
-
-Warning nie je automaticky menej dôležitý než error. Niektoré jazyky používajú warning pre behavior, ktoré je legálne, ale veľmi pravdepodobne chybné. Tím potrebuje severity policy:
-
-```text
-compiler error
-→ build sa nedá vytvoriť
-
-high-confidence warning
-→ blocking gate
-
-migration alebo style warning
-→ advisory alebo ratcheted baseline
-```
-
-Policy „všetky warnings ako errors“ funguje iba vtedy, keď je warning set stabilný, presný a codebase nemá tisíce historických findings. Inak vedie k masovým suppression alebo k vypnutiu užitočnej kontroly.
-
-## 10. Formatter a linter
-
-Formatter a linter riešia rozdielne problémy.
+Atlas potrebuje viac než jeden tool:
 
 ```text
 formatter
-→ vytvorí jednu kanonickú reprezentáciu
+→ kanonická reprezentácia diffu
+
+compiler/type checker
+→ nullability, typy a neúplný state handling
 
 linter
-→ vyhodnotí pravidlo nad syntaxou alebo semantics
+→ suspicious API usage a lokálne pravidlá
+
+data-flow/SAST
+→ source-to-sink cesta tenantId alebo filename
+
+architecture check
+→ zakázaná dependency direction
 ```
 
-Automaticky opraviteľný style detail má spravidla patriť formatteru. Review a CI nemajú míňať pozornosť na medzery, ak ich vie nástroj deterministicky upraviť.
+## 3. Čo statický výsledok skutočne dokazuje
 
-Lint rule má byť zdokumentovaná ako kontrola s dôvodom, nie ako anonymná preferencia. Pri každom pravidle treba vedieť:
-
-- aké riziko alebo maintenance problém rieši;
-- akú má presnosť;
-- či je auto-fix bezpečný;
-- či sa má spúšťať na changed files alebo na celý codebase;
-- ako vyzerá oprávnený suppression;
-- či finding blokuje merge alebo iba upozorňuje.
-
-## 11. Type checking
-
-Type checker overuje, či použitie hodnôt zodpovedá typovým kontraktom. V staticky typovanom jazyku je táto vrstva zvyčajne súčasťou compilera. Pri gradual typing-u funguje samostatný analyzátor nad annotations a inferred types.
-
-Type systém pomáha odhaliť:
-
-- nesprávny argument alebo návratový typ;
-- neobslúžený null alebo optional stav;
-- nekompatibilnú generic instantiation;
-- neúplný union alebo variant handling;
-- nesprávne implementované interface;
-- breaking API zmenu pri refaktoringu.
-
-Type checker nevaliduje nedôveryhodný runtime input. JSON payload môže byť typovo nesprávny ešte pred vytvorením typed objectu. Potrebná je parsing a runtime validation boundary.
+Finding dokazuje, že analyzátor vo svojom modeli našiel porušenie pravidla alebo možnú failure path. Sila dôkazu závisí od troch vecí:
 
 ```text
-untrusted bytes
+model completeness
+× presnosť pravidla
+× správny build context
+```
+
+Ak chýbajú generated sources, production flags alebo dependency metadata, model nemusí obsahovať reálnu cestu. Ak je pravidlo heuristické, finding môže byť false positive. Ak analyzátor používa nepresnú aproximáciu dynamic dispatchu, môže naopak vytvoriť false negative.
+
+Zelený statický job teda znamená:
+
+> V analyzovanom scope-e a konfigurácii nebolo nájdené porušenie aktívnych pravidiel.
+
+Neznamená:
+
+> Program je funkčne správny a bezpečný v produkcii.
+
+## 4. Source a build context ako vstup dôkazu
+
+Autoritatívny run musí poznať rovnaký kontext, ktorý používa reálny build:
+
+- source revision a submodules;
+- language a compiler version;
+- target platform a feature flags;
+- dependency lock a module path;
+- generated code a annotation processors;
+- preprocessor symbols alebo build profiles;
+- analyzer ruleset, plugins a configuration;
+- exclusions a suppressions;
+- incremental cache identity.
+
+Atlas worker sa zostavuje s feature flagom `OBJECT_STORAGE_EXPORTS`. Ak analyzer beží bez tohto symbolu, export path môže byť zo symbol resolution a call graphu úplne odstránený. Zelený výsledok potom patrí inému programu než release artifact.
+
+## 5. Parsing, AST a symbol resolution
+
+Prvá fáza premieňa text na štruktúru:
+
+```text
+source bytes
+→ tokenization
+→ syntax tree / AST
+→ scopes a symbol table
+→ resolved imports a calls
+→ typové a semantic facts
+```
+
+AST umožní rozlíšiť function call od rovnakého textu v komentári alebo stringu. Symbol resolution určí, či `save()` znamená repository method, lokálnu helper function alebo import z iného package-u.
+
+Parser error je silný dôkaz, že daný input nemožno spracovať očakávaným toolchainom. Zelený parser však nehovorí, že program má správne typy, behavior alebo policy.
+
+## 6. Control-flow graph
+
+Control-Flow Graph modeluje možné prechody medzi basic blocks:
+
+```text
+entry
+→ parse Retry-After
+→ value exists?
+   ├─ áno → convert a schedule
+   └─ nie → default alebo error
+→ return
+```
+
+CFG podporuje findings ako unreachable branch, missing return, use-before-initialization, resource leak alebo možný null dereference. Pri Atlas workerovi môže type checker zistiť, že `retry_after` zostane `None` na vetve, ktorá následne volá numeric conversion.
+
+Model má limity. Reflection, runtime code generation, native extensions a highly dynamic dispatch môžu vytvárať hrany, ktoré analyzátor nevie presne odvodiť.
+
+## 7. Call graph a interprocedurálna analýza
+
+Call graph prepája functions a methods:
+
+```text
+HTTP handler
+→ create_export_command
+→ enqueue_export
+→ worker.handle
+→ build_filename
+→ filesystem/object-store adapter
+```
+
+Lokálna analýza handlera nemusí vidieť, že request filename po štyroch calls skončí vo filesystem sinku. Interprocedurálna analýza prenáša facts cez function boundaries, ale je drahšia a často používa aproximácie.
+
+Príliš široký call graph zvyšuje false positives. Príliš úzky graph vytvára false negatives. Výsledok preto potrebuje evidence path, aby reviewer vedel posúdiť, ktoré hrany analyzátor predpokladal.
+
+## 8. Data-flow a taint model
+
+Data-flow analysis sleduje vlastnosti values cez assignments, branches a calls. Taint analysis je špeciálny prípad:
+
+```text
+source
+→ propagácia
+→ validator alebo sanitizer
+→ sink
+```
+
+Pre Atlas cross-tenant riziko:
+
+```text
+request.body.tenantId        # nedôveryhodný source
+→ ExportRequest.tenant_id
+→ ExportCommand.tenant_id
+→ worker query filter         # authorization-sensitive sink
+```
+
+Správny design má inú cestu:
+
+```text
+authenticated_context.tenant_id
+→ server-owned command field
+→ immutable event context
+→ tenant-scoped query
+```
+
+Analyzer potrebuje modelovať, že authenticated context je trusted source a request field nie. Generic rule „string sa dostal do query“ nestačí na business authorization rozhodnutie.
+
+## 9. Sources, sinks, validators a sanitizers
+
+Source je miesto vstupu nedôveryhodnej alebo citlivej hodnoty: HTTP request, message, environment variable, uploaded file, database record, external API alebo CLI argument.
+
+Sink je operácia, kde nesprávna value vytvára riziko: SQL execution, shell command, HTML rendering, filesystem path, deserialization, redirect URL, logging alebo authorization decision.
+
+Validator a sanitizer musia byť vhodné pre konkrétny sink. HTML escaping nechráni SQL query a path normalization nemusí chrániť object-storage authorization. Custom wrapper bez analyzer modelu môže spôsobiť false positive aj false negative.
+
+## 10. Compiler diagnostics
+
+Compiler kontroluje jazykové invariants potrebné na vytvorenie programu. Môže odmietnuť syntax error, neznámy symbol, invalid generic, type mismatch alebo nepodporovaný platform call.
+
+Warning môže byť rovnako významný ako error, ale potrebuje policy:
+
+```text
+compiler error
+→ artifact nemožno vytvoriť
+
+high-confidence correctness warning
+→ blocking
+
+migration alebo compatibility warning
+→ advisory alebo ratcheted baseline
+
+style concern
+→ formatter/linter podľa ownershipu
+```
+
+„Warnings as errors“ je udržateľné iba pri stabilnom a vlastnenom warning sete. Zapnutie na legacy codebase bez baseline často vedie k masovým suppression, nie k pochopeniu rizika.
+
+## 11. Type checking ako contract medzi stavmi
+
+Type checker overuje, či values a operations zodpovedajú deklarovaným alebo odvodeným typom. Najväčšiu hodnotu má, keď typy reprezentujú doménové stavy namiesto generic stringov a nullable flags.
+
+Slabý model:
+
+```text
+status: str
+error: str | None
+result: Export | None
+```
+
+Silnejší model:
+
+```text
+ExportPending
+ExportRunning
+ExportSucceeded(result)
+ExportFailed(reason)
+```
+
+Discriminated union alebo sealed hierarchy umožní checkeru odhaliť neúplný state handling. Typový systém tým presunie časť runtime failure do build-time decisionu.
+
+## 12. Runtime input zostáva nedôveryhodný
+
+Type checking interného programu nevaliduje bytes z networku:
+
+```text
+untrusted JSON bytes
 → parser
 → runtime schema validation
-→ typed internal model
+→ authenticated/authorized transformation
+→ typed domain model
 → type-checked business logic
 ```
 
-## 12. Nullability a stavové typy
+Type assertion, cast alebo deserialization annotation nemusí runtime value skontrolovať. Atlas testuje schema boundary dynamicky a typy používa až po úspešnej validácii.
 
-Nejasné optional hodnoty sú častým zdrojom chýb. Jeden `null` môže v neformálnom modeli znamenať viac stavov:
+## 13. Formatter
+
+Formatter deterministicky vytvára jednu kanonickú reprezentáciu source. Jeho hlavný prínos je:
+
+- menší diff noise;
+- menej konfliktov o whitespace;
+- jednoduchší review behavior zmien;
+- reprodukovateľný generated output;
+- lacný editor a pre-commit feedback.
+
+Formatter nevie, či tenant identity pochádza zo správneho source-u. Je to representation control, nie behavior oracle.
+
+Check mode musí analyzovať rovnaký file set ako write mode. Inak môže lokálny formatter meniť files, ktoré CI nekontroluje, alebo naopak.
+
+## 14. Linter
+
+Linter aplikuje syntaktické alebo semantic rules, ktoré compiler nemusí vynucovať. Dobré pravidlo má:
 
 ```text
-hodnota neexistuje
-hodnota ešte nebola načítaná
-hodnota bola explicitne vymazaná
-lookup zlyhal
-používateľ nemá prístup
+risk alebo maintenance invariant
+→ pattern/model
+→ finding s rule ID a vysvetlením
+→ bezpečný autofix alebo manuálna remediation
+→ suppression contract
 ```
 
-Silnejší typový model tieto stavy oddeľuje cez union, result type, option type alebo explicitný state object. Analyzer potom vie vynútiť spracovanie každej vetvy.
+Atlas môže mať custom rule, ktorá zakáže čítať `tenantId` z API DTO pri tvorbe server-owned commandu. Také pravidlo chráni architektonický invariant, nie iba coding style.
 
-Suppression nullability warningu bez vysvetlenia iba prenesie neistotu do runtime. Bezpečnejšie je pridať guard, zmeniť contract alebo modelovať stav presnejšie.
+Autofix je bezpečný iba vtedy, keď zachová semantics. Import sorting alebo whitespace sú vhodné. Automatická zmena authorization expression potrebuje ľudský review a testy.
 
-## 13. Soundness, completeness a undecidability
+## 15. Architecture checks
 
-Pre všeobecný program nemožno staticky a zároveň dokonale rozhodnúť všetky runtime vlastnosti. Praktický analyzátor preto volí kompromis medzi:
-
-- **soundness** — snahou neprehliadnuť relevantný problém;
-- **completeness** — snahou nehlásiť problém, ktorý sa nemôže stať;
-- **execution cost** — časom a memory potrebnou na analýzu;
-- **language dynamikou** — reflection, pluginy, generated code a runtime dispatch;
-- **developer usability** — množstvom a akčnosťou findings.
-
-Sound analyzer môže byť konzervatívny a hlásiť mnoho teoretických paths. Presnejší praktický nástroj môže vedome ignorovať niektoré dynamické prípady. Preto sa finding interpretuje spolu s confidence a coverage, nie ako absolútna pravda.
-
-## 14. Security finding nie je exploit dôkaz
-
-Static security finding typicky hovorí, že existuje možná cesta alebo risky pattern. Na triage treba doplniť:
-
-- je source reálne attacker-controlled;
-- je path reachable v nasadzovanom artifacte;
-- má sink nebezpečné semantics;
-- existuje vhodná validácia mimo modelu analyzátora;
-- je vulnerable feature zapnutá;
-- aký je exposure a business impact;
-- či finding vznikol nad aktuálnym build contextom.
-
-Vysoká presnosť je dôležitá pre blocking gate. Finding s neistým pathom môže byť stále hodnotný ako review signal, ale nemá automaticky blokovať všetky zmeny bez triage modelu.
-
-## 15. Complexity a maintainability metrics
-
-Statické nástroje môžu merať cyclomatic complexity, cognitive complexity, nesting, duplication, dependency cycles alebo size. Tieto metriky upozorňujú na oblasti so zvýšeným change riskom, nie na automaticky chybný kód.
-
-Napríklad vysoká cyclomatic complexity znamená viac nezávislých control-flow ciest. To zvyšuje počet stavov, ktoré treba pochopiť a testovať. Nevysvetľuje však business kritickosť ani to, či je function správne abstrahovaná.
-
-Metriky používaj na hotspot analysis a trend, nie ako gamifikovaný cieľ. Tvrdý limit bez kontextu môže viesť k mechanickému rozdeleniu function bez zlepšenia modelu.
-
-## 16. Dead code a reachability
-
-Dead-code analysis môže nájsť nepoužité symbols, zastarané feature paths, nevyužité dependencies alebo unreachable branches. Odstránenie dead code znižuje attack surface aj maintenance cost.
-
-False positives vznikajú pri reflection, dependency injection, plugin discovery, serialization frameworks, template references alebo external invocation. Oprávnený suppression má vysvetliť runtime entry point a ideálne obsahovať test, ktorý väzbu overuje.
-
-Generated code a source maps treba správne označiť. Finding v generovanom artifacte sa zvyčajne opravuje v generátore alebo source template, nie ručnou editáciou výstupu.
-
-## 17. Architecture a dependency rules
-
-Statická analýza môže vynucovať architektonický contract nad import graphom.
+Architecture rule vynucuje dependency direction alebo ownership boundary. Atlas používa model:
 
 ```text
-presentation → application → domain
-infrastructure → application/domain
-
-domain ↛ infrastructure
+domain
+← application
+← adapters
+← entrypoints
 ```
 
-Pravidlo má vyjadrovať dôvod hranice. Zákaz importu môže chrániť domain model pred vendor SDK, zabrániť cycle alebo udržať deployability. Bez vysvetlenia sa z architecture checku stane náhodná prekážka.
+Export worker môže používať application port, ale nesmie importovať internú SQL implementation z `orders-api`. Taký import vytvára coupling na schema a obchádza testované repository contracty.
 
-Path-based ownership a dependency rules sa dopĺňajú. CODEOWNERS určuje review zodpovednosť, ale nevynucuje runtime alebo compile-time dependency smer.
+Architecture check môže analyzovať imports, packages, public API surface alebo dependency graph. Runtime plugin loading a generated dependencies však môžu vyžadovať doplnkový integration test.
 
-## 18. Configuration, policy a Infrastructure as Code
+## 16. Configuration a declarative static checks
 
-Rovnaký lifecycle platí pre konfiguráciu a deklaratívnu infraštruktúru:
+Rovnaký model platí pre YAML, Terraform, Kubernetes a pipeline definitions:
 
 ```text
-parse
+source
+→ parse
 → schema
-→ static policy
-→ rendered/plan analysis
-→ runtime verification
+→ cross-field invariants
+→ policy
+→ rendered/plan/runtime dôkaz
 ```
 
-Syntax-valid YAML nemusí byť validný Kubernetes object. Schema-valid Terraform configuration nemusí mať bezpečný plan. Static IaC scanner nemusí poznať provider defaults ani efektívny runtime state.
+Schema validation odhalí neplatný field alebo typ. Neodhalí automaticky public exposure, nebezpečný rollout alebo effective IAM. Tieto risks patria do policy, plan a runtime vrstvy vysvetlenej v predchádzajúcej kapitole.
 
-Statická vrstva preto musí pomenovať, ktorú reprezentáciu analyzuje:
+## 17. Soundness a completeness
 
-- authoring source;
-- rendered template;
-- dependency lock alebo module graph;
-- Terraform plan;
-- Kubernetes manifest po mutating admission;
-- container image metadata.
+V praxi sa analyzátory pohybujú medzi dvoma cieľmi:
 
-## 19. Toolchain a configuration provenance
+- **soundness** — ak tool tvrdí, že určitá chyba nemôže nastať, model sa snaží nepovoliť false negative pre danú triedu;
+- **completeness** — tool sa snaží nehlásiť paths, ktoré v realite nemôžu nastať.
 
-Výsledok závisí od verzie nástroja, rulesetu, compiler flags, dependency graphu a generated inputs. Autoritatívny run musí uchovať minimálne:
+Úplná soundness aj completeness sú pri všeobecnom programe nedosiahnuteľné. Tool používa konzervatívne aproximácie, heuristiky alebo obmedzený scope.
 
-- commit alebo source revision;
-- analyzer a plugin versions;
-- config a ruleset version;
-- target platform a language version;
-- build flags alebo compilation database;
-- excluded a generated paths;
-- cache key a scope;
-- machine-readable report.
+Pre blocking gate je preto dôležitá nie marketingová kategória nástroja, ale empirická precision, coverage modelu a význam konkrétneho rulesetu.
 
-Lokálny editor a CI majú používať kompatibilnú konfiguráciu. Rozdiel „lokálne zelené, CI červené“ často vzniká z odlišnej verzie, working directory, generated source alebo rulesetu.
+## 18. Finding triage
 
-## 20. Baseline pri existujúcom codebase
+Finding má obsahovať:
 
-Zavedenie analyzátora do legacy codebase môže vytvoriť tisíce findings. Globálne ignorovanie ruší hodnotu nástroja, no okamžité blokovanie všetkého môže zastaviť delivery.
+- rule ID a severity;
+- file, symbol a source revision;
+- evidence alebo data-flow path;
+- analyzer a ruleset version;
+- confidence;
+- affected artifact alebo component;
+- remediation guidance;
+- suppression stav;
+- ownera.
 
-Praktický ratcheting model:
+Reviewer najprv overí, či model obsahuje reálny execution path. Potom posúdi, či path porušuje contract. Finding bez build contextu a evidence pathu je slabý vstup do blocking rozhodnutia.
+
+## 19. Worked failure: analyzer nevidel produkčný export path
+
+Atlas CI spúšťala SAST nad default build profilom. Export worker sa však kompiloval iba s flagom `OBJECT_STORAGE_EXPORTS`.
 
 ```text
-1. odmerať existujúci stav
-2. okamžite opraviť kritické high-confidence findings
-3. uložiť explicitný baseline historického dlhu
-4. blokovať nové alebo zhoršené findings
-5. priradiť ownerov a redukčný cieľ
-6. pravidelne baseline zmenšovať
-7. po odstránení dlhu baseline zrušiť
+CI analyzer bez feature flagu
+→ export module nebol v call graphe
+→ filename source-to-filesystem sink neexistoval
+→ SAST green
+→ release artifact obsahoval export path
+→ crafted filename vytvoril object key mimo tenant prefixu
 ```
 
-Baseline musí byť verzovaný a auditovateľný. Nesmie sa automaticky regenerovať pri každom failure, pretože by legitimizoval novú regresiu.
+### Root cause
 
-## 21. Suppression governance
+Analyzer a release build nepoužívali rovnaký compilation context. Zelený report patril zjednodušenému programu, nie publikovanému artifactu.
 
-Suppression mení kontrolný contract. Má byť čo najužší a vysvetľovať, prečo je finding v danom kontexte false positive alebo akceptované riziko.
+### Náprava
 
-Kvalitný suppression obsahuje:
+- analyzer používa authoritative build command a production feature set;
+- CI zaznamená resolved flags, generated files a dependency graph;
+- export module dostane targeted taint rule a unit regression;
+- component test overí object key a tenant prefix cez reálny serializer/adapter;
+- coverage report kontroluje, či export package bolo analyzované;
+- chýbajúci analyzer scope je `INCOMPLETE`, nie green.
 
-- presné rule ID a minimálny scope;
-- technické zdôvodnenie;
+## 20. Worked failure: suppression skryla zmenu contractu
+
+Type checker pôvodne hlásil, že `Retry-After` môže byť `None`. Tím pridal file-level suppression, pretože starý client header vždy vracal string.
+
+```text
+provider client upgrade
+→ missing header sa začal mapovať na None
+→ file-level suppression ostala aktívna
+→ numeric conversion dostala None
+→ worker spadol pred naplánovaním retry
+```
+
+### Root cause
+
+Suppression bola príliš široká, nemala ownera ani expiry a chránila predchádzajúci assumption namiesto explicitného invariant testu.
+
+### Náprava
+
+- optional state sa modeluje typom a explicitným branchom;
+- suppression sa odstráni;
+- narrow suppression je povolená iba s rule ID, dôvodom a issue;
+- regression test pokrýva missing, invalid a valid header;
+- suppression count a age sa ratchetujú.
+
+## 21. Baseline a zavedenie do legacy codebase
+
+Existujúci codebase môže mať tisíce findings. Okamžité globálne blocking pravidlo vedie k vypnutiu toolu alebo nečitateľným suppression.
+
+Riadený lifecycle:
+
+```text
+inventory run
+→ klasifikovať rules a false positives
+→ uložiť versioned baseline
+→ blocking pre nové findings
+→ opravovať prioritné historické findings
+→ znižovať baseline
+→ odstrániť baseline po dosiahnutí cieľa
+```
+
+Baseline nie je zoznam „akceptovaných chýb“. Je dočasný migration mechanism s ownerom, trendom a reviewom.
+
+## 22. Suppression lifecycle
+
+Oprávnená suppression má:
+
+- presný rule ID;
+- najmenší scope;
+- technický dôvod;
 - ownera;
-- issue alebo risk-acceptance referenciu;
-- expiry, ak je výnimka dočasná;
-- kompenzačnú kontrolu, ak riziko ostáva;
-- test alebo dôkaz, ktorý podopiera predpoklad.
+- issue alebo risk decision;
+- expiry alebo review date;
+- alternatívny dôkaz, ak riziko zostáva;
+- zákaz maskovania nových findings širokým wildcardom.
 
-Globálne vypnutie pravidla má byť výnimočné. Pred ním treba overiť tuning, framework model, custom sanitizer alebo oddelenie generated code.
+Inline suppression je často auditovateľnejšia než globálny ignore, pretože reviewer vidí context. Generated code alebo vendor source môže používať central exclusion, ale ownership a dôvod musia zostať explicitné.
 
-## 22. Incremental a affected analysis
+## 23. Blocking a advisory rules
 
-Veľký codebase potrebuje cache a incremental execution. Rýchlosť však nesmie zmeniť význam kontroly.
+Blocking je vhodný pre presný, reprodukovateľný a akčný signal:
 
-Changed-file linting je vhodný pre lokálne syntax a style pravidlá. Whole-program type analysis, architecture graph alebo interprocedurálny taint path môže závisieť od nezmenených súborov.
+- compiler/type error;
+- high-confidence null dereference;
+- zakázanú architecture dependency;
+- new secret finding;
+- known source-to-dangerous-sink path s reálnou reachability;
+- schema alebo policy violation s jasným contractom.
 
-Bezpečný model kombinuje:
+Advisory je vhodný pri novom rulesete, heuristickom complexity signále alebo nízkej precision. Advisory finding však potrebuje dashboard, ownera a rozhodnutie, kedy sa stane blocking alebo sa odstráni.
 
-- editor alebo pre-commit analýzu changed files;
-- PR affected analysis s dependency graphom;
-- autoritatívny širší CI run;
-- periodický clean run bez cache;
-- invalidáciu cache pri zmene toolchainu, configu, dependencies alebo build flags.
+## 24. Tool failure a incomplete evidence
 
-Chybná cache môže vytvoriť false green. Cache key preto musí reprezentovať všetky vstupy, ktoré menia výsledok.
-
-## 23. Feedback chain
-
-Kontrola má byť dostupná čo najbližšie k autorovi zmeny, ale autoritatívne rozhodnutie patrí do kontrolovaného CI prostredia.
+Pipeline musí rozlišovať:
 
 ```text
-editor diagnostic
-→ local command
-→ optional pre-commit hook
-→ pull-request annotations
-→ autoritatívny CI gate
-→ trend a debt reporting
-```
-
-Pre-commit hook možno obísť a developer machine nie je bezpečnostná boundary. CI musí kontrolu zopakovať nad presným source revision a deklarovaným toolchainom.
-
-## 24. Gate policy
-
-Finding má blokovať merge iba vtedy, keď kontrola spĺňa prevádzkový contract:
-
-- **relevance** — pravidlo chráni pomenované riziko alebo invariant;
-- **precision** — false-positive rate je prijateľný;
-- **reproducibility** — developer vie failure lokálne zopakovať;
-- **actionability** — finding vysvetľuje opravu alebo ďalší diagnostický krok;
-- **ownership** — je jasné, kto rieši tool aj code finding;
-- **availability** — tool failure sa nerozlišuje od clean resultu;
-- **latency** — kontrola dá feedback pred chráneným rozhodnutím;
-- **exception path** — obídenie je explicitné, expirovateľné a auditovateľné.
-
-Security taint path a formatting preference nemajú rovnakú severity. Ruleset potrebuje kategórie a odlišné gate semantics.
-
-## 25. Tool failure verzus clean result
-
-Ak analyzátor crashne, nenájde dependencies, prekročí timeout alebo preskočí polovicu projektu, výsledok nie je „0 findings“. Pipeline musí rozlišovať:
-
-```text
-analysis completed, no findings
-analysis completed, findings exist
+analysis completed bez findings
+analysis completed s findings
 analysis incomplete
-analysis infrastructure failed
+model/build context invalid
+ruleset alebo cache stale
+tool unavailable
 ```
 
-Fail-open alebo fail-closed rozhodnutie závisí od rizika. Kritický security gate má spravidla zablokovať neúplnú analýzu; advisory style job môže výpadok reportovať bez blokovania. V oboch prípadoch musí byť stav viditeľný.
+Parser crash, chýbajúci generated source alebo analyzer timeout nie sú „no findings“. Pre kritický gate môže unknown dôkaz viesť k fail-closed. Pri advisory tool-e môže pokračovanie zostať povolené, ale stav musí byť viditeľný a auditovaný.
 
-## 26. Reportovanie a developer experience
+## 25. Incremental analysis a cache
 
-Akčný finding má obsahovať file, line, symbol, rule ID, severity, vysvetlenie rizika a remediation. Pri data-flow probléme má ukázať relevantný source-to-sink path.
+Incremental analyzer zrýchľuje feedback použitím predchádzajúcich výsledkov. Cache key musí zahŕňať:
 
-Machine-readable report umožňuje deduplikáciu, trendovanie a integráciu s pull requestom. Fingerprint findings musí zostať dostatočne stabilný, aby rovnaký problém nevznikal ako nový ticket pri každom posune riadku.
+- source a dependency revision;
+- compiler flags;
+- tool a plugin versions;
+- ruleset a suppression config;
+- generated source identity;
+- target platform;
+- relevantný environment model.
 
-Tisíce duplicitných alebo neakčných findings vytvárajú noise floor. Tuning, framework models a kvalitné defaults sú súčasťou security aj quality engineeringu.
+Zmena shared interface alebo analyzer modelu musí invalidovať dependents. Stale cache môže vytvoriť false green, aj keď samotný tool je presný.
 
-## 27. Meranie účinnosti
+## 26. Generated code
 
-Počet zapnutých pravidiel nie je dobrá metrika kvality. Sleduj skôr:
+Generated output sa hodnotí podľa ownershipu:
 
-- findings podľa severity a rule;
-- first-seen a age;
-- time to remediation;
-- suppression a baseline trend;
-- false-positive rate;
-- analyzer failure rate a duration;
-- percento codebase reálne analyzované;
-- defecty alebo incidenty, ktoré kontrola zachytila či prepustila;
-- developer rerun a local reproducibility rate.
+```text
+vendor-generated glue
+→ overiť generator/spec a compile compatibility
 
-Kontrola, ktorú všetci obchádzajú alebo ktorá často zlyháva bez diagnostiky, neplní svoj účel ani pri vysokej teoretickej kvalite pravidiel.
+tímom vlastnená template
+→ testovať generator, output invariants a representative output
 
-## 28. Diagnostický workflow
+generated client ako public contract
+→ compile, contract a smoke dôkaz
+```
 
-Pri nečakanom findingu alebo rozdiele medzi lokálnym a CI výsledkom:
+Exclusion generated files nesmie skryť vlastnú business logiku vloženú do templates. Analyzer report má uviesť, čo bolo vylúčené a prečo.
 
-1. potvrď presný commit a analyzovanú path;
-2. over verziu analyzátora, pluginov a konfigurácie;
-3. skontroluj language target, build flags a generated sources;
-4. reprodukuj command bez cache;
-5. prečítaj rule documentation a celý data-flow path;
-6. rozlíš skutočný problém, model gap a false positive;
-7. over, či framework wrapper alebo sanitizer potrebuje model;
-8. oprav source, contract alebo analyzer model;
-9. suppression použi iba s explicitným dôkazom;
-10. over, že CI znova analyzovalo relevantný scope.
+## 27. Local feedback a authoritative CI
 
-## 29. Časté omyly
+Editor poskytuje najrýchlejší signal, ale developer settings môžu byť odlišné. Autoritatívny CI run preto používa pinovaný toolchain a repository config.
 
-### „Linter prešiel, program funguje“
+```text
+editor
+→ okamžitá diagnostika
 
-Linter pokrýva iba svoje rules a statický model. Runtime dependency, business invariant alebo latency môže stále zlyhať.
+pre-commit
+→ formatter a targeted fast rules
 
-### „Type hints validujú API payload“
+pull request CI
+→ full authoritative model a gate
 
-Annotations chránia typed code po parsing boundary. Nedôveryhodný input potrebuje runtime validáciu.
+scheduled analysis
+→ drahé interprocedurálne rules, whole-repo a trend
+```
 
-### „Všetky warnings treba okamžite blokovať“
+Lokálna a CI konfigurácia majú zdieľať rovnaký source of truth, aby developer nedostával konfliktujúce verdicts.
 
-Bez severity modelu a baseline môže politika vytvoriť suppression debt a zničiť dôveru v gate.
+## 28. Failure artifacts a provenance
 
-### „Suppression opravil finding“
+Uchovaj:
 
-Suppression odstránil signal. Riziko ostáva, pokiaľ neexistuje dôkaz, že finding je neplatný alebo kontrolovaný inak.
+- source/synthetic merge commit;
+- build command a resolved flags;
+- analyzer, compiler, plugin a ruleset versions;
+- included/excluded file inventory;
+- cache hit/miss a key;
+- generated-source manifest;
+- machine-readable findings;
+- evidence paths;
+- suppression/baseline version;
+- completion status a duration.
 
-### „Changed-file scan stačí“
+Bez provenance nie je možné potvrdiť, že report patrí k reviewovanému release kandidátovi.
 
-Cross-file typový, architecture alebo data-flow problém môže vzniknúť mimo priamo zmeneného súboru.
+## 29. Diagnostický workflow
 
-### „Analyzer timeout znamená, že nič nenašiel“
+Keď statický job zlyhá alebo podozrivo prejde:
 
-Neúplný run nie je clean evidence. Musí mať samostatný failure stav.
+1. potvrď source commit, target a authoritative build command;
+2. over compiler flags, platform a generated sources;
+3. skontroluj, či analyzovaný file/symbol patrí do inventory;
+4. reprodukuj finding rovnakou tool a ruleset verziou;
+5. prečítaj evidence path a resolved symbols;
+6. rozlíš reálny contract failure od nepresnej modelovej hrany;
+7. over cache invalidation a baseline/suppression;
+8. pri false negative pridaj alebo oprav analyzer model;
+9. pridaj najnižší runtime alebo behavior regression test;
+10. over autoritatívny first-attempt rerun bez novej broad suppression.
 
-## 30. Prevádzkový checklist
+## 30. Referenčné pravidlá
 
-- Je toolchain a ruleset pinovaný a reprodukovateľný?
-- Analyzuje sa rovnaký build context ako pri skutočnom zostavení?
-- Sú generated a excluded paths explicitné?
-- Je rozdiel medzi formatterom, linterom, compilerom a security analyzerom jasný?
-- Má každý blocking rule pomenované riziko a remediation?
-- Rozlišuje pipeline findings, incomplete run a infrastructure failure?
-- Je baseline verzovaný a zmenšuje sa?
-- Sú suppression úzke, zdôvodnené a reviewované?
-- Invaliduje sa incremental cache pri všetkých relevantných zmenách?
-- Existuje periodický clean whole-program run?
-- Dostane developer finding pri file a line spolu s rule ID?
-- Meria sa precision, duration, coverage a remediation trend?
+- Statický výsledok patrí konkrétnemu source a build contextu.
+- Parser, formatter, linter, type checker a SAST poskytujú odlišný dôkaz.
+- Type safety nezačína pred runtime parsing a validation boundary.
+- Data-flow rule potrebuje explicitné sources, sinks a validators.
+- Zelený analyzer nepreukazuje runtime behavior.
+- Build flags a generated code musia zodpovedať release artifactu.
+- Blocking rules majú byť presné, reprodukovateľné a vlastnené.
+- Baseline je dočasný ratchet, nie permanentný ignore list.
+- Suppression má minimálny scope, ownera a expiry.
+- Incomplete analysis je unknown evidence, nie green.
+- Incremental cache key zahŕňa celý semantic context.
+- Finding potrebuje runtime alebo behavior potvrdenie podľa rizika.
 
-## 31. Kontrolné otázky
+## 31. Časté omyly
 
-1. Aký je rozdiel medzi parserom, formatterom, linterom a type checkerom?
-2. Čo reprezentujú AST, control-flow graph a call graph?
-3. Ako data-flow analýza spája facts z rôznych branches?
-4. Ako funguje source, propagation, sanitizer a sink v taint analýze?
-5. Prečo static analyzer nemôže byť zároveň dokonale sound aj complete pre všetky programy?
-6. Prečo type checking nenahrádza runtime input validation?
-7. Ako zaviesť blocking analyzer do legacy codebase bez permanentného baseline dlhu?
-8. Aké podmienky má spĺňať oprávnený suppression?
-9. Prečo changed-file analysis nestačí pre všetky pravidlá?
-10. Ako musí pipeline rozlíšiť clean result od neúplnej analýzy?
-11. Kedy má finding blokovať merge a kedy má byť advisory?
-12. Ako overíš, že analyzer skutočne spracoval celý zamýšľaný scope?
+### „Compiler prešiel, program funguje“
+
+Compiler overuje jazykové invariants, nie business výsledok, databázovú transaction semantics ani externý contract.
+
+### „Formatter zvyšuje correctness“
+
+Formatter znižuje representation noise. Behavior nemení, pokiaľ nemá chybný alebo semantic autofix.
+
+### „Type checker validuje JSON“
+
+Typed interný model vzniká až po runtime parsing a validation.
+
+### „SAST green znamená žiadnu injection alebo authorization chybu“
+
+Analyzer vidí iba modelované sources, sinks, calls a build variants.
+
+### „Finding potlačíme, pretože je false positive“
+
+Suppression potrebuje dokumentovaný modelový dôvod a minimálny scope. Inak môže maskovať budúcu reálnu chybu.
+
+### „Analyzer timeout je infra problém, merge môže byť green“
+
+Je to chýbajúci dôkaz. Gate potrebuje explicitnú unknown policy.
+
+### „Incremental run vždy stačí pre pull request“
+
+Stale dependency graph alebo config change môže vyžadovať whole-repo reanalysis.
+
+## 32. Zhrnutie
+
+Atlas statická evidence chain je:
+
+```text
+release source a build context
+→ parse/symbol model
+→ AST + CFG + call/data flow
+→ compiler/type/lint/security/architecture rules
+→ findings a blind spots
+→ fix alebo riadená suppression
+→ authoritative CI verdict
+→ dynamický regression dôkaz
+```
+
+Hlavný princíp je model fidelity. Statický tool môže byť technicky správny a napriek tomu vytvoriť false green, ak analyzuje iný build variant, nevidí generated source alebo používa stale cache. Výsledok sa preto interpretuje iba spolu so scope-om, configuration provenance a failure semantics.
+
+## 33. Kontrolné otázky
+
+1. Aký evidence lifecycle používa statická analýza?
+2. Prečo zelený analyzer nie je runtime dôkaz?
+3. Aký význam majú AST, CFG a call graph?
+4. Ako taint analysis prepája source, propagáciu, validator a sink?
+5. Prečo musí analyzer používať reálny build context?
+6. Čo navyše poskytuje type checker oproti parseru?
+7. Prečo typed model nevaliduje nedôveryhodný JSON?
+8. Aký je rozdiel medzi formatterom a linterom?
+9. Ako architecture check chráni Atlas worker boundary?
+10. Ako chýbajúci feature flag vytvoril false-green SAST report?
+11. Prečo file-level suppression skryla `Retry-After` failure?
+12. Ako funguje baseline a ratcheting v legacy codebase?
+13. Aké vlastnosti má oprávnená suppression?
+14. Kedy má statická kontrola blokovať merge?
+15. Čo znamená incomplete analysis pre gate?
+16. Čo musí obsahovať cache key incremental analyzéra?
 
 ## Glossary impact
 
-Relevantné pojmy: static analysis, compiler diagnostic, formatter, linter, type checker, gradual typing, AST, control-flow graph, call graph, symbol table, data-flow analysis, taint analysis, source, sink, sanitizer, soundness, completeness, baseline, suppression, incremental analysis, architecture rule a SARIF.
+Relevantné pojmy: static analysis, compiler diagnostic, formatter, linter, type checker, AST, Control-Flow Graph, call graph, interprocedural analysis, data-flow analysis, taint analysis, source, sink, sanitizer, validator, soundness, completeness, architecture test, baseline, suppression, incremental analysis, analyzer provenance a incomplete evidence.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
