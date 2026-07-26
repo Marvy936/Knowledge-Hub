@@ -6,545 +6,488 @@
 - Level: L2
 - Domain: CI/CD and Release Engineering
 
-## 1. Definícia
-
-Continuous Delivery je schopnosť udržiavať každú akceptovanú zmenu v stave, v ktorom možno dôveryhodný immutable artifact bezpečne, opakovateľne a na požiadanie nasadiť do produkcie. Produkčný release nemusí byť automatický, ale technická cesta od source po produkčne pripraveného kandidáta je automatizovaná, pravidelne používaná a podložená evidence.
+Continuous Delivery je schopnosť udržiavať každú akceptovanú zmenu v stave, v ktorom možno konkrétny immutable artifact bezpečne, opakovateľne a na požiadanie nasadiť do produkcie. Produkčný release nemusí byť automatický, ale technická cesta od integrovanej zmeny po promotable candidate je stále pripravená, pravidelne používaná a podložená auditovateľným dôkazom.
 
 ```text
-integrovaná zmena
-→ reprodukovateľný build
-→ immutable artifact
-→ vrstvené verification a validation
-→ promotion evidence
-→ deployable candidate
+zdravý main candidate
+→ jeden immutable artifact
+→ risk-specific evidence v relevantných environments
+→ configuration a shared-state compatibility
+→ promotable artifact state
 → vedomé release rozhodnutie
+→ deployment, validation a recovery
 ```
 
-Continuous Delivery nie je stav „pipeline existuje“. Je to prevádzková vlastnosť systému: release nie je výnimočný projekt, ale štandardná, nacvičená a auditovateľná operácia.
+Continuous Delivery nie je „máme pipeline“. Je to prevádzkový invariant: release nesmie vyžadovať stabilizačný projekt, ručné skladanie bytes ani improvizované technické kroky.
 
-## 2. Continuous Integration, Delivery a Deployment
+## 1. Cieľ kapitoly
 
-Tieto schopnosti na seba nadväzujú:
+Nosný model kapitoly je deployability lifecycle:
 
 ```text
-Continuous Integration
-→ zmeny sa často integrujú a mainline ostáva dôveryhodná
-
-Continuous Delivery
-→ každý akceptovaný artifact je možné bezpečne nasadiť na požiadanie
-
-Continuous Deployment
-→ produkčná promotion po úspešných kontrolách prebieha automaticky
+CI-accepted artifact
+→ artifact a evidence identity
+→ environment-specific risk validation
+→ versioned configuration a infrastructure state
+→ shared-state compatibility
+→ deployment state machine
+→ promotion/approval decision
+→ post-deploy oracle
+→ rollback, roll-forward alebo feature disable
+→ deployability debt späť do automation a designu
 ```
 
-Rozdiel medzi Delivery a Deployment nie je v kvalite buildov alebo testov. Rozdiel je v poslednom release rozhodnutí. Continuous Delivery môže mať manuálny approval, ale approval rozhoduje nad pripraveným artifactom a evidence; nesmie nahrádzať ručne vykonávané technické kroky.
+Rozdiel medzi Continuous Delivery a Continuous Deployment je posledné rozhodnutie. Delivery môže ponechať manuálny approval, ale ten rozhoduje nad pripraveným artifactom a complete evidence. Nesmie nahrádzať ručné nasadenie.
 
-## 3. Mental model: deployability ako invariant
+## 2. Nosný scenár: Atlas Orders 3.10.0
 
-Deployability je invariant, nie udalosť tesne pred releaseom.
-
-Systém je deployable, keď:
-
-- **Artifact existuje —** je immutable, identifikovaný digestom a spojený so source commitom;
-- **Evidence je kompletné —** required checks prešli a nechýbajú reporty, shards ani policy výsledky;
-- **Deployment automation je dôveryhodná —** je versionovaná, testovaná a bezpečne retryable;
-- **Konfigurácia je pripravená —** environment-specific values a secrets majú známy source a validáciu;
-- **Shared state je kompatibilný —** databáza, events, caches a clients podporujú súbeh verzií;
-- **Recovery je definovaná —** rollback, roll-forward, feature disable alebo traffic shift majú jasné podmienky;
-- **Observability je pripravená —** release a version identity sú viditeľné a post-deploy oracle je známy;
-- **Promotion policy je splnená —** risk, approvals a environment rules sú auditovateľné.
-
-„Build prešiel“ dokazuje iba časť deployability.
-
-## 4. Deployment pipeline
-
-Deployment pipeline rozširuje CI evidence až po produkčne pripravený stav:
+CI vytvorilo:
 
 ```text
-source candidate
-→ build a package
-→ unit/static/security checks
-→ integration a contract verification
-→ artifact publication
-→ deployment do validačného prostredia
-→ acceptance/performance/operability dôkaz
-→ promotion decision
-→ produkčný candidate
+candidate SHA C
+→ orders-api image digest A
+→ payment-worker image digest B
+→ migration bundle M
+→ SBOM, signatures a test evidence E
 ```
 
-Pipeline nie je iba sekvencia prostredí. Je to reťaz rozhodovacích bodov, ktoré pridávajú nový dôkaz o tom istom artifacte.
+Release 3.10.0 pridáva event field `priority`, retry policy a PostgreSQL index. Atlas musí preukázať:
 
-Každý krok má definovať:
+- A, B a M zostanú rovnaké medzi environments;
+- staging zachová deployment, identity a shared-state boundaries;
+- stará aj nová verzia rozumejú schema a eventom počas rollout-u;
+- config a feature flags majú známu revision;
+- deployment zvládne partial completion a retry;
+- existuje bezpečná recovery cesta;
+- approval vidí presný artifact, risk a evidence.
 
-- vstupný artifact digest,
-- prostredie a konfiguráciu,
-- kontrolované riziko,
-- oracle a success criteria,
-- evidence output,
-- failure a retry semantics,
-- ownera a exception policy.
+Deployability nie je vlastnosť samotného image digestu. Je to vlastnosť artifactu, konfigurácie, platformy, shared stateu, automation a recovery contractu spolu.
 
-## 5. Build once, promote many
+## 3. Deployability ako invariant
 
-Základný princíp:
+Atlas candidate je deployable iba keď:
+
+- artifacty sú immutable a jednoznačne previazané na source;
+- required evidence je complete, fresh a patrí rovnakým bytes;
+- deployment automation je versionovaná, testovaná a partial-failure aware;
+- environment configuration má source, schema, policy a rollback identity;
+- database, events a caches podporujú mixed-version interval;
+- post-deploy technical, functional a business oracles sú známe;
+- recovery variant má explicitné preconditions;
+- promotion policy a approvals sú auditovateľné.
+
+„Build prešiel“ preukazuje iba prvú časť tohto invariantu.
+
+## 4. Build once, promote many
+
+Atlas používa:
 
 ```text
 commit C
-→ build artifact digest A
-→ verify A
-→ deploy A do test/staging
-→ promote A do produkcie
+→ build A/B/M
+→ verify A/B/M
+→ deploy tie isté digests do integration a staging
+→ promote tie isté digests do production
 ```
 
-Rebuild pred produkciou vytvorí artifact B. Aj keď pochádza z rovnakého source commit-u, môže používať iný base image, dependency mirror, compiler, timestamp alebo network-fetched vstup. Produkcia by potom nedostala bytes, ktoré prešli predchádzajúcou validáciou.
+Rebuild pred produkciou by vytvoril nové bytes, aj keby používal rovnaký source commit. Base image, package mirror, compiler alebo timestamp sa mohli zmeniť.
 
-Promotion musí presúvať identitu a dôkaz artifactu, nie iba názov verzie.
+Promotion record obsahuje:
 
-Promotion record typicky obsahuje:
+- artifact digests a registry locations;
+- source/candidate SHA a build run;
+- SBOM, signatures a provenance;
+- evidence bundle a policy version;
+- environment deployment history;
+- approvals a actor identity;
+- known-good recovery references.
 
-- artifact digest a registry location,
-- source commit a build run,
-- SBOM a provenance,
-- výsledky required checks,
-- environment deployment history,
-- approvals a policy version,
-- timestamp a actor identity,
-- rollback/roll-forward reference.
+Promotion presúva artifact identity a evidence, nie iba textový version tag.
 
-## 6. Artifact state machine
+## 5. Artifact state machine
 
-Artifact môže prechádzať explicitnými stavmi:
+Atlas modeluje artifact stav:
 
 ```text
 built
 → verified
-→ deployed-to-test
-→ validated
-→ approved/promotable
+→ deployed-to-integration
+→ integration-validated
+→ deployed-to-staging
+→ operationally-validated
+→ promotable
 → deployed-to-production
 → released
 → superseded alebo revoked
 ```
 
-Stav nemá byť iba tag, ktorý možno ľubovoľne prepísať. Musí byť odvodený z evidence a policy.
+Stav je odvodený z evidence a policy. Mutable tag `approved` bez väzby na digest nie je state machine.
 
-Dôležité pravidlá:
+Pravidlá:
 
-- revoked artifact sa nesmie znovu promovať bez novej policy výnimky;
-- chýbajúci alebo expirovaný dôkaz invaliduje promotability;
-- zmena artifact bytes vytvára novú identitu a nový verification lifecycle;
-- promotion medzi registries musí overiť digest a podpis;
-- environment deployment nesmie nepozorovane mutovať artifact.
+- zmena bytes vytvára nový lifecycle;
+- chýbajúci alebo expirovaný evidence ruší promotability;
+- revoked artifact sa nepromuje bez explicitnej výnimky;
+- kopírovanie medzi registries overuje digest a signature;
+- environment nesmie artifact pri deployment-e nepozorovane mutovať.
 
-## 7. Environment promotion
+## 6. Každé environment má risk-specific účel
 
-Tradičný model `dev → test → staging → production` je užitočný iba vtedy, keď má každé prostredie jasný účel.
-
-Príklady účelu:
-
-- **ephemeral integration environment —** wiring, reálne dependencies a contract behavior;
-- **staging —** deployment topology, identity, ingress, migrations a operational acceptance;
-- **performance environment —** kontrolovaný workload a capacity evidence;
-- **production canary —** reálny traffic, quotas a business validation.
-
-Viac prostredí bez rozdielneho oracle iba predlžuje lead time. Prostredie nemá byť „level“, ktorým artifact prejde z tradície. Má poskytovať konkrétnu fidelity pre konkrétny risk.
-
-Promotion decision sa viaže na:
-
-- artifact identity,
-- úplnosť a čerstvosť evidence,
-- target environment health,
-- shared-state compatibility,
-- release risk classification,
-- policy a approvals.
-
-## 8. Environment parity a fidelity
-
-Staging nemusí mať rovnakú kapacitu ako produkcia, ale musí zachovať vlastnosti relevantné pre testovaný risk.
-
-Kontroluj najmä:
-
-- rovnaký deployment mechanism,
-- rovnaký artifact format,
-- kompatibilné database/broker versions,
-- podobnú identity a authorization cestu,
-- TLS, proxy a routing vrstvy,
-- platform mutations a admission policies,
-- feature-flag defaults,
-- realistickú data shape a topology.
-
-Parity nie je cieľ sama osebe. Cieľom je vedieť, ktoré assumptions staging dokazuje a ktoré ostávajú až pre produkčný rollout.
-
-## 9. Configuration separation
-
-Artifact má byť environment-agnostic tam, kde je to praktické. Rozdiely patria do external configuration:
-
-- deployment manifests,
-- environment variables,
-- configuration service,
-- secret manager,
-- feature flags,
-- runtime policy.
-
-Configuration je však tiež release input. Musí mať:
-
-- source a version,
-- schema a policy validation,
-- environment scope,
-- ownership,
-- audit zmien,
-- rollback alebo previous-known-good state,
-- bezpečné secret references.
-
-„Rovnaký artifact“ nestačí, ak produkcia používa neauditovanú konfiguráciu odlišnú od stagingu.
-
-## 10. Infrastructure a environment provisioning
-
-Continuous Delivery potrebuje reprodukovateľné a obnoviteľné prostredia.
-
-Mechanizmy:
-
-- Infrastructure as Code,
-- declarative platform configuration,
-- immutable images,
-- policy as code,
-- ephemeral environments,
-- drift detection,
-- environment reconciliation.
-
-Ručne udržiavaný staging s neznámou históriou je slabý validačný bod. Ak deployment uspeje iba preto, že niekto manuálne opravil server, pipeline nepreukázala deployability.
-
-Environment provisioning lifecycle:
+Atlas environments nie sú rituálne levely:
 
 ```text
-declarative source
-→ validate a plan
-→ provision/reconcile
-→ runtime verification
-→ deploy artifact
-→ cleanup alebo drift monitoring
+ephemeral integration
+→ wiring, real PostgreSQL/broker a contract behavior
+
+staging
+→ deployment topology, ingress, IAM, migration a operational acceptance
+
+performance environment
+→ representative workload a capacity assumptions
+
+production canary
+→ real traffic mix, quotas, tenant skew a business outcome
 ```
 
-## 11. Deployment automation ako stavový stroj
+Ak dve environments poskytujú rovnaký oracle a fidelity, druhé iba predlžuje lead time.
 
-Deployment nie je jeden príkaz. Je to stavový prechod s partial-failure rizikom.
+Parity znamená zachovať vlastnosti relevantné pre riziko: deployment mechanism, artifact format, DB/broker versions, identity path, TLS/routing, platform mutations a data shape. Neznamená slepo kopírovať celú produkčnú kapacitu.
 
-Príklad:
+## 7. Configuration a infrastructure provenance
+
+Rovnaký artifact môže mať odlišný behavior kvôli:
+
+- Helm values alebo manifests;
+- environment variables;
+- secret references;
+- feature flags;
+- IAM a network policy;
+- platform defaults a admission mutations.
+
+Configuration preto patrí do release identity:
+
+```text
+artifact digest
++ config revision
++ secret-reference version
++ infrastructure plan/state
++ feature-flag snapshot
+→ effective deployment candidate
+```
+
+Atlas validuje schema a policy nad source aj rendered outputom, uchováva previous-known-good config a overuje effective runtime state po apply.
+
+Ručne opravovaný staging s neznámou históriou nemôže dôveryhodne potvrdiť deployability.
+
+## 8. Deployment ako stavový stroj
+
+Deployment nie je jeden shell príkaz:
 
 ```text
 planned
-→ artifact verified
-→ prechecks
-→ change applied
-→ rollout waiting
+→ artifact/config verified
+→ environment prechecks
+→ migration phase
+→ workload mutation
+→ rollout observing
 → post-deploy validation
 → completed / paused / failed
-→ rollback alebo roll-forward
+→ rollback / roll-forward / feature disable
+→ cleanup a recovery verification
 ```
 
-Spoľahlivá automation je:
+Automation musí:
 
-- idempotentná alebo bezpečne retryable,
-- schopná zistiť aktuálny stav,
-- tolerantná k partial completion,
-- časovo ohraničená,
-- pozorovateľná,
-- auditovateľná,
-- schopná zastaviť sa bez ďalšieho poškodenia,
-- schopná overiť postconditions.
+- poznať current a desired state;
+- byť idempotentná alebo reconciliation-based;
+- rozlíšiť „mutation neprebehla“ od „prebehla, response sa stratila“;
+- zvládnuť partial completion;
+- používať timeouty a environment locks;
+- zachovať logs, events a deployment record;
+- overiť postconditions.
 
-Retry nesmie slepo zopakovať nevratnú mutation. Pred opakovaním musí automation rozlíšiť „operácia neprebehla“ od „prebehla, ale response sa stratila“.
+Slepý retry nevratnej migrácie alebo traffic cutoveru môže poškodiť stav viac než pôvodný timeout.
 
-## 12. Approvals ako risk decision
+## 9. Promotion evidence
 
-Approval má byť vedomé rozhodnutie nad evidence, nie manuálne spúšťanie skriptov.
-
-Schvaľovateľ potrebuje vidieť:
-
-- presný artifact digest,
-- source diff alebo release content,
-- výsledky gates a ich čerstvosť,
-- risk classification,
-- database/IAM/network changes,
-- target environment a rollout strategy,
-- rollback/roll-forward plán,
-- aktuálny SLO/error-budget stav,
-- ownera a deployment window.
-
-Approval bez kontextu je checkbox. Approval po vykonaní ručných technických krokov je oneskorená a slabo reprodukovateľná kontrola.
-
-## 13. Separation of duties
-
-Separation of duties oddeľuje právomoc vytvoriť zmenu od právomoci schváliť alebo vykonať citlivú promotion.
-
-Nemusí znamenať manuálne kopírovanie artifactov. Môže byť implementovaná cez:
-
-- protected environments,
-- role-based approvals,
-- samostatnú deployment identity,
-- signed artifacts a provenance,
-- policy as code,
-- immutable audit log,
-- break-glass workflow,
-- environment-scoped credentials.
-
-Deployment job má dostať iba práva potrebné pre konkrétny environment a časovo obmedzenú operáciu.
-
-## 14. Deployment verzus release
-
-- **Deployment —** technické umiestnenie artifactu do prostredia.
-- **Release —** sprístupnenie behavioru používateľom alebo business procesu.
-
-Oddelenie umožňujú:
-
-- feature flags,
-- dark launch,
-- tenant/ring allowlists,
-- canary traffic,
-- configuration activation,
-- API version routing.
-
-Výhoda: deployment možno overiť pred širokou expozíciou. Riziko: feature flags a skryté paths vytvárajú ďalší state space a potrebujú lifecycle, telemetry a cleanup.
-
-## 15. Databázová a shared-state kompatibilita
-
-Continuous Delivery je limitovaná stavom, ktorý zdieľajú viaceré verzie.
-
-Počas rolling alebo canary deploymentu môžu súčasne existovať:
-
-- stará a nová application verzia,
-- starí a noví consumers,
-- nové schema s ešte nemigrovanými dátami,
-- staré events v queue,
-- caches so starým serialization formátom.
-
-Preferuj expand-contract:
+Každý promotion gate pridáva dôkaz o rovnakom artifacte:
 
 ```text
-1. pridať backward-compatible schema alebo field
-2. nasadiť readers/writers tolerantné k obom modelom
-3. vykonať backfill alebo dual-write podľa potreby
-4. overiť adopciu a data integrity
-5. odstrániť starý kontrakt v samostatnej neskoršej zmene
+CI evidence
++ integration contracts
++ staging deployment/identity/migration evidence
++ performance alebo security evidence podľa risku
++ target environment health
++ recovery readiness
+→ promotable decision
 ```
 
-Destruktívna migrácia spojená s prvým deploymentom znižuje rollback aj rollout safety.
+Evidence musí mať:
 
-## 16. Rollback, roll-forward a feature disable
+- artifact/config identity;
+- execution environment;
+- test/plan/policy version;
+- timestamp a freshness;
+- complete report manifest;
+- ownera a exception semantics.
 
-Rollback nie je univerzálne bezpečný. Môže zlyhať po:
+Rerun po dlhom čakaní môže byť potrebný, ak sa zmenil target environment, policy, dependency advisory alebo evidence expiry.
 
-- nevratnej schema migrácii,
-- event publication,
-- external financial side effecte,
-- cache alebo serialization zmene,
-- data backfille,
-- credential alebo IAM rotácii.
+## 10. Approval ako risk decision
 
-Recovery policy má vybrať medzi:
+Approval v Continuous Delivery nie je technické vykonanie deploymentu. Schvaľovateľ vidí:
 
-- rollbackom artifactu,
-- roll-forward hotfixom,
-- vypnutím feature flagu,
-- traffic shiftom,
-- write freeze alebo read-only režimom,
-- data reconciliation alebo restore.
+- presné digests a release content;
+- required evidence a jeho čerstvosť;
+- database, IAM, network a config changes;
+- risk classification;
+- rollout a cohort strategy;
+- rollback/roll-forward/flag-off preconditions;
+- SLO a incident stav;
+- target environment a window.
 
-Každá cesta potrebuje preconditions a post-recovery validation.
+Approval bez tohto kontextu je checkbox. Separation of duties sa implementuje protected environmentom, samostatnou deployment identity, policy a audit trailom, nie manuálnym kopírovaním artifactov.
 
-## 17. Post-deploy verification a validation
+## 11. Deployment verzus release
 
-Orchestrator success neznamená zdravú službu.
+Deployment technicky umiestni artifact do environmentu. Release sprístupní behavior používateľom alebo business procesu.
 
-Po deploymente over:
+Atlas ich môže oddeliť:
 
-- správny artifact digest a config version,
-- readiness, routing a capacity,
-- kritický synthetic/smoke journey,
-- error rate, latency a saturation,
-- dependency behavior,
-- migration a reconciliation stav,
-- business completion alebo invariant,
-- log/trace anomalies.
+```text
+artifact deployed
+→ feature flag off alebo 0 % traffic
+→ startup, wiring a synthetics
+→ internal tenant
+→ broader exposure
+```
 
-Výsledky:
+Toto znižuje blast radius, ale vytvára ďalší state space. Feature flags, routing a cohorts potrebujú ownera, provenance, telemetry, failure default a cleanup deadline.
 
-- **success —** postconditions sú splnené;
-- **pause/inconclusive —** chýba dostatok dát alebo telemetry;
-- **failed —** guardrail je porušený;
-- **tool/observability failure —** validation sa nedala vykonať a nesmie byť pass.
+## 12. Shared-state compatibility
 
-## 18. Release cadence
+Počas rolling alebo canary obdobia súčasne existujú:
 
-Continuous Delivery nevyžaduje release každého commitu. Umožňuje release vtedy, keď je potrebný, bez dlhej stabilizačnej fázy.
+- stará a nová application verzia;
+- starí a noví event consumers;
+- nová schema s neúplným backfillom;
+- staré messages v broker retention;
+- cache entries so starším formatom.
 
-Cadence môže byť:
+Atlas používa expand-contract:
 
-- on demand,
-- denne alebo viackrát denne,
-- release train,
-- regulované okno,
-- koordinovaný multi-product release.
+```text
+1. pridať backward-compatible schema/event field
+2. nasadiť tolerant readers a compatible writers
+3. vykonať bounded backfill alebo reconciliation
+4. overiť adopciu a integrity
+5. odstrániť starý contract v samostatnom release
+```
 
-Dôležité je, že čakanie je business alebo policy rozhodnutie, nie technická neschopnosť pripraviť artifact.
+Destructive cleanup v rovnakom deployment-e ako prvé použitie nového contractu ruší bezpečný rollback.
 
-Dlhé čakanie môže starnúť evidence a zvyšovať divergence konfigurácie alebo dependencies. Promotion policy preto môže vyžadovať revalidation.
+## 13. Recovery decision
 
-## 19. Pipeline as Code a template trust
+Rollback nie je univerzálne bezpečný. Atlas vyberá medzi:
 
-Deployment pipeline musí byť versionovaná, reviewovaná a testovateľná.
+- artifact rollbackom;
+- roll-forward hotfixom;
+- feature disable;
+- traffic shiftom;
+- write freeze/read-only režimom;
+- reconciliation alebo restore.
 
-Riziká:
+Rozhodnutie zohľadňuje application, config, database, event a external-side-effect compatibility.
 
-- privilegovaný pipeline code z nedôveryhodného PR,
-- nepinované external actions alebo images,
-- reusable template zmena ovplyvňujúca veľa repositories,
-- copy-paste drift,
-- skrytá zmena environment permissions,
-- nekompatibilná template verzia.
+```text
+starý artifact kompatibilný s current state
+→ rollback môže byť bezpečný
 
-Reusable templates potrebujú semantic versioning, changelog, compatibility policy a kontrolovaný rollout.
+schema/data/external side effect nevratný
+→ roll-forward, containment alebo reconciliation
+```
 
-## 20. Failure taxonomy
+Každá cesta má prechecks a post-recovery oracle.
 
-Promotion môže zlyhať z rôznych príčin:
+## 14. Post-deploy verification a validation
 
-- artifact alebo evidence failure,
-- environment provisioning failure,
-- deployment mutation failure,
-- rollout timeout,
-- post-deploy validation failure,
-- approval timeout alebo policy denial,
-- observability/tool failure,
-- cleanup alebo rollback failure.
+Orchestrator success znamená iba, že požadované API mutations skončili. Atlas následne overí:
 
-Každá trieda potrebuje inú reakciu. Opakovať deployment pri policy denial alebo data corruption nie je rovnaké ako retry pri krátkom registry timeout-e.
+- nasadené digests a config revision;
+- readiness, routing a capacity;
+- public synthetic order journey;
+- event a worker completion;
+- migration/backfill/reconciliation state;
+- error rate, latency, saturation a queues;
+- tenant, idempotency a audit invariants;
+- business completion.
 
-## 21. Metriky Continuous Delivery
+Výsledok môže byť `success`, `pause/inconclusive`, `failed` alebo `tool/observability failure`. Chýbajúca telemetry nie je pass.
 
-Sleduj schopnosť byť bezpečne deployable:
+## 15. Worked failure: produkcia dostala iný artifact
 
-- percent času, keď mainline má promotable artifact,
-- lead time od commit-u po deployable candidate,
-- evidence a approval wait time,
-- deployment preparation time,
-- počet manuálnych technických krokov,
-- environment provisioning a drift failure rate,
-- promotion failure rate podľa triedy,
-- post-deploy validation failure rate,
-- rollback/roll-forward time a úspešnosť,
-- change fail rate,
-- deployment frequency,
-- stale candidate a revalidation rate.
+Atlas staging validoval image `orders-api@sha256:A`. Release script však pred produkciou znovu buildol tag `3.10.0`:
 
-Vyššia deployment frequency bez nižšieho risku a rýchlej recovery nie je sama osebe úspech.
+```text
+staging A green
+→ mutable base image sa medzi buildmi zmenil
+→ production build vytvoril digest B
+→ B obsahoval novšiu TLS knižnicu s odlišným defaultom
+→ payment callback handshake zlyhal
+→ evidence patrilo A, nie B
+```
 
-## 22. Diagnostický postup
+### Root cause
+
+Pipeline promovala version label, nie immutable bytes. Rebuild sa nesprávne považoval za identickú operáciu.
+
+### Náprava
+
+- build once, promote same digest;
+- registry policy zakáže mutable production reference;
+- promotion record overí digest a signature;
+- environment config je externalized;
+- post-deploy verification číta effective image digest;
+- každý nový digest začína nový verification lifecycle.
+
+## 16. Worked failure: deployment timeout vytvoril unknown state
+
+Staging deployment API timeoutoval po aplikovaní migration jobu, ale pred uložením pipeline statusu:
+
+```text
+migration batch commitnutý
+→ response sa stratila
+→ deployment job označený infra failure
+→ automatický retry spustil batch znova
+→ ne-idempotentný backfill vytvoril duplicate audit rows
+```
+
+### Root cause
+
+Automation používala command/retry model bez current-state observation, checkpointu a reconciliation. Timeout sa interpretoval ako „nič sa nestalo“.
+
+### Náprava
+
+- deployment má explicitnú state machine;
+- migration používa idempotency key a checkpoint;
+- retry najprv pozoruje current state;
+- partial completion je samostatný verdict;
+- recovery overuje data integrity, nie iba job exit code;
+- rovnaký failure sa testuje fault injectionom v stagingu.
+
+## 17. Deployability metrics
+
+Atlas sleduje schopnosť byť bezpečne nasaditeľný:
+
+- percent času s promotable artifactom na main;
+- commit-to-promotable lead time;
+- evidence a approval wait;
+- manual technical step count;
+- environment provisioning/drift failure rate;
+- promotion failure podľa triedy;
+- post-deploy validation failure rate;
+- stale candidate a revalidation rate;
+- rollback/roll-forward time a success;
+- change fail rate.
+
+Deployment frequency bez stabilnej recovery a nízkeho dopadu nie je dostatočný úspech.
+
+## 18. Diagnostický postup
 
 Pri neúspešnej promotion:
 
-1. identifikuj artifact digest, source commit a policy version;
-2. over úplnosť a čerstvosť evidence;
-3. rozlíš artifact, environment, deployment, validation a tool failure;
-4. porovnaj target config a secrets references s očakávaným stavom;
-5. skontroluj shared-state compatibility a migration phase;
-6. zachovaj rollout events, logs, manifests a trace IDs;
-7. rozhodni medzi retry, pause, rollback, roll-forward a feature disable;
-8. over cleanup a environment health;
-9. vykonaj post-recovery smoke a data-integrity kontrolu;
-10. pridaj skoršiu kontrolu alebo policy, ktorá failure nabudúce zachytí.
+1. Potvrď source, artifact digests, config a policy revision.
+2. Over complete a fresh evidence bundle.
+3. Urči, ktoré environment risk boundary zlyhalo.
+4. Porovnaj desired config s effective runtime stateom.
+5. Klasifikuj artifact, provisioning, deployment, validation, approval alebo tool failure.
+6. Skontroluj mixed-version database/event/cache compatibility.
+7. Zachovaj deployment events, manifests, traces a migration checkpoints.
+8. Rozlíš bezpečný retry od unknown mutation outcome.
+9. Vyber rollback, roll-forward, feature disable alebo containment podľa state compatibility.
+10. Over post-recovery technical aj data/business invariants.
+11. Pridaj skorší control, policy alebo automation fix.
 
-## 23. Typické anti-patterny
+## 19. Referenčné pravidlá
 
-### Rebuild pred produkciou
+- Continuous Delivery je trvalá deployability, nie existencia pipeline.
+- Buildni raz a promuj rovnaké immutable bytes.
+- Artifact state vychádza z evidence, nie z mutable tagu.
+- Každé environment musí poskytovať unikátny risk-specific oracle.
+- Configuration a infrastructure revisions patria do release identity.
+- Deployment je partial-failure-aware state machine.
+- Approval rozhoduje nad evidence, nie nad ručnými technickými krokmi.
+- Deployment a release možno oddeliť, ale exposure state potrebuje lifecycle.
+- Shared state vyžaduje mixed-version compatibility.
+- Rollback sa volí podľa current state, nie automaticky.
+- Post-deploy validation zahŕňa business a data invariants.
+- Tool alebo observability failure nie je success.
 
-Produkčný artifact nie je ten, ktorý prešiel validáciou.
+## 20. Časté omyly
 
-### Prostredia ako rituálne levely
+### „Rovnaký version tag znamená rovnaký artifact“
 
-Každé pridáva čas, ale nie nový risk-specific dôkaz.
+Mutable tag alebo rebuild môže ukazovať na iné bytes.
 
-### Manuálny deploy runbook ako hlavný proces
+### „Viac environments znamená vyššiu istotu“
 
-Operácia je variabilná, pomalá a slabo auditovateľná.
+Iba ak každé zachová inú relevantnú boundary a oracle.
 
-### Approval bez evidence
+### „Manuálny approval robí deployment bezpečným“
 
-Schvaľovateľ nevie, čo presne schvaľuje ani aké riziko ostáva.
+Approval bez presného artifactu, evidence a recovery kontextu je slabá kontrola.
 
-### Staging ako ručne udržiavaný pet
+### „Orchestrator hlási success“
 
-Environment drift znižuje dôveryhodnosť výsledku.
+To nepreukazuje routing, business completion ani data integrity.
 
-### Rollback ako automatická odpoveď
+### „Rollback je vždy najrýchlejšia cesta“
 
-Shared-state alebo external side effects môžu návrat starej verzie zhoršiť.
+Current schema, events alebo external side effects môžu byť so starou verziou nekompatibilné.
 
-### Rovnaký artifact, neauditovaná konfigurácia
+### „Deployment timeout stačí retry-nuť“
 
-Produkčný behavior sa môže zásadne líšiť napriek identickým bytes.
+Najprv treba zistiť, či mutation prebehla a aký state zostal.
 
-### Dlhá code freeze stabilizácia
+## 21. Zhrnutie
 
-Skrýva nedostatok častej integrácie, automation a deployability.
+Dôveryhodná Continuous Delivery pre Atlas je:
 
-## 24. Praktický rozhodovací rámec
+```text
+CI-accepted immutable artifact
+→ risk-specific environment evidence
+→ versioned config/infrastructure
+→ mixed-version shared-state compatibility
+→ promotable state
+→ evidence-based release decision
+→ deployment state machine
+→ post-deploy validation
+→ compatible recovery
+→ deployability learning späť do platformy
+```
 
-1. Čo presne znamená deployable state pre tento systém?
-2. Je artifact immutable a jednoznačne identifikovaný?
-3. Promujeme rovnaké bytes alebo rebuildujeme?
-4. Aké riziko a oracle má každý environment?
-5. Je konfigurácia versionovaná a auditovateľná?
-6. Je deployment idempotentný a partial-failure aware?
-7. Aké evidence potrebuje approval?
-8. Ako je implementovaná separation of duties?
-9. Sú databáza, events a caches kompatibilné so súbehom verzií?
-10. Ktorá recovery cesta je bezpečná pre konkrétnu zmenu?
-11. Čo overuje post-deploy validation?
-12. Kedy evidence expiruje a vyžaduje revalidation?
+Continuous Delivery odstraňuje technickú neistotu z release rozhodnutia. Business alebo policy môže rozhodnúť kedy releasovať; systém už musí vedieť bezpečne vykonať ako.
 
-## 25. Kontrolný checklist
+## 22. Kontrolné otázky
 
-- mainline produkuje immutable artifact;
-- artifact digest sa nemení medzi prostrediami;
-- provenance a required evidence sú dostupné;
-- každé prostredie má explicitný validačný účel;
-- config a secrets references sú versionované a scoped;
-- provisioning je deklaratívny a drift je viditeľný;
-- deployment workflow rozlišuje partial failure;
-- approvals zobrazujú risk a recovery kontext;
-- deployment identity má least privilege;
-- database a event changes používajú compatibility lifecycle;
-- rollback/roll-forward/flag-off sú otestované;
-- post-deploy verification a validation majú failure policy;
-- tool alebo telemetry failure nie sú pass;
-- promotion a release audit trail je úplný.
-
-## 26. Kontrolné otázky
-
-1. Čo znamená Continuous Delivery ako schopnosť?
-2. Aký je rozdiel medzi Delivery a Deployment?
-3. Prečo je deployability invariant?
-4. Čo znamená build once, promote many?
-5. Aké stavy môže mať artifact?
-6. Prečo prostredie potrebuje explicitný risk-specific účel?
-7. Ako configuration ovplyvňuje dôveryhodnosť rovnakého artifactu?
-8. Prečo deployment automation potrebuje stavový model?
-9. Čo má obsahovať kvalitný approval?
-10. Ako sa separation of duties implementuje bez manuálneho kopírovania?
-11. Prečo deployment a release nie sú to isté?
-12. Ako expand-contract podporuje deployability?
-13. Kedy rollback nemusí byť bezpečný?
-14. Aké výsledky má rozlišovať post-deploy validation?
-15. Ktoré metriky ukazujú, že systém je skutočne continuously deliverable?
-
-## Summary
-
-Continuous Delivery udržiava zmeny v trvalo deployable stave. Dôveryhodný proces buildne artifact raz, promuje rovnaký digest, vrství evidence podľa konkrétnych rizík, oddeľuje konfiguráciu a release od deploymentu a používa versionovanú automation s explicitnými partial-failure a recovery semantics. Manuálny approval môže zostať, ale rozhoduje nad pripraveným artifactom a auditovateľným dôkazom; nemá nahrádzať automatizovaný deployment proces.
+1. Prečo je deployability invariant a nie pre-release udalosť?
+2. Aký je rozdiel medzi Continuous Delivery a Continuous Deployment?
+3. Čo znamená build once, promote many?
+4. Prečo mutable tag nie je artifact state?
+5. Aký risk-specific účel majú Atlas environments?
+6. Prečo configuration patrí do release identity?
+7. Ako deployment state machine rieši partial completion?
+8. Čo má obsahovať evidence-based approval?
+9. Aký je rozdiel medzi deploymentom a releaseom?
+10. Ako expand-contract podporuje mixed-version obdobie?
+11. Prečo production rebuild zneplatnil staging evidence?
+12. Ako sa rieši timeout s unknown migration outcome?
+13. Kedy zvoliť rollback, roll-forward alebo feature disable?
+14. Čo musí overiť post-deploy oracle?
 
 ## Glossary impact
 
-Relevantné pojmy: Continuous Delivery, deployable state, deployment pipeline, artifact promotion, artifact state machine, environment promotion, configuration provenance, protected environment, separation of duties, release decision, expand-contract, post-deploy validation a promotable artifact.
+Relevantné pojmy: Continuous Delivery, deployability invariant, promotable artifact, build once promote many, artifact state machine, promotion evidence, environment fidelity, configuration provenance, deployment state machine, partial completion, separation of duties, release decision, expand-contract a post-deploy validation.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
