@@ -8,1168 +8,620 @@
 - Predpoklady: [Proxy a reverse proxy](proxy-and-reverse-proxy.md), [TCP a UDP](tcp-and-udp.md), [DNS](dns.md)
 - Súvisiace témy: health checks, high availability, autoscaling, consistent hashing, service discovery, retries
 
-## 1. Definícia
+## 1. Problém, ktorý load balancing rieši
 
-Load balancing je výber jedného alebo viacerých backendov pre nové flows alebo requests tak, aby sa traffic rozdelil podľa kapacity, health, locality, policy a failure-domain cieľov.
+Atlas prevádzkuje tri Orders backendy:
 
-Load balancer nevytvára backend capacity. Rozdeľuje existujúcu prácu medzi existujúce resources.
+```text
+orders-a 10.20.3.21:8080
+orders-b 10.20.3.22:8080
+orders-c 10.20.3.23:8080
+```
+
+Jeden backend neposkytuje dostatočnú kapacitu ani požadovaný failure model. Reverse proxy preto musí pri každom novom flowe alebo requeste rozhodnúť, ktorý backend dostane prácu.
+
+Load balancing je tento selection proces:
 
 ```text
 incoming work
-    ↓
-endpoint inventory
-    ↓
-health a eligibility
-    ↓
-selection algorithm
-    ↓
-selected backend
-    ↓
-connection/request lifecycle
+→ známy endpoint inventory
+→ health a eligibility
+→ selection unit a algorithm
+→ selected backend
+→ request/connection lifecycle
+→ outcome a feedback
 ```
 
-Úspešný návrh musí odpovedať:
+Load balancer nevytvára backend capacity. Môže ju iba rozdeliť, chrániť queue alebo limitmi a pri overload-e časť práce odmietnuť.
 
-- kto pozná backendy,
-- čo je jednotka výberu,
-- podľa čoho sa backend považuje za zdravý,
-- ako sa zohľadní kapacita,
-- čo sa stane pri failure,
-- kto retryuje,
-- ako sa backend bezpečne pridá a odoberie,
-- ako sa overí rovnomernosť a používateľský výsledok.
+## 2. Dominantný mentálny model
 
-## 2. Jednotka balancing rozhodnutia
+Balancing decision nie je iba „round robin“. Potrebuje odpoveď na šesť previazaných otázok:
 
-Balancing rozhodnutie môže platiť pre rôzne jednotky práce.
+1. **Inventory** — ktoré endpointy balancer pozná?
+2. **Eligibility** — ktoré z nich smú dostať nový traffic?
+3. **Granularity** — vyberá sa pre DNS odpoveď, connection, request, session alebo key?
+4. **Selection** — podľa akého signálu sa backend zvolí?
+5. **Lifecycle** — ako sa endpoint pridá, warmuje, drainuje a odstráni?
+6. **Feedback** — ako health, capacity, retries a používateľský outcome menia ďalšie rozhodnutia?
 
-### DNS odpoveď
+Chyba v ktorejkoľvek fáze môže vytvoriť nerovnomerný load alebo čiastočné zlyhanie, aj keď samotný algoritmus funguje presne podľa konfigurácie.
 
-Resolver alebo klient dostane jednu či viac IP adries. Rozhodnutie môže pretrvať podľa cache a existujúcej connection.
+## 3. Carried scenario: jeden Orders request
 
-### Transportný flow
-
-L4 balancer vyberie backend pri vzniku TCP alebo UDP flowu. Celý flow zostáva typicky na rovnakom backende.
-
-### Aplikačný request
-
-L7 balancer môže vybrať backend pre každý HTTP request. Pri HTTP/1.1 keep-alive, HTTP/2 alebo HTTP/3 sa viac requestov môže prenášať jedným downstream flowom a rozdeliť do viacerých upstream flows.
-
-### Logical key
-
-Hash alebo shard key môže viazať tenant, cache key, session alebo objekt na konkrétny backend.
-
-### Klientská session
-
-Affinity môže viazať používateľa alebo cookie na backend dlhšie než jeden request.
-
-Bez pomenovania selection granularity nemožno správne interpretovať algoritmus ani metrics.
-
-## 3. Server-side load balancing
-
-Pri server-side modeli klient používa stabilný frontend endpoint.
+Klient odošle `POST /orders` na Atlas reverse proxy. Proxy má aktuálny pool:
 
 ```text
-Client
-    ↓ frontend address
-Load balancer
-    ├── backend A
-    ├── backend B
-    └── backend C
+orders-a: eligible, weight 1
+orders-b: eligible, weight 1
+orders-c: eligible, weight 1
 ```
 
-Výhody:
-
-- jednoduchší klient,
-- centralizovaná policy,
-- jednotný TLS alebo observability bod,
-- jednoduchšie skrývanie backend topology,
-- konzistentné retries, timeouts a health.
-
-Nevýhody:
-
-- ďalší hop,
-- samostatný scaling a availability problém,
-- centralizovaná blast radius,
-- možné source identity zmeny,
-- queue a state v balancer tieri.
-
-Server-side tier musí byť sám redundantný a nesmie sa stať kapacitným choke pointom.
-
-## 4. Client-side load balancing
-
-Klient získa endpoint inventory zo service discovery a vyberie backend sám.
+Request path:
 
 ```text
-service discovery
-    ↓ endpoint set
-client library
-    ↓ selection
-backend
+request dorazí na proxy
+→ route vyberie orders pool
+→ proxy načíta effective endpoint set
+→ odstráni unhealthy alebo draining endpointy
+→ algorithm zvolí orders-b
+→ proxy získa upstream connection
+→ request odošle
+→ outcome sa zapíše k orders-b
 ```
 
-Výhody:
+Ak `orders-b` vráti reset, proxy môže backend označiť ako suspect, ale retry na inom backende je bezpečný iba podľa request semantics a idempotency state.
 
-- bez centrálneho proxy hopu,
-- rozhodovanie môže poznať request context,
-- load-balancing capacity rastie s počtom klientov,
-- priame end-to-end spojenie.
+## 4. Jednotka výberu mení význam distribúcie
 
-Nevýhody:
+### DNS selection
 
-- komplexná klientská knižnica,
-- version a policy drift,
-- rozdielne retry a health správanie,
-- endpoint cache v každom klientovi,
-- ťažšie globálne observability a rollout policy.
+DNS vráti jednu alebo viac frontend adries. Rozhodnutie môže prežiť v resolver cache a existujúcej connection.
 
-Client-side model potrebuje konzistentnú library governance alebo sidecar/local proxy abstrakciu.
+### L4 connection selection
 
-## 5. DNS load balancing
+Balancer vyberie backend pri vzniku TCP alebo UDP flowu. Celý flow zostáva typicky na jednom backende.
 
-DNS môže vrátiť viac A alebo AAAA records alebo odpoveď meniť podľa geografie, health a policy.
+### L7 request selection
+
+Proxy môže vyberať backend pre každý HTTP request. Jedna downstream HTTP/2 connection môže obsahovať veľa requests smerovaných do viacerých upstream connections.
+
+### Session alebo key selection
+
+Cookie, tenant, object key alebo shard key môže viazať súvisiacu prácu na rovnaký backend.
+
+Dôsledok:
 
 ```text
-api.example.com
-    → 192.0.2.10
-    → 192.0.2.11
-    → 192.0.2.12
+5 % nových connections
+≠
+5 % requestov
+≠
+5 % CPU práce
 ```
 
-DNS balancing sa hodí na:
+Pri long-lived alebo multiplexed connections môže malý connection share niesť veľký request share.
 
-- rozdelenie medzi regióny,
-- geografické smerovanie,
-- weighted migration,
-- výber frontend tieru,
-- disaster-recovery endpoint.
+## 5. Endpoint discovery a effective inventory
 
-Limity:
+Balancer môže získať backendy zo statickej konfigurácie, DNS, registry API, cloud target groupy alebo Kubernetes EndpointSlices.
 
-- resolver a application cache,
-- TTL nie je presný switch timer,
-- clients nemusia odpovede používať rovnomerne,
-- negatívne cache a stale answers,
-- existujúce connections zostávajú na starom endpoint-e,
-- health sa vyhodnocuje mimo konkrétneho requestu,
-- recursive resolver locality nemusí zodpovedať client locality.
-
-DNS je coarse-grained steering, nie connection-aware per-request balancing.
-
-## 6. L4 load balancing
-
-L4 balancer vyberá backend podľa transportného flowu.
-
-Match alebo hash môže používať:
-
-- source a destination IP,
-- source a destination port,
-- protocol,
-- interface alebo zone,
-- TLS ClientHello metadata podľa implementácie.
-
-Typický lifecycle:
+Endpoint lifecycle:
 
 ```text
-new SYN/flow
-    ↓ backend selection
-connection state
-    ↓ všetky packets flowu na rovnaký backend
-close/timeout
-    ↓ state removal
+backend vznikne
+→ zaregistruje sa alebo je objavený
+→ readiness a health sa overia
+→ endpoint sa stane eligible
+→ prijíma traffic
+→ označí sa draining
+→ nové selections sa zastavia
+→ aktívna práca skončí alebo timeoutuje
+→ endpoint sa odstráni
 ```
 
-Výhody:
-
-- nízky protocol overhead,
-- podpora databáz, mailu, custom TCP a UDP,
-- možný TLS passthrough,
-- vysoká throughput kapacita.
-
-Limity:
-
-- nevie path alebo method routing bez L7 parsing-u,
-- jeden long-lived flow môže niesť veľa loadu,
-- health môže byť príliš plytký,
-- flow state komplikuje failover a HA.
-
-## 7. L7 load balancing
-
-L7 balancer rozumie aplikačnému protokolu.
-
-Pri HTTP môže vyberať podľa:
-
-- hostname alebo authority,
-- path,
-- method,
-- headers,
-- cookie,
-- tenant alebo identity,
-- canary flagu,
-- request metadata.
-
-Umožňuje:
-
-- per-request selection,
-- canary a blue/green routing,
-- retry podľa request semantics,
-- request-level metrics,
-- content alebo tenant partitioning.
-
-Zvyšuje však:
-
-- parsing complexity,
-- CPU a memory nároky,
-- attack surface,
-- závislosť na protocol correctness,
-- riziko retry duplication.
-
-## 8. Pass-through, proxy a direct-routing dataplane
-
-Load balancing môže byť implementovaný rôzne.
-
-### Full proxy
-
-Balancer ukončí downstream connection a vytvorí upstream connection.
-
-### NAT
-
-Balancer preloží destination alebo source tuple a udržiava state.
-
-### Direct server return
-
-Ingress path ide cez balancer, response môže ísť priamo z backendu ku klientovi.
-
-### Tunnel alebo overlay
-
-Balancer encapsuluje packet a backend ho decapsuluje.
-
-### eBPF alebo kernel dataplane
-
-Výber a translation sa vykonáva v kernel hooku bez klasického userspace proxy pathu.
-
-Dataplane určuje source-IP preservation, state ownership, return path, observability a failover behavior.
-
-## 9. Endpoint discovery
-
-Balancer musí vedieť, ktoré backendy existujú.
-
-Zdroje:
-
-- statická konfigurácia,
-- DNS,
-- registry API,
-- cloud target group,
-- Kubernetes EndpointSlices,
-- xDS/control plane,
-- autoscaling lifecycle eventy.
-
-Discovery lifecycle:
+Treba odlíšiť:
 
 ```text
-backend created
-    ↓ registered/discovered
-    ↓ readiness/health validation
-    ↓ becomes eligible
-    ↓ receives traffic
-    ↓ draining
-    ↓ removed from inventory
+desired endpoint set
+≠
+discovered endpoint set
+≠
+eligible endpoint set
+≠
+endpointy, ktoré reálne dostávajú traffic
 ```
 
-Riziká:
+Control-plane delay môže spôsobiť, že odstránený backend zostane v effective sete. Naopak nový backend môže byť známy, ale ešte not ready.
 
-- stale endpoint,
-- duplicate registration,
-- endpoint dostupný skôr než ready,
-- removal delay,
-- control-plane outage,
-- rozdiel medzi desired a effective target set.
+## 6. Eligibility je brána pred algoritmom
 
-## 10. Eligibility
-
-Nie každý známy backend je okamžite vhodný na výber.
+Selection algorithm sa má aplikovať iba na endpointy, ktoré smú dostať nový traffic.
 
 Eligibility môže závisieť od:
 
 - readiness,
-- active health,
-- passive health,
-- zone availability,
-- weight väčší než nula,
-- maintenance alebo drain state,
-- circuit breaker,
-- capacity limit,
-- protocol alebo tenant compatibility,
+- active a passive health,
+- zone alebo region policy,
+- maintenance a drain state,
+- weight väčšie než nula,
+- capacity alebo concurrency limit,
+- protocol a tenant kompatibility,
 - rollout cohort.
 
-Selection algorithm sa aplikuje až na eligible set. Ak je set prázdny, balancer musí mať explicitný failure model: fail closed, fallback pool, stale endpoint, maintenance response alebo queue.
+Ak je eligible set prázdny, balancer potrebuje explicitný failure model:
 
-## 11. Round robin
+- vrátiť `503`,
+- použiť fallback pool,
+- krátko queueovať,
+- servovať stale cache,
+- vedome použiť posledný známy endpoint.
 
-Round robin vyberá backendy postupne.
+Tiché „vyber čokoľvek“ môže poslať traffic na endpoint, ktorý bol zámerne vyradený.
 
-```text
-A → B → C → A → B → C
-```
+## 7. Health check musí odpovedať na správnu otázku
 
-Je vhodný, keď:
-
-- backends majú podobnú kapacitu,
-- requests majú podobnú cenu,
-- selection je per-request alebo connections majú podobný profil.
-
-Nerovnomerný výsledok vznikne, ak:
-
-- jeden request trvá sekundy a iný milisekundy,
-- connection nesie rôzny počet requestov,
-- jeden backend je pomalší,
-- sticky sessions narušia distribúciu.
-
-Round robin rozdeľuje počet výberov, nie automaticky CPU alebo latency.
-
-## 12. Weighted round robin
-
-Backend dostane váhu podľa relatívnej kapacity alebo rollout policy.
+Load balancer potrebuje najmä readiness odpoveď:
 
 ```text
-A weight 5
-B weight 3
-C weight 2
+Má tento backend prijať nový traffic teraz?
 ```
 
-Váha môže reprezentovať:
+### Príliš plytký check
 
-- väčší instance size,
-- viac workerov,
-- canary percento,
-- zonálnu kapacitu,
-- dočasný slow start.
+TCP connect potvrdí listener, ale Orders worker môže byť deadlocked alebo databáza nedostupná.
 
-Váha nie je absolútna kapacitná rezervácia. Reálny traffic ovplyvňujú connection persistence, request cost, retries a affinity.
+### Príliš deep check
 
-## 13. Least connections
+Ak readiness vyžaduje úspech všetkých shared dependencies, databázový incident môže označiť všetky backends unhealthy a úplne vyprázdniť pool, hoci služba mohla vrátiť kontrolovanú degraded response.
 
-Least-connections vyberie backend s najmenším počtom aktívnych connections.
+### Hysteresis
 
-Hodí sa pri dlhších transportných sessions, ak je connection count rozumný proxy pre load.
-
-Slabé miesta:
-
-- jedna connection môže byť idle a iná veľmi aktívna,
-- HTTP/2 connection môže niesť stovky streams,
-- backendy môžu mať rozdielnu kapacitu,
-- race medzi distribuovanými balancermi,
-- stale connection count.
-
-Weighted least-connections kombinuje active count s kapacitnou váhou.
-
-## 14. Least requests a concurrency-aware výber
-
-L7 proxy môže používať počet rozpracovaných requests alebo streams.
-
-To lepšie reprezentuje request concurrency než connection count, ale stále nepozná cenu jednotlivého requestu.
-
-Dôležité signály:
-
-- active requests,
-- queue depth,
-- recent service time,
-- backend concurrency limit,
-- rejection rate.
-
-Algoritmus musí zabrániť tomu, aby jeden dočasne pomalý backend zostal navždy bez trafficu a nemal šancu preukázať recovery.
-
-## 15. Latency-aware balancing
-
-Balancer môže preferovať backend s nižšou observed latency.
-
-Riziko feedback loopu:
-
-```text
-backend A má krátky spike
-→ balancer odoberie traffic
-→ B a C sa preťažia
-→ ich latency rastie
-→ traffic sa presúva späť
-→ systém osciluje
-```
-
-Latency metric je oneskorená a ovplyvnená request mixom. Potrebné sú smoothing, minimum samples, hysteresis a capacity bounds.
-
-## 16. Random a power of two choices
-
-Random výber je jednoduchý a pri veľkom počte requestov môže byť dostatočne rovnomerný.
-
-Power of two choices:
-
-1. vyberie dva náhodné backendy,
-2. porovná ich load signal,
-3. zvolí menej zaťažený.
-
-Dosahuje dobré rozdelenie bez globálneho zoradenia všetkých backendov a škáluje vo veľkých pools.
-
-## 17. Hash-based balancing
-
-Hash key môže byť:
-
-- source IP,
-- cookie,
-- tenant ID,
-- object key,
-- URL,
-- explicitný shard key.
-
-Výhoda je stabilnejšia affinity. Riziká:
-
-- nerovnomerné key distribution,
-- hot key,
-- zmena backend count presunie keys,
-- source-IP hash zoskupí veľa klientov za NATom,
-- attacker môže manipulovať key.
-
-Hash key musí byť stabilný, dôveryhodný a dostatočne rozložený.
-
-## 18. Consistent hashing
-
-Pri modulo hashingu:
-
-```text
-hash(key) mod N
-```
-
-zmena `N` presunie veľkú časť keys.
-
-Consistent hashing minimalizuje remapping pri pridaní alebo odstránení backendu.
-
-Použitie:
-
-- distributed cache,
-- shard ownership,
-- sticky routing,
-- locality pre stateful workload.
-
-Na rovnomernosť sa používajú:
-
-- virtual nodes,
-- weighted tokens,
-- bounded-load varianty,
-- hot-key replication.
-
-Consistent hashing nezaručuje dostupnosť dát. Pri odobratí backendu musí existovať recovery alebo replication model.
-
-## 19. Maglev a rendezvous hashing
-
-Ďalšie stabilné hashing modely môžu poskytovať:
-
-- konzistentné mapovanie naprieč balancermi,
-- rýchly lookup,
-- obmedzený remapping,
-- jednoduchšie weighted varianty.
-
-Konkrétny algoritmus je menej dôležitý než jeho vlastnosti:
-
-- distribúcia,
-- stabilita pri zmene membership,
-- weight support,
-- memory a computation cost,
-- konzistencia medzi dataplane nodes.
-
-## 20. Session affinity
-
-Affinity smeruje súvisiaci traffic na rovnaký backend.
-
-Mechanizmy:
-
-- cookie,
-- source IP,
-- consistent hash,
-- application session ID,
-- transport flow state.
-
-Výhody:
-
-- lokálny session state,
-- cache locality,
-- jednoduchší legacy workload.
-
-Nevýhody:
-
-- nerovnomerný load,
-- horší failover,
-- pomalší scale-in,
-- závislosť na konkrétnej instance,
-- source-IP collision za NATom,
-- stale affinity po backend removal.
-
-Externalizovaný alebo replikovaný state znižuje potrebu sticky sessions, ale má vlastný latency a availability cost.
-
-## 21. Cookie affinity a security
-
-Balancer-generated cookie môže obsahovať opaque backend key. Musí byť:
-
-- nefalšovateľná alebo validovaná,
-- bezpečne scoped,
-- primerane expirovaná,
-- kompatibilná s failoverom,
-- nesmie odhaľovať citlivú topológiu.
-
-Ak klient môže zvoliť ľubovoľný backend ID, môže obísť rollout weights alebo cieliť na slabú instance.
-
-## 22. Health check taxonomy
-
-### TCP health
-
-Overí, že port prijme connection. Neoverí aplikačnú pripravenosť.
-
-### TLS health
-
-Overí handshake, SNI, certificate alebo ALPN podľa konfigurácie.
-
-### HTTP health
-
-Overí path, status a prípadne response body.
-
-### Protocol-specific health
-
-Napríklad databázový ping, gRPC health alebo SMTP greeting.
-
-### Deep health
-
-Overí dependencies alebo business operáciu.
-
-Health check má odpovedať na otázku „má backend prijímať nový traffic?“, nie „je celý svet dokonale zdravý?“
-
-## 23. Liveness, readiness a startup
-
-- Liveness — proces je schopný pokračovať alebo potrebuje restart.
-- Readiness — backend má prijímať nový traffic.
-- Startup — backend ešte inicializuje a nemá byť predčasne označený za chybný.
-
-Load balancer potrebuje predovšetkým readiness.
-
-Backend môže byť live, ale not ready počas:
-
-- warm-up,
-- dependency incidentu,
-- drainingu,
-- overloadu,
-- maintenance.
-
-## 24. Active a passive health
-
-### Active health
-
-Balancer posiela pravidelné probes.
-
-Výhody:
-
-- odhalí chybu aj bez client trafficu,
-- konzistentný test,
-- rýchly návrat po recovery.
-
-Nevýhody:
-
-- probe môže byť príliš plytká,
-- veľký fleet vytvára health-check load,
-- check source môže mať inú network path než klient.
-
-### Passive health
-
-Balancer vyhodnocuje reálne resets, timeouty a statusy.
-
-Výhody:
-
-- odráža skutočný traffic,
-- odhalí request-specific failures.
-
-Nevýhody:
-
-- potrebuje klientský traffic,
-- zlá request class môže označiť zdravý backend za chybný,
-- môže reagovať až po používateľskom dopade.
-
-Kombinácia poskytuje lepší obraz než jeden model.
-
-## 25. Health thresholds a hysteresis
-
-Jedno zlyhanie nemá typicky okamžite vyradiť backend.
-
-Parametre:
-
-- interval,
-- timeout,
-- unhealthy threshold,
-- healthy threshold,
-- cooldown,
-- observation window,
-- slow start.
-
-Hysteresis zabraňuje flappingu:
+Jedno zlyhanie nemá typicky okamžite meniť state:
 
 ```text
 healthy
-→ niekoľko po sebe idúcich failures
+→ viac consecutive failures
 → unhealthy
-→ niekoľko po sebe idúcich successes
+→ viac consecutive successes
 → healthy
 ```
 
-Príliš agresívny check môže vyradiť veľa backendov pri krátkom latency spike a preťažiť zvyšok poolu.
+Interval, timeout, thresholds a cooldown musia zabrániť flappingu bez neprimerane pomalej reakcie.
 
-## 26. Outlier detection a ejection
+## 8. Active a passive health poskytujú odlišný dôkaz
 
-Passive health môže dočasne ejectnúť backend s výrazne horším správaním než peers.
+Active probe testuje pravidelne definovaný endpoint. Vie odhaliť failure aj bez trafficu, ale môže používať inú path a request class než reálni klienti.
 
-Signály:
+Passive health sleduje skutočné resets, timeouty a statusy. Odráža produkčný traffic, ale reaguje až po používateľskom dopade a môže zameniť zlý request za chybný backend.
 
-- consecutive errors,
-- success-rate deviation,
-- latency outlier,
-- reset rate.
+Kombinácia:
 
-Bez limitov môže outlier detection odstrániť príliš veľkú časť capacity. Potrebné sú:
+```text
+active health
++ passive outcome
++ minimum sample
++ ejection limit
+→ stabilnejší eligibility state
+```
 
-- maximum ejection percentage,
-- minimum request volume,
-- ejection duration,
-- postupný recovery.
+Outlier detection musí mať maximum ejection percentage. Inak môže pri shared dependency incidente vyradiť väčšinu poolu a preťažiť zvyšok.
 
-## 27. Slow start
+## 9. Selection algorithm musí zodpovedať load signálu
 
-Nový alebo obnovený backend nemusí okamžite zvládnuť plný share trafficu.
+### Round robin
 
-Dôvody:
+Rozdeľuje počet selections. Funguje dobre pri podobných backendoch a podobnej cene práce.
 
-- cold caches,
-- JIT warm-up,
-- connection pools,
-- lazy initialization,
-- disk cache,
-- autoscaling startup.
+```text
+A → B → C → A
+```
 
-Slow start postupne zvyšuje effective weight:
+Nezaručuje rovnaké CPU, ak requests majú rozdielnu cenu.
+
+### Weighted selection
+
+Weight vyjadruje relatívny share alebo rollout zámer. Effective share stále menia connection persistence, affinity a retries.
+
+### Least connections alebo requests
+
+Používa aktuálnu concurrency ako aproximáciu loadu. Connection count je slabý signál pri HTTP/2, idle sessions alebo rozdielnych request costs.
+
+### Hash selection
+
+Stabilizuje affinity podľa cookie, tenant ID alebo object key. Môže však vytvoriť hot key alebo nerovnomernú distribúciu.
+
+Dôležité pravidlo:
+
+```text
+algoritmus nerozdeľuje to, čo nemeria
+```
+
+Ak Atlas chce vyrovnať active request concurrency, samotný počet TCP connections nemusí byť vhodný signal.
+
+## 10. Consistent hashing a affinity nemenia state ownership
+
+Affinity môže zlepšiť cache locality alebo podporiť legacy in-memory session:
+
+```text
+tenant-42 → orders-b
+```
+
+Nevýhody:
+
+- load skew,
+- horší failover,
+- pomalší scale-in,
+- stale mapping po removal,
+- veľa klientov za jednou NAT source IP,
+- závislosť na lokálnom state.
+
+Consistent hashing obmedzí remapping keys pri zmene pool membership. Nezabezpečí však replikáciu session ani dostupnosť dát po zlyhaní backendu.
+
+Load balancer vyberá ownera práce. Neudržuje automaticky konzistentný aplikačný state.
+
+## 11. Slow start chráni nový backend
+
+Nový `orders-d` prejde health checkom, ale má cold cache, prázdny connection pool a JIT warm-up.
+
+Bez slow startu:
+
+```text
+health success
+→ plný traffic share
+→ latency spike
+→ health failures
+→ ejection
+→ recovery
+→ plný share znova
+→ flapping
+```
+
+Slow start zvyšuje effective weight postupne:
 
 ```text
 0 % → 10 % → 30 % → 60 % → 100 %
 ```
 
-Bez slow startu môže backend po prvom health success dostať burst, preťažiť sa a znovu vypadnúť.
+Tým sa backend warmuje pod kontrolovaným loadom a health systém dostáva reprezentatívne samples.
 
-## 28. Connection draining
+## 12. Draining koordinuje endpoint removal
 
-Pri odoberaní backendu:
+Pri deploymente Atlas označí `orders-b` ako draining:
 
 ```text
 eligible
-    ↓ mark draining
-no new selections
-    ↓
-existing work continues
-    ↓ active reaches zero alebo timeout
-remove endpoint
+→ draining
+→ žiadne nové selections
+→ existujúce requests a streams pokračujú
+→ active work dosiahne nulu alebo timeout
+→ process sa ukončí
 ```
 
-Draining musí zohľadniť:
-
-- HTTP requests,
-- keep-alive connections,
-- HTTP/2 streams,
-- WebSockets,
-- gRPC streams,
-- databázové sessions,
-- UDP pseudo-flows.
-
-Bez drainingu vznikajú resets. Príliš dlhý drain spomaľuje deploy a môže blokovať scale-in.
-
-## 29. Deregistration delay
-
-Cloud alebo managed balancer môže po removal evente držať endpoint v draining stave definovaný čas.
-
-Ak application shutdown grace period je kratšia než deregistration delay, backend sa vypne skôr než balancer prestane posielať traffic.
-
-Ak je shutdown grace výrazne dlhší, rollout sa zbytočne spomalí.
-
-Lifecycle timers musia byť koordinované:
+Treba koordinovať:
 
 ```text
 readiness removal
-→ endpoint propagation
-→ LB draining
-→ application grace
+→ discovery propagation
+→ balancer drain
+→ application shutdown grace
 → process termination
 ```
 
-## 30. Retry a backend reselection
+Ak process skončí skôr než balancer prestane posielať traffic, vzniknú resets. Ak drain trvá neobmedzene, WebSocket alebo gRPC session môže blokovať rollout.
 
-Balancer môže pri failure vybrať iný backend.
+## 13. Retry a backend reselection
+
+Balancer môže po failure vybrať iný backend. To pomáha pri instance-local chybe, ale nie pri shared dependency alebo overload-e.
+
+Nebezpečný flow:
+
+```text
+orders-a vykoná side effect
+→ response sa stratí
+→ balancer retryuje na orders-b
+→ side effect sa zopakuje
+```
 
 Bezpečnosť retry závisí od:
 
 - idempotency,
-- či request body už bol odoslaný,
-- či upstream mohol operáciu spracovať,
+- fázy odoslania requestu,
 - response progress,
-- retry budgetu,
-- per-try timeoutu.
+- per-try timeoutu,
+- bounded attempts,
+- retry budgetu.
 
-Retry na inom backende môže pomôcť pri instance-local failure, ale nepomôže pri shared dependency failure. Namiesto recovery môže znásobiť load.
+Retry budget obmedzuje extra traffic. Pri `1000` originálnych requests/s a budgete `10 %` môže systém dovoliť približne `100` retry attempts/s, nie neobmedzené opakovanie každej chyby.
 
-## 31. Retry budget
+## 14. Queueing a load shedding
 
-Retry budget obmedzuje podiel extra trafficu.
-
-Príklad:
-
-```text
-1000 original requests/s
-retry budget 10 %
-→ maximálne približne 100 retry attempts/s
-```
-
-Budget chráni capacity pre nové requests a zabraňuje nekonečnému retry amplification.
-
-Retry ownership musí byť koordinovaný medzi klientom, edge proxy, service mesh a application library.
-
-## 32. Queueing
-
-Balancer môže queueovať request, keď:
-
-- všetky backend connections sú obsadené,
-- concurrency limit je dosiahnutý,
-- backend ešte nie je dostupný,
-- rate limit riadi burst.
-
-Queue absorbuje krátky burst, ale nezvýši service rate.
+Keď arrival rate prekročí backend service rate:
 
 ```text
-arrival rate > backend throughput
+arrival > throughput
 → queue rastie
-→ latency rastie
+→ tail latency rastie
 → timeouty
 → retries
-→ ešte väčší arrival rate
+→ ešte vyšší arrival rate
 ```
 
-Queue musí mať:
+Queue absorbuje krátky burst, ale nevytvára capacity. Musí mať max length, max wait a rejection behavior.
 
-- maximálnu dĺžku,
-- maximálny wait time,
-- priority policy,
-- rejection behavior,
-- metrics.
+Pri trvalom overload-e je často bezpečnejší load shedding:
 
-## 33. Load shedding
+- rýchlo odmietnuť low-priority request,
+- chrániť kritickú operáciu,
+- obmedziť expensive endpoint,
+- servovať stale cache,
+- degradovať voliteľnú funkciu.
 
-Pri overload-e je často bezpečnejšie časť trafficu rýchlo odmietnuť než nechať všetko pomaly timeoutovať.
+Rýchly `503` môže byť systémovo lepší než pomalý timeout každého requestu.
 
-Možnosti:
-
-- reject low-priority requests,
-- obmedziť expensive endpoints,
-- circuit breaker,
-- concurrency limit,
-- token bucket,
-- serve stale cache,
-- degrade optional functionality.
-
-Load shedding potrebuje explicitnú business priority, nie náhodné zahadzovanie.
-
-## 34. Circuit breaking
-
-Circuit breaker obmedzí nové requests k backendu alebo clusteru pri zlyhaní.
-
-Stavy:
-
-```text
-closed
-→ failures exceed threshold
-open
-→ reject/fallback
-half-open
-→ limited probes
-closed alebo open
-```
-
-Circuit breaker chráni caller resources a dependency pred retry stormom. Nesprávna konfigurácia môže vyradiť zdravú službu alebo maskovať dlhodobý incident.
-
-## 35. Capacity-aware balancing
-
-Backend capacity môže byť definovaná cez:
-
-- statickú weight,
-- max connections,
-- max active requests,
-- CPU alebo queue signal,
-- explicitný admission-control token,
-- autoscaling desired capacity.
-
-Real-time utilization je noisy a oneskorená. Balancer má preferovať stabilné capacity bounds a lokálny concurrency signal pred chaotickým globálnym CPU feedbackom.
-
-## 36. Autoscaling interakcia
-
-Load balancer a autoscaler tvoria feedback loop.
+## 15. Load balancer a autoscaler tvoria feedback loop
 
 ```text
 load rastie
-→ queue/CPU rastie
-→ autoscaler pridá backendy
+→ queue alebo CPU rastie
+→ autoscaler vytvorí backendy
 → startup a warm-up
-→ LB ich začne používať
+→ discovery ich oznámi
+→ health ich označí eligible
+→ balancer rozdelí traffic
 → load per backend klesne
 ```
 
 Riziká:
 
-- health check pustí cold backend príliš skoro,
-- scale-in odstráni backend bez drainingu,
 - autoscaler reaguje na retry-generated load,
-- metrika má dlhé oneskorenie,
-- všetky backendy scaleujú súčasne a zaťažia dependency.
+- health pustí cold backend priskoro,
+- všetky nové backends naraz zaťažia shared database,
+- scale-in odstráni endpoint bez drainu,
+- control-plane delay spôsobí neskorú reakciu.
 
-## 37. Cross-zone balancing
+Balancing, health a autoscaling preto nemožno ladiť ako nezávislé podsystémy.
 
-Cross-zone balancing môže distribuovať traffic cez viac availability zones.
+## 16. Worked failure: každý tretí request zlyhá
 
-Výhody:
+Atlas vidí približne `33 %` error rate. Backends pri direct teste vyzerajú väčšinou zdravo.
 
-- rovnomernejšie využitie celkovej capacity,
-- jednoduchší failover pri nerovnomernom počte backendov.
+### Hypotéza
 
-Nevýhody:
+Jeden z troch endpointov zostal eligible, hoci má chybnú konfiguráciu.
 
-- cross-zone latency,
-- egress náklady,
-- väčšie coupling medzi zones,
-- data-locality alebo compliance problém.
+### Predikcie
 
-Zonálny návrh musí určiť, či každá zone má samostatnú rezervnú capacity alebo sa spolieha na ostatné zones.
+- failures korelujú s jedným backend ID,
+- configured pool obsahuje tri endpoints,
+- effective selection je približne rovnomerný,
+- health check je príliš plytký,
+- chybný backend prijíma traffic aj počas incidentu.
 
-## 38. Multi-region balancing
+### Overenie
 
-Globálny traffic management môže používať:
+1. Koreluj request ID s vybraným backendom.
+2. Rozdeľ error rate podľa endpointu.
+3. Porovnaj discovered a eligible set.
+4. Skontroluj active-health path a Host/SNI.
+5. Otestuj rovnaký request z proxy namespace.
+6. Over backend version a config.
 
-- DNS,
-- anycast,
-- global proxy,
-- client-side region selection.
-
-Rozhodnutie zohľadňuje:
-
-- latency,
-- region health,
-- data residency,
-- session a state locality,
-- capacity,
-- cost,
-- disaster-recovery policy.
-
-Failover do druhého regiónu nie je úspešný, ak dáta, dependencies alebo credentials nie sú pripravené.
-
-## 39. Anycast
-
-Viac lokalít oznamuje rovnakú IP adresu cez routing.
+Mechanický dôkaz:
 
 ```text
-same frontend IP announced from region A, B, C
-→ network vyberie topologicky preferovanú cestu
+orders-a success ≈ 100 %
+orders-b success ≈ 0 %
+orders-c success ≈ 100 %
++ round-robin selections ≈ 1/3 na každý
+→ chybný eligible backend
 ```
 
-Anycast je routing selection, nie aplikačný health check.
+Oprava:
 
-Potrebné sú:
+- okamžite označiť `orders-b` draining alebo unhealthy,
+- zmeniť readiness tak, aby overovala relevantný Orders contract,
+- pridať version/config identity do endpoint metrics,
+- otestovať recovery hysteresis pred návratom.
 
-- route withdrawal pri failure,
-- health-integrated control plane,
-- state model kompatibilný so zmenou pathu,
-- ochrana pred route leakom,
-- region-local capacity.
+Zmena algoritmu na least-connections by root cause nevyriešila; iba by zmenila podiel failures.
 
-Long-lived flow môže pri routing zmene skončiť v inom regione bez pôvodného connection state.
+## 17. Worked failure: canary s weight 5 dostáva 30 % requestov
 
-## 40. Source IP a identity
+Atlas nasadí canary backend s weight `5`, stable pool má weight `95`. Monitoring však ukáže, že canary spracúva približne `30 %` requests.
 
-Balancer dataplane môže:
-
-- zachovať source IP,
-- SNATovať na balancer adresu,
-- preniesť identity cez PROXY protocol,
-- pridať HTTP forwarding headers.
-
-Dôsledky:
-
-- firewall policy backendu,
-- audit,
-- rate limiting,
-- affinity,
-- geolocation,
-- abuse detection.
-
-Source-IP hash je slabý pri veľa klientoch za NATom a pri IPv6 privacy adresách.
-
-## 41. TLS a load balancing
-
-Modely:
-
-- TLS passthrough — backend vlastní certificate a TLS state,
-- TLS termination — balancer vlastní edge certificate,
-- re-encryption — balancer vytvorí TLS k backendu,
-- mTLS — client alebo backend identity cez certificates.
-
-TLS termination umožní L7 routing, ale balancer sa stáva critical security boundary.
-
-SNI môže vybrať certificate alebo backend ešte pred HTTP requestom. ALPN môže rozlíšiť HTTP/1.1, HTTP/2 alebo iný protokol.
-
-## 42. HTTP/2 a HTTP/3 vplyv
-
-Pri HTTP/1.1 môže connection približne korelovať s request concurrency. Pri HTTP/2 a HTTP/3 jedna connection nesie veľa streams.
-
-Dôsledky:
-
-- least-connections môže byť zavádzajúci,
-- long-lived connection fixuje traffic na jeden frontend alebo backend podľa architecture,
-- multiplexing môže vytvoriť load skew,
-- drain musí riešiť nové streams oddelene od connection close,
-- per-request balancing môže vyžadovať proxy termination.
-
-## 43. Stateful backends
-
-Niektoré workloads majú lokálny state:
-
-- in-memory session,
-- websocket subscription,
-- cache shard,
-- game session,
-- database transaction,
-- file upload state.
-
-Možné stratégie:
-
-- affinity,
-- externalized state,
-- state replication,
-- deterministic shard routing,
-- reconnect/resume protocol.
-
-Load balancer nemôže sám zabezpečiť state consistency.
-
-## 44. Failure domains
-
-Balancer má rozdeľovať traffic tak, aby neprekročil failure-domain cieľ.
-
-Príklady:
-
-- host,
-- rack,
-- zone,
-- region,
-- cloud provider,
-- software version,
-- dependency cluster.
-
-Ak všetky backendy zdieľajú jednu databázu, balancing medzi nimi nechráni pred jej failure.
-
-Capacity reserve musí existovať aj po strate plánovaného failure domainu.
-
-## 45. Canary a weighted rollout
-
-Canary routing pošle menší podiel trafficu na novú verziu.
+Možný mechanizmus:
 
 ```text
-stable weight 95
-canary weight 5
+selection je per TCP connection
+→ niekoľko klientov drží long-lived HTTP/2 connections
+→ connection vytvorená počas canary selection nesie veľa streams
+→ request share nezodpovedá connection weight
 ```
 
-Treba kontrolovať:
+Diagnostika:
 
-- reálny request share, nie iba configured weight,
-- affinity a connection persistence,
-- request mix,
-- error a latency confidence,
-- rollback speed,
-- shared dependency impact.
+- urči selection granularity,
+- porovnaj connections a requests per backend,
+- skontroluj affinity,
+- zmeraj lifetime a request count na connection,
+- rozlíš configured a effective weight,
+- over retries a reselection.
 
-Pri L4 balancing môže 5 % nových connections viesť k inému podielu requestov, ak connections majú rozdielnu životnosť.
+Riešením môže byť L7 per-request selection, connection rotation, menší canary connection share alebo rollout metrika založená na reálnom request share. Samotná konfigurácia `5 %` nie je dôkazom výsledku.
 
-## 46. Shadow traffic
+## 18. Worked failure: scale-in spôsobuje resets
 
-Balancer môže kopírovať request na testovací backend bez použitia jeho response.
+Timeline:
 
-Použitie:
+```text
+10:00 autoscaler zníži desired replicas
+10:00 endpoint zmizne z application inventory
+10:01 process dostane SIGTERM
+10:02 balancer stále posiela nové requests
+10:02 klienti vidia resets a retries
+```
 
-- performance test novej verzie,
-- compatibility validation,
-- capacity profiling.
+Root cause môže byť nesprávne poradie:
 
-Riziká:
+```text
+process shutdown
+pred
+endpoint propagation a drain completion
+```
 
-- duplicitné side effects,
-- citlivé dáta,
-- dvojnásobný downstream load,
-- rozdielna timing a identity,
-- test backend môže ovplyvniť shared dependency.
+Správny lifecycle:
 
-Shadow traffic musí byť read-only alebo bezpečne izolovaný.
+```text
+readiness false
+→ počkaj na discovery propagation
+→ no new selections
+→ drain active work
+→ shutdown process
+```
 
-## 47. Observability
+Timers musia byť merané ako jeden chain, nie konfigurované izolovane v autoscaleri, balanceri a aplikácii.
 
-Sleduj selection, health, capacity a outcome.
+## 19. Failure domains
 
-### Inventory
+Rozdelenie medzi troma procesmi nechráni pred shared failure:
 
-- discovered endpoints,
-- eligible endpoints,
-- healthy/unhealthy/draining count,
-- endpoint age a version,
-- zone/region distribution.
+```text
+orders-a ┐
+orders-b ├→ jedna databáza
+orders-c ┘
+```
+
+Ak databáza zlyhá, všetky backendy môžu zostať procesne live, ale request outcome zlyhá.
+
+Load balancing návrh musí zohľadniť host, rack, zone, region, software version a dependency cluster. Capacity reserve musí existovať aj po strate plánovaného failure domainu.
+
+## 20. Observability
+
+### Inventory a lifecycle
+
+- discovered, eligible, unhealthy a draining endpoints,
+- endpoint version, age a zone,
+- discovery a removal delay.
 
 ### Selection
 
-- requests/connections per backend,
+- connections alebo requests per backend,
 - configured a effective weight,
-- selection skew,
-- affinity key distribution,
-- hash remapping.
+- affinity-key distribution,
+- selection skew.
 
 ### Capacity
 
-- active requests/connections,
-- queue depth a wait time,
+- active requests a connections,
+- queue depth a wait,
 - backend concurrency limit,
-- rejected/load-shed traffic,
-- balancer CPU, memory a socket pressure.
+- rejected a load-shed traffic.
 
 ### Health
 
-- active probe result a latency,
-- passive errors,
-- ejection events,
-- recovery duration,
+- active probe result,
+- passive failures,
+- ejection a recovery eventy,
 - flapping count.
 
 ### Outcome
 
-- backend latency a error rate,
-- retries,
+- latency a error rate per backend,
+- retry count,
 - resets,
 - client-visible status,
-- drain duration,
-- region/zone SLI.
+- drain duration.
 
-## 48. Diagnostický postup
+Bez backend identity v request logu sa čiastočný failure ťažko odlíši od náhodného aplikačného erroru.
 
-Časť requestov zlyháva.
+## 21. Referenčné balancing modely
 
-1. Rozdeľ failures podľa frontend IP, regionu, zone, protocol family a balancer tieru.
-2. Koreluj request ID s vybraným backendom.
-3. Porovnaj healthy a eligible endpoint set.
-4. Skontroluj health-check reason a čas prechodu state.
-5. Porovnaj configured a effective weights.
-6. Over selection granularity: connection alebo request.
-7. Skontroluj affinity/hash key a distribution.
-8. Porovnaj backend latency, errors, queue a capacity.
-9. Skontroluj retries a retry amplification.
-10. Over draining a deployment timeline.
-11. Skontroluj DNS cache alebo endpoint discovery delay.
-12. Over zone/region route a return path.
-13. Po náprave over client-visible SLI a rovnomernosť distribúcie.
+Nasledujúce modely používajú rovnaký inventory–eligibility–selection lifecycle.
 
-## 49. Typické symptómy
+### Server-side a client-side balancing
 
-### Každý tretí request zlyhá
+Server-side proxy centralizuje policy, ale vytvára ďalší availability a capacity tier. Client-side model odstráni centrálny hop, no distribuuje endpoint cache, retry a algorithm policy do klientov.
 
-Jeden z troch backendov je chybný, ale stále eligible. Alternatívne môže zlyhávať jedna zone alebo hash partition.
+### DNS balancing
 
-### Nová verzia prijíma príliš veľa trafficu
+Je vhodný pre coarse region alebo frontend steering. Cache a existujúce connections bránia okamžitému per-request failoveru.
 
-Nesprávna effective weight, connection persistence, affinity, retry reselection alebo L4 connection granularity.
+### L4, L7, NAT a direct-server-return dataplane
 
-### Backend funguje priamo, ale balancer ho označuje unhealthy
+Dataplane určuje selection granularity, source-IP preservation, state ownership a return path. Direct server return môže obísť balancer na response path, no backend musí vlastniť potrebnú frontend identity a routing model.
 
-Health path, Host header, SNI, source allowlist, certificate trust, timeout alebo response-body expectation.
+### Cross-zone a multi-region
 
-### Po scale-in vznikajú resets
+Cross-zone zlepšuje využitie capacity, ale pridáva latency, cenu a failure coupling. Multi-region selection musí rešpektovať data residency, state locality a pripravenosť dependencies.
 
-Chýbajúci drain, pomalá endpoint propagation alebo process skončil skôr než deregistration delay.
+### Anycast
 
-### Po incidente zostáva systém pomalý
+Routing vyberie topologicky preferovanú lokalitu pre spoločnú IP. Nie je to aplikačný health check a path change môže prerušiť stateful flow.
 
-Retry storm, dlhá queue, stale pooled connections, cold caches, circuit breaker half-open policy alebo pomalý autoscaling recovery.
+## 22. Časté omyly
 
-### Jeden backend je preťažený, ostatné idle
+### „Round robin rozdelí CPU rovnomerne“
 
-Sticky session, hot key, long-lived multiplexed connection, nesprávny hash, rozdielna effective weight alebo discovery inconsistency.
-
-### Health checks flappujú
-
-Príliš krátky timeout, check závislý od nestabilnej dependency, chýbajúca hysteresis alebo samotné checks spôsobujú overload.
-
-## 50. Časté omyly
-
-### „Round robin rozdelí CPU load rovnomerne“
-
-Nie. Rozdeľuje výbery, nie cenu práce.
+Rozdeľuje selections, nie cenu práce.
 
 ### „Healthy port znamená zdravú aplikáciu“
 
-TCP check dokazuje iba listener a transportnú cestu.
+TCP check dokazuje iba transportný listener.
 
-### „Sticky sessions riešia high availability“
-
-Môžu failover zhoršiť, ak state nie je dostupný inde.
-
-### „Viac retries zvyšuje spoľahlivosť“
-
-Počas shared failure alebo overloadu zvyšujú load.
-
-### „DNS TTL nula znamená okamžitý failover“
-
-Nie. Resolver, application cache a existujúce connections môžu starý endpoint používať ďalej.
-
-### „Least connections vždy vyberie najmenej zaťažený backend“
-
-Connection count nemusí reprezentovať request alebo CPU load.
-
-### „Load balancer vyrieši nedostatok capacity“
-
-Nevyrieši. Môže iba queueovať, rejectovať alebo rozdeliť existujúcu capacity.
-
-### „Health check má overiť všetky dependencies“
-
-Príliš deep check môže pri shared dependency incidente vyradiť celý pool.
-
-### „Weight 10 % znamená presne 10 % requestov“
+### „Weight 5 znamená presne 5 % requestov“
 
 Nie pri connection-level výbere, affinity, retries a malom sample size.
 
-## 51. Kontrolné otázky
+### „Least connections vždy vyberie najmenej zaťažený backend“
 
-1. Čo je jednotka balancing rozhodnutia pri DNS, L4 a L7 modeli?
-2. Aký je rozdiel medzi server-side a client-side load balancingom?
-3. Prečo DNS balancing neposkytuje okamžitý per-request failover?
-4. Aký je rozdiel medzi full proxy, NAT a direct-server-return dataplane?
-5. Čo znamená endpoint eligibility?
-6. Prečo round robin nemusí rovnomerne rozdeliť CPU load?
-7. Kedy je least-connections vhodný a kedy zavádzajúci?
-8. Aké riziko má latency-aware feedback loop?
-9. Čo rieši consistent hashing a čo nerieši?
-10. Aké riziká prináša source-IP affinity?
-11. Aký je rozdiel medzi liveness, readiness a startup state?
-12. Prečo active a passive health poskytujú odlišný dôkaz?
-13. Načo slúži hysteresis pri health checks?
-14. Čo je outlier ejection a prečo potrebuje limit?
-15. Prečo nový backend potrebuje slow start?
-16. Ako funguje draining a ktoré timers musia byť koordinované?
-17. Kedy je retry na inom backende bezpečný?
-18. Ako retry budget zabráni amplification?
-19. Prečo queueing nevytvára capacity?
-20. Kedy použiť load shedding?
-21. Ako autoscaling a load balancing tvoria feedback loop?
-22. Aké trade-offy má cross-zone balancing?
-23. Prečo anycast nie je aplikačný health check?
-24. Ako HTTP/2 multiplexing ovplyvňuje least-connections?
-25. Prečo load balancing medzi stateless frontendmi nechráni pred shared database failure?
-26. Ako overíš, že canary dostáva očakávaný traffic share?
-27. Ktoré metriky potrebuješ na diagnostiku selection skew?
+Connection count nemusí reprezentovať requests, streams ani CPU.
+
+### „Sticky session poskytne high availability“
+
+Pri lokálnom state môže failover zhoršiť.
+
+### „Viac retries zvyšuje spoľahlivosť“
+
+Pri shared failure alebo overload-e zvyšujú load a spomaľujú recovery.
+
+### „Load balancer vyrieši nedostatok capacity“
+
+Môže iba rozdeliť, queueovať alebo odmietnuť existujúcu kapacitu.
+
+### „Health check má overiť všetky dependencies“
+
+Príliš deep check môže vyradiť celý pool pri shared incident-e.
+
+## 23. Kontrolné otázky
+
+1. Ktorých šesť častí tvorí load-balancing decision model?
+2. Ako sa líši selection pre DNS, L4 connection a L7 request?
+3. Prečo desired, discovered a eligible endpoint set nie sú totožné?
+4. Čo má readiness health check dokazovať?
+5. Prečo active a passive health poskytujú odlišný dôkaz?
+6. Ako hysteresis zabraňuje flappingu?
+7. Prečo round robin nemusí rozdeliť CPU rovnomerne?
+8. Kedy je least-connections slabý signal?
+9. Čo consistent hashing rieši a čo nerieši?
+10. Aké riziká prináša affinity?
+11. Prečo nový backend potrebuje slow start?
+12. Ako má vyzerať drain lifecycle?
+13. Kedy je retry na inom backende nebezpečný?
+14. Ako retry budget chráni kapacitu?
+15. Prečo queue nevytvára throughput?
+16. Ako load shedding znižuje systemic failure?
+17. Ako autoscaler a balancer tvoria feedback loop?
+18. Ako diagnostikuješ každý tretí zlyhaný request?
+19. Prečo configured canary weight nemusí zodpovedať request share?
+20. Ktoré timers spôsobia resets pri scale-in-e?
+21. Prečo viac backendov nechráni pred shared database failure?
+
+## 24. Zhrnutie
+
+Load balancing je lifecycle výberu backendu, nie názov jedného algoritmu. Balancer musí poznať endpointy, určiť ich eligibility, zvoliť správnu jednotku práce a selection signal, bezpečne spravovať warm-up a draining a používať health a outcome ako feedback.
+
+Praktický troubleshooting preto začína effective endpoint setom a backend identity konkrétneho requestu. Až potom sa hodnotí algorithm, weight, affinity, health, queue, retry a capacity. Konfigurácia môže byť syntakticky správna a napriek tomu produkovať chybný výsledok, ak selection granularity alebo feedback loop nezodpovedá reálnemu workloadu.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
