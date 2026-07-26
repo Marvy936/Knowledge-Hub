@@ -1,531 +1,513 @@
 # Smoke a regression tests
 
-Smoke test a regression test opisujú účel kontroly, nie konkrétnu technickú vrstvu. Smoke test rýchlo rozhoduje, či je build alebo deployment dostatočne funkčný na ďalšie používanie alebo testovanie. Regression test chráni už známe správanie pred nechcenou zmenou.
+Smoke test a regression test opisujú účel kontroly, nie jej technický scope:
 
 ```text
 Smoke
-→ je nový stav základne životaschopný?
+→ je konkrétny build alebo deployment životaschopný pre ďalší krok?
 
 Regression
 → zostalo dôležité existujúce správanie zachované?
 ```
 
-Smoke môže byť API, UI, CLI, databázový alebo infraštruktúrny probe. Regression test môže byť unit, integration, contract, performance, security alebo E2E test.
+Smoke môže byť API, UI, CLI alebo infraštruktúrny probe. Regression test môže byť unit, integration, contract, performance, security alebo E2E test.
 
-## 1. Mentálny model
+## 1. Cieľ kapitoly
 
-Smoke a regression suite majú rozdielne optimalizačné ciele:
-
-- **smoke —** minimalizuje čas do rozhodnutia, či má ďalšia validácia alebo traffic zmysel,
-- **regression —** maximalizuje pravdepodobnosť zachytenia nechcenej zmeny pri prijateľnej cene feedbacku,
-- **smoke oracle —** overuje životaschopnosť a kritický wiring,
-- **regression oracle —** porovnáva nové správanie s explicitným kontraktom alebo schváleným baseline,
-- **smoke failure —** typicky zastaví ďalšiu fázu alebo vyvolá rollback,
-- **regression failure —** blokuje, varuje alebo vyžaduje triage podľa rizika a spoľahlivosti testu.
-
-Zmiešanie týchto cieľov vedie buď k hodinovej smoke suite, alebo k plytkej regression suite, ktorá kontroluje iba to, že služba odpovedá.
-
-## 2. Smoke test
-
-Smoke test je krátka sada širokých, ale plytkých kontrol. Má odpovedať:
+Nosný model kapitoly je:
 
 ```text
-Je systém natoľko funkčný,
-aby malo zmysel pokračovať v testovaní, deploymente alebo obsluhe trafficu?
+immutable release candidate
+→ rýchly survivability gate
+→ promotion alebo stop
+→ risk-based regression evidence
+→ release decision
+→ incident/escape feedback
+→ nový alebo upravený regression control
 ```
 
-Dobrý smoke test overí minimálny reprezentatívny tok cez najkritickejšie boundaries. Nemá dokazovať úplnú správnosť systému.
+Smoke minimalizuje čas do rozhodnutia. Regression maximalizuje pravdepodobnosť zachytenia známej triedy failure pri primeranej cene feedbacku.
+
+## 2. Nosný scenár: Atlas Orders 3.9.0
+
+Atlas nasadzuje image:
+
+```text
+registry.example/orders@sha256:3f9...
+```
+
+Release má dve otázky:
+
+1. Je nový artifact po deploymente použiteľný cez reálnu client path?
+2. Zachoval správanie, ktoré chránia požiadavky, predchádzajúce bugy a incidenty?
+
+Evidence chain:
+
+```text
+build verification
+→ deploy konkrétneho digestu
+→ external smoke transaction
+→ critical regression lane
+→ širšia risk-based regression
+→ promotion
+→ production synthetics a escaped-defect feedback
+```
 
 ## 3. Smoke gate contract
 
-Každý smoke gate musí definovať:
+Každý smoke gate definuje:
 
-- **target —** build, artifact, environment alebo deployment, ktorý testuje,
-- **trigger —** po builde, po deploymente, pred promotion alebo periodicky v produkcii,
-- **time budget —** maximálny čas na výsledok,
-- **scope —** ktoré kritické boundaries sú zahrnuté,
-- **oracle —** podmienky úspechu a failure,
-- **side effects —** či je test read-only, idempotentný alebo potrebuje cleanup,
-- **decision —** pokračovať, zastaviť, rollbacknúť alebo iba upozorniť,
-- **owner —** kto reaguje na failure.
+- **target** — build, artifact digest, deployment alebo environment;
+- **trigger** — po builde, po deploymente, pred promotion alebo periodicky;
+- **time budget** — maximálny čas na výsledok;
+- **observation point** — odkiaľ sa cesta testuje;
+- **scope** — ktoré kritické boundaries sú reálne;
+- **oracle** — minimálne podmienky životaschopnosti;
+- **side effects** — read-only alebo bezpečný write/read flow;
+- **decision** — pokračovať, stopnúť promotion, rollbacknúť alebo eskalovať;
+- **owner** — kto reaguje na product, environment alebo test-infrastructure failure.
 
-Bez tohto kontraktu sa smoke označenie stane iba tagom bez konzistentného pipeline významu.
+Bez tohto kontraktu je `smoke` iba nejednoznačný tag.
 
-## 4. Build Verification Test
+## 4. Build verification
 
-Smoke spustený nad novým buildom sa často nazýva Build Verification Test alebo BVT. Jeho cieľom je zastaviť drahšie testy pri zjavne nepoužiteľnom artefakte.
-
-BVT môže overiť:
-
-- artifact sa dá načítať a spustiť,
-- package obsahuje povinné files a metadata,
-- entrypoint a základná konfigurácia fungujú,
-- databázové migrácie sa dajú načítať alebo bezpečne naplánovať,
-- runtime dependencies majú kompatibilné verzie,
-- základný command alebo API request vráti validný výsledok,
-- artifact neobsahuje evidentne nesprávny target alebo platformu.
-
-BVT má bežať nad tým istým immutable artifactom, ktorý bude pokračovať do ďalších fáz.
-
-## 5. Artifact provenance
-
-Smoke výsledok musí zaznamenať:
+Build Verification Test overuje, že immutable artifact má základný execution contract ešte pred drahším deploymentom:
 
 ```text
-source commit alebo release tag
-→ artifact digest
-→ build metadata
-→ deployment revision
-→ environment identity
-→ feature-flag snapshot
-→ test run ID
+artifact digest
+→ package/image metadata
+→ entrypoint
+→ required files a runtime dependencies
+→ startup v čistom prostredí
+→ základný command alebo endpoint
+→ structured result
 ```
 
-Ak sa smoke vykonal nad image `latest`, ktorá bola medzičasom prepísaná, výsledok nemožno spoľahlivo priradiť k nasadenému obsahu.
+BVT musí bežať nad tým istým artifactom, ktorý sa neskôr promovuje. Test source checkout-u nie je dôkazom pre publikovaný image alebo package.
 
-## 6. Deployment smoke test
+## 5. Deployment smoke
 
-Deployment smoke test overuje, či nový artifact funguje v konkrétnom runtime prostredí. Orchestrátor môže hlásiť úspešný rollout, hoci aplikácia má chybnú route, TLS trust, secret, migration alebo dependency configuration.
+Orchestrátor môže označiť rollout za úspešný, hoci používateľská cesta nefunguje. Atlas post-deploy smoke overí:
 
-Reprezentatívny post-deployment smoke má overiť:
+1. nasadený digest a deployment revision;
+2. požadovaný počet ready instances;
+3. public DNS, TLS certificate, SNI a reverse-proxy route;
+4. autentifikovaný read request;
+5. bezpečný `CreateOrder` write/read flow v test-only tenantovi;
+6. PostgreSQL a broker path potrebný pre terminal order state;
+7. audit, correlation a trace pre smoke transakciu;
+8. neprítomnosť okamžitého error, restart alebo saturation spike-u.
 
-1. očakávanú version alebo digest,
-2. readiness a počet zdravých instances,
-3. DNS, TLS a routing z relevantného client pathu,
-4. kritický read request,
-5. bezpečný write/read alebo command workflow,
-6. authorization a identity podľa potreby,
-7. základný dependency path,
-8. logs, metrics alebo trace pre smoke transakciu,
-9. neprítomnosť okamžitého error alebo saturation spike-u.
+Smoke nemá dokazovať všetky business edge cases. Má potvrdiť, že ďalší traffic alebo širšia validácia má zmysel.
 
-## 7. Smoke z relevantného observation pointu
+## 6. Observation points
 
-Test z vnútra podu môže potvrdiť proces a lokálny endpoint, ale neoverí public DNS, external load balancer, certificate chain, WAF, ingress, network policy alebo client-visible headers.
-
-Pre kritickú službu možno potrebovať viac observation points:
+Rôzne probes dokazujú rozdielne vrstvy:
 
 ```text
-inside process
-→ localhost health
+process-local probe
+→ process a localhost listener
 
-inside cluster
-→ service routing
+cluster-internal probe
+→ service discovery a east-west routing
 
-outside cluster
-→ public DNS/TLS/proxy path
+external probe
+→ public DNS, TLS, proxy/WAF a client-visible headers
 
-business synthetic
-→ reálny používateľský workflow
+business smoke
+→ identity, write/read, persistence, broker a terminal result
 ```
 
-Každý probe má iný failure domain; jeden nemá predstierať dôkaz za všetky vrstvy.
+Interný probe nesmie byť prezentovaný ako dôkaz public pathu.
 
-## 8. Smoke test verzus health check
+## 7. Health check verzus smoke
 
-Health check je úzky kontinuálny runtime signal. Smoke test je aktívny scenár vykonaný pri konkrétnom rozhodovacom bode.
+Readiness odpovedá:
 
 ```text
-readiness probe
-→ môže process prijímať traffic?
-
-smoke transaction
-→ prejde kritický request cez relevantné vrstvy a vznikne správny výsledok?
+Môže instance prijať traffic podľa lokálneho health contractu?
 ```
 
-Health endpoint nemá vykonávať drahé alebo deštruktívne business operácie. Smoke môže vykonať kontrolovanú transakciu, ale musí mať izolované dáta a cleanup.
-
-## 9. Sanity test
-
-Sanity test je cielená kontrola konkrétnej zmeny, opravy alebo oblasti. Napríklad po oprave CSV exportu overí encoding, headers a kritickú business hodnotu.
-
-Terminológia smoke a sanity nie je v organizáciách jednotná. Rozhodujúce je explicitne pomenovať scope, trigger, oracle a gate význam.
-
-## 10. Bezpečný write smoke
-
-Read-only smoke môže prehliadnuť chybu databázového zápisu, message publishingu alebo worker spracovania. Write smoke je silnejší, ale musí byť bezpečný.
-
-Požiadavky:
-
-- test-only tenant alebo account,
-- unikátny correlation prefix,
-- idempotency key,
-- minimálny business dopad,
-- explicitný cleanup alebo krátke TTL,
-- označenie test trafficu v logs a metrics,
-- zákaz spustenia v neautorizovanom environment-e,
-- žiadne reálne emaily, platby alebo externé objednávky.
-
-## 11. Smoke timeout a failure semantics
-
-Smoke má krátky, ale realistický deadline. Pri failure musí reportovať posledný úspešný krok, observation point, request ID a konkrétnu podmienku, ktorá nebola splnená.
-
-Rozlišuj:
-
-- **hard failure —** artifact alebo environment nie je životaschopný; promotion sa zastaví,
-- **dependency failure —** externá služba blokuje kritický path; rozhodnutie závisí od fallback a release policy,
-- **test infrastructure failure —** runner alebo fixture nefunguje; release dôkaz je neznámy, nie zelený,
-- **advisory anomaly —** napríklad zvýšená latency bez prekročenia blocking hranice.
-
-## 12. Rollback a smoke
-
-Post-deployment smoke má byť previazaný s rollback alebo roll-forward policy. Automatický rollback je vhodný iba vtedy, keď:
-
-- smoke spoľahlivo rozlišuje product failure,
-- rollback je kompatibilný s databázou a externými side effects,
-- predchádzajúci artifact je známy a dostupný,
-- ďalší rollback nevytvorí väčší incident,
-- výsledok a rozhodnutie sú auditované.
-
-Inak smoke failure môže zastaviť traffic promotion a vyžadovať riadené rozhodnutie.
-
-## 13. Regression test
-
-Regression test chráni správanie, ktoré už bolo považované za správne alebo potrebné. Jeho hodnota nevzniká z označenia `regression`, ale z jasnej väzby na chránený kontrakt alebo triedu failure.
-
-Zdrojom regression testu môže byť:
-
-- requirement alebo acceptance criterion,
-- kritický invariant,
-- opravený bug,
-- incident alebo near miss,
-- compatibility contract,
-- bezpečnostná požiadavka,
-- performance alebo capacity baseline,
-- observability alebo operability očakávanie.
-
-## 14. Regression provenance
-
-Pri každom významnom regression teste má byť dohľadateľné:
+Smoke odpovedá:
 
 ```text
-čo test chráni
-→ prečo je to dôležité
-→ pôvodný bug, incident alebo requirement
-→ aký failure pred opravou reprodukoval
-→ na akej vrstve sa vykonáva
-→ kto test vlastní
+Prejde kritický request cez relevantnú deployment cestu a vznikne minimálny správny výsledok?
 ```
 
-Test bez známeho účelu sa po rokoch ťažko upravuje alebo odstraňuje a často sa zmení na maintenance debt.
+Health endpoint má zostať lacný a bezpečný. Smoke môže vykonať kontrolovanú transakciu s izolovanými dátami, idempotency key a cleanupom alebo TTL.
 
-## 15. Bug fix a reprodukčný test
+## 8. Bezpečný write smoke
 
-Silný bug-fix workflow:
+Read-only probe môže prehliadnuť chybnú DB mutation, broker publish alebo worker processing. Atlas write smoke používa:
 
-1. reprodukuje failure v automatizovanom teste,
-2. potvrdí, že test pred opravou zlyhá správnym dôvodom,
-3. implementuje opravu,
-4. overí úspech testu a súvisiace invariants,
-5. zaradí test do vhodnej suite,
-6. pridá production signal, ak failure nebol predtým pozorovateľný.
+- test-only tenant a customer identity;
+- unikátny order prefix, idempotency key a correlation ID;
+- minimálnu objednávku bez reálnej platby;
+- payment simulator alebo sandbox;
+- explicitný deadline na terminal state;
+- cleanup alebo krátku retention policy;
+- označenie syntetického trafficu v logs a metrics;
+- environment allowlist s fail-closed správaním.
 
-Test má zachytiť triedu failure, nie iba jednu náhodnú hodnotu z incidentu.
+## 9. Smoke outcome a rollback
 
-## 16. Incident-to-regression príklad
-
-Incident:
+Smoke môže skončiť ako:
 
 ```text
-server commitol payment,
-response sa stratila,
-client retry vytvoril druhú platbu
+PASS
+→ artifact je životaschopný pre ďalší krok
+
+PRODUCT_FAIL
+→ promotion stop; rollback/roll-forward podľa policy
+
+DEPENDENCY_FAIL
+→ release evidence je negatívny alebo podmienený fallbackom
+
+TEST_INFRA_FAIL
+→ dôkaz je neznámy, nie zelený
+
+ADVISORY_ANOMALY
+→ pokračovanie iba podľa explicitnej tolerancie
 ```
 
-Silná regresná ochrana môže obsahovať:
+Automatický rollback je bezpečný iba vtedy, keď:
 
-- unit test idempotency state machine,
-- integration test uniqueness constraintu,
-- API test rovnakého idempotency key,
-- concurrency test paralelných retries,
-- restart test persistentného idempotency recordu,
-- production metric duplicate-attempt detection.
+- smoke spoľahlivo klasifikuje product failure;
+- predchádzajúci artifact je známy a dostupný;
+- schema a externé side effects ostávajú rollback-compatible;
+- rollback nezväčší incident;
+- rozhodnutie je auditované.
 
-Jedna vrstva nechráni všetky failure modes.
+## 10. Worked failure: readiness bola zelená
 
-## 17. Functional regression
+Atlas rollout hlásil všetky pods ako ready. Interný smoke tiež prešiel:
 
-Functional regression overuje zachovanie business alebo technického správania, napríklad:
+```text
+cluster runner
+→ service DNS
+→ orders-api /health
+→ 200
+```
 
-- výpočet cien, daní a rounding,
-- authorization a tenant isolation,
-- state transitions,
-- API semantics,
-- exporty a serializáciu,
-- workflow a side effects,
-- migration a backward compatibility.
+Externí klienti však dostávali `404`:
 
-Assertions majú overovať výsledok a relevantné invariants, nie nepodstatné interné kroky.
+```text
+public DNS
+→ TLS OK
+→ reverse proxy
+→ Host orders.example.com nebol v novej route
+→ default backend 404
+```
 
-## 18. Non-functional regression
+### Root cause
 
-Regresia môže vzniknúť aj v latency, throughput, memory, startup time, accessibility, security posture, compatibility alebo observability.
+Smoke bežal z nesprávneho observation pointu a kontroloval iba internú service boundary.
 
-Non-functional regression potrebuje definovaný baseline a toleranciu. Napríklad performance test nemá zlyhať pri každom 1 % rozdiele, ale pri štatisticky alebo prevádzkovo významnej degradácii s porovnateľným workloadom a prostredím.
+### Náprava
 
-## 19. Visual regression
+- deployment gate vyžaduje external smoke;
+- request zaznamená Host, SNI, resolved IP a target digest;
+- interný probe zostáva samostatným diagnostickým signálom;
+- route regression test chráni generovanú proxy konfiguráciu;
+- production synthetic pokračuje po promotion.
 
-Visual regression porovnáva renderovaný výstup s baseline. Stabilita vyžaduje pinned browser, fonty, viewport, locale, timezone, color scheme a vypnuté animations.
+## 11. Regression test ako chránený kontrakt
 
-Dynamické oblasti možno maskovať, ale maskovanie nesmie skryť kritický obsah. Baseline update musí byť reviewovaná zmena, nie automatická reakcia na failure.
+Regression test má traceability:
 
-## 20. Snapshot testing
+```text
+requirement, bug, incident alebo invariant
+→ konkrétna failure reprodukcia
+→ testovaný contract
+→ najnižší spoľahlivý scope
+→ owner a execution lane
+→ first-attempt evidence
+→ retirement podmienka
+```
 
-Snapshot test je vhodný pre stabilné komplexné štruktúry, napríklad AST, rendered configuration, CLI help alebo serializer output.
+Označenie `regression` bez pôvodu a chráneného behavioru nemá dlhodobú hodnotu.
 
-Snapshot je slabý, keď:
+## 12. Incident-to-regression lifecycle
 
-- je príliš veľký na zmysluplný review,
-- obsahuje timestampy alebo náhodné IDs,
-- kritické assertions sa stratia v rozsiahlej zmene,
-- reviewer iba stlačí „update all“ bez porozumenia.
+Silný workflow po bug-u alebo incidente:
 
-Dôležité invariants majú mať explicitné assertions aj pri použití snapshotu.
+1. reprodukuje failure automatizovaným testom;
+2. potvrdí, že test pred fixom zlyhá správnym mechanizmom;
+3. implementuje nápravu;
+4. overí opravený behavior a susedné invariants;
+5. umiestni assertion do najnižšieho scope-u, ktorý zachová failure boundary;
+6. podľa potreby doplní vyšší smoke, contract alebo production detection dôkaz;
+7. priradí ownera a provenance.
 
-## 21. Baseline lifecycle
+Test má chrániť triedu failure, nie iba jednu náhodnú hodnotu z incidentu.
 
-Visual, snapshot a performance regression potrebujú riadený baseline:
+## 13. Atlas duplicate-order regresia
 
-- autoritatívne prostredie a toolchain,
-- verzia baseline a väzba na artifact,
-- owner a approval pravidlo,
-- tolerancia a comparison algorithm,
-- audit zmien,
-- expiry alebo reevaluation,
-- možnosť porovnať starý a nový výsledok.
+Historický incident:
 
-Automatické prepísanie baseline pri failure ruší oracle a robí test sebapotvrdzujúcim.
+```text
+server commitol order
+→ response sa stratila
+→ client retryoval
+→ vznikla druhá objednávka a platba
+```
 
-## 22. Regression suite selection
+Regression portfolio:
 
-Nie každá zmena musí okamžite spustiť celý historický test corpus. Selection môže používať:
+```text
+unit
+→ idempotency state machine
 
-- dependency graph,
-- changed paths,
-- test-to-code mapping,
-- risk tags,
-- ownership boundaries,
-- historickú koreláciu zmien a failures,
-- pravidlá pre kritické shared components.
+PostgreSQL integration
+→ uniqueness a concurrent insert semantics
 
-Selection optimalizuje feedback time, ale vytvára false-negative riziko, ak model nepozná skrytú dependency.
+API/component
+→ rovnaký key + rovnaký payload = jeden výsledok
+→ rovnaký key + iný payload = conflict
 
-## 23. Test Impact Analysis
+E2E critical journey
+→ timeout/retry cez reálny deployment path
 
-Test Impact Analysis odhaduje, ktoré testy sú ovplyvnené zmenou. Dôveryhodný systém musí:
+production detection
+→ duplicate attempt a side-effect metrics
+```
 
-1. vysvetliť, prečo bol test vybraný alebo vynechaný,
-2. konzervatívne zahrnúť neznáme alebo dynamické dependencies,
-3. sledovať false-green escapes,
-4. pravidelne spúšťať širšiu suite na validáciu modelu,
-5. invalidovať cache pri zmene toolchainu, konfigurácie alebo infraštruktúry.
+Viac vrstiev nie je zbytočná duplicita, pretože každá vykonáva inú failure boundary.
 
-Path-only selection je slabá pri generated code, runtime discovery, shared schemas a infraštruktúrnych zmenách.
+## 14. Risk-based regression selection
 
-## 24. Risk-based regression
+Nie každá zmena potrebuje celý historický corpus. Selection sa odvodzuje z:
 
-Prioritu určuj podľa kombinácie:
+- dependency graphu;
+- changed files a generated artifacts;
+- shared schemas a configuration;
+- ownership boundaries;
+- risk tags a historických escapes;
+- test-to-code alebo test-to-contract mapy;
+- neznámych a dynamických dependencies.
+
+Pravidlo:
 
 ```text
 pravdepodobnosť regresie
-× dopad failure
+× dopad
+× zmena kritickej boundary
 × neistota selection modelu
-× zmena kritických boundaries
+→ regression lane
 ```
 
-Zmena payment modulu typicky aktivuje payment unit/integration testy, API contracts, checkout E2E, idempotency a concurrency scenáre, relevantné security testy a cielený performance check.
+Neznámy dependency vzťah sa má riešiť konzervatívne, nie automatickým vynechaním testu.
 
-## 25. Suite vrstvy a časové rozpočty
+## 15. Worked failure: affected selection vytvorila false green
 
-Praktická segmentácia:
+Atlas zmenil shared JSON schema pre `OrderConfirmed`. Path-based selection spustila iba schema repository tests. `orders-api` a notification consumer sa nespustili, pretože ich source files sa nezmenili.
+
+```text
+schema change
+→ generated client behavior sa zmenil
+→ consumer mapping zostal nekompatibilný
+→ PR fast lane green
+→ scheduled full run zlyhal po merge
+```
+
+### Root cause
+
+Dependency graph neobsahoval generated-code a contract edge.
+
+### Náprava
+
+- schema artifact má explicitných consumers;
+- generator/toolchain zmena invaliduje selection cache;
+- contract a component tests sa vyberajú podľa artifact graphu;
+- periodic full run meria selection misses;
+- escaped failure sa pridá ako regression fixture.
+
+## 16. Baseline regression
+
+Visual, snapshot a performance regression používajú baseline iba vtedy, keď je riadený:
+
+- autoritatívny toolchain a environment;
+- väzba na artifact a version;
+- comparison algorithm a tolerancia;
+- owner a review;
+- audit zmien;
+- reevaluation alebo expiry;
+- explicitné critical assertions mimo veľkého snapshotu.
+
+`Update all` pri failure ruší oracle. Baseline sa mení iba po pochopení a schválení behavior zmeny.
+
+## 17. Regression lanes
 
 ```text
 pre-commit
-→ sekundy; lokálne deterministické regression checks
+→ sekundy; lokálne deterministic checks
 
 PR fast lane
-→ minúty; affected a critical tests
+→ affected + critical tests
 
 build
-→ BVT/smoke nad immutable artifactom
+→ BVT nad immutable artifactom
 
 integration environment
-→ cross-boundary regression
+→ reálne boundary regression
 
 deployment
-→ post-deploy smoke a guardrails
+→ external a business smoke
 
 scheduled
-→ širšia regression, compatibility a long-running checks
+→ širšia compatibility a historical suite
 
 pre-release
 → risk-based full evidence set
 
 production
-→ synthetics, SLI a business validation
+→ synthetics, SLI a business guardrails
 ```
 
-Dlhý test nemá byť odsunutý do nightly, ak chráni rozhodnutie, ktoré už prebehlo pred jeho výsledkom.
+Dlhý test musí skončiť pred rozhodnutím, ktoré chráni, alebo musí existovať iná control vrstva.
 
-## 26. Test tagging governance
+## 18. First-attempt evidence a quarantine
 
-Tag má definovať pipeline správanie, nie iba kategóriu. Pre každý tag urč:
+Rerun nesmie prepísať pôvodný výsledok. Eviduj:
 
-- význam,
-- ownera,
-- trigger,
-- time budget,
-- blocking status,
-- dependency requirements,
-- quarantine pravidlo.
+- first-attempt status;
+- všetky retries a ich signatures;
+- worker, environment a artifact identity;
+- klasifikáciu product/test/environment;
+- failure artifacts;
+- quarantine issue, ownera a expiry.
 
-Tagy ako `smoke`, `critical`, `slow`, `security` alebo `quarantined` bez governance sa časom prekrývajú a selection prestane byť predvídateľná.
+Quarantine je dočasný containment. Chronicky flaky blocking test sa musí opraviť, presunúť do vhodnejšieho scope-u alebo odstrániť po nahradení dôkazu.
 
-## 27. Synthetic monitoring
+## 19. Suite health a retirement
 
-Pravidelný produkčný synthetic je smoke-like kontrola reálneho používateľského pathu. Musí používať bezpečnú identitu, izolované dáta, regionálny source, kontrolovaný rate, credential rotation a jasné rozlíšenie test trafficu.
+Sleduj:
 
-Synthetic dokáže aktívne odhaliť výpadok aj bez reálneho trafficu. Nenahrádza však Real User Monitoring, ktorý ukazuje skutočné zariadenia, siete a používateľské správanie.
+- first-attempt pass rate;
+- flaky/retry rate;
+- p50/p95 duration a queue time;
+- failure localization time;
+- quarantine age;
+- false-negative selection incidents;
+- escaped defects podľa failure mode;
+- tests bez ownera alebo recent execution;
+- podiel failure s použiteľnými artifacts.
 
-## 28. Flaky regression a retries
+Regression test možno retire-ovať, keď chránený behavior zanikol, dôkaz sa presunul do lacnejšej vrstvy alebo iná kontrola preukázateľne pokrýva rovnaké riziko. Odstránenie je reviewované rozhodnutie.
 
-Rerun nesmie prepísať first-attempt failure. Eviduj:
+## 20. Failure artifacts a diagnostika
 
-- prvý výsledok,
-- všetky pokusy,
-- failure signature,
-- worker a environment,
-- klasifikáciu product/test/environment,
-- quarantine issue, ownera a deadline.
+Smoke failure potrebuje:
 
-Chronicky flaky blocking test znižuje dôveru v celú suite a spôsobuje, že reálne regresie sa začnú ignorovať.
+- artifact digest a deployment revision;
+- observation point a posledný úspešný krok;
+- DNS/TLS/route metadata;
+- request, correlation a trace ID;
+- readiness, deployment a dependency events;
+- immediate metrics;
+- rollback/roll-forward decision.
 
-## 29. Regression suite health
+Regression failure potrebuje navyše:
 
-Sleduj minimálne:
+- chránený contract a pôvod testu;
+- baseline/toolchain identity;
+- selection dôvod;
+- expected verzus actual behavior;
+- first-attempt artifacts.
 
-- first-attempt pass rate,
-- flaky a retry rate,
-- p50/p95 duration,
-- queue time,
-- failure triage time,
-- quarantine age,
-- tests bez ownera,
-- tests bez recent execution,
-- defect escape rate,
-- false-negative selection incidents,
-- podiel failures s dostatočnými artifacts.
+Diagnostický postup:
 
-Počet testov ani coverage samy osebe nehovoria, či suite poskytuje rýchly a spoľahlivý dôkaz.
+1. Potvrď artifact, environment a test lane.
+2. Nájdite prvý neúspešný observation point.
+3. Rozlíš product, dependency, fixture, test infrastructure a oracle failure.
+4. Pri regression failure over, či ide o očakávanú contract zmenu.
+5. Reprodukuj najmenším scope-om, ktorý zachová boundary.
+6. Oprav produkt, gate, selection model alebo baseline podľa dôkazu.
+7. Over first-attempt pass a odstráň dočasné výnimky.
 
-## 30. Suite maintenance a retirement
+## 21. Referenčné pravidlá
 
-Regression test nie je automaticky večný. Pravidelne posudzuj:
+- Smoke je krátky survivability gate, nie full regression.
+- Smoke testuje konkrétny immutable artifact.
+- Observation point musí zodpovedať chránenej client ceste.
+- `/health` nie je náhrada business smoke-u.
+- Write smoke používa test-only dáta a fail-closed environment check.
+- Regression test má pôvod, ownera a chránený contract.
+- Bug fix najprv reprodukuje failure.
+- Selection model musí zahŕňať generated, schema a config edges.
+- Periodic full run validuje affected-test selection.
+- Baseline sa neaktualizuje automaticky.
+- Rerun zachová first-attempt evidence.
+- Test sa retire-uje až po nahradení jeho dôkaznej hodnoty.
 
-- či chránené behavior ešte existuje,
-- či test nie je duplicitný,
-- či sa riziko nepresunulo na nižšiu a lacnejšiu vrstvu,
-- či baseline stále predstavuje správne očakávanie,
-- či maintenance cost neprevyšuje dôkaznú hodnotu,
-- či odstránenie testu zachová inú ekvivalentnú kontrolu.
+## 22. Časté omyly
 
-Retirement má byť reviewované rozhodnutie s vysvetlením, nie náhodné zmazanie nepríjemného testu.
+### „Smoke suite má overiť všetko dôležité“
 
-## 31. Diagnostika smoke failure
+Má rýchlo potvrdiť životaschopnosť. Hĺbku poskytuje regression portfolio.
 
-1. Over artifact digest a environment revision.
-2. Zisti prvý neúspešný observation point.
-3. Rozlíš startup, readiness, DNS/TLS, routing, identity, dependency a business failure.
-4. Koreluj request ID, trace a server logs.
-5. Over, či fixture a test identity boli platné.
-6. Skontroluj okamžité metrics a deployment events.
-7. Urči, či je bezpečný rollback, roll-forward alebo stop promotion.
-8. Zachovaj artifacts a rozhodnutie.
+### „Readiness green znamená deployment green“
 
-## 32. Diagnostika regression failure
+Readiness neoveruje public routing, identity ani business path.
 
-1. Identifikuj chránený kontrakt a pôvod testu.
-2. Over first-attempt failure bez automatického rerunu.
-3. Porovnaj artifact, toolchain, environment a baseline.
-4. Rozlíš očakávanú behavior zmenu od neplánovanej regresie.
-5. Zisti, či test nie je brittle voči internému detailu.
-6. Reprodukuj najmenším scope-om.
-7. Pri legitímnej zmene aktualizuj kontrakt a baseline cez review.
-8. Pri chybe oprav produkt a over širší failure class.
+### „Regression je celý test suite“
 
-## 33. Časté anti-patterny
+Regression je účel kontroly. Suite sa vyberá podľa rizika a failure provenance.
 
-### Smoke suite trvá hodinu
+### „Full suite pri každom PR je najbezpečnejšia“
 
-Prestáva poskytovať rýchle rozhodnutie a mieša sa s full regression.
+Môže zničiť feedback loop. Potrebná je konzervatívna selection plus širší validačný run.
 
-### Smoke overuje iba `/health`
+### „Rerun prešiel, môžeme pokračovať“
 
-Neoverí routing, identity, databázový alebo business path.
+Bez klasifikácie zostáva dôkaz nejasný.
 
-### Smoke používa iný artifact než release
+### „Baseline zmena je iba test maintenance“
 
-Zelený výsledok nemá väzbu na promovovaný obsah.
+Je to zmena oraclu a potrebuje review.
 
-### Full regression pri každej malej zmene
+## 23. Zhrnutie
 
-Feedback je neprimerane pomalý a vývojári začnú gate obchádzať.
+Atlas release gate používa dva odlišné mechanizmy:
 
-### Selection bez pravidelného full runu
+```text
+smoke
+→ rýchly dôkaz, že konkrétny artifact je po deploymente životaschopný
 
-Skryté dependencies môžu dlhodobo vytvárať false-green výsledky.
+regression
+→ vrstvený dôkaz, že známe kontrakty a failure classes zostali chránené
+```
 
-### Bug fix bez reprodukčného testu
+Spolu tvoria decision chain:
 
-Oprava nie je chránená pred návratom rovnakej triedy failure.
+```text
+immutable artifact
+→ BVT
+→ external/business smoke
+→ risk-based regression
+→ promotion
+→ production feedback
+→ regression learning
+```
 
-### Update-all baseline
-
-Reviewer legitimizuje neznámu zmenu bez posúdenia jej významu.
-
-### Rerun-until-green
-
-Maskuje intermittent product failure aj flaky test.
-
-## 34. Prevádzkový checklist
-
-Pred použitím smoke alebo regression suite ako gate over:
-
-- target artifact a environment sú jednoznačné,
-- suite má explicitný time budget,
-- smoke pokrýva relevantný client path,
-- write smoke je bezpečný a izolovaný,
-- failure vedie k jasnému rozhodnutiu,
-- regression tests majú traceability na kontrakt alebo failure,
-- selection model je konzervatívny a auditovateľný,
-- širšia suite pravidelne validuje selection,
-- baseline má ownera a review lifecycle,
-- first-attempt výsledky a artifacts sa uchovávajú,
-- flaky tests majú quarantine deadline,
-- zastarané tests sa riadene retire-ujú.
-
-## 35. Zhrnutie
-
-Smoke test je rýchly survivability gate pre konkrétny build alebo deployment. Regression test chráni už známe správanie a historické riziká. Dôveryhodná stratégia viaže smoke na immutable artifact a relevantnú sieťovú cestu, regression testy na explicitný pôvod, selection na konzervatívny dependency a risk model a oba typy testov na jasné failure artifacts, ownership a rozhodovacie pravidlá.
-
-## 36. Kontrolné otázky
+## 24. Kontrolné otázky
 
 1. Aký je rozdiel medzi smoke a regression účelom?
-2. Čo musí definovať smoke gate contract?
-3. Prečo orchestrator deployment success nestačí?
-4. Ako sa smoke líši od readiness alebo health checku?
-5. Kedy má smoke obsahovať write/read transakciu?
+2. Čo musí obsahovať smoke gate contract?
+3. Prečo readiness nepreukazuje public client path?
+4. Kedy je potrebný bezpečný write smoke?
+5. Ako smoke failure vstupuje do rollback decisionu?
 6. Čo znamená regression provenance?
-7. Ako vznikne silný regression test z incidentu?
-8. Aké false-negative riziko má Test Impact Analysis?
-9. Prečo baseline update potrebuje review?
-10. Ktoré metriky merajú zdravie regression suite?
-11. Kedy je vhodné regression test retire-ovať?
-12. Prečo rerun nesmie prepísať first-attempt failure?
+7. Ako vzniká regression portfolio z duplicate-order incidentu?
+8. Prečo každá vrstva tohto portfólia nie je duplicita?
+9. Ako affected-test selection vytvorila Atlas false green?
+10. Prečo baseline update mení oracle?
+11. Ako first-attempt pass rate odhaľuje skrytú flakiness?
+12. Kedy možno regression test retire-ovať?
 
 ## Glossary impact
 
-Relevantné pojmy: smoke test, Build Verification Test, deployment smoke, sanity test, regression test, regression provenance, Test Impact Analysis, risk-based regression, visual regression, snapshot baseline, synthetic monitoring, first-attempt pass rate a test retirement.
+Relevantné pojmy: smoke test, Build Verification Test, deployment smoke, business smoke, observation point, regression test, regression provenance, affected-test selection, Test Impact Analysis, risk-based regression, baseline lifecycle, first-attempt pass rate, quarantine, synthetic monitoring a test retirement.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
