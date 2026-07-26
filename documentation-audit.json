@@ -1207,15 +1207,15 @@
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "title": "Blue-green deployment",
-      "words": 1788,
-      "headings": 46,
-      "sections": 46,
-      "findings": 139,
-      "critical": 58,
-      "high": 56,
+      "words": 1966,
+      "headings": 36,
+      "sections": 36,
+      "findings": 69,
+      "critical": 18,
+      "high": 22,
       "medium": 14,
-      "low": 11,
-      "score": 1192,
+      "low": 15,
+      "score": 467,
       "grade": "D"
     },
     {
@@ -66442,24 +66442,6 @@
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
@@ -66469,10 +66451,19 @@
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
@@ -66485,215 +66476,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "2. Mental model: dvojica targetov a jeden aktívny routing pointer",
-      "line": 27,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "2. Mental model: dvojica targetov a jeden aktívny routing pointer",
-      "line": 27,
+      "section": "1. Nosný model: dva targety a jeden autoritatívny pointer",
+      "line": 23,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "2. Mental model: dvojica targetov a jeden aktívny routing pointer",
-      "line": 27,
+      "section": "1. Nosný model: dva targety a jeden autoritatívny pointer",
+      "line": 23,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application capacity,`, `artifact a config identity,`, `network a service registration,`, `telemetry dimensions,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest;`, `rendered config a secret references;`, `application capacity;`, `runtime a network identity;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "2. Mental model: dvojica targetov a jeden aktívny routing pointer",
-      "line": 27,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "2. Mental model: dvojica targetov a jeden aktívny routing pointer",
-      "line": 27,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "3. Hlavný trade-off",
-      "line": 44,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "3. Hlavný trade-off",
-      "line": 44,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "3. Hlavný trade-off",
-      "line": 44,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `novú verziu možno pripraviť mimo hlavného trafficu,`, `cutover môže byť rýchly,`, `routing rollback môže byť rýchly,`, `application mixed-version okno môže byť krátke.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "3. Hlavný trade-off",
-      "line": 44,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "3. Hlavný trade-off",
-      "line": 44,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "5. Blue-green state machine",
-      "line": 78,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "5. Blue-green state machine",
-      "line": 78,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "5. Blue-green state machine",
-      "line": 78,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "5. Blue-green state machine",
-      "line": 78,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cutover aborted,`, `routing rollback,`, `roll-forward,`, `inconclusive validation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "5. Blue-green state machine",
-      "line": 78,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "6. Preconditions",
-      "line": 102,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "6. Preconditions",
-      "line": 102,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "6. Preconditions",
-      "line": 102,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable release candidate,`, `kapacitu a quotas pre druhý target,`, `config a secret-reference compatibility,`, `databázový expand-contract stav,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "6. Preconditions",
-      "line": 102,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "6. Preconditions",
-      "line": 102,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "7. Behaviorálna ekvivalencia",
-      "line": 116,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "7. Behaviorálna ekvivalencia",
-      "line": 116,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "7. Behaviorálna ekvivalencia",
-      "line": 116,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaká architecture a runtime class,`, `rovnaký network a auth path,`, `porovnateľné resource limits,`, `rovnaké deployment templates a policies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "7. Behaviorálna ekvivalencia",
-      "line": 116,
+      "section": "1. Nosný model: dva targety a jeden autoritatívny pointer",
+      "line": 23,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -66701,8 +66503,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "7. Behaviorálna ekvivalencia",
-      "line": 116,
+      "section": "1. Nosný model: dva targety a jeden autoritatívny pointer",
+      "line": 23,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "4. Behavioral equivalence je risk-specific, nie vizuálna podobnosť",
+      "line": 98,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "4. Behavioral equivalence je risk-specific, nie vizuálna podobnosť",
+      "line": 98,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký protocol a identity path;`, `porovnateľné resource limits a topology;`, `rovnaké policy a deployment templates;`, `production dependencies a quotas;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "4. Behavioral equivalence je risk-specific, nie vizuálna podobnosť",
+      "line": 98,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "4. Behavioral equivalence je risk-specific, nie vizuálna podobnosť",
+      "line": 98,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "4. Behavioral equivalence je risk-specific, nie vizuálna podobnosť",
+      "line": 98,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -66710,26 +66557,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "7. Behaviorálna ekvivalencia",
-      "line": 116,
+      "section": "4. Behavioral equivalence je risk-specific, nie vizuálna podobnosť",
+      "line": 98,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`, `policy`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "8. Configuration a secret identity",
-      "line": 130,
+      "section": "5. Cutover je chránená transakcia",
+      "line": 112,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "5. Cutover je chránená transakcia",
+      "line": 112,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rendered config digest,`, `secret reference versions,`, `feature-flag snapshot alebo policy,`, `routing configuration,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `old a new target identity;`, `routing mechanism a revision;`, `actor/workload identity;`, `čas začiatku a potvrdenia propagation;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "8. Configuration a secret identity",
-      "line": 130,
+      "section": "5. Cutover je chránená transakcia",
+      "line": 112,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -66737,377 +66593,80 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "8. Configuration a secret identity",
-      "line": 130,
+      "section": "5. Cutover je chránená transakcia",
+      "line": 112,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `workload`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "9. Capacity model",
-      "line": 144,
+      "section": "6. Routing propagation nie je okamžitý globálny stav",
+      "line": 138,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "6. Routing propagation nie je okamžitý globálny stav",
+      "line": 138,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `load-balancer propagation;`, `persistent HTTP connections;`, `WebSockets a streams;`, `session affinity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "6. Routing propagation nie je okamžitý globálny stav",
+      "line": 138,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "6. Routing propagation nie je okamžitý globálny stav",
+      "line": 138,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `DNS`, `TTL`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "10. Warm-up a capacity patria pred ostrý switch",
+      "line": 218,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 45 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "9. Capacity model",
-      "line": 144,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "9. Capacity model",
-      "line": 144,
+      "section": "10. Warm-up a capacity patria pred ostrý switch",
+      "line": 218,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database connection pools,`, `message broker consumers,`, `external API quotas,`, `licenses,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `JIT alebo rules-engine initialization;`, `cache prewarming;`, `connection pools;`, `discovery propagation;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "9. Capacity model",
-      "line": 144,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "9. Capacity model",
-      "line": 144,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "10. Pre-cutover verification",
-      "line": 166,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "10. Pre-cutover verification",
-      "line": 166,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact/config identity,`, `startup a functional readiness,`, `dependency a identity access,`, `critical synthetic journeys,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "10. Pre-cutover verification",
-      "line": 166,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "10. Pre-cutover verification",
-      "line": 166,
+      "section": "10. Warm-up a capacity patria pred ostrý switch",
+      "line": 218,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "10. Pre-cutover verification",
-      "line": 166,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "11. Synthetic, replay a shadow traffic",
-      "line": 184,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "11. Synthetic, replay a shadow traffic",
-      "line": 184,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "11. Synthetic, replay a shadow traffic",
-      "line": 184,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `synthetics s dedikovanými identitami,`, `interný cohort,`, `read-only produkčné requests,`, `anonymizovaný replay,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "11. Synthetic, replay a shadow traffic",
-      "line": 184,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "12. Traffic cutover mechanizmy",
-      "line": 202,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "12. Traffic cutover mechanizmy",
-      "line": 202,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `load-balancer target group,`, `reverse proxy alebo service mesh route,`, `service selector,`, `virtual IP,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "12. Traffic cutover mechanizmy",
-      "line": 202,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "12. Traffic cutover mechanizmy",
-      "line": 202,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "14. Instant verzus weighted cutover",
-      "line": 230,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Instant",
-      "line": 232,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Instant",
-      "line": 232,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Weighted",
-      "line": 240,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "15. Connection draining",
-      "line": 252,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "15. Connection draining",
-      "line": 252,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "15. Connection draining",
-      "line": 252,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `keep-alive requests,`, `WebSockets,`, `streams,`, `uploads,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "15. Connection draining",
-      "line": 252,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "17. Oddelené databázy",
-      "line": 291,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "17. Oddelené databázy",
-      "line": 291,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "17. Oddelené databázy",
-      "line": 291,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `synchronizáciu writes,`, `replication lag,`, `cutover consistency point,`, `identity sequences,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "17. Oddelené databázy",
-      "line": 291,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "17. Oddelené databázy",
-      "line": 291,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "18. Workers, consumers a schedulers",
-      "line": 305,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "18. Workers, consumers a schedulers",
-      "line": 305,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `single active consumer group,`, `leader election,`, `active-color flag mimo application artifactu,`, `oddelené queues,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "18. Workers, consumers a schedulers",
-      "line": 305,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "19. Cache a sessions",
-      "line": 321,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "19. Cache a sessions",
-      "line": 321,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `serialization incompatibility,`, `cache key semantic change,`, `session schema drift,`, `invalidation storm,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "19. Cache a sessions",
-      "line": 321,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "20. Warm-up",
-      "line": 335,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "20. Warm-up",
-      "line": 335,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `JIT alebo model loading,`, `cache prewarming,`, `connection pools,`, `discovery propagation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "20. Warm-up",
-      "line": 335,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "20. Warm-up",
-      "line": 335,
+      "section": "10. Warm-up a capacity patria pred ostrý switch",
+      "line": 218,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`",
@@ -67115,35 +66674,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "21. Post-cutover validation",
-      "line": 348,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "21. Post-cutover validation",
-      "line": 348,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version/color-specific error rate a latency,`, `saturation a capacity,`, `business success,`, `authorization anomalies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "21. Post-cutover validation",
-      "line": 348,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "22. Routing rollback eligibility",
-      "line": 363,
+      "section": "11. Worked failure: green sa testoval cez skratku, cutover rozbil authorization",
+      "line": 233,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -67151,260 +66683,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "22. Routing rollback eligibility",
-      "line": 363,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "22. Routing rollback eligibility",
-      "line": 363,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `blue zostal healthy a warm,`, `schema a data sú backward compatible,`, `config a flags sú pre blue platné,`, `workers/schedulers možno vrátiť,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "22. Routing rollback eligibility",
-      "line": 363,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "22. Routing rollback eligibility",
-      "line": 363,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "23. Standby retention",
-      "line": 376,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "23. Standby retention",
-      "line": 376,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ponechať warm počas rollback window,`, `scale-downovať s rýchlou reaktiváciou,`, `zachovať iba immutable deklaráciu a artifact,`, `odstrániť po prijatí release.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "23. Standby retention",
-      "line": 376,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "24. Environment drift",
-      "line": 387,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "24. Environment drift",
-      "line": 387,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "24. Environment drift",
-      "line": 387,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manuálne config zmeny,`, `rozdielne patches,`, `tajomstvá alebo certifikáty,`, `odlišné network rules,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "24. Environment drift",
-      "line": 387,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "25. Concurrency a routing lock",
-      "line": 405,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "25. Concurrency a routing lock",
-      "line": 405,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zrušiť pending cutover,`, `odstrániť candidate bezpečne,`, `zachovať current active state,`, `auditovať dôvod.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "25. Concurrency a routing lock",
-      "line": 405,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "26. Failure taxonomy",
-      "line": 416,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "26. Failure taxonomy",
-      "line": 416,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "26. Failure taxonomy",
-      "line": 416,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "26. Failure taxonomy",
-      "line": 416,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provisioning failure,`, `pre-cutover verification failure,`, `capacity/warm-up failure,`, `routing switch failure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "26. Failure taxonomy",
-      "line": 416,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "27. Observability a evidence",
-      "line": 429,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "27. Observability a evidence",
-      "line": 429,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "27. Observability a evidence",
-      "line": 429,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `blue/green artifact a config identities,`, `readiness a capacity evidence,`, `routing revision a weights,`, `cutover timeline,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "27. Observability a evidence",
-      "line": 429,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "28. Metriky stratégie",
-      "line": 443,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "28. Metriky stratégie",
-      "line": 443,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "28. Metriky stratégie",
-      "line": 443,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "28. Metriky stratégie",
-      "line": 443,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `candidate provisioning time,`, `pre-cutover failure rate,`, `cutover propagation time,`, `old connection drain time,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "28. Metriky stratégie",
-      "line": 443,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "29. Typické anti-patterny",
-      "line": 456,
+      "section": "Trvalá náprava",
+      "line": 254,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -67412,71 +66692,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Oba targety používajú mutable tag",
-      "line": 458,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Green sa overí s inou config než po cutover-e",
-      "line": 462,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Routing switch bez concurrency ochrany",
-      "line": 466,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Oba schedulery sú aktívne",
-      "line": 470,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Routing rollback sa zamieňa s data rollbackom",
-      "line": 474,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Old target sa okamžite odstráni",
-      "line": 478,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Farby sa manuálne udržiavajú mesiace",
-      "line": 482,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "30. Diagnostický postup",
-      "line": 486,
+      "section": "Trvalá náprava",
+      "line": 284,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -67484,8 +66701,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "30. Diagnostický postup",
-      "line": 486,
+      "section": "Trvalá náprava",
+      "line": 284,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -67493,8 +66710,161 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "30. Diagnostický postup",
-      "line": 486,
+      "section": "Trvalá náprava",
+      "line": 284,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Trvalá náprava",
+      "line": 284,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `worker ownership dostal samostatný CAS/fencing transition;`, `side effects používajú idempotency key;`, `release record zobrazuje application a worker state oddelene;`, `pre-cutover test simuluje blue/green scheduler overlap;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Trvalá náprava",
+      "line": 284,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Trvalá náprava",
+      "line": 284,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAS`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "13. Kauzálny diagnostický walkthrough",
+      "line": 292,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Krok 1 — identifikuj skutočný active state",
+      "line": 296,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Krok 1 — identifikuj skutočný active state",
+      "line": 296,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Krok 2 — formuluj konkurenčné hypotézy",
+      "line": 307,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 316,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 316,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 316,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `scheduler lease generation a batch ownership testujú H2;`, `broker delivery attempt a partition telemetry testujú H4;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 316,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 316,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 316,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "Krok 3 — vyber observation points",
+      "line": 316,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H4`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "15. Diagnostický runbook",
+      "line": 354,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "15. Diagnostický runbook",
+      "line": 354,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "15. Diagnostický runbook",
+      "line": 354,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -67502,17 +66872,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "30. Diagnostický postup",
-      "line": 486,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Urči aktívny routing revision a skutočné weights.`, `Over digest/config oboch farieb.`, `Porovnaj color-specific telemetry a requests per target.`, `Over shared database/cache/session compatibility.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "30. Diagnostický postup",
-      "line": 486,
+      "section": "15. Diagnostický runbook",
+      "line": 354,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -67520,8 +66881,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "30. Diagnostický postup",
-      "line": 486,
+      "section": "15. Diagnostický runbook",
+      "line": 354,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -67529,8 +66890,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "30. Diagnostický postup",
-      "line": 486,
+      "section": "15. Diagnostický runbook",
+      "line": 354,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -67538,17 +66899,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "30. Diagnostický postup",
-      "line": 486,
+      "section": "15. Diagnostický runbook",
+      "line": 354,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "15. Diagnostický runbook",
+      "line": 354,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `identity`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 499,
+      "section": "16. Referenčné pravidlá",
+      "line": 367,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -67556,8 +66926,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 499,
+      "section": "16. Referenčné pravidlá",
+      "line": 367,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -67565,8 +66935,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 499,
+      "section": "16. Referenčné pravidlá",
+      "line": 367,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -67574,80 +66944,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 499,
-      "severity": "critical",
+      "section": "16. Referenčné pravidlá",
+      "line": 367,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Máme capacity pre dva produkčne relevantné targety?`, `Ktoré dependencies a state zostávajú shared?`, `Ako sa green testuje cez reálny path?`, `Je finálna config známa pred cutoverom?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 499,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 499,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "31. Rozhodovací rámec",
-      "line": 499,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "32. Kontrolný checklist",
-      "line": 512,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "32. Kontrolný checklist",
-      "line": 512,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "detail": "5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Green evidence musí patriť finálnemu artifact/config/path subjectu.`, `Cutover je CAS-chránená, idempotentná a auditovaná transakcia.`, `Connection drain pokračuje po switchi nových requests.`, `Workers a schedulers potrebujú samostatný ownership transition.`.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "32. Kontrolný checklist",
-      "line": 512,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "32. Kontrolný checklist",
-      "line": 512,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oba targety majú immutable identities,`, `config a secret references sú známe,`, `green je behaviorálne ekvivalentný,`, `capacity a shared quotas sú pripravené,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "32. Kontrolný checklist",
-      "line": 512,
+      "section": "16. Referenčné pravidlá",
+      "line": 367,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -67655,8 +66962,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "32. Kontrolný checklist",
-      "line": 512,
+      "section": "16. Referenčné pravidlá",
+      "line": 367,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -67664,8 +66971,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "32. Kontrolný checklist",
-      "line": 512,
+      "section": "16. Referenčné pravidlá",
+      "line": 367,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -67673,21 +66980,84 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "32. Kontrolný checklist",
-      "line": 512,
+      "section": "16. Referenčné pravidlá",
+      "line": 367,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 367,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAS-`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
-      "section": "Summary",
-      "line": 541,
+      "section": "17. Časté omyly",
+      "line": 380,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "„Green je overený, lebo health endpoint prešiel“",
+      "line": 382,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "„Switch route je okamžitý“",
+      "line": 386,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "„Dve farby znamenajú dve oddelené databázy“",
+      "line": 390,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "„Rollback je iba vrátenie pointera“",
+      "line": 394,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "„Oba schedulery môžu krátko bežať“",
+      "line": 398,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/blue-green-deployment.md",
+      "section": "18. Zhrnutie",
+      "line": 402,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
