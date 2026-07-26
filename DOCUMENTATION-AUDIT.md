@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11547**
-- Total words: **578,374**
-- Findings: **25905** (critical 8376, high 9405, medium 3603, low 4521)
+- Audited conceptual sections: **11539**
+- Total words: **578,673**
+- Findings: **25844** (critical 8342, high 9378, medium 3597, low 4527)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -69,7 +69,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1137 | 52 | 55 | 21 | 10 | 1623 | `docs/09-kubernetes/upgrades.md` |
 | D | 1134 | 53 | 57 | 12 | 12 | 1630 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
 | D | 1123 | 52 | 52 | 21 | 12 | 1692 | `docs/12-observability/instrumentation-telemetry.md` |
-| D | 1119 | 54 | 53 | 14 | 11 | 1541 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | D | 1119 | 54 | 46 | 25 | 14 | 1792 | `docs/11-cloud-and-aws/well-architected-framework.md` |
 | D | 1119 | 48 | 58 | 16 | 21 | 2203 | `docs/12-observability/loki.md` |
 | D | 1112 | 55 | 53 | 11 | 6 | 1209 | `docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md` |
@@ -206,6 +205,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 509 | 14 | 27 | 20 | 45 | 3416 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | D | 504 | 18 | 31 | 6 | 21 | 2365 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | D | 503 | 23 | 18 | 15 | 20 | 2893 | `docs/04-testing-and-quality/static-analysis-linting-type-checking.md` |
+| D | 498 | 20 | 26 | 8 | 17 | 1840 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | D | 490 | 21 | 25 | 6 | 17 | 1993 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
 | D | 489 | 19 | 27 | 13 | 1 | 1428 | `docs/09-kubernetes/serviceaccount.md` |
 | D | 478 | 16 | 33 | 8 | 0 | 1400 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
@@ -5793,113 +5793,52 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/05-ci-cd-and-release/shadow-deployment.md`
 
-- **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 31, `bare-bullet-items` — **3. Čo shadow dokáže overiť**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request a protocol compatibility,`, `parser behavior,`, `reálny workload mix,`, `performance a resource profile,`.
-- **CRITICAL** line 31, `outline-instead-of-explanation` — **3. Čo shadow dokáže overiť**: 15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 54, `bare-bullet-items` — **4. Experiment subject a provenance**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `primary a shadow artifact digests,`, `config revisions,`, `mirror policy version,`, `mirror point,`.
-- **CRITICAL** line 54, `outline-instead-of-explanation` — **4. Experiment subject a provenance**: 10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 71, `bare-bullet-items` — **5. Mirror point**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `edge/load balanceri,`, `API gateway,`, `service mesh,`, `application boundary,`.
-- **CRITICAL** line 71, `outline-instead-of-explanation` — **5. Mirror point**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 84, `empty-section` — **6. Synchronous verzus asynchronous delivery**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 90, `bare-bullet-items` — **Asynchronous**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `delivery lag,`, `drop,`, `reordering,`, `duplicate delivery,`.
-- **CRITICAL** line 90, `outline-instead-of-explanation` — **Asynchronous**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 102, `bare-bullet-items` — **7. Mirror delivery semantics**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `at-most-once, at-least-once alebo best-effort charakter,`, `max queue depth,`, `drop policy,`, `retry limit,`.
-- **CRITICAL** line 102, `outline-instead-of-explanation` — **7. Mirror delivery semantics**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 117, `bare-bullet-items` — **8. Sampling a representatívnosť**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percenta,`, `route/operation,`, `request complexity,`, `tenant/region segmentu,`.
-- **CRITICAL** line 117, `outline-instead-of-explanation` — **8. Sampling a representatívnosť**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 131, `bare-bullet-items` — **9. Input capture a body semantics**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `streaming body môže byť read-once,`, `upload môže byť veľký,`, `token môže expirovať,`, `nonce alebo signature je jednorazová,`.
-- **CRITICAL** line 131, `outline-instead-of-explanation` — **9. Input capture a body semantics**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 144, `bare-bullet-items` — **10. Input sanitizácia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credentials a session tokens,`, `payment/health data,`, `secrets v headers/body,`, `osobné identifikátory,`.
-- **CRITICAL** line 144, `outline-instead-of-explanation` — **10. Input sanitizácia**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 157, `bare-bullet-items` — **11. Shadow identity a authorization**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read-only workload identity,`, `minimálne claims,`, `isolated tenant/sandbox,`, `explicitný shadow claim,`.
-- **CRITICAL** line 157, `outline-instead-of-explanation` — **11. Shadow identity a authorization**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 170, `bare-bullet-items` — **12. Side-effect firewall**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payment/order writes,`, `email/SMS/push,`, `inventory reservation,`, `account mutation,`.
-- **CRITICAL** line 170, `outline-instead-of-explanation` — **12. Side-effect firewall**: 15 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 195, `bare-bullet-items` — **13. Indirect interference**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytesniť cache,`, `zahriať database buffer pool,`, `spotrebovať quotas,`, `zvýšiť connection count,`.
-- **CRITICAL** line 195, `outline-instead-of-explanation` — **13. Indirect interference**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 209, `bare-bullet-items` — **14. Request normalization**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current time,`, `random seed,`, `generated request ID,`, `nonce,`.
-- **CRITICAL** line 209, `outline-instead-of-explanation` — **14. Request normalization**: 12 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 229, `bare-bullet-items` — **15. Response a behavior diff**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `status/outcome class,`, `schema a required fields,`, `vybrané business hodnoty,`, `ordering-insensitive collections,`.
-- **CRITICAL** line 229, `outline-instead-of-explanation` — **15. Response a behavior diff**: 9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 245, `bare-bullet-items` — **16. Diff taxonomy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected change,`, `acceptable nondeterminism,`, `primary defect,`, `shadow defect,`.
-- **CRITICAL** line 245, `outline-instead-of-explanation` — **16. Diff taxonomy**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 276, `bare-bullet-items` — **18. Capacity a cost ceiling**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `primary request latency,`, `database connection pool,`, `broker throughput,`, `external API quotas,`.
-- **CRITICAL** line 276, `outline-instead-of-explanation` — **18. Capacity a cost ceiling**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 289, `bare-bullet-items` — **19. Messaging a event shadowing**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ackovať za primary group,`, `meniť primary offsets,`, `publikovať authoritative events,`, `súťažiť o partition ownership,`.
-- **CRITICAL** line 289, `outline-instead-of-explanation` — **19. Messaging a event shadowing**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 301, `bare-bullet-items` — **20. Long-running workflows**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konzistentný shadow state,`, `izolované workflow IDs,`, `event correlation,`, `delayed result collector,`.
-- **CRITICAL** line 301, `outline-instead-of-explanation` — **20. Long-running workflows**: 6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 312, `bare-bullet-items` — **21. Experiment validity**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `valid and equivalent,`, `valid with expected differences,`, `valid regression found,`, `inconclusive pre nízku vzorku,`.
-- **CRITICAL** line 312, `outline-instead-of-explanation` — **21. Experiment validity**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 337, `bare-bullet-items` — **23. Privacy a retention**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `právny účel,`, `data minimization,`, `residency,`, `encryption,`.
-- **CRITICAL** line 337, `outline-instead-of-explanation` — **23. Privacy a retention**: 9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 353, `bare-bullet-items` — **24. Failure recovery**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vypni mirror alebo zníž sample,`, `odpoj shadow resources,`, `over primary latency a dependency load,`, `drain alebo drop mirror queue,`.
-- **CRITICAL** line 353, `outline-instead-of-explanation` — **24. Failure recovery**: 11 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 372, `bare-bullet-items` — **25. Observability a evidence**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mirror attempted/delivered/dropped,`, `delivery lag,`, `primary overhead,`, `shadow throughput/saturation,`.
-- **CRITICAL** line 372, `outline-instead-of-explanation` — **25. Observability a evidence**: 10 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 387, `empty-section` — **26. Typické anti-patterny**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 417, `bare-bullet-items` — **27. Diagnostický postup**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over primary/shadow digest a config.`, `Skontroluj mirror point a policy version.`, `Porovnaj attempted, delivered a completed counts.`, `Over delivery lag, duplicates a ordering.`.
-- **CRITICAL** line 417, `no-prose-concept` — **27. Diagnostický postup**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 417, `outline-instead-of-explanation` — **27. Diagnostický postup**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 430, `bare-bullet-items` — **28. Rozhodovací rámec**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Akú hypotézu má shadow overiť?`, `Kde sa traffic zrkadlí a čo tým vynechá?`, `Aké delivery semantics platia?`, `Ktoré dáta treba sanitizovať?`.
-- **CRITICAL** line 430, `no-prose-concept` — **28. Rozhodovací rámec**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 430, `outline-instead-of-explanation` — **28. Rozhodovací rámec**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 443, `bare-bullet-items` — **29. Kontrolný checklist**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable primary/shadow identities,`, `mirror policy a point sú versionované,`, `primary path má timeout/drop ochranu,`, `sample inventory je reprezentatívny,`.
-- **CRITICAL** line 443, `no-prose-concept` — **29. Kontrolný checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 443, `outline-instead-of-explanation` — **29. Kontrolný checklist**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 85, `bare-bullet-items` — **4. Capture a delivery nesmú poškodiť primary SLO**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `attempted, enqueued, delivered a completed identity;`, `at-least-once delivery do shadow consumera;`, `max lag;`, `duplicate handling;`.
+- **CRITICAL** line 111, `bare-bullet-items` — **5. Input identity musí zostať semanticky porovnateľná**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current time cez zachytený evaluation timestamp;`, `generated IDs cez explicitné input values;`, `read-once alebo veľké body cez bounded capture;`, `user token na privacy-safe tenant a capability claims;`.
+- **CRITICAL** line 152, `bare-bullet-items` — **7. Read-only execution môže nepriamo ovplyvniť produkciu**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database connections a buffer pool;`, `cache capacity;`, `broker throughput;`, `external API quotas;`.
+- **CRITICAL** line 152, `outline-instead-of-explanation` — **7. Read-only execution môže nepriamo ovplyvniť produkciu**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 175, `bare-bullet-items` — **8. Comparison začína validáciou paired evidence**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `equivalent;`, `expected product/model difference;`, `acceptable nondeterminism;`, `likely primary defect;`.
+- **CRITICAL** line 175, `outline-instead-of-explanation` — **8. Comparison začína validáciou paired evidence**: 9 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 206, `bare-bullet-items` — **9. Workload representatívnosť je súčasť validity**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route a operation;`, `tenant-size tier;`, `regionu;`, `payload size;`.
+- **CRITICAL** line 206, `outline-instead-of-explanation` — **9. Workload representatívnosť je súčasť validity**: 8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 241, `empty-section` — **Recovery a trvalá náprava**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 277, `empty-section` — **Krok 1 — stabilizuj subject a timeline**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 287, `empty-section` — **Krok 2 — formuluj konkurenčné hypotézy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 297, `outline-instead-of-explanation` — **Krok 3 — použi observation points**: 5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 330, `bare-bullet-items` — **13. Shadow evidence má jasný fidelity limit**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser a protocol compatibility po mirror pointe;`, `workload mix;`, `query a dependency pattern;`, `performance/resource profile;`.
+- **CRITICAL** line 330, `outline-instead-of-explanation` — **13. Shadow evidence má jasný fidelity limit**: 11 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 361, `no-prose-concept` — **14. Diagnostický runbook**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 361, `outline-instead-of-explanation` — **14. Diagnostický runbook**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 374, `bare-bullet-items` — **15. Referenčné pravidlá**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Shadow má jednu autoritatívnu a jednu neautoritatívnu execution.`, `Delivery, safety a comparison sú samostatné contracts.`, `Mirror point určuje fidelity aj privacy boundary.`, `Primary SLO má prednosť pred shadow completeness.`.
+- **CRITICAL** line 374, `no-prose-concept` — **15. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 374, `outline-instead-of-explanation` — **15. Referenčné pravidlá**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 387, `empty-section` — **16. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.
-- **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 31, `single-sentence-concept` — **3. Čo shadow dokáže overiť**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 54, `single-sentence-concept` — **4. Experiment subject a provenance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 102, `single-sentence-concept` — **7. Mirror delivery semantics**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 131, `single-sentence-concept` — **9. Input capture a body semantics**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 170, `single-sentence-concept` — **12. Side-effect firewall**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 195, `single-sentence-concept` — **13. Indirect interference**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 209, `single-sentence-concept` — **14. Request normalization**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 245, `single-sentence-concept` — **16. Diff taxonomy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 260, `single-sentence-concept` — **17. Correlation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 301, `single-sentence-concept` — **20. Long-running workflows**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 312, `single-sentence-concept` — **21. Experiment validity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 325, `list-first-introduction` — **22. Promotion ladder**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 337, `single-sentence-concept` — **23. Privacy a retention**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 353, `single-sentence-concept` — **24. Failure recovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 372, `single-sentence-concept` — **25. Observability a evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 389, `single-sentence-concept` — **Response sa zahodí, preto je shadow bezpečný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 393, `single-sentence-concept` — **Production write credentials**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 397, `single-sentence-concept` — **Synchronous mirror bez timeout/drop policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 401, `single-sentence-concept` — **100 % mirroring bez capacity modelu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 405, `single-sentence-concept` — **Chýbajúci correlation ID**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 409, `single-sentence-concept` — **Každý mismatch je regresia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 413, `single-sentence-concept` — **Shadow success = full release**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 417, `list-first-introduction` — **27. Diagnostický postup**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 430, `list-first-introduction` — **28. Rozhodovací rámec**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 443, `list-first-introduction` — **29. Kontrolný checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 21, `thin-concept-section` — **2. Mental model: neautoritatívna paralelná execution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 31, `thin-concept-section` — **3. Čo shadow dokáže overiť**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 54, `thin-concept-section` — **4. Experiment subject a provenance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 71, `thin-concept-section` — **5. Mirror point**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 90, `thin-concept-section` — **Asynchronous**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 102, `thin-concept-section` — **7. Mirror delivery semantics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 117, `thin-concept-section` — **8. Sampling a representatívnosť**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 131, `thin-concept-section` — **9. Input capture a body semantics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 144, `thin-concept-section` — **10. Input sanitizácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 157, `thin-concept-section` — **11. Shadow identity a authorization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 170, `thin-concept-section` — **12. Side-effect firewall**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 195, `thin-concept-section` — **13. Indirect interference**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 209, `thin-concept-section` — **14. Request normalization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 229, `thin-concept-section` — **15. Response a behavior diff**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 245, `thin-concept-section` — **16. Diff taxonomy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 276, `thin-concept-section` — **18. Capacity a cost ceiling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 289, `thin-concept-section` — **19. Messaging a event shadowing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 301, `thin-concept-section` — **20. Long-running workflows**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 312, `thin-concept-section` — **21. Experiment validity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 337, `thin-concept-section` — **23. Privacy a retention**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 353, `thin-concept-section` — **24. Failure recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 372, `thin-concept-section` — **25. Observability a evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 417, `thin-concept-section` — **27. Diagnostický postup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 430, `thin-concept-section` — **28. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 443, `thin-concept-section` — **29. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 85, `list-heavy-section` — **4. Capture a delivery nesmú poškodiť primary SLO**: 8 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 111, `list-heavy-section` — **5. Input identity musí zostať semanticky porovnateľná**: 6 odrážok a iba 56 slov súvislého vysvetlenia.
+- **HIGH** line 237, `single-sentence-concept` — **Dôsledok**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 269, `single-sentence-concept` — **Náprava**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 273, `single-sentence-concept` — **12. Kauzálny diagnostický walkthrough**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 297, `bare-bullet-items` — **Krok 3 — použi observation points**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `primary deployment/config timeline testuje H1;`, `incoming workload normalizovaný podľa route testuje H4;`, `raw latency traces a histogram pipeline testujú H5.`.
+- **HIGH** line 297, `list-first-introduction` — **Krok 3 — použi observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 297, `single-sentence-concept` — **Krok 3 — použi observation points**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 322, `single-sentence-concept` — **Krok 5 — over recovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 326, `single-sentence-concept` — **Krok 6 — vráť learning do návrhu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 330, `single-sentence-concept` — **13. Shadow evidence má jasný fidelity limit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 361, `bare-bullet-items` — **14. Diagnostický runbook**: 5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Urči mirror point a boundaries, ktoré experiment obchádza.`, `Porovnaj attempted, enqueued, delivered, completed a paired counts.`, `Validuj sanitizáciu, state snapshot a input normalization.`, `Skontroluj shadow identity, egress a side-effect firewall.`.
+- **HIGH** line 361, `list-first-introduction` — **14. Diagnostický runbook**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 374, `list-first-introduction` — **15. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 389, `single-sentence-concept` — **„Response zahodíme, takže shadow je bezpečný“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 393, `single-sentence-concept` — **„Read-only credentials riešia všetko“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 397, `single-sentence-concept` — **„Completed pairs reprezentujú celý sample“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 401, `single-sentence-concept` — **„Každý mismatch je shadow regresia“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 405, `single-sentence-concept` — **„Shadow je úspešný, môžeme ísť na 100 %“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 152, `thin-concept-section` — **7. Read-only execution môže nepriamo ovplyvniť produkciu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 297, `term-before-explanation` — **Krok 3 — použi observation points**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H2`, `DB`, `H4`, `H5`, `workload`
+- **HIGH** line 297, `thin-concept-section` — **Krok 3 — použi observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 330, `thin-concept-section` — **13. Shadow evidence má jasný fidelity limit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 361, `thin-concept-section` — **14. Diagnostický runbook**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 374, `thin-concept-section` — **15. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/05-ci-cd-and-release/trigger-artifact-cache.md`
 
@@ -18831,19 +18770,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3809 | 418 | 0 | 0 | 4227 |
-| `single-sentence-concept` | 0 | 3881 | 0 | 0 | 3881 |
-| `outline-instead-of-explanation` | 3632 | 0 | 0 | 0 | 3632 |
-| `thin-concept-section` | 0 | 3218 | 0 | 0 | 3218 |
-| `term-before-explanation` | 0 | 437 | 2462 | 0 | 2899 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1835 | 1835 |
+| `bare-bullet-items` | 3792 | 420 | 0 | 0 | 4212 |
+| `single-sentence-concept` | 0 | 3872 | 0 | 0 | 3872 |
+| `outline-instead-of-explanation` | 3615 | 0 | 0 | 0 | 3615 |
+| `thin-concept-section` | 0 | 3197 | 0 | 0 | 3197 |
+| `term-before-explanation` | 0 | 438 | 2454 | 0 | 2892 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1836 | 1836 |
 | `example-not-explicit` | 0 | 0 | 0 | 1763 | 1763 |
-| `short-concept-section` | 0 | 0 | 1141 | 0 | 1141 |
-| `list-first-introduction` | 0 | 1065 | 0 | 0 | 1065 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 923 | 923 |
-| `empty-section` | 506 | 0 | 0 | 0 | 506 |
-| `no-prose-concept` | 429 | 0 | 0 | 0 | 429 |
-| `list-heavy-section` | 0 | 386 | 0 | 0 | 386 |
+| `short-concept-section` | 0 | 0 | 1143 | 0 | 1143 |
+| `list-first-introduction` | 0 | 1063 | 0 | 0 | 1063 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 928 | 928 |
+| `empty-section` | 508 | 0 | 0 | 0 | 508 |
+| `no-prose-concept` | 427 | 0 | 0 | 0 | 427 |
+| `list-heavy-section` | 0 | 388 | 0 | 0 | 388 |
 
 ## Required remediation pattern
 
