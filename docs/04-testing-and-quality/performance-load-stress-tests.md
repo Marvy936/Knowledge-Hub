@@ -6,743 +6,580 @@
 - Level: L2
 - Domain: Testing and Software Quality
 
-Performance testing overuje časové, kapacitné a degradačné vlastnosti systému pod presne definovaným workloadom. Výsledok nie je iba jedno číslo requests za sekundu. Dôveryhodný test musí vysvetliť, aký traffic bol generovaný, na akom artefakte a prostredí, aké limity platili, čo sa saturovalo, ako systém zlyhal a či sa po záťaži obnovil.
+Performance test je kontrolovaný experiment nad konkrétnym workloadom, artifactom a prostredím. Jeho výsledkom nie je iba číslo requests za sekundu, ale dôkaz o tom:
 
 ```text
-workload model
-→ system response
-→ resource a dependency evidence
-→ SLO a capacity decision
+aký demand prišiel
+→ kde vzniklo čakanie alebo saturation
+→ aký používateľský výsledok systém poskytol
+→ ako sa správal pri prekročení limitu
+→ či sa po záťaži obnovil
+→ aké capacity alebo release rozhodnutie z toho vyplýva
 ```
 
-Bez workload modelu, environment provenance a success criteria je výsledok nereprodukovateľný a často zavádzajúci.
+## 1. Cieľ kapitoly
 
-## 1. Mentálny model výkonu
-
-Výkon systému vzniká interakciou piatich oblastí:
-
-- **demand —** arrival rate, concurrency, operation mix, payloady a session behavior,
-- **service time —** čas potrebný na vykonanie práce bez čakania v queues,
-- **capacity —** CPU, memory, connections, workers, partitions a dependency quotas,
-- **queueing —** čakajúca práca pri nedostatku okamžitej kapacity,
-- **control mechanisms —** autoscaling, rate limiting, load shedding, retries a circuit breakers.
-
-Performance test má rozlíšiť, či latency rastie pre drahšiu prácu, queueing, resource saturation, lock contention, downstream dependency alebo nevhodný control loop.
-
-## 2. Experiment contract
-
-Každý performance test potrebuje explicitný experiment contract:
+Nosný model kapitoly je:
 
 ```text
-hypotéza
-→ testovaný artifact a konfigurácia
-→ workload model
-→ environment
-→ merané signály
-→ success a abort criteria
-→ trvanie a fázy
-→ očakávané recovery
-→ limity interpretácie
+business demand a SLO
+→ experiment hypothesis
+→ immutable artifact a známe prostredie
+→ reprezentatívny workload
+→ warm-up a steady state
+→ latency, throughput, queue a resource evidence
+→ saturation/failure transition
+→ ramp-down a recovery
+→ capacity alebo release decision
 ```
 
-Príklad hypotézy:
+Load, stress, spike, soak, capacity a scalability test sú varianty toho istého experimentálneho lifecycle-u. Nesmú sa zmeniť na samostatný katalóg bez konkrétnej hypotézy.
+
+## 2. Nosný scenár: Atlas Orders 3.9.0
+
+Atlas očakáva promo špičku. Release `orders-api` 3.9.0 má zvládnuť:
 
 ```text
-Pri 1 500 completed requests/s počas 30 minút
-služba udrží p95 pod 250 ms,
-p99 pod 600 ms,
-error rate pod 0,1 %,
-bez restartu,
-a backlog sa po skončení špičky vyprázdni do 2 minút.
+1 500 arrivals/s počas 30 minút
+operation mix:
+- 60 % read order
+- 20 % search/order list
+- 12 % create order
+- 5 % update order
+- 3 % cancel order
 ```
 
-## 3. Druhy performance testov
-
-### Performance test
-
-Širší pojem pre meranie latency, throughputu, resource usage a stability pri definovaných podmienkach.
-
-### Load test
-
-Overuje očakávaný alebo plánovaný workload. Cieľom je potvrdiť SLO a kapacitnú rezervu pri normálnej prevádzke.
-
-### Stress test
-
-Zvyšuje demand za plánovanú hranicu, aby odhalil saturation point, failure mode, ochranné mechanizmy a recovery.
-
-### Spike test
-
-Vytvára prudký nárast alebo pokles trafficu. Overuje cold starts, connection establishment, queueing, autoscaling latency a schopnosť absorbovať krátku špičku.
-
-### Soak alebo endurance test
-
-Udržiava workload dlhší čas. Hľadá memory a resource leaks, cache churn, fragmentation, rast queues, rotáciu credentials, log growth, compaction a kumulatívne failures.
-
-### Capacity test
-
-Hľadá maximálny udržateľný workload pri definovanom SLO, safety margin a stabilnom stave.
-
-### Scalability test
-
-Porovnáva, ako sa výkon mení pri pridávaní alebo odoberaní CPU, memory, replicas, shards alebo partitions. Overuje, či scaling prináša očakávanú hodnotu a kde vzniká shared bottleneck.
-
-## 4. Workload model
-
-Workload model musí reprezentovať produkčné charakteristiky relevantné pre testované riziko:
-
-- operation mix,
-- arrival rate a burstiness,
-- concurrency,
-- payload-size distribution,
-- read/write ratio,
-- think time a session length,
-- authentication a authorization cost,
-- cache hit/miss ratio,
-- data volume a cardinality,
-- hot keys alebo hot partitions,
-- regionálna a network latency,
-- retry a timeout správanie klientov.
-
-Jeden malý cached request pri rovnomernom trafficu nedokazuje kapacitu systému s veľkými payloadmi, writes, cold cache a nerovnomernou popularitou dát.
-
-## 5. Operation mix
-
-Produkčný systém zvyčajne nevykonáva iba jednu operáciu. Workload môže napríklad obsahovať:
+Hypotéza:
 
 ```text
-60 % read product
-20 % search
-10 % create order
-7 % update cart
-3 % payment authorization
+Pri 1 500 arrivals/s počas 30 minút:
+- completed throughput ≥ 1 480/s,
+- p95 successful latency < 250 ms,
+- p99 successful latency < 600 ms,
+- failed + rejected rate < 0,1 %,
+- backlog zostane bounded,
+- nevznikne OOM ani neplánovaný restart,
+- po ramp-down sa backlog vyprázdni do 2 minút.
 ```
 
-Každá operácia má iný service time, dependency path a resource profile. Test musí reportovať globálne aj per-operation percentily a error rate, pretože lacné reads môžu skryť pomalý kritický write path.
+Test má rozhodnúť, či je release bezpečný pre plánovaný rollout a akú kapacitnú rezervu má tím deklarovať.
 
-## 6. Arrival rate, concurrency a completed throughput
+## 3. Performance experiment contract
 
-Tieto metriky nie sú zameniteľné:
+Každý run definuje:
 
-- **arrival rate —** koľko novej práce prichádza za jednotku času,
-- **concurrency —** koľko operácií je práve rozpracovaných,
-- **completed throughput —** koľko operácií sa úspešne alebo neúspešne dokončí za jednotku času.
+- **hypotézu a rozhodnutie**;
+- **artifact digest a source revision**;
+- **environment a konfiguráciu**;
+- **dataset fingerprint**;
+- **workload model a operation mix**;
+- **open alebo closed semantics**;
+- **load phases a trvanie**;
+- **client, server a dependency signály**;
+- **success a abort criteria**;
+- **recovery expectation**;
+- **limity interpretácie**;
+- **ownera a bezpečnostné guardrails**.
 
-Pri overload-e môže arrival rate ďalej rásť, completed throughput stagnovať a concurrency alebo queue depth prudko narastať.
+Bez tohto kontraktu nie je možné run reprodukovať ani porovnať.
 
-## 7. Open workload model
+## 4. Demand, service time, capacity a queueing
 
-Open model plánuje príchody nezávisle od response time systému. Lepšie reprezentuje externý traffic, ktorý neprestane prichádzať iba preto, že služba je pomalá.
+Výkon vzniká interakciou:
 
 ```text
-čas 0 ms   request A
-čas 10 ms  request B
-čas 20 ms  request C
+demand
+→ arrival rate, concurrency, operation mix, payloady
+
+service time
+→ čas reálnej práce bez čakania
+
+capacity
+→ CPU, memory, workers, connections, partitions, quotas
+
+queueing
+→ práca čakajúca na dostupnú kapacitu
+
+control loops
+→ autoscaling, admission, rate limit, retries, circuit breakers
 ```
 
-Ak systém nestíha, requests sa hromadia, odmietajú alebo timeoutujú. Open model preto odhaľuje queue buildup a overload realistickejšie.
+Latency môže rásť pre drahšiu prácu, queueing, lock contention, connection-pool wait, downstream quota alebo nevhodný control loop. Jedna CPU metrika preto nestačí.
 
-## 8. Closed workload model
+## 5. Arrival rate, concurrency a completed throughput
 
-Closed model používa fixný počet virtual users. Každý user pošle ďalší request až po dokončení predchádzajúceho a prípadnom think time.
+Tieto hodnoty nie sú zameniteľné:
 
-Pri spomalení systému automaticky klesá generovaný request rate. To môže byť správny model pre uzavretý počet workers alebo sessions, ale môže skryť overload pri verejnom API.
+- **arrival rate** — koľko novej práce prichádza;
+- **concurrency** — koľko operácií je rozpracovaných;
+- **completed throughput** — koľko operácií sa skutočne dokončí;
+- **backlog** — koľko práce zostáva čakať;
+- **rejection/error rate** — koľko práce systém odmietne alebo nezvládne.
 
-## 9. Výber workload modelu
+Pri overload-e môže arrival rate rásť, completed throughput stagnovať a backlog prudko narastať. Stabilný throughput pri rastúcom backlogu nie je stabilný systém.
 
-Model vyber podľa reálnej demand source:
+## 6. Open a closed workload
 
-- verejný web alebo API traffic je často bližší open modelu,
-- fixný worker pool alebo batch môže byť closed model,
-- používateľská session môže kombinovať arrival process nových sessions a closed správanie krokov v session,
-- message queue workload potrebuje modelovať producer arrival rate a consumer backlog.
-
-Nástrojový default nesmie rozhodnúť za architektonickú realitu systému.
-
-## 10. Littleho zákon
-
-V stabilnom systéme platí orientačný vzťah:
+Open model plánuje arrivals nezávisle od response time:
 
 ```text
-priemerná concurrency ≈ throughput × priemerný čas v systéme
+scheduled arrival
+→ request príde aj keď je systém pomalý
+→ queue, rejection alebo timeout sú viditeľné
 ```
 
-Ak systém dokončuje 1 000 operácií za sekundu a priemerný čas je 0,2 sekundy, priemerná rozpracovanosť je približne 200 operácií.
+Je vhodný pre verejné API alebo externý traffic, ktorý neprestane prichádzať iba preto, že služba spomalila.
 
-Vzťah pomáha odhaliť nepravdepodobné reporty a odhadnúť tlak na connections, memory a worker capacity. Neplatí ako jednoduchá interpretácia počas prudko nestabilného rastu backlogu.
-
-## 11. Latency decomposition
-
-End-to-end latency môže obsahovať:
+Closed model používa fixný počet users/workers:
 
 ```text
-client scheduling
-+ DNS a connection setup
-+ TLS
-+ proxy queue
-+ application queue
-+ service time
-+ database alebo dependency wait
-+ response transfer
+user odošle request
+→ čaká na response
+→ think time
+→ odošle ďalší request
 ```
 
-Celkový percentil bez rozkladu povie, že používateľ čaká, ale nie prečo. Preto koreluj client-side latency s tracingom a server-side timers.
+Je vhodný pre uzavretý worker pool alebo session model. Pri spomalení však automaticky zníži request rate a môže skryť overload verejného API.
 
-## 12. Percentily a tail latency
+Atlas public API preto používa open arrival model. Samostatný batch-worker experiment môže používať closed model.
 
-Priemer môže vyzerať zdravo, aj keď kritická časť používateľov zažíva vysokú latency. Sleduj minimálne p50, p90, p95 a p99 per operation a per result class.
+## 7. Coordinated omission
+
+Coordinated omission vzniká, keď generator počas spomalenia nevytvára prácu, ktorá mala podľa reálneho schedule prísť.
 
 ```text
-p50 = 80 ms
-p95 = 240 ms
-p99 = 1,8 s
+systém spomalí
+→ generator čaká
+→ neodoslané arrivals sa nemerajú
+→ report podhodnotí používateľskú latency
 ```
-
-Oddelene reportuj successful, rejected, timeout a failed requests. Rýchle error responses môžu umelo zlepšiť globálny priemer.
-
-## 13. Percentilová presnosť
-
-Na odhad vysokých percentilov potrebuješ dostatok samples. P99 z malej vzorky je nestabilné číslo. Report má uviesť sample count, histogram resolution a agregáciu medzi generátormi.
-
-Pri distribuovaných histogramoch sa percentily nemajú priemerovať. Potrebné je zlúčiť kompatibilné histograms alebo vyhodnotiť raw samples vhodným spôsobom.
-
-## 14. Coordinated omission
-
-Coordinated omission vzniká, keď generator počas spomalenia nevytvára prácu, ktorá by podľa reálneho arrival schedule mala prísť. Meranie potom ignoruje čas, počas ktorého klient čakal na možnosť request odoslať.
 
 Ochrany:
 
-- arrival-rate generator,
-- intended start timestamps,
-- corrected latency histogram,
-- generator s dostatočnou rezervou,
-- porovnanie scheduled a actual send rate.
+- arrival-rate generator;
+- intended-start timestamps;
+- meranie scheduled verzus actual send rate;
+- corrected histogram podľa tool semantics;
+- dostatočná generator capacity.
 
-Closed model nie je automaticky chybný; chybná je jeho interpretácia ako open trafficu.
+Closed model nie je automaticky chybný. Chybná je jeho interpretácia ako open trafficu.
 
-## 15. Queueing a saturation
+## 8. Operation mix a dáta
 
-Utilization hovorí, ako veľmi sa resource používa. Saturation znamená, že práca čaká na resource alebo limit.
+Globálny p95 môže skryť kritický write path. Atlas reportuje per-operation:
 
-Sleduj napríklad:
+- arrivals a completions;
+- success, reject, timeout a business-error classes;
+- latency histograms;
+- DB/broker/dependency path;
+- payload-size a tenant distribution.
 
-- CPU run queue a throttling,
-- worker alebo thread queue,
-- event-loop lag,
-- connection-pool wait time,
-- database lock waits,
-- disk queue depth,
-- broker lag,
-- pending load-balancer requests,
-- downstream quota rejection.
+Dataset musí reprezentovať:
 
-Latency často rastie prudko ešte pred 100 % utilization, pretože queueing je nelineárne.
+- tabuľkovú veľkosť a index selectivity;
+- hot/cold order distribúciu;
+- tenant skew;
+- retention históriu;
+- cache state;
+- partition a broker backlog behavior.
 
-## 16. Universal Scalability Law a serial bottleneck
+Prázdna databáza a warm cache neposkytujú dôkaz pre produkčný dataset.
 
-Horizontal scaling nemusí byť lineárne. Shared state, coordination a serial sections môžu spôsobiť klesajúci prínos ďalších replicas.
+## 9. Load phases
 
-Scalability test má merať:
-
-```text
-capacity pri N replicas
-→ capacity pri 2N replicas
-→ zmena latency a efficiency
-→ nový bottleneck
-```
-
-Ak dvojnásobok aplikačných replicas zvýši throughput iba o 10 %, shared database, lock, partition alebo quota pravdepodobne limituje systém.
-
-## 17. Load profile
-
-Performance run má explicitné fázy:
+Atlas experiment používa:
 
 ```text
 precondition a data preparation
 → warm-up
 → ramp-up
 → steady state
-→ peak alebo stress phase
+→ peak/stress phase
 → ramp-down
 → recovery observation
 ```
 
-Každá fáza má iný účel a jej samples sa nemajú bezhlavo miešať do jedného výsledku.
+### Warm-up
 
-## 18. Warm-up
+Stabilizuje JIT, caches, pools, DNS, lazy initialization a autoscaling. Končí podmienkou, nie náhodným časom.
 
-Warm-up stabilizuje JIT, caches, connection pools, DNS, lazy initialization a autoscaling. Je ukončený podmienkou, nie iba náhodným časom.
+### Ramp-up
 
-Príklady stabilizačných podmienok:
+Ukazuje, ako rast demandu aktivuje queues, limits a control loops. Reportuje sa ako časový priebeh.
 
-- throughput a latency sa ustálili v tolerancii,
-- cache hit rate dosiahla reprezentatívnu hodnotu,
-- požadovaný počet connections je otvorený,
-- replicas sú ready,
-- background migrations alebo compaction skončili.
+### Steady state
 
-Cold-start performance test môže byť samostatný experiment; nemá sa nevedomky miešať so steady-state kapacitou.
+Demand, throughput a queues sú dostatočne stabilné na vyhodnotenie SLO. Rastúci backlog diskvalifikuje steady state.
 
-## 19. Ramp-up
+### Recovery
 
-Ramp-up má byť dostatočne pomalý na pozorovanie control loops, ale dostatočne reprezentatívny pre produkčné nárasty. Príliš rýchly ramp testuje iba spike a provisioning, príliš pomalý môže skryť reakciu na reálny náhly traffic.
+Po ramp-down sa overí vyprázdnenie backlogu, návrat latency, uvoľnenie resources, skončenie retries a absencia delayed duplicate side effects.
 
-Reportuj demand a system response v čase, nie iba finálny priemer.
+## 10. Latency a percentily
 
-## 20. Steady state
-
-Steady state je interval, v ktorom demand, capacity a hlavné queues zostávajú dostatočne stabilné na vyhodnotenie SLO.
-
-Stabilný completed throughput pri rastúcom backlogu nie je steady state. Systém iba odkladá nedokončenú prácu do budúcnosti.
-
-## 21. Recovery observation
-
-Po ramp-down sleduj:
-
-- vyprázdnenie backlogu,
-- návrat latency a error rate,
-- scale-down,
-- uvoľnenie connections a memory,
-- ukončenie retries,
-- obnovenie circuit breakerov,
-- konzistenciu dát,
-- neprítomnosť delayed duplicate side effects.
-
-Systém, ktorý zvládne peak, ale po ňom zostane degradovaný, testom neprešiel.
-
-## 22. Test environment provenance
-
-Výsledok platí iba pre zdokumentovaný environment:
-
-- artifact digest a configuration,
-- instance alebo hardware type,
-- CPU/memory requests a limits,
-- replica count,
-- autoscaling policy,
-- database engine, size, indexes a statistics,
-- cache a dataset state,
-- network path a region,
-- dependency versions a quotas,
-- observability sampling a overhead,
-- kernel, runtime a container settings.
-
-Shared environment musí evidovať konkurujúci workload. Inak môže test merať cudziu záťaž alebo naopak neprodukčne prázdnu infraštruktúru.
-
-## 23. Dataset representatívnosť
-
-Výkon databázy a cache závisí od objemu a distribúcie dát. Testuj s realistickou:
-
-- tabuľkovou veľkosťou,
-- index selectivity,
-- cardinality,
-- hot/cold distribúciou,
-- object size,
-- retention history,
-- partition count,
-- skew a tenant mixom.
-
-Prázdna databáza môže používať iný query plan a držať celý dataset v cache.
-
-## 24. Load generator calibration
-
-Load generator je tiež systém s limitmi. Pred testom over:
-
-- CPU a network headroom,
-- file descriptor a ephemeral-port limits,
-- timer resolution,
-- max connections,
-- clock synchronization,
-- dropped iterations alebo samples,
-- client-side queueing,
-- DNS a TLS overhead,
-- distribuovanú koordináciu generator nodes.
-
-Ak generator saturuje, môže vytvoriť falošný throughput plateau alebo nízku arrival rate.
-
-## 25. Client-side a server-side errors
-
-Rozlišuj:
-
-- generator nestihol iteration naplánovať,
-- connection nebola vytvorená,
-- request timeoutol na klientovi,
-- proxy request odmietla,
-- aplikácia vrátila business error,
-- dependency zlyhala,
-- server odpoveď prišla po client deadline.
-
-Jedna globálna `error rate` metrika bez kategórií sťažuje root-cause analýzu.
-
-## 26. Success criteria
-
-Success criteria majú kombinovať používateľský výsledok, systémové limity a recovery:
+End-to-end latency môže obsahovať:
 
 ```text
-Pri 1 500 arrivals/s počas 30 minút:
-- completed throughput neklesne pod 1 480/s,
-- p95 successful latency < 250 ms,
-- p99 successful latency < 600 ms,
-- failed + rejected rate < 0,1 %,
-- žiadny OOM ani neplánovaný restart,
-- DB connection-pool wait p95 < 20 ms,
-- queue backlog je bounded,
-- po ramp-down sa backlog vyprázdni do 2 minút.
+client scheduling
++ DNS/TCP/TLS
++ proxy queue
++ application queue
++ service time
++ DB/broker/dependency wait
++ response transfer
 ```
 
-Limity majú vychádzať zo SLO, capacity planu a downstream contracts.
+Sleduj p50, p90, p95 a p99 per operation a result class. Rýchle errors sa nesmú miešať so successful latency tak, aby umelo zlepšili priemer.
 
-## 27. Abort criteria
+Report obsahuje sample count, histogram resolution a spôsob agregácie. Percentily z viacerých generátorov sa neprieme­rujú; kombinujú sa kompatibilné histograms alebo raw samples.
 
-Test musí mať emergency stop pri:
+## 11. Littleho zákon ako sanity check
 
-- neočakávanom smerovaní na produkciu,
-- error rate alebo latency nad bezpečnú hranicu,
-- ohrození shared dependency,
-- nekontrolovanom cost raste,
-- data corruption signále,
-- generator runaway,
-- výpadku observability.
-
-Abort nie je neúspešná disciplína; je to bezpečnostná hranica experimentu.
-
-## 28. Baseline
-
-Reprodukovateľný baseline obsahuje:
-
-- artifact a source revision,
-- environment a configuration,
-- dataset fingerprint,
-- workload definition,
-- tool a script version,
-- warm-up a measurement interval,
-- latency histograms,
-- throughput, error a saturation metrics,
-- raw alebo dostatočne detailné artifacts.
-
-Jeden run je slabý baseline. Potrebné sú opakovania alebo známa prirodzená variabilita.
-
-## 29. Porovnávanie výsledkov
-
-Regresiu posudzuj kombináciou:
-
-- absolútneho SLO,
-- relatívnej zmeny voči baseline,
-- confidence intervalov alebo variability opakovaní,
-- zmeny workloadu a environmentu,
-- resource a trace evidence,
-- praktickej prevádzkovej významnosti.
-
-Štatisticky merateľný rozdiel nemusí byť prevádzkovo významný. Naopak malá zmena p99 pri kritickej službe môže prekročiť SLO.
-
-## 30. Performance noise
-
-Variabilitu vytvárajú shared hosts, CPU frequency scaling, background jobs, network jitter, GC, storage maintenance, autoscaling a cloud placement.
-
-Kontroluj noise cez:
-
-- izolované alebo zaznamenané prostredie,
-- viac opakovaní,
-- randomizované alebo striedané poradie A/B behov,
-- stabilný dataset,
-- dostatočne dlhý steady state,
-- koreláciu s infra metrics.
-
-## 31. Testovanie autoscalingu
-
-Autoscaling je control loop:
+V stabilnom systéme približne platí:
 
 ```text
-workload vytvorí signal
-→ monitoring ho zozbiera a agreguje
-→ autoscaler rozhodne
-→ platforma provisionuje capacity
-→ process sa inicializuje
-→ readiness prejde
-→ load balancer zaradí endpoint
-→ traffic sa redistribuuje
+priemerná concurrency ≈ completed throughput × priemerný čas v systéme
 ```
 
-Meraj detection, aggregation, decision, provisioning, startup a routing delay. Sleduj overshoot, oscillation, cooldown, scale-down safety a dopad na existujúce connections.
+Ak Atlas dokončuje 1 000 operations/s s priemerným časom 0,2 s, očakávaná rozpracovanosť je približne 200 operations.
 
-Autoscaling nenahrádza baseline capacity a nevyrieši bottleneck v shared database alebo quota.
+Vzťah pomáha odhaliť nepravdepodobný report alebo tlak na connections a memory. Počas nestabilného rastu backlogu sa nesmie interpretovať ako steady-state dôkaz.
 
-## 32. Spike test
+## 12. Saturation a observation points
 
-Spike test definuje:
+Utilization ukazuje používanie resource. Saturation ukazuje čakanie na resource alebo limit.
 
-- počiatočný steady workload,
-- amplitúdu a rýchlosť nárastu,
-- dĺžku spike-u,
-- opakovanie spike-ov,
-- návrat na baseline,
-- success a recovery criteria.
+Atlas koreluje client latency s:
 
-Overuje queue absorption, rate limiting, cold starts, scale-up a správanie caches. Po spike-u musí systém odstrániť backlog bez dlhej tail latency alebo duplicate side effects.
+- CPU run queue a throttlingom;
+- worker/event-loop queue;
+- DB connection-pool waitom;
+- lock waits a query latency;
+- disk I/O queue;
+- broker lag a oldest-message age;
+- proxy pending requests;
+- downstream quota/rejection;
+- memory, GC a restartmi;
+- autoscaling events.
 
-## 33. Soak test
+Prvý rastúci wait/queue signal je často dôležitejší než prvý resource na 100 %.
 
-Soak test potrebuje dĺžku zodpovedajúcu podozrivým lifecycle-om, napríklad niekoľkým GC cycles, token rotations, log rotations, compactions alebo cache eviction obdobiam.
+## 13. Workload generator ako testovaný systém
 
-Sleduj trend, nie iba konečný stav:
+Generator musí mať rezervu v:
 
-- memory po GC,
-- open files a sockets,
-- goroutines, threads alebo tasks,
-- queue depth,
-- database bloat,
-- disk growth,
-- error rate v čase,
-- throughput drift,
-- credential alebo session expiry.
+- CPU a network bandwidth;
+- file descriptors a ephemeral ports;
+- timer resolution;
+- connection capacity;
+- clock synchronization;
+- memory a sample buffering;
+- distributed coordination.
 
-## 34. Stress test a bod degradácie
+Validuj:
 
-Stress test zvyšuje demand, kým systém prekročí plánovaný rozsah. Cieľom nie je iba číslo maximálneho throughputu, ale popis transition:
+```text
+planned arrivals
+→ scheduled arrivals
+→ actual sends
+→ completed samples
+→ dropped alebo delayed iterations
+```
+
+Ak generator saturuje, throughput plateau nemusí patriť serveru.
+
+## 14. Success, abort a safety
+
+Success criteria kombinujú:
+
+- user-facing latency a error limits;
+- completed throughput;
+- bounded queues;
+- resource a dependency limits;
+- absence data corruption a duplicate side effects;
+- recovery deadline.
+
+Abort criteria zahŕňajú:
+
+- neočakávaný production target;
+- error/latency nad bezpečnú hranicu;
+- ohrozenie shared dependency;
+- data-integrity signal;
+- nekontrolovaný cost alebo generator runaway;
+- výpadok observability;
+- nemožnosť emergency stopu.
+
+Load script zlyhá zatvorene, ak target identity nie je allowlisted.
+
+## 15. Load, stress, spike, soak a capacity
+
+Tieto varianty menia hypotézu a fázu experimentu:
+
+- **load test** — overí plánovaný workload a SLO;
+- **stress test** — sleduje transition za plánovanou hranicou;
+- **spike test** — skúma prudký nárast a control-loop latency;
+- **soak test** — skúma kumulatívny drift a lifecycle leaks;
+- **capacity test** — hľadá maximálny udržateľný workload so safety margin;
+- **scalability test** — porovná capacity a efficiency pri zmene resources.
+
+Všetky potrebujú artifact, workload, evidence a recovery contract.
+
+## 16. Stress transition a graceful degradation
+
+Stress test nemá skončiť číslom „maximum RPS“. Sleduje:
 
 ```text
 healthy
 → rising queue
-→ SLO violation
+→ SLO breach
 → controlled rejection
 → degraded mode
 → recovery alebo collapse
 ```
 
-Urči prvý saturation signal, prvý SLO breach, prvé rejection a bod nevratnej degradácie.
+Preferovaný overload behavior:
 
-## 35. Graceful degradation
+- admission control;
+- bounded queues;
+- rate limiting;
+- prioritization;
+- load shedding;
+- deadlines;
+- circuit breakers;
+- ochrana DB a brokerov;
+- read-only alebo cached fallback podľa business contractu.
 
-Preferovaný overload behavior je bounded a predvídateľný:
+Globálne vyčerpanie threads, memory alebo DB connections je nekontrolované zlyhanie.
 
-- admission control,
-- bounded queues,
-- rate limiting,
-- prioritization,
-- load shedding,
-- deadlines a timeouts,
-- circuit breakers,
-- degraded read-only alebo cached response,
-- ochrana kritických dependencies.
+## 17. Autoscaling ako control loop
 
-Globálne vyčerpanie threads, memory alebo database connections vytvára cascading failure a je slabým failure mode-om.
-
-## 36. Retry amplification
-
-Pri stress teste sleduj, či klienti, proxy a služby retryujú rovnaký failure. Viac vrstiev retries môže znásobiť demand presne v čase nedostatku capacity.
-
-Testuj:
-
-- max attempts,
-- retryable errors,
-- backoff a jitter,
-- retry budget,
-- idempotency,
-- deadline propagation,
-- circuit-breaker interaction.
-
-## 37. Databázové performance testy
-
-Modeluj:
-
-- read/write mix,
-- transaction length,
-- isolation level,
-- lock contention,
-- connection pool,
-- query plans,
-- hot rows a indexes,
-- replication lag,
-- checkpoints a compaction,
-- backup alebo maintenance overlap,
-- failover a reconnect behavior.
-
-Query benchmark bez aplikačnej concurrency nemusí odhaliť pool alebo transaction bottleneck.
-
-## 38. Queue a broker systémy
-
-Pri asynchronous systéme throughput producenta nie je dostatočný výsledok. Sleduj:
-
-- arrival a consume rate,
-- backlog a oldest-message age,
-- consumer concurrency,
-- redelivery a duplicate rate,
-- partition skew,
-- processing latency,
-- dead-letter growth,
-- recovery po consumer outage.
-
-Backlog musí byť bounded a po peak-u sa má vyprázdniť v definovanom čase.
-
-## 39. Cache performance
-
-Cache test potrebuje explicitný stav:
-
-- cold cache,
-- warm steady cache,
-- partial invalidation,
-- eviction pressure,
-- hot-key burst,
-- cache dependency outage.
-
-Vysoký hit rate môže skrývať neprijateľný origin load pri invalidácii alebo reštarte.
-
-## 40. Network a protocol limity
-
-Sleduj connection setup, TLS handshakes, keepalive reuse, HTTP/2 alebo HTTP/3 streams, retransmissions, bandwidth, packet loss, NAT a ephemeral-port pressure.
-
-Generator blízko servera nemusí reprezentovať regionálnu latency ani mobile network. Network emulation musí mať zdokumentované delay, jitter, loss a bandwidth parametre.
-
-## 41. Cost a efficiency
-
-Performance výsledok možno normalizovať na cost:
+Atlas meria:
 
 ```text
-completed business operations
-÷ infrastructure cost
+workload signal
+→ metrics collection/aggregation
+→ autoscaler decision
+→ capacity provisioning
+→ process startup
+→ readiness
+→ endpoint registration
+→ traffic redistribution
 ```
 
-Vyšší throughput za cenu neúmerne väčšieho clusteru nemusí byť efektívnejšie riešenie. Sleduj performance per replica, per CPU alebo per monetary unit podľa rozhodnutia.
+Každá fáza má latency. Sleduj overshoot, oscillation, cooldown, scale-down safety a existujúce connections. Autoscaling nevyrieši shared DB bottleneck ani quota.
 
-## 42. Bezpečnosť experimentu
+## 18. Retry amplification
 
-Pred spustením definuj:
+Pri overload-e môžu klient, proxy a služby retryovať rovnaký failure:
 
-- povolený environment a čas,
-- allowlist targetov,
-- maximálny arrival rate a concurrency,
-- downstream limits,
-- test identities a data cleanup,
-- cost cap,
-- observability dashboard,
-- emergency stop,
-- ownera a komunikačný kanál,
-- zákaz produkčného testu bez explicitného schválenia.
+```text
+pôvodný demand
+× client retries
+× proxy retries
+× service retries
+→ incidentný demand násobok
+```
 
-Load script má zlyhať zatvorene, ak target identity nie je očakávaná.
+Testuj max attempts, retryable errors, backoff/jitter, retry budget, idempotency a deadline propagation. Recovery nesmie vytvoriť oneskorené duplicity.
 
-## 43. Failure artifacts
+## 19. Worked failure: closed model skryl overload
+
+Pôvodný Atlas test používal 300 virtual users. Pri spomalení každý user čakal na response, takže generovaný request rate klesol:
+
+```text
+latency vzrástla
+→ users čakali dlhšie
+→ arrival rate klesla z 1 500 na 700/s
+→ backlog nevznikol
+→ report ukázal nízku error rate
+```
+
+Produkčný promo traffic však pokračoval na 1 500 arrivals/s. Queue narástla, requests timeoutovali a retries zvýšili demand.
+
+### Root cause
+
+Closed workload bol interpretovaný ako dôkaz pre open public traffic. Coordinated omission skrylo čakajúcich používateľov.
+
+### Náprava
+
+- public API test používa scheduled open arrivals;
+- reportuje planned/actual send rate;
+- latency sa viaže na intended start;
+- generator capacity sa validuje;
+- backlog a oldest-request age sú blocking metrics;
+- closed test zostáva iba pre session-specific otázku.
+
+## 20. Worked failure: viac replicas znížilo stabilitu
+
+Atlas zdvojnásobil `orders-api` replicas z 20 na 40. Aplikačná CPU klesla, ale DB pool mal 20 connections na každú repliku:
+
+```text
+40 replicas × 20 connections
+→ 800 možných DB connections
+→ DB limit 500
+→ pool/connect waits a rejections
+→ retries
+→ vyššia latency a nižší completed throughput
+```
+
+### Root cause
+
+Scalability experiment meral iba aplikačnú CPU a počet replicas. Shared DB capacity a retry amplification neboli súčasťou modelu.
+
+### Náprava
+
+- connection budget sa počíta na celý deployment;
+- autoscaling max replicas zohľadňuje DB limit;
+- pool wait a active connections sú success criteria;
+- retries sa obmedzia deadline a budgetom;
+- ďalší experiment mení jednu kapacitnú premennú a sleduje nový bottleneck.
+
+## 21. Baseline a porovnávanie
+
+Reprodukovateľný baseline obsahuje:
+
+- artifact a environment identity;
+- workload a dataset fingerprint;
+- generator/tool revision;
+- warm-up a measurement windows;
+- raw histograms a time series;
+- resource, queue a dependency metrics;
+- prirodzenú variabilitu z opakovaní.
+
+Regresiu posudzuj kombináciou:
+
+```text
+absolútny SLO
++ relatívna zmena
++ známa variabilita
++ praktická prevádzková významnosť
++ bottleneck evidence
+```
+
+Jeden run nie je spoľahlivý baseline.
+
+## 22. Failure artifacts a report
 
 Uchovaj:
 
-- load script a jeho revision,
-- resolved workload parameters,
-- artifact a environment provenance,
-- raw histograms a time series,
-- generator metrics,
-- server, dependency a infrastructure metrics,
-- traces alebo profiles pre reprezentatívne samples,
-- logs s correlation IDs,
-- autoscaling a deployment events,
-- abort alebo operator actions.
+- load script a resolved parameters;
+- artifact, environment a dataset provenance;
+- scheduled/actual arrival data;
+- raw latency histograms;
+- throughput a error classes;
+- generator metrics;
+- server, DB, broker a infra time series;
+- representative traces/profiles;
+- autoscaling a deployment events;
+- abort/operator actions;
+- recovery timeline.
 
-Screenshot dashboardu sám osebe nie je dostatočne analyzovateľný dôkaz.
+Report odpovie:
 
-## 44. Performance report
+1. Aká bola hypotéza?
+2. Čo sa testovalo?
+3. Aký workload prišiel?
+4. Kde vznikol prvý wait alebo saturation?
+5. Kedy bol porušený SLO?
+6. Ako systém degradoval?
+7. Ako sa obnovil?
+8. Aké capacity/release rozhodnutie je podporené?
+9. Aké blind spots zostávajú?
 
-Report má obsahovať:
+## 23. Diagnostický postup
 
-1. cieľ a hypotézu,
-2. testovaný artifact a environment,
-3. workload a dataset model,
-4. open/closed semantics,
-5. fázy a trvanie,
-6. success a abort criteria,
-7. latency histograms, throughput a error classes,
-8. resource, queue a dependency evidence,
-9. bottleneck a failure transition,
-10. recovery behavior,
-11. porovnanie s baseline,
-12. limity interpretácie,
-13. odporúčanie pre capacity alebo release.
-
-## 45. Diagnostický workflow
-
-1. Over, že generator dosiahol plánovaný arrival rate.
+1. Over plánovaný verzus skutočný arrival rate.
 2. Potvrď artifact, environment a dataset identity.
-3. Oddeľ client-side scheduling, transport a server latency.
+3. Oddeľ client scheduling, transport a server latency.
 4. Nájdite prvý rastúci queue alebo wait metric.
-5. Koreluj SLO breach s CPU, memory, I/O, DB, broker a dependency metrics.
-6. Skontroluj retries, timeouts a rejection classes.
-7. Over, či throughput plateau nie je limit generatora.
-8. Sleduj transition počas ramp-up, nie iba finálny interval.
+5. Koreluj SLO breach s CPU, memory, I/O, DB, broker a dependencies.
+6. Roztrieď timeout, rejection, business a generator errors.
+7. Over, či plateau nepatrí generatoru.
+8. Sleduj transition počas ramp-up, nie iba priemer.
 9. Over recovery po ramp-down.
-10. Reprodukuj bottleneck cieleným experimentom s jednou zmenou.
+10. Reprodukuj hypotézu experimentom s jednou zmenou.
 
-## 46. Časté anti-patterny
+## 24. Referenčné pravidlá
 
-### Priemer je pod limitom
+- Performance test začína hypotézou a rozhodnutím.
+- Arrival rate, concurrency a throughput nezamieňaj.
+- Workload model odvoď z demand source.
+- Open traffic netestuj náhodne closed modelom.
+- Operation mix a dataset musia byť reprezentatívne.
+- Percentily reportuj per operation a result class.
+- Sleduj queues a waits, nie iba utilization.
+- Generator má vlastnú capacity validation.
+- Steady throughput s rastúcim backlogom nie je steady state.
+- Stress test obsahuje failure transition a recovery.
+- Autoscaling testuje celý control loop.
+- Retry budget patrí do overload modelu.
+- Baseline potrebuje viac než jeden run.
+- Raw artifacts a environment provenance sa uchovávajú.
 
-Tail latency alebo error class môže porušovať SLO.
+## 25. Časté omyly
 
-### Viac virtual users znamená presne viac loadu
+### „Viac virtual users znamená viac loadu“
 
-V closed modeli request rate závisí od response time a think time.
+V closed modeli request rate závisí od response time.
 
-### Stress test je iba väčší load test
+### „Priemer je pod limitom“
 
-Stress test musí skúmať failure transition, ochrany a recovery.
+Tail latency, rejections alebo kritická operation môžu porušovať SLO.
 
-### CPU nie je 100 %, systém má rezervu
+### „CPU nie je 100 %, máme rezervu“
 
-Bottleneck môže byť lock, connection pool, disk, quota, partition alebo serial section.
+Bottleneck môže byť pool, lock, disk, quota alebo partition.
 
-### Polovičný environment vynásobíme dvoma
+### „Stress test je iba väčší load test“
 
-Scaling nie je automaticky lineárny.
+Musí ukázať transition, ochrany a recovery.
 
-### Jeden run je baseline
+### „Dvojnásobný cluster dá dvojnásobný throughput“
 
-Cloud noise alebo warm-up stav môže vytvoriť náhodný výsledok.
+Shared bottleneck a coordination môžu scaling limitovať.
 
-### Generator report je jediný dôkaz
+### „Generator report je celý dôkaz“
 
-Bez server-side a dependency telemetry nemožno vysvetliť bottleneck.
+Bez server a dependency telemetry nevieš vysvetliť výsledok.
 
-### Autoscaling vyrieši každý spike
+## 26. Zhrnutie
 
-Control loop má latency a môže naraziť na shared bottleneck.
+Dôveryhodný Atlas performance experiment je:
 
-## 47. Prevádzkový checklist
+```text
+SLO a demand
+→ experiment contract
+→ open workload + reprezentatívne dáta
+→ immutable artifact
+→ warm-up/ramp/steady/peak
+→ latency + throughput + queues + resources
+→ controlled failure transition
+→ recovery
+→ capacity/release decision
+```
 
-Pred performance testom over:
+Názvy load, stress, spike alebo soak sú užitočné iba vtedy, keď menia explicitnú hypotézu a evidence plán.
 
-- hypotéza a rozhodnutie sú explicitné,
-- workload model reprezentuje produkčný demand,
-- open/closed semantics sú správne,
-- artifact, environment a dataset sú identifikované,
-- generator má dostatočnú rezervu,
-- warm-up a steady-state podmienky sú definované,
-- percentily majú dostatočný sample count,
-- coordinated omission je riešené,
-- success, abort a recovery criteria sú merateľné,
-- server a dependency telemetry sú dostupné,
-- test je bezpečný pre downstream a cost,
-- raw artifacts sa uchovajú,
-- baseline a variabilita sú známe.
+## 27. Kontrolné otázky
 
-## 48. Zhrnutie
-
-Dôveryhodný performance test je kontrolovaný experiment. Spája reprezentatívny demand model, immutable artifact, zdokumentované prostredie, validovaný generator, latency distributions, completed throughput, saturation a dependency evidence. Load test potvrdzuje plánovanú prevádzku, stress test skúma failure transition, spike test control-loop reakciu, soak test kumulatívnu stabilitu a capacity test udržateľný limit. Výsledok musí vždy obsahovať aj recovery a limity interpretácie.
-
-## 49. Kontrolné otázky
-
-1. Aký je rozdiel medzi arrival rate, concurrency a completed throughput?
-2. Kedy použiť open a kedy closed workload model?
-3. Čo je coordinated omission?
-4. Prečo sa percentily medzi generátormi nemajú priemerovať?
-5. Ako rozlíšiš utilization od saturation?
-6. Čo dokazuje Littleho zákon a aké má limity?
-7. Kedy je warm-up ukončený?
-8. Prečo steady throughput s rastúcim backlogom nie je steady state?
-9. Ako sa testuje celý autoscaling control loop?
-10. Aké failure transition má skúmať stress test?
-11. Čo musí obsahovať reprodukovateľný baseline?
-12. Ako overíš, že load generator nie je bottleneck?
-13. Prečo je recovery povinnou časťou testu?
-14. Ako retry amplification mení overload?
+1. Aký decision lifecycle má performance test?
+2. Aký je rozdiel medzi arrival rate, concurrency a completed throughput?
+3. Kedy použiť open a kedy closed workload?
+4. Ako vzniká coordinated omission?
+5. Prečo operation mix potrebuje per-operation percentily?
+6. Ako rozlíšiš utilization od saturation?
+7. Prečo rastúci backlog diskvalifikuje steady state?
+8. Ako validuješ load generator?
+9. Čo musí obsahovať success a abort contract?
+10. Aký transition skúma stress test?
+11. Ako sa meria celý autoscaling control loop?
+12. Ako retry amplification mení overload?
+13. Prečo viac Atlas replicas zhoršilo DB stabilitu?
+14. Prečo je recovery povinnou časťou experimentu?
 
 ## Glossary impact
 
-Relevantné pojmy: performance test, load test, stress test, spike test, soak test, capacity test, scalability test, open workload model, closed workload model, arrival rate, concurrency, completed throughput, tail latency, coordinated omission, saturation, queueing, steady state, load shedding, retry amplification a performance baseline.
+Relevantné pojmy: performance test, load test, stress test, spike test, soak test, capacity test, scalability test, experiment contract, open workload, closed workload, arrival rate, concurrency, completed throughput, coordinated omission, tail latency, queueing, saturation, steady state, load shedding, retry amplification, autoscaling control loop, recovery a performance baseline.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
