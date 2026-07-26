@@ -8,651 +8,693 @@
 - Predpoklady: [Mocks, stubs a fakes](mocks-stubs-fakes.md), [End-to-end a acceptance tests](end-to-end-and-acceptance-tests.md)
 - Súvisiace témy: nondeterminism, first-attempt pass rate, quarantine, retries, test isolation, fixtures, synthetic data, cleanup, environment saturation
 
-## 1. Mentálny model
-
-Flaky test pri rovnakom source revision, deklarovaných vstupoch a očakávanom environment contracte niekedy prejde a niekedy zlyhá. Flakiness znamená, že testovací systém nevie spoľahlivo rozlíšiť správnu zmenu od regresie.
+Flaky test pri rovnakom kandidátovi a deklarovane rovnakých vstupoch niekedy prejde a niekedy zlyhá. Premenlivý verdict znamená, že testovací systém obsahuje skrytý alebo nekontrolovaný vstup, prípadne korektne odhaľuje intermittent product failure.
 
 ```text
-rovnaký kandidát
-+ deklarovane rovnaké vstupy
-+ rovnaký test contract
-→ rozdielny výsledok
-→ existuje skrytý alebo nekontrolovaný vstup
+candidate identity
++ test contract
++ fixture a environment contract
++ execution schedule
+→ observation a oracle
+→ first-attempt verdict
 ```
 
-Skrytý vstup môže byť v samotnom teste, testovanom systéme, prostredí, dátach, externých dependencies alebo CI orchestration. Cieľom nie je iba „stabilizovať test“, ale identifikovať, ktorá nondeterministická boundary ovplyvnila verdict.
+Ak sa verdict mení, diagnostika musí nájsť boundary, na ktorej sa zmenil čas, poradie, state, resource, dependency alebo orchestration. Automatický rerun túto príčinu neurčí.
 
-## 2. Flaky test verzus intermittent product defect
+## 1. Cieľ kapitoly
 
-Nie každý premenlivý failure je chyba testu. Test môže korektne odhaľovať race condition, lost update, startup race, resource leak alebo timeout v produkčnom kóde.
-
-Rozlišuj:
-
-- **test flakiness** — test používa nesprávny wait, shared state, nestabilný selector alebo neizolované dáta;
-- **system intermittency** — aplikácia sa pri rovnakom scenári reálne správa rozdielne kvôli concurrency, consistency alebo resource limitu;
-- **environment instability** — runner, network, storage alebo external service porušuje deklarovaný test contract;
-- **orchestration failure** — test nebežal, artifact chýbal alebo CI zle agregoval výsledok.
-
-Rerun môže ukázať, že failure nie je deterministický. Neurčuje však automaticky, do ktorej kategórie patrí.
-
-## 3. Prečo flakiness poškodzuje delivery
-
-Flaky suite mení správanie tímu. Keď červený výsledok často neznamená regresiu, vývojári začnú rerunovať namiesto diagnostiky.
-
-Dôsledky sú:
-
-- reálne regresie sa zamieňajú za „známy flaky test“;
-- blocking gates strácajú autoritu;
-- lead time rastie o queue a rerun čas;
-- vznikajú manual bypassy;
-- batch size sa zväčšuje, pretože feedback je drahý;
-- ownership sa presúva z opravy príčiny na správu rerunov;
-- intermittent product chyby unikajú do produkcie.
-
-Testovací systém je rozhodovací mechanizmus. Jeho prvou požiadavkou je dôveryhodný verdict.
-
-## 4. Deklarované a skryté vstupy
-
-Reprodukovateľný test musí poznať všetky vstupy, ktoré môžu meniť výsledok.
+Nosný model kapitoly je:
 
 ```text
-source revision
-artifact version
-test code a config
-fixture a schema version
-clock a timezone
-random seed
-process order a concurrency
-OS/runtime/tool versions
-resource limits
-external dependency state
+rovnaký kandidát, rozdielny verdict
+→ zachovať prvý failure a provenance
+→ klasifikovať test/product/environment/orchestration
+→ inventarizovať deklarované a skryté vstupy
+→ nájsť prvý odlišný observation point
+→ reprodukovať riadeným experimentom
+→ odstrániť nondeterministic boundary alebo product race
+→ overiť serial/parallel/random-order stabilitu
+→ obnoviť blocking dôveru a odstrániť quarantine/retry
 ```
 
-Ak test tvrdí, že beží s rovnakými vstupmi, ale neuchováva seed, environment metadata alebo dependency version, flakiness sa ťažko dokazuje aj diagnostikuje.
+Test data sú súčasťou toho istého modelu. Fixture bez identity, ownershipu, schema version a cleanup contractu je skrytý vstup, ktorý môže meniť verdict iného testu.
 
-## 5. Taxonómia príčin
+## 2. Nosný scenár: Atlas export journey
 
-### Timing a race conditions
+Atlas E2E test vykonáva:
 
-Operácia ešte neskončila, test pozoruje prechodný stav alebo dve paralelné operácie súťažia bez explicitnej synchronizácie.
+```text
+vytvoriť tenant a zákazníka
+→ seednúť objednávky
+→ POST /exports
+→ worker načíta tenant-scoped rows
+→ vytvorí CSV object
+→ API vráti signed download URL
+→ test overí rows, tenant a audit
+→ cleanup resources
+```
 
-### Shared mutable state
+Suite beží v ôsmich paralelných shards. Každý test má deklarovane používať vlastný tenant, queue namespace, object prefix a fixture dataset.
 
-Testy používajú rovnakú databázu, účet, cache, queue, filesystem path, singleton alebo environment variable.
+Po niekoľkých týždňoch sa objavia tri signatures:
 
-### Order dependence
+1. timeout pri čakaní na `EXPORT_READY`;
+2. CSV niekedy obsahuje jednu cudziu objednávku;
+3. cleanup občas zmaže object, ktorý ešte používa iný test.
 
-Jeden test mení stav, ktorý iný test implicitne očakáva. Výsledok závisí od poradia alebo od toho, či sa test spustí samostatne.
+Tieto failures nemajú automaticky rovnaký root cause. Potrebujú spoločný evidence lifecycle.
 
-### Environment dependence
+## 3. Determinism contract
 
-Výsledok mení timezone, locale, filesystem ordering, CPU scheduling, OS, runtime version, port availability alebo sieťová latencia.
+Reprodukovateľný test explicitne identifikuje vstupy:
 
-### External dependency
+- source a immutable artifact;
+- test code, config a framework;
+- fixture, schema a migration version;
+- tenant/resource IDs;
+- clock, timezone a locale;
+- random a order seed;
+- concurrency a shard;
+- OS/runtime/tool versions;
+- CPU, memory a quota limits;
+- external dependency version a state;
+- feature flags;
+- orchestration attempt.
 
-Shared test service má outage, rate limit, nekontrolované dáta, eventual consistency alebo iné tenants.
+„Rovnaký test“ bez týchto údajov môže v skutočnosti znamenať iný dataset, environment, order alebo dependency contract.
 
-### Randomness
+## 4. Štyri kategórie premenlivého failure
 
-Seed alebo generovaný input nie je uložený, prípadne test nesprávne očakáva konkrétne poradie random calls.
+### Test flakiness
 
-### Resource saturation
+Test používa fixed sleep, shared mutable state, unstable selector, globálny mock alebo neizolované dáta. Product behavior môže byť správny, ale oracle alebo setup je nekontrolovaný.
 
-Runner, database, broker alebo test environment je preťažený. Timeout je symptóm kapacitného problému, nie nutne chyba timeout hodnoty.
+### Intermittent product defect
 
-### Test orchestration
+Test korektne odhaľuje race, lost update, duplicate side effect, startup race alebo resource leak v aplikácii. Označiť ho za flaky test by skrylo reálnu regresiu.
 
-Shard sa nespustí, artifact sa stratí, cleanup job koliduje s ďalším runom alebo CI nesprávne priradí výsledok k commitu.
+### Environment instability
 
-## 6. Fixed sleep anti-pattern
+Runner, network, storage, broker alebo shared sandbox poruší deklarovaný environment contract. Výsledok nie je validný product verdict, ale nie je ani green.
 
-Pevný sleep nečaká na podmienku. Iba odkladá assertion o zvolený čas.
+### Orchestration failure
+
+Test sa nespustil, použil nesprávny artifact, stratil fixture alebo CI zle agregoval výsledok. Ide o incomplete execution evidence.
+
+Rerun môže zmeniť symptóm, ale neklasifikuje príčinu.
+
+## 5. First-attempt evidence
+
+Prvý failure je najcennejší, pretože obsahuje pôvodný timing a state. Uchovaj:
+
+- candidate a attempt identity;
+- exact test a shard;
+- fixture/dataset provenance;
+- seed a execution order;
+- structured logs a timeline;
+- request, correlation a trace ID;
+- last observed state;
+- resource metrics;
+- pending tasks/queues;
+- screenshot, browser alebo network trace podľa scope-u;
+- setup a cleanup status.
+
+Rerun nesmie prepísať prvé artifacts ani zmeniť výsledok na obyčajný green.
+
+## 6. Fixed sleep nevytvára synchronizáciu
 
 ```python
 time.sleep(5)
-assert job.finished
+assert export.status == "READY"
 ```
 
-Na rýchlom stroji zbytočne spomaľuje test. Na pomalom alebo preťaženom runneri môže byť príliš krátky. Zvýšenie na 30 sekúnd znižuje frekvenciu failure, ale neodstraňuje race.
+Sleep čaká na čas, nie na stav. Na rýchlom runneri plytvá časom; na preťaženom je príliš krátky. Zvýšenie na 30 sekúnd iba zníži frekvenciu failure.
 
-Použi condition-based wait:
-
-```python
-wait_until(
-    lambda: job.finished,
-    timeout=10,
-    description="job reaches terminal state",
-)
-```
-
-Wait má pri failure uchovať posledný observed state, elapsed time a relevantnú timeline.
-
-## 7. Condition-based waiting
-
-Kvalitný wait contract obsahuje:
-
-- konkrétnu success condition;
-- deadline, nie neobmedzený retry;
-- interval alebo bounded backoff;
-- terminal failure states;
-- cancellation;
-- diagnostiku poslednej hodnoty;
-- korelačné ID alebo event timeline.
-
-Polling príliš často môže preťažiť testovaný systém. Polling príliš zriedka zbytočne predlžuje suite. Interval má zodpovedať očakávanej latency a nákladom observationu.
-
-## 8. Eventual consistency
-
-Asynchrónny workflow má viac odlišných míľnikov:
+Condition-based wait:
 
 ```text
-request prijatý
-→ command commitnutý
-→ event publikovaný
-→ consumer spracoval event
-→ read model aktualizovaný
-→ používateľský výsledok viditeľný
+poll diskriminačný observation point
+→ skonči pri success condition
+→ skonči pri terminal failure
+→ skonči pri deadline
+→ pri failure ulož posledný state a timeline
 ```
 
-Test musí pomenovať, ktorý míľnik je oracle. HTTP 202 neznamená, že downstream side effect už existuje.
+Polling interval musí rešpektovať latency a náklad observationu. Busy polling môže sám vytvoriť load.
 
-Consistency contract má definovať maximálnu očakávanú dobu, terminal failure a observable state. Neobmedzené čakanie môže zmeniť poruchu na pomalý „pass“.
+## 7. Eventual consistency a míľniky
 
-## 9. Deterministický čas
+Atlas export má viac stavov:
 
-Wall clock je skrytý globálny vstup. Testy majú používať explicitný clock, timezone a pri durations monotonic time.
+```text
+request accepted
+→ DB job committed
+→ event published
+→ worker claimed event
+→ query completed
+→ object written
+→ state READY
+→ download visible
+```
 
-Kontrolovať treba:
+HTTP `202` nie je dôkaz finálneho exportu. Oracle musí pomenovať konkrétny terminal state a deadline.
 
-- pevný instant;
-- timezone;
-- DST transition;
-- koniec mesiaca a leap day;
-- expiry boundary;
-- retry schedule;
-- lease renewal;
-- clock skew medzi komponentmi.
+Ak timeout nastane, artifacts majú ukázať posledný dosiahnutý míľnik. To odlíši chýbajúci event, worker backlog, storage failure a pomalý read model.
 
-Fake clock musí byť prepojený so schedulerom vedome. Posunutie `now` nemusí automaticky vykonať pending task, ak produkčný scheduler reaguje na timer queue.
+## 8. Worked failure: rerun skryl product race
 
-## 10. Randomness a property-based tests
+Atlas test niekedy timeoutol pri `EXPORT_READY`. Automatický retry testu prešiel, preto bol označený ako flaky.
 
-Randomizovaný test má pri failure uložiť:
+Timeline prvého attemptu:
+
+```text
+export job committed
+→ event published
+→ worker spracoval event
+→ object upload dokončený
+→ worker zapísal READY
+→ cleanup scheduler označil starý job ako expired
+→ status sa zmenil na EXPIRED pred polling probe
+```
+
+Druhý attempt použil nový job a prešiel.
+
+### Root cause
+
+Išlo o product race medzi completion a expiry schedulerom. Test nebol chybný; fixed polling interval iba menil pravdepodobnosť pozorovania krátkeho `READY` state-u.
+
+### Náprava
+
+- expiry sa počíta od completion timestampu, nie creation timestampu;
+- state transition používa optimistic concurrency;
+- test má controllable clock a scheduler;
+- regression test reprodukuje interleaving;
+- E2E wait prijíma stabilný terminal contract;
+- auto-rerun už neklasifikuje failure ako test flake.
+
+## 9. Time ako viacero vstupov
+
+Test rozlišuje:
+
+```text
+wall clock
+→ timestamp, expiry, kalendár
+
+monotonic time
+→ elapsed duration a deadline
+
+scheduler
+→ execution due work
+
+timezone/locale
+→ reprezentácia a business calendar
+```
+
+Fake clock bez controllable scheduleru nemusí reprodukovať production timer semantics. Test explicitne advances time a spúšťa due tasks.
+
+Relevantné boundaries sú DST, koniec mesiaca, leap day, token expiry a clock skew medzi komponentmi.
+
+## 10. Randomness a property-based failure
+
+Randomizovaný test pri failure uloží:
 
 - seed;
-- pôvodný generated input;
+- konkrétny generated input;
 - minimalizovaný counterexample;
-- generator a framework version;
-- relevantnú configuration;
-- execution order, ak sa randomizoval aj test order.
+- generator/framework version;
+- parameters;
+- test-order seed.
 
-Property-based framework môže failure „shrinknúť“ na malý príklad. Tento counterexample je vhodný pre trvalý regression test.
-
-Samotný seed nemusí stačiť, ak sa medzi verziami zmení generator algorithm alebo počet random calls. Preto uchovaj aj konkrétny failing input.
+Seed sám nemusí stačiť po zmene generator algorithmu. Konkrétny input sa stáva trvalou regression fixture.
 
 ## 11. Order dependence
 
-Order-dependent test prejde iba po inom teste alebo zlyhá po konkrétnom predecessorovi. Odhaľovanie:
-
-- spúšťať test samostatne;
-- randomizovať order a ukladať seed;
-- spustiť suite v opačnom poradí;
-- rozdeliť tests do rôznych shardov;
-- opakovať suspect pair;
-- porovnať clean environment s reused environmentom.
-
-Root cause býva shared state, neobnovená konfigurácia, global singleton, nevyčistená databáza alebo test, ktorý očakáva cudziu fixture.
-
-## 12. Paralelná izolácia
-
-Paralelné testy musia vlastniť svoje zdroje. Izolácia môže používať:
-
-- database/schema/tenant per worker;
-- unikátny resource prefix z run ID a test ID;
-- OS-assigned ephemeral port;
-- temp directory per test;
-- queue/topic namespace;
-- dedikované credentials;
-- feature-flag namespace;
-- idempotentný cleanup.
-
-Unikátny názov musí byť dostatočne dlhý, no rešpektovať platform limits. Collision pri truncation alebo case folding je častý skrytý problém.
-
-## 13. Port a startup race
-
-Hardcoded port vedie ku kolíziám medzi workers alebo so systémovým procesom. Preferuj bind na port `0`, z ktorého OS vyberie voľný port, a odovzdaj reálnu hodnotu klientovi.
+Order-dependent test používa state z predecessor testu alebo po sebe neobnoví global state. Odhaľovanie:
 
 ```text
-server process started
-≠ server ready
+run alone
+vs full suite
+vs reversed order
+vs randomized order
+vs different shard
+vs clean/reused process
 ```
 
-Readiness má overiť, že socket počúva a služba je schopná spracovať relevantný request. Process existence alebo log line nemusia znamenať pripravenosť.
+Root cause býva database row, cache, environment variable, singleton, monkey patch, fake clock alebo feature flag, ktoré test nevlastní alebo neobnoví.
 
-## 14. Environment saturation
+## 12. Parallel ownership
 
-Test môže zlyhávať iba pri vysokom paralelizme, pretože runner alebo dependency dosiahne limit:
+Každý test/run vlastní resources:
+
+- tenant alebo database/schema;
+- object prefix;
+- queue/topic namespace;
+- temp directory;
+- OS-assigned port;
+- test identity;
+- feature-flag namespace;
+- cleanup label a TTL.
+
+Unique name sa nesmie spoliehať iba na krátky timestamp. Platform truncation, case folding a normalizácia môžu vytvoriť collision.
+
+## 13. Worked failure: truncation spojila dva tenanty
+
+Atlas generoval tenant ID:
+
+```text
+test-{branch}-{shard}-{random}
+```
+
+Platforma povolila iba 24 characters a helper string ticho skrátil. Dve dlhé branch names mali rovnaký prvý prefix.
+
+```text
+run A tenant → test-feature-export-retr
+run B tenant → test-feature-export-retr
+→ shared rows a object prefix
+→ cross-run CSV contamination
+→ cleanup A odstránil objects runu B
+```
+
+### Root cause
+
+Resource identity nebola collision-resistant po platform normalization a cleanup neoveroval ownership token.
+
+### Náprava
+
+- ID používa krátky stable hash celého run/test identity;
+- helper po normalization kontroluje uniqueness budget;
+- každý resource obsahuje immutable owner label a random nonce;
+- cleanup vyžaduje zhodu run ID aj namespace allowlistu;
+- collision test pokrýva truncation a case folding;
+- failure artifacts ukladajú resolved platform IDs.
+
+## 14. Port a readiness race
+
+Hardcoded port koliduje medzi workers. Preferuj bind na port `0` a odovzdanie skutočnej hodnoty klientovi.
+
+```text
+process started
+≠ socket listening
+≠ dependency initialized
+≠ relevant request spracovateľný
+```
+
+Readiness probe má overiť najnižšiu podmienku potrebnú pre testovaný request. Log line alebo process existence môže prísť pred skutočnou pripravenosťou.
+
+## 15. Environment saturation
+
+Timeout koreluj s metrics:
 
 - CPU throttling;
-- memory pressure alebo OOM;
-- file-descriptor exhaustion;
-- connection-pool saturation;
-- database lock contention;
-- rate limit;
+- memory pressure/OOM;
+- file-descriptor usage;
+- connection-pool wait;
+- DB lock contention;
 - disk I/O queue;
-- ephemeral port exhaustion;
-- test artifact upload bottleneck.
-
-Pri timeoutoch koreluj test timeline s resource metrics. Zvýšenie timeoutu môže iba skryť neudržateľnú test-environment kapacitu.
-
-## 15. External dependencies
-
-Test závislý od verejného internetu alebo shared sandboxu nie je plne hermetický. Ak je external dependency súčasťou testovaného rizika, musí mať explicitný contract:
-
-- dostupnosť a maintenance window;
+- broker lag;
+- ephemeral ports;
 - rate limit;
-- test tenant a credentials;
+- artifact upload queue.
+
+Ak failures rastú s paralelizmom, zvýšenie timeoutu môže skryť nedostatočnú environment capacity. Test environment má vlastný capacity contract.
+
+## 16. External dependencies
+
+Shared sandbox alebo verejný internet prináša nekontrolované inputs. Ak je dependency súčasťou rizika, contract obsahuje:
+
+- version a endpoint;
+- test tenant/credentials;
+- availability a rate limits;
 - data ownership;
 - cleanup;
-- version alebo contract;
+- allowed parallelism;
 - failure classification;
-- fallback alebo quarantine policy.
+- fallback/quarantine policy.
 
-Pre rýchle suites preferuj local fake, mock server alebo emulator a doplň periodický sandbox/contract test.
+Rýchle suites používajú local simulator alebo emulator; periodický sandbox test kontroluje drift. Shared dependency failure zostáva viditeľný ako environment/dependency failure.
 
-## 16. Test data lifecycle
+## 17. Test data lifecycle
 
-Test data nie sú iba input fixture. Majú lifecycle:
+Test data prechádzajú:
 
 ```text
-navrhnúť scenár
-→ vytvoriť alebo vygenerovať dáta
-→ versionovať schema a generator
-→ izolovať run
-→ použiť v teste
-→ zachovať diagnostické identifiers
-→ vyčistiť alebo expirovať
-→ auditovať privacy a retention
+scenario contract
+→ fixture/factory/generator design
+→ schema a version
+→ isolated allocation
+→ precondition verification
+→ test execution
+→ diagnostic provenance
+→ cleanup alebo TTL
+→ privacy a retention audit
 ```
 
-Dáta musia reprezentovať relevantné boundaries bez zbytočného objemu a citlivosti.
+Dáta majú byť minimálne, reprezentatívne a vlastnené konkrétnym runom.
 
-## 17. Hand-crafted fixtures
+## 18. Hand-crafted fixtures
 
-Ručná fixture je malý explicitný dataset pre konkrétny scenár. Je vhodná, keď každý field nesie význam a reviewer má vedieť presne, prečo je hodnota prítomná.
+Ručná fixture je vhodná, keď každý field nesie význam. Atlas authorization fixture explicitne ukáže:
 
-Nevýhodou je maintenance pri schema evolution. Obrovská JSON fixture môže obsahovať veľa nepodstatných defaults a skryť relevantný rozdiel.
-
-Preferuj minimálnu fixture alebo builder, ktorý explicitne ukáže scenario-specific fields.
-
-## 18. Factories a builders
-
-Factory vytvára validný default object a umožňuje override relevantných vlastností.
-
-```python
-user = user_factory(
-    role="admin",
-    active=False,
-)
+```text
+requester tenant A
+resource tenant B
+role export_reader
+expected DENY
 ```
+
+Veľký JSON s desiatkami defaults skrýva preconditions a je krehký pri schema evolution. Preferuj malú fixture alebo builder s explicitnými overrides.
+
+## 19. Factory a builder contract
 
 Dobrá factory:
 
-- má stabilné, validné defaults;
-- nepoužíva náhodnosť bez reprodukovateľného seedu;
-- umožňuje explicitné overrides;
-- neskrýva security alebo business-critical fields;
-- generuje unikátne identifiers iba tam, kde je to potrebné;
-- má versionovaný contract so schema evolution.
+- vytvára validný minimálny default;
+- zobrazuje critical fields;
+- podporuje explicitné overrides;
+- používa reprodukovateľnú identity;
+- nevytvára veľký graph bez potreby;
+- má versionovaný schema contract.
 
-Príliš „magická“ factory vytvorí veľké graphy a test prestane ukazovať vlastné preconditions.
+„Magická“ factory, ktorá automaticky vytvorí tenant, permissions, inventory a flags, môže obísť boundary, ktorú test mal vykonať.
 
-## 19. Golden a snapshot data
+## 20. Golden files a snapshots
 
-Golden file alebo snapshot uchováva očakávaný komplexný output. Je vhodný, keď diff zostáva čitateľný a reviewer vie posúdiť význam zmeny.
+Snapshot je oracle iba vtedy, keď diff zostáva reviewovateľný. Stabilizuj ordering, timestamps, IDs, encoding, paths a serializer version.
 
-Stabilizuj:
+`Update all snapshots` pri failure ruší oracle. Baseline sa mení po pochopení behavior change a explicitnom reviewe.
 
-- ordering;
-- timestamps;
-- random IDs;
-- newline a encoding;
-- serializer version;
-- platform-specific paths;
-- floating-point formatting.
+## 21. Synthetic datasets
 
-Automatické prepísanie snapshotu pri failure ruší oracle. Baseline update musí byť explicitný a reviewovaný.
-
-## 20. Synthetic datasets
-
-Synthetic data sú navrhnuté bez kopírovania reálnych osobných údajov. Majú modelovať relevantné distribúcie, correlations a edge cases.
-
-Náhodný generátor s uniform distributions nemusí reprezentovať produkciu. Performance alebo migration test môže potrebovať:
+Synthetic data modelujú distributions a edge cases bez kopírovania reálnych osôb. Performance alebo migration test môže potrebovať:
 
 - hot keys;
 - skewed tenant sizes;
-- Unicode a locale variants;
-- sparse aj dense records;
+- Unicode/locale variants;
+- sparse a dense records;
 - long-tail payloads;
 - historical schema versions.
 
-Generator version, seed a parameters patria do provenance výsledku.
+Uniform random data často nereprezentujú production risk. Generator version, seed a parameters patria do provenance.
 
-## 21. Production-derived data
+## 22. Production-derived data
 
-Production-derived data sú vysokorizikové. Private repository ani non-production environment neodstraňuje privacy, licensing a security povinnosti.
+Production-derived data sú vysokorizikové. Non-production environment ani private repository neodstraňujú privacy a security povinnosti.
 
-Pred použitím treba riešiť:
+Potrebné sú data minimization, schválenie, anonymization/pseudonymization, re-identification assessment, secret removal, access control, encryption, retention, deletion a audit prenosu.
 
-- právny základ a schválenie;
-- data minimization;
-- anonymizáciu alebo pseudonymizáciu;
-- re-identification risk;
-- secrets a tokens;
-- access control;
-- encryption;
-- retention a deletion;
-- audit prenosu;
-- oddelenie environmentov.
+Maskovanie niekoľkých columns nemusí zabrániť re-identification cez kombináciu quasi-identifiers.
 
-Maskovanie niekoľkých stĺpcov nemusí byť dostatočné. Kombinácia quasi-identifiers môže osobu znovu identifikovať.
+## 23. Fixture provenance
 
-## 22. Fixture provenance
+Failure evidence obsahuje:
 
-Pri failure musí byť jasné, s akými dátami test bežal. Uchovaj:
-
-- fixture alebo dataset version;
-- schema/migration version;
+- fixture/dataset version;
+- schema a migration version;
 - factory/generator version;
 - seed a parameters;
 - anonymization version;
-- test-created resource IDs;
-- environment a tenant;
-- creation timestamp.
+- test-created IDs;
+- environment, tenant a shard;
+- creation timestamp;
+- owner/cleanup labels.
 
-Bez provenance môže rovnaký názov fixture po zmene reprezentovať iný input a znemožniť reprodukciu historického failure.
+Bez provenance môže rovnaký fixture name po zmene znamenať iný input.
 
-## 23. Database isolation
+## 24. Database isolation
 
-Bežné stratégie:
+Voľba závisí od test scope-u:
 
-- transaction rollback;
-- schema alebo database per worker;
-- disposable container;
-- snapshot restore;
-- immutable seed plus unique rows;
-- deterministic cleanup podľa run labelu.
+```text
+transaction rollback
+schema/database per worker
+disposable container
+snapshot restore
+immutable seed + unique rows
+owned cleanup podľa run labelu
+```
 
-Transaction rollback neizoluje async worker na inom connection, committed side effect, database trigger s externým efektom ani samotné transaction semantics. Scope testu určuje vhodný model.
+Rollback neizoluje async worker na inom connection ani committed outbox event. Testujúci transaction semantics nemôže obísť commit iba kvôli cleanup convenience.
 
-## 24. Setup lifecycle
+## 25. Setup lifecycle
 
-Setup má vytvoriť minimálny požadovaný stav a potvrdiť preconditions pred spustením action.
+Setup má vlastný verdict:
 
 ```text
 allocate namespace
-→ create dependencies
+→ start dependencies
 → wait for readiness
-→ create fixture state
-→ verify precondition
-→ run action
+→ create fixture
+→ verify preconditions
+→ execute action
 ```
 
-Ak setup zlyhá, test verdict nemá tvrdiť, že product behavior je chybný. Report má rozlišovať setup/infrastructure failure od assertion failure.
+Ak fixture creation zlyhá, test nemá reportovať product assertion failure. `SETUP_FAILED` alebo `ENVIRONMENT_FAILED` je odlišný evidence state.
 
-## 25. Idempotentný setup
+## 26. Idempotentný setup
 
-CI môže job retry-nuť po partial failure. Setup musí vedieť spracovať:
+Job môže byť retried po unknown outcome. Setup zvládne:
 
 - resource už existuje;
-- predchádzajúci run skončil pred registráciou ownershipu;
-- create request bol commitnutý, ale response sa stratila;
-- rovnaký job ID sa spustil znova;
-- časť dependencies existuje a časť nie.
+- create commitol, response sa stratila;
+- partial dependency set;
+- rovnaký run ID sa spustil znova;
+- predchádzajúci cleanup neprebehol.
 
-Preferuj unique resources alebo reconcile semantics. Fragile „delete everything and recreate“ môže zasiahnuť paralelný run.
+Použi unique identity alebo reconcile semantics. „Delete everything“ môže zasiahnuť paralelný run.
 
-## 26. Cleanup ownership
+## 27. Cleanup ownership
 
-Každý vytvorený resource potrebuje owner label, run ID a cleanup policy. Cleanup má prebehnúť po success aj failure, no diagnostické artifacts treba zachovať pred odstránením relevantného stavu.
+Cleanup používa:
 
-Viac vrstiev ochrany:
+- immutable run/test owner label;
+- environment allowlist;
+- namespace prefix/hash;
+- compare-before-delete;
+- teardown v `finally`;
+- fallback cleanup job;
+- TTL;
+- orphan dashboard.
 
-- `finally` alebo fixture teardown;
-- explicitný cleanup job;
-- TTL na dočasných resources;
-- periodický garbage collector;
-- cost a orphan dashboard;
-- bezpečnostný limit, ktorý bráni mazaniu cudzieho namespace-u.
+Artifacts sa zachovajú pred odstránením stavu. Cleanup failure je samostatný failure a môže kontaminovať ďalšie runs.
 
-Cleanup failure je samostatný failure. Ak sa ignoruje, ďalšie testy môžu zlyhávať a cloud náklady rásť.
+## 28. Resource leaks
 
-## 27. Resource leaks
+Dlhá suite môže degradovať kvôli neuzavretým sockets, processes, containers, DB connections, files, threads alebo subscriptions.
 
-Flaky suite môže postupne degradovať v rámci dlhého runu kvôli leakom:
+Diagnostika porovná:
 
-- neuzavreté sockets;
-- processes a containers;
-- database connections;
-- temp files;
-- threads alebo event loops;
-- subscriptions;
-- credentials alebo leases.
+```text
+clean process
+vs test po stovkách predecessors
+vs repeated suspect test v jednom procese
+```
 
-Diagnostika porovnáva clean-run behavior s behaviorom po stovkách testov, sleduje resource counters a spúšťa suspect test opakovane v jednom procese.
+Sleduje resource counters a owner IDs. Leak môže byť v teste aj produkte.
 
-## 28. Retry ako diagnostický nástroj
+## 29. Retry ako diagnostika, nie greenwashing
 
-Retry môže poskytnúť informáciu o reprodukovateľnosti, ale prvý failure musí zostať súčasťou výsledku.
-
-Uchovaj:
+Retry uchová:
 
 - attempt number;
 - first failure signature;
-- artifacts každého pokusu;
-- rovnaký commit a vstupy;
-- environment zmeny medzi pokusmi;
+- artifacts každého attemptu;
+- candidate a inputs;
+- environment changes;
 - pass-after-retry status.
 
 ```text
-pass on first attempt
-≠ fail then pass
+PASS_FIRST
+FAIL_THEN_PASS
+FAIL_REPEATED
+INFRA_INCOMPLETE
 ```
 
-Pipeline a dashboard musia tieto výsledky rozlišovať. Inak celková pass rate maskuje flaky debt.
+Finálny pipeline pass rate nesmie zlučovať `PASS_FIRST` a `FAIL_THEN_PASS`.
 
-## 29. First-attempt pass rate
+## 30. First-attempt pass rate
 
-First-attempt pass rate meria podiel test executions, ktoré prešli bez retry. Je citlivejší na flakiness než finálny pipeline pass rate.
+First-attempt pass rate je podiel executions bez retry. Sleduj aj:
 
-Sleduj aj:
-
-- first-attempt failure rate per test;
 - recovery-on-retry rate;
-- repeated-failure rate;
-- unique failure signatures;
-- suite duration variability;
-- environment a shard correlation;
-- owner a age.
+- repeated failure rate;
+- failure signatures;
+- duration variability;
+- shard/environment correlation;
+- ownera a age;
+- quarantine count.
 
-Test, ktorý vždy prejde na tretí pokus, nie je zelený test. Je to chronicky flaky kontrola.
+Test, ktorý pravidelne prejde až na tretí pokus, nie je zdravý green test.
 
-## 30. Quarantine lifecycle
+## 31. Quarantine lifecycle
 
-Quarantine dočasne odstráni test z blocking decisionu, aby jeden nestabilný signal nezastavil celý tím. Nesmie ho vypnúť ani skryť.
+Quarantine dočasne odstráni nedôveryhodný signal z blocking decisionu. Test zostáva spustený a viditeľný.
 
-Povinné vlastnosti:
+Potrebuje:
 
-- test sa naďalej pravidelne spúšťa;
-- failure zostáva viditeľný;
-- existuje owner a issue;
-- je uvedený dôvod a failure signature;
-- quarantine má expiry a SLA;
-- je definované náhradné krytie rizika;
-- návrat do blocking suite vyžaduje stabilizačný dôkaz.
+- issue a ownera;
+- failure signature a klasifikáciu;
+- expiry/SLA;
+- náhradné krytie rizika;
+- retained artifacts;
+- exit criteria;
+- pravidelný report.
 
-Quarantine bez expiry je trvalé odstránenie kontroly. Počet a vek quarantined tests musí byť quality metric.
+Nequarantinuj pravdepodobný kritický product race bez compensating controlu. Quarantine je containment gate-u, nie root-cause fix.
 
-## 31. Kedy quarantine nie je vhodná
+## 32. Stabilizačný experiment
 
-Nequarantinuj test, ak pravdepodobne odhaľuje kritický production race alebo security failure a neexistuje náhradná kontrola. V takom prípade môže byť správne zastaviť release, znížiť concurrency alebo izolovať problematický component.
+Po oprave nestačí jeden rerun. Experiment môže kombinovať:
 
-Quarantine je gate-management mechanizmus, nie root-cause fix.
+```text
+reproducer pred fixom
+→ serial repeated runs
+→ parallel repeated runs
+→ randomized order
+→ clean/reused process
+→ resource-pressure variant
+→ observation window first-attempt rate
+```
 
-## 32. Detekčné stratégie
+Počet runs závisí od pôvodnej failure probability a impactu. Výsledok musí podporiť explicitné exit criteria.
 
-Flakiness možno hľadať cielene:
+## 33. Exit criteria
 
-- opakované runs rovnakého commitu;
-- randomizované order;
-- serial verzus parallel comparison;
-- test samostatne verzus full suite;
-- clean environment verzus reused environment;
-- environment matrix;
-- zvýšený alebo znížený CPU limit;
-- network latency/failure injection;
-- historical failure clustering;
-- bisect suspect predecessorov;
-- resource-leak loop.
+Quarantine/retry sa odstráni, keď:
 
-Opakovanie má byť ohraničené a evidované. Tisíc zelených behov nezaručuje nulovú flakiness, ale pomáha odhadnúť pravdepodobnosť.
+- root cause je preukázaný;
+- reproducer pred fixom zlyhá správnym mechanizmom;
+- fix odstráni skrytý input alebo product race;
+- serial a parallel runs sú stabilné;
+- random order neodhalí dependency;
+- cleanup a duration sú zdravé;
+- first-attempt pass rate sa obnoví;
+- regression control ostáva v najnižšom spoľahlivom scope-e.
 
-## 33. Failure artifacts
+## 34. Failure artifacts
 
-Artifact musí existovať z prvého failure, pretože rerun môže stav zmeniť alebo cleanup odstrániť.
+Podľa vrstvy uchovaj:
 
-Zachovaj podľa vrstvy:
-
-- stdout a stderr;
-- structured logs;
-- timestamps a timeline;
-- test seed a order seed;
-- screenshot, video alebo browser trace;
+- stdout/stderr a structured logs;
+- timestamps a event timeline;
+- seed a order seed;
+- screenshot/video/browser trace;
 - network trace;
-- process a container logs;
+- process/container logs;
 - resource metrics;
 - environment/tool versions;
 - fixture provenance;
-- resource IDs;
-- JUnit alebo structured report;
-- pending tasks a last observed state.
+- resolved resource IDs;
+- pending tasks a last observed state;
+- setup/cleanup verdict.
 
-Artifacts musia byť redacted a dostupné ownerovi bez prístupu k secrets.
+Artifacts sú redigované a dostupné ownerovi bez secrets.
 
-## 34. Root-cause workflow
+## 35. Root-cause workflow
 
-Pri podozrení na flaky test:
+1. Zachovaj first-attempt evidence a candidate identity.
+2. Rozlíš assertion, setup, cleanup, environment a orchestration failure.
+3. Over, či test neodhaľuje product intermittency.
+4. Reprodukuj rovnakú fixture, seed, order a environment.
+5. Porovnaj test alone/full-suite a serial/parallel.
+6. Nájdite shared state a resource ownership.
+7. Nahraď fixed sleep condition waitom, nie vyšším sleepom.
+8. Koreluj timeout s queue/resource metrics.
+9. Over clock, scheduler a eventual-consistency milestone.
+10. Skontroluj ID normalization a cleanup scope.
+11. Oprav root cause a pridaj regression test.
+12. Vykonaj stabilizačný experiment a odstráň temporary retry/quarantine.
 
-1. zachovaj prvý failure a candidate revision;
-2. klasifikuj assertion, setup, cleanup, environment alebo orchestration failure;
-3. reprodukuj s rovnakým fixture, seed a order;
-4. spusti test samostatne a vo full suite;
-5. porovnaj serial a parallel run;
-6. skontroluj shared state a resource ownership;
-7. nahraď fixed sleeps condition-based waits;
-8. koreluj timeout s environment saturation;
-9. over, či failure nie je reálny product race;
-10. oprav príčinu a vykonaj stabilizačný repeated run;
-11. pridaj trvalý regression dôkaz;
-12. odstráň quarantine až po splnení exit criteria.
+## 36. Referenčné pravidlá
 
-## 35. Exit criteria po oprave
-
-„Jeden zelený rerun“ nie je dôkaz opravy. Exit criteria môžu zahŕňať:
-
-- reprodukčný test pred fixom konzistentne zlyhal;
-- root cause je zdokumentovaný;
-- fix odstraňuje nekontrolovaný vstup alebo product race;
-- test prejde opakovane v serial aj parallel režime;
-- prejde random-order suite;
-- nevznikne nový cleanup alebo duration problém;
-- first-attempt pass rate sa počas observation window obnoví;
-- quarantine a temporary retry policy sa odstránia.
-
-## 36. Flakiness metrics
-
-Sleduj:
-
-- first-attempt pass rate;
-- pass-after-retry rate;
-- flaky tests podľa ownera a vrstvy;
-- failure signature distribution;
-- quarantine count a age;
-- mean time to repair;
-- suite duration variance;
-- cleanup failure rate;
-- orphan resources;
-- environment saturation incidents;
-- percento failures bez diagnostických artifacts.
-
-Metrika má viesť k oprave. Rebríček tímov podľa flaky count môže podporiť skrývanie alebo vypínanie testov namiesto zlepšenia systému.
+- Premenlivý verdict znamená skrytý input alebo intermittent product behavior.
+- Rerun neklasifikuje root cause.
+- First-attempt evidence sa nikdy neprepisuje.
+- Fixed sleep nie je synchronizácia.
+- Async oracle má condition, terminal failures a deadline.
+- Test resources majú collision-resistant identity a ownership.
+- Setup, product assertion a cleanup majú odlišné verdicts.
+- Fixture a generator majú versionovanú provenance.
+- Production-derived data sú vysokorizikové.
+- Cleanup používa allowlist a compare-before-delete.
+- Environment saturation sa rieši capacity evidence, nie iba timeoutom.
+- Pass-after-retry zostáva flaky signal.
+- Quarantine má ownera, expiry a náhradný control.
+- Jeden zelený rerun nie je stabilizačný dôkaz.
 
 ## 37. Časté omyly
 
-### „Stačí rerun“
+### „Rerun prešiel, bola to chyba testu“
 
-Rerun mení evidence. Môže maskovať reálny intermittent defect aj chybný test.
+Intermittent product race môže prejsť na druhý pokus.
 
-### „Test je flaky iba v CI“
+### „Predĺžme sleep“
 
-CI môže odhaľovať skutočný race, resource pressure alebo isolation problém, ktorý lokálny serial run nevytvorí.
+Mení pravdepodobnosť failure, nie synchronization contract.
 
-### „Zvýšime sleep alebo timeout“
+### „Unikátny prefix z branch name stačí“
 
-Tým sa zmení pravdepodobnosť failure, nie jeho mechanizmus.
+Truncation, normalization a paralelné attempts môžu vytvoriť collision.
 
-### „Quarantine problém vyriešila“
+### „Transaction rollback vyrieši všetky test data“
 
-Zmenila blocking policy. Riziko a flaky debt ostali.
+Async workers a committed side effects môžu používať iné connections a boundaries.
 
-### „Production dump je najrealistickejšia fixture“
+### „Quarantine vyriešila pipeline“
 
-Môže porušiť privacy a stále nereprezentovať potrebné edge cases alebo distributions.
+Iba odstránila signal z blocking decisionu. Risk potrebuje náhradné krytie a root-cause fix.
 
-### „Cleanup failure nevadí, test už skončil“
+### „Production data sú realistickejšie“
 
-Orphan state ovplyvní ďalšie runy, bezpečnosť a náklady.
+Môžu vytvoriť privacy incident a stále nereprezentovať potrebné edge cases.
 
-### „Final pipeline pass rate je dostatočná metrika“
+### „Cleanup failure môžeme ignorovať“
 
-Maskuje first-attempt failures a rerun-until-green kultúru.
+Kontaminuje ďalšie tests, resources a náklady.
 
-## 38. Prevádzkový checklist
+## 38. Zhrnutie
 
-- Je verdict viazaný na presný commit, artifact a fixture version?
-- Ukladá sa first failure pred rerunom?
-- Rozlišuje pipeline assertion, setup, cleanup a infrastructure failure?
-- Používajú async tests condition-based waits s deadline?
-- Je clock, timezone a random seed kontrolovaný?
-- Spúšťa sa suite aj v random order a paralelne?
-- Vlastní každý test unikátne resources?
-- Korelujú sa timeouty s CPU, memory, I/O a dependency saturation?
-- Majú fixtures a generators provenance?
-- Sú production-derived data výnimočné, schválené a minimalizované?
-- Je cleanup idempotentný a chránený TTL/garbage collectorom?
-- Má quarantine ownera, expiry, náhradnú kontrolu a exit criteria?
-- Meria sa first-attempt pass rate a quarantine age?
+Atlas flakiness a data chain je:
+
+```text
+candidate + declared inputs
+→ isolated fixture a owned resources
+→ controlled time/order/concurrency
+→ condition-based observation
+→ first-attempt verdict a artifacts
+→ classify hidden boundary
+→ root-cause experiment
+→ fix + regression
+→ stability evidence
+→ remove retry/quarantine
+```
+
+Hlavný princíp je, že testovací verdict je produktom celého test systemu. Kód testu, orchestration, data lifecycle, environment capacity a cleanup sú rovnako súčasťou dôkazu ako samotný assertion.
 
 ## 39. Kontrolné otázky
 
-1. Čo presne znamená flaky test a aké vstupy musia byť „rovnaké“?
-2. Ako rozlíšiš chybný test od intermittent product defectu?
-3. Prečo fixed sleep nevytvára správny wait contract?
-4. Ako sa testuje eventual consistency bez neobmedzeného retry?
-5. Ako odhalíš order dependency?
-6. Ktoré resources treba izolovať pri paralelnom behu?
-7. Ako environment saturation vytvára zdanlivú flakiness?
-8. Aký je rozdiel medzi fixture, factory, golden file a synthetic datasetom?
-9. Prečo fixture potrebuje provenance?
-10. Kedy transaction rollback nestačí?
-11. Ako má retry ovplyvniť finálny test status a metriky?
-12. Aké povinné prvky má quarantine lifecycle?
-13. Aký dôkaz je potrebný pred odstránením quarantine?
-14. Prečo private test environment neospravedlňuje production data dump?
+1. Čo presne znamená flaky test?
+2. Ako sa líši test flakiness, product intermittency, environment a orchestration failure?
+3. Aké vstupy musí obsahovať determinism contract?
+4. Prečo first-attempt evidence nemožno prepísať rerunom?
+5. Prečo fixed sleep nevytvára synchronization?
+6. Ako eventual-consistency milestones zlepšujú diagnostiku?
+7. Prečo Atlas timeout v skutočnosti odhalil product race?
+8. Ako sa odhaľuje order dependence?
+9. Ako truncation vytvorila shared tenant a cleanup collision?
+10. Čo musí vlastniť paralelný test?
+11. Ako environment saturation mení timeout interpretation?
+12. Aký lifecycle majú test data?
+13. Kedy použiť fixture, factory, snapshot alebo synthetic dataset?
+14. Prečo production-derived data zostávajú rizikové?
+15. Ako sa líši setup failure od product failure?
+16. Aké vlastnosti má bezpečný cleanup?
+17. Čo meria first-attempt pass rate?
+18. Aký contract musí mať quarantine?
+19. Aké exit criteria dokazujú stabilizáciu?
 
 ## Glossary impact
 
-Relevantné pojmy: flaky test, nondeterminism, intermittent defect, hidden input, first-attempt pass rate, pass-after-retry, rerun-until-green, quarantine, condition-based wait, eventual consistency, order dependence, environment saturation, test fixture, test data factory, golden file, synthetic data, production-derived data, fixture provenance, test isolation, idempotent setup, cleanup a random seed.
+Relevantné pojmy: flaky test, intermittent product defect, hidden input, determinism contract, condition-based waiting, eventual consistency, test isolation, resource ownership, fixture provenance, synthetic data, production-derived data, first-attempt pass rate, pass-after-retry, quarantine, cleanup ownership, stabilization experiment a failure signature.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
