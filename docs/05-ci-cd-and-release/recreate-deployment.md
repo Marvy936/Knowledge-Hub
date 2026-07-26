@@ -6,495 +6,420 @@
 - Level: L2
 - Domain: CI/CD and Release Engineering
 
-## 1. Definícia
-
-Recreate deployment nahradí starú runtime verziu novou tak, že stará application capacity sa odstráni pred tým, než je nová verzia pripravená prijímať produkčný traffic. Stratégia preto vytvára plánovaný capacity gap a zvyčajne aj downtime.
+Recreate deployment používa jeden exkluzívny runtime slot. Stará generácia musí slot úplne opustiť skôr, než ho prevezme nová. Stratégia tým odstraňuje mixed-version obdobie, ale zámerne vytvára capacity gap, počas ktorého systém neposkytuje plnú službu.
 
 ```text
 old active
-→ traffic stop alebo maintenance mode
-→ drain a shutdown old
-→ migration/deployment
-→ start a verify new
-→ traffic restore
+→ maintenance a zastavenie nového worku
+→ drain a potvrdenie nulového writer ownershipu
+→ old stopped
+→ migration a deployment
+→ new functional readiness
+→ riadené obnovenie trafficu/worku
+→ observation a recovery closure
 ```
 
-Je to jednoduchá a často úplne legitímna stratégia. Bezpečná je však iba vtedy, keď organizácia vedome akceptuje outage, pozná jeho hornú hranicu a má overený recovery postup.
+Bezpečnosť recreate preto nezávisí od toho, či platforma vie „vymeniť container“. Závisí od downtime contractu, explicitného ownershipu mutable state-u a schopnosti rozhodnúť sa počas nulovej application capacity medzi pokračovaním, rollbackom a roll-forwardom.
 
-## 2. Mental model: exkluzívny runtime slot
+## 1. Nosný model: exkluzívny slot a outage budget
 
-Recreate používa jeden logický runtime slot:
+Recreate má tri zásadné stavy:
 
 ```text
 slot = old
-→ empty/maintenance
-→ new
+→ slot = empty/maintenance
+→ slot = new
 ```
 
-V jednom okamihu má byť aktívny iba jeden application generation. Tým sa odstraňuje mixed-version problém, ale zároveň mizne produkčná fallback capacity.
+V stave `empty/maintenance` neexistuje stará fallback capacity. Každá ďalšia minúta diagnostiky preto spotrebúva businessovo dohodnutý outage budget.
 
-Hlavný trade-off:
-
-```text
-nižšia orchestration a compatibility zložitosť
-za cenu downtime, cutover blast radiusu a pomalšieho rollbacku
-```
-
-## 3. Kedy je stratégia vhodná
-
-Recreate je racionálna, keď:
-
-- **Downtime je explicitne prijateľný —** interný systém, maintenance window alebo služba s dohodnutým outage budgetom.
-- **Workload je single-instance alebo exkluzívne stateful —** dve súbežné generácie by vytvorili split-brain, lock alebo licensing problém.
-- **Verzie nemôžu bezpečne koexistovať —** protocol, local state alebo schema vyžaduje ostrý cutover.
-- **Peak capacity je obmedzená —** organizácia nemôže držať surge alebo druhé prostredie.
-- **Jednoduchší recovery model je hodnotnejší —** sekvencia je ľahšie auditovateľná a testovateľná než komplexný partial rollout.
-
-Nie je vhodná tam, kde business požaduje kontinuálnu dostupnosť, startup je nepredvídateľný alebo neexistuje bezpečný maintenance režim.
-
-## 4. Deployment subject a preconditions
-
-Pred zásahom musí byť jednoznačné:
-
-- artifact digest a release ID,
-- config revision a secret references,
-- infrastructure a database state,
-- previous rollback candidate,
-- deployment owner a target environment,
-- maintenance a communication plan,
-- maximálny downtime,
-- abort decision deadline.
-
-Preconditions:
-
-- starý artifact a config sú stále dostupné,
-- backup alebo recovery mechanizmus je použiteľný,
-- migration plan bol testovaný na reprezentatívnom stave,
-- maintenance response je dostupná mimo nasadzovanej aplikácie,
-- observability a synthetics fungujú,
-- dependencies a quotas sú zdravé,
-- neprebieha konfliktujúca mutácia environmentu.
-
-## 5. Downtime contract
-
-Downtime nie je iba čas štartu procesu:
+Celkový outage nie je iba startup time:
 
 ```text
 total outage
-= traffic withdrawal propagation
-+ drain
-+ shutdown
+= routing withdrawal
++ request a worker drain
++ old shutdown
 + migration
-+ artifact transfer
++ artifact/config activation
 + startup
-+ readiness
-+ smoke validation
-+ routing restoration
++ functional readiness
++ traffic restoration
++ prvé potvrdenie business recovery
 ```
 
-Definuj pre každú fázu:
-
-- očakávaný čas,
-- hard timeout,
-- ownera,
-- failure action,
-- dôkaz začiatku a konca.
-
-Bez rozkladu nemožno zistiť, prečo maintenance window prekročilo plán.
-
-## 6. Recreate state machine
-
-Odporúčaný lifecycle:
+Z toho vyplýva hlavný trade-off:
 
 ```text
-planned
-→ prechecks passed
-→ maintenance enabled
-→ writes/work intake stopped
-→ old draining
-→ old stopped
-→ migration/deploying
-→ new starting
-→ new verifying
-→ traffic restoring
-→ observing
-→ completed
+nižšia orchestration a mixed-version zložitosť
+za cenu úplného cutover blast radiusu a časovo kritickej recovery
 ```
 
-Alternatívne konce:
+## 2. Nosný scenár: Atlas Orders reconciliation 3.11.0
+
+Atlas Orders používa regionálny reconciliation worker, ktorý uzatvára objednávky a zapisuje účtovné výsledky. V každom regióne smie existovať iba jeden aktívny writer, pretože vlastní leader lease a spracúva partition, ktorú nemožno bezpečne rozdeliť medzi dve nekompatibilné generácie.
+
+Release manifest `M2` obsahuje:
 
 ```text
-aborted before shutdown
-rollback in progress
-roll-forward in progress
-recovery failed
+worker artifact digest D_worker
+migration bundle D_migration
+rendered config C17
+leader protocol revision L3
+previous release manifest M_prev
 ```
 
-Každý transition musí byť idempotentný alebo musí rozpoznať už vykonaný stav.
-
-## 7. Maintenance mode
-
-Maintenance mode má znížiť používateľský dopad a chrániť konzistenciu:
-
-- vracia kontrolovaný status a retry guidance,
-- môže povoliť read-only operácie,
-- blokuje nové writes a background work,
-- poskytuje status page alebo maintenance page,
-- chráni systém pred connection stormom počas štartu.
-
-Musí byť nezávislý od služby, ktorú vypínaš. Maintenance stránka hostovaná tou istou aplikáciou zmizne spolu s ňou.
-
-## 8. Traffic withdrawal a graceful drain
-
-Bezpečný shutdown:
+Business akceptuje sedemminútové maintenance window. Deployment plan je:
 
 ```text
-mark unavailable for new traffic
-→ wait for routing propagation
-→ drain requests/connections
-→ stop consumers a schedulers
-→ checkpoint work
-→ release locks
-→ flush telemetry
-→ terminate
+00:00 maintenance a stop intake
+00:45 queue intake potvrdený ako paused
+01:30 active work drained a checkpointovaný
+02:00 old worker fenced a stopped
+02:15 migration apply
+03:30 new worker start
+04:30 functional readiness
+05:00 bounded queue resume
+06:30 reconciliation invariants healthy
+07:00 maintenance close
 ```
 
-Osobitne rieš:
+Každá fáza má hard timeout a failure action. Ak sa old writer nepodarí bezpečne zastaviť do `02:00`, deployment sa nezačne. Ak migration skončí s neznámym outcome, nový worker sa nespustí, kým sa stav nereconciliuje.
 
-- keep-alive a HTTP/2 connections,
-- WebSockets a streaming,
-- dlhé requests a uploads,
-- queue acknowledgements,
-- distributed locks,
-- leader leases,
-- cron alebo schedulers,
-- in-memory sessions.
+## 3. Preconditions určujú, či je slot bezpečné vyprázdniť
 
-Hard kill po grace timeout-e musí zanechať dôkaz o nedokončenej práci.
-
-## 9. Write freeze a background work
-
-Application traffic nemusí byť jediný zdroj writes. Pred migration alebo shutdownom zastav:
-
-- scheduled jobs,
-- queue consumers,
-- webhook workers,
-- batch a reconciliation jobs,
-- externé producers, ak to kontrakt vyžaduje,
-- administratívne mutácie.
-
-Potvrď, že work intake je skutočne nulový alebo bounded. Inak môže migration prebiehať proti meniacej sa databáze.
-
-## 10. Databázové migrácie
-
-Recreate odstraňuje mixed-version application window, ale nie riziko dátovej zmeny.
-
-Kontroluj:
-
-- lock duration a blocking,
-- migration runtime pri reálnom objeme,
-- disk a log growth,
-- partial execution,
-- retry/idempotency,
-- checksum alebo post-migration invariants,
-- rollback alebo roll-forward semantiku,
-- backup restore čas.
-
-Nekompatibilná offline migration môže byť prijateľná, ale iba s explicitným outage a recovery kontraktom. Pri veľkých dátach môže byť expand-contract stále bezpečnejší.
-
-## 11. Stateful workloads
-
-Pri stateful službe over:
-
-- persistent volume attachment a ownership,
-- fencing pred novým leaderom,
-- WAL alebo journal recovery,
-- unclean shutdown behavior,
-- hostname/identity assumptions,
-- lock a lease expiráciu,
-- data integrity po reštarte,
-- backup a restore.
-
-Recreate môže znižovať split-brain riziko, ale iba ak je potvrdené, že stará generácia už nemôže zapisovať.
-
-## 12. Artifact a configuration deployment
-
-Nasadzuj immutable artifact identifikovaný digestom. Config musí byť validovaná proti novej verzii pred odstránením starej capacity, ak je to možné.
-
-Zachovaj:
-
-- artifact digest,
-- config revision,
-- migration bundle version,
-- deployment tool revision,
-- runtime image a platform identity,
-- effective rendered configuration bez secret values.
-
-Mutable tag alebo runtime download nepinovaných dependencies predlžuje outage a ničí reprodukovateľnosť.
-
-## 13. Startup a readiness
-
-Process start nie je readiness. Nová verzia môže potrebovať:
-
-- načítať config a secrets,
-- overiť schema compatibility,
-- pripojiť dependencies,
-- obnoviť local state,
-- zahriať JIT, cache alebo model,
-- zaregistrovať sa v discovery,
-- dokončiť startup probes.
-
-Readiness má overiť schopnosť vykonať kritickú operáciu. Pri read/write službe nestačí iba read-only health endpoint.
-
-## 14. Pre-traffic validation
-
-Pred obnovením trafficu vykonaj:
-
-- artifact a version verification,
-- startup/readiness checks,
-- dependency connectivity,
-- authorization a secret access,
-- migration status,
-- kritický synthetic smoke,
-- queue a scheduler ownership,
-- telemetry a alert readiness,
-- data invariants.
-
-Failure v tejto fáze má viesť k explicitnému rozhodnutiu rollback verzus roll-forward, nie k nekonečnému čakaniu.
-
-## 15. Traffic restoration
-
-Traffic neobnovuj nutne naraz. Aj recreate môže použiť riadené otvorenie:
+Pred zapnutím maintenance Atlas overí:
 
 ```text
-maintenance
-→ interné synthetics
-→ obmedzený request rate
-→ 25 % ingress capacity
-→ 100 %
+release identity M2 je immutable
+→ M_prev, jeho config a bytes sú dostupné
+→ migration bola testovaná na reprezentatívnom objeme
+→ maintenance a recovery control path nebežia v nasadzovanej službe
+→ queue pause, leader fencing a checkpoint sú funkčné
+→ observability a business synthetic sú dostupné
+→ dependency health a quotas sú v baseline
 ```
 
-Ochrany:
+Tieto checks nie sú administratívny checklist. Každý chráni konkrétnu hranicu:
 
-- rate limiting,
-- connection admission,
-- retry jitter,
-- cache prewarming,
-- dependency pool limity,
-- queue rate control.
+- dostupný `M_prev` chráni binary recovery;
+- schema compatibility chráni data recovery;
+- nezávislý maintenance endpoint chráni control plane počas outage-u;
+- fencing chráni pred dvoma writermi;
+- functional synthetic chráni pred false readiness;
+- dependency baseline umožňuje odlíšiť release chybu od externého incidentu.
 
-Tým sa znižuje thundering herd po outage.
+Ak niektorá precondition chýba, najbezpečnejšie rozhodnutie je nevyprázdniť slot.
 
-## 16. Post-deploy validation
+## 4. Maintenance musí zastaviť work, nie iba používateľský HTTP traffic
 
-Po obnovení sleduj:
-
-- request success a tail latency,
-- business completion,
-- authentication/session errors,
-- dependency connections,
-- queue backlog a drain,
-- resource saturation,
-- data integrity,
-- new-version logs a traces,
-- support alebo user signal.
-
-Deployment nie je completed pri prvom zelenom health checku. Potrebuje definovanú observation window.
-
-## 17. Rollback eligibility
-
-Rollback je možný iba ak:
-
-- previous artifact a config existujú,
-- stará verzia rozumie aktuálnej schema a dátam,
-- nové writes neporušili staré invariants,
-- external contracts zostali kompatibilné,
-- queue/events možno bezpečne spracovať,
-- storage a session format sú kompatibilné.
-
-Routing ani binary rollback nevracia automaticky data state.
-
-## 18. Rollback workflow
+Atlas najprv zablokuje nové mutácie a poskytne retry guidance. Potom zastaví všetky zdroje worku:
 
 ```text
-re-enable maintenance
-→ stop new writes/work
-→ drain a stop failed new version
-→ restore/adjust compatible state
-→ deploy previous immutable artifact
-→ verify readiness a data invariants
-→ restore traffic
-→ observe
+HTTP commands
+queue intake
+scheduled reconciliation
+webhooks
+administratívne mutations
+retry workers
 ```
 
-Stanov decision deadline. Príliš dlhé hľadanie chyby počas nulovej capacity môže byť horšie než skorý rollback.
+Poradie je dôležité. Ak sa zastaví iba ingress, queue consumer môže ďalej meniť databázu počas migration. Ak sa consumer vypne bez checkpointu, neacknowledged položky sa po štarte vrátia a môžu zopakovať side effect.
 
-## 19. Roll-forward
+Dôkazom write freeze nie je „maintenance page je zapnutá“, ale:
 
-Roll-forward je vhodnejší, keď:
+```text
+new command rate = 0
+queue ownership odovzdaný alebo paused
+active transactions = 0 alebo bounded
+leader lease starej generácie revoked
+last processed offset/checkpoint uložený
+```
 
-- migration je nevratná,
-- nová verzia už vytvorila external side effects,
-- starý artifact nevie čítať nový state,
-- oprava je malá a rýchlo overiteľná,
-- restore by prekročil RTO.
+## 5. Drain a fencing vytvárajú hranicu medzi old a empty stavom
 
-Hotfix musí stále prejsť immutable buildom, minimálnymi gates a audit trailom.
+Bezpečný shutdown má dve samostatné úlohy:
 
-## 20. Failure taxonomy
+```text
+drain
+→ dokonči alebo bezpečne odlož existujúcu prácu
 
-Rozlišuj:
+fencing
+→ zabráň starej generácii znovu mutovať state
+```
 
-- **Precheck failure —** deployment sa ešte nemá začať.
-- **Drain failure —** stará práca sa nevie bezpečne ukončiť.
-- **Migration failure —** data state môže byť partial.
-- **Artifact/startup failure —** nová verzia sa nespustí.
-- **Readiness failure —** proces beží, ale služba nie je použiteľná.
-- **Traffic restoration failure —** routing, TLS alebo discovery nefunguje.
-- **Post-release regression —** problém sa prejaví až pri reálnom workloade.
-- **Recovery failure —** rollback alebo roll-forward neobnoví službu.
+Atlas najprv prestane prijímať work, checkpointuje in-flight položky a flushne telemetry. Následne revokuje leader lease a vydá novú fencing generation. Nový worker prijme ownership iba s novšou generation.
 
-Každá trieda potrebuje inú reakciu a artifacts.
+Samotné ukončenie procesu fencing nenahrádza. Starý proces môže zostať izolovaný od control plane, no stále mať sieťový prístup k databáze. Fencing token je posledná ochrana pred split-brain zápisom.
 
-## 21. Capacity a dependency shock
+## 6. Migration je samostatný state transition
 
-Peak application capacity môže byť nízka, ale po štarte vzniká náraz na shared dependencies:
+Po potvrdení `old stopped` pipeline vykoná migration bundle `D_migration`.
 
-- všetky connection pools sa otvoria naraz,
-- cache je cold,
-- clients retryujú,
-- queues začnú rýchlo drainovať,
-- autoscaler reaguje oneskorene,
-- externé API dostane burst.
+```text
+pre-migration state S0
+→ apply step 1
+→ checkpoint M1
+→ apply step 2
+→ postconditions
+→ migration state S1
+```
 
-Recreate capacity model preto zahŕňa aj downstream limits, nie iba počet instances.
+Každý krok musí mať:
 
-## 22. Observability a evidence
+- idempotency alebo rozpoznanie už vykonaného stavu;
+- jednoznačný checkpoint;
+- timeout klasifikovaný ako known failure alebo unknown outcome;
+- postcondition nad schema aj dátovým invariantom;
+- rollback alebo roll-forward pravidlo.
 
-Zachovaj timeline:
+Timeout po commitnutí kroku nie je dôkaz, že sa krok nevykonal. Blind retry môže zmeniť či poškodiť state. Pipeline najprv načíta migration history, schema a invariants a až potom rozhodne o pokračovaní.
 
-- maintenance enabled,
-- traffic withdrawn,
-- last old request/work item,
-- old termination,
-- migration start/end,
-- artifact pull/start,
-- readiness pass,
-- traffic restoration,
-- business recovery,
-- final verdict.
+## 7. Process health nie je functional readiness
 
-Evidence musí byť viazaná na release ID, artifact digest a environment.
+Nový worker prejde viacerými observation points:
 
-## 23. Metriky stratégie
+```text
+process started
+→ config a secret references loaded
+→ schema revision accepted
+→ database a queue connectivity
+→ leader ownership acquired
+→ synthetic item spracovaný presne raz
+→ reconciliation invariant potvrdený
+```
 
-Sleduj:
+Port, PID alebo liveness dokazujú iba existenciu procesu. Atlas považuje worker za ready až vtedy, keď spracuje kontrolnú položku, zapíše očakávaný outcome a nevytvorí duplicitný side effect.
 
-- planned verzus actual downtime,
-- čas každej state-machine fázy,
-- drain timeout rate,
-- migration failure rate,
-- startup/readiness p95,
-- rollback decision time,
-- rollback/roll-forward success,
-- post-restore thundering-herd incidenty,
-- maintenance-window overrun,
-- user-visible error a lost-work count.
+Readiness failure má pevný decision deadline. Po jeho prekročení sa tím nerozhoduje podľa pocitu, ale podľa state compatibility:
 
-## 24. Typické anti-patterny
+- migration nezmenila nekompatibilne state: rollback na `M_prev`;
+- migration je nevratná, ale stav je konzistentný: roll-forward fix;
+- stav je neznámy: pokračuje containment a reconciliation, nie traffic restore.
 
-### Recreate prezentovaný ako zero downtime
+## 8. Traffic a work sa obnovujú riadene
 
-Ak stará capacity zmizne pred novou readiness, outage existuje.
+Aj recreate môže obnoviť záťaž postupne:
 
-### Maintenance mode bez write freeze
+```text
+internal synthetic
+→ queue resume na 10 % rate limitu
+→ 25 % bežného intake
+→ 100 % intake
+→ delayed reconciliation watch
+```
 
-Používateľské requests sú blokované, ale consumers alebo cron stále menia dáta.
+Tým sa obmedzí thundering herd. Po outage-e sa totiž súčasne môžu:
 
-### Process kill bez drainu
+- otvoriť všetky connection pools;
+- vyprázdňovať retry backlog;
+- zahrievať caches;
+- pripájať clients;
+- obnovovať schedulers;
+- zvyšovať downstream request rate.
 
-Prerušia sa requests, transactions a queue work.
+Počet healthy instances preto nie je jediný capacity signal. Atlas sleduje DB connection pressure, queue age, retry rate a completion latency počas každého restore kroku.
 
-### Migration bez partial-failure plánu
+## 9. Worked failure: maintenance zastavila API, nie queue writerov
 
-Po chybe nie je jasné, či opakovať, obnoviť alebo pokračovať.
+Pri predchádzajúcom release Atlas zapol maintenance na HTTP ingress-e, ale zabudol zastaviť retry consumer.
 
-### Traffic pri process start
+```text
+HTTP writes = 0
+→ retry consumer ďalej aktualizuje order rows
+→ offline migration prepisuje rovnaký status stĺpec
+→ niektoré rows dostanú nový format, iné starý
+→ migration postcondition zlyhá
+→ old worker už je vypnutý a outage pokračuje
+```
 
-Aplikácia ešte nemusí byť pripravená ani zahrievaná.
+### Príčina
 
-### Rollback podľa verzie, nie podľa eligibility
+Tím zamieňal používateľský traffic za všetok work intake. Recreate model nemal explicitný writer inventory ani dôkaz nulového mutation rate.
 
-Starý artifact môže byť dostupný, ale nekompatibilný s novými dátami.
+### Dôsledok
 
-### Maintenance komponent v rovnakom failure domaine
+Rollback binary nepomohol, pretože databáza už obsahovala mixed data state. Recovery musela zostať v maintenance, zastaviť consumer, klasifikovať rows podľa migration checkpointu a roll-forwardnúť normalizačný krok.
 
-Status stránka alebo control endpoint zmizne spolu s aplikáciou.
+### Trvalá náprava
 
-## 25. Diagnostický postup
+```text
+writer inventory v release manifeste
+→ machine-readable pause acknowledgements
+→ database mutation-rate guard
+→ fencing pre všetkých worker owners
+→ migration precondition: writer_count = 0
+→ postcondition a reconciliation fixture v preprodukcii
+```
 
-1. Urči aktuálny state machine stav.
-2. Over artifact, config, migration a environment identity.
-3. Rozlož elapsed time podľa fáz.
-4. Skontroluj routing a skutočný traffic withdrawal.
-5. Over aktívne requests, consumers, locks a sessions.
-6. Pri migration failure urč partial state a posledný úspešný krok.
-7. Pri readiness failure porovnaj process health s critical-path smoke.
-8. Pri post-start regresii skontroluj cold state, dependency burst a retry amplification.
-9. Posúď rollback eligibility, nie iba technickú dostupnosť starej verzie.
-10. Po recovery over business a data invariants.
+## 10. Worked failure: proces bol green, ale obnovenie worku saturovalo databázu
 
-## 26. Rozhodovací rámec
+Nový worker prešiel liveness aj jednoduchý queue ping. Pipeline preto otvorila celý backlog naraz.
 
-1. Aký downtime je businessovo prijateľný?
-2. Aká je horná hranica každej fázy?
-3. Prečo verzie nemôžu alebo nemusia koexistovať?
-4. Ktoré writes a background work treba zastaviť?
-5. Aký je migration a data-recovery kontrakt?
-6. Ako sa preukáže úplné vypnutie starej generácie?
-7. Čo tvorí funkčnú readiness?
-8. Ako sa traffic obnoví bez thundering herd?
-9. Kedy je rollback kompatibilný?
-10. Aký je roll-forward path?
-11. Ktorý nezávislý control path zapne maintenance alebo recovery?
-12. Aké evidence zostane po deploymente?
+```text
+new worker started
+→ všetky pools otvorené súčasne
+→ retry backlog sa okamžite rozbehol
+→ DB connections dosiahli limit
+→ ack latency vzrástla
+→ visibility timeout vrátil položky do queue
+→ duplicate attempts znásobili load
+```
 
-## 27. Kontrolný checklist
+Proces zostal green, no business completion klesala a backlog rástol.
 
-- release identity je immutable,
-- downtime budget je schválený,
-- maintenance komponent je nezávislý,
-- traffic a work intake možno zastaviť,
-- graceful drain je otestovaný,
-- backup/restore a migration boli overené,
-- previous artifact a config sú dostupné,
-- startup/readiness majú samostatné timeouty,
-- smoke overuje kritický outcome,
-- traffic restoration je rate-controlled,
-- rollback eligibility je vyhodnotená,
-- data invariants sa overia po recovery,
-- timeline a artifacts sa uchovajú.
+### Príčina
 
-## 28. Kontrolné otázky
+Readiness neoverovala kritický write path pod bounded loadom a traffic restoration nemala rate state machine. Health endpoint neposkytoval dôkaz o dependency headroome ani idempotency behavior-e pri retry.
 
-1. Aký je základný trade-off recreate deploymentu?
-2. Čo tvorí celkový downtime?
-3. Prečo maintenance mode nestačí bez zastavenia background writes?
-4. Ako sa líši shutdown, drain a fencing?
-5. Prečo offline migration stále potrebuje recovery plán?
-6. Čo musí overiť funkčná readiness?
-7. Ako sa dá znížiť thundering herd po obnovení?
-8. Kedy je rollback nekompatibilný s dátami?
-9. Prečo je roll-forward niekedy bezpečnejší?
-10. Aké state-machine a business evidence treba uchovať?
+### Recovery
 
-## Summary
+Atlas znovu zapol maintenance pre work intake, nezastavil však healthy nový worker. Znížil concurrency, predĺžil visibility timeout, postupne drainoval backlog a overil invariant `jeden settlement outcome na order`.
 
-Recreate deployment používa jeden exkluzívny runtime slot a vedome vytvára obdobie bez application capacity. Jeho výhodou je jednoduchší orchestration a nulové mixed-version obdobie; nevýhodou downtime, ostrý blast radius a slabšia okamžitá fallback kapacita. Bezpečný recreate potrebuje downtime contract, nezávislý maintenance mode, graceful drain, write freeze, overenú migration a recovery cestu, funkčnú readiness, riadené obnovenie trafficu a rollback eligibility založenú na stave dát, nie iba na dostupnosti starého artifactu.
+## 11. Kauzálny diagnostický walkthrough
 
-## Glossary impact
+Symptom: po obnovení worku rastie queue age a completion rate klesá, pričom procesy sú healthy.
 
-Relevantné pojmy: recreate deployment, exclusive runtime slot, maintenance mode, downtime budget, write freeze, graceful drain, fencing, functional readiness, traffic restoration, thundering herd, rollback eligibility a offline migration.
+### Krok 1 — stabilizuj skúmaný subject
+
+Najprv potvrď:
+
+```text
+release manifest M2
+config C17
+migration state S1
+restore step = 100 % intake
+worker generation = new only
+```
+
+Bez toho by sa mohli miešať metrics starej generácie, iného configu alebo skoršieho restore kroku.
+
+### Krok 2 — vytvor konkurenčné hypotézy
+
+```text
+H1: nový code path je pomalší
+H2: databáza alebo broker má nezávislý incident
+H3: restore burst prekročil capacity, hoci steady-state code je správny
+H4: duplicate retries vytvárajú self-amplifying load
+```
+
+### Krok 3 — vyber observation points, ktoré hypotézy rozlíšia
+
+- baseline dependency health pred deploymentom testuje H2;
+- requests/work per worker a DB connections testujú H3;
+- attempt count na logical item a visibility timeout testujú H4;
+- latency jedného bounded synthetic itemu bez backlogu testuje H1.
+
+Atlas zistí, že bounded synthetic je normálny, externé DB signály mimo Orders sú zdravé, ale connection count a duplicate attempts rastú presne po `100 % intake` transitione. H3 a H4 vysvetľujú symptom lepšie než H1 alebo H2.
+
+### Krok 4 — zastav mechanizmus, nie iba alarm
+
+Zníženie intake zastaví nový burst. Predĺženie visibility timeoutu a idempotency guard zabránia opätovnému zaradeniu položiek. Samotný restart workerov by znovu otvoril pools a problém zosilnil.
+
+### Krok 5 — over recovery na pôvodnom outcome
+
+Recovery je potvrdená až keď:
+
+```text
+queue age klesá
+DB connections sú pod headroom limitom
+duplicate attempts sa nezvyšujú
+business completion sa vráti k baseline
+data invariant zostáva zachovaný
+```
+
+### Krok 6 — vráť learning do skoršej vrstvy
+
+Failure sa mení na:
+
+- functional readiness test s bounded write loadom;
+- rate-controlled restore contract;
+- queue visibility a retry-amplification guardrail;
+- pre-release capacity test nad reprezentatívnym backlogom.
+
+## 12. Rollback a roll-forward sú rozhodnutia nad current state
+
+Rollback na `M_prev` je eligible iba ak:
+
+```text
+M_prev bytes a config existujú
++ starý worker rozumie schema S1
++ nové rows a events sú čitateľné
++ leader ownership možno bezpečne vrátiť
++ post-rollback invariant test existuje
+```
+
+Ak migration alebo external side effects tieto podmienky porušili, bezpečnejší je roll-forward, feature disable, work freeze alebo data reconciliation.
+
+„Máme starý image“ nie je recovery capability.
+
+## 13. Diagnostický runbook
+
+Po vysvetlení modelu možno použiť krátky runbook:
+
+1. Urči aktuálny recreate state a zostávajúci outage budget.
+2. Potvrď release, config, migration, writer a environment identity.
+3. Porovnaj skutočný čas jednotlivých fáz s hard timeoutmi.
+4. Over nulový nový work, in-flight drain a fencing starej generácie.
+5. Pri migration chybe urč checkpoint, partial state a postconditions.
+6. Pri readiness chybe odlíš process health od kritického outcome-u.
+7. Pri restore regresii segmentuj startup, dependency burst, retries a business completion.
+8. Rozhodni rollback alebo roll-forward podľa data a side-effect compatibility.
+9. Po recovery over business aj data invariants.
+10. Preveď root cause na precondition, test alebo guardrail.
+
+## 14. Referenčné pravidlá
+
+- Recreate používa jeden exkluzívny runtime slot.
+- Downtime je explicitný contract a rozkladá sa na merateľné fázy.
+- Maintenance musí zastaviť všetky writers a work intake, nie iba ingress.
+- Drain chráni in-flight prácu; fencing chráni pred návratom starého ownera.
+- Migration timeout môže znamenať unknown outcome, nie nevykonanie.
+- Functional readiness dokazuje kritický outcome, nie iba process health.
+- Traffic a queue restore majú vlastnú bounded state machine.
+- Rollback eligibility zahŕňa artifact, config, schema, events a external side effects.
+- Recovery sa overuje business a data invariantmi.
+- Diagnostika postupuje od identity a state-u cez hypotézy k diskriminačným observation points.
+
+## 15. Časté omyly
+
+### „Recreate je jednoduchý stop a start“
+
+Jednoduchší orchestration neodstraňuje write freeze, migration ani recovery state.
+
+### „Maintenance page znamená, že systém je read-only“
+
+Consumers, cron a webhooks môžu ďalej zapisovať.
+
+### „Proces je healthy, môžeme otvoriť traffic“
+
+Health nepreukazuje kritický write path, dependency headroom ani business outcome.
+
+### „Rollback znamená spustiť starý artifact“
+
+Stará verzia musí byť kompatibilná s aktuálnym mutable state-om.
+
+### „Po obnovení môžeme pustiť celý backlog“
+
+Cold pools, retries a queue redelivery môžu vytvoriť thundering herd.
+
+## 16. Zhrnutie
+
+Atlas recreate lifecycle je:
+
+```text
+immutable release a downtime contract
+→ maintenance a úplný writer inventory
+→ drain + checkpoint + fencing
+→ old generation stopped
+→ migration s reconciliovateľnými checkpointmi
+→ functional readiness novej generácie
+→ bounded work restoration
+→ business/data observation
+→ rollback alebo roll-forward podľa current state
+```
+
+Recreate je správna stratégia tam, kde je prijateľný outage a hodnotnejšie je odstrániť mixed-version obdobie. Je bezpečná iba vtedy, keď prázdny runtime slot nie je neznámy stav, ale presne riadená a časovo ohraničená fáza release state machine.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
