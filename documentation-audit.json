@@ -1571,15 +1571,15 @@
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
       "title": "Projects, groups a permissions",
-      "words": 2850,
-      "headings": 41,
-      "sections": 41,
-      "findings": 60,
-      "critical": 15,
-      "high": 13,
-      "medium": 6,
-      "low": 26,
-      "score": 337,
+      "words": 2077,
+      "headings": 46,
+      "sections": 46,
+      "findings": 86,
+      "critical": 27,
+      "high": 38,
+      "medium": 10,
+      "low": 11,
+      "score": 674,
       "grade": "D"
     },
     {
@@ -87914,8 +87914,8 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "1. Priebežný scenár: od členstva po produkčný dosah",
-      "line": 17,
+      "section": "1. Priebežný scenár: Atlas Payments",
+      "line": 20,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -87923,296 +87923,35 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "2. Mental model: resources, subjects a access paths",
-      "line": 34,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "2. Resource, subject a access path",
+      "line": 61,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "2. Mental model: resources, subjects a access paths",
-      "line": 34,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "3. Namespace nie je iba časť URL",
-      "line": 58,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "4. Group a subgroup ako policy boundaries",
-      "line": 81,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownership rozhodnutí,`, `maximálny scope oprávnení,`, `security alebo compliance policy,`, `spoločný release či operational lifecycle,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "4. Group a subgroup ako policy boundaries",
-      "line": 81,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "4. Group a subgroup ako policy boundaries",
-      "line": 81,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "6. Visibility nie je kompletný permission model",
-      "line": 114,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a issue metadata,`, `pipeline logs a artifacts,`, `package a container registry,`, `security findings,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "7. Ako vzniká membership",
-      "line": 131,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Príklad nečakaného rozšírenia",
-      "line": 139,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "8. Rola je balík capabilities",
-      "line": 145,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Diagnostická metóda",
-      "line": 178,
+      "section": "Resource",
+      "line": 65,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Diagnostická metóda",
-      "line": 178,
+      "section": "Resource",
+      "line": 65,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný resource a operáciu;`, `subject identity použitú pri operácii;`, `direct membership;`, `parent a ancestor memberships;`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `group alebo subgroup;`, `project;`, `branch alebo tag;`, `environment;`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Diagnostická metóda",
-      "line": 178,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Diagnostická metóda",
-      "line": 178,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Diagnostická metóda",
-      "line": 178,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "10. Owner a Maintainer blast radius",
-      "line": 192,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečo je potrebný,`, `nad akým resource scope-om,`, `či je permanentný alebo dočasný,`, `kto ho schválil,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "10. Owner a Maintainer blast radius",
-      "line": 192,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "11. Human a non-human identities",
-      "line": 207,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 62 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "11. Human a non-human identities",
-      "line": 207,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "12. CI identities a trust context",
-      "line": 222,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 57 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "12. CI identities a trust context",
-      "line": 222,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kód z chráneného default branchu po review,`, `kód z feature branchu,`, `merge-request pipeline,`, `pipeline z externého forku,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "12. CI identities a trust context",
-      "line": 222,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "12. CI identities a trust context",
-      "line": 222,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "14. Expiration a dormant access",
-      "line": 257,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "14. Expiration a dormant access",
-      "line": 257,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "15. Project transfer a rename",
-      "line": 276,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "15. Project transfer a rename",
-      "line": 276,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `clone a submodule URLs,`, `container a package coordinates,`, `CI includes a multi-project triggers,`, `group variables, runners a policies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "15. Project transfer a rename",
-      "line": 276,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "15. Project transfer a rename",
-      "line": 276,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "15. Project transfer a rename",
-      "line": 276,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `OIDC`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "16. Break-glass a administratívny bypass",
-      "line": 293,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "16. Break-glass a administratívny bypass",
-      "line": 293,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný incident alebo dôvod;`, `úzky resource scope;`, `krátku platnosť;`, `silnú autentizáciu;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "16. Break-glass a administratívny bypass",
-      "line": 293,
+      "section": "Resource",
+      "line": 65,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -88220,44 +87959,8 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "16. Break-glass a administratívny bypass",
-      "line": 293,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `scope`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "18. Kompletný príklad access rozhodnutia",
-      "line": 315,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "19. Troubleshooting effective permissions",
-      "line": 340,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "20. Typické anti-patterny",
-      "line": 362,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Group sharing bez inventory",
-      "line": 376,
+      "section": "Subject",
+      "line": 79,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -88265,62 +87968,26 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Osobný token ako production service account",
-      "line": 380,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Visibility ako jediný security control",
-      "line": 384,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Audit bez remediation",
-      "line": 388,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "21. Praktický rozhodovací rámec",
-      "line": 392,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "21. Praktický rozhodovací rámec",
-      "line": 392,
+      "section": "Subject",
+      "line": 79,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "21. Praktický rozhodovací rámec",
-      "line": 392,
+      "section": "Subject",
+      "line": 79,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký business a delivery lifecycle project reprezentuje?`, `Ktoré memberships, variables, runners a policies sa dedia?`, `Cez ktoré paths môže subject access získať?`, `Ktoré identity sú human a ktoré non-human?`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `human user;`, `external user;`, `service account;`, `project alebo group access token;`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "21. Praktický rozhodovací rámec",
-      "line": 392,
+      "section": "Subject",
+      "line": 79,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -88328,17 +87995,53 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "21. Praktický rozhodovací rámec",
-      "line": 392,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "Subject",
+      "line": 79,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `workload`, `identity`",
+      "score": 4
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "21. Praktický rozhodovací rámec",
-      "line": 392,
+      "section": "Access path",
+      "line": 91,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "3. Namespace je administratívna a security boundary",
+      "line": 115,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "3. Namespace je administratívna a security boundary",
+      "line": 115,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `membership a role inheritance;`, `group sharing;`, `variables a access tokens;`, `runner scope;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "3. Namespace je administratívna a security boundary",
+      "line": 115,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "3. Namespace je administratívna a security boundary",
+      "line": 115,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -88346,35 +88049,215 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "21. Praktický rozhodovací rámec",
-      "line": 392,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "21. Praktický rozhodovací rámec",
-      "line": 392,
+      "section": "3. Namespace je administratívna a security boundary",
+      "line": 115,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `scope`, `policy`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "22. Kontrolný checklist",
-      "line": 409,
+      "section": "4. Project ako delivery boundary",
+      "line": 140,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "22. Kontrolný checklist",
-      "line": 409,
+      "section": "4. Project ako delivery boundary",
+      "line": 140,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Kto vlastní source a release contract?`, `Čo je samostatná release unit?`.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "4. Project ako delivery boundary",
+      "line": 140,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "4. Project ako delivery boundary",
+      "line": 140,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `blast radius`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "5. Membership graph a highest effective access",
+      "line": 161,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direct project membershipom;`, `direct group membershipom;`, `inheritance z ancestor group;`, `project/group sharingom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "5. Membership graph a highest effective access",
+      "line": 161,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "6. Group membership, direct výnimka a sharing",
+      "line": 183,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory cieľovej group;`, `maximálny access level;`, `ownera oboch strán;`, `expiration alebo review cadence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "7. Rola je balík capabilities, nie cieľ návrhu",
+      "line": 207,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "8. Human a non-human identities",
+      "line": 230,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "8. Human a non-human identities",
+      "line": 230,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera a business purpose;`, `minimum role/scope;`, `expiration alebo explicitnú výnimku;`, `rotation a revocation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "8. Human a non-human identities",
+      "line": 230,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "8. Human a non-human identities",
+      "line": 230,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "8. Human a non-human identities",
+      "line": 230,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "10. Access lifecycle",
+      "line": 279,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Onboarding",
+      "line": 281,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Offboarding",
+      "line": 289,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Recertifikácia",
+      "line": 303,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "11. Project transfer je delivery a security migrácia",
+      "line": 316,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "11. Project transfer je delivery a security migrácia",
+      "line": 316,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "11. Project transfer je delivery a security migrácia",
+      "line": 316,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `clone, submodule a API URLs;`, `registry/package coordinates;`, `CI includes a multi-project triggers;`, `inherited variables, runners a policies;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "11. Project transfer je delivery a security migrácia",
+      "line": 316,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "11. Project transfer je delivery a security migrácia",
+      "line": 316,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `CI`, `workload`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "12. Break-glass je dočasný state transition",
+      "line": 341,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -88382,26 +88265,71 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "22. Kontrolný checklist",
-      "line": 409,
+      "section": "Nesprávna hypotéza",
+      "line": 360,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Nesprávna hypotéza",
+      "line": 360,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Skutočný mechanizmus",
+      "line": 368,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Trvalá náprava",
+      "line": 381,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Trvalá náprava",
+      "line": 381,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Trvalá náprava",
+      "line": 381,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "22. Kontrolný checklist",
-      "line": 409,
+      "section": "Trvalá náprava",
+      "line": 381,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespace hierarchy zodpovedá ownershipu a security boundaries;`, `project má jasný release a lifecycle model;`, `vysoké role sú obmedzené a periodicky reviewované;`, `stabilné tímy používajú group membership;`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstrániť alebo zúžiť parent-group membership;`, `oddeliť platform a product administration boundaries;`, `používať deployment-specific capability namiesto širokého Maintainer a`, `access review musí zobrazovať origin každého membership pathu;`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "22. Kontrolný checklist",
-      "line": 409,
+      "section": "Trvalá náprava",
+      "line": 381,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -88409,8 +88337,107 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "22. Kontrolný checklist",
-      "line": 409,
+      "section": "14. Worked failure: transfer zachoval source, ale rozbil trusted delivery",
+      "line": 389,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Recovery",
+      "line": 407,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Trvalá náprava",
+      "line": 411,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "15. Kauzálny diagnostický walkthrough",
+      "line": 415,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Krok 1 — identifikuj presnú operáciu a subject",
+      "line": 419,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Krok 1 — identifikuj presnú operáciu a subject",
+      "line": 419,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Krok 2 — formuluj konkurenčné hypotézy",
+      "line": 430,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Krok 3 — vyber diskriminačné observation points",
+      "line": 441,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Krok 3 — vyber diskriminačné observation points",
+      "line": 441,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Krok 3 — vyber diskriminačné observation points",
+      "line": 441,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `membership origin a ancestor graph testujú H1;`, `invited-group sources testujú H2;`, `effective environment deploy rules testujú H3;`, `pipeline/job token a cloud identity audit testujú H4/H6;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Krok 3 — vyber diskriminačné observation points",
+      "line": 441,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Krok 3 — vyber diskriminačné observation points",
+      "line": 441,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -88418,8 +88445,8 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "22. Kontrolný checklist",
-      "line": 409,
+      "section": "Krok 3 — vyber diskriminačné observation points",
+      "line": 441,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -88427,8 +88454,170 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "22. Kontrolný checklist",
-      "line": 409,
+      "section": "Krok 3 — vyber diskriminačné observation points",
+      "line": 441,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H2`, `H4`, `H6`, `H5`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Krok 5 — over pôvodný outcome",
+      "line": 455,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "Krok 6 — vráť learning do control modelu",
+      "line": 465,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "16. Diagnostický runbook",
+      "line": 469,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "16. Diagnostický runbook",
+      "line": 469,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "16. Diagnostický runbook",
+      "line": 469,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "16. Diagnostický runbook",
+      "line": 469,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Urči actor, operation, resource a čas.`, `Rozlíš human trigger identity od job/token/runtime identity.`, `Zostav direct, inherited, shared, custom-role a token paths.`, `Vyhodnoť resource-specific policy a protected context.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "16. Diagnostický runbook",
+      "line": 469,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "16. Diagnostický runbook",
+      "line": 469,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "16. Diagnostický runbook",
+      "line": 469,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "16. Diagnostický runbook",
+      "line": 469,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`, `policy`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 482,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 482,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 482,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 482,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Effective access je výsledok access graphu.`, `Namespace hierarchy je delivery a security boundary.`, `Group sharing pridáva celý cudzí membership graph.`, `Rola je balík capabilities, nie návrhový cieľ.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 482,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 482,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 482,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 482,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -88436,21 +88625,66 @@
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "22. Kontrolný checklist",
-      "line": 409,
+      "section": "17. Referenčné pravidlá",
+      "line": 482,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
-      "section": "Summary",
-      "line": 443,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "18. Časté omyly",
+      "line": 495,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "„Odstránili sme direct membership, access zmizol“",
+      "line": 497,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "„External user je automaticky izolovaný“",
+      "line": 501,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "„Dajme mu Maintainer, aby vedel spustiť jeden job“",
+      "line": 505,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "„Private project znamená bezpečné CI“",
+      "line": 509,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/projects-groups-permissions.md",
+      "section": "„Transfer je iba zmena URL“",
+      "line": 513,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/06-gitlab/protected-branches-and-environments.md",
