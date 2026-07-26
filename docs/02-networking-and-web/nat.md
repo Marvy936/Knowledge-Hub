@@ -8,226 +8,178 @@
 - Predpoklady: [Routing a default gateway](routing-and-default-gateway.md), [Ports a sockets](ports-and-sockets.md), [TCP a UDP](tcp-and-udp.md)
 - Súvisiace témy: firewalls, load balancing, conntrack, container networking, cloud gateways, IPv6
 
-## 1. Definícia
+## 1. Problém, ktorý NAT rieši
 
-Network Address Translation — NAT — je mechanizmus, ktorý pri prechode packetu cez translation point zmení jednu alebo viac hodnôt v network alebo transport headeri. Najčastejšie mení source alebo destination IP adresu a pri PAT aj transportný port.
+Predstavme si firmu Atlas. Interná aplikácia Orders beží na adrese `10.20.1.15` a pri spracovaní objednávky volá externú platobnú službu `198.51.100.20:443`. Privátna adresa `10.20.1.15` sa vo verejnom Internete neroutuje, preto odpoveď nemôže byť doručená priamo späť na tento endpoint.
 
-NAT nie je samostatný routing protokol ani bezpečnostná politika. Aby preložený flow fungoval, musia byť súčasne splnené najmenej tieto podmienky:
-
-- route — packet sa musí dostať na translation point a odtiaľ k výslednému cieľu,
-- translation rule — packet musí zodpovedať pravidlu alebo existujúcemu state mappingu,
-- firewall policy — príslušný INPUT, OUTPUT alebo FORWARD path musí traffic povoliť,
-- state capacity — zariadenie musí mať miesto na conntrack/NAT state,
-- return path — odpoveď sa musí vrátiť cez bod, ktorý pozná mapping,
-- application semantics — preloženie nesmie rozbiť protokol, identity alebo payload assumptions.
-
-Preto platí:
+Atlas má egress gateway s verejnou adresou `203.0.113.5`. Gateway môže pri odchode prepísať source endpoint:
 
 ```text
-route exists
-≠
-NAT mapping exists
-≠
-firewall allows flow
-≠
-application is healthy
+pôvodný flow
+10.20.1.15:45000 → 198.51.100.20:443
+
+flow viditeľný na Internete
+203.0.113.5:62001 → 198.51.100.20:443
 ```
 
-## 2. Prečo NAT existuje
+Tento preklad je NAT — Network Address Translation. NAT zmení adresu alebo port v packet headeri a pri stateful modeli si zapamätá vzťah medzi pôvodným a preloženým flowom.
 
-NAT sa používa najmä z prevádzkových a adresných dôvodov.
-
-### Zdieľanie verejnej IPv4 adresy
-
-Mnoho interných klientov môže používať jednu alebo niekoľko verejných source adries. Jednotlivé flows sa rozlíšia preloženými source portmi.
-
-### Publikovanie internej služby
-
-Externá adresa alebo port sa môže preložiť na interný backend. Ide o destination NAT alebo port forwarding.
-
-### Prekrytie adresných priestorov
-
-Pri spojení dvoch sietí s rovnakými RFC1918 prefixmi možno translation použiť ako adaptačnú vrstvu. Takéto riešenie však pridáva state, znižuje transparentnosť a komplikuje audit.
-
-### Stabilný externý endpoint
-
-Interná topológia alebo backend sa môže meniť, zatiaľ čo klient používa stabilnú virtuálnu adresu. Túto úlohu môže plniť NAT, load balancer alebo proxy podľa požadovanej vrstvy.
-
-### Adresná kompatibilita
-
-Prechodové mechanizmy ako NAT64 umožňujú komunikáciu medzi IPv6-only klientom a IPv4 serverom.
-
-NAT nie je základná požiadavka IP routingu. Router môže forwardovať packets bez akejkoľvek zmeny source alebo destination adresy.
-
-## 3. Tuple a translation mapping
-
-Flow sa pri NATe neidentifikuje iba jednou adresou. Stavový translator pracuje s kombináciou protokolu, adries a portov.
-
-Pôvodný TCP flow:
+NAT však nerieši celý request path. Funkčný flow potrebuje:
 
 ```text
-protocol:    TCP
-source:      10.0.1.10:45000
-destination: 198.51.100.20:443
+route na translation point
+→ translation rule a voľnú mapping kapacitu
+→ firewall allow
+→ route k cieľu
+→ odpoveď cez rovnaký state owner
+→ reverse translation
+→ doručenie pôvodnému socketu
 ```
 
-Po source translation:
+Routing rozhoduje, kam packet ide. NAT rozhoduje, aké endpoint fields bude mať. Firewall rozhoduje, či smie pokračovať. Aplikácia rozhoduje, čo packet znamená.
 
-```text
-protocol:    TCP
-source:      203.0.113.5:62001
-destination: 198.51.100.20:443
-```
+## 2. Dominantný mentálny model
 
-Translation zariadenie si musí zapamätať obojsmerný vzťah:
+Stateful NAT treba chápať ako lifecycle jedného flowu:
 
 ```text
 original tuple
-10.0.1.10:45000 → 198.51.100.20:443
+→ prvý packet a rule lookup
+→ výber translated tuple
+→ uloženie obojsmerného mappingu
+→ ďalšie packets používajú mapping
+→ return packet nájde reverse mapping
+→ timeout alebo close odstráni state
+```
 
-translated tuple
+Pre TCP flow Atlas Orders môže mapping vyzerať takto:
+
+```text
+original direction
+10.20.1.15:45000 → 198.51.100.20:443
+
+translated direction
 203.0.113.5:62001 → 198.51.100.20:443
+
+reply on public side
+198.51.100.20:443 → 203.0.113.5:62001
+
+reverse-translated reply
+198.51.100.20:443 → 10.20.1.15:45000
 ```
 
-Pri odpovedi na `203.0.113.5:62001` zariadenie vyhľadá mapping a obnoví destination `10.0.1.10:45000`.
+Mapping musí jednoznačne rozlišovať protocol, source a destination endpointy a smer. Samotná verejná IP nestačí, pretože ju môže súčasne používať veľa klientov.
 
-Mapping typicky obsahuje:
+## 3. Prvý packet je rozhodujúci
 
-- transportný protokol,
-- pôvodný a preložený source endpoint,
-- pôvodný a preložený destination endpoint,
-- connection alebo pseudo-connection state,
-- čas poslednej aktivity,
-- timeout class,
-- interface, zone alebo policy context,
-- pomocné protokolové informácie podľa implementácie.
+Pri prvom packete nového flowu translation point typicky:
 
-## 4. SNAT, DNAT, PAT a statické mapovanie
+1. prijme packet v konkrétnom interface, namespace a hooku,
+2. vykoná conntrack lookup,
+3. klasifikuje packet ako nový flow,
+4. vyhodnotí NAT policy,
+5. vyberie preloženú adresu a prípadne port,
+6. vytvorí obojsmerný mapping,
+7. aplikuje firewall a routing rozhodnutie,
+8. odošle packet ďalej.
 
-### SNAT — Source NAT
+Ďalšie packets sa už priraďujú k existujúcemu state. NAT pravidlo sa nemusí pre každý packet rozhodovať od začiatku.
 
-SNAT mení source adresu a prípadne source port. Používa sa typicky pre outbound flow z privátnej siete.
+Dôležitý dôsledok:
 
 ```text
-pred prekladom:
-10.0.1.10:45000 → 198.51.100.20:443
-
-po preklade:
-203.0.113.5:62001 → 198.51.100.20:443
+zmena NAT pravidla
+≠
+okamžitá zmena existujúcich connections
 ```
 
-Remote server vidí source `203.0.113.5:62001`, nie interný endpoint.
+Staré flows môžu pokračovať podľa starého mappingu, kým conntrack entry nezanikne. Pri overovaní zmeny treba vytvoriť nový flow, nie iba opätovne použiť existujúcu pooled connection.
 
-### DNAT — Destination NAT
+## 4. SNAT a outbound cesta Atlas Orders
 
-DNAT mení destination adresu alebo port. Používa sa pri publikovaní internej služby.
-
-```text
-pred prekladom:
-client → 203.0.113.5:443
-
-po preklade:
-client → 10.0.1.20:8443
-```
-
-Backend môže stále vidieť pôvodnú source adresu klienta, ak sa zároveň neaplikuje SNAT.
-
-### PAT — Port Address Translation
-
-PAT umožňuje viacerým interným flows zdieľať rovnakú externú IP. Rozlíšenie zabezpečí kombinácia preloženého source portu a ostatných tuple fields.
+Source NAT mení source endpoint. Orders pošle nový TCP flow na platobný server:
 
 ```text
-10.0.1.10:50000 → 203.0.113.5:61001
-10.0.1.11:50000 → 203.0.113.5:61002
-```
-
-Termíny PAT, NAT overload alebo NAPT sa v praxi často používajú pre tento model.
-
-### Statický one-to-one NAT
-
-Jedna adresa sa stabilne mapuje na inú adresu. Aj pri statickom mapovaní môže zariadenie stále používať conntrack pre firewall state alebo protokolový lifecycle.
-
-## 5. Prvý packet a ďalšie packets
-
-Pri stateful NAT je prvý packet flowu odlišný od nasledujúcich packetov.
-
-### Prvý packet
-
-1. Packet vstúpi do príslušného network namespace a netfilter hooku.
-2. Conntrack sa pokúsi flow klasifikovať alebo vytvoriť nový entry.
-3. Routing a NAT pravidlá určia preklad.
-4. Zvolí sa preložená adresa a prípadne port.
-5. Vytvorí sa obojsmerný mapping.
-6. Packet pokračuje cez firewall a forwarding path.
-
-### Ďalšie packets
-
-1. Conntrack ich priradí k existujúcemu flowu.
-2. Translation sa aplikuje podľa uloženého mappingu.
-3. Pravidlo NAT table sa nemusí znovu vyhodnocovať rovnakým spôsobom ako pri prvom packete.
-4. Stav a timeout sa aktualizujú podľa protokolu a aktivity.
-
-Dôsledok: po zmene NAT pravidla môžu existujúce connections pokračovať podľa starého state mappingu, kým state nezanikne alebo sa explicitne neodstráni.
-
-## 6. Outbound SNAT lifecycle
-
-Príklad klienta v privátnej sieti:
-
-```text
-client 10.0.1.10:45000
-    ↓ route na default gateway
-NAT gateway
-    ↓ conntrack new flow
+Orders socket
+10.20.1.15:45000
+    ↓ default route
+egress gateway inside interface
+    ↓ conntrack NEW
     ↓ SNAT/PAT
+egress gateway outside interface
 203.0.113.5:62001
-    ↓ internet routing
-server 198.51.100.20:443
+    ↓ Internet
+payment API
+198.51.100.20:443
 ```
 
-Return packet:
+Aby tento tok fungoval, musia sedieť všetky hranice:
+
+- Orders má route na gateway.
+- Gateway má povolený IP forwarding.
+- Packet zodpovedá SNAT policy.
+- Gateway má voľný preložený port a conntrack entry.
+- FORWARD policy povoľuje nový outbound flow.
+- Verejná strana má route k platobnej službe.
+- Odpoveď sa vracia na `203.0.113.5`.
+- Gateway stále vlastní mapping a vie vykonať reverse translation.
+
+Ak packet odíde so source `10.20.1.15`, externá služba spravidla nemá route späť. NAT teda nevytvára cestu sám; upravuje identitu flowu tak, aby return routing mohol fungovať.
+
+## 5. PAT a kapacita jednej verejnej adresy
+
+Port Address Translation umožní zdieľať jednu verejnú IP:
 
 ```text
-server 198.51.100.20:443
-    ↓ destination 203.0.113.5:62001
-NAT gateway
-    ↓ conntrack lookup
-    ↓ reverse translation
-client 10.0.1.10:45000
+10.20.1.15:45000 → 203.0.113.5:62001
+10.20.1.16:45000 → 203.0.113.5:62002
+10.20.1.17:52000 → 203.0.113.5:62003
 ```
 
-Outbound NAT vyžaduje:
+Verejná IP však neposkytuje nekonečnú kapacitu. Každý aktívny mapping potrebuje jednoznačný translated tuple a state.
 
-- route klienta na gateway,
-- IP forwarding na gateway,
-- SNAT alebo masquerade policy,
-- povolený forward traffic,
-- route gateway k internetu,
-- route remote strany späť k verejnej NAT adrese,
-- dostatočný source-port a conntrack priestor.
+Typický capacity incident:
 
-Ak packet odíde bez preloženej source adresy, remote strana typicky nevie routovať odpoveď na privátnu adresu.
+```text
+existujúce connections fungujú
+→ nové connections začnú timeoutovať
+→ failure rate rastie s concurrency
+→ po poklese loadu sa situácia dočasne zlepší
+```
 
-## 7. Inbound DNAT lifecycle
+Možné mechanizmy sú:
 
-Publikovaná služba:
+- source-port exhaustion,
+- conntrack table exhaustion,
+- veľa krátkych connections bez pooling-u,
+- retry storm,
+- veľa idle long-lived flows,
+- dlhé UDP timeouts,
+- malý pool verejných source adries,
+- provider-specific per-destination limit.
+
+Náprava sa musí opierať o meranie. Zväčšiť conntrack table nepomôže, ak limitom je portový priestor. Skrátiť timeouty môže uvoľniť state, ale zároveň rozbiť legitímne idle connections.
+
+## 6. DNAT a publikovanie služby
+
+Destination NAT mení destination endpoint. Atlas publikuje edge endpoint `203.0.113.5:443`, ktorý sa prekladá na interný reverse proxy `10.20.2.10:8443`:
 
 ```text
 client
-    ↓ 203.0.113.5:443
+    ↓ destination 203.0.113.5:443
 translation point
     ↓ DNAT
-10.0.1.20:8443
-    ↓
-backend listener
+reverse proxy
+10.20.2.10:8443
 ```
 
-DNAT mení destination pred finálnym forwarding rozhodnutím, aby kernel route vybral podľa interného targetu.
+DNAT sa musí vykonať pred finálnym route lookupom k backendu, pretože po preklade sa zmenil cieľ packetu.
 
-Backend response musí prejsť späť cez translation point:
+Return path:
 
 ```text
-backend 10.0.1.20:8443
-    ↓ reply to client
+reverse proxy 10.20.2.10:8443
+    ↓ response toward client
 translation point
     ↓ reverse DNAT
 source becomes 203.0.113.5:443
@@ -235,580 +187,324 @@ source becomes 203.0.113.5:443
 client
 ```
 
-Ak backend odpovie mimo translation pointu, klient môže dostať packet z neočakávanej internej adresy alebo sa odpoveď vôbec nedoručí. Preto sa pri DNAT scenári kontroluje:
+Samotné DNAT pravidlo službu nesprístupní. Potrebné sú aj:
 
-- backend default route,
-- policy routing,
-- asymmetric paths,
-- stateful firewall symmetry,
-- prípadný dodatočný SNAT.
+- packet doručený na externú adresu,
+- IP forwarding,
+- FORWARD allow,
+- route k `10.20.2.10`,
+- listener na porte `8443`,
+- backendová route späť cez translation point,
+- zachovaný conntrack state,
+- správny TLS a aplikačný protokol.
 
-## 8. NAT hook ordering v Linuxe
+Ak backend odpovie inou cestou, klient môže dostať packet z neočakávanej source adresy alebo ho stateful policy zahodí.
 
-Zjednodušený netfilter path pre forwardovaný packet:
+## 7. Return path je súčasť NAT correctness
 
-```text
-ingress interface
-    ↓
-PREROUTING
-    ├── conntrack classification
-    └── typický DNAT
-    ↓
-routing decision
-    ↓
-FORWARD
-    ↓
-POSTROUTING
-    └── typický SNAT/MASQUERADE
-    ↓
-egress interface
-```
-
-Lokálne generovaný packet používa aj `OUTPUT` hook:
+Stateful NAT vlastní obojsmerný mapping. Oba smery flowu preto musia prejsť bodom, ktorý tento mapping pozná.
 
 ```text
-local process
-    ↓
-OUTPUT
-    ↓
-routing / policy
-    ↓
-POSTROUTING
+forward
+client → NAT A → backend
+
+chybný return
+backend → router B → client
 ```
 
-Lokálne doručovaný packet smeruje po routing decision do `INPUT`.
+Ak return obíde NAT A:
 
-Presné priority chains a poradie pravidiel závisia od nftables rulesetu a implementácie. Pri diagnostike je dôležité vedieť:
+- reverse translation sa nevykoná,
+- client tuple nebude sedieť,
+- conntrack state na NAT A uvidí iba polovicu flowu,
+- stateful firewall môže odpoveď vyhodnotiť ako neplatnú,
+- packet captures na rôznych miestach budú vyzerať protichodne.
 
-- v ktorom hooku sa preklad aplikuje,
-- či ide o local alebo forwarded traffic,
-- či packet mení route po DNAT,
-- či firewall matchuje original alebo translated fields v danom bode,
-- či ďalší namespace alebo virtual dataplane vykonáva ďalšiu translation.
+Asymetriu môžu vytvoriť multiple defaults, policy routing, ECMP, chybná backend gateway, cloud route table alebo failover na druhý NAT node bez state synchronizácie.
 
-## 9. Conntrack a NAT state
+## 8. Conntrack state nie je socket ani aplikácia
 
-Linux netfilter používa conntrack na evidenciu flows. Conntrack state nie je totožný s aplikačným stavom ani presnou TCP state machine, ale poskytuje kernelu dostatok informácií na stateful filtering a reverse translation.
+Translation point používa conntrack na priradenie packetov k flowu. Bežné klasifikácie sú `NEW`, `ESTABLISHED`, `RELATED` a `INVALID`.
 
-Pozorovanie:
+Treba odlíšiť tri stavy:
+
+```text
+endpoint socket state
+≠
+middlebox conntrack/NAT state
+≠
+application business state
+```
+
+Conntrack `ESTABLISHED` môže iba znamenať, že middlebox videl obojsmerný transportný traffic. Neznamená úspešný TLS handshake, autorizovanú platbu ani zdravý backend.
+
+Naopak, socket môže zostať otvorený, hoci NAT mapping po inactivity timeoute zanikol. Ďalší packet potom narazí na chýbajúci middlebox state.
+
+Pozorovanie v Linuxe:
 
 ```bash
 sudo conntrack -L
 sudo conntrack -S
 sysctl net.netfilter.nf_conntrack_count
 sysctl net.netfilter.nf_conntrack_max
+journalctl -k -b
 ```
 
-Typické conntrack klasifikácie:
+## 9. TCP a UDP majú odlišný state lifecycle
 
-- `NEW` — flow ešte nemá potvrdenú obojsmernú komunikáciu alebo začína,
-- `ESTABLISHED` — packet patrí k rozpoznanému obojsmernému flowu,
-- `RELATED` — nový flow súvisí s existujúcim flowom podľa helpera alebo protokolu,
-- `INVALID` — packet nemožno korektne priradiť k state modelu.
+TCP poskytuje handshake, FIN, RST a sequence state. NAT preto môže flow presnejšie sledovať a používať timeouty podľa lifecycle fázy.
 
-Pri vyčerpaní conntrack table môžu nové flows zlyhávať, hoci:
-
-- listener beží,
-- route existuje,
-- CPU nie je vyťažené,
-- aplikácia nemá vysokú latency,
-- existujúce connections pokračujú.
-
-Kernel log môže obsahovať informáciu o plnej table alebo droppoch.
-
-## 10. TCP state a timeouty
-
-TCP poskytuje handshake, sequence state a explicitné FIN/RST udalosti. Conntrack preto môže rozlišovať viac lifecycle fáz a používať odlišné timeouty.
-
-Mapping musí prežiť dostatočne dlho na legitímnu komunikáciu, ale nie nekonečne. Príliš krátky timeout môže rozbiť idle alebo long-lived connections. Príliš dlhý timeout zadržiava state a porty po zaniknutých flowoch.
-
-Dôležité rozlíšenie:
+UDP nemá handshake ani close. Translation point vytvorí pseudo-state po datagrame a odstráni ho po nečinnosti:
 
 ```text
-TCP socket state v endpointe
-≠
-conntrack state v middleboxe
+UDP request
+→ mapping vznikne
+→ response použije reverse mapping
+→ idle timeout
+→ mapping zanikne
+→ neskorá response môže byť zahodená
 ```
 
-Endpoint môže považovať connection za otvorenú, zatiaľ čo NAT mapping po nečinnosti už expiroval. Ďalší packet potom nemusí dostať očakávanú odpoveď.
+UDP keepalive udržiava NAT mapping, ale nedokazuje aplikačný health. Pri WebRTC, VoIP alebo hernom trafficu musí aplikácia počítať so zmenou externého portu, timeoutmi a potrebou STUN/TURN/ICE alebo explicitného mappingu.
 
-## 11. UDP state a timeouty
+## 10. Hairpin NAT: interný klient používa verejnú identitu
 
-UDP nemá handshake ani FIN. NAT zariadenie preto vytvorí pseudo-state z pozorovaných datagramov a zruší ho po inactivity timeoute.
+Interný klient `10.20.1.30` pristupuje k Atlas službe cez verejné meno, ktoré sa preloží na `203.0.113.5:443`:
 
 ```text
-client UDP datagram
-    ↓ vytvorí mapping
-server response
-    ↓ mapping umožní reverse translation
-idle interval
-    ↓ mapping expiruje
-late response
-    ↓ môže byť zahodená
+10.20.1.30
+→ 203.0.113.5:443
+→ DNAT
+→ 10.20.2.10:8443
 ```
 
-UDP aplikácie musia počítať s tým, že:
+Backend môže mať priamu route k klientovi a odpovedať mimo gateway. Klient však otvoril connection voči verejnému endpointu, takže direct response z internej adresy poruší očakávaný tuple.
 
-- mapping môže zaniknúť bez upozornenia,
-- keepalive traffic udržiava middlebox state, nie nutne application health,
-- timeouty sa líšia medzi zariadeniami,
-- rovnaký interný endpoint môže dostať iný externý port po obnovení mappingu,
-- inbound reachability závisí od konkrétneho NAT behavioru.
+Hairpin model preto často pridá SNAT:
 
-## 12. MASQUERADE verzus explicitný SNAT
+```text
+client source
+→ SNAT na gateway address
+→ backend odpovie gateway
+→ reverse SNAT a DNAT
+→ klient vidí verejnú service identity
+```
 
-### MASQUERADE
+Alternatívou je split-horizon DNS, ktoré internému klientovi vráti interný endpoint. To odstráni hairpin translation, ale pridá dve DNS views a nový consistency lifecycle.
 
-Masquerade použije aktuálnu adresu egress interface. Je vhodný, keď sa verejná adresa mení, napríklad pri dynamickom pripojení.
+## 11. Linux hook model
+
+Zjednodušený path forwardovaného packetu:
+
+```text
+ingress
+→ PREROUTING / typický DNAT
+→ routing decision podľa aktuálneho destination
+→ FORWARD filtering
+→ POSTROUTING / typický SNAT
+→ egress
+```
+
+Lokálne generovaný packet používa `OUTPUT` a `POSTROUTING`. Lokálne doručovaný packet skončí po routingu v `INPUT`.
+
+Pri diagnostike treba vedieť:
+
+- či je traffic local alebo forwarded,
+- v ktorom namespace vznikol,
+- ktorý hook vidí original a ktorý translated fields,
+- či DNAT zmenil ďalšie routing rozhodnutie,
+- či container, cloud alebo eBPF dataplane vykonáva ďalšiu translation.
+
+Príklad explicitného SNAT v nftables:
 
 ```nft
 chain postrouting {
     type nat hook postrouting priority srcnat;
-    oifname "wan0" ip saddr 10.0.0.0/8 masquerade
+    oifname "wan0" ip saddr 10.20.0.0/16 snat to 203.0.113.5
 }
 ```
 
-### Explicitný SNAT
-
-Explicitný SNAT určí stabilnú source adresu alebo pool adries.
-
-```nft
-chain postrouting {
-    type nat hook postrouting priority srcnat;
-    oifname "wan0" ip saddr 10.0.0.0/8 snat to 203.0.113.5
-}
-```
-
-Pri stabilnej infraštruktúre je explicitný SNAT predvídateľnejší. Masquerade je praktický pri dynamickej adrese, ale môže mať odlišný lifecycle pri zmene alebo strate interface adresy.
-
-## 13. Port allocation a NAT exhaustion
-
-PAT potrebuje pre každý súbežný mapping unikátnu externú kombináciu endpoint fields. Jedna verejná source IP preto neposkytuje nekonečnú kapacitu.
-
-Dostupnosť portov ovplyvňuje:
-
-- transportný protokol,
-- rezervované a používané porty,
-- mapping behavior zariadenia,
-- destination endpoint,
-- timeouty,
-- počet public IP adries,
-- per-client alebo per-destination limity.
-
-Typický incident:
-
-```text
-existujúce connections fungujú
-nové outbound connections timeoutujú
-problém rastie s concurrency
-po znížení loadu sa dočasne stratí
-```
-
-Možné príčiny:
-
-- chýbajúci connection pooling,
-- extrémne krátke application connections,
-- retry storm,
-- veľa long-lived idle flows,
-- UDP mappings s dlhým timeoutom,
-- malý pool public adries,
-- conntrack table exhaustion,
-- platformový per-destination limit.
-
-Náprava má vychádzať z merania. Zväčšenie timeoutu môže zhoršiť state pressure; jeho skrátenie môže rozbiť legitímne idle flows.
-
-## 14. Hairpin NAT
-
-Hairpin NAT nastane, keď interný klient používa externú adresu služby, ktorá sa prekladá späť do rovnakej internej siete.
-
-```text
-client 10.0.1.30
-    ↓ destination 203.0.113.5:443
-NAT gateway
-    ↓ DNAT
-backend 10.0.1.20:8443
-```
-
-Ak backend vidí source `10.0.1.30`, môže odpovedať klientovi priamo, mimo gateway. Klient však otvoril connection na `203.0.113.5`, takže takáto odpoveď môže porušiť očakávaný tuple.
-
-Hairpin implementácia preto často aplikuje aj SNAT:
-
-```text
-client source 10.0.1.30
-    ↓ SNAT na gateway address
-backend odpovie gateway
-    ↓ reverse translation
-client dostane odpoveď z očakávanej public identity
-```
-
-Alternatívou je split-horizon DNS, kde interný resolver vráti internú adresu. To odstraňuje hairpin path, ale vytvára dve DNS views, ktoré treba prevádzkovať konzistentne.
-
-## 15. Port forwarding
-
-Konceptuálny nftables DNAT:
+Príklad DNAT:
 
 ```nft
 chain prerouting {
     type nat hook prerouting priority dstnat;
-    iifname "wan0" tcp dport 443 dnat to 10.0.1.20:8443
+    iifname "wan0" tcp dport 443 dnat to 10.20.2.10:8443
 }
 ```
 
-Samotný DNAT nezaručuje dostupnosť. Potrebné sú aj:
+Konfigurácia iba opisuje translation. Samostatná filter policy musí flow povoliť.
 
-- IP forwarding,
-- FORWARD allow policy,
-- listener na `10.0.1.20:8443`,
-- funkčný backend route,
-- reverse translation path,
-- správne MTU a transport state,
-- logovanie a monitoring,
-- obmedzenie source rozsahu podľa security policy.
+## 12. Worked failure: nové platby timeoutujú, existujúce fungujú
 
-Pri publikovaní služby sa musí určiť, či backend potrebuje pôvodnú client IP. Ak sa source preloží, aplikácia ju môže dostať iba cez dôveryhodný proxy protokol alebo aplikačný header — ak je na ceste príslušný proxy, nie obyčajný L3/L4 NAT.
-
-## 16. NAT a firewall
-
-NAT a firewall sú odlišné funkcie:
+Atlas zaznamená tento incident:
 
 ```text
-NAT
-= prepíš adresu alebo port
-
-Firewall
-= povoľ alebo zamietni traffic
+08:00 traffic rastie
+08:08 nové payment connections začnú timeoutovať
+08:10 existujúce pooled connections stále fungujú
+08:12 CPU a backend latency sú normálne
+08:15 zníženie trafficu dočasne obnoví službu
 ```
 
-DNAT rule môže vytvoriť route k backendu, ale forward firewall môže packet zahodiť. Naopak firewall môže traffic povoliť bez akejkoľvek translation.
+### Hypotéza
 
-Stateful firewall a NAT často používajú rovnaký conntrack state, preto sa ich diagnostika prelína. Koncepčne ich však treba oddeliť:
+Egress NAT vyčerpal source-port alebo conntrack kapacitu pre nové flows.
 
-- translation vysvetľuje, aké endpoint fields packet má,
-- filter vysvetľuje, či packet smie pokračovať,
-- routing vysvetľuje, kam packet smeruje,
-- application vysvetľuje, čo sa po doručení stane.
+### Predikcie
 
-NAT nie je bezpečnostná hranica sám osebe. Neúmyselne môže obmedziť unsolicited inbound flows, ale explicitná access policy musí byť definovaná firewallom alebo vyššou vrstvou.
+- packet z Orders dorazí na inside interface,
+- nový packet nemusí odísť s translated tuple,
+- `nf_conntrack_count` sa blíži limitu alebo port-allocation errors rastú,
+- existujúce entries stále prenášajú traffic,
+- connection pooling znižuje failure rate.
 
-## 17. Asymetria a return path
-
-Stateful translation vyžaduje, aby oba smery flowu prešli zariadením, ktoré pozná mapping.
-
-```text
-forward path:
-client → NAT A → server
-
-return path:
-server → router B → client
-```
-
-Ak odpoveď obíde NAT A:
-
-- reverse translation sa nevykoná,
-- source alebo destination tuple nebude sedieť,
-- stateful firewall môže packet zahodiť,
-- capture na NAT A ukáže iba outbound polovicu flowu.
-
-Asymetriu môžu spôsobiť:
-
-- multiple default routes,
-- ECMP,
-- policy routing,
-- nesprávna backend gateway,
-- cloud route tables,
-- HA failover bez state synchronization,
-- anycast alebo multi-region routing,
-- container overlay a host routing kombinácia.
-
-## 18. HA a state synchronization
-
-Ak je NAT gateway redundantná, nestačí iba presunúť virtuálnu IP. Aktívne mappings sú lokálny stav.
-
-Pri failover-e bez synchronizácie:
-
-- existujúce TCP connections môžu byť resetnuté alebo timeoutovať,
-- UDP mappings sa stratia,
-- nový node nevie vykonať reverse translation,
-- aplikačné retries môžu vytvoriť burst.
-
-Možné modely:
-
-- active/passive so state replication,
-- active/active s deterministickým flow hashingom,
-- stateless alebo algorithmic translation pre vhodný use case,
-- akceptovanie connection lossu a retry na vyššej vrstve.
-
-HA návrh musí explicitne určiť, či chráni iba novú konektivitu alebo aj existujúce flows.
-
-## 19. NAT traversal
-
-Klient za stateful NAT typicky nemá stabilný inbound mapping, kým ho nevytvorí outbound traffic alebo explicitné pravidlo.
-
-Používané mechanizmy:
-
-- static port forwarding — administrátor vytvorí stabilný inbound mapping,
-- UPnP, NAT-PMP alebo PCP — klient žiada gateway o mapping,
-- STUN — klient zistí, aký externý endpoint mu NAT pridelil,
-- TURN — traffic sa reléuje cez verejne dostupný server,
-- ICE — kombinuje host, server-reflexive a relay candidates a testuje reachability.
-
-Používa sa pri WebRTC, VoIP, P2P a hrách. Úspech závisí od NAT mapping a filtering behavioru, firewallu, timeoutov a dostupnosti relay infraštruktúry.
-
-## 20. NAT a aplikačné protokoly
-
-Protokol, ktorý v payloade prenáša vlastné IP adresy alebo porty, môže po NATe zlyhať. Translation zariadenie mení headers, nie automaticky aplikačné dáta.
-
-Historicky sa používali protocol helpers alebo application-level gateways. Tie však:
-
-- zvyšujú parser attack surface,
-- musia rozumieť protokolu,
-- zlyhávajú pri šifrovanom payloade,
-- komplikujú state a troubleshooting.
-
-Moderný návrh preferuje protokoly, ktoré sú NAT-aware na aplikačnej vrstve, používajú explicitné relays alebo neprenášajú routovacie endpointy v neautentizovaných payloads.
-
-## 21. NAT v kontajneroch a Kubernetes
-
-Pri publikovaní container portu môže dataplane vykonať DNAT, SNAT, proxying alebo eBPF service translation.
-
-```text
-client
-    ↓ host/node IP:8080
-service or host translation
-    ↓ container/Pod IP:80
-application socket
-```
-
-Treba oddeliť:
-
-- application listener,
-- Pod alebo container network namespace,
-- Pod IP,
-- container port metadata,
-- node port alebo published host port,
-- Service virtual IP,
-- external load balancer,
-- ingress alebo reverse proxy.
-
-Source IP sa môže zachovať alebo stratiť podľa dataplane a traffic policy. To ovplyvňuje:
-
-- audit logy,
-- rate limiting,
-- network policy,
-- geolocation,
-- client identity,
-- session affinity.
-
-Hostový nftables ruleset nemusí byť jediným zdrojom pravdy, ak platforma používa IPVS, eBPF alebo managed virtual networking.
-
-## 22. Cloud NAT
-
-Managed cloud NAT typicky poskytuje outbound connectivity privátnym subnetom bez inbound publikovania workloadov.
-
-Prevádzkové limity môžu zahŕňať:
-
-- source-port kapacitu na public IP,
-- per-destination mapping limit,
-- počet súbežných flows,
-- idle timeouty,
-- throughput a packets per second,
-- zonálny failure domain,
-- počet priradených public IP adries,
-- cenu za spracované dáta.
-
-Cloud NAT nie je automaticky firewall ani load balancer. Route table musí smerovať outbound traffic na NAT target a security controls musia traffic samostatne povoliť.
-
-Pri zonálnom dizajne treba zvážiť, či cross-zone routing zvyšuje náklady, latency alebo failure coupling.
-
-## 23. NAT64 a DNS64
-
-NAT64 umožňuje IPv6-only klientovi komunikovať s IPv4 serverom.
-
-Zjednodušený tok:
-
-```text
-IPv6-only client
-    ↓ query A/AAAA
-DNS64
-    ↓ syntetizuje AAAA z IPv4 A recordu
-client sends IPv6 packet to NAT64 prefix
-    ↓
-NAT64 translates IPv6 ↔ IPv4
-    ↓
-IPv4 server
-```
-
-DNS64 syntetizácia nie je vždy možná alebo vhodná, napríklad pri aplikácii používajúcej literal IPv4 adresu, vlastné DNSSEC validation assumptions alebo protokol prenášajúci adresy v payloade.
-
-NAT66 existuje v niektorých prostrediach, ale IPv6 security nemá byť založená na preklade. Segmentáciu a inbound policy rieši firewall, nie absencia globálnej adresy.
-
-## 24. Checksums a offload
-
-Zmena IP adresy alebo portu mení hodnoty zahrnuté v IP alebo transportnom checksume. NAT implementácia musí checksum korektne upraviť.
-
-Pri packet capture na hoste môže checksum vyzerať neplatne, pretože:
-
-- kernel ešte neodovzdal finálny výpočet NIC offloadu,
-- capture prebehla pred alebo po inom dataplane kroku,
-- packet je logical large segment pred segmentation offloadom.
-
-Preto chybný checksum v host capture nie je automaticky dôkaz poškodeného packetu na wire. Porovnaj capture na vhodnom observation pointe alebo dočasne zohľadni offload stav.
-
-## 25. Observability
-
-Pri NAT incidente treba pozorovať najmenej štyri pohľady:
-
-### Original flow
-
-Aké source/destination fields vytvoril klient?
-
-### Translated flow
-
-S akými fields packet odchádza z translation pointu?
-
-### Conntrack mapping
-
-Existuje state a aký má lifecycle?
-
-### Return flow
-
-Prichádza odpoveď na preložený endpoint a vykoná sa reverse translation?
-
-Nástroje:
+### Overenie
 
 ```bash
-sudo nft list ruleset
-sudo conntrack -L
+ip route get 198.51.100.20
+sudo tcpdump -ni inside0 host 10.20.1.15
+sudo tcpdump -ni wan0 host 198.51.100.20
 sudo conntrack -S
-ss -tan
-ip route get <destination>
-sudo tcpdump -ni <inside-iface> host <client-or-backend>
-sudo tcpdump -ni <outside-iface> host <remote-endpoint>
-journalctl -k -b
+sysctl net.netfilter.nf_conntrack_count
+sysctl net.netfilter.nf_conntrack_max
 ```
 
-Pri nftables je užitočné používať counters a kontrolované tracing mechanizmy. Pri vysokej prevádzke môže kompletný conntrack dump alebo široký packet capture vytvoriť veľký overhead a citlivé dáta.
-
-## 26. Diagnostický postup: outbound flow
-
-Klient z privátnej siete sa nevie pripojiť na externý endpoint.
-
-1. Over klientský destination a source selection:
-
-```bash
-ip route get <destination>
-```
-
-2. Zachyť original packet na inside interface translation pointu.
-3. Over IP forwarding a FORWARD policy.
-4. Over, že packet zodpovedá NAT pravidlu.
-5. Zachyť egress packet a skontroluj preloženú source adresu a port.
-6. Over conntrack entry a timeout/state.
-7. Over, či odpoveď prichádza na public endpoint.
-8. Skontroluj reverse translation a doručenie klientovi.
-9. Pri vysokom load-e skontroluj conntrack a source-port capacity.
-10. Po obnovení transportu over aplikačný výsledok, nie iba SYN handshake.
-
-Klasifikácia dôkazov:
+Rozhodovací tok:
 
 ```text
-packet nepríde na NAT
-→ klientská route, L2 alebo upstream firewall
+packet nepríde na gateway
+→ route, L2 alebo upstream policy
 
 packet príde, ale neodíde
-→ forwarding, filter, NAT match alebo route
-
-packet odíde nepreložený
-→ NAT rule/hook mismatch
+→ forwarding, filter, NAT match alebo state allocation
 
 packet odíde preložený, reply nepríde
 → remote path, remote policy alebo return routing
 
 reply príde, ale klient ho nedostane
-→ conntrack/reverse translation/filter/inside route
+→ reverse mapping, filter alebo inside route
 ```
 
-## 27. Diagnostický postup: publikovaná služba
+### Náprava
 
-Externý klient sa nevie pripojiť na DNAT endpoint.
+Atlas najprv zastaví retry amplification, obnoví connection pooling a pridá ďalšiu public source IP. Až následne upraví conntrack sizing podľa nameranej concurrency a timeout distribúcie.
 
-1. Over, že packet prichádza na external address a správny interface.
-2. Over DNAT counter a translated destination.
-3. Skontroluj routing decision k backendu.
-4. Over FORWARD policy a backend listener.
-5. Zachyť packet pri backende.
-6. Over backend source-address view.
-7. Skontroluj backend return route.
-8. Zachyť response na backend aj external strane translation pointu.
-9. Over reverse DNAT a source identity odpovede.
-10. Skontroluj hairpin path osobitne, ak interní klienti používajú public endpoint.
+Tým sa odlišuje mitigation od root-cause fixu: reštart gateway by state dočasne uvoľnil, ale zároveň by zrušil existujúce connections a neopravil connection churn.
 
-`Connection refused` môže znamenať RST od externého translation pointu, backendu alebo firewall reject. Timeout typicky znamená drop alebo chýbajúcu odpoveď, ale observation point musí určiť, kde sa flow zastavil.
+## 13. Worked failure: publikovaný endpoint timeoutuje
 
-## 28. Bezpečnostné trade-offy
+Externý klient používa `203.0.113.5:443`, no reverse proxy request nevidí.
 
-NAT môže znížiť priame vystavenie interných adries, ale neposkytuje úplnú bezpečnostnú politiku.
+Postupuj cez štyri observation points:
 
-Riziká:
+1. **Original flow** — prichádza packet na public interface?
+2. **Translated flow** — zmenila sa destination na `10.20.2.10:8443`?
+3. **Conntrack mapping** — existuje original/reply tuple?
+4. **Return flow** — odpovedá backend cez rovnaký state owner?
 
-- široké DNAT pravidlo publikuje nechcenú službu,
-- source translation skrýva pôvod klienta pred backendom,
-- chýbajúce mapping logy znemožnia atribúciu,
-- state exhaustion vytvorí denial of service,
-- hairpin path obíde očakávanú segmentáciu,
-- helper spracúva nedôveryhodný aplikačný payload,
-- overlapping translation komplikuje identity a audit,
-- automatické port mapping protokoly zväčšia attack surface.
+```bash
+sudo nft list ruleset
+sudo conntrack -L
+ip route get 10.20.2.10
+sudo tcpdump -ni wan0 'tcp port 443'
+sudo tcpdump -ni inside0 'host 10.20.2.10 and tcp port 8443'
+```
 
-Least-privilege návrh má obmedziť source, destination, protocol, port, direction a životnosť pravidla. Translation policy má byť versionovaná, testovaná a pozorovateľná rovnako ako firewall policy.
+Výsledky majú mechanický význam:
 
-## 29. Časté omyly
+- Packet na WAN, ale bez DNAT countera: rule alebo hook mismatch.
+- DNAT nastane, ale packet nejde na inside interface: route alebo FORWARD policy.
+- Packet dorazí backendu a príde RST: nesprávny listener/protocol.
+- Backend odpovie priamo inou gateway: asymmetric return path.
+- Transport funguje, ale TLS zlyhá: NAT vrstva je už preukázateľne funkčná.
 
-### „NAT a firewall sú to isté“
+## 14. HA: presun adresy nestačí
 
-Nie. NAT mení endpoint fields; firewall rozhoduje, či packet môže pokračovať.
+NAT gateway má per-flow state. Pri failover-e na druhý node nestačí presunúť verejnú IP.
 
-### „DNAT automaticky sprístupní službu“
+Bez state synchronization:
 
-Nie. Potrebuje forwarding, firewall allow, backend listener a funkčný return path.
+- nový node nepozná reverse mappings,
+- existujúce TCP flows sa prerušia,
+- UDP pseudo-state zanikne,
+- klientské retries vytvoria load burst.
 
-### „Existujúca route znamená, že NAT funguje“
+Návrh musí explicitne určiť, či chráni iba nové connections alebo aj existujúce flows. Možnosti zahŕňajú active/passive state replication, deterministické active/active rozdelenie alebo vedomé akceptovanie connection lossu s bezpečným retry modelom vyššej vrstvy.
 
-Nie. Route neurčuje translation match, state capacity ani reverse mapping.
+## 15. Referenčné rozšírenia
 
-### „NAT vždy skryje internú topológiu“
+Nasledujúce varianty sú dôležité, ale nemenia základný lifecycle `original tuple → mapping → reverse translation`.
 
-Nie. DNS, aplikačné payloady, headers, timing a ďalšie metadata ju môžu odhaliť.
+### MASQUERADE verzus explicitný SNAT
 
-### „Privátna IP je automaticky bezpečná“
+- `masquerade` používa aktuálnu adresu egress interface a hodí sa pre dynamickú adresu,
+- explicitný `snat to` je predvídateľnejší pri stabilnej infraštruktúre.
 
-Nie. Môže byť dostupná cez VPN, peering, compromised host, proxy alebo nesprávne forwarding pravidlo.
+### Cloud NAT
 
-### „Veľká conntrack table vyrieši NAT exhaustion“
+Managed služba stále potrebuje route z privátneho subnetu, state a port capacity. Má provider-specific limity pre flows, throughput, idle timeouty, public IP pool a failure domain.
 
-Nie vždy. Bottleneck môže byť source-port priestor, per-destination limit, retry storm alebo platformová quota.
+### Container a Kubernetes dataplane
+
+Publikovaný port alebo Service môže používať DNAT, proxy, IPVS alebo eBPF translation. Treba odlíšiť application listener, Pod IP, node port, Service virtual IP a external load balancer.
+
+### NAT64 a DNS64
+
+DNS64 môže syntetizovať IPv6 destination z IPv4 recordu a NAT64 preloží IPv6 flow na IPv4. Literal IPv4 adresy, DNSSEC assumptions alebo adresy v payload-e môžu tento model rozbiť.
+
+### NAT traversal
+
+STUN zisťuje externý endpoint, TURN reléuje traffic a ICE testuje dostupné candidates. Tieto mechanizmy riešia inbound reachability a variabilné NAT behavior, nie všeobecný routing.
+
+## 16. Časté omyly
+
+### „NAT je firewall“
+
+NAT mení endpoint fields. Firewall vykonáva allow alebo deny rozhodnutie.
+
+### „DNAT automaticky otvorí službu“
+
+Stále treba route, FORWARD allow, listener, aplikačný protokol a return path.
+
+### „Route znamená, že translation funguje“
+
+Route neoveruje NAT rule match, state allocation ani reverse mapping.
+
+### „Privátna adresa je bezpečnostná hranica“
+
+Private endpoint môže byť dostupný cez VPN, peering, proxy, compromised host alebo chybný forwarding.
 
 ### „IPv6 potrebuje NAT kvôli bezpečnosti“
 
-Nie. Security policy poskytuje firewall a access-control vrstva.
+IPv6 inbound policy sa rieši firewallom a identitou. Preklad nie je náhrada access controlu.
 
-## 30. Kontrolné otázky
+### „Veľká conntrack table vyrieši každý capacity incident“
 
-1. Aký je rozdiel medzi routingom, NATom a firewallom?
-2. Čo obsahuje stateful NAT mapping?
-3. Prečo sa NAT pravidlo typicky rozhoduje pri prvom packete flowu?
-4. Ako funguje reverse translation pri SNAT a DNAT?
-5. Prečo asymmetric return path rozbije stateful NAT?
-6. Aký je rozdiel medzi MASQUERADE a explicitným SNAT?
-7. Ako vzniká source-port alebo conntrack exhaustion?
-8. Prečo UDP mapping potrebuje inactivity timeout?
-9. Čo je hairpin NAT a prečo môže vyžadovať SNAT?
-10. Prečo DNAT pravidlo samo nestačí na publikovanie služby?
-11. Ako sa líši endpoint socket state od conntrack state?
-12. Čo musí HA NAT riešiť pri failover-e existujúcich connections?
-13. Aký problém riešia STUN, TURN a ICE?
-14. Ako NAT64 a DNS64 umožnia IPv6-only klientovi dosiahnuť IPv4 server?
-15. Ktoré observation points potrebuješ pri diagnostike translation flowu?
+Limitom môže byť portový priestor, public IP pool, per-destination quota alebo retry-generated load.
+
+## 17. Kontrolné otázky
+
+1. Aký problém rieši SNAT v scenári Atlas Orders?
+2. Čo obsahuje obojsmerný NAT mapping?
+3. Prečo sa pravidlo rozhoduje najmä pri prvom packete?
+4. Prečo po zmene pravidla treba testovať nový flow?
+5. Ako PAT umožní zdieľať jednu verejnú IP?
+6. Ako rozlíšiš conntrack exhaustion od source-port exhaustion?
+7. Prečo DNAT vyžaduje správny backend return path?
+8. Aký je rozdiel medzi socket state, conntrack state a aplikačným stavom?
+9. Prečo UDP mapping expiruje bez FIN udalosti?
+10. Prečo hairpin NAT často potrebuje aj SNAT?
+11. Ktoré Linux hooks typicky vykonávajú DNAT a SNAT?
+12. Aké štyri observation points potrebuje NAT troubleshooting?
+13. Prečo presun virtuálnej IP nestačí na transparentný NAT failover?
+14. Čo NAT64 mení a akú úlohu má DNS64?
+
+## 18. Zhrnutie
+
+NAT je stateful transformácia endpoint identity. Prvý packet vytvorí mapping medzi original a translated tuple, ďalšie packets ho používajú a return traffic musí prejsť bodom, ktorý vie vykonať reverse translation. NAT funguje iba spolu s routingom, firewallom, state capacity a správnym return pathom.
+
+Praktická diagnostika preto nesleduje iba pravidlo. Porovná original packet, translated packet, conntrack mapping a return packet. Až z tejto štvorice možno určiť, či flow zlyhal pred prekladom, pri state allocation, po preklade alebo pri reverse ceste.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
