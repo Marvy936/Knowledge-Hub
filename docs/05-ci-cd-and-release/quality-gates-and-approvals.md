@@ -1,781 +1,472 @@
 # Quality gates a approvals
 
-Quality gate je automatizovaný alebo policy-driven rozhodovací bod, ktorý na základe konkrétneho subjectu, evidence a versionovanej policy určí, či môže zmena pokračovať. Approval je explicitné rozhodnutie oprávneného človeka alebo skupiny nad rizikom, ktoré nemožno alebo nemá zmysel plne automatizovať.
+## Metadata
 
-Obe vrstvy majú chrániť konkrétny failure mode. Gate bez presnej policy je iba dashboard. Approval bez kontextu je iba administratívny klik.
+- Status: Learning
+- Level: L2
+- Domain: CI/CD and Release Engineering
 
-## 1. Mental model
-
-Dôveryhodné rozhodnutie má štyri vstupy:
+Quality gate je rozhodovací mechanizmus, ktorý vyhodnotí konkrétny subject proti úplnému evidence manifestu a versionovanej policy. Approval je explicitné rozhodnutie oprávnenej authority nad rizikom alebo kontextom, ktorý nemožno spoľahlivo zredukovať na deterministické pravidlo.
 
 ```text
-subject
-+ evidence manifest
-+ policy version
-+ decision authority
-→ verdict
+immutable subject
++ expected evidence manifest
++ applicability a freshness graph
++ versioned policy
++ automatic alebo human authority
+→ allow / deny / review / incomplete / expired / inconclusive / waived
+→ audit, remediation alebo ďalší delivery transition
 ```
 
-- **Subject —** commit, merge-result SHA, artifact digest, deployment plan, environment alebo release cohort.
-- **Evidence manifest —** presný zoznam testov, scanov, attestations, reports a runtime signálov.
-- **Policy —** pravidlá, thresholds, scope, freshness a missing-data semantics.
-- **Authority —** automatický policy engine alebo oprávnený approver.
+## 1. Cieľ kapitoly
 
-Verdict musí byť auditovateľný a viazaný na immutable identity subjectu.
-
-## 2. Check verzus gate
-
-Check vytvorí signál. Gate použije jeden alebo viac signálov na rozhodnutie.
+Nosný model kapitoly je gate-decision lifecycle:
 
 ```text
-SAST scanner
-→ findings report
-
-policy:
-reachable critical finding bez platnej výnimky = deny
-→ security gate
+rozhodovací subject
+→ expected evidence a completion contract
+→ subject/evidence identity verification
+→ policy applicability a freshness
+→ automated evaluation
+→ human decision packet podľa potreby
+→ explicitný verdict
+→ exception, expiry a revocation lifecycle
+→ audit a defect-escape learning
 ```
 
-Jeden check môže vstupovať do viacerých gates. Napríklad SBOM môže byť použitý pri build promotion, production deployment aj compliance audite.
+Cieľom nie je pridať čo najviac červených a zelených kontrol. Cieľom je vytvoriť dôveryhodné rozhodnutie, ktoré vie odlíšiť reálne porušenie od chýbajúceho dôkazu, nástrojového zlyhania, expirovaného kontextu alebo legitímne prijatého rizika.
 
-## 3. Subject gate-u
+## 2. Nosný scenár: Atlas Orders 3.10.1
 
-Gate musí presne pomenovať, čo hodnotí:
-
-- source commit,
-- synthetic merge-result SHA,
-- artifact digest,
-- release manifest digest,
-- infrastructure plan digest,
-- rendered configuration digest,
-- environment deployment revision,
-- canary cohort,
-- database migration plan.
-
-Branch name alebo pipeline label je slabá identity. Môže sa zmeniť alebo ukazovať na iný obsah.
-
-## 4. Evidence manifest
-
-Evidence manifest je zoznam požadovaných dôkazov pre jeden subject.
-
-Príklad:
+Atlas chce promovať release tuple:
 
 ```text
-subject: image digest A
-required evidence:
-- build provenance P1
-- unit report U1
-- contract report C1
-- SCA report S1
-- image signature G1
-- staging smoke D1
+subject Q = {
+  release manifest R,
+  rendered config K,
+  target environment E3,
+  infrastructure revision I,
+  rollout strategy canary,
+  migration state snapshot D
+}
 ```
 
-Manifest má zachovať:
-
-- evidence ID a typ,
-- subject digest/SHA,
-- producer tool a version,
-- workflow/run identity,
-- completion status,
-- timestamp a expiry,
-- result summary,
-- integrity/signature,
-- exception reference.
-
-Bez manifestu môže fan-in gate omylom skombinovať reporty z rôznych artifacts alebo prehliadnuť chýbajúci shard.
-
-## 5. Verdict taxonomy
-
-Binárny `pass/fail` model je často nedostatočný. Gate má podľa potreby rozlišovať:
-
-- **Allow —** všetky povinné podmienky sú splnené.
-- **Deny —** platná policy je porušená.
-- **Warn/advisory —** finding je viditeľný, ale neblokuje.
-- **Require review —** automatika nemá dostatočný kontext.
-- **Incomplete —** chýba povinná evidence alebo shard.
-- **Invalid evidence —** report nepatrí subjectu, je poškodený alebo neoveriteľný.
-- **Expired —** evidence alebo approval prekročili freshness window.
-- **Tool/infrastructure error —** kontrola sa nevykonala spoľahlivo.
-- **Inconclusive —** signál nestačí na bezpečné rozhodnutie.
-- **Waived —** porušenie bolo dočasne prijaté platnou výnimkou.
-
-`Tool error`, `incomplete` a `inconclusive` nesmú byť ticho mapované na pass.
-
-## 6. Blocking gate
-
-Blocking gate zastaví merge, promotion, deployment alebo release.
-
-Je vhodný, keď:
-
-- chráni významné a explicitné riziko,
-- signál má vysokú presnosť,
-- výsledok je reprodukovateľný,
-- remediation je jasná,
-- tool a evidence pipeline sú stabilné,
-- runtime je primeraný rozhodovaciemu bodu,
-- exception proces je definovaný.
-
-Príklady:
-
-- compilation failure,
-- required test failure,
-- neplatná artifact signature,
-- chýbajúca provenance,
-- kritická nekompatibilná migration,
-- high-confidence secret exposure,
-- zakázaný production network exposure,
-- chýbajúci povinný report.
-
-## 7. Advisory gate
-
-Advisory gate reportuje riziko bez blokovania.
-
-Vhodné použitie:
-
-- nový nástroj počas kalibrácie,
-- trendová metrika,
-- heuristický signál s vyšším false-positive rate,
-- legacy baseline rollout,
-- odporúčanie s ľudským posúdením,
-- nízka závažnosť.
-
-Advisory gate potrebuje:
-
-- ownera,
-- definovaný scope,
-- dashboard alebo issue lifecycle,
-- cieľový stav,
-- rozhodnutie, či sa stane blocking, ostane advisory alebo sa odstráni.
-
-Inak sa zmení na trvalý šum.
-
-## 8. Policy ako versionovaný kontrakt
-
-Policy musí byť explicitná, versionovaná a vysvetliteľná.
-
-Príklad:
+Expected evidence:
 
 ```text
-block production promotion when:
-- artifact signature missing or invalid
-- required test evidence incomplete
-- new reachable critical vulnerability exists
-- migration compatibility result = deny
-- approval expired
+build provenance P
+unit/component/contract reports T
+SCA/image/security reports S
+migration compatibility M
+staging deployment/smoke O
+production precheck H
+rollback/roll-forward plan C
 ```
 
-Policy version je súčasť verdictu. Pri zmene pravidla musí byť možné vysvetliť, prečo ten istý artifact prešiel včera a dnes nie.
+Policy musí rozhodnúť, či Q môže vstúpiť do production canary. Nestačí vedieť, že pipeline je zelená; treba vedieť, či všetky požadované dôkazy existujú, patria Q, sú čerstvé a spĺňajú príslušné pravidlá.
 
-## 9. Policy composition
+## 3. Check verzus gate
 
-Komplexný gate môže skladať viac sub-policies:
+Check vytvára signál. Gate z neho robí rozhodnutie.
 
 ```text
-build eligibility
-AND security eligibility
-AND compliance eligibility
-AND environment readiness
-AND release approval
+scanner
+→ signed report S pre digest R
+
+policy
+→ reachable critical finding bez platnej výnimky = deny
+→ missing alebo invalid S = incomplete, nie allow
 ```
 
-Pri composition definuj:
+Jeden report môže vstupovať do viacerých rozhodnutí: artifact eligibility, environment promotion aj compliance audit. Jeho význam sa mení podľa subjectu, scope-u a policy.
 
-- AND/OR semantics,
-- required a optional evidence,
-- precedence pravidiel,
-- conflict resolution,
-- fail-open/fail-closed behavior,
-- override scope,
-- aggregation report.
+## 4. Subject identity
 
-Nejasná OR policy môže povoliť release iba preto, že jeden z viacerých scannerov bol zelený.
+Gate subject musí byť immutable alebo jednoznačne versionovaný:
 
-## 10. Scope a applicability
+- synthetic merge candidate SHA;
+- artifact alebo release manifest digest;
+- rendered configuration digest;
+- infrastructure/plan digest;
+- environment revision;
+- migration plan/state snapshot;
+- rollout cohort a strategy revision.
 
-Nie každé pravidlo platí pre každý subject.
+Branch, tag alias alebo pipeline name nie sú dostatočná identity. Atlas gate viaže verdict na tuple Q, nie na názov `release-3.10.1`.
 
-Príklady:
+## 5. Evidence manifest a completeness
 
-- mobile signing gate sa nevzťahuje na backend image,
-- database compatibility gate sa spustí iba pri schema/migration zmene,
-- production IAM approval sa nevzťahuje na dokumentáciu,
-- performance gate môže byť povinný pre critical path alebo runtime zmenu.
-
-Applicability musí byť explicitná a auditovateľná. `Skipped` má obsahovať dôvod a policy rule, nie prázdny stav.
-
-## 11. Baseline a ratcheting
-
-Legacy systém môže mať existujúci dlh. Bezpečný adoption model:
+Evidence manifest deklaruje, čo musí existovať pred rozhodnutím:
 
 ```text
-existujúci baseline
-+ blokovanie nových kritických porušení
-+ zákaz zhoršenia
-+ postupné znižovanie debt
+subject Q
+required:
+- P: build provenance, complete
+- T1..T4: test reports, complete
+- S1: image scan, complete
+- S2: signature verification, complete
+- M1: migration compatibility, complete
+- O1: staging smoke, complete
+optional/advisory:
+- performance trend A1
 ```
 
-Baseline musí byť:
+Každá evidence položka obsahuje subject identity, producer/tool version, workflow/run, timestamps, completion state, result, integrity a exception reference.
 
-- versionovaná,
-- viazaná na scope,
-- reviewovaná,
-- merateľne znižovaná,
-- chránená pred automatickým prepisom,
-- odlíšená od jednotlivých waivers.
+Fan-in najprv dokazuje úplnosť a až potom interpretuje findings. Chýbajúci shard alebo report nie je nulový finding.
 
-Ratcheting nie je povolenie debt navždy. Je to riadený prechod na prísnejšiu policy.
+## 6. Policy applicability
 
-## 12. Evidence completeness
-
-Gate musí vedieť, ktoré dôkazy očakáva.
-
-Príklady neúplnosti:
-
-- jeden test shard chýba,
-- report upload zlyhal,
-- scan preskočil časť image layers,
-- coverage report obsahuje iba unit tests namiesto aggregate scope,
-- policy engine nedostal rendered plan,
-- canary nemá dostatok samples.
-
-„Nenašli sme finding“ nie je rovnaké ako „kontrola kompletne prebehla“.
-
-## 13. Evidence freshness graph
-
-Freshness sa neviaže iba na čas. Evidence invalidujú zmeny vstupov.
-
-Príklady dependencies:
+Nie každé pravidlo platí pre každú zmenu. Atlas policy odvodí applicability z manifestu, diff classification a targetu:
 
 ```text
-source commit change
-→ invaliduje build/test/code-review evidence
+migration bundle prítomný
+→ migration compatibility gate required
 
-artifact digest change
-→ invaliduje scan/signature/deployment evidence
+production IAM alebo network change
+→ environment/security owner review required
 
-config revision change
-→ invaliduje environment verification a approval
+dokumentačná zmena bez artifactu
+→ production deployment rules not applicable
+```
+
+`Skipped` je explicitný policy verdict s pravidlom a dôvodom. Tichá absencia jobu nevytvára dôkaz, že kontrola nebola potrebná.
+
+## 7. Freshness graph
+
+Evidence platnosť invalidujú dependency zmeny:
+
+```text
+candidate SHA change
+→ build/test/review stale
+
+release manifest digest change
+→ scan/signature/deployment evidence stale
+
+rendered config alebo infrastructure revision change
+→ environment verification a approval stale
 
 policy version change
-→ môže vyžadovať nové vyhodnotenie
+→ verdict musí byť reevaluated
 
-target branch change
-→ invaliduje merge-result checks
+target environment drift alebo incident
+→ health/approval snapshot stale
 ```
 
-Gate má poznať dependency graph a odmietnuť stale result.
+Niektoré výsledky expirujú aj časom: vulnerability scan, environment health, canary signal, deployment window a temporary exception.
 
-## 14. Časová freshness
+## 8. Verdict taxonomy
 
-Niektoré evidence expirujú aj bez zmeny subjectu:
+Atlas gate vracia:
 
-- vulnerability scan po aktualizácii threat database,
-- environment health,
-- canary metrics,
-- business/calendar approval,
-- temporary exception,
-- certificate validity check,
-- change window.
+- **allow** — complete, valid a fresh evidence spĺňa policy;
+- **deny** — platná policy je porušená;
+- **warn/advisory** — signal je viditeľný, ale neblokuje;
+- **require review** — treba ľudský risk/context judgement;
+- **incomplete** — povinná evidence nevznikla;
+- **invalid evidence** — report nepatrí subjectu alebo nie je overiteľný;
+- **expired** — evidence alebo approval už nie je platný;
+- **tool/infrastructure error** — kontrola sa spoľahlivo nevykonala;
+- **inconclusive** — vzorka alebo signál nestačí;
+- **waived** — konkrétne porušenie má platnú scoped výnimku.
 
-Freshness window má byť policy parameter podľa rizika.
+Mapovanie všetkého na pass/fail ničí diagnostiku a môže vytvoriť fail-open bez vedomého risk rozhodnutia.
 
-## 15. Missing evidence a fail-open/fail-closed
+## 9. Blocking a advisory controls
 
-Pri chýbajúcej evidence alebo gate outage musí policy rozhodnúť:
-
-- **Fail closed —** pokračovanie sa blokuje.
-- **Fail open —** pokračovanie je povolené s viditeľným degraded stavom.
-- **Require review —** človek posúdi kontext.
-- **Use last known evidence —** iba ak je to explicitne povolené a stále čerstvé.
-
-Príklady:
-
-- artifact signature verification pre production: typicky fail closed;
-- advisory trend dashboard: môže fail open;
-- critical incident hotfix: require review alebo break-glass s následnou kontrolou.
-
-## 16. Tool a infrastructure failure
-
-Scanner, runner, registry alebo policy service sú dependencies delivery systému.
-
-Gate musí rozlíšiť:
-
-- finding,
-- deterministic test failure,
-- timeout,
-- rate limit,
-- unavailable backend,
-- parser/report error,
-- authentication failure,
-- corrupt evidence.
-
-Automatický retry je vhodný iba pre identifikované transient failures. Opakovať deterministic finding alebo flaky test dovtedy, kým prejde, ničí dôveryhodnosť gate-u.
-
-## 17. Gate placement
-
-Kontrola má byť umiestnená do najskoršieho bodu s dostatočnou fidelity.
+Blocking je vhodný, keď signal chráni významný risk, je presný, reprodukovateľný, akčný a stabilný. Advisory control má maturity lifecycle:
 
 ```text
-editor/local
-→ syntax, format, targeted lint
-
-pull request
-→ build, tests, static, contracts, diff policy
-
-merge queue
-→ integration candidate proti aktuálnemu main
-
-artifact promotion
-→ signature, provenance, scans, compatibility
-
-environment deployment
-→ plan, config, protected policy
-
-progressive rollout
-→ runtime SLI, canary a business guardrails
+pilot/baseline
+→ merať precision a noise
+→ tuning a ownership
+→ blocking pre nový alebo critical scope
+→ rozšírenie, ponechanie advisory alebo odstránenie
 ```
 
-Rovnaký risk sa nemá zbytočne kontrolovať päťkrát rovnakým spôsobom. Neskorší gate má pridať fidelity alebo nový kontext.
+Permanentný advisory finding bez ownera a remediation je dekorácia.
 
-## 18. Approval
+## 10. Missing-data policy
 
-Approval je explicitné rozhodnutie oprávnenej osoby alebo skupiny. Je legitímny, keď treba posúdiť:
+Pri chýbajúcej evidence Atlas explicitne volí:
 
-- business timing,
-- neautomatizovateľný kontext,
-- risk acceptance,
-- compliance/separation of duties,
-- externú koordináciu,
-- destructive alebo nevratnú zmenu,
-- nejednoznačný runtime signal,
-- emergency trade-off.
+- **fail closed** pre signature, provenance, required tests a migration compatibility;
+- **require review** pri emergency hotfixe alebo dočasne nedostupnom contextual signal-e;
+- **fail open with degraded state** iba pri nepovinnom trendovom reporte, kde dostupnosť delivery prevyšuje riziko chýbajúceho signálu;
+- **last known evidence** iba pri explicitnom scope-e, subject matchi a platnej freshness.
 
-Approval nemá nahrádzať compile, unit tests alebo deterministickú policy.
+Tool outage nie je automaticky absence findings.
 
-## 19. Decision packet
+## 11. Policy composition
 
-Approver má dostať kompaktný, ale úplný decision packet:
-
-- subject identity a digest,
-- source/change summary,
-- target environment a release cohort,
-- risk classification,
-- povinné evidence a ich freshness,
-- findings a platné waivers,
-- deployment strategy,
-- blast radius,
-- rollback/roll-forward plan,
-- data/schema impact,
-- observation a abort criteria,
-- change window,
-- requested decision a expiry.
-
-Approver nemá ručne hľadať základné informácie v desiatkach pipeline logov.
-
-## 20. Approval verdict
-
-Approval nemusí byť iba `approve/reject`.
-
-Možnosti:
-
-- approve,
-- reject,
-- request changes,
-- approve with conditions,
-- defer/pause,
-- escalate to required specialist,
-- accept risk via scoped waiver.
-
-Podmienené approval musí mať strojovo alebo procesne overiteľné conditions. Voľný komentár „OK, ak sa nič nezmení“ nestačí.
-
-## 21. Separation of duties
-
-Pri citlivých zmenách môže policy vyžadovať nezávislosť rolí:
-
-- autor zmeny,
-- code owner,
-- security owner,
-- database/platform owner,
-- environment owner,
-- business/risk owner.
-
-Kontroluj conflict-of-interest pravidlá:
-
-- autor nemôže byť jediný approver,
-- service account nesmie nahradiť ľudskú risk authority,
-- skupinové členstvo je auditované,
-- dočasná delegácia má expiráciu.
-
-Separation of duties má byť risk-based. Univerzálne dve approvals pre dokumentačnú zmenu iba zvyšujú queue time.
-
-## 22. Quorum a approval groups
-
-Policy môže vyžadovať:
-
-- jeden approval z konkrétnej skupiny,
-- dva nezávislé approvals,
-- kombináciu security + environment owner,
-- approval majority/quorum,
-- explicitný approver pre destructive action.
-
-Definuj:
-
-- eligible members,
-- conflict rules,
-- backup/on-call coverage,
-- SLA,
-- membership audit,
-- behavior pri nedostupnosti skupiny.
-
-## 23. Risk-based approvals
-
-Príklad:
+Production decision môže skladať:
 
 ```text
-low risk + complete automated evidence
-→ automatic promotion
-
-medium risk alebo širší blast radius
-→ environment owner approval
-
-high risk / irreversible data change
-→ specialist + risk owner + controlled window
+artifact eligibility
+AND evidence completeness
+AND security/compliance eligibility
+AND environment readiness
+AND shared-state compatibility
+AND approval alebo automated risk authorization
 ```
 
-Risk classification môže zohľadniť:
+Policy definuje precedence, required/optional inputs, conflict resolution a missing-data semantics. Nejasná `OR` kompozícia môže povoliť release preto, že jeden z dvoch rozdielnych scannerov bol zelený.
 
-- customer impact,
-- data mutation,
-- privileged access,
-- reversibility,
-- novelty,
-- incident history,
-- dependency criticality,
-- test/evidence strength,
-- release exposure.
+## 12. Baseline, ratcheting a legacy debt
 
-Classification musí byť transparentná a chránená pred jednoduchým self-declaration gamingom.
-
-## 24. Approval freshness a revocation
-
-Approval je viazaný na decision packet. Invalidujú ho napríklad:
-
-- nový commit alebo merge result,
-- zmena artifact digestu,
-- zmena config/infrastructure planu,
-- nový critical finding,
-- expirovaná evidence,
-- zmena target environmentu,
-- zmena rollout strategy alebo blast radiusu,
-- incident alebo freeze,
-- prekročenie časového okna.
-
-Approver alebo policy authority musí vedieť approval aj explicitne revoke-nuť.
-
-## 25. Manual job verzus approval
-
-- **Manual job —** človek technicky spustí krok.
-- **Approval —** človek autorizuje rozhodnutie.
-
-Manuálne tlačidlo bez evidence, identity, expiry a policy nie je kvalitný approval. Ide iba o odložený trigger.
-
-Ideálny model:
+Atlas legacy image má známe medium findings. Adoption policy:
 
 ```text
-approval rozhodne
-→ automation vykoná deterministický deployment
+versioned baseline
++ block new critical findings
++ deny net worsening podľa scope-u
++ expiring remediation targets
++ pravidelné znižovanie baseline
 ```
 
-Nie:
+Baseline nie je globálna waiver. Je versionovaná, reviewovaná, scoped a chránená pred automatickým prepisom aktuálnymi findings.
+
+## 13. Approval je risk decision
+
+Approval je legitímny pri:
+
+- nevratnej alebo destructive data zmene;
+- business timingu a externých koordináciách;
+- risk acceptance;
+- compliance/separation-of-duties požiadavke;
+- protichodných alebo inconclusive signáloch;
+- emergency trade-offe.
+
+Človek nemá ručne overovať compile result, podpis alebo report completeness. Deterministický control patrí automation.
+
+## 14. Decision packet
+
+Atlas approver dostane:
 
 ```text
-approval rozhodne
-→ človek ručne kopíruje príkazy z runbooku
+subject Q a diff summary
+risk classification a blast radius
+evidence manifest s freshness a verdictmi
+findings, baseline a waivers
+target environment/effective state
+migration a data impact
+rollout strategy a cohort
+promote/abort criteria
+rollback eligibility a roll-forward plan
+requested decision a expiry
 ```
 
-## 26. Exceptions a waivers
+Approval bez packetu presúva hľadanie základných faktov na človeka a zvyšuje variability rozhodnutia.
 
-Výnimka povoľuje konkrétne porušenie policy v presnom scope.
+## 15. Authority, separation of duties a quorum
 
-Musí obsahovať:
+Policy rozlišuje:
 
-- rule/policy ID,
-- subject a environment scope,
-- finding identity,
-- dôvod,
-- risk ownera,
-- compensating control,
-- expiry,
-- remediation issue,
-- review/approval identity,
-- creation a revocation timestamp.
+- autora zmeny;
+- code ownera;
+- security/database/platform ownera;
+- environment ownera;
+- business/risk ownera.
 
-Výnimka sa nesmie automaticky preniesť na nový artifact alebo širší environment, ak to policy výslovne nepovoľuje.
+Conflict rules bránia autorovi byť jediným approverom pri high-risk zmene. Low-risk zmena s complete automated evidence môže byť automaticky povolená. Univerzálne dve approvals pre každý commit iba zväčšujú queue a diffusion of responsibility.
 
-## 27. Break-glass a emergency override
+## 16. Approval freshness a revocation
 
-Emergency override môže byť potrebný pri incidente, ale musí byť samostatný kontrolovaný lifecycle:
+Approval patrí presnému decision packetu. Invaliduje ho:
+
+- nový candidate alebo artifact digest;
+- zmena config/infra/migration planu;
+- nový critical finding;
+- environment drift alebo incident;
+- zmena rollout strategy či blast radiusu;
+- expiry change windowu.
+
+Authority môže approval explicitne revoke-nuť. Manual job spustený po stale approval-e nesmie pokračovať.
+
+## 17. Waiver a break-glass
+
+Waiver povoľuje konkrétne porušenie konkrétnej rule:
 
 ```text
-emergency declared
-→ silná autentizácia
-→ scoped temporary privilege
-→ reason + incident ID
+policy/rule ID
++ subject/environment scope
++ finding identity
++ risk owner
++ compensating control
++ remediation issue
++ expiry a revocation
+```
+
+Break-glass je incidentný privilege lifecycle:
+
+```text
+incident declared
+→ strong authentication
+→ scoped short-lived privilege
 → minimal action
-→ full audit
-→ privilege revocation
-→ retrospective review
-→ doplnenie preskočenej evidence
+→ real-time audit/alert
+→ automatic revocation
+→ retrospective a doplnenie preskočenej evidence
 ```
 
-Ochrany:
-
-- two-person alebo incident-commander authorization podľa rizika,
-- short-lived token,
-- explicitný target/environment,
-- zákaz univerzálneho admin bypassu,
-- real-time alerting,
-- povinné post-event review,
-- automatická expirácia.
-
-Rutinné používanie break-glass znamená, že normálny gate alebo delivery path je nefunkčný.
-
-## 28. Multi-dimensional runtime gates
-
-Canary alebo progressive gate môže kombinovať:
-
-- error rate delta,
-- p95/p99 latency,
-- saturation,
-- restart rate,
-- dependency errors,
-- business completion,
-- support signal,
-- data integrity.
-
-Decision contract potrebuje:
-
-- control group alebo baseline,
-- sample-size minimum,
-- observation window,
-- signal latency,
-- promotion threshold,
-- abort threshold,
-- missing-data behavior,
-- inconclusive state,
-- rollback/roll-forward akciu.
-
-## 29. Human judgement boundary
-
-Ľudský approval je vhodný pre kontext, hodnoty a trade-offy. Nie je vhodný pre opakovanú mechanickú kontrolu.
+Ani jeden mechanizmus nemení failure na bežný pass.
 
-Automatizuj:
+## 18. Worked failure: missing security report bol interpretovaný ako green
 
-- podpis verification,
-- policy thresholds,
-- test result completeness,
-- environment lock,
-- identity a authorization,
-- artifact/config matching.
+Image scan job skončil timeoutom pred uploadom reportu. Aggregator spočítal findings z existujúcich JSON súborov:
 
-Človek posudzuje:
+```text
+expected S1 report nevznikol
+→ glob match našiel nula reportov
+→ suma critical findings = 0
+→ production gate allow
+```
 
-- business timing,
-- risk acceptance,
-- nevratnosť,
-- nejasné alebo protichodné signály,
-- externú koordináciu,
-- incident trade-off.
+### Root cause
 
-## 30. Gate output a diagnosability
+Gate nepoznal expected evidence manifest a zamieňal prázdny input za úspešne vykonanú kontrolu.
 
-Dobrý verdict odpovie:
+### Náprava
 
-- ktorý gate a policy version rozhodovali,
-- aký subject bol hodnotený,
-- ktoré evidence vstúpili,
-- ktoré pravidlo zlyhalo,
-- či ide o finding, missing evidence alebo tool error,
-- aký je severity/risk,
-- kto je owner,
-- ako reprodukovať alebo opraviť problém,
-- či existuje waiver alebo escalation proces.
+- manifest deklaruje required S1;
+- fan-in overuje completion a subject digest pred findings;
+- tool timeout je `tool_error`/`incomplete`;
+- signature/security controls fail closed pre production;
+- report uploader beží `always` a zachová execution metadata;
+- gate metriky sledujú incomplete evidence rate.
 
-Text `quality gate failed` je nedostatočný.
+## 19. Worked failure: approval zostal platný po zmene configu
 
-## 31. Audit trail
+Database owner schválil canary pre manifest R a config K1 s concurrency 20. Neskôr platform owner zmenil config na K2 s concurrency 120, ale manual production job stále zobrazoval starý approval:
 
-Uchovaj:
+```text
+approval pre R + K1
+→ config revision zmenená na K2
+→ approval UI ostalo green
+→ deployment R + K2 pokračoval
+→ DB saturation
+```
 
-- subject identity,
-- evidence manifest,
-- policy version,
-- verdict a rule details,
-- automated decision identity,
-- approver identity a eligibility,
-- timestamps,
-- comments a conditions,
-- waiver/bypass references,
-- revocation,
-- target environment,
-- deployment/release relation.
+### Root cause
 
-Audit trail musí byť chránený pred dodatočnou manipuláciou a dostupný počas požadovanej retention doby.
+Approval bolo viazané na release label a environment alias, nie na celý subject tuple a freshness graph.
 
-## 32. Gate service availability
+### Náprava
 
-Gate engine je kritická delivery dependency. Potrebuje:
+- decision packet identity je R + K + I + E + strategy;
+- každá dependency zmena invaliduje approval;
+- protected environment reevaluuje policy tesne pred mutation;
+- manual trigger nemôže obísť stale-dismissal;
+- approval audit zaznamenáva packet digest a expiry.
 
-- health a SLO,
-- timeouty,
-- retry pre transient failures,
-- capacity a queue monitoring,
-- degraded-mode policy,
-- versioned rollout,
-- audit log,
-- disaster recovery,
-- ownera a runbook.
+## 20. Runtime gates
 
-Nedefinovaný gate outage môže zastaviť všetky releases alebo nebezpečne otvoriť fail-open cestu.
+Canary gate používa:
 
-## 33. Metriky gate programu
+```text
+release/cohort identity
++ control alebo baseline
++ minimum sample a observation window
++ technical/functional/business metrics
++ promote a abort thresholds
++ missing-data/inconclusive semantics
++ recovery action
+```
 
-Sleduj:
+Nulový traffic alebo chýbajúca telemetry nie sú úspešný canary. Runtime gate je ďalšia aplikácia rovnakého decision contractu.
 
-- gate failure rate podľa rule a failure class,
-- finding verzus tool-error pomer,
-- false-positive a waiver rate,
-- time to remediation,
-- approval wait time,
-- stale/expired approval incidents,
-- bypass a break-glass frequency,
-- expired exception backlog,
-- lead-time contribution,
-- evidence incomplete rate,
-- escaped defects cez zelený gate,
-- percent automated low-risk promotions,
-- approver load a availability.
+## 21. Diagnostický postup
 
-Cieľ nie je 100 % pass rate. Cieľ je relevantný risk detection s prijateľným noise a lead time.
+1. Identifikuj gate subject a policy version.
+2. Načítaj expected evidence manifest.
+3. Over subject identity, completion, integrity a tool status každého reportu.
+4. Vyhodnoť applicability a explicitné skip reasons.
+5. Skontroluj freshness dependency graph a expiry.
+6. Rozlíš finding, incomplete, invalid, tool error a inconclusive.
+7. Over fail-open/fail-closed a policy composition semantics.
+8. Pri approval-e porovnaj decision packet digest, approver eligibility a conflict rules.
+9. Skontroluj waiver/break-glass scope, expiry a remediation.
+10. Zachovaj audit trail a oprav policy/control model pri escaped defecte.
 
-## 34. Diagnostický postup
+## 22. Referenčné pravidlá
 
-### Gate blokuje takmer všetko
+- Gate rozhoduje nad immutable subjectom, nie branch labelom.
+- Check produkuje signal; gate aplikuje policy.
+- Expected evidence manifest predchádza findings aggregation.
+- Completeness a subject match sa overujú pred interpretáciou výsledku.
+- Skipped, incomplete, tool error a inconclusive sú odlišné stavy.
+- Freshness je dependency graph aj časové okno.
+- Blocking control potrebuje presnosť, ownera a remediation.
+- Fail-open je explicitné risk rozhodnutie.
+- Approval dopĺňa, nie nahrádza deterministickú automation.
+- Decision packet viaže risk, evidence, target a recovery.
+- Approval má expiry, invalidation a revocation.
+- Waiver a break-glass sú scoped a dočasné.
+- Escaped defect mení policy, evidence manifest alebo control.
 
-Over policy scope, baseline, threshold, analyzer version, changed-code mapping, false-positive trend, missing-data behavior a tool health.
+## 23. Časté omyly
 
-### Gate je zelený, ale evidence chýba
+### „Check prešiel, gate má prejsť“
 
-Skontroluj manifest completeness, shard aggregation, optional/required classification a fail-open policy.
+Gate môže vyžadovať viac signálov, inú freshness alebo iný subject.
 
-### Approval ostalo po novom commite
+### „Nenašli sa findings“
 
-Skontroluj väzbu approvalu na SHA/digest, stale-dismissal event a dependency graph freshness.
+Najprv treba dokázať, že kontrola kompletne prebehla.
 
-### Deployment čaká napriek approvalu
+### „Viac approvals znamená vyššiu bezpečnosť“
 
-Over eligible group, quorum, approval expiry, environment, target digest, change window, lock a protected policy.
+Bez kvalitného packetu a role clarity rastie iba queue time.
 
-### Report patrí inému artifactu
+### „Manual job je approval“
 
-Porovnaj subject digest, evidence metadata, pipeline run a provenance. Branch label nestačí.
+Tlačidlo je trigger. Approval je autorizované risk rozhodnutie nad konkrétnym subjectom.
 
-### Break-glass sa používa často
+### „Waiver znamená pass“
 
-Analyzuj normálny lead time, false-positive gates, unavailable approvers a incident classification. Oprav štandardný path.
+Verdict zostáva waived risk s expiry a remediation.
 
-## 35. Typické anti-patterny
+### „Approval platí pre release name“
 
-### Viac approvals automaticky znamená vyššiu bezpečnosť
+Platí iba pre nezmenený decision packet a target state.
 
-Bez kvalitného decision packetu iba rastie queue time a diffusion of responsibility.
+## 24. Zhrnutie
 
-### Manuálny gate je automaticky bezpečnejší
+Dôveryhodný Atlas gate je:
 
-Deterministické opakované kontroly bývajú spoľahlivejšie automatizované.
+```text
+immutable subject tuple
+→ expected evidence manifest
+→ completion, identity a freshness verification
+→ versioned applicability/policy evaluation
+→ automated alebo human authority
+→ explicitný viacstavový verdict
+→ scoped exception/revocation/remediation
+→ audit a defect-escape learning
+```
 
-### Chýbajúci report znamená žiadny finding
+Quality gate nie je dashboard a approval nie je administratívny klik. Obe sú súčasťou jedného decision contractu, ktorý musí vedieť vysvetliť, čo hodnotil, z akých dôkazov a prečo povolil alebo zastavil ďalší transition.
 
-Kontrola sa možno vôbec nevykonala.
-
-### Approval platí pre branch navždy
-
-Nové bytes, config alebo environment state potrebujú nové rozhodnutie.
-
-### Výnimka bez expiry
-
-Dočasné oslabenie sa stane trvalou policy.
-
-### Break-glass bez retrospective
-
-Emergency bypass sa mení na skrytý normálny proces.
-
-### Coverage threshold ako jediný quality gate
-
-Coverage neoveruje assertions, requirements ani runtime behavior.
-
-### Jeden globálny approver
-
-Vytvára availability risk a slabú separation of duties.
-
-### Tool failure mapovaný na success
-
-Delivery pokračuje bez dôkazu, ktorý policy považuje za povinný.
-
-## 36. Praktický checklist
-
-Pred zavedením gate-u alebo approvalu over:
-
-- subject má immutable identity,
-- required evidence je v manifeste,
-- evidence patrí subjectu a je kompletná,
-- policy je versionovaná a vysvetliteľná,
-- applicability a skip semantics sú explicitné,
-- verdict taxonomy rozlišuje incomplete/tool error/inconclusive,
-- blocking režim má primeranú presnosť,
-- baseline a ratcheting majú ownera,
-- freshness graph invaliduje stale výsledky,
-- fail-open/fail-closed policy je vedomá,
-- decision packet obsahuje risk a recovery kontext,
-- approver eligibility a conflict rules sú vynútené,
-- approval má expiry a revocation,
-- waivery sú scoped a expirovateľné,
-- break-glass je krátkodobý a auditovaný,
-- gate output je akčný,
-- audit trail je immutable,
-- escaped defects a false decisions sa merajú.
-
-## 37. Kontrolné otázky
+## 25. Kontrolné otázky
 
 1. Aký je rozdiel medzi checkom a gate-om?
-2. Čo je subject gate-u a prečo branch name nestačí?
-3. Načo slúži evidence manifest?
-4. Ktoré verdicty treba rozlišovať okrem allow/deny?
-5. Kedy je gate vhodný ako blocking?
-6. Ako sa advisory gate zabráni stať ignorovaným šumom?
-7. Ako sa skladajú viaceré policies?
-8. Prečo `skipped` potrebuje explicitný dôvod?
-9. Ako baseline a ratcheting zavádzajú gate do legacy systému?
-10. Čo znamená evidence completeness?
-11. Ako freshness graph invaliduje výsledky?
-12. Kedy sa používa fail-open a kedy fail-closed?
-13. Aký je rozdiel medzi tool errorom a findingom?
-14. Kedy je ľudský approval legitímny?
-15. Čo musí obsahovať decision packet?
-16. Ako separation of duties rieši conflict of interest?
-17. Kedy approval expiroval alebo bol revoked?
-18. Ako sa waiver líši od break-glass override-u?
-19. Čo musí obsahovať canary runtime gate?
-20. Ktoré metriky odhalia, že gate vytvára viac šumu než hodnoty?
-
-## Summary
-
-Quality gate premieňa konkrétny subject, úplný evidence manifest a versionovanú policy na auditovateľný verdict. Dôveryhodný model rozlišuje finding, incomplete evidence, tool failure, expired a inconclusive stav, vynucuje freshness a nevydáva stale alebo nesúvisiaci dôkaz za pass. Approval dopĺňa automatizáciu tam, kde treba business, risk alebo nevratný kontext. Musí mať decision packet, oprávneného approvera, conflict rules, expiry, revocation a audit trail. Waivery a break-glass sú dočasné, scoped a musia skončiť remediation closure.
+2. Čo tvorí Atlas gate subject?
+3. Prečo evidence manifest musí existovať pred agregáciou findings?
+4. Ako sa líši incomplete, invalid a tool-error verdict?
+5. Čo určuje applicability a skip semantics?
+6. Ako freshness graph invaliduje evidence?
+7. Kedy je blocking control primeraný?
+8. Ako baseline a ratcheting riešia legacy debt?
+9. Kedy má rozhodovať človek namiesto policy engine-u?
+10. Čo musí obsahovať decision packet?
+11. Ako separation of duties závisí od risku?
+12. Prečo approval po config zmene expiroval?
+13. Ako sa waiver líši od break-glass?
+14. Prečo missing scan report vytvoril false green?
 
 ## Glossary impact
 
-Relevantné pojmy: quality gate, check, gate subject, evidence manifest, blocking gate, advisory gate, verdict taxonomy, baseline, ratcheting, evidence completeness, evidence freshness graph, fail open, fail closed, approval, decision packet, separation of duties, quorum, stale approval, revocation, waiver, break-glass a emergency override.
+Relevantné pojmy: gate decision contract, gate subject, evidence manifest, evidence completeness, applicability, freshness graph, blocking gate, advisory gate, fail open, fail closed, verdict taxonomy, decision packet, approval authority, approval freshness, approval revocation, waiver, break-glass a runtime gate.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
