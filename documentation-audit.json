@@ -1613,15 +1613,15 @@
     {
       "path": "docs/06-gitlab/security-scanning.md",
       "title": "Security scanning",
-      "words": 3065,
-      "headings": 52,
-      "sections": 52,
-      "findings": 199,
-      "critical": 61,
-      "high": 59,
-      "medium": 33,
-      "low": 46,
-      "score": 1378,
+      "words": 2359,
+      "headings": 58,
+      "sections": 58,
+      "findings": 94,
+      "critical": 30,
+      "high": 40,
+      "medium": 10,
+      "low": 14,
+      "score": 728,
       "grade": "D"
     },
     {
@@ -87592,24 +87592,6 @@
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: GitLab`.",
@@ -87619,10 +87601,10 @@
       "path": "docs/06-gitlab/security-scanning.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
@@ -87635,8 +87617,8 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "2. Mental model: coverage, evidence a decision",
-      "line": 28,
+      "section": "1. Nosný model: coverage, evidence, decision a runtime state",
+      "line": 25,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -87644,26 +87626,71 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "2. Mental model: coverage, evidence a decision",
-      "line": 28,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "2. Mental model: coverage, evidence a decision",
-      "line": 28,
+      "section": "Coverage",
+      "line": 29,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `subject je čistý,`, `scanner nepodporuje daný jazyk,`, `job bol vylúčený cez rules ,`, `scanner nenašiel build input,`.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "2. Mental model: coverage, evidence a decision",
-      "line": 28,
+      "section": "Evidence",
+      "line": 33,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Decision",
+      "line": 37,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Runtime state",
+      "line": 41,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "2. Nosný scenár: Atlas Payments release 3.13.0",
+      "line": 52,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "3. Scan subject musí byť immutable",
+      "line": 93,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "3. Scan subject musí byť immutable",
+      "line": 93,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source alebo merged-result SHA;`, `resolved dependency graph a lockfile revision;`, `SBOM digest;`, `package version a checksum;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "3. Scan subject musí byť immutable",
+      "line": 93,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -87671,8 +87698,8 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "2. Mental model: coverage, evidence a decision",
-      "line": 28,
+      "section": "3. Scan subject musí byť immutable",
+      "line": 93,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -87680,8 +87707,8 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "2. Mental model: coverage, evidence a decision",
-      "line": 28,
+      "section": "3. Scan subject musí byť immutable",
+      "line": 93,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -87689,53 +87716,44 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "2. Mental model: coverage, evidence a decision",
-      "line": 28,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "2. Mental model: coverage, evidence a decision",
-      "line": 28,
-      "severity": "medium",
+      "section": "3. Scan subject musí byť immutable",
+      "line": 93,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `SBOM`, `OCI`, `API`",
+      "score": 7
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "3. Security subject identity",
-      "line": 53,
+      "section": "5. Execution validity",
+      "line": 149,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "5. Execution validity",
+      "line": 149,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "3. Security subject identity",
-      "line": 53,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit alebo merged-result SHA,`, `dependency graph/lockfile revision,`, `SBOM digest,`, `container image digest,`.",
-      "score": 12
+      "section": "5. Execution validity",
+      "line": 149,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "3. Security subject identity",
-      "line": 53,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "3. Security subject identity",
-      "line": 53,
+      "section": "5. Execution validity",
+      "line": 149,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -87743,8 +87761,8 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "3. Security subject identity",
-      "line": 53,
+      "section": "5. Execution validity",
+      "line": 149,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -87752,1376 +87770,17 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "3. Security subject identity",
-      "line": 53,
+      "section": "5. Execution validity",
+      "line": 149,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `SBOM`, `API`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `scope`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "4. Attack-surface a scanner coverage model",
-      "line": 71,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "4. Attack-surface a scanner coverage model",
-      "line": 71,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "5. Expected scanner inventory",
-      "line": 87,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "5. Expected scanner inventory",
-      "line": 87,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "5. Expected scanner inventory",
-      "line": 87,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré scanners boli applicable,`, `ktoré jobs vznikli,`, `ktoré sa dokončili,`, `ktoré reporty boli prijaté,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "5. Expected scanner inventory",
-      "line": 87,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "5. Expected scanner inventory",
-      "line": 87,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "6. Scan execution contexts",
-      "line": 113,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "6. Scan execution contexts",
-      "line": 113,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "6. Scan execution contexts",
-      "line": 113,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "6. Scan execution contexts",
-      "line": 113,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "6. Scan execution contexts",
-      "line": 113,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "6. Scan execution contexts",
-      "line": 113,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAST`, `SBOM`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "7. Execution validity",
-      "line": 128,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "7. Execution validity",
-      "line": 128,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "7. Execution validity",
-      "line": 128,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 16 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `dostal očakávaný subject,`, `mal potrebné source/build metadata,`, `analyzer image a ruleset sú známe,`, `vulnerability/advisory data boli dostupné,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "7. Execution validity",
-      "line": 128,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "7. Execution validity",
-      "line": 128,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "7. Execution validity",
-      "line": 128,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "7. Execution validity",
-      "line": 128,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "7. Execution validity",
-      "line": 128,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "8. Security report artifacts",
-      "line": 152,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "8. Security report artifacts",
-      "line": 152,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scanner a version,`, `ruleset/config revision,`, `subject identity,`, `scan timestamp,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "8. Security report artifacts",
-      "line": 152,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "8. Security report artifacts",
-      "line": 152,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "8. Security report artifacts",
-      "line": 152,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "8. Security report artifacts",
-      "line": 152,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "9. SAST",
-      "line": 170,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "13 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "9. SAST",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `injection flows,`, `path traversal,`, `insecure deserialization,`, `nebezpečné API použitie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "9. SAST",
-      "line": 170,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "9. SAST",
-      "line": 170,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "10. Dependency scanning",
-      "line": 195,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "10. Dependency scanning",
-      "line": 195,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lockfile,`, `package-manager metadata,`, `vendored components,`, `generated dependency graph,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "10. Dependency scanning",
-      "line": 195,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "10. Dependency scanning",
-      "line": 195,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "10. Dependency scanning",
-      "line": 195,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "11. SBOM",
-      "line": 217,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "11. SBOM",
-      "line": 217,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vulnerability matching,`, `incident response,`, `release evidence,`, `supplier inventory,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "11. SBOM",
-      "line": 217,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "11. SBOM",
-      "line": 217,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "11. SBOM",
-      "line": 217,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "11. SBOM",
-      "line": 217,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "12. Container scanning",
-      "line": 240,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 44 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "12. Container scanning",
-      "line": 240,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS packages,`, `language dependencies vo final image,`, `base-image lineage,`, `packages iba v build stage,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "12. Container scanning",
-      "line": 240,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "12. Container scanning",
-      "line": 240,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "12. Container scanning",
-      "line": 240,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "12. Container scanning",
-      "line": 240,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "13. Dependency verzus container scanning",
-      "line": 257,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "13. Dependency verzus container scanning",
-      "line": 257,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "13. Dependency verzus container scanning",
-      "line": 257,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dependency scan skúma deklarovaný/resolved software graph,`, `container scan skúma obsah výsledného runtime artifactu.`, `dependency pridanú mimo lockfile,`, `package odstránený multi-stage buildom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "13. Dependency verzus container scanning",
-      "line": 257,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "13. Dependency verzus container scanning",
-      "line": 257,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "13. Dependency verzus container scanning",
-      "line": 257,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS-`, `SBOM`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "14. Secret detection",
-      "line": 274,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IDE/pre-commit kontrola,`, `push protection,`, `MR/default-branch scan,`, `historical scan,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "14. Secret detection",
-      "line": 274,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "14. Secret detection",
-      "line": 274,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "14. Secret detection",
-      "line": 274,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IDE`, `MR`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "15. DAST",
-      "line": 300,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "15. DAST",
-      "line": 300,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný environment a deployment digest,`, `allowed scope a routes,`, `test identity a role,`, `seed/test data,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "15. DAST",
-      "line": 300,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "15. DAST",
-      "line": 300,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "15. DAST",
-      "line": 300,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "15. DAST",
-      "line": 300,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "16. API security testing",
-      "line": 320,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "16. API security testing",
-      "line": 320,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OpenAPI alebo GraphQL schema,`, `route inventory,`, `recorded traffic podľa nástroja,`, `authentication contexts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "16. API security testing",
-      "line": 320,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "17. Infrastructure as Code scanning",
-      "line": 342,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "17. Infrastructure as Code scanning",
-      "line": 342,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `public exposure,`, `excessive IAM,`, `weak encryption,`, `privileged workloads,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "17. Infrastructure as Code scanning",
-      "line": 342,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "17. Infrastructure as Code scanning",
-      "line": 342,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "17. Infrastructure as Code scanning",
-      "line": 342,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "17. Infrastructure as Code scanning",
-      "line": 342,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "18. License a compliance evidence",
-      "line": 367,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "18. License a compliance evidence",
-      "line": 367,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deklarovanú versus skutočne distribuovanú dependency,`, `direct a transitive packages,`, `source a binary distribution,`, `package version a license metadata kvalitu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "18. License a compliance evidence",
-      "line": 367,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "19. Finding identity a deduplication",
-      "line": 381,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scanner/rule identifier,`, `component/package identity,`, `file/location alebo data-flow fingerprint,`, `vulnerability identifier,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "19. Finding identity a deduplication",
-      "line": 381,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "20. Finding verzus vulnerability record",
-      "line": 395,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "20. Finding verzus vulnerability record",
-      "line": 395,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "20. Finding verzus vulnerability record",
-      "line": 395,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "20. Finding verzus vulnerability record",
-      "line": 395,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLA`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "21. Triage a contextual risk",
-      "line": 413,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "21. Triage a contextual risk",
-      "line": 413,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reachability,`, `exploitability,`, `internet alebo tenant exposure,`, `privilege a data sensitivity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "21. Triage a contextual risk",
-      "line": 413,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "22. Baseline a merge-request delta",
-      "line": 430,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existing baseline,`, `newly introduced finding,`, `changed severity alebo reachability,`, `resolved finding,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "22. Baseline a merge-request delta",
-      "line": 430,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "22. Baseline a merge-request delta",
-      "line": 430,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "23. Security gate verdicts",
-      "line": 444,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "23. Security gate verdicts",
-      "line": 444,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "23. Security gate verdicts",
-      "line": 444,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `evidence complete a clean,`, `evidence complete s blocking findings,`, `evidence complete s advisory findings,`, `incomplete scanner inventory,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "23. Security gate verdicts",
-      "line": 444,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "24. Policy composition",
-      "line": 474,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "24. Policy composition",
-      "line": 474,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "24. Policy composition",
-      "line": 474,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré scanners sa musia spustiť,`, `pre ktoré projects/branches/environments,`, `blocking thresholds,`, `required approvers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "24. Policy composition",
-      "line": 474,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "24. Policy composition",
-      "line": 474,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "25. Blocking verzus advisory režim",
-      "line": 497,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "25. Blocking verzus advisory režim",
-      "line": 497,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `coverage je dostatočne známa,`, `signal je stabilný,`, `finding identity a baseline fungujú,`, `remediation je akčná,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "25. Blocking verzus advisory režim",
-      "line": 497,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "25. Blocking verzus advisory režim",
-      "line": 497,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "25. Blocking verzus advisory režim",
-      "line": 497,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `failure semantics`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "26. Exceptions a dismissals",
-      "line": 510,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "26. Exceptions a dismissals",
-      "line": 510,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "26. Exceptions a dismissals",
-      "line": 510,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `finding/vulnerability identity,`, `affected subject/component,`, `technický a business dôvod,`, `contextual risk,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "26. Exceptions a dismissals",
-      "line": 510,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "26. Exceptions a dismissals",
-      "line": 510,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "27. Analyzer supply chain",
-      "line": 533,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "27. Analyzer supply chain",
-      "line": 533,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable alebo riadene versionované analyzer images,`, `template refs,`, `registry provenance,`, `signatures/checksums,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "27. Analyzer supply chain",
-      "line": 533,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "27. Analyzer supply chain",
-      "line": 533,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "28. Analyzer update lifecycle",
-      "line": 551,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "28. Analyzer update lifecycle",
-      "line": 551,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "28. Analyzer update lifecycle",
-      "line": 551,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `findings,`, `severity,`, `fingerprints,`, `supported language coverage,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "28. Analyzer update lifecycle",
-      "line": 551,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "28. Analyzer update lifecycle",
-      "line": 551,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "28. Analyzer update lifecycle",
-      "line": 551,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "29. Scanner compromise response",
-      "line": 573,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "29. Scanner compromise response",
-      "line": 573,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "29. Scanner compromise response",
-      "line": 573,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav affected jobs alebo odpoj credentials,`, `revokuj runner/cloud/registry tokens dostupné scanneru,`, `identifikuj projekty a pipelines, kde bežal,`, `audituj outbound traffic, logs a artifacts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "29. Scanner compromise response",
-      "line": 573,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "29. Scanner compromise response",
-      "line": 573,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "30. Continuous rescanning",
-      "line": 586,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "30. Continuous rescanning",
-      "line": 586,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj dotknuté component versions,`, `nájdi release artifacts a deployed digests,`, `zohľadni reachability a exposure,`, `vytvor vulnerability record a ownera,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "30. Continuous rescanning",
-      "line": 586,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "31. Deployed-artifact correlation",
-      "line": 610,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "31. Deployed-artifact correlation",
-      "line": 610,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "31. Deployed-artifact correlation",
-      "line": 610,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý vulnerable digest je publikovaný,`, `ktorý je súčasťou podporovaného release,`, `kde je nasadený,`, `aký traffic/cohort ho používa,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "31. Deployed-artifact correlation",
-      "line": 610,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "32. Scan performance a selection",
-      "line": 624,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "32. Scan performance a selection",
-      "line": 624,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `affected-component selection,`, `parallel scanners,`, `shallow/deep scan profily,`, `scheduled full scans,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "32. Scan performance a selection",
-      "line": 624,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "32. Scan performance a selection",
-      "line": 624,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `DAST`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "33. DAST a destructive-test safety",
-      "line": 638,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "33. DAST a destructive-test safety",
-      "line": 638,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "33. DAST a destructive-test safety",
-      "line": 638,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `error alebo latency limit,`, `neplánovaný external side effect,`, `scan mimo allowlist routes,`, `rate-limit impact,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "33. DAST a destructive-test safety",
-      "line": 638,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "34. Security telemetry",
-      "line": 662,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "34. Security telemetry",
-      "line": 662,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "34. Security telemetry",
-      "line": 662,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected verzus executed scanner coverage,`, `scanner success/tool-error/incomplete rate,`, `missing alebo invalid reports,`, `scan duration a critical path,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "34. Security telemetry",
-      "line": 662,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "34. Security telemetry",
-      "line": 662,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "34. Security telemetry",
-      "line": 662,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "34. Security telemetry",
-      "line": 662,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "35. Diagnostický postup",
-      "line": 682,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "35. Diagnostický postup",
-      "line": 682,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "35. Diagnostický postup",
-      "line": 682,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "35. Diagnostický postup",
-      "line": 682,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "35. Diagnostický postup",
-      "line": 682,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "35. Diagnostický postup",
-      "line": 682,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "35. Diagnostický postup",
-      "line": 682,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `freshness`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "36. Typické anti-patterny",
-      "line": 699,
+      "section": "6. Vrstvy attack surface",
+      "line": 177,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -89129,116 +87788,26 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Zelený pipeline = bez vulnerabilities",
-      "line": 701,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Jeden scanner pre celý attack surface",
-      "line": 705,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Scan tagu namiesto digestu",
-      "line": 709,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Gate podľa celkového počtu findings",
-      "line": 713,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Block all high bez kontextu",
-      "line": 717,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Dismissal bez expirácie",
-      "line": 721,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Security template na mutable branch",
-      "line": 725,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Continuous rescan iba nad main",
-      "line": 729,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "DAST proti produkcii bez safe scope",
-      "line": 733,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "37. Praktický rozhodovací rámec",
-      "line": 737,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "37. Praktický rozhodovací rámec",
-      "line": 737,
+      "section": "7. Pipeline contexts nie sú zameniteľné",
+      "line": 207,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "37. Praktický rozhodovací rámec",
-      "line": 737,
+      "section": "7. Pipeline contexts nie sú zameniteľné",
+      "line": 207,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký attack surface a threat chráni?`, `Aký je immutable scan subject?`, `Kedy je scanner applicable a čo nepokrýva?`, `Aký expected scanner/report inventory sa vyžaduje?`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pre-commit alebo push protection;`, `merge-request pipeline;`, `merged-results alebo merge-train pipeline;`, `default-branch pipeline;`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "37. Praktický rozhodovací rámec",
-      "line": 737,
+      "section": "7. Pipeline contexts nie sú zameniteľné",
+      "line": 207,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -89246,8 +87815,8 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "37. Praktický rozhodovací rámec",
-      "line": 737,
+      "section": "7. Pipeline contexts nie sú zameniteľné",
+      "line": 207,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -89255,44 +87824,17 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "37. Praktický rozhodovací rámec",
-      "line": 737,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "37. Praktický rozhodovací rámec",
-      "line": 737,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "37. Praktický rozhodovací rámec",
-      "line": 737,
+      "section": "7. Pipeline contexts nie sú zameniteľné",
+      "line": 207,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `SLA`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAST`",
       "score": 4
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "38. Kontrolný checklist",
-      "line": 757,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "38. Kontrolný checklist",
-      "line": 757,
+      "section": "9. Finding, vulnerability record a baseline",
+      "line": 240,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -89300,26 +87842,8 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "38. Kontrolný checklist",
-      "line": 757,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "18 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "38. Kontrolný checklist",
-      "line": 757,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `attack-surface coverage mapa existuje;`, `expected scanners sú definované podľa project/release class;`, `scan subject je immutable;`, `scanner jobs používajú trusted pinned/controlled dependencies;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "38. Kontrolný checklist",
-      "line": 757,
+      "section": "9. Finding, vulnerability record a baseline",
+      "line": 240,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -89327,8 +87851,278 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "38. Kontrolný checklist",
-      "line": 757,
+      "section": "9. Finding, vulnerability record a baseline",
+      "line": 240,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLA`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "10. Contextual risk decision",
+      "line": 259,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "10. Contextual risk decision",
+      "line": 259,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reachability a exploitability;`, `internet/tenant exposure;`, `privilege a data sensitivity;`, `affected deployed digest;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "10. Contextual risk decision",
+      "line": 259,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "11. Gate verdicty",
+      "line": 285,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "13. Analyzer je supply-chain dependency",
+      "line": 324,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "13. Analyzer je supply-chain dependency",
+      "line": 324,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pinned alebo controlled identity;`, `provenance/signature podľa assurance modelu;`, `protected update workflow;`, `isolated runner a scoped credentials;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "13. Analyzer je supply-chain dependency",
+      "line": 324,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "13. Analyzer je supply-chain dependency",
+      "line": 324,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "13. Analyzer je supply-chain dependency",
+      "line": 324,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "16. DAST safety state machine",
+      "line": 375,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Dôsledok",
+      "line": 406,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Náprava",
+      "line": 410,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Príčina",
+      "line": 432,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publish final index digest až po complete fan-in;`, `scan každý platform digest;`, `reporty viazať na platformu a final release subject;`, `missing variant = incomplete;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Náprava",
+      "line": 436,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Náprava",
+      "line": 459,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Príčina",
+      "line": 482,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Náprava",
+      "line": 486,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "21. Kauzálny diagnostický walkthrough",
+      "line": 490,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 1 — stabilizuj subject a runtime",
+      "line": 494,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 2 — konkurenčné hypotézy",
+      "line": 504,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 516,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 516,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 516,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runtime package inventory a SBOM testujú H1;`, `report subject/platform/index mapping testuje H2;`, `expected-versus-actual scanner/report manifest testuje H3;`, `advisory/ruleset revision a rescan time testujú H4;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 516,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 516,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -89336,8 +88130,8 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "38. Kontrolný checklist",
-      "line": 757,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 516,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -89345,26 +88139,152 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "38. Kontrolný checklist",
-      "line": 757,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/security-scanning.md",
-      "section": "38. Kontrolný checklist",
-      "line": 757,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 516,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `SBOM`, `DAST`, `SLA`, `identity`, `scope`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `H1`, `H4`, `H5`, `H7`, `H6`",
       "score": 7
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Summary",
-      "line": 799,
+      "section": "Krok 4 — containment",
+      "line": 527,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 4 — containment",
+      "line": 527,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 4 — containment",
+      "line": 527,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 4 — containment",
+      "line": 527,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť ďalšie arm64 promotion/deployments;`, `označiť RM313 security verdict ako incomplete/affected;`, `spustiť scan presného arm64 digestu;`, `vytvoriť patched immutable release.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 4 — containment",
+      "line": 527,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 4 — containment",
+      "line": 527,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RM313`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 5 — over pôvodný outcome",
+      "line": 535,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "Krok 6 — skorší control",
+      "line": 546,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "22. Scanner compromise response",
+      "line": 550,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "23. Diagnostický runbook",
+      "line": 565,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "23. Diagnostický runbook",
+      "line": 565,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "23. Diagnostický runbook",
+      "line": 565,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "23. Diagnostický runbook",
+      "line": 565,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Urči immutable source/package/image/plan/environment subject.`, `Zostav expected scanner a report inventory.`, `Over pipeline applicability a job creation.`, `Over analyzer, ruleset, advisory data a execution verdict.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "23. Diagnostický runbook",
+      "line": 565,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "23. Diagnostický runbook",
+      "line": 565,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "23. Diagnostický runbook",
+      "line": 565,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -89372,12 +88292,147 @@
     },
     {
       "path": "docs/06-gitlab/security-scanning.md",
-      "section": "Summary",
-      "line": 799,
+      "section": "23. Diagnostický runbook",
+      "line": 565,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 578,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 578,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 578,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 578,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Nula findings bez coverage evidence nie je clean.`, `Job success nie je report success.`, `Expected inventory odlišuje complete pass od false green.`, `Dependency a container scan nie sú zameniteľné.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 578,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 578,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 578,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 578,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 578,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "25. Časté omyly",
+      "line": 593,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "„Pipeline je zelená, scanners sú clean“",
+      "line": 595,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "„Scanli sme release tag“",
+      "line": 599,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "„Critical vždy blokuje a medium nikdy“",
+      "line": 603,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "„Secret sme odstránili z commitu“",
+      "line": 607,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/security-scanning.md",
+      "section": "„Main je patched, incident je uzavretý“",
+      "line": 611,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/06-gitlab/variables-and-secrets.md",
