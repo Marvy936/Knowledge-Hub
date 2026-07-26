@@ -6,623 +6,499 @@
 - Level: L2
 - Domain: Testing and Software Quality
 
-## 1. Definícia
-
-Shift-right rozširuje verification, validation a experimentovanie do deploymentu a produkčnej prevádzky. Jeho cieľom je získať dôkaz o správaní systému v prostredí, kde pôsobí skutočný traffic, reálne identity, objemy dát, externé služby, používateľské správanie a distribuované failure modes.
-
-Neznamená to „testovať až v produkcii“. Shift-right nadväzuje na skoré kontroly a používa kontrolovanú expozíciu, observability a bezpečné rozhodovacie mechanizmy.
+Shift-right rozširuje verification, validation a experimentovanie do deploymentu a produkčnej prevádzky. Jeho cieľom nie je „testovať až na používateľoch“, ale bezpečne získať dôkaz o vlastnostiach, ktoré predprodukčné prostredie nevie úplne reprodukovať: reálny traffic mix, identity, tenant skew, objem dát, regionálnu sieť, quotas, dlhodobý state a emergentné distribuované správanie.
 
 ```text
-shift-left
-→ prevencia, skorý a diagnostický feedback
-
-shift-right
-→ reálna environment fidelity a prevádzkové učenie
+release hypotéza a riziko
+→ immutable artifact a configuration identity
+→ obmedzená cohort/exposure
+→ technical + functional + business oracle
+→ porovnateľný baseline alebo control
+→ promote, pause, rollback alebo roll-forward
+→ dlhšie recovery a delayed-effect pozorovanie
+→ poznatok prevedený na skorší control
 ```
 
-Dobrý delivery systém používa obe strany. Shift-left znižuje počet predvídateľných chýb, ktoré sa dostanú k používateľovi. Shift-right odhaľuje vlastnosti, ktoré nemožno úplne reprodukovať pred produkciou, a premieňa ich na nové skoršie kontroly.
+Shift-right nadväzuje na shift-left. Skoré kontroly znižujú počet predvídateľných chýb; produkčný feedback odhaľuje zostávajúce blind spots a spätne zlepšuje requirements, testy, policies a platform defaults.
 
-## 2. Mental model: kontrolovaná expozícia
+## 1. Cieľ kapitoly
 
-Shift-right nie je pasívne sledovanie dashboardu po release. Je to riadený lifecycle:
+Nosný model kapitoly je controlled-production-evidence lifecycle:
 
 ```text
-hypotéza a riziko
-→ immutable artifact
-→ cieľová cohort/exposure
-→ zber signálov
-→ porovnanie s baseline alebo control
-→ rozhodnutie
-→ promote / pause / rollback / roll-forward
-→ učenie a trvalá kontrola
+čo ešte nevieme pred produkciou
+→ hypotéza a acceptance/guardrail criteria
+→ artifact, config a cohort provenance
+→ najmenší užitočný blast radius
+→ exposure state machine
+→ kompozitný oracle a signal latency
+→ kauzálne porovnanie s control/baseline
+→ rozhodnutie a bezpečná transition
+→ post-promotion observation
+→ defect escape premenený na trvalú kontrolu
 ```
 
-Každý krok musí byť identifikovateľný. Bez znalosti verzie artifactu, konfigurácie, feature flags, cohorty a času expozície nemožno spoľahlivo pripísať pozorovanú zmenu konkrétnemu release-u.
+Produkčný dashboard bez vopred definovaného rozhodnutia nie je shift-right experiment. Rovnako release bez cohort identity a observation window nevytvára dôveryhodný dôkaz o novej verzii.
 
-## 3. Prečo predprodukčné prostredie nestačí
+## 2. Nosný scenár: Atlas Orders 3.9.2
 
-Staging môže byť technicky podobný produkcii, ale zvyčajne nereprodukuje všetky relevantné podmienky:
+Atlas releasuje export objednávok pre veľkých tenantov. Predprodukčné testy už potvrdili:
 
-- **Traffic mix —** produkcia obsahuje reálne kombinácie operácií, payloadov, session patterns a retry behavior.
-- **Objem a distribúcia dát —** veľkosť tabuliek, hot keys, tenant skew a historický stav ovplyvňujú výkon aj correctness.
-- **Identity a authorization —** federation, claims, role mappings a revocation môžu byť v stagingu zjednodušené.
-- **Sieť a regióny —** latency, packet loss, DNS, peering a CDN behavior sa líšia.
-- **Quotas a shared dependencies —** produkčné limity a konkurencia medzi workloadmi nemusia existovať v test prostredí.
-- **Používateľské správanie —** ľudia používajú systém inak než scripted testy a vytvárajú nečakané sekvencie.
-- **Dlhodobý tlak —** memory leaks, queue growth, cache churn a storage accumulation sa prejavia až v čase.
-- **Emergent behavior —** distribuované interakcie môžu vytvoriť failure, ktorý nie je vlastnosťou jedného komponentu.
+- tenant authorization a event contract;
+- compatibility starého a nového workeru;
+- PostgreSQL migration a restartovateľný backfill;
+- component load pri syntetickom datasete;
+- telemetry schema a deployment smoke.
 
-Preto úspešný deployment znamená iba to, že orchestrátor dokončil plánovanú operáciu. Neznamená, že zmena je technicky, funkčne alebo businessovo prijateľná.
-
-## 4. Predpoklady bezpečného shift-right
-
-Produkčná validácia je bezpečná iba vtedy, keď existujú základné controls:
-
-- **Immutable artifact identity —** vieme presne určiť build, digest, commit a provenance.
-- **Configuration identity —** vieme, ktoré flags, secrets references a runtime settings boli aktívne.
-- **Blast-radius control —** expozíciu možno obmedziť podľa trafficu, tenantov, regiónu alebo identity.
-- **Observability —** technický aj business výsledok je merateľný a korelovateľný.
-- **Rollback alebo roll-forward —** existuje overená cesta návratu alebo rýchlej opravy.
-- **Abort criteria —** vopred je jasné, ktorý signál rollout zastaví.
-- **Owner —** konkrétna osoba alebo tím sleduje rozhodnutie a reaguje na failure.
-- **Safe data handling —** experiment rešpektuje privacy, retention a test-data pravidlá.
-- **Communication —** relevantné tímy vedia, čo prebieha a ako sa incident eskaluje.
-
-Bez týchto controls sa shift-right mení na nekontrolované prenášanie testovacích nákladov na používateľov.
-
-## 5. Tri vrstvy produkčnej validácie
-
-Produkčný oracle sa skladá z viacerých vrstiev. Jedna zelená metrika nestačí.
-
-### Technická validácia
-
-Overuje, či infraštruktúra a komponenty fungujú v požadovanom rozsahu:
-
-- instance sú ready a prijímajú správny traffic,
-- error rate a retry rate nevytvárajú regresiu,
-- latency distribúcia zostáva v limite,
-- CPU, memory, I/O, pools a queues nie sú saturované,
-- dependencies a externé služby odpovedajú,
-- logs a traces neukazujú nový failure pattern,
-- autoscaling a health-control loops reagujú správne.
-
-### Funkčná validácia
-
-Overuje observable správanie systému:
-
-- kritický request vráti správny obsah, nie iba status,
-- side effect vznikne presne podľa kontraktu,
-- event sa publikuje a spracuje bez duplicity alebo straty,
-- authorization a tenant isolation fungujú,
-- dáta zostanú konzistentné,
-- retry, timeout a cancellation majú správny výsledok.
-
-### Business validácia
-
-Overuje, či zmena plní skutočný účel:
-
-- používateľ dokončí kritický journey,
-- conversion alebo completion rate sa nezhorší,
-- payment, order alebo support workflow dosiahne správny koniec,
-- počet manuálnych zásahov alebo chýb klesne podľa hypotézy,
-- zmena nepoškodí relevantnú skupinu používateľov.
-
-Technický pass môže existovať spolu s business failure. Systém môže vracať HTTP 200, ale zobrazovať nesprávnu cenu alebo znižovať completion rate.
-
-## 6. Observability ako kompozitný oracle
-
-V produkcii je oracle zvyčajne kombináciou signálov:
+Stále zostávajú neistoty:
 
 ```text
-metrics
-+ logs
-+ traces
-+ structured events
-+ synthetics
-+ RUM
-+ business KPIs
-+ support/user feedback
+reálny tenant-size skew
+→ veľké exporty môžu držať DB connections dlhšie
+
+regionálna latency
+→ download link môže expirovať skôr, než ho používateľ otvorí
+
+production identity a object-storage policy
+→ signed URL môže mať iné effective permissions
+
+skutočný retry behavior klientov
+→ timeout môže zvýšiť duplicate attempts
+
+business workflow
+→ technicky dokončený export nemusí byť používateľsky použiteľný
 ```
 
-Signály sa musia dať prepojiť s release dimenziami:
+Shift-right z týchto neistôt vytvorí explicitný rollout experiment, nie neštruktúrované „sledovanie po deploymente“.
 
-- artifact version alebo digest,
-- deployment ID,
-- region/zone,
-- tenant alebo cohort,
-- feature flag variant,
-- request/trace ID,
-- timestamp a rollout stage.
+## 3. Predpoklady bezpečnej produkčnej validácie
 
-Bez týchto dimenzií sa zmena v metrike nedá spoľahlivo pripísať novému release-u.
+Atlas nezačne expozíciu bez týchto controls:
 
-Dôležitá je aj signal latency. Niektoré chyby sa prejavia okamžite, iné až po minútach alebo hodinách. Promotion window musí rešpektovať čas potrebný na zber dostatočného dôkazu.
+- immutable image digest a source provenance;
+- deployment a configuration revision;
+- feature-flag snapshot a routing policy;
+- cohort identity a stabilné assignment semantics;
+- technical, functional a business metrics s release labels;
+- rollback alebo roll-forward path;
+- abort criteria a owner;
+- synthetic identity a bezpečné test data;
+- data/privacy review pre RUM a business events;
+- komunikačný a incidentný postup.
+
+Bez týchto predpokladov sa pozorovaný outcome nedá pripísať release-u a blast radius nemožno riadiť.
+
+## 4. Exposure state machine
+
+Atlas rollout používa explicitné stavy:
+
+```text
+deployed, 0 % user traffic
+→ synthetics a config verification
+→ internal tenant
+→ 1 % eligible production cohort
+→ 5 % matched cohort
+→ 25 % vrátane large-tenant segmentu
+→ 50 % capacity observation
+→ 100 % promotion
+→ post-promotion watch
+```
+
+Každý stav definuje:
+
+- minimálnu duration a sample count;
+- cohort composition;
+- success metrics a guardrails;
+- maximálnu signal latency;
+- abort threshold;
+- povolenú next transition;
+- rollback alebo roll-forward action;
+- decision ownera.
+
+Percentá nie sú univerzálny recept. Pri malej populácii môže byť dôležitejší počet kritických journeys než percento trafficu.
+
+## 5. Kompozitný produkčný oracle
+
+Produkčný oracle má tri vrstvy:
+
+### Technický výsledok
+
+Atlas sleduje:
+
+- request a job error rate;
+- p95/p99 API a export completion latency;
+- DB connection wait, lock waits a query duration;
+- queue depth, oldest-message age a retry amplification;
+- worker restarts, memory a CPU saturation;
+- object-storage a identity-provider failures;
+- telemetry completeness.
+
+### Funkčný výsledok
+
+Overuje:
+
+- export obsahuje iba správny tenant;
+- vznikne presne jeden export object pre idempotency key;
+- signed URL funguje a neprekročí permission scope;
+- event, worker a download path zachovajú correlation ID;
+- timeout/retry nevytvorí duplicate side effect;
+- starý aj nový worker spracujú povolenú schema kombináciu.
+
+### Business a používateľský výsledok
+
+Sleduje:
+
+- export completion a download success rate;
+- čas od requestu po reálne použitie súboru;
+- abandonment a repeat-request rate;
+- support contacts alebo manual retries;
+- segmenty podľa tenant size, regiónu a klienta;
+- poškodenie iných kritických journeys.
+
+HTTP 200 a zelené pods nemusia znamenať, že release je prijateľný.
+
+## 6. Release a signal provenance
+
+Každý signal musí byť prepojiteľný s:
+
+```text
+artifact digest
++ deployment revision
++ config/flag version
++ cohort a assignment rule
++ region/zone
++ tenant segment
++ request/job/trace identity
++ rollout stage a čas
+```
+
+Ak dashboard agreguje starú a novú verziu bez release dimension, nemožno určiť, ktorá verzia spôsobila regresiu. Rovnako feature flag bez audit trailu môže zmeniť behavior počas observation window a znehodnotiť experiment.
 
 ## 7. Baseline a control group
 
-Absolútna metrika bez kontextu môže byť zavádzajúca. Canary môže mať vyššiu latency preto, že dostal ťažších používateľov alebo iný región, nie preto, že nový kód je pomalší.
+Produkčná metrika potrebuje porovnanie. Atlas môže použiť:
 
-Porovnanie môže používať:
+- súbežnú control group na starej verzii;
+- matched cohort podľa tenant size, regiónu a operation mixu;
+- stabilný synthetic journey proti starej aj novej verzii;
+- historický baseline iba pri porovnateľnej sezónnosti;
+- pre/post okno ako slabší pomocný signál.
 
-- **Súbežnú control group —** stará verzia beží v rovnakom čase a podobných podmienkach.
-- **Historický baseline —** vhodný iba pri stabilnom a sezónne porovnateľnom workloade.
-- **Pred/po okno —** jednoduché, ale citlivé na globálne zmeny trafficu.
-- **Matched cohort —** skupiny sú vyrovnané podľa regiónu, tenant type, device alebo behavioru.
-- **Synthetic baseline —** identický kontrolovaný journey sa spúšťa proti starej aj novej verzii.
-
-Control group musí byť porovnateľná. Randomizácia alebo routing policy nesmie systematicky posielať odlišný workload do canary vetvy.
+Control musí byť vystavený podobnému workloadu. Canary z malých tenantov nie je validný control pre full rollout, ktorý obsahuje veľkých tenantov s inou distribúciou dát.
 
 ## 8. Synthetic monitoring
 
-Synthetic monitoring pravidelne vykonáva kontrolovaný scenár z definovaného observation pointu. Je vhodný na overenie dostupnosti a kritických workflowov aj vtedy, keď momentálne nie je reálny používateľský traffic.
-
-Príklady:
-
-- DNS resolution a TLS handshake z vybraných regiónov,
-- login test dedikovanou identitou,
-- read-only API journey,
-- vytvorenie a bezpečné zrušenie testovacej objednávky,
-- overenie multi-region failover endpointu,
-- kontrola externého identity alebo payment sandboxu.
-
-Synthetic test potrebuje:
-
-- **Izolovanú identitu —** credentials majú minimálne práva, rotáciu a audit.
-- **Označené dáta —** test traffic a side effects sa dajú odlíšiť od reálnych používateľov.
-- **Bezpečnú semantiku —** operácia je read-only, idempotentná alebo má spoľahlivý cleanup.
-- **Relevantný path —** probe ide cez DNS, CDN, ingress a auth vrstvu, ktorú má overovať.
-- **Deadline a alert policy —** failure má jasný dopad a ownera.
-- **Rate control —** monitor neprekračuje quotas ani nevytvára vlastný incident.
-
-Synthetic monitoring neposkytuje distribúciu reálnych zariadení, dát a behavioru. Preto dopĺňa RUM, nie ho nahrádza.
-
-## 9. Real User Monitoring
-
-Real User Monitoring meria skutočné používateľské sessions a klientské prostredie. Môže zachytiť problémy, ktoré server-side metrics nevidia, napríklad pomalý frontend, device-specific failure alebo regionálnu sieťovú degradáciu.
-
-Typické signály:
-
-- page load a interaction latency,
-- frontend exceptions,
-- Core Web Vitals,
-- API latency z klienta,
-- browser, device a region segmenty,
-- journey completion a abandonment,
-- feature variant alebo release cohort.
-
-RUM má obmedzenia:
-
-- **Sampling bias —** časť používateľov alebo zariadení nemusí byť zahrnutá.
-- **Client blockers —** ad blockers alebo privacy controls môžu telemetry vypnúť.
-- **Clock a network variability —** klientské meranie má vlastnú nepresnosť.
-- **Cardinality —** nekontrolované dimensions zvyšujú náklady a znižujú použiteľnosť.
-- **Privacy —** session data, URLs, input fields a replay môžu obsahovať osobné alebo citlivé informácie.
-- **Consent a retention —** zber musí mať právny a organizačný základ.
-
-RUM instrumentation musí minimalizovať dáta, redigovať citlivé polia a explicitne definovať sampling a retention.
-
-## 10. Canary release
-
-Canary release vystaví nový artifact obmedzenej časti trafficu. Primárnym účelom je znížiť technický blast radius a získať porovnateľný produkčný dôkaz pred plnou expozíciou.
-
-Príklad rollout state machine:
+Synthetic probe poskytuje kontrolovaný opakovateľný journey:
 
 ```text
-0 % — deployed, no user traffic
-→ 1 % — initial health and synthetic checks
-→ 5 % — technical comparison
-→ 25 % — functional and business signal
-→ 50 % — broader capacity validation
-→ 100 % — full promotion
+external DNS a TLS
+→ login test identity
+→ request exportu v test tenantovi
+→ wait na terminal state
+→ overenie signed URL a redigovaného obsahu
+→ cleanup/TTL
 ```
 
-Percentá nie sú univerzálne. Každý krok musí definovať:
+Synthetic test potrebuje least-privilege identity, označené dáta, rate limit, idempotency, cleanup a jasný observation point. Interný probe nepreukazuje public DNS, CDN alebo client-visible TLS path.
 
-- minimálnu observation duration,
-- minimálny počet requests alebo sessions,
-- success a guardrail metrics,
-- acceptable delta voči control,
-- abort criteria,
-- maximálnu signal latency,
-- zodpovedného ownera,
-- rollback alebo roll-forward akciu.
+Synthetics odhaľujú availability a contract failures aj pri nízkom reálnom trafficu. Nemodelujú však distribúciu reálnych zariadení, dát a používateľského správania.
 
-Promotion nemá byť iba timer. Ak nie je dostatok vzoriek alebo telemetry je neúplná, správny výsledok môže byť „inconclusive“, nie automatický pass.
+## 9. Real User Monitoring a business events
 
-## 11. Canary analysis a štatistická opatrnosť
+RUM a client/business telemetry ukazujú skutočné experience boundaries:
 
-Malá canary skupina môže mať vysokú variabilitu. Jedna chyba môže vyzerať ako veľký percentuálny nárast a zriedkavý failure sa nemusí objaviť vôbec.
+- client-perceived latency;
+- frontend alebo SDK errors;
+- device, browser a region segment;
+- journey completion a abandonment;
+- retry behavior;
+- feature cohort;
+- download completion a použitie výsledku.
 
-Pri analýze sleduj:
+Instrumentation musí používať data minimization, sampling, redaction, retention a access controls. Session replay alebo raw URLs môžu obsahovať osobné alebo citlivé údaje a nie sú automaticky legitímne iba preto, že slúžia testovaniu.
 
-- absolútny počet udalostí aj percentá,
-- confidence alebo aspoň stabilitu v čase,
-- porovnateľnosť cohort,
-- viacnásobné metrics a riziko náhodného alarmu,
-- sezónnosť a traffic shifts,
-- sample size a minimálnu expozíciu,
-- oneskorené business a async výsledky.
+## 10. Canary ako safety mechanizmus
 
-Automatická analýza má vedieť vrátiť:
-
-- **Promote —** dôkaz spĺňa kritériá.
-- **Rollback/abort —** kritický guardrail je porušený.
-- **Pause —** treba viac času alebo manuálnu analýzu.
-- **Inconclusive —** chýba dostatok dát alebo je telemetry neúplná.
-
-## 12. Rollback a roll-forward safety
-
-Rollback nie je bezpečný automaticky. Nová verzia mohla vykonať nevratnú migráciu, publikovať events alebo zmeniť dáta, ktorým stará verzia nerozumie.
-
-Pred shift-right rolloutom over:
-
-- databázovú backward compatibility,
-- súbeh starej a novej verzie,
-- event/schema compatibility,
-- feature-flag behavior po návrate,
-- cache a serialized-state compatibility,
-- idempotency opakovanej deployment operácie,
-- rollback time a jeho observation,
-- roll-forward cestu, ak rollback nie je možný.
-
-Rollback decision musí byť spojený s user impactom. Pri data corruption môže byť potrebné najprv zastaviť writes alebo izolovať feature, nie iba znížiť percento novej verzie.
-
-## 13. Feature flags
-
-Feature flag oddeľuje nasadenie kódu od aktivácie behavioru. Umožňuje postupný rollout, interné testovanie, cohort experiment a rýchle vypnutie konkrétnej capability bez redeployu.
-
-Targeting môže byť podľa:
-
-- interných používateľov,
-- percenta stabilného hashovania identity,
-- tenanta alebo customer tier,
-- regiónu,
-- capability alebo device typu,
-- experimentálnej cohorty.
-
-Riziká:
-
-- **Stale flags —** dočasný branch v kóde zostane trvalý.
-- **Kombinatorická explózia —** kombinácie flags vytvárajú netestovaný state space.
-- **Nekonzistentní clients —** frontend, backend a mobile môžu vyhodnotiť flag rozdielne.
-- **Flag-service dependency —** outage alebo stale cache mení behavior.
-- **Security misuse —** flag nesmie byť jedinou authorization kontrolou.
-- **Auditability —** zmena flagu môže byť produkčný release a potrebuje history a approval.
-
-Každý dočasný flag potrebuje ownera, intended default, fail-open/fail-closed semantics, removal criteria a deadline.
-
-## 14. Dark launch
-
-Dark launch nasadí capability do produkčného prostredia bez jej sprístupnenia bežným používateľom. Môže overiť startup, dependency wiring, cache warming, schema compatibility alebo background spracovanie.
-
-Dark launch neoveruje celý user outcome, pretože reálna interakcia ešte nie je aktívna. Je to medzikrok medzi deployment verification a release validation.
-
-Riziká:
-
-- skrytý kód stále môže spotrebúvať resources,
-- background jobs môžu vytvárať side effects,
-- neaktívna cesta nemusí mať reálny traffic mix,
-- feature môže neúmyselne uniknúť cez API alebo permissions.
-
-## 15. Shadow traffic
-
-Shadow traffic kopíruje produkčné requests do novej verzie bez použitia jej response pre používateľa. Umožňuje porovnať compatibility, výkon a output pri realistickom request mixe.
-
-Bezpečnostné požiadavky:
-
-- shadow path nesmie vykonať reálne externé side effects,
-- writes musia byť izolované, simulované alebo smerované do disposable state,
-- secrets a osobné dáta musia byť minimalizované a chránené,
-- downstream kapacita musí počítať s duplicitným loadom,
-- response diff musí normalizovať nondeterministické polia,
-- shadow timeout nesmie spomaliť primárny request,
-- sampling a retention musia byť explicitné.
-
-Shadow behavior nie je úplne identický s primárnym trafficom. Timing, cache state a side-effect isolation môžu zmeniť výsledok.
-
-## 16. Traffic replay
-
-Production-derived traffic možno replayovať v izolovanom prostredí alebo počas kontrolovaného testu. Replay poskytuje realistickejšiu distribúciu requestov než ručne vytvorený scenár, ale vyžaduje dátový lifecycle.
-
-Kontroluj:
-
-- anonymizáciu a re-identification riziko,
-- odstránenie tokens, cookies a secrets,
-- zachovanie alebo modelovanie časovej distribúcie,
-- referential integrity medzi requestmi,
-- side effects a externé calls,
-- retention a prístupové práva,
-- právny a organizačný súhlas,
-- verziu capture a replay toolu.
-
-Replay nie je dôkaz identického produkčného behavioru. Neobsahuje vždy server-side state, klientské rozhodovanie alebo reálne concurrency interleavings.
-
-## 17. A/B testing
-
-A/B test meria produktovú alebo behaviorálnu hypotézu medzi experimentálnou a kontrolnou skupinou. Canary primárne riadi technické release riziko; A/B test primárne skúma, či variant zlepšuje definovaný outcome.
-
-Experiment contract obsahuje:
-
-- hypotézu,
-- unit of randomization,
-- primary metric,
-- guardrail metrics,
-- eligibility a exclusion rules,
-- sample-size alebo duration plán,
-- exposure consistency,
-- novelty a seasonality riziká,
-- stopping a decision rules,
-- privacy a consent požiadavky.
-
-Nevyberaj víťaza priebežným sledovaním náhodného výkyvu bez vopred definovaného rozhodovacieho modelu. Technický guardrail môže experiment zastaviť aj vtedy, keď business metric krátkodobo rastie.
-
-## 18. Progressive delivery
-
-Progressive delivery automatizuje kontrolovanú expozíciu a rozhodovanie:
+Canary znižuje blast radius a vytvára porovnateľný produkčný dôkaz. Nie je to automaticky A/B experiment.
 
 ```text
-immutable artifact
-→ obmedzená expozícia
-→ zber a analýza signálov
-→ policy rozhodnutie
-→ širšia expozícia alebo návrat
+canary otázka
+→ je nový artifact dostatočne bezpečný na širšiu expozíciu?
+
+A/B otázka
+→ ktorý variant lepšie spĺňa business hypotézu?
 ```
 
-Automatizácia percent nie je sama osebe vyspelá progressive delivery. Systém potrebuje:
+Canary potrebuje stabilné assignment, guardrails a technické abort criteria. A/B test navyše potrebuje experiment unit, randomizáciu, sample-size/statistical model a ochranu pred interference.
 
-- porovnateľnú control group,
-- kvalitné SLI a business metrics,
-- ochranu pred neúplnou telemetry,
-- jasné inconclusive správanie,
-- audit rozhodnutí,
-- override s risk ownerom,
-- overený rollback/roll-forward,
-- ochranu pred súbežnými nezávislými zmenami, ktoré komplikujú atribúciu.
+## 11. Feature flags a oddelenie deploymentu od exposure
 
-## 19. Error budgets a release policy
-
-Error budget spája reliability cieľ s delivery rozhodovaním. Ak služba spotrebúva budget príliš rýchlo, nový rollout môže zväčšiť riziko alebo sťažiť diagnostiku.
-
-Príklad policy:
+Feature flag umožní nasadiť kód bez okamžitého sprístupnenia behavioru:
 
 ```text
-budget healthy
-→ štandardný automatizovaný rollout
-
-budget pod warning hranicou
-→ menší canary a dlhšie observation window
-
-budget rýchlo klesá alebo je vyčerpaný
-→ release freeze, iba reliability alebo urgentné zmeny
+artifact deployed
+→ flag off
+→ synthetics/internal validation
+→ cohort enablement
+→ observation
+→ širšia expozícia alebo disable
 ```
 
-Error budget nie je trest ani izolovaná metrika. Musí byť založený na relevantnom SLI a interpretovaný spolu s business prioritou, incidentom a change riskom.
+Flag contract obsahuje default pri nedostupnom evaluatorovi, targeting rules, audit, ownera, expiry a cleanup. Dlhodobo zabudnutý flag zväčšuje state space a môže vytvoriť kombináciu, ktorú testy ani rollout nepoznajú.
 
-## 20. Resilience validation
+## 12. Shadow traffic
 
-Shift-right môže overovať reálne control loops a degradation behavior:
+Shadowing kopíruje request alebo event do novej implementácie bez použitia jej response pre používateľa. Je vhodné na porovnanie parsera, query behavioru alebo model outputu pri reálnom input mixe.
 
-- retry a timeout interakciu,
-- circuit breaker,
-- admission control a load shedding,
-- failover medzi instances, zones alebo regiónmi,
-- autoscaling latency a oscillation,
-- queue backlog recovery,
-- dependency degradation,
-- certificate alebo credential rotation,
-- graceful shutdown a connection draining.
+Shadow musí zabrániť reálnym side effects:
 
-Takáto validácia sa prekrýva s chaos testingom. Potrebuje explicitnú steady-state hypotézu, blast radius, abort criteria, observation plan a recovery dôkaz.
+- payment, email a notification sú zakázané alebo presmerované;
+- writes idú do izolovaného storage alebo dry-run boundary;
+- credentials majú minimálne permissions;
+- shadow load má capacity budget;
+- citlivé dáta a retention majú explicitný contract.
 
-## 21. Produkčná verification verzus validation
+Shadow pass nepreukazuje client-visible latency, routing, authorization response ani write consistency, pokiaľ tieto boundaries nie sú reálne vykonané.
 
-Aj v produkcii je užitočné oddeliť verification a validation.
+## 13. Decision contract
 
-- **Produkčná verification —** správny artifact je nasadený, config a routing zodpovedajú plánu, policy je enforced a technické kontrakty platia.
-- **Produkčná validation —** používatelia dosahujú zamýšľaný outcome a systém zostáva prevádzkovo prijateľný pri reálnom workloade.
-
-Príklad:
+Rollout decision rozlišuje:
 
 ```text
-Verification: 5 % trafficu ide na digest X a authorization policy je aktívna.
-Validation: checkout completion a payment correctness sa nezhoršili.
+PROMOTE
+→ evidence je complete a criteria splnené
+
+PAUSE
+→ signal potrebuje dlhšiu observation alebo triage
+
+ROLLBACK
+→ predchádzajúci artifact/config je bezpečne obnoviteľný
+
+ROLL_FORWARD
+→ rýchla kompatibilná oprava je bezpečnejšia než návrat
+
+ABORT/CONTAIN
+→ blast radius sa okamžite znižuje a incident sa eskaluje
+
+INCONCLUSIVE
+→ evidence alebo sample nestačí; nie je to pass
 ```
 
-Obe vrstvy potrebujú samostatné oracles a môžu mať odlišnú signal latency.
+Rollback nie je vždy možný. Database mutation, event emission alebo external side effect môžu vyžadovať roll-forward, reconciliation alebo compensating action.
 
-## 22. Privacy, bezpečnosť a etika
+## 14. Signal latency a observation window
 
-Shift-right pracuje s produkčnými dátami a ľuďmi. Experiment alebo telemetry nesmie prekročiť účel, na ktorý má organizácia oprávnenie.
-
-Kontroluj:
-
-- data minimization,
-- osobné a citlivé polia,
-- consent alebo právny základ,
-- sampling a retention,
-- access control k raw telemetry,
-- redaction v logs a traces,
-- session replay masking,
-- oddelenie test identities,
-- zákaz nebezpečných experimentov na zraniteľných skupinách,
-- audit feature targetingu a variantov.
-
-„Produkcia už dáta má“ nie je oprávnenie kopírovať ich do ďalšieho experimentálneho systému alebo dlhodobo uchovávať detailný replay.
-
-## 23. False rollback a false promotion
-
-Rozhodovací systém môže urobiť dva typy závažnej chyby:
-
-- **False rollback —** zdravá zmena je zastavená pre šum, neporovnateľnú cohortu alebo chybnú telemetry.
-- **False promotion —** chybná zmena pokračuje pre slabý oracle, malú vzorku alebo oneskorený signal.
-
-Ochrany:
-
-- kombinovať absolútne limity a delta voči control,
-- používať viac nezávislých signálov,
-- definovať minimálnu vzorku a observation duration,
-- zastaviť promotion pri neúplnej telemetry,
-- merať false decision rate,
-- uchovať evidence pre spätnú analýzu,
-- kalibrovať rules na historických rolloutoch.
-
-## 24. Feedback späť doľava
-
-Shift-right bez uzavretej learning slučky je iba monitoring. Každý významný produkčný poznatok má viesť k trvalému zlepšeniu.
-
-Možné výsledky:
-
-- nový regression alebo contract test,
-- spresnenie acceptance criteria,
-- nový SLI alebo business oracle,
-- lepšia telemetry a failure artifact,
-- zmena timeout/retry/backpressure policy,
-- bezpečnejší platformový default,
-- nová IaC alebo security policy,
-- nový chaos experiment,
-- zmena rollout guardrailu,
-- aktualizovaný runbook a recovery drill.
+Rôzne failures majú odlišnú dobu prejavu:
 
 ```text
-production evidence
-→ root-cause learning
-→ backlog a owner
-→ skoršia kontrola alebo bezpečný default
-→ overenie v ďalšom release
+route alebo startup failure
+→ sekundy
+
+retry amplification a queue growth
+→ minúty
+
+large-tenant completion regression
+→ desiatky minút až hodiny
+
+memory leak, retention alebo billing side effect
+→ dlhšie okno
 ```
 
-Cieľom nie je iba opraviť konkrétny incident, ale zachytiť triedu failure v najnižšej spoľahlivej vrstve.
+Automatická promotion po krátkom technickom okne môže prehliadnuť business alebo delayed-state failure. Observation window sa odvodzuje z mechanizmu, nie z univerzálneho časovača.
 
-## 25. Metriky účinnosti
+## 15. Worked failure: technický canary bol zelený, journey zlyhal
 
-Sleduj, či shift-right skracuje expozíciu a zlepšuje učenie:
+Atlas canary mal normálnu API latency, error rate aj worker health. Veľká časť používateľov v pomalšom regióne však export nestiahla:
 
-- **Release-to-validation time —** čas od nasadenia po dostatočný dôkaz prijateľnosti.
-- **Mean exposure before detection —** koľko trafficu alebo používateľov bolo vystavených pred detekciou chyby.
-- **Canary abort/rollback rate —** koľko rolloutov bolo zastavených a z akého dôvodu.
-- **False rollback rate —** zdravé zmeny zastavené nespoľahlivým signálom.
-- **False promotion/escape rate —** chyby, ktoré prešli cez progressive gate.
-- **Synthetic a RUM coverage —** ktoré kritické journeys a segmenty majú použiteľný signal.
-- **Telemetry completeness —** percento requests alebo rolloutov s artifact/cohort identitou.
-- **Stale feature flags —** počet a vek dočasných flags po deadline.
-- **Feedback closure rate —** podiel produkčných poznatkov premenených na test, policy alebo platformový fix.
-- **Rollback readiness —** čas a úspešnosť reálne overených rollback/roll-forward postupov.
+```text
+export job sa dokončil
+→ signed URL mala 60-sekundovú expiráciu od vytvorenia
+→ notification a regionálna latency spotrebovali väčšinu okna
+→ používateľ otvoril link po expirácii
+→ API a worker metrics zostali zelené
+→ download completion rate klesla
+```
 
-## 26. Diagnostický postup pri zlyhanom rolloute
+### Root cause
 
-1. **Zastav expozíciu —** podľa abort policy pause-ni rollout, vypni flag alebo izoluj cohortu.
-2. **Over atribúciu —** artifact, config, cohort, región, čas a súbežné zmeny.
-3. **Skontroluj signal quality —** chýbajúce dáta, sampling, control comparability a alert rule.
-4. **Rozlíš typ failure —** technický, funkčný, business, dependency alebo telemetry failure.
-5. **Urči user impact —** počet používateľov, trvanie, dáta a finančný/prevádzkový dopad.
-6. **Vyber recovery —** rollback, roll-forward, flag-off, traffic shift alebo write freeze.
-7. **Over recovery —** metrics, synthetics a business stav musia potvrdiť návrat.
-8. **Uchovaj evidence —** logs, traces, rollout decisions, config a timestamps.
-9. **Vykonaj root-cause analýzu —** zahŕňa aj prečo guardrail zlyhal alebo uspel neskoro.
-10. **Uzavri learning loop —** vytvor ownera, test/policy zmenu a overenie v ďalšom release.
+Oracle obsahoval iba server-side technické signály. Chýbal business/client observation point medzi notification delivery a úspešným downloadom.
 
-## 27. Typické anti-patterny
+### Náprava
 
-### „Testujeme až v produkcii“
+- signed URL expiry sa viaže na reálny access contract;
+- RUM/business event meria `export_ready → download_success`;
+- synthetic probe beží z relevantných regiónov;
+- canary guardrail zahŕňa download completion podľa region segmentu;
+- regression test používa fake clock a delayed-open scenár;
+- product requirement explicitne definuje použiteľné download window.
 
-Chýbajú skoré checks a používatelia znášajú náklady bežných chýb. Shift-right má overovať zostávajúce predpoklady, nie základnú syntax alebo unit logiku.
+Produkčný finding sa tým vrátil do požiadavky, unit/component testu aj shift-right guardrailu.
 
-### Dashboard bez rozhodnutia
+## 16. Worked failure: canary cohort nebola reprezentatívna
 
-Metriky existujú, ale nie je definované, čo rollout zastaví, kto reaguje a aká akcia nasleduje.
+Prvých 10 % trafficu bolo routovaných podľa tenant ID hash. Náhodou obsahovalo prevažne malých tenantov:
 
-### Canary bez control group
+```text
+canary DB wait normal
+→ export completion normal
+→ rollout 100 %
+→ veľkí tenants spustili paralelné exporty
+→ DB pool a object-storage quota sa saturovali
+→ queue backlog a abandonment prudko vzrástli
+```
 
-Nie je jasné, či delta vznikla novou verziou alebo globálnou zmenou workloadu.
+### Root cause
 
-### Promotion iba podľa času
+Assignment bolo stabilné, ale control a canary neboli matched podľa tenant-size a workload distribution. Percento trafficu sa nesprávne považovalo za reprezentatívnu vzorku.
 
-Rollout pokračuje aj bez dostatočnej vzorky alebo pri neúplnej telemetry.
+### Náprava
 
-### Rollback bez compatibility dôkazu
+- cohort design explicitne stratifikoval tenant-size tiers;
+- rollout mal samostatnú large-tenant fázu;
+- guardrails sledovali DB wait, queue age a completion per segment;
+- capacity model používal produkčnú distribúciu;
+- post-promotion watch zostal aktívny po 100 % trafficu.
 
-Návrat starej verzie môže poškodiť dáta alebo zlyhať na novej schéme.
+## 17. Rollback, roll-forward a data compatibility
 
-### Feature flag bez lifecycle
+Pred expozíciou Atlas overí recovery package:
 
-Dočasná vetva sa stane trvalou, zvyšuje state space a komplikuje incidenty.
+- last-known-good artifact a config identity;
+- compatibility starej aplikácie s aktuálnou schema;
+- feature-flag disable path;
+- event a queue behavior pri mixed versions;
+- compensating actions pre external side effects;
+- reconciliation pre partial exports;
+- ownera a runbook.
 
-### Shadow traffic s reálnymi side effects
+Rollback, ktorý obnoví starý image nad nekompatibilnou databázou, môže incident zhoršiť. Recovery decision musí zahŕňať application, config, data a external-state compatibility.
 
-Kópia requestu môže vytvoriť duplicitnú platbu, správu alebo zápis.
+## 18. Produkčné experimenty a etika
 
-### RUM bez privacy dizajnu
+Produkčná validácia nesmie prenášať neprimerané riziko na používateľov. Potrebuje:
 
-Telemetry alebo session replay zachytáva citlivé dáta bez minimalizácie, retention a prístupových pravidiel.
+- najmenší užitočný blast radius;
+- explicitné excluded populations pri citlivom workflowe;
+- privacy a consent semantics;
+- zákaz neplánovaných finančných alebo právnych side effects;
+- audit experimentu a rozhodnutí;
+- rýchle containment controls;
+- transparentný ownership.
 
-### Produkčný experiment bez inconclusive stavu
+„Potrebujeme reálne dáta“ nie je dostatočný dôvod na nekontrolovaný experiment.
 
-Systém automaticky promovuje alebo rollbackuje aj vtedy, keď nemá dostatok dôkazov.
+## 19. Feedback do skorších vrstiev
 
-## 28. Praktický rozhodovací rámec
+Každý shift-right finding sa klasifikuje:
 
-Pred shift-right validáciou odpovedz:
+```text
+predvídateľný a reprodukovateľný failure
+→ nový requirement, test, policy alebo secure default vľavo
 
-1. Ktorý predpoklad nemožno dostatočne overiť pred produkciou?
-2. Aký technický, funkčný alebo business oracle ho potvrdí?
-3. Aká je artifact, config a cohort identity?
-4. Aká control group alebo baseline je porovnateľná?
-5. Aký je maximálny blast radius a exposure duration?
-6. Aká je signal latency a minimálna vzorka?
-7. Aké sú promotion, pause, abort a inconclusive criteria?
-8. Je rollback kompatibilný s dátami a súbežnými verziami?
-9. Aký je roll-forward plán?
-10. Obsahuje test side effects alebo citlivé dáta?
-11. Ako sa chránia credentials, privacy a retention?
-12. Kto sleduje rollout a kto má rozhodovaciu právomoc?
-13. Ako sa uchová evidence a audit trail?
-14. Aký poznatok sa má presunúť späť do shift-left kontroly?
+prostredie-špecifický failure
+→ production guardrail, synthetic alebo canary control
 
-## 29. Kontrolný checklist
+emergentný failure
+→ model, observability a chaos experiment
 
-Pred produkčným rolloutom over:
+business mismatch
+→ upravený acceptance criterion a product metric
+```
 
-- artifact a configuration provenance sú jednoznačné,
-- telemetry obsahuje release a cohort dimensions,
-- control group je porovnateľná,
-- synthetics používajú bezpečné identity a dáta,
-- RUM rešpektuje privacy a sampling kontrakt,
-- rollout má minimálnu vzorku aj observation duration,
-- telemetry failure neznamená pass,
-- existuje inconclusive stav,
-- feature flags majú fail semantics a removal deadline,
-- shadow traffic nemá reálne side effects,
-- rollback/roll-forward bol testovaný,
-- database a event schemas sú kompatibilné,
-- abort criteria a owner sú explicitné,
-- evidence sa uchováva,
-- learning sa vracia do požiadaviek, testov alebo policies.
+Cieľom nie je odstrániť produkčné učenie, ale zabezpečiť, aby sa rovnaká trieda chyby neopakovala bez skoršej ochrany.
 
-## 30. Kontrolné otázky
+## 20. Diagnostický postup
 
-1. Čo shift-right dopĺňa a čo nenahrádza?
-2. Prečo deployment success nie je production validation?
-3. Aké tri vrstvy produkčnej validácie treba rozlišovať?
-4. Prečo musí telemetry obsahovať artifact a cohort identitu?
-5. Aký je rozdiel medzi synthetic monitoringom a RUM?
-6. Kedy je historický baseline slabší než súbežná control group?
-7. Aké výsledky okrem promote/rollback má mať canary analysis?
-8. Prečo rollback nemusí byť bezpečný?
-9. Ako feature flags oddeľujú deployment od release a aké vytvárajú riziká?
-10. Ako bezpečne používať shadow traffic?
-11. Aký je rozdiel medzi canary release a A/B testom?
-12. Ako error budget mení release policy?
-13. Čo je false rollback a false promotion?
-14. Ako privacy ovplyvňuje RUM, replay a experimenty?
-15. Ako sa produkčný poznatok premení na trvalú shift-left kontrolu?
+Pri podozrení na rollout regression:
 
-## Summary
+1. Potvrď artifact digest, deployment/config revision a rollout stage.
+2. Over cohort assignment a porovnateľnosť control group.
+3. Rozdeľ technical, functional a business signals.
+4. Nájdite prvý observation point, kde sa canary od controlu odlíšil.
+5. Skontroluj sample size, signal latency, missing telemetry a dashboard aggregation.
+6. Rozlíš release effect od regionálneho incidentu, dependency outage alebo traffic zmeny.
+7. Zastav promotion alebo zníž exposure podľa abort contractu.
+8. Vyhodnoť rollback/roll-forward/data compatibility.
+9. Zachovaj timeline, release dimensions, traces a cohort evidence.
+10. Preveď root cause na skorší regression control alebo trvalý production guardrail.
 
-Shift-right je riadený proces získavania produkčného dôkazu cez kontrolovanú expozíciu, observability, porovnateľnú baseline a bezpečné rollout rozhodnutia. Zahŕňa synthetics, RUM, canary, feature flags, dark launch, shadow traffic, A/B experimenty, progressive delivery a resilience validation. Bez artifact identity, signal-quality kontroly, blast-radius limitu, rollback kompatibility, privacy a learning closure sa z neho stáva iba riskantné testovanie na používateľoch. Jeho výsledok sa musí vracať do požiadaviek, testov, policies a platformových defaults.
+## 21. Referenčné pravidlá
+
+- Shift-right nie je náhrada predprodukčných testov.
+- Produkčný experiment začína hypotézou a rozhodnutím.
+- Artifact, config, flag a cohort identity patria do evidence provenance.
+- Exposure rastie po explicitnej state machine, nie po pocite.
+- Oracle kombinuje technical, functional aj business outcomes.
+- Control group musí byť porovnateľná s canary workloadom.
+- Synthetics a RUM poskytujú rozdielne observation points.
+- Percento trafficu nie je automaticky reprezentatívna cohorta.
+- Inconclusive alebo missing evidence nie je pass.
+- Observation window sa odvodzuje z failure latency.
+- Rollback potrebuje application, data a side-effect kompatibilitu.
+- Produkčný finding sa má podľa možnosti zmeniť na skorší control.
+
+## 22. Časté omyly
+
+### „Deployment bol úspešný, release je zdravý“
+
+Orchestrátor potvrdil mutation, nie používateľský ani business outcome.
+
+### „Canary je iba 5 % trafficu“
+
+Dôležitá je cohort composition, assignment, sample a guardrails, nie samotné percento.
+
+### „Server metrics sú zelené“
+
+Client journey, tenant correctness alebo business completion môžu byť červené.
+
+### „RUM nahrádza synthetics“
+
+RUM potrebuje reálny traffic; synthetics poskytujú kontrolovaný journey a known observation point.
+
+### „Flag off znamená nulové riziko“
+
+Kód, migrácia, startup behavior alebo shared resources môžu ovplyvniť systém aj pri vypnutom feature path-e.
+
+### „Rollback je vždy najbezpečnejší“
+
+Data a external side effects môžu spraviť návrat nekompatibilným.
+
+## 23. Zhrnutie
+
+Dôveryhodný shift-right model pre Atlas je:
+
+```text
+reziduálne produkčné riziko
+→ hypotéza a guardrails
+→ immutable artifact/config/flag identity
+→ matched cohort a bounded exposure
+→ technical + functional + business oracle
+→ kauzálne porovnanie
+→ promote/pause/rollback/roll-forward
+→ delayed-effect a recovery observation
+→ skorší regression control alebo production guardrail
+```
+
+Shift-right premieňa produkciu na riadený zdroj dôkazov. Nerobí z používateľov nekontrolovaných testerov; používa blast-radius controls, observability a explicitné rozhodnutia na bezpečné učenie.
+
+## 24. Kontrolné otázky
+
+1. Ktoré neistoty zostávajú po predprodukčných Atlas testoch?
+2. Čo musí obsahovať exposure state machine?
+3. Prečo produkčný oracle potrebuje technical, functional aj business vrstvu?
+4. Aké dimensions patria do release provenance?
+5. Ako sa líši synthetic monitoring od RUM?
+6. Prečo canary percento nemusí byť reprezentatívne?
+7. Aký je rozdiel medzi canary safety rolloutom a A/B experimentom?
+8. Aké blind spots má shadow traffic?
+9. Ako signal latency určuje observation window?
+10. Prečo bol Atlas technický canary zelený pri business failure?
+11. Kedy je roll-forward bezpečnejší než rollback?
+12. Ako sa shift-right finding vracia do shift-left systému?
 
 ## Glossary impact
 
-Relevantné pojmy: shift-right, production validation, controlled exposure, canary release, control group, cohort, feature flag, dark launch, shadow traffic, traffic replay, A/B testing, progressive delivery, Real User Monitoring, guardrail metric, abort criterion, inconclusive result, false rollback a false promotion.
+Relevantné pojmy: shift-right, controlled exposure, rollout state machine, production validation, synthetic monitoring, Real User Monitoring, release cohort, matched cohort, control group, canary analysis, feature exposure, shadow traffic, signal latency, technical validation, functional validation, business validation a post-promotion watch.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
