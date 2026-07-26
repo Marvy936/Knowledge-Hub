@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11830**
-- Total words: **593,301**
-- Findings: **27714** (critical 8986, high 9866, medium 3923, low 4939)
+- Audited conceptual sections: **11829**
+- Total words: **592,367**
+- Findings: **27732** (critical 9009, high 9887, medium 3916, low 4920)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -89,6 +89,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1119 | 54 | 46 | 25 | 14 | 1792 | `docs/11-cloud-and-aws/well-architected-framework.md` |
 | D | 1119 | 48 | 58 | 16 | 21 | 2203 | `docs/12-observability/loki.md` |
 | D | 1112 | 55 | 53 | 11 | 6 | 1209 | `docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md` |
+| D | 1106 | 52 | 49 | 20 | 20 | 2492 | `docs/04-testing-and-quality/contract-and-api-tests.md` |
 | D | 1092 | 47 | 49 | 26 | 36 | 2747 | `docs/06-gitlab/environments-deployments-releases.md` |
 | D | 1089 | 48 | 45 | 29 | 43 | 3495 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
 | D | 1082 | 49 | 49 | 20 | 26 | 2042 | `docs/11-cloud-and-aws/aws-backup.md` |
@@ -163,7 +164,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 731 | 36 | 27 | 21 | 7 | 1177 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | D | 730 | 31 | 32 | 19 | 26 | 2530 | `docs/03-git-and-automation/branching-strategies.md` |
 | D | 728 | 30 | 44 | 6 | 3 | 1264 | `docs/09-kubernetes/statefulset.md` |
-| D | 724 | 29 | 28 | 27 | 39 | 3426 | `docs/04-testing-and-quality/contract-and-api-tests.md` |
 | D | 718 | 33 | 35 | 12 | 4 | 1650 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | D | 717 | 26 | 40 | 18 | 16 | 1682 | `docs/09-kubernetes/configmap-secret.md` |
 | D | 714 | 29 | 40 | 14 | 2 | 1722 | `docs/09-kubernetes/securitycontext-pod-security.md` |
@@ -3428,61 +3428,105 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 78, `bare-bullet-items` — **5. Contract test**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider implementáciu voči OpenAPI alebo AsyncAPI specification;`, `consumer parser voči publikovaným examples a schema variants;`, `consumer-driven interaction voči provider implementation;`, `backward/forward compatibility dvoch schema versions;`.
-- **CRITICAL** line 137, `bare-bullet-items` — **8. Consumer-driven contract**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contract reprezentuje reálne používané behavior;`, `provider vidí breaking change pred nasadením;`, `tímy môžu vyvíjať a deployovať nezávislejšie;`, `nepotrebuje permanentné shared E2E prostredie.`.
-- **CRITICAL** line 137, `outline-instead-of-explanation` — **8. Consumer-driven contract**: 8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 217, `bare-bullet-items` — **12. Tolerant reader**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci required field;`, `neplatný typ alebo formát;`, `neznámu security-relevant enum hodnotu;`, `porušený business invariant;`.
-- **CRITICAL** line 231, `bare-bullet-items` — **13. OpenAPI lifecycle**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request aj response schemas pre všetky relevantné statusy;`, `nullable verzus optional semantics;`, `security schemes a scopes;`, `examples zodpovedajúce schemas;`.
-- **CRITICAL** line 231, `outline-instead-of-explanation` — **13. OpenAPI lifecycle**: 8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 266, `bare-bullet-items` — **14. Generated clients a SDK**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `generation je reprodukovateľná z pinned toolchainu;`, `serialization/deserialization funguje na representative payloads;`, `error responses sa mapujú konzistentne;`, `unknown fields a enum values majú definované správanie;`.
-- **CRITICAL** line 282, `bare-bullet-items` — **15. GraphQL contracts**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstránenie field alebo argumentu;`, `zmena nullability;`, `zmena argumentu na required;`, `odstránenie enum value;`.
-- **CRITICAL** line 316, `bare-bullet-items` — **17. API authentication tests**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci credential;`, `neplatný podpis alebo certificate chain;`, `expired alebo not-yet-valid token;`, `nesprávny issuer, audience alebo client identity;`.
-- **CRITICAL** line 316, `outline-instead-of-explanation` — **17. API authentication tests**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 330, `bare-bullet-items` — **18. API authorization tests**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `role alebo scope bez potrebného oprávnenia;`, `resource ownership;`, `tenant isolation;`, `field-level alebo action-level policy;`.
-- **CRITICAL** line 346, `outline-instead-of-explanation` — **19. Idempotency test**: 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 374, `bare-bullet-items` — **21. Pagination a collection contract**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `empty collection a jedinú stránku;`, `prvú, strednú a poslednú stránku;`, `maximum/default page size;`, `deterministic ordering a tie-breaker;`.
-- **CRITICAL** line 374, `outline-instead-of-explanation` — **21. Pagination a collection contract**: 8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 405, `bare-bullet-items` — **23. Negative API tests**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malformed JSON alebo nepodporovaný media type;`, `chýbajúci required field alebo unknown forbidden field;`, `oversized body, header alebo collection request;`, `neplatná identity a nedostatočné oprávnenie;`.
-- **CRITICAL** line 405, `outline-instead-of-explanation` — **23. Negative API tests**: 10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 439, `bare-bullet-items` — **25. Contract broker a deployment decision**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré consumer versions sú v cieľovom prostredí aktívne;`, `ktoré provider buildy ich contracts overili;`, `rolling deployment, kde staré a nové instances koexistujú;`, `rollback na predchádzajúcu provider alebo consumer verziu;`.
-- **CRITICAL** line 454, `bare-bullet-items` — **26. Versioning a deprecation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo sa považuje za breaking change;`, `koľko major alebo release lines podporuje;`, `ako dlho trvá deprecation window;`, `ako sa consumers upozornia a meria ich migrácia;`.
-- **CRITICAL** line 482, `bare-bullet-items` — **28. API test verzus E2E test**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `endpoint alebo event boundary;`, `reálne spustené komponenty;`, `nahradené dependencies;`, `environment a artifact versions;`.
-- **CRITICAL** line 495, `bare-bullet-items` — **29. Failure artifacts a observability**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consumer a provider version/commit;`, `contract artifact digest;`, `konkrétnu interaction a mismatch path;`, `matcher verzus actual value;`.
-- **CRITICAL** line 509, `outline-instead-of-explanation` — **30. Diagnostika contract failure**: 9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 564, `bare-bullet-items` — **33. Rozhodovací rámec**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomenuj producerov, consumerov a aktívne versions;`, `definuj autoritatívny contract source;`, `klasifikuj schema, semantic, security a delivery zmenu;`, `urč backward/forward compatibility požiadavky;`.
-- **CRITICAL** line 564, `outline-instead-of-explanation` — **33. Rozhodovací rámec**: 11 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 580, `bare-bullet-items` — **34. Kontrolný checklist**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contract obsahuje shape aj behavior semantics;`, `API test overuje side effects, nie iba status;`, `provider implementation sa testuje voči publikovanej specification;`, `consumer expectations používajú primerané matchers;`.
-- **CRITICAL** line 580, `no-prose-concept` — **34. Kontrolný checklist**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 580, `outline-instead-of-explanation` — **34. Kontrolný checklist**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 596, `empty-section` — **35. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 95, `outline-instead-of-explanation` — **3. Interface ako distribuovaná dohoda**: 7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 125, `empty-section` — **Operation identity**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 132, `bare-bullet-items` — **Request**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `media type;`, `required a optional fields;`, `typy a ranges;`, `string/decimal representation;`.
+- **CRITICAL** line 132, `no-prose-concept` — **Request**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 132, `outline-instead-of-explanation` — **Request**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 142, `bare-bullet-items` — **Response**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `status codes;`, `response schema;`, `Location header;`, `error model;`.
+- **CRITICAL** line 142, `no-prose-concept` — **Response**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 142, `outline-instead-of-explanation` — **Response**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 151, `bare-bullet-items` — **Behavior**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný význam pending payment ;`, `amount a currency invariant;`, `povolené state transitions;`, `presne jeden business výsledok pri duplicate requeste;`.
+- **CRITICAL** line 151, `no-prose-concept` — **Behavior**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 151, `outline-instead-of-explanation` — **Behavior**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 159, `bare-bullet-items` — **Security**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication;`, `tenant isolation;`, `resource ownership;`, `bezpečné error details;`.
+- **CRITICAL** line 159, `no-prose-concept` — **Security**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 159, `outline-instead-of-explanation` — **Security**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 167, `bare-bullet-items` — **Lifecycle**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contract version a provenance;`, `backward/forward compatibility;`, `deprecation window;`, `usage telemetry;`.
+- **CRITICAL** line 167, `outline-instead-of-explanation` — **Lifecycle**: 5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 177, `outline-instead-of-explanation` — **5. Contract test verzus API test**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 208, `empty-section` — **Spec-first**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 238, `bare-bullet-items` — **7. Schema assertion a semantic oracle**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `201 a správny media type;`, `response zodpovedá publikovanej schéme;`, `order existuje presne raz v správnom tenante;`, `outbox obsahuje presne jeden OrderCreated ;`.
+- **CRITICAL** line 238, `outline-instead-of-explanation` — **7. Schema assertion a semantic oracle**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 274, `bare-bullet-items` — **8. Producer-driven contract**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dokumentáciu;`, `generovanie SDK;`, `linting;`, `request/response validation;`.
+- **CRITICAL** line 325, `bare-bullet-items` — **10. Provider states a matcher prísnosť**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministický;`, `izolovaný;`, `idempotentný;`, `minimálny;`.
+- **CRITICAL** line 367, `bare-bullet-items` — **11. API component test jedného flowu**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validný request vytvorí presne jeden order;`, `response a persisted state sa zhodujú;`, `event vznikne až po úspešnom commite;`, `neplatný request nevytvorí side effect;`.
+- **CRITICAL** line 367, `outline-instead-of-explanation` — **11. API component test jedného flowu**: 8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 420, `bare-bullet-items` — **13. Worked contract failure: latest-to-latest false green**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktívne consumer versions;`, `provider build a jeho verification výsledky;`, `rolling deployment kombinácie;`, `rollback provider/consumer versions;`.
+- **CRITICAL** line 456, `bare-bullet-items` — **Authentication**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci credential;`, `expired/not-yet-valid token;`, `nesprávny issuer alebo audience;`, `neplatný podpis;`.
+- **CRITICAL** line 456, `no-prose-concept` — **Authentication**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 456, `outline-instead-of-explanation` — **Authentication**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 465, `bare-bullet-items` — **Authorization**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tenant bez oprávnenia vytvoriť order;`, `user z tenantu B číta order tenantu A;`, `bulk/list endpoint zachová tenant filter;`, `idempotency key je scoped na tenant a operation;`.
+- **CRITICAL** line 465, `outline-instead-of-explanation` — **Authorization**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 476, `outline-instead-of-explanation` — **15. Idempotency a unknown outcome**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 498, `bare-bullet-items` — **16. Optimistic concurrency**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `conflict status a machine-readable error;`, `persisted state sa nezmenil;`, `nevznikol event pre odmietnutú mutation;`, `klient môže načítať aktuálnu version;`.
+- **CRITICAL** line 498, `outline-instead-of-explanation` — **16. Optimistic concurrency**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 520, `bare-bullet-items` — **17. Event contract ako viac než schema**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že OrderCreated predchádza PaymentCaptured ;`, `že partition key zachová ordering jedného orderu;`, `že consumer je idempotentný;`, `že redelivery nevytvorí druhú platbu;`.
+- **CRITICAL** line 520, `outline-instead-of-explanation` — **17. Event contract ako viac než schema**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 562, `bare-bullet-items` — **Pagination**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ordering a tie-breaker;`, `page size;`, `cursor identity a expiry;`, `behavior pri concurrent writes;`.
+- **CRITICAL** line 562, `outline-instead-of-explanation` — **Pagination**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 575, `bare-bullet-items` — **19. Generated clients a SDK**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nullable verzus optional;`, `decimal/date mapping;`, `unknown enum behavior;`, `language-specific integer precision;`.
+- **CRITICAL** line 575, `outline-instead-of-explanation` — **19. Generated clients a SDK**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 600, `bare-bullet-items` — **20. Contract publication a provenance**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `producer/consumer identity;`, `source commit;`, `artifact version a digest;`, `branch/environment intent;`.
+- **CRITICAL** line 600, `outline-instead-of-explanation` — **20. Contract publication a provenance**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 629, `bare-bullet-items` — **21. Deprecation a usage evidence**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera deprecated field-u;`, `dokumentovaný replacement;`, `deadline;`, `warning alebo documentation signal;`.
+- **CRITICAL** line 629, `outline-instead-of-explanation` — **21. Deprecation a usage evidence**: 8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 644, `bare-bullet-items` — **22. Failure artifacts**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consumer/provider versions;`, `contract artifact digest;`, `interaction a mismatch path;`, `matcher verzus actual value;`.
+- **CRITICAL** line 644, `outline-instead-of-explanation` — **22. Failure artifacts**: 15 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 667, `bare-bullet-items` — **23. Diagnostika contract failure**: 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj presné producer a consumer versions;`, `otvor konkrétnu interaction a mismatch;`, `rozlíš schema, matcher, provider-state a semantic failure;`, `over, či publikovaný contract zodpovedá source commitu;`.
+- **CRITICAL** line 667, `outline-instead-of-explanation` — **23. Diagnostika contract failure**: 9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 697, `no-prose-concept` — **25. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 697, `outline-instead-of-explanation` — **25. Referenčné pravidlá**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 711, `empty-section` — **26. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Testing and Software Quality`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 43, `list-heavy-section` — **3. Čo tvorí API kontrakt**: 8 odrážok a iba 47 slov súvislého vysvetlenia.
-- **HIGH** line 60, `list-heavy-section` — **4. API test**: 9 odrážok a iba 44 slov súvislého vysvetlenia.
-- **HIGH** line 78, `list-heavy-section` — **5. Contract test**: 6 odrážok a iba 52 slov súvislého vysvetlenia.
-- **HIGH** line 117, `bare-bullet-items` — **7. Producer-driven contract**: 4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `centrálne popísané rozhranie podporuje dokumentáciu, generation a lint`, `provider môže validovať request/response a operation coverage;`, `specification môže driftovať od runtime implementácie;`, `schema diff neodhaľuje každú business alebo performance zmenu;`.
-- **HIGH** line 117, `list-heavy-section` — **7. Producer-driven contract**: 8 odrážok a iba 47 slov súvislého vysvetlenia.
-- **HIGH** line 164, `list-heavy-section` — **9. Provider states**: 6 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 266, `list-heavy-section` — **14. Generated clients a SDK**: 7 odrážok a iba 44 slov súvislého vysvetlenia.
-- **HIGH** line 282, `list-heavy-section` — **15. GraphQL contracts**: 7 odrážok a iba 42 slov súvislého vysvetlenia.
-- **HIGH** line 298, `list-heavy-section` — **16. Event-driven contracts**: 9 odrážok a iba 49 slov súvislého vysvetlenia.
-- **HIGH** line 330, `list-heavy-section` — **18. API authorization tests**: 7 odrážok a iba 42 slov súvislého vysvetlenia.
-- **HIGH** line 346, `bare-bullet-items` — **19. Idempotency test**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prvý request vytvorí presne jeden business výsledok;`, `súbežné requests s rovnakým key nevytvoria duplicitu;`, `server commitne zmenu, ale response sa klientovi stratí;`, `retry po tomto timeout-e vráti pôvodný výsledok;`.
-- **HIGH** line 439, `list-heavy-section` — **25. Contract broker a deployment decision**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 454, `list-heavy-section` — **26. Versioning a deprecation**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 482, `list-heavy-section` — **28. API test verzus E2E test**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 495, `list-heavy-section` — **29. Failure artifacts a observability**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 509, `single-sentence-concept` — **30. Diagnostika contract failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 564, `single-sentence-concept` — **33. Rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 580, `list-first-introduction` — **34. Kontrolný checklist**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 95, `bare-bullet-items` — **3. Interface ako distribuovaná dohoda**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `specification driftuje od providera;`, `provider zmení behavior bez schema zmeny;`, `consumer sa spolieha na nezdokumentovaný detail;`, `contract matcher je príliš presný alebo príliš voľný;`.
+- **HIGH** line 121, `single-sentence-concept` — **4. Čo tvorí contract operácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 132, `list-first-introduction` — **Request**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 142, `list-first-introduction` — **Response**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 151, `list-first-introduction` — **Behavior**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 159, `list-first-introduction` — **Security**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 167, `list-first-introduction` — **Lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 167, `single-sentence-concept` — **Lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 202, `single-sentence-concept` — **6. Autoritatívny contract source**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 218, `list-first-introduction` — **Code-first**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 218, `single-sentence-concept` — **Code-first**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 238, `single-sentence-concept` — **7. Schema assertion a semantic oracle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 274, `list-heavy-section` — **8. Producer-driven contract**: 6 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 325, `list-heavy-section` — **10. Provider states a matcher prísnosť**: 6 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 456, `list-first-introduction` — **Authentication**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 465, `list-first-introduction` — **Authorization**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 465, `single-sentence-concept` — **Authorization**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 476, `bare-bullet-items` — **15. Idempotency a unknown outcome**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prvý request vytvoril presne jeden business outcome;`, `nevznikne druhý order, payment ani event;`, `rovnaký key s iným payloadom je odmietnutý;`, `retention expiry má explicitný contract.`.
+- **HIGH** line 476, `single-sentence-concept` — **15. Idempotency a unknown outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 498, `single-sentence-concept` — **16. Optimistic concurrency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 546, `single-sentence-concept` — **18. Async operation a pagination ako contract decisions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 550, `list-first-introduction` — **202 Accepted**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 550, `single-sentence-concept` — **202 Accepted**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 600, `single-sentence-concept` — **20. Contract publication a provenance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 644, `single-sentence-concept` — **22. Failure artifacts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 667, `single-sentence-concept` — **23. Diagnostika contract failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 697, `bare-bullet-items` — **25. Referenčné pravidlá**: 6 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Schema assertion doplň business a side-effect oraclom.`, `Provider states pomenúvajú business predpoklady, nie interný setup.`, `Contract artifacts musia byť immutable, versioned a provenance-linked.`, `Event contract zahŕňa ordering, delivery, deduplication a replay.`.
+- **HIGH** line 697, `list-first-introduction` — **25. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 60, `term-before-explanation` — **4. API test**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`, `identity`, `scope`, `failure semantics`
-- **HIGH** line 231, `thin-concept-section` — **13. OpenAPI lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 316, `thin-concept-section` — **17. API authentication tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 405, `thin-concept-section` — **23. Negative API tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 509, `thin-concept-section` — **30. Diagnostika contract failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 564, `thin-concept-section` — **33. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 580, `thin-concept-section` — **34. Kontrolný checklist**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 132, `thin-concept-section` — **Request**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 142, `thin-concept-section` — **Response**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 151, `thin-concept-section` — **Behavior**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 159, `thin-concept-section` — **Security**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 167, `thin-concept-section` — **Lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 238, `thin-concept-section` — **7. Schema assertion a semantic oracle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 367, `thin-concept-section` — **11. API component test jedného flowu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 456, `thin-concept-section` — **Authentication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 465, `thin-concept-section` — **Authorization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 476, `thin-concept-section` — **15. Idempotency a unknown outcome**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 498, `thin-concept-section` — **16. Optimistic concurrency**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 520, `thin-concept-section` — **17. Event contract ako viac než schema**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 562, `thin-concept-section` — **Pagination**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 575, `thin-concept-section` — **19. Generated clients a SDK**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 600, `thin-concept-section` — **20. Contract publication a provenance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 644, `thin-concept-section` — **22. Failure artifacts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 667, `thin-concept-section` — **23. Diagnostika contract failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 697, `thin-concept-section` — **25. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md`
 
@@ -19902,19 +19946,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4159 | 404 | 0 | 0 | 4563 |
-| `single-sentence-concept` | 0 | 4040 | 0 | 0 | 4040 |
-| `outline-instead-of-explanation` | 3917 | 0 | 0 | 0 | 3917 |
-| `thin-concept-section` | 0 | 3459 | 0 | 0 | 3459 |
-| `term-before-explanation` | 0 | 447 | 2650 | 0 | 3097 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2022 | 2022 |
-| `example-not-explicit` | 0 | 0 | 0 | 1917 | 1917 |
-| `short-concept-section` | 0 | 0 | 1273 | 0 | 1273 |
-| `list-first-introduction` | 0 | 1033 | 0 | 0 | 1033 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1000 | 1000 |
-| `empty-section` | 498 | 0 | 0 | 0 | 498 |
-| `list-heavy-section` | 0 | 483 | 0 | 0 | 483 |
-| `no-prose-concept` | 412 | 0 | 0 | 0 | 412 |
+| `bare-bullet-items` | 4163 | 405 | 0 | 0 | 4568 |
+| `single-sentence-concept` | 0 | 4051 | 0 | 0 | 4051 |
+| `outline-instead-of-explanation` | 3929 | 0 | 0 | 0 | 3929 |
+| `thin-concept-section` | 0 | 3471 | 0 | 0 | 3471 |
+| `term-before-explanation` | 0 | 446 | 2651 | 0 | 3097 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2018 | 2018 |
+| `example-not-explicit` | 0 | 0 | 0 | 1910 | 1910 |
+| `short-concept-section` | 0 | 0 | 1265 | 0 | 1265 |
+| `list-first-introduction` | 0 | 1042 | 0 | 0 | 1042 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 992 | 992 |
+| `empty-section` | 500 | 0 | 0 | 0 | 500 |
+| `list-heavy-section` | 0 | 472 | 0 | 0 | 472 |
+| `no-prose-concept` | 417 | 0 | 0 | 0 | 417 |
 
 ## Required remediation pattern
 
