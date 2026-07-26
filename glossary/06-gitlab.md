@@ -8,9 +8,25 @@ Konkrétna cesta, cez ktorú subject získal capability nad resource-om, naprík
 
 GitLab pravidlo definujúce počet required approvals, eligible users alebo groups a branch/policy scope merge requestu. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
 
+## Artifact subject — GitLab CI
+
+Identita pipeline outputu tvorená projektom, pipeline source-om, source alebo candidate SHA, resolved configuration digestom, producer jobom a attemptom, variantom/platformou, runner/toolchain subjectom a content digestom. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
+## Atomic publication — GitLab registry
+
+Publication protocol `upload immutable content → over digesty → vytvor manifest alebo package version → read-back completeness → atomicky publikuj release reference`, s idempotency a reconciliation pri unknown outcome. Pozri [Container a package registry](docs/06-gitlab/container-and-package-registry.md).
+
 ## Branch rule — GitLab
 
 Policy objekt aplikovaný na konkrétny branch alebo pattern, ktorý môže riadiť push, merge, force-push a Code Owner požiadavky. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
+## Cache trust namespace — GitLab CI
+
+Oddelený cache key/prefix a write policy podľa trust contextu, napríklad fork, non-protected, protected alebo release. Zabraňuje tomu, aby menej dôveryhodný writer ovplyvnil citlivejší build. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
+## Cleanup-incomplete verdict — GitLab Runner
+
+Execution verdict označujúci, že script alebo output môže mať známy výsledok, ale worker runtime, workspace, procesy alebo credentials neboli dôveryhodne odstránené. Vyžaduje containment a reconciliation pred retry alebo ďalším použitím poolu. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
 
 ## Code Owner — GitLab
 
@@ -40,6 +56,10 @@ Capability-specific výsledok všetkých project a inherited group branch rules,
 
 Najvyššia rola, ktorú používateľ získa zo všetkých relevantných direct, inherited a shared memberships na danom resource. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
 
+## Effective value — GitLab CI
+
+Hodnota, ktorú konkrétny pipeline alebo job skutočne použije po vyhodnotení všetkých variable sources, precedence, protected/environment scope-u, availability phase a downstream forwarding-u. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
+
 ## Eligible approver — GitLab
 
 Používateľ, ktorého membership, role a approval-rule context oprávňujú poskytnúť approval započítaný pre konkrétny merge request. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
@@ -51,6 +71,10 @@ CI/CD variable dostupná iba jobs, ktorých deklarovaný environment zodpovedá 
 ## Expected job inventory — GitLab CI
 
 Explicitný manifest jobs, child pipelines a reports, ktoré musia pre konkrétny pipeline subject existovať alebo preukázateľne nebyť applicable. Odlišuje complete pass od false-green runu s ticho chýbajúcou evidence. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
+
+## Expected output inventory — GitLab CI
+
+Manifest artifacts, reports, shards, variants alebo platforms, ktoré musí konkrétny producer/fan-in workflow vytvoriť. Actual-only agregácia bez tohto manifestu môže ticho vyhodnotiť missing output ako pass. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
 
 ## GitLab group
 
@@ -96,6 +120,10 @@ GitLab environment s obmedzeným allowed-to-deploy alebo approval modelom pre ci
 
 CI/CD variable sprístupnená iba pipeline contextom na protected refs podľa GitLab trust pravidiel; stále vyžaduje bezpečný runner a pipeline kód. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
 
+## Registry publication subject — GitLab
+
+Presná identity publish rozhodnutia zahŕňajúca source/candidate SHA, resolved pipeline config, build jobs a attempts, artifact a platform digests, runner/toolchain provenance, version, SBOM/scan/signature evidence, publisher identity, namespace a release policy. Pozri [Container a package registry](docs/06-gitlab/container-and-package-registry.md).
+
 ## Resolved configuration — GitLab CI
 
 Výsledná GitLab CI konfigurácia po načítaní a zlúčení root súboru, includes a components a po aplikovaní konfiguračných semantics. Je skutočným review a provenance subjectom pipeline, nie iba root `.gitlab-ci.yml`. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
@@ -103,6 +131,14 @@ Výsledná GitLab CI konfigurácia po načítaní a zlúčení root súboru, inc
 ## Review app — GitLab
 
 Dočasný dynamic environment vytvorený pre branch alebo merge request na overenie zmeny pred merge, s vlastným URL a cleanup lifecycle. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
+## Runner execution subject — GitLab
+
+Identity job runtime-u zahŕňajúca source a resolved config, job attempt, runner manager/pool, worker ID a image digest, executor, helper image, architecture, cache/artifact inputs, credentials, network policy a resource limits. Pozri [Runners a executors](docs/06-gitlab/runners-and-executors.md).
+
+## Runtime digest inventory — GitLab registry
+
+Auditovateľné mapovanie requested image/package reference na resolved OCI index alebo package checksum, platform manifest digest, pull/mirror source a digest skutočne používaný aktívnym workloadom. Pozri [Container a package registry](docs/06-gitlab/container-and-package-registry.md).
 
 ## Stale approval — GitLab
 
