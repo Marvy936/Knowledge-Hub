@@ -1221,15 +1221,15 @@
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
       "title": "Canary deployment",
-      "words": 1796,
-      "headings": 45,
-      "sections": 45,
-      "findings": 150,
-      "critical": 65,
-      "high": 62,
-      "medium": 14,
-      "low": 9,
-      "score": 1316,
+      "words": 1920,
+      "headings": 39,
+      "sections": 39,
+      "findings": 76,
+      "critical": 22,
+      "high": 33,
+      "medium": 6,
+      "low": 15,
+      "score": 566,
       "grade": "D"
     },
     {
@@ -67063,24 +67063,6 @@
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
@@ -67090,10 +67072,19 @@
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Metadata",
+      "line": 3,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
@@ -67106,7 +67097,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "2. Deployment, release a exposure",
+      "section": "1. Nosný model: riadený experiment pre release safety",
       "line": 24,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -67115,17 +67106,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "2. Deployment, release a exposure",
-      "line": 24,
+      "section": "4. Cohort musí reprezentovať riziko, nie iba byť malá",
+      "line": 106,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 64 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "4. Canary subject a experiment identity",
-      "line": 46,
+      "section": "4. Cohort musí reprezentovať riziko, nie iba byť malá",
+      "line": 106,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilného hashovania user alebo tenant identity;`, `interného ring-u;`, `regionu alebo availability zone;`, `route či operation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "5. Traffic percentage a sample sufficiency sú odlišné veličiny",
+      "line": 128,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -67133,26 +67133,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "4. Canary subject a experiment identity",
-      "line": 46,
+      "section": "5. Traffic percentage a sample sufficiency sú odlišné veličiny",
+      "line": 128,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "4. Canary subject a experiment identity",
-      "line": 46,
+      "section": "5. Traffic percentage a sample sufficiency sú odlišné veličiny",
+      "line": 128,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `canary artifact digest,`, `stable artifact digest,`, `config a feature-flag revision,`, `deployment a rollout ID,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nula relevantných udalostí pri nízkom trafficu;`, `desaťtisíce používateľov pri vysokom trafficu;`, `veľa jednoduchých reads, ale žiadne long-running orders;`, `prevažne jeden region alebo tenant class.`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "4. Canary subject a experiment identity",
-      "line": 46,
+      "section": "5. Traffic percentage a sample sufficiency sú odlišné veličiny",
+      "line": 128,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -67160,206 +67160,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "4. Canary subject a experiment identity",
-      "line": 46,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `scope`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "5. Canary state machine",
-      "line": 62,
+      "section": "6. Control group musí byť porovnateľná v rovnakom čase",
+      "line": 149,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 43 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "5. Canary state machine",
-      "line": 62,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "5. Canary state machine",
-      "line": 62,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "5. Canary state machine",
-      "line": 62,
+      "section": "6. Control group musí byť porovnateľná v rovnakom čase",
+      "line": 149,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic removed,`, `feature disabled,`, `rollback,`, `roll-forward,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `regionu a zóny;`, `operation a request complexity;`, `tenant-size tier;`, `client version;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "5. Canary state machine",
-      "line": 62,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "6. Preconditions",
-      "line": 87,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "6. Preconditions",
-      "line": 87,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "6. Preconditions",
-      "line": 87,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable artifact a config identity,`, `stable baseline health,`, `canary capacity a warm-up,`, `database/event/cache/session compatibility,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "6. Preconditions",
-      "line": 87,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "6. Preconditions",
-      "line": 87,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "7. Výber canary segmentu",
-      "line": 102,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "7. Výber canary segmentu",
-      "line": 102,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `náhodné percento stabilne hashovaných používateľov,`, `interný cohort,`, `nízkorizikoví tenants,`, `konkrétny región alebo zóna,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "7. Výber canary segmentu",
-      "line": 102,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "7. Výber canary segmentu",
-      "line": 102,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "8. Stabilné cohort assignment",
-      "line": 116,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "8. Stabilné cohort assignment",
-      "line": 116,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "8. Stabilné cohort assignment",
-      "line": 116,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deterministic assignment,`, `versionovaný salt/policy,`, `auditovateľné eligibility rules,`, `ochrana osobných identifikátorov,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "8. Stabilné cohort assignment",
-      "line": 116,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "8. Stabilné cohort assignment",
-      "line": 116,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "9. Traffic percentage verzus sample size",
-      "line": 134,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "9. Traffic percentage verzus sample size",
-      "line": 134,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request a session count,`, `počet business completions,`, `error event count,`, `variability metric,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "9. Traffic percentage verzus sample size",
-      "line": 134,
+      "section": "6. Control group musí byť porovnateľná v rovnakom čase",
+      "line": 149,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -67367,8 +67187,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "9. Traffic percentage verzus sample size",
-      "line": 134,
+      "section": "6. Control group musí byť porovnateľná v rovnakom čase",
+      "line": 149,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -67376,71 +67196,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "10. Rollout steps",
-      "line": 150,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "10. Rollout steps",
-      "line": 150,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "10. Rollout steps",
-      "line": 150,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target cohort/weight,`, `minimálnu vzorku,`, `minimálnu a maximálnu observation duration,`, `promotion criteria,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "10. Rollout steps",
-      "line": 150,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "11. Control group a comparability",
-      "line": 175,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "11. Control group a comparability",
-      "line": 175,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `regionu a zóny,`, `route/operation,`, `tenant alebo user class,`, `request complexity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "11. Control group a comparability",
-      "line": 175,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "11. Control group a comparability",
-      "line": 175,
+      "section": "6. Control group musí byť porovnateľná v rovnakom čase",
+      "line": 149,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
@@ -67448,674 +67205,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "12. Version-level telemetry",
-      "line": 188,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "12. Version-level telemetry",
-      "line": 188,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "12. Version-level telemetry",
-      "line": 188,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact/release version,`, `stable/canary cohort,`, `rollout step,`, `deployment ID,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "12. Version-level telemetry",
-      "line": 188,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "12. Version-level telemetry",
-      "line": 188,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "13. Technické guardrails",
-      "line": 203,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "13. Technické guardrails",
-      "line": 203,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "13. Technické guardrails",
-      "line": 203,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request error rate,`, `p95/p99 latency,`, `restart/crash rate,`, `CPU, memory, pools a queues,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "13. Technické guardrails",
-      "line": 203,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "13. Technické guardrails",
-      "line": 203,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "14. Funkčné a business guardrails",
-      "line": 217,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "14. Funkčné a business guardrails",
-      "line": 217,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "14. Funkčné a business guardrails",
-      "line": 217,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "14. Funkčné a business guardrails",
-      "line": 217,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `journey completion,`, `payment/order correctness,`, `authorization a tenant isolation,`, `duplicate alebo missing side effects,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "14. Funkčné a business guardrails",
-      "line": 217,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "16. Abort policy",
-      "line": 243,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "16. Abort policy",
-      "line": 243,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prvá data-integrity alebo authorization violation,`, `error-budget burn nad limit,`, `p99 latency delta počas definovaného okna,`, `business success pokles nad hranicu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "16. Abort policy",
-      "line": 243,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "16. Abort policy",
-      "line": 243,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "17. Pause a inconclusive",
-      "line": 257,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "17. Pause a inconclusive",
-      "line": 257,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vzorka je malá,`, `metrics meškajú,`, `control nie je porovnateľný,`, `prebieha globálny incident,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "17. Pause a inconclusive",
-      "line": 257,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "18. Automated canary analysis",
-      "line": 270,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "18. Automated canary analysis",
-      "line": 270,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nastav exposure,`, `over routing state,`, `čaká na minimum evidence,`, `načíta a validuje telemetry,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "18. Automated canary analysis",
-      "line": 270,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "18. Automated canary analysis",
-      "line": 270,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "19. Štatistická opatrnosť",
-      "line": 285,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "19. Štatistická opatrnosť",
-      "line": 285,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "19. Štatistická opatrnosť",
-      "line": 285,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `malú vzorku,`, `rare failures,`, `repeated peeking,`, `mnoho súčasne sledovaných metrics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "19. Štatistická opatrnosť",
-      "line": 285,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "20. Capacity a autoscaling",
-      "line": 299,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "20. Capacity a autoscaling",
-      "line": 299,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimum replicas,`, `zone distribution,`, `autoscaler response,`, `warm-up,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "20. Capacity a autoscaling",
-      "line": 299,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "21. Stateful compatibility",
-      "line": 316,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "21. Stateful compatibility",
-      "line": 316,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `databázových reads/writes,`, `events a queue messages,`, `cache/session schemas,`, `background jobs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "21. Stateful compatibility",
-      "line": 316,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "22. Long-lived connections",
-      "line": 329,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "22. Long-lived connections",
-      "line": 329,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "22. Long-lived connections",
-      "line": 329,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `max connection age,`, `controlled reconnect,`, `drain,`, `session affinity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "22. Long-lived connections",
-      "line": 329,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "23. Background workers a batch jobs",
-      "line": 340,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "23. Background workers a batch jobs",
-      "line": 340,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatný worker cohort,`, `shadow consumer bez side effects,`, `isolated queue/partition,`, `idempotent production canary,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "23. Background workers a batch jobs",
-      "line": 340,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "24. Security, privacy a fairness",
-      "line": 352,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "24. Security, privacy a fairness",
-      "line": 352,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "24. Security, privacy a fairness",
-      "line": 352,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oprávnenosť segmentácie,`, `zákaz diskriminačných pravidiel,`, `minimalizáciu user identifiers,`, `audit assignmentu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "24. Security, privacy a fairness",
-      "line": 352,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "25. Interference a concurrent changes",
-      "line": 364,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "25. Interference a concurrent changes",
-      "line": 364,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "25. Interference a concurrent changes",
-      "line": 364,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment rollout lock,`, `deployment markers,`, `change freeze iba počas krátkeho decision window,`, `explicitný zoznam concurrent changes,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "25. Interference a concurrent changes",
-      "line": 364,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "26. Recovery options",
-      "line": 374,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "26. Recovery options",
-      "line": 374,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "26. Recovery options",
-      "line": 374,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odobrať canary traffic,`, `vypnúť feature flag,`, `scale canary na nulu,`, `rollback artifact,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "26. Recovery options",
-      "line": 374,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "27. Delayed validation",
-      "line": 387,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "27. Delayed validation",
-      "line": 387,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "27. Delayed validation",
-      "line": 387,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory leak,`, `queue accumulation,`, `cron/batch job,`, `certificate refresh,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "27. Delayed validation",
-      "line": 387,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "28. Failure taxonomy",
-      "line": 401,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "28. Failure taxonomy",
-      "line": 401,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "28. Failure taxonomy",
-      "line": 401,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "28. Failure taxonomy",
-      "line": 401,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment/readiness failure,`, `cohort-routing failure,`, `capacity-induced false regression,`, `real technical regression,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "28. Failure taxonomy",
-      "line": 401,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "29. Audit trail a evidence",
-      "line": 414,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "29. Audit trail a evidence",
-      "line": 414,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "29. Audit trail a evidence",
-      "line": 414,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable/canary identities,`, `cohort a routing policy,`, `exposure timeline,`, `metrics queries a policy version,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "29. Audit trail a evidence",
-      "line": 414,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "29. Audit trail a evidence",
-      "line": 414,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "30. Metriky stratégie",
-      "line": 428,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "30. Metriky stratégie",
-      "line": 428,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "30. Metriky stratégie",
-      "line": 428,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "30. Metriky stratégie",
-      "line": 428,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mean exposure before detection,`, `canary abort rate,`, `false abort/rollback rate,`, `escaped regression po full promotion,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "30. Metriky stratégie",
-      "line": 428,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "31. Typické anti-patterny",
-      "line": 441,
+      "section": "7. Oracle má tri vrstvy",
+      "line": 165,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -68123,80 +67214,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "Jeden nový pod bez cohort policy",
-      "line": 443,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "Promotion iba podľa CPU",
-      "line": 447,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "Percento bez minimálnej vzorky",
-      "line": 451,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "Random routing per request",
-      "line": 455,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "Missing telemetry = pass",
-      "line": 459,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "Automatický rollback na noisy metric",
-      "line": 463,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "Canary config sa líši od final config",
-      "line": 467,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "32. Diagnostický postup",
-      "line": 471,
+      "section": "Technical oracle",
+      "line": 167,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "32. Diagnostický postup",
-      "line": 471,
+      "section": "Functional oracle",
+      "line": 177,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Business oracle",
+      "line": 187,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -68204,8 +67241,323 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "32. Diagnostický postup",
-      "line": 471,
+      "section": "8. Promotion policy je explicitný viacstavový decision contract",
+      "line": 198,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "8. Promotion policy je explicitný viacstavový decision contract",
+      "line": 198,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "8. Promotion policy je explicitný viacstavový decision contract",
+      "line": 198,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "8. Promotion policy je explicitný viacstavový decision contract",
+      "line": 198,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "8. Promotion policy je explicitný viacstavový decision contract",
+      "line": 198,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PROMOTE`, `PAUSE`, `ABORT`, `INCONCLUSIVE`, `ROLLBACK`, `ROLL`, `FORWARD`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "10. Canary capacity musí byť posúdená per instance",
+      "line": 237,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "10. Canary capacity musí byť posúdená per instance",
+      "line": 237,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requests a sessions per instance;`, `CPU/memory/pool pressure per instance;`, `zone distribution;`, `autoscaler response;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "10. Canary capacity musí byť posúdená per instance",
+      "line": 237,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "10. Canary capacity musí byť posúdená per instance",
+      "line": 237,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Dôsledok",
+      "line": 295,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Trvalá náprava",
+      "line": 299,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Náprava",
+      "line": 328,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Náprava",
+      "line": 328,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Náprava",
+      "line": 328,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Náprava",
+      "line": 328,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Náprava",
+      "line": 328,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INCONCLUSIVE`, `PAUSE`, `SLO`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "14. Kauzálny diagnostický walkthrough",
+      "line": 336,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Krok 1 — stabilizuj experiment subject",
+      "line": 340,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Krok 1 — stabilizuj experiment subject",
+      "line": 340,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Krok 2 — formuluj konkurenčné hypotézy",
+      "line": 353,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Krok 3 — vyber observation points, ktoré hypotézy rozlíšia",
+      "line": 363,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Krok 3 — vyber observation points, ktoré hypotézy rozlíšia",
+      "line": 363,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Krok 3 — vyber observation points, ktoré hypotézy rozlíšia",
+      "line": 363,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Krok 3 — vyber observation points, ktoré hypotézy rozlíšia",
+      "line": 363,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Krok 3 — vyber observation points, ktoré hypotézy rozlíšia",
+      "line": 363,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Krok 3 — vyber observation points, ktoré hypotézy rozlíšia",
+      "line": 363,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "Krok 3 — vyber observation points, ktoré hypotézy rozlíšia",
+      "line": 363,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "15. Recovery sa vyberá podľa failure boundary",
+      "line": 395,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "15. Recovery sa vyberá podľa failure boundary",
+      "line": 395,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "15. Recovery sa vyberá podľa failure boundary",
+      "line": 395,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "15. Recovery sa vyberá podľa failure boundary",
+      "line": 395,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `routing/cohort failure: odobrať traffic;`, `feature behavior failure: flag na off;`, `application binary failure: rollback alebo roll-forward;`, `producer/event failure: zastaviť producers a consumers;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "15. Recovery sa vyberá podľa failure boundary",
+      "line": 395,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "15. Recovery sa vyberá podľa failure boundary",
+      "line": 395,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "16. Diagnostický runbook",
+      "line": 407,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "16. Diagnostický runbook",
+      "line": 407,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "16. Diagnostický runbook",
+      "line": 407,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -68213,17 +67565,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "32. Diagnostický postup",
-      "line": 471,
+      "section": "16. Diagnostický runbook",
+      "line": 407,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over stable/canary digest a config.`, `Over skutočný cohort assignment a traffic weight.`, `Zmeraj requests/sessions per instance a sample size.`, `Skontroluj comparability control group.`.",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over skutočný assignment, traffic a requests per instance.`, `Porovnaj cohort composition a control comparability.`, `Rozdeľ technical, functional a business signals.`, `Validuj sample sufficiency, query status a telemetry latency.`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "32. Diagnostický postup",
-      "line": 471,
+      "section": "16. Diagnostický runbook",
+      "line": 407,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -68231,8 +67583,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "32. Diagnostický postup",
-      "line": 471,
+      "section": "16. Diagnostický runbook",
+      "line": 407,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -68240,8 +67592,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "32. Diagnostický postup",
-      "line": 471,
+      "section": "16. Diagnostický runbook",
+      "line": 407,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -68249,17 +67601,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "32. Diagnostický postup",
-      "line": 471,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "section": "16. Diagnostický runbook",
+      "line": 407,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "33. Rozhodovací rámec",
-      "line": 484,
+      "section": "17. Referenčné pravidlá",
+      "line": 420,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -68267,8 +67619,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "33. Rozhodovací rámec",
-      "line": 484,
+      "section": "17. Referenčné pravidlá",
+      "line": 420,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -68276,98 +67628,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "33. Rozhodovací rámec",
-      "line": 484,
+      "section": "17. Referenčné pravidlá",
+      "line": 420,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "33. Rozhodovací rámec",
-      "line": 484,
-      "severity": "critical",
+      "section": "17. Referenčné pravidlá",
+      "line": 420,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký release risk má canary odhaliť?`, `Ktorý segment ho reprezentuje?`, `Ako je assignment stabilný a auditovateľný?`, `Aká minimálna vzorka je potrebná?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "33. Rozhodovací rámec",
-      "line": 484,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "33. Rozhodovací rámec",
-      "line": 484,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "33. Rozhodovací rámec",
-      "line": 484,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "33. Rozhodovací rámec",
-      "line": 484,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "34. Kontrolný checklist",
-      "line": 499,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "34. Kontrolný checklist",
-      "line": 499,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "detail": "8 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Canary je experiment nad explicitným release-riskom.`, `Percento trafficu nie je sample size ani reprezentatívnosť.`, `Assignment má byť stabilný pre stateful journey.`, `Control group musí byť porovnateľná v rovnakom čase.`.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "34. Kontrolný checklist",
-      "line": 499,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "34. Kontrolný checklist",
-      "line": 499,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable stable/canary identities,`, `cohort policy a salt sú versionované,`, `segment je reprezentatívny,`, `sample minimum a duration sú definované,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "34. Kontrolný checklist",
-      "line": 499,
+      "section": "17. Referenčné pravidlá",
+      "line": 420,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -68375,8 +67655,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "34. Kontrolný checklist",
-      "line": 499,
+      "section": "17. Referenčné pravidlá",
+      "line": 420,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -68384,8 +67664,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "34. Kontrolný checklist",
-      "line": 499,
+      "section": "17. Referenčné pravidlá",
+      "line": 420,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -68393,21 +67673,75 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "34. Kontrolný checklist",
-      "line": 499,
+      "section": "17. Referenčné pravidlá",
+      "line": 420,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 420,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/canary-deployment.md",
-      "section": "Summary",
-      "line": 528,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "18. Časté omyly",
+      "line": 434,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "„Jeden nový pod je canary“",
+      "line": 436,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "„5 % je bezpečná a reprezentatívna vzorka“",
+      "line": 440,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "„Zelené server metrics stačia“",
+      "line": 444,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "„No data znamená no failures“",
+      "line": 448,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/canary-deployment.md",
+      "section": "„Rollback trafficu opraví incident“",
+      "line": 452,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
