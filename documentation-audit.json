@@ -1235,15 +1235,15 @@
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "title": "Continuous Delivery",
-      "words": 2193,
-      "headings": 37,
-      "sections": 37,
-      "findings": 135,
-      "critical": 38,
-      "high": 35,
-      "medium": 24,
-      "low": 38,
-      "score": 876,
+      "words": 1963,
+      "headings": 34,
+      "sections": 34,
+      "findings": 104,
+      "critical": 32,
+      "high": 33,
+      "medium": 14,
+      "low": 25,
+      "score": 726,
       "grade": "D"
     },
     {
@@ -69727,24 +69727,6 @@
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
@@ -69754,59 +69736,50 @@
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "1. Definícia",
-      "line": 9,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "3. Mental model: deployability ako invariant",
+      "section": "2. Nosný scenár: Atlas Orders 3.10.0",
+      "line": 42,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "2. Nosný scenár: Atlas Orders 3.10.0",
       "line": 42,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `A, B a M zostanú rovnaké medzi environments;`, `staging zachová deployment, identity a shared-state boundaries;`, `config a feature flags majú známu revision;`, `deployment zvládne partial completion a retry;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "3. Mental model: deployability ako invariant",
+      "section": "2. Nosný scenár: Atlas Orders 3.10.0",
       "line": 42,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "3. Mental model: deployability ako invariant",
-      "line": 42,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "3. Mental model: deployability ako invariant",
+      "section": "2. Nosný scenár: Atlas Orders 3.10.0",
       "line": 42,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -69815,7 +69788,7 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "3. Mental model: deployability ako invariant",
+      "section": "2. Nosný scenár: Atlas Orders 3.10.0",
       "line": 42,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
@@ -69824,8 +69797,80 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "3. Mental model: deployability ako invariant",
+      "section": "2. Nosný scenár: Atlas Orders 3.10.0",
       "line": 42,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "3. Deployability ako invariant",
+      "line": 66,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "3. Deployability ako invariant",
+      "line": 66,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "3. Deployability ako invariant",
+      "line": 66,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifacty sú immutable a jednoznačne previazané na source;`, `deployment automation je versionovaná, testovaná a partial-failure awa`, `database, events a caches podporujú mixed-version interval;`, `post-deploy technical, functional a business oracles sú známe;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "3. Deployability ako invariant",
+      "line": 66,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "3. Deployability ako invariant",
+      "line": 66,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "3. Deployability ako invariant",
+      "line": 66,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "3. Deployability ako invariant",
+      "line": 66,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "3. Deployability ako invariant",
+      "line": 66,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
@@ -69833,26 +69878,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "4. Deployment pipeline",
-      "line": 59,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. Build once, promote many",
+      "line": 81,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "4. Deployment pipeline",
-      "line": 59,
+      "section": "4. Build once, promote many",
+      "line": 81,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vstupný artifact digest,`, `prostredie a konfiguráciu,`, `kontrolované riziko,`, `oracle a success criteria,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digests a registry locations;`, `source/candidate SHA a build run;`, `SBOM, signatures a provenance;`, `evidence bundle a policy version;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "4. Deployment pipeline",
-      "line": 59,
+      "section": "4. Build once, promote many",
+      "line": 81,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -69860,17 +69905,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "4. Deployment pipeline",
-      "line": 59,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "4. Deployment pipeline",
-      "line": 59,
+      "section": "4. Build once, promote many",
+      "line": 81,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69878,53 +69914,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "4. Deployment pipeline",
-      "line": 59,
+      "section": "4. Build once, promote many",
+      "line": 81,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `SBOM`, `policy`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "5. Build once, promote many",
-      "line": 87,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 51 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "5. Build once, promote many",
-      "line": 87,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact digest a registry location,`, `source commit a build run,`, `SBOM a provenance,`, `výsledky required checks,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "5. Build once, promote many",
-      "line": 87,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "5. Build once, promote many",
-      "line": 87,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "6. Artifact state machine",
-      "line": 114,
+      "section": "5. Artifact state machine",
+      "line": 107,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
@@ -69932,368 +69932,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "6. Artifact state machine",
-      "line": 114,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `chýbajúci alebo expirovaný dôkaz invaliduje promotability;`, `promotion medzi registries musí overiť digest a podpis;`, `environment deployment nesmie nepozorovane mutovať artifact.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "6. Artifact state machine",
-      "line": 114,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "6. Artifact state machine",
-      "line": 114,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "6. Artifact state machine",
-      "line": 114,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "7. Environment promotion",
-      "line": 139,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 48 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "7. Environment promotion",
-      "line": 139,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `artifact identity,`, `úplnosť a čerstvosť evidence,`, `target environment health,`, `shared-state compatibility,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "7. Environment promotion",
-      "line": 139,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "7. Environment promotion",
-      "line": 139,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `workload`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "8. Environment parity a fidelity",
-      "line": 161,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "8. Environment parity a fidelity",
-      "line": 161,
+      "section": "5. Artifact state machine",
+      "line": 107,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký deployment mechanism,`, `rovnaký artifact format,`, `kompatibilné database/broker versions,`, `podobnú identity a authorization cestu,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena bytes vytvára nový lifecycle;`, `chýbajúci alebo expirovaný evidence ruší promotability;`, `revoked artifact sa nepromuje bez explicitnej výnimky;`, `kopírovanie medzi registries overuje digest a signature;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "8. Environment parity a fidelity",
-      "line": 161,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "8. Environment parity a fidelity",
-      "line": 161,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "8. Environment parity a fidelity",
-      "line": 161,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "8. Environment parity a fidelity",
-      "line": 161,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "9. Configuration separation",
-      "line": 178,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "9. Configuration separation",
-      "line": 178,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment manifests,`, `environment variables,`, `configuration service,`, `secret manager,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "9. Configuration separation",
-      "line": 178,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "9. Configuration separation",
-      "line": 178,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "10. Infrastructure a environment provisioning",
-      "line": 201,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "10. Infrastructure a environment provisioning",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Infrastructure as Code,`, `declarative platform configuration,`, `immutable images,`, `policy as code,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "10. Infrastructure a environment provisioning",
-      "line": 201,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "10. Infrastructure a environment provisioning",
-      "line": 201,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "11. Deployment automation ako stavový stroj",
-      "line": 228,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "11. Deployment automation ako stavový stroj",
-      "line": 228,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotentná alebo bezpečne retryable,`, `schopná zistiť aktuálny stav,`, `tolerantná k partial completion,`, `časovo ohraničená,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "11. Deployment automation ako stavový stroj",
-      "line": 228,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "11. Deployment automation ako stavový stroj",
-      "line": 228,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "12. Approvals ako risk decision",
-      "line": 258,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "12. Approvals ako risk decision",
-      "line": 258,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný artifact digest,`, `source diff alebo release content,`, `výsledky gates a ich čerstvosť,`, `risk classification,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "12. Approvals ako risk decision",
-      "line": 258,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "12. Approvals ako risk decision",
-      "line": 258,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "12. Approvals ako risk decision",
-      "line": 258,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "12. Approvals ako risk decision",
-      "line": 258,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "13. Separation of duties",
-      "line": 276,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "13. Separation of duties",
-      "line": 276,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `protected environments,`, `role-based approvals,`, `samostatnú deployment identity,`, `signed artifacts a provenance,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "13. Separation of duties",
-      "line": 276,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "13. Separation of duties",
-      "line": 276,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "13. Separation of duties",
-      "line": 276,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "14. Deployment verzus release",
-      "line": 293,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "14. Deployment verzus release",
-      "line": 293,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "14. Deployment verzus release",
-      "line": 293,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `feature flags,`, `dark launch,`, `tenant/ring allowlists,`, `canary traffic,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "14. Deployment verzus release",
-      "line": 293,
+      "section": "5. Artifact state machine",
+      "line": 107,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -70301,8 +69950,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "14. Deployment verzus release",
-      "line": 293,
+      "section": "5. Artifact state machine",
+      "line": 107,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70310,89 +69959,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "14. Deployment verzus release",
-      "line": 293,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "15. Databázová a shared-state kompatibilita",
-      "line": 309,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "15. Databázová a shared-state kompatibilita",
-      "line": 309,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stará a nová application verzia,`, `starí a noví consumers,`, `nové schema s ešte nemigrovanými dátami,`, `staré events v queue,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "15. Databázová a shared-state kompatibilita",
-      "line": 309,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "15. Databázová a shared-state kompatibilita",
-      "line": 309,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "16. Rollback, roll-forward a feature disable",
-      "line": 333,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "16. Rollback, roll-forward a feature disable",
-      "line": 333,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nevratnej schema migrácii,`, `event publication,`, `external financial side effecte,`, `cache alebo serialization zmene,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "16. Rollback, roll-forward a feature disable",
-      "line": 333,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "16. Rollback, roll-forward a feature disable",
-      "line": 333,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "16. Rollback, roll-forward a feature disable",
-      "line": 333,
+      "section": "5. Artifact state machine",
+      "line": 107,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70400,8 +69968,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "16. Rollback, roll-forward a feature disable",
-      "line": 333,
+      "section": "6. Každé environment má risk-specific účel",
+      "line": 134,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "7. Configuration a infrastructure provenance",
+      "line": 156,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "7. Configuration a infrastructure provenance",
+      "line": 156,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Helm values alebo manifests;`, `environment variables;`, `secret references;`, `feature flags;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "7. Configuration a infrastructure provenance",
+      "line": 156,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "7. Configuration a infrastructure provenance",
+      "line": 156,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "7. Configuration a infrastructure provenance",
+      "line": 156,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
@@ -70409,8 +70022,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "17. Post-deploy verification a validation",
-      "line": 355,
+      "section": "8. Deployment ako stavový stroj",
+      "line": 182,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -70418,26 +70031,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "17. Post-deploy verification a validation",
-      "line": 355,
+      "section": "8. Deployment ako stavový stroj",
+      "line": 182,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "17. Post-deploy verification a validation",
-      "line": 355,
+      "section": "8. Deployment ako stavový stroj",
+      "line": 182,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny artifact digest a config version,`, `readiness, routing a capacity,`, `kritický synthetic/smoke journey,`, `error rate, latency a saturation,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poznať current a desired state;`, `byť idempotentná alebo reconciliation-based;`, `rozlíšiť „mutation neprebehla“ od „prebehla, response sa stratila“;`, `zvládnuť partial completion;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "17. Post-deploy verification a validation",
-      "line": 355,
+      "section": "8. Deployment ako stavový stroj",
+      "line": 182,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -70445,8 +70058,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "17. Post-deploy verification a validation",
-      "line": 355,
+      "section": "8. Deployment ako stavový stroj",
+      "line": 182,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70454,8 +70067,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "17. Post-deploy verification a validation",
-      "line": 355,
+      "section": "8. Deployment ako stavový stroj",
+      "line": 182,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70463,98 +70076,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "18. Release cadence",
-      "line": 377,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `on demand,`, `denne alebo viackrát denne,`, `release train,`, `regulované okno,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "18. Release cadence",
-      "line": 377,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "18. Release cadence",
-      "line": 377,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "19. Pipeline as Code a template trust",
-      "line": 393,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "19. Pipeline as Code a template trust",
-      "line": 393,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `privilegovaný pipeline code z nedôveryhodného PR,`, `nepinované external actions alebo images,`, `reusable template zmena ovplyvňujúca veľa repositories,`, `copy-paste drift,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "19. Pipeline as Code a template trust",
-      "line": 393,
+      "section": "9. Promotion evidence",
+      "line": 211,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "19. Pipeline as Code a template trust",
-      "line": 393,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "19. Pipeline as Code a template trust",
-      "line": 393,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "20. Failure taxonomy",
-      "line": 408,
+      "section": "9. Promotion evidence",
+      "line": 211,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "20. Failure taxonomy",
-      "line": 408,
+      "section": "9. Promotion evidence",
+      "line": 211,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact alebo evidence failure,`, `environment provisioning failure,`, `deployment mutation failure,`, `rollout timeout,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact/config identity;`, `execution environment;`, `test/plan/policy version;`, `timestamp a freshness;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "20. Failure taxonomy",
-      "line": 408,
+      "section": "9. Promotion evidence",
+      "line": 211,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -70562,53 +70112,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "20. Failure taxonomy",
-      "line": 408,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "9. Promotion evidence",
+      "line": 211,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `freshness`",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "21. Metriky Continuous Delivery",
-      "line": 423,
+      "section": "10. Approval ako risk decision",
+      "line": 236,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "21. Metriky Continuous Delivery",
-      "line": 423,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "21. Metriky Continuous Delivery",
-      "line": 423,
+      "section": "10. Approval ako risk decision",
+      "line": 236,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percent času, keď mainline má promotable artifact,`, `lead time od commit-u po deployable candidate,`, `evidence a approval wait time,`, `deployment preparation time,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presné digests a release content;`, `required evidence a jeho čerstvosť;`, `database, IAM, network a config changes;`, `risk classification;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "21. Metriky Continuous Delivery",
-      "line": 423,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "10. Approval ako risk decision",
+      "line": 236,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "21. Metriky Continuous Delivery",
-      "line": 423,
+      "section": "10. Approval ako risk decision",
+      "line": 236,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70616,8 +70157,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "21. Metriky Continuous Delivery",
-      "line": 423,
+      "section": "10. Approval ako risk decision",
+      "line": 236,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70625,17 +70166,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "21. Metriky Continuous Delivery",
-      "line": 423,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
+      "section": "10. Approval ako risk decision",
+      "line": 236,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `SLO`",
+      "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "22. Diagnostický postup",
-      "line": 442,
+      "section": "12. Shared-state compatibility",
+      "line": 267,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -70643,26 +70184,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "22. Diagnostický postup",
-      "line": 442,
+      "section": "12. Shared-state compatibility",
+      "line": 267,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "22. Diagnostický postup",
-      "line": 442,
-      "severity": "high",
+      "section": "12. Shared-state compatibility",
+      "line": 267,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `identifikuj artifact digest, source commit a policy version;`, `over úplnosť a čerstvosť evidence;`, `rozlíš artifact, environment, deployment, validation a tool failure;`, `skontroluj shared-state compatibility a migration phase;`.",
-      "score": 8
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stará a nová application verzia;`, `starí a noví event consumers;`, `nová schema s neúplným backfillom;`, `staré messages v broker retention;`.",
+      "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "22. Diagnostický postup",
-      "line": 442,
+      "section": "12. Shared-state compatibility",
+      "line": 267,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -70670,17 +70211,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "22. Diagnostický postup",
-      "line": 442,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "13. Recovery decision",
+      "line": 289,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "22. Diagnostický postup",
-      "line": 442,
+      "section": "13. Recovery decision",
+      "line": 289,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact rollbackom;`, `roll-forward hotfixom;`, `feature disable;`, `traffic shiftom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "13. Recovery decision",
+      "line": 289,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "14. Post-deploy verification a validation",
+      "line": 312,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "14. Post-deploy verification a validation",
+      "line": 312,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nasadené digests a config revision;`, `readiness, routing a capacity;`, `public synthetic order journey;`, `event a worker completion;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "14. Post-deploy verification a validation",
+      "line": 312,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "14. Post-deploy verification a validation",
+      "line": 312,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70688,17 +70274,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "22. Diagnostický postup",
-      "line": 442,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
+      "section": "15. Worked failure: produkcia dostala iný artifact",
+      "line": 327,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "22. Diagnostický postup",
-      "line": 442,
+      "section": "Náprava",
+      "line": 344,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "Náprava",
+      "line": 344,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "Náprava",
+      "line": 344,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "Náprava",
+      "line": 344,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build once, promote same digest;`, `registry policy zakáže mutable production reference;`, `promotion record overí digest a signature;`, `environment config je externalized;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "Náprava",
+      "line": 344,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "Náprava",
+      "line": 344,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -70706,17 +70337,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "23. Typické anti-patterny",
-      "line": 457,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "Rebuild pred produkciou",
-      "line": 459,
+      "section": "16. Worked failure: deployment timeout vytvoril unknown state",
+      "line": 353,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -70724,71 +70346,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "Prostredia ako rituálne levely",
-      "line": 463,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "Manuálny deploy runbook ako hlavný proces",
-      "line": 467,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "Approval bez evidence",
-      "line": 471,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "Staging ako ručne udržiavaný pet",
-      "line": 475,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "Rollback ako automatická odpoveď",
-      "line": 479,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "Rovnaký artifact, neauditovaná konfigurácia",
-      "line": 483,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "Dlhá code freeze stabilizácia",
-      "line": 487,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "24. Praktický rozhodovací rámec",
-      "line": 491,
+      "section": "Náprava",
+      "line": 369,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -70796,8 +70355,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "24. Praktický rozhodovací rámec",
-      "line": 491,
+      "section": "Náprava",
+      "line": 369,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -70805,8 +70364,179 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "24. Praktický rozhodovací rámec",
-      "line": 491,
+      "section": "Náprava",
+      "line": 369,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "Náprava",
+      "line": 369,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment má explicitnú state machine;`, `migration používa idempotency key a checkpoint;`, `retry najprv pozoruje current state;`, `partial completion je samostatný verdict;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "Náprava",
+      "line": 369,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "17. Deployability metrics",
+      "line": 378,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "17. Deployability metrics",
+      "line": 378,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "17. Deployability metrics",
+      "line": 378,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percent času s promotable artifactom na main;`, `commit-to-promotable lead time;`, `evidence a approval wait;`, `manual technical step count;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "17. Deployability metrics",
+      "line": 378,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "17. Deployability metrics",
+      "line": 378,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "17. Deployability metrics",
+      "line": 378,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "18. Diagnostický postup",
+      "line": 395,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "18. Diagnostický postup",
+      "line": 395,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "18. Diagnostický postup",
+      "line": 395,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potvrď source, artifact digests, config a policy revision.`, `Over complete a fresh evidence bundle.`, `Urči, ktoré environment risk boundary zlyhalo.`, `Porovnaj desired config s effective runtime stateom.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "18. Diagnostický postup",
+      "line": 395,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "18. Diagnostický postup",
+      "line": 395,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "18. Diagnostický postup",
+      "line": 395,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "18. Diagnostický postup",
+      "line": 395,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "18. Diagnostický postup",
+      "line": 395,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 411,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 411,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 411,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -70814,17 +70544,17 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "24. Praktický rozhodovací rámec",
-      "line": 491,
+      "section": "19. Referenčné pravidlá",
+      "line": 411,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Čo presne znamená deployable state pre tento systém?`, `Je artifact immutable a jednoznačne identifikovaný?`, `Promujeme rovnaké bytes alebo rebuildujeme?`, `Aké riziko a oracle má každý environment?`.",
+      "detail": "9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Continuous Delivery je trvalá deployability, nie existencia pipeline.`, `Buildni raz a promuj rovnaké immutable bytes.`, `Každé environment musí poskytovať unikátny risk-specific oracle.`, `Configuration a infrastructure revisions patria do release identity.`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "24. Praktický rozhodovací rámec",
-      "line": 491,
+      "section": "19. Referenčné pravidlá",
+      "line": 411,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -70832,8 +70562,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "24. Praktický rozhodovací rámec",
-      "line": 491,
+      "section": "19. Referenčné pravidlá",
+      "line": 411,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70841,8 +70571,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "24. Praktický rozhodovací rámec",
-      "line": 491,
+      "section": "19. Referenčné pravidlá",
+      "line": 411,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70850,8 +70580,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "24. Praktický rozhodovací rámec",
-      "line": 491,
+      "section": "19. Referenčné pravidlá",
+      "line": 411,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -70859,84 +70589,75 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "25. Kontrolný checklist",
-      "line": 506,
+      "section": "19. Referenčné pravidlá",
+      "line": 411,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
+      "section": "20. Časté omyly",
+      "line": 426,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "25. Kontrolný checklist",
-      "line": 506,
+      "section": "„Rovnaký version tag znamená rovnaký artifact“",
+      "line": 428,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "25. Kontrolný checklist",
-      "line": 506,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "25. Kontrolný checklist",
-      "line": 506,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mainline produkuje immutable artifact;`, `artifact digest sa nemení medzi prostrediami;`, `provenance a required evidence sú dostupné;`, `každé prostredie má explicitný validačný účel;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "25. Kontrolný checklist",
-      "line": 506,
+      "section": "„Viac environments znamená vyššiu istotu“",
+      "line": 432,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "25. Kontrolný checklist",
-      "line": 506,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "„Manuálny approval robí deployment bezpečným“",
+      "line": 436,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "25. Kontrolný checklist",
-      "line": 506,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "„Orchestrator hlási success“",
+      "line": 440,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "25. Kontrolný checklist",
-      "line": 506,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
+      "section": "„Rollback je vždy najrýchlejšia cesta“",
+      "line": 444,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-delivery.md",
-      "section": "25. Kontrolný checklist",
-      "line": 506,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
-      "score": 4
+      "section": "„Deployment timeout stačí retry-nuť“",
+      "line": 448,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/continuous-deployment.md",
