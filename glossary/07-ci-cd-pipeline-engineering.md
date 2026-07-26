@@ -92,6 +92,10 @@ Pravidlá určujúce, či test result, scan, review alebo approval stále patrí
 
 Explicitný zoznam required a optional evidence položiek pre konkrétny gate subject vrátane subject identity, tool statusu, completion, timestamps, integrity a exception references. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
 
+## Expected result inventory
+
+Pred vykonaním fan-out-u deklarovaná množina required a optional result identities pre konkrétny immutable subject. Fan-in ju porovnáva s prijatými výsledkami, aby odhalil chýbajúci, duplicitný, stale alebo nevytvorený job či shard. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
+
 ## Execution contract — job
 
 Deklarované runtime, inputs, permissions, resources, timeout, retries, outputs, success criteria a cleanup semantics jedného samostatne plánovaného jobu. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
@@ -132,6 +136,10 @@ Presná immutable alebo versionovaná entita hodnotená gate-om, napríklad cand
 
 Dôkaz, že dynamický pipeline generator analyzoval deklarovaný scope, zachoval required gates, vytvoril všetkých potrebných producers/consumers a explicitne uviedol preskočené components. Pozri [Pipeline as Code](docs/05-ci-cd-and-release/pipeline-as-code.md).
 
+## Identity-aware fan-in
+
+Agregácia, ktorá pred verdictom overí expected inventory aj zhodu subjectu, variantu, shardu, child runu a attempt identity každého výsledku. Zelené prijaté reporty nestačia, ak výsledný set nie je úplný a porovnateľný. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
+
 ## Incomplete verdict
 
 Výsledok signalizujúci, že autoritatívne rozhodnutie nemožno urobiť, pretože chýba required job, shard, report, artifact alebo tool execution status. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
@@ -171,6 +179,10 @@ Súbor výsledkov a metadata viazaných na konkrétny artifact alebo release man
 ## Promotion subject
 
 Kompletný deployment tuple hodnotený pred promotion, typicky release manifest, rendered configuration, infrastructure revision, target environment a relevantný shared-state snapshot. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
+
+## Provider–consumer contract — CI/CD
+
+Versionovaný behaviorálny contract medzi providerom reusable capability a consumerom. Definuje input/output schema, resolved graph semantics, permissions, artifact a evidence identity, failure propagation, compatibility, support a migration lifecycle. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
 
 ## Protected environment
 
