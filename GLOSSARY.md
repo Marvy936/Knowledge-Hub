@@ -1986,6 +1986,10 @@ Integrácia architektúrnych controls, review questions, operational evidence a 
 
 Rozdiel medzi správaním test double alebo dokumentovaného kontraktu a skutočnou dependency. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
 
+## Contract proof — database
+
+Strojovo aj manuálne overiteľná evidence, že starý databázový contract už nepoužíva žiadny aktívny reader, writer ani downstream consumer, migrácia a reconciliation sú dokončené a odstránenie old representation má pripravenú forward-repair alebo restore cestu. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
+
 ## Contract test
 
 Test kompatibility producer/consumer rozhrania bez potreby spustiť celý distribuovaný systém. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
@@ -5082,6 +5086,10 @@ Rotation model používajúci Lambda function na create, set, test a finish krok
 
 Immutable published snapshot Lambda function code a podporovaných configuration properties používaný ako stabilná release identity. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
 
+## Last compatible state
+
+Najnovší presne identifikovaný runtime subject, ktorý je technicky, dátovo, eventovo, klientsky a bezpečnostne kompatibilný s aktuálnym distributed state-om a možno ho použiť ako recovery target. Nemusí byť totožný s bezprostredne predchádzajúcim release-om. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
+
 ## Last known good
 
 Presne identifikovaný artifact, configuration a compatibility stav s overenou produkčnou evidence, ktorý možno použiť ako recovery target. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
@@ -7750,6 +7758,10 @@ Deployment stratégia postupne nahrádzajúca staré instances novými pri zacho
 
 Versionovaný popis artifactu, configu, targetu, cohort, krokov, metrics, observation windows, promotion/abort policy, recovery actions a ownera progressive rollout-u. Pozri [Progressive delivery](docs/05-ci-cd-and-release/progressive-delivery.md).
 
+## Rollout reconciliation loop
+
+Controller lifecycle `observe actual multi-axis state → classify divergence → validate preconditions → apply jeden bounded transition → over effective state → vyhodnoť evidence → reconcile znovu`. Chráni pred predpokladom, že control-plane command automaticky vytvoril desired data-plane state. Pozri [Progressive delivery](docs/05-ci-cd-and-release/progressive-delivery.md).
+
 ## Rollout rollback — Deployment
 
 Návrat Deployment Pod template-u na zachovanú staršiu revision; nevracia databázu, queues ani iný external state. Pozri [Deployment](docs/09-kubernetes/deployment.md).
@@ -8757,6 +8769,10 @@ Testovanie výsledného outputu alebo stavu namiesto detailného overovania inte
 ## State boundary — Terraform
 
 Rozsah resources zdieľajúcich jeden state, lock, permissions, plan/apply lifecycle a failure blast radius. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md) a [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## State-delta inventory
+
+Per-layer záznam toho, čo release zmenil v artifacte, confige, routingu, infrastructure, databáze, events, cache, external side effects a clients, spolu s current effective state-om a reversibility. Je vstupom pre recovery eligibility a voľbu rollbacku, roll-forwardu, compensation alebo restore. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
 
 ## State locking — Terraform
 
