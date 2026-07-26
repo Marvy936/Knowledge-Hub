@@ -1333,15 +1333,15 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "title": "Pipeline, stage, job a runner",
-      "words": 2775,
-      "headings": 54,
-      "sections": 54,
-      "findings": 190,
-      "critical": 67,
-      "high": 59,
-      "medium": 31,
-      "low": 33,
-      "score": 1422,
+      "words": 2345,
+      "headings": 46,
+      "sections": 46,
+      "findings": 120,
+      "critical": 39,
+      "high": 43,
+      "medium": 18,
+      "low": 20,
+      "score": 898,
       "grade": "D"
     },
     {
@@ -79186,24 +79186,6 @@
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Metadata",
-      "line": 3,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Level: L2`, `Domain: CI/CD and Release Engineering`.",
@@ -79213,42 +79195,6 @@
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "Metadata",
       "line": 3,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Metadata",
-      "line": 3,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `L2`, `CI`, `CD`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "1. Definícia",
-      "line": 9,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "1. Definícia",
-      "line": 9,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "1. Definícia",
-      "line": 9,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -79256,53 +79202,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "1. Definícia",
-      "line": 9,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "2. Workflow definícia verzus pipeline instance",
-      "line": 35,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 57 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "2. Workflow definícia verzus pipeline instance",
-      "line": 35,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit, tag alebo synthetic merge SHA,`, `trigger event a payload,`, `actor alebo workload identity,`, `workflow/template version,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "2. Workflow definícia verzus pipeline instance",
-      "line": 35,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "2. Workflow definícia verzus pipeline instance",
-      "line": 35,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `DAG`, `workload`, `identity`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "3. Pipeline lifecycle",
-      "line": 54,
+      "section": "2. Nosný scenár: Atlas Orders 3.10.0 pipeline",
+      "line": 43,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -79310,26 +79211,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "3. Pipeline lifecycle",
-      "line": 54,
+      "section": "2. Nosný scenár: Atlas Orders 3.10.0 pipeline",
+      "line": 43,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "3. Pipeline lifecycle",
-      "line": 54,
+      "section": "2. Nosný scenár: Atlas Orders 3.10.0 pipeline",
+      "line": 43,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načíta workflow definíciu,`, `vyhodnotí conditions a matrix,`, `vytvorí DAG,`, `určí permissions a environments,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `untrusted verification pool pre pull requests;`, `trusted ephemeral build pool;`, `protected staging deployment pool;`, `PostgreSQL a broker service dependencies;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "3. Pipeline lifecycle",
-      "line": 54,
+      "section": "2. Nosný scenár: Atlas Orders 3.10.0 pipeline",
+      "line": 43,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -79337,8 +79238,53 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "3. Pipeline lifecycle",
-      "line": 54,
+      "section": "2. Nosný scenár: Atlas Orders 3.10.0 pipeline",
+      "line": 43,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "3. Pojmy ako vrstvy runtime modelu",
+      "line": 72,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "3. Pojmy ako vrstvy runtime modelu",
+      "line": 72,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "3. Pojmy ako vrstvy runtime modelu",
+      "line": 72,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "3. Pojmy ako vrstvy runtime modelu",
+      "line": 72,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "3. Pojmy ako vrstvy runtime modelu",
+      "line": 72,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -79346,35 +79292,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "4. Stage model",
-      "line": 79,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "4. Stage model",
-      "line": 79,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workflow sa ľahko číta,`, `broad phases majú jasný účel,`, `jobs v jednej stage sa prirodzene paralelizujú,`, `promotion boundaries sú viditeľné.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "4. Stage model",
-      "line": 79,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "4. Stage model",
-      "line": 79,
+      "section": "3. Pojmy ako vrstvy runtime modelu",
+      "line": 72,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -79382,170 +79301,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "4. Stage model",
-      "line": 79,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "5. DAG execution",
-      "line": 104,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 42 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "5. DAG execution",
-      "line": 104,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required a optional dependency edges,`, `artifact a report flow,`, `failure propagation,`, `fan-out a fan-in,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "5. DAG execution",
-      "line": 104,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "5. DAG execution",
-      "line": 104,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "6. Critical path",
-      "line": 130,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "6. Critical path",
-      "line": 130,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stage barriers,`, `runner queue time,`, `artifact transfer,`, `startup a service readiness,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "6. Critical path",
-      "line": 130,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "7. Job ako execution contract",
-      "line": 153,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "7. Job ako execution contract",
-      "line": 153,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runtime image, OS a architecture,`, `commands alebo steps,`, `source checkout model,`, `required inputs a dependencies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "7. Job ako execution contract",
-      "line": 153,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "7. Job ako execution contract",
-      "line": 153,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "7. Job ako execution contract",
-      "line": 153,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `CPU`, `identity`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "8. Steps v jobe",
-      "line": 190,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "8. Steps v jobe",
-      "line": 190,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "8. Steps v jobe",
-      "line": 190,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workspace,`, `environment variables,`, `process/container alebo VM context,`, `network namespace,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "8. Steps v jobe",
-      "line": 190,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "8. Steps v jobe",
-      "line": 190,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "8. Steps v jobe",
-      "line": 190,
+      "section": "3. Pojmy ako vrstvy runtime modelu",
+      "line": 72,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`",
@@ -79553,26 +79310,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "9. Runner a control plane",
-      "line": 220,
+      "section": "4. Pipeline instance a provenance",
+      "line": 91,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "9. Runner a control plane",
-      "line": 220,
+      "section": "4. Pipeline instance a provenance",
+      "line": 91,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `získa job lease alebo assignment,`, `pripraví executor environment,`, `načíta source a inputs,`, `poskytne scoped credentials,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trigger event a payload;`, `source, target a synthetic candidate SHA;`, `workflow/template revision;`, `actor alebo workload identity;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "9. Runner a control plane",
-      "line": 220,
+      "section": "4. Pipeline instance a provenance",
+      "line": 91,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -79580,8 +79337,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "9. Runner a control plane",
-      "line": 220,
+      "section": "4. Pipeline instance a provenance",
+      "line": 91,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -79589,8 +79346,233 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "4. Pipeline instance a provenance",
+      "line": 91,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "4. Pipeline instance a provenance",
+      "line": 91,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `DAG`, `workload`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "6. Stage a DAG",
+      "line": 123,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "6. Stage a DAG",
+      "line": 123,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required predecessor verdict;`, `artifact/report dependency;`, `permission alebo environment boundary;`, `failure propagation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "6. Stage a DAG",
+      "line": 123,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "6. Stage a DAG",
+      "line": 123,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "7. Critical path",
+      "line": 151,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "7. Critical path",
+      "line": 151,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runner queue a startup;`, `stage barriers;`, `shard imbalance;`, `service readiness;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "7. Critical path",
+      "line": 151,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "9. Steps zdieľajú job context",
+      "line": 193,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "9. Steps zdieľajú job context",
+      "line": 193,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workspace a filesystem;`, `environment variables;`, `job credentials;`, `process/container/VM context;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "9. Steps zdieľajú job context",
+      "line": 193,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "11. Executor choice",
+      "line": 226,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "Shell executor",
+      "line": 228,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Shell executor",
+      "line": 228,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Shell executor",
+      "line": 228,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nízky startup overhead;`, `priamy host access;`, `slabá izolácia a vysoké persistence riziko.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Shell executor",
+      "line": 228,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Container executor",
+      "line": 234,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Container executor",
+      "line": 234,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Container executor",
+      "line": 234,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `reprodukovateľnejší userspace;`, `oddelený filesystem/process namespace;`, `zdieľaný kernel a riziko privileged mounts/socketov.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Container executor",
+      "line": 234,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "VM executor",
       "line": 240,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "VM executor",
+      "line": 240,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "VM executor",
+      "line": 240,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `silnejšia izolácia;`, `vhodný pre untrusted code alebo citlivý build;`, `vyšší startup a infra cost.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "VM executor",
+      "line": 240,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Kubernetes executor",
+      "line": 246,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -79598,89 +79580,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Shell executor",
-      "line": 240,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Shell executor",
-      "line": 240,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nízky startup overhead,`, `jednoduchý prístup k lokálnym tools a devices,`, `slabá izolácia,`, `vysoké persistence a cross-job riziko.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Shell executor",
-      "line": 240,
+      "section": "Kubernetes executor",
+      "line": 246,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Container executor",
-      "line": 249,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Container executor",
-      "line": 249,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Container executor",
-      "line": 249,
-      "severity": "critical",
+      "section": "Kubernetes executor",
+      "line": 246,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reprodukovateľnejší userspace,`, `izolovaný filesystem a processes,`, `zdieľaný kernel,`, `riziko privileged socketov alebo host mounts.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Container executor",
-      "line": 249,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Virtual machine executor",
-      "line": 258,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `elastické scheduling a resource controls;`, `integrácia s namespace, service account a network policy;`.",
       "score": 8
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Virtual machine executor",
-      "line": 258,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `silnejšia izolácia,`, `vhodné pre untrusted code alebo citlivé jobs,`, `vyšší startup a infra cost.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Virtual machine executor",
-      "line": 258,
+      "section": "Kubernetes executor",
+      "line": 246,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -79689,34 +79608,7 @@
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
       "section": "Kubernetes executor",
-      "line": 266,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Kubernetes executor",
-      "line": 266,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `elastické scheduling a resource limits,`, `network/policy integrácia,`, `závislosť od cluster control plane,`, `potreba správnej namespace, service account a pod-security izolácie.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Kubernetes executor",
-      "line": 266,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Kubernetes executor",
-      "line": 266,
+      "line": 246,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `policy`, `control plane`",
@@ -79724,278 +79616,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "11. Hosted verzus self-hosted runners",
-      "line": 277,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Hosted runners",
-      "line": 279,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Hosted runners",
-      "line": 279,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Hosted runners",
-      "line": 279,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typicky ephemeral čisté prostredie,`, `správa patchov a capacity platformou,`, `jednoduché škálovanie,`, `menšie persistence riziko.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Hosted runners",
-      "line": 279,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Self-hosted runners",
-      "line": 295,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Self-hosted runners",
-      "line": 295,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Self-hosted runners",
-      "line": 295,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `private-network access,`, `vlastný hardware, licenses alebo GPU,`, `optimalizované images a caches,`, `kontrola nad performance profilom.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Self-hosted runners",
-      "line": 295,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Self-hosted runners",
-      "line": 295,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "12. Runner pools, labels a scheduling",
-      "line": 316,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "12. Runner pools, labels a scheduling",
-      "line": 316,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddelené runner pools,`, `network segmentation,`, `workload identity,`, `protected refs a environments,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "12. Runner pools, labels a scheduling",
-      "line": 316,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "12. Runner pools, labels a scheduling",
-      "line": 316,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "13. Checkout a source identity",
-      "line": 344,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "13. Checkout a source identity",
-      "line": 344,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `branch tip,`, `pull-request source SHA,`, `synthetic merge SHA,`, `merge-queue candidate,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "13. Checkout a source identity",
-      "line": 344,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "13. Checkout a source identity",
-      "line": 344,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "14. Workspace lifecycle",
-      "line": 361,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "14. Workspace lifecycle",
-      "line": 361,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "14. Workspace lifecycle",
-      "line": 361,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový pre každý job,`, `znovu použitý na persistent runneri,`, `volume mount medzi steps,`, `cacheovaný alebo snapshotovaný.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "14. Workspace lifecycle",
-      "line": 361,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "15. Prenos dát medzi jobs",
-      "line": 390,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "15. Prenos dát medzi jobs",
-      "line": 390,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "15. Prenos dát medzi jobs",
-      "line": 390,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "15. Prenos dát medzi jobs",
-      "line": 390,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "15. Prenos dát medzi jobs",
-      "line": 390,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "16. Reports verzus artifacts",
-      "line": 404,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 42 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "16. Reports verzus artifacts",
-      "line": 404,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `JUnit test report,`, `coverage report,`, `SAST/SCA findings,`, `dependency scan,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "16. Reports verzus artifacts",
-      "line": 404,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "16. Reports verzus artifacts",
-      "line": 404,
+      "section": "12. Runner pools a scheduling policy",
+      "line": 254,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -80003,35 +79625,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "16. Reports verzus artifacts",
-      "line": 404,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SAST`, `SCA`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "17. Service containers a test dependencies",
-      "line": 428,
+      "section": "13. Source checkout identity",
+      "line": 269,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "17. Service containers a test dependencies",
-      "line": 428,
+      "section": "13. Source checkout identity",
+      "line": 269,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `version pinning,`, `network identity a ports,`, `functional readiness,`, `deterministic seed a migrations,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source branch SHA;`, `synthetic merge alebo merge-queue candidate;`, `shallow/full history;`, `submodules a LFS objects;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "17. Service containers a test dependencies",
-      "line": 428,
+      "section": "13. Source checkout identity",
+      "line": 269,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -80039,8 +79652,89 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "17. Service containers a test dependencies",
-      "line": 428,
+      "section": "13. Source checkout identity",
+      "line": 269,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `LFS`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "15. Explicitný prenos dát",
+      "line": 296,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "15. Explicitný prenos dát",
+      "line": 296,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "15. Explicitný prenos dát",
+      "line": 296,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "16. Service dependencies a readiness",
+      "line": 310,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "16. Service dependencies a readiness",
+      "line": 310,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pinované versions;`, `network identity a ports;`, `credentials;`, `migrations a deterministic seed;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "16. Service dependencies a readiness",
+      "line": 310,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "16. Service dependencies a readiness",
+      "line": 310,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "16. Service dependencies a readiness",
+      "line": 310,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "16. Service dependencies a readiness",
+      "line": 310,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`",
@@ -80048,44 +79742,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "19. Job status a pipeline verdict",
-      "line": 480,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "19. Job status a pipeline verdict",
-      "line": 480,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `success,`, `failed,`, `canceled,`, `timed out,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "19. Job status a pipeline verdict",
-      "line": 480,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "19. Job status a pipeline verdict",
-      "line": 480,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "20. Timeouts",
-      "line": 507,
+      "section": "18. Job status a verdict propagation",
+      "line": 345,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80093,26 +79751,26 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "20. Timeouts",
-      "line": 507,
+      "section": "18. Job status a verdict propagation",
+      "line": 345,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "20. Timeouts",
-      "line": 507,
+      "section": "18. Job status a verdict propagation",
+      "line": 345,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `command alebo step timeout,`, `service readiness timeout,`, `job timeout,`, `pipeline timeout,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `success;`, `failed;`, `canceled alebo superseded;`, `timed out;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "20. Timeouts",
-      "line": 507,
+      "section": "18. Job status a verdict propagation",
+      "line": 345,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -80120,395 +79778,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "20. Timeouts",
-      "line": 507,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "21. Retry a attempts",
-      "line": 529,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "21. Retry a attempts",
-      "line": 529,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runner provisioning timeout,`, `krátky registry transport failure,`, `dočasná network chyba,`, `API throttling s definovaným backoffom.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "21. Retry a attempts",
-      "line": 529,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "21. Retry a attempts",
-      "line": 529,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "21. Retry a attempts",
-      "line": 529,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "21. Retry a attempts",
-      "line": 529,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "22. Cancellation a superseded runs",
-      "line": 548,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 50 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "22. Cancellation a superseded runs",
-      "line": 548,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `partial deployment,`, `environment lock,`, `cloud resource provisioning,`, `traffic experiment,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "22. Cancellation a superseded runs",
-      "line": 548,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "22. Cancellation a superseded runs",
-      "line": 548,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "22. Cancellation a superseded runs",
-      "line": 548,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "23. Concurrency a environment locks",
-      "line": 563,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "23. Concurrency a environment locks",
-      "line": 563,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "23. Concurrency a environment locks",
-      "line": 563,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden deployment do environmentu naraz,`, `jedna schema migration,`, `jeden release publication job pre verziu,`, `obmedzený počet jobs proti shared sandboxu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "23. Concurrency a environment locks",
-      "line": 563,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "23. Concurrency a environment locks",
-      "line": 563,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "23. Concurrency a environment locks",
-      "line": 563,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "23. Concurrency a environment locks",
-      "line": 563,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "24. Matrix, sharding a fan-in",
-      "line": 583,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "24. Matrix, sharding a fan-in",
-      "line": 583,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `očakávaný počet shards,`, `unique shard identity,`, `report completeness,`, `duplicate alebo missing results,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "24. Matrix, sharding a fan-in",
-      "line": 583,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "24. Matrix, sharding a fan-in",
-      "line": 583,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "24. Matrix, sharding a fan-in",
-      "line": 583,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "25. Cleanup a always-run jobs",
-      "line": 606,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "25. Cleanup a always-run jobs",
-      "line": 606,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstrániť ephemeral environment,`, `revoke credentials,`, `uvoľniť lock a quota,`, `zastaviť service containers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "25. Cleanup a always-run jobs",
-      "line": 606,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "25. Cleanup a always-run jobs",
-      "line": 606,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "26. Capacity a resource model",
-      "line": 622,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "26. Capacity a resource model",
-      "line": 622,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue time podľa label/pool,`, `startup a provisioning time,`, `runner utilization,`, `CPU throttling a OOM,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "26. Capacity a resource model",
-      "line": 622,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "26. Capacity a resource model",
-      "line": 622,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "26. Capacity a resource model",
-      "line": 622,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "27. Pipeline observability",
-      "line": 640,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "27. Pipeline observability",
-      "line": 640,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline a job success podľa failure class,`, `queue time a p95 duration,`, `critical-path duration,`, `first-attempt success,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "27. Pipeline observability",
-      "line": 640,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "27. Pipeline observability",
-      "line": 640,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "27. Pipeline observability",
-      "line": 640,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "28. Diagnostický postup",
-      "line": 660,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Job čaká v queue",
-      "line": 662,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Job čaká v queue",
-      "line": 662,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Job čaká v queue",
-      "line": 662,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required labels a capabilities,`, `dostupnosť runner poolu,`, `protected-runner policy,`, `concurrency limit a environment lock,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Job čaká v queue",
-      "line": 662,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Job čaká v queue",
-      "line": 662,
+      "section": "18. Job status a verdict propagation",
+      "line": 345,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -80516,80 +79787,62 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Job funguje lokálne, nie v CI",
-      "line": 673,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Job funguje lokálne, nie v CI",
-      "line": 673,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Job funguje lokálne, nie v CI",
-      "line": 673,
+      "section": "19. Timeout, retry a cancellation",
+      "line": 371,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runtime image a architecture,`, `environment variables a secrets,`, `working directory a filesystem case sensitivity,`, `network/DNS/proxy access,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ukončenie child processes;`, `upload dostupných logs/reports;`, `credential revoke;`, `lock/resource cleanup;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Job funguje lokálne, nie v CI",
-      "line": 673,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "19. Timeout, retry a cancellation",
+      "line": 371,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Job funguje lokálne, nie v CI",
-      "line": 673,
+      "section": "19. Timeout, retry a cancellation",
+      "line": 371,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "19. Timeout, retry a cancellation",
+      "line": 371,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `SHA`, `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
       "score": 4
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Downstream job nevidí output",
-      "line": 686,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Downstream job nevidí output",
-      "line": 686,
+      "section": "20. Concurrency a locks",
+      "line": 385,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Downstream job nevidí output",
-      "line": 686,
+      "section": "20. Concurrency a locks",
+      "line": 385,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact declaration a upload status,`, `retention a permissions,`, `dependency edge,`, `digest a download path,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment do rovnakého environmentu;`, `schema migration;`, `publication rovnakej release version;`, `shared performance environment.`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Downstream job nevidí output",
-      "line": 686,
+      "section": "20. Concurrency a locks",
+      "line": 385,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -80597,8 +79850,35 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Pipeline je pomalá",
-      "line": 696,
+      "section": "22. Cleanup ako required transition",
+      "line": 413,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "22. Cleanup ako required transition",
+      "line": 413,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstráni ephemeral environment;`, `revoke-ne credentials;`, `uvoľní environment lock;`, `zastaví services;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "22. Cleanup ako required transition",
+      "line": 413,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "23. Worked failure: chýbajúci DAG edge nasadil stale artifact",
+      "line": 427,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80606,26 +79886,44 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Pipeline je pomalá",
-      "line": 696,
+      "section": "Náprava",
+      "line": 444,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Náprava",
+      "line": 444,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Náprava",
+      "line": 444,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Pipeline je pomalá",
-      "line": 696,
+      "section": "Náprava",
+      "line": 444,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue verzus execution čas,`, `critical path,`, `stage barriers,`, `shard imbalance,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný needs chain build → verify → deploy;`, `deploy input je digest artifact, nie tag;`, `deployment record overí candidate/digest;`, `fan-in blokuje pri missing predecessor evidence;`.",
       "score": 12
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Pipeline je pomalá",
-      "line": 696,
+      "section": "Náprava",
+      "line": 444,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -80633,8 +79931,278 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "29. Typické anti-patterny",
-      "line": 708,
+      "section": "Náprava",
+      "line": 444,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "24. Worked failure: untrusted PR získal privileged runner",
+      "line": 452,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Náprava",
+      "line": 468,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Náprava",
+      "line": 468,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Náprava",
+      "line": 468,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Náprava",
+      "line": 468,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fyzicky/logicky oddelené pools;`, `untrusted PRs iba na ephemeral sandboxed executors;`, `protected runner policy a no-secrets default;`, `short-lived scoped identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Náprava",
+      "line": 468,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "Náprava",
+      "line": 468,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`, `attestation`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "25. Pipeline observability",
+      "line": 478,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "25. Pipeline observability",
+      "line": 478,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "25. Pipeline observability",
+      "line": 478,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline/job verdict podľa failure class;`, `queue time podľa runner poolu;`, `critical-path duration;`, `first-attempt a retry rate;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "25. Pipeline observability",
+      "line": 478,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "25. Pipeline observability",
+      "line": 478,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "25. Pipeline observability",
+      "line": 478,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "26. Diagnostický postup",
+      "line": 495,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "26. Diagnostický postup",
+      "line": 495,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "26. Diagnostický postup",
+      "line": 495,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potvrď event, source/target/candidate a workflow revision.`, `Skontroluj parse/evaluation result, matrix a created DAG.`, `Nájdite required predecessor a artifact/report edges.`, `Porovnaj runtime image, architecture, resources, network a credentials`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "26. Diagnostický postup",
+      "line": 495,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "26. Diagnostický postup",
+      "line": 495,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "26. Diagnostický postup",
+      "line": 495,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "26. Diagnostický postup",
+      "line": 495,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`, `LFS`, `SHA`, `policy`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 512,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 512,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 512,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 512,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Workflow definition nie je runtime pipeline instance.`, `Stage je broad barrier; DAG vyjadruje presné dependencies.`, `Job je execution, trust, permission a failure boundary.`, `Steps jedného jobu zdieľajú context a credentials.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 512,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 512,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 512,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 512,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 512,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
+      "section": "28. Časté omyly",
+      "line": 529,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -80642,8 +80210,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Pipeline a YAML sú to isté",
-      "line": 710,
+      "section": "„Pipeline a YAML sú to isté“",
+      "line": 531,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80651,8 +80219,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Stage a job sú to isté",
-      "line": 714,
+      "section": "„Stage garantuje správny artifact flow“",
+      "line": 535,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80660,8 +80228,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Runner je iba server",
-      "line": 718,
+      "section": "„Steps sú izolované“",
+      "line": 539,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80669,8 +80237,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Steps ako security isolation",
-      "line": 722,
+      "section": "„Runner je iba server“",
+      "line": 543,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80678,8 +80246,8 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Workspace medzi jobs je automaticky spoločný",
-      "line": 726,
+      "section": "„Zelené shardy znamenajú complete suite“",
+      "line": 547,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -80687,210 +80255,12 @@
     },
     {
       "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Viac paralelizácie vždy zrýchli pipeline",
-      "line": 730,
+      "section": "„Cancel je bezpečný kill“",
+      "line": 551,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Retry každého failure",
-      "line": 734,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Allowed failure ako vyriešený problém",
-      "line": 738,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Persistent privileged runner pre všetky projekty",
-      "line": 742,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 746,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 746,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 746,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 746,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Čo je pipeline template a čo runtime instance?`, `Aký je critical path?`, `Aký executor zodpovedá trust levelu?`, `Aké source SHA a checkout semantics job používa?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 746,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 746,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 746,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 746,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 746,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`, `SHA`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "31. Kontrolný checklist",
-      "line": 762,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "31. Kontrolný checklist",
-      "line": 762,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "31. Kontrolný checklist",
-      "line": 762,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "31. Kontrolný checklist",
-      "line": 762,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline instance má explicitný source a workflow version;`, `DAG neobsahuje zbytočné barriers ani chýbajúce edges;`, `jobs deklarujú runtime, inputs, permissions a timeout;`, `steps nezískavajú falošný status izolácie;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "31. Kontrolný checklist",
-      "line": 762,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "31. Kontrolný checklist",
-      "line": 762,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "31. Kontrolný checklist",
-      "line": 762,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "31. Kontrolný checklist",
-      "line": 762,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "31. Kontrolný checklist",
-      "line": 762,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DAG`, `SHA`",
-      "score": 4
-    },
-    {
-      "path": "docs/05-ci-cd-and-release/pipeline-stage-job-runner.md",
-      "section": "Summary",
-      "line": 802,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
     },
     {
       "path": "docs/05-ci-cd-and-release/progressive-delivery.md",
