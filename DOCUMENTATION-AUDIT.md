@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **12074**
-- Total words: **602,421**
-- Findings: **28494** (critical 9271, high 10180, medium 4032, low 5011)
+- Audited conceptual sections: **12059**
+- Total words: **601,650**
+- Findings: **28437** (critical 9253, high 10171, medium 4014, low 4999)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -109,7 +109,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1010 | 46 | 47 | 16 | 25 | 1830 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | D | 1005 | 49 | 44 | 17 | 9 | 1820 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
 | D | 1001 | 44 | 54 | 14 | 3 | 1181 | `docs/13-security-and-identity/iam-rbac.md` |
-| D | 996 | 42 | 43 | 31 | 28 | 3068 | `docs/02-networking-and-web/firewalls.md` |
 | D | 987 | 43 | 54 | 14 | 3 | 1569 | `docs/10-helm-and-cka/helm-testing-troubleshooting.md` |
 | D | 980 | 40 | 51 | 17 | 36 | 3261 | `docs/02-networking-and-web/dhcp.md` |
 | D | 975 | 41 | 56 | 13 | 2 | 1252 | `docs/13-security-and-identity/least-privilege.md` |
@@ -191,6 +190,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 643 | 26 | 32 | 11 | 28 | 2923 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | D | 640 | 27 | 25 | 18 | 41 | 3216 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
 | D | 633 | 26 | 25 | 21 | 31 | 2970 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
+| D | 622 | 24 | 34 | 13 | 16 | 2297 | `docs/02-networking-and-web/firewalls.md` |
 | D | 621 | 25 | 34 | 12 | 5 | 1464 | `docs/09-kubernetes/service-endpointslice.md` |
 | D | 611 | 30 | 25 | 14 | 4 | 1175 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
 | D | 611 | 24 | 35 | 14 | 1 | 1188 | `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md` |
@@ -1261,89 +1261,62 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **CRITICAL** line 3, `no-prose-concept` — **Metadata**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
 - **CRITICAL** line 3, `outline-instead-of-explanation` — **Metadata**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 11, `bare-bullet-items` — **1. Definícia**: 12 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accept — traffic smie pokračovať,`, `log — udalosť sa zaznamená,`, `rate-limit — traffic sa obmedzí,`, `v host kernel-i,`.
-- **CRITICAL** line 48, `outline-instead-of-explanation` — **2. Policy-decision lifecycle**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 105, `bare-bullet-items` — **4. Stateless firewall**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a destination IP,`, `transportný protokol,`, `source a destination port,`, `interface,`.
-- **CRITICAL** line 105, `outline-instead-of-explanation` — **4. Stateless firewall**: 16 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 162, `bare-bullet-items` — **6. Conntrack nie je aplikačný health**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TLS handshake uspel,`, `HTTP request bol autorizovaný,`, `databáza odpovedala,`, `application worker nie je zaseknutý,`.
-- **CRITICAL** line 180, `bare-bullet-items` — **7. Conntrack capacity a failure mode**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existujúce flows pokračujú,`, `nové flows timeoutujú alebo sa zahadzujú,`, `listener a route vyzerajú zdravo,`, `problém rastie s concurrency alebo scanom,`.
-- **CRITICAL** line 180, `outline-instead-of-explanation` — **7. Conntrack capacity a failure mode**: 12 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 214, `empty-section` — **8. Allow, drop a reject**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 240, `bare-bullet-items` — **9. Default policy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventár legitímnych flows,`, `ownership každej výnimky,`, `správne return traffic pravidlá,`, `IPv4 aj IPv6 policy,`.
-- **CRITICAL** line 240, `outline-instead-of-explanation` — **9. Default policy**: 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 268, `bare-bullet-items` — **10. Rule ordering a precedence**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-match semantics,`, `priority-based chains,`, `kombináciu jumpov a returnov,`, `explicitný terminating alebo non-terminating verdict,`.
-- **CRITICAL** line 327, `bare-bullet-items` — **12. nftables model**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IPv4 aj IPv6,`, `loopback,`, `management access,`, `potrebné ICMP/ICMPv6,`.
-- **CRITICAL** line 327, `outline-instead-of-explanation` — **12. nftables model**: 10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 380, `bare-bullet-items` — **13. Sets, maps a dynamická policy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stale inventory,`, `neatomická externá automatizácia,`, `neočakávaná expirácia dynamického prvku,`, `rozdiel medzi desired a effective state,`.
-- **CRITICAL** line 380, `outline-instead-of-explanation` — **13. Sets, maps a dynamická policy**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 402, `bare-bullet-items` — **14. iptables compatibility a viac managerov**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw nftables konfigurácia,`, `firewalld,`, `Docker alebo container runtime,`, `Kubernetes komponent,`.
-- **CRITICAL** line 402, `outline-instead-of-explanation` — **14. iptables compatibility a viac managerov**: 11 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 464, `bare-bullet-items` — **16. ICMP a ICMPv6**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination unreachable,`, `time exceeded,`, `fragmentation needed alebo packet too big,`, `parameter problem,`.
-- **CRITICAL** line 464, `outline-instead-of-explanation` — **16. ICMP a ICMPv6**: 15 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 504, `bare-bullet-items` — **18. Cloud security groups**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allow rules,`, `implicit deny pre nezhodný traffic,`, `stateful return traffic,`, `policy vyhodnotená vo virtualizovanej network vrstve.`.
-- **CRITICAL** line 553, `bare-bullet-items` — **20. Distributed firewalling**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypervisor vNIC policy,`, `Kubernetes CNI NetworkPolicy,`, `eBPF dataplane,`, `service mesh authorization,`.
-- **CRITICAL** line 553, `outline-instead-of-explanation` — **20. Distributed firewalling**: 15 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 583, `outline-instead-of-explanation` — **21. Kubernetes NetworkPolicy**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 598, `empty-section` — **22. L3/L4 firewall verzus L7 firewall a WAF**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 600, `bare-bullet-items` — **L3/L4 firewall**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IP adresy,`, `protokolu,`, `portu,`, `interface,`.
-- **CRITICAL** line 600, `outline-instead-of-explanation` — **L3/L4 firewall**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 612, `bare-bullet-items` — **L7 firewall alebo WAF**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP host a path,`, `method,`, `headers,`, `request body,`.
-- **CRITICAL** line 626, `bare-bullet-items` — **23. Egress filtering**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obmedzenie data exfiltration,`, `blokovanie command-and-control trafficu,`, `vynútenie egress proxy,`, `povolenie iba potrebných dependencies,`.
-- **CRITICAL** line 626, `outline-instead-of-explanation` — **23. Egress filtering**: 13 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 651, `bare-bullet-items` — **24. Source identity a spoofing**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingress filtering,`, `reverse path validation,`, `cloud source/destination checks,`, `switch source guard,`.
-- **CRITICAL** line 668, `bare-bullet-items` — **25. Logging, counters a flow logs**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rule counters,`, `rate-limited deny logs,`, `flow logs,`, `conntrack metrics,`.
-- **CRITICAL** line 701, `bare-bullet-items` — **26. Rate limiting a DoS ochrana**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nové connections,`, `ICMP probes,`, `packets per second,`, `source-specific bursts,`.
-- **CRITICAL** line 701, `outline-instead-of-explanation` — **26. Rate limiting a DoS ochrana**: 10 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 721, `bare-bullet-items` — **27. Bezpečný rollout**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potvrď out-of-band console alebo recovery mechanizmus.`, `Exportuj aktuálny efektívny ruleset.`, `Identifikuj management source a return path.`, `Pridaj explicitný management allow pred default deny.`.
-- **CRITICAL** line 721, `outline-instead-of-explanation` — **27. Bezpečný rollout**: 12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 742, `bare-bullet-items` — **28. Policy lifecycle**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `owner,`, `business alebo technický účel,`, `source požiadavky,`, `test,`.
-- **CRITICAL** line 742, `outline-instead-of-explanation` — **28. Policy lifecycle**: 10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 798, `empty-section` — **Krok 5: odlíš failure typ**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 821, `empty-section` — **30. Typické symptómy**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 851, `empty-section` — **31. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 36, `bare-bullet-items` — **2. Dominantný mentálny model**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorý enforcement point packet skutočne videl?`, `V akom smere a hooku sa nachádzal?`, `Aké source/destination fields mal pred alebo po NAT-e?`, `Aký connection alebo aplikačný state bol priradený?`.
+- **CRITICAL** line 36, `outline-instead-of-explanation` — **2. Dominantný mentálny model**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 89, `outline-instead-of-explanation` — **4. Observation point a smer**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 114, `empty-section` — **5. Stateless a stateful rozhodovanie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 160, `bare-bullet-items` — **6. Conntrack nie je aplikačný stav**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TLS certifikát je platný,`, `HTTP route existuje,`, `používateľ je autorizovaný,`, `backend dependency funguje,`.
+- **CRITICAL** line 160, `outline-instead-of-explanation` — **6. Conntrack nie je aplikačný stav**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 184, `empty-section` — **7. Verdict mení failure semantics**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 214, `bare-bullet-items` — **8. Rule selection a precedence**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `table family,`, `base chain hook,`, `chain priority,`, `base policy,`.
+- **CRITICAL** line 239, `bare-bullet-items` — **9. Default deny ako prevádzkový kontrakt**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inbound klientov a management sources,`, `DNS, NTP a certificate endpoints,`, `payment API a telemetry egress,`, `IPv4 aj IPv6 flows,`.
+- **CRITICAL** line 239, `outline-instead-of-explanation` — **9. Default deny ako prevádzkový kontrakt**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 349, `bare-bullet-items` — **Predikcie**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existujúce conntrack entries pokračujú,`, `nový SYN príde na WAN,`, `DNAT counter môže rásť,`, `allow counter vo FORWARD chain nerastie,`.
+- **CRITICAL** line 349, `no-prose-concept` — **Predikcie**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 349, `outline-instead-of-explanation` — **Predikcie**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 378, `bare-bullet-items` — **13. Worked failure: hostový ruleset povoľuje, ale packet neprichádza**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over DNS a destination endpoint klienta.`, `Zachyť packet na klientskom alebo upstream routeri.`, `Skontroluj subnet ACL.`, `Skontroluj cloud security group alebo virtual NIC policy.`.
+- **CRITICAL** line 378, `outline-instead-of-explanation` — **13. Worked failure: hostový ruleset povoľuje, ale packet neprichádza**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 426, `bare-bullet-items` — **15. ICMP je súčasť funkčného IP stacku**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitné destination-unreachable errors,`, `traceroute a TTL feedback,`, `Path MTU Discovery,`, `IPv6 Neighbor Discovery,`.
+- **CRITICAL** line 441, `bare-bullet-items` — **16. Safe rollout firewall policy**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potvrď out-of-band console.`, `Zachovaj aktuálny ruleset.`, `Definuj management source a return path.`, `Pridaj explicitný management allow pred default deny.`.
+- **CRITICAL** line 441, `outline-instead-of-explanation` — **16. Safe rollout firewall policy**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 472, `bare-bullet-items` — **17. Policy lifecycle**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera,`, `konkrétny účel,`, `source a destination scope,`, `protocol a smer,`.
+- **CRITICAL** line 472, `outline-instead-of-explanation` — **17. Policy lifecycle**: 10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 513, `bare-bullet-items` — **19. Observability**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rule counters,`, `explicitné rule identifiers,`, `rate-limited deny logs,`, `flow logs,`.
+- **CRITICAL** line 562, `empty-section` — **21. Časté omyly**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 3, `bare-bullet-items` — **Metadata**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Status: Learning`, `Úroveň: L2 — rozumiem mechanizmu`, `Doména: Networking and Web Fundamentals`.
 - **HIGH** line 3, `list-first-introduction` — **Metadata**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 11, `list-heavy-section` — **1. Definícia**: 16 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 48, `single-sentence-concept` — **2. Policy-decision lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 105, `single-sentence-concept` — **4. Stateless firewall**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 226, `bare-bullet-items` — **Reject**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `TCP RST,`, `ICMP destination unreachable,`, `ICMP administratively prohibited.`.
-- **HIGH** line 268, `list-heavy-section` — **10. Rule ordering a precedence**: 12 odrážok a iba 37 slov súvislého vysvetlenia.
-- **HIGH** line 327, `single-sentence-concept` — **12. nftables model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 600, `single-sentence-concept` — **L3/L4 firewall**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 612, `list-heavy-section` — **L7 firewall alebo WAF**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 651, `list-heavy-section` — **24. Source identity a spoofing**: 6 odrážok a iba 58 slov súvislého vysvetlenia.
-- **HIGH** line 668, `list-heavy-section` — **25. Logging, counters a flow logs**: 15 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 759, `single-sentence-concept` — **29. Diagnostický postup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 763, `list-first-introduction` — **Krok 1: potvrď endpoint**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 763, `single-sentence-concept` — **Krok 1: potvrď endpoint**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 772, `list-first-introduction` — **Krok 2: potvrď route**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 772, `single-sentence-concept` — **Krok 2: potvrď route**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 781, `list-first-introduction` — **Krok 3: zachyť packet na každom relevantnom bode**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 781, `single-sentence-concept` — **Krok 3: zachyť packet na každom relevantnom bode**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 789, `list-first-introduction` — **Krok 4: over efektívnu policy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 789, `single-sentence-concept` — **Krok 4: over efektívnu policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 817, `single-sentence-concept` — **Krok 6: over nový flow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 827, `single-sentence-concept` — **Okamžité connection refused**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 831, `single-sentence-concept` — **Funguje z jedného subnetu, nie z druhého**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 835, `single-sentence-concept` — **Existujúce connections fungujú, nové nie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 839, `single-sentence-concept` — **IPv4 funguje, IPv6 nie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 843, `single-sentence-concept` — **Host firewall ukazuje allow, packet neprichádza**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 847, `single-sentence-concept` — **Counter na očakávanom pravidle nerastie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 861, `single-sentence-concept` — **„Stateful firewall nepotrebuje outbound policy“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 881, `single-sentence-concept` — **„Default deny stačí zapnúť a potom dopĺňať výnimky“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 36, `single-sentence-concept` — **2. Dominantný mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 89, `single-sentence-concept` — **4. Observation point a smer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 116, `single-sentence-concept` — **Stateless model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 138, `single-sentence-concept` — **Stateful model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 190, `single-sentence-concept` — **Drop**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 214, `list-heavy-section` — **8. Rule selection a precedence**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 239, `single-sentence-concept` — **9. Default deny ako prevádzkový kontrakt**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 263, `single-sentence-concept` — **10. Konkrétny nftables model pre Atlas**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 334, `single-sentence-concept` — **12. Worked failure: po default-deny rolloute fungujú iba staré connections**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 345, `single-sentence-concept` — **Hypotéza**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 349, `list-first-introduction` — **Predikcie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 358, `list-first-introduction` — **Overenie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 426, `list-heavy-section` — **15. ICMP je súčasť funkčného IP stacku**: 6 odrážok a iba 42 slov súvislého vysvetlenia.
+- **HIGH** line 489, `single-sentence-concept` — **18. Referenčné enforcement vrstvy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 513, `list-heavy-section` — **19. Observability**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 529, `single-sentence-concept` — **20. Diagnostický postup pre jeden flow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 568, `single-sentence-concept` — **„Allow na jednom firewalle znamená end-to-end allow“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 572, `single-sentence-concept` — **„NAT je firewall“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 580, `single-sentence-concept` — **„ICMP treba celý zablokovať“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 584, `single-sentence-concept` — **„Hostový tcpdump vidí každý firewall drop“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 588, `single-sentence-concept` — **„Default deny možno zapnúť a výnimky doplniť neskôr“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 3, `thin-concept-section` — **Metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 48, `thin-concept-section` — **2. Policy-decision lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 78, `term-before-explanation` — **3. Observation point a direction**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INPUT`, `FORWARD`, `OUTPUT`, `WAF`, `TCP`, `TLS`
-- **HIGH** line 105, `term-before-explanation` — **4. Stateless firewall**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `TCP`, `ICMP`, `DSCP`
-- **HIGH** line 105, `thin-concept-section` — **4. Stateless firewall**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 141, `term-before-explanation` — **5. Stateful firewall**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NEW`, `ESTABLISHED`, `RELATED`, `INVALID`
-- **HIGH** line 180, `thin-concept-section` — **7. Conntrack capacity a failure mode**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 226, `thin-concept-section` — **Reject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 327, `thin-concept-section` — **12. nftables model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 553, `thin-concept-section` — **20. Distributed firewalling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 600, `thin-concept-section` — **L3/L4 firewall**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 721, `thin-concept-section` — **27. Bezpečný rollout**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 742, `thin-concept-section` — **28. Policy lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 36, `thin-concept-section` — **2. Dominantný mentálny model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 89, `term-before-explanation` — **4. Observation point a smer**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INPUT`, `FORWARD`, `WAF`, `TCP`, `TLS`, `policy`
+- **HIGH** line 89, `thin-concept-section` — **4. Observation point a smer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 263, `term-before-explanation` — **10. Konkrétny nftables model pre Atlas**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSH`, `INPUT`, `DNAT-`, `FORWARD`
+- **HIGH** line 263, `thin-concept-section` — **10. Konkrétny nftables model pre Atlas**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 349, `term-before-explanation` — **Predikcie**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SYN`, `WAN`, `DNAT`, `FORWARD`
+- **HIGH** line 349, `thin-concept-section` — **Predikcie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 378, `term-before-explanation` — **13. Worked failure: hostový ruleset povoľuje, ale packet neprichádza**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `ACL`, `NIC`, `policy`
+- **HIGH** line 441, `thin-concept-section` — **16. Safe rollout firewall policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 472, `thin-concept-section` — **17. Policy lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/02-networking-and-web/http.md`
 
@@ -20501,19 +20474,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 4299 | 426 | 0 | 0 | 4725 |
-| `single-sentence-concept` | 0 | 4158 | 0 | 0 | 4158 |
-| `outline-instead-of-explanation` | 4063 | 0 | 0 | 0 | 4063 |
-| `thin-concept-section` | 0 | 3591 | 0 | 0 | 3591 |
-| `term-before-explanation` | 0 | 458 | 2717 | 0 | 3175 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2061 | 2061 |
-| `example-not-explicit` | 0 | 0 | 0 | 1945 | 1945 |
-| `short-concept-section` | 0 | 0 | 1315 | 0 | 1315 |
-| `list-first-introduction` | 0 | 1058 | 0 | 0 | 1058 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1005 | 1005 |
-| `empty-section` | 502 | 0 | 0 | 0 | 502 |
-| `list-heavy-section` | 0 | 489 | 0 | 0 | 489 |
-| `no-prose-concept` | 407 | 0 | 0 | 0 | 407 |
+| `bare-bullet-items` | 4289 | 425 | 0 | 0 | 4714 |
+| `single-sentence-concept` | 0 | 4156 | 0 | 0 | 4156 |
+| `outline-instead-of-explanation` | 4056 | 0 | 0 | 0 | 4056 |
+| `thin-concept-section` | 0 | 3588 | 0 | 0 | 3588 |
+| `term-before-explanation` | 0 | 459 | 2706 | 0 | 3165 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2057 | 2057 |
+| `example-not-explicit` | 0 | 0 | 0 | 1942 | 1942 |
+| `short-concept-section` | 0 | 0 | 1308 | 0 | 1308 |
+| `list-first-introduction` | 0 | 1056 | 0 | 0 | 1056 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1000 | 1000 |
+| `empty-section` | 500 | 0 | 0 | 0 | 500 |
+| `list-heavy-section` | 0 | 487 | 0 | 0 | 487 |
+| `no-prose-concept` | 408 | 0 | 0 | 0 | 408 |
 
 ## Required remediation pattern
 
