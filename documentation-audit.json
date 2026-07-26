@@ -661,15 +661,15 @@
     {
       "path": "docs/02-networking-and-web/nat.md",
       "title": "NAT",
-      "words": 3225,
-      "headings": 55,
-      "sections": 55,
-      "findings": 117,
-      "critical": 25,
-      "high": 42,
-      "medium": 22,
-      "low": 28,
-      "score": 745,
+      "words": 2160,
+      "headings": 34,
+      "sections": 34,
+      "findings": 58,
+      "critical": 15,
+      "high": 24,
+      "medium": 6,
+      "low": 13,
+      "score": 403,
       "grade": "D"
     },
     {
@@ -32375,25 +32375,7 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 58 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "1. Definícia",
+      "section": "1. Problém, ktorý NAT rieši",
       "line": 11,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
@@ -32402,53 +32384,26 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INPUT`, `OUTPUT`, `FORWARD`, `policy`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "2. Prečo NAT existuje",
-      "line": 36,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "3. Tuple a translation mapping",
-      "line": 62,
+      "section": "3. Prvý packet je rozhodujúci",
+      "line": 73,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "detail": "8 odrážok a iba 53 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "3. Tuple a translation mapping",
-      "line": 62,
+      "section": "3. Prvý packet je rozhodujúci",
+      "line": 73,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transportný protokol,`, `pôvodný a preložený source endpoint,`, `pôvodný a preložený destination endpoint,`, `connection alebo pseudo-connection state,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prijme packet v konkrétnom interface, namespace a hooku,`, `vykoná conntrack lookup,`, `klasifikuje packet ako nový flow,`, `vyhodnotí NAT policy,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "3. Tuple a translation mapping",
-      "line": 62,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "3. Tuple a translation mapping",
-      "line": 62,
+      "section": "3. Prvý packet je rozhodujúci",
+      "line": 73,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -32456,8 +32411,8 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "3. Tuple a translation mapping",
-      "line": 62,
+      "section": "3. Prvý packet je rozhodujúci",
+      "line": 73,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -32465,233 +32420,26 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "4. SNAT, DNAT, PAT a statické mapovanie",
-      "line": 105,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "5. Prvý packet a ďalšie packets",
-      "line": 150,
+      "section": "4. SNAT a outbound cesta Atlas Orders",
+      "line": 98,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 47 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "Prvý packet",
-      "line": 154,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Prvý packet",
-      "line": 154,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Prvý packet",
-      "line": 154,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Prvý packet",
-      "line": 154,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Routing a NAT pravidlá určia preklad.`, `Zvolí sa preložená adresa a prípadne port.`, `Vytvorí sa obojsmerný mapping.`, `Packet pokračuje cez firewall a forwarding path.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Prvý packet",
-      "line": 154,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Prvý packet",
-      "line": 154,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Ďalšie packets",
-      "line": 163,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Ďalšie packets",
-      "line": 163,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Ďalšie packets",
-      "line": 163,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Ďalšie packets",
-      "line": 163,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Conntrack ich priradí k existujúcemu flowu.`, `Translation sa aplikuje podľa uloženého mappingu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Ďalšie packets",
-      "line": 163,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Ďalšie packets",
-      "line": 163,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "6. Outbound SNAT lifecycle",
-      "line": 172,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "6. Outbound SNAT lifecycle",
-      "line": 172,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "6. Outbound SNAT lifecycle",
-      "line": 172,
+      "section": "4. SNAT a outbound cesta Atlas Orders",
+      "line": 98,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route klienta na gateway,`, `IP forwarding na gateway,`, `SNAT alebo masquerade policy,`, `povolený forward traffic,`.",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Orders má route na gateway.`, `Gateway má povolený IP forwarding.`, `Packet zodpovedá SNAT policy.`, `Gateway má voľný preložený port a conntrack entry.`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "6. Outbound SNAT lifecycle",
-      "line": 172,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "6. Outbound SNAT lifecycle",
-      "line": 172,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "6. Outbound SNAT lifecycle",
-      "line": 172,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `SNAT`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "7. Inbound DNAT lifecycle",
-      "line": 210,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend default route,`, `policy routing,`, `asymmetric paths,`, `stateful firewall symmetry,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "7. Inbound DNAT lifecycle",
-      "line": 210,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SNAT`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "8. NAT hook ordering v Linuxe",
-      "line": 246,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `v ktorom hooku sa preklad aplikuje,`, `či ide o local alebo forwarded traffic,`, `či packet mení route po DNAT,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "8. NAT hook ordering v Linuxe",
-      "line": 246,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "8. NAT hook ordering v Linuxe",
-      "line": 246,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "8. NAT hook ordering v Linuxe",
-      "line": 246,
+      "section": "4. SNAT a outbound cesta Atlas Orders",
+      "line": 98,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -32699,152 +32447,35 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "8. NAT hook ordering v Linuxe",
-      "line": 246,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNAT`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "9. Conntrack a NAT state",
-      "line": 289,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 54 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "9. Conntrack a NAT state",
-      "line": 289,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `listener beží,`, `route existuje,`, `CPU nie je vyťažené,`, `aplikácia nemá vysokú latency,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "9. Conntrack a NAT state",
-      "line": 289,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "9. Conntrack a NAT state",
-      "line": 289,
+      "section": "4. SNAT a outbound cesta Atlas Orders",
+      "line": 98,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NEW`, `ESTABLISHED`, `RELATED`, `INVALID`, `CPU`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `SNAT`, `FORWARD`, `policy`",
       "score": 7
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "10. TCP state a timeouty",
-      "line": 319,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "10. TCP state a timeouty",
-      "line": 319,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "11. UDP state a timeouty",
-      "line": 335,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "11. UDP state a timeouty",
-      "line": 335,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `mapping môže zaniknúť bez upozornenia,`, `timeouty sa líšia medzi zariadeniami,`, `inbound reachability závisí od konkrétneho NAT behavioru.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "11. UDP state a timeouty",
-      "line": 335,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "11. UDP state a timeouty",
-      "line": 335,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "12. MASQUERADE verzus explicitný SNAT",
-      "line": 358,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "13. Port allocation a NAT exhaustion",
-      "line": 384,
+      "section": "5. PAT a kapacita jednej verejnej adresy",
+      "line": 129,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "15 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "detail": "8 odrážok a iba 55 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "13. Port allocation a NAT exhaustion",
-      "line": 384,
+      "section": "5. PAT a kapacita jednej verejnej adresy",
+      "line": 129,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transportný protokol,`, `rezervované a používané porty,`, `mapping behavior zariadenia,`, `destination endpoint,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source-port exhaustion,`, `conntrack table exhaustion,`, `veľa krátkych connections bez pooling-u,`, `retry storm,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "13. Port allocation a NAT exhaustion",
-      "line": 384,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "13. Port allocation a NAT exhaustion",
-      "line": 384,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "13. Port allocation a NAT exhaustion",
-      "line": 384,
+      "section": "5. PAT a kapacita jednej verejnej adresy",
+      "line": 129,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UDP`",
@@ -32852,35 +32483,26 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "14. Hairpin NAT",
-      "line": 420,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "15. Port forwarding",
-      "line": 446,
+      "section": "6. DNAT a publikovanie služby",
+      "line": 163,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 48 slov súvislého vysvetlenia.",
+      "detail": "8 odrážok a iba 63 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "15. Port forwarding",
-      "line": 446,
+      "section": "6. DNAT a publikovanie služby",
+      "line": 163,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IP forwarding,`, `FORWARD allow policy,`, `listener na 10.0.1.20:8443 ,`, `funkčný backend route,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `packet doručený na externú adresu,`, `IP forwarding,`, `FORWARD allow,`, `route k 10.20.2.10 ,`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "15. Port forwarding",
-      "line": 446,
+      "section": "6. DNAT a publikovanie služby",
+      "line": 163,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -32888,107 +32510,17 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "15. Port forwarding",
-      "line": 446,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FORWARD`, `MTU`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "16. NAT a firewall",
-      "line": 470,
+      "section": "7. Return path je súčasť NAT correctness",
+      "line": 203,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `translation vysvetľuje, aké endpoint fields packet má,`, `filter vysvetľuje, či packet smie pokračovať,`, `routing vysvetľuje, kam packet smeruje,`, `application vysvetľuje, čo sa po doručení stane.`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reverse translation sa nevykoná,`, `client tuple nebude sedieť,`, `stateful firewall môže odpoveď vyhodnotiť ako neplatnú,`, `packet captures na rôznych miestach budú vyzerať protichodne.`.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "16. NAT a firewall",
-      "line": 470,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "17. Asymetria a return path",
-      "line": 493,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "17. Asymetria a return path",
-      "line": 493,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "17. Asymetria a return path",
-      "line": 493,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reverse translation sa nevykoná,`, `source alebo destination tuple nebude sedieť,`, `stateful firewall môže packet zahodiť,`, `multiple default routes,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "17. Asymetria a return path",
-      "line": 493,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "17. Asymetria a return path",
-      "line": 493,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "17. Asymetria a return path",
-      "line": 493,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECMP`, `HA`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "18. HA a state synchronization",
-      "line": 523,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "18. HA a state synchronization",
-      "line": 523,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `existujúce TCP connections môžu byť resetnuté alebo timeoutovať,`, `UDP mappings sa stratia,`, `nový node nevie vykonať reverse translation,`, `aplikačné retries môžu vytvoriť burst.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "18. HA a state synchronization",
-      "line": 523,
+      "section": "7. Return path je súčasť NAT correctness",
+      "line": 203,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -32996,8 +32528,8 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "18. HA a state synchronization",
-      "line": 523,
+      "section": "7. Return path je súčasť NAT correctness",
+      "line": 203,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -33005,8 +32537,215 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "18. HA a state synchronization",
-      "line": 523,
+      "section": "8. Conntrack state nie je socket ani aplikácia",
+      "line": 225,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "9. TCP a UDP majú odlišný state lifecycle",
+      "line": 253,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "10. Hairpin NAT: interný klient používa verejnú identitu",
+      "line": 270,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "11. Linux hook model",
+      "line": 295,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či je traffic local alebo forwarded,`, `v ktorom namespace vznikol,`, `ktorý hook vidí original a ktorý translated fields,`, `či DNAT zmenil ďalšie routing rozhodnutie,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "11. Linux hook model",
+      "line": 295,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "11. Linux hook model",
+      "line": 295,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "12. Worked failure: nové platby timeoutujú, existujúce fungujú",
+      "line": 338,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "Hypotéza",
+      "line": 350,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "Predikcie",
+      "line": 354,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "Predikcie",
+      "line": 354,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "Predikcie",
+      "line": 354,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "Predikcie",
+      "line": 354,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `packet z Orders dorazí na inside interface,`, `nový packet nemusí odísť s translated tuple,`, `existujúce entries stále prenášajú traffic,`, `connection pooling znižuje failure rate.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "Predikcie",
+      "line": 354,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "Overenie",
+      "line": 362,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "Overenie",
+      "line": 362,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "13. Worked failure: publikovaný endpoint timeoutuje",
+      "line": 395,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "13. Worked failure: publikovaný endpoint timeoutuje",
+      "line": 395,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "13. Worked failure: publikovaný endpoint timeoutuje",
+      "line": 395,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "13. Worked failure: publikovaný endpoint timeoutuje",
+      "line": 395,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "13. Worked failure: publikovaný endpoint timeoutuje",
+      "line": 395,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "13. Worked failure: publikovaný endpoint timeoutuje",
+      "line": 395,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAN`, `DNAT`, `FORWARD`, `RST`, `TLS`, `NAT`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "14. HA: presun adresy nestačí",
+      "line": 422,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový node nepozná reverse mappings,`, `existujúce TCP flows sa prerušia,`, `UDP pseudo-state zanikne,`, `klientské retries vytvoria load burst.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "14. HA: presun adresy nestačí",
+      "line": 422,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "14. HA: presun adresy nestačí",
+      "line": 422,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `UDP`",
@@ -33014,161 +32753,8 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "19. NAT traversal",
-      "line": 543,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "19. NAT traversal",
-      "line": 543,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "19. NAT traversal",
-      "line": 543,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT-PMP`, `PCP`, `STUN`, `TURN`, `ICE`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "20. NAT a aplikačné protokoly",
-      "line": 557,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvyšujú parser attack surface,`, `musia rozumieť protokolu,`, `zlyhávajú pri šifrovanom payloade,`, `komplikujú state a troubleshooting.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "20. NAT a aplikačné protokoly",
-      "line": 557,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "21. NAT v kontajneroch a Kubernetes",
-      "line": 570,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "14 odrážok a iba 47 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "21. NAT v kontajneroch a Kubernetes",
-      "line": 570,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application listener,`, `Pod alebo container network namespace,`, `Pod IP,`, `container port metadata,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "21. NAT v kontajneroch a Kubernetes",
-      "line": 570,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "21. NAT v kontajneroch a Kubernetes",
-      "line": 570,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "22. Cloud NAT",
-      "line": 604,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 56 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "22. Cloud NAT",
-      "line": 604,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source-port kapacitu na public IP,`, `per-destination mapping limit,`, `počet súbežných flows,`, `idle timeouty,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "22. Cloud NAT",
-      "line": 604,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "22. Cloud NAT",
-      "line": 604,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "24. Checksums a offload",
-      "line": 645,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `kernel ešte neodovzdal finálny výpočet NIC offloadu,`, `capture prebehla pred alebo po inom dataplane kroku,`, `packet je logical large segment pred segmentation offloadom.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "24. Checksums a offload",
-      "line": 645,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "24. Checksums a offload",
-      "line": 645,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "24. Checksums a offload",
-      "line": 645,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NIC`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "25. Observability",
-      "line": 657,
+      "section": "15. Referenčné rozšírenia",
+      "line": 435,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -33176,62 +32762,26 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "Original flow",
-      "line": 661,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Translated flow",
-      "line": 665,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "Conntrack mapping",
-      "line": 669,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "26. Diagnostický postup: outbound flow",
-      "line": 692,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "26. Diagnostický postup: outbound flow",
-      "line": 692,
+      "section": "MASQUERADE verzus explicitný SNAT",
+      "line": 439,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "26. Diagnostický postup: outbound flow",
-      "line": 692,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Over klientský destination a source selection:`, `Zachyť original packet na inside interface translation pointu.`, `Over IP forwarding a FORWARD policy.`, `Over, že packet zodpovedá NAT pravidlu.`.",
-      "score": 12
+      "section": "MASQUERADE verzus explicitný SNAT",
+      "line": 439,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "26. Diagnostický postup: outbound flow",
-      "line": 692,
+      "section": "MASQUERADE verzus explicitný SNAT",
+      "line": 439,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -33239,138 +32789,57 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
-      "section": "26. Diagnostický postup: outbound flow",
-      "line": 692,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "26. Diagnostický postup: outbound flow",
-      "line": 692,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "26. Diagnostický postup: outbound flow",
-      "line": 692,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "26. Diagnostický postup: outbound flow",
-      "line": 692,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `FORWARD`, `NAT`, `SYN`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "27. Diagnostický postup: publikovaná služba",
-      "line": 731,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "27. Diagnostický postup: publikovaná služba",
-      "line": 731,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Over DNAT counter a translated destination.`, `Skontroluj routing decision k backendu.`, `Over FORWARD policy a backend listener.`, `Zachyť packet pri backende.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "27. Diagnostický postup: publikovaná služba",
-      "line": 731,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "27. Diagnostický postup: publikovaná služba",
-      "line": 731,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "27. Diagnostický postup: publikovaná služba",
-      "line": 731,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FORWARD`, `policy`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "28. Bezpečnostné trade-offy",
-      "line": 748,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "28. Bezpečnostné trade-offy",
-      "line": 748,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `široké DNAT pravidlo publikuje nechcenú službu,`, `source translation skrýva pôvod klienta pred backendom,`, `chýbajúce mapping logy znemožnia atribúciu,`, `state exhaustion vytvorí denial of service,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "28. Bezpečnostné trade-offy",
-      "line": 748,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "28. Bezpečnostné trade-offy",
-      "line": 748,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "28. Bezpečnostné trade-offy",
-      "line": 748,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNAT`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/nat.md",
-      "section": "29. Časté omyly",
-      "line": 765,
+      "section": "16. Časté omyly",
+      "line": 460,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "„DNAT automaticky otvorí službu“",
+      "line": 466,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "„Route znamená, že translation funguje“",
+      "line": 470,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "„Privátna adresa je bezpečnostná hranica“",
+      "line": 474,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "„Veľká conntrack table vyrieši každý capacity incident“",
+      "line": 482,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "18. Zhrnutie",
+      "line": 503,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
