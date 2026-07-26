@@ -6,216 +6,208 @@
 - Level: L2
 - Domain: Testing and Software Quality
 
-## 1. Definícia
-
-Chaos testing je riadené experimentovanie so zlyhaniami, ktorého cieľom je získať dôkaz o resilience systému. Experiment zámerne vytvorí konkrétny fault alebo prevádzkové narušenie a overí, či používateľsky významný steady state zostane v prijateľných hraniciach a či sa systém po odstránení faultu úplne zotaví.
-
-Nejde o náhodné vypínanie komponentov ani o demonštráciu chaos nástroja. Každý experiment má hypotézu, presný target, merateľný oracle, safety controls a následné remediation actions.
+Chaos testing je riadený resilience experiment. Zámerne vytvorí konkrétny fault a overí, či používateľsky významný steady state zostane v prijateľných hraniciach, či safety controls fungujú a či sa systém po odstránení faultu úplne zotaví.
 
 ```text
-riziko a hypotéza
-→ definovaný steady state
-→ kontrolovaný fault
-→ pozorovanie dopadu
+failure risk
+→ vyvrátiteľná steady-state hypotéza
+→ zdravý baseline a experiment contract
+→ presný target a bounded fault
+→ live guardrails a observation
+→ complete / abort / invalid / inconclusive verdict
+→ fault removal a recovery observation
+→ root cause, remediation a regression control
+```
+
+Chaos experiment nie je náhodné vypínanie komponentov ani demonštrácia nástroja. Dôkaz vzniká iba vtedy, keď je fault platne aplikovaný, oracle meria business aj technický outcome a recovery je pozorovaná až do stabilného konca.
+
+## 1. Cieľ kapitoly
+
+Nosný model kapitoly je resilience-experiment lifecycle:
+
+```text
+historický alebo modelovaný failure mode
+→ steady-state contract
+→ mechanizmus, ktorý má resilience zabezpečiť
+→ experiment validity a safety preconditions
+→ fault model, target a blast radius
+→ live technical/business evidence
 → abort alebo dokončenie
-→ recovery observation
-→ rozhodnutie
-→ trvalé zlepšenie
+→ fault removal, backlog/reconciliation a recovery deadline
+→ trvalá zmena designu, controlu alebo runbooku
+→ opakovaný experiment
 ```
 
-Chaos testing je praktická súčasť chaos engineeringu a resilience engineeringu. Testuje nielen technickú redundanciu, ale aj observability, incident response, runbooky, ownership a recovery procesy.
+Cieľom nie je dokázať, že systém „je odolný“. Každý experiment poskytuje úzko ohraničený dôkaz pre konkrétny fault, topology, workload, artifact a čas.
 
-## 2. Čo chaos experiment skutočne overuje
+## 2. Nosný scenár: Atlas Orders 3.9.2
 
-Bežný funkčný test sa často pýta:
+Atlas Orders spracúva objednávku cez:
 
 ```text
-Za očakávaných podmienok vytvorí systém správny výsledok?
+client
+→ edge a orders-api
+→ PostgreSQL transaction/outbox
+→ broker
+→ payment worker
+→ external payment provider
+→ OrderConfirmed event
+→ confirmation a audit
 ```
 
-Chaos experiment sa pýta:
+Tím tvrdí, že systém zvládne payment-provider brownout:
 
 ```text
-Pri konkrétnom narušení zostane používateľský výsledok
-v definovaných hraniciach a systém sa následne zotaví?
+provider odpovedá 8 až 20 sekúnd alebo timeoutuje
+→ requesty majú bounded deadline
+→ retries používajú budget, backoff a idempotency key
+→ worker pool a DB connections sa nevyčerpajú
+→ nevznikne duplicate authorization
+→ objednávky prejdú do explicitného pending/degraded state
+→ po obnove sa backlog vyprázdni do 10 minút
 ```
 
-Príklady testovaných mechanizmov:
+Toto tvrdenie je experimentovateľná hypotéza. Bežný happy-path E2E test ani vypnutie jedného Podu ju nepreukazuje.
 
-- **Redundancia —** traffic sa presunie zo zlyhanej instance alebo zóny.
-- **Timeouty a circuit breakers —** pomalá dependency nevyčerpá všetky workers alebo connections.
-- **Idempotencia —** retry po nejasnom výsledku nevytvorí duplicitný side effect.
-- **Backpressure a load shedding —** overload je kontrolovane odmietnutý namiesto globálneho kolapsu.
-- **Autoscaling —** control loop včas zistí potrebu, vytvorí kapacitu a zaradí ju do trafficu.
-- **Recovery —** backlog, replikácia a cache sa po fault-e vrátia do normálneho stavu.
-- **Operability —** alert, dashboard, runbook a on-call postup vedú k správnej akcii.
+## 3. Steady state je používateľský výsledok
 
-## 3. Resilience nie je iba availability
+Steady state nie je počet bežiacich replík. Atlas ho definuje cez outcomes:
 
-Systém môže zostať „up“, ale zároveň produkovať nesprávne alebo nebezpečné výsledky. Preto steady state nesmie byť definovaný iba cez počet bežiacich procesov.
+- CreateOrder acceptance rate zostane nad dohodnutou hranicou;
+- používateľ dostane explicitný pending alebo retry-safe výsledok;
+- nevznikne žiadna duplicate payment authorization;
+- queue oldest-message age zostane bounded;
+- authorization a tenant isolation zostanú zachované;
+- error-budget burn neprekročí abort threshold;
+- po obnove provideru sa backlog vyprázdni do 10 minút;
+- všetky objednávky skončia v terminal alebo auditovateľnom recovery state.
 
-Resilience môže zahŕňať:
+Interné metrics ako leader election alebo počet ready pods sú diagnostické signály. Nemôžu nahradiť business correctness a recovery oracle.
 
-- dostupnosť kritického journey,
-- správnosť finančných alebo dátových side effects,
-- bounded latency a error rate,
-- tenant isolation a authorization,
-- zachovanie poradia alebo idempotencie eventov,
-- bounded backlog a čas jeho vyprázdnenia,
-- graceful degradation,
-- RPO a RTO,
-- schopnosť operátora problém zistiť a zvládnuť.
+## 4. Vyvrátiteľná hypotéza
 
-Príklad: služba môže počas network partition naďalej vracať HTTP 200, ale zapisovať duplicitné transakcie. Technická availability je zelená, no business steady state je porušený.
-
-## 4. Steady state
-
-Steady state je merateľný používateľský alebo prevádzkový výsledok, ktorý má systém zachovať pred faultom, počas neho a po recovery.
-
-Silné steady-state ukazovatele:
-
-- checkout success rate zostáva nad 99,5 %, 
-- p95 latency zostáva pod 500 ms,
-- nevznikne žiadna duplicitná platba,
-- authorization deny rate pre zakázanú cestu zostane 100 %, 
-- backlog neprekročí 50 000 správ a po obnove klesne na normál do 15 minút,
-- failover sa dokončí do 60 sekúnd,
-- error-budget burn rate neprekročí definovanú hranicu,
-- používateľ dostane read-only alebo cached režim namiesto úplného výpadku.
-
-Interné metrics sú užitočné ako diagnostika, ale steady state má byť viazaný na outcome. „Leader election prebehla“ nestačí, ak používateľský write path ostal nefunkčný.
-
-## 5. Hypotéza
-
-Dobrá hypotéza prepája fault, očakávaný výsledok, limit a konkrétny resilience mechanizmus:
+Dobrá hypotéza má tvar:
 
 ```text
-Ak nastane X,
-systém zachová Y
-v limite Z,
-pretože funguje mechanizmus M.
+Ak nastane fault X,
+systém zachová outcome Y v limite Z,
+pretože mechanizmus M funguje,
+a po odstránení faultu sa zotaví do času R.
 ```
 
-Príklad:
+Atlas hypotéza:
+
+> Ak payment provider zvýši response time na 8–20 sekúnd pri 20 % requestov počas piatich minút, orders-api a worker zachovajú bounded queues, celková failure rate zostane pod guardrailom, nevznikne duplicate authorization a backlog sa po odstránení faultu vyprázdni do desiatich minút vďaka end-to-end deadlines, retry budgetu, idempotency a admission controlu.
+
+Tvrdenie „systém by mal zvládnuť timeout“ neposkytuje presný oracle ani rozhodnutie.
+
+## 5. Experiment contract
+
+Pred spustením Atlas eviduje:
+
+- **risk a ownera** — ktorú resilience vlastnosť experiment chráni;
+- **artifact a topology** — digest, config, replicas, DB/broker/provider route;
+- **workload** — arrival model, operation mix, tenant a dataset;
+- **steady-state metrics** — primary outcomes a guardrails;
+- **fault model** — typ, intensity, direction, duration a correlation;
+- **target identity** — presný process, route, dependency alebo cohort;
+- **preconditions** — zdravý baseline, observability a recovery capacity;
+- **blast radius** — maximálny prípustný dopad;
+- **abort criteria** — automatické a manuálne thresholds;
+- **kill switch** — fault removal nezávislé od fault domainu;
+- **recovery contract** — čo znamená úplné zotavenie;
+- **evidence** — timeline, metrics, traces, logs a experiment events;
+- **communication** — observers, on-call a incident channel;
+- **remediation closure** — issue, owner, deadline a repeat criteria.
+
+Experiment bez tohto contractu je neauditovateľný zásah.
+
+## 6. Validita experimentu
+
+Výsledok nie je iba pass alebo fail:
 
 ```text
-Ak jedna application instance prestane odpovedať,
-readiness kontrola ju vyradí z trafficu do 20 sekúnd,
-error rate zostane pod 1 %
-a chýbajúca kapacita sa doplní do 2 minút.
+HYPOTHESIS_CONFIRMED
+→ fault bol platne aplikovaný a steady state/recovery ostali v limite
+
+HYPOTHESIS_REFUTED
+→ platný experiment porušil outcome alebo recovery contract
+
+INCONCLUSIVE
+→ fault prebehol, ale sample alebo signal nestačí
+
+INVALID
+→ target, baseline, workload, instrumentation alebo fault nezodpovedali contractu
+
+ABORTED_FOR_SAFETY
+→ guardrail zastavil experiment; evidence stále ukazuje safety limit
 ```
 
-Hypotéza musí byť vyvrátiteľná. Tvrdenie „systém by mal byť odolný“ neposkytuje oracle ani rozhodnutie.
+Invalid alebo inconclusive experiment nie je dôkaz resilience. Rovnako automatický abort nie je „zlyhanie chaos nástroja“; môže byť správnym výsledkom safety systému.
 
-## 6. Experiment contract
+## 7. Baseline a preconditions
 
-Pred spustením experimentu vytvor explicitný kontrakt:
+Pred faultom Atlas overí:
 
-- **Cieľ —** ktorú resilience vlastnosť a risk testujeme.
-- **Hypotéza —** očakávaný výsledok a mechanizmus.
-- **Steady-state metrics —** primárne a guardrail signály.
-- **Fault —** presný typ, intenzita, smer a trvanie narušenia.
-- **Target identity —** konkrétny process, pod, node, dependency, route, tenant alebo region.
-- **Environment —** artifact, config, topology, data state a traffic model.
-- **Preconditions —** zdravý baseline, dostupná observability a recovery kapacita.
-- **Blast radius —** maximálny prípustný rozsah dopadu.
-- **Abort criteria —** automatické a manuálne podmienky zastavenia.
-- **Kill switch —** mechanizmus nezávislý od fault domainu, ak je to možné.
-- **Recovery plan —** ako sa fault odstráni a ako sa overí návrat.
-- **Owner a observers —** kto spúšťa, sleduje a rozhoduje.
-- **Communication —** informovanie on-call, stakeholders a incident kanálu.
-- **Evidence —** metrics, logs, traces, timeline, config a experiment metadata.
-- **Remediation closure —** ako sa actions evidujú a experiment opakuje.
+```text
+správny artifact/config
+→ stabilný traffic a SLI baseline
+→ zdravé DB, broker a provider connections
+→ dostatočná spare capacity
+→ funkčné dashboards, alerts a traces
+→ dostupný kill switch a recovery path
+→ žiadny súbežný incident alebo risk change
+→ správny target preview
+```
 
-Experiment bez kontraktu je neauditovateľný zásah. Aj úspešný výsledok má nízku dôkaznú hodnotu, ak nepoznáme presné podmienky.
+Ak backlog rastie ešte pred experimentom, nie je možné pripísať výsledok faultu. Baseline potrebuje interval, nie jednu okamžitú zelenú hodnotu.
 
-## 7. Experiment validity
+## 8. Fault model
 
-Chaos experiment môže zlyhať technicky aj metodologicky. Preto výsledok nemá byť iba pass/fail.
+Fault má reprezentovať realistické failure semantics. Atlas rozlišuje:
 
-Možné výsledky:
+- **outage** — okamžité connection refused alebo unavailable;
+- **brownout** — vysoká alebo variabilná latency, partial responses a timeouts;
+- **intermittency** — premenlivý failure iba časti requestov;
+- **stale/corrupt response** — odpoveď existuje, ale porušuje contract;
+- **resource pressure** — CPU, memory, disk, connections alebo quotas;
+- **network partition** — asymetrická alebo smerovo obmedzená strata komunikácie;
+- **identity failure** — credential expiry, revocation alebo denied permission;
+- **process/node/zone loss** — strata execution capacity;
+- **human/control-plane failure** — chybný deploy, runbook alebo delayed response.
 
-- **Hypotéza potvrdená —** fault bol aplikovaný podľa kontraktu a steady state ostal v hraniciach.
-- **Hypotéza vyvrátená —** platný experiment ukázal porušenie steady state alebo recovery.
-- **Inconclusive —** fault prebehol, ale signál alebo vzorka nestačí na rozhodnutie.
-- **Invalid experiment —** fault nezasiahol správny target, baseline nebol zdravý, observability chýbala alebo setup porušil kontrakt.
-- **Aborted for safety —** experiment bol zastavený podľa guardrailu; tento výsledok stále poskytuje evidence o limite systému.
+Brownout môže byť nebezpečnejší než úplný outage, pretože drží connections a workers, spúšťa retries a vytvára unknown outcomes.
 
-Invalid experiment sa nesmie interpretovať ako potvrdená resilience.
+## 9. Target identity a blast radius
 
-## 8. Baseline a preconditions
+Pred aktiváciou faultu Atlas zobrazí target preview:
 
-Pred fault injection over normálny stav. Ak systém už degraduje, experiment nebude vedieť oddeliť pôvodný problém od spôsobeného faultu.
+```text
+cluster/account/region
+→ namespace a workload UID
+→ route alebo dependency endpoint
+→ matched replicas a cohort
+→ excluded resources
+→ expected traffic share
+```
 
-Prechecks typicky potvrdia:
+Selector `app=orders` môže omylom zasiahnuť API aj worker alebo viac environmentov. Scope expansion mimo allowlistu blokuje experiment.
 
-- správny artifact a konfiguráciu,
-- dostatočnú zdravú kapacitu,
-- stabilné SLI v baseline okne,
-- funkčné dashboardy a alerty,
-- dostupnosť recovery mechanizmu,
-- neprebiehajúci incident alebo konfliktujúca zmena,
-- správny target a scope allowlist,
-- pripravenosť on-call a kill switchu,
-- bezpečný stav dát a backup/recovery podľa rizika.
+Blast radius je najmenší rozsah, ktorý stále testuje hypotézu. Môže byť obmedzený na:
 
-Baseline interval musí byť dostatočný na zachytenie bežnej variability. Jedna okamžitá zdravá hodnota nemusí byť reprezentatívna.
+- jeden interný tenant;
+- jednu worker cohortu;
+- 5 % syntetického alebo production trafficu;
+- jednu availability zone;
+- read-only alebo compensatable workflow;
+- päťminútové fault window;
+- maximálnu latency a error intensity.
 
-## 9. Fault model
+Blast radius zahŕňa downstream amplification. Fault na provider route môže cez retries zvýšiť load v orders-api, DB aj brokeri.
 
-Fault musí reprezentovať realistický failure mode. Náhodné vypnutie ľubovoľného podu nemusí testovať najdôležitejší risk.
+## 10. Safety state machine
 
-Fault model obsahuje:
-
-- **Failure domain —** process, node, zone, network, dependency, storage, identity alebo človek.
-- **Failure mode —** úplný výpadok, vysoká latency, partial error, stale response, corruption alebo resource pressure.
-- **Direction —** ingress, egress, client-to-server, server-to-dependency alebo iba jeden segment.
-- **Intensity —** percento packet loss, latency distribúcia, CPU limit, počet zasiahnutých replík.
-- **Duration —** krátky transient fault alebo dlhodobé narušenie.
-- **Correlation —** nezávislá chyba jednej instance alebo spoločný failure viacerých components.
-- **Recovery behavior —** automatické odstránenie faultu alebo manuálny zásah.
-
-Často je realistickejší „brownout“ než úplný outage. Pomalé alebo intermittent dependency môže byť nebezpečnejšia než okamžité connection refused, pretože drží resources a spúšťa retries.
-
-## 10. Target identity a scope
-
-Experiment musí zasiahnuť presne zamýšľaný target. V cloud-native prostredí môže názov podu, label selector, namespace alebo service route označovať iný rozsah, než experimentátor predpokladá.
-
-Over:
-
-- target UID alebo stabilnú identitu,
-- namespace, cluster, account a region,
-- labels/selectors a ich aktuálny match,
-- počet zasiahnutých instances,
-- traffic cohort alebo tenant,
-- dependency route a network direction,
-- vylúčené kritické targets,
-- experiment correlation label.
-
-Pred spustením vytvor dry-run alebo target preview. Scope expansion mimo allowlistu má experiment automaticky zablokovať.
-
-## 11. Blast radius
-
-Blast radius je maximálny rozsah prijateľného dopadu. Má sa zvoliť ako najmenší scope, ktorý ešte overí hypotézu.
-
-Obmedzenia môžu byť:
-
-- jedna instance alebo pod,
-- jedna availability zone,
-- jeden read-only workflow,
-- jeden izolovaný tenant,
-- interní používatelia,
-- malé percento trafficu,
-- krátke trvanie,
-- obmedzený request rate,
-- fault iba na non-primary replike,
-- staging alebo dedicated resilience environment.
-
-Blast radius zahŕňa aj downstream amplification. Vypnutie jednej instance môže cez retry storm zaťažiť všetky ostatné služby. Preto nestačí počítať iba priamo zasiahnutý target.
-
-## 12. Safety state machine
-
-Bezpečný chaos experiment má explicitné stavy:
+Bezpečný experiment prechádza stavmi:
 
 ```text
 planned
@@ -229,580 +221,335 @@ planned
 → cleanup verified
 ```
 
-Každý stav má povolené transitions a timeout. Napríklad experiment nesmie prejsť do `fault active`, ak baseline alebo observability precheck zlyhá.
+Každý stav má timeout a povolené transitions. Experiment nesmie prejsť do `fault active`, ak baseline, target preview alebo observability precheck zlyhá.
 
-Safety controls:
+Safety controls zahŕňajú:
 
-- scope allowlist a denylist,
-- technický approval podľa rizika,
-- automatický experiment timeout,
-- independent kill switch,
-- live guardrail evaluation,
-- emergency traffic shift alebo flag-off,
-- rate a intensity limits,
-- automatické fault removal,
-- cleanup verification,
-- zákaz súbehu s iným experimentom alebo rizikovou zmenou,
-- evidence o každom state transition.
+- allowlist/denylist scope;
+- intensity a duration limit;
+- live guardrail evaluation;
+- independent kill switch;
+- automatické fault removal;
+- emergency traffic shift alebo feature disable;
+- zákaz súbehu s incidentom alebo migráciou;
+- cleanup verification;
+- audit každého state transition.
 
-## 13. Kill switch
+## 11. Observation points a kompozitný oracle
 
-Kill switch musí odstrániť fault alebo zastaviť experiment aj vtedy, keď zlyhá hlavná orchestration cesta. Ak chaos controller a target zdieľajú rovnaký fault domain, experiment môže stratiť schopnosť sám seba ukončiť.
-
-Dobrý kill switch:
-
-- je dostupný z nezávislého control pathu,
-- má minimálne potrebné oprávnenia,
-- je otestovaný pred experimentom,
-- má audit trail,
-- odstráni fault idempotentne,
-- nevyžaduje komplexný manuálny postup pod tlakom.
-
-Kill switch nemusí automaticky obnoviť zdravý stav. Po jeho aktivácii stále treba pozorovať recovery a prípadne vykonať ďalší zásah.
-
-## 14. Abort criteria
-
-Abort criteria chránia používateľov, dáta a error budget. Majú byť merateľné a vyhodnocované počas experimentu.
-
-Príklady:
-
-- error rate prekročí 2 % počas 60 sekúnd,
-- p99 latency prekročí 2 sekundy v dvoch po sebe idúcich oknách,
-- vznikne prvá duplicitná finančná transakcia,
-- authorization invariant je porušený,
-- backlog prekročí 100 000 správ,
-- SLO burn rate prekročí definovanú hranicu,
-- observability alebo experiment correlation sa stratí,
-- fault zasiahne target mimo allowlistu,
-- recovery capacity klesne pod bezpečný limit,
-- on-call alebo incident commander vydá manuálny abort.
-
-„Zastavíme, keď to bude vyzerať zle“ nie je operovateľný kontrakt.
-
-## 15. Observation points
-
-Fault aj jeho dopad treba pozorovať z viacerých vrstiev. Interná metrika zasiahnutého komponentu môže zmiznúť práve vtedy, keď ju najviac potrebujeme.
-
-Observation points:
-
-- **User-facing probe —** syntetický journey alebo externý API check.
-- **Control plane —** scheduler, load balancer, autoscaler alebo orchestration stav.
-- **Application telemetry —** metrics, logs, traces a domain events.
-- **Dependency telemetry —** latency, errors, quotas a queue depth downstreamu.
-- **Infrastructure telemetry —** CPU, memory, network, disk a kernel signals.
-- **Data integrity probe —** duplicates, missing records, reconciliation a constraints.
-- **Experiment telemetry —** target, fault intensity, start/stop a correlation ID.
-
-Externý observation point je kritický pri resource exhaustion alebo network faultoch, ktoré môžu poškodiť lokálnu telemetry.
-
-## 16. Experiment ladder
-
-Resilience dôkaz sa buduje postupne:
+Atlas koreluje:
 
 ```text
-architecture review a model
-→ tabletop
-→ unit/component failure injection
-→ integration alebo staging
-→ internal cohort alebo shadow
-→ malý produkčný scope
-→ širší pravidelný experiment
+client arrival a response
+→ edge retries a timeouts
+→ orders-api concurrency a queue
+→ DB pool waits a transaction state
+→ outbox/broker age
+→ worker attempts a deadlines
+→ provider request/authorization identity
+→ final order state
+→ user confirmation a audit
 ```
 
-Každý krok má testovať relevantnejšiu vlastnosť. Nemá zmysel slepo opakovať identický fault v každom prostredí, ak topology a failure semantics sú odlišné.
+Primary oracle sleduje business correctness. Guardrails sledujú širší systém: error budget, resource saturation, cross-tenant safety, duplicate side effects a dopad na unrelated journeys.
 
-Nižšie vrstvy majú odstrániť základné chyby. Produkčný experiment má overiť zostávajúce predpoklady, ktoré závisia od reálneho trafficu, topológie, identity alebo prevádzkových procesov.
+Ak fault injection tool hlási „latency applied“, ale traces neukazujú zasiahnutú route, experiment je invalidný.
 
-## 17. Tabletop exercise
+## 12. Deadlines, retries a unknown outcome
 
-Tabletop je simulované cvičenie bez technického fault injection. Testuje ľudský a procesný control plane.
-
-Scenár môže zahŕňať:
-
-- region je nedostupný,
-- alert prichádza on-call tímu,
-- tím identifikuje blast radius,
-- používa runbook a rozhoduje o failoveri,
-- komunikuje stakeholderom,
-- overuje dátové riziko,
-- plánuje návrat do primary režimu.
-
-Tabletop odhaľuje:
-
-- chýbajúce alebo zastarané kontakty,
-- nejasné ownership a rozhodovacie práva,
-- chýbajúce prístupy alebo break-glass proces,
-- nefunkčné runbooky,
-- konflikt technickej a business priority,
-- nejasné RPO/RTO očakávania,
-- nedostatočný communication plan.
-
-Cieľom nie je hodnotiť jednotlivca. Cieľom je zlepšiť systém, v ktorom ľudia reagujú.
-
-## 18. Process a instance failure
-
-Ukončenie procesu alebo instance overuje viac než restart policy.
-
-Pozoruj celý lifecycle:
+Timeout v jednej vrstve nie je automaticky zrušenie operácie v ďalšej vrstve:
 
 ```text
-failure vznikne
-→ health detection
-→ traffic removal
-→ in-flight request behavior
-→ restart/reschedule
-→ capacity replacement
-→ readiness
-→ traffic re-entry
-→ state a backlog recovery
+worker odošle payment authorization
+→ provider operáciu commitne
+→ response sa stratí alebo príde po deadline
+→ worker vidí timeout
+→ retry môže vytvoriť duplicate side effect
 ```
 
-Kontroluj:
+Resilience contract preto potrebuje:
 
-- connection draining a client retry,
-- idempotency nejasne dokončených writes,
-- leader election alebo lease expiration,
-- session affinity,
-- alert timing a severity,
-- retry amplification,
-- chýbajúcu kapacitu počas warm-upu,
-- orphaned locks alebo resources.
+- end-to-end deadline propagation;
+- klasifikáciu retryable a non-retryable failures;
+- bounded attempts a retry budget;
+- exponential backoff a jitter;
+- idempotency identity zachovanú cez všetky vrstvy;
+- reconciliation pre unknown outcome;
+- ochranu pred retry amplificationom na client/proxy/service vrstve.
 
-## 19. Network faults
+Chaos test overuje celý mechanizmus, nie iba to, že circuit breaker zmenil stav.
 
-Sieťové zlyhanie nie je iba úplný partition. Realistické faults:
+## 13. Graceful degradation a admission control
 
-- latency a jitter,
-- packet loss,
-- bandwidth limit,
-- connection reset,
-- DNS timeout alebo stale answer,
-- asymmetric reachability,
-- iba egress alebo ingress failure,
-- MTU/fragmentation problém,
-- partial regional partition.
-
-Overuj:
-
-- connect, read a total timeouty,
-- retry budget a jitter,
-- circuit breaker a bulkhead,
-- queueing a pool saturation,
-- fallback alebo cached response,
-- idempotency a duplicate side effects,
-- telemetry koreláciu,
-- recovery po obnove route.
-
-Fault musí byť vložený na správnej vrstve. Service mesh, proxy, container namespace alebo cloud firewall môže zmeniť, ktorý packet flow je skutočne zasiahnutý.
-
-## 20. Dependency degradation
-
-Externá dependency môže byť dostupná, ale nezdravá. Testuj aj:
-
-- pomalé responses,
-- partial alebo segment-specific errors,
-- malformed či schema-valid, ale nesprávne dáta,
-- rate limiting a quota exhaustion,
-- stale response,
-- intermittent timeout,
-- auth alebo certificate failure,
-- connection pool exhaustion,
-- nesprávne retry-after semantics.
-
-Systém musí rozlíšiť retryable a non-retryable failure. Neobmedzené retries môžu násobiť load a spôsobiť cascading failure.
-
-## 21. Resource pressure
-
-Resource experiments testujú bounded behavior pri nedostatku kapacity:
-
-- CPU saturation alebo throttling,
-- memory pressure a OOM,
-- disk alebo inode exhaustion,
-- file-descriptor exhaustion,
-- thread alebo worker pool saturation,
-- database connection pool saturation,
-- queue depth a storage pressure,
-- API quota exhaustion.
-
-Overuj:
-
-- admission control a backpressure,
-- bounded queues,
-- priority traffic,
-- load shedding,
-- graceful degradation,
-- autoscaling alebo vertical limits,
-- alerting pred úplným kolapsom,
-- recovery po odstránení pressure,
-- data integrity pri interrupted writes.
-
-## 22. Messaging a data faults
-
-Stateful a event-driven systems potrebujú zvlášť opatrný fault model.
-
-Scenáre:
-
-- duplicitný event,
-- out-of-order delivery,
-- oneskorenie alebo replay,
-- poison message,
-- consumer restart po side effecte, ale pred checkpointom,
-- partial transaction,
-- schema mismatch,
-- replication lag,
-- stale read,
-- split-brain alebo leader ambiguity.
-
-Overuj:
-
-- idempotency a deduplication,
-- ordering assumptions,
-- transactional outbox/inbox behavior,
-- checkpointing a replay,
-- dead-letter handling,
-- reconciliation,
-- uniqueness a integrity constraints,
-- bezpečný operator recovery.
-
-Fault injection nesmie nevratne poškodiť produkčné dáta. Pri rizikových data experiments používaj izolovaný tenant, synthetic records, read-only variant alebo overený restore/compensation postup.
-
-## 23. Data-integrity boundary
-
-Pred experimentom explicitne klasifikuj, čo sa môže zmeniť:
-
-- žiadne writes,
-- iba syntetické alebo označené records,
-- idempotentné a kompenzovateľné writes,
-- produkčné writes s overenými constraints a recovery,
-- zakázané nevratné operácie.
-
-Definuj data oracle:
-
-- počet vytvorených side effects,
-- uniqueness,
-- reconciliation totals,
-- checksum alebo integrity query,
-- audit log completeness,
-- RPO hranicu,
-- business invariant.
-
-Technický recovery bez dátovej verification nie je úspešný experiment.
-
-## 24. Recovery je samostatná fáza
-
-Dôležitá otázka nie je iba „prežil systém fault?“, ale aj „vrátil sa úplne do zdravého stavu?“
-
-Po odstránení faultu sleduj:
-
-- backlog drain a jeho rýchlosť,
-- cache warming,
-- replica synchronization a lag,
-- leader election stability,
-- stuck locks a leases,
-- orphaned resources,
-- connection-pool normalizáciu,
-- autoscaling scale-down,
-- data reconciliation,
-- error-rate a latency návrat,
-- alert closure,
-- user-facing journey.
-
-Systém môže počas faultu graceful degradovať, ale po obnove zostať v skrytom degraded mode. Recovery observation musí mať vlastný timeout a success criteria.
-
-## 25. Disaster recovery experiments
-
-DR experimenty overujú, či sa služba a jej dáta dajú obnoviť po veľkom failure domaine.
-
-Kontroluj:
-
-- backup dostupnosť, integrity a encryption keys,
-- restore do izolovaného prostredia,
-- RPO a skutočne stratené dáta,
-- RTO od rozhodnutia po použiteľný business outcome,
-- schema a application compatibility,
-- DNS/routing cutover,
-- secrets, certificates a identity dependencies,
-- external integrations,
-- data reconciliation,
-- failback alebo návrat do primary režimu,
-- runbook a rozhodovacie ownership.
-
-Úspešný backup job nie je recovery dôkaz. DR experiment musí overiť, že používateľ alebo business workflow po obnove funguje.
-
-## 26. Game day
-
-Game day je plánované tímové cvičenie spájajúce faults, observability, incident response, communication a recovery.
-
-Dobrý game day:
-
-- má jasný experiment contract,
-- používa realistický, ale bezpečný scenár,
-- nie je skúškou alebo pascou pre jednotlivca,
-- zachytáva presnú timeline,
-- testuje technické aj organizačné dependencies,
-- má facilitátora a safety ownera,
-- končí konkrétnymi actions, ownermi a termínmi,
-- opakuje kritický experiment po remediation.
-
-Psychologická bezpečnosť je súčasť resilience. Ak ľudia skrývajú nejasnosť alebo sa boja použiť kill switch, proces nie je odolný.
-
-## 27. Automatizované chaos experimenty
-
-Opakovateľný a nízkorizikový experiment možno automatizovať v CI/CD alebo scheduled production workflow. Automatizácia je vhodná iba vtedy, keď je experiment dostatočne stabilný a jeho safety mechanizmy sú spoľahlivé.
-
-Eligibility criteria:
-
-- hypotéza a target sú stabilné,
-- fault injection je deterministicky ohraničený,
-- blast radius je malý,
-- prechecks a abort rules sú automatizované,
-- kill switch je nezávislý a otestovaný,
-- cleanup je idempotentný a overiteľný,
-- telemetry je úplná a korelovaná,
-- experiment má nízky false-abort a invalid rate,
-- owner reaguje na failure a remediation debt.
-
-Automatizácia neznižuje zodpovednosť. Zvyšuje frekvenciu zásahov, a teda potrebu guardrails, rate limits a audit trailu.
-
-## 28. Chaos testing v CI/CD
-
-Nie všetky chaos experimenty patria do pull-request pipeline. Umiestnenie závisí od fidelity, ceny a rizika.
-
-Príklad vrstvenia:
+Pri provider brownoute Atlas nemusí garantovať okamžitý terminal success. Môže zachovať prijateľný degraded contract:
 
 ```text
-unit/component
-→ injected timeout, duplicate event, fake clock
-
-integration
-→ process kill, dependency degradation, broker restart
-
-pre-release
-→ failover, load shedding, recovery v sandboxe
-
-production scheduled/progressive
-→ malý fault domain s reálnym trafficom a guardrails
+nová objednávka
+→ prijatá iba ak existuje queue a DB budget
+→ stav PAYMENT_PENDING
+→ používateľ dostane explicitný status a correlation ID
+→ background reconciliation pokračuje po obnove
 ```
 
-Rýchle deterministic failure-injection testy patria čo najskôr. Veľké regionálne alebo DR experimenty potrebujú samostatný riadený workflow.
+Admission control, bounded queues a load shedding chránia core state. Neobmedzené prijímanie práce môže dočasne zlepšiť acceptance rate, ale vytvorí neobnoviteľný backlog a dlhší incident.
 
-## 29. SLO a error budget
+## 14. Recovery je samostatná fáza dôkazu
 
-SLO poskytuje používateľsky orientovanú hranicu steady state. Chaos experiment môže overiť:
+Odstránenie faultu nie je koniec experimentu. Atlas sleduje:
 
-- či fault neprekročí SLO,
-- ako rýchlo sa spotrebúva error budget,
-- či alert reaguje pred neprijateľným dopadom,
-- či graceful degradation chráni kritický journey,
-- či recovery obnoví SLI v požadovanom čase.
+- návrat latency a error rate;
+- vyprázdnenie queue a oldest-message age;
+- skončenie retry stormu;
+- uvoľnenie DB connections a workers;
+- reconciliation unknown outcomes;
+- absence duplicate authorization;
+- terminal order states;
+- cache a replica convergence;
+- odstránenie temporary degraded mode;
+- splnenie recovery deadline.
 
-Pred produkčným experimentom zohľadni aktuálny error-budget stav. Pri rýchlom burne alebo existujúcom incidente môže byť správne experiment odložiť alebo zmenšiť scope.
+Systém môže po fault-e vyzerať healthy, ale backlog drain môže znovu saturovať DB alebo provider. Recovery phase potrebuje vlastný oracle a abort criteria.
 
-## 30. Evidence a experiment provenance
+## 15. Worked failure: brownout vytvoril retry amplification a duplicity
 
-Výsledok experimentu musí byť reprodukovateľný a auditovateľný. Uchovaj:
+Atlas aplikoval 12-sekundovú provider latency na 20 % payment requestov. Každá vrstva mala vlastný retry:
 
-- experiment definition a version,
-- artifact a configuration identity,
-- target preview a skutočne zasiahnuté resources,
-- start/stop timestamps,
-- fault intensity a state transitions,
-- baseline a steady-state metrics,
-- logs, traces a dashboards,
-- abort/kill-switch udalosti,
-- recovery timeline,
-- data-integrity results,
-- observer notes a incident communication,
-- výslednú klasifikáciu,
-- remediation actions a repeat result.
+```text
+client retry 2×
+× edge retry 2×
+× worker retry 3×
+→ rovnaká business operácia mala viac súbežných attempts
+→ provider commitol prvú authorization
+→ oneskorené responses boli považované za timeout
+→ ďalšie attempts použili nové idempotency keys
+→ vznikli duplicate payment authorizations
+→ DB pool a worker queue sa saturovali
+```
 
-Bez provenance nemožno porovnať experiment po zmene systému ani dokázať, čo bolo reálne testované.
+### Root cause
 
-## 31. Learning a remediation closure
+Timeout a retry policies boli navrhnuté lokálne. Neexistoval end-to-end retry budget ani business idempotency identity propagovaná cez client, API, event a provider request.
 
-Výsledkom chaos experimentu nemá byť iba report. Každý finding musí viesť k trvalej zmene alebo explicitnému risk rozhodnutiu.
+### Náprava
 
-Možné actions:
+- jedna order/payment idempotency identity prechádza celým workflowom;
+- edge nere-tryuje non-idempotent write bez explicitného contractu;
+- worker má bounded attempts, deadline a jitter;
+- provider timeout spúšťa reconciliation, nie slepý nový charge;
+- queue a DB admission limits chránia core dependencies;
+- metrics sledujú attempts per business operation;
+- regression portfolio obsahuje unit state machine, provider simulator, component retry test a periodický chaos experiment.
 
-- oprava timeout/retry alebo idempotency mechanizmu,
-- bounded queue alebo load shedding,
-- nový alert alebo SLI,
-- zlepšenie telemetry,
-- aktualizácia runbooku,
-- nový regression alebo component failure test,
-- platformový guardrail,
-- zmena autoscaling alebo capacity baseline,
-- doplnenie backup/restore procesu,
-- ownership alebo communication zmena,
-- opakovanie experimentu po remediation.
+## 16. Worked failure: fault skončil, systém sa nezotavil
 
-Remediation lifecycle:
+Druhý experiment zastavil payment workerov na päť minút. Po ich obnovení API health a worker readiness zezeleneli:
+
+```text
+fault removed
+→ workers ready
+→ experiment označený ako complete
+→ backlog sa začal drainovať maximálnou concurrency
+→ DB pool sa saturoval
+→ CreateOrder latency vzrástla
+→ staré jobs prekročili business expiry
+→ používatelia dostali neskoré alebo chybné confirmations
+```
+
+### Root cause
+
+Experiment oracle končil pri návrate procesov. Nemeral controlled backlog drain, expired-work policy, reconciliation ani recovery deadline.
+
+### Náprava
+
+- recovery phase má samostatný state a metrics;
+- worker concurrency sa po obnove rampuje;
+- expired jobs majú explicitnú cancel/reconcile semantiku;
+- oldest-message age a terminal-state completeness sú blocking criteria;
+- experiment končí až po stabilnom baseline window;
+- recovery behavior sa pridá do capacity a operational acceptance testov.
+
+## 17. Experiment v stagingu verzus produkcii
+
+Staging je vhodný na:
+
+- overenie fault mechanismu a tooling-u;
+- safety state machine;
+- runbook rehearsal;
+- známe topology a dependency failures;
+- vysoký alebo destructive fault bez user impactu.
+
+Produkcia poskytuje unikátnu hodnotu pri:
+
+- reálnom traffic mixe a tenant skew;
+- effective identity, quotas a routing;
+- emergentnom behavior-e shared dependencies;
+- skutočnej on-call a alerting path;
+- veľkom dlhodobom state.
+
+Produkčný experiment používa menší blast radius, prísnejšie guardrails a vyššiu maturity. Nie každý risk potrebuje produkčný chaos.
+
+## 18. Game days a sociotechnická resilience
+
+Resilience závisí aj od ľudí a procesov. Game day môže overiť:
+
+```text
+fault alebo incident signal
+→ alert routing
+→ on-call triage
+→ diagnosis cez telemetry
+→ runbook action
+→ communication a escalation
+→ containment
+→ recovery a handoff
+```
+
+Cieľom nie je hodnotiť jednotlivca. Experiment testuje systém práce: permissions, documentation, tool access, ownership, decision authority a communication latency.
+
+## 19. Maturity ladder
+
+Atlas zvyšuje riziko experimentov postupne:
+
+```text
+design/tabletop
+→ deterministic component fault test
+→ isolated environment
+→ staging game day
+→ internal production tenant
+→ small production cohort
+→ scheduled recurring experiment
+```
+
+Každý stupeň potrebuje evidence, že tooling, guardrails a recovery z predchádzajúceho stupňa fungujú. Automatizácia nezrelého experimentu iba opakuje nebezpečný zásah rýchlejšie.
+
+## 20. Evidence a report
+
+Experiment report obsahuje:
+
+- hypotézu a rozhodovací význam;
+- artifact, config, topology a workload provenance;
+- baseline interval;
+- target preview a skutočne zasiahnuté resources;
+- fault timeline a intensity;
+- guardrail a abort events;
+- technical, functional a business outcomes;
+- recovery timeline;
+- invalid/inconclusive limitations;
+- root cause a remediation actions;
+- regression controls a repeat plan.
+
+Graf bez timeline faultu a rollout/config identity má slabú diagnostickú hodnotu.
+
+## 21. Remediation a experiment closure
+
+Chaos experiment je úspešný ako learning mechanism aj vtedy, keď vyvráti hypotézu. Zlyhá organizačne, ak findings nezmenia systém.
 
 ```text
 finding
-→ owner a priority
-→ implementácia
-→ skorší regression/control
-→ repeat chaos experiment
-→ potvrdenie zlepšenia
+→ owner a impact
+→ design/code/config/runbook fix
+→ skorší regression control
+→ aktualizovaný steady-state alebo abort contract
+→ retest konkrétneho failure
+→ opakovaný chaos experiment
+→ closure s evidence
 ```
 
-Potvrdená hypotéza tiež potrebuje ďalšiu prácu: experiment sa má versionovať a podľa rizika periodicky opakovať, pretože systém a jeho dependencies sa menia.
+Permanentné „known issue“ bez ownera a termínu mení experiment na opakované meranie známeho rizika.
 
-## 32. Metriky programu
+## 22. Diagnostický postup
 
-Počet spôsobených failures nie je cieľ. Sleduj kvalitu evidence a uzatváranie rizík:
+Pri chaos failure:
 
-- coverage kritických failure domains a recovery paths,
-- podiel potvrdených, vyvrátených, inconclusive a invalid experimentov,
-- experiment abort rate a dôvody,
-- neplánované rozšírenie blast radiusu,
-- detection time a recovery time,
-- SLI a error-budget dopad,
-- počet a vek remediation actions,
-- repeat-experiment success rate,
-- percento findings prevedených na skorší regression test alebo guardrail,
-- kill-switch a cleanup reliability,
-- data-integrity incidents spôsobené experimentom,
-- čas od experimentu po uzavretie learning loopu.
+1. Potvrď experiment state, artifact, config, workload a target identity.
+2. Over, či fault bol skutočne aplikovaný podľa contractu.
+3. Potvrď zdravý baseline a complete observability.
+4. Nájdite prvý observation point, kde sa steady state odlíšil.
+5. Rozlíš direct fault impact od retry, queue alebo dependency amplification.
+6. Skontroluj business correctness, nie iba process availability.
+7. Vyhodnoť guardrail a abort behavior.
+8. Po fault removal sleduj backlog, reconciliation a delayed side effects.
+9. Klasifikuj verdict ako refuted, invalid, inconclusive alebo safety abort.
+10. Oprav autoritatívny mechanismus a pridaj skorší regression control.
+11. Opakuj experiment až po splnení remediation preconditions.
 
-Vysoký počet invalid experimentov signalizuje problém v targetingu, baseline, telemetry alebo orchestration platforme.
+## 23. Referenčné pravidlá
 
-## 33. Diagnostický postup pri neočakávanom výsledku
+- Chaos experiment začína konkrétnym failure riskom a hypotézou.
+- Steady state vyjadruje používateľský alebo business outcome.
+- Fault model obsahuje mode, direction, intensity, duration a correlation.
+- Target preview a allowlist chránia scope.
+- Blast radius zahŕňa downstream amplification.
+- Experiment má explicitnú safety state machine a kill switch.
+- Invalid alebo inconclusive run nie je potvrdená resilience.
+- Timeout testuje unknown outcome, idempotency a retry budget.
+- Process recovery nie je system recovery.
+- Backlog drain a reconciliation patria do experimentu.
+- Produkčný chaos vyžaduje vyššiu maturity a menší blast radius.
+- Finding sa uzatvára až fixom, regression controlom a retestom.
 
-1. **Aktivuj safety policy —** abort, kill switch alebo zníženie expozície podľa guardrailu.
-2. **Over fault state —** bol fault reálne aplikovaný, na správny target a s plánovanou intenzitou?
-3. **Over baseline —** bol systém pred experimentom zdravý?
-4. **Over observation —** sú metrics, logs, traces a user probe úplné?
-5. **Urči blast radius —** zasiahol fault iba povolený scope alebo sa amplifikoval?
-6. **Rozlíš mechanizmus —** health detection, retry, queueing, data integrity, capacity alebo recovery.
-7. **Odstráň fault —** použi idempotentný control path.
-8. **Sleduj recovery —** neukonči incident pri prvom zelenom health checku.
-9. **Over dáta —** duplicates, missing records, reconciliation a RPO.
-10. **Klasifikuj experiment —** vyvrátený, inconclusive, invalid alebo aborted.
-11. **Uchovaj evidence —** vrátane orchestration a kill-switch udalostí.
-12. **Uzavri remediation —** owner, skorší test a repeat experiment.
+## 24. Časté omyly
 
-## 34. Typické anti-patterny
+### „Chaos testing znamená náhodne vypínať veci“
 
-### Chaos bez hypotézy
+Náhodný zásah bez hypotézy, oracle a safety contractu neposkytuje dôveryhodný learning.
 
-Fault vytvorí šum alebo incident, ale neposkytne jasný poznatok ani rozhodnutie.
+### „Pods zostali ready, hypotéza prešla“
 
-### Náhodné vypínanie produkcie
+Business correctness, latency, duplicate side effects alebo recovery môžu byť porušené.
 
-Bez target scope, steady state a safety controls nejde o experiment, ale o neplánovaný risk.
+### „Fault tool hlási success“
 
-### Experiment iba podľa infra metrík
+To dokazuje iba command execution. Treba potvrdiť skutočný target a dopad cez nezávislé observation points.
 
-CPU alebo počet podov môže zostať zdravý, hoci používateľský workflow zlyháva alebo vznikajú duplicity.
+### „Po odstránení faultu je experiment hotový“
 
-### Test iba v stagingu ako dôkaz produkcie
+Backlog, retries, stale state a reconciliation môžu pokračovať dlho po fault-e.
 
-Staging je užitočný krok, ale nemusí reprezentovať produkčný traffic, topology, identities a quotas.
+### „Staging chaos dokazuje produkčnú resilience“
 
-### Kill switch v rovnakom fault domaine
+Iba pre boundaries, ktoré staging zachováva. Traffic, quotas, identity a state môžu byť odlišné.
 
-Experiment môže stratiť schopnosť sám seba zastaviť.
+### „Viac chaosu znamená vyššiu odolnosť“
 
-### Abort bez recovery observation
+Bez remediation a regresných controls sa iba opakovane vytvára rovnaký incident.
 
-Fault je odstránený, ale backlog, locks alebo replikácia zostanú degradované.
+## 25. Zhrnutie
 
-### Chaos na produkčných dátach bez integrity oracle
+Dôveryhodný Atlas chaos experiment je:
 
-Systém môže vyzerať dostupne, no experiment poškodí alebo duplikuje dáta.
+```text
+failure mode
+→ steady-state a recovery hypotéza
+→ artifact/topology/workload provenance
+→ baseline a safety prechecks
+→ scoped realistic fault
+→ live technical + business oracle
+→ abort/complete/invalid verdict
+→ fault removal
+→ backlog, reconciliation a recovery proof
+→ remediation, skorší control a opakovaný experiment
+```
 
-### Game day ako skúška ľudí
+Chaos testing uzatvára sekciu Testing and Software Quality tým, že overuje, či navrhnuté controls fungujú aj pri narušení a či sa výsledok experimentu zmení na trvalý delivery dôkaz. Nasledujúca sekcia CI/CD and Release Engineering tieto evidence contracts umiestni do pipelines, artifact promotionu, rolloutov a recovery rozhodnutí.
 
-Vedie k skrývaniu problémov a znižuje psychologickú bezpečnosť.
+## 26. Kontrolné otázky
 
-### Chaos framework ako cieľ
-
-Nainštalovaný tool alebo počet faultov nie je dôkaz resilience.
-
-### Potvrdená hypotéza bez opakovania
-
-Systém sa mení a pôvodný dôkaz starne. Kritické experimenty potrebujú periodický repeat alebo automatizáciu.
-
-### Remediation backlog bez ownera
-
-Experiment generuje reporty, ale riziká zostávajú otvorené a program neprináša zlepšenie.
-
-## 35. Praktický rozhodovací rámec
-
-Pred experimentom odpovedz:
-
-1. Akú konkrétnu resilience vlastnosť a failure mode overujeme?
-2. Aký používateľsky významný steady state má zostať zachovaný?
-3. Aký mechanizmus má podľa hypotézy fungovať?
-4. Je systém v zdravom baseline stave?
-5. Aký fault najpresnejšie reprezentuje riziko?
-6. Aký je target a ako overíme jeho identitu?
-7. Aký je najmenší relevantný blast radius?
-8. Ktoré downstream amplifikácie sú možné?
-9. Aké sú automatické a manuálne abort criteria?
-10. Je kill switch dostupný mimo fault domainu?
-11. Aké externé observation points použijeme?
-12. Aký je data-integrity risk a oracle?
-13. Ako sa fault odstráni a cleanup overí?
-14. Ako dlho budeme sledovať recovery?
-15. Kto experiment vlastní, pozoruje a má rozhodovaciu právomoc?
-16. Aký výsledok bude confirmed, disproved, inconclusive alebo invalid?
-17. Ako sa finding premení na skorší test, guardrail a repeat experiment?
-
-## 36. Kontrolný checklist
-
-Pred spustením over:
-
-- hypotéza je konkrétna a vyvrátiteľná,
-- steady state je používateľsky relevantný,
-- baseline je zdravý,
-- artifact, config a topology sú identifikované,
-- target preview zodpovedá allowlistu,
-- fault intensity a duration sú ohraničené,
-- blast radius zahŕňa downstream amplification,
-- abort criteria sú automatizovateľné,
-- kill switch je otestovaný a nezávislý,
-- observability funguje aj mimo targetu,
-- experiment má correlation ID,
-- data writes a integrity oracle sú explicitné,
-- cleanup je idempotentný,
-- recovery má vlastné success criteria,
-- on-call a stakeholders poznajú experiment,
-- evidence retention je definovaná,
-- remediation workflow má ownera a repeat podmienku.
-
-## 37. Kontrolné otázky
-
-1. Aký je rozdiel medzi chaos testingom a náhodným rozbíjaním?
-2. Prečo steady state nemá byť iba „proces beží“?
-3. Ako vyzerá vyvrátiteľná experiment hypothesis?
+1. Čím sa chaos experiment líši od bežného failure testu?
+2. Prečo steady state nemá byť definovaný iba cez ready instances?
+3. Aký tvar má vyvrátiteľná resilience hypotéza?
 4. Čo musí obsahovať experiment contract?
-5. Aký je rozdiel medzi vyvráteným, inconclusive a invalid experimentom?
-6. Prečo treba baseline prechecks?
-7. Čo tvorí realistický fault model?
-8. Ako sa overuje target identity a scope?
-9. Prečo blast radius zahŕňa aj retry alebo downstream amplification?
-10. Aké stavy má safety state machine?
-11. Prečo má byť kill switch mimo fault domainu?
-12. Aké observation points sú potrebné pri resource alebo network faultoch?
-13. Čo experiment ladder zvyšuje v každej fáze?
-14. Ako sa testuje data integrity pri messaging faults?
-15. Prečo recovery potrebuje samostatnú observation fázu?
-16. Čo musí dokazovať disaster-recovery experiment?
-17. Kedy je experiment vhodný na automatizáciu?
-18. Ako SLO a error budget ovplyvňujú chaos experiment?
-19. Aké evidence musí zostať po experimente?
-20. Ako sa finding uzavrie opakovaným experimentom?
-
-## Summary
-
-Chaos testing je riadený spôsob overovania resilience pomocou konkrétnej hypotézy, merateľného steady state a kontrolovaného faultu. Dôveryhodný experiment potrebuje zdravý baseline, presný target, realistický fault model, obmedzený blast radius, nezávislý kill switch, viac observation points, data-integrity oracle a samostatnú recovery fázu. Výsledok nemusí byť iba pass alebo fail; môže byť vyvrátený, inconclusive, invalid alebo bezpečnostne aborted. Hodnota vzniká až vtedy, keď evidence vedie k remediation, skoršiemu regression testu alebo platformovému guardrailu a experiment sa po zmene zopakuje.
+5. Ako sa líši invalid, inconclusive a aborted experiment?
+6. Prečo je provider brownout nebezpečnejší než okamžitý outage?
+7. Ako target preview a blast radius chránia experiment?
+8. Prečo lokálne retries vytvorili Atlas amplification?
+9. Čo znamená unknown payment outcome?
+10. Prečo návrat workerov neznamenal úplnú recovery?
+11. Kedy má chaos experiment prejsť do produkcie?
+12. Ako sa finding uzatvára cez remediation a skorší regression control?
 
 ## Glossary impact
 
-Relevantné pojmy: chaos testing, chaos engineering, resilience engineering, steady state, experiment hypothesis, experiment contract, experiment validity, fault model, target identity, blast radius, safety state machine, abort criterion, kill switch, observation point, fault injection, game day, tabletop exercise, graceful degradation, load shedding, recovery observation, RPO a RTO.
+Relevantné pojmy: chaos testing, chaos engineering, resilience experiment, steady-state hypothesis, fault model, fault injection, experiment validity, blast radius, safety state machine, kill switch, brownout, retry amplification, graceful degradation, recovery observation, reconciliation, game day a sociotechnická resilience.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
