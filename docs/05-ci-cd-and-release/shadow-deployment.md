@@ -6,476 +6,422 @@
 - Level: L2
 - Domain: CI/CD and Release Engineering
 
-## 1. Definícia
-
-Shadow deployment posiela kópiu reálneho produkčného vstupu novej verzii bez toho, aby jej výsledok určoval používateľskú response alebo autoritatívny business state. Technika sa označuje aj ako traffic mirroring; dark launch je širší pojem pre nasadenú, ale používateľsky neaktivovanú capability.
+Shadow deployment vykonáva kópiu reálneho produkčného vstupu v novej implementácii, ale jej response ani mutations nesmú byť autoritatívne pre používateľa alebo business state. Hodnota shadowingu vzniká z vysokej fidelity workloadu; bezpečnosť vzniká iba vtedy, keď delivery, isolation a comparison contracts zabránia tomu, aby neautoritatívna execution ovplyvnila primary systém.
 
 ```text
-client
-→ primary path → authoritative response/state
-       ↘ mirror → shadow path → observed, non-authoritative result
+primary input
+→ versionované mirror rozhodnutie
+→ capture, sanitizácia a korelácia
+→ bounded delivery
+→ isolated shadow execution
+→ side-effect firewall
+→ normalized output a runtime evidence
+→ classified comparison
+→ valid / inconclusive / abort
+→ canary alebo remediation
 ```
 
-Shadow znižuje user-facing riziko, ale nie je automaticky bezrizikový. Kópia requestu môže spotrebovať kapacitu, čítať citlivé dáta alebo vytvoriť side effects.
+Zahodená shadow response nie je safety mechanizmus. Payment, email, queue publication alebo shared-resource interference môžu vzniknúť ešte pred vytvorením response.
 
-## 2. Mental model: neautoritatívna paralelná execution
+## 1. Nosný model: jedna autoritatívna a jedna neautoritatívna execution
 
-Shadow experiment má tri oddelené kontrakty:
-
-- **Delivery contract —** ktorý vstup, kedy a s akou úplnosťou sa zrkadlí.
-- **Safety contract —** čo shadow nesmie zmeniť alebo ovplyvniť.
-- **Comparison contract —** ktoré outputs a runtime signals sa považujú za ekvivalentné alebo zámerne odlišné.
-
-Úspešné zahodenie response nerieši safety. Side effect mohol vzniknúť pred zahodením výsledku.
-
-## 3. Čo shadow dokáže overiť
-
-Vhodný je na:
-
-- request a protocol compatibility,
-- parser behavior,
-- reálny workload mix,
-- performance a resource profile,
-- dependency call pattern,
-- query/ranking výsledky,
-- response diffing,
-- observability novej verzie,
-- event-consumer processing v izolovanom výstupe.
-
-Slabšie overuje:
-
-- reálny user journey,
-- client reaction na response,
-- authoritative writes,
-- session evolution,
-- external side effects,
-- business outcome po dlhom workflowe.
-
-## 4. Experiment subject a provenance
-
-Zachovaj:
-
-- primary a shadow artifact digests,
-- config revisions,
-- mirror policy version,
-- mirror point,
-- sampling policy,
-- normalization/diff version,
-- shadow identity a permissions,
-- dependency isolation mode,
-- experiment start/stop,
-- correlation ID.
-
-Bez toho nemožno zistiť, čo bolo porovnávané.
-
-## 5. Mirror point
-
-Traffic možno zrkadliť na:
-
-- edge/load balanceri,
-- API gateway,
-- service mesh,
-- application boundary,
-- broker/stream,
-- data-processing pipeline.
-
-Skorší mirror zachová viac pôvodného request contextu, ale zvyšuje privacy a write risk. Neskorší mirror umožňuje sanitizáciu, ale nemusí testovať celý path.
-
-## 6. Synchronous verzus asynchronous delivery
-
-### Synchronous
-
-Primary request čaká aspoň na odovzdanie mirroru. Korelácia je jednoduchšia, ale shadow môže pridať latency alebo failure coupling.
-
-### Asynchronous
-
-Mirror sa vloží do bounded queue alebo odošle best-effort. Chráni primary latency, ale vzniká:
-
-- delivery lag,
-- drop,
-- reordering,
-- duplicate delivery,
-- rozdielny concurrency profile.
-
-Primary SLO má mať prioritu. Shadow backpressure nesmie neplánovane blokovať používateľa.
-
-## 7. Mirror delivery semantics
-
-Explicitne definuj:
-
-- at-most-once, at-least-once alebo best-effort charakter,
-- max queue depth,
-- drop policy,
-- retry limit,
-- ordering,
-- max lag,
-- duplicate handling,
-- sampling pred alebo po queue.
-
-Comparison musí vedieť rozlíšiť missing shadow result od application mismatchu.
-
-## 8. Sampling a representatívnosť
-
-Sampling môže byť podľa:
-
-- percenta,
-- route/operation,
-- request complexity,
-- tenant/region segmentu,
-- payload size,
-- časového okna,
-- error-prone pathu.
-
-Sleduj sample inventory a workload distribution. Jednoduchý random sample môže podreprezentovať rare, ale kritické operácie.
-
-## 9. Input capture a body semantics
-
-Nie každý request možno jednoducho skopírovať:
-
-- streaming body môže byť read-once,
-- upload môže byť veľký,
-- token môže expirovať,
-- nonce alebo signature je jednorazová,
-- referencovaný resource sa medzičasom zmení,
-- request závisí od session state.
-
-Mirror layer musí definovať capture limit, buffering, regeneration a skip reason.
-
-## 10. Input sanitizácia
-
-Pred odoslaním odstráň alebo transformuj:
-
-- credentials a session tokens,
-- payment/health data,
-- secrets v headers/body,
-- osobné identifikátory,
-- signed URLs,
-- nepotrebné tenant attributes.
-
-Sanitizácia musí zachovať semantiku potrebnú pre test. Príliš agresívna redakcia môže vytvoriť nereprezentatívny input.
-
-## 11. Shadow identity a authorization
-
-Shadow nemá automaticky dostať user alebo primary service credentials. Preferuj:
-
-- read-only workload identity,
-- minimálne claims,
-- isolated tenant/sandbox,
-- explicitný shadow claim,
-- zakázané external writes,
-- oddelený audit stream.
-
-Client-side authorization výsledok možno porovnať, ale enforcement nesmie byť oslabený kvôli experimentu.
-
-## 12. Side-effect firewall
-
-Bezpečnostná vrstva má blokovať alebo izolovať:
-
-- payment/order writes,
-- email/SMS/push,
-- inventory reservation,
-- account mutation,
-- external API commands,
-- authoritative queue publication,
-- compliance actions,
-- scheduled mutations.
-
-Mechanizmy:
-
-- read-only credentials,
-- null/sink adapters,
-- sandbox dependencies,
-- isolated schema/database,
-- transaction rollback,
-- output topic,
-- explicitný shadow execution mode.
-
-Idempotency nie je jediná ochrana; duplicitný idempotency key môže mať iný scope alebo expirovať.
-
-## 13. Indirect interference
-
-Aj read-only shadow môže ovplyvniť primary systém:
-
-- vytesniť cache,
-- zahriať database buffer pool,
-- spotrebovať quotas,
-- zvýšiť connection count,
-- spustiť autoscaling,
-- zvýšiť log/storage load,
-- aktivovať lazy initialization.
-
-Definuj dependency a cost budgets alebo používaj izolované namespaces/resources.
-
-## 14. Request normalization
-
-Primary a shadow execution sa môžu líšiť pre nondeterministické vstupy:
-
-- current time,
-- random seed,
-- generated request ID,
-- nonce,
-- expirovaný credential,
-- read-after-write state,
-- ordering.
-
-Rozhodni, čo:
-
-- zachovať identicky,
-- regenerovať pre shadow,
-- fixnúť test clockom,
-- normalizovať iba pri diff-e,
-- úplne vylúčiť.
-
-## 15. Response a behavior diff
-
-Porovnávaj podľa contractu:
-
-- status/outcome class,
-- schema a required fields,
-- vybrané business hodnoty,
-- ordering-insensitive collections,
-- error category,
-- dependency calls,
-- resource usage,
-- latency,
-- intended side-effect plan.
-
-Nie každý rozdiel je regresia. Nový ranking algoritmus má byť odlišný; dôležitá je jeho definovaná quality metric.
-
-## 16. Diff taxonomy
-
-Klasifikuj:
-
-- expected change,
-- acceptable nondeterminism,
-- primary defect,
-- shadow defect,
-- input mismatch,
-- state/timing mismatch,
-- missing result,
-- comparison-tool error.
-
-Jedno číslo „mismatch rate“ bez klasifikácie má nízku diagnostickú hodnotu.
-
-## 17. Correlation
-
-Každý mirror record potrebuje:
+Shadow systém má tri samostatné contracts:
 
 ```text
-primary_request_id
-shadow_request_id
+delivery contract
+→ ktoré inputs sa mirrorujú, s akou úplnosťou, lagom, orderingom a retry semantics
+
+safety contract
+→ ktoré writes, credentials, dependencies a resource budgets sú zakázané alebo izolované
+
+comparison contract
+→ ktoré outputs sa majú zhodovať, ktoré rozdiely sú očakávané a čo znamená missing evidence
+```
+
+Primary path ostáva jediným zdrojom používateľskej response a business mutations. Shadow path je zdrojom evidence, nie rozhodovacej authority.
+
+Ak sa tieto contracts zmiešajú, môže byť nejasné, či mismatch vznikol novým code-om, odlišným inputom, stale state-om, mirror delivery chybou alebo diff nástrojom.
+
+## 2. Nosný scenár: Atlas Risk Engine v2
+
+Atlas Orders chce nahradiť existujúci risk engine. Nový engine `Risk v2` má iný model a query plán, ale pred user-facing canary potrebuje dôkaz nad reálnym mixom objednávok.
+
+Experiment subject:
+
+```text
+primary digest D_risk_v1
+shadow digest D_risk_v2
+primary config C_old
+shadow config C_shadow17
+mirror policy MP4
+mirror point = Orders API po authentication a schema validation
+sample policy = všetky high-risk orders + 5 % ostatných
+normalization/diff revision Q8
+shadow identity I_shadow_ro
+```
+
+Flow:
+
+```text
+validovaný CreateOrder command
+→ primary Risk v1 vytvorí autoritatívne decision
+→ sanitized mirror event ide do bounded queue
+→ Risk v2 načíta read-only snapshot
+→ vypočíta shadow decision a intended action plan
+→ result sa spojí correlation ID
+→ comparison klasifikuje rozdiel
+```
+
+Risk v2 nesmie blokovať primary request, meniť order, rezervovať inventory, emitovať customer event ani kontaktovať externý fraud provider s mutačným operation mode-om.
+
+## 3. Mirror point určuje, čo experiment dokáže a čo obchádza
+
+Atlas zrkadlí command po authentication a input schema validation. Tým zachová reálny business payload a tenant context, ale shadow už netestuje edge routing, TLS handshake ani invalid unauthenticated requests.
+
+Skorší mirror point zachová viac pôvodného request contextu, ale zvyšuje privacy, credential a body-capture risk. Neskorší mirror point umožňuje sanitizáciu a stabilný domain input, ale poskytuje užší dôkaz.
+
+Experiment record preto explicitne uvádza mirror point a excluded boundaries. Shadow pass nemožno interpretovať ako dôkaz vrstvy, ktorú mirror obišiel.
+
+## 4. Capture a delivery nesmú poškodiť primary SLO
+
+Atlas používa asynchronous bounded queue:
+
+```text
+primary command accepted
+→ best-effort mirror enqueue s krátkym timeoutom
+→ pri plnej queue drop + reason telemetry
+→ primary pokračuje bez čakania na shadow execution
+```
+
+Delivery contract definuje:
+
+- attempted, enqueued, delivered a completed identity;
+- at-least-once delivery do shadow consumera;
+- max lag;
+- duplicate handling;
+- queue depth a drop policy;
+- ordering scope;
+- sampling pred enqueue;
+- maximum payload size.
+
+Missing shadow result nie je equivalent result. Comparison najprv overí, či pre sample inventory existuje platný paired execution.
+
+Synchronous mirror by zjednodušil koreláciu, ale môže preniesť shadow latency a outage do primary requestu. Použiť ho možno iba s hard timeoutom a failure isolationom, ktorý chráni primary SLO.
+
+## 5. Input identity musí zostať semanticky porovnateľná
+
+Nie každý request možno bez zmeny zopakovať. Atlas normalizuje:
+
+- current time cez zachytený evaluation timestamp;
+- generated IDs cez explicitné input values;
+- read-once alebo veľké body cez bounded capture;
+- user token na privacy-safe tenant a capability claims;
+- volatile resource references cez snapshot revision;
+- nondeterministický seed podľa comparison contractu.
+
+Sanitizácia odstráni credentials, osobné identifikátory a nepotrebné fields, ale nesmie zničiť vlastnosti potrebné pre risk decision. Ak sa napríklad odstráni tenant-size alebo order-country context, shadow input už nereprezentuje primary execution.
+
+Každý skip má reason, aby 100 % „úspešných“ výsledkov nebolo založených iba na ľahkých requestoch, ktoré capture zvládol.
+
+## 6. Shadow identity a side-effect firewall sú enforcement boundaries
+
+Risk v2 používa samostatnú workload identity s read-only prístupom. Output adapters sú nahradené sinkmi:
+
+```text
+database writes → zakázané policy
+queue publications → shadow topic
+email/SMS → null adapter
+external fraud commands → sandbox/read-only endpoint
+inventory reservation → intended-action record bez execution
+```
+
+Application flag `shadow_mode=true` je užitočný, ale nestačí. Ak nový code zabudne skontrolovať flag na jednej ceste, infraštruktúrne permissions a izolované adapters stále blokujú mutation.
+
+Defense in depth:
+
+```text
+least-privilege identity
++ network egress policy
++ isolated outputs
++ application shadow mode
++ side-effect block telemetry
+```
+
+Idempotency key nie je side-effect firewall. Scope, expiry alebo downstream implementation môžu povoliť druhú mutáciu.
+
+## 7. Read-only execution môže nepriamo ovplyvniť produkciu
+
+Shadow môže spotrebovať shared resources:
+
+- database connections a buffer pool;
+- cache capacity;
+- broker throughput;
+- external API quotas;
+- CPU, memory a IPs;
+- logging/storage cardinality;
+- autoscaler capacity.
+
+Atlas preto stanoví budgets:
+
+```text
+shadow DB connections <= limit
+mirror queue lag <= limit
+primary p99 overhead <= limit
+shadow compute a telemetry cost <= budget
+```
+
+Pri prekročení sa sample automaticky znižuje alebo mirror vypne. Non-authoritative execution nesmie dostať prednosť pred primary trafficom.
+
+## 8. Comparison začína validáciou paired evidence
+
+Pre každý sample vzniká record:
+
+```text
 mirror event ID
-primary/shadow digests
-sample decision
+primary request/execution ID
+shadow execution ID
+primary/shadow digests a configs
+captured state revision
 mirror lag
-diff result
+primary result
+shadow result
+normalization revision
+diff category
 ```
 
-Pri async workflowe korelácia zahŕňa aj event/workflow IDs a delayed outcomes.
+Diff taxonomy:
 
-## 18. Capacity a cost ceiling
+- equivalent;
+- expected product/model difference;
+- acceptable nondeterminism;
+- likely primary defect;
+- likely shadow defect;
+- input mismatch;
+- state/timing mismatch;
+- missing shadow result;
+- comparison-tool failure.
 
-Shadow môže takmer zdvojnásobiť compute a reads. Chráň:
+Jedno agregované `mismatch_rate` číslo nevysvetľuje mechanizmus. Nový risk model má byť v niektorých prípadoch odlišný; dôležitá je kvalita a safety výsledku, nie slepá byte equality.
 
-- primary request latency,
-- database connection pool,
-- broker throughput,
-- external API quotas,
-- telemetry cardinality,
-- storage retention.
+## 9. Workload representatívnosť je súčasť validity
 
-Použi independent autoscaling, bounded queue, rate limit a automatické zníženie sample pri tlaku.
+Atlas mirroruje všetky high-risk orders a 5 % ostatných. Sleduje sample inventory podľa:
 
-## 19. Messaging a event shadowing
+- route a operation;
+- tenant-size tier;
+- regionu;
+- payload size;
+- risk category;
+- client version;
+- dependency path;
+- capture skip reason.
 
-Použi samostatný consumer group a izolované outputs. Shadow consumer nesmie:
+Random sample môže podreprezentovať rare, ale kritické operácie. Naopak oversampling high-risk orders treba zohľadniť pri agregovaní výsledku, aby experiment nepredstieral produkčnú distribúciu.
 
-- ackovať za primary group,
-- meniť primary offsets,
-- publikovať authoritative events,
-- súťažiť o partition ownership,
-- spustiť externé side effects.
+## 10. Worked failure: shadow odoslal reálnu notification
 
-Definuj replay start, retention, ordering a cleanup.
+Risk v2 mal nový branch pre manual review. Hlavné database writes boli read-only, ale notification adapter zostal produkčný.
 
-## 20. Long-running workflows
+```text
+primary order vyhodnotená Risk v1
+→ shadow Risk v2 zvolí manual review
+→ application vytvorí intended notification
+→ produkčný adapter odošle email zákazníkovi
+→ používateľ dostane správu o stave, ktorý autoritatívny order nemá
+```
 
-Jednorazový request diff nemusí pokryť workflow. Potrebuješ:
+### Príčina
 
-- konzistentný shadow state,
-- izolované workflow IDs,
-- event correlation,
-- delayed result collector,
-- timeout a garbage collection,
-- compensation pre omylom vzniknuté outputs.
+Tím považoval read-only database credentials a discarded response za úplný safety contract. External side effect neprechádzal databázovým permission boundary.
 
-## 21. Experiment validity
+### Dôsledok
 
-Výsledok môže byť:
+Shadow experiment spôsobil user-facing incident napriek tomu, že jeho response nebola použitá.
 
-- valid and equivalent,
-- valid with expected differences,
-- valid regression found,
-- inconclusive pre nízku vzorku,
-- invalid pre input/config mismatch,
-- aborted pre safety alebo capacity.
+### Recovery a trvalá náprava
 
-Shadow success nesmie byť odvodený z chýbajúcich resultov.
+```text
+mirror kill switch
+→ revoke shadow identity a egress
+→ zastaviť notification adapter
+→ identifikovať affected correlation IDs
+→ customer correction/compensation
+→ všetky adapters mapovať na explicitný intended-action sink
+→ side-effect firewall contract test
+```
 
-## 22. Promotion ladder
+## 11. Worked failure: mirror queue drop skryl najťažšie requesty
+
+Queue mala nízky payload limit. Veľké multi-item orders sa nedoručili do shadowu.
+
+```text
+small orders sa mirrorujú a porovnávajú
+→ large orders sú dropped pri enqueue
+→ dashboard počíta mismatch iba z completed pairs
+→ Risk v2 vyzerá equivalent a rýchly
+→ canary odhalí timeouty na large orders
+```
+
+### Príčina
+
+Sample inventory neobsahoval attempted → delivered → completed funnel ani skip reasons. Missing results boli implicitne odstránené z denominatora a interpretované ako success.
+
+### Náprava
+
+Atlas pridal expected sample inventory, payload-size segmentáciu, explicitný `missing/inconclusive` verdict a samostatný bounded capture path pre large orders.
+
+## 12. Kauzálny diagnostický walkthrough
+
+Symptom: po zvýšení shadow sample z 5 % na 30 % stúpla primary p99 latency, hoci shadow execution je asynchronous.
+
+### Krok 1 — stabilizuj subject a timeline
+
+```text
+primary D_risk_v1
+shadow D_risk_v2
+mirror policy MP4 revision 12
+sample transition 5 % → 30 % o 14:05
+queue a DB budgets B7
+```
+
+### Krok 2 — formuluj konkurenčné hypotézy
+
+```text
+H1: primary release má nezávislú code regresiu
+H2: enqueue path synchronne blokuje pri queue backpressure
+H3: shadow reads saturujú shared DB connections alebo buffer pool
+H4: zvýšený production traffic náhodou koreluje s mirror zmenou
+H5: telemetry aggregation iba skreslila p99
+```
+
+### Krok 3 — použi observation points
+
+- primary deployment/config timeline testuje H1;
+- enqueue duration, queue depth a drop rate testujú H2;
+- shadow connection count, DB wait a ostatné DB clients testujú H3;
+- incoming workload normalizovaný podľa route testuje H4;
+- raw latency traces a histogram pipeline testujú H5.
+
+Atlas zistí:
+
+```text
+primary code bez zmeny
+enqueue duration stabilná
+queue nie je plná
+shadow DB connections 4× vyššie
+DB wait rastie pre primary aj shadow
+traffic mix porovnateľný
+```
+
+H3 vysvetľuje symptom.
+
+### Krok 4 — containment musí zasiahnuť shared-resource mechanizmus
+
+Atlas zníži mirror sample, aplikuje shadow connection limit a oddelí read replica budget. Restart primary instances by nevyriešil shared DB contention.
+
+### Krok 5 — over recovery
+
+Recovery je potvrdená, keď primary p99 a DB wait klesnú, shadow throughput zostane v novom budgete a sample inventory je stále dostatočný.
+
+### Krok 6 — vráť learning do návrhu
+
+Incident vytvorí automatický primary-overhead abort guardrail, per-identity DB quota a load test shadow sample transitionu.
+
+## 13. Shadow evidence má jasný fidelity limit
+
+Shadow dokáže silno overiť:
+
+- parser a protocol compatibility po mirror pointe;
+- workload mix;
+- query a dependency pattern;
+- performance/resource profile;
+- decision alebo response difference;
+- observability novej verzie.
+
+Neoveruje plne:
+
+- client reaction na response;
+- autoritatívne writes;
+- session evolution;
+- external side effects v skutočnom režime;
+- dlhodobý business outcome.
+
+Preto promotion ladder pokračuje:
 
 ```text
 offline fixtures
 → replay
-→ shadow traffic
-→ canary user-facing exposure
+→ shadow
+→ bounded user-facing canary
 → širší rollout
 ```
 
-Každá fáza zvyšuje fidelity. Shadow neposkytuje dôkaz o client reaction a authoritative writes, preto zvyčajne nasleduje canary.
+Shadow pass je dôkaz pre konkrétne boundaries, nie všeobecné release approval.
 
-## 23. Privacy a retention
+## 14. Diagnostický runbook
 
-Definuj:
+1. Potvrď primary/shadow digest, config, mirror policy a comparison revision.
+2. Urči mirror point a boundaries, ktoré experiment obchádza.
+3. Porovnaj attempted, enqueued, delivered, completed a paired counts.
+4. Over lag, duplicates, ordering, capture skips a sample distribution.
+5. Validuj sanitizáciu, state snapshot a input normalization.
+6. Skontroluj shadow identity, egress a side-effect firewall.
+7. Porovnaj shared-resource load a primary overhead pred/po sample zmene.
+8. Klasifikuj diffs na code, input, state/timing, missing a tool failure.
+9. Pri primary impacte vypni alebo obmedz mirror mechanizmus.
+10. Pri side effecte spusti containment, compensation a security review.
 
-- právny účel,
-- data minimization,
-- residency,
-- encryption,
-- access control,
-- raw payload retention,
-- diff retention,
-- deletion/subject-right proces,
-- zákaz secretov v logs.
+## 15. Referenčné pravidlá
 
-Interný experiment nie je výnimka z privacy pravidiel.
+- Shadow má jednu autoritatívnu a jednu neautoritatívnu execution.
+- Delivery, safety a comparison sú samostatné contracts.
+- Mirror point určuje fidelity aj privacy boundary.
+- Primary SLO má prednosť pred shadow completeness.
+- Missing shadow result nie je success.
+- Sanitizácia musí zachovať semantiku testovaného behavioru.
+- Application shadow mode nenahrádza least privilege a izolované adapters.
+- Read-only shadow môže poškodiť primary cez shared resources.
+- Diff potrebuje correlation, normalization a taxonomy.
+- Shadow pass neoprávňuje preskočiť user-facing canary.
 
-## 24. Failure recovery
+## 16. Časté omyly
 
-Pri primary impacte:
+### „Response zahodíme, takže shadow je bezpečný“
 
-1. vypni mirror alebo zníž sample,
-2. odpoj shadow resources,
-3. over primary latency a dependency load,
-4. drain alebo drop mirror queue,
-5. zachovaj evidence.
+Side effects a resource interference vznikajú pred response.
 
-Pri neplánovaných side effects:
+### „Read-only credentials riešia všetko“
 
-1. aktivuj kill switch,
-2. revoke shadow credentials,
-3. zastav output adapters,
-4. identifikuj affected entities,
-5. vykonaj compensation/data repair,
-6. spusti security/incident review.
+Notifications, queues a external APIs môžu mutovať mimo databázy.
 
-## 25. Observability a evidence
+### „Completed pairs reprezentujú celý sample“
 
-Sleduj:
+Drop alebo capture skip môže odstrániť najrizikovejšie inputs.
 
-- mirror attempted/delivered/dropped,
-- delivery lag,
-- primary overhead,
-- shadow throughput/saturation,
-- correlation completeness,
-- diff categories,
-- skipped requests a reasons,
-- side-effect blocks,
-- cost,
-- experiment validity.
+### „Každý mismatch je shadow regresia“
 
-## 26. Typické anti-patterny
+Môže ísť o očakávanú zmenu, nondeterminism, state lag alebo primary defect.
 
-### Response sa zahodí, preto je shadow bezpečný
+### „Shadow je úspešný, môžeme ísť na 100 %“
 
-Side effects vznikajú pred response.
+Client behavior a autoritatívny state ešte neboli overené.
 
-### Production write credentials
+## 17. Zhrnutie
 
-Shadow môže vykonať duplicitné alebo neautorizované mutations.
+Atlas shadow lifecycle je:
 
-### Synchronous mirror bez timeout/drop policy
+```text
+versionovaný mirror subject
+→ semanticky validný capture a sanitizácia
+→ bounded primary-isolated delivery
+→ least-privilege shadow execution
+→ technický side-effect firewall
+→ paired correlation a normalized comparison
+→ classified evidence + resource/safety guardrails
+→ canary alebo remediation
+```
 
-Shadow dependency poškodí primary latency.
-
-### 100 % mirroring bez capacity modelu
-
-Experiment spôsobí incident.
-
-### Chýbajúci correlation ID
-
-Outputs nemožno spojiť.
-
-### Každý mismatch je regresia
-
-Ignoruje nondeterminism a zámernú zmenu.
-
-### Shadow success = full release
-
-Neboli overené user-facing responses, state transitions ani business outcome.
-
-## 27. Diagnostický postup
-
-1. Over primary/shadow digest a config.
-2. Skontroluj mirror point a policy version.
-3. Porovnaj attempted, delivered a completed counts.
-4. Over delivery lag, duplicates a ordering.
-5. Validuj input sanitizáciu a normalization.
-6. Skontroluj shadow identity a side-effect firewall.
-7. Porovnaj workload/capacity conditions.
-8. Klasifikuj diffs namiesto agregovaného mismatchu.
-9. Pri primary regressii vypni mirror a analyzuj shared resources.
-10. Pri side effecte spusti compensation a incident workflow.
-
-## 28. Rozhodovací rámec
-
-1. Akú hypotézu má shadow overiť?
-2. Kde sa traffic zrkadlí a čo tým vynechá?
-3. Aké delivery semantics platia?
-4. Ktoré dáta treba sanitizovať?
-5. Ako sa technicky znemožnia side effects?
-6. Aké indirect shared-resource interference hrozí?
-7. Aká vzorka reprezentuje workload?
-8. Ako sa normalizujú inputs a outputs?
-9. Ktoré diff kategórie sú rozhodujúce?
-10. Čo shadow nedokáže potvrdiť a musí overiť canary?
-
-## 29. Kontrolný checklist
-
-- immutable primary/shadow identities,
-- mirror policy a point sú versionované,
-- primary path má timeout/drop ochranu,
-- sample inventory je reprezentatívny,
-- citlivé dáta sú minimalizované,
-- shadow identity je least privilege,
-- side-effect firewall je otestovaný,
-- shared dependency budgets existujú,
-- correlation je end-to-end,
-- diff contract pozná expected differences,
-- missing result nie je success,
-- promotion pokračuje ďalším fidelity krokom,
-- retention a cleanup sú definované.
-
-## 30. Kontrolné otázky
-
-1. Aký je rozdiel medzi shadow deploymentom a dark launchom?
-2. Prečo discarded response nezaručuje safety?
-3. Ako sa líši synchronous a asynchronous mirroring?
-4. Čo musí definovať mirror delivery contract?
-5. Ako môže read-only shadow poškodiť primary systém?
-6. Kedy treba meniť alebo regenerovať input fields?
-7. Ako sa klasifikujú response differences?
-8. Ako bezpečne shadowovať event consumer?
-9. Prečo shadow neposkytuje úplný release dôkaz?
-10. Čo robiť pri neplánovaných side effects?
-
-## Summary
-
-Shadow deployment je neautoritatívna paralelná execution reálneho workloadu. Jeho hodnota spočíva v protocol, performance a behavior evidence pred user-facing expozíciou. Bezpečnosť vyžaduje presné mirror delivery semantics, least-privilege identity, technický side-effect firewall, privacy sanitizáciu, bounded resource impact a end-to-end correlation. Výsledok musí rozlišovať validný mismatch od input, timing alebo comparison chyby. Úspešný shadow je medzikrok k canary, nie automatické povolenie plného release.
-
-## Glossary impact
-
-Relevantné pojmy: shadow deployment, traffic mirroring, dark launch, mirror point, mirror delivery semantics, primary-path isolation, shadow identity, side-effect firewall, request normalization, response diff taxonomy, shadow consumer group a mirror lag.
+Shadow deployment je hodnotný preto, že prináša reálny workload pred používateľskou expozíciou. Je bezpečný iba vtedy, keď „neautoritatívny“ nie je zámer v kóde, ale vynútená vlastnosť identity, dependencies, outputs a resource budgets.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
