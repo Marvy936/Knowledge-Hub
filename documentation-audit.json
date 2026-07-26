@@ -1011,15 +1011,15 @@
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
       "title": "End-to-end a acceptance tests",
-      "words": 2661,
-      "headings": 46,
-      "sections": 46,
-      "findings": 88,
-      "critical": 23,
-      "high": 23,
-      "medium": 21,
-      "low": 21,
-      "score": 567,
+      "words": 1864,
+      "headings": 32,
+      "sections": 32,
+      "findings": 84,
+      "critical": 24,
+      "high": 27,
+      "medium": 15,
+      "low": 18,
+      "score": 579,
       "grade": "D"
     },
     {
@@ -55487,7 +55487,7 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "1. Mentálny model: journey, boundaries, oracle a rozhodnutie",
+      "section": "1. Cieľ kapitoly",
       "line": 15,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -55496,17 +55496,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "1. Mentálny model: journey, boundaries, oracle a rozhodnutie",
-      "line": 15,
+      "section": "4. Výber kritickej journey",
+      "line": 83,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "1. Mentálny model: journey, boundaries, oracle a rozhodnutie",
-      "line": 15,
+      "section": "4. Výber kritickej journey",
+      "line": 83,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prechádza boundary, ktorú nižší test nevykonáva reálne;`, `kombinuje routing, identity, persistence alebo asynchronous processing`, `historicky zlyhávala pri deploymente alebo integrácii;`, `výsledok ovplyvňuje release alebo prevádzkové prijatie;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "4. Výber kritickej journey",
+      "line": 83,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -55514,8 +55523,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "1. Mentálny model: journey, boundaries, oracle a rozhodnutie",
-      "line": 15,
+      "section": "4. Výber kritickej journey",
+      "line": 83,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -55523,26 +55532,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "1. Mentálny model: journey, boundaries, oracle a rozhodnutie",
-      "line": 15,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "4. E2E verzus acceptance",
-      "line": 60,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "4. E2E verzus acceptance",
-      "line": 60,
+      "section": "4. Výber kritickej journey",
+      "line": 83,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -55550,8 +55541,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "5. User Acceptance Testing",
-      "line": 72,
+      "section": "4. Výber kritickej journey",
+      "line": 83,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -55559,62 +55550,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "6. Operational Acceptance Testing",
-      "line": 86,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "6. Operational Acceptance Testing",
-      "line": 86,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "6. Operational Acceptance Testing",
-      "line": 86,
+      "section": "4. Výber kritickej journey",
+      "line": 83,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "7. Výber kritických journeys",
-      "line": 103,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 54 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "7. Výber kritických journeys",
-      "line": 103,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business kritickosti,`, `finančného, bezpečnostného alebo regulačného dopadu,`, `frekvencie použitia,`, `počtu integračných boundaries,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "7. Výber kritických journeys",
-      "line": 103,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "8. Journey inventory a coverage mapa",
-      "line": 119,
+      "section": "5. Journey contract",
+      "line": 96,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -55622,206 +55568,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "9. Black-box, gray-box a white-box systémové testy",
-      "line": 138,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "10. Artifact a environment identity",
-      "line": 152,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "10. Artifact a environment identity",
-      "line": 152,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit alebo release tag,`, `immutable artifact digest,`, `deployment manifest alebo environment revision,`, `databázovú schema verziu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "10. Artifact a environment identity",
-      "line": 152,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "10. Artifact a environment identity",
-      "line": 152,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "10. Artifact a environment identity",
-      "line": 152,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "10. Artifact a environment identity",
-      "line": 152,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "11. Environment fidelity",
-      "line": 167,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "12. Environment lifecycle a ownership",
-      "line": 184,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "12. Environment lifecycle a ownership",
-      "line": 184,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "12. Environment lifecycle a ownership",
-      "line": 184,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "12. Environment lifecycle a ownership",
-      "line": 184,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "12. Environment lifecycle a ownership",
-      "line": 184,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "14. Príprava stavu bez obchádzania testu",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fixture nevytvára nemožný stav,`, `rešpektuje relevantné invariants,`, `neobchádza vrstvu, ktorú journey testuje,`, `je versioned spolu s aplikáciou,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "14. Príprava stavu bez obchádzania testu",
-      "line": 201,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "18. Browser automation",
-      "line": 243,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `semantic role,`, `accessible name,`, `form label,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "18. Browser automation",
-      "line": 243,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "18. Browser automation",
-      "line": 243,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "20. Service virtualization a externé systémy",
-      "line": 266,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "20. Service virtualization a externé systémy",
-      "line": 266,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `contract testu,`, `deterministického component alebo E2E testu so simulátorom,`, `periodického testu proti oficiálnemu sandboxu,`, `produkčného synthetic signálu a monitoring-u skutočných volaní.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "20. Service virtualization a externé systémy",
-      "line": 266,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "20. Service virtualization a externé systémy",
-      "line": 266,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2E`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "22. Business a technické assertions",
-      "line": 296,
+      "section": "6. Artifact a environment provenance",
+      "line": 117,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
@@ -55829,17 +55577,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "22. Business a technické assertions",
-      "line": 296,
+      "section": "6. Artifact a environment provenance",
+      "line": 117,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `verejný výsledok pre používateľa,`, `business invariant,`, `persistentný stav,`, `počet a identitu side effects,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source commit a release version;`, `immutable image digest;`, `deployment revision;`, `databázovú schema verziu;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "22. Business a technické assertions",
-      "line": 296,
+      "section": "6. Artifact a environment provenance",
+      "line": 117,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -55847,179 +55595,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "22. Business a technické assertions",
-      "line": 296,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "22. Business a technické assertions",
-      "line": 296,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "24. Segmentácia suite podľa rozhodnutia",
-      "line": 317,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "24. Segmentácia suite podľa rozhodnutia",
-      "line": 317,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "24. Segmentácia suite podľa rozhodnutia",
-      "line": 317,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "24. Segmentácia suite podľa rozhodnutia",
-      "line": 317,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "24. Segmentácia suite podľa rozhodnutia",
-      "line": 317,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "24. Segmentácia suite podľa rozhodnutia",
-      "line": 317,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "24. Segmentácia suite podľa rozhodnutia",
-      "line": 317,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PR`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "25. Parallelizácia a sharding",
-      "line": 330,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "26. Failure artifacts",
-      "line": 336,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "26. Failure artifacts",
-      "line": 336,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "26. Failure artifacts",
-      "line": 336,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný test a krok,`, `screenshot alebo relevantný response payload,`, `console output,`, `request, correlation a trace ID,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "26. Failure artifacts",
-      "line": 336,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "26. Failure artifacts",
-      "line": 336,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "26. Failure artifacts",
-      "line": 336,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "28. Flaky výsledok a rerun semantics",
-      "line": 370,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "28. Flaky výsledok a rerun semantics",
-      "line": 370,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `first-attempt result,`, `počet pokusov,`, `výsledok každého pokusu,`, `failure signature,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "28. Flaky výsledok a rerun semantics",
-      "line": 370,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "28. Flaky výsledok a rerun semantics",
-      "line": 370,
+      "section": "6. Artifact a environment provenance",
+      "line": 117,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -56027,26 +55604,80 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "29. Produkčná validation",
-      "line": 386,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "29. Produkčná validation",
-      "line": 386,
+      "section": "7. Fidelity podľa testovaného rizika",
+      "line": 132,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `synthetic transactions,`, `canary releases,`, `feature flags,`, `SLI/SLO guardrails,`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "29. Produkčná validation",
-      "line": 386,
+      "section": "7. Fidelity podľa testovaného rizika",
+      "line": 132,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký image digest a entrypoint;`, `reálny proxy route, Host a TLS/SNI behavior;`, `rovnaký identity a tenant-authorization model;`, `kompatibilný PostgreSQL engine a migrácie;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "7. Fidelity podľa testovaného rizika",
+      "line": 132,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "7. Fidelity podľa testovaného rizika",
+      "line": 132,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "7. Fidelity podľa testovaného rizika",
+      "line": 132,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "7. Fidelity podľa testovaného rizika",
+      "line": 132,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `SNI`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "8. Počiatočný stav a fixtures",
+      "line": 155,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "8. Počiatočný stav a fixtures",
+      "line": 155,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť zákazníka cez test-only identity API;`, `seednúť produkt a zásobu cez versioned fixture boundary;`, `použiť payment sandbox;`, `prideliť unikátny tenant, order prefix a correlation ID.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "8. Počiatočný stav a fixtures",
+      "line": 155,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -56054,89 +55685,242 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "29. Produkčná validation",
-      "line": 386,
+      "section": "8. Počiatočný stav a fixtures",
+      "line": 155,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "8. Počiatočný stav a fixtures",
+      "line": 155,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `ID`, `DB`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "9. Test data a bezpečnosť",
+      "line": 175,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "9. Test data a bezpečnosť",
+      "line": 175,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unikátny tenant alebo namespace;`, `test-only identity s minimálnymi oprávneniami;`, `syntetické dáta;`, `idempotency a correlation keys;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "9. Test data a bezpečnosť",
+      "line": 175,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "9. Test data a bezpečnosť",
+      "line": 175,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `identity`, `resource`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "30. Operational acceptance príklad",
-      "line": 402,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "31. Časté anti-patterny",
-      "line": 419,
+      "section": "11. Silný acceptance oracle",
+      "line": 215,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "Zelený test bez artifact provenance",
-      "line": 425,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "Shared admin account",
-      "line": 429,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "Priama databázová skratka cez predmet testu",
-      "line": 433,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "Pevné sleeps",
-      "line": 437,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "Rerun-until-green",
-      "line": 445,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "32. Diagnostický workflow",
-      "line": 449,
+      "section": "11. Silný acceptance oracle",
+      "line": 215,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zákazník vidí správny order ID a konečný stav;`, `objednávka patrí tenantovi A;`, `existuje presne jeden business order;`, `rovnaký idempotency key nevytvorí ďalší side effect;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "32. Diagnostický workflow",
-      "line": 449,
+      "section": "11. Silný acceptance oracle",
+      "line": 215,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "11. Silný acceptance oracle",
+      "line": 215,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "11. Silný acceptance oracle",
+      "line": 215,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "11. Silný acceptance oracle",
+      "line": 215,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "12. Browser a verejný contract",
+      "line": 230,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "12. Browser a verejný contract",
+      "line": 230,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "12. Browser a verejný contract",
+      "line": 230,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `semantic role;`, `accessible name;`, `form label;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "12. Browser a verejný contract",
+      "line": 230,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "12. Browser a verejný contract",
+      "line": 230,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "14. User a operational acceptance",
+      "line": 262,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "14. User a operational acceptance",
+      "line": 262,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact možno bezpečne nasadiť a identifikovať;`, `alerts a traces vedú k diagnóze;`, `rollback alebo roll-forward je vykonateľný;`, `on-call identity má potrebné oprávnenia;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "14. User a operational acceptance",
+      "line": 262,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "14. User a operational acceptance",
+      "line": 262,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "14. User a operational acceptance",
+      "line": 262,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "14. User a operational acceptance",
+      "line": 262,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "15. Worked failure: fixture vytvorila false green",
+      "line": 277,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "Root cause",
+      "line": 298,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "Náprava",
+      "line": 302,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "Náprava",
+      "line": 302,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -56144,26 +55928,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "32. Diagnostický workflow",
-      "line": 449,
+      "section": "Náprava",
+      "line": 302,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "32. Diagnostický workflow",
-      "line": 449,
-      "severity": "high",
+      "section": "Náprava",
+      "line": 302,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Identifikuj testovaný artifact, environment revision a feature flags.`, `Potvrď, že setup vytvoril očakávaný počiatočný stav.`, `Rozlíš product, test-code, data a environment failure.`, `Over eventual-consistency deadline a posledný pozorovaný stav.`.",
-      "score": 8
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fixture vytvára iba zákazníka, produkt a zásobu;`, `journey spúšťa objednávku verejným API alebo UI;`, `condition-based oracle čaká na terminal state;`, `test overí order, outbox/event, payment sandbox a audit;`.",
+      "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "32. Diagnostický workflow",
-      "line": 449,
+      "section": "Náprava",
+      "line": 302,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -56171,8 +55955,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "32. Diagnostický workflow",
-      "line": 449,
+      "section": "Náprava",
+      "line": 302,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -56180,35 +55964,17 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "32. Diagnostický workflow",
-      "line": 449,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "32. Diagnostický workflow",
-      "line": 449,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "32. Diagnostický workflow",
-      "line": 449,
+      "section": "Náprava",
+      "line": 302,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `UI`",
       "score": 4
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "33. Prevádzkový checklist",
-      "line": 462,
+      "section": "17. Failure artifacts",
+      "line": 332,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -56216,26 +55982,26 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "33. Prevádzkový checklist",
-      "line": 462,
+      "section": "17. Failure artifacts",
+      "line": 332,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "33. Prevádzkový checklist",
-      "line": 462,
+      "section": "17. Failure artifacts",
+      "line": 332,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `journey a acceptance criterion sú explicitné,`, `scope a nahradené dependencies sú zdokumentované,`, `artifact a environment identity sa ukladajú,`, `setup nevytvára nemožný stav,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `testovaný artifact a environment revision;`, `presný krok a first-attempt result;`, `screenshot alebo response payload;`, `browser/network trace podľa scope-u;`.",
       "score": 12
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "33. Prevádzkový checklist",
-      "line": 462,
+      "section": "17. Failure artifacts",
+      "line": 332,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -56243,8 +56009,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "33. Prevádzkový checklist",
-      "line": 462,
+      "section": "17. Failure artifacts",
+      "line": 332,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -56252,8 +56018,8 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "33. Prevádzkový checklist",
-      "line": 462,
+      "section": "17. Failure artifacts",
+      "line": 332,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -56261,8 +56027,170 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "33. Prevádzkový checklist",
-      "line": 462,
+      "section": "17. Failure artifacts",
+      "line": 332,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "18. Diagnostický postup",
+      "line": 349,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "18. Diagnostický postup",
+      "line": 349,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "18. Diagnostický postup",
+      "line": 349,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "18. Diagnostický postup",
+      "line": 349,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potvrď artifact digest, environment revision a feature flags.`, `Over, že fixture vytvorila očakávaný počiatočný stav.`, `Koreluj browser/client čas, request ID, trace a events.`, `Rozlíš runner/test-code, fixture/data, environment a product failure.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "18. Diagnostický postup",
+      "line": 349,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "18. Diagnostický postup",
+      "line": 349,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "18. Diagnostický postup",
+      "line": 349,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "18. Diagnostický postup",
+      "line": 349,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `ID`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "19. Segmentácia podľa rozhodnutia",
+      "line": 364,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "19. Segmentácia podľa rozhodnutia",
+      "line": 364,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 385,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 385,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 385,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 385,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `E2E scope a acceptance účel vždy pomenúvaj oddelene.`, `Vyber iba journeys s unikátnou cross-boundary dôkaznou hodnotou.`, `Väčšinu business kombinácií testuj nižšie.`, `Testuj immutable artifact s jasnou environment identity.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 385,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 385,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 385,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 385,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -56270,12 +56198,48 @@
     },
     {
       "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
-      "section": "33. Prevádzkový checklist",
-      "line": 462,
+      "section": "20. Referenčné pravidlá",
+      "line": 385,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2E`, `scope`, `identity`",
       "score": 4
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "21. Časté omyly",
+      "line": 398,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "„Stránka sa zobrazila, journey prešla“",
+      "line": 408,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "„Priama DB fixture iba zrýchľuje test“",
+      "line": 412,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md",
+      "section": "„Produkčne podobné prostredie je automaticky dostatočné“",
+      "line": 416,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/04-testing-and-quality/flaky-tests-and-test-data.md",
