@@ -1,908 +1,481 @@
 # YAML, JSON a regular expressions
 
-YAML a JSON sú serializačné formáty používané v konfigurácii, API kontraktoch, CI/CD pipelines a Infrastructure as Code. Regular expressions sú pattern language na rozpoznávanie a transformáciu textu. V automatizácii sa často používajú spolu, ale riešia odlišné problémy: parser rekonštruuje štruktúrované dáta podľa gramatiky, regex vyhľadáva text zodpovedajúci patternu.
+## Metadata
 
-## 1. Základný mentálny model
+- Status: Learning
+- Úroveň: L2 — rozumiem mechanizmu
+- Doména: Git and Automation Basics
+- Predpoklady: [Python for automation](python-for-automation.md), [Bash automation](bash-automation.md), [PowerShell fundamentals](powershell-fundamentals.md)
+- Súvisiace témy: parsing, schema validation, configuration precedence, templating, serialization, regex safety
 
-Použi najvyššiu dostupnú abstrakciu:
+## 1. Cieľ kapitoly
 
-```text
-structured JSON/YAML → parser → schema → business validation
-line-oriented stable text → delimiter/parser alebo regex
-human display output → nestabilný automation input
-```
-
-Bezpečný processing lifecycle:
+YAML a JSON sú serializačné formáty. Regex je jazyk textových patternov. V automatizácii sa môžu objaviť v jednom workflowe, ale nesmú sa zamieňať:
 
 ```text
-read bounded bytes with explicit encoding
-  ↓
-parse with configured safe parser
-  ↓
-reject ambiguous or unsupported constructs
-  ↓
-validate structural schema
-  ↓
-normalize explicit fields
-  ↓
-validate cross-field business rules
-  ↓
-calculate desired change
-  ↓
-serialize deterministically
-  ↓
-parse and validate rendered output again
-  ↓
-apply and verify runtime result
+structured document
+→ parser
+→ schema
+→ domain validation
+
+stable flat text
+→ delimiter alebo regex
+→ typed value
 ```
 
-Každá fáza rieši inú triedu chýb. Syntakticky platný dokument môže byť schema-invalid. Schema-valid dokument môže byť prevádzkovo nebezpečný.
+Najdôležitejšie pravidlo je použiť najvyššiu dostupnú abstrakciu. YAML alebo JSON sa parsuje parserom. Regex sa používa na presne ohraničený lexical tvar alebo extraction zo stabilného textového kontraktu.
 
-## 2. Parser nie je validator
+## 2. Nosný scenár: Atlas rollout configuration
 
-Parser odpovedá najmä na otázku:
-
-```text
-Dá sa tento byte stream interpretovať ako dokument daného formátu?
-```
-
-Schema validator odpovedá:
-
-```text
-Má dokument očakávaný shape, typy a lokálne constraints?
-```
-
-Business validation odpovedá:
-
-```text
-Je konfigurácia povolená a zmysluplná v konkrétnom systéme?
-```
-
-Príklad:
+Tím Atlas udržiava ručne čitateľnú konfiguráciu:
 
 ```yaml
-replicas: 1000000
+apiVersion: atlas/v1
+service: orders-api
+environment: prod
+image: registry.example/orders@sha256:abc123
+replicas: 4
+healthPath: /health/ready
+publicAccess: false
 ```
 
-Dokument môže byť syntakticky aj schema-valid, ale prevádzkovo neprijateľný kvôli capacity alebo policy limitu.
+Release pipeline musí vytvoriť bezpečný desired state:
 
-# JSON
-
-## 3. JSON data model
-
-JSON podporuje šesť kategórií hodnôt:
-
-- **object** — neusporiadaná kolekcia string keys a hodnôt,
-- **array** — usporiadaná sekvencia hodnôt,
-- **string** — Unicode text reprezentovaný JSON escape pravidlami,
-- **number** — numerický token bez univerzálneho runtime typu,
-- **boolean** — `true` alebo `false`,
-- **null** — explicitná nulová hodnota.
-
-```json
-{
-  "service": "api",
-  "replicas": 3,
-  "enabled": true,
-  "tags": ["public", "critical"],
-  "limits": null
-}
+```text
+bounded UTF-8 bytes
+→ strict YAML parse
+→ primitive object graph
+→ schema validation
+→ AtlasConfig domain object
+→ business validation
+→ deterministic release manifest
+→ platform dry-run
+→ apply
+→ runtime verification
 ```
 
-JSON object key je vždy string. Poradie properties nemá byť business contract, hoci konkrétny parser alebo serializer ho môže zachovať.
+Regex sa v tomto flowe používa iba napríklad na lexical kontrolu mena `orders-api`. Nepoužíva sa na vyhľadávanie alebo prepísanie YAML keys.
 
-## 4. JSON syntax
+## 3. Päť odlišných hraníc
 
-JSON vyžaduje:
+### Byte a encoding boundary
 
-- double quotes pre strings a object keys,
-- presné literals `true`, `false`, `null`,
-- žiadne comments,
-- žiadne trailing commas,
-- správne escape sequences,
-- jeden top-level JSON value.
+Určuje, aké bytes sa čítajú, ich maximálnu veľkosť a encoding.
 
-Neplatný JSON:
+### Parser boundary
 
-```json
-{
-  'service': 'api',
-  "replicas": 3,
-}
-```
+Určuje, či bytes zodpovedajú gramatike YAML alebo JSON a aké runtime hodnoty vzniknú.
 
-Formáty ako JSON5 alebo JSONC majú iné gramatiky. Consumer musí explicitne deklarovať, ktorý formát prijíma.
+### Schema boundary
 
-## 5. JSON encoding a Unicode
+Určuje očakávané fields, typy a lokálne constraints.
 
-JSON prenášaný medzi systémami má štandardne používať UTF-8. Pri práci so súbormi vždy nastav encoding explicitne.
+### Business boundary
 
-Riziká:
+Určuje cross-field pravidlá, policy, capacity a oprávnenosť zmeny.
 
-- neplatné UTF-8 bytes,
-- neočakávaný BOM,
-- rozdielne Unicode normalization forms,
-- escaped surrogate pairs,
-- zámenné vizuálne znaky,
-- chybný HTTP `Content-Type` alebo charset.
+### Runtime verification boundary
 
-Dve vizuálne rovnaké strings nemusia mať rovnakú byte alebo code-point reprezentáciu. Ak identifikátor tvorí security boundary, definuj allowed alphabet a normalization policy.
+Určuje, či platforma skutočne dosiahla zamýšľaný stav.
 
-## 6. JSON numbers
+Platný YAML preto ešte neznamená platnú ani bezpečnú konfiguráciu.
 
-JSON syntax nerozlišuje univerzálny integer, decimal a binary floating-point runtime typ. Consumer rozhoduje, ako token reprezentuje.
+## 4. Najprv čítaj ohraničené bytes
 
-Riziká:
+Pred parsingom definuj:
 
-- veľký integer stratí presnosť v prostredí s IEEE-754 `double`,
-- desatinná hodnota sa zaokrúhli,
-- `1`, `1.0` a `1e0` môžu mať rozdielnu canonical formu,
-- `NaN` a infinity nie sú štandardné JSON numbers,
-- ID reprezentované číslom môže zmeniť hodnotu alebo odstrániť leading zeros.
+- maximálnu veľkosť dokumentu,
+- UTF-8 a BOM policy,
+- povolený počet YAML dokumentov,
+- maximálnu hĺbku,
+- timeout parsera, ak ho implementácia podporuje,
+- alias a expanded-node limity pri YAML.
 
-Identifikátory, telefónne čísla, account numbers a presné decimal hodnoty majú často byť strings s explicitnou schema semantics.
-
-## 7. Absent, `null` a empty hodnoty
-
-Nasledujúce stavy nie sú ekvivalentné:
-
-```json
-{}
-```
-
-```json
-{"value": null}
-```
-
-```json
-{"value": ""}
-```
-
-```json
-{"value": []}
-```
-
-```json
-{"value": false}
-```
-
-Schema a business contract musia definovať:
-
-- či absent field aktivuje default,
-- či `null` znamená odstrániť, zdediť alebo neznámu hodnotu,
-- či empty collection je validná,
-- či `false` a `0` sú explicitné hodnoty, nie „missing“.
-
-## 8. Duplicate JSON object keys
-
-JSON document môže textovo obsahovať rovnaký key viackrát:
-
-```json
-{
-  "replicas": 2,
-  "replicas": 5
-}
-```
-
-Interoperabilita je nebezpečná, pretože parsers môžu:
-
-- ponechať poslednú hodnotu,
-- ponechať prvú hodnotu,
-- zachovať všetky páry v špeciálnej štruktúre,
-- zlyhať.
-
-Pre config, podpisovanie a security-sensitive payloady majú byť duplicate keys validation error. Inak môžu dve vrstvy systému interpretovať ten istý dokument rozdielne.
-
-Python parser možno nakonfigurovať cez `object_pairs_hook`, ak potrebuješ explicitne detegovať duplicity.
-
-## 9. JSON parsing
-
-Python:
+Príklad v Pythone:
 
 ```python
-import json
 from pathlib import Path
 
-with Path("config.json").open(encoding="utf-8") as handle:
-    data = json.load(handle)
+MAX_CONFIG_BYTES = 1_000_000
+
+
+def read_config(path: Path) -> str:
+    raw = path.read_bytes()
+    if len(raw) > MAX_CONFIG_BYTES:
+        raise ValueError("configuration exceeds size limit")
+    return raw.decode("utf-8-sig")
 ```
 
-PowerShell:
+`utf-8-sig` môže byť vedomou policy pre tolerovanie BOM. Iný systém môže BOM odmietať. Dôležité je konzistentné rozhodnutie, nie náhodný default knižnice.
 
-```powershell
-$data = Get-Content config.json -Raw -Encoding utf8 | ConvertFrom-Json
-```
+## 5. Parser vytvára generic object graph
 
-Bash s `jq`:
+YAML mapping alebo JSON object sa typicky zmení na dictionary-like objekt. Sequence alebo array sa zmení na list. Scalar sa preloží na string, number, boolean alebo null-like hodnotu.
 
-```bash
-jq -e '.service == "api" and (.replicas | type == "number")' config.json
-```
-
-Parser output je nedôveryhodný generic object. Pred použitím ho validuj a prelož do doménového modelu.
-
-## 10. JSON serialization
-
-Python:
+Parser output je stále nedôveryhodný generic object:
 
 ```python
-output = json.dumps(
-    data,
-    ensure_ascii=False,
-    indent=2,
-    sort_keys=True,
-) + "\n"
+raw: object = parse_yaml(content)
 ```
 
-PowerShell:
+Až ďalšia vrstva má zistiť, či ide o mapping s presnými Atlas fields.
 
-```powershell
-$data | ConvertTo-Json -Depth 20
-```
+Neposielaj parser output priamo do deployment API iba preto, že parsing uspel.
 
-Pri serializácii definuj:
+## 6. JSON má menší syntax model, nie nulové riziko
 
-- encoding,
-- newline na konci súboru,
-- indentation,
-- key ordering, ak sa používa,
-- decimal a datetime reprezentáciu,
-- Unicode escaping,
-- maximum nesting depth,
-- správanie pri neznámom type.
+JSON podporuje:
 
-`ConvertTo-Json -Depth` môže pri príliš malej hodnote skrátiť nested štruktúru. Serializer output treba testovať, nie iba vizuálne prezrieť.
+- object,
+- array,
+- string,
+- number,
+- boolean,
+- `null`.
 
-## 11. Deterministic serialization verzus canonicalization
+Relevantné failure boundaries:
 
-Stabilné formatovanie znižuje diff noise, ale nie je automaticky kryptografická canonicalization.
+- duplicate object keys,
+- veľké integers alebo decimals interpretované rozdielnymi runtime typmi,
+- absent field verzus explicitné `null`,
+- príliš hlboký document,
+- nečakaný Unicode alebo normalization model,
+- serializer s príliš malou depth,
+- rozdiel medzi stabilným formattingom a štandardizovanou canonicalization.
 
-```text
-stable pretty output
-≠
-canonical bytes defined by a standard
-```
+Identifikátory a presné decimal hodnoty často patria do stringu alebo explicitného decimal typu doménovej vrstvy, nie do neurčitého JSON number contractu.
 
-Pre hashing alebo signing musí producer aj verifier používať rovnaký canonicalization štandard vrátane:
+## 7. Duplicate keys musia byť chyba
 
-- property ordering,
-- number normalization,
-- Unicode escaping,
-- whitespace,
-- duplicate-key policy.
-
-„Sort keys“ samo osebe nestačí.
-
-## 12. JSON Schema
-
-JSON Schema môže definovať shape a lokálne constraints:
+Text môže obsahovať:
 
 ```json
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "type": "object",
-  "required": ["service", "replicas"],
-  "properties": {
-    "service": {
-      "type": "string",
-      "pattern": "^[a-z][a-z0-9-]{2,31}$"
-    },
-    "replicas": {
-      "type": "integer",
-      "minimum": 1,
-      "maximum": 100
-    }
-  },
-  "additionalProperties": false
+  "publicAccess": false,
+  "publicAccess": true
 }
 ```
 
-Dôležité je deklarovať schema draft. Keywords a ich semantics sa medzi draftmi môžu líšiť.
-
-Schema neoverí automaticky:
-
-- či service existuje,
-- či je port dostupný,
-- či má používateľ oprávnenie,
-- či capacity stačí,
-- či kombinácia s iným dokumentom dáva zmysel,
-- či consumer skutočne používa tú istú schema version.
-
-## 13. Unknown fields a compatibility
-
-`additionalProperties: false` odhalí preklepy a nečakané polia. Zároveň môže zablokovať forward-compatible rollout, keď nový producer pridá pole skôr, než sa aktualizuje starý consumer.
-
-Policy musí určiť:
-
-- ktoré objekty sú strict,
-- ktoré tolerujú unknown fields,
-- či sa unknown fields zachovajú pri read-modify-write,
-- ako sa označujú deprecated fields,
-- aký je producer/consumer rollout order.
-
-# YAML
-
-## 14. YAML data model
-
-YAML dokument typicky používa:
-
-- **mapping** — key/value kolekcia,
-- **sequence** — usporiadaný zoznam,
-- **scalar** — string, number, boolean, null alebo parser-specific typ.
+alebo:
 
 ```yaml
-service: api
-replicas: 3
-enabled: true
-tags:
-  - public
-  - critical
-limits: null
+publicAccess: false
+publicAccess: true
 ```
 
-Indentation je syntax. Tab characters sa nemajú používať na indentation.
+Rôzne parsers môžu ponechať prvú hodnotu, poslednú hodnotu alebo zlyhať. Pri config, policy, signing a IaC dokumentoch preto duplicate keys odmietni ešte na parser boundary.
 
-## 15. YAML stream a documents
+Bez tejto policy môžu dve vrstvy vyhodnotiť rovnaké bytes odlišne.
 
-Jeden YAML stream môže obsahovať viac documents:
+## 8. YAML implicit typing je súčasť kontraktu
 
-```yaml
----
-service: api
----
-service: worker
-```
-
-Consumer musí explicitne vedieť, či očakáva:
-
-- presne jeden dokument,
-- zero alebo jeden,
-- viac dokumentov,
-- stream spracovaný postupne.
-
-Použitie single-document loadera na multi-document input môže zlyhať alebo ignorovať časť vstupu podľa knižnice.
-
-## 16. YAML 1.1 a YAML 1.2
-
-YAML typing sa môže líšiť podľa verzie a parser schema.
-
-Historické YAML 1.1 parsers môžu interpretovať hodnoty ako:
+YAML parser a schema version môžu interpretovať tieto scalars rozdielne:
 
 ```yaml
 feature: on
 answer: yes
+version: 1.0
+date: 2026-07-26
 ```
 
-ako booleans. YAML 1.2 core schema je bližšie JSON literals, ale implementácie nie sú jednotné.
-
-Pre portability cituj nejednoznačné scalars:
+Pre portable config cituj hodnoty, ktoré majú zostať strings:
 
 ```yaml
 feature: "on"
 answer: "yes"
 version: "1.0"
-date: "2026-07-24"
+date: "2026-07-26"
 ```
 
-Consumer version a parser configuration sú súčasť formátového kontraktu.
+Consumer musí deklarovať podporovaný YAML model. Rozdiel medzi YAML 1.1 a 1.2 alebo parser-specific schema nie je vizuálny detail; môže zmeniť runtime typ.
 
-## 17. Plain, single-quoted a double-quoted scalars
-
-Plain scalar:
-
-```yaml
-name: api
-```
-
-Single-quoted scalar interpretuje minimum escape syntaxe:
-
-```yaml
-pattern: '^api-[0-9]+$'
-```
-
-Double-quoted scalar interpretuje YAML escape sequences:
-
-```yaml
-message: "line one\nline two"
-```
-
-Pri regexoch a Windows paths je single quote často čitateľnejší. Vždy však rozlišuj YAML quoting od regex, shell alebo template escaping vrstvy.
-
-## 18. Block scalars
-
-Literal block zachováva riadkovú štruktúru:
-
-```yaml
-script: |
-  set -e
-  echo "start"
-  run-task
-```
-
-Folded block väčšinu line breaks skladá do spaces:
-
-```yaml
-description: >
-  This is a long
-  description represented as
-  one logical paragraph.
-```
-
-Chomping indicators určujú trailing newlines:
-
-- `|-` — odstráni trailing newline,
-- `|` — ponechá jeden trailing newline,
-- `|+` — zachová ďalšie trailing newlines.
-
-Pri embedded scripts môže jediný newline meniť behavior alebo hash artifactu.
-
-## 19. Anchors a aliases
+## 9. YAML anchors a aliases zvyšujú parserový state
 
 ```yaml
 defaults: &defaults
-  timeout: 10
-  retries: 3
+  replicas: 3
+  healthPath: /health/ready
 
-api:
+orders:
   <<: *defaults
-  port: 8080
+  replicas: 4
 ```
 
-Anchor označí node a alias naň odkazuje. Po parse môžu aliasy reprezentovať zdieľanú object identity alebo skopírovanú hodnotu podľa knižnice a následného spracovania.
+Anchors môžu znižovať duplicitu, ale pridávajú:
 
-Riziká:
+- nepriamu lokálnu interpretáciu,
+- override a merge semantics,
+- parser compatibility riziko,
+- alias expansion riziko,
+- nečakanú shared object identity po parse,
+- round-trip zmeny.
 
-- znížená lokálna čitateľnosť,
-- zložité override semantics,
-- tooling bez plnej podpory,
-- prekvapenie pri mutation parsed objectu,
-- veľká expanzia aliases.
+Pre konfiguráciu určenú viacerým consumers používaj jednoduchý podporovaný subset. `safe_load` obmedzuje konštrukciu ľubovoľných language objects, ale automaticky nerieši všetky resource-exhaustion riziká.
 
-## 20. Merge key portability
-
-Syntax `<<` sa široko používa, ale merge-key behavior nie je univerzálne podporovaný ako rovnaký core feature vo všetkých YAML consumers.
-
-Pred použitím over:
-
-- parser implementation,
-- platform schema pipeline,
-- duplicate/override precedence,
-- serializer round-trip behavior.
-
-Konfigurácia určená pre viac nástrojov má preferovať jednoduchší portable subset.
-
-## 21. Alias expansion a resource exhaustion
-
-Škodlivý YAML môže vytvoriť veľké množstvo alias-expanded štruktúr alebo hlboké nesting. Aj safe loader môže potrebovať limity na:
-
-- input bytes,
-- document count,
-- nesting depth,
-- alias count,
-- expanded node count,
-- parse duration.
-
-„Safe“ často znamená zákaz vytvárania ľubovoľných language objects, nie automatickú ochranu proti všetkým denial-of-service vstupom.
-
-## 22. Tags a unsafe deserialization
-
-YAML tags môžu určovať explicitný typ. Niektoré language-specific loaders historicky umožňovali konštrukciu objektov alebo vykonanie nebezpečných code paths.
-
-Python:
+## 10. Normalizácia vytvorí doménový objekt
 
 ```python
-import yaml
+from dataclasses import dataclass
+from typing import Any
 
-data = yaml.safe_load(content)
+
+@dataclass(frozen=True, slots=True)
+class AtlasConfig:
+    api_version: str
+    service: str
+    environment: str
+    image: str
+    replicas: int
+    health_path: str
+    public_access: bool
+
+
+def parse_atlas_config(data: Any) -> AtlasConfig:
+    if not isinstance(data, dict):
+        raise ValueError("top-level configuration must be a mapping")
+
+    expected = {
+        "apiVersion",
+        "service",
+        "environment",
+        "image",
+        "replicas",
+        "healthPath",
+        "publicAccess",
+    }
+    unknown = set(data) - expected
+    missing = expected - set(data)
+
+    if unknown:
+        raise ValueError(f"unknown fields: {sorted(unknown)}")
+    if missing:
+        raise ValueError(f"missing fields: {sorted(missing)}")
+
+    if type(data["replicas"]) is not int:
+        raise ValueError("replicas must be an integer")
+    if type(data["publicAccess"]) is not bool:
+        raise ValueError("publicAccess must be a boolean")
+
+    return AtlasConfig(
+        api_version=str(data["apiVersion"]),
+        service=str(data["service"]),
+        environment=str(data["environment"]),
+        image=str(data["image"]),
+        replicas=data["replicas"],
+        health_path=str(data["healthPath"]),
+        public_access=data["publicAccess"],
+    )
 ```
 
-Nedôveryhodný input nikdy nenačítavaj cez unsafe/general object loader. Aj pri safe loaderi následne validuj expected primitive structure.
+Použitie `type(value) is int` je v tomto príklade zámerné, pretože v Pythone je `bool` subclass `int`. Doménový contract má rozhodnúť, či takúto konverziu povoľuje.
 
-## 23. Duplicate YAML keys
+## 11. Schema a business validácia riešia rozdielne otázky
 
-```yaml
-replicas: 2
-replicas: 5
-```
+Schema môže overiť:
 
-Parsers môžu použiť poslednú hodnotu, prvú hodnotu alebo zlyhať. Duplicate keys majú byť explicitne odmietnuté, najmä pri:
+- required fields,
+- typy,
+- formát alebo lexical pattern,
+- minimum a maximum,
+- unknown-field policy,
+- lokálnu štruktúru.
 
-- security policy,
-- Kubernetes a IaC manifests,
-- CI configuration,
-- signed config,
-- config override vrstve.
-
-Lint nestačí, ak produkčný parser používa odlišné semantics. Validation má používať rovnaký parser model ako runtime alebo prísnejší kompatibilný model.
-
-## 24. YAML nie je template language
-
-Čistý YAML:
-
-```yaml
-image: app:1.2.3
-replicas: 3
-```
-
-Template source:
-
-```yaml
-image: {{ image_repository }}:{{ image_tag }}
-```
-
-Template source nemusí byť platný YAML. Diagnostický lifecycle je:
+Business validácia overí napríklad:
 
 ```text
-template source
-→ template input values
-→ rendered text
-→ YAML parser
-→ structural schema
-→ platform validation/admission
-→ runtime behavior
+prod replicas musia byť aspoň 3
+publicAccess=true vyžaduje explicitnú security approval
+image musí používať immutable digest
+healthPath musí existovať v service contracte
+apiVersion musí byť podporovaná release platformou
 ```
 
-Kontroluj a uchovávaj rendered output, pretože to je skutočný vstup parsera a platformy.
+Príklad:
 
-## 25. Templating security
-
-Riziká templatingu:
-
-- string injection naruší YAML štruktúru,
-- nesprávne quoting zmení typ,
-- secret sa objaví v rendered artifacte alebo logu,
-- template function vykonáva nečakané I/O,
-- hodnoty sa interpretujú druhýkrát v shelli alebo inom jazyku,
-- environment-specific default vytvorí drift.
-
-Preferuj structured value injection alebo serializer namiesto ručného skladania YAML stringov.
-
-## 26. YAML parsing a round-trip
-
-Bežný parser môže stratiť:
-
-- comments,
-- pôvodné quoting,
-- anchor names,
-- key ordering,
-- exact block style,
-- whitespace.
-
-Ak nástroj upravuje human-maintained YAML, treba rozhodnúť, či:
-
-- generuje celý súbor zo source of truth,
-- používa round-trip parser,
-- aplikuje structured patch,
-- mení iba explicitne vlastnenú sekciu.
-
-Generic parse-modify-serialize môže vytvoriť veľký formatting diff.
-
-## 27. YAML schema a platform validation
-
-Syntaktická kontrola:
-
-```bash
-yamllint config.yaml
-yq '.' config.yaml
+```python
+def validate_business(config: AtlasConfig) -> None:
+    if config.environment == "prod" and config.replicas < 3:
+        raise ValueError("production requires at least three replicas")
+    if "@sha256:" not in config.image:
+        raise ValueError("image must use an immutable digest")
+    if config.public_access:
+        raise ValueError("public access requires separate approved workflow")
 ```
 
-Kubernetes server-side validation:
+Schema-valid dokument môže byť prevádzkovo nebezpečný. Business-valid desired state môže stále zlyhať pri platform admission alebo runtime reconciliation.
 
-```bash
-kubectl apply --dry-run=server -f manifest.yaml
+## 12. Absent, null a empty nie sú synonymá
+
+Tieto stavy majú rozdielny význam:
+
+```json
+{}
+{"value": null}
+{"value": ""}
+{"value": []}
+{"value": false}
+{"value": 0}
 ```
 
-Validácia má typicky viac vrstiev:
+Config contract musí definovať:
 
-```text
-YAML syntax
-→ Kubernetes/OpenAPI schema
-→ admission policy
-→ referential dependencies
-→ rendered diff/plan
-→ runtime reconciliation
-```
+- či absent aktivuje default,
+- či `null` znamená unset, inherit alebo explicitne prázdnu hodnotu,
+- či empty collection je povolená,
+- či `false` a `0` zostávajú explicitnými hodnotami,
+- či read-modify-write zachová unknown fields.
 
-Client-side parser nevie overiť server-side admission, CRD version alebo aktuálnu cluster policy.
+Pravdivostná skratka nesmie meniť doménovú semantiku.
 
-## 28. JSON verzus YAML
+## 13. Config precedence a merge sú samostatná gramatika
 
-| Vlastnosť | JSON | YAML |
-|---|---|---|
-| Primárny model | machine interchange | human-authored configuration |
-| Syntax | explicitná | flexibilná a indentation-based |
-| Comments | nie | áno |
-| Implicit typing | obmedzené | závisí od verzie/schema |
-| Multi-document stream | nie | áno |
-| Anchors a aliases | nie | áno |
-| Parser complexity | nižšia | vyššia |
-| Round-trip comments/style | nerelevantné | môže byť dôležité |
-
-JSON je často vhodnejší pre wire contract a generated artifacts. YAML je pohodlnejší pre ručne udržiavanú konfiguráciu, ale potrebuje prísnejší parser a validation discipline.
-
-## 29. Configuration merge a precedence
-
-Ak systém kombinuje viac config sources:
+Ak Atlas kombinuje:
 
 ```text
 defaults
-< shared file
-< environment-specific file
+< shared config
+< environment config
 < environment variables
-< CLI arguments
+< CLI
 ```
 
-Musí byť definované:
+musí definovať:
 
-- deep merge verzus whole-value replacement,
-- array append verzus replacement,
-- semantics `null`,
+- whole-value replacement verzus deep merge,
+- array replacement verzus append,
+- význam `null`,
 - delete/unset marker,
-- duplicate key handling,
 - provenance každej výslednej hodnoty,
+- conflict policy,
 - secret redaction.
 
-„Merge YAML files“ nie je jednoznačná operácia bez merge contractu.
+„Merge YAML files“ nie je jednoznačná operácia. Merge contract je samostatná súčasť config API.
 
-## 30. Schema evolution
+Po merge znovu vytvor a validuj doménový objekt. Nespoliehaj na to, že každá čiastková vrstva bola samostatne platná.
 
-Pri zmene formátu rieš:
-
-- explicitnú schema/version identity,
-- backward a forward compatibility,
-- unknown fields,
-- default values,
-- field rename a deprecation,
-- migration tooling,
-- producer/consumer rollout order,
-- round-trip zachovanie dát,
-- sunset policy.
-
-Breaking zmena môže vzniknúť aj sprísnením patternu, zmenou defaultu alebo prechodom z absent na required field.
-
-# Regular expressions
-
-## 31. Regex ako jazyk patternov
-
-Regex definuje množinu textov alebo častí textu zodpovedajúcich patternu.
-
-```regex
-^[a-z][a-z0-9-]{2,31}$
-```
-
-Pattern môže slúžiť na:
-
-- validation tvaru,
-- extraction hodnôt,
-- search,
-- replace,
-- tokenization jednoduchého stabilného formátu.
-
-Regex nie je vhodný ako náhrada parsera pre nested alebo kontextovú gramatiku.
-
-## 32. Regex dialect je súčasť kontraktu
-
-Engines sa líšia v podpore a semantics:
-
-- POSIX BRE,
-- POSIX ERE,
-- Python `re`,
-- .NET regex,
-- JavaScript regex,
-- PCRE/PCRE2,
-- RE2-like linear-time engines,
-- Bash `=~`,
-- `grep`, `sed` a `awk` varianty.
-
-Rozdiely zahŕňajú:
-
-- named-group syntax,
-- lookbehind,
-- backreferences,
-- lazy/possessive quantifiers,
-- atomic groups,
-- Unicode classes,
-- anchors,
-- timeout alebo linear-time guarantees.
-
-Pattern bez pomenovania engine a flags nie je úplná špecifikácia.
-
-## 33. Základné prvky
+## 14. Template source nie je výsledný dokument
 
 ```text
-.         ľubovoľný znak podľa DOTALL/newline semantics
-^         začiatok inputu alebo riadku podľa multiline mode
-$         koniec inputu/riadku; niekedy aj pred trailing newline
-*         0 alebo viac
-+         1 alebo viac
-?         0 alebo 1; pri quantifieri môže znamenať lazy variant
-{m,n}     rozsah počtu opakovaní
-[abc]     character class
-[^abc]    negovaná character class
-(...)     capturing group
-(?:...)   non-capturing group
-|         alternation
-\d        digit podľa engine/Unicode semantics
-\s        whitespace podľa engine semantics
-\w        word character podľa engine semantics
+template source
+→ template values
+→ rendered text
+→ YAML/JSON parser
+→ schema
+→ business validation
+→ platform plan
 ```
 
-Metacharacter má špeciálny význam iba v konkrétnom syntaktickom kontexte.
+Template source môže obsahovať syntax, ktorá ešte nie je platný YAML:
 
-## 34. Search, match a full match
+```yaml
+image: {{ image_repository }}@{{ image_digest }}
+```
 
-Tri rozdielne operácie:
+Autoritatívny vstup platformy je rendered output. Pipeline ho musí uchovať ako auditný artifact, znovu parse-nuť a validovať.
 
-- **search** — nájdi match kdekoľvek v inpute,
-- **prefix match** — match musí začínať na začiatku,
-- **full match** — celý input musí zodpovedať patternu.
+Preferuj structured value injection alebo serializer. Ručné skladanie stringov môže zmeniť quoting, typ alebo indentation a môže vložiť secret do rendered outputu.
 
-Python:
+## 15. Deterministická serializácia znižuje diff noise
+
+Pri generated manifeste definuj:
+
+- UTF-8 a BOM policy,
+- newline policy,
+- indentation,
+- ordering, ak ho workflow používa,
+- datetime a decimal representation,
+- Unicode escaping,
+- serializer version,
+- unknown-type behavior.
+
+Stabilný pretty output nie je automaticky kryptografická canonicalization:
+
+```text
+sort_keys=True
+≠
+štandardom definované canonical bytes
+```
+
+Hashing alebo signing vyžaduje konkrétny canonicalization contract zdieľaný producerom aj verifierom.
+
+## 16. Round-trip edit verzus generovaný artifact
+
+Bežný parse-modify-serialize môže stratiť:
+
+- comments,
+- quoting style,
+- anchor names,
+- key ordering,
+- block-scalar style,
+- whitespace.
+
+Nástroj musí vedieť, či:
+
+1. generuje celý súbor zo source of truth,
+2. používa round-trip parser,
+3. aplikuje structured patch,
+4. vlastní iba jednu explicitnú sekciu.
+
+Regex alebo line-by-line replacement nie je bezpečný generic structured patch.
+
+## 17. Regex má ohraničenú úlohu
+
+Atlas používa regex pre lexical tvar service name:
+
+```regex
+[a-z][a-z0-9-]{2,31}
+```
+
+V Pythone:
 
 ```python
 import re
 
-NAME_RE = re.compile(r"[a-z][a-z0-9-]{2,31}")
+SERVICE_RE = re.compile(r"[a-z][a-z0-9-]{2,31}", flags=re.ASCII)
 
-NAME_RE.search(value)
-NAME_RE.match(value)
-NAME_RE.fullmatch(value)
+
+def validate_service_name(value: str) -> None:
+    if SERVICE_RE.fullmatch(value) is None:
+        raise ValueError("invalid service name")
 ```
 
-Pre validation preferuj API typu `fullmatch()`, ak ho engine poskytuje. Znižuje závislosť od nejednoznačných anchor semantics.
+Následná business validácia ešte môže overiť, či služba existuje, či patrí danému tímu a či je povolená v prostredí.
 
-## 35. Anchors
+Regex validuje lexical shape. Nevaliduje celý business contract.
 
-Bežné anchors:
+## 18. Regex dialect a match API patria do kontraktu
 
-```regex
-^[0-9]+$
-```
+Pattern bez engine a flags nie je úplná špecifikácia.
 
-`^` a `$` môžu pri multiline flagu znamenať začiatok a koniec každého riadku. `$` môže v niektorých engines matchnúť aj pred trailing newline.
+Rozdiely existujú medzi:
 
-Niektoré engines poskytujú absolútne anchors ako `\A`, `\z` alebo `\Z`, ale ich názvy a semantics sa líšia. Pre security validation používaj engine-specific full-match API alebo presne zdokumentované absolute anchors.
+- Python `re`,
+- .NET regex,
+- JavaScript,
+- PCRE/PCRE2,
+- RE2-like engines,
+- POSIX BRE/ERE,
+- Bash `=~`,
+- `grep`, `sed` a `awk` implementáciami.
 
-## 36. Flags menia jazyk patternu
+Rozlišuj:
 
-Typické flags:
+- search kdekoľvek,
+- prefix match,
+- full match.
 
-- case-insensitive,
-- multiline,
-- dot-all/singleline,
-- verbose/free-spacing,
-- ASCII verzus Unicode,
-- culture-invariant podľa engine.
+Validation zvyčajne potrebuje full-match semantics. Anchors `^` a `$` môžu mať pri multiline režime iný význam než začiatok a koniec celého inputu.
 
-Pattern a flags musia byť reviewované spolu. `.` bez DOTALL typicky nematchuje newline. `^` a `$` s multiline menia rozsah validácie.
+## 19. Escaping má viac vrstiev
 
-## 37. Character classes a ranges
-
-```regex
-[a-z0-9-]
-```
-
-Explicitná ASCII class je vhodná, keď allowed alphabet tvorí kontrakt.
-
-`\w` môže podľa engine zahŕňať:
-
-- ASCII letters, digits a underscore,
-- širšie Unicode letters a digits,
-- culture-specific kategórie.
-
-Range semantics môžu závisieť od Unicode alebo locale modelu nástroja. Nepoužívaj neurčitú class pre security-sensitive identifier, ak potrebuješ presný alphabet.
-
-## 38. Groups a captures
-
-Non-capturing group:
-
-```regex
-^(?:dev|test|prod)-[0-9]+$
-```
-
-Named capture v .NET:
-
-```regex
-^(?<name>[a-z0-9-]+):(?<tag>[a-zA-Z0-9._-]+)$
-```
-
-Named capture v Pythone:
-
-```regex
-^(?P<name>[a-z0-9-]+):(?P<tag>[a-zA-Z0-9._-]+)$
-```
-
-Capture iba hodnoty, ktoré downstream logika potrebuje. Zbytočné captures komplikujú numbering a môžu mať performance overhead.
-
-## 39. Alternation precedence
-
-Pattern:
-
-```regex
-^cat|dog$
-```
-
-typicky znamená:
-
-```text
-(^cat) OR (dog$)
-```
-
-Nie celý input `cat` alebo `dog`. Správne grouping:
-
-```regex
-^(?:cat|dog)$
-```
-
-Alternation má nižšiu precedence než väčšina sekvenčných prvkov. Chýbajúce grouping je častý validation bug.
-
-## 40. Greedy, lazy a possessive quantifiers
-
-Greedy:
-
-```regex
-<.*>
-```
-
-sa snaží match rozšíriť čo najďalej a potom backtrackuje.
-
-Lazy:
-
-```regex
-<.*?>
-```
-
-sa snaží začať najkratším matchom, ale stále môže backtrackovať.
-
-Possessive quantifier alebo atomic group, ak ich engine podporuje, môže zabrániť spätnému uvoľneniu matchu.
-
-Žiadny variant nerobí regex vhodným parserom HTML alebo nested markup.
-
-## 41. Backreferences
-
-Backreference vyžaduje, aby neskoršia časť zopakovala text zachytený groupou:
-
-```regex
-^(\w+)\s+\1$
-```
-
-Backreferences zvyšujú expressive power, ale často znemožňujú linear-time engine a komplikujú performance analýzu. RE2-like engines ich typicky nepodporujú.
-
-## 42. Lookaround
-
-Positive lookahead:
-
-```regex
-^(?=.*[A-Z])(?=.*[0-9]).{12,}$
-```
-
-Lookahead a lookbehind kontrolujú kontext bez spotrebovania znakov. Podpora lookbehindu, variabilnej dĺžky a performance semantics sa medzi engines výrazne líši.
-
-Pri password policy regex často vytvára zložitú, ťažko vysvetliteľnú validation logiku. Viaceré explicitné kontroly v kóde bývajú čitateľnejšie a bezpečnejšie.
-
-## 43. Unicode a normalization
-
-Pred matchingom rozhodni:
-
-- či akceptuješ iba ASCII,
-- či normalizuješ NFC/NFKC alebo inú formu,
-- či case folding používa locale alebo invariant model,
-- či povoľuješ combining marks,
-- či vizuálne podobné znaky predstavujú riziko,
-- či length limit počíta bytes, code points alebo grapheme clusters.
-
-Normalizácia pred validáciou mení security semantics. Producer aj consumer musia používať konzistentný model.
-
-## 44. Escaping vrstvy
-
-Regex môže prechádzať viacerými jazykmi:
+Jeden pattern môže prejsť cez:
 
 ```text
 regex syntax
-→ programming-language string literal
-→ JSON/YAML string
-→ shell quoting
-→ template rendering
+→ language string
+→ YAML/JSON string
+→ template
+→ shell
 ```
 
 Raw regex:
@@ -917,7 +490,7 @@ Python raw string:
 pattern = r"^\d+\.\d+$"
 ```
 
-JSON string:
+JSON:
 
 ```json
 {"pattern": "^\\d+\\.\\d+$"}
@@ -929,150 +502,145 @@ YAML single-quoted scalar:
 pattern: '^\d+\.\d+$'
 ```
 
-Debugging musí určiť, ktorá vrstva spotrebovala alebo pridala backslash.
+Diagnostika musí určiť, ktorá vrstva backslash pridala, odstránila alebo interpretovala.
 
-## 45. Regex v Pythone
+## 20. Unicode model musí byť explicitný
 
-```python
-import re
+Pred matchingom rozhodni:
 
-NAME_RE = re.compile(r"[a-z][a-z0-9-]{2,31}", flags=re.ASCII)
+- ASCII-only verzus Unicode,
+- normalization form,
+- case-folding model,
+- povolené combining marks,
+- ochranu pred vizuálne podobnými znakmi,
+- či length limit počíta bytes, code points alebo grapheme clusters.
 
+Normalizácia pred validáciou mení security semantics. Producer aj consumer musia používať rovnaký model.
 
-def is_valid_name(value: str) -> bool:
-    return NAME_RE.fullmatch(value) is not None
-```
+Pre systémové identifiers je často bezpečnejší explicitný ASCII allowlist než všeobecné `\w`.
 
-Compile pattern pri opakovanom použití. Explicitné `re.ASCII` alebo Unicode semantics dokumentujú allowed character model.
+## 21. Regex runtime musí byť ohraničený
 
-Python štandardný `re` engine nemá univerzálny per-match timeout. Pri nedôveryhodnom vstupe používaj jednoduché patterns, limit dĺžky alebo engine/knižnicu s vhodným runtime modelom.
-
-## 46. Regex v PowerShelli
-
-```powershell
-if ($Name -cmatch '^[a-z][a-z0-9-]{2,31}$') {
-    $Matches[0]
-}
-```
-
-`-match` je štandardne case-insensitive; `-cmatch` je case-sensitive.
-
-`$Matches` je implicitný mutable state. Po neúspešnom matchi sa nespoliehaj na jeho predchádzajúci obsah. Najprv over boolean výsledok a captures použi okamžite v tom istom control flowe.
-
-.NET regex podporuje timeout pri vytvorení `Regex` objektu. Pre input kontrolovaný používateľom má byť timeout súčasť threat modelu.
-
-## 47. Regex v Bash
-
-```bash
-pattern='^[a-z][a-z0-9-]{2,31}$'
-if [[ $name =~ $pattern ]]; then
-  printf 'valid\n'
-fi
-```
-
-Bash `=~` používa vlastné ERE-like semantics. Quoting pravej strany menilo medzi verziami behavior a môže zmeniť metacharacters na literals. Pattern v premennej je často čitateľnejší.
-
-Captures sú dostupné cez `BASH_REMATCH`, ktoré je globálne shell state a môže byť prepísané ďalším matchom.
-
-## 48. `grep`, `sed` a `awk`
-
-```bash
-grep -E '^[0-9]+$' input.txt
-sed -E 's/^([a-z]+)=/\1: /' input.txt
-awk -F= '$1 == "port" { print $2 }' config.env
-```
-
-Rozlišuj:
-
-- POSIX basic regex,
-- POSIX extended regex,
-- PCRE mode,
-- GNU/BSD/BusyBox implementáciu,
-- locale a binary/text mode.
-
-CLI option s podobným názvom nemusí mať rovnakú podporu na všetkých platformách.
-
-## 49. Validation verzus extraction
-
-Validation pattern:
-
-```regex
-^[0-9]{1,5}$
-```
-
-Extraction pattern:
-
-```regex
-status=(?<status>[0-9]{3})
-```
-
-Validation tvaru nenahrádza semantic validation. Port `99999` zodpovedá prvému patternu, ale nie je platný TCP/UDP port.
-
-Odporúčaný postup:
-
-```text
-match exact lexical shape
-→ convert to domain type
-→ validate range and cross-field rules
-```
-
-## 50. Catastrophic backtracking
-
-Problematický pattern:
+Pattern:
 
 ```regex
 ^(a+)+$
 ```
 
-Pri dlhom non-matching inpute môže backtracking engine skúšať exponenciálne množstvo partition možností.
+môže pri dlhom non-matching inpute spôsobiť catastrophic backtracking.
 
-Rizikové konštrukcie:
+ReDoS ochrany:
 
-- nested quantifiers,
-- ambiguous alternation,
-- opakované groups s prekrývajúcimi sa matches,
-- veľké `.*` okolo ďalších constraints,
-- backreferences s nejasným rozsahom.
-
-## 51. ReDoS
-
-Regular Expression Denial of Service vznikne, keď útočník kontroluje input a pattern má patologický runtime alebo memory behavior.
-
-Ochrany:
-
-- limit input length pred regexom,
-- jednoduchší jednoznačný pattern,
-- linear-time engine,
-- match timeout,
+- limit input length,
+- jednoduchý jednoznačný pattern,
+- linear-time engine, kde je vhodný,
+- match timeout, ak ho engine podporuje,
 - bounded concurrency,
 - adversarial performance tests,
-- nepovoľovať user-supplied patterns bez sandbox/limit modelu.
+- zákaz user-supplied patternov bez sandboxu a limitov.
 
-Regex v request validation path je security-sensitive code.
+Regex v request alebo config validation path je security-sensitive code.
 
-## 52. Regex nie je univerzálny parser
+## 22. Worked failure: dve vrstvy videli inú security hodnotu
 
-Regexom neparsuj:
+Rendered YAML obsahoval:
 
-- nested JSON alebo YAML,
-- HTML/DOM,
-- programovací jazyk,
-- komplexné CSV quoting,
-- recursive expressions,
-- protocol s escape a nesting grammar.
+```yaml
+service: orders-api
+publicAccess: false
+replicas: 4
+publicAccess: true
+```
 
-Použi parser, ktorý pozná grammar, escaping a nesting.
+Policy scanner použil parser, ktorý ponechal prvú hodnotu. Deployment tool ponechal poslednú.
 
-## 53. Secrets a citlivá konfigurácia
+Výsledok:
 
-YAML/JSON files často obsahujú credentials alebo references na ne.
+```text
+scanner videl publicAccess=false
+→ approval prešla
+→ runtime parser videl publicAccess=true
+→ služba sa publikovala externe
+```
+
+Príčina nebola iba „preklep v YAML“. Pipeline nemala jednotný parser contract ani duplicate-key rejection.
+
+Náprava:
+
+1. rendered bytes sa archivujú,
+2. strict parser odmietne duplicity,
+3. ten istý primitive model vstupuje do schema a policy validácie,
+4. deployment manifest sa generuje z validovaného doménového objektu,
+5. platform dry-run a runtime verification kontrolujú exposure.
+
+## 23. Worked failure: regex prepísal nesprávny image field
+
+Pôvodná automatizácia:
+
+```bash
+sed -E -i 's#image: .*#image: registry/orders:new#' deployment.yaml
+```
+
+Manifest obsahoval:
+
+```yaml
+containers:
+  - name: orders
+    image: registry/orders:old
+  - name: telemetry-sidecar
+    image: registry/telemetry:stable
+```
+
+Regex zmenil oba riadky. YAML zostal syntakticky platný a diff nebol dôsledne reviewnutý.
+
+Dôsledok:
+
+```text
+orders image sa zmenil správne
++ sidecar dostal neexistujúci orders image
+→ pod neprešiel readiness
+```
+
+Náprava je structured patch podľa identity containeru:
+
+```text
+parse YAML
+→ nájdi containers[name=orders]
+→ zmeň presné field
+→ serialize
+→ reparse
+→ schema/platform validation
+→ verify rollout
+```
+
+Regex nepozná YAML nesting ani doménovú identitu objektu.
+
+## 24. Schema evolution potrebuje rollout model
+
+Pri zmene config formátu definuj:
+
+- explicitnú schema alebo API version,
+- backward a forward compatibility,
+- unknown-field policy,
+- defaults,
+- rename a deprecation,
+- migration tooling,
+- producer/consumer rollout order,
+- round-trip zachovanie neznámych dát,
+- sunset policy.
+
+Breaking change nie je iba odstránenie field-u. Môže ňou byť aj nový required field, sprísnený pattern, zmena defaultu alebo zmena významu `null`.
+
+## 25. Secrets sú samostatný lifecycle
+
+YAML a JSON často obsahujú secret references, ale nemajú sa stať všeobecným secret store.
 
 Controls:
 
-- necommitovať reálne secrets,
-- používať secret references alebo sealed/encrypted workflow podľa platformy,
-- neprintovať celý config do logu,
-- redigovať rendered output,
+- necommitovať plaintext credentials,
+- používať workload identity alebo secret reference,
+- nelogovať celý parsed alebo rendered config,
+- redigovať plan a diffs,
 - chrániť temp files a backups,
 - nastaviť minimálne permissions,
 - oddeliť public config od secret material,
@@ -1080,141 +648,81 @@ Controls:
 
 Base64 je encoding, nie encryption.
 
-## 54. Bezpečný write lifecycle
+## 26. Bezpečný read–render–apply lifecycle
 
-Pri generovaní konfigurácie:
+```text
+read bounded bytes
+→ strict safe parse
+→ reject duplicate/ambiguous constructs
+→ schema validation
+→ domain normalization
+→ business validation
+→ merge desired state
+→ deterministic serialization
+→ reparse generated bytes
+→ platform dry-run/admission
+→ atomic publication
+→ reconcile
+→ runtime verification
+```
 
-1. vytvor doménový object,
-2. validuj business pravidlá,
-3. serializuj cez knižnicu,
-4. zapíš temporary file v cieľovom filesysteme,
-5. znovu parse-ni generated output,
-6. schema-validuj ho,
-7. spusti platform-specific dry-run alebo plan,
-8. vykonaj atomic replace,
-9. reload/reconcile službu,
-10. over runtime desired state.
+Každá fáza vytvára vlastný dôkaz. Parser success nemožno použiť ako dôkaz schema, policy alebo runtime success.
 
-Ručné skladanie JSON/YAML stringov obchádza escaping a type safety serializera.
+## 27. Diagnostický postup
 
-## 55. Diagnostika JSON/YAML
+Keď konfigurácia nefunguje:
 
-### Parser hlási chybu na neskoršom riadku
+1. zachovaj presné source a rendered bytes,
+2. over encoding, BOM a line endings,
+3. identifikuj parser, YAML/JSON version a options,
+4. odmietni duplicate keys a nečakané documents,
+5. vypíš parsed primitive shape bez secrets,
+6. over schema version a unknown fields,
+7. over config precedence a provenance hodnôt,
+8. porovnaj doménový objekt s generated manifestom,
+9. spusti platform-specific dry-run alebo plan,
+10. over reálne načítaný config a runtime postcondition.
 
-Skutočná príčina môže byť skôr:
+Pri regex failure navyše over:
 
-- neuzavretý string,
-- neplatný escape,
-- chýbajúca closing collection,
-- nesprávna indentation,
-- tab v YAML indentation,
-- template expression narušujúci syntax.
-
-### Hodnota zmenila typ
-
-Skontroluj:
-
-- YAML version/schema,
-- quoting,
-- template render,
-- environment override parser,
-- serializer round-trip,
-- schema conversion.
-
-### Tool ignoruje field
-
-Možné príčiny:
-
-- preklep a permissive unknown fields,
-- nesprávna schema/API version,
-- field na nesprávnej úrovni,
-- deprecated alebo nepodporovaný field,
-- template ho odstránil,
-- proces číta iný config file,
-- reload neprebehol.
-
-### Diff zmenil celý dokument
-
-Over:
-
-- serializer a parser version,
-- key ordering,
-- line endings,
-- indentation,
-- Unicode escaping,
-- round-trip comment/style loss.
-
-## 56. Diagnostika regexu
-
-### Pattern nič nenájde
-
-Skontroluj:
-
-- search verzus full-match API,
-- anchors,
-- multiline a dot-all flags,
-- case sensitivity,
+- engine a flags,
+- search verzus full match,
 - escaping vrstvy,
-- regex dialect,
-- Unicode/ASCII semantics,
-- `\r` v CRLF inpute.
+- Unicode/ASCII model,
+- CRLF/newline semantics,
+- input length a runtime.
 
-### Pattern nájde príliš veľa
+## 28. Referenčné pravidlá
 
-Skontroluj:
+- JSON/YAML parsuj parserom, nie regexom.
+- Duplicate keys odmietni.
+- Safe YAML loader doplň resource limitmi.
+- Parser output prelož do explicitného doménového typu.
+- Schema a business validation drž oddelene.
+- Config merge a precedence dokumentuj ako contract.
+- Validuj rendered output, nie iba template source.
+- Deterministický serializer nie je automaticky canonicalizer.
+- Human-maintained YAML neupravuj generic parse–serialize bez round-trip policy.
+- Validation regex používaj s full-match semantics.
+- Engine, flags, Unicode model a runtime limit sú súčasť regex contractu.
+- Structured mutation vykonaj podľa identity objektu, nie podľa vizuálneho riadku.
+- Po apply over reálny runtime stav.
 
-- greedy quantifier,
-- chýbajúce grouping pri alternation,
-- príliš širokú character class,
-- chýbajúci full-match,
-- dot-all alebo multiline flag.
-
-### Pattern je pomalý
-
-Testuj:
-
-- dlhý non-matching input,
-- nested quantifiers,
-- ambiguous alternation,
-- backreferences,
-- veľký capture count,
-- chýbajúci timeout alebo input limit.
-
-## 57. Prevádzkový checklist
-
-Pred použitím config alebo regex pipeline over:
-
-- presný formát, parser a version sú deklarované,
-- input bytes a nesting majú limity,
-- duplicate keys sa odmietajú,
-- YAML loader je safe a má alias limits,
-- schema draft/version je explicitná,
-- unknown-field policy je vedomá,
-- config merge a precedence sú definované,
-- secrets sú oddelené a redigované,
-- rendered output sa parse-ne a validuje,
-- serializer output je deterministický,
-- regex engine a flags sú známe,
-- validation používa full-match semantics,
-- Unicode/ASCII model je explicitný,
-- input length a regex runtime sú ohraničené,
-- adversarial testy pokrývajú ReDoS riziko.
-
-## 58. Časté omyly
+## 29. Časté omyly
 
 ### „Platný YAML znamená platnú konfiguráciu“
 
-Nie. Potrebuješ platform schema, business validation a runtime verification.
+Nie. Stále chýba schema, business, platform a runtime validation.
 
 ### „YAML je iba JSON s comments“
 
-Nie. Má implicit typing, documents, anchors, aliases, tags a komplexnejší parser model.
+Nie. Má implicit typing, document streams, anchors, aliases, tags a zložitejší parser model.
 
 ### „Safe loader vyrieši všetky YAML riziká“
 
-Nie. Znižuje object-construction riziko, ale stále treba limity na veľkosť, nesting a aliases.
+Nie. Resource exhaustion, duplicate keys a doménová validácia zostávajú.
 
-### „JSON object nemôže mať duplicate keys“
+### „JSON object nemôže obsahovať duplicate keys“
 
 Text ich môže obsahovať a parsers ich môžu interpretovať rozdielne.
 
@@ -1224,44 +732,62 @@ Nie bez presného canonicalization štandardu.
 
 ### „Regex validuje business pravidlá“
 
-Regex typicky validuje lexical shape. Range, existence a cross-field pravidlá patria do doménovej validácie.
+Regex typicky validuje lexical shape. Range, existencia, ownership a cross-field pravidlá patria do doménovej vrstvy.
 
 ### „Regex funguje rovnako vo všetkých nástrojoch“
 
-Nie. Dialect, flags, anchors, Unicode a runtime model sa líšia.
+Dialect, flags, anchors, Unicode a runtime model sa líšia.
 
-### „Lazy quantifier odstráni performance riziko“
+### „Regexom môžem bezpečne upraviť YAML riadok“
 
-Nie automaticky. Aj lazy pattern môže intenzívne backtrackovať.
+Nie všeobecne. Regex nepozná structured identity, nesting ani parser semantics.
 
-### „Base64 chráni secret“
+## 30. Zhrnutie
 
-Nie. Je reverzibilný encoding.
+YAML a JSON sú transport pre štruktúrované hodnoty. Regex je nástroj pre ohraničený textový pattern.
 
-## 59. Kontrolné otázky
+Spoľahlivý config workflow:
+
+```text
+bytes
+→ parser
+→ primitive graph
+→ schema
+→ domain object
+→ business rules
+→ desired state
+→ deterministic artifact
+→ platform verification
+```
+
+Regex vstupuje iba tam, kde je lexical contract skutočne textový. Nemá preskakovať parser, schema ani doménovú identitu.
+
+Toto rozlíšenie pripravuje základ pre nasledujúcu kapitolu: parser, validator a runtime verifier dokazujú rozdielne vlastnosti systému.
+
+## 31. Kontrolné otázky
 
 1. Aký je rozdiel medzi parsingom, schema validáciou a business validáciou?
-2. Prečo sú duplicate JSON keys nebezpečné?
-3. Aké interoperability problémy má JSON number model?
-4. Aký je rozdiel medzi absent, `null`, empty a false hodnotou?
-5. Prečo deterministic serialization nie je automaticky canonicalization?
-6. Ako sa líši YAML 1.1 a YAML 1.2 implicit typing?
-7. Aké riziká prinášajú anchors a aliases?
-8. Prečo safe loader stále potrebuje resource limits?
-9. Prečo sa template source, rendered YAML a runtime object musia diagnostikovať oddelene?
-10. Aké rozhodnutia obsahuje config merge contract?
-11. Prečo je regex dialect súčasťou kontraktu?
-12. Aký je rozdiel medzi search, prefix match a full match?
-13. Ako multiline flag mení anchors?
-14. Prečo je alternation grouping dôležité?
+2. Prečo sa input bytes limitujú ešte pred parsingom?
+3. Prečo sú duplicate JSON/YAML keys nebezpečné?
+4. Ako YAML implicit typing môže zmeniť runtime typ?
+5. Aké riziká prinášajú anchors a aliases?
+6. Prečo safe loader stále potrebuje resource limits?
+7. Aký význam majú absent, `null`, empty, `false` a `0`?
+8. Aké rozhodnutia tvorí config merge contract?
+9. Prečo treba validovať rendered output?
+10. Aký je rozdiel medzi deterministic serialization a canonicalization?
+11. Kedy treba round-trip parser alebo structured patch?
+12. Prečo je regex dialect súčasťou kontraktu?
+13. Aký je rozdiel medzi search a full match?
+14. Ako escaping vrstvy menia pattern?
 15. Ako vzniká catastrophic backtracking a ReDoS?
-16. Prečo normalizácia Unicode mení security semantics?
-17. Ako rozlíšiš validation regex od business validácie?
-18. Ako navrhneš bezpečný read-parse-validate-render-apply pipeline?
+16. Prečo regex nemá upravovať nested YAML alebo JSON?
+17. Ako vznikol Atlas duplicate-key incident?
+18. Aké dôkazy vytvára bezpečný read–render–apply lifecycle?
 
 ## Glossary impact
 
-Relevantné pojmy: JSON object, duplicate key, JSON number, JSON Schema, schema draft, canonicalization, deterministic serialization, YAML mapping, sequence, scalar, YAML 1.1, YAML 1.2, implicit typing, document stream, anchor, alias, merge key, safe loader, alias expansion, round-trip parser, template rendering, regular expression, regex dialect, full match, anchor, flag, capturing group, backreference, lookaround, greedy quantifier, catastrophic backtracking, ReDoS, Unicode normalization a config precedence.
+Relevantné pojmy: JSON object, duplicate key, JSON number, JSON Schema, schema version, canonicalization, deterministic serialization, YAML mapping, sequence, scalar, YAML 1.1, YAML 1.2, implicit typing, document stream, anchor, alias, merge key, safe loader, alias expansion, round-trip parser, template rendering, configuration precedence, domain normalization, regular expression, regex dialect, full match, anchor, flag, Unicode normalization, catastrophic backtracking a ReDoS.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
