@@ -36,6 +36,10 @@ Deterministické priradenie subjektu do rollout alebo experiment skupiny pomocou
 
 Explicitná tabuľka určujúca, ktoré application, client, event a schema verzie môžu bezpečne koexistovať počas rollout-u a rollback window. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
 
+## Contract proof — database
+
+Strojovo aj manuálne overiteľná evidence, že starý databázový contract už nepoužíva žiadny aktívny reader, writer ani downstream consumer, migrácia a reconciliation sú dokončené a odstránenie old representation má pripravenú forward-repair alebo restore cestu. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
+
 ## Control variant
 
 Referenčný variant experimentu reprezentujúci existujúce alebo baseline správanie, voči ktorému sa hodnotí treatment. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
@@ -87,6 +91,10 @@ Runtime rozhodnutie o variante alebo hodnote feature flagu na základe flag verz
 ## Forward-fix migration
 
 Nová databázová migration opravujúca chybný alebo neúplný aktuálny stav bez pokusu mechanicky vrátiť predchádzajúcu schema. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
+
+## Last compatible state
+
+Najnovší presne identifikovaný runtime subject, ktorý je technicky, dátovo, eventovo, klientsky a bezpečnostne kompatibilný s aktuálnym distributed state-om a možno ho použiť ako recovery target. Nemusí byť totožný s bezprostredne predchádzajúcim release-om. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
 
 ## Last known good
 
@@ -152,6 +160,10 @@ Obdobie, počas ktorého sa zámerne zachováva schema, configuration, artifact 
 
 Versionovaný popis artifactu, configu, targetu, cohort, krokov, metrics, observation windows, promotion/abort policy, recovery actions a ownera progressive rollout-u. Pozri [Progressive delivery](docs/05-ci-cd-and-release/progressive-delivery.md).
 
+## Rollout reconciliation loop
+
+Controller lifecycle `observe actual multi-axis state → classify divergence → validate preconditions → apply jeden bounded transition → over effective state → vyhodnoť evidence → reconcile znovu`. Chráni pred predpokladom, že control-plane command automaticky vytvoril desired data-plane state. Pozri [Progressive delivery](docs/05-ci-cd-and-release/progressive-delivery.md).
+
 ## Sample ratio mismatch
 
 Významný rozdiel medzi plánovaným a reálnym pomerom experimentálnych variantov, ktorý môže signalizovať assignment, exposure, crash, logging alebo eligibility problém. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
@@ -183,6 +195,10 @@ Defense-in-depth boundary kombinujúca least-privilege identity, network/egress 
 ## Stable bucketing
 
 Deterministické mapovanie subjektov do percentuálnych rollout alebo experiment buckets tak, aby sa variant nemenil náhodne medzi requestmi. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
+
+## State-delta inventory
+
+Per-layer záznam toho, čo release zmenil v artifacte, confige, routingu, infrastructure, databáze, events, cache, external side effects a clients, spolu s current effective state-om a reversibility. Je vstupom pre recovery eligibility a voľbu rollbacku, roll-forwardu, compensation alebo restore. Pozri [Rollback a roll-forward](docs/05-ci-cd-and-release/rollback-and-roll-forward.md).
 
 ## Traffic mirroring
 
