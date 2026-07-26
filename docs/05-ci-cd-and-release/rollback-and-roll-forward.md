@@ -6,541 +6,495 @@
 - Level: L2
 - Domain: CI/CD and Release Engineering
 
-## 1. Definícia
-
-Rollback obnovuje predchádzajúci kompatibilný application, configuration, traffic alebo infrastructure state. Roll-forward vytvára a nasadzuje nový opravený stav bez návratu na predchádzajúcu verziu.
+Rollback a roll-forward sú recovery stratégie nad distribuovaným state-om. Rollback sa vracia k poslednému kompatibilnému runtime subjectu; roll-forward vytvára nový opravený subject, ktorý rešpektuje state už vytvorený chybným release-om.
 
 ```text
-failure detected
-→ contain exposure
-→ classify changed state
-→ evaluate recovery eligibility
-→ rollback / roll-forward / compensate / restore
-→ validate recovery
-→ close incident and improve controls
+user impact detected
+→ contain ďalšie mutations/exposure
+→ zostav state-delta inventory
+→ identifikuj last compatible state
+→ vyhodnoť recovery eligibility
+→ rollback / roll-forward / compensation / restore
+→ vykonaj jednu autoritatívnu recovery state machine
+→ over technical + data + business outcome
+→ sleduj delayed effects
+→ uzavri incident a obnov recovery capability
 ```
 
-Recovery nie je synonymum pre redeployment. Zmena mohla zasiahnuť binaries, config, databázu, events, clients, external systems a business state.
+Recovery nie je synonymum pre redeployment. Artifact možno vrátiť za minúty, no databáza, events, clients alebo external side effects môžu zostať v novom state-e.
 
-## 2. Mental model: vrstvy mutable a immutable state
+## 1. Nosný model: state delta určuje recovery path
 
-Rozlišuj:
-
-- immutable application artifact,
-- mutable runtime config a flags,
-- routing/exposure state,
-- infrastructure desired/effective state,
-- database schema a dáta,
-- queues/events,
-- caches/sessions,
-- external side effects,
-- distributed clients.
-
-Rollback jednej vrstvy nemusí obnoviť ostatné. Artifact rollback nie je data rollback; traffic rollback nie je compensation.
-
-## 3. Recovery lifecycle
+Pri incidente najprv rozdeľ state na vrstvy:
 
 ```text
-detect
-→ contain
-→ preserve evidence
-→ identify last compatible state
-→ choose recovery path
-→ execute
-→ verify technical state
-→ verify data/business outcome
-→ monitor delayed effects
-→ close
+immutable artifact
+runtime config a feature flags
+routing a exposure
+infrastructure desired/effective state
+database schema a data
+queues, events a checkpoints
+cache a sessions
+external side effects
+distributed clients a integrations
 ```
 
-Containment môže byť rýchlejší než samotná oprava: zastaviť writes, znížiť traffic, vypnúť feature alebo pause-nuť consumers.
+Potom pri každej vrstve urči:
 
-## 4. Recovery subject a current-state record
+```text
+before state
+→ change introduced by release
+→ current effective state
+→ reversibility
+→ compatibility s candidate recovery targetom
+```
 
-Pred rozhodnutím zisti:
+Rollback jednej vrstvy neopravuje automaticky ostatné. Traffic rollback nezruší už publikovaný event. Artifact rollback nezmení schema. Point-in-time restore môže vrátiť databázu, ale nie partner payment alebo email.
 
-- current a previous artifact digests,
-- config/flag revisions,
-- deployment/exposure state,
-- schema a migration phase,
-- events a backlog,
-- clients/rings,
-- side effects od začiatku release,
-- active incidents/dependency state,
-- last known good evidence.
+## 2. Nosný scenár: Atlas Orders release 3.12.0
 
-Bez aktuálneho state inventory je recovery iba odhad.
+Atlas rollout `R120` aktivoval Risk v3 pre 25 % ring 1. New worker zapisuje `risk_decisions`, publikuje event `RiskDecisionRecorded.v2` a pri `MANUAL_REVIEW` odosiela partner notification.
 
-## 5. Typy rollbacku
+Po promotion sa objavia duplicate notifications a niektoré orders ostávajú v `REVIEW_PENDING`.
 
-### Traffic rollback
+Current inventory:
 
-Presunie requests na stable target alebo zníži canary exposure. Rýchly, ale nemení data state.
+```text
+API: M3 na 100 % fleet, feature F31 na 25 % ring 1
+workers: 70 % D_worker3, 30 % D_worker2
+schema: S_expand, dual-write active
+queue: v1 aj v2 events, backlog 18 000
+external notifications: časť už odoslaná
+clients: old aj new API consumers
+previous manifest: M_prev dostupný
+```
 
-### Feature/config rollback
+Naivný príkaz „rollback na previous“ je nedostatočný. Old worker nerozumie všetkým v2 events a partner notifications už nemožno odvolať binary rollbackom.
 
-Obnoví predchádzajúcu behavior/config revision. Bezpečný iba ak kód a state podporujú oba varianty.
+## 3. Containment predchádza rozhodnutiu o finálnej recovery
 
-### Artifact rollback
+Atlas najprv zníži damage rate:
 
-Nasadí previous immutable digest. Vyžaduje runtime a state compatibility.
+```text
+pause rollout
+→ feature F31 off pre nové orders
+→ stop Risk v3 producers
+→ pause notification adapter
+→ zachovaj queue a database evidence
+→ ponechaj healthy read-only paths
+```
 
-### Infrastructure rollback
+Containment nie je finálne recovery. Jeho cieľom je zastaviť nové nežiaduce mutations a vytvoriť stabilný decision horizon.
 
-Vráti desired infrastructure revision. Provider side effects alebo deleted state nemusia byť automaticky obnoviteľné.
+Slepý restart alebo okamžitý rollback môže:
+
+- stratiť in-flight evidence;
+- znovu doručiť unacked messages;
+- aktivovať old consumer nad nekompatibilným backlogom;
+- zväčšiť external side effects;
+- skryť prvý divergence point.
+
+## 4. Recovery subject je last compatible state, nie iba previous release
+
+`M_prev` je candidate iba vtedy, ak:
+
+```text
+artifact a config bytes sú immutable a dostupné
++ old code číta current schema a data
++ old consumers tolerujú current events
++ clients a external contracts ostávajú kompatibilné
++ security posture je prijateľná
++ recovery workflow a validation sú funkčné
+```
+
+Predchádzajúca verzia môže byť:
+
+- už nekompatibilná s novými enum values;
+- závislá od odstráneného secretu alebo endpointu;
+- zraniteľná;
+- bez capacity alebo credentials;
+- nikdy produkčne overená v aktuálnom environment state-e.
+
+Last compatible state je teda konkrétny runtime subject s evidence, nie tag `previous`.
+
+## 5. Recovery package vzniká pred rolloutom
+
+Atlas release package obsahuje:
+
+```text
+current manifest M3
+previous compatible manifest M_prev
+config a flag snapshots
+schema/event/client compatibility matrix
+known irreversible transitions
+containment commands
+artifact/config/routing rollback workflows
+roll-forward build a migration owners
+data repair, replay a compensation procedures
+technical, functional a business validation queries
+```
+
+Package nepredpisuje vždy rollback. Umožňuje rýchlo zistiť, ktoré vetvy sú stále eligible.
+
+## 6. Eligibility graph spája recovery action s current state-om
+
+Pre Atlas incident:
+
+### Traffic alebo feature rollback
+
+Eligible. Zastaví nové Risk v3 exposures, ale nerieši backlog ani notifications.
+
+### Artifact rollback API
+
+Čiastočne eligible. API M_prev toleruje S_expand, ale môže zobrazovať iba old representation.
+
+### Worker rollback
+
+Neeligible, kým queue obsahuje `RiskDecisionRecorded.v2`, ktoré D_worker2 nepozná.
 
 ### Data rollback
 
-Backward migration, point-in-time restore alebo selective repair. Najrizikovejší pre RPO, consistency a collateral data loss.
+Nežiaduci. Point-in-time restore by odstránil legitímne orders vytvorené po release.
 
-### Client rollback
+### Roll-forward
 
-Často pomalý alebo nemožný pre distribuované mobile/desktop/firmware clients.
+Eligible. Tolerantný worker patch môže spracovať v1 aj v2, deduplikovať notifications a dokončiť reconciliation.
 
-## 6. Last known good verzus previous
+### Compensation
 
-Predchádzajúci release nie je automaticky known good. Potrebuje:
+Nutná pre notifications a accounting records, ktoré už vznikli duplicitne.
 
-- immutable identity,
-- health a business evidence,
-- známu security pozíciu,
-- kompatibilitu s aktuálnou schema/data/config,
-- dostupný artifact a dependencies,
-- podporovaný operational model.
-
-Tag `previous` je iba pointer a môže byť nejednoznačný.
-
-## 7. Recovery package
-
-Pre každý release priprav:
+Recovery rozhodnutie je preto kompozícia:
 
 ```text
-current release manifest
-previous compatible release manifest
-config/flag snapshots
-schema compatibility matrix
-known irreversible changes
-traffic/feature containment actions
-rollback workflow
-roll-forward owner/path
-data restore/compensation references
-validation queries and synthetics
+feature containment
++ roll-forward worker patch
++ queue replay s deduplication
++ selective data reconciliation
++ partner compensation
 ```
 
-Package vzniká pred rolloutom, nie až počas incidentu.
+Nie jeden globálny `undo`.
 
-## 8. Recovery eligibility
+## 7. Rollback preferuj iba pri malom a kompatibilnom state delta
 
-Rollback je eligible iba ak:
+Rollback má silnú výhodu, keď:
 
-- target artifact/config je dostupný,
-- aktuálny state je ním čitateľný a zapisovateľný,
-- external contracts a clients sú compatible,
-- security risk sa návratom nezhorší neprijateľne,
-- recovery operácia je otestovaná,
-- očakávaný čas spĺňa incident potreby.
+- known-good target je pripravený a warm;
+- release zmenil iba application behavior alebo routing;
+- nové writes/events ostávajú old-compatible;
+- návrat neotvorí security problém;
+- rollback je rýchlejší než bezpečný fix;
+- validation pôvodného outcome-u je pripravená.
 
-Eligibility sa môže meniť počas rollout-u. Nové enum values alebo writes môžu uzavrieť artifact rollback window.
+Príklad: green API vracia `403` pre chybný audience config, ale ešte nevykonalo nové writes. Routing a config rollback môže byť úplná recovery.
 
-## 9. Rozhodovací model
+## 8. Roll-forward preferuj pri posunutom alebo nevratnom state-e
 
-Rollback preferuj, keď:
+Roll-forward je typicky bezpečnejší, keď:
 
-- known compatible state je okamžite dostupný,
-- mutation scope je malý alebo nulový,
-- rollback je rýchlejší než bezpečný fix,
-- stará verzia neobsahuje závažný security problém.
+- schema alebo data už zmenili význam;
+- stream obsahuje nový event contract;
+- external side effects vznikli;
+- new clients používajú nový protocol;
+- old release obsahuje vulnerability;
+- minimal fix je menší než návrat viacerých vrstiev;
+- backward migration by stratila dáta alebo prekročila RTO.
 
-Roll-forward preferuj, keď:
+Incident urgency nemení požiadavku na immutable fix subject, targeted gates a audit. Mení iba rozsah dôkazu na najkritickejšie failure boundaries.
 
-- state je nevratne posunutý,
-- starý code nerozumie novým dátam/events,
-- external side effects už vznikli,
-- fix je malý a rýchlo overiteľný,
-- rollback by znovu otvoril vulnerability,
-- clients už používajú nový contract.
+## 9. Roll-forward lifecycle
 
-## 10. Containment first
-
-Možnosti:
-
-- pause promotion,
-- odstrániť canary traffic,
-- vypnúť feature,
-- prepnúť read-only,
-- zastaviť consumers/producers,
-- rate limit/load shed,
-- odpojiť problematickú dependency,
-- zablokovať ďalšie data mutations.
-
-Containment znižuje rastúci damage budget a dáva čas na presnejšie rozhodnutie.
-
-## 11. Configuration a flag recovery
-
-Najrýchlejší zásah môže byť zmena behavioru bez artifact rollbacku. Over:
-
-- propagation lag,
-- code path coverage,
-- stale clients/instances,
-- config schema compatibility,
-- atomic multi-setting transition,
-- side effects, ktoré už vznikli.
-
-Flag disable nemusí zrušiť queued alebo už rozbehnutú prácu.
-
-## 12. Database a schema constraints
-
-Old application musí tolerovať:
-
-- nové columns/tables,
-- nové enum/state values,
-- nové serialization formáty,
-- migration phase,
-- aktuálne writer semantics.
-
-Destruktívny contract krok alebo nekompatibilný write môže zrušiť rollback. Preto compatibility window musí byť súčasťou release planu.
-
-## 13. Data recovery options
-
-- forward-fix migration,
-- backward migration,
-- point-in-time restore,
-- restore do nového targetu a cutover,
-- selective repair,
-- compensating transaction,
-- event replay/rebuild,
-- reconciliation zo source of truth.
-
-Posudzuj:
-
-- RPO,
-- RTO,
-- collateral data loss,
-- consistency,
-- external system divergence,
-- audit/compliance,
-- recovery test freshness.
-
-## 14. Backward migration limitations
-
-Existencia `down` scriptu neznamená bezpečnosť. Môže:
-
-- dropnúť nové dáta,
-- zlyhať na nových hodnotách,
-- blokovať produkciu,
-- nevrátiť semantic state,
-- poškodiť events/consumers.
-
-Forward-only schema model s compatibility a restore môže byť bezpečnejší.
-
-## 15. External side effects a compensation
-
-Rollback neodvolá:
-
-- platbu,
-- email/SMS,
-- partner mutation,
-- published event,
-- issued token/certificate,
-- customer decision,
-- inventory reservation.
-
-Compensating action je nová business operácia s vlastným auditom, failure modes a idempotency. Nie je to technické „undo“.
-
-## 16. Queues a event streams
-
-Pri recovery analyzuj:
-
-- producers a consumers versions,
-- schema compatibility,
-- backlog vzniknutý novou verziou,
-- poison messages,
-- changed partitioning,
-- acknowledgements/checkpoints,
-- duplicates a replay,
-- side effects po consume.
-
-Starý consumer môže byť neeligible, ak stream už obsahuje nový contract.
-
-## 17. Cache a sessions
-
-Rollback môže zlyhať pre:
-
-- nový cache serialization,
-- changed key semantics,
-- sessions vytvorené novou verziou,
-- stale feature state,
-- global invalidation.
-
-Použi versioned namespaces, tolerant readers alebo controlled cache purge. Purge sám môže spôsobiť thundering herd.
-
-## 18. Client-server skew
-
-Server rollback musí podporovať clients, ktoré už poznajú nové behavior alebo schema. Rieš:
-
-- backward-compatible endpointy,
-- capability negotiation,
-- minimum/maximum supported versions,
-- feature disable,
-- tolerant clients,
-- staged release.
-
-Client fleet sa často nedá rollbacknúť naraz.
-
-## 19. Strategy-specific recovery
-
-### Rolling
-
-Rollback je ďalší batch rollout; exposure sa znižuje postupne a môže byť pomalý.
-
-### Blue-green
-
-Routing switch môže byť rýchly, ale old target a shared state musia zostať compatible.
-
-### Canary
-
-Najprv odstráň exposure; potom rozhodni o artifact/data recovery.
-
-### Recreate
-
-Rollback predlžuje outage a vyžaduje znovu shutdown/start sequence.
-
-### Ring
-
-Partial ring rollback môže zvýšiť version skew a zlyhať na shared state.
-
-## 20. Automatic rollback
-
-Je vhodný iba keď:
-
-- signal je version-specific a nízko-noise,
-- guardrail je významný,
-- target je known compatible,
-- action je bounded a otestovaná,
-- existuje cooldown/hysteresis,
-- missing telemetry nie je zamenená za failure alebo success,
-- audit a human escalation sú dostupné.
-
-Noisy dependency alert môže spustiť škodlivé oscillation.
-
-## 21. Oscillation protection
-
-Použi:
-
-- minimum observation duration,
-- consecutive threshold windows,
-- hysteresis,
-- cooldown,
-- single active recovery lock,
-- manual checkpoint po opakovanom failure,
-- limit počtu automatických transitions.
-
-## 22. Rollback window
-
-Počas rollback window zachovaj:
-
-- previous artifacts a config,
-- schema/event compatibility,
-- old target alebo provisioning capability,
-- feature paths,
-- support/runbook,
-- validation evidence.
-
-Po jeho skončení explicitne označ, že primárna recovery stratégia je roll-forward, compensation alebo restore.
-
-## 23. Roll-forward workflow
+Atlas vytvorí `M3.1`:
 
 ```text
-contain
-→ identify minimal fix
-→ build immutable artifact/migration
-→ run risk-focused gates
-→ deploy to smallest scope
-→ validate
-→ expand
-→ repair remaining state
+contain current impact
+→ identifikuj minimálny tolerant-reader a dedup fix
+→ build immutable D_worker3_1
+→ contract fixtures pre v1/v2 events
+→ replay a idempotency tests
+→ deploy do isolated consumer group
+→ spracuj bounded sample backlogu
+→ over duplicate a completion invariants
+→ promote worker fleet
+→ replay remaining backlog
+→ reconcile data a external side effects
 ```
 
-Incident urgency nezrušuje identity, review, test a audit. Zmenšuje scope na najkritickejšie kontroly.
+Fix sa najprv overí na presnej failure boundary, nie iba všeobecným test suite passom.
 
-## 24. Partial deployment a mixed state
+## 10. Compensation je nová business operácia
 
-Recovery musí vedieť pracovať s:
+Duplicate partner notification alebo payment sa nedá „rollbacknúť“ ako file.
 
-- časťou fleet na new,
-- časťou na old,
-- migration partial,
-- config propagation partial,
-- queued work z oboch versions.
+Compensation potrebuje:
 
-Pred ďalším krokom vytvor actual-state inventory. Slepo opakovaný pipeline job môže situáciu zhoršiť.
+```text
+affected-entity inventory
+→ authoritative duplicate classification
+→ idempotent compensation key
+→ partner/customer communication
+→ retry a reconciliation
+→ audit a final business invariant
+```
 
-## 25. Recovery validation
+Compensating transaction môže sama zlyhať, byť duplicitná alebo vytvoriť ďalší finančný či právny dopad. Preto má vlastného ownera, approvals a observation.
 
-Po technickom zásahu over:
+## 11. Restore má collateral state cost
 
-- version/exposure inventory,
-- request success a latency,
-- business completion,
-- data invariants,
-- backlog a event processing,
-- external side effects/compensation,
-- clients a integrations,
-- alerts a error-budget trend.
+Point-in-time restore na `14:05` môže odstrániť poškodené writes od `14:06`, ale aj všetky legitímne orders po tomto čase.
 
-Recovery nie je complete pri zelenom deployment jobe.
+Restore decision preto hodnotí:
 
-## 26. Delayed recovery verification
+- RPO a RTO;
+- rozsah legitímnych writes po recovery point-e;
+- external-system divergence;
+- event replay capability;
+- encryption keys a backup integrity;
+- restore target a routing cutover;
+- reconciliation po návrate.
 
-Sleduj neskoré následky:
+Často je bezpečnejšie restore-nuť do nového targetu, selektívne extrahovať správny state a potom vykonať controlled repair.
 
-- settlement/reconciliation,
-- backlogs,
-- cache warming,
-- replication,
-- batch jobs,
-- user support,
-- security effects.
+## 12. Worked failure: artifact rollback zhoršil queue incident
 
-## 27. Recovery testing
+Pri staršom incidente Atlas automaticky rollbackol worker na D_worker2 po náraste error rate.
 
-Pravidelne testuj:
+```text
+new worker emitne v2 events
+→ queue obsahuje 12 000 v2 messages
+→ automation nasadí old worker
+→ old deserializer v2 odmietne
+→ retries a dead-letter rastú
+→ backlog blokuje aj kompatibilné v1 work
+→ completion rate klesne viac než pred rollbackom
+```
 
-- traffic/config/artifact rollback,
-- feature disable,
-- partial-rollout recovery,
-- schema compatibility,
-- restore/PITR,
-- event replay,
-- credentials a permissions,
-- rollback pod loadom,
-- old target readiness,
-- compensation workflow.
+### Príčina
 
-Runbook bez vykonania je hypotéza.
+Automatic rollback poznal application version, ale nie event backlog contract. Eligibility kontrola overovala dostupnosť previous artifactu, nie schopnosť previous consumeru spracovať current stream.
 
-## 28. Evidence a audit
+### Dôsledok
 
-Uchovaj:
+Rollback zmenšil application novelty, no zväčšil operational damage. Recovery vyžadovala zastaviť old consumer, nasadiť tolerantný roll-forward patch a oddeliť poison messages.
 
-- detection a containment timeline,
-- current/target state identities,
-- eligibility decision,
-- commands/workflows a actor,
-- data/side-effect assessment,
-- recovery transitions,
-- validation results,
-- final incident state,
-- follow-up controls.
+### Trvalá náprava
 
-## 29. Metriky capability
+```text
+event-version inventory v recovery package
+→ backlog compatibility gate
+→ producer-first containment
+→ tolerant consumer fixture
+→ automatic rollback povolený iba pri state-compatible targete
+```
 
-- containment time,
-- recovery decision time,
-- rollback/roll-forward success rate,
-- failed automated rollback rate,
-- oscillation incidents,
-- rollback-ineligible releases,
-- restore test freshness,
-- recovery validation duration,
-- data loss/repair scope,
-- repeat incident rate.
+## 13. Worked failure: noisy dependency spustila recovery oscillation
 
-## 30. Typické anti-patterny
+Automatický controller sledoval p99 latency. Regionálny database incident zasiahol blue aj green, ale threshold nebol version-specific.
 
-### Vždy rollback
+```text
+p99 prekročí limit
+→ route green → blue
+→ cache a pools sa znovu zahrievajú
+→ p99 ostáva vysoká
+→ health sa krátko zlepší
+→ controller promotionuje späť na green
+→ ďalší threshold breach
+→ repeated route flips
+```
 
-Ignoruje nekompatibilný state a side effects.
+### Príčina
 
-### Vždy roll-forward
+Signal neodlišoval release effect od shared dependency incidentu. Chýbala hysteresis, cooldown, single recovery lock a maximum transition count.
 
-Predlžuje incident pri dostupnom safe targete.
+### Dôsledok
 
-### Previous = known good
+Oscillation pridala cache churn, connection bursts a nejasný active state k pôvodnému DB incidentu.
 
-Predchádzajúca verzia môže byť nekompatibilná alebo insecure.
+### Trvalá náprava
 
-### Mutable rollback tag
+- stable/new concurrent comparison;
+- dependency-health dimension;
+- consecutive windows a minimum duration;
+- cooldown a maximum automatic transitions;
+- po opakovanom failure manuálny checkpoint;
+- data plane ostáva v poslednom potvrdenom safe state-e.
 
-Target bytes sú nejednoznačné.
+## 14. Kauzálny diagnostický walkthrough
 
-### Artifact rollback = full recovery
+Symptom: po feature disable prestali vznikať nové Risk v3 requests, ale duplicate notifications pokračujú.
 
-Config, data, events a clients zostávajú zmenené.
+### Krok 1 — potvrď containment a current subject
 
-### Destruktívny contract pred koncom window
+```text
+rollout R120 paused
+F31 off effective na API fleet
+Risk v3 producer rate = 0
+worker inventory = D_worker2 + D_worker3
+queue backlog obsahuje v1/v2
+a notification adapter stále spracúva queued commands
+```
 
-Recovery možnosť zmizne priskoro.
+Feature disable fungoval na request path-e. Symptom preto vzniká za touto boundary.
 
-### Automatic rollback bez hysteresis
+### Krok 2 — formuluj konkurenčné hypotézy
 
-Vzniká oscillation.
+```text
+H1: časť API fleet stále používa stale flag
+H2: queued commands vznikli pred disable a teraz sa drainujú
+H3: worker retry vytvára nové duplicate commands
+H4: partner redeliveruje už prijaté notifications
+H5: dashboard dedup alebo event-time query zobrazuje staré dáta ako nové
+```
 
-### Recovery sa netestuje
+### Krok 3 — vyber observation points
 
-Prvý test prebieha počas incidentu.
+- effective flag evaluations a producer timestamp testujú H1;
+- command creation time vs send time testuje H2;
+- logical order ID, attempt a worker digest testujú H3;
+- partner idempotency/audit ID testuje H4;
+- raw ingestion/event-time lag testuje H5.
 
-## 31. Diagnostický postup
+Atlas zistí:
 
-1. Contain-ni ďalší dopad.
-2. Zachovaj evidence a current-state inventory.
-3. Urči, ktoré vrstvy sa zmenili.
-4. Identifikuj last compatible, nie iba previous release.
-5. Posúď rollback eligibility a security.
-6. Porovnaj recovery times a risks.
-7. Vykonaj jednu autoritatívnu recovery state machine.
-8. Over technical, data a business výsledok.
-9. Sleduj delayed effects.
-10. Premeň incident na test, compatibility alebo rollout zlepšenie.
+```text
+žiadne commands nevznikli po flag disable
+starý backlog sa drainuje
+časť orders má dve commands s rôznymi worker attempt IDs
+partner každú prijal raz
+telemetry latency je normálna
+```
 
-## 32. Rozhodovací rámec
+H2 a H3 sú podporené. H1, H4 a H5 nie.
 
-1. Aký user impact treba okamžite contain-nuť?
-2. Ktoré immutable a mutable vrstvy sa zmenili?
-3. Aký je last compatible state?
-4. Aké external side effects vznikli?
-5. Je rollback target bezpečný a dostupný?
-6. Aký je RTO/RPO každej možnosti?
-7. Je fix-forward rýchlejší a menej rizikový?
-8. Potrebujeme compensation alebo restore?
-9. Ako sa zabráni oscillation?
-10. Aký user/business signal ukončí recovery?
+### Krok 4 — contain-ni správnu vrstvu
 
-## 33. Kontrolný checklist
+API rollback by nič nezmenil. Atlas pause-ne notification adapter, zastaví mixed worker fleet a nasadí tolerantný dedup worker. Potom klasifikuje backlog pred replayom.
 
-- current a target identities sú známe,
-- containment actions existujú,
-- recovery package je pripravený,
-- rollback eligibility zahŕňa DB/events/clients/security,
-- previous artifact/config sú dostupné,
-- side effects majú compensation plan,
-- restore/PITR je overený,
-- automatic rollback má hysteresis a lock,
-- partial-state recovery je idempotentná,
-- validation zahŕňa data/business outcomes,
-- delayed verification pokračuje,
-- audit a learning actions sa uzavrú.
+### Krok 5 — vyber recovery podľa state-u
 
-## 34. Kontrolné otázky
+Pretože v2 events a new rows už existujú, worker artifact rollback je neeligible. Roll-forward + reconciliation je bezpečnejší.
 
-1. Prečo recovery nie je iba redeployment?
-2. Aké typy rollbacku treba odlišovať?
-3. Aký je rozdiel medzi previous a last compatible state?
-4. Čo tvorí rollback eligibility?
-5. Prečo `down` migration nemusí byť bezpečná?
-6. Ako external side effects menia recovery?
-7. Prečo client skew komplikuje server rollback?
-8. Kedy je automatic rollback vhodný?
-9. Ako hysteresis chráni pred oscillation?
-10. Aké signály dokazujú úplné recovery?
+### Krok 6 — over pôvodný outcome
 
-## Summary
+Recovery je complete až keď:
 
-Rollback a roll-forward sú alternatívne recovery stratégie nad viacerými vrstvami systému. Správne rozhodnutie začína containmentom a actual-state inventory, nie automatickým redeploymentom. Rollback je možný iba do posledného kompatibilného stavu; artifact availability sama nestačí, ak sa zmenili databázy, events, caches, clients alebo external side effects. Roll-forward je často bezpečnejší pri nevratnom state. Recovery sa končí až po technickej, dátovej a business validácii a monitorovaní oneskorených následkov.
+```text
+notification command creation = 1 per logical decision
+partner sends = 1 per idempotency key
+queue backlog klesá bez poison retries
+orders opúšťajú REVIEW_PENDING
+data a accounting reconciliation prejde
+```
 
-## Glossary impact
+### Krok 7 — vráť learning
 
-Relevantné pojmy: rollback, roll-forward, containment, rollback eligibility, last compatible state, recovery package, traffic rollback, artifact rollback, data recovery, compensating action, rollback window, automatic rollback, hysteresis, recovery oscillation a recovery validation.
+Finding sa mení na queued-side-effect containment v runbooku, event compatibility gate a recovery test s mixed backlogom.
+
+## 15. Recovery validation je outcome-based
+
+Po technickom transitione Atlas overí:
+
+### Runtime
+
+- current artifact/config/flag/routing inventory;
+- error, latency a saturation;
+- jeden active recovery generation owner.
+
+### Data a events
+
+- schema a representation invariants;
+- backlog, dead-letter a replay stav;
+- duplicate alebo missing records;
+- replicas, CDC a analytics.
+
+### Business a external systems
+
+- order completion;
+- partner notification a accounting reconciliation;
+- customer/support impact;
+- compensation completion.
+
+Zelený deployment job je iba execution evidence, nie dôkaz recovery.
+
+## 16. Delayed verification a rollback window
+
+Po immediate recovery sleduj:
+
+- settlement a scheduled reconciliation;
+- late retries a dead-letter replay;
+- cache/session warming;
+- replication a downstream exports;
+- client/integration behavior;
+- security a support signals.
+
+Rollback window ostáva otvorené iba kým previous subject zostáva compatible. Keď contract migration, clients alebo events túto podmienku ukončia, release record explicitne zmení primárnu recovery stratégiu na roll-forward, compensation alebo restore.
+
+## 17. Diagnostický runbook
+
+1. Contain-ni nové exposure, writes alebo side effects.
+2. Zachovaj timeline a zostav actual state-delta inventory.
+3. Urči last compatible state, nie iba previous artifact.
+4. Vyhodnoť recovery eligibility pre každú zmenenú vrstvu.
+5. Formuluj konkurenčné hypotézy pre pokračujúci symptom.
+6. Použi observation points na oddelenie active code, backlogu, external redelivery a telemetry chyby.
+7. Vyber jednu autoritatívnu recovery state machine.
+8. Zabraň súbežným rollback/roll-forward transitions a oscillation.
+9. Over runtime, data, event, business a external-system outcomes.
+10. Sleduj delayed effects a zmeň incident na recovery test alebo compatibility control.
+
+## 18. Referenčné pravidlá
+
+- Containment predchádza finálnemu recovery rozhodnutiu.
+- Recovery začína state-delta inventory, nie redeployment príkazom.
+- Previous release nie je automaticky last compatible state.
+- Artifact availability nie je rollback eligibility.
+- Traffic, config, artifact, data a client rollback sú odlišné vrstvy.
+- Roll-forward je preferovaný pri posunutom shared state-e alebo external side effects.
+- Compensation je nová auditovaná business operácia.
+- Automatic rollback potrebuje version-specific signal, compatible target, hysteresis a lock.
+- Recovery sa končí technical, data a business outcome verification.
+- Rollback window je aktívne udržiavaný compatibility contract.
+
+## 19. Časté omyly
+
+### „Vždy rollbackni čo najrýchlejšie“
+
+Nekompatibilný stream alebo schema môže incident zhoršiť.
+
+### „Vždy roll-forwardni“
+
+Pri malom reversible delta môže zbytočne predĺžiť user impact.
+
+### „Feature off vyrieši všetko“
+
+Queued work a external side effects môžu pokračovať.
+
+### „Previous tag je known good“
+
+Target potrebuje immutable identity, evidence a current-state compatibility.
+
+### „Restore je bezplatné undo“
+
+Môže odstrániť legitímne writes a zväčšiť external divergence.
+
+## 20. Zhrnutie
+
+Atlas recovery lifecycle je:
+
+```text
+contain damage growth
+→ map immutable a mutable state delta
+→ identify last compatible runtime subject
+→ evaluate per-layer eligibility
+→ choose rollback, roll-forward, compensation alebo restore
+→ execute one fenced recovery transition
+→ verify runtime + data + events + business
+→ observe delayed effects
+→ restore recovery window and learning controls
+```
+
+Rollback a roll-forward nie sú ideologické preferencie. Sú to výsledky kompatibilitného rozhodnutia nad current state-om. Dôveryhodná recovery capability vie nielen spustiť staré alebo nové bytes, ale dokázať, že zvolený state znovu poskytuje správny používateľský a business outcome.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
