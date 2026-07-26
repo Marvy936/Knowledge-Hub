@@ -1557,15 +1557,15 @@
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
       "title": "Merge requests a approvals",
-      "words": 3250,
-      "headings": 50,
-      "sections": 50,
-      "findings": 62,
-      "critical": 12,
-      "high": 18,
+      "words": 1775,
+      "headings": 47,
+      "sections": 47,
+      "findings": 84,
+      "critical": 29,
+      "high": 41,
       "medium": 6,
-      "low": 26,
-      "score": 339,
+      "low": 8,
+      "score": 701,
       "grade": "D"
     },
     {
@@ -87356,170 +87356,17 @@
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "1. Priebežný scenár: jedna zmena od branchu po produkciu",
-      "line": 20,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "2. Mental model: subject, evidence a decision policy",
-      "line": 34,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "3. MR číslo nie je identity reviewovaného obsahu",
-      "line": 53,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "4. Source diff, source SHA a merge result",
-      "line": 70,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "4. Source diff, source SHA a merge result",
-      "line": 70,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "6. Review a approval nie sú to isté",
-      "line": 116,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "10. Separation of duties",
-      "line": 180,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "11. Prečo approvals starnú",
-      "line": 188,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "12. Pipeline contexts pri MR",
-      "line": 204,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "12. Pipeline contexts pri MR",
-      "line": 204,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "13. Zelená pipeline musí patriť správnemu subjectu",
-      "line": 218,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "13. Zelená pipeline musí patriť správnemu subjectu",
-      "line": 218,
+      "section": "1. Priebežný scenár: Jana a Atlas Payments",
+      "line": 29,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý SHA bol testovaný;`, `aký target context sa použil;`, `ktoré jobs boli povinné;`, `či dokončili všetky shards a child pipelines;`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aplikačnú zmenu;`, `databázovú migration;`, `úpravu .gitlab-ci.yml ;`, `nové idempotency testy.`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "13. Zelená pipeline musí patriť správnemu subjectu",
-      "line": 218,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "13. Zelená pipeline musí patriť správnemu subjectu",
-      "line": 218,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "13. Zelená pipeline musí patriť správnemu subjectu",
-      "line": 218,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "14. Pipeline nemá iba green a red stav",
-      "line": 231,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "14. Pipeline nemá iba green a red stav",
-      "line": 231,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "14. Pipeline nemá iba green a red stav",
-      "line": 231,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "14. Pipeline nemá iba green a red stav",
-      "line": 231,
+      "section": "1. Priebežný scenár: Jana a Atlas Payments",
+      "line": 29,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -87527,143 +87374,8 @@
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "15. Discussions a význam resolved stavu",
-      "line": 245,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "16. Code Owners",
-      "line": 260,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patterns zodpovedajú reálnemu layoutu;`, `owners majú platný a dostatočný access;`, `target branch policy Code Owner approval skutočne vyžaduje;`, `existuje fallback pri neprítomnosti ľudí;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "16. Code Owners",
-      "line": 260,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "16. Code Owners",
-      "line": 260,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "18. Merge strategy a výsledná história",
-      "line": 291,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "23. Čo má reviewer skutočne posudzovať",
-      "line": 369,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "23. Čo má reviewer skutočne posudzovať",
-      "line": 369,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `intent a requirement;`, `correctness a error handling;`, `security, authorization a data handling;`, `API, event a databázovú kompatibilitu;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "23. Čo má reviewer skutočne posudzovať",
-      "line": 369,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "23. Čo má reviewer skutočne posudzovať",
-      "line": 369,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "23. Čo má reviewer skutočne posudzovať",
-      "line": 369,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "27. Kompletný príklad merge rozhodnutia",
-      "line": 426,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "27. Kompletný príklad merge rozhodnutia",
-      "line": 426,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "27. Kompletný príklad merge rozhodnutia",
-      "line": 426,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "27. Kompletný príklad merge rozhodnutia",
-      "line": 426,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "27. Kompletný príklad merge rozhodnutia",
-      "line": 426,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `CI`, `SHA`, `ID`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Code Owner approval sa nevyžaduje",
-      "line": 461,
+      "section": "3. Source SHA, diff, candidate a final SHA",
+      "line": 78,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -87671,161 +87383,8 @@
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "29. Typické anti-patterny",
-      "line": 473,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Approval od autora ako jediný control",
-      "line": 475,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Approval count bez definovaného rizika",
-      "line": 479,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Approval zostáva po zásadnej zmene",
-      "line": 483,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Review iba podľa zelenej pipeline",
-      "line": 487,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Required Code Owners bez fallbacku",
-      "line": 491,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Maintainer bypass ako normálny workflow",
-      "line": 495,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Branch pipeline považovaná za merge-result dôkaz",
-      "line": 499,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Resolved thread bez outcome",
-      "line": 503,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 507,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 507,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 507,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aký presný subject sa reviewuje a testuje?`, `Ktoré zmeny invalidujú approvals a pipelines?`, `Aký risk chráni každá approval rule?`, `Ako sa určuje eligible approver a fallback?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 507,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 507,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 507,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "30. Praktický rozhodovací rámec",
-      "line": 507,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
-      "score": 4
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "31. Kontrolný checklist",
-      "line": 524,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "31. Kontrolný checklist",
-      "line": 524,
+      "section": "3. Source SHA, diff, candidate a final SHA",
+      "line": 78,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -87833,26 +87392,26 @@
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "31. Kontrolný checklist",
-      "line": 524,
+      "section": "3. Source SHA, diff, candidate a final SHA",
+      "line": 78,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "31. Kontrolný checklist",
-      "line": 524,
+      "section": "3. Source SHA, diff, candidate a final SHA",
+      "line": 78,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MR intent a scope sú explicitné;`, `current source SHA a target context sú známe;`, `required evidence patrí aktuálnemu subjectu;`, `approvals majú definovanú reset a freshness policy;`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Source SHA: aktuálny commit source branchu.`, `Diff: zmena voči konkrétnemu base/target contextu.`, `Merged-result SHA: dočasný candidate source + target.`, `Merge-train candidate: source + target + earlier queued MRs.`.",
       "score": 12
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "31. Kontrolný checklist",
-      "line": 524,
+      "section": "3. Source SHA, diff, candidate a final SHA",
+      "line": 78,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -87860,8 +87419,188 @@
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "31. Kontrolný checklist",
-      "line": 524,
+      "section": "3. Source SHA, diff, candidate a final SHA",
+      "line": 78,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "4. Review, discussion a approval",
+      "line": 97,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Review",
+      "line": 99,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Discussion",
+      "line": 103,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "5. Approval rule musí chrániť pomenovaný risk",
+      "line": 128,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "5. Approval rule musí chrániť pomenovaný risk",
+      "line": 128,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "5. Approval rule musí chrániť pomenovaný risk",
+      "line": 128,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `applicability scope;`, `eligible approvers;`, `required count;`, `self/committer restrictions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "5. Approval rule musí chrániť pomenovaný risk",
+      "line": 128,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "5. Approval rule musí chrániť pomenovaný risk",
+      "line": 128,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "6. Code Owners sú path ownership, nie dependency graph",
+      "line": 157,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "6. Code Owners sú path ownership, nie dependency graph",
+      "line": 157,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migrations;`, `deployment manifests;`, `shared CI templates;`, `public API/event schemas.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "6. Code Owners sú path ownership, nie dependency graph",
+      "line": 157,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "6. Code Owners sú path ownership, nie dependency graph",
+      "line": 157,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "8. Pipeline contexts",
+      "line": 193,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Merge-request pipeline",
+      "line": 199,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Merged-results pipeline",
+      "line": 203,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "9. Pipeline evidence má viac stavov než green/red",
+      "line": 221,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "9. Pipeline evidence má viac stavov než green/red",
+      "line": 221,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "9. Pipeline evidence má viac stavov než green/red",
+      "line": 221,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "9. Pipeline evidence má viac stavov než green/red",
+      "line": 221,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "9. Pipeline evidence má viac stavov než green/red",
+      "line": 221,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -87869,35 +87608,242 @@
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "31. Kontrolný checklist",
-      "line": 524,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "31. Kontrolný checklist",
-      "line": 524,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "31. Kontrolný checklist",
-      "line": 524,
+      "section": "10. Mergeability je odvodený verdict",
+      "line": 233,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `SHA`, `scope`, `freshness`, `policy`",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "11. Merge strategy a traceability",
+      "line": 248,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Merge commit",
+      "line": 250,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Fast-forward alebo semi-linear",
+      "line": 254,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Príčina",
+      "line": 287,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Trvalá náprava",
+      "line": 291,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Trvalá náprava",
+      "line": 291,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Trvalá náprava",
+      "line": 291,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Trvalá náprava",
+      "line": 291,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `merged-results pipeline pre relevantné MRs;`, `merge train pri vysokej concurrency;`, `candidate SHA v gate evidence;`, `invalidation po target posune;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Trvalá náprava",
+      "line": 291,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Summary",
-      "line": 559,
+      "section": "Trvalá náprava",
+      "line": 291,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Príčina",
+      "line": 310,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Trvalá náprava",
+      "line": 314,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Trvalá náprava",
+      "line": 314,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Trvalá náprava",
+      "line": 314,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Trvalá náprava",
+      "line": 314,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reset approvalu pri source zmene;`, `risk-specific owner re-review;`, `migration compatibility test;`, `audit relation approver → reviewed SHA;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Trvalá náprava",
+      "line": 314,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Trvalá náprava",
+      "line": 314,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "14. Kauzálny diagnostický walkthrough",
+      "line": 322,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Krok 1 — stabilizuj subject",
+      "line": 326,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Krok 2 — formuluj konkurenčné hypotézy",
+      "line": 336,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 348,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 348,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 348,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `approval timestamps a reviewed SHA testujú H1;`, `pipeline source/candidate SHA testujú H3;`, `expected job/child inventory testuje H4;`, `discussion outcomes testujú H5;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 348,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 348,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 348,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -87905,12 +87851,264 @@
     },
     {
       "path": "docs/06-gitlab/merge-requests-and-approvals.md",
-      "section": "Summary",
-      "line": 559,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 348,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `H1`, `CODEOWNERS`, `H2`, `H4`, `H5`, `H7`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Krok 5 — over outcome",
+      "line": 364,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "Krok 6 — vráť learning",
+      "line": 374,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "15. Approval exception a break-glass",
+      "line": 378,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "15. Approval exception a break-glass",
+      "line": 378,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "16. MR nekončí merge kliknutím",
+      "line": 394,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "16. MR nekončí merge kliknutím",
+      "line": 394,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "17. Diagnostický runbook",
+      "line": 409,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "17. Diagnostický runbook",
+      "line": 409,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "17. Diagnostický runbook",
+      "line": 409,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "17. Diagnostický runbook",
+      "line": 409,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Urči current source, target, candidate a policy revision.`, `Rozlíš branch, MR, merged-result a train pipeline.`, `Over expected required job/child/report inventory.`, `Skontroluj approval freshness a reviewed SHA.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "17. Diagnostický runbook",
+      "line": 409,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "17. Diagnostický runbook",
+      "line": 409,
       "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "17. Diagnostický runbook",
+      "line": 409,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "17. Diagnostický runbook",
+      "line": 409,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `SHA`, `policy`, `freshness`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 422,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 422,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 422,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 422,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MR ID nie je identity reviewovaného obsahu.`, `Review, discussion a approval sú odlišné vrstvy.`, `Každá approval rule chráni pomenovaný risk.`, `Approvals a pipelines potrebujú freshness policy.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 422,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 422,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 422,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 422,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MR`, `ID`, `identity`, `freshness`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "19. Časté omyly",
+      "line": 435,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "„Má dve approvals, teda je bezpečný“",
+      "line": 437,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "„Pipeline je zelená“",
+      "line": 441,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "„Code Owner je v súbore, approval sa určite vyžaduje“",
+      "line": 445,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "„Resolved znamená vyriešené“",
+      "line": 449,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/06-gitlab/merge-requests-and-approvals.md",
+      "section": "„Merge train zabráni každému incidentu“",
+      "line": 453,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/06-gitlab/projects-groups-permissions.md",
