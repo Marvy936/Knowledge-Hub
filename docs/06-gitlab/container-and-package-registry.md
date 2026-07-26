@@ -6,654 +6,520 @@
 - Level: L2
 - Domain: GitLab
 
-GitLab Container Registry a Package Registry distribuujú build outputs medzi pipelines, deploymentmi a consumers. Registry nie je iba storage. Je to publication, identity, access, retention a supply-chain boundary, ktorá musí zachovať väzbu medzi source, buildom, immutable obsahom, evidence a runtime použitím.
-
-## 1. Mental model
+GitLab Container Registry a Package Registry sú supply-chain boundaries. Spájajú build output s immutable content identity, publication authorization, evidence, dependency resolution, runtime consumption, retention a revocation.
 
 ```text
-source a resolved inputs
-→ trusted build
-→ immutable content
-→ scan / SBOM / provenance / signature
-→ authorized publication
-→ registry identity
-→ promotion alebo dependency resolution
-→ runtime consumption
-→ retention / yanking / revocation / recovery
+trusted build subject
+→ immutable content a variant inventory
+→ tests/scans/SBOM/provenance
+→ authorized atomic publication
+→ immutable version alebo digest
+→ promotion/channel alias
+→ verified consumer resolution
+→ runtime inventory
+→ support, cleanup, yanking alebo revocation
 ```
 
-Každý krok musí pracovať s konkrétnym artifact subjectom, nie iba s mutable názvom.
+Registry path alebo tag je iba reference. Dôveryhodný release chain musí vždy vedieť, ktoré konkrétne bytes boli publikované, schválené, stiahnuté a spustené.
 
-## 2. Registry namespaces
+## 1. Nosný model: publication-to-consumption protocol
 
-Registry path je odvodený od GitLab namespace a projektu. Namespace je zároveň:
-
-- ownership boundary,
-- authorization scope,
-- naming scope,
-- lifecycle boundary,
-- dependency coordinate,
-- audit kontext.
-
-Project transfer alebo group rename môže ovplyvniť image paths, package coordinates, consumers, deploy manifests a token policies. Redirect alebo alias nemá nahradiť riadenú migráciu.
-
-## 3. Artifact identity
-
-Pre container rozlišuj:
-
-- registry host,
-- repository path,
-- tag,
-- manifest,
-- OCI index/manifest list,
-- platform manifest,
-- content digest,
-- blob/layer digest.
-
-Pre package rozlišuj:
-
-- registry scope,
-- package name,
-- version,
-- variant/classifier,
-- checksum,
-- metadata.
-
-Human-readable version komunikuje význam. Digest alebo checksum identifikuje konkrétny obsah.
-
-## 4. Tag verzus digest
-
-Príklad:
+Registry workflow má dve odlišné trust boundaries:
 
 ```text
-registry.example.com/team/app:2.4.1
-registry.example.com/team/app@sha256:...
+publication
+→ kto smie zapísať aký content pod akú identity
+
+consumption
+→ z ktorého registry a podľa akej policy sa content vyberie a overí
 ```
 
-Tag je pointer. Digest je content identity. Mutable tags ako `latest`, `main`, `stable` alebo `production` môžu byť vhodné pre discovery alebo channel, ale deployment record musí zachovať digest.
+Publisher môže byť dôveryhodný a consumer resolver stále vybrať zlý registry. Consumer môže pinovať digest, ale digest mohol vzniknúť na kompromitovanom builderi. Preto sa identity, integrity, provenance a policy nesmú zlievať do jednej kontroly.
 
-Tag movement musí byť auditovateľný a autorizovaný.
+## 2. Nosný scenár: Atlas Payments release 3.12.0
 
-## 5. Package version immutability
-
-Publikovaná package version má byť write-once. Prepísanie verzie mení dependency output bez zmeny consumer source alebo lockfile.
-
-Ak `2.4.1` obsahuje chybu:
-
-- nepíš nové bytes pod `2.4.1`,
-- označ verziu ako deprecated/yanked podľa ecosystemu,
-- publikuj `2.4.2` alebo novú pre-release verziu,
-- aktualizuj advisories a consumers.
-
-Immutability je základ reprodukovateľnosti a auditu.
-
-## 6. Publication subject
-
-Publish job má pracovať s presným subjectom:
-
-- source commit alebo merged-result SHA,
-- resolved pipeline configuration,
-- build job a attempt,
-- artifact digest,
-- platform/variant inventory,
-- version,
-- provenance/SBOM identity,
-- publisher identity,
-- target namespace.
-
-Job nemá rebuildovať release output tesne pred publishom.
-
-## 7. Publish eligibility
-
-Pred publishom over:
-
-1. pipeline context je oprávnený,
-2. ref/tag je chránený podľa policy,
-3. version alebo immutable tag ešte neexistuje,
-4. artifact digest zodpovedá schválenému build outputu,
-5. required tests/scans sú kompletné a čerstvé,
-6. package/image metadata je validná,
-7. SBOM a provenance patria tomu istému subjectu,
-8. publisher identity má minimum scope,
-9. target namespace je správny,
-10. release record sa dá vytvoriť.
-
-## 8. Atomic publication
-
-Publication môže zlyhať po časti uploadu alebo pri súbežnom jobe.
-
-Bezpečný model:
+Atlas vytvára multi-platform image:
 
 ```text
-upload immutable blobs/content
-→ verify checksums
-→ vytvor manifest/package version
-→ over completeness
-→ atomicky publikuj release pointer/tag
+release subject R120
+source SHA S42
+resolved CI config C19
+amd64 manifest digest D-amd64
+arm64 manifest digest D-arm64
+OCI index digest D-index
+package version 3.12.0
+SBOM B42
+provenance A42
+signature SIG42
 ```
 
-Riadiť treba:
-
-- concurrent publishers,
-- duplicate version race,
-- partial manifests,
-- retry idempotency,
-- temporary/staging namespace,
-- cleanup orphaned blobs.
-
-„Push job skončil zeleno“ nie je úplný publication oracle, ak registry entry nie je čitateľná a kompletná.
-
-## 9. Build once, promote many
-
-Správny flow:
+Publication lifecycle:
 
 ```text
-build content once
-→ publish immutable digest/version
-→ test a scan konkrétny obsah
-→ promotionuj rovnaký digest
-→ deploy alebo distribuuj rovnakú identity
+platform builds vytvoria immutable manifests
+→ každý variant prejde tests a scanom
+→ fan-in overí expected inventory {amd64, arm64}
+→ OCI index D-index sa vytvorí z oboch digestov
+→ publisher overí release eligibility
+→ publikuje version 3.12.0 a immutable index
+→ alias stable sa CAS-presunie old→D-index
+→ deployment manifest používa D-index
+→ runtime inventory potvrdí platform-specific digests
 ```
 
-Promotion môže znamenať:
+Package a image sa nerebuildnú pri promotion do production.
 
-- pridanie release tagu k rovnakému digestu,
-- kopírovanie immutable contentu do chráneného namespace,
-- vytvorenie release manifestu,
-- zmenu channel aliasu.
+## 3. Namespace je ownership a dependency coordinate
 
-Rebuild pre production ruší predchádzajúcu evidence.
+Registry path určuje:
 
-## 10. Publisher identity
+- ownership a access scope;
+- naming a collision boundary;
+- lifecycle a cleanup policy;
+- dependency coordinate;
+- audit context;
+- cross-project token policy.
 
-Oddeľ identity pre:
+Project transfer alebo group rename môže zmeniť image/package coordinates, includes, consumers a OIDC/token claims. Redirect nie je úplná migrácia; treba inventory a post-transfer verification.
 
-- development/branch publish,
-- release publish,
-- signing,
-- cleanup/deletion,
-- runtime pull,
-- cross-project dependency read.
+## 4. Tag, version, manifest a digest nie sú synonymá
 
-Preferuj:
+Pre container:
 
-- job-scoped token tam, kde stačí,
-- project/group access token s minimálnym scope,
-- deploy token pre obmedzený pull/publish use case,
-- workload identity alebo isolated signing service,
-- expiration a audit.
+```text
+repository path
+→ tag alebo digest reference
+→ OCI index/manifest
+→ platform manifest
+→ blobs/layers
+```
 
-Personal token človeka nemá byť trvalá production registry identity.
+- **Tag:** mutable alebo policy-immutable pointer.
+- **Digest:** content-derived identity manifestu/indexu.
+- **OCI index:** mapuje platformy na platform manifests.
+- **Layer/blob digest:** identifikuje časť image contentu.
 
-## 11. Push, pull, delete a policy administration
+Pre package:
 
-Tieto capabilities oddeľ:
+```text
+registry scope + package name + version + variant/classifier + checksum
+```
 
-- publish content,
-- move mutable alias,
-- pull content,
-- delete tag/version,
-- delete underlying content,
-- meniť cleanup policy,
-- meniť access policy.
+Human-readable version komunikuje release význam. Checksum/digest identifikuje bytes.
 
-Identity schopná publishovať release nemá automaticky spravovať cleanup alebo meniť retention roots.
+## 5. Publication subject
 
-## 12. Untrusted pipelines
+Publish decision patrí:
 
-Merge-request alebo fork pipeline nemá:
+```text
+source/candidate SHA
+resolved pipeline config
+build jobs a attempts
+artifact a variant digests
+runner/toolchain provenance
+version
+SBOM/scan/signature identities
+publisher identity
+target registry namespace
+release policy revision
+```
 
-- publishovať do release namespace,
-- vytvárať chránené version tags,
-- používať signing identity,
-- prepísať shared package version,
-- meniť cleanup policy.
+Job nemá buildnúť nový content tesne pred publishom. Ak sa digest zmení, vznikol nový subject a predchádzajúce tests alebo approvals sa nemusia preniesť.
 
-Môže publikovať do izolovaného ephemeral namespace s TTL, ak to workflow potrebuje.
+## 6. Publish eligibility je odvodený verdict
 
-## 13. Container build trust
+Atlas povoľuje publish iba keď:
 
-Image build job môže byť privilegovaný. Preferuj:
+```text
+trusted pipeline/ref context
++ immutable version ešte neexistuje
++ expected variant inventory complete
++ artifact digests patria approved build subjectu
++ required tests/scans complete a fresh
++ SBOM/provenance/signature patria rovnakým digestom
++ publisher má minimum write scope
++ target namespace je správny
++ release record možno uzavrieť
+→ ELIGIBLE
+```
 
-- rootless builder,
-- dedikovaný ephemeral pool,
-- žiadny host Docker socket,
-- pinned base images,
-- explicitný build context,
-- secret mounts namiesto copy do layers,
-- network allowlist,
-- reproducible alebo aspoň fully traceable inputs,
+Missing arm64 scan, parser failure alebo chýbajúca provenance znamenajú incomplete, nie clean release.
+
+## 7. Atomic publication a unknown outcome
+
+Safe publication:
+
+```text
+upload immutable blobs
+→ over digests
+→ vytvor platform manifests
+→ vytvor OCI index/package version
+→ over registry read-back a completeness
+→ atomicky publishni release reference/alias
+```
+
+Pri timeout-e response nemusí byť známe, či write prešiel. Retry sa najprv reconciliuje podľa version, digestu a idempotency keya. Blind republish môže naraziť na collision alebo prepísať alias novším/nesprávnym digestom.
+
+Write-once version collision s odlišným digestom je hard failure.
+
+## 8. Build once, promote many
+
+Promotion znamená prácu s rovnakým obsahom:
+
+```text
+D-index candidate
+→ tests/scans/signature nad D-index
+→ staging deployment D-index
+→ release approval D-index
+→ production deployment D-index
+```
+
+Môže sa pridať nový immutable release tag, kopírovať content do chráneného namespace-u alebo posunúť channel alias. Rebuild pre environment vytvára iné bytes a invaliduje evidence.
+
+## 9. Publisher identities sú oddelené podľa capability
+
+Atlas oddeľuje:
+
+- branch/ephemeral publish;
+- release publish;
+- signing;
+- alias movement;
+- cleanup/delete;
+- runtime pull;
+- policy administration.
+
+Release publisher nemá automaticky právo mazať blobs alebo meniť cleanup policy. Untrusted MR pipeline smie publikovať iba do izolovaného TTL namespace-u, nie do release pathu.
+
+Personal token človeka nie je trvalá supply-chain identity.
+
+## 10. Build a signing trust
+
+Container build je privileged operation podľa buildera. Atlas používa:
+
+- explicitný build context a `.dockerignore`;
+- pinned base-image digests;
+- isolated ephemeral builder;
+- secret mounts, nie copy do layers;
+- restricted network;
+- identified runner/toolchain;
 - provenance generation.
 
-`.dockerignore` je jedna ochrana. Build context, generated files a multi-stage copy musia byť auditované.
+Signing identity podpisuje presný digest a nie je dostupná build/MR jobom. Podpis dokazuje integritu a signer identity, nie funkčnosť alebo absenciu vulnerabilities.
 
-## 14. Base images
+## 11. Multi-platform completeness
 
-Tag base image môže zmeniť obsah bez zmeny Dockerfile.
-
-Riadený model:
-
-- pin digest,
-- používaj approved catalog,
-- automatizuj kontrolované updates,
-- rebuildni dependent images pri security patchi,
-- sleduj provenance a license,
-- testuj compatibility.
-
-Starý digest je reprodukovateľný, nie automaticky bezpečný. Patching a reproducibility musia fungovať spolu.
-
-## 15. Multi-platform images
-
-OCI index mapuje platformy na konkrétne manifests:
+Fan-in pozná expected inventory:
 
 ```text
-release tag / index digest
-├── linux/amd64 digest
-├── linux/arm64 digest
-└── windows/amd64 digest
+expected = linux/amd64, linux/arm64
+received = manifest digests + test/scan evidence per platform
 ```
 
-Fan-in job musí poznať expected platform inventory a overiť:
+OCI index sa nevytvorí, ak:
 
-- všetky required variants existujú,
-- každá patrí rovnakému source/release subjectu,
-- platform metadata je správna,
-- scan/test evidence existuje per variant,
-- duplicate alebo missing variant spôsobí incomplete verdict.
+- variant chýba;
+- variant patrí inému source alebo config subjectu;
+- platform metadata nesedí;
+- scan/test report chýba;
+- duplicate platform má viac nejednoznačných digestov.
 
-Úspešný amd64 build nedokazuje arm64 release.
+Úspešný amd64 image nie je complete multi-platform release.
 
-## 16. SBOM
+## 12. SBOM, provenance, scan a signature sa viažu na digest
 
-SBOM má byť viazaný na konkrétny digest alebo package checksum. Uchovaj:
+- **SBOM:** inventory komponentov final image/package-u.
+- **Provenance:** source, pipeline, builder, toolchain a inputs, ktoré digest vytvorili.
+- **Scan:** findings a analyzer/database freshness pre konkrétny digest/platformu.
+- **Signature:** kryptografická väzba signer identity na digest.
 
-- format/version,
-- generator identity,
-- source artifact identity,
-- component inventory,
-- creation timestamp,
-- completeness limitations.
+Source-tree SBOM nemusí zodpovedať final image. Scan tagu môže po pohybe aliasu opisovať iný content. Evidence musí používať immutable digest.
 
-SBOM pre source tree nemusí zodpovedať dependencies skutočne zabudovaným do final image.
+## 13. Consumer resolution je samostatná policy
 
-## 17. Provenance a attestations
+Consumer určuje:
 
-Provenance odpovedá:
+```text
+allowed registries a priority
+package scope
+version range alebo pin
+lockfile
+checksum/signature/provenance policy
+proxy/cache behavior
+public fallback
+```
 
-- kto build vykonal,
-- z akého source,
-- akou pipeline konfiguráciou,
-- na akom runner/toolchain-e,
-- s akými vstupmi,
-- aký digest vznikol.
+Dependency confusion vzniká, keď interný package name môže resolver vybrať z verejného registry. Ochrany zahŕňajú scoped namespaces, explicitný endpoint, no-public-fallback pre private scope, lockfile, checksums a egress policy.
 
-Deployment alebo consumer policy môže požadovať dôveryhodného buildera, protected source, konkrétny workflow a platnú attestation.
+Dependency proxy zvyšuje availability a cache efficiency, ale neprepisuje origin trust. Consumer musí vedieť, či používa interný content alebo cached upstream.
 
-## 18. Signing a verification
+## 14. Runtime consumption potrebuje effective digest inventory
 
-Podpis dokazuje integritu a podpisujúcu identity podľa použitého modelu. Nedokazuje funkčnosť ani neprítomnosť zraniteľností.
+Deployment record uchováva D-index, ale runtime na platforme používa konkrétny platform manifest digest.
 
-Signing identity:
+```text
+release index D-index
+→ amd64 nodes resolve D-amd64
+→ arm64 nodes resolve D-arm64
+```
 
-- nesmie byť dostupná untrusted jobom,
-- má byť krátkodobá alebo izolovaná,
-- potrebuje audit,
-- má podpisovať presný digest,
-- musí mať revocation/rotation model.
+Atlas sleduje:
 
-Verification patrí pred promotion a deployment, nie iba pri publishnutí.
+- requested reference;
+- resolved index/manifest digest;
+- node/platform;
+- pull/mirror source;
+- running workload digest;
+- deployment/release relation.
 
-## 19. Container scanning
+Mutable alias ako `stable` nesmie byť jedinou runtime identity.
 
-Scan viaž na digest a platformu. Rozlišuj:
+## 15. Mutable aliases sú release transitions
 
-- analyzer success,
-- database freshness,
-- OS a language package coverage,
-- findings,
-- severity a fix availability,
-- exception/waiver,
-- continuous re-evaluation po update vulnerability databázy.
+Alias movement:
 
-Absencia reportu nie je čistý image.
+```text
+expected current digest D-old
+→ authorized CAS move
+→ new digest D-index
+→ read-back verification
+→ audit old→new
+→ consumer/runtime observation
+```
 
-## 20. Package publishing
+Alias potrebuje ownera, allowed publishera, rollback policy a atomic semantics. Concurrent jobs nemajú „posledný write vyhrá“ meniť production channel.
 
-Publish workflow pre package má overiť:
+## 16. Retention a cleanup používajú reference roots
 
-- version syntax,
-- package coordinates,
-- version non-existence,
-- checksum,
-- metadata a dependencies,
-- test evidence,
-- publisher identity,
-- release notes/changelog podľa potreby,
-- support policy.
+Zachovaj content referencovaný:
 
-Package manager-specific metadata je súčasť contractu. Nesprávny dependency range alebo classifier môže rozbiť consumers aj pri správnom binary.
+- active deploymentom;
+- supported releaseom;
+- rollback windowom;
+- release manifestom;
+- incidentom alebo forensic holdom;
+- air-gapped/offline consumers;
+- support/EOL policy.
 
-## 21. Generic packages
+Tag regex a vek nie sú complete graph. Odstránenie tagu nemusí odstrániť manifest/blob a garbage collection môže odstrániť content stále potrebný nepriamou reference.
 
-Generic registry je vhodný pre release bundles, CLI binaries alebo assets bez natívneho ecosystem protocolu.
+GC je data-loss-sensitive storage transition s backup a restore contractom.
 
-Aj generic package potrebuje:
+## 17. Yanking, revocation a deletion majú odlišný význam
 
-- názov a immutable version,
-- digest/checksum,
-- platform/variant,
-- content type,
-- provenance,
-- retention a access,
-- consumer documentation.
+- **Deprecation:** verzia sa neodporúča alebo má obmedzenú podporu.
+- **Yanking:** resolver ju nemá vyberať pre nové installs, no locknuté consumers ju môžu potrebovať.
+- **Revocation:** policy musí blokovať content ako kompromitovaný/neakceptovateľný.
+- **Deletion:** fyzicky sa odstráni reference alebo content.
 
-Generic package nemá byť anonymný file dump.
+Delete tagu nezastaví bežiace workloads ani node caches. Security response potrebuje digest revocation, consumer inventory a runtime replacement.
 
-## 22. Dependency resolution
+## 18. Worked failure: production tag bol prepísaný novým rebuildom
 
-Consumer musí určiť:
+Release `3.12.0` prešiel tests ako digest `D42`. Production publish job namiesto promotion znovu buildol image a prepísal tag `3.12.0` na `D43`.
 
-- allowed registries,
-- priority/order,
-- package scope,
-- version range alebo pin,
-- lockfile,
-- checksum/signature,
-- proxy/cache behavior,
-- fallback policy.
+```text
+source SHA rovnaký
+→ base image tag sa medzitým posunie
+→ rebuild vytvorí D43
+→ tag 3.12.0 ukazuje na D43
+→ approval a scan stále patria D42
+→ nové nodes pullnú D43, staré cache používajú D42
+```
 
-Registry publishing a consuming sú dve odlišné trust boundaries.
+### Príčina
 
-## 23. Dependency confusion
+Tag/version sa považovali za identity contentu a production publish obsah rebuildoval. Version nebola write-once.
 
-Ak interný názov existuje aj vo verejnom registry, resolver môže zvoliť útočníkov package.
+### Dôsledok
 
-Ochrany:
+Jedna release version reprezentovala dve sady bytes a fleet sa rozdelila podľa pull času.
 
-- scoped namespaces,
-- explicitný registry endpoint a priority,
-- interná rezervácia názvov,
-- lockfiles a checksums,
-- no-public-fallback policy pre private scope,
-- egress control,
-- dependency allowlist,
-- provenance verification.
+### Trvalá náprava
 
-## 24. Dependency Proxy a virtual registries
+```text
+build once
+→ immutable digest D42
+→ evidence viazaná na D42
+→ package/image version collision s iným digestom hard fail
+→ promotion iba rovnakého contentu
+→ runtime digest inventory
+```
 
-Proxy alebo virtual registry môže znížiť upstream rate-limit a availability risk.
+## 19. Worked failure: multi-platform index bol publikovaný bez arm64
 
-Nevytvára automaticky dôveru. Riadiť treba:
+Arm64 build skončil runner system failure-om. Fan-in iteroval iba cez existujúce manifests a vytvoril OCI index s amd64.
 
-- povolené upstreams,
-- cache identity a invalidáciu,
-- provenance pôvodu,
-- mutable upstream tags,
-- namespace collision,
-- malware/vulnerability policy,
-- retention.
+```text
+amd64 manifest existuje
+→ arm64 output absent
+→ index creation success
+→ tag 3.12.0 published
+→ amd64 deployment prejde
+→ arm64 nodes hlásia no matching manifest
+```
 
-Consumer má vedieť, či používa interný artifact alebo cached external content.
+### Príčina
 
-## 25. Cross-project access
+Actual variant inventory bolo zamieňané za expected release inventory. Publication gate nevyžadoval per-platform evidence.
 
-Job-token alebo access-token policy pre cross-project pull/publish má byť explicitná:
+### Náprava
 
-- source project,
-- target registry/package scope,
-- read verzus write,
-- protected context,
-- expiration,
-- audit,
-- dependency ownership.
+Expected platform manifest je immutable input release contractu. Missing variant alebo scan vytvára `INCOMPLETE` a publication sa nevykoná.
 
-Group-wide read môže byť primeraný pre shared libraries; group-wide write je podstatne citlivejší.
+## 20. Worked failure: delete tagu nevyradil kompromitovaný image
 
-## 26. Mutable aliases a channels
+Publisher token bol kompromitovaný a alias `stable` bol krátko presunutý na škodlivý digest `D-bad`. Tím tag vymazal a považoval incident za uzavretý.
 
-Tags/channels ako `latest`, `stable`, `beta` alebo `production` môžu byť užitočné, ale potrebujú:
+```text
+niektoré nodes už pullli D-bad
+→ tag sa odstráni
+→ running containers a node cache ostanú
+→ deployment manifest stále používa digest D-bad
+→ ďalšie restarty z lokálnej cache pokračujú
+```
 
-- ownera,
-- allowed publishera,
-- atomic movement,
-- audit old→new digest,
-- rollback policy,
-- consumer expectations,
-- zákaz používať alias ako jedinú deployment identity.
+### Príčina
 
-Channel movement je release event.
+Deletion sa zamieňala za revocation a runtime remediation. Chýbal digest-centric consumer inventory.
 
-## 27. Yanking, deprecation a revocation
+### Recovery
 
-Rozlišuj:
+Atlas revoke-ol publisher/signing identities, zablokoval D-bad v admission/deployment policy, inventarizoval workloads a caches, nasadil opravený digest a overil runtime replacement.
 
-- **Deprecation —** verzia je podporovaná obmedzene alebo sa neodporúča pre nové použitie.
-- **Yanking —** resolver ju nemá vybrať pre nové installs, ale existujúce lockfiles ju môžu stále potrebovať.
-- **Revocation —** obsah je známy ako kompromitovaný alebo neakceptovateľný a policy má jeho použitie blokovať.
-- **Deletion —** content alebo reference sa fyzicky odstráni.
+## 21. Kauzálny diagnostický walkthrough
 
-Security incident často vyžaduje revocation a consumer notification, nie iba delete tagu.
+Symptom: dva production nodes používajú odlišné digests, hoci oba deployments deklarujú tag `3.12.0`.
 
-## 28. Revocation propagation
+### Krok 1 — stabilizuj publication a consumption subjects
 
-Pri kompromitovanom artifacte:
+```text
+release version/tag
+current a historical tag→digest mapping
+release-approved digest
+OCI index a platform manifests
+node architectures
+pull/mirror/cache source
+running workload digests
+publisher/audit timeline
+```
 
-1. identifikuj všetky tags/versions a digests,
-2. zablokuj nový pull/deploy podľa policy,
-3. zisti aktívne deployments a consumers,
-4. publikuj opravenú version,
-5. rotuj signing/publish credentials podľa potreby,
-6. aktualizuj advisory a release records,
-7. over runtime replacement,
-8. zachovaj forensic evidence.
+### Krok 2 — konkurenčné hypotézy
 
-Registry delete samo neodstráni image z bežiaceho node cache alebo nainštalovaný package.
+```text
+H1: tag bol prepísaný alebo alias sa posunul
+H2: nodes riešia rôzne platform manifests rovnakého OCI indexu
+H3: registry mirror/replication je stale
+H4: local node cache používa starý digest
+H5: deployment manifest alebo imagePullPolicy sa líši
+H6: neautorizovaný publisher zmenil registry state
+```
 
-## 29. Cleanup roots
+### Krok 3 — observation points
 
-Cleanup policy musí zachovať content referencovaný:
+- tag history a audit testujú H1/H6;
+- index manifest a architecture testujú H2;
+- registry/mirror digest read-back testuje H3;
+- runtime/container a local cache inventory testuje H4;
+- rendered deployment config testuje H5.
 
-- aktívnym deploymentom,
-- podporovaným releaseom,
-- rollback window,
-- release manifestom,
-- aktívnym release candidate,
-- legal/compliance holdom,
-- security/incident vyšetrovaním,
-- downstream consumers podľa support policy.
+Atlas zistí, že tag `3.12.0` bol prepísaný z D42 na D43; starý node používa cached D42 a nový pullol D43. H1/H4 sú potvrdené.
 
-Regex podľa tagu bez referenčného inventory je nedostatočný.
+### Krok 4 — contain-ni publication boundary
 
-## 30. Tags, manifests a garbage collection
+Publisher identity sa pause-ne, mutable version sa zablokuje a ďalšie rollouts sa zastavia. D42 aj D43 sa uchovajú ako evidence.
 
-Odstránenie tagu nemusí odstrániť manifest alebo blobs. Garbage collection musí rešpektovať všetky references.
+### Krok 5 — obnov jeden dôveryhodný subject
 
-Over:
+Atlas zvolí schválený digest D42 alebo nový opravený immutable release podľa security/compatibility stavu, explicitne ho nasadí a overí všetky runtime platform digests.
 
-- soft-delete/retention obdobie,
-- concurrent pulls/pushes,
-- active manifests/indexes,
-- registry replication,
-- object storage consistency,
-- backup a recovery.
+### Krok 6 — vráť learning
 
-GC je storage operation s data-loss rizikom, nie iba housekeeping.
+Finding sa mení na write-once package policy, CAS alias movement, registry audit alert a runtime digest drift detection.
 
-## 31. Consumer inventory
+## 22. Registry compromise a recovery
 
-Pred yankingom alebo cleanupom potrebuješ vedieť:
+Pri compromise:
 
-- ktoré pipelines package používajú,
-- ktoré lockfiles/verzie sú aktívne,
-- ktoré deployments používajú digest,
-- ktoré offline clients ešte potrebujú package,
-- support a EOL policy,
-- mirrors a air-gapped environments.
+```text
+stop publishing a alias movement
+→ revoke publisher/signing identities
+→ preserve audit, tags, versions a digests
+→ porovnaj trusted release manifests/provenance
+→ block unverified digests
+→ inventory deployments, caches, mirrors a consumers
+→ republish iba verified content
+→ replace runtime
+→ rotate downstream credentials
+```
 
-Bez consumer inventory je deletion risk rozhodnutie naslepo.
+Backup musí obnoviť metadata aj blobs, permissions, tags, attestations a digest integrity. Blob backup bez registry metadata nemusí vytvoriť použiteľný registry.
 
-## 32. Registry availability
+## 23. Diagnostický runbook
 
-Registry je kritická delivery dependency. Sleduj:
+1. Urči host, namespace, coordinates, version/tag a digest.
+2. Zostav publication subject a publisher identity.
+3. Over version immutability, tag history a atomic publish outcome.
+4. Porovnaj expected a actual platform/package variant inventory.
+5. Viaž tests, scan, SBOM, provenance a signature na digest.
+6. Pri pull-e over resolver registry priority, lockfile, proxy a checksum policy.
+7. Porovnaj requested reference, resolved digest a runtime digest.
+8. Skontroluj yanking/revocation/cleanup/GC state a consumer roots.
+9. Pri nejasnej integrite zastav publication/deployment a zachovaj evidence.
+10. Zmeň finding na publication, identity, resolver, retention alebo revocation control.
 
-- push/pull latency a error rate,
-- authentication failures,
-- storage a object-store health,
-- manifest/blob consistency,
-- replication lag,
-- certificate expiration,
-- queue/backlog,
-- backup/restore,
-- cleanup/GC failures.
+## 24. Referenčné pravidlá
 
-Runtime má používať immutable references a lokálne pull policies primerané dostupnosti; nemá závisieť od pohybu mutable tagu pri každom štarte.
+- Registry je publication aj consumption trust boundary.
+- Tag je pointer; digest je content identity.
+- Package/release version má byť write-once.
+- Publish subject zahŕňa build attempt, varianty, evidence a publishera.
+- Atomic publish potrebuje idempotency a read-back verification.
+- Build once, promote many zachováva rovnaký digest.
+- Multi-platform release potrebuje expected variant inventory.
+- SBOM, scan, provenance a signature patria immutable digestu.
+- Consumer registry priority a fallback sú security policy.
+- Runtime inventory používa resolved digests.
+- Cleanup rešpektuje deployment/support/rollback roots.
+- Revocation nie je deletion.
 
-## 33. Backup a replication
+## 25. Časté omyly
 
-Pre release registry over:
+### „Version tag identifikuje bytes“
 
-- metadata a blob backup,
-- konzistenciu medzi databázou a object storage,
-- encryption keys,
-- restore test,
-- replication topology,
-- RPO/RTO,
-- obnovu permissions, tags a attestations,
-- schopnosť overiť digests po restore.
+Ak je prepísateľný, môže reprezentovať viac digestov.
 
-Backup blobs bez registry metadata nemusí obnoviť použiteľný registry.
+### „Publish job je green, release je kompletný“
 
-## 34. Registry compromise response
+Variant, evidence alebo registry read-back môžu chýbať.
 
-Pri podozrení na kompromitáciu:
+### „Podpísaný image je bezpečný“
 
-- zastav alebo obmedz publishing,
-- revokuj publisher a signing identities,
-- identifikuj zmenené tags/versions a digests,
-- porovnaj audit log, provenance a trusted manifests,
-- blokuj neoverené content,
-- audituj deployments a consumers,
-- obnov registry/control plane z dôveryhodného stavu,
-- republishni alebo znovu podpíš iba overené artifacts,
-- rotuj downstream credentials,
-- dokumentuj affected window.
+Podpis nepreukazuje funkčnosť ani vulnerability status.
 
-Tag history a immutable digest inventory sú kľúčové pre scope incidentu.
+### „Dependency proxy je trusted source“
 
-## 35. Diagnostický postup
+Je to cache/proxy; origin a verification policy zostávajú dôležité.
 
-Keď publish alebo pull zlyhá:
+### „Delete kompromitovaného tagu vyrieši incident“
 
-1. identifikuj registry host, namespace a artifact coordinates,
-2. over token type, scope, expiration a subject,
-3. over protected pipeline context,
-4. rozlíš tag, version, manifest a digest,
-5. skontroluj platform variant,
-6. over certificate, DNS a object storage,
-7. porovnaj registry digest s release/deployment recordom,
-8. over cleanup/yank/revocation state,
-9. pri package resolution skontroluj registry priority a lockfile,
-10. uchovaj audit pred retry alebo republishom.
+Running workloads, caches, lockfiles a mirrors môžu content ďalej používať.
 
-## 36. Typické anti-patterny
+## 26. Zhrnutie
 
-### Rebuild pod rovnakým release tagom
+Dôveryhodný Atlas registry lifecycle je:
 
-Produkcia dostáva iné bytes než tie, ktoré prešli testami.
+```text
+identified trusted build subject
+→ complete immutable variant content
+→ digest-bound tests/scans/SBOM/provenance/signature
+→ authorized atomic write-once publication
+→ controlled alias/promotion
+→ verified resolver a runtime digest inventory
+→ reference-aware retention
+→ explicit yanking/revocation/recovery
+```
 
-### Prepísateľná package version
-
-Consumer build sa mení bez zmeny lockfile alebo source.
-
-### Untrusted pipeline publikuje do release namespace
-
-Nedôveryhodný kód vstupuje priamo do supply chainu.
-
-### Signing key na shared runneri
-
-Iný job môže kľúč zneužiť alebo exfiltrovať.
-
-### Multi-platform tag bez completeness checku
-
-Niektorá platforma chýba alebo patrí inému build subjectu.
-
-### Cleanup iba podľa veku alebo regexu
-
-Odstráni active deployment alebo rollback artifact.
-
-### Delete kompromitovaného tagu bez revocation
-
-Bežiace systémy a cached consumers pokračujú v používaní obsahu.
-
-### Personal token ako runtime pull identity
-
-Dostupnosť aplikácie závisí od účtu človeka.
-
-## 37. Praktický rozhodovací rámec
-
-Pre každý registry workflow odpovedz:
-
-1. Aký je artifact subject a immutable identity?
-2. Kto smie publishovať, aliasovať, mazať a meniť policy?
-3. Ako sa zabráni prepísaniu version/tagu?
-4. Je publication atomická a retry-safe?
-5. Sú všetky platform/variant outputs kompletné?
-6. Aké SBOM, provenance, scan a signature evidence existuje?
-7. Ako consumer overuje pôvod a integrity?
-8. Ako sa rieši dependency confusion?
-9. Ktoré retention roots chránia obsah?
-10. Ako sa verzia deprecates, yanks alebo revokes?
-11. Ako sa registry zálohuje a obnovuje?
-12. Aký je postup pri kompromitácii publishera alebo registry?
-
-## 38. Kontrolný checklist
-
-- registry paths zodpovedajú ownershipu;
-- release versions a immutable tags sú write-once;
-- deployment používa digest;
-- publication používa oprávnenú non-human identity;
-- untrusted pipelines nemajú release write access;
-- multi-platform fan-in kontroluje inventory;
-- SBOM/provenance/signature patria rovnakému digestu;
-- consumeri používajú lock/checksum/policy;
-- dependency sources a priority sú explicitné;
-- aliases majú audit old→new digest;
-- yanking, revocation a deletion sú rozlíšené;
-- cleanup používa retention roots;
-- registry má restore-tested backup;
-- compromise response zahŕňa deployments a consumers.
-
-## 39. Kontrolné otázky
-
-1. Aký je rozdiel medzi tagom, digestom, manifestom a OCI indexom?
-2. Prečo package version musí byť immutable?
-3. Čo tvorí publication subject?
-4. Ako funguje atomic publish?
-5. Čo znamená build once, promote many v registry?
-6. Ktorá identity má smieť publishovať release?
-7. Ako overiť completeness multi-platform image?
-8. Prečo SBOM musí byť viazaný na final digest?
-9. Aký je rozdiel medzi signing a security verification?
-10. Ako vzniká dependency confusion?
-11. Aký je rozdiel medzi deprecation, yanking, revocation a deletion?
-12. Čo sú cleanup roots?
-13. Prečo delete tagu neodstráni bežiaci kompromitovaný image?
-14. Čo musí obsahovať registry recovery plán?
-
-## Summary
-
-GitLab registry je supply-chain boundary od publication cez promotion až po runtime consumption. Bezpečný model používa immutable package versions a content digests, autorizovaného publishera, atomic publish, build-once-promote-many, per-platform completeness, SBOM, provenance, signing a verification. Consumers potrebujú explicitný registry a dependency policy. Cleanup musí rešpektovať deploymenty, support a rollback roots. Yanking, revocation a deletion majú rozdielny účel a registry compromise response musí pokryť aj všetky nasadené a cached copies.
-
-## Glossary impact
-
-Relevantné pojmy: GitLab Container Registry, GitLab Package Registry, registry namespace, OCI digest, image tag, manifest, OCI index, package coordinates, immutable version, atomic publication, dependency proxy, virtual registry, dependency confusion, artifact yanking, revocation, cleanup root a registry recovery.
-
-## Oficiálna dokumentácia
-
-- [Packages and registries](https://docs.gitlab.com/user/packages/)
-- [Container Registry](https://docs.gitlab.com/user/packages/container_registry/)
-- [Package Registry](https://docs.gitlab.com/user/packages/package_registry/)
-- [Dependency Proxy](https://docs.gitlab.com/user/packages/dependency_proxy/)
+Registry troubleshooting nesmie zostať pri názve tagu alebo HTTP chybe. Musí rekonštruovať publication identity, actual content graph, resolver path a runtime digest a potom overiť, že recovery odstránila nežiaduce bytes zo všetkých aktívnych consumers.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
