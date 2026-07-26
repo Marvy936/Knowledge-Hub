@@ -8,552 +8,286 @@
 - Predpoklady: [DNS](dns.md), [Ports a sockets](ports-and-sockets.md), [Firewally](firewalls.md)
 - Súvisiace témy: load balancing, HTTP, TLS termination, caching, service discovery, service mesh, WAF
 
-## 1. Definícia
+## 1. Problém, ktorý proxy rieši
 
-Proxy je sprostredkovateľ, ktorý prijme komunikáciu od jednej strany a vytvorí samostatnú komunikáciu k druhej strane.
+Atlas nechce, aby internetový klient poznal adresu každého Orders backendu. Chce jeden stabilný endpoint, jednotnú TLS policy, centralizované request logy a miesto, kde možno aplikovať routing, limity a bezpečnostné kontroly.
 
-- Forward proxy zastupuje klienta voči externým serverom.
-- Reverse proxy zastupuje serverovú službu voči klientom.
-
-Proxy nie je iba router alebo NAT. Typicky ukončí transportné alebo aplikačné spojenie, prijme dáta do vlastných bufferov, aplikuje policy a vytvorí nový upstream flow.
+Klient preto nekomunikuje priamo s Orders procesom. Komunikuje s reverse proxy:
 
 ```text
-Client
-    ↓ downstream connection
-Proxy
-    ↓ upstream connection
-Server
+client
+→ atlas.example.com:443
+→ reverse proxy
+→ orders-service:8080
 ```
 
-Downstream a upstream connection majú samostatné:
+Proxy nie je iba router ani NAT. Prijme downstream communication, ukončí ju vo vlastnom socket/protocol state a vytvorí samostatnú upstream communication.
 
-- source a destination endpointy,
+```text
+Client -- downstream connection --> Proxy -- upstream connection --> Backend
+```
+
+Downstream a upstream majú nezávislé:
+
+- endpointy a source identity,
 - TCP alebo QUIC state,
 - TLS session,
 - timeouty,
-- buffery,
+- buffery a queues,
 - protocol verziu,
 - retry lifecycle,
-- observability,
-- failure mode.
+- observability a failure reason.
 
-To je základný mentálny model celej kapitoly.
+Toto rozdelenie na dva flows je dominantný model celej kapitoly.
 
-## 2. Proxy verzus router, NAT a load balancer
-
-### Router
-
-Router forwarduje IP packets podľa routing table. Bežne nevytvára nové aplikačné spojenie.
-
-### NAT
-
-NAT prepíše address alebo port fields a udržiava translation state. Endpointy stále komunikujú v rámci jedného transportného flowu, hoci middlebox mení tuple.
-
-### Proxy
-
-Proxy ukončí jeden flow a vytvorí druhý. Môže čítať a meniť aplikačný protokol.
-
-### Load balancer
-
-Load balancing je funkcia rozdelenia trafficu medzi backends. Môže byť implementovaná proxy modelom, NAT modelom, direct routingom, DNS alebo client-side výberom.
+## 2. Proxy verzus router, NAT a load balancing
 
 ```text
+router
+→ prepošle IP packet podľa route
+
+NAT
+→ prepíše endpoint fields v jednom transportnom path-e
+
 proxy
-= connection termination a sprostredkovanie
+→ ukončí jeden flow a vytvorí druhý
 
 load balancing
-= backend selection
+→ vyberie backend pre flow alebo request
 ```
 
-Jedno zariadenie môže vykonávať obe funkcie.
+Proxy môže zároveň load-balancovať, ale tieto pojmy nie sú totožné. Proxy opisuje connection boundary. Load balancing opisuje selection decision.
 
-## 3. Forward proxy
-
-Forward proxy je explicitný alebo transparentný egress bod pre klientov.
-
-Použitie:
-
-- riadený outbound access,
-- egress filtering,
-- audit a attribution,
-- malware alebo content filtering,
-- caching,
-- anonymizácia source adresy voči originu,
-- prístup z izolovanej siete,
-- vynútenie corporate identity alebo DLP policy.
-
-Explicitná konfigurácia môže používať environment:
+Pre Atlas to znamená:
 
 ```text
-HTTP_PROXY=http://proxy.example:3128
-HTTPS_PROXY=http://proxy.example:3128
-NO_PROXY=localhost,127.0.0.1,.internal.example,10.0.0.0/8
+DNAT doručí packet na proxy listener
+→ firewall ho povolí
+→ proxy prijme downstream connection
+→ proxy vyberie Orders backend
+→ proxy vytvorí upstream connection
 ```
 
-Nie každá aplikácia interpretuje tieto premenné rovnako. Rozdiely môžu zahŕňať:
+Každá šípka má iný state owner a inú failure boundary.
 
-- case sensitivity názvu premennej,
-- CIDR podporu v `NO_PROXY`,
-- matching subdomén,
-- IPv6 literal syntax,
-- port-specific entries,
-- DNS resolution pred alebo po proxy výbere.
+## 3. Carried scenario: jeden Orders request
 
-Efektívnu proxy konfiguráciu treba overiť v konkrétnom runtime, nie iba v shell environment-e.
-
-## 4. Transparentný forward proxy
-
-Transparentný proxy path presmeruje traffic bez explicitného client nastavenia.
-
-```text
-client believes it connects to origin
-    ↓ network redirect/interception
-proxy
-    ↓ origin
-```
-
-Riziká:
-
-- aplikácia nemusí očakávať sprostredkovateľa,
-- TLS nemožno transparentne interpretovať bez interception modelu,
-- original destination treba zachovať v dataplane metadata,
-- asymmetric routing môže obísť proxy,
-- proxy failure môže zablokovať celý egress,
-- troubleshooting je ťažší, pretože client config proxy neukazuje.
-
-Transparentný režim musí mať explicitný fail-open alebo fail-closed model.
-
-## 5. HTTP CONNECT
-
-Pri HTTPS cez explicitný forward proxy klient typicky požiada o tunel:
+Klient odošle:
 
 ```http
-CONNECT api.example.com:443 HTTP/1.1
-Host: api.example.com:443
+POST /orders HTTP/1.1
+Host: atlas.example.com
+Idempotency-Key: order-7f31
+Content-Type: application/json
 ```
 
-Proxy:
-
-1. autentizuje alebo autorizuje klienta,
-2. vyhodnotí destination policy,
-3. vyrieši meno alebo použije klientom určený target podľa implementácie,
-4. vytvorí TCP connection k originu,
-5. vráti úspech klientovi,
-6. prenáša bytes oboma smermi.
-
-Pri bežnom CONNECT tuneli proxy nevidí plaintext HTTP vo vnútri TLS. Vidí však:
-
-- destination hostname a port z CONNECT requestu,
-- client identity,
-- čas a objem spojenia,
-- TLS metadata, ak ich pasívne pozoruje,
-- network failure a timeouty.
-
-## 6. TLS inspection cez forward proxy
-
-Pri TLS inspection proxy nevytvorí iba tunnel. Vystupuje ako dva TLS endpointy:
+Request prejde proxy lifecycle-om:
 
 ```text
-Client --TLS A--> Inspection proxy --TLS B--> Origin
+1. DNS vyberie proxy endpoint
+2. klient otvorí downstream TCP connection
+3. klient a proxy vykonajú TLS handshake
+4. proxy načíta a validuje HTTP headers
+5. proxy vyhodnotí host/path route
+6. proxy získa eligible upstream endpoint
+7. proxy vezme pooled connection alebo otvorí novú
+8. proxy prípadne vykoná upstream TLS
+9. proxy odošle request
+10. backend spracuje objednávku
+11. proxy prijme response
+12. proxy ju pošle klientovi
+13. obe connections sa zachovajú, drainujú alebo zatvoria
 ```
 
-Proxy dynamicky vydá certifikát pre origin hostname pomocou internej CA. Klient musí tejto CA dôverovať.
+Celková latency je súčet čakania v týchto fázach. Status `504` alebo „proxy timeout“ sám neurčuje, v ktorej fáze sa čas minul.
 
-Security dôsledky:
+## 4. Forward proxy a reverse proxy
 
-- proxy vidí plaintext,
-- proxy drží alebo používa vysoko citlivý signing key,
-- compromise proxy alebo CA má veľký blast radius,
-- certificate pinning môže zlyhať,
-- privacy a compliance scope sa rozšíri,
-- aplikácie s mTLS alebo custom trust store môžu byť nekompatibilné,
-- proxy musí validovať origin certifikát rovnako prísne ako klient.
+### Forward proxy
 
-Inspection bez správnej origin validation iba presunie MITM riziko do vlastnej infraštruktúry.
-
-## 7. Reverse proxy
-
-Reverse proxy je frontend pred jednou alebo viacerými službami.
-
-Typické funkcie:
-
-- TLS termination,
-- virtual hosting,
-- host a path routing,
-- load balancing,
-- authentication alebo authorization integration,
-- rate limiting,
-- request/response transformácie,
-- compression,
-- caching,
-- WAF policy,
-- access logging,
-- connection pooling,
-- protocol translation,
-- maintenance a draining.
-
-Príklad:
+Forward proxy zastupuje klienta voči externému originu:
 
 ```text
-https://api.example.com/orders/123
-    ↓ DNS
-reverse proxy :443
-    ↓ TLS termination
-    ↓ Host/path route
-orders-service:8080
+Orders workload
+→ corporate egress proxy
+→ payment API
 ```
 
-Klient nemusí vedieť, ktorý konkrétny backend request spracoval.
+Klient proxy pozná explicitne alebo je traffic transparentne presmerovaný. Forward proxy môže vynucovať egress policy, auditovať destination a pri HTTP CONNECT vytvoriť tunnel.
 
-## 8. L4 proxy
-
-L4 proxy pracuje primárne s transportným flowom.
-
-Môže rozhodovať podľa:
-
-- destination IP a portu,
-- source IP,
-- TCP alebo UDP tuple,
-- connection state,
-- TLS ClientHello metadata ako SNI alebo ALPN bez úplnej TLS terminácie,
-- platformovej identity alebo marku.
-
-Výhody:
-
-- podporuje ne-HTTP protokoly,
-- menší aplikačný parsing overhead,
-- môže zachovať end-to-end TLS,
-- menšia závislosť od konkrétnej aplikačnej syntaxe.
-
-Limity:
-
-- nevie routovať podľa HTTP path alebo method bez L7 parsing-u,
-- health check nemusí overiť aplikačnú operáciu,
-- source identity sa môže stratiť,
-- connection-level výber môže viazať veľa requestov na jeden backend.
-
-## 9. L7 proxy
-
-L7 proxy interpretuje aplikačný protokol.
-
-Pri HTTP môže používať:
-
-- scheme,
-- Host alebo `:authority`,
-- path,
-- method,
-- headers,
-- cookies,
-- query parameters,
-- response status,
-- identity claims.
-
-Výhody:
-
-- jemný routing,
-- aplikačné rate limits,
-- retries podľa request semantics,
-- caching,
-- header transformations,
-- WAF a authorization.
-
-Náklady:
-
-- protocol parsing a normalization,
-- vyššie CPU/memory nároky,
-- nové request-smuggling a parser-difference riziká,
-- proxy sa stáva súčasťou aplikačného correctness modelu,
-- nesprávny rewrite môže zmeniť business semantics.
-
-## 10. Downstream a upstream lifecycle
-
-Jeden klientský request prechádza viacerými fázami:
-
-```text
-1. accept downstream connection
-2. optional downstream TLS handshake
-3. parse request headers
-4. optional request body read/buffering
-5. route selection
-6. upstream endpoint selection
-7. obtain/create upstream connection
-8. optional upstream TLS handshake
-9. send request
-10. receive upstream response
-11. optional buffering/transformation
-12. send response to client
-13. keep alive, close alebo drain
+```http
+CONNECT payments.example:443 HTTP/1.1
+Host: payments.example:443
 ```
 
-Každá fáza môže zlyhať odlišne. Jeden celkový údaj „proxy latency“ nestačí na root cause analýzu.
+Pri bežnom CONNECT proxy prenáša TLS bytes a nevidí plaintext HTTP. Pri TLS inspection vytvorí dve TLS sessions a stane sa interným MITM endpointom, ktorému musí klient dôverovať.
 
-## 11. TLS termination modely
+### Reverse proxy
 
-### Edge termination a plaintext upstream
+Reverse proxy zastupuje serverovú službu:
 
 ```text
-Client --TLS--> Proxy --HTTP--> Upstream
+internet client
+→ Atlas edge proxy
+→ Orders backend
 ```
 
-Jednoduchší model, ale interný segment musí byť explicitne dôveryhodný a chránený.
+Klient nemusí poznať backend topology. Proxy vlastní frontend endpoint a podľa requestu vytvára upstream flow.
 
-### Edge termination a re-encryption
+Rozdiel nie je iba smer šípky. Forward proxy dôveruje klientom a riadi ich egress; reverse proxy chráni serverovú službu a riadi ingress.
+
+## 5. TLS boundary určuje vlastníctvo identity
+
+Atlas môže použiť tri základné modely.
+
+### Termination a plaintext upstream
 
 ```text
-Client --TLS--> Proxy --TLS--> Upstream
+Client --TLS--> Proxy --HTTP--> Backend
 ```
 
-Proxy validuje upstream identity. Certifikát, trust store a SNI pre upstream sú samostatná konfigurácia.
+Proxy vlastní edge certificate a plaintext je viditeľný v internom segmente.
 
-### TLS passthrough
+### Termination a re-encryption
 
 ```text
-Client --TLS------------------> Upstream
+Client --TLS A--> Proxy --TLS B--> Backend
+```
+
+Proxy musí samostatne validovať upstream certificate, SNI a trust chain.
+
+### Passthrough
+
+```text
+Client --TLS------------------> Backend
              proxy forwards flow
 ```
 
-Proxy môže routovať podľa IP/portu alebo parsovaného ClientHello SNI, ale nevidí HTTP plaintext.
-
-### mTLS
-
-Proxy môže autentizovať client certificate a samostatne používať client certificate voči upstreamu. Tieto identity nemusia byť rovnaké a ich mapovanie musí byť explicitné.
-
-## 12. TLS ownership
+Proxy nevidí HTTP plaintext. Môže rozhodovať podľa IP/portu alebo ClientHello metadata, ale nie podľa HTTP pathu.
 
 TLS termination určuje, kto vlastní:
 
-- server private key,
-- certificate lifecycle,
-- SNI routing,
-- cipher a protocol policy,
-- ALPN negotiation,
-- OCSP alebo stapling správanie,
-- client certificate validation,
+- private key a certificate lifecycle,
+- SNI a ALPN negotiation,
+- client-certificate validation,
 - handshake logs,
-- TLS session resumption.
+- TLS session resumption,
+- policy pre upstream trust.
 
-Ak TLS končí na proxy, backendový certificate problém nemusí byť viditeľný klientovi pri plaintext upstream modeli. Pri re-encryption môže backend TLS failure viesť k proxy-generated `502` alebo podobnej chybe.
+Ak downstream TLS funguje, upstream TLS môže stále zlyhať a proxy vrátiť vlastný `502`.
 
-## 13. Client identity a trusted proxy chain
+## 6. Client identity sa musí preniesť cez dôveryhodný chain
 
-Backend pri bežnom proxy spojení vidí source IP proxy.
-
-HTTP metadata:
+Backend pri bežnom proxy modeli vidí source IP proxy, nie klienta. Atlas môže preniesť metadata:
 
 ```http
-Forwarded: for=198.51.100.25;proto=https;host=app.example
+Forwarded: for=198.51.100.25;proto=https;host=atlas.example.com
 X-Forwarded-For: 198.51.100.25
 X-Forwarded-Proto: https
-X-Forwarded-Host: app.example
 ```
 
-Tieto headers nie sú automaticky dôveryhodné. Klient ich môže poslať sám.
-
-Bezpečný model:
-
-1. Backend prijíma traffic iba od známych proxy endpointov.
-2. Edge proxy odstráni nedôveryhodné forwarding headers.
-3. Každý trusted proxy pridá alebo prepíše hodnotu podľa definovaného modelu.
-4. Aplikácia pozná počet alebo rozsah trusted hops.
-5. Authorization nepoužíva client IP ako jediný silný identity faktor.
-
-Pri proxy chain-e:
+Tieto headers môže odoslať aj nedôveryhodný klient. Bezpečný model:
 
 ```text
-client → CDN → edge LB → ingress proxy → application
+client
+→ edge proxy odstráni inbound forwarding headers
+→ proxy zapíše vlastné overené hodnoty
+→ backend prijíma traffic iba z trusted proxy pathu
+→ aplikácia dôveruje iba definovanému počtu alebo rozsahu proxy hops
 ```
 
-musí byť jasné, ktorá vrstva je autoritatívna pre pôvodnú client IP.
-
-## 14. PROXY protocol
-
-PROXY protocol prenesie original source/destination metadata pred aplikačnými dátami.
-
-Používa sa najmä pri L4 proxy, kde backend inak vidí iba source IP proxy.
+Pri chain-e:
 
 ```text
-PROXY TCP4 198.51.100.25 10.0.1.20 52000 443
+client → CDN → edge proxy → ingress proxy → application
 ```
 
-Obe strany musia byť nakonfigurované konzistentne:
+musí byť určené, ktorá vrstva je autoritatívna pre original client identity.
 
-- proxy musí prefix odosielať,
-- backend listener ho musí očakávať,
-- plaintext klient nesmie mať možnosť priamo injektovať dôveryhodný PROXY header,
-- health checks musia používať správny režim.
+L4 proxy môže použiť PROXY protocol. Obe strany musia mať rovnaké očakávanie. Backend bez PROXY supportu bude prefix interpretovať ako aplikačné dáta; backend očakávajúci PROXY protocol odmietne priameho klienta bez headera.
 
-Mismatch typicky vedie k protocol error alebo k interpretácii PROXY riadku ako aplikačných dát.
+## 7. Route selection a normalizácia sú súčasť correctness
 
-## 15. Host routing
-
-Reverse proxy môže vybrať backend podľa host identity:
+Atlas routuje:
 
 ```text
-api.example.com    → API pool
-admin.example.com  → admin pool
-static.example.com → object storage
+Host atlas.example.com + /orders/* → orders pool
+Host atlas.example.com + /users/*  → users pool
 ```
 
-Pri HTTP/1.1 ide typicky o `Host`; pri HTTP/2 a HTTP/3 o `:authority`. Pri TLS môže pred HTTP existovať SNI routing.
+Proxy však môže pred routingom meniť request representation:
 
-Riziká:
+- percent-decoding,
+- `.` a `..` normalizáciu,
+- viacnásobné slash-e,
+- trailing slash,
+- case,
+- odstránenie prefixu,
+- prepis Host alebo authority.
 
-- Host header injection,
-- mismatch medzi SNI a HTTP authority,
-- chýbajúci default virtual host,
-- absolute-form URL parsing,
-- upstream generovanie odkazov z nedôveryhodného hostu.
-
-Proxy má validovať povolené hostnames a nepresúvať neoverený Host do security-sensitive logiky.
-
-## 16. Path routing a normalization
-
-Príklad:
+Ak proxy a backend používajú rozdielnu canonical form, môže vzniknúť route confusion alebo authorization bypass.
 
 ```text
-/api/billing/* → billing-service
-/api/users/*   → users-service
+proxy autorizuje jednu reprezentáciu
+→ backend interpretuje inú reprezentáciu
+→ request dosiahne neočakávaný handler
 ```
 
-Pred routingom môže proxy path:
+Routing, caching a authorization musia používať konzistentnú normalizáciu. Nejednoznačný framing alebo Host treba odmietnuť, nie „opraviť“ rozdielne na každej vrstve.
 
-- percent-decodovať,
-- normalizovať `.` a `..`,
-- zlučovať viac slashov,
-- meniť case podľa protokolu alebo platformy,
-- odstraňovať prefix,
-- pridávať trailing slash.
+## 8. Buffery neodstraňujú backpressure
 
-Ak proxy a upstream normalizujú rozdielne, môže vzniknúť:
-
-- authorization bypass,
-- cache poisoning,
-- route confusion,
-- request smuggling medzi vrstvami,
-- nesprávny redirect loop.
-
-Routing a authorization majú používať konzistentnú canonical representation.
-
-## 17. Header transformations
-
-Proxy často upravuje headers:
-
-- odstráni hop-by-hop headers,
-- nastaví forwarding metadata,
-- prepíše Host pre upstream,
-- pridá request ID alebo trace context,
-- upraví compression negotiation,
-- odstráni interné response headers.
-
-Hop-by-hop a end-to-end semantics sa líšia podľa HTTP verzie. Mechanické kopírovanie všetkých headers môže byť nesprávne.
-
-Citlivé headers ako `Authorization`, cookies a tracing baggage musia mať explicitný propagation model.
-
-## 18. Request buffering
-
-Proxy môže najprv načítať celý request body a až potom ho poslať upstreamu.
+Proxy môže bufferovať request body pred odoslaním upstreamu.
 
 Výhody:
 
-- chráni upstream pred pomalým klientom,
-- body-size policy sa vyhodnotí pred upstream requestom,
-- retry môže byť možný, ak je body bezpečne uložené,
-- proxy môže skenovať alebo transformovať obsah.
+- chráni backend pred pomalým klientom,
+- overí body limit skôr,
+- umožní niektoré bezpečné retries,
+- môže skenovať alebo uložiť upload.
 
 Nevýhody:
 
-- vyššia latency pred začiatkom upstream spracovania,
-- memory alebo disk pressure,
-- veľké uploads blokujú proxy capacity,
-- klient môže dokončiť upload, hoci upstream neskôr okamžite odmietne,
+- rast memory alebo disk pressure,
+- vyššia latency pred upstream startom,
+- veľký upload spotrebuje proxy capacity,
 - streaming semantics sa stratia.
 
-Request buffering limit musí byť koordinovaný s upload limitmi, temporary storage a timeoutmi.
-
-## 19. Response buffering a backpressure
-
-Proxy môže bufferovať upstream response pred odoslaním klientovi.
-
-To izoluje upstream od slow clienta, ale presúva tlak do proxy.
+Pri response bufferi:
 
 ```text
-fast upstream
-    ↓
-proxy buffer grows
-    ↓
-slow client
+fast backend
+→ proxy buffer rastie
+→ slow client
 ```
 
-Ak buffer nestačí:
+Keď buffer nestačí, tlak sa prenesie späť cez TCP flow control alebo na disk. Backpressure sa nedá odstrániť; možno ju iba umiestniť a ohraničiť.
 
-- proxy môže zapisovať na disk,
-- upstream sa môže zablokovať cez TCP flow control,
-- request môže zlyhať,
-- memory pressure môže ovplyvniť iné requests.
+Streaming, WebSockets a SSE preto potrebujú osobitnú policy pre buffering, idle timeout, heartbeat a draining.
 
-Backpressure sa nedá odstrániť; iba sa presúva medzi klienta, proxy, upstream a storage.
+## 9. Timeout budget musí mať vlastníka
 
-## 20. Streaming, WebSockets a SSE
-
-Streaming workloads potrebujú odlišnú policy:
-
-- vypnuté alebo obmedzené buffering,
-- dlhšie idle timeouty,
-- správny protocol upgrade,
-- flow control,
-- heartbeat,
-- draining pri deploymente,
-- connection limits.
-
-WebSocket handshake môže uspieť, ale connection sa neskôr zatvorí na idle timeout-e proxy. Server-Sent Events môžu byť oneskorené, ak proxy response buffer neflushuje priebežne.
-
-## 21. Timeout taxonomy
-
-Proxy má viac nezávislých timeoutov.
-
-### Downstream
-
-- accept alebo handshake timeout,
-- TLS handshake timeout,
-- request header timeout,
-- request body timeout,
-- downstream idle timeout,
-- response write timeout.
-
-### Upstream
-
-- DNS/service-discovery timeout,
-- connect timeout,
-- upstream TLS handshake timeout,
-- request send timeout,
-- response header timeout,
-- response body idle timeout,
-- total request timeout.
-
-### Pool
-
-- idle connection lifetime,
-- maximum connection age,
-- queue timeout,
-- endpoint drain timeout.
-
-Celkový timeout musí byť väčší než súčet relevantných per-stage budgetov a menší než timeout klienta alebo nadradenej proxy tak, aby chyba vznikla na kontrolovanej vrstve.
-
-## 22. Timeout budget naprieč chainom
-
-Príklad:
+Proxy nepoužíva jeden timeout. Má najmenej:
 
 ```text
-client timeout:       10 s
-edge proxy timeout:    9 s
-ingress timeout:       8 s
-application timeout:   7 s
-database timeout:      5 s
+downstream accept/TLS/header/body/write timeouts
++ upstream discovery/connect/TLS/header/body timeouts
++ pool queue/idle/max-age/drain timeouts
 ```
 
-Takýto model umožní vnútornej vrstve vrátiť kontrolovanú chybu skôr, než nadradená vrstva connection náhle ukončí.
+Atlas nastaví budget:
 
-Nesprávne poradie:
+```text
+client total timeout:       10 s
+edge proxy total:            9 s
+ingress proxy total:         8 s
+Orders application:          7 s
+payment dependency:          5 s
+```
+
+Vnútorná vrstva tak môže vrátiť kontrolovanú chybu predtým, než nadradená connection náhle zanikne.
+
+Chybný model:
 
 ```text
 client 5 s
@@ -561,460 +295,273 @@ proxy 30 s
 backend 60 s
 ```
 
-spôsobí, že backend a proxy pokračujú v práci po tom, čo klient už odišiel. To zvyšuje wasted work a retry amplification.
+spôsobí, že proxy a backend pokračujú v práci po odchode klienta. Klient následne retryuje a vytvára duplicate alebo wasted work.
 
-## 23. Retry semantics
-
-Proxy môže retryovať pri:
-
-- connect failure,
-- reset pred odoslaním request body,
-- reset pred response headers,
-- timeout-e,
-- vybraných HTTP statusoch,
-- unhealthy endpoint selection.
-
-Retry je bezpečný iba vtedy, keď proxy pozná stav odoslania a request semantics.
+## 10. Retry je business rozhodnutie, nie iba network mechanizmus
 
 Nebezpečný scenár:
 
 ```text
-POST payment
-    ↓ upstream spracuje transakciu
-    ↓ response sa stratí
-proxy retry
-    ↓ druhá transakcia
+proxy odošle POST /orders
+→ backend objednávku vytvorí
+→ response sa stratí pred proxy
+→ proxy nevie, či side effect prebehol
+→ proxy retryuje na inom backende
+→ druhá objednávka
 ```
 
-Dobrý model:
+Transportný reset neposkytuje exactly-once informáciu. Bezpečný retry potrebuje:
 
-- retry iba idempotentné operácie alebo requesty s idempotency key,
+- idempotentnú operáciu alebo idempotency key,
+- znalosť fázy odoslania,
 - bounded attempts,
 - per-try timeout,
-- exponential backoff a jitter,
+- backoff a jitter,
 - retry budget,
-- zákaz retry po čiastočnom response stream-e,
-- rozlíšenie connect failure a ambiguous processing failure.
+- zákaz retry po čiastočnej response,
+- explicitného vlastníka retry policy.
 
-## 24. Retry amplification
-
-Ak každý klient, proxy a service retryuje nezávisle, počet pokusov sa násobí.
+Ak klient, edge proxy, ingress a application library vykonajú po tri pokusy:
 
 ```text
-client 3 attempts
-× edge proxy 3 attempts
-× service 3 attempts
-= až 27 backend pokusov
+3 × 3 × 3 = až 27 backend attempts
 ```
 
-Počas dependency outage môže retry storm znemožniť recovery.
+Retry amplification môže počas incidentu zničiť zostávajúcu capacity.
 
-Retry ownership má byť explicitný. Vrstva s najlepším poznaním idempotency a failure state má rozhodovať o opakovaní.
+## 11. Upstream connection pooling mení failure aj load model
 
-## 25. Connection pooling
+Proxy znovu používa upstream connections, čím znižuje TCP/TLS handshake overhead a ephemeral-port pressure.
 
-Proxy môže znovu používať upstream connections.
+Pool však vytvára state:
 
-Výhody:
-
-- menej TCP a TLS handshakes,
-- nižšia latency,
-- menší CPU overhead,
-- stabilnejšia ephemeral-port a conntrack spotreba.
-
-Riziká:
-
-- stale connection po upstream restart-e,
+- stale connection po backend restart-e,
+- stará IP po DNS zmene,
 - veľa idle sockets,
-- nerovnomerné rozdelenie loadu,
-- starý DNS target zostane v poole,
-- per-backend connection cap,
-- HTTP/2 multiplexing koncentruje veľa requests do jedného flowu.
+- per-backend connection skew,
+- HTTP/2 multiplexing mnohých requests na jednom flowe.
 
-Pool policy má definovať maximum connections, idle timeout, max age, health validation a draining.
+`dig` ukazujúci novú IP neznamená, že proxy zatvorila staré pooled connections. Pool policy musí mať max connections, idle timeout, maximum age a drain behavior.
 
-## 26. Queueing a concurrency
-
-Ak proxy nemá voľnú upstream connection alebo worker capacity, request môže čakať v queue.
-
-Queue chráni backend pred okamžitým overloadom, ale zvyšuje latency.
+## 12. Discovery, health a draining tvoria jeden endpoint lifecycle
 
 ```text
-arrival rate > service rate
-→ queue rastie
-→ tail latency rastie
-→ timeouty
-→ retries
-→ ešte vyšší arrival rate
+backend vznikne
+→ discovery ho oznámi proxy
+→ readiness/health ho označí eligible
+→ proxy naň posiela traffic
+→ backend sa označí draining
+→ nové requests sa zastavia
+→ existujúca práca skončí alebo timeoutuje
+→ endpoint sa odstráni
 ```
 
-Potrebné metriky:
+TCP health check dokazuje iba listener. Orders readiness má odpovedať na otázku: „Môže tento backend prijať nový request?“
 
-- active downstream connections,
-- active upstream connections,
-- queued requests,
-- queue wait time,
-- rejected requests,
-- connection pool saturation.
+Príliš plytký check pustí broken backend. Príliš deep check závislý od shared database môže pri databázovom incidente vyradiť celý pool a odstrániť možnosť degradovanej odpovede.
 
-## 27. Service discovery a DNS
+Draining musí koordinovať proxy timeout, application shutdown grace a dlhé WebSocket alebo gRPC sessions.
 
-Proxy potrebuje získať upstream endpoints.
+## 13. Worked failure: upstream funguje priamo, ale nie cez proxy
 
-Modely:
-
-- DNS resolution,
-- statická konfigurácia,
-- API-based service discovery,
-- Kubernetes EndpointSlices,
-- xDS alebo control plane,
-- local sidecar registry.
-
-Dôležité otázky:
-
-- kedy proxy re-resolvuje meno,
-- rešpektuje TTL,
-- drží existujúce pool connections,
-- odstráni endpoint po health failure,
-- ako rýchlo aplikuje control-plane update,
-- čo sa stane pri discovery outage.
-
-`dig` správna odpoveď nedokazuje, že proxy už používa nové endpoints.
-
-## 28. Health checks
-
-Proxy môže používať:
-
-### Passive health
-
-Vyhodnocuje reálne failures: resets, timeouts, statusy.
-
-### Active health
-
-Pravidelne posiela probe.
-
-Health check musí overiť správnu vrstvu. TCP connect dokazuje listener, nie aplikačnú pripravenosť. HTTP `/health` môže byť príliš plytký alebo naopak závislý od všetkých downstream systémov.
-
-False positive odstráni zdravý endpoint; false negative posiela traffic na nefunkčný endpoint.
-
-## 29. Draining
-
-Pri odstránení proxy alebo upstream endpointu treba oddeliť:
-
-- zákaz nových connections/requests,
-- dokončenie existujúcich requests,
-- dlhé streaming connections,
-- timeout po ktorom sa zostávajúce flows ukončia.
+Administrátor z laptopu úspešne volá:
 
 ```text
-ready
-→ draining
-→ no new traffic
-→ active work reaches zero alebo timeout
-→ shutdown
+http://10.20.3.21:8080/orders
 ```
 
-Bez drainingu deploy vytvára resets a retries. Príliš dlhý drain blokuje rollout.
+Klient cez `https://atlas.example.com/orders` dostáva `502`.
 
-## 30. Caching
+„Backend funguje priamo“ ešte neoverilo path z proxy namespace ani rovnaký request contract.
 
-Reverse proxy môže cacheovať response podľa cache key.
+Postup:
 
-Cache key môže zahŕňať:
+1. Over client → proxy DNS, TCP a TLS.
+2. Nájdite request v proxy access logu podľa request ID.
+3. Zistite matched route a selected upstream.
+4. Otestujte upstream z proxy network namespace.
+5. Porovnajte Host, path rewrite a headers s direct testom.
+6. Overte upstream TLS/SNI, ak sa používa re-encryption.
+7. Overte protocol verziu a PROXY protocol expectation.
+8. Určte, či `502` vytvorila proxy alebo backend.
 
-- scheme,
-- host,
-- path,
-- query,
-- method,
-- vybrané headers,
-- `Vary`,
-- content encoding,
-- tenant alebo identity context.
+Možný dôkaz:
 
-Riziká:
+```text
+client TLS succeeds
++ proxy route matches orders
++ proxy connects to 10.20.3.21:8443
++ backend počúva plaintext na 8080
+→ upstream protocol/port mismatch
+```
 
-- únik personalizovaného obsahu,
-- cache poisoning,
-- stale authorization decision,
-- nesprávne ignorovaný query parameter,
-- rozdiel medzi normalized a raw path,
-- nebezpečné cacheovanie error response.
+Oprava je zmeniť konkrétny upstream endpoint contract, nie predĺžiť všetky timeouty.
 
-Cache policy musí rešpektovať `Cache-Control`, `Vary`, cookies, authorization a invalidation model.
+## 14. Worked failure: klient dostáva 504, backend nevidí request
 
-## 31. Compression
+Atlas vidí:
 
-Proxy môže komprimovať alebo dekomprimovať response.
+```text
+client request reaches proxy
+→ 8 s čakanie
+→ proxy vráti 504
+→ Orders access log nemá request
+```
 
-Trade-offy:
+Request mohol zlyhať pred odoslaním upstream headers:
 
-- nižší bandwidth,
-- vyšší CPU,
-- zmena cache key podľa `Accept-Encoding`,
-- buffering,
-- security riziká pri kompresii secrets s attacker-controlled inputom,
-- double compression alebo content-length mismatch.
+- discovery timeout,
+- queue wait,
+- connection-pool saturation,
+- TCP connect timeout,
+- upstream TLS timeout.
 
-Compression má byť explicitne testovaná pre streaming a range requests.
+Potrebné fázy:
 
-## 32. Request size a protocol limits
+```text
+request accepted time
+downstream TLS time
+route decision
+queue wait
+upstream DNS/discovery
+connect time
+upstream TLS time
+request sent timestamp
+response-header time
+```
 
-Proxy môže odmietnuť request ešte pred upstreamom podľa:
+Ak queue wait trvá 7,8 sekundy a upstream connect sa ani nezačne, backend log správne nič neobsahuje. Zvýšenie upstream response timeoutu by bolo irelevantné.
 
-- header size,
-- počet headers,
-- request-line length,
-- body size,
-- chunk framing,
-- HTTP/2 stream limits,
-- decompressed size.
+## 15. Status attribution
 
-Fungovanie malých requestov neznamená, že path podporuje veľké uploads. Limit môže existovať na každej proxy vrstve aj v aplikácii.
+Proxy-generated status je diagnostická klasifikácia, nie univerzálna root cause.
 
-## 33. Protocol translation
+- `502` — proxy nezískala platnú upstream response; napríklad reset, protocol mismatch alebo upstream TLS failure.
+- `503` — proxy nemá eligible backend alebo zámerne odmieta traffic pre maintenance, circuit breaker či capacity limit.
+- `504` — definovaná upstream fáza neukončila progres v budgete.
 
-Proxy môže prepájať odlišné protokoly:
+Implementácie sa líšia. Log musí rozlíšiť downstream status, upstream status a proxy failure reason.
 
-- HTTP/3 downstream → HTTP/2 upstream,
-- HTTP/2 downstream → HTTP/1.1 upstream,
-- TLS downstream → plaintext upstream,
-- gRPC → HTTP/2 upstream,
-- WebSocket upgrade → raw framed stream.
-
-Translation môže meniť:
-
-- multiplexing,
-- connection count,
-- header representation,
-- backpressure,
-- cancellation,
-- retry možnosti,
-- observability.
-
-HTTP/2 multiplexing na jednej strane nezaručuje multiplexing na druhej.
-
-## 34. Status attribution
-
-Bežné proxy-generated statusy:
-
-### `502 Bad Gateway`
-
-Proxy nedostala platnú upstream response. Možnosti:
-
-- connection refused alebo reset,
-- upstream TLS failure,
-- protocol mismatch,
-- invalid response framing,
-- upstream zavrel connection pred headers.
-
-### `503 Service Unavailable`
-
-Proxy nemá dostupný backend alebo policy vedome odmieta traffic:
-
-- všetky endpoints unhealthy,
-- maintenance,
-- circuit breaker,
-- queue alebo concurrency limit,
-- discovery bez endpoints.
-
-### `504 Gateway Timeout`
-
-Upstream nedokončil požadovanú fázu v timeout budgete.
-
-Konkrétna implementácia môže statusy mapovať odlišne. Access/error log musí určiť, či status vytvorila proxy alebo upstream.
-
-## 35. Security hranice
-
-Proxy spracúva nedôveryhodný traffic a často má prístup do internej siete.
-
-Riziká:
-
-- open forward proxy,
-- SSRF cez dynamický upstream,
-- request smuggling,
-- response splitting,
-- header spoofing,
-- path normalization bypass,
-- Host header injection,
-- slabá TLS origin validation,
-- neobmedzený CONNECT,
-- secrets v logoch,
-- admin endpoint na verejnom listeneri,
-- plugin alebo scripting escape.
-
-Proxy má používať least privilege egress a presný allowlist upstream destinations.
-
-## 36. Request smuggling
-
-Request smuggling vzniká, keď dve HTTP vrstvy nesúhlasia, kde request končí.
-
-Príčiny môžu zahŕňať rozdielnu interpretáciu:
-
-- `Content-Length`,
-- `Transfer-Encoding`,
-- duplicitných headers,
-- whitespace,
-- HTTP/2 → HTTP/1 translation,
-- neplatného framingu.
-
-Proxy má nejednoznačný request odmietnuť alebo canonicalizovať konzistentne. Backend nemá dostávať framing, ktorý proxy interpretovala inak.
-
-## 37. Observability
-
-Sleduj downstream a upstream samostatne.
+## 16. Observability musí oddeliť obe strany proxy
 
 ### Downstream
 
 - accepted connections,
-- TLS handshake failures,
-- request rate,
-- client disconnects,
-- request body read time,
-- downstream bytes,
-- downstream status.
+- TLS handshake výsledok,
+- request read time,
+- client disconnect,
+- bytes a total latency.
 
 ### Routing a queue
 
-- route name,
-- selected cluster/pool,
+- route identity,
+- selected cluster,
 - queue wait,
-- retries,
-- circuit breaker action,
-- cache hit/miss.
+- retry count,
+- cache decision.
 
 ### Upstream
 
-- DNS/discovery time,
-- connect time,
-- TLS time,
-- time to response headers,
-- response body duration,
-- reset reason,
 - endpoint identity,
+- discovery time,
+- connect a TLS time,
+- time to response headers,
+- reset reason,
 - upstream status.
 
 ### End-to-end
 
-- total request time,
-- request ID alebo trace ID,
-- proxy-generated vs upstream-generated response,
-- bytes in/out,
-- retry count.
+- request/trace ID,
+- proxy-generated alebo upstream-generated response,
+- total attempts,
+- total bytes a outcome.
 
-Pri logovaní chráň authorization headers, cookies, query secrets a request bodies.
+Bez oddelenia downstream a upstream metrík vyzerá proxy ako jedna čierna skrinka.
 
-## 38. Diagnostický postup
+## 17. Referenčné rozšírenia
 
-Request funguje priamo na upstream, ale nie cez proxy.
+Nasledujúce funkcie nemenia základný model dvoch samostatných connections.
 
-1. Over DNS na proxy endpoint.
-2. Over client → proxy route, TCP a TLS.
-3. Skontroluj SNI, Host/authority a certificate.
-4. Nájdite request v proxy access logu podľa request ID.
-5. Over route match a rewrites.
-6. Over body/header limity a protocol parsing.
-7. Zisti vybraný upstream endpoint.
-8. Over proxy → upstream DNS/service discovery.
-9. Over connect a upstream TLS.
-10. Porovnaj forwarding headers a Host používané pri direct teste.
-11. Porovnaj timeouty, buffering a retries.
-12. Skontroluj status origin: proxy alebo upstream.
-13. Otestuj direct upstream z proxy network namespace, nie iba z administrátorského laptopu.
-14. Po náprave over celý client path aj security policy.
+### L4 a L7 proxy
 
-## 39. Typické symptómy
+L4 proxy rozhoduje primárne podľa transportného flowu a podporuje ne-HTTP protokoly. L7 proxy interpretuje request a môže routovať podľa Host, path, method alebo identity.
 
-### Funguje priamo, nie cez proxy
+### Caching
 
-Často Host/SNI mismatch, path rewrite, forwarding header, TLS trust, body limit alebo upstream route.
+Cache key musí zahrnúť všetky fields, ktoré menia representation a authorization context. Chybný key môže doručiť personalizovaný response inému používateľovi.
 
-### Funguje cez jednu proxy vrstvu, nie cez celý chain
+### Compression
 
-Možná nedôveryhodná forwarding header chain, rozdielny timeout, request-size limit alebo protocol translation.
+Znižuje bandwidth, ale zvyšuje CPU, mení cache variants a môže vyžadovať buffering.
 
-### Malé requesty fungujú, veľké nie
+### Protocol translation
 
-Body limit, request buffering storage, read timeout, MTU alebo upstream limit.
+HTTP/3 downstream a HTTP/1.1 upstream majú odlišné multiplexing, cancellation a backpressure semantics. Translation nie je bezvýznamný format conversion.
 
-### Krátke requesty fungujú, streaming sa odpája
+### Request smuggling
 
-Idle timeout, buffering, chýbajúci upgrade alebo drain policy.
+Vzniká, keď proxy a backend rozdielne interpretujú request framing. Nejednoznačné `Content-Length`, `Transfer-Encoding` alebo duplicitné headers sa majú odmietnuť.
 
-### Po DNS zmene proxy stále používa starý backend
+### Forward-proxy TLS inspection
 
-Existujúci connection pool, vlastná DNS cache, control-plane delay alebo statická endpoint konfigurácia.
+Proxy drží citlivú CA authority, vidí plaintext a musí bezpečne validovať origin. mTLS, pinning alebo custom trust store môžu inspection zablokovať.
 
-### Klient dostáva `504`, backend nevidí request
+## 18. Časté omyly
 
-Timeout mohol vzniknúť pri DNS, connect, TLS alebo queue fáze pred odoslaním upstream requestu.
+### „Reverse proxy je DNS alias“
 
-### Backend loguje proxy IP ako klienta
+DNS iba vyberie endpoint. Proxy prijme downstream flow a vytvorí upstream flow.
 
-Chýba forwarding metadata alebo backend nepozná trusted proxy chain.
+### „L4 proxy zachová jednu end-to-end TCP connection“
 
-## 40. Časté omyly
+Full L4 proxy typicky vlastní dve transportné connections, aj keď nečíta HTTP.
 
-### „Reverse proxy je iba DNS alias“
+### „X-Forwarded-For je automaticky client IP“
 
-Nie. Proxy ukončuje downstream flow a vytvára upstream flow.
+Je dôveryhodný iba cez kontrolovaný proxy chain, ktorý odstraňuje klientom dodané hodnoty.
 
-### „Forward proxy a reverse proxy sa líšia iba smerom šípky“
+### „502 znamená chybu aplikačnej logiky“
 
-Líšia sa aj trust modelom, konfiguráciou klienta, identity ownershipom a policy účelom.
-
-### „X-Forwarded-For je vždy client IP“
-
-Nie. Je dôveryhodný iba cez kontrolovaný proxy chain.
-
-### „502 znamená aplikačnú chybu backendu“
-
-Často vznikne pred platnou upstream HTTP response.
+Môže vzniknúť pred platnou HTTP response pri connect, TLS alebo framing failure.
 
 ### „Proxy retry je vždy bezpečný“
 
-Nie. Ambiguous failure môže viesť k duplicitnej operácii.
+Po ambiguous failure môže zopakovať side effect.
 
-### „TLS termination odstráni potrebu interného šifrovania“
+### „Buffering odstráni backpressure“
 
-Nie automaticky. Rozhoduje threat model a trust boundary.
+Iba presunie tlak do proxy memory, disku alebo queue.
 
-### „Buffering vyrieši backpressure“
+### „DNS TTL určuje okamžitý prechod proxy na nový backend“
 
-Nie. Iba ju presunie a dočasne absorbuje.
+Proxy môže používať vlastnú cache a staré pooled connections.
 
-### „DNS TTL určuje, kedy proxy zmení backend“
+## 19. Kontrolné otázky
 
-Nie vždy. Proxy môže mať vlastnú cache a existujúce connection pools.
+1. Prečo proxy vytvára downstream a upstream connection?
+2. Aký je rozdiel medzi routerom, NATom, proxy a load balancingom?
+3. Ako sa líši forward a reverse proxy trust model?
+4. Čo robí HTTP CONNECT?
+5. Ako TLS termination mení ownership identity a certifikátov?
+6. Kedy sú forwarding headers dôveryhodné?
+7. Aký failure spôsobí PROXY protocol mismatch?
+8. Prečo path normalization patrí do security modelu?
+9. Kam sa presunie backpressure pri response bufferingu?
+10. Ako zostaviť timeout budget cez viac proxy vrstiev?
+11. Prečo môže retry duplicitne vykonať POST?
+12. Ako vzniká retry amplification?
+13. Ako pooling ovplyvní DNS change a load distribution?
+14. Čo znamená endpoint lifecycle od discovery po draining?
+15. Prečo direct backend test nemusí reprodukovať proxy path?
+16. Ako rozlíšiš queue timeout od upstream response timeoutu?
+17. Čo typicky odlišuje `502`, `503` a `504`?
+18. Ktoré downstream a upstream metriky treba sledovať samostatne?
 
-### „L4 proxy nemení connection semantics“
+## 20. Zhrnutie
 
-Aj L4 proxy typicky vytvára dva samostatné transportné flows.
+Proxy je aktívna connection boundary. Ukončí downstream communication, interpretuje alebo prenesie jej protokol, vyberie upstream a vytvorí samostatný flow. Preto má dve identity, dve TLS sessions, dve sady timeoutov, buffery a failure modes.
 
-## 41. Kontrolné otázky
-
-1. Aký je rozdiel medzi routerom, NATom a proxy?
-2. Prečo má proxy downstream a upstream connection?
-3. Aký je rozdiel medzi forward a reverse proxy?
-4. Čo presne robí HTTP CONNECT?
-5. Aké riziká prináša TLS inspection?
-6. Aký je rozdiel medzi L4 a L7 proxy?
-7. Ako TLS termination mení certificate a trust ownership?
-8. Kedy sú forwarding headers dôveryhodné?
-9. Načo slúži PROXY protocol a aký mismatch môže vzniknúť?
-10. Prečo rozdielna path normalization vytvára security riziko?
-11. Aké trade-offy má request a response buffering?
-12. Prečo backpressure nemožno odstrániť?
-13. Ako koordinovať timeout budget cez viac vrstiev?
-14. Kedy je proxy retry ambiguous a nebezpečný?
-15. Ako vzniká retry amplification?
-16. Prečo connection pooling oneskoruje reakciu na DNS zmenu?
-17. Aký je rozdiel medzi passive a active health checkom?
-18. Čo znamená draining?
-19. Ako chybný cache key spôsobí únik dát?
-20. Čo typicky rozlišuje `502`, `503` a `504`?
-21. Aké metriky treba oddeliť na downstream a upstream strane?
-22. Ako diagnostikuješ request fungujúci priamo, ale nie cez proxy?
+Troubleshooting sleduje jeden request po jednotlivých fázach od downstream acceptu cez route a queue až po upstream connect, TLS a response. Status alebo celková latency bez tejto dekompozície nestačia. Bezpečný návrh navyše koordinuje trusted client identity, canonical request representation, retry semantics, pooling, health a draining ako jeden lifecycle.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
