@@ -1662,6 +1662,10 @@ Zraniteľnosť, pri ktorej neoverený vstup zmení syntax alebo spustí dodatoč
 
 Git object obsahujúci root tree snapshotu, parent commits, author/committer metadata a commit message. Pozri [Git object model](docs/03-git-and-automation/git-object-model.md).
 
+## Compatibility dimension
+
+Jedna z vrstiev, v ktorých sa hodnotí backward compatibility, napríklad source, binary, schema, behavior, operational, security, data alebo performance contract. Version bump musí vychádzať z affected dimensions a consumer evidence, nie iba zo syntaktického diffu. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
+
 ## Compatibility matrix — deployment
 
 Explicitná tabuľka určujúca, ktoré application, client, event a schema verzie môžu bezpečne koexistovať počas rollout-u a rollback window. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
@@ -7102,6 +7106,10 @@ Pravidelne vyhodnocovaná PromQL expression, ktorej výsledok sa uloží ako nov
 
 Control umožňujúci obnoviť službu, dáta alebo dôveryhodný stav po incidente. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
+## Recovery eligibility
+
+Aktuálny dôkaz, že konkrétny predchádzajúci release možno bezpečne použiť na rollback alebo inú recovery: artifacts sú dostupné a dôveryhodné, config a secrets existujú, shared data a events zostávajú kompatibilné a post-recovery validation je pripravená. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md) a [Release management](docs/05-ci-cd-and-release/release-management.md).
+
 ## Recovery keys — Vault
 
 Quorum material používaný pri vybraných privileged Vault operations v auto-unseal modeli; nenahrádza stratený auto-unseal key. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
@@ -7277,6 +7285,10 @@ Kurátorovaná komunikácia konkrétneho release pre používateľov, administr�
 ## Release record
 
 Auditovateľný záznam spájajúci release version, artifacts, source, config, migrations, evidence, approvals, rollout a výsledok. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
+
+## Release state machine
+
+Auditovateľný lifecycle immutable release unit od draftu a candidate assembly cez evidence, eligibility, deployment, exposure a validation po support, closure, deprecation, revocation alebo end of life. Každý transition má subject, preconditions, evidence a ownera. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
 
 ## Release train
 
@@ -7805,6 +7817,10 @@ Configuration dodaná pri vytvorení containeru, napríklad environment, command
 ## Runtime dependency failure
 
 Zlyhanie knižnice, dynamic linkeru, interpreteru, certificate store alebo iného runtime componentu, ktoré môže vyzerať ako chýbajúci executable napriek existencii file-u. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
+## Runtime identity — release
+
+Effective runtime subject tvorený release manifestom spolu s rendered configuration, secret references, infrastructure a IAM revision, database/event stavom, feature flags, traffic exposure a target environmentom. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
 
 ## Runtime shim — containerd
 
@@ -8874,6 +8890,10 @@ Oddelený shell execution context, ktorého zmeny premenných a working director
 
 Latency operácií, ktoré splnili success contract, sledovaná oddelene od rýchlych alebo pomalých failures. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
 
+## Supersession — release
+
+Explicitný prechod, pri ktorom nový immutable candidate nahradí starší candidate. Supersession record zachová delta scope a určí, ktoré evidence, approvals a rollout rozhodnutia zostávajú platné a ktoré sa invalidujú. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
+
 ## Supplier due diligence
 
 Risk-based overovanie identity, procesov, controls, evidence, maintenance, incident response a transitive dependencies software supplier-a. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
@@ -9893,6 +9913,10 @@ Schopnosť každej súčasne aktívnej application verzie zapisovať dáta, ktor
 ## Write index
 
 Aktuálny backing index data streamu, do ktorého smerujú nové documents. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Write-once publication
+
+Publication contract, pri ktorom už vydaná logical version alebo candidate identity nemožno prepísať iným digestom. Collision s odlišným contentom je hard failure a unknown outcome sa rieši reconciliation podľa idempotency key. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
 
 ## `X-Forwarded-For`
 
