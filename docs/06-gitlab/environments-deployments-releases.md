@@ -6,682 +6,597 @@
 - Level: L2
 - Domain: GitLab
 
-## 1. Definícia
-
-GitLab rozlišuje tri súvisiace, ale odlišné objekty:
-
-- **Environment —** pomenovaná runtime boundary, do ktorej sa nasadzuje a ku ktorej sa viažu permissions, variables, URL, tier a deployment history.
-- **Deployment —** zaznamenaný pokus alebo výsledok nasadenia konkrétneho subjectu do environmentu.
-- **Release —** distribučno-produktový záznam pomenovanej verzie, ktorý prepája tag, immutable artifacts, release notes, evidence a support lifecycle.
-
-Tieto objekty nemajú byť zamenené:
+GitLab environment, deployment a Release opisujú tri rozdielne vrstvy delivery systému:
 
 ```text
-source commit alebo tag
-→ immutable artifact a config revision
-→ deployment do environmentu
-→ runtime validation
-→ release acceptance a distribúcia
+environment = pomenovaná runtime boundary
+deployment = pokus zmeniť konkrétny runtime subject v tejto boundary
+release = distribuovaný a podporovaný produktový subject
 ```
 
-GitLab môže uchovať metadata o každom kroku, ale samotný záznam v GitLabe nie je dôkaz, že runtime stav skutočne zodpovedá deklarácii. Dôveryhodný model prepája GitLab record s artifact digestom, konfiguráciou, cieľovou identitou a produkčnou telemetry.
-
-## 2. Mental model: desired, recorded a effective state
-
-Pri environmentoch rozlišuj tri stavy:
-
-- **Desired state —** čo pipeline alebo GitOps konfigurácia žiada nasadiť.
-- **Recorded state —** čo GitLab deployment objekt eviduje ako nasadené alebo dokončené.
-- **Effective state —** čo reálne beží v runtime vrátane configu, traffic routingu a shared state.
+Dôveryhodný lifecycle ich spája, ale nezamieňa:
 
 ```text
-GitLab job success
-≠ automaticky správny deployment record
-≠ automaticky správny runtime stav
+immutable release subject
+→ deployment eligibility
+→ desired runtime change
+→ GitLab deployment record
+→ controller alebo deploy execution
+→ effective runtime verification
+→ release exposure a acceptance
+→ support / deprecation / revocation
+→ cleanup a recovery evidence
 ```
 
-Rozdiel môže vzniknúť pri asynchrónnom controlleri, partial failure, manuálnom zásahu, drift-e, stale pipeline alebo nesprávnom targete. Post-deployment verification musí preto overiť effective state nezávislým observation pointom.
+Najdôležitejší rozdiel je medzi tým, čo bolo požadované, čo GitLab zaznamenal a čo reálne beží.
 
-## 3. Environment identity
+## 1. Nosný model: desired, recorded a effective state
 
-Environment nie je iba voľný string. Jeho identita má obsahovať alebo jednoznačne odvodiť:
+Pre každý deployment rozlišuj:
 
-- project alebo release unit,
-- environment name,
-- deployment tier,
-- account/subscription/cluster,
-- region alebo zone podľa potreby,
-- namespace alebo runtime target,
-- configuration boundary,
-- data boundary,
-- ownera,
-- protection a approval policy.
-
-Príklady:
+- **Desired state:** čo pipeline, manifest alebo GitOps commit požaduje.
+- **Recorded state:** čo GitLab deployment objekt a job evidujú.
+- **Effective state:** artifact, config, routing, feature a shared-state kombinácia reálne aktívna v targete.
 
 ```text
-production
-staging
-review/1234
-region/eu-central-1/production
-customer/acme/pilot
+job exit 0
+≠ controller reconciliation complete
+≠ správny target
+≠ správny runtime digest
+≠ zdravý business outcome
 ```
 
-Názov ovplyvňuje variable scopes, protected-environment matching, UI grouping, metrics a cleanup automation. Neštandardné alebo dynamicky manipulovateľné názvy môžu vytvoriť nový neprotected target s podobným názvom a obísť zamýšľanú policy.
+Rozdiel vzniká pri asynchrónnom controlleri, partial mutation, manuálnom zásahu, stale pipeline, nesprávnom environment name, routing drift-e alebo neúplnej telemetry.
 
-## 4. Static a dynamic environments
+## 2. Nosný scenár: Atlas Payments release 3.13.0
+
+Atlas publikuje release `3.13.0` pre Payments API a worker.
+
+Release manifest `RM313` obsahuje:
+
+```text
+api image digest      D_api_313
+worker image digest   D_worker_313
+rendered config       C44
+infrastructure rev    I19
+schema phase          S_expand
+feature policy        F37
+SBOM/provenance       E313
+support state         candidate
+```
+
+GitLab model:
+
+```text
+project: atlas/payments
+static environment: production-eu
+review environment: review/842
+protected deploy job: deploy_production
+release record: 3.13.0 → RM313
+```
+
+Plánovaný chain:
+
+```text
+build a publish RM313
+→ deploy do review/842
+→ verify a teardown review app
+→ approve production subject RM313 + production-eu
+→ zapíš desired GitOps revision G88
+→ controller reconciliuje D_api_313/D_worker_313
+→ over effective digest, config, routing a business journey
+→ označ deployment succeeded
+→ promotionuj exposure
+→ release 3.13.0 accepted a supported
+```
+
+Tento scenár spája environment identity, deployment record, GitOps reconciliation, runtime verification, review-app cleanup a release lifecycle.
+
+## 3. Environment je runtime boundary, nie voľný názov
+
+Environment identity musí jednoznačne mapovať:
+
+```text
+GitLab project/release unit
+environment name a tier
+cloud account/subscription
+cluster a namespace
+region
+data a configuration boundary
+owner
+protection a approval policy
+runtime identity
+```
+
+`production`, `Production`, `prod-new` a `production/eu` sú pre GitLab odlišné subjects. Ak dva názvy smerujú na rovnaký cluster, no iba jeden je protected, vzniká authorization bypass.
+
+Atlas preto používa kanonický contract:
+
+```text
+environment.name = production-eu
+tier = production
+cloud account = atlas-prod
+cluster = eu-prod-01
+namespace = payments
+workload identity audience = deploy:payments:production-eu
+```
+
+Environment name je security-relevant input. Nesmie byť voľne odvodený z nedôveryhodnej variable.
+
+## 4. Static a dynamic environment majú odlišný lifecycle
 
 ### Static environment
 
-Dlhodobo používaný target, napríklad staging alebo production. Má stabilný ownership, runtime dependencies, access policy a deployment history.
+`production-eu` má stabilný owner, data boundary, deployment history a support contract. Nezaniká po jednom pipeline run-e.
 
 ### Dynamic environment
 
-Dočasný target vytvorený pre branch, merge request, tenant alebo testovací scenár. Typickým príkladom je review app.
-
-Dynamic environment potrebuje už pri vytvorení:
-
-- jednoznačnú identity,
-- izolované credentials a data,
-- resource quota,
-- TTL alebo auto-stop,
-- idempotentný teardown,
-- ownera,
-- evidenciu external resources,
-- pravidelný reconciler pre zlyhaný cleanup.
-
-GitLab stav `stopped` neznamená, že cloud resources, DNS, volumes alebo identity boli skutočne odstránené.
-
-## 5. Environment tier
-
-Deployment tier klasifikuje význam targetu, napríklad development, testing, staging alebo production. Tier pomáha reportingu a governance, ale nie je permission boundary sám osebe.
-
-Environment s názvom `prod-eu` a nesprávnym development tierom môže skresliť deployment metrics. Naopak environment označený ako production nie je bezpečný bez protected-environment policy a scoped identity.
-
-## 6. Deployment subject
-
-Deployment musí jednoznačne identifikovať, čo sa nasadzuje. Samotný commit SHA často nestačí.
-
-Deployment subject môže obsahovať:
+`review/842` vzniká pre konkrétny MR a má bounded lifetime:
 
 ```text
-source commit alebo tag
-+ artifact digest/package version
-+ configuration revision
-+ infrastructure revision
-+ schema/migration phase
-+ feature-flag policy version
-+ rollout strategy
+MR/pipeline subject
+→ isolated namespace, URL a test identity
+→ deploy immutable digest
+→ validation
+→ stop request
+→ workloads/DNS/storage/identity cleanup
+→ nulový external inventory
+→ environment closed
 ```
 
-Pri multi-component release použi release manifest, ktorý mapuje každú komponentu na immutable digest a relevantnú config revision.
+GitLab status `stopped` je iba recorded state. Cleanup je complete až po nezávislom overení cloud resources, volumes, DNS a credentials.
 
-## 7. Deployment state machine
+## 5. Deployment subject musí byť immutable a úplný
 
-Deployment modeluj ako state machine:
+Deployment subject pre `production-eu` je:
+
+```text
+release manifest RM313
++ config C44
++ infra I19
++ schema phase S_expand
++ feature policy F37
++ target production-eu
++ rollout generation G313
+```
+
+Samotný commit SHA alebo tag nestačí. Rovnaký source môže vytvoriť rozdielne artifacts podľa toolchainu a platformy; rovnaký image môže bežať s rozdielnym configom a schema phase.
+
+Approval, runtime verification aj recovery musia odkazovať na rovnaký subject.
+
+## 6. Deployment state machine
+
+Atlas používa:
 
 ```text
 created
-→ waiting for prerequisites
-→ approved alebo eligible
-→ running
-→ runtime change requested
-→ verifying
-→ succeeded / failed / canceled / blocked / inconclusive
-→ recovery alebo superseded
+→ prerequisites checked
+→ approved/eligible
+→ queued
+→ executing desired-state mutation
+→ reconciling
+→ verifying effective state
+→ succeeded / failed / blocked / inconclusive
+→ accepted / recovered / superseded
 ```
 
-`Job succeeded` môže znamenať iba to, že API prijalo deployment request. Pri asynchrónnom GitOps alebo cloud controlleri musí byť úspech viazaný na reconciliation a runtime verification.
+Verdicty:
 
-Rozlišuj:
+- `blocked` — chýba permission, approval, lock alebo prerequisite;
+- `failed` — známy deployment mechanizmus zlyhal;
+- `inconclusive` — mutation mohla prebehnúť, ale effective outcome nie je dokázaný;
+- `superseded` — novší desired subject nahradil starší;
+- `succeeded` — effective state a required outcomes boli overené;
+- `accepted` — observation window a release criteria sú splnené.
 
-- **Failed —** deployment mechanizmus zistil konkrétne zlyhanie.
-- **Blocked —** chýba approval, permission, lock alebo prerequisite.
-- **Canceled —** execution bolo zámerne ukončené.
-- **Inconclusive —** runtime change prebehol, ale telemetry alebo validation nestačí na rozhodnutie.
-- **Superseded —** novší desired deployment nahradil starší ešte pred jeho dokončením.
+GitLab job, ktorý iba commitne GitOps manifest, nemá označiť celý deployment za succeeded bez controller feedbacku.
 
-## 8. Deployment job contract
+## 7. Eligibility pred executionom
 
-Deployment job má explicitne definovať:
-
-- immutable artifact input,
-- target environment identity,
-- config a infra revision,
-- required evidence a approvals,
-- workload identity a permissions,
-- rollout strategy,
-- serialization alebo lease,
-- timeouty podľa fázy,
-- cancellation semantics,
-- post-deploy verification,
-- rollback/roll-forward eligibility,
-- failure artifacts a audit metadata.
-
-Job má byť idempotentný alebo bezpečne resumable. Opakované spustenie po timeout-e nesmie vytvoriť nekontrolované duplicity alebo paralelné migrations.
-
-## 9. Protected environment
-
-Protected environment je runtime authorization boundary. Obmedzuje, kto alebo ktorá identity môže spustiť deployment do konkrétneho targetu.
-
-Bezpečný deployment vyžaduje súčasne:
-
-- dôveryhodný ref alebo release subject,
-- chránený deployment job a pipeline config,
-- allowed-to-deploy policy,
-- scoped protected/environment variables,
-- bezpečný runner alebo controller,
-- short-lived runtime identity,
-- immutable artifact,
-- auditovateľné approval a exception pravidlá.
-
-Protected environment nechráni pred malicious kódom už mergeovaným do trusted refu ani pred príliš privilegovaným runnerom.
-
-## 10. Manual job verzus approval
-
-`when: manual` iba čaká na používateľský trigger. Nie je to automaticky kvalifikovaný approval.
-
-Approval rozhodnutie potrebuje:
-
-- presný artifact a environment subject,
-- evidence summary,
-- eligible approvera,
-- separation of duties podľa rizika,
-- freshness a expiráciu,
-- audit trail,
-- možnosť revokácie pred execution,
-- break-glass pravidlá.
-
-Používateľ, ktorý môže kliknúť manual job, nemusí mať právo schváliť business alebo compliance risk.
-
-## 11. Environment-scoped variables a identity
-
-Environment scope znižuje exposure credentials, ale výsledná bezpečnosť závisí od názvu environmentu a deployment jobu.
-
-Kontroluj:
-
-- presný scope a wildcard precedence,
-- kto môže zmeniť `environment:name`,
-- protected-ref kontext,
-- variable precedence,
-- downstream forwarding,
-- runner trust,
-- cleanup file secrets,
-- cloud-side authorization claims.
-
-Preferuj OIDC alebo inú workload federation:
+Pred production mutation Atlas overí:
 
 ```text
-GitLab deployment job
-→ signed ID token
-→ runtime/cloud provider
-→ short-lived environment-scoped credential
+RM313 a všetky digests existujú a sú immutable
+required test/security evidence je complete a fresh
+approval patrí RM313 + C44 + production-eu
+release nie je revoked
+schema a rollback compatibility sú platné
+freeze/incident policy povoľuje transition
+job beží z trusted resolved configu
+workload identity claims matchujú target
+current environment generation umožňuje G313
 ```
 
-## 12. Deployment concurrency
+Dlhé čakanie na manual job môže z pôvodne eligible subjectu vytvoriť stale deployment. Eligibility sa preto prehodnocuje tesne pred mutation.
 
-Dva jobs mutujúce rovnaký environment vytvárajú race. `resource_group` alebo iný lock serializuje execution, ale potrebuje definovanú queue policy.
+## 8. Manual job nie je approval
 
-Možnosti:
-
-- vykonať všetky deployments v poradí,
-- supersedovať staršie pending deployments,
-- nechať running mutation dokončiť a potom prehodnotiť desired state,
-- použiť controller s compare-and-set nad aktuálnou generation.
-
-Lock má obsahovať ownera, lease/timeout a recovery pri orphaned stave. Externé manuálne deploymenty mimo GitLabu môžu lock obísť, preto je vhodný aj runtime-side coordination mechanizmus.
-
-## 13. Outdated deployments
-
-Outdated deployment nastane, keď starší pipeline prepíše novší environment state.
-
-Príklad:
+`when: manual` poskytuje trigger point. Approval je risk decision nad presným subjectom.
 
 ```text
-pipeline A pre commit 100 začne skôr, ale čaká
-pipeline B pre commit 101 sa nasadí
-pipeline A sa neskôr dokončí
-→ production sa vráti na commit 100
+manual play permission
+≠ oprávnenie akceptovať risk
+≠ dôkaz freshness
+≠ separation of duties
 ```
 
-Ochrany:
+Approval packet obsahuje release manifest, config/infra revision, target, evidence, rollout plán, recovery eligibility, known exceptions a expiry.
 
-- serialized resource group,
-- prevent-outdated-deployment policy,
-- desired generation alebo sequence number,
-- compare-and-set pred mutation,
-- revalidation subjectu po čakaní,
-- zákaz mutable artifact tags,
-- runtime telemetry s digestom.
+## 9. Workload identity a runtime authorization
 
-## 14. Deployment freshness
-
-Pred execution znovu over:
-
-- artifact stále spĺňa policy,
-- approval sa vzťahuje na rovnaký digest a config,
-- environment nebol zmenený novším deploymentom,
-- release nebol revoked,
-- security evidence neexpirovala,
-- freeze alebo incident policy sa nezmenila,
-- target credentials a dependencies sú platné.
-
-Dlhé čakanie na manual job môže z pôvodne bezpečného deploymentu vytvoriť stale rozhodnutie.
-
-## 15. Post-deployment verification
-
-Deployment nie je úspešný iba preto, že command skončil s exit code 0. Overuj minimálne:
-
-- runtime digest a config revision,
-- rollout completion,
-- readiness a healthy capacity,
-- routing/exposure state,
-- synthetic critical journey,
-- error rate a latency,
-- saturation a dependency health,
-- queue/backlog stav,
-- business invariants,
-- databázovú alebo eventovú kompatibilitu.
-
-Telemetry musí byť filtrovatelná podľa deployment ID, artifact digestu, environmentu, regionu a rollout cohorty.
-
-## 16. Deployment record quality
-
-Dôveryhodný record prepája:
+Production job nepoužíva shared static cloud key.
 
 ```text
-project a pipeline
-→ job a actor/workload identity
-→ source SHA/tag
-→ artifact digest
-→ config/infra revision
-→ target environment
-→ rollout a exposure state
-→ verification result
-→ recovery outcome
+trusted GitLab job
+→ ID token s project/ref/environment claims
+→ cloud provider overí issuer, audience a subject
+→ vydá short-lived credential pre production-eu
+→ deployment API mutation
+→ credential expiruje
 ```
 
-Job, ktorý iba vypíše `deployed` bez kontroly targetu, vytvára falošnú evidence. Pri GitOps workflowe zaznamenaj zvlášť configuration change request a skutočný reconciled runtime deployment.
+Cloud-side policy musí overiť skutočný job context. GitLab environment protection bez external runtime authorization nie je úplná boundary.
 
-## 17. GitOps interaction
+## 10. Concurrency, generation a supersession
 
-Pri GitOps modeli CI typicky:
-
-1. vytvorí a publikuje immutable artifact,
-2. aktualizuje desired-state repository alebo release manifest,
-3. GitOps controller zmenu reconciliuje,
-4. runtime health a effective state sa vrátia do evidence systému.
-
-Pipeline commit do config repository nie je dokončený deployment. Potrebuje koreláciu medzi:
-
-- source pipeline,
-- config commit,
-- controller reconciliation,
-- runtime digest,
-- environment deployment recordom.
-
-## 18. Review apps
-
-Review app je dynamic environment pre konkrétnu zmenu. Jeho hodnota je vysoká iba vtedy, keď reprezentuje relevantnú application boundary bez neprimeraného security rizika.
-
-Review app contract obsahuje:
-
-- MR/pipeline identity,
-- immutable artifact digest,
-- izolovaný namespace a URL,
-- test identity a synthetic data,
-- environment-scoped variables,
-- network policy,
-- resource quota,
-- stop job,
-- TTL,
-- cleanup ownera,
-- cleanup evidence.
-
-Untrusted fork nesmie dostať production secrets, privileged runner ani network access k citlivým interným službám.
-
-## 19. Review-app cleanup
-
-Cleanup je samostatný lifecycle:
+Dva deployments na rovnaký environment môžu vytvoriť stale overwrite:
 
 ```text
-stop application
-→ odstráň workloads/services
-→ odstráň DNS a ingress
-→ odstráň volumes/data podľa policy
-→ revoke credentials
-→ odstráň cloud resources
-→ over nulový inventory
-→ označ environment stopped/deleted
+G312 začne rollout a čaká
+→ G313 sa nasadí a overí
+→ G312 pokračuje
+→ production sa vráti na starší subject
 ```
 
-Použi viac ochranných vrstiev:
+Atlas kombinuje:
 
-- `on_stop` job,
-- auto-stop/TTL,
-- cloud labels s ownerom a expiry,
-- periodický garbage collector,
-- budget/quota alert,
-- reconciler orphaned resources.
+- environment resource group alebo lease;
+- monotonickú desired generation;
+- compare-and-set pred každou mutation fázou;
+- superseded-run cancellation;
+- revalidation po čakaní;
+- runtime-side controller fencing.
 
-## 20. Environment drift
+Serialization bez generation checku iba zoradí jobs. Nezaručuje, že starší subject je stále žiaduci.
 
-Drift môže vzniknúť manuálnou zmenou, controllerom, secret rotation, cloud defaultom alebo partial deploymentom.
+## 11. GitOps: request a deployment sú dva eventy
 
-Rozlišuj:
-
-- desired-state drift,
-- configuration drift,
-- artifact drift,
-- permission drift,
-- data/schema drift,
-- routing/exposure drift.
-
-Deployment verification a pravidelná reconciliation majú porovnávať GitLab record s runtime inventárom. Manuálny zásah musí vytvoriť auditný a následný desired-state update.
-
-## 21. Rollback a roll-forward
-
-GitLab redeploy alebo rollback action rieši iba časť recovery. Pred rollbackom over:
-
-- previous artifact digest a jeho dostupnosť,
-- compatibility s aktuálnou schema a dátami,
-- config a secrets compatibility,
-- events už publikované novou verziou,
-- external side effects,
-- active clients,
-- runtime target a routing state.
-
-Možnosti containmentu:
-
-1. pause promotion,
-2. znížiť exposure,
-3. vypnúť feature flag,
-4. route traffic na stable target,
-5. rollback artifact/configu,
-6. roll-forward,
-7. compensating action alebo restore.
-
-Deployment record musí zachytiť aj recovery subject a výsledok.
-
-## 22. Deployment freeze
-
-Freeze period mení eligibility plánovaných deployments. Nemá nahrádzať protected environment ani recovery capability.
-
-Freeze policy potrebuje:
-
-- scope a timezone,
-- ownera,
-- ktoré jobs sú blokované,
-- emergency výnimku,
-- approvera a audit,
-- expiráciu výnimky,
-- post-freeze queue policy.
-
-Po skončení freeze nevypúšťaj automaticky veľký batch stale deployments bez opätovnej validácie.
-
-## 23. GitLab Release
-
-GitLab Release je platformový záznam distribuovanej verzie. Nemá byť procesom, ktorý vyrába nové bytes. Má referencovať už existujúce immutable artifacts.
-
-Release môže obsahovať:
-
-- protected tag,
-- release name a version,
-- released-at timestamp,
-- release notes,
-- milestones alebo issues,
-- asset links,
-- checksums, SBOM a signatures,
-- release evidence,
-- deployment/support informácie.
-
-## 24. Release subject a manifest
-
-Pri jednoduchej aplikácii môže release subject tvoriť jeden package alebo image digest. Pri viacerých komponentoch vytvor release manifest:
+CI pri Atlas GitOps flowe:
 
 ```text
-release_version
-component A → image digest
-component B → package version/checksum
-infra → revision
-config → revision
-schema → compatibility state
+RM313
+→ commit G88 do desired-state repository
+→ GitLab zaznamená configuration request
+→ controller načíta G88
+→ admission/render/apply/reconcile
+→ runtime inventory ukáže D_api_313 + D_worker_313 + C44
+→ deployment record dostane effective verdict
 ```
 
-Manifest musí byť immutable alebo versionovaný. Release tag bez väzby na výsledné artifacts neidentifikuje, čo používatelia alebo produkcia skutočne dostali.
+Potrebná korelácia:
 
-## 25. Release eligibility
+```text
+source pipeline
+↔ release manifest
+↔ config commit G88
+↔ controller reconciliation ID
+↔ cluster/namespace
+↔ runtime digests
+↔ deployment record
+```
 
-Pred vytvorením alebo akceptovaním release over:
+Bez nej „deploy job passed“ znamená iba úspešný zápis požiadavky.
 
-- tag a version policy,
-- artifact immutability,
-- provenance a signatures,
-- SBOM completeness,
-- required test a scan evidence,
-- compatibility matrix,
-- known issues a exceptions,
-- release notes,
-- support a rollback window,
-- approval freshness.
+## 12. Post-deployment verification
 
-Release job musí zlyhať pri neúplnej evidence. Chýbajúci scanner report alebo package nemá byť interpretovaný ako čistý výsledok.
+Atlas overuje:
 
-## 26. Release assets
+### Identity a convergence
 
-Dlhodobé assets patria do package/container/generic registry alebo iného trvalého artifact store. Job artifact s krátkym `expire_in` nie je vhodný ako jediný release download.
+- API a worker digests;
+- config a feature revision;
+- replica count a rollout completion;
+- schema phase;
+- controller generation.
 
-Asset link má smerovať na immutable subject:
+### Runtime health
 
-- package version a checksum,
-- image digest,
-- generic package path,
-- SBOM,
-- signature alebo attestation,
-- dokumentáciu viazanú na release verziu.
+- readiness a healthy capacity;
+- error rate, latency a saturation;
+- dependency a queue health;
+- routing a exposure.
 
-Mutable `latest` link môže slúžiť na discovery, ale release record musí uchovať immutable identity.
+### Functional a business outcome
 
-## 27. Release lifecycle
+- payment authorization synthetic;
+- idempotent retry;
+- žiadne duplicate captures;
+- reconciliation a settlement invariants.
 
-Release modeluj ako stavový lifecycle:
+Telemetry je dimenzovaná podľa deployment ID, digestu, configu, regionu a cohorty. Global aggregate môže skryť chybu iba v novej generation.
+
+## 13. Release object, deployment a exposure sú samostatné states
+
+Release `3.13.0` môže byť:
+
+- publikovaný, ale nikde nenasadený;
+- nasadený iba v review alebo staging environment-e;
+- nasadený v produkcii, ale bez trafficu;
+- vystavený iba jednému ringu;
+- revoked pre nové použitie, ale stále aktívny na starom runtime;
+- podporovaný, deprecated alebo end-of-life.
+
+Preto Atlas eviduje zvlášť:
+
+```text
+distribution state
+deployment state
+exposure state
+support state
+security/revocation state
+```
+
+Jedna GitLab Release karta nemôže byť autoritou pre všetky tieto stavy.
+
+## 14. Release manifest a durable assets
+
+GitLab Release nevyrába nové bytes. Odkazuje na už overené immutable outputs:
+
+```text
+3.13.0
+→ RM313
+→ api D_api_313
+→ worker D_worker_313
+→ config C44
+→ infra I19
+→ SBOM, provenance a signatures
+→ support a compatibility metadata
+```
+
+Release asset nemá smerovať iba na expirovateľný job artifact. Dlhodobé outputs patria do container/package/generic registry s digestom alebo checksumom.
+
+Mutable `latest` môže byť discovery alias. Release record musí zachovať immutable identity.
+
+## 15. Release lifecycle a freshness
 
 ```text
 candidate
-→ approved/published
+→ published
+→ accepted
 → supported
 → deprecated
 → end-of-life
 → archived alebo revoked
 ```
 
-### Deprecation
+Nová vulnerability môže zmeniť security stav bez source zmeny. Pôvodný zelený pipeline zostáva historickou evidence, nie večným verdictom.
 
-Informuje consumers o plánovanom ukončení podpory a náhrade.
+Pri revocation treba:
 
-### Yanking
+```text
+identifikovať affected release digests
+→ blokovať nové deploymenty/pully podľa policy
+→ nájsť active runtime inventory
+→ publikovať opravený release
+→ redeploynúť a overiť
+→ aktualizovať support/advisory state
+```
 
-Zabráni novým consumers automaticky vybrať chybnú verziu, ale môže zachovať bytes pre existujúce deployments a audit.
+## 16. Worked failure: GitLab evidoval úspech, runtime ostal na starej verzii
 
-### Revocation
+Pipeline úspešne commitla desired-state revision G88 a deployment job skončil zeleno.
 
-Označí release alebo artifact ako nedôveryhodný, napríklad pri kompromitácii signing key alebo kritickom supply-chain incidente.
+```text
+CI zapíše G88
+→ GitLab deployment record = succeeded
+→ GitOps controller odmietne manifest pre admission policy
+→ runtime zostane na D_api_312
+→ release dashboard tvrdí 3.13.0
+```
 
-### Deletion
+### Príčina
 
-Fyzicky odstráni metadata alebo bytes. Je posledným krokom a musí rešpektovať consumer inventory, legal hold, incident analysis a rollback potreby.
+Deployment success bol viazaný na zápis požiadavky, nie na controller reconciliation a effective runtime verification.
 
-GitLab Release nemusí priamo implementovať všetky tieto stavy; organizácia ich musí reprezentovať v policy a registry lifecycle.
+### Dôsledok
 
-## 28. Release evidence freshness
+Support a incident response používali nesprávny release inventory. Rollback 3.13.0 nemal význam, pretože 3.13.0 nikdy reálne nebežal.
 
-Release bol bezpečný v čase publikovania, ale risk sa môže zmeniť. Nové vulnerabilities alebo compromised dependency môžu vyžadovať:
+### Náprava
 
-- continuous rescanning,
-- identifikáciu dotknutých release digests,
-- aktualizáciu support statusu,
-- yanking alebo revocation,
-- rebuild s patched dependencies,
-- informovanie consumers,
-- nový deployment.
+- oddeliť configuration-request a effective-deployment record;
+- korelovať controller reconciliation ID;
+- označiť stav `reconciling` alebo `failed`, nie `succeeded`;
+- runtime digest a critical journey ako required postcondition;
+- alert pri desired/recorded/effective divergence.
 
-Pôvodný zelený pipeline zostáva historickou evidence, nie aktuálnym security verdictom.
+## 17. Worked failure: review app bola stopped, ale jej cloud state prežil
 
-## 29. Release a deployment nie sú totožné
+Stop job odstránil Kubernetes namespace a GitLab environment označil ako stopped. Managed database, DNS record a federated cloud role však ostali.
 
-Jeden release môže byť:
+```text
+namespace delete uspeje
+→ stop job exit 0
+→ environment stopped
+→ DB/DNS/role inventory nie je kontrolovaný
+→ resources ostanú bez ownera a s nákladom/attack surface
+```
 
-- publikovaný, ale ešte nenasadený,
-- nasadený iba do stagingu,
-- vystavený iba jednému ringu,
-- nasadený v niektorých regiónoch,
-- stiahnutý z distribúcie, ale stále bežať v produkcii.
+### Príčina
 
-Preto udržiavaj zvlášť:
+Cleanup sa hodnotil podľa jedného orchestration kroku, nie podľa desired-zero inventory všetkých external resources.
 
-- release/distribution state,
-- deployment state,
-- exposure state,
-- support state,
-- vulnerability/revocation state.
+### Náprava
 
-## 30. Observability a metriky
+```text
+resource manifest s ownerom/expiry
+→ idempotentný teardown každej vrstvy
+→ revoke identity
+→ external inventory reconciliation
+→ TTL garbage collector
+→ environment closed až pri nulovom inventári
+```
 
-Sleduj:
+## 18. Worked failure: Release odkazoval na mutable a expirovateľný output
 
-- deployment frequency a lead time,
-- queue a approval time,
-- outdated/superseded deployments,
-- deployment success a inconclusive rate,
-- post-deploy validation failures,
-- exposure before detection,
-- rollback/roll-forward úspešnosť,
-- environment drift,
-- orphaned review apps,
-- deployment record completeness,
-- percent releases s immutable assets, SBOM a provenance,
-- release revocation a recovery time.
+GitLab Release `3.13.0` obsahoval link na `app-latest.zip` z job artifacts s `expire_in: 30 days`.
 
-Metrika má byť odvodená z pravdivého runtime a release recordu, nie iba zo zeleného job statusu.
+Po mesiaci:
 
-## 31. Diagnostický postup
+```text
+job artifact expiruje
+→ release download nefunguje
+→ mutable alias latest už ukazuje 3.14.0
+→ support nevie reprodukovať 3.13.0
+→ rollback package chýba
+```
 
-Keď deployment alebo release stav nesedí:
+### Príčina
 
-1. **Identifikuj subject —** source, artifact digest, config, environment a release version.
-2. **Over GitLab record —** pipeline, job, actor, status, approvals a timestamps.
-3. **Over effective runtime —** digest, replicas, config, routing a health.
-4. **Skontroluj controller —** GitOps/cloud reconciliation, eventy a partial failures.
-5. **Skontroluj concurrency —** resource group, novší desired state a outdated job.
-6. **Skontroluj variables/identity —** environment scope, claims a target account.
-7. **Over shared state —** schema, events, cache a side effects.
-8. **Urči containment —** pause, disable, traffic shift, rollback alebo roll-forward.
-9. **Uchovaj evidence —** logs, runtime inventory, config a deployment timeline.
-10. **Oprav lifecycle —** policy, validation, cleanup alebo release manifest.
+Release record nemal immutable durable asset ani manifest-bound checksum.
 
-## 32. Typické anti-patterny
+### Náprava
 
-### Environment je iba názov v YAML
+Publikovať versioned generic package alebo image digest, zachovať RM313 ako retention root a overovať release asset availability počas support lifecycle-u.
 
-Chýba owner, target identity, permission boundary a runtime verification.
+## 19. Kauzálny diagnostický walkthrough
 
-### Zelený deploy job = zdravá produkcia
+Symptom: GitLab tvrdí, že production deployment `3.13.0` succeeded, ale používateľ stále vidí behavior `3.12.0`.
 
-Job môže iba odoslať asynchrónny request alebo zmeniť nesprávny target.
+### Krok 1 — stabilizuj subjects
 
-### Manual job = approval
+```text
+release = 3.13.0 / RM313
+desired config = G88
+recorded deployment = DEP-913 succeeded
+target = production-eu
+expected digest = D_api_313
+```
 
-Kliknutie bez evidence a eligibility nie je risk decision.
+### Krok 2 — konkurenčné hypotézy
 
-### Mutable artifact tag v deployment recorde
+```text
+H1: controller G88 ešte nereconcilioval alebo zlyhal
+H2: job zasiahol iný cluster/namespace
+H3: runtime digest je nový, ale traffic ostal na old generation
+H4: feature/config policy ponecháva starý behavior
+H5: starší deployment prepísal novší state
+H6: telemetry alebo support údaj je stale
+H7: release manifest alebo deployment record ukazuje nesprávny digest
+```
 
-Neskôr nemožno určiť, ktoré bytes boli nasadené.
+### Krok 3 — diskriminačné observation points
 
-### Review app bez TTL
+- config repository commit a controller events testujú H1;
+- cloud account, cluster, namespace a workload identity audit testujú H2;
+- live replicas, service routing a traffic weights testujú H3;
+- effective config/flag revision testuje H4;
+- generation a deployment timeline testujú H5;
+- direct synthetic a runtime response headers testujú H6;
+- registry digest a RM313 mapping testujú H7.
 
-External resources zostávajú po merge a vytvárajú náklady aj attack surface.
+Atlas zistí admission rejection pre G88. Runtime stále používa D_api_312; target, routing aj telemetry sú správne. H1 vysvetľuje symptom.
 
-### Stopped environment = odstránené resources
+### Krok 4 — containment a recovery
 
-GitLab UI status nemusí reflektovať cloud, storage, DNS ani identity cleanup.
+Atlas pause-ne ďalšiu promotion, opraví manifest policy, vytvorí novú desired revision G89 pre rovnaký RM313 a zachová failed reconciliation evidence. Nepoužije falošný rollback na 3.12.0, pretože runtime už na 3.12.0 je.
 
-### Release job znovu buildne artifact
+### Krok 5 — over pôvodný outcome
 
-Release bytes sa líšia od testovaného candidate artifactu.
+```text
+controller reconciled G89
+runtime digest = D_api_313
+config = C44
+critical payment journey prejde
+GitLab deployment record = succeeded
+release exposure state je aktualizovaný
+```
 
-### Release asset smeruje na expirovateľný job artifact
+### Krok 6 — skorší control
 
-Download a rollback capability po čase zmiznú.
+Finding sa mení na controller callback, effective-state gate, divergence alert a zákaz označiť GitOps request ako deployment success.
 
-### Tag alebo release object = runtime deployment
+## 20. Recovery a drift
 
-Distribučný záznam nehovorí, kde a komu je verzia reálne vystavená.
+Pri divergence medzi recorded a effective state-om:
 
-## 33. Praktický rozhodovací rámec
+```text
+pause ďalšie mutations
+→ zachovaj actual inventory a timeline
+→ urči desired authority
+→ contain traffic/feature/identity podľa mechanizmu
+→ reconcile, rollback alebo roll-forward
+→ over runtime a business outcome
+→ oprav GitLab record
+```
 
-Pred deploymentom alebo release odpovedz:
+GitLab UI sa nemá „opraviť“ bez runtime nápravy. Rovnako runtime hotfix bez desired-state update-u vytvára opakovaný drift.
 
-1. Aká je presná environment identity a runtime boundary?
-2. Aký immutable artifact a config revision sú subjectom?
-3. Čo je desired, recorded a effective state?
-4. Ktorá identity smie deployovať a prečo?
-5. Ako sa rieši approval freshness?
-6. Aký lock alebo generation zabráni outdated deploymentu?
-7. Čo presne znamená job success?
-8. Ako sa overí runtime digest, health a business outcome?
-9. Aký je rollback/roll-forward a shared-state limit?
-10. Ako sa cleanupnú dynamic resources a identities?
-11. Čo obsahuje release manifest?
-12. Kde sú dlhodobé immutable assets?
-13. Ako sa rieši deprecation, yanking a revocation?
-14. Ako sa produkčný deployment spätne mapuje na MR, pipeline a evidence?
+## 21. Diagnostický runbook
 
-## 34. Kontrolný checklist
+1. Urči release manifest, deployment subject a environment identity.
+2. Oddeľ desired, recorded a effective state.
+3. Over pipeline/job actor, resolved config, approval a workload identity.
+4. Pri GitOps-e koreluj config commit s controller reconciliation.
+5. Over runtime digests, config, routing, schema a feature state.
+6. Skontroluj generation, lock, supersession a manuálne zásahy.
+7. Pri dynamic environment-e over external inventory a credential cleanup.
+8. Pri release probléme over durable immutable assets a support/revocation state.
+9. Zvoľ containment a recovery podľa skutočne zmeneného state-u.
+10. Over pôvodný user/business outcome a aktualizuj lifecycle controls.
 
-- environment names a tiers sú konzistentné;
-- production environment je protected;
-- deployment job a runner sú v trusted boundary;
-- subject obsahuje artifact digest a config revision;
-- approvals sú viazané na rovnaký subject;
-- stale a outdated deployments sú blokované;
-- mutation jobs sú serializované;
-- workload identity je short-lived a environment-scoped;
-- runtime verification kontroluje effective state;
-- GitOps request a reconciled deployment sa odlišujú;
-- review apps majú izoláciu, TTL a reconciled cleanup;
-- rollback eligibility je overená pred rolloutom;
-- release job nerebuildí artifacts;
-- release manifest je immutable;
-- release assets používajú dlhodobý registry store;
-- SBOM, provenance a signatures sa viažu na digest;
-- support, deprecation a revocation lifecycle má ownera;
-- audit trail prepája source, artifact, deployment a release.
+## 22. Referenčné pravidlá
 
-## 35. Kontrolné otázky
+- Environment je runtime boundary, nie iba YAML string.
+- Deployment subject zahŕňa artifact, config, infra, shared-state phase a target.
+- Manual trigger nie je risk approval.
+- GitOps request nie je effective deployment.
+- Serialization potrebuje generation a stale-subject revalidation.
+- `Succeeded` vyžaduje nezávislú effective-state verification.
+- Review app je closed až po nulovom external inventory.
+- Release job nerebuildí artifacts.
+- Release asset musí byť immutable a durable počas support/rollback lifecycle-u.
+- Distribution, deployment, exposure, support a revocation sú samostatné states.
 
-1. Aký je rozdiel medzi environmentom, deploymentom a releaseom?
-2. Čo odlišuje desired, recorded a effective state?
-3. Prečo commit SHA nemusí identifikovať deployment subject?
-4. Aké stavy má deployment state machine?
-5. Prečo manual job nie je automaticky approval?
-6. Ako vzniká outdated deployment?
-7. Čo má dokazovať post-deployment verification?
-8. Ako GitOps mení význam úspešného CI jobu?
-9. Prečo stav `stopped` nedokazuje teardown review appu?
-10. Aký je rozdiel medzi tagom, artifactom a GitLab Release?
-11. Čo obsahuje multi-component release manifest?
-12. Prečo release asset nemá smerovať iba na job artifact?
-13. Aký je rozdiel medzi deprecation, yanking, revocation a deletion?
-14. Prečo historicky zelený release nemusí byť dnes bezpečný?
-15. Ako sa preukáže, čo je reálne nasadené v produkcii?
+## 23. Časté omyly
 
-## Summary
+### „Deploy job je zelený, produkcia je správna“
 
-GitLab environment reprezentuje runtime boundary, deployment zaznamenáva zmenu konkrétneho artifact/config subjectu v tejto boundary a Release eviduje distribuovanú a podporovanú verziu. Dôveryhodný lifecycle odlišuje desired, recorded a effective state, chráni deployment cez scoped identity, approvals a concurrency control, blokuje outdated deployments a overuje runtime nezávislou telemetry. Review apps potrebujú úplný teardown a releases musia referencovať immutable registry assets, release manifest, SBOM a provenance. Release, deployment, exposure, support a revocation sú odlišné stavy a musia zostať spätne mapovateľné na source a evidence.
+Job mohol iba odoslať asynchrónny request alebo zasiahnuť nesprávny target.
 
-## Glossary impact
+### „Environment je len názov pre UI“
 
-Relevantné pojmy: GitLab environment, environment identity, deployment tier, desired state, effective state, deployment subject, deployment record, outdated deployment, resource group, review app, stop job, GitOps reconciliation, GitLab Release, release manifest, release asset, yanking a release revocation.
+Názov ovplyvňuje protection, variables, metrics a cleanup.
+
+### „Stopped review app nemá resources“
+
+GitLab status nemusí reflektovať DB, DNS, storage alebo cloud identity.
+
+### „Release tag identifikuje všetko“
+
+Potrebný je immutable multi-component manifest a runtime digest inventory.
+
+### „Release bol raz zelený, je stále bezpečný“
+
+Nová intelligence môže zmeniť support alebo revocation state.
+
+## 24. Zhrnutie
+
+Dôveryhodný GitLab release-to-runtime lifecycle je:
+
+```text
+immutable release manifest
+→ canonical environment a scoped identity
+→ fresh deployment eligibility
+→ generation-aware desired-state mutation
+→ controller/executor reconciliation
+→ independent effective-state verification
+→ deployment acceptance a exposure
+→ release support a continuous risk state
+→ recoverable cleanup a audit
+```
+
+GitLab records majú hodnotu iba vtedy, keď zostávajú korelované s immutable artifacts, skutočným targetom a runtime telemetry. Deployment sa nekončí zápisom požiadavky a Release sa nekončí vytvorením tagu.
 
 ## Oficiálna dokumentácia
 
