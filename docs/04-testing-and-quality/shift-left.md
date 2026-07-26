@@ -6,526 +6,462 @@
 - Level: L2
 - Domain: Testing and Software Quality
 
-## 1. Definícia
-
-Shift-left je návrhový princíp, podľa ktorého sa konkrétny dôkaz o kvalite, bezpečnosti alebo prevádzkovej pripravenosti získava v najskoršom bode delivery toku, kde ho možno získať dostatočne spoľahlivo. Cieľom nie je presunúť všetky testy na lokálny počítač ani preniesť zodpovednosť špecializovaných tímov na vývojára. Cieľom je skrátiť čas medzi vytvorením chyby a použiteľnou spätnou väzbou bez neprimeranej straty fidelity.
-
-Zjednodušený delivery tok:
+Shift-left je rozhodovací princíp pre umiestnenie dôkazu. Pri každom failure mode hľadá najskorší bod delivery toku, v ktorom možno získať dostatočne spoľahlivý, diagnostický a akčný signál bez odstránenia boundary, na ktorej chyba reálne vzniká.
 
 ```text
-potreba
-→ požiadavka
-→ návrh
-→ implementácia
-→ commit
-→ build
-→ integrácia
-→ deployment
-→ produkcia
+riziko alebo chybný predpoklad
+→ potrebný oracle
+→ najskoršia vrstva s dostatočnou fidelity
+→ rýchly lokálny feedback
+→ autoritatívny CI dôkaz
+→ neskoršie potvrdenie zostávajúcich boundaries
+→ produkčné učenie
+→ presun nového poznatku do skoršej kontroly
 ```
 
-Shift-left sa pri každom riziku pýta:
+Shift-left preto neznamená „všetko testovať lokálne“ ani „presunúť zodpovednosť security a operations na vývojára“. Skoršia kontrola má hodnotu iba vtedy, keď zachová mechanizmus testovaného rizika a jej zelený výsledok sa nevydáva za silnejší dôkaz, než skutočne poskytuje.
+
+## 1. Cieľ kapitoly
+
+Nosný model kapitoly je evidence-placement lifecycle:
 
 ```text
-Aký je najskorší bod,
-v ktorom vieme získať dôkaz dostatočný na rozhodnutie?
+potreba, incident alebo failure mode
+→ explicitný contract a oracle
+→ boundary mapa
+→ kandidátne observation points
+→ porovnanie fidelity, feedback času a ceny
+→ najskorší spoľahlivý control
+→ autoritatívny gate a evidence provenance
+→ reziduálne riziká ponechané neskorším vrstvám
+→ defect-escape feedback a úprava controlu
 ```
 
-Dôležité je slovo „dostatočný“. Skorší, ale nepresný signál môže vytvoriť false confidence alebo zablokovať správnu zmenu. Niektoré vlastnosti preto zostávajú zámerne v neskorších vrstvách alebo v produkčnej validácii.
+Cieľom nie je maximalizovať počet pre-commit hookov. Cieľom je skrátiť čas medzi vznikom chyby a použiteľným rozhodnutím bez vytvorenia false confidence.
 
-## 2. Mental model: presun dôkazu, nie iba testu
+## 2. Nosný scenár: Atlas Orders 3.9.2
 
-Shift-left sa často zjednodušuje na „spusti testy skôr“. Presnejší model je presun rozhodovacieho dôkazu. Dôkazom môže byť test, ale aj formálnejšia požiadavka, type check, threat model, schema, policy, compatibility analýza, plan alebo experiment.
+Atlas pripravuje release 3.9.2. Zmena obsahuje:
 
-Príklady:
+- nový export objednávok pre veľkých tenantov;
+- rozšírenie event schema o optional `exportProfile`;
+- PostgreSQL index a backfill;
+- nový worker retry policy;
+- Helm hodnotu pre queue concurrency;
+- nové audit a business-completion metrics.
 
-- **Neplatný dátový tvar —** JSON Schema alebo typový model môže chybu zachytiť pri editácii alebo v pull requeste namiesto runtime zlyhania.
-- **Cross-tenant prístup —** authorization matrix a negatívne API testy môžu vzniknúť už z threat modelu, nie až po penetračnom teste.
-- **Breaking API zmena —** contract diff a provider verification môžu zablokovať nekompatibilný build pred spoločným integračným prostredím.
-- **Deštruktívna infra zmena —** policy nad Terraform planom môže odhaliť replacement databázy pred apply.
-- **Neobnoviteľný backup —** túto vlastnosť nemožno dôveryhodne potvrdiť iba staticky; restore drill zostáva dynamickou a neskoršou kontrolou.
-
-Shift-left teda nevytvára jedinú vrstvu. Vytvára reťaz dôkazov s rastúcou fidelity.
-
-## 3. Prečo je skorý feedback hodnotný
-
-Čím neskôr sa chyba odhalí, tým väčší býva stav systému, ktorý už na chybnom predpoklade závisí. Rastie work in progress, počet dotknutých ľudí, veľkosť batchu, náklady na reprodukciu aj riziko výnimky pod časovým tlakom.
-
-Typický mechanizmus neskorého feedbacku:
+Riziká sa objavujú na rôznych boundaries:
 
 ```text
-chybný predpoklad
-→ ďalší kód a testy na ňom závisia
-→ artifact sa integruje s ďalšími zmenami
-→ chyba sa prejaví v širokom systéme
-→ root cause má mnoho kandidátov
-→ oprava vyžaduje koordináciu a rollback
+požiadavka
+→ môže byť nejasné, komu export patrí a dokedy má byť dostupný
+
+source
+→ tenant context sa môže stratiť v command alebo evente
+
+interface
+→ starší consumer nemusí tolerovať nové pole
+
+PostgreSQL
+→ index alebo backfill môže blokovať writes
+
+rendered deployment
+→ concurrency override môže preťažiť DB pool
+
+production
+→ reálny tenant skew a regionálna latency môžu zmeniť completion rate
 ```
 
-Skorá kontrola zužuje diagnostický scope. Compile error pri konkrétnom riadku je lacnejší než runtime chyba v distribuovanom workflowe. Neplatný kontrakt odhalený v pull requeste je lacnejší než incident starého consumera po deploymente providera.
+Jedna skorá kontrola nemôže vierohodne pokryť celý chain. Shift-left určuje, ktoré riziko možno presunúť skôr a ktoré potrebuje neskorší runtime dôkaz.
 
-Hodnota shift-left sa však stráca, keď kontrola:
+## 3. Najskorší bod nie je automaticky najlepší bod
 
-- poskytuje chronicky hlučný výsledok,
-- trvá tak dlho, že ju používatelia obchádzajú,
-- nereprodukuje sa mimo centrálnej pipeline,
-- používa neaktuálnu konfiguráciu alebo iný toolchain,
-- kontroluje iba formu a vydáva sa za runtime dôkaz,
-- nemá ownera ani jasnú remediation cestu.
+Užitočné rozhodnutie porovnáva päť vlastností:
 
-## 4. Evidence-placement model
+- **failure boundary** — kde môže nesprávne správanie vzniknúť;
+- **fidelity** — či kontrola zachová relevantné semantics;
+- **feedback latency** — ako rýchlo sa výsledok vráti autorovi;
+- **diagnostikovateľnosť** — či failure ukáže konkrétnu príčinu;
+- **cost a authority** — koľko kontrola stojí a či jej výsledok chráni auditované rozhodnutie.
 
-Každá kontrola má prirodzené miesto určené šiestimi vlastnosťami:
-
-- **Riziko —** aký failure mode alebo nesprávne rozhodnutie má kontrola odhaliť.
-- **Fidelity —** ako presne testovacie podmienky reprezentujú relevantnú produkčnú vlastnosť.
-- **Latencia feedbacku —** ako rýchlo po zmene dostane autor výsledok.
-- **Diagnostikovateľnosť —** ako úzko možno z failure určiť príčinu.
-- **Cena —** runtime, infra náklady, maintenance a kognitívna záťaž.
-- **Autorita —** či výsledok iba radí, alebo je auditovateľným gate-om.
-
-Praktický princíp:
+Pravidlo:
 
 ```text
-vyber najnižšiu a najskoršiu vrstvu,
-ktorá ešte zachytí reálny failure mode
+vyber najskoršiu vrstvu,
+ktorá zachová relevantnú failure boundary
 s prijateľným false-negative rizikom
 ```
 
-Príklady vhodného umiestnenia:
+Syntax chybu môže spoľahlivo odhaliť editor alebo compiler. PostgreSQL lock behavior však nemožno presunúť do unit testu s in-memory repository bez straty predmetu dôkazu.
 
-| Riziko | Najskorší spoľahlivý dôkaz | Neskorší doplnkový dôkaz |
+## 4. Evidence ladder pre Atlas zmenu
+
+Atlas rozloží dôkaz takto:
+
+| Riziko | Najskorší spoľahlivý dôkaz | Neskoršie potvrdenie |
 |---|---|---|
-| Syntax chyba | editor/compiler | CI build |
-| Neplatná enum hodnota | schema/unit test | API test |
-| SQL constraint | test s reálnou DB | component/E2E |
-| API compatibility | contract diff/verifier | staging integration |
-| Verejne otvorený port | IaC policy/plan | runtime connectivity test |
-| Nesprávna regionálna latency | model a targeted benchmark | produkčný canary/RUM |
-| Obnova po výpadku zóny | návrhový review a chaos plán | game day alebo produkčný experiment |
+| Tenant context chýba v commande | type/domain test | component abuse test |
+| Event schema je breaking | schema diff a contract test | deployment compatibility matrix |
+| Backfill nie je restartovateľný | migration state-machine test | sandbox run nad reprezentatívnymi dátami |
+| Index blokuje writes | PostgreSQL integration/benchmark | controlled production rollout |
+| Queue concurrency preťaží DB | rendered config + policy | component load a canary saturation signal |
+| Audit event neobsahuje correlation ID | component telemetry assertion | production trace/audit validation |
+| Export completion klesne pre veľkých tenantov | model a targeted dataset test | RUM/business cohort analysis |
 
-## 5. Shift-left začína pri požiadavke
+Tabuľka nie je zoznam povinných nástrojov. Ukazuje, že každý failure mode má inú najnižšiu spoľahlivú boundary.
 
-Najlacnejšia chyba je tá, ktorá sa nestane súčasťou návrhu. Preto shift-left začína skôr než pri kóde. Nejasná požiadavka nevytvára stabilný test oracle a následné testy môžu presne overovať nesprávny výsledok.
+## 5. Shift-left začína pri contracte
 
-Požiadavka by mala pomenovať:
-
-- **Pozorovateľný výsledok —** čo má používateľ, systém alebo operátor vidieť.
-- **Hranice —** na ktoré identity, tenanta, regióny, dáta alebo verzie sa správanie vzťahuje.
-- **Negatívne správanie —** čo musí byť odmietnuté alebo bezpečne degradované.
-- **Časové vlastnosti —** deadline, latency, RPO, RTO alebo expiráciu.
-- **Kompatibilitu —** ktoré staršie verzie alebo súbežné deploymenty musia fungovať.
-- **Dôkaz —** ktorý test, metric, audit record alebo experiment potvrdí splnenie.
-
-Slabá požiadavka:
+Nejasná požiadavka nevytvára stabilný oracle. Atlas preto pred implementáciou definuje:
 
 ```text
-API má byť rýchle a bezpečné.
+Kto môže spustiť export?
+→ iba používateľ s export permission v aktívnom tenant contexte
+
+Čo je výsledok?
+→ jeden export obsahujúci iba orders daného tenanta
+
+Aký je deadline?
+→ export sa dokončí do 5 minút pre deklarovaný dataset tier
+
+Aké negatívne správanie je zakázané?
+→ žiadne cross-tenant rows, duplicate object ani silent partial export
+
+Aká kompatibilita je potrebná?
+→ starší worker ignoruje optional exportProfile
+
+Aký dôkaz rozhoduje?
+→ domain, contract, PostgreSQL, component a produkčný cohort evidence
 ```
 
-Silnejší kontrakt:
+Takto vzniknú oracles ešte pred kódom. Test potom neoptimalizuje implementáciu podľa nejasného očakávania.
+
+## 6. Design review ako tvorba následných controls
+
+Design review je shift-left iba vtedy, keď identifikuje mechanizmus a vytvorí konkrétny následný dôkaz. Atlas review napríklad rozhodne:
 
 ```text
-Pri 500 requests/s musí p95 úspešných odpovedí zostať pod 250 ms,
-error rate pod 0,5 %, klient bez scope `orders:write` musí dostať 403
-a rovnaký idempotency key nesmie vytvoriť dve objednávky.
+tenant identity je server-owned
+→ command builder nesmie akceptovať tenant z request body
+→ domain/component negative test
+
+backfill musí byť resumable
+→ checkpoint a idempotent batch contract
+→ migration restart test
+
+queue concurrency má DB connection budget
+→ rendered config invariant
+→ load/canary saturation guardrail
 ```
 
-Takýto kontrakt vytvára testovateľné oracles ešte pred implementáciou.
-
-## 6. Shift-left v návrhu a architektúre
-
-Design review je shift-left kontrola vtedy, keď identifikuje konkrétne riziko a vytvorí následný dôkaz. Samotné stretnutie bez rozhodnutí a vlastníctva nie je kontrola.
-
-V návrhu sa posudzujú najmä:
-
-- **Trust boundaries —** kde sa mení úroveň dôvery a kde musí existovať autentifikácia, autorizácia alebo validácia.
-- **Failure modes —** čo sa stane pri timeout-e, duplicite, partial write, retry, stale read alebo nedostupnej dependency.
-- **Data lifecycle —** klasifikácia, retention, encryption, backup, deletion a audit.
-- **Compatibility —** rolling deployment, expand-contract migrácie, event schema a staré clients.
-- **Operability —** metrics, logs, traces, health semantics, runbook a recovery ownership.
-- **Capacity assumptions —** pracovný profil, bottleneck kandidáti, quotas a scaling latency.
-
-Výstup návrhovej kontroly má byť prepojený na implementačný alebo testovací artefakt. Napríklad rozhodnutie „consumer musí tolerovať nové optional fields“ sa má prejaviť v contract teste. Rozhodnutie „queue musí byť bounded“ sa má prejaviť v stress alebo component teste.
+Zápis „security skontrolované“ alebo „database tím súhlasí“ nie je control. Chýba testovateľné rozhodnutie, owner a evidence path.
 
 ## 7. Developer feedback loop
 
-Lokálna vrstva má poskytovať rýchly a vysoko diagnostický feedback. Jej cieľom je zabrániť tomu, aby autor čakal na vzdialenú pipeline kvôli chybe, ktorú možno odhaliť za sekundy.
-
-Typické kontroly:
+Lokálna vrstva má poskytovať najrýchlejší diagnostický feedback pre kontroly, ktoré možno reprodukovať bez dôveryhodného centrálneho prostredia:
 
 ```text
 formatter
-→ syntax/compiler
-→ linter
-→ type checker
+→ parser/compiler
+→ linter a type checker
 → focused unit tests
-→ schema a policy checks
-→ targeted integration podľa potreby
+→ schema/contract diff
+→ rendered configuration checks
+→ targeted integration s ephemeral dependency
 ```
 
-Dobrá lokálna kontrola:
+Lokálny task používa rovnakú verzovanú konfiguráciu a toolchain ako CI. Inak vznikajú dve odlišné definície správnosti.
 
-- **Používa rovnaký toolchain —** verzia nástroja a konfigurácia zodpovedajú CI.
-- **Je reprodukovateľná —** existuje jeden dokumentovaný príkaz alebo task runner target.
-- **Má nízky noise —** failure je spravidla akčný a stabilný.
-- **Je inkrementálna —** pri malej zmene nevyžaduje celý enterprise test stack.
-- **Neukrýva autoritatívnosť —** lokálny výsledok pomáha, ale CI zostáva dôveryhodnou enforcement boundary.
-
-Pre-commit hook je vhodný ako ergonomická optimalizácia, nie ako jediný gate. Používateľ ho môže obísť, nemusí ho mať nainštalovaný a jeho beh nemusí zanechať auditný dôkaz.
+Pre-commit hook je ergonomická optimalizácia. Nie je autoritatívny gate, pretože ho možno obísť, nemusí byť nainštalovaný a nezanecháva centrálnu evidence provenance.
 
 ## 8. Autoritatívna CI vrstva
 
-CI opakuje kritické skoré kontroly v dôveryhodnom a zaznamenanom prostredí. Lokálny zelený výsledok nie je dostatočný, keď nepoznáme tool version, environment alebo úplnosť spustených kontrol.
-
-Typické poradie fail-fast pipeline:
+CI opakuje kritické skoré kontroly v známom execution contexte a viaže výsledok na konkrétny commit alebo synthetic merge candidate.
 
 ```text
-repository a dependency validation
-→ format/syntax/schema
-→ lint/type/static analysis
-→ unit tests
-→ targeted integration a contracts
-→ build/package
-→ artifact a security verification
-→ širšie integration/E2E/performance kontroly
+repository a dependency integrity
+→ format, syntax a schema
+→ static analysis a type checking
+→ unit a targeted integration
+→ contract compatibility
+→ build immutable artifactu
+→ artifact/SBOM/provenance controls
+→ širší boundary evidence podľa rizika
 ```
 
-Poradie nie je absolútne. Niektoré kroky sa môžu paralelizovať. Zmyslom je neplatiť za drahú kontrolu, keď lacný deterministický gate už dokazuje, že zmena nemôže pokračovať.
+CI musí rozlíšiť:
 
-CI musí rozlišovať minimálne tieto výsledky:
+- **pass** — kontrola sa kompletne vykonala a oracle bol splnený;
+- **failure/finding** — kontrola sa vykonala a našla porušenie;
+- **incomplete** — chýba shard, report, dependency alebo vstup;
+- **tool/infrastructure failure** — dôkaz nevznikol;
+- **skipped by policy** — kontrola sa nespustila z explicitného auditovaného dôvodu.
 
-- **Pass —** kontrola sa kompletne vykonala a požadovaný kontrakt bol splnený.
-- **Finding/failure —** kontrola sa vykonala a našla porušenie.
-- **Incomplete —** časť vstupov, shardov alebo reportov chýba.
-- **Tool/infrastructure failure —** runner, cache, registry alebo analyzátor nefungoval.
-- **Skipped by policy —** kontrola sa zámerne nespustila a dôvod je auditovateľný.
+Tool failure nesmie byť interpretovaný ako zelený výsledok.
 
-Tool failure nesmie byť automaticky interpretovaný ako pass.
+## 9. Test selection je samostatný risk model
 
-## 9. Test selection a false-negative riziko
-
-Shift-left neznamená spustiť celý testovací vesmír pri každom editovaní. Znamená vybrať najmenší dostatočný súbor kontrol. Selection však sama vytvára riziko, pretože chybný dependency graph alebo path mapping môže vynechať relevantný test.
-
-Mechanizmy selection:
-
-- **Changed-file mapping —** mapuje súbor na testy, ale môže prehliadnuť generované alebo runtime väzby.
-- **Dependency graph —** zahŕňa downstream komponenty, ak je graf úplný a správne invalidovaný.
-- **Test Impact Analysis —** používa historickú execution stopu, ale nemusí poznať nový typ interakcie.
-- **Risk tags —** explicitne označujú kritické oblasti, no vyžadujú governance a ownership.
-- **Contract ownership —** spúšťa consumer/provider kontroly pri zmene rozhrania.
-- **Diff coverage —** upozorní na neotestované nové vetvy, ale nenahrádza test rizika.
-
-Bezpečná selection policy používa vrstvy:
+Shift-left nevyžaduje celý testovací corpus pri každom commite. Vybraný set však musí byť konzervatívny voči neznámym dependencies.
 
 ```text
-rýchly affected set pri PR
-+ periodický širší beh
-+ full alebo risk-based suite pred relevantným release rozhodnutím
+changed files
++ dependency a artifact graph
++ contract ownership
++ generated-code edges
++ risk tags
++ historical execution evidence
+→ affected control set
 ```
 
-Sleduj false-green incidenty spôsobené selection mechanizmom. Ak zmena prešla preto, že relevantný test nebol zvolený, problémom nie je iba chýbajúci test, ale aj model závislostí.
+Fast lane sa dopĺňa periodickým širším behom a release evidence. Selection miss je defect controlu: ak relevantný test existoval, ale nebol vybraný, treba opraviť dependency model, nie iba pridať ďalší test.
 
-## 10. Security shift-left
+## 10. Security, infrastructure a data changes
 
-Security shift-left premieňa threat model a secure design na rýchle, akčné a opakovateľné kontroly. Neznamená spustiť každý scanner pri každom commite ani odovzdať celý security program vývojárom.
-
-Vrstva môže obsahovať:
-
-- **Threat modeling —** pomenúva assets, boundaries, abuse cases a controls ešte pred implementáciou.
-- **Secure defaults —** templates a libraries nastavujú bezpečný stav bez ručného rozhodovania.
-- **Secret scanning —** blokuje nové credentials v source a artefaktoch; nález zároveň spúšťa rotation workflow.
-- **SAST a taint analysis —** hľadajú konkrétne source-to-sink paths, nie iba nebezpečné názvy funkcií.
-- **SCA —** analyzuje dependency graph, provenance, reachability a policy.
-- **IaC policy —** odmieta verejný exposure, privilege expansion alebo chýbajúce encryption controls.
-- **Abuse-case tests —** overujú negatívne authorization a input-handling scenáre.
-
-Aby security signal fungoval:
-
-- pravidlá musia byť kurátorované podľa stacku a threat modelu,
-- severity musí odrážať kontext, reachability a impact,
-- finding musí mať remediation guidance,
-- scanner/tool failure musí byť viditeľný,
-- exception musí mať risk ownera a expiráciu,
-- security tím musí poskytovať platformové guardrails a podporu.
-
-Tisíce neroztriedených findings neposúvajú bezpečnosť doľava. Posúvajú iba šum do skoršej fázy.
-
-## 11. Infrastructure shift-left
-
-Infrastructure as Code umožňuje analyzovať plánovanú zmenu predtým, než zasiahne reálny control plane. Dôkaz sa vrství:
+Shift-left je najsilnejší tam, kde deklaratívny model umožňuje skorý dôkaz:
 
 ```text
-format
-→ syntax a schema
-→ module/unit test
-→ policy nad source
-→ rendered manifest alebo plan
+threat model
+→ abuse cases
+→ secure defaults
+→ static/secret/dependency analysis
+→ IaC render a policy
+→ plan/change-set verification
 → sandbox apply
-→ runtime verification
+→ runtime enforcement test
 ```
 
-Každá vrstva odpovedá na inú otázku:
+Source policy nemôže potvrdiť effective permissions po identity inheritance. Terraform plan nemôže potvrdiť network reachability z reálneho source. Tieto blind spots zostávajú explicitne vpravo.
 
-- **Syntax/schema —** je vstup parsovateľný a zodpovedá formálnemu modelu.
-- **Source policy —** porušuje deklarácia známe pravidlo ešte pred renderovaním.
-- **Plan policy —** čo sa reálne vytvorí, nahradí, zmaže alebo privileguje.
-- **Sandbox apply —** aké sú provider/API semantics, quotas a dependencies.
-- **Runtime verification —** aký je efektívny stav po defaults, mutations a externom drifte.
+Pri databázovej zmene Atlas potrebuje:
 
-IaC plan nie je runtime dôkaz. Môže neobsahovať správanie admission controllerov, managed-service defaults, eventual consistency alebo externé identity bindings.
+- expand-contract kompatibilitu starej a novej aplikácie;
+- reálny PostgreSQL engine a relevantnú major verziu;
+- reprezentatívnu veľkosť a distribúciu dát;
+- lock a statement timeout observation;
+- restart, retry a partial-progress semantics;
+- roll-forward alebo recovery plán.
 
-## 12. Databázové zmeny a compatibility
+Syntax-valid migration je iba prvý krok evidence ladderu.
 
-Databázová migrácia je oblasť, kde neskoré zlyhanie býva veľmi drahé. Shift-left preto neznamená iba spustiť migration syntax check. Potrebuje realistický compatibility a operational test.
+## 11. Operability shift-left
 
-Kontroluj:
+Observability sa navrhuje pred incidentom. Atlas definuje:
 
-- **Expand-contract poradie —** najprv pridať kompatibilný stav, potom migrovať consumers a až nakoniec odstrániť starý kontrakt.
-- **Starú a novú aplikáciu —** počas rolling deploymentu môžu obe verzie pristupovať k jednej schéme.
-- **Locking —** migration môže byť syntakticky správna, ale zablokovať kritickú tabuľku.
-- **Objem dát —** prázdna databáza neodhalí runtime, disk growth ani query-plan správanie.
-- **Restart/retry —** partial execution a opakovaný beh musia mať definovanú semantiku.
-- **Rollback alebo roll-forward —** nie každú schema zmenu možno bezpečne revertovať.
-- **Backup/restore —** pri kritickej zmene musí existovať overená recovery cesta.
+- correlation identity pre request, export job, event a object;
+- structured logs s redaction contractom;
+- technical aj business completion metrics;
+- trace boundaries pre API, DB, broker, worker a object storage;
+- startup, readiness a liveness semantics;
+- alert inputs a runbook ownership.
 
-Dôkaz by mal používať anonymizovaný alebo syntetický dataset s reprezentatívnou distribúciou a veľkosťou.
+Component tests môžu overiť, že telemetry vzniká a obsahuje potrebné fields. Až produkcia však ukáže, či signál vedie k rýchlej diagnóze pri reálnom trafficu a cardinality.
 
-## 13. Observability shift-left
+## 12. Worked failure: migration bola posunutá príliš doľava
 
-Observability sa nedá plnohodnotne overiť bez runtime, ale dá sa navrhnúť a čiastočne testovať skôr. Aplikácia bez stabilných telemetry kontraktov vytvára v produkcii slepé miesto.
-
-Už pri návrhu a implementácii definuj:
-
-- **Correlation identity —** request, trace, workflow alebo job ID prepája udalosti.
-- **Structured logs —** polia majú stabilný význam, typ a redaction pravidlá.
-- **Metrics —** názov, jednotka, labels a cardinality budget sú súčasťou kontraktu.
-- **Traces —** významné boundaries a failures vytvárajú spans a status.
-- **Health semantics —** startup, readiness a liveness odpovedajú na rozdielne otázky.
-- **SLI events —** úspech, chyba, latency a business completion sú merateľné.
-
-Skoré testy môžu overiť prítomnosť correlation ID, redaction secrets, schema log eventu alebo povinné metrics. Produkcia stále musí potvrdiť užitočnosť signálu pri reálnom incidente.
-
-## 14. Performance shift-left
-
-Nie každý performance dôkaz vyžaduje celý produkčný stack. Skoršie vrstvy môžu zachytiť algoritmickú regresiu, nebounded memory growth, serialization overhead alebo nevhodný query pattern.
-
-Príklady:
-
-- microbenchmark kritického algoritmu,
-- query plan a index test s realistickou distribúciou,
-- component load test jednej služby,
-- memory allocation profil pri parseri,
-- queue capacity a backpressure test,
-- startup-time regression build artefaktu.
-
-Microbenchmark však nemôže potvrdiť end-to-end capacity. Výsledok musí byť neskôr doplnený systémovým workloadom a produkčnými signálmi.
-
-## 15. Platform engineering a golden paths
-
-Shift-left škáluje vtedy, keď je zabudovaný do platformy a bežného workflowu. Zoznam manuálnych povinností zvyšuje cognitive load a vedie k nekonzistentným implementáciám.
-
-Golden path môže poskytovať:
-
-- **Repository template —** základné ownership, dependency a policy súbory.
-- **Reusable pipeline —** autoritatívne gates s pinovanými nástrojmi.
-- **Local task runner —** rovnaké príkazy lokálne aj v CI.
-- **Secure libraries —** authentication, logging, retry a secret access so správnymi defaults.
-- **Ephemeral environments —** štandardný spôsob spustenia reálnych dependencies.
-- **Artifact lifecycle —** build, SBOM, podpis, provenance a immutable promotion.
-- **Observability bootstrap —** štandardné telemetry fields, dashboards a alerts.
-- **Self-service remediation —** konkrétna dokumentácia a automatické fixy pri náleze.
-
-Golden path nemá byť neauditovaný black box. Tím musí poznať jeho kontrakty, verzie, escape hatch a ownership.
-
-## 16. Blocking verzus advisory feedback
-
-Nie každý skorý signál má okamžite blokovať merge. Nová alebo hlučná kontrola má často začať ako advisory, zbierať baseline a prejsť tuningom.
-
-Blocking kontrola je vhodná, keď:
-
-- chráni relevantné a významné riziko,
-- výsledok je presný a reprodukovateľný,
-- failure má jasnú remediation,
-- runtime je primeraný bodu pipeline,
-- tool a jeho dependencies sú stabilné,
-- exception proces je auditovateľný.
-
-Advisory kontrola je vhodná, keď:
-
-- sa kalibruje nové pravidlo,
-- signál je trendový alebo probabilistický,
-- legacy baseline ešte nie je spracovaný,
-- failure vyžaduje ľudské posúdenie,
-- kontrola má vyšší false-positive rate.
-
-Advisory stav potrebuje ownera a rozhodnutie, či sa stane blocking, zostane trendovým signálom alebo sa odstráni.
-
-## 17. Failure ownership a remediation
-
-Kontrola bez ownera vytvára frontu, nie feedback loop. Každý gate alebo platformová kontrola musí mať:
-
-- **Rule ownera —** vlastní správnosť pravidla, tuning a toolchain.
-- **Code/resource ownera —** rieši konkrétne porušenie vo svojom scope.
-- **Runbook —** vysvetľuje reprodukciu, interpretáciu a remediation.
-- **Escalation —** určuje postup pri false positive, tool outage alebo urgentnom release.
-- **Exception lifecycle —** obsahuje dôvod, risk ownera, compensating control, expiráciu a návrat do súladu.
-
-Ak vývojári musia opakovane hádať, čo kontrola znamená, kontrola je zle navrhnutá aj vtedy, keď technicky nachádza reálne problémy.
-
-## 18. Vzťah shift-left a shift-right
-
-Shift-left a shift-right nie sú konkurenčné stratégie. Tvoria uzavretý feedback systém.
+Atlas tím chcel zrýchliť feedback. Backfill testoval cez in-memory repository a malý SQLite dataset:
 
 ```text
-návrh a skoré kontroly
-→ release a produkčná validácia
-→ pozorované failure modes
-→ nové požiadavky, tests a guardrails
+migration function unit test green
+→ SQLite fixture green
+→ PR gate green
+→ production PostgreSQL vytvoril index bez vhodného online postupu
+→ dlhý lock zablokoval CreateOrder writes
 ```
 
-Shift-left poskytuje rýchly, kontrolovaný a diagnostický dôkaz. Shift-right poskytuje vysokú environment fidelity, skutočné workloady a ľudské správanie. Produkčný incident alebo canary failure má viesť k trvalému skoršiemu testu, policy alebo bezpečnému defaultu tam, kde je to možné.
+### Root cause
 
-Niektoré dôkazy nemožno presunúť úplne doľava:
+Kontrola bola skorá a rýchla, ale odstránila PostgreSQL lock, planner, transaction a dataset boundaries. Tím zamieňal algorithm correctness za operational migration evidence.
 
-- skutočné regionálne sieťové podmienky,
-- produkčné quotas a identity federation,
-- reálny traffic mix a používateľské správanie,
-- emergentné distribuované interakcie,
-- účinnosť recovery pri veľkom reálnom stave,
-- business outcome a conversion.
+### Náprava
 
-Cieľom je znížiť počet prekvapení vpravo, nie predstierať, že pravá strana už nie je potrebná.
+- čistá batch/checkpoint logika zostáva v unit scope-e;
+- migration integration používa reálny PostgreSQL;
+- reprezentatívny dataset meria lock wait, runtime a disk growth;
+- plan obsahuje abort a roll-forward criteria;
+- canary sleduje DB waits, write latency a backlog;
+- incident vytvorí trvalý migration template a policy.
 
-## 19. Metriky účinnosti
+Shift-left neznamená nahradiť reálnu boundary lacnejšou imitáciou. Znamená rozdeliť dôkaz a presunúť skôr iba tú časť, ktorú skoršia vrstva vie spoľahlivo reprezentovať.
 
-Počet nástrojov alebo spustených kontrol nie je cieľ. Meraj, či feedback systém skutočne skracuje učenie a znižuje uniknuté chyby.
+## 13. Worked failure: lokálny pass nebol ten istý control
 
-Užitočné metriky:
+Vývojári lokálne spúšťali staršiu verziu contract generatora. CI používala novšiu pinovanú verziu:
 
-- **Time to first useful feedback —** čas od pushu alebo zmeny po prvý akčný výsledok.
-- **Failure-stage distribution —** kde sa chyby zachytávajú; trend môže ukázať presun z produkcie do PR vrstvy.
-- **Local-to-CI mismatch rate —** ako často lokálny pass zlyhá v CI pre rozdiel toolchainu alebo prostredia.
-- **False-positive rate —** koľko findings alebo failures bolo vyhodnotených ako neplatných.
-- **Defect escape rate —** ktoré triedy chýb unikajú za konkrétny gate.
-- **Mean time to repair check —** ako dlho zostáva broken alebo flaky kontrola nedôveryhodná.
-- **Selection miss rate —** incidenty alebo regressions spôsobené vynechaním relevantnej kontroly.
-- **Exception count a age —** či sa dočasné waivery menia na trvalý bypass.
-- **Developer wait time —** koľko času sa stráca v queue a pomalých feedback cykloch.
+```text
+lokálny contract diff bez breaking change
+→ pull request otvorený
+→ CI regenerovala klienta inak
+→ consumer compile failure
+→ vývojár opakovane opravoval až v remote pipeline
+```
 
-Metriky interpretuj spolu. Skrátenie pipeline za cenu rastu defect escape rate nie je zlepšenie.
+### Root cause
 
-## 20. Diagnostický postup pri zlom feedback loope
+Lokálny feedback a autoritatívny gate nemali rovnaký toolchain, config ani generated artifact semantics. Kontrola bola „vľavo“, ale neposkytovala preview CI rozhodnutia.
 
-Keď shift-left kontrola spôsobuje vysoký lead time alebo nízku dôveru, analyzuj ju ako produkčný systém.
+### Náprava
 
-1. **Urči riziko —** akú triedu chyby má kontrola zachytiť.
-2. **Zmeraj signál —** failure rate, false positives, first-pass stabilitu a runtime.
-3. **Over vstupy —** tool version, config, cache, merge base, dependency graph a artifact identity.
-4. **Rozlíš failure typ —** nález, neúplný beh, tool bug, infra outage alebo flaky test.
-5. **Skontroluj placement —** či kontrola nie je príliš skoro bez fidelity alebo príliš neskoro bez dôvodu.
-6. **Skontroluj selection —** či affected model nevynecháva nepriame dopady.
-7. **Skontroluj remediation —** či výstup vysvetľuje konkrétnu opravu.
-8. **Zhodnoť gate režim —** blocking, advisory, quarantine alebo dočasné vypnutie s incidentom.
-9. **Odstráň root cause —** oprav pravidlo, test, platformu alebo workflow; nezavádzaj permanentný rerun.
-10. **Over výsledok —** sleduj stabilitu a defect escapes po zmene.
+- toolchain je pinovaný v repository;
+- local task aj CI volajú rovnaký wrapper;
+- generated output má deterministic check;
+- CI stále opakuje control v dôveryhodnom prostredí;
+- local-to-CI mismatch rate je sledovaná metrika.
 
-## 21. Typické anti-patterny
+## 14. Golden paths a platform engineering
 
-### „Všetko musí bežať pred commitom“
+Shift-left škáluje cez paved road, nie cez rastúci manuálny checklist. Platforma môže poskytovať:
 
-Feedback sa stane pomalým a vývojári ho začnú obchádzať. Lokálne majú byť najmä rýchle a vysoko diagnostické kontroly; autoritatívny širší beh patrí do CI.
+```text
+repository template
+→ versioned local task runner
+→ reusable CI controls
+→ ephemeral real dependencies
+→ secure libraries a defaults
+→ artifact provenance
+→ observability bootstrap
+→ remediation guidance
+```
 
-### Shift-left ako presun práce na developerov
+Golden path musí mať jasný contract, versioning, ownera a bezpečný escape hatch. Black-box template bez vysvetlenia iba presúva nepochopenie do centrálnej platformy.
 
-Bez platformy, templates, dokumentácie a špecializovanej podpory rastie cognitive load. Zodpovednosť za bezpečnosť alebo kvalitu ostáva zdieľaná.
+## 15. Blocking, advisory a exception semantics
 
-### Scanner count ako metrika vyspelosti
+Skorý signal blokuje až vtedy, keď je presný, stabilný, reprodukovateľný a akčný. Nový heuristický analyzer môže začať advisory:
 
-Viac nástrojov môže znamenať duplicitné a protichodné findings. Dôležitá je coverage rizík, presnosť a remediation.
+```text
+observe baseline
+→ tune rules a scope
+→ merať false positives a stability
+→ definovať remediation a ownera
+→ pilot blocking na kritickom scope
+→ rozšíriť alebo ponechať advisory
+```
 
-### Skorá kontrola ako náhrada runtime dôkazu
+Exception nemení technický failure na pass. Obsahuje konkrétny control, scope, risk ownera, compensating evidence, remediation plán a expiry.
 
-Schema, mock alebo plan môže byť zelený, hoci reálny provider, sieť alebo workload zlyhá. Každý dôkaz má explicitnú hranicu platnosti.
+## 16. Uzavretá väzba so shift-right
 
-### Pre-commit ako jediný enforcement
+Shift-left a shift-right tvoria jeden regulačný systém:
 
-Lokálny hook sa dá obísť a výsledok nemusí byť auditovaný. Kritická policy musí byť zopakovaná v dôveryhodnej CI vrstve.
+```text
+skoré contracts a controls
+→ immutable release candidate
+→ kontrolovaná produkčná expozícia
+→ reálne technical/functional/business evidence
+→ nový alebo potvrdený failure mode
+→ najnižší spoľahlivý regression control
+→ bezpečný default alebo platform guardrail
+```
 
-### Full suite pri každej malej zmene
+Niektoré vlastnosti zostávajú prirodzene vpravo: skutočný traffic mix, identity federation, regionálna sieť, produkčné quotas, tenant skew a emergentné distribuované interakcie. Cieľom nie je odstrániť pravú stranu, ale znížiť počet opakovateľných prekvapení.
 
-Zvyšuje queue time a lead time bez primeranej hodnoty. Použi bezpečnú selection a širšie periodické alebo release gates.
+## 17. Metriky účinnosti
 
-### Selection bez overenia úplnosti
+Účinnosť shift-left sa nemeria počtom nástrojov. Atlas sleduje:
 
-Chybný dependency graph vytvára false green. Selection mechanizmus musí byť testovaný a jeho missy analyzované.
+- time to first useful feedback;
+- local-to-CI mismatch rate;
+- failure-stage distribution;
+- selection miss rate;
+- false-positive a suppression rate;
+- defect escapes podľa failure class;
+- broken-control repair time;
+- developer wait time a gate queue;
+- percento produkčných findings prevedených na skorší control.
 
-### Permanentné výnimky
+Metrika má viesť k úprave evidence placementu. Rýchlejší gate bez nižšieho escape rizika môže iba zrýchliť false green.
 
-Dočasná waiver bez expirá­cie a risk ownera sa stáva novým nezdokumentovaným defaultom.
+## 18. Diagnostický postup
 
-## 22. Praktický rozhodovací rámec
+Pri neočakávanom neskorom failure:
 
-Pre každú navrhovanú kontrolu odpovedz:
+1. Pomenuj presný failure mode a prvú boundary, kde sa prejavil.
+2. Zisti, ktoré skoršie controls mali riziko zachytiť.
+3. Over ich scope, toolchain, config, input provenance a selection.
+4. Rozlíš chýbajúci test od kontroly s nedostatočnou fidelity.
+5. Zisti, či skorý signal bol incomplete, skipped, waived alebo nesprávne interpretovaný.
+6. Navrhni najnižší nový control, ktorý zachová mechanizmus failure.
+7. Ponechaj vyšší test, ak stále poskytuje unikátnu boundary evidence.
+8. Pridaj ownera, remediation a regression provenance.
+9. Sleduj, či sa failure class presunula do skoršej vrstvy bez rastu false positives.
 
-1. Aké konkrétne riziko alebo failure mode chráni?
-2. Aký dôkaz je potrebný na rozhodnutie?
-3. Ktorá najskoršia vrstva poskytne dostatočnú fidelity?
-4. Čo táto vrstva nedokáže overiť a zostáva neskôr?
-5. Aké sú false-positive a false-negative dôsledky?
-6. Aký je runtime, infra a maintenance cost?
-7. Dá sa failure reprodukovať lokálne alebo v ephemeral prostredí?
-8. Je kontrola blocking, advisory alebo periodická?
-9. Kto vlastní pravidlo, tool a remediation?
-10. Ako funguje selection, cache a invalidácia?
-11. Aký auditný dôkaz sa uchová?
-12. Ako sa výnimka schváli, sleduje a ukončí?
-13. Ktoré produkčné signály overia zostávajúce predpoklady?
-14. Ako sa incident alebo shift-right poznatok vráti do skoršej vrstvy?
+## 19. Referenčné pravidlá
 
-## 23. Kontrolný checklist
+- Posúvaj dôkaz, nie iba názov testu.
+- Najskorší control musí zachovať relevantnú failure boundary.
+- Požiadavka a design majú vytvoriť oracles a následné controls.
+- Lokálny feedback a CI používajú rovnaký verzovaný toolchain.
+- Pre-commit hook nie je autoritatívna enforcement boundary.
+- CI odlišuje pass, finding, incomplete, tool failure a policy skip.
+- Test selection je risk model a potrebuje širší validačný beh.
+- IaC source/plan evidence nenahrádza effective runtime verification.
+- DB semantics testuj s reálnym engine-om, keď sú predmetom rizika.
+- Skorý advisory signal potrebuje ownera a maturity lifecycle.
+- Exception nemení failure na zelený výsledok.
+- Produkčný finding sa má podľa možnosti zmeniť na skorší regression control.
 
-Pred zavedením shift-left kontroly over:
+## 20. Časté omyly
 
-- riziko a boundary sú explicitné,
-- kontrola má jasný oracle,
-- toolchain a konfigurácia sú versionované,
-- lokálny a CI príkaz používajú rovnaký kontrakt,
-- failure je akčný a obsahuje remediation,
-- tool failure sa neinterpretuje ako pass,
-- selection má konzervatívny fallback,
-- cache invalidácia zahŕňa config a dependencies,
-- blocking režim je podložený stabilitou,
-- existuje owner a runbook,
-- waiver má expiráciu a compensating control,
-- metriky sledujú feedback latency aj defect escapes,
-- neskoršie integračné a produkčné dôkazy zostávajú zachované.
+### „Shift-left znamená všetko spustiť pred commitom“
 
-## 24. Kontrolné otázky
+Nie. Niektoré boundaries potrebujú artifact, reálnu dependency, deployment alebo produkčný traffic.
 
-1. Čo sa pri shift-left presúva: test, zodpovednosť alebo dôkaz?
-2. Prečo najskorší možný test nemusí byť najlepší test?
-3. Ako súvisia fidelity, diagnostikovateľnosť a feedback latency?
-4. Ktoré chyby možno odstrániť už spresnením požiadavky?
-5. Prečo pre-commit hook nie je autoritatívny gate?
-6. Aké stavy okrem pass/fail má rozlišovať CI kontrola?
-7. Ako môže affected-test selection vytvoriť false green?
-8. Čo odlišuje užitočný security shift-left od skoršieho scanner noise?
-9. Prečo IaC plan nenahrádza runtime verification?
-10. Ako sa testuje compatibility databázovej migrácie počas rolling deploymentu?
-11. Ako platform engineering znižuje cognitive load shift-left kontrol?
-12. Kedy má nová kontrola zostať advisory?
-13. Ako sa produkčný incident premení na trvalú skoršiu kontrolu?
-14. Ktoré vlastnosti musia zostať pre shift-right?
-15. Aké metriky dokazujú, že feedback loop sa reálne zlepšil?
+### „Rýchlejší test je automaticky lepší“
 
-## Summary
+Rýchlosť bez fidelity môže vytvoriť lacný false green.
 
-Shift-left je riadené umiestnenie dôkazu do najskoršej vrstvy, ktorá ešte spoľahlivo zachytí konkrétne riziko. Zahŕňa požiadavky, návrh, lokálny feedback, CI gates, contract a infrastructure checks, security, database compatibility aj observability design. Úspech sa nemeria počtom skorých kontrol, ale kratším časom k akčnému výsledku, nižším počtom uniknutých chýb a stabilnou dôverou v delivery systém. Shift-left nenahrádza shift-right; produkčné poznatky sa musia vracať späť do požiadaviek, testov, policies a bezpečných defaults.
+### „Staging test môžeme nahradiť mockom“
+
+Iba ak mock modeluje relevantný failure. Provider, DB, network a identity semantics často potrebujú reálnejšiu vrstvu.
+
+### „Lokálne green znamená CI green“
+
+Iba pri rovnakom toolchaine, konfigurácii a complete control set-e; CI navyše zostáva autoritatívna.
+
+### „Viac blocking gates znižuje riziko“
+
+Hlučné a pomalé gates vytvárajú bypassy, batch growth a stratu dôvery.
+
+### „Shift-left odstráni potrebu produkčnej validácie“
+
+Reálny workload a emergentné správanie nemožno úplne simulovať.
+
+## 21. Zhrnutie
+
+Dôveryhodný shift-left model pre Atlas je:
+
+```text
+failure mode
+→ explicitný contract a oracle
+→ boundary mapa
+→ najskorší spoľahlivý control
+→ local preview
+→ autoritatívny CI evidence
+→ artifact/deployment/runtime confirmation podľa blind spots
+→ defect escape alebo production learning
+→ skorší regression control a platform guardrail
+```
+
+Shift-left optimalizuje čas učenia, nie počet skorých nástrojov. Správna kontrola je umiestnená tak skoro, ako to dovoľuje fidelity testovaného mechanizmu — a nie skôr.
+
+## 22. Kontrolné otázky
+
+1. Prečo shift-left znamená presun dôkazu, nie všetkých testov?
+2. Ako failure boundary určuje najskorší spoľahlivý scope?
+3. Ktoré vlastnosti porovnáva evidence-placement decision?
+4. Ako Atlas rozdelí export a migration evidence medzi vrstvy?
+5. Prečo design review potrebuje následný test alebo policy artifact?
+6. Aký je rozdiel medzi local preview a autoritatívnym CI gate-om?
+7. Ako test selection vytvára false-negative riziko?
+8. Prečo SQLite test nepreukázal PostgreSQL migration safety?
+9. Ako odlišuje CI pass, incomplete a tool failure?
+10. Kedy má skorý signal zostať advisory?
+11. Ako platform golden path znižuje cognitive load bez vytvorenia black boxu?
+12. Ako produkčný incident vstupuje späť do shift-left systému?
 
 ## Glossary impact
 
-Relevantné pojmy: shift-left, early feedback, evidence placement, feedback latency, test selection, affected-project detection, golden path, secure default, policy guardrail, advisory gate, blocking gate, local-to-CI mismatch, selection miss a remediation loop.
+Relevantné pojmy: shift-left, evidence placement, developer feedback loop, local-to-CI parity, authoritative gate, test selection, selection miss, golden path, paved road, secure default, control maturity, advisory control, defect escape a feedback latency.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
