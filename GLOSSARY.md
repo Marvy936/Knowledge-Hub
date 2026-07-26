@@ -502,6 +502,10 @@ Service Provider endpoint prijímajúci a validujúci SAML Response pri browser 
 
 Dáta, systém, identita, služba, konfigurácia, artifact alebo business process, ktorého strata alebo kompromitovanie má hodnotiteľný dopad. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
+## Assignment–exposure funnel
+
+Observation chain od eligible population a variant assignmentu cez application/runtime survival po reálnu treatment exposure a následný outcome. Používa sa na lokalizáciu Sample Ratio Mismatch, treatment-specific crashu, logging lossu alebo selection biasu. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
+
 ## Assume breach
 
 Zero Trust design assumption, že identity, endpoint, workload alebo interná network path môžu byť kompromitované, a preto treba obmedziť trust paths, sessions a blast radius. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
@@ -3102,6 +3106,10 @@ Množina Linux capabilities aktuálne používaná kernelom pri privilege checks
 
 Kapacita skutočne dostupná workloadu po zohľadnení quotas, reservations, failures, topology, limits a maintenance, nie iba nominálny súčet resources. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
 
+## Effective flag state
+
+Flag revision, variant, matched rule, evaluation context, SDK/cache state a application version, ktoré konkrétny runtime evaluator skutočne použil. Môže sa líšiť od poslednej hodnoty zobrazenej v control plane počas propagation alebo rejection failure. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
+
 ## Effective release values — Helm
 
 Výsledná values konfigurácia po zlúčení chart defaults, predchádzajúceho release state-u podľa zvolenej stratégie, values files a CLI overrides. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
@@ -3469,6 +3477,10 @@ Pred vykonaním fan-out-u deklarovaná množina required a optional result ident
 ## Experiment contract
 
 Explicitný popis hypotézy, steady state, faultu, scope, blast radiusu, trvania, abort criteria, recovery, ownershipu a dôkazov chaos experimentu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Experiment integrity
+
+Platnosť assignment, exposure, measurement a population boundaries potrebná pred interpretáciou experimentálneho effect estimate-u. Porušenie môže zmeniť experiment na invalidný aj pri priaznivom primary outcome. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
 ## Experiment unit
 
@@ -5530,6 +5542,10 @@ Najmenšia zmena outcome metriky, ktorú má experiment pri zvolenej sample size
 
 Druhá časť SemVer verzie, ktorá sa zvyšuje pri backward-compatible pridaní capability do deklarovaného public API. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
 
+## Mirror delivery contract
+
+Versionované pravidlá určujúce shadow mirror point, sample inventory, delivery semantics, queue/drop/lag limity, duplicate a ordering behavior a primary-path isolation. Pozri [Shadow deployment](docs/05-ci-cd-and-release/shadow-deployment.md).
+
 ## Mirror Pod
 
 API-visible reprezentácia static Podu, ktorú kubelet vytvorí pre observability; authoritative configuration zostáva na konkrétnom Node-e. Pozri [Pod](docs/09-kubernetes/pod.md).
@@ -6237,6 +6253,10 @@ RAM používaná kernelom na cache file-backed dát. Pozri [Memory a CPU fundame
 ## Page fault
 
 Udalosť, pri ktorej požadované virtuálne mapovanie nie je okamžite dostupné. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## Paired shadow evidence
+
+Korelovaný primary a shadow execution record viazaný na rovnaký mirror event, input/state identity, artifact/config revisions, lag a normalization policy. Missing alebo neporovnateľný pair sa nesmie klasifikovať ako úspešná zhoda. Pozri [Shadow deployment](docs/05-ci-cd-and-release/shadow-deployment.md).
 
 ## Pairwise subject
 
@@ -7290,6 +7310,10 @@ Súbor dôkazov zahŕňajúci release history, status, values, rendered manifest
 
 Policy určujúca počet a dobu uchovania Helm revisions s trade-offom medzi rollback targets, forensic evidence, Secret exposure a etcd storage. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Release inventory — ring
+
+Auditovateľné mapovanie ring ID a membership revision na member/workload inventory, release manifest, rendered config, exposure state, observation verdict, support ownership a recovery eligibility. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
+
 ## Release management
 
 Disciplína riadenia release identity, readiness, approvals, communication, rollout, recovery a support lifecycle od pripraveného artifactu po používateľsky dostupnú zmenu. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
@@ -7637,6 +7661,10 @@ Opätovné zabalenie existujúceho DEKu novým KEKom bez decryption a re-encrypt
 ## Ring deployment
 
 Progressive rollout cez stabilné deployment rings s rastúcou reprezentatívnosťou alebo kritickosťou a samostatnými entry, observation a promotion podmienkami. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
+
+## Ring membership revision
+
+Versionovaná production policy určujúca, do ktorého deployment ring-u patrí konkrétny subject. Musí byť konzistentná naprieč services, events, telemetry a support inventory. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
 
 ## Risk-adaptive access
 
@@ -8449,6 +8477,10 @@ PowerShell mechanizmus podporujúci `-WhatIf` a `-Confirm` pre vedome označené
 ## Showback — FinOps
 
 Interné zobrazenie costu tímom alebo produktom bez priameho finančného preúčtovania. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Side-effect firewall — shadow
+
+Defense-in-depth boundary kombinujúca least-privilege identity, network/egress policy, isolated output adapters a application shadow mode tak, aby shadow execution nemohla vykonať autoritatívne writes alebo external side effects. Pozri [Shadow deployment](docs/05-ci-cd-and-release/shadow-deployment.md).
 
 ## Sidecar container
 
@@ -9689,6 +9721,10 @@ SemVer pravidlá určujúce poradie versions podľa MAJOR, MINOR, PATCH a pre-re
 ## Version range
 
 Constraint vyjadrujúci množinu akceptovaných dependency versions, ktorého konkrétna syntax a význam závisia od package ecosystemu. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
+
+## Version skew — ring
+
+Obdobie, počas ktorého rôzne deployment rings používajú odlišné release alebo client verzie nad spoločnými APIs a mutable state-om. Potrebuje maximálny podporovaný rozsah, compatibility contract a deadline. Pozri [Ring deployment](docs/05-ci-cd-and-release/ring-deployment.md).
 
 ## Vertical Pod Autoscaler — VPA
 
