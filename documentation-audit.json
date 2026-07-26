@@ -647,15 +647,15 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "title": "Load balancing",
-      "words": 3555,
-      "headings": 90,
-      "sections": 90,
-      "findings": 238,
-      "critical": 94,
-      "high": 87,
-      "medium": 33,
-      "low": 24,
-      "score": 1955,
+      "words": 2339,
+      "headings": 57,
+      "sections": 57,
+      "findings": 93,
+      "critical": 31,
+      "high": 43,
+      "medium": 9,
+      "low": 10,
+      "score": 756,
       "grade": "D"
     },
     {
@@ -29720,26 +29720,17 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "1. Definícia",
-      "line": 11,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "1. Definícia",
-      "line": 11,
+      "section": "2. Dominantný mentálny model",
+      "line": 37,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto pozná backendy,`, `čo je jednotka výberu,`, `podľa čoho sa backend považuje za zdravý,`, `ako sa zohľadní kapacita,`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "1. Definícia",
-      "line": 11,
+      "section": "2. Dominantný mentálny model",
+      "line": 37,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -29747,8 +29738,8 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "1. Definícia",
-      "line": 11,
+      "section": "2. Dominantný mentálny model",
+      "line": 37,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -29756,791 +29747,17 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "2. Jednotka balancing rozhodnutia",
-      "line": 42,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Logical key",
-      "line": 58,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "3. Server-side load balancing",
-      "line": 68,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "3. Server-side load balancing",
-      "line": 68,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchší klient,`, `centralizovaná policy,`, `jednotný TLS alebo observability bod,`, `jednoduchšie skrývanie backend topology,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "3. Server-side load balancing",
-      "line": 68,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "3. Server-side load balancing",
-      "line": 68,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "3. Server-side load balancing",
-      "line": 68,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `policy`, `availability`, `blast radius`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "4. Client-side load balancing",
-      "line": 99,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "4. Client-side load balancing",
-      "line": 99,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bez centrálneho proxy hopu,`, `rozhodovanie môže poznať request context,`, `load-balancing capacity rastie s počtom klientov,`, `priame end-to-end spojenie.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "4. Client-side load balancing",
-      "line": 99,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "4. Client-side load balancing",
-      "line": 99,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "4. Client-side load balancing",
-      "line": 99,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "4. Client-side load balancing",
-      "line": 99,
+      "section": "2. Dominantný mentálny model",
+      "line": 37,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
       "score": 4
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "5. DNS load balancing",
-      "line": 128,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "5. DNS load balancing",
-      "line": 128,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rozdelenie medzi regióny,`, `geografické smerovanie,`, `weighted migration,`, `výber frontend tieru,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "5. DNS load balancing",
-      "line": 128,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "5. DNS load balancing",
-      "line": 128,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "5. DNS load balancing",
-      "line": 128,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "5. DNS load balancing",
-      "line": 128,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "6. L4 load balancing",
-      "line": 159,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "6. L4 load balancing",
-      "line": 159,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "6. L4 load balancing",
-      "line": 159,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a destination IP,`, `source a destination port,`, `protocol,`, `interface alebo zone,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "6. L4 load balancing",
-      "line": 159,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "6. L4 load balancing",
-      "line": 159,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "6. L4 load balancing",
-      "line": 159,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `TLS`, `TCP`, `UDP`, `L7`, `HA`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "7. L7 load balancing",
-      "line": 196,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "7. L7 load balancing",
-      "line": 196,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "18 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "7. L7 load balancing",
-      "line": 196,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hostname alebo authority,`, `path,`, `method,`, `headers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "7. L7 load balancing",
-      "line": 196,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "7. L7 load balancing",
-      "line": 196,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "7. L7 load balancing",
-      "line": 196,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "8. Pass-through, proxy a direct-routing dataplane",
-      "line": 227,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Full proxy",
-      "line": 231,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "NAT",
-      "line": 235,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Direct server return",
-      "line": 239,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Tunnel alebo overlay",
-      "line": 243,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "9. Endpoint discovery",
-      "line": 253,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "9. Endpoint discovery",
-      "line": 253,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "9. Endpoint discovery",
-      "line": 253,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `statická konfigurácia,`, `DNS,`, `registry API,`, `cloud target group,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "9. Endpoint discovery",
-      "line": 253,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "9. Endpoint discovery",
-      "line": 253,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "9. Endpoint discovery",
-      "line": 253,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `API`, `control plane`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "10. Eligibility",
-      "line": 288,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "10. Eligibility",
-      "line": 288,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `readiness,`, `active health,`, `passive health,`, `zone availability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "10. Eligibility",
-      "line": 288,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "10. Eligibility",
-      "line": 288,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "10. Eligibility",
-      "line": 288,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "11. Round robin",
-      "line": 307,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "11. Round robin",
-      "line": 307,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backends majú podobnú kapacitu,`, `requests majú podobnú cenu,`, `selection je per-request alebo connections majú podobný profil.`, `jeden request trvá sekundy a iný milisekundy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "11. Round robin",
-      "line": 307,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "11. Round robin",
-      "line": 307,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "11. Round robin",
-      "line": 307,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "12. Weighted round robin",
-      "line": 330,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "12. Weighted round robin",
-      "line": 330,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `väčší instance size,`, `viac workerov,`, `canary percento,`, `zonálnu kapacitu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "12. Weighted round robin",
-      "line": 330,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "13. Least connections",
-      "line": 350,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "13. Least connections",
-      "line": 350,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP/2 connection môže niesť stovky streams,`, `backendy môžu mať rozdielnu kapacitu,`, `race medzi distribuovanými balancermi,`, `stale connection count.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "13. Least connections",
-      "line": 350,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "13. Least connections",
-      "line": 350,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "13. Least connections",
-      "line": 350,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "14. Least requests a concurrency-aware výber",
-      "line": 366,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active requests,`, `queue depth,`, `recent service time,`, `backend concurrency limit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "14. Least requests a concurrency-aware výber",
-      "line": 366,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "14. Least requests a concurrency-aware výber",
-      "line": 366,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "16. Random a power of two choices",
-      "line": 399,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vyberie dva náhodné backendy,`, `porovná ich load signal,`, `zvolí menej zaťažený.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "16. Random a power of two choices",
-      "line": 399,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "17. Hash-based balancing",
-      "line": 411,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "17. Hash-based balancing",
-      "line": 411,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source IP,`, `cookie,`, `tenant ID,`, `object key,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "17. Hash-based balancing",
-      "line": 411,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "17. Hash-based balancing",
-      "line": 411,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "17. Hash-based balancing",
-      "line": 411,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ID`, `URL`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "18. Consistent hashing",
-      "line": 432,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "18. Consistent hashing",
-      "line": 432,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `distributed cache,`, `shard ownership,`, `sticky routing,`, `locality pre stateful workload.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "18. Consistent hashing",
-      "line": 432,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "18. Consistent hashing",
-      "line": 432,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "18. Consistent hashing",
-      "line": 432,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "19. Maglev a rendezvous hashing",
-      "line": 460,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "19. Maglev a rendezvous hashing",
-      "line": 460,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "19. Maglev a rendezvous hashing",
-      "line": 460,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konzistentné mapovanie naprieč balancermi,`, `rýchly lookup,`, `obmedzený remapping,`, `jednoduchšie weighted varianty.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "19. Maglev a rendezvous hashing",
-      "line": 460,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "20. Session affinity",
-      "line": 477,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "20. Session affinity",
-      "line": 477,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cookie,`, `source IP,`, `consistent hash,`, `application session ID,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "20. Session affinity",
-      "line": 477,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "20. Session affinity",
-      "line": 477,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "20. Session affinity",
-      "line": 477,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ID`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "21. Cookie affinity a security",
-      "line": 506,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "21. Cookie affinity a security",
-      "line": 506,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nefalšovateľná alebo validovaná,`, `bezpečne scoped,`, `primerane expirovaná,`, `kompatibilná s failoverom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "21. Cookie affinity a security",
-      "line": 506,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "22. Health check taxonomy",
-      "line": 518,
+      "section": "4. Jednotka výberu mení význam distribúcie",
+      "line": 75,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -30548,8 +29765,53 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "TLS health",
-      "line": 524,
+      "section": "6. Eligibility je brána pred algoritmom",
+      "line": 137,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "13 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "6. Eligibility je brána pred algoritmom",
+      "line": 137,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `readiness,`, `active a passive health,`, `zone alebo region policy,`, `maintenance a drain state,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "6. Eligibility je brána pred algoritmom",
+      "line": 137,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "6. Eligibility je brána pred algoritmom",
+      "line": 137,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "6. Eligibility je brána pred algoritmom",
+      "line": 137,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "7. Health check musí odpovedať na správnu otázku",
+      "line": 162,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -30557,7 +29819,547 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "HTTP health",
+      "section": "Príliš plytký check",
+      "line": 170,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Príliš deep check",
+      "line": 174,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Hysteresis",
+      "line": 178,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "9. Selection algorithm musí zodpovedať load signálu",
+      "line": 210,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "10. Consistent hashing a affinity nemenia state ownership",
+      "line": 242,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "10. Consistent hashing a affinity nemenia state ownership",
+      "line": 242,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `load skew,`, `horší failover,`, `pomalší scale-in,`, `stale mapping po removal,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "10. Consistent hashing a affinity nemenia state ownership",
+      "line": 242,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "10. Consistent hashing a affinity nemenia state ownership",
+      "line": 242,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "10. Consistent hashing a affinity nemenia state ownership",
+      "line": 242,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "13. Retry a backend reselection",
+      "line": 313,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "13. Retry a backend reselection",
+      "line": 313,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotency,`, `fázy odoslania requestu,`, `response progress,`, `per-try timeoutu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "13. Retry a backend reselection",
+      "line": 313,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "14. Queueing a load shedding",
+      "line": 337,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rýchlo odmietnuť low-priority request,`, `chrániť kritickú operáciu,`, `obmedziť expensive endpoint,`, `servovať stale cache,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "14. Queueing a load shedding",
+      "line": 337,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "14. Queueing a load shedding",
+      "line": 337,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "14. Queueing a load shedding",
+      "line": 337,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "15. Load balancer a autoscaler tvoria feedback loop",
+      "line": 362,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "15. Load balancer a autoscaler tvoria feedback loop",
+      "line": 362,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "15. Load balancer a autoscaler tvoria feedback loop",
+      "line": 362,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "15. Load balancer a autoscaler tvoria feedback loop",
+      "line": 362,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autoscaler reaguje na retry-generated load,`, `health pustí cold backend priskoro,`, `všetky nové backends naraz zaťažia shared database,`, `scale-in odstráni endpoint bez drainu,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "15. Load balancer a autoscaler tvoria feedback loop",
+      "line": 362,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Hypotéza",
+      "line": 389,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Predikcie",
+      "line": 393,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Predikcie",
+      "line": 393,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Predikcie",
+      "line": 393,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Predikcie",
+      "line": 393,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failures korelujú s jedným backend ID,`, `configured pool obsahuje tri endpoints,`, `effective selection je približne rovnomerný,`, `health check je príliš plytký,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Predikcie",
+      "line": 393,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Predikcie",
+      "line": 393,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Overenie",
+      "line": 401,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Overenie",
+      "line": 401,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Overenie",
+      "line": 401,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Overenie",
+      "line": 401,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Koreluj request ID s vybraným backendom.`, `Rozdeľ error rate podľa endpointu.`, `Porovnaj discovered a eligible set.`, `Skontroluj active-health path a Host/SNI.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Overenie",
+      "line": 401,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Overenie",
+      "line": 401,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Overenie",
+      "line": 401,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Overenie",
+      "line": 401,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SNI`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "17. Worked failure: canary s weight 5 dostáva 30 % requestov",
+      "line": 429,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 51 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "17. Worked failure: canary s weight 5 dostáva 30 % requestov",
+      "line": 429,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `urči selection granularity,`, `porovnaj connections a requests per backend,`, `skontroluj affinity,`, `zmeraj lifetime a request count na connection,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "17. Worked failure: canary s weight 5 dostáva 30 % requestov",
+      "line": 429,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "18. Worked failure: scale-in spôsobuje resets",
+      "line": 453,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "20. Observability",
+      "line": 499,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Inventory a lifecycle",
+      "line": 501,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Inventory a lifecycle",
+      "line": 501,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Inventory a lifecycle",
+      "line": 501,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `discovered, eligible, unhealthy a draining endpoints,`, `endpoint version, age a zone,`, `discovery a removal delay.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Inventory a lifecycle",
+      "line": 501,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Selection",
+      "line": 507,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Selection",
+      "line": 507,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Selection",
+      "line": 507,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Selection",
+      "line": 507,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connections alebo requests per backend,`, `configured a effective weight,`, `affinity-key distribution,`, `selection skew.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Selection",
+      "line": 507,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Capacity",
+      "line": 514,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Capacity",
+      "line": 514,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Capacity",
+      "line": 514,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Capacity",
+      "line": 514,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active requests a connections,`, `queue depth a wait,`, `backend concurrency limit,`, `rejected a load-shed traffic.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Capacity",
+      "line": 514,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Health",
+      "line": 521,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Health",
+      "line": 521,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Health",
+      "line": 521,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Health",
+      "line": 521,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active probe result,`, `passive failures,`, `ejection a recovery eventy,`, `flapping count.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Health",
+      "line": 521,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "Outcome",
       "line": 528,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -30566,35 +30368,8 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Protocol-specific health",
-      "line": 532,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Deep health",
-      "line": 536,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "23. Liveness, readiness a startup",
-      "line": 542,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "23. Liveness, readiness a startup",
-      "line": 542,
+      "section": "Outcome",
+      "line": 528,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -30602,26 +30377,26 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "23. Liveness, readiness a startup",
-      "line": 542,
+      "section": "Outcome",
+      "line": 528,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "23. Liveness, readiness a startup",
-      "line": 542,
-      "severity": "high",
+      "section": "Outcome",
+      "line": 528,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `warm-up,`, `dependency incidentu,`, `drainingu,`, `overloadu,`.",
-      "score": 8
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency a error rate per backend,`, `retry count,`, `resets,`, `client-visible status,`.",
+      "score": 12
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "23. Liveness, readiness a startup",
-      "line": 542,
+      "section": "Outcome",
+      "line": 528,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -30629,8 +30404,17 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "24. Active a passive health",
-      "line": 558,
+      "section": "21. Referenčné balancing modely",
+      "line": 538,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "22. Časté omyly",
+      "line": 562,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -30638,1124 +30422,17 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Active health",
-      "line": 560,
+      "section": "„Round robin rozdelí CPU rovnomerne“",
+      "line": 564,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Active health",
-      "line": 560,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Active health",
-      "line": 560,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odhalí chybu aj bez client trafficu,`, `konzistentný test,`, `rýchly návrat po recovery.`, `probe môže byť príliš plytká,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Active health",
-      "line": 560,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Passive health",
-      "line": 576,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Passive health",
-      "line": 576,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odráža skutočný traffic,`, `odhalí request-specific failures.`, `potrebuje klientský traffic,`, `môže reagovať až po používateľskom dopade.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Passive health",
-      "line": 576,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "25. Health thresholds a hysteresis",
-      "line": 593,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "25. Health thresholds a hysteresis",
-      "line": 593,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interval,`, `timeout,`, `unhealthy threshold,`, `healthy threshold,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "25. Health thresholds a hysteresis",
-      "line": 593,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "26. Outlier detection a ejection",
-      "line": 619,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "26. Outlier detection a ejection",
-      "line": 619,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consecutive errors,`, `success-rate deviation,`, `latency outlier,`, `reset rate.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "26. Outlier detection a ejection",
-      "line": 619,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "27. Slow start",
-      "line": 637,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "27. Slow start",
-      "line": 637,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cold caches,`, `JIT warm-up,`, `connection pools,`, `lazy initialization,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "27. Slow start",
-      "line": 637,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "27. Slow start",
-      "line": 637,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "28. Connection draining",
-      "line": 658,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "28. Connection draining",
-      "line": 658,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `HTTP requests,`, `keep-alive connections,`, `HTTP/2 streams,`, `WebSockets,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "28. Connection draining",
-      "line": 658,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "28. Connection draining",
-      "line": 658,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `UDP`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "29. Deregistration delay",
-      "line": 684,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "30. Retry a backend reselection",
-      "line": 702,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "30. Retry a backend reselection",
-      "line": 702,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotency,`, `či request body už bol odoslaný,`, `či upstream mohol operáciu spracovať,`, `response progress,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "30. Retry a backend reselection",
-      "line": 702,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "32. Queueing",
-      "line": 733,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "32. Queueing",
-      "line": 733,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "32. Queueing",
-      "line": 733,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetky backend connections sú obsadené,`, `concurrency limit je dosiahnutý,`, `backend ešte nie je dostupný,`, `rate limit riadi burst.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "32. Queueing",
-      "line": 733,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "32. Queueing",
-      "line": 733,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "33. Load shedding",
-      "line": 761,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "33. Load shedding",
-      "line": 761,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reject low-priority requests,`, `obmedziť expensive endpoints,`, `circuit breaker,`, `concurrency limit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "33. Load shedding",
-      "line": 761,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "35. Capacity-aware balancing",
-      "line": 795,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "35. Capacity-aware balancing",
-      "line": 795,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `statickú weight,`, `max connections,`, `max active requests,`, `CPU alebo queue signal,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "35. Capacity-aware balancing",
-      "line": 795,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "36. Autoscaling interakcia",
-      "line": 808,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "36. Autoscaling interakcia",
-      "line": 808,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "36. Autoscaling interakcia",
-      "line": 808,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `health check pustí cold backend príliš skoro,`, `scale-in odstráni backend bez drainingu,`, `autoscaler reaguje na retry-generated load,`, `metrika má dlhé oneskorenie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "36. Autoscaling interakcia",
-      "line": 808,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "37. Cross-zone balancing",
-      "line": 829,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "37. Cross-zone balancing",
-      "line": 829,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnomernejšie využitie celkovej capacity,`, `jednoduchší failover pri nerovnomernom počte backendov.`, `cross-zone latency,`, `egress náklady,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "37. Cross-zone balancing",
-      "line": 829,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "37. Cross-zone balancing",
-      "line": 829,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "38. Multi-region balancing",
-      "line": 847,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "38. Multi-region balancing",
-      "line": 847,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "38. Multi-region balancing",
-      "line": 847,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS,`, `anycast,`, `global proxy,`, `client-side region selection.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "38. Multi-region balancing",
-      "line": 847,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "38. Multi-region balancing",
-      "line": 847,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "39. Anycast",
-      "line": 868,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "39. Anycast",
-      "line": 868,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route withdrawal pri failure,`, `health-integrated control plane,`, `state model kompatibilný so zmenou pathu,`, `ochrana pred route leakom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "39. Anycast",
-      "line": 868,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "39. Anycast",
-      "line": 868,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "40. Source IP a identity",
-      "line": 889,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "40. Source IP a identity",
-      "line": 889,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "40. Source IP a identity",
-      "line": 889,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachovať source IP,`, `SNATovať na balancer adresu,`, `preniesť identity cez PROXY protocol,`, `pridať HTTP forwarding headers.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "40. Source IP a identity",
-      "line": 889,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "40. Source IP a identity",
-      "line": 889,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PROXY`, `HTTP`, `identity`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "41. TLS a load balancing",
-      "line": 909,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "41. TLS a load balancing",
-      "line": 909,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "41. TLS a load balancing",
-      "line": 909,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "41. TLS a load balancing",
-      "line": 909,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "42. HTTP/2 a HTTP/3 vplyv",
-      "line": 922,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "42. HTTP/2 a HTTP/3 vplyv",
-      "line": 922,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `least-connections môže byť zavádzajúci,`, `multiplexing môže vytvoriť load skew,`, `per-request balancing môže vyžadovať proxy termination.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "42. HTTP/2 a HTTP/3 vplyv",
-      "line": 922,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "42. HTTP/2 a HTTP/3 vplyv",
-      "line": 922,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "43. Stateful backends",
-      "line": 934,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "43. Stateful backends",
-      "line": 934,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "43. Stateful backends",
-      "line": 934,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `in-memory session,`, `websocket subscription,`, `cache shard,`, `game session,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "43. Stateful backends",
-      "line": 934,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "44. Failure domains",
-      "line": 955,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "44. Failure domains",
-      "line": 955,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host,`, `rack,`, `zone,`, `region,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "44. Failure domains",
-      "line": 955,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "45. Canary a weighted rollout",
-      "line": 973,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "45. Canary a weighted rollout",
-      "line": 973,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálny request share, nie iba configured weight,`, `affinity a connection persistence,`, `request mix,`, `error a latency confidence,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "45. Canary a weighted rollout",
-      "line": 973,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "45. Canary a weighted rollout",
-      "line": 973,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "46. Shadow traffic",
-      "line": 993,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "46. Shadow traffic",
-      "line": 993,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `performance test novej verzie,`, `compatibility validation,`, `capacity profiling.`, `duplicitné side effects,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "46. Shadow traffic",
-      "line": 993,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "46. Shadow traffic",
-      "line": 993,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "46. Shadow traffic",
-      "line": 993,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "47. Observability",
-      "line": 1013,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Inventory",
-      "line": 1017,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Inventory",
-      "line": 1017,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Inventory",
-      "line": 1017,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Inventory",
-      "line": 1017,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `discovered endpoints,`, `eligible endpoints,`, `healthy/unhealthy/draining count,`, `endpoint age a version,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Inventory",
-      "line": 1017,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Selection",
-      "line": 1025,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Selection",
-      "line": 1025,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Selection",
-      "line": 1025,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Selection",
-      "line": 1025,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requests/connections per backend,`, `configured a effective weight,`, `selection skew,`, `affinity key distribution,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Selection",
-      "line": 1025,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Capacity",
-      "line": 1033,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Capacity",
-      "line": 1033,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Capacity",
-      "line": 1033,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Capacity",
-      "line": 1033,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active requests/connections,`, `queue depth a wait time,`, `backend concurrency limit,`, `rejected/load-shed traffic,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Capacity",
-      "line": 1033,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Capacity",
-      "line": 1033,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Health",
-      "line": 1041,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Health",
-      "line": 1041,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Health",
-      "line": 1041,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Health",
-      "line": 1041,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active probe result a latency,`, `passive errors,`, `ejection events,`, `recovery duration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Health",
-      "line": 1041,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Outcome",
-      "line": 1049,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Outcome",
-      "line": 1049,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Outcome",
-      "line": 1049,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Outcome",
-      "line": 1049,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend latency a error rate,`, `retries,`, `resets,`, `client-visible status,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Outcome",
-      "line": 1049,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Outcome",
-      "line": 1049,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "48. Diagnostický postup",
-      "line": 1058,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "48. Diagnostický postup",
-      "line": 1058,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "48. Diagnostický postup",
-      "line": 1058,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Koreluj request ID s vybraným backendom.`, `Porovnaj healthy a eligible endpoint set.`, `Skontroluj health-check reason a čas prechodu state.`, `Porovnaj configured a effective weights.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "48. Diagnostický postup",
-      "line": 1058,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "48. Diagnostický postup",
-      "line": 1058,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "48. Diagnostický postup",
-      "line": 1058,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ID`, `DNS`, `SLI`",
-      "score": 7
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "49. Typické symptómy",
-      "line": 1076,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Nová verzia prijíma príliš veľa trafficu",
-      "line": 1082,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Backend funguje priamo, ale balancer ho označuje unhealthy",
-      "line": 1086,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Po scale-in vznikajú resets",
-      "line": 1090,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Po incidente zostáva systém pomalý",
-      "line": 1094,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Jeden backend je preťažený, ostatné idle",
-      "line": 1098,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "Health checks flappujú",
-      "line": 1102,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "50. Časté omyly",
-      "line": 1106,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "„Healthy port znamená zdravú aplikáciu“",
-      "line": 1112,
+      "line": 568,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -31763,17 +30440,8 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "„Sticky sessions riešia high availability“",
-      "line": 1116,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "„Viac retries zvyšuje spoľahlivosť“",
-      "line": 1120,
+      "section": "„Weight 5 znamená presne 5 % requestov“",
+      "line": 572,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -31782,7 +30450,34 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "„Least connections vždy vyberie najmenej zaťažený backend“",
-      "line": 1128,
+      "line": 576,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "„Sticky session poskytne high availability“",
+      "line": 580,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "„Viac retries zvyšuje spoľahlivosť“",
+      "line": 584,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/02-networking-and-web/load-balancing.md",
+      "section": "„Load balancer vyrieši nedostatok capacity“",
+      "line": 588,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -31791,7 +30486,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "„Health check má overiť všetky dependencies“",
-      "line": 1136,
+      "line": 592,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -31799,12 +30494,12 @@
     },
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
-      "section": "„Weight 10 % znamená presne 10 % requestov“",
-      "line": 1140,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "24. Zhrnutie",
+      "line": 620,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
