@@ -28,6 +28,10 @@ Dlhodobý chronologický záznam významných zmien produktu alebo komponentu na
 
 Metrics, logs a traces označené blue/green environmentom a artifact verziou tak, aby bolo možné analyzovať cutover a porovnať správanie oboch farieb. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
 
+## Compatibility dimension
+
+Jedna z vrstiev, v ktorých sa hodnotí backward compatibility, napríklad source, binary, schema, behavior, operational, security, data alebo performance contract. Version bump musí vychádzať z affected dimensions a consumer evidence, nie iba zo syntaktického diffu. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
+
 ## Content digest
 
 Content-derived immutable identifikátor konkrétnych bytes artifactu, typicky kryptografický hash. Na rozdiel od logical version alebo mutable tagu presne určuje nasadený obsah. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
@@ -108,6 +112,10 @@ Deklarovaná compatibility boundary zahŕňajúca nielen programové interfaces,
 
 Deployment stratégia, ktorá ukončí starú version fleet pred spustením a pripravenosťou novej, čo typicky vytvára downtime alebo výrazný capacity dip. Pozri [Recreate deployment](docs/05-ci-cd-and-release/recreate-deployment.md).
 
+## Recovery eligibility
+
+Aktuálny dôkaz, že konkrétny predchádzajúci release možno bezpečne použiť na rollback alebo inú recovery: artifacts sú dostupné a dôveryhodné, config a secrets existujú, shared data a events zostávajú kompatibilné a post-recovery validation je pripravená. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md) a [Release management](docs/05-ci-cd-and-release/release-management.md).
+
 ## Release branch
 
 Branch určená na stabilizáciu a podporu konkrétnej release line, často s backportmi a explicitným lifecycle. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
@@ -136,6 +144,10 @@ Kurátorovaná komunikácia konkrétneho release pre používateľov, administr�
 
 Auditovateľný záznam spájajúci release version, artifacts, source, config, migrations, evidence, approvals, rollout a výsledok. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
 
+## Release state machine
+
+Auditovateľný lifecycle immutable release unit od draftu a candidate assembly cez evidence, eligibility, deployment, exposure a validation po support, closure, deprecation, revocation alebo end of life. Každý transition má subject, preconditions, evidence a ownera. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
+
 ## Release train
 
 Cadence model, v ktorom zmeny pripravené do definovaného cutoffu vstúpia do spoločného release termínu a ostatné čakajú na ďalší vlak. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
@@ -156,9 +168,17 @@ Deployment stratégia postupne nahrádzajúca staré instances novými pri zacho
 
 Recovery operácia, ktorá po neúspešnom blue-green cutover-e presmeruje traffic späť na pôvodnú farbu. Nevracia automaticky data state. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
 
+## Runtime identity — release
+
+Effective runtime subject tvorený release manifestom spolu s rendered configuration, secret references, infrastructure a IAM revision, database/event stavom, feature flags, traffic exposure a target environmentom. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
+
 ## Semantic Versioning
 
 Versioning kontrakt vo formáte `MAJOR.MINOR.PATCH`, ktorý komunikuje význam zmien voči deklarovanému public API. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
+
+## Supersession — release
+
+Explicitný prechod, pri ktorom nový immutable candidate nahradí starší candidate. Supersession record zachová delta scope a určí, ktoré evidence, approvals a rollout rozhodnutia zostávajú platné a ktoré sa invalidujú. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
 
 ## Supported version policy
 
@@ -183,3 +203,7 @@ Metrics, logs a traces označené konkrétnou application alebo artifact verziou
 ## Warm standby — blue-green
 
 Pôvodná deployment farba ponechaná po cutover-e v pripravenom a priebežne health-checkovanom stave pre rýchly routing rollback. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
+
+## Write-once publication
+
+Publication contract, pri ktorom už vydaná logical version alebo candidate identity nemožno prepísať iným digestom. Collision s odlišným contentom je hard failure a unknown outcome sa rieši reconciliation podľa idempotency key. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
