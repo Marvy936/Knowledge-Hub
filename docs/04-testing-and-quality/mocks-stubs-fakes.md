@@ -8,508 +8,638 @@
 - Predpoklady: [Unit, integration a component tests](unit-integration-component-tests.md), [Contract a API tests](contract-and-api-tests.md)
 - Súvisiace témy: test double, seam, state verification, interaction verification, conformance, service virtualization, deterministic time, contract drift
 
-## 1. Mentálny model
-
-Test double je kontrolovaná náhrada dependency použitá preto, aby test vedel riadiť vstupy, simulovať konkrétny failure alebo pozorovať boundary interaction. Double nie je cieľom testu; je nástrojom na vytvorenie správneho scope-u a deterministického dôkazu.
+Test double je kontrolovaná náhrada dependency. Jeho úlohou je riadiť vstup, simulovať konkrétny failure alebo pozorovať boundary interaction bez toho, aby test stratil relevantný behavior contract.
 
 ```text
-správanie, ktoré chceme overiť
-→ určiť relevantnú boundary
-→ rozhodnúť, čo musí byť reálne
-→ zvoliť najjednoduchší vhodný double
-→ riadiť vstupy alebo zaznamenať interakcie
-→ overiť observable result
-→ potvrdiť realitu vo vyššej vrstve
+failure mode alebo behavior
+→ určiť testovaný subject a boundary
+→ rozhodnúť, čo musí zostať reálne
+→ zvoliť najjednoduchší double s dostatočnou fidelity
+→ riadiť vstupy a čas
+→ overiť observable state alebo významnú interaction
+→ priznať blind spots
+→ potvrdiť boundary contract conformance alebo vyšším reálnym testom
 ```
 
-Nadmerné používanie doubles môže vytvoriť rýchlu a zelenú suite, ktorá testuje iba vlastné predpoklady. Nedostatočná izolácia môže naopak zmeniť každý unit test na pomalý a flaky integračný test.
+Double nie je dôkaz, že reálna dependency funguje. Je dôkaz, že subject sa správa podľa testu pri behavior-e, ktorý double deklaruje a skutočne modeluje.
 
-## 2. Test seam
+## 1. Cieľ kapitoly
 
-Seam je miesto, kde možno produkčné správanie nahradiť alebo riadiť bez zmeny testovaného business contractu. Môže to byť interface, function parameter, dependency injection binding, process boundary, HTTP endpoint, clock provider alebo filesystem adapter.
-
-Dobré seams sa typicky nachádzajú na hraniciach medzi čistou rozhodovacou logikou a nondeterministickým alebo drahým svetom:
-
-- čas a timezone;
-- randomness a ID generation;
-- sieť a externé API;
-- databáza alebo message broker;
-- filesystem;
-- credentials a secret provider;
-- email, payment alebo notification gateway;
-- operating-system process.
-
-Seam nemá existovať iba kvôli testom, ak zhoršuje produkčný model. Kvalitná architektúra však už prirodzene oddeľuje domain decisions od I/O a vendor-specific adapters.
-
-## 3. Taxonómia doubles
-
-Pojmy dummy, stub, fake, spy a mock opisujú účel, nie konkrétny framework object. Jeden object môže v rôznych testoch plniť inú rolu.
+Nosný rozhodovací model je:
 
 ```text
-dummy → iba vyplní parameter
-stub  → riadi prepared input alebo response
-fake  → poskytuje zjednodušenú funkčnú implementáciu
-spy   → zaznamenáva uskutočnené interactions
-mock  → nesie očakávania na interactions
+riziko
+→ najnižší spoľahlivý scope
+→ test seam
+→ real/double boundary map
+→ double role a behavior contract
+→ state alebo interaction oracle
+→ drift protection
+→ vyšší integration/contract/runtime evidence
 ```
 
-Presné pomenovanie pomáha review procesu. „Mock database“ môže v skutočnosti znamenať stub repository, in-memory fake alebo reálny ephemeral engine, pričom každá možnosť poskytuje iný dôkaz.
+Nadmerné mockovanie vytvára rýchlu suite, ktorá testuje vlastné assumptions. Použitie každej reálnej dependency zase môže zmeniť lokálne tests na pomalý, flaky a ťažko diagnostikovateľný systém. Správny výber závisí od failure boundary, nie od preferovaného frameworku.
 
-## 4. Dummy
+## 2. Nosný scenár: Atlas CreateOrder a platba
 
-Dummy je hodnota potrebná na zostavenie objectu alebo callu, ale testovaný path ju nepoužíva.
-
-```python
-service = ReportService(
-    repository=repository,
-    audit_context=unused_context,
-)
-```
-
-Ak test začne závisieť od správania dummy objektu, prestáva byť dummy. Veľké množstvo dummy parametrov často signalizuje príliš široký constructor alebo nejasnú responsibility boundary.
-
-## 5. Stub
-
-Stub vracia vopred pripravené odpovede, aby test dostal konkrétny stav alebo failure.
-
-```python
-class UserRepositoryStub:
-    def find(self, user_id: str) -> User | None:
-        return User(id=user_id, active=True)
-```
-
-Stub sa používa na riadenie inputu testovaného behavioru. Typicky sa neoveruje počet interných volaní, pokiaľ interaction nie je súčasťou contractu.
-
-Dobrý stub modeluje iba potrebné variants:
-
-- resource existuje alebo neexistuje;
-- dependency vráti timeout;
-- token je expirovaný;
-- API odpovie rate limitom;
-- storage vráti conflict.
-
-Stub, ktorý implementuje desiatky nezávislých behaviors, sa mení na fake alebo komplikovaný simulator.
-
-## 6. Fake
-
-Fake je funkčná, ale zjednodušená implementácia reálnej dependency. Môže udržiavať state a podporovať celý workflow.
-
-Príklady:
-
-- in-memory repository;
-- fake clock s manuálnym posunom času;
-- local object-store emulator;
-- fake message bus;
-- payment sandbox;
-- deterministic ID generator.
-
-Fake je užitočný, keď test potrebuje behavior bohatší než pripravený stub, ale reálna dependency je pomalá, drahá alebo nedostupná.
-
-Najväčšie riziko je semantic drift. In-memory map môže umožniť behavior, ktorý PostgreSQL odmietne kvôli constraintu, isolation alebo collation. Fake preto musí explicitne deklarovať, ktoré vlastnosti modeluje a ktoré nie.
-
-## 7. Spy
-
-Spy zaznamenáva uskutočnené interactions a test ich vyhodnotí po vykonaní behavioru.
-
-```python
-publisher.publish(event)
-
-assert publisher.events == [expected_event]
-```
-
-Spy môže obaliť fake aj reálnu implementáciu. Je vhodný, keď side effect nie je jednoducho pozorovateľný cez návratovú hodnotu, napríklad emitted event, audit record alebo notification request.
-
-Interaction log má uchovávať iba údaje potrebné pre assertion. Zaznamenávanie celého interného object graphu zvyšuje coupling a môže neúmyselne ukladať secrets.
-
-## 8. Mock
-
-Mock nesie vopred definované očakávania na interakcie a test zlyhá, keď sa nenaplnia.
+Atlas vytvára objednávku v dvoch fázach:
 
 ```text
-pri úspešnom storne
-→ refund gateway dostane presnú business sumu
-→ event publisher odošle OrderCancelled
+POST /orders
+→ domain validation
+→ PostgreSQL order + outbox transaction
+→ OrderCreated event
+→ payment worker
+→ Payments API authorize
+→ order state transition
+→ audit a confirmation
 ```
 
-Mock je vhodný, keď samotná komunikácia tvorí observable contract. Príkladom je exactly-once side-effect attempt, zákaz odoslania emailu pri neautorizovanej operácii alebo povinné auditovanie security decisionu.
+Relevantné risks:
 
-Mock nie je vhodný iba preto, že framework ho vie jednoducho vytvoriť. Ak test overuje každé interné volanie medzi vlastnými objects, refactoring implementácie rozbije test bez zmeny behavioru.
+- domain calculation alebo transition je chybná;
+- order a outbox nie sú atomické;
+- rovnaký idempotency key vytvorí viac payment attempts;
+- payment timeout má unknown outcome;
+- provider contract alebo serialization driftuje;
+- async retry sa vykoná v nesprávnom čase;
+- tenant alebo correlation identity sa stratí.
 
-## 9. State-based verification
+Jeden double nepokryje všetky risks. Atlas používa evidence ladder:
 
-State-based test overuje výsledný output alebo stav po operácii.
+```text
+unit
+→ fake repository/outbox port, fake clock, payment stub
 
-```python
-account.withdraw(10)
-assert account.balance == 90
+integration
+→ reálny PostgreSQL a broker
+
+component
+→ reálny orders-api/worker artifact + controlled payment simulator
+
+contract
+→ consumer/provider expectations
+
+sandbox
+→ periodický test proti reálnemu providerovi
 ```
 
-Výhodou je väzba na behavior, nie na interný postup. Test zvyčajne prežije refactoring, ktorý zachová výsledok.
+## 3. Test seam
 
-State verification je preferovaný default, ak požadovaný výsledok možno spoľahlivo pozorovať. Pri distribuovaných side effects však nemusí byť výsledný stav dostupný v rovnakom scope-e alebo čase.
+Seam je miesto, kde možno dependency nahradiť alebo riadiť bez zmeny production intentu. Pri Atlas sú seams:
 
-## 10. Interaction-based verification
+- repository a unit-of-work port;
+- outbox publisher boundary;
+- Payments API client;
+- clock a scheduler;
+- ID/idempotency generator;
+- object storage adapter;
+- audit/event sink.
 
-Interaction-based test overuje komunikáciu cez boundary.
+Dobrá seam zodpovedá reálnej architektúre. Interface vytvorený iba na mockovanie každej private helper function zvyšuje coupling a nevytvára zmysluplnú boundary.
 
-```python
-payment_gateway.refund.assert_called_once_with(payment_id, amount)
+## 4. Real/double boundary map
+
+Pred testom explicitne zapíš:
+
+```text
+subject under test
+→ reálne collaborators
+→ doubles
+→ ktoré semantics double sľubuje
+→ ktoré semantics zostávajú blind spotom
 ```
 
-Je vhodný, keď:
+Príklad unit scope-u:
 
-- side effect je samotným contractom;
+```text
+CreateOrder use case
++ reálne domain objects
++ fake repository port
++ spy outbox port
++ fixed clock a ID provider
+- bez PostgreSQL constraints/transactions
+- bez broker delivery semantics
+```
+
+Príklad component scope-u:
+
+```text
+reálny worker process
++ reálny serializer/config/retry middleware
++ reálny PostgreSQL
++ controlled HTTP payment simulator
+- bez reálnych provider quotas a network edge
+```
+
+## 5. Taxonómia podľa účelu
+
+Pojmy označujú rolu v konkrétnom teste:
+
+```text
+dummy
+→ vyplní nepoužitý parameter
+
+stub
+→ vráti pripravený input alebo failure
+
+fake
+→ poskytne zjednodušenú funkčnú implementáciu
+
+spy
+→ zaznamená uskutočnené interactions
+
+mock
+→ nesie vopred definované interaction expectations
+```
+
+Jeden object môže byť v jednom teste stub a v inom spy. Dôležité je pomenovať, čo test z jeho správania vyvodzuje.
+
+## 6. Dummy
+
+Dummy je hodnota potrebná na zostavenie callu, ale testovaný path ju nepoužije. Ak test začne čítať alebo overovať jej behavior, už nejde o dummy.
+
+Veľké množstvo dummy dependencies často signalizuje príliš široký constructor alebo komponent s viacerými responsibilities. Testability tu odhaľuje design problém, nie potrebu ďalšieho mocking frameworku.
+
+## 7. Stub
+
+Stub pripraví odpoveď alebo failure:
+
+```text
+Payments API
+→ 200 Authorized
+→ 409 IdempotencyConflict
+→ 429 + Retry-After
+→ connect timeout
+→ read timeout po možnom prijatí requestu
+```
+
+Stub riadi vstup do decision logic. Test spravidla neoveruje interný call count, pokiaľ počet pokusov sám nemení finančný alebo prevádzkový výsledok.
+
+Dobrý stub podporuje iba variants potrebné pre scenár. Desiatky stateful odpovedí a transitions znamenajú, že vzniká fake alebo simulator a potrebuje vlastný contract.
+
+## 8. Fake
+
+Fake je zjednodušená funkčná implementácia. Môže udržiavať state a podporovať celý workflow, napríklad in-memory repository alebo virtual clock.
+
+Fake musí deklarovať fidelity:
+
+```text
+modeluje
+→ save/read, duplicate ID, optimistic version
+
+nemodeluje
+→ SQL isolation, collation, locks, connection failure
+```
+
+In-memory map nie je „rýchla PostgreSQL“. Je iný systém s inými semantics.
+
+## 9. Spy
+
+Spy zaznamená interactions po vykonaní behavioru. Atlas môže overiť, že vznikol `OrderCreated` event s order ID, tenant ID a correlation ID.
+
+Spy je vhodný, keď side effect nemožno v danom scope-e pohodlne pozorovať cez return value. Zaznamenáva iba fields potrebné pre oracle. Celý request dump môže vytvoriť krehký test a uniknúť secrets do failure logu.
+
+## 10. Mock
+
+Mock nesie očakávania na interaction. Je vhodný, keď komunikácia tvorí contract:
+
+```text
+unauthorized request
+→ payment gateway sa nesmie volať
+
+confirmed cancellation
+→ refund attempt používa správnu payment identity a sumu
+
+security decision
+→ audit sink musí dostať DENY event
+```
+
+Mock nie je vhodný na overenie každého interného helper callu. Taký test opisuje implementáciu, nie behavior.
+
+## 11. State-based verification ako default
+
+State-based test overuje výsledný state alebo output:
+
+```text
+CreateOrder command
+→ Order state ACCEPTED
+→ total a tenant sú správne
+```
+
+Je odolnejší voči refaktoringu, ktorý zachová contract. Preferuj ho, keď je behavior spoľahlivo pozorovateľný.
+
+Pri distribuovanom side effecte nemusí finálny state patriť do scope-u. Vtedy je legitímna interaction verification na boundary port-e, ale má overovať iba významné fields a semantics.
+
+## 12. Interaction verification
+
+Interaction assertion má zmysel, keď:
+
 - nesmie vzniknúť žiadne volanie;
-- počet pokusov ovplyvňuje finančný alebo bezpečnostný dopad;
+- počet attempts mení finančný alebo bezpečnostný dopad;
 - poradie je protokolová požiadavka;
-- output nie je v scope-e testu pozorovateľný.
+- call obsahuje principal, tenant alebo idempotency identity;
+- finálny external state nie je v test scope-e pozorovateľný.
 
-Interaction assertions musia rozlišovať nevyhnutný contract od incidental implementation detailu. To, že helper volá logger pred repository, spravidla nie je business požiadavka.
+„Logger bol volaný pred repository“ nie je business contract. „Payment authorize nebolo volané po deny authorization“ contract je.
 
-## 11. State a interaction sa dopĺňajú
+## 13. State a interaction sa dopĺňajú
 
-Niektoré testy potrebujú oba druhy dôkazu. Pri vytvorení objednávky možno overiť výsledný domain state aj emitted event.
-
-```text
-state assertion
-→ objednávka je v stave accepted
-
-interaction assertion
-→ publikoval sa OrderAccepted s rovnakým ID
-```
-
-Neoveruj tú istú skutočnosť dvakrát bez novej hodnoty. Ak fake event store poskytuje observable state, explicitné mock call count môže byť zbytočné.
-
-## 12. Over-specification
-
-Test je over-specified, keď vyžaduje viac detailov, než tvorí verejný alebo boundary contract.
-
-Krehký príklad:
+Atlas payment unit test môže overiť:
 
 ```text
-A volaná presne raz
-potom B presne dvakrát
-potom C s konkrétnym interným DTO
+state
+→ order zostáva PAYMENT_PENDING po retryable failure
+
+interaction
+→ vznikol presne jeden scheduled retry s rovnakým idempotency key
 ```
 
-Ak možno bezpečne batchovať calls, zmeniť poradie alebo nahradiť interné DTO bez zmeny výsledku, test blokuje refactoring.
+Tieto assertions dokazujú dve odlišné skutočnosti. Duplicitné overovanie rovnakého výsledku cez fake state aj call count nepridáva hodnotu.
 
-Lepší assertion kontroluje:
+## 14. Matchers a významné fields
 
-- relevantný side effect nastal alebo nenastal;
-- business fields majú správne hodnoty;
-- idempotency identity je zachovaná;
-- security-sensitive call používa správny principal;
-- protocol-required order je dodržaný.
-
-## 13. Strict a loose mocks
-
-Strict mock zlyhá pri neočakávanej interaction. Loose mock nešpecifikované calls ignoruje alebo vracia defaults.
-
-Strictness má zodpovedať riziku:
-
-- **strict** — payment charge, privilege grant, destructive delete, external message publication;
-- **targeted strictness** — overujú sa kritické calls, telemetry a incidental calls sa ignorujú;
-- **loose** — experimentálny observer alebo nepodstatná dekoratívna dependency.
-
-Príliš loose matcher môže skryť neočakávaný side effect. Príliš strict mock môže viazať test na nepodstatný execution order.
-
-## 14. Argument matching
-
-Matcher má kontrolovať properties, ktoré tvoria contract.
+Matcher kontroluje contract, nie celý náhodný object graph:
 
 ```text
-order_id → musí presne sedieť
-amount → musí presne sedieť
-currency → musí sedieť
-timestamp → musí byť v kontrolovanom intervale
-trace_id → musí existovať, nie mať konkrétnu náhodnú hodnotu
+order_id
+→ exact
+
+tenant_id
+→ exact
+
+amount a currency
+→ exact business values
+
+idempotency_key
+→ zachovaná identity
+
+trace_id
+→ musí existovať a byť korelovateľný
+
+timestamp
+→ fixed clock alebo povolený interval
 ```
 
-`any()` pre celý request môže skryť chybný tenant alebo sumu. Exact equality celého objectu môže byť krehká kvôli timestampu, optional metadata alebo novému backward-compatible fieldu.
+`any()` nad celým requestom môže skryť chybný tenant alebo sumu. Exact equality celého DTO môže byť krehká pri backward-compatible metadata field-e.
 
-Používaj domain-oriented matchers a jasné failure messages.
+## 15. Call count a retry semantics
 
-## 15. Call count semantics
+Call count je contract iba vtedy, keď mení outcome:
 
-Call count má zmysel iba vtedy, keď počet mení behavior alebo riziko.
+- `never` — zakázaný side effect;
+- `exactly once` — jeden payment attempt pre daný idempotency state;
+- `at most N` — bounded retry;
+- poradie — iba pri protokole alebo compensation flowe.
 
-- **presne raz** — financial charge alebo idempotentný event publication contract;
-- **nikdy** — notification po zamietnutej authorization;
-- **aspoň raz** — zriedkavo vhodné; môže skryť retry storm;
-- **najviac N-krát** — bounded retry contract;
-- **poradie** — iba ak je protokolovo významné.
+Samotné „called three times“ nepreukazuje správny retry policy. Test má overiť retryable classification, backoff, deadline, idempotency key a zastavenie pri terminal outcome.
 
-Pri retries treba overiť aj časovanie, klasifikáciu retryable errors a zastavenie po deadline. Samotné `called_three_times` nepreukazuje správny retry policy.
+## 16. Strict a loose expectations
 
-## 16. Asynchrónne interactions
+Strict expectation zlyhá pri neočakávanej interaction. Je vhodná pre payment, privilege grant, delete alebo external publication.
 
-Async callbacks, event publication a background tasks vyžadujú deterministické čakanie. Test nemá používať pevný sleep a následne čítať spy log.
+Targeted strictness overí kritické calls a ignoruje incidental telemetry. Loose mock je vhodný iba tam, kde neočakávaný call nemení testované riziko.
 
-Lepšie možnosti:
+Príliš loose matcher skryje side effect. Príliš strict mock blokuje bezpečný refactoring. Strictness sa odvodzuje od impactu.
 
-- await completion future;
+## 17. Async execution bez sleepu
+
+Async double musí mať explicitný completion mechanism:
+
+- awaitable future;
 - controllable executor;
-- in-memory queue s explicitným drain;
-- condition polling s timeoutom;
-- test scheduler;
-- fake clock a manuálne spustenie scheduled tasks.
+- in-memory queue s `drain()`;
+- virtual scheduler;
+- condition wait s deadline;
+- fake clock pre čas plus explicitné spustenie due tasks.
 
-Failure artifact má ukázať posledný observed state, pending tasks a recorded interactions.
+Pevný sleep iba odkladá assertion. Nevysvetľuje, či task skončil, čaká alebo zlyhal.
 
-## 17. Time a clock
+Failure artifact má ukázať pending tasks, virtual time, queue state a recorded interactions.
 
-Priamy wall clock robí test závislý od reálneho času, timezone a boundary transitions. Clock seam umožní explicitne modelovať `now`.
+## 18. Clock, monotonic time a scheduler
 
-```python
-class Clock:
-    def now(self) -> datetime:
-        ...
+Wall clock, durations a scheduler nie sú tá istá dependency. Atlas rozlišuje:
+
+```text
+wall clock
+→ business timestamp a expiry instant
+
+monotonic clock
+→ elapsed duration a deadline
+
+scheduler
+→ kedy sa due work skutočne vykoná
 ```
 
-Fake clock má podporovať:
+Posun fake clocku automaticky nespustí task, ak test explicitne nemodeluje timer queue. Tým sa zabráni testu, ktorý prejde v inej execution semantics než production.
 
-- pevný čas;
-- kontrolovaný advance;
-- monotonic a wall-clock rozlíšenie podľa potreby;
-- expiry a lease scenarios;
-- daylight-saving a timezone cases;
-- scheduled retry alebo backoff.
+## 19. Randomness a identity
 
-Posun fake clocku sám osebe nemusí spustiť background scheduler. Test musí explicitne modelovať aj execution mechanism.
+Pri business teste preferuj semantic provider:
 
-## 18. Randomness a IDs
+```text
+generate_order_id()
+choose_retry_jitter()
+```
 
-Seedovaný random generator zlepšuje reprodukovateľnosť, ale seed nie je vždy vhodný contract pre business test. Pri ID generation je často lepší explicitný deterministic provider.
+Mockovať presné poradie `random()` calls je krehké. Property-based failure uchová seed, framework version a minimalizovaný counterexample. Regression test môže použiť konkrétny failing input.
 
-Property-based test má pri failure uložiť seed alebo minimalizovaný counterexample. Regression test následne môže použiť konkrétny reprodukčný vstup bez závislosti od sequence interných random calls.
+## 20. HTTP double fidelity ladder
 
-Mockovanie každého `random()` callu podľa poradia je krehké. Preferuj vyšší abstraction contract, napríklad `generate_order_id()` alebo `choose_backoff_jitter()`.
+Rôzne náhrady poskytujú rozdielny dôkaz:
 
-## 19. Network a HTTP doubles
+```text
+stub client method
+→ decision logic bez serialization/networku
 
-Mockovanie metódy HTTP clienta testuje decision logic, ale neoverí serialization, headers, timeout configuration ani response parsing. Local mock server alebo service virtualization prechádza reálnou protocol boundary a poskytuje vyššiu fidelity.
+local mock server
+→ reálny HTTP serializer, headers, timeout config a parser
 
-Kontrolovaný server má vedieť simulovať:
+provider simulator
+→ stateful protocol a failure sequences
 
-- connect timeout alebo refusal;
-- read timeout;
-- partial a pomalý stream;
-- malformed payload;
-- connection reset;
-- redirects;
-- 429 a `Retry-After`;
-- retryable a non-retryable 5xx;
-- duplicate alebo out-of-order events;
-- stateful sequence odpovedí.
+provider sandbox
+→ reálne credentials, network, quotas a provider behavior
+```
 
-Mock server stále nie je skutočný provider. Contract tests a periodické sandbox tests musia kontrolovať drift.
+Atlas component test používa local simulator pre timeout-before-send, timeout-after-send, 429, malformed payload a duplicate response. Periodický sandbox test kontroluje drift a platform-specific behavior.
 
-## 20. Database fakes
+## 21. Unknown outcome ako významný failure model
 
-In-memory repository je vhodný na domain unit tests, ak persistence semantics nie sú testovaným rizikom. Nesmie sa však vydávať za dôkaz PostgreSQL behavioru.
+Network timeout nemusí znamenať „provider request neprijal“:
 
-Rozdiely môžu zahŕňať:
+```text
+client odoslal request
+→ provider autorizoval payment
+→ response sa stratila
+→ client vidí timeout
+```
 
-- transactions a isolation;
+Double, ktorý každý timeout modeluje ako nulový side effect, učí aplikáciu nebezpečnú semantics. Správny simulator potrebuje query-by-idempotency-key alebo následnú reconciliation path.
+
+## 22. Worked failure: payment fake zaručoval nemožný timeout
+
+Atlas unit a component tests používali payment fake:
+
+```text
+timeout response
+→ fake nevytvoril authorization
+```
+
+Production provider však mohol request commitnúť pred stratou response.
+
+```text
+payment authorized
+→ response timeout
+→ worker retryoval s novým key
+→ druhá authorization
+```
+
+### Root cause
+
+Fake modeloval timeout ako jednoznačný failure, hoci reálny protocol mal unknown outcome. Testy boli deterministické, ale semantic fidelity bola chybná.
+
+### Náprava
+
+- simulator podporuje timeout-before-commit aj timeout-after-commit;
+- payment request používa stabilný idempotency key;
+- worker po unknown outcome vykoná reconciliation;
+- interaction test overí, že retry nemení identity;
+- sandbox test potvrdí provider semantics;
+- fake contract explicitne dokumentuje podporované outcomes.
+
+## 23. Database fake a real engine
+
+In-memory repository je vhodný pre domain decisions. Neoverí:
+
+- transaction atomicity;
 - unique a foreign-key constraints;
-- null semantics;
-- collation a case sensitivity;
-- locking a concurrency;
-- generated IDs;
-- query planner a index behavior;
-- timezone a numeric precision.
+- isolation a locks;
+- null/collation semantics;
+- numeric precision a timezone;
+- connection failure;
+- query planner a index behavior.
 
-Persistence contract potrebuje integration test s reálnym engine-om a kompatibilnou major verziou.
+Persistence risk preto používa ephemeral PostgreSQL kompatibilnej major verzie.
 
-## 21. Message-broker fakes
+## 24. Worked failure: fake nepoznal unique constraint
 
-Fake broker môže pomôcť unit alebo component testu, ale musí deklarovať, či modeluje:
+Atlas idempotency unit tests používali dictionary fake keyovaný iba `idempotency_key`. Production unique constraint bol `(tenant_id, idempotency_key)`.
+
+Neskorší refactor zmenil fake aj application lookup na global key, ale unit suite zostala zelená. V produkcii tenant B dostal collision s tenantom A.
+
+### Root cause
+
+Fake contract nebol spoločný s reálnou repository semantics a chýbala conformance fixture pre tenant-scoped uniqueness.
+
+### Náprava
+
+- repository port definuje compound identity;
+- rovnaká conformance suite beží proti fake aj PostgreSQL adapteru;
+- component test overí dva tenanty s rovnakým key;
+- fake zlyhá explicitne pri nepodporovanej semantics;
+- critical constraints sú dokumentované mimo fake implementation detailu.
+
+## 25. Broker fake a delivery model
+
+Fake broker musí deklarovať, či modeluje:
 
 - at-least-once delivery;
-- redelivery;
+- acknowledgement a redelivery;
 - partition ordering;
 - consumer groups;
-- acknowledgement;
-- visibility timeout;
 - dead-letter behavior;
-- retention a replay.
+- retention a replay;
+- visibility timeout.
 
-Jednoduchý in-memory list zvyčajne nemodeluje reálne failure modes. Broker integration test musí použiť skutočný engine alebo kvalitný emulator, keď je ordering, durability alebo redelivery súčasťou rizika.
+In-memory list modeluje iba enqueue/dequeue. Nie je dôkazom broker durability ani retry behavioru. Reálny engine alebo faithful emulator patrí do integration scope-u, keď sú tieto semantics rizikom.
 
-## 22. Simulátor a emulator
+## 26. Simulator, emulator a sandbox
 
-Simulator napodobňuje behavior na úrovni zvoleného modelu. Emulator sa snaží byť protokolovo alebo platformovo vernejší. Rozdiel nie je vždy striktne definovaný, preto treba opisovať konkrétnu fidelity.
+Názov nie je taký dôležitý ako explicitná fidelity. Pri cloud alebo provider náhrade dokumentuj:
 
-Pri cloud emulátore over:
-
-- podporované API a versions;
+- API a version support;
 - consistency model;
-- IAM a policy behavior;
+- IAM/policy behavior;
 - quotas a throttling;
 - error model;
+- unsupported operations;
 - rozdiely oproti managed service.
 
-Lokálny emulator znižuje cenu feedbacku, ale nemôže byť jediným dôkazom pre platform-specific behavior.
+Lokálna náhrada skracuje feedback. Nemôže byť jediným dôkazom pre platform-specific behavior.
 
-## 23. Contract drift
+## 27. Contract drift
 
-Double driftuje, keď jeho behavior už nezodpovedá reálnej dependency. Drift môže byť neviditeľný, pretože consumer testy zostanú zelené.
-
-Ochrany:
+Double driftuje, keď sa reálna dependency zmení a test double zostane rovnaký:
 
 ```text
-shared schema alebo contract
+shared contract/spec
 → conformance suite
-→ spustiť proti fake aj real dependency
-→ versionovať fake
-→ dokumentovať nepodporované semantics
-→ periodicky overovať sandbox
+→ run proti double
+→ run proti real/sandbox implementation
+→ versionovať double
+→ evidovať unsupported semantics
 ```
 
-Provider-driven spec pomáha so syntaxou a typmi. Consumer-driven contracts pomáhajú s reálne používanými interactions. Ani jedno samo neoverí performance, quota alebo všetky runtime semantics.
+Provider-driven schema kontroluje syntax a types. Consumer-driven contract kontroluje používané expectations. Runtime quotas, latency a undocumented behavior stále potrebujú sandbox alebo production evidence.
 
-## 24. Conformance testing fake-u
+## 28. Conformance suite
 
-Fake má mať vlastnú test suite iba pre behavior, ktorý sľubuje modelovať. Rovnaké test fixtures možno spustiť proti fake a reálnej implementation.
+Fake má testovať iba semantics, ktoré sľubuje:
 
 ```text
-repository conformance suite
-├─ save a read
-├─ duplicate key
+repository conformance
+├─ save/read
+├─ tenant-scoped duplicate key
 ├─ missing entity
-└─ optimistic concurrency
+├─ optimistic version conflict
+└─ delete visibility
 ```
 
-Ak fake nevie podporiť konkrétny contract, má zlyhať explicitne alebo byť v danom teste nepoužitý. Tiché zjednodušenie je horšie než priznaný limit.
+Rovnaké fixtures sa spustia proti fake a reálnemu adapteru. Ak fake contract nepodporuje, musí zlyhať explicitne, nie ticho vrátiť zjednodušený výsledok.
 
-## 25. Kedy použiť reálnu dependency
+## 29. Kedy je reálna dependency lacnejšia
 
-Reálna dependency je vhodnejšia, keď:
+Reálna ephemeral dependency je vhodnejšia, keď:
 
 - je rýchlo a hermeticky spustiteľná;
-- jej semantics sú hlavným rizikom;
-- container alebo embedded server je jednoduchší než udržiavanie fake-u;
-- potrebujeme reálny protocol, serializer, transaction alebo filesystem behavior;
-- drift fake-u by bol drahý;
-- failure sa dá stále dobre diagnostikovať.
+- jej semantics sú predmetom testu;
+- container/embedded server je jednoduchší než údržba fake-u;
+- protocol, transaction alebo filesystem behavior je kritický;
+- drift fake-u má vysokú cenu;
+- failure sa dá dobre lokalizovať.
 
-Príklady sú PostgreSQL container, local HTTP server, skutočný parser, filesystem temp directory alebo ephemeral broker.
+Shared staging service nie je automaticky realistickejšia. Môže mať nekontrolované dáta, verziu a availability. Ephemeral instance poskytuje real semantics aj isolation.
 
-„Reálna“ dependency neznamená shared staging service bez kontroly. Hermetic ephemeral instance môže byť realistická aj deterministická.
+## 30. Reset, ownership a paralelnosť
 
-## 26. Kedy použiť double
-
-Double je vhodný, keď:
-
-- testujeme lokálnu rozhodovaciu logiku;
-- dependency je externá, drahá alebo nedostupná;
-- potrebujeme reprodukovať zriedkavý failure;
-- musíme riadiť čas, random alebo ID;
-- reálny systém by vytvoril neželaný side effect;
-- test potrebuje vysokú rýchlosť a presnú failure localization.
-
-Voľba nie je binárna pre celý projekt. Jedna behavior class môže mať unit tests so stubom, component tests s mock serverom, contract tests a periodický sandbox test.
-
-## 27. Reset a izolácia
-
-Mutable double nesmie zdieľať state medzi testmi bez explicitného scope-u. Resetovať treba:
+Mutable double má novú instance per test alebo per explicitný scope. Reset zahŕňa:
 
 - prepared responses;
 - recorded calls;
-- fake database;
-- queues a pending callbacks;
-- virtual clock;
-- random seed alebo generator;
-- global configuration;
+- fake state;
+- queues a callbacks;
+- virtual time;
+- random generator;
+- global config;
 - captured credentials.
 
-Preferuj novú instance per test. Globálny singleton mock vytvára order dependency a paralelné race conditions.
+Singleton mock vytvára order dependence a race conditions. Failure snapshot sa zachová pred teardownom.
 
-Cleanup má prebehnúť aj po assertion failure. Pri failure je však vhodné najprv zachovať diagnostický snapshot recorded state.
+## 31. Secrets a failure messages
 
-## 28. Secrets a sensitive data
+Mock framework môže pri mismatchi vypísať celý request. Payment, identity alebo export request môže obsahovať token, osobné údaje alebo signed URL.
 
-Spy a mock framework môže logovať celé argumenty pri failure. Requesty môžu obsahovať tokens, personal data alebo payment details.
+Používaj synthetic credentials, redacted representations a domain matchers. Recorded HTTP cassettes sa sanitizujú a reviewujú ako repository content.
 
-Používaj redacted representations, domain matchers a synthetic credentials. Failure artifact nemá vypísať celý secret iba preto, že argument equality zlyhala.
+## 32. Diagnostický workflow
 
-Test fixtures a recorded HTTP cassettes sa musia sanitizovať a reviewovať rovnako ako iný repository obsah.
+Keď test s double zlyhá alebo podozrivo prejde:
 
-## 29. Diagnostický workflow
+1. pomenuj behavior a failure boundary;
+2. zobraz real/double mapu;
+3. urči rolu double-u v tomto teste;
+4. skontroluj, ktoré semantics sľubuje;
+5. over state versus interaction oracle;
+6. skontroluj matchers, count a strictness;
+7. pri async teste pozri scheduler, clock a pending work;
+8. porovnaj configured response s provider contractom;
+9. spusti conformance alebo real integration test;
+10. uprav fidelity alebo scope podľa root cause;
+11. zachovaj redigované first-failure artifacts;
+12. pridaj vyšší dôkaz pre blind spot.
 
-Keď test s double zlyhá alebo podozrivo prechádza:
+## 33. Referenčné pravidlá
 
-1. pomenuj behavior a boundary, ktoré test chráni;
-2. over, či double plní rolu stubu, fake-u, spy alebo mocku;
-3. skontroluj, či assertion overuje observable contract alebo implementation detail;
-4. porovnaj configured response s reálnym contractom;
-5. over reset state a paralelnú izoláciu;
-6. skontroluj call order, count a matcher strictness;
-7. pri async teste pozri pending work a scheduler state;
-8. pri network fake-u over serialization a timeout boundary;
-9. pri drift podozrení spusti conformance alebo real integration test;
-10. zníž alebo zvýš fidelity podľa konkrétneho rizika.
+- Double sa vyberá podľa failure boundary, nie framework convenience.
+- Pred testom je explicitná real/double mapa.
+- Použi najjednoduchší double s dostatočnou fidelity.
+- State-based verification je default, keď je výsledok pozorovateľný.
+- Interaction assertions chránia iba významný boundary contract.
+- Matchers kontrolujú business fields, nie celý náhodný object graph.
+- Call count má behavior dôvod.
+- Async test používa completion condition, nie fixed sleep.
+- Clock a scheduler sú odlišné mechanisms.
+- In-memory repository nenahrádza database integration test.
+- Fake deklaruje podporované a nepodporované semantics.
+- Conformance chráni proti driftu.
+- Reálna ephemeral dependency môže byť najjednoduchšia voľba.
+- Failure logs nesmú odhaliť secrets.
 
-## 30. Časté omyly
+## 34. Časté omyly
 
 ### „Každá dependency má byť mock“
 
-Relevantné database, network alebo protocol semantics by sa stratili a suite by testovala vlastné assumptions.
+Relevantné transaction, protocol a network semantics by sa stratili.
 
-### „In-memory database sa správa ako produkčná databáza“
+### „Mock dokazuje integráciu“
 
-Môže mať zásadne odlišné constraints, transactions, collation a concurrency.
+Dokazuje iba behavior subjectu voči naprogramovaným expectations.
 
-### „Mock dokazuje, že integrácia funguje“
+### „In-memory database sa správa ako PostgreSQL“
 
-Mock dokazuje iba naprogramované expectations. Reálnu integráciu overí integration alebo contract test.
+Constraints, isolation, locking, collation a precision môžu byť zásadne odlišné.
 
-### „Viac interaction assertions znamená vyššiu presnosť“
+### „Viac call assertions znamená presnejší test“
 
-Často to znamená väčší coupling na interný execution order.
+Často znamená väčší coupling na interný execution order.
+
+### „Timeout znamená, že side effect nenastal“
+
+Pri network boundary môže mať timeout unknown outcome.
 
 ### „Fake netreba testovať“
 
-Fake potrebuje conformance pre semantics, ktoré sľubuje.
+Fake potrebuje conformance pre všetky semantics, ktoré sľubuje.
 
-### „Pevný sleep stačí pre async mock“
+### „Pevný sleep stabilizuje async mock“
 
-Sleep nevytvára deterministický completion contract a vedie k flaky testom.
+Sleep nevytvára completion contract a mení sa s loadom runnera.
 
-## 31. Prevádzkový checklist
+### „Sandbox stačí pre všetky testy“
 
-- Je jasné, aké správanie a boundary test overuje?
-- Používa test najjednoduchší double, ktorý poskytuje potrebný dôkaz?
-- Sú relevantné semantics testované aj s reálnou dependency?
-- Preferuje test state/output pred incidental interactions?
-- Sú call count a order assertions business alebo protocol contract?
-- Kontrolujú matchers významné fields bez `any()` nad kritickými dátami?
-- Má fake explicitný conformance scope?
-- Existuje ochrana proti contract driftu?
-- Je time, random a async execution deterministicky riadený?
-- Sú doubles izolované per test a bezpečné pre paralelný beh?
-- Sú failure logs redacted?
-- Je jasné, ktorá vyššia test layer potvrdzuje real integration?
+Je pomalší, menej deterministický a nemusí umožniť všetky failure paths. Patrí do vrstveného portfólia.
 
-## 32. Kontrolné otázky
+## 35. Zhrnutie
 
-1. Čo je test seam a prečo je dôležitejší než konkrétny mocking framework?
-2. Aký je rozdiel medzi dummy, stub, fake, spy a mock?
-3. Kedy preferovať state-based a kedy interaction-based verification?
-4. Čo je over-specification a ako poškodzuje refactoring safety?
-5. Kedy má význam strict mock?
-6. Ako navrhnúť argument matcher pre business-critical request?
-7. Prečo call count assertion potrebuje behavior dôvod?
-8. Ako deterministicky testovať čas, random a async callbacks?
-9. Prečo in-memory repository nenahrádza database integration test?
-10. Ako sa zisťuje a obmedzuje contract drift fake-u?
-11. Kedy je reálna ephemeral dependency lacnejšia než fake?
-12. Ako zabrániť order-dependent failures zo shared mock state?
+Atlas double evidence chain je:
+
+```text
+behavior/risk
+→ subject a boundary
+→ real/double map
+→ stub/fake/spy/mock role
+→ controlled input/time/failure
+→ state + významná interaction
+→ conformance a drift protection
+→ real integration/contract/sandbox evidence
+```
+
+Hlavný princíp je fidelity s priznanými blind spots. Double je správny vtedy, keď zrýchli a spresní dôkaz bez odstránenia semantics, v ktorých môže relevantná chyba vzniknúť.
+
+## 36. Kontrolné otázky
+
+1. Aký decision lifecycle riadi výber test double-u?
+2. Čo je seam a prečo má zodpovedať architektúre?
+3. Ako sa líši dummy, stub, fake, spy a mock?
+4. Prečo je state verification preferovaný default?
+5. Kedy je interaction assertion súčasťou contractu?
+6. Ako sa navrhuje matcher pre payment request?
+7. Kedy má význam call count alebo strict mock?
+8. Ako sa testuje async behavior bez sleepu?
+9. Prečo treba oddeliť wall clock, monotonic time a scheduler?
+10. Aký unknown outcome môže vytvoriť network timeout?
+11. Prečo payment fake vytvoril duplicate authorization failure?
+12. Prečo in-memory repository neodhalil tenant collision?
+13. Čo musí deklarovať broker alebo cloud fake?
+14. Ako conformance suite obmedzuje contract drift?
+15. Kedy je reálna ephemeral dependency lepšia než fake?
+16. Ako sa izoluje mutable double pri paralelných testoch?
 
 ## Glossary impact
 
-Relevantné pojmy: test double, seam, dummy, stub, fake, spy, mock, state-based testing, interaction-based testing, strict mock, matcher, fake clock, deterministic random, service virtualization, simulator, emulator, conformance test, contract drift a over-specification.
+Relevantné pojmy: test double, seam, real/double boundary map, dummy, stub, fake, spy, mock, state-based verification, interaction-based verification, strict mock, matcher, fake clock, virtual scheduler, unknown outcome, service virtualization, simulator, emulator, sandbox, conformance test, contract drift a over-specification.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
