@@ -6,579 +6,478 @@
 - Level: L2
 - Domain: GitLab
 
-GitLab Runner je execution agent, ktorý prijíma eligible CI/CD jobs a vykonáva ich pomocou konkrétneho executora. Runner nie je iba výpočtový worker. Je to bezpečnostná a prevádzková hranica medzi pipeline kódom, repository obsahom, secrets, cache, artifact storage, hostom, cloud identitou a cieľovým environmentom.
-
-## 1. Mental model
-
-Zjednodušený tok:
+GitLab Runner je privilegovaná execution boundary. Pipeline job nie je abstraktný príkaz: scheduler ho priradí konkrétnemu runner poolu, executor vytvorí runtime, runner vloží source, artifacts, cache a identity, job vykoná arbitrary code a po skončení musí runtime aj credentials bezpečne odstrániť.
 
 ```text
-pipeline job
-→ GitLab scheduler
+job trust contract
 → runner eligibility a selection
-→ executor vytvorí runtime
-→ checkout / artifacts / cache / credentials
-→ user script
-→ reports a outputs
-→ cleanup
-→ runtime disposal alebo reuse
+→ worker provisioning
+→ effective runtime identity
+→ source/artifact/cache preparation
+→ user script a side effects
+→ report/artifact publication
+→ cleanup a credential revocation
+→ worker disposal alebo overený reuse
 ```
 
-Dôveryhodný výsledok vyžaduje, aby každá fáza mala jednoznačnú identitu, oprávnenia, failure semantics a cleanup contract.
+Dôveryhodný job verdict preto musí patriť nielen source SHA a pipeline konfigurácii, ale aj konkrétnemu runnerovi, executorovi, worker image-u, toolchainu, credentials a cleanup outcome-u.
 
-## 2. Runner, runner manager a worker
+## 1. Nosný model: trusted execution state machine
 
-Rozlišuj tri úrovne:
-
-- **GitLab Runner software —** komunikuje s GitLabom, vyžiada job, pripraví execution context a odošle výsledok.
-- **Runner manager —** dlhšie žijúci proces alebo instance, ktorá môže orches­trovať viac job workers.
-- **Worker runtime —** konkrétny container, pod, VM, instance alebo shell workspace, v ktorom sa vykoná jeden job.
-
-Pri autoscaling modeli môže manager existovať trvalo, zatiaľ čo workers vznikajú pre každý job. Pri shell executore sú manager a worker často rovnaký host, čo výrazne zväčšuje cross-job trust.
-
-## 3. Executor
-
-Executor určuje, ako runner vytvorí job runtime. Bežné modely:
-
-- Docker executor,
-- Kubernetes executor,
-- Docker Autoscaler,
-- Instance executor,
-- Shell executor.
-
-Executor nie je iba syntaxická voľba. Určuje isolation, startup latency, resource model, storage, networking, credential exposure, cleanup a failure modes.
-
-## 4. Runner scope
-
-Runner môže byť dostupný na instance, group alebo project scope.
-
-Scope odpovedá:
+Runner lifecycle má odlišné observation boundaries:
 
 ```text
-Ktoré projekty môžu runner zaradiť medzi kandidátov?
+CREATED
+→ ELIGIBLE
+→ ASSIGNED
+→ PROVISIONING
+→ PREPARING
+→ EXECUTING
+→ PUBLISHING
+→ CLEANING
+→ DISPOSED alebo REUSABLE
 ```
 
-Neodpovedá automaticky:
+Failure v každom stave znamená niečo iné:
+
+- `ELIGIBLE` bez assignu: scope, tags, protected context alebo capacity;
+- provisioning failure: cloud/Kubernetes/Docker/runtime problém;
+- preparing failure: image, checkout, artifact, cache, helper alebo TLS;
+- executing failure: user script alebo dependency behavior;
+- publishing failure: verdict môže byť známy, ale evidence chýba;
+- cleanup failure: outputs môžu existovať, ale trust boundary ostala otvorená.
+
+Generic `job failed` tieto mechanizmy zlieva a vedie k nesprávnym retries.
+
+## 2. Nosný scenár: Atlas Payments runner pools
+
+Atlas rozdeľuje pipeline do štyroch trust classes:
 
 ```text
-Je job dostatočne dôveryhodný pre host, credentials a sieť runnera?
+MR_VALIDATE
+→ untrusted code, bez secrets, ephemeral Kubernetes pool
+
+TRUSTED_BUILD
+→ protected main, pinned toolchain, ephemeral Docker/VM pool
+
+RELEASE_PUBLISH
+→ immutable artifact input, signing/publish identity, isolated pool
+
+PRODUCTION_DEPLOY
+→ approved release manifest, environment OIDC identity, isolated pool
 ```
 
-Instance runner má veľký organizačný blast radius. Project runner má menší scheduling scope, ale môže byť stále nebezpečný, ak je persistentný, privileged alebo pripojený k produkčnej sieti.
-
-## 5. Job trust classification
-
-Pred návrhom poolov klasifikuj jobs napríklad ako:
-
-- **Untrusted validation —** merge requests z fork-u alebo kód od externého autora.
-- **Trusted verification —** kód po review na chránenom ref-e, ale bez produkčných oprávnení.
-- **Artifact build —** job vytvára release-relevantné bytes a provenance.
-- **Signing alebo publishing —** job používa vysoko citlivú identity.
-- **Deployment —** job mutuje runtime environment.
-- **Administrative automation —** job mení GitLab, cloud alebo platform policy.
-
-Tieto triedy nemajú zdieľať rovnaký pool iba preto, že používajú rovnaký operačný systém.
-
-## 6. Runner selection
-
-Job sa spáruje s runnerom podľa kombinácie:
-
-- runner scope,
-- tags,
-- protected-ref eligibility,
-- runner state,
-- job requirements,
-- dostupnej concurrency.
-
-Tag je scheduling label. Sám osebe nepreukazuje security vlastnosť. Tag `production` je bezpečný iba vtedy, keď neoprávnený projekt alebo job nemôže taký runner použiť a runner má skutočne obmedzenú identity aj network scope.
-
-## 7. Protected runners
-
-Protected runner obmedzuje execution na chránené refs podľa GitLab trust modelu. Pomáha oddeliť release jobs od bežných feature branches.
-
-Nechráni však pred:
-
-- škodlivou zmenou pipeline kódu, ktorá sa dostala na chránený ref,
-- mutable included template,
-- príliš širokou deploy identitou,
-- kompromitovaným runner hostom,
-- únikom cez logs, artifacts alebo external egress,
-- nesprávne chráneným tagom.
-
-Protected runner je jeden authorization filter, nie úplná trust boundary.
-
-## 8. Runner authentication identity
-
-Runner authentication token identifikuje runner voči GitLabu. Odlišuj ho od:
-
-- `CI_JOB_TOKEN`,
-- ID tokenu pre workload federation,
-- registry credentialu,
-- project alebo group access tokenu,
-- cloud deployment credentialu.
-
-Runner token potrebuje:
-
-- ownera,
-- bezpečné bootstrap doručenie,
-- obmedzený storage access,
-- rotáciu,
-- revokáciu pri decommissioningu,
-- incident postup pri kompromitácii.
-
-Kompromitovaný runner môže získať jobs a ich runtime dáta podľa svojho scope-u.
-
-## 9. Job execution lifecycle
-
-Typický lifecycle:
+Pre release `3.12.0` vznikne execution record:
 
 ```text
-request job
-→ prepare executor
-→ provision runtime
-→ inject predefined context
-→ checkout source
-→ restore cache
-→ download artifacts
-→ start services
-→ run script
-→ collect reports/artifacts
-→ upload cache
-→ cleanup secrets a workspace
-→ dispose alebo recycle runtime
+pipeline P812
+job build_release attempt 1
+source SHA S42
+resolved config C19
+runner pool trusted-build-v5
+runner manager RM7
+worker W991
+executor docker-autoscaler
+worker image digest I18
+helper image H6
+architecture linux/amd64
+artifact digest D42
+cleanup verdict complete
 ```
 
-Failure pred `script` je iná trieda než test failure. Pipeline a operátori musia rozlíšiť minimálne:
+Publish job nesmie rebuildovať D42. Dostane ho ako explicitný artifact input a beží v inom, užšom pool-e s publish-only identity.
 
-- scheduler/selection failure,
-- provisioning failure,
-- image pull failure,
-- checkout failure,
-- cache/artifact transport failure,
-- user script failure,
-- report upload failure,
-- cleanup/disposal failure.
+## 3. Runner, manager, worker a executor sú odlišné identity
 
-## 10. Docker executor
+- **Runner software** komunikuje s GitLabom a vykonáva execution protocol.
+- **Runner manager** dlhšie žije, prijíma jobs a vytvára workers.
+- **Worker** je konkrétny container, pod, VM alebo shell workspace pre job.
+- **Executor** určuje, ako sa worker vytvorí a izoluje.
 
-Docker executor vytvára job container a voliteľné service containers.
+Pri autoscalingu môže byť manager dôveryhodný, ale konkrétny worker vzniknúť z driftujúceho image-u. Pri shell executore sú manager, worker, filesystem a procesný priestor často ten istý host, takže cleanup failure ovplyvní ďalší job.
 
-Výhody:
+Execution provenance musí rozlišovať všetky štyri vrstvy.
 
-- explicitný runtime image,
-- rýchly startup,
-- jednoduchšie lokálne reprodukovanie,
-- oddelený filesystem a process namespace,
-- vhodný model pre bežné build/test jobs.
+## 4. Eligibility nie je authorization celého jobu
 
-Riziká:
-
-- shared host kernel,
-- privileged mode,
-- Docker socket mount,
-- shared volumes a cache,
-- mutable images,
-- container runtime vulnerabilities,
-- host-level network reachability.
-
-Container isolation nie je VM isolation.
-
-## 11. Docker socket a privileged builds
-
-Mount Docker socketu typicky poskytuje jobu veľmi širokú kontrolu nad daemon hostom. Job môže vytvárať privileged containers, mountovať host filesystem alebo čítať iné workloads.
-
-Preferuj podľa use case:
-
-- rootless BuildKit alebo Buildah,
-- dedikovaný remote builder,
-- izolovaný ephemeral worker,
-- kanonický build service,
-- workload identity s presným publish scope-om.
-
-Privileged build runner nemá vykonávať nedôveryhodné merge-request jobs.
-
-## 12. Kubernetes executor
-
-Kubernetes executor typicky vytvorí pod pre job. Pod môže obsahovať build, helper a service containers.
-
-Výhody:
-
-- ephemeral runtime,
-- scheduler a autoscaling,
-- resource requests a limits,
-- namespaces, service accounts a NetworkPolicy,
-- oddelenie pools pomocou nodes a runtime classes.
-
-Riziká:
-
-- príliš široký service account,
-- hostPath, privileged alebo host-network workload,
-- shared-cluster side channels,
-- weak egress isolation,
-- unbounded pod creation,
-- secrets v pod spec alebo environment-e,
-- nedostatočné node separation od produkcie.
-
-CI workload je arbitrary code execution. Nemá automaticky patriť do rovnakého trust domainu ako produkčné workloads.
-
-## 13. Kubernetes safety baseline
-
-Podľa rizika používaj:
-
-- dedikovaný namespace alebo cluster,
-- least-privilege service account,
-- Pod Security enforcement,
-- seccomp a dropped capabilities,
-- read-only root filesystem,
-- zakázané host mounts,
-- NetworkPolicy a egress controls,
-- quotas a LimitRanges,
-- node isolation a taints,
-- krátkodobú federovanú identity,
-- automatické odstránenie orphaned pods.
-
-Over effective pod spec po mutations a defaults, nie iba CI YAML.
-
-## 14. Shell executor
-
-Shell executor spúšťa job priamo na hoste.
-
-Je vhodný iba v úzkych prípadoch, napríklad pre dôveryhodné workloads vyžadujúce konkrétny hardware alebo proprietárny toolchain na dedikovanom hoste.
-
-Riziká:
-
-- shared filesystem a procesy,
-- slabé oddelenie používateľov,
-- dependency drift,
-- zvyškové credentials,
-- background procesy po jobe,
-- prístup k host službám,
-- kompromitácia ďalších jobs.
-
-Shell runner pre viac nedôveryhodných projektov je nebezpečný operating model.
-
-## 15. Autoscaling a instance executors
-
-Autoscaling model vytvára alebo prideľuje instances podľa queue dopytu.
-
-Riadiť treba:
-
-- golden image a jeho provenance,
-- secure bootstrap,
-- runner registration a token delivery,
-- instance identity,
-- cloud quotas,
-- boot latency,
-- spot/preemptible termination,
-- idle capacity,
-- stale worker detection,
-- cleanup a deprovisioning,
-- cost attribution.
-
-Worker, ktorý job dokončil, ale nebol odstránený, sa stáva persistentným neauditovaným runnerom.
-
-## 16. Ephemeral verzus persistent workers
-
-Ephemeral worker zanikne po jobe alebo malom počte jobs. Znižuje cross-job contamination a zjednodušuje incident containment.
-
-Persistent worker je lacnejší a rýchlejší pri opakovanom použití, ale potrebuje silnejší hygiene model:
-
-- čistý workspace,
-- procesový cleanup,
-- rotáciu credentials,
-- disk quotas,
-- izolované cache paths,
-- pravidelný immutable rebuild hosta,
-- drift detection.
-
-Ephemeral neznamená automaticky čistý, ak sa worker vytvára z kompromitovaného image alebo zdieľa persistentný volume.
-
-## 17. Workspace a helper lifecycle
-
-Runner helper funkcionalita vykonáva checkout, artifact a cache transport a ďalšie orchestration kroky. Helper image a runner version sú súčasťou execution environmentu.
-
-Zachovaj:
-
-- kompatibilitu runner/helper verzií,
-- pinned alebo kontrolované images,
-- registry dostupnosť,
-- TLS trust,
-- checksum alebo signature verification podľa assurance modelu,
-- diagnostiku pred-script failures.
-
-Workspace po jobe nesmie obsahovať source, tokens, generated keys, sockets ani credentials files dostupné ďalšiemu jobu.
-
-## 18. Secrets a credential injection
-
-Runner môže sprostredkovať variables, file secrets, job tokeny a ID tokens. Bezpečný model:
+Scheduler vyhodnocuje najmä:
 
 ```text
-job identity
-→ overené claims
-→ short-lived scoped credential
-→ konkrétna operácia
-→ expirácia
+runner scope
++ tags
++ protected-ref eligibility
++ online/paused state
++ executor/job constraints
++ concurrency a capacity
+→ candidate runner set
 ```
 
-Runner host nemá držať univerzálny cloud key pre všetky jobs. Credential scope viaž na project, ref, environment, job účel, audience a krátku lifetime.
+Tag `production` je label pre matching, nie dôkaz isolation alebo cloud authorization. Protected runner filtruje ref context, ale nechráni pred škodlivým kódom, ktorý sa dostal na protected ref, mutable include-om ani príliš širokou host identitou.
 
-## 19. Network boundary
-
-Job egress môže byť rovnako citlivý ako credentials. Zváž:
-
-- povolené registries a package endpoints,
-- dependency proxy,
-- blokovanie cloud metadata endpointu,
-- egress proxy a allowlist,
-- DNS policy,
-- segmentáciu od produkčných sietí,
-- audit outbound trafficu,
-- explicitný prístup k deployment API.
-
-Signing alebo release job s neobmedzeným internetom a vysoko privilegovanou identity má veľký exfiltration risk.
-
-## 20. Resource model
-
-Runner pool potrebuje plán pre:
-
-- CPU a memory,
-- disk a inode capacity,
-- image-pull bandwidth,
-- cache backend throughput,
-- external API quotas,
-- licenses,
-- IP adresy a Kubernetes pod quotas,
-- build concurrency.
-
-Príliš vysoká concurrency môže zvýšiť job duration, OOM rate a queue instability. Optimalizuj celý critical path, nie iba percento využitia runnera.
-
-## 21. Resource limits
-
-Jeden job nemá nekontrolovane spotrebovať celý pool. Vynucuj podľa platformy:
-
-- CPU a memory limits,
-- ephemeral storage,
-- process count,
-- job timeout,
-- maximum artifact/cache size,
-- network bandwidth alebo egress policy,
-- maximálny počet service containers.
-
-Limit failure musí byť diagnostikovateľný ako OOM, quota alebo timeout, nie iba ako všeobecný exit code.
-
-## 22. Image a toolchain provenance
-
-Job image, helper image a base VM image sú build inputs. Pre release-relevantné jobs zachovaj:
-
-- image digest,
-- image build provenance,
-- OS a architecture,
-- runner a executor version,
-- toolchain versions,
-- runtime configuration,
-- policy version.
-
-Mutable runner image môže zmeniť artifact bez zmeny source repository.
-
-## 23. Cache a shared storage
-
-Cache, mounted volumes a object storage vytvárajú cross-job state. Oddeľ:
-
-- trusted a untrusted cache namespaces,
-- project a group boundaries,
-- protected a non-protected refs,
-- architectures a toolchains,
-- release build od bežného branch build-u.
-
-Workspace nemá fungovať ako implicitná cache. Každý shared state potrebuje explicitný owner, key a cleanup policy.
-
-## 24. Runner upgrade lifecycle
-
-Runner upgrades ovplyvňujú helper behavior, executor API, networking aj cleanup.
-
-Bezpečný flow:
+Po schedulingu musí ďalšia vrstva overiť:
 
 ```text
-review release a compatibility
-→ test canary runner
-→ spusti reprezentatívne jobs
-→ porovnaj failure signatures
-→ rozšír pool po vlnách
-→ zachovaj rollback image/config
-→ odstráň deprecated nastavenia
+pipeline/source trust
+→ resolved job definition
+→ runner pool trust class
+→ injected identities
+→ allowed network a side effects
 ```
 
-Neaktualizuj celý signing alebo production pool naraz bez observation window.
+## 5. Pool boundary vychádza z job capability
 
-## 25. Runner decommissioning
+Atlas nezdružuje jobs iba podľa operačného systému. Rozdeľuje ich podľa toho, čo môžu ovplyvniť:
 
-Pri vyradení:
+- untrusted test môže kompromitovať vlastný ephemeral runtime, nie release namespace;
+- trusted build môže publikovať iba candidate artifact do staging storage;
+- publish job môže zapísať immutable release version, ale nemôže deployovať;
+- deploy job môže mutovať konkrétny environment, ale nemá signing key;
+- cleanup/policy administration má oddelenú identity.
 
-1. zastav prijímanie nových jobs,
-2. nechaj dokončiť alebo bezpečne zruš aktívne jobs,
-3. revokuj runner authentication token,
-4. odstráň cloud/service identities,
-5. zmaž caches a workspaces podľa policy,
-6. zachovaj potrebné logs a audit evidence,
-7. odstráň instance, pods, volumes a DNS records,
-8. over, že runner už nie je eligible.
+Ak jeden pool vykonáva fork MRs aj signing, runner compromise spája nedôveryhodný source s release supply chainom.
 
-Vypnutá VM bez revokovaného runnera a identity nie je dokončený decommissioning.
+## 6. Executor určuje skutočnú isolation boundary
 
-## 26. Compromise response
+### Docker executor
 
-Pri podozrení na kompromitáciu runnera:
+Job container oddeľuje filesystem a process namespace, ale zdieľa host kernel. Privileged mode, host volumes alebo Docker socket môžu jobu dať host-level capability.
 
-- pause alebo revoke runner,
-- zastav citlivé pools a jobs,
-- rotuj runner tokeny a dostupné credentials,
-- identifikuj jobs, projects a artifacts, ktoré runner spracoval,
-- považuj vytvorené artifacts za potenciálne nedôveryhodné,
-- audituj registry pushes, deployments a external calls,
-- zachovaj forensic evidence,
-- obnov runner z čistého immutable image,
-- oprav trust boundary pred opätovným zapnutím.
+### Kubernetes executor
 
-Rebuild hosta bez revokácie ukradnutých credentials problém neuzatvára.
+Každý job môže mať vlastný pod, no isolation závisí od effective pod specu, service accountu, namespace-u, NetworkPolicy, node placementu, admission mutations a host mounts.
 
-## 27. Observability
+### Shell executor
 
-Sleduj:
+Job beží priamo na hoste. Je vhodný iba pre úzke trusted workloads na dedikovanom a dôsledne rebuildovanom hoste.
 
-- queue duration podľa trust poolu,
-- job a provisioning duration,
-- runner utilization a concurrency,
-- image pull latency,
-- system failure rate,
-- OOM, disk a inode pressure,
-- stale/offline workers,
-- cache hit/miss,
-- worker creation a cleanup failures,
-- cost per job alebo compute minute,
-- protected jobs vykonané mimo očakávaného poolu.
+### Autoscaling alebo instance executor
 
-Metrics musia obsahovať runner/pool/executor identitu bez úniku secrets.
+Znižuje cross-job reuse, ale pridáva bootstrap, image provenance, cloud identity, stale-worker a deprovisioning failure boundaries.
 
-## 28. Failure verdicty
+`Ephemeral` je lifecycle vlastnosť, nie automatická bezpečnosť. Worker môže zdieľať kompromitovaný base image, cache volume alebo širokú network identity.
 
-Rozlišuj:
+## 7. Effective runtime subject
 
-- **Job failed —** user script alebo test našiel problém.
-- **Runner system failure —** runner, executor alebo host nedokončil execution contract.
-- **Infrastructure unavailable —** registry, cluster alebo cloud API nebolo dostupné.
-- **Canceled/superseded —** job bol vedome zrušený podľa pipeline policy.
-- **Cleanup incomplete —** výsledok môže byť známy, ale runtime alebo credentials neboli bezpečne odstránené.
-- **Invalid environment —** job bežal na nesprávnom architecture, image alebo pool-e.
+Pred scriptom Atlas zaznamená:
 
-Retry má byť viazaný na transientnú triedu. Nemá premeniť opakovateľný product failure na zelený výsledok.
+```text
+source/candidate SHA
+resolved CI config digest
+job name + attempt
+runner manager a pool
+worker ID a image digest
+executor a architecture
+helper image
+cache/artifact inputs
+predefined variable context
+OIDC/job-token subject
+network policy a resource limits
+```
 
-## 29. Diagnostický postup
+Tento subject vysvetľuje, prečo rovnaký script môže lokálne prejsť, na jednom runneri zlyhať a na inom vytvoriť odlišné bytes.
 
-Keď job zostane pending alebo zlyhá pred scriptom:
+Mutable worker image alebo helper môže zmeniť build bez diffu v aplikácii.
 
-1. over pipeline a job inclusion,
-2. over runner scope, tags a protected eligibility,
-3. over runner online/paused stav a queue capacity,
-4. identifikuj executor provisioning fázu,
-5. over image, architecture, TLS a registry auth,
-6. over quotas, scheduler a resource limits,
-7. over checkout, cache a artifact transport,
-8. over injected identity a network policy,
-9. skontroluj cleanup pred retry,
-10. uchovaj presnú runner a worker identitu.
+## 8. Prepare phase je súčasť correctness
 
-## 30. Typické anti-patterny
+Runner pred user scriptom typicky:
 
-### Jeden runner pre všetko
+```text
+provisionuje runtime
+→ vloží predefined context
+→ checkoutne source
+→ obnoví cache
+→ stiahne artifacts
+→ vytvorí service containers
+→ vloží credentials
+```
 
-Untrusted test, signing aj production deployment zdieľajú host, cache a credentials boundary.
+Checkout, cache a artifact chyby nie sú product-test failures. Retry je bezpečný iba ak prepare operation je idempotentná a partial state sa odstráni alebo izoluje.
 
-### Tags ako jediná security policy
+Release build nesmie nevedome použiť workspace z predchádzajúceho jobu ako skrytý input.
 
-Projekt schopný požadovať tag môže získať citlivý runner bez ďalších scope a protection controls.
+## 9. Identity a network sa viažu na job účel
 
-### Persistent privileged runner pre merge requests
+Silný model:
 
-Nedôveryhodný kód môže kompromitovať host a ďalšie jobs.
+```text
+GitLab job ID token
+→ provider overí issuer, audience, project, ref, environment a job účel
+→ vydá krátkodobý credential
+→ credential povoľuje jednu triedu operácie
+→ po jobe expiruje
+```
 
-### Shared static cloud key na runner hoste
+Runner host nemá držať univerzálny cloud key. Untrusted validation pool nemá network path k production API, signing service ani cloud metadata endpointu.
 
-Každý job v pool-e získava rovnaký veľký blast radius.
+Egress je rovnako dôležitý ako credential scope: job s tajomstvom a neobmedzeným internetom má jednoduchý exfiltration path.
 
-### Shell executor bez workspace cleanup
+## 10. Resource model chráni celý pool
 
-Súbory, tokens a procesy jedného projektu ovplyvňujú ďalší.
+Atlas plánuje CPU, memory, disk/inodes, image-pull bandwidth, cache throughput, IP adresy, pod quotas, external API limits a concurrency.
 
-### Autoscaler bez deprovisioning evidence
+Príliš vysoká concurrency:
 
-Orphaned workers zostávajú aktívne s platnou identity.
+```text
+viac jobs
+→ CPU/I/O contention
+→ dlhšie execution a timeouts
+→ retries
+→ ešte viac queue/workloadu
+```
 
-### Release artifact z neidentifikovaného runner image
+Resource limit failure musí byť klasifikovaný ako OOM, quota, disk pressure alebo timeout. Všeobecný exit code vedie k slepému retry a ďalšiemu tlaku.
 
-Build provenance nevie vysvetliť toolchain a execution environment.
+## 11. Publish a cleanup sú súčasť verdictu
 
-## 31. Praktický rozhodovací rámec
+Po scripte runner:
 
-Pre každý runner pool odpovedz:
+```text
+zozbiera reports/artifacts
+→ uploadne outputs
+→ prípadne zapíše cache
+→ odstráni file secrets a credentials
+→ ukončí services/procesy
+→ vyčistí workspace
+→ dispose-ne worker
+```
 
-1. Aké job trust classes vykonáva?
-2. Ktoré projects a refs sú eligible?
-3. Aký executor a isolation model používa?
-4. Je worker ephemeral alebo persistent?
-5. Aké credentials, network a host resources môže job získať?
-6. Ako sa identifikujú a pinujú images a toolchain?
-7. Ktorý shared state existuje medzi jobs?
-8. Aké resource a concurrency limity platia?
-9. Ako funguje cleanup a disposal?
-10. Aké failure triedy možno retryovať?
-11. Ako sa pool upgraduje a rollbackuje?
-12. Ako sa runner decommissionuje alebo izoluje pri incidente?
+Možné verdicty:
 
-## 32. Kontrolný checklist
+- script passed, outputs complete, cleanup complete;
+- script passed, report upload failed — evidence incomplete;
+- script failed, diagnostics published, cleanup complete;
+- script outcome known, cleanup incomplete — security incident boundary;
+- worker lost — unknown partial publication alebo side effects.
 
-- untrusted a privileged jobs používajú oddelené pools;
-- runner scope a tags zodpovedajú trust modelu;
-- protected runner nie je jediná ochrana;
-- privileged mode a host socket sú zakázané alebo izolované;
-- workers majú resource a egress limits;
-- credentials sú krátkodobé a scoped;
-- runner, helper a job images sú identifikované;
-- workspace a processes sa po jobe čistia;
-- caches sú oddelené podľa trustu;
-- cleanup failure je viditeľný;
-- autoscaled workers sa spoľahlivo odstránia;
-- observability rozlišuje queue, provisioning, script a cleanup;
-- runner compromise má runbook a credential-rotation plán.
+Zelený script bez required reportu alebo s orphaned workerom nie je plne dôveryhodný job result.
 
-## 33. Kontrolné otázky
+## 12. Worked failure: untrusted MR otrávil persistentný build host
 
-1. Aký je rozdiel medzi runnerom, managerom, workerom a executorom?
-2. Prečo runner scope nie je úplná security boundary?
-3. Prečo tags samy osebe neautorizujú citlivý job?
-4. Ktoré jobs majú byť oddelené do samostatných trust pools?
-5. Prečo Docker socket typicky znamená host-level privilege?
-6. Aké riziká prináša Kubernetes executor v shared clusteri?
-7. Kedy je shell executor prijateľný?
-8. Čo musí obsahovať secure autoscaling lifecycle?
-9. Ako workload identity znižuje blast radius credentials?
-10. Ktoré shared states môžu kontaminovať ďalší job?
-11. Ako sa rozlišuje job failure od runner system failure?
-12. Čo treba urobiť pri kompromitácii runnera?
+Atlas mal project Docker runner s tagom `linux-build`. Používal persistentný host a mount Docker socketu. Rovnaký runner vykonával MR tests aj protected release builds.
 
-## Summary
+Útočný MR job:
 
-GitLab Runner je privilegovaná execution boundary, nie neutrálna výpočtová kapacita. Bezpečný návrh klasifikuje jobs podľa trustu, oddeľuje pools, používa primeraný executor, krátkodobé identities, obmedzený egress, resource limits a explicitný cleanup. Dôveryhodný pipeline výsledok musí byť spätne viazaný na runner, worker, image, toolchain a execution policy. Ephemeral runtime znižuje cross-job riziko, ale iba vtedy, keď je bezpečný aj bootstrap, shared storage a disposal lifecycle.
+```text
+získa Docker socket
+→ vytvorí host-mounted privileged container
+→ zapíše wrapper do shared toolchain pathu
+→ MR job skončí
+→ workspace cleanup odstráni iba repository directory
+→ neskorší protected build spustí modifikovaný wrapper
+→ release artifact D43 obsahuje vložený payload
+```
 
-## Glossary impact
+### Príčina
 
-Relevantné pojmy: GitLab Runner, runner manager, worker, runner scope, runner tag, protected runner, executor, Docker executor, Kubernetes executor, Shell executor, autoscaling executor, ephemeral runner, helper image, runner system failure, runner pool a workload identity.
+Runner scope a protected-ref filter sa považovali za úplnú trust boundary. Shared host a Docker socket však umožnili cross-job persistence mimo workspace-u.
 
-## Oficiálna dokumentácia
+### Dôsledok
 
-- [Executors](https://docs.gitlab.com/runner/executors/)
-- [Docker executor](https://docs.gitlab.com/runner/executors/docker/)
-- [Kubernetes executor](https://docs.gitlab.com/runner/executors/kubernetes/)
-- [Shell executor](https://docs.gitlab.com/runner/executors/shell/)
+Release build mal trusted source aj zelenú pipeline, ale builder environment už nebol dôveryhodný. Všetky artifacts vytvorené po compromise windowe bolo nutné považovať za podozrivé.
+
+### Trvalá náprava
+
+```text
+untrusted a release pools oddelené
+→ žiadny host socket pre MR jobs
+→ ephemeral workers z immutable image
+→ build provenance s worker image/pool identity
+→ periodic clean-room rebuild comparison
+→ compromise runbook zahŕňajúci artifacts, registry a credentials
+```
+
+## 13. Worked failure: autoscaled worker zostal aktívny po jobe
+
+Deploy worker získal 15-minútový cloud credential a job úspešne nasadil D42. Deprovision API timeoutol, ale pipeline evidovala iba script success.
+
+```text
+job script success
+→ artifact/runtime verification prejde
+→ cleanup začne
+→ cloud worker delete má unknown outcome
+→ worker ostane bežať s workspace a ešte platným credentialom
+→ manager stratí lokálny tracking po reštarte
+```
+
+### Príčina
+
+Disposal nebolo súčasťou job verdictu a chýbal reconciliation inventory managera voči cloud instances.
+
+### Recovery
+
+Atlas zablokoval pool, revokoval workload session, vyhľadal workers podľa generation/tagov, odstránil orphan a auditoval všetky jeho network calls.
+
+### Trvalá náprava
+
+- worker generation a idempotency key;
+- cloud inventory reconciliation;
+- cleanup-incomplete verdict;
+- credential lifetime kratšia než maximálne cleanup okno;
+- alert na orphan, stale registration a worker bez owning jobu.
+
+## 14. Worked failure: release job skončil na nesprávnej architektúre
+
+Runner tag `release` matchoval amd64 aj arm64 pool. Job nemal explicitnú architecture požiadavku a build tool vytvoril platform-specific binary.
+
+```text
+scheduler vyberie arm64 worker
+→ script prejde
+→ artifact sa pomenuje payments-linux.zip
+→ downstream publish predpokladá amd64
+→ zákaznícky runtime binary nespustí
+```
+
+### Príčina
+
+Artifact subject ani runner selection contract neobsahovali architecture. Human-friendly filename zakryl platform identity.
+
+### Náprava
+
+Architecture sa stala explicitným matrix dimensionom, artifact manifest obsahuje platformu a digest a fan-in odmieta missing, duplicate alebo nesprávne varianty.
+
+## 15. Kauzálny diagnostický walkthrough
+
+Symptom: release artifact vytvorený z rovnakého source SHA má iný digest než predchádzajúci clean rebuild.
+
+### Krok 1 — stabilizuj oba execution subjects
+
+```text
+source SHA S42
+resolved config C19
+job build_release
+attempts A1 a A2
+runner pools/pool revisions
+worker image a helper digests
+architecture
+toolchain/cache inputs
+```
+
+### Krok 2 — formuluj konkurenčné hypotézy
+
+```text
+H1: source alebo resolved CI config sa líši
+H2: worker/helper image alebo toolchain driftoval
+H3: cache/workspace priniesli skrytý input
+H4: build je intrinsically nondeterministic
+H5: artifact patrí inému job attemptu alebo platforme
+H6: runner host bol kompromitovaný
+```
+
+### Krok 3 — vyber diskriminačné observation points
+
+- source/config digests testujú H1;
+- worker/helper/toolchain inventory testuje H2;
+- clean build bez cache a nový worker testujú H3;
+- opakované clean builds na rovnakom subjecte testujú H4;
+- artifact manifest, attempt a architecture testujú H5;
+- host integrity, audit a cross-job timeline testujú H6.
+
+Atlas zistí, že A1 bežal na persistentnom pool-e s mutable toolchain image-om, A2 na pinned ephemeral workerovi. Clean rebuild na A2 je stabilný; H2/H3 sú podporené.
+
+### Krok 4 — contain-ni supply-chain boundary
+
+Publication a deployment D42 sa zastavia. Persistentný pool sa pause-ne a artifacts z affected windowu sa označia ako nedôveryhodné.
+
+### Krok 5 — obnov dôveryhodný outcome
+
+Release sa znovu buildne z rovnakého source a resolved configu na clean pinned workerovi. Tests, SBOM, provenance a podpis sa viažu na nový digest.
+
+### Krok 6 — vráť learning
+
+Finding sa mení na required runner-image provenance, clean-build comparison, zákaz mutable release poolu a gate, ktorý odmietne artifact bez execution subjectu.
+
+## 16. Runner upgrade a decommissioning
+
+Upgrade:
+
+```text
+pin novú runner/helper/worker revision
+→ canary pool
+→ reprezentatívne jobs každej trust class
+→ porovnanie failure signatures a digests
+→ rollout po vlnách
+→ rollback image/config
+```
+
+Decommissioning:
+
+```text
+stop new jobs
+→ drain/cancel active jobs
+→ revoke runner token a workload identities
+→ odstráň workers, caches a volumes
+→ zachovaj audit
+→ over, že runner už nie je eligible
+```
+
+Vypnutá VM bez revokácie a cloud cleanupu nie je dokončený decommissioning.
+
+## 17. Diagnostický runbook
+
+1. Urči pipeline, job, attempt a source/config subject.
+2. Rozlíš inclusion, eligibility, assignment a execution failure.
+3. Zostav runner scope, tags, protection a candidate pool inventory.
+4. Identifikuj manager, worker, executor, image, helper a architecture.
+5. Urči posledný úspešný lifecycle state: provisioning, prepare, script, publish alebo cleanup.
+6. Over cache/artifact inputs, credentials, network a resource limits.
+7. Formuluj selection, capacity, environment, script a cleanup hypotézy.
+8. Retry povoľ iba po klasifikácii a cleanup/reconciliation.
+9. Over output aj disposal a credential expiry.
+10. Zmeň finding na pool, provenance, resource alebo lifecycle control.
+
+## 18. Referenčné pravidlá
+
+- Runner je security a execution boundary, nie neutrálna compute kapacita.
+- Scope a tags vytvárajú candidate set, nie úplnú authorization policy.
+- Pooly sa oddeľujú podľa job capability a trustu.
+- Executor určuje isolation, shared state a cleanup failure modes.
+- Ephemeral worker je bezpečný iba pri dôveryhodnom bootstrap-e a disposal-e.
+- Worker, helper a toolchain identity patria do build provenance.
+- Protected runner nechráni pred trusted-ref code alebo mutable include compromise-om.
+- Script success bez outputs alebo cleanupu môže byť incomplete verdict.
+- Retry nasleduje po failure klasifikácii a reconciliation.
+- Compromise response zahŕňa artifacts, credentials, registry aj deployments.
+
+## 19. Časté omyly
+
+### „Container runner izoluje host“
+
+Shared kernel, privileged mode, host mounts a socket môžu isolation zrušiť.
+
+### „Protected runner je bezpečný pre secrets“
+
+Stále závisí od pipeline kódu, includes, hosta, identity a egressu.
+
+### „Ephemeral znamená clean“
+
+Worker môže vzniknúť z kompromitovaného image-u alebo zdieľať volume.
+
+### „Job prešiel, cleanup už nie je dôležitý“
+
+Orphan runtime alebo credential ponecháva otvorenú capability.
+
+### „Tag `release` garantuje správny pool“
+
+Treba overiť celý eligible set a effective worker properties.
+
+## 20. Zhrnutie
+
+Dôveryhodný Atlas runner lifecycle je:
+
+```text
+job trust class
+→ presný eligible pool
+→ identified manager/worker/executor
+→ pinned effective runtime subject
+→ explicitné source/artifact/cache/identity inputs
+→ bounded execution
+→ complete outputs
+→ verified cleanup a disposal
+→ provenance a lifecycle learning
+```
+
+Runner troubleshooting sa nekončí otázkou, či je worker online. Musí nájsť prvý state transition, ktorý sa neuskutočnil správne, oddeliť user-code failure od execution-boundary failure a overiť nielen výsledok scriptu, ale aj dôveryhodnosť outputs a uzavretie runtime capability.
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
