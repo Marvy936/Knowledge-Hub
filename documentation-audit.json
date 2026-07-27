@@ -1823,15 +1823,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
       "title": "Terraform state",
-      "words": 1650,
-      "headings": 43,
-      "sections": 43,
-      "findings": 84,
-      "critical": 33,
-      "high": 35,
-      "medium": 12,
-      "low": 4,
-      "score": 718,
+      "words": 2170,
+      "headings": 36,
+      "sections": 36,
+      "findings": 65,
+      "critical": 18,
+      "high": 22,
+      "medium": 10,
+      "low": 15,
+      "score": 446,
       "grade": "D"
     },
     {
@@ -99119,44 +99119,62 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "1. Prečo Terraform potrebuje state",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "1. Prečo Terraform potrebuje state",
-      "line": 7,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "1. Prečo Terraform potrebuje state",
-      "line": 7,
+      "section": "3. Resource binding ako ownership record",
+      "line": 65,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý objekt má aktualizovať,`, `ktorý objekt už existuje,`, `ktoré instances patria ku count alebo for each ,`, `ktoré objekty boli presunuté medzi adresami,`.",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider configuration address a target identity;`, `provider-specific remote object ID;`, `známe attributes a schema metadata.`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "1. Prečo Terraform potrebuje state",
-      "line": 7,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "4. Snapshot, lineage a serial",
+      "line": 86,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource bindings;`, `známe attributes a outputs;`, `provider associations;`, `Terraform/state format metadata;`.",
+      "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "1. Prečo Terraform potrebuje state",
-      "line": 7,
+      "section": "4. Snapshot, lineage a serial",
+      "line": 86,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "5. Refresh mení poznanie, nie intent",
+      "line": 109,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "5. Refresh mení poznanie, nie intent",
+      "line": 109,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manuálne zmenený firewall rule;`, `chýbajúci remote objekt;`, `platformou normalizovanú hodnotu;`, `attribute zmenený iným controllerom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "5. Refresh mení poznanie, nie intent",
+      "line": 109,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "5. Refresh mení poznanie, nie intent",
+      "line": 109,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -99164,35 +99182,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "3. Resource binding",
-      "line": 47,
+      "section": "8. Worked failure: remote create uspel, binding sa nezapísal",
+      "line": 168,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 39 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "4. State snapshot",
-      "line": 68,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "4. State snapshot",
-      "line": 68,
-      "severity": "critical",
+      "section": "8. Worked failure: remote create uspel, binding sa nezapísal",
+      "line": 168,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform/state format version,`, `lineage,`, `serial,`, `outputs,`.",
-      "score": 12
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastaviť ďalších writers;`, `overiť latest backend lineage/serial;`, `ak binding chýba, importovať alebo obnoviť správny snapshot;`, `vytvoriť čerstvý plan;`.",
+      "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "4. State snapshot",
-      "line": 68,
+      "section": "8. Worked failure: remote create uspel, binding sa nezapísal",
+      "line": 168,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -99200,395 +99209,89 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "7. Local state",
-      "line": 98,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `učenie,`, `izolovaný experiment,`, `jedného operátora bez collaboration požiadaviek.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "7. Local state",
-      "line": 98,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "8. State môže obsahovať secrets",
-      "line": 116,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "8. State môže obsahovať secrets",
-      "line": 116,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `generated passwords,`, `connection strings,`, `private keys,`, `tokens,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "8. State môže obsahovať secrets",
-      "line": 116,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "8. State môže obsahovať secrets",
-      "line": 116,
+      "section": "8. Worked failure: remote create uspel, binding sa nezapísal",
+      "line": 168,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "8. State môže obsahovať secrets",
-      "line": 116,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "9. Refresh",
-      "line": 140,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "9. Refresh",
-      "line": 140,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manuálne zmenený argument,`, `chýbajúci remote objekt,`, `platformou zmenený computed attribute,`, `novú normalizovanú hodnotu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "9. Refresh",
-      "line": 140,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "10. Drift",
-      "line": 153,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "10. Drift",
-      "line": 153,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "10. Drift",
-      "line": 153,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vrátiť remote objekt ku konfigurácii,`, `adoptovať platformovú normalized hodnotu bez zmeny,`, `znovu vytvoriť chýbajúci objekt,`, `nahradiť objekt pri nekompatibilnej zmene.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "10. Drift",
-      "line": 153,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "13. State commands",
-      "line": 202,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "13. State commands",
-      "line": 202,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "13. State commands",
-      "line": 202,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backup,`, `exclusive lock,`, `peer review,`, `presný source/target address,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "13. State commands",
-      "line": 202,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "14. terraform state list",
-      "line": 234,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "14. terraform state list",
-      "line": 234,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "14. terraform state list",
-      "line": 234,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `overenie správneho workspace/backendu,`, `nájdenie module paths,`, `príprava state mv ,`, `diagnostika missing bindingu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "14. terraform state list",
-      "line": 234,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "15. terraform state show",
-      "line": 251,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "16. terraform state mv",
-      "line": 261,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `refactor resource name,`, `presun do module,`, `zmena instance address.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "16. terraform state mv",
-      "line": 261,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "18. terraform state pull a push",
-      "line": 289,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "18. terraform state pull a push",
-      "line": 289,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav všetky applies,`, `získaj lock,`, `over lineage a serial,`, `vytvor backup remote state,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "18. terraform state pull a push",
-      "line": 289,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "19. Manuálna editácia JSON",
-      "line": 311,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "19. Manuálna editácia JSON",
-      "line": 311,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "19. Manuálna editácia JSON",
-      "line": 311,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poškodená schema,`, `nesprávny serial/lineage,`, `stratené provider metadata,`, `citlivé údaje v editor backupoch,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "19. Manuálna editácia JSON",
-      "line": 311,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "20. State boundaries",
-      "line": 332,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "20. State boundaries",
-      "line": 332,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "20. State boundaries",
-      "line": 332,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatný lock,`, `samostatný blast radius,`, `samostatné permissions,`, `samostatný plan/apply lifecycle,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "20. State boundaries",
-      "line": 332,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "20. State boundaries",
-      "line": 332,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "21. Workspaces",
-      "line": 351,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatné accounts/subscriptions,`, `oddelené credentials,`, `environment-specific policy,`, `odlišné module composition,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "21. Workspaces",
-      "line": 351,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "21. Workspaces",
-      "line": 351,
+      "section": "8. Worked failure: remote create uspel, binding sa nezapísal",
+      "line": 168,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "21. Workspaces",
-      "line": 351,
+      "section": "8. Worked failure: remote create uspel, binding sa nezapísal",
+      "line": 168,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "22. Cross-state dependencies",
-      "line": 365,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "11. State surgery protocol",
+      "line": 232,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "22. Cross-state dependencies",
-      "line": 365,
+      "section": "12. State boundaries a blast radius",
+      "line": 271,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 54 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "12. State boundaries a blast radius",
+      "line": 271,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend availability,`, `state permissions,`, `output schema,`, `producer apply cadence.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lock a writer queue;`, `plan/apply lifecycle;`, `apply permission scope;`, `recovery unit;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "22. Cross-state dependencies",
-      "line": 365,
+      "section": "12. State boundaries a blast radius",
+      "line": 271,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "12. State boundaries a blast radius",
+      "line": 271,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `blast radius`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "14. Cross-state contracts",
+      "line": 306,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend availability a permissions;`, `producer output schema;`, `producer apply cadence;`, `potenciálne širší snapshot access, než potrebuje.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "14. Cross-state contracts",
+      "line": 306,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -99596,8 +99299,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "22. Cross-state dependencies",
-      "line": 365,
+      "section": "14. Cross-state contracts",
+      "line": 306,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "14. Cross-state contracts",
+      "line": 306,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
@@ -99605,8 +99317,44 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "23. State backup a recovery",
-      "line": 378,
+      "section": "15. Secrets a state access",
+      "line": 319,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "15. Secrets a state access",
+      "line": 319,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encryption in transit a at rest;`, `narrowly scoped read/write identities;`, `audit;`, `versioning a retention;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "15. Secrets a state access",
+      "line": 319,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "15. Secrets a state access",
+      "line": 319,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "17. Kauzálny diagnostický walkthrough",
+      "line": 350,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -99614,89 +99362,53 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "23. State backup a recovery",
-      "line": 378,
+      "section": "Krok 1 — stabilizuj subject",
+      "line": 354,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "23. State backup a recovery",
-      "line": 378,
+      "section": "Krok 2 — konkurenčné hypotézy",
+      "line": 365,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend versioning,`, `retention,`, `immutable alebo chránené backups,`, `restore procedure,`.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "23. State backup a recovery",
-      "line": 378,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 377,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "24. State loss",
-      "line": 401,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "24. State loss",
-      "line": 401,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obnoviť backend snapshot,`, `obnoviť lokálny backup,`, `importovať existujúce objekty,`, `rekonštruovať bindings po častiach,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "24. State loss",
-      "line": 401,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "25. State corruption",
-      "line": 415,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "25. State corruption",
-      "line": 415,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 377,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "25. State corruption",
-      "line": 415,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 377,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `invalid JSON alebo schema,`, `provider address mismatch,`, `duplicate bindings,`, `serial/lineage konflikt,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend config, workspace a lineage testujú H1/H5;`, `before/after addresses a moved chain testujú H2;`, `instance key inventory testuje H3;`, `lock file a provider schema diff testujú H4;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "25. State corruption",
-      "line": 415,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 377,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -99704,8 +99416,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "25. State corruption",
-      "line": 415,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 377,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -99713,35 +99425,53 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "25. State corruption",
-      "line": 415,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`",
-      "score": 4
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 377,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "26. Provider upgrade a state",
-      "line": 436,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 377,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H5`, `H3`, `H4`, `H6`, `H7`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "Krok 5 — over pôvodný outcome",
+      "line": 392,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "Krok 5 — over pôvodný outcome",
+      "line": 392,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "26. Provider upgrade a state",
-      "line": 436,
+      "section": "Krok 5 — over pôvodný outcome",
+      "line": 392,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `downgrade nemusí rozumieť novému state formátu,`, `computed/default behavior sa zmení,`, `resource identity migration môže zlyhať,`, `nový provider navrhne unexpected diff.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký remote object inventory;`, `nový state serial;`, `správne resource addresses a bindings;`, `nezmenený traffic a health;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "26. Provider upgrade a state",
-      "line": 436,
+      "section": "Krok 5 — over pôvodný outcome",
+      "line": 392,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -99749,17 +99479,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "26. Provider upgrade a state",
-      "line": 436,
+      "section": "Krok 5 — over pôvodný outcome",
+      "line": 392,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "27. Deletion remote objektu mimo Terraformu",
-      "line": 449,
+      "section": "Krok 6 — skorší control",
+      "line": 402,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -99767,26 +99497,44 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "27. Deletion remote objektu mimo Terraformu",
-      "line": 449,
+      "section": "18. Diagnostický runbook",
+      "line": 406,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "18. Diagnostický runbook",
+      "line": 406,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "18. Diagnostický runbook",
+      "line": 406,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "27. Deletion remote objektu mimo Terraformu",
-      "line": 449,
-      "severity": "critical",
+      "section": "18. Diagnostický runbook",
+      "line": 406,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či deletion bola zámerná,`, `či objekt má byť odstránený aj z konfigurácie,`, `či recreation nestratí data/identity,`, `či dependents zostali konzistentné.`.",
-      "score": 12
+      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Identifikuj backend, workspace, lineage, serial a configuration revisi`, `Oddeľ desired, known a actual state.`, `Over latest snapshot a lock/writer timeline.`, `Zastav ďalších writers pri nejasnej integrite.`.",
+      "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "27. Deletion remote objektu mimo Terraformu",
-      "line": 449,
+      "section": "18. Diagnostický runbook",
+      "line": 406,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -99794,17 +99542,125 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "27. Deletion remote objektu mimo Terraformu",
-      "line": 449,
+      "section": "18. Diagnostický runbook",
+      "line": 406,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "18. Diagnostický runbook",
+      "line": 406,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "18. Diagnostický runbook",
+      "line": 406,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "18. Diagnostický runbook",
+      "line": 406,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "State commitnutý do Git-u",
-      "line": 462,
+      "section": "19. Referenčné pravidlá",
+      "line": 419,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 419,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 419,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 419,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 419,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 419,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 419,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 419,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `Resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "20. Časté omyly",
+      "line": 433,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
+      "section": "„State je iba cache, môžeme ho zmazať“",
+      "line": 435,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -99812,8 +99668,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "Jeden state pre celú organizáciu",
-      "line": 466,
+      "section": "„Vyšší serial je vždy správny“",
+      "line": 439,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -99821,8 +99677,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "Pravidelný manuálny state push",
-      "line": 470,
+      "section": "„ state rm odstráni infraštruktúru“",
+      "line": 443,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -99830,8 +99686,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "state rm ako oprava každého driftu",
-      "line": 474,
+      "section": "„Backup sa dá obnoviť, lebo súbor existuje“",
+      "line": 447,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -99839,35 +99695,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "Workspace selection podľa manuálnej pamäti",
-      "line": 478,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "Backup bez restore testu",
-      "line": 482,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "Provider hlási unsupported state",
-      "line": 500,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md",
-      "section": "Output obsahuje starú hodnotu",
-      "line": 504,
+      "section": "„Plan po restore môžeme automaticky applynuť“",
+      "line": 451,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
