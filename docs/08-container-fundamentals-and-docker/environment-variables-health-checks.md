@@ -1,512 +1,595 @@
 # Environment variables a health checks
 
-Container image má zostať rovnaký naprieč prostrediami, zatiaľ čo runtime configuration sa dodáva pri vytvorení containeru. Environment variables sú jeden z najbežnejších configuration kanálov. Health check je samostatný runtime contract, ktorým Docker periodicky overuje, či process poskytuje očakávanú základnú schopnosť. Ani jeden mechanizmus nie je automaticky vhodný pre secrets, service discovery alebo plnohodnotné production readiness rozhodovanie.
+Environment variables a health checks riešia dve odlišné runtime otázky:
 
-## 1. Build-time a runtime configuration
+1. **S akou effective configuration process skutočne vznikol a čo načítal?**
+2. **Akú schopnosť process v danom čase preukázal a z ktorého observation pointu?**
+
+Ani resolved Compose YAML, ani status `healthy` samy osebe nepreukazujú správny production outcome.
+
+Dominantný lifecycle:
+
+```text
+configuration intent a schema
+→ source inventory a precedence
+→ resolved configuration subject
+→ container create snapshot
+→ startup validation a secret/identity resolution
+→ process-loaded effective state
+→ health-probe subject a execution
+→ health history a readiness decision
+→ external/client-path verification
+→ configuration rotation, recreate, rollback alebo recovery
+```
+
+Configuration a health evidence musia patriť rovnakému container, image, project a runtime generation.
+
+## 1. Atlas scenár
+
+Atlas Payments release používa:
+
+```text
+image digest: payments-api@sha256:I44
+Compose project: atlas-payments-prod
+container generation: CG-203
+configuration schema: CFG-v9
+configuration epoch: CE-118
+secret epoch: SE-52
+expected DB target: payments-prod-db:5432
+runtime mode: production
+process-loaded configuration digest: RC-118
+healthcheck version: HC-v4
+health generation: HG-992
+```
+
+Configuration sources:
+
+```text
+image ENV defaults
+compose.production.yaml
+env_file: config/production.env
+CI-provided interpolation values
+runtime secret file
+application defaults
+```
+
+Úspešný outcome:
+
+- všetky required fields prejdú schema validation;
+- process načíta production DB identity, nie iba syntakticky validnú URL;
+- secrets majú správnu epoch a nie sú vypísané do evidence;
+- healthcheck overí lacnú lokálnu schopnosť procesu;
+- external synthetic request overí skutočný client path;
+- zmena configuration vytvorí novú container/process generation;
+- rollback vie obnoviť kompatibilný config aj secret subject.
+
+## 2. Configuration subject
+
+Rekonštruovateľný subject obsahuje:
+
+```text
+image digest a image ENV defaults
+Compose files/includes/overrides a digests
+project directory a project name
+interpolation environment source
+runtime env_file sources a digests
+explicit service environment
+CLI overrides
+mounted config/secret identities a epochs
+application schema/default version
+container ID a creation time
+process-loaded config digest/epoch
+```
+
+Bez source inventory môže rovnaký názov `DATABASE_URL` pochádzať z piatich vrstiev a reviewer nevie, ktorá hodnota vyhrala.
+
+## 3. Build-time a runtime configuration
 
 Rozlišuj:
 
-- `ARG` — build-time parameter,
-- Dockerfile `ENV` — default environment uložené v image configuration,
-- `docker run --env` alebo `--env-file` — runtime override,
-- Compose interpolation — zostavenie Compose modelu,
-- Compose `environment` a `env_file` — environment odovzdané procesu v containeri,
-- mounted configuration file,
-- runtime secret provider alebo workload identity.
-
-Rovnaký názov môže existovať v niekoľkých vrstvách. Bez explicitného ownershipu je ťažké určiť výslednú hodnotu.
-
-## 2. Dockerfile `ENV`
-
-```dockerfile
-ENV APP_PORT=8080
-ENV APP_MODE=production
-```
-
-Hodnoty:
-
-- sú súčasťou image configuration,
-- dedia ich neskoršie build stages, pokiaľ ich nezmeníš,
-- dostane ich runtime container ako defaults,
-- možno ich prepísať pri vytvorení containeru,
-- môžu byť viditeľné cez image/container inspection.
-
-Do `ENV` nepatria reálne passwords, API tokens ani private keys.
-
-## 3. Runtime environment cez CLI
-
-Explicitná hodnota:
-
-```bash
-docker run --env APP_MODE=staging example:1
-```
-
-Prenesenie hodnoty z client shellu:
-
-```bash
-export APP_MODE=staging
-docker run --env APP_MODE example:1
-```
-
-Environment file:
-
 ```text
-APP_MODE=staging
-APP_PORT=8080
+Dockerfile ARG
+→ build execution input; nie runtime config ani secret mechanism
+
+Dockerfile ENV
+→ default uložený v image configuration
+
+Compose interpolation
+→ tvorí resolved Compose model
+
+Compose environment/env_file
+→ vstup do container process environmentu
+
+mounted config/secret
+→ filesystem-based runtime input
+
+application default
+→ interný fallback, často posledná precedence vrstva
 ```
 
-```bash
-docker run --env-file runtime.env example:1
-```
-
-Environment file má byť:
-
-- mimo image-u,
-- mimo Git repository, ak obsahuje citlivé hodnoty,
-- s kontrolovanými permissions,
-- versionovaný iba pri necitlivej configuration,
-- validovaný pred deploymentom.
-
-## 4. Unset, empty a missing values
-
-Tieto stavy nie sú rovnaké:
-
-```text
-VARIABLE nie je definovaná
-VARIABLE=
-VARIABLE=explicit-value
-```
-
-Application musí mať jasný contract:
-
-- ktoré hodnoty sú required,
-- ktoré majú bezpečný default,
-- či empty string znamená validnú hodnotu alebo chybu,
-- ako sa validuje type, range a format,
-- či zlyhá fast pri neplatnej konfigurácii.
-
-Tiché použitie nebezpečného defaultu je horšie než explicitný startup failure.
-
-## 5. Compose interpolation vs. container environment
-
-Compose interpolation nahrádza `${VARIABLE}` pri vytváraní výsledného Compose modelu:
+Hodnota použitá na interpolation sa automaticky nestáva environmentom procesu:
 
 ```yaml
 services:
-  app:
-    image: example:${IMAGE_TAG}
+  api:
+    image: payments-api:${IMAGE_TAG}
     ports:
       - "${HOST_PORT}:8080"
 ```
 
-To neznamená, že `IMAGE_TAG` alebo `HOST_PORT` automaticky existujú vo vnútri containeru.
+`IMAGE_TAG` a `HOST_PORT` formujú model. Do procesu vstúpia iba vtedy, ak sú samostatne deklarované v `environment` alebo inom runtime kanáli.
 
-Container environment sa deklaruje samostatne:
+## 4. Source precedence a provenance
 
-```yaml
-services:
-  app:
-    image: example:${IMAGE_TAG}
-    environment:
-      APP_MODE: ${APP_MODE}
-      APP_PORT: "8080"
+Effective value nie je iba výsledný string. Potrebuje provenance:
+
+```text
+field name
+source layer a path
+source generation/digest
+precedence reason
+sensitive marker
+default/null/empty semantics
+validation verdict
 ```
 
-Resolved model over:
+Compose precedence môže zahŕňať explicitné CLI values, interpolated `environment`, literal `environment`, `env_file`, image `ENV` a application defaults. Presný resolved model over nástrojom, nie pamäťou:
 
 ```bash
 docker compose config
 docker compose config --environment
 ```
 
-Pred produkčným deploymentom archivuj alebo porovnaj resolved configuration bez secrets.
+Resolved output môže obsahovať secrets. Pre evidence publikuj redacted manifest s názvami, source identities, epochs a hashes, nie plaintext values.
 
-## 6. Compose `environment`
+## 5. Missing, empty, default a invalid
 
-Mapping forma:
-
-```yaml
-services:
-  app:
-    environment:
-      APP_MODE: production
-      APP_DEBUG: "false"
-```
-
-List forma:
-
-```yaml
-services:
-  app:
-    environment:
-      - APP_MODE=production
-      - APP_DEBUG=false
-```
-
-Mapping je zvyčajne čitateľnejší. Pri booleans a číslach používaj quotes, ak application očakáva string a YAML typing by mohol zmeniť interpretáciu.
-
-## 7. Compose `env_file`
-
-```yaml
-services:
-  app:
-    env_file:
-      - ./config/common.env
-      - ./config/production.env
-```
-
-Neskorší source môže prepísať skorší podľa Compose semantics. `environment` má typicky vyššiu prioritu než hodnoty z `env_file`.
-
-`env_file` pre runtime environment nepleť s project `.env` file používaným pre Compose interpolation.
-
-Prakticky môžu existovať dva odlišné súbory:
+Tieto states sú odlišné:
 
 ```text
-.env                         # Compose interpolation
-config/application.env       # environment procesu v containeri
+FIELD nie je definovaný
+FIELD=
+FIELD=explicit-value
+FIELD používa application default
+FIELD je syntakticky prítomný, ale semanticky nesprávny
 ```
 
-## 8. Precedence
+Schema musí definovať:
 
-Výsledná runtime hodnota môže pochádzať z:
+- required/optional;
+- type a range;
+- allowed enum;
+- empty/null semantics;
+- cross-field constraints;
+- environment-specific restrictions;
+- deprecated aliases;
+- fail-open alebo fail-closed behavior.
 
-1. explicitného CLI override,
-2. Compose `environment`,
-3. Compose `env_file`,
-4. image `ENV`,
-5. application defaultu.
+Production application nemá potichu prejsť na `localhost`, staging endpoint alebo debug mode pri missing required value.
 
-Presné Compose precedence pravidlá závisia aj od toho, či hodnota vzniká interpolation alebo explicitným literalom. Preto sa nespoliehaj na pamäť; over resolved model a runtime environment.
+## 6. Startup validation
 
-```bash
-docker compose config
-docker compose run --rm app env
-```
-
-Pri druhom príkaze zabráň vypísaniu secrets do CI logu.
-
-## 9. Environment variables a secrets
-
-Environment variables môžu uniknúť cez:
-
-- `docker inspect`,
-- process inspection,
-- crash dump,
-- debug endpoint,
-- child process,
-- application log,
-- CI output,
-- support bundle.
-
-Pre citlivé hodnoty preferuj:
-
-- secret manager,
-- workload identity,
-- short-lived token,
-- mounted file s úzkymi permissions,
-- tmpfs alebo memory-backed delivery podľa threat modelu.
-
-Environment variable môže byť akceptovateľná pri vedomom riziku, ale nie je automaticky secret-safe.
-
-## 10. Configuration validation
-
-Application má pri štarte validovať:
-
-- required variables,
-- allowed enum values,
-- numeric ranges,
-- URL a address format,
-- file existence a permissions,
-- vzájomné constraints,
-- deprecated names,
-- neznáme alebo conflict hodnoty podľa policy.
-
-Príklad startup contractu:
+Process má pred readiness validovať napríklad:
 
 ```text
-APP_PORT: integer 1–65535
-APP_MODE: development | staging | production
-DATABASE_URL: required v staging/production
-TLS_CERT_PATH a TLS_KEY_PATH: musia existovať spolu
+APP_MODE == production
+APP_PORT je integer 1–65535
+DATABASE_URL patrí expected environmentu
+TLS_CERT_PATH a TLS_KEY_PATH existujú spolu
+secret epoch nie je expirovaná
+mounted file owner/mode je prijateľný
+žiadne conflict alebo deprecated fields
 ```
 
-Validation error má pomenovať configuration field, nie vypísať secret value.
+Validation error má pomenovať field a reason bez vypísania secretu. Invalid configuration je configuration verdict, nie dôvod na nekonečný restart loop.
 
-## 11. Runtime reload vs. recreate
+## 7. Process environment je create-time snapshot
 
-Environment procesu sa po jeho spustení bežne nemení. Zmena runtime environment preto typicky vyžaduje:
-
-1. vytvoriť nový container configuration,
-2. zastaviť alebo nahradiť starú inštanciu,
-3. spustiť novú inštanciu,
-4. overiť health a application behavior.
-
-Ak application potrebuje dynamic configuration, použi explicitný reload alebo configuration service contract. Nečakaj, že zmena host `.env` súboru automaticky zmení už bežiaci process.
-
-## 12. Health status model
-
-Container môže byť z pohľadu healthchecku:
-
-- `starting`,
-- `healthy`,
-- `unhealthy`,
-- bez healthchecku.
-
-Process state a health state sú odlišné:
+Container process dostane environment pri create/start. Zmena `.env`, shell variable alebo env file na hoste bežne nezmení už bežiaci process:
 
 ```text
-container running + healthy
-container running + unhealthy
-container exited
+host source sa zmení
+→ existujúci container config zostáva rovnaký
+→ process environment zostáva rovnaký
+→ iba nový create/recreate môže dostať novú hodnotu
 ```
 
-`running` znamená, že PID 1 žije. Neznamená to, že application prijíma requests alebo má dostupnú dependency.
+Preto configuration rollout potrebuje:
 
-## 13. Dockerfile `HEALTHCHECK`
+```text
+new resolved subject
+→ compare s active container subjectom
+→ create/recreate
+→ startup validation
+→ process-loaded verification
+→ health/readiness
+→ traffic acceptance
+→ retirement starej generation
+```
+
+## 8. Secret delivery boundary
+
+Environment values môžu uniknúť cez:
+
+- container inspection;
+- process/proc inspection;
+- child processes;
+- crash dumps;
+- debug endpoints;
+- application logs;
+- CI output/support bundles;
+- healthcheck output.
+
+Preferuj short-lived workload identity alebo mounted secret s úzkym scope-om, ak platforma a threat model dovoľujú. Názov `secret` alebo env file mimo Git-u automaticky nerieši rotation, revocation, audit ani plaintext exposure.
+
+Secret evidence má používať logical ID a epoch:
+
+```text
+payments-db-password / SE-52 / loaded=true / plaintext omitted
+```
+
+## 9. Process-loaded effective state
+
+Container inspection ukazuje create configuration, nie nevyhnutne to, čo application reálne načítala. Application môže:
+
+- ignorovať field;
+- čítať iný config file;
+- použiť interný default;
+- načítať stale cached value;
+- zlyhať pri secret resolution a pokračovať v degraded režime;
+- reloadnúť config neskôr.
+
+Silnejší verifier publikuje non-secret runtime identity:
+
+```text
+configuration epoch
+database logical target
+enabled feature-set digest
+secret epoch
+loaded-at timestamp
+application version
+```
+
+To odlišuje **declared**, **container-configured** a **process-loaded** state.
+
+## 10. Health subject
+
+Healthcheck subject obsahuje:
+
+```text
+container ID/generation a image digest
+healthcheck source a version
+command/exec form
+runtime UID/GID, environment a PATH
+working directory a filesystem dependencies
+network namespace a target endpoint
+interval/timeout/retries/start period
+output-redaction contract
+health history timestamps/verdicts
+```
+
+Manuálny command spustený ako root v interactive shelli nie je rovnaký subject ako automatický healthcheck pod runtime userom.
+
+## 11. Process state, health a readiness
+
+```text
+created
+running
+starting
+healthy
+unhealthy
+exited
+ready pre traffic
+business-correct
+```
+
+Sú to odlišné axes. `running` znamená, že PID 1 žije. Docker `healthy` znamená, že zvolený command opakovane vrátil success podľa timing policy. Ani jedno automaticky neznamená, že reálny klient úspešne dokončí payment request.
+
+## 12. Liveness, readiness, startup a dependency health
+
+Koncepty:
+
+- **liveness** — process dokáže pokračovať;
+- **startup** — inicializácia ešte prebieha alebo skončila;
+- **readiness** — instance má prijímať traffic;
+- **dependency health** — vzdialená služba odpovedá;
+- **business correctness** — kritický user outcome funguje.
+
+Standalone Docker health status je jeden channel. Preto vedome vyber, ktorú schopnosť reprezentuje, a zvyšné oracles rieš deployment/controller/external monitoring vrstvou.
+
+## 13. Healthcheck command a runtime context
 
 Exec forma:
 
 ```dockerfile
 HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
-  CMD ["/usr/local/bin/healthcheck"]
+  CMD ["/usr/local/bin/payments-api", "healthcheck"]
 ```
 
-Shell forma:
+Health executable musí:
 
-```dockerfile
-HEALTHCHECK CMD curl --fail http://127.0.0.1:8080/health || exit 1
+- existovať v final image;
+- fungovať pod runtime userom;
+- mať bounded timeout;
+- nevyžadovať secret output;
+- vracať truthful exit status;
+- nezaťažovať application neprimerane.
+
+Shell forma pridáva shell parsing, PATH a quoting boundary. Celý debug toolchain nepridávaj iba kvôli healthchecku.
+
+## 14. Timing a hysterézia
+
+Parametre:
+
+```text
+interval
+timeout
+retries
+start_period
+start_interval, ak je podporovaný
 ```
 
-Exec forma odstraňuje implicitný shell a býva predvídateľnejšia. Healthcheck executable musí byť súčasťou image-u a musí fungovať pod runtime userom.
+Musia vychádzať z reálneho startup a response-time distribution. Príliš agresívna probe vytvorí false unhealthy a load. Príliš voľná odďaľuje detection.
 
-## 14. Healthcheck exit status
+Health transition je hysterézny state machine, nie jeden request:
 
-Health command používa exit code:
+```text
+starting
+→ success → healthy
+→ consecutive failures → unhealthy
+→ later success → healthy
+```
 
-- `0` — success/healthy,
-- `1` — failure/unhealthy,
-- `2` — rezervovaný význam; nepoužívaj ako bežný stav.
+## 15. Čo má healthcheck overovať
 
-Output commandu sa môže uložiť do health history a zobraziť cez inspection. Nevypisuj doň credentials alebo response bodies s citlivými dátami.
+Dobrý local check overuje lacnú schopnosť, ktorú application vlastní:
 
-## 15. Timing parameters
+- event loop/worker reaguje;
+- local HTTP/socket endpoint odpovedá;
+- required local config bol načítaný;
+- process vie vykonať malú internú operáciu.
 
-Dôležité parametre:
+Nepripájaj bez rozmyslu celý vzdialený dependency graph. Ak analytická služba zlyhá a healthcheck označí API za dead, automatizácia môže reštartovať zdravé instances a zosilniť incident.
 
-- `interval` — čas medzi kontrolami,
-- `timeout` — maximálny čas jednej kontroly,
-- `retries` — počet po sebe idúcich failures pred `unhealthy`,
-- `start_period` — warm-up obdobie pre startup failures,
-- `start_interval` — interval počas startup obdobia, ak ho daná verzia podporuje.
+## 16. Health output ako exposure path
 
-Nastavenie musí vychádzať z reálneho startup a response-time profilu.
+Docker uchováva health history a output inspectom. Probe nesmie vypísať:
 
-Príliš agresívny healthcheck spôsobuje false failures a load. Príliš pomalý odďaľuje detection.
+- authorization headers;
+- connection strings;
+- response bodies s osobnými dátami;
+- secret values;
+- rozsiahle debug dumps.
 
-## 16. Čo healthcheck overovať
+Výstup má byť krátky, redacted a diagnosticky užitočný, napríklad error code a non-secret dependency ID.
 
-Dobrý container healthcheck overuje lacnú, lokálne relevantnú schopnosť, napríklad:
-
-- process odpovedá na local endpoint,
-- event loop nie je zaseknutý,
-- required local file/socket je použiteľný,
-- application vie vykonať minimálnu internú operáciu.
-
-Nemal by bez rozmyslu overovať celý external dependency graph. Ak healthcheck aplikácie zlyhá vždy pri výpadku vzdialenej analytickej služby, platforma môže zbytočne reštartovať zdravý process a zhoršiť incident.
-
-## 17. Liveness, readiness a startup
-
-Docker Engine má jeden všeobecný health status, nie plný Kubernetes model samostatných liveness, readiness a startup probes.
-
-Preto odlišuj koncepty:
-
-- **liveness** — process je schopný pokračovať,
-- **readiness** — inštancia má prijímať traffic,
-- **startup** — application ešte inicializuje,
-- **dependency health** — external service je dostupná.
-
-Jeden Docker healthcheck môže reprezentovať iba vedome zvolenú časť tohto contractu.
-
-## 18. Compose healthcheck
-
-Compose môže image healthcheck doplniť alebo prepísať:
+## 17. Compose `depends_on`
 
 ```yaml
 services:
-  app:
-    image: example:1
-    healthcheck:
-      test: ["CMD", "/usr/local/bin/healthcheck"]
-      interval: 30s
-      timeout: 3s
-      retries: 3
-      start_period: 20s
-```
-
-Image healthcheck možno podľa potreby vypnúť:
-
-```yaml
-services:
-  app:
-    healthcheck:
-      disable: true
-```
-
-Vypnutie musí mať odôvodnenie; inak sa stráca runtime evidence.
-
-## 19. `depends_on` a health
-
-Compose môže čakať na zdravú dependency:
-
-```yaml
-services:
-  app:
+  api:
     depends_on:
       db:
         condition: service_healthy
-
-  db:
-    image: postgres:17
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 3s
-      retries: 20
 ```
 
-Toto rieši startup ordering v Compose lifecycle. Nerieši trvalú dostupnosť dependency po štarte. Application stále potrebuje:
+Toto riadi startup ordering podľa observed condition. Nerieši:
 
-- connection retry,
-- timeout,
-- backoff,
-- circuit breaker alebo graceful degradation podľa use case,
-- reconnect po dependency replacement-e.
+- permanentnú availability DB;
+- reconnect po replacement-e;
+- runtime network partition;
+- retry/backoff;
+- transaction semantics;
+- application graceful degradation.
 
-## 20. Healthcheck a restart policy
+Application musí dependency failure zvládať aj po úspešnom štarte.
 
-Docker health status sám osebe všeobecne neznamená automatický restart unhealthy containeru v standalone Engine modeli. Restart policy sa typicky viaže na process exit, nie priamo na health status.
+## 18. Health a restart policy
 
-Ak požaduješ automatickú remediation, potrebuješ explicitný orchestrator alebo controller behavior. Externý script, ktorý bez limitu reštartuje každý unhealthy container, môže vytvoriť restart storm.
+Standalone Docker restart policy sa typicky viaže na process exit, nie priamo na `unhealthy`. Externý watchdog, ktorý bez limitu reštartuje unhealthy containers, môže vytvoriť restart storm.
 
-## 21. Healthcheck dependencies v image
+Remediation policy potrebuje:
 
-Ak healthcheck používa `curl`, `wget`, shell alebo database client, tieto tools musia byť v image. To môže zväčšiť attack surface.
-
-Alternatívy:
-
-- application binary s `healthcheck` subcommandom,
-- minimalistický statický helper,
-- built-in TCP/HTTP probe v orchestration vrstve,
-- external monitoring oddelený od image-u.
-
-Nekopíruj celý debugging toolchain iba kvôli jednej kontrole.
-
-## 22. Observability
-
-Health history:
-
-```bash
-docker inspect --format '{{json .State.Health}}' <container>
+```text
+health subject a confidence
+failure class
+restart budget/backoff
+stateful-side-effect risk
+traffic drain
+post-restart verification
+escalation threshold
 ```
 
-Status:
+## 19. External verification
 
-```bash
-docker ps
-docker inspect <container>
-docker events --filter container=<container>
+Local healthcheck dopĺňajú:
+
+- application metrics/logs/traces;
+- reverse-proxy/backend eligibility;
+- external synthetic request;
+- user-facing SLI;
+- dependency-specific telemetry;
+- exact deployed/configuration correlation.
+
+Local `healthy` pri blocked host port alebo wrong DNS nie je service success. External check zase nemá automaticky určovať liveness, ak failure leží v upstream proxy.
+
+## 20. Worked failure: stale shell override poslal production API na staging DB
+
+Pipeline shell mal exportované:
+
+```text
+DATABASE_URL=postgres://staging-db/payments
 ```
 
-Healthcheck dopĺňa, ale nenahrádza:
+Compose model obsahoval:
 
-- application logs,
-- metrics,
-- traces,
-- external synthetic checks,
-- user-facing SLI.
-
-Internal healthy status nepreukazuje, že service je dostupná z reálnej client path.
-
-## 23. Anti-patterny
-
-### Secret v image `ENV`
-
-Zostáva v image metadata a môže byť viditeľný inspectionom.
-
-### Rovnaký názov definovaný v piatich sources
-
-Výsledná hodnota je ťažko vysvetliteľná a review nevidí reálny runtime config.
-
-### Healthcheck iba `pgrep process`
-
-Overí existenciu procesu, nie schopnosť obslúžiť request.
-
-### Healthcheck volá vzdialenú dependency bez timeoutu
-
-Check sa zasekne alebo označí application za unhealthy kvôli cudziemu incidentu.
-
-### `depends_on` považovaný za permanentný dependency manager
-
-Rieši create/start ordering, nie celý runtime recovery lifecycle.
-
-### Healthcheck vypisuje response body
-
-Môže uložiť secrets alebo osobné dáta do inspectovateľnej history.
-
-### Zmena `.env` bez recreate
-
-Bežiaci process zostáva so starým environmentom.
-
-## 24. Troubleshooting
-
-### Application používa inú hodnotu než očakávaš
-
-Over:
-
-```bash
-docker compose config
-docker inspect <container>
-docker exec <container> env
+```yaml
+environment:
+  DATABASE_URL: ${DATABASE_URL}
 ```
 
-Pri secrets nepoužívaj neobmedzený výpis do logu.
+Production env file mal správnu hodnotu, ale explicitná interpolation z CI shellu vytvorila effective staging URL.
 
-### Variable je prázdna
+```text
+reviewer číta production.env
+→ pipeline shell má vyššie použitý source
+→ resolved Compose model obsahuje staging
+→ container validuje iba URL syntax
+→ healthcheck overí local HTTP endpoint
+→ release je healthy, ale zapisuje do staging DB
+```
 
-Rozlíš missing shell variable, interpolation warning, empty assignment, `env_file`, Compose override a image default.
+Recovery:
 
-### Container zostáva `starting`
+1. zastav writes a traffic;
+2. potvrď process-loaded DB logical identity a audit writes;
+3. odstráň ambient shell source;
+4. vyžaduj environment allowlist a production target assertion;
+5. recreate container s novou configuration generation;
+6. reconcile wrong-environment records;
+7. over business transaction a DB audit.
 
-Over `start_period`, duration checku, timeout, executable, permissions a application startup time.
+## 21. Worked failure: `.env` sa zmenil, container ostal na starej secret epoch
 
-### Container je `unhealthy`, ale endpoint funguje
+Operator aktualizoval env file na `SE-52`, ale neurobil recreate. Existujúci container vytvorený s `SE-51` pokračoval v prevádzke.
 
-Over network namespace, `localhost`, command path, shell quoting, authentication, expected status code a timeout.
+```text
+source file generation sa zmení
+→ container create config sa nemení
+→ process environment sa nemení
+→ secret provider revoke-ne SE-51
+→ application začne zlyhávať
+```
 
-### Healthcheck funguje manuálne ako root, ale nie automaticky
+Oprava je explicitný configuration rollout a loaded-epoch verifier, nie restart náhodného procesu bez kontroly subjectu.
 
-Automatický check beží v container context-e s runtime userom, environmentom, PATH a filesystem permissions.
+## 22. Worked failure: dependency-coupled health vytvoril restart storm
 
-### Dependency je healthy, application sa aj tak nepripojí
+API healthcheck volal vzdialenú analytics service bez timeoutu. Pri jej incidente checks timeoutovali, watchdog reštartoval všetky API containers a nové instances súčasne otvárali DB/cache connections.
 
-Over credentials, database name/schema, DNS cache, connection pool, TLS, application retry a semantic readiness dependency.
+```text
+cudzia dependency zlyhá
+→ local liveness je označená ako unhealthy
+→ broad restart remediation
+→ connection storm
+→ API incident sa rozšíri
+```
 
-## 25. Kontrolné otázky
+Healthcheck má rozlišovať local liveness od optional dependency statusu. Dependency evidence patrí do telemetry/readiness/degradation policy s bounded remediation.
 
-1. Aký je rozdiel medzi `ARG`, Dockerfile `ENV` a runtime environment?
-2. Ako sa líši Compose interpolation od environmentu procesu?
-3. Prečo environment variables nie sú ideálny secret channel?
-4. Ako overíš výsledný Compose model?
-5. Prečo zmena `.env` neovplyvní už spustený process?
-6. Aký je rozdiel medzi process state a health state?
-7. Čo znamenajú exit codes healthchecku?
-8. Ako sa líši liveness, readiness a startup?
-9. Čo `depends_on: condition: service_healthy` rieši a čo nerieši?
-10. Prečo unhealthy status automaticky nemusí reštartovať container?
+## 23. Causal walkthrough: container je healthy, ale používa nesprávnu configuration
+
+### Symptóm
+
+Atlas API má Docker status `healthy`, no produkčné requests používajú staging feature flags a DB endpoint.
+
+### Zafixuj subject
+
+```text
+image digest a image ENV
+Compose file/include/override digests
+project a CLI command
+interpolation environment generation
+env_file a mounted config identities
+container ID/create time
+redacted effective value provenance
+process-loaded config/secret epoch
+healthcheck version/history
+business request a downstream audit
+```
+
+### Competing hypotheses
+
+1. CI shell override vyhral nad production env file;
+2. Compose interpolation a runtime environment boli zamenené;
+3. override file prepísal `environment`;
+4. container nebol recreated po zmene source-u;
+5. image `ENV` alebo application default sa použil pri empty value;
+6. process číta iný mounted config path;
+7. secret/config service vrátila stale generation;
+8. healthcheck overuje iba PID/local endpoint;
+9. inspectuje sa iný project/container;
+10. application reloadla časť, ale nie celý config subject.
+
+### Discriminating observation points
+
+- exact `docker compose ... config` s rovnakými files/project/env;
+- redacted source/preference manifest;
+- container inspect create configuration;
+- process-loaded non-secret config endpoint/log;
+- mount IDs a config checksums;
+- container creation time vs. source modification time;
+- health command a history;
+- DB/feature-service audit podľa workload identity;
+- Engine events a recreate timeline.
+
+### Containment
+
+Odstráň instance z trafficu a zastav side-effect writes. Nevypisuj celý environment do incident logu. Zachovaj redacted provenance a downstream audit.
+
+### Recovery
+
+- wrong precedence → odstráň ambient source a explicitne definuj ownera;
+- empty/default fallback → fail-fast schema a production constraints;
+- stale container → create new generation, nie iba edit source;
+- wrong mount → oprav source/destination contract;
+- stale external config → refresh/rotate generation a audit identity;
+- shallow health → doplň loaded-config assertion a external business oracle.
+
+### Over pôvodný outcome
+
+Potvrď expected configuration a secret epoch, production downstream identities, successful business transaction a forbidden staging access. Health aj external verification musia patriť novej container generation.
+
+### Posuň control skôr
+
+Pridaj immutable/redacted configuration manifest, ambient-variable denylist, environment identity assertions, recreate-on-subject-change, process-loaded config endpoint a subject-bound health/external evidence.
+
+## 24. Referenčný source a health katalóg
+
+| Mechanizmus | Fáza | Hlavná failure boundary |
+|---|---|---|
+| Dockerfile `ARG` | build | cache/history/log exposure |
+| Image `ENV` | artifact default | stale alebo secret metadata |
+| Compose interpolation | model resolution | ambient shell/source precedence |
+| `environment` / `env_file` | container create | override, empty/default ambiguity |
+| Mounted config | runtime filesystem | wrong source/path/permissions/reload |
+| Secret provider/file | runtime identity | exposure, stale epoch, revocation |
+| Docker healthcheck | runtime observation | shallow oracle, wrong context/timing |
+| External synthetic | client-path observation | upstream failure misclassified as liveness |
+
+## 25. Praktické controls
+
+- definuj typed configuration schema a owners;
+- udržuj source/provenance inventory;
+- eliminuj ambient production overrides;
+- rozlišuj missing, empty a default;
+- publikuj redacted effective configuration manifest;
+- over process-loaded config a secret epochs;
+- recreate pri create-time configuration zmene;
+- nepoužívaj environment ako default secret channel;
+- viaž health evidence na container generation;
+- oddeľ liveness, readiness, startup a dependency health;
+- udržuj probe lacnú, bounded a redacted;
+- overuj critical outcome z external client pathu;
+- implementuj dependency retry/reconnect mimo `depends_on`;
+- obmedz remediation/restart budget.
+
+## 26. Kontrolné otázky
+
+1. Ako sa líši interpolation od environmentu procesu?
+2. Čo tvorí resolved configuration subject?
+3. Prečo výsledný string bez provenance nestačí?
+4. Ako sa líši missing, empty a application default?
+5. Prečo zmena env file-u neovplyvní existujúci process?
+6. Čo odlišuje declared, container-configured a process-loaded state?
+7. Čo tvorí healthcheck subject?
+8. Ako sa líši liveness, readiness, startup a dependency health?
+9. Prečo `healthy` nepreukazuje správny production DB target?
+10. Aké observation points odhalia stale container alebo ambient override?
 
 ## Glossary impact
 
-Relevantné pojmy: runtime configuration, Compose interpolation, container environment, environment precedence, required configuration, Docker healthcheck, health status, start period, liveness, readiness, startup health, health history a configuration recreate.
+Relevantné pojmy: runtime configuration subject, configuration source provenance, redacted effective configuration manifest, process-loaded configuration, configuration epoch, configuration recreate boundary, healthcheck subject, health generation, health remediation budget, dependency-coupled health failure a subject-bound runtime verification.
 
 ## Oficiálna dokumentácia
 
