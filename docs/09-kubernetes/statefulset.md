@@ -1,94 +1,137 @@
 # StatefulSet
 
-StatefulSet je Kubernetes workload controller pre skupinu Podov, ktoré nie sú navzájom úplne zameniteľné. Každej replike poskytuje stabilnú ordinal identity, predvídateľné network meno a možnosť viazať ju na vlastný persistent storage claim.
+StatefulSet je Kubernetes workload controller pre repliky, ktorých identita, dáta alebo poradie nie sú vzájomne zameniteľné. Jeho úloha nie je „spustiť databázu“, ale udržiavať stabilné **ordinal slots** a riadiť ich Pod, network a storage lifecycle.
 
-StatefulSet nerobí z ľubovoľnej aplikácie distribuovaný systém. Poskytuje identity a lifecycle primitives; replikácia dát, leader election, quorum, consistency, failover a backup zostávajú zodpovednosťou aplikácie alebo operátora.
+StatefulSet sám neposkytuje replikáciu dát, quorum, leader election, fencing, backup ani application-consistent failover. Tieto mechanizmy musí poskytovať aplikácia, operator alebo externá storage/platformová vrstva.
 
-## 1. Deployment vs. StatefulSet
-
-### Deployment
-
-- Pody sú zameniteľné,
-- identita konkrétnej repliky nie je stabilná,
-- rollout optimalizuje dostupnosť stateless služby,
-- storage je typicky shared/external alebo bez per-replica väzby.
-
-### StatefulSet
-
-- Pody majú stabilné ordinaly,
-- každá replika môže mať vlastné PVC,
-- creation, update a deletion môžu byť usporiadané,
-- aplikácia môže používať stabilnú per-replica network identity.
-
-StatefulSet používaj iba vtedy, keď workload tieto vlastnosti reálne potrebuje.
-
-## 2. Stabilná identita
-
-Pre StatefulSet `db` s tromi replikami vzniknú Pody:
+Dominantný lifecycle:
 
 ```text
-db-0
-db-1
-db-2
+stateful workload intent a membership contract
+→ StatefulSet UID, generation a revision
+→ stabilný ordinal slot
+→ per-ordinal DNS a storage identity
+→ ordered alebo parallel Pod realization
+→ application membership, role a fencing
+→ readiness a client-serving eligibility
+→ scale, update alebo replacement
+→ backup, restore a decommission
+→ data-retention a cleanup verdict
 ```
 
-Ordinal je súčasť identity. Ak `db-1` zanikne, náhradný Pod má opäť meno `db-1`, ale nový UID.
+Kľúčová diagnostická otázka nie je „koľko Podov beží?“, ale:
 
-Stabilné meno teda neznamená rovnaký Pod object alebo process. Znamená stabilnú logical slot identity.
+```text
+Ktorý ordinal, Pod UID, PVC/PV a application member predstavujú jednu repliku?
+Aká data, membership a fencing epoch je autoritatívna?
+Je replika iba Running, alebo je synchronized a bezpečne client-serving?
+```
 
-## 3. Headless Service
+## 1. Atlas scenár
 
-StatefulSet typicky používa headless Service:
+Atlas prevádzkuje trojčlenný ledger cluster:
+
+```text
+StatefulSet: production/ledger-db
+StatefulSet generation: 18
+application release: 15.4.2
+replicas: 3
+ordinals: ledger-db-0, ledger-db-1, ledger-db-2
+headless Service: ledger-db
+PVCs: data-ledger-db-0 .. data-ledger-db-2
+application members: member-0 .. member-2
+expected leader term: T884
+configuration generation: C52
+credential epoch: SE08
+```
+
+Acceptance contract:
+
+- každý ordinal používa svoj canonical PVC a backend volume;
+- existuje presne jeden aktívny leader pre term `T884` alebo novší;
+- aspoň dve synchronized replicas tvoria quorum;
+- readiness povoľuje client traffic iba client-serving memberom;
+- žiadny starý process alebo volume clone nesmie zapisovať bez platnej fencing epoch;
+- backup a restore patria k explicitnej data generation;
+- payment ledger append sa po recovery vykoná presne raz.
+
+## 2. StatefulSet subject
+
+Pre bezpečný rollout alebo incident zaznamenaj:
+
+```text
+cluster a namespace
+StatefulSet name, UID, generation a resourceVersion
+currentRevision a updateRevision
+replica count, podManagementPolicy a updateStrategy
+serviceName a headless Service UID/generation
+ordinal range a start ordinal, ak sa používa
+Pod names, UIDs, revisions, Nodes a IPs
+PVC UIDs, PV names, backend volume IDs a retention policy
+application member IDs, roles, terms a replication positions
+backup/restore lineage a data generation
+configuration, secret a image digests
+authoritative writer a fencing epoch
+```
+
+Meno `ledger-db-1` je stabilný logical slot. Nie je to lifetime identity processu. Replacement má rovnaké meno a ordinal, ale nový Pod UID, IP, sandbox a process generation.
+
+## 3. Ordinal slot
+
+Pri troch replikách vznikajú sloty:
+
+```text
+ordinal 0 → ledger-db-0
+ordinal 1 → ledger-db-1
+ordinal 2 → ledger-db-2
+```
+
+StatefulSet garantuje predvídateľné pomenovanie a väzbu lifecycle-u na ordinal. Aplikácia môže ordinal použiť ako vstup do membership konfigurácie, ale ordinal nie je bezpečný fencing token.
+
+Starý process `ledger-db-1` môže počas network partition pokračovať, zatiaľ čo control plane vytvorí replacement `ledger-db-1` inde. Bez application lease, term alebo storage fencing mechanizmu môžu oba procesy považovať rovnaký logical slot za aktívny.
+
+## 4. Network identity a headless Service
+
+StatefulSet používa `.spec.serviceName`, typicky odkaz na headless Service:
 
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: db
+  name: ledger-db
+  namespace: production
 spec:
   clusterIP: None
   selector:
-    app: db
+    app: ledger-db
   ports:
+    - name: peer
+      port: 7000
     - name: client
-      port: 5432
+      port: 7432
 ```
 
-StatefulSet:
-
-```yaml
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: db
-spec:
-  serviceName: db
-  replicas: 3
-  selector:
-    matchLabels:
-      app: db
-  template:
-    metadata:
-      labels:
-        app: db
-    spec:
-      containers:
-        - name: db
-          image: registry.example.com/db@sha256:...
-          ports:
-            - name: client
-              containerPort: 5432
-```
-
-Stabilná DNS identita môže vyzerať:
+Canonical peer meno môže byť:
 
 ```text
-db-0.db.<namespace>.svc.cluster.local
+ledger-db-1.ledger-db.production.svc.cluster.local
 ```
 
-DNS caching a negative caching môžu spôsobiť oneskorenie pri novo vzniknutých identitách. Aplikácia musí mať retry/discovery model.
+DNS poskytuje discovery, nie membership correctness. Rozlišuj:
 
-## 4. `volumeClaimTemplates`
+- DNS record generation;
+- Pod UID a IP za menom;
+- application member ID;
+- readiness/publication policy;
+- client alebo peer DNS cache;
+- negative caching po skorom lookup-e;
+- staré spojenie na replacement predchádzajúcu IP.
+
+Peer protocol musí overovať member identity a epoch, nie iba úspešné DNS resolution.
+
+## 5. Per-ordinal storage identity
+
+`volumeClaimTemplates` vytvára claim pre každý ordinal:
 
 ```yaml
 spec:
@@ -97,324 +140,376 @@ spec:
         name: data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: fast
+        storageClassName: fast-regional
         resources:
           requests:
-            storage: 20Gi
+            storage: 200Gi
 ```
 
-Každý Pod dostane vlastný claim, napríklad:
+Výsledok:
 
 ```text
-data-db-0
-data-db-1
-data-db-2
+ordinal 0 → PVC data-ledger-db-0 → PV pv-a17 → volume vol-a17
+ordinal 1 → PVC data-ledger-db-1 → PV pv-b24 → volume vol-b24
+ordinal 2 → PVC data-ledger-db-2 → PV pv-c31 → volume vol-c31
 ```
 
-Replacement Pod s rovnakým ordinalom sa pripojí k zodpovedajúcemu PVC, pokiaľ storage topology a attach semantics umožnia mount na novom Node-e.
+Replacement ordinalu sa má pripojiť k rovnakému canonical claimu. To však nepreukazuje:
 
-## 5. Storage nie je automatická HA
+- že volume obsahuje správnu data generation;
+- že filesystem je konzistentný;
+- že starý Node je bezpečne odpojený a fenced;
+- že restore nepochádza zo staršieho alebo cudzieho clusteru;
+- že application member metadata sú kompatibilné;
+- že volume je synchronized s quorum.
 
-Per-replica PVC neposkytuje automaticky:
+PVC `Bound` je storage-control-plane evidence. Nie je to application data acceptance verdict.
 
-- replikáciu medzi volumes,
-- konzistentný distributed database cluster,
-- leader election,
-- application-consistent backup,
-- regionálne failover,
-- fencing proti split-brain,
-- kompatibilný restore.
+## 6. Identity chain jednej repliky
 
-StatefulSet iba zachová mapovanie ordinal → claim identity.
+Pre ordinal `1` musí byť rekonštruovateľný chain:
 
-## 6. Pod management policy
+```text
+StatefulSet UID/generation
+→ ControllerRevision
+→ ordinal 1
+→ Pod UID
+→ Node UID
+→ PVC UID
+→ PV a backend volume ID
+→ filesystem/data generation
+→ application member ID
+→ membership term a fencing epoch
+→ readiness/client-serving verdict
+```
+
+Ak ktorákoľvek väzba patrí inej generation, stabilné meno môže zakryť nesprávny state.
+
+## 7. Ordered a parallel realization
 
 ### `OrderedReady`
 
-Default model typicky:
+Controller typicky:
 
-- vytvára Pody v rastúcom poradí,
-- čaká na Ready pred ďalším ordinalom,
-- scale-down vykonáva v opačnom poradí,
-- zachováva usporiadané lifecycle guarantees.
+```text
+vytvorí ordinal 0
+→ čaká na Ready
+→ vytvorí ordinal 1
+→ čaká na Ready
+→ vytvorí ordinal 2
+```
+
+Pri scale-down alebo rolling update používa opačné ordinal poradie podľa príslušnej transition semantics.
+
+Ordering je užitočný iba vtedy, keď readiness reprezentuje potrebný bootstrap invariant. Plytká TCP readiness môže povoliť ďalší ordinal pred synchronizáciou. Príliš široká readiness závislá od celého clusteru môže vytvoriť deadlock.
 
 ### `Parallel`
 
-```yaml
-spec:
-  podManagementPolicy: Parallel
+`Parallel` odstráni controller-level čakanie medzi ordinalmi. Neodstraňuje application-level ordering, membership alebo data-safety požiadavky.
+
+Použi ho iba vtedy, keď každá replika dokáže bezpečne bootstrapovať a ukončiť sa nezávisle.
+
+## 8. Application membership a quorum
+
+Kubernetes vidí Pods, conditions a storage objects. Nevidí automaticky:
+
+- leader/follower alebo primary/replica role;
+- committed log index;
+- replication lag;
+- quorum membership;
+- fencing term;
+- safe decommission;
+- on-disk format compatibility.
+
+Pre trojčlenný consensus cluster:
+
+```text
+3 Running Pods
+≠ 3 synchronized members
+≠ quorum
+≠ jeden bezpečný leader
+≠ client-serving cluster
 ```
 
-Umožňuje vytváranie alebo odstraňovanie Podov bez čakania na predchádzajúce ordinaly.
+Readiness a Service routing musia byť odvodené z application role a synchronization contractu. Peer discovery endpoint a client-serving endpoint môžu potrebovať odlišné publication pravidlá.
 
-Použi iba ak aplikácia nepotrebuje ordered bootstrap alebo termination.
+## 9. Update revisions
 
-## 7. Update strategies
+Relevantná zmena Pod template-u vytvára novú revision. Sleduj:
+
+```text
+StatefulSet generation
+currentRevision
+updateRevision
+Pod revision label per ordinal
+image/config/secret generation
+application protocol a storage format
+```
 
 ### `RollingUpdate`
 
-Controller postupne nahrádza Pody podľa ordinal orderu a readiness.
-
-```yaml
-spec:
-  updateStrategy:
-    type: RollingUpdate
-```
+Controller nahrádza ordinaly v definovanom poradí. Kubernetes overuje Pod readiness, nie mixed-version, quorum alebo downgrade safety.
 
 ### `OnDelete`
 
-```yaml
-spec:
-  updateStrategy:
-    type: OnDelete
+Template sa zmení, ale existujúci Pod ostáva na starej revision, kým ho operátor alebo automation explicitne nezmaže. Tento model je vhodný, keď application-aware runbook musí pred každým replacementom:
+
+- preniesť leadership;
+- potvrdiť quorum;
+- vytvoriť backup/checkpoint;
+- vykonať membership remove/add;
+- overiť on-disk migration;
+- rozhodnúť o pokračovaní.
+
+### Partition
+
+Partition udrží nižšie ordinaly na current revision a aktualizuje ordinaly od určenej hranice. Je to selection control, nie canary verdict. Controller nevie, či aktualizovaný ordinal používa správnu data generation alebo či klientská operácia prešla.
+
+## 10. Scale transition
+
+Scale-up pridáva nové ordinal slots. Scale-down odstraňuje najvyššie ordinaly, ale nevykonáva application decommission.
+
+Bezpečný scale-down:
+
+```text
+vyber ordinal
+→ presuň leadership a traffic
+→ drain-ni client work
+→ odstráň membera z quorum/configuration
+→ potvrď data placement a redundancy
+→ zastav Pod
+→ rozhodni o PVC retention
+→ over cluster a business outcome
 ```
 
-Template sa zmení, ale existujúce Pody sa nahradia až po ich ručnom alebo externom deletion-e.
+Samotné nastavenie `.spec.replicas` z `3` na `2` môže odstrániť Pod skôr, než application dokončí rebalance alebo membership transition.
 
-Použitie:
+## 11. PVC retention a deletion
 
-- aplikácia potrebuje explicitnú operátorskú koordináciu,
-- update musí nasledovať application-level failover postup,
-- automatický ordered rollout nie je bezpečný.
+Rozlišuj lifecycle:
 
-## 8. Partitioned rolling update
-
-Partition umožňuje rollout iba pre ordinaly väčšie alebo rovné stanovenej hodnote.
-
-```yaml
-spec:
-  updateStrategy:
-    type: RollingUpdate
-    rollingUpdate:
-      partition: 2
+```text
+StatefulSet object
+Pod ordinal slot
+PVC
+PV
+backend volume
+snapshot/backup
+application member record
+DNS a external identity
 ```
 
-Pri replikách `0..4` sa aktualizujú najprv `4`, `3`, `2`; `0` a `1` zostanú na starej revision.
+PVC retention policy a StorageClass reclaim policy rozhodujú o Kubernetes/storage cleanup behavior-e. Ani jedna nenahrádza:
 
-Použitie:
+- backup retention;
+- legal/audit retention;
+- orphan-volume inventory;
+- secure data destruction;
+- rollback window;
+- restore validation.
 
-- canary konkrétneho ordinalu,
-- staged update,
-- kontrolovaný cluster membership postup.
+Automatické deletion po scale-down môže byť vhodné pre regenerovateľné dáta, ale je nebezpečné bez explicitného data-classification a restore contractu.
 
-Partition sám neanalyzuje health ani business correctness.
+## 12. Worked failure: stabilné meno vytvorilo falošný pocit fencing-u
 
-## 9. Revision a status
+Node `N4` s Podom `ledger-db-1` stratil spojenie s API a väčšinou clusteru. Process na N4 pokračoval a držal volume pripojený. Po node timeout-e bol vytvorený replacement rovnakého ordinalu na N7.
+
+```text
+starý Pod UID P-old na N4
++ replacement Pod UID P-new na N7
++ rovnaké meno ledger-db-1
++ delayed storage detach
++ application fencing iba podľa ordinalu
+→ dva procesy považujú member-1 za aktívny
+→ split writer alebo divergent log
+```
+
+StatefulSet zachoval logical slot, ale neposkytol distributed fencing.
+
+Bezpečný design používa application term/lease, storage fencing alebo operator protocol, ktorý nový writer nepovolí, kým stará epoch nie je preukázateľne neplatná.
+
+## 13. Worked failure: scale-up znovu použil stale retained PVC
+
+Cluster bol dočasne zmenšený z troch na dve repliky. PVC `data-ledger-db-2` zostal zachovaný. O dva mesiace scale-up znovu vytvoril `ledger-db-2` a automaticky pripojil starý claim.
+
+```text
+retained PVC obsahuje starú membership a log generation
+→ nový Pod má správne meno a mount
+→ plytká readiness prejde
+→ member sa pripojí so stale state-om
+→ cluster vykoná nákladný recovery alebo prijme nebezpečný member state
+```
+
+Retention chráni dáta pred deletion-om. Neznamená, že retained dáta sú bezpečný bootstrap source.
+
+Pred reuse musí aplikácia overiť cluster ID, member ID, data generation, snapshot lineage a resynchronization protocol.
+
+## 14. Worked failure: ordered rollout sa zablokoval
+
+Nová revision pre `ledger-db-2` obsahovala nekompatibilný on-disk reader. Pod sa spustil, ale readiness ostala false. Pri ordered update controller nepokračoval k nižším ordinalom.
+
+To je správne controller správanie. Root cause nie je „StatefulSet sa zasekol“, ale neplatný transition medzi application a data generations.
+
+Nútené zmazanie ďalších ordinalov by zväčšilo blast radius. Recovery má rozhodnúť medzi kompatibilným roll-forwardom, obnovením predchádzajúcej revision alebo restore/repair podľa data state-u.
+
+## 15. Causal troubleshooting walkthrough: replacement ordinalu je Ready, cluster neprijíma writes
+
+`ledger-db-1` bol nahradený po Node failure. Kubernetes ukazuje tri Ready Pods, ale klientské writes timeoutujú a application hlási, že nemá stabilné quorum.
+
+### 1. Zafixuj subject a pôvodný outcome
+
+Zaznamenaj:
+
+```text
+StatefulSet UID/generation/currentRevision/updateRevision
+ordinal 1 old a new Pod UID/Node/IP
+PVC UID, PV, backend volume ID a attach history
+filesystem/data generation a restore lineage
+application cluster/member ID
+leader term a fencing epoch
+peer DNS answers a connection targets
+replication positions a quorum view každého membera
+image/config/secret generations
+business operation ID, ktorý musí commitnúť presne raz
+```
+
+### 2. Competing hypotheses
+
+1. Starý process na pôvodnom Node-e stále beží.
+2. Storage backend nepovolil bezpečný detach/fencing.
+3. Replacement pripojil správny PVC, ale stale alebo poškodenú data generation.
+4. PVC/PV mapping patrí inému clusteru alebo restore-u.
+5. Peer DNS cache stále smeruje na starú IP.
+6. Nový member nie je synchronized, hoci readiness je green.
+7. Application member ID alebo cluster ID sa nezhoduje.
+8. Mixed-version protocol alebo on-disk format nie je kompatibilný.
+9. Partition/update strategy ponechala neočakávanú revision.
+10. NetworkPolicy, MTU alebo peer TLS blokujú iba replication path.
+11. Quorum existuje, ale client Service smeruje na non-serving followers.
+12. Status a dashboard miešajú Pods podľa mena namiesto UID.
+
+### 3. Discriminating observation points
+
+- old/new Pod UIDs, Node status a deletion timeline;
+- storage attach/detach a fencing audit;
+- PVC UID → PV → backend volume correlation;
+- application cluster/member IDs z data directory;
+- leader term, commit index a replication lag per member;
+- DNS answers z každého Podu a active peer sockets;
+- StatefulSet Pod revision labels;
+- imageID, config a secret loaded epoch;
+- EndpointSlice targetRef UIDs a application roles;
+- packet/TLS evidence na peer porte;
+- backup/restore manifest a data checksum.
+
+Observation `Pod Ready=True` nevylučuje stale data ani split writer. Observation `old Node je NotReady` nevylučuje, že starý process alebo volume session stále existuje.
+
+### 4. Containment
+
+- zastav alebo obmedz writes, ak fencing nie je preukázané;
+- neforce-detach-ni volume bez storage a application ownership rozhodnutia;
+- nevymazávaj PVC ani data directory;
+- zachovaj old/new Pod, storage, DNS a application logs;
+- odstráň non-serving memberov z client endpointov;
+- pozastav ďalší rollout a scale transition;
+- zafixuj canonical cluster a backup subject.
+
+### 5. Recovery podľa boundary
+
+- old writer → fence-ni starú epoch a potvrď process/volume termination;
+- stale DNS/socket → obnov discovery a peer connection generation;
+- wrong volume/data generation → odpoj nesprávny subject a obnov canonical data podľa runbooku;
+- unsynchronized member → vykonaj bounded resync alebo snapshot restore;
+- protocol/storage incompatibility → nasadi kompatibilný artifact alebo reviewovaný roll-forward;
+- wrong client routing → viaž readiness/endpoints na client-serving role;
+- corrupted member → odstráň ho z membershipu pred rebuildom a rejoinom.
+
+### 6. Over pôvodný outcome
+
+Potvrď:
+
+- presne jeden process vlastní každý ordinal a fencing epoch;
+- každý Pod UID používa správny PVC/PV/backend volume;
+- všetci members majú správny cluster ID a kompatibilnú data generation;
+- quorum a leader term sú stabilné;
+- replication lag sa vrátil do limitu;
+- client EndpointSlice obsahuje iba client-serving UIDs;
+- payment ledger append sa vykonal presne raz;
+- ďalší member restart/reconcile je bezpečný;
+- backup po recovery je čitateľný a restore test prejde.
+
+### 7. Posuň control skôr
+
+Pridaj:
+
+- UID/ordinal/PVC/member/data-epoch manifest;
+- storage fencing a partition test;
+- retained-PVC reuse preflight;
+- application-aware readiness a membership metrics;
+- mixed-version a downgrade compatibility gate;
+- backup/restore proof pred rolloutom;
+- operator alebo runbook pre membership transitions;
+- alert na duplicate member ID, old writer alebo revision drift.
+
+## 16. Observation matrix
+
+| Boundary | Subject | Kľúčové observations |
+|---|---|---|
+| Controller | StatefulSet UID/generation | revisions, strategy, partition, status |
+| Slot | ordinal + Pod UID | old/new UID, Node, lifecycle |
+| Network | headless Service/DNS generation | records, cache, sockets, peer TLS |
+| Storage | PVC/PV/backend volume | binding, attach, filesystem, data epoch |
+| Membership | cluster/member ID | role, term, quorum, replication position |
+| Revision | Pod revision + artifact | imageID, config, secret, format compatibility |
+| Readiness | Pod UID + application role | synchronized/client-serving verdict |
+| Retention | data/backup subject | PVC policy, snapshots, restore proof |
+| Business | operation ID | commit, downstream audit, exactly-once invariant |
+
+## 17. Referenčné príkazy
 
 ```bash
-kubectl rollout status statefulset/db
-kubectl rollout history statefulset/db
-kubectl get statefulset db -o yaml
-kubectl get controllerrevision
+kubectl get statefulset <name> -n <namespace> -o yaml
+kubectl describe statefulset <name> -n <namespace>
+kubectl get pods -n <namespace> -l '<selector>' -o wide
+kubectl get pvc,pv -o wide
+kubectl get controllerrevision -n <namespace>
+kubectl get endpointslice -n <namespace> -o yaml
+kubectl get events -A --sort-by=.metadata.creationTimestamp
 ```
 
-StatefulSet používa ControllerRevision objects na uchovanie revision metadata.
-
-Sleduj:
-
-- `currentRevision`,
-- `updateRevision`,
-- `currentReplicas`,
-- `updatedReplicas`,
-- `readyReplicas`,
-- `availableReplicas`,
-- observed generation,
-- Pod ordinaly a PVC binding.
-
-## 10. Scale-up a scale-down
-
-```bash
-kubectl scale statefulset db --replicas=5
-```
-
-Pri scale-up vznikajú nové ordinaly. Pri scale-down sa vyššie ordinaly odstránia ako prvé pri ordered policy.
-
-Aplikácia musí bezpečne zvládnuť:
-
-- membership join/leave,
-- data rebalance,
-- quorum zmenu,
-- leadership transfer,
-- long-running graceful termination.
-
-Kubernetes scale command nevykoná application-specific decommission automaticky.
-
-## 11. PVC retention
-
-Historicky sa PVC pri scale-down alebo deletion StatefulSetu zámerne ponechávajú na ochranu dát. Moderný StatefulSet môže mať explicitnú retention policy podľa podporovanej cluster verzie a API.
-
-Pred použitím over:
-
-- behavior `whenDeleted` a `whenScaled`,
-- StorageClass reclaim policy,
-- owner references na PVC,
-- backup a legal retention,
-- bezpečnosť automatického deletion-u.
-
-Automatické mazanie storage musí byť vedomý policy decision, nie cleanup convenience.
-
-## 12. Deletion
-
-Zmazanie StatefulSetu neznamená, že všetky súvisiace dáta automaticky zmiznú.
-
-Rozlišuj:
-
-- StatefulSet object,
-- Pody,
-- PVCs,
-- PVs,
-- storage backend volumes,
-- headless Service,
-- snapshots a backups.
-
-Pre ordered graceful shutdown môže byť vhodné najprv scale na nulu podľa application runbooku a až potom deletion controlleru.
-
-## 13. Pod identity a replacement
-
-Náhradný `db-1` má:
-
-- rovnaký Pod name,
-- rovnaký ordinal,
-- rovnaký logical DNS slot,
-- typicky rovnaký PVC,
-- nový Pod UID,
-- novú Pod IP,
-- nový runtime process.
-
-Aplikácia nemá viazať fencing iba na Pod name. Potrebuje bezpečný membership/lease/epoch mechanizmus.
-
-## 14. Scheduling a topology
-
-Stateful workload často kombinuje:
-
-- volume topology,
-- zone/node affinity,
-- anti-affinity alebo topology spread,
-- requests a limits,
-- taints/tolerations,
-- local persistent volumes.
-
-Pod môže zostať Pending, ak jeho PVC je viazané na storage nedostupný v dostupných Nodes alebo ak affinity požiadavky nemajú kapacitu.
-
-## 15. Availability a quorum
-
-Ready replicas nie sú automaticky quorum.
-
-Príklad päťčlenného consensus clusteru:
-
-- päť Podov môže byť Running,
-- iba tri majú aktuálny log,
-- dva sú network-partitioned,
-- Kubernetes Service môže stále smerovať na nevhodné endpoints, ak readiness nepozná application role.
-
-Probes a Service routing musia reflektovať client-serving a cluster-role semantics.
-
-## 16. Upgrade safety
-
-Pred rolling update over:
-
-- mixed-version compatibility,
-- supported upgrade order,
-- storage format a on-disk migrations,
-- protocol version negotiation,
-- leader/follower update sequence,
-- quorum počas unavailable replica,
-- backup a restore test,
-- downgrade podporu.
-
-Niektoré databázy vyžadujú operátor, ktorý vykonáva application-aware reconciliation nad StatefulSetom.
-
-## 17. Observability
-
-```bash
-kubectl get statefulset db
-kubectl describe statefulset db
-kubectl get pods -l app=db -o wide
-kubectl get pvc
-kubectl get controllerrevision
-kubectl rollout status statefulset/db
-kubectl get events --sort-by=.metadata.creationTimestamp
-```
-
-Sleduj:
-
-- ordinal progression,
-- current/update revision,
-- Ready/Available Pody,
-- headless Service a DNS,
-- PVC/PV binding a attach/mount Events,
-- application membership, role a replication lag,
-- storage latency/capacity,
-- Pod termination a fencing.
-
-## 18. Failure scenáre
-
-### `db-0` nie je Ready a rollout stojí
-
-Pri `OrderedReady` môže blokovať ďalšie ordinaly. Diagnostikuj konkrétny Pod, nie iba controller status.
-
-### PVC ostáva Pending
-
-Over StorageClass, provisioner, access mode, capacity, topology a `WaitForFirstConsumer` scheduling flow.
-
-### Volume sa nepripojí na nový Node
-
-Over detach z pôvodného Node-u, CSI controller/node plugins, topology a cloud volume state.
-
-### DNS meno sa dočasne nerozlišuje
-
-Over headless Service, selector, Pod readiness/publication policy, CoreDNS a DNS cache.
-
-### Rollout je v broken state
-
-Ordered rolling update môže vyžadovať manuálny zásah, ak nový Pod template nikdy nedosiahne Ready a controller zachováva update ordering.
-
-### Scale-down poškodí quorum
-
-Kubernetes splnil replica count, ale application decommission alebo quorum model nebol bezpečný.
-
-## 19. Anti-patterny
-
-### StatefulSet použitý iba preto, že aplikácia má disk
-
-Stateless Deployment môže používať external state; stabilná per-replica identita nemusí byť potrebná.
-
-### Zdieľanie jedného RWO claimu medzi viacerými replikami bez podpory backendu
-
-Vzniknú attach/mount konflikty alebo unsafe writes.
-
-### Predpoklad, že ordinal je fencing token
-
-Starý process môže stále existovať počas partition alebo detach delay.
-
-### Automatický update bez mixed-version analýzy
-
-Ordered rollout nevyrieši protocol alebo storage incompatibility.
-
-### Delete/scale-down bez PVC retention kontroly
-
-Môže vzniknúť orphan storage alebo nevratná strata dát podľa policy.
-
-### Readiness iba na otvorený TCP port
-
-Pod môže byť process-ready, ale nie leader, synced alebo client-serving.
-
-## 20. Kontrolné otázky
-
-1. Akú stabilitu poskytuje StatefulSet?
-2. Čo sa pri replacement-e Podu zachová a čo sa zmení?
-3. Načo slúži headless Service?
-4. Ako funguje `volumeClaimTemplates`?
-5. Prečo PVC neznamená automatickú data HA?
-6. Aký je rozdiel medzi `OrderedReady` a `Parallel`?
-7. Ako sa líšia `RollingUpdate` a `OnDelete`?
-8. Načo slúži partition?
-9. Prečo Ready replicas nemusia znamenať quorum?
-10. Kedy je namiesto čistého StatefulSetu vhodný operator?
+Príkazy poskytujú Kubernetes observations. Membership, fencing a data correctness musia pochádzať aj z aplikácie a storage platformy.
+
+## 18. Referenčné pravidlá
+
+- StatefulSet stabilizuje ordinal slots, nie process UIDs.
+- Stabilné Pod meno nie je fencing token.
+- Headless Service poskytuje discovery, nie membership correctness.
+- Per-ordinal PVC poskytuje identity väzbu, nie replikáciu alebo backup.
+- PVC `Bound` nepreukazuje správnu data generation.
+- Ready replica nemusí byť synchronized, quorum-valid ani client-serving.
+- Ordered rollout nevyrieši mixed-version alebo on-disk incompatibility.
+- Partition vyberá ordinaly; neposkytuje canary acceptance verdict.
+- Scale-down nevykoná application decommission.
+- Retained PVC nemusí byť bezpečný bootstrap source.
+- Deletion StatefulSetu, Podov, PVCs, PVs a backend dát sú odlišné transitions.
+- Recovery musí overiť fencing, data lineage, membership, endpoints a business outcome.
+
+## 19. Kontrolné otázky
+
+1. Aký lifecycle spája StatefulSet generation s client-serving stateful replikou?
+2. Čo sa pri replacement-e ordinalu zachová a čo dostane novú identity?
+3. Prečo ordinal ani stabilné Pod meno nie sú fencing token?
+4. Čo headless Service poskytuje a čo neposkytuje?
+5. Ako overíš, že PVC obsahuje správnu data generation?
+6. Prečo tri Ready Pods nemusia znamenať quorum?
+7. Kedy je `OnDelete` bezpečnejší než automatický rolling update?
+8. Aké riziko má reuse PVC po scale-down/scale-up?
+9. Prečo partition nie je application canary verdict?
+10. Čo musí StatefulSet recovery verdict overiť?
 
 ## Glossary impact
 
-Relevantné pojmy: StatefulSet, stable ordinal identity, headless Service, stable network identity, `volumeClaimTemplates`, per-replica PVC, `OrderedReady`, parallel Pod management, StatefulSet partition, ControllerRevision, current revision, update revision a PVC retention policy.
+Relevantné pojmy: StatefulSet lifecycle subject, ordinal slot, ordinal replacement subject, per-ordinal storage identity, stateful membership subject, fencing epoch, data generation, retained-PVC reuse boundary, headless-Service discovery generation, application-aware readiness, partitioned revision subject, stateful scale transition, stateful decommission subject, stateful observation matrix a stateful acceptance verdict.
 
 ## Oficiálna dokumentácia
 
