@@ -8,6 +8,10 @@ Evidencia exact image index a selected platform manifest digestov, ktoré sú ak
 
 Backup vytvorený po koordinácii s aplikáciou alebo databázou tak, aby zachytené dáta tvorili logicky konzistentný recovery point, nie iba náhodný filesystem okamih. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
+## Artifact lineage — multi-stage build
+
+Rekonštruovateľná väzba od source a immutable stage inputs cez konkrétny build/test node a artifact digest až po bytes prenesené do final stage-u a publikovaný image digest. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
 ## Artifact-to-process supply chain — OCI
 
 End-to-end transition od source/build subjectu cez OCI image graph, registry publication, platform selection, trust verification, pull/unpack a runtime bundle až po low-level runtime process a deployment evidence. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
@@ -15,6 +19,26 @@ End-to-end transition od source/build subjectu cez OCI image graph, registry pub
 ## Bind mount — container
 
 Sprístupnenie existujúceho host filesystem pathu do container mount namespace-u, ktoré vytvára silnú väzbu na host path, permissions, labels a lifecycle. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+
+## Build context subject
+
+Immutable alebo rekonštruovateľná identita build contextu zahŕňajúca source type, root/ref/commit, effective ignore rules, expected file inventory, named contexts, submodules a relevantné file metadata. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## Build graph node subject
+
+Identita jednej build operation zahŕňajúca frontend semantics, instruction, parent result, source/context inputs, mounts, args, platform a execution options, z ktorých builder odvodzuje result a cache decision. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## Cache decision subject — BuildKit
+
+Rekonštruovateľné rozhodnutie spájajúce build node subject, cache key, cache source a trust domain, hit/miss outcome, reused result identity, platform, timestamp a export destination. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## Cache freshness gap
+
+Stav, keď je cached result technicky validný podľa key, ale nepozoroval mutable external input alebo zámerný security/update event a preto už nespĺňa požadovanú freshness policy. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## Cache poisoning path
+
+Trust-boundary failure, pri ktorom nedôveryhodný writer ovplyvní shared build cache a privilegovaný alebo release build následne reuseuje podvrhnutý result. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Capability drop — container
 
@@ -32,9 +56,17 @@ Ukončenie procesu v dôsledku prekročenia alebo nezvládnutia memory pressure 
 
 Unified Linux control-group hierarchy organizujúca procesy a aplikujúca resource accounting, limits a distribution cez controllers ako CPU, memory, I/O a PIDs. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
 
+## Clean image rebuild
+
+Nový build z trusted source a kontrolovaných inputs po odstránení kompromitovaného source, secret alebo cache pathu; musí vytvoriť nový digest a nové evidence namiesto live opravy containeru. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
 ## Clean restore verdict
 
 Subject-bound výsledok restore testu potvrdzujúci integrity a decryption backupu, správnu data identity, ownership/labels, application recovery, business invariant a namerané RPO/RTO na čistom targete. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+
+## Clean-room build evidence
+
+Dôkaz nového build-u bez reuse relevantnej cache spolu s porovnaním immutable inputs, builder/toolchain identity, final digestu, SBOM a runtime verdictu; používa sa na odhalenie skrytých alebo mutable inputs. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Complete artifact graph — OCI
 
@@ -92,9 +124,17 @@ Minimálna kombinácia controls, napríklad trusted digest, non-root user, capab
 
 Presná identita artifact a runtime security state-u zahŕňajúca source/build evidence, selected platform digest, node/runtime, process identity a authority, seccomp/LSM, mounts/devices, network exposure, workload identity, secrets, resources a policy exceptions. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
+## Container task subject
+
+Identita low-level running alebo exited tasku zahŕňajúca containerd namespace/task ID, runtime/shim, process PID, bundle/config, start/exit generation a väzbu na Docker container object. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
 ## Container volume
 
 Runtime-managed storage object s lifecycle oddeleným od konkrétnej container instance, ktorý môže poskytovať persistence, ale nie automaticky backup, replication alebo multi-host durability. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+
+## Controlled dependency refresh
+
+Reviewovaný prechod na nový base, package-repository snapshot, lock alebo external input subject, ktorý zámerne mení build freshness a následne vytvára nový artifact, SBOM, scan a runtime evidence. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Copy-on-write — container filesystem
 
@@ -124,6 +164,26 @@ Digest uncompressed filesystem layer changesetu uložený v OCI image configurat
 
 Content digest registry blobu alebo manifestu v jeho distribuovanej reprezentácii, používaný na integrity verification a immutable references. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
+## Docker API operation subject
+
+Presná identita Engine API operácie zahŕňajúca Docker context a endpoint, caller identity, requested image/object, container name a labels, network/mount/port/resource policy, correlation ID a operation purpose. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Docker context identity
+
+Resolved Docker client target zahŕňajúci context name, Engine endpoint, SSH/TLS metadata a očakávaný daemon/environment identity; musí sa overiť pred privilegovanou alebo deštruktívnou operáciou. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Docker object-task reconciliation
+
+Porovnanie Docker container object metadata, containerd task/shim state, runtime processu, network endpointov, mounts a application outcome-u po timeoute, daemon failure alebo partial operation. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Dockerfile frontend identity
+
+Versionovaná implementácia Dockerfile syntax a build semantics vybraná parser directive-om alebo builder defaultom, ktorá je súčasťou reprodukovateľného build subjectu. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Dockerfile program subject
+
+Rekonštruovateľná identita build programu zahŕňajúca Dockerfile a frontend, immutable input inventory, stage graph, build args/secrets references, target platform, builder a selected final target. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
 ## East-west traffic
 
 Network traffic medzi internými workloads alebo services v rámci platformy, ktorého nekontrolovaný default-allow model zvyšuje lateral-movement risk. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
@@ -132,6 +192,10 @@ Network traffic medzi internými workloads alebo services v rámci platformy, kt
 
 Výsledok packet-policy rozhodovania nad konkrétnym direction, interface a pre- alebo post-NAT tuple po zohľadnení container, engine-managed, host, cloud a remote policy vrstiev. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
+## Effective image metadata
+
+Runtime defaults v image configuration po vyhodnotení stage graphu, najmä entrypoint, command, environment, user, working directory, labels, healthcheck, exposed ports a stop signal, ešte pred runtime overrides. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
 ## Effective runtime policy subject
 
 Generated a kernel-enforced runtime state vzniknutý z image defaults, deployment overrides, daemon/orchestrator defaults a node policy, zahŕňajúci process identity, capabilities, seccomp, LSM, mounts, devices, network a cgroups. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
@@ -139,6 +203,22 @@ Generated a kernel-enforced runtime state vzniknutý z image defaults, deploymen
 ## Ephemeral runtime instance
 
 Nahraditeľná runtime inštancia, ktorej lokálny procesový a writable-layer stav nie je považovaný za jediný persistentný zdroj dát. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Expected context inventory
+
+Vopred validovaná množina files, paths, metadata a named contexts, ktoré musia alebo nesmú byť dostupné builderu pre konkrétny build subject. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## Expected stage evidence inventory
+
+Vopred definovaná množina build, test, analysis, target a per-platform verdictov požadovaných pre release; missing stage alebo evidence nie je ekvivalent pass-u. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
+## External cache trust domain
+
+Boundary určujúca, ktoré identities môžu čítať alebo zapisovať konkrétny external build cache subject a pre ktoré branches, repositories, platforms a release classes je jeho reuse prípustný. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## Filesystem transition — Dockerfile
+
+Build-time zmena stage filesystemu vytvorená napríklad `COPY`, `ADD` alebo `RUN`, ktorá vstupuje do layer/result graphu a môže preniesť content, ownership, permissions alebo secret residue. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
 ## Garbage collection — registry
 
@@ -184,6 +264,18 @@ Immutable filesystem changeset v ordered image graph-e, ktorý sa skladá s osta
 
 OCI artifact odkazujúci descriptorom na jednu image configuration a ordered list filesystem layer blobs. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
+## Image-config contract test
+
+Assertion nad final image configom a effective runtime override-mi, ktorá overuje expected entrypoint, command, user, environment, healthcheck, stop signal, port metadata a writable-path assumptions pre exact image digest. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Image-config transition — Dockerfile
+
+Build instruction, ktorá mení runtime metadata image-u bez toho, aby sama vytvorila budúci process, napríklad `ENV`, `USER`, `ENTRYPOINT`, `CMD`, `HEALTHCHECK` alebo `STOPSIGNAL`. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Immutable build input inventory
+
+Úplná identita source/contextu, Dockerfile/frontendu, base a external image digestov, dependency lockov/snapshots, args, secret references, platformy, buildera, cache subjects a targetu potrebná na vysvetlenie final artifactu. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
 ## Isolation boundary
 
 Technická a bezpečnostná hranica oddeľujúca workload od hosta alebo iných workloads, napríklad shared-kernel container boundary alebo hypervisor/VM boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
@@ -211,6 +303,10 @@ Minimalizovaná virtual machine navrhnutá na rýchlejší startup a menší ove
 ## Multi-platform image
 
 OCI image index a súvisiaci graph poskytujúci platform-specific manifests pod jednou higher-level reference, napríklad pre `linux/amd64` a `linux/arm64`. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## Named context subject
+
+Immutable identita explicitne pomenovaného Docker build contextu, napríklad local directory, Git commit alebo image digest, používaného stage-like reference-om bez rozšírenia primary contextu. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Namespace view
 
@@ -312,9 +408,17 @@ Container a runtime model fungujúci bez host-root daemon identity, typicky cez 
 
 Rekonštruovateľná identita generated `rootfs` a `config.json` zahŕňajúca selected platform manifest, runtime overrides, mounts, namespaces, capabilities, resource policy, hooks a bundle/config digest. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
+## Runtime dependency closure
+
+Úplná množina executable, interpreter/dynamic linker, shared libraries, certificates, DNS/NSS, timezone/locale, user metadata, writable paths a helperov potrebných na spustenie final-stage processu. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
 ## Runtime isolation subject
 
 Presná identita container process a policy kompozície zahŕňajúca host/runtime, namespace IDs, cgroup, UID/GID mappings, capability sets, `no_new_privs`, seccomp, LSM, mounts, devices a entrypoint. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
+
+## Runtime process contract — image
+
+Vzťah medzi effective entrypoint, command/arguments, PID 1, signal a exit behaviorom, runtime userom, working directory, health/readiness oracle a required filesystem/dependency paths. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
 ## Runtime socket authority
 
@@ -335,6 +439,10 @@ System-call filter policy aplikovaná na container processes s cieľom znížiť
 ## Security exception subject — container
 
 Časovo obmedzená výnimka viazaná na exact workload/runtime subject, environment, bypassovaný control, risk, ownera, compensating controls, expiration a removal/revalidation trigger. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+
+## Selected build target
+
+Explicitne zvolený final, test, development, debug alebo artifact stage, ktorého identita musí byť súčasťou release subjectu a publication policy. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## Service endpoint generation — container networking
 
@@ -360,6 +468,14 @@ Runtime-specific unpacked representation verified image layers, z ktorej sa vytv
 
 Failure stav, v ktorom viac processov alebo nodes súčasne verí, že má authoritative write authority nad rovnakou persistent data identity, často po partitione alebo failover-e bez fencing-u. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
+## Stage DAG subject
+
+Rekonštruovateľná identita multi-stage graphu zahŕňajúca stage names, base/input subjects, dependency edges, selected targets, platform branches, cache outcomes a cross-stage artifact transfers. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
+## Stage-output secret incident
+
+Incident, pri ktorom secret vložený alebo odvodený v build stage-i prejde cez generated artifact, broad alebo narrow `COPY --from`, cache či export do final image-u; recovery zahŕňa revocation aj clean graph rebuild. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
 ## Storage attachment subject
 
 Rekonštruovateľná identita backend volume/objectu, node/device pathu, filesystem UUID, host a container mountov, options, topology a active writer lease-u. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
@@ -376,9 +492,21 @@ Signature, provenance, SBOM alebo iný related artifact, ktorého dôkazný výz
 
 Očakávaná množina signature, provenance, SBOM, scan, runtime-policy, identity, network/storage a exception evidence, ktorá musí byť validná pre exact artifact a workload subject; missing alebo invalid evidence nie je pass. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md) a [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
+## Subject-bound test stage
+
+Test stage verdict viazaný na exact source, immutable inputs, platform, build artifact digest a final image subject, nie iba na názov stage-u alebo úspech nesúvisiaceho pipeline jobu. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
+## Target publication policy
+
+Policy overujúca, že production reference publikuje povolený named target s expected final base, user, content, metadata, platform evidence a artifact lineage, nie development alebo debug stage. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
 ## tmpfs mount — container
 
 Memory-backed temporary filesystem pripojený do containeru s lifecycle viazaným na runtime a potrebným explicitným size, memory a permissions limitom. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+
+## Unknown Docker operation outcome
+
+Failure stav, keď klient po timeoute alebo connection loss nevie, či Engine API mutation neprebehla, skončila partial object side effects alebo úspešne vytvorila task/process; pred retry vyžaduje object-task-runtime reconciliation. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
 
 ## Veth pair
 
