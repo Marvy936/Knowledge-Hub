@@ -1739,15 +1739,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "title": "Lifecycle, import a moved blocks",
-      "words": 1424,
-      "headings": 43,
-      "sections": 43,
-      "findings": 86,
-      "critical": 32,
-      "high": 41,
-      "medium": 7,
-      "low": 6,
-      "score": 739,
+      "words": 1934,
+      "headings": 37,
+      "sections": 37,
+      "findings": 82,
+      "critical": 29,
+      "high": 29,
+      "medium": 9,
+      "low": 15,
+      "score": 627,
       "grade": "D"
     },
     {
@@ -94754,161 +94754,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "2. lifecycle block",
-      "line": 26,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "3. create before destroy",
-      "line": 41,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "3. create before destroy",
-      "line": 41,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `platforma povoľuje súbežnú existenciu oboch objektov,`, `názvy alebo unique constraints nekolidujú,`, `dočasná extra capacity je dostupná,`, `routing alebo dependency switch je bezpečný.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "3. create before destroy",
-      "line": 41,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "4. prevent destroy",
-      "line": 67,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "4. prevent destroy",
-      "line": 67,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "4. prevent destroy",
-      "line": 67,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nie je náhrada provider-side deletion protection,`, `neochráni dáta pred manuálnym zásahom alebo kompromitovanou identitou,`, `emergency postup potrebuje explicitný review a recovery plán.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "4. prevent destroy",
-      "line": 67,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "4. prevent destroy",
-      "line": 67,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "5. ignore changes",
-      "line": 86,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "5. ignore changes",
-      "line": 86,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "5. ignore changes",
-      "line": 86,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `atribút zdieľane spravuje iný authoritative controller,`, `platforma normalizuje hodnotu, ktorú provider nevie stabilne reprezent`, `transitional migration má explicitný owner a koniec.`, `skrytý drift,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "5. ignore changes",
-      "line": 86,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "5. ignore changes",
-      "line": 86,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "6. replace triggered by",
-      "line": 111,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "6. replace triggered by",
-      "line": 111,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `immutable instance viazaná na image revision,`, `certificate/resource pair, ktoré sa musia rotovať spolu,`, `infra objekt, ktorého API nepodporuje bezpečný in-place update.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "6. replace triggered by",
-      "line": 111,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "6. replace triggered by",
-      "line": 111,
+      "section": "1. Atlas scenár: refaktoring a adopcia produkčného storage",
+      "line": 25,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -94916,296 +94763,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "6. replace triggered by",
-      "line": 111,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "7. Preconditions a postconditions",
-      "line": 135,
+      "section": "2. Resource lifecycle a replacement subject",
+      "line": 41,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 45 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "7. Preconditions a postconditions",
-      "line": 135,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `precondition overuje predpoklad pred operáciou,`, `postcondition overuje výsledný stav po vyhodnotení objektu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "7. Preconditions a postconditions",
-      "line": 135,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "8. Replacement signal",
-      "line": 162,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "8. Replacement signal",
-      "line": 162,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "8. Replacement signal",
-      "line": 162,
+      "section": "2. Resource lifecycle a replacement subject",
+      "line": 41,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmeny provider atribútu označeného ako replace-only,`, `resource taint/replace requestu,`, `replace triggered by ,`, `zmeny identity cez count / for each ,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `remote object ID;`, `IP/DNS alebo endpoint;`, `data a encryption identity;`, `attached policies;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "8. Replacement signal",
-      "line": 162,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "8. Replacement signal",
-      "line": 162,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "9. Import: účel",
-      "line": 175,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "9. Import: účel",
-      "line": 175,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "9. Import: účel",
-      "line": 175,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nevytvára automaticky správny desired-state design,`, `neoveruje, že configuration presne zodpovedá remote objektu,`, `nepresúva ownership mimo existujúcich prevádzkových procesov,`, `vyžaduje následný plan a reconciliation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "9. Import: účel",
-      "line": 175,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "10. Configuration-driven import",
-      "line": 193,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "10. Configuration-driven import",
-      "line": 193,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "10. Configuration-driven import",
-      "line": 193,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "10. Configuration-driven import",
-      "line": 193,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mapping je reviewovateľný,`, `môže byť súčasťou plan/apply workflowu,`, `dá sa koordinovať viac importov,`, `zostáva audit trail v Git-e.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "10. Configuration-driven import",
-      "line": 193,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "11. CLI import",
-      "line": 215,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "11. CLI import",
-      "line": 215,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "11. CLI import",
-      "line": 215,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "11. CLI import",
-      "line": 215,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potvrď správny backend/workspace,`, `vytvor state backup,`, `zastav concurrent writers,`, `deklaruj destination resource address,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "11. CLI import",
-      "line": 215,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "11. CLI import",
-      "line": 215,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "12. Import identity",
-      "line": 232,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "12. Import identity",
-      "line": 232,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konfliktujúcim updates,`, `nečakanému delete,`, `state corruption-like behavioru,`, `nejasnému authoritative ownerovi.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "12. Import identity",
-      "line": 232,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "13. Import s for each",
-      "line": 243,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "14. Post-import plan",
-      "line": 269,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "14. Post-import plan",
-      "line": 269,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "14. Post-import plan",
-      "line": 269,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `no-op,`, `in-place update,`, `replacement,`, `removal provider defaults,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "14. Post-import plan",
-      "line": 269,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "14. Post-import plan",
-      "line": 269,
+      "section": "2. Resource lifecycle a replacement subject",
+      "line": 41,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -95213,8 +94790,224 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "15. moved block",
-      "line": 287,
+      "section": "2. Resource lifecycle a replacement subject",
+      "line": 41,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "2. Resource lifecycle a replacement subject",
+      "line": 41,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `IP`, `DNS`, `identity`, `availability`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "3. create before destroy ako operation ordering",
+      "line": 65,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "3. create before destroy ako operation ordering",
+      "line": 65,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique name alebo singleton constraint;`, `quota a dočasná extra capacity;`, `shared IP, data alebo identity;`, `downstream references;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "3. create before destroy ako operation ordering",
+      "line": 65,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "3. create before destroy ako operation ordering",
+      "line": 65,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "3. create before destroy ako operation ordering",
+      "line": 65,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `DNS`, `API`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "5. prevent destroy ako plan guard",
+      "line": 107,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manuálnym remote deletion;`, `kompromitovanou cloud identity;`, `odstránením celého resource blocku a následným planom;`, `provider-side data loss pri in-place update;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "5. prevent destroy ako plan guard",
+      "line": 107,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "6. ignore changes ako ownership contract",
+      "line": 123,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative writera;`, `dôvod;`, `runtime monitoring;`, `expiry alebo review;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "6. ignore changes ako ownership contract",
+      "line": 123,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "6. ignore changes ako ownership contract",
+      "line": 123,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "9. Import je ownership adoption",
+      "line": 173,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "9. Import je ownership adoption",
+      "line": 173,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `remote owner a dôvod transferu;`, `presný account/region/provider alias;`, `remote object ID;`, `destination address a instance key;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "9. Import je ownership adoption",
+      "line": 173,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "9. Import je ownership adoption",
+      "line": 173,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "9. Import je ownership adoption",
+      "line": 173,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "10. Configuration-driven import",
+      "line": 196,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "10. Configuration-driven import",
+      "line": 196,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mapping je súčasť change proposal-u;`, `môže prejsť plan/policy workflowom;`, `viac imports sa dá koordinovať;`, `zostáva auditovateľná intent history.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "10. Configuration-driven import",
+      "line": 196,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "10. Configuration-driven import",
+      "line": 196,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "12. Post-import plan je ownership reconciliation",
+      "line": 230,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "12. Post-import plan je ownership reconciliation",
+      "line": 230,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `no-op;`, `provider normalization;`, `in-place changes;`, `replacement;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "12. Post-import plan je ownership reconciliation",
+      "line": 230,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "13. moved block ako versionovaný binding transition",
+      "line": 253,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -95222,62 +95015,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "16. Typické refaktoringy",
-      "line": 300,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "Premenovanie resource",
-      "line": 302,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "Presun do modulu",
-      "line": 311,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "Zmena module call name",
-      "line": 320,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "Presun instance",
-      "line": 329,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "Presun instance",
-      "line": 329,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "17. moved vs. terraform state mv",
-      "line": 340,
+      "section": "16. moved verzus state mv",
+      "line": 304,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -95286,7 +95025,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "moved block",
-      "line": 342,
+      "line": 306,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -95295,7 +95034,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "moved block",
-      "line": 342,
+      "line": 306,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -95304,7 +95043,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "moved block",
-      "line": 342,
+      "line": 306,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -95313,16 +95052,16 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "moved block",
-      "line": 342,
+      "line": 306,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaný,`, `reviewovateľný,`, `opakovateľný pre viac environments,`, `vhodný pre module consumers, ktorí upgradujú neskôr.`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaný a reviewovateľný;`, `opakovateľný pre viac states/environments;`, `vhodný pre reusable module consumers;`, `umožňuje retained upgrade path.`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "moved block",
-      "line": 342,
+      "line": 306,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -95331,16 +95070,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "terraform state mv",
-      "line": 349,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "terraform state mv",
-      "line": 349,
+      "line": 313,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -95349,25 +95079,25 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "terraform state mv",
-      "line": 349,
+      "line": 313,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "terraform state mv",
-      "line": 349,
+      "line": 313,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `okamžitá state surgery,`, `environment-specific,`, `vyžaduje presný backend a lock,`, `vhodná najmä pre recovery alebo staršie workflowy.`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `okamžitá mutation konkrétneho state-u;`, `potrebuje exact backend, lock a backup;`, `nepropaguje sa automaticky ďalším environments;`, `vhodný pre recovery alebo legacy migration.`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "terraform state mv",
-      "line": 349,
+      "line": 313,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -95375,26 +95105,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "18. Retention moved blocks",
-      "line": 358,
+      "section": "17. Moved history a supported upgrade paths",
+      "line": 322,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "17. Moved history a supported upgrade paths",
+      "line": 322,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "18. Retention moved blocks",
-      "line": 358,
+      "section": "17. Moved history a supported upgrade paths",
+      "line": 322,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálne podporované upgrade paths,`, `ako dlho sa moved history zachováva,`, `kedy ide o breaking release,`, `ako sa testujú upgrades z podporovaných versions.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `najstaršiu podporovanú source version;`, `celý moved chain pre supported upgrades;`, `fixture states;`, `breaking release moment;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "18. Retention moved blocks",
-      "line": 358,
+      "section": "17. Moved history a supported upgrade paths",
+      "line": 322,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -95402,8 +95141,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "18. Retention moved blocks",
-      "line": 358,
+      "section": "17. Moved history a supported upgrade paths",
+      "line": 322,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -95411,26 +95150,62 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "20. Recovery a rollback",
-      "line": 387,
+      "section": "19. Kauzálny diagnostický walkthrough",
+      "line": 358,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "Krok 1 — stabilizuj subject",
+      "line": 362,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "Krok 2 — konkurenčné hypotézy",
+      "line": 373,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 385,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 385,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "20. Recovery a rollback",
-      "line": 387,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 385,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prior state snapshot,`, `reviewed plan,`, `provider/module versions,`, `mapping starých a nových addresses,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `state list a old/new address manifest testujú H1/H5/H6;`, `instance key diff testuje H2;`, `type/provider schema a replacement reasons testujú H3/H4;`, `lifecycle-expanded plan testuje H7;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "20. Recovery a rollback",
-      "line": 387,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 385,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -95438,8 +95213,125 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "20. Recovery a rollback",
-      "line": 387,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 385,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 385,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H5`, `H6`, `H3`, `H4`, `H7`, `ID`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "Krok 5 — over outcome",
+      "line": 399,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "Krok 5 — over outcome",
+      "line": 399,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "Krok 5 — over outcome",
+      "line": 399,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaký remote-ID inventory;`, `nový state serial a nové addresses;`, `nulové orphaned/duplicate resources;`, `nezmenený routing, security a runtime health.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "Krok 5 — over outcome",
+      "line": 399,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "Krok 5 — over outcome",
+      "line": 399,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "Krok 6 — skorší control",
+      "line": 408,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "20. Diagnostický runbook",
+      "line": 412,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "20. Diagnostický runbook",
+      "line": 412,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "20. Diagnostický runbook",
+      "line": 412,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "20. Diagnostický runbook",
+      "line": 412,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Pri replacement-e zisti presný trigger a co-existence constraints.`, `Zastav apply pri nečakanom destroy/replace.`, `Použi versionovaný mapping pred environment-specific surgery.`, `Zachovaj prior snapshot a recovery manifest.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "20. Diagnostický runbook",
+      "line": 412,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "20. Diagnostický runbook",
+      "line": 412,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -95447,8 +95339,125 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "ignore changes na každý driftujúci atribút",
-      "line": 403,
+      "section": "20. Diagnostický runbook",
+      "line": 412,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "20. Diagnostický runbook",
+      "line": 412,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "20. Diagnostický runbook",
+      "line": 412,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Lifecycle rule mení operation semantics, nie ownership realitu.`, `create before destroy negarantuje co-existence ani zero downtime.`, `ignore changes potrebuje explicitného authoritative writera a monitori`, `Post-import plan je povinná reconciliation boundary.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 425,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "22. Časté omyly",
+      "line": 439,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "„ create before destroy vyrieši každý výpadok“",
+      "line": 441,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -95456,61 +95465,7 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "prevent destroy ako jediná data protection",
-      "line": 407,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "Import priamo v produkcii bez backupu",
-      "line": 411,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "Prvý post-import plan sa automaticky applyne",
-      "line": 415,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "Rename resource bez moved",
-      "line": 419,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "state mv ručne v každom environment-e",
-      "line": 423,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "Import hlási, že objekt neexistuje",
-      "line": 437,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "moved block sa neaplikuje",
+      "section": "„ ignore changes opravuje drift“",
       "line": 445,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -95519,8 +95474,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
-      "section": "Plan stále ukazuje destroy/create po move",
-      "line": 449,
+      "section": "„Rename resource je iba refaktor“",
+      "line": 453,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
+      "section": "„Git rollback vráti neúspešný move“",
+      "line": 457,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
