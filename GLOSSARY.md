@@ -358,6 +358,10 @@ Connection address alebo hostname použitý Ansible transportom pre inventory ho
 
 Vlastnosť automation runu, pri ktorej opakovanie s rovnakými vstupmi a požadovaným stavom nevykoná ďalšie neplánované zmeny a pravdivo reportuje no-change výsledok. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## Ansible idempotency subject
+
+Rekonštruovateľná identita idempotency a convergence testu zahŕňajúca source revision, execution environment, collection set, inventory a target manifest, effective values, fact/lookup generations, desired artifact identities, external operation IDs a concurrency context. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
 ## Ansible inventory
 
 Výsledný runtime model hosts, groups, connection metadata a variables vytvorený z jedného alebo viacerých inventory sources. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
@@ -609,6 +613,10 @@ Prostriedok kontrolovaný claimantom a používaný na preukázanie identity, na
 ## Authenticity
 
 Vlastnosť umožňujúca dôverovať, že entity, dáta alebo artifacts pochádzajú z deklarovaného a overeného source-u. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Authoritative attribute writer
+
+Jediný explicitne určený controller alebo tool oprávnený zapisovať konkrétny mutable object attribute. Ostatní consumers ho iba čítajú alebo používajú versionovaný transfer contract. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
 ## Authoritative identity source
 
@@ -1706,6 +1714,10 @@ Metrics, logs a traces označené blue/green environmentom a artifact verziou ta
 
 Rast počtu telemetry identities spôsobený kombináciou viacerých dimensions, ktorých hodnoty sa navzájom násobia. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
+## Combined release subject — Terraform a Ansible
+
+Spoločná identita hybridného release-u viažuca Terraform plan/state/resource inventory, publikovanú host-contract generation, Ansible run subject, expected/verified fleet a application-runtime verification. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Command fluency — CKA
 
 Schopnosť rýchlo a presne používať kubectl, shell, editor a cluster administration commands bez zbytočného hľadania syntaxe. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
@@ -2254,6 +2266,10 @@ Súlad času a verzie obnoveného etcd API state-u, persistent application dát,
 
 Úzke, versionované rozhranie medzi automation systémami, napríklad Terraform outputs publikované ako inventory metadata pre Ansible, s explicitným ownershipom a compatibility policy. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
+## Cross-tool ownership subject
+
+Versionovaný inventory objektov a atribútov spravovaných viacerými automation tools, ktorý pre každý mutable field určuje authoritative writera, read-only consumers, desired-state source, drift detector, permissions a recovery alebo transfer path. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Crypto-shredding
 
 Zneprístupnenie encrypted dát bezpečným zničením všetkých key copies potrebných na ich decryption; účinnosť závisí od úplného key inventory a backup lifecycle-u. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
@@ -2285,6 +2301,10 @@ Počet Podov aktuálne pozorovaných ReplicaSet controllerom ako súčasť jeho 
 ## Current-state detection — Ansible
 
 Mechanizmus, ktorým module alebo workflow zistí aktuálny stav targetu pred rozhodnutím, či je potrebná zmena. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
+## Current-state observation contract — Ansible
+
+Definícia target identity, relevantných owned fields, freshness a normalization pravidiel, podľa ktorých module alebo workflow rozpozná no-op, required delta, partial state alebo unknown outcome. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
 ## Customer managed key — KMS
 
@@ -2489,6 +2509,10 @@ Konfigurácia opisujúca požadovaný výsledný stav, nie sekvenciu krokov. Poz
 ## Declarative policy
 
 Policy opisujúca požadovaný decision alebo invariant bez imperatívneho control flow-u, typicky nad structured inputom a data. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Decryption identity — Ansible Vault
+
+Workload alebo používateľská identita oprávnená získať konkrétny vault password alebo secret domain a dešifrovať ho iba v definovanom protected runtime scope. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## Dedicated Node pool
 
@@ -4482,6 +4506,10 @@ Pridanie alebo odobratie instances, workers, replicas alebo partitions s potrebn
 
 Host IP adresa, na ktorej Docker publikuje port, napríklad `127.0.0.1` pre local-only alebo `0.0.0.0` pre všetky IPv4 interfaces. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
 
+## Host contract generation — Terraform a Ansible
+
+Konkrétna versionovaná publikácia narrow resource-to-host contractu viazaná na Terraform resource subject, readiness observations, schema version a stable host identities, ktorú následne validuje Ansible inventory. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Host coverage — Ansible
 
 Porovnanie expected, resolved, attempted a runtime-verified host inventories. Zabraňuje tomu, aby zelený run nad neúplnou target množinou predstieral complete rollout. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md) a [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
@@ -4617,6 +4645,10 @@ Vlastnosť operácie, pri ktorej opakovanie s rovnakým vstupom vedie k rovnaké
 ## Idempotency key
 
 Client-generated identifikátor umožňujúci serveru rozpoznať opakovaný ne-idempotentný request a vrátiť konzistentný výsledok. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
+
+## Idempotency key — automation
+
+Stabilná identity jednej business mutation používaná pri retries tak, aby viac network attempts nevytvorilo viac remote side effects. Musí byť kontrolovateľná alebo dohľadateľná cez remote API a audit. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
 ## Idempotency test — Ansible
 
@@ -7138,6 +7170,10 @@ Vytváranie a lifecycle správa infraštruktúrnych resources, napríklad networ
 
 Explicitná hranica určujúca, ktoré resources a attributes vlastní provisioning engine a ktoré configuration-management engine. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
+## Provisioning-to-configuration contract
+
+Úzke versionované rozhranie, ktorým Terraform alebo iný resource owner publikuje stable host identities, management addresses, environment a readiness metadata pre Ansible bez sprístupnenia interného alebo citlivého state-u. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Proxy
 
 Sprostredkovateľ ukončujúci jednu komunikáciu a vytvárajúci samostatnú komunikáciu k ďalšiemu endpointu. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
@@ -7296,7 +7332,7 @@ Stav, v ktorom má workload prijímať traffic alebo prácu; process môže byť
 
 ## Readiness boundary
 
-Podmienka dokazujúca, že novovytvorený resource je nielen prítomný, ale pripravený na ďalší configuration alebo deployment krok. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+Prechod medzi existenciou resource a jeho spôsobilosťou vstúpiť do ďalšieho automation kroku, potvrdený condition-based observation ako bootstrap completion, stable management identity a funkčný connection path. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
 ## Readiness gate
 
@@ -7866,6 +7902,10 @@ Proxy zastupujúci serverové služby voči klientom a vykonávajúci napríklad
 
 Dočasný dynamic environment vytvorený pre branch alebo merge request na overenie zmeny pred merge, s vlastným URL a cleanup lifecycle. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
 
+## Revocation-complete verdict — secret lifecycle
+
+Stav rotation, v ktorom všetci oprávnení consumers používajú novú secret epoch, stará hodnota bola zrušená a nezávislý test potvrdil, že už nie je akceptovaná. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
 ## Revocation latency — Zero Trust
 
 Čas od identity, posture alebo policy revocation eventu po propagáciu a ukončenie relevantných active sessions vo všetkých enforcement points. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
@@ -8105,6 +8145,10 @@ Auditovateľné mapovanie requested image/package reference na resolved OCI inde
 ## Runtime identity — release
 
 Effective runtime subject tvorený release manifestom spolu s rendered configuration, secret references, infrastructure a IAM revision, database/event stavom, feature flags, traffic exposure a target environmentom. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
+
+## Runtime plaintext path — Ansible Vault
+
+Celý tok dešifrovanej secret hodnoty od password/secret source cez Ansible memory, template alebo module argument, temporary transfer a target destination až po application process, logs, callbacks a cleanup. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## Runtime shim — containerd
 
@@ -8362,6 +8406,10 @@ Runtime syscall filter vybraný cez Pod alebo container security context, naprí
 
 Druhý automation run nad už nakonfigurovaným targetom používaný na overenie, že desired state je stabilný a nevznikajú recurring changes. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## Second-converge evidence — Ansible
+
+Subject-bound výsledok druhého complete runu po úspešnom convergence, ktorý porovná expected/resolved/verified hosts, unintended changes, handler transitions, external side effects a runtime invariants. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
 ## Secret
 
 Citlivý credential alebo cryptographic material, ktorého získanie umožňuje access, impersonation, decryption, signing alebo privileged operation. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
@@ -8374,6 +8422,10 @@ Dokumentovaný contract secretu zahŕňajúci ownera, účel, consumers, lifetim
 
 API server configuration šifrujúca persisted Secret payloady pred uložením do etcd; nerieši disclosure cez API, Node, Pod memory, logs alebo kompromitovanú workload identity. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
 
+## Secret epoch
+
+Version alebo generácia cieľového credentialu používaná na koordináciu publication, consumer rollout, runtime verification a revocation predchádzajúcej hodnoty. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
 ## Secret — Kubernetes
 
 Namespaced API objekt pre citlivé bytes alebo strings, ktorého base64 reprezentácia nie je encryption a vyžaduje RBAC, encryption-at-rest, audit a bezpečný consumer lifecycle. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
@@ -8381,6 +8433,10 @@ Namespaced API objekt pre citlivé bytes alebo strings, ktorého base64 reprezen
 ## Secret lifecycle
 
 Proces creation, storage, authorization, distribution, use, rotation, revocation a destruction secretu. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## Secret lifecycle subject — Ansible Vault
+
+Riadená identita secretu zahŕňajúca logical secret ID, target system, environment, owner, consumer inventory, secret epoch, encrypted artifact, vault domain, decryption identity, runtime destinations, rotation deadline a revocation status. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## Secret push protection — GitLab
 
@@ -9757,6 +9813,10 @@ Miesto, kde sa mení úroveň dôvery, identity authority, administrative contro
 ## Trust domain — SPIFFE
 
 SPIFFE administrative a security boundary určujúca namespace workload identities a trust bundle pre ich verification. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Truthful changed signal — Ansible
+
+Per-host alebo per-item result, ktorý pravdivo rozlišuje no-op od vykonanej mutation a správne riadi handler, recovery, audit a second-converge evidence. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
 ## TSDB index store — Loki
 
