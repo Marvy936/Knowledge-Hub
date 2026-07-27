@@ -1837,15 +1837,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "title": "Terraform testing a policy",
-      "words": 1793,
-      "headings": 53,
-      "sections": 53,
-      "findings": 155,
-      "critical": 57,
-      "high": 70,
-      "medium": 25,
-      "low": 3,
-      "score": 1321,
+      "words": 2231,
+      "headings": 39,
+      "sections": 39,
+      "findings": 100,
+      "critical": 33,
+      "high": 35,
+      "medium": 21,
+      "low": 11,
+      "score": 767,
       "grade": "D"
     },
     {
@@ -98984,395 +98984,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "1. Testovací model",
+      "section": "1. Dominantný model: risk-to-runtime evidence lifecycle",
       "line": 7,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "2. terraform fmt",
-      "line": 25,
-      "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "2. terraform fmt",
-      "line": 25,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `konzistentný diff,`, `menej review noise,`, `jednoduchú automatickú opravu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "2. terraform fmt",
-      "line": 25,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "3. terraform validate",
-      "line": 41,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "3. terraform validate",
-      "line": 41,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "3. terraform validate",
-      "line": 41,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálne credentials,`, `remote API behavior,`, `quotas,`, `policy compliance,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "3. terraform validate",
-      "line": 41,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "3. terraform validate",
-      "line": 41,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "4. Static analysis",
-      "line": 61,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "4. Static analysis",
-      "line": 61,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "4. Static analysis",
-      "line": 61,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deprecated provider arguments,`, `cloud security misconfigurations,`, `naming/tagging pravidlá,`, `nepoužité declarations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "4. Static analysis",
-      "line": 61,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "5. Input validation",
-      "line": 76,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "5. Input validation",
-      "line": 76,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "5. Input validation",
-      "line": 76,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené enumy,`, `rozsahy,`, `cross-field constraints, ak sú vyjadriteľné,`, `formát identifiers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "5. Input validation",
-      "line": 76,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "6. Preconditions a postconditions",
-      "line": 101,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "6. Preconditions a postconditions",
-      "line": 101,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "6. Preconditions a postconditions",
-      "line": 101,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `precondition overuje predpoklad,`, `postcondition overuje result alebo observed attribute,`, `zlyhanie zastaví relevantný Terraform workflow.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "6. Preconditions a postconditions",
-      "line": 101,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "7. check blocks",
-      "line": 127,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "7. check blocks",
-      "line": 127,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupnosť endpointu,`, `expirácia certificate,`, `externý health signal,`, `kontinuálna validácia infra capability.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "7. check blocks",
-      "line": 127,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "8. Native Terraform tests",
-      "line": 140,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "9. Základ test file",
-      "line": 163,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "9. Základ test file",
-      "line": 163,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "10. Plan tests",
-      "line": 182,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "10. Plan tests",
-      "line": 182,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "10. Plan tests",
-      "line": 182,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `conditional resources,`, `count / for each identity,`, `naming a tagging,`, `output composition,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "10. Plan tests",
-      "line": 182,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "10. Plan tests",
-      "line": 182,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "11. Apply tests",
-      "line": 202,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "11. Apply tests",
-      "line": 202,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "11. Apply tests",
-      "line": 202,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `náklady,`, `leaked resources,`, `quotas,`, `dlhý runtime,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "11. Apply tests",
-      "line": 202,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "11. Apply tests",
-      "line": 202,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "12. Cleanup",
-      "line": 225,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "12. Cleanup",
-      "line": 225,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `test run ID,`, `vytvorené resource IDs,`, `ownera,`, `expiry/TTL,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "12. Cleanup",
-      "line": 225,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "12. Cleanup",
-      "line": 225,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `TTL`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "13. Mocking a overrides",
-      "line": 240,
+      "section": "3. Expected evidence inventory",
+      "line": 44,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "detail": "7 odrážok a iba 37 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "13. Mocking a overrides",
-      "line": 240,
+      "section": "3. Expected evidence inventory",
+      "line": 44,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `module expressions,`, `conditions,`, `output contracts,`, `branch logic,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pass;`, `test alebo policy violation;`, `tool error;`, `missing/skipped evidence;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "13. Mocking a overrides",
-      "line": 240,
+      "section": "3. Expected evidence inventory",
+      "line": 44,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -99380,296 +99020,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "13. Mocking a overrides",
-      "line": 240,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "13. Mocking a overrides",
-      "line": 240,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "14. Test doubles vs. reálni providers",
-      "line": 262,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "14. Test doubles vs. reálni providers",
-      "line": 262,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "14. Test doubles vs. reálni providers",
-      "line": 262,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mock provider pre rýchlu logiku,`, `reálny provider v disposable test environment-e,`, `read-only verification externým API klientom,`, `smoke test reálnej capability.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "14. Test doubles vs. reálni providers",
-      "line": 262,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "15. Assertions",
-      "line": 273,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "15. Assertions",
-      "line": 273,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "15. Assertions",
-      "line": 273,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `požadovaný resource existuje,`, `security invariant je splnená,`, `output má očakávaný význam,`, `zakázaná kombinácia zlyhá,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "15. Assertions",
-      "line": 273,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "15. Assertions",
-      "line": 273,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "16. Examples ako testované rozhranie",
-      "line": 291,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "16. Examples ako testované rozhranie",
-      "line": 291,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "16. Examples ako testované rozhranie",
-      "line": 291,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `syntakticky validovaný,`, `inicializovateľný,`, `planovateľný s test inputs,`, `zahrnutý do upgrade testov,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "16. Examples ako testované rozhranie",
-      "line": 291,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "17. Upgrade tests",
-      "line": 303,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "17. Upgrade tests",
-      "line": 303,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "17. Upgrade tests",
-      "line": 303,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúce moved blocks,`, `changed defaults,`, `nečakané replacements,`, `incompatible output types,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "17. Upgrade tests",
-      "line": 303,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "18. Version matrix",
-      "line": 324,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "18. Version matrix",
-      "line": 324,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporované Terraform versions,`, `provider version ranges,`, `module upgrade paths,`, `cloud regions alebo API variants,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "18. Version matrix",
-      "line": 324,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "18. Version matrix",
-      "line": 324,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "19. Integration verification",
-      "line": 336,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "19. Integration verification",
-      "line": 336,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "19. Integration verification",
-      "line": 336,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API endpoint odpovedá,`, `DNS/TLS je funkčné,`, `IAM principal má iba očakávané permissions,`, `network path je otvorená/zatvorená podľa policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "19. Integration verification",
-      "line": 336,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "19. Integration verification",
-      "line": 336,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`, `TLS`, `IAM`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "20. Plan artifact",
-      "line": 349,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "20. Plan artifact",
-      "line": 349,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "20. Plan artifact",
-      "line": 349,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viazaný na commit/configuration,`, `viazaný na variables/provider/module selections,`, `chránený ako sensitive artifact,`, `krátko uchovávaný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "20. Plan artifact",
-      "line": 349,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "20. Plan artifact",
-      "line": 349,
+      "section": "3. Expected evidence inventory",
+      "line": 44,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -99677,125 +99029,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "21. Machine-readable plan",
-      "line": 368,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "21. Machine-readable plan",
-      "line": 368,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "21. Machine-readable plan",
-      "line": 368,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy evaluation,`, `change classification,`, `replacement count,`, `security scanning,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "21. Machine-readable plan",
-      "line": 368,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "21. Machine-readable plan",
-      "line": 368,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "22. Policy as Code",
-      "line": 385,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "22. Policy as Code",
-      "line": 385,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené regions,`, `mandatory encryption,`, `zakázaný public access,`, `required tags a owner,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "22. Policy as Code",
-      "line": 385,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "22. Policy as Code",
-      "line": 385,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "23. Policy input",
-      "line": 402,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "23. Policy input",
-      "line": 402,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration,`, `resolved module/provider metadata,`, `plan JSON,`, `state metadata,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "23. Policy input",
-      "line": 402,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "23. Policy input",
-      "line": 402,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "24. Policy levels",
-      "line": 416,
+      "section": "4. Najlacnejšie vrstvy: format, syntax a static model",
+      "line": 78,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -99803,521 +99038,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "Advisory",
-      "line": 418,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "Soft mandatory",
-      "line": 422,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "25. Policy exceptions",
-      "line": 432,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "25. Policy exceptions",
-      "line": 432,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "25. Policy exceptions",
-      "line": 432,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy ID,`, `affected resource/change,`, `business a technical dôvod,`, `compensating controls,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "25. Policy exceptions",
-      "line": 432,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "25. Policy exceptions",
-      "line": 432,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `policy`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "26. Policy testing",
-      "line": 447,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "26. Policy testing",
-      "line": 447,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "26. Policy testing",
-      "line": 447,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compliant input prejde,`, `non-compliant input zlyhá,`, `boundary values,`, `unknown/missing fields,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "26. Policy testing",
-      "line": 447,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "26. Policy testing",
-      "line": 447,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "27. Quality gate design",
-      "line": 461,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "27. Quality gate design",
-      "line": 461,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "27. Quality gate design",
-      "line": 461,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tool failure,`, `missing evidence,`, `policy violation,`, `test failure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "27. Quality gate design",
-      "line": 461,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "27. Quality gate design",
-      "line": 461,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "28. Cost a capacity checks",
-      "line": 487,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "28. Cost a capacity checks",
-      "line": 487,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odhad cost delta,`, `quota requirements,`, `replica/capacity reduction,`, `expensive instance classes,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "28. Cost a capacity checks",
-      "line": 487,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "28. Cost a capacity checks",
-      "line": 487,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "29. Drift a continuous validation",
-      "line": 500,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "29. Drift a continuous validation",
-      "line": 500,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "29. Drift a continuous validation",
-      "line": 500,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduled drift plan,`, `check blocks alebo platform validation,`, `policy nad asset inventory,`, `security rescanning,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "29. Drift a continuous validation",
-      "line": 500,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "29. Drift a continuous validation",
-      "line": 500,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "30. Test isolation",
-      "line": 513,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "30. Test isolation",
-      "line": 513,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "30. Test isolation",
-      "line": 513,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique namespace/name prefix,`, `oddelený state,`, `isolated credentials,`, `bounded network scope,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "30. Test isolation",
-      "line": 513,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "30. Test isolation",
-      "line": 513,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "31. Flaky Terraform tests",
-      "line": 527,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "31. Flaky Terraform tests",
-      "line": 527,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "31. Flaky Terraform tests",
-      "line": 527,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `eventual consistency,`, `throttling,`, `mutable external data,`, `shared test environment,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "31. Flaky Terraform tests",
-      "line": 527,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "31. Flaky Terraform tests",
-      "line": 527,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "32. Security testu",
-      "line": 549,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "32. Security testu",
-      "line": 549,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "32. Security testu",
-      "line": 549,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source,`, `plan/state,`, `cloud metadata,`, `credentials,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "32. Security testu",
-      "line": 549,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "32. Security testu",
-      "line": 549,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "33. Observability",
-      "line": 569,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "33. Observability",
-      "line": 569,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "33. Observability",
-      "line": 569,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fmt/validate/test pass rate,`, `test duration a flakiness,`, `leaked-resource count,`, `policy violation trend,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "33. Observability",
-      "line": 569,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "33. Observability",
-      "line": 569,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "Iba terraform validate",
-      "line": 585,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "Snapshot celého plan textu",
-      "line": 589,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "Apply tests v production account-e",
-      "line": 593,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "Mocks bez integration testu",
-      "line": 597,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "Policy bez exception lifecycle",
-      "line": 601,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "Apply sa vykoná znovu namiesto saved planu",
-      "line": 605,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "terraform test vytvoril resources a cleanup zlyhal",
-      "line": 611,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "Mock test je zelený, reálny apply zlyhá",
-      "line": 619,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "Policy nevie nájsť očakávaný field",
-      "line": 623,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "CI a lokálny plan sa líšia",
-      "line": 627,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "36. Rozhodovací rámec",
-      "line": 631,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "36. Rozhodovací rámec",
-      "line": 631,
+      "section": "terraform fmt",
+      "line": 80,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -100325,26 +99047,44 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "36. Rozhodovací rámec",
-      "line": 631,
+      "section": "terraform validate",
+      "line": 88,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "terraform validate",
+      "line": 88,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "terraform validate",
+      "line": 88,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "36. Rozhodovací rámec",
-      "line": 631,
+      "section": "terraform validate",
+      "line": 88,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktoré chyby zachytí najlacnejšia vrstva?`, `Ktoré invariants patria do variable validation alebo conditions?`, `Aký reálny environment je bezpečný pre integration test?`, `Ako garantujeme cleanup a TTL?`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credentials a authorization;`, `quotas;`, `organization policy;`, `remote API behavior;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "36. Rozhodovací rámec",
-      "line": 631,
+      "section": "terraform validate",
+      "line": 88,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -100352,17 +99092,170 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "36. Rozhodovací rámec",
-      "line": 631,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "terraform validate",
+      "line": 88,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`",
+      "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "36. Rozhodovací rámec",
-      "line": 631,
+      "section": "5. Contract invariants v konfigurácii",
+      "line": 119,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Input validation",
+      "line": 123,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Preconditions a postconditions",
+      "line": 143,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "6. Native test lifecycle",
+      "line": 169,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Plan test",
+      "line": 189,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Plan test",
+      "line": 189,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Plan test",
+      "line": 189,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Plan test",
+      "line": 189,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typed input a validation behavior;`, `conditional resource inventory;`, `stable for each identities;`, `tags a known arguments;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Plan test",
+      "line": 189,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Plan test",
+      "line": 189,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Apply test",
+      "line": 219,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Apply test",
+      "line": 219,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider create/update/delete behavior;`, `organization policy a IAM;`, `API normalization;`, `eventual consistency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Apply test",
+      "line": 219,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "Apply test",
+      "line": 219,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `API`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "8. Assertions a oracle fidelity",
+      "line": 256,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "8. Assertions a oracle fidelity",
+      "line": 256,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource inventory a identity keys;`, `zakázanú kombináciu;`, `security invariant;`, `minimálny output contract;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "8. Assertions a oracle fidelity",
+      "line": 256,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "8. Assertions a oracle fidelity",
+      "line": 256,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -100370,11 +99263,623 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
-      "section": "36. Rozhodovací rámec",
-      "line": 631,
+      "section": "8. Assertions a oracle fidelity",
+      "line": 256,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "8. Assertions a oracle fidelity",
+      "line": 256,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "9. Upgrade test ako stateful scenár",
+      "line": 277,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "9. Upgrade test ako stateful scenár",
+      "line": 277,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "9. Upgrade test ako stateful scenár",
+      "line": 277,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúce moved blocks;`, `zmenu for each keys;`, `incompatible output types;`, `nový unsafe default;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "9. Upgrade test ako stateful scenár",
+      "line": 277,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "9. Upgrade test ako stateful scenár",
+      "line": 277,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "11. Test isolation a cleanup verdict",
+      "line": 316,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "11. Test isolation a cleanup verdict",
+      "line": 316,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "11. Test isolation a cleanup verdict",
+      "line": 316,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique run ID a naming prefix;`, `samostatný state;`, `isolated identity a target;`, `bounded network exposure;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "11. Test isolation a cleanup verdict",
+      "line": 316,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "11. Test isolation a cleanup verdict",
+      "line": 316,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "11. Test isolation a cleanup verdict",
+      "line": 316,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `TTL`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "12. Flakiness ako failure model",
+      "line": 346,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "12. Flakiness ako failure model",
+      "line": 346,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `eventual consistency;`, `API throttling;`, `mutable data sources;`, `shared test target;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "12. Flakiness ako failure model",
+      "line": 346,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "12. Flakiness ako failure model",
+      "line": 346,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "13. Saved plan ako rozhodovací subject",
+      "line": 370,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "13. Saved plan ako rozhodovací subject",
+      "line": 370,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration revision;`, `provider/module selections;`, `effective variables;`, `refreshed observations;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "13. Saved plan ako rozhodovací subject",
+      "line": 370,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "13. Saved plan ako rozhodovací subject",
+      "line": 370,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "14. Machine-readable plan a policy input",
+      "line": 395,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "14. Machine-readable plan a policy input",
+      "line": 395,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource address a action sequence;`, `before , after a unknown values;`, `sensitive markers;`, `replacement reasons;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "14. Machine-readable plan a policy input",
+      "line": 395,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "14. Machine-readable plan a policy input",
+      "line": 395,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "14. Machine-readable plan a policy input",
+      "line": 395,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "14. Machine-readable plan a policy input",
+      "line": 395,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "15. Policy verdict a exception lifecycle",
+      "line": 425,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "17. Causal troubleshooting walkthrough: green pipeline, nebezpečný production plan",
+      "line": 476,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "1. Identifikuj evidence subject",
+      "line": 480,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "1. Identifikuj evidence subject",
+      "line": 480,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "1. Identifikuj evidence subject",
+      "line": 480,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source revision;`, `module/provider versions;`, `effective variables;`, `plan digest;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "1. Identifikuj evidence subject",
+      "line": 480,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "1. Identifikuj evidence subject",
+      "line": 480,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 493,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 493,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 493,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 493,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Security scanner alebo policy job nebol vytvorený.`, `Report existoval, ale schema/processing zlyhali.`, `Policy vyhodnotila iný regenerated plan.`, `Public exposure bolo unknown pri policy čase.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 493,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 493,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 493,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 504,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 504,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 504,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 504,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline graph a job applicability;`, `report checksum/schema/processing verdict;`, `saved plan digest použitý policy aj apply jobom;`, `plan JSON address/action/unknown fields;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 504,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 504,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 504,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `ID`, `policy`, `resource`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "5. Recovery",
+      "line": 519,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "5. Recovery",
+      "line": 519,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "5. Recovery",
+      "line": 519,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "5. Recovery",
+      "line": 519,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `broad exception → zúž/revoke exception;`, `unsafe default → oprav module contract a upgrade tests;`, `tool outage → použi schválený fail-closed/fallback workflow.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "5. Recovery",
+      "line": 519,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "5. Recovery",
+      "line": 519,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "5. Recovery",
+      "line": 519,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "6. Over pôvodný outcome",
+      "line": 528,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "7. Posuň control skôr",
+      "line": 532,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "19. Continuous validation",
+      "line": 553,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "19. Continuous validation",
+      "line": 553,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduled drift plan;`, `check/health evaluation;`, `cloud asset policy;`, `vulnerability a deprecation inventory;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "19. Continuous validation",
+      "line": 553,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "19. Continuous validation",
+      "line": 553,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "20. Referenčný quality-gate chain",
+      "line": 567,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "20. Referenčný quality-gate chain",
+      "line": 567,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "20. Referenčný quality-gate chain",
+      "line": 567,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "20. Referenčný quality-gate chain",
+      "line": 567,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zelený job bez validného reportu nie je evidence.`, `Skipped required test je incomplete, nie pass.`, `Mock test nedokazuje provider/API behavior.`, `Clean install nenahrádza upgrade test.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "20. Referenčný quality-gate chain",
+      "line": 567,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "20. Referenčný quality-gate chain",
+      "line": 567,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "20. Referenčný quality-gate chain",
+      "line": 567,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
+      "section": "20. Referenčný quality-gate chain",
+      "line": 567,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `Policy`, `scope`",
       "score": 4
     },
     {

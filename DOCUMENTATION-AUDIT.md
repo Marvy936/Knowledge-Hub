@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11428**
-- Total words: **578,483**
-- Findings: **24828** (critical 7908, high 9037, medium 3398, low 4485)
+- Audited conceptual sections: **11414**
+- Total words: **578,921**
+- Findings: **24773** (critical 7884, high 9002, medium 3394, low 4493)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -45,7 +45,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1354 | 61 | 68 | 24 | 6 | 2385 | `docs/09-kubernetes/pod.md` |
 | D | 1348 | 66 | 61 | 16 | 21 | 2097 | `docs/12-observability/alert-design-alert-fatigue.md` |
 | D | 1336 | 64 | 63 | 21 | 7 | 2104 | `docs/12-observability/cardinality.md` |
-| D | 1321 | 57 | 70 | 25 | 3 | 1793 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | D | 1318 | 61 | 62 | 22 | 20 | 2668 | `docs/12-observability/prometheus.md` |
 | D | 1303 | 62 | 61 | 19 | 11 | 2047 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | D | 1292 | 60 | 59 | 27 | 12 | 2273 | `docs/09-kubernetes/worker-node-components.md` |
@@ -119,6 +118,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 784 | 32 | 49 | 4 | 4 | 1508 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
 | D | 779 | 34 | 40 | 15 | 8 | 1437 | `docs/11-cloud-and-aws/iam.md` |
 | D | 769 | 33 | 38 | 14 | 19 | 2119 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
+| D | 767 | 33 | 35 | 21 | 11 | 2231 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | D | 765 | 35 | 34 | 20 | 3 | 1526 | `docs/09-kubernetes/scheduling.md` |
 | D | 761 | 41 | 29 | 11 | 5 | 1364 | `docs/08-container-fundamentals-and-docker/container-storage.md` |
 | D | 756 | 31 | 43 | 9 | 10 | 2339 | `docs/02-networking-and-web/load-balancing.md` |
@@ -7057,133 +7057,74 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md`
 
-- **CRITICAL** line 41, `bare-bullet-items` — **3. terraform validate**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálne credentials,`, `remote API behavior,`, `quotas,`, `policy compliance,`.
-- **CRITICAL** line 41, `outline-instead-of-explanation` — **3. terraform validate**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 61, `bare-bullet-items` — **4. Static analysis**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deprecated provider arguments,`, `cloud security misconfigurations,`, `naming/tagging pravidlá,`, `nepoužité declarations,`.
-- **CRITICAL** line 61, `outline-instead-of-explanation` — **4. Static analysis**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 76, `bare-bullet-items` — **5. Input validation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené enumy,`, `rozsahy,`, `cross-field constraints, ak sú vyjadriteľné,`, `formát identifiers,`.
-- **CRITICAL** line 76, `outline-instead-of-explanation` — **5. Input validation**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 127, `bare-bullet-items` — **7. check blocks**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupnosť endpointu,`, `expirácia certificate,`, `externý health signal,`, `kontinuálna validácia infra capability.`.
-- **CRITICAL** line 127, `outline-instead-of-explanation` — **7. check blocks**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 182, `bare-bullet-items` — **10. Plan tests**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `conditional resources,`, `count / for each identity,`, `naming a tagging,`, `output composition,`.
-- **CRITICAL** line 182, `outline-instead-of-explanation` — **10. Plan tests**: 12 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 202, `bare-bullet-items` — **11. Apply tests**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `náklady,`, `leaked resources,`, `quotas,`, `dlhý runtime,`.
-- **CRITICAL** line 202, `outline-instead-of-explanation` — **11. Apply tests**: 13 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 225, `bare-bullet-items` — **12. Cleanup**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `test run ID,`, `vytvorené resource IDs,`, `ownera,`, `expiry/TTL,`.
-- **CRITICAL** line 225, `outline-instead-of-explanation` — **12. Cleanup**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 240, `bare-bullet-items` — **13. Mocking a overrides**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `module expressions,`, `conditions,`, `output contracts,`, `branch logic,`.
-- **CRITICAL** line 262, `bare-bullet-items` — **14. Test doubles vs. reálni providers**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mock provider pre rýchlu logiku,`, `reálny provider v disposable test environment-e,`, `read-only verification externým API klientom,`, `smoke test reálnej capability.`.
-- **CRITICAL** line 262, `outline-instead-of-explanation` — **14. Test doubles vs. reálni providers**: 4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 273, `bare-bullet-items` — **15. Assertions**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `požadovaný resource existuje,`, `security invariant je splnená,`, `output má očakávaný význam,`, `zakázaná kombinácia zlyhá,`.
-- **CRITICAL** line 273, `outline-instead-of-explanation` — **15. Assertions**: 10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 291, `bare-bullet-items` — **16. Examples ako testované rozhranie**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `syntakticky validovaný,`, `inicializovateľný,`, `planovateľný s test inputs,`, `zahrnutý do upgrade testov,`.
-- **CRITICAL** line 291, `outline-instead-of-explanation` — **16. Examples ako testované rozhranie**: 5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 303, `bare-bullet-items` — **17. Upgrade tests**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúce moved blocks,`, `changed defaults,`, `nečakané replacements,`, `incompatible output types,`.
-- **CRITICAL** line 303, `outline-instead-of-explanation` — **17. Upgrade tests**: 5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 324, `bare-bullet-items` — **18. Version matrix**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporované Terraform versions,`, `provider version ranges,`, `module upgrade paths,`, `cloud regions alebo API variants,`.
-- **CRITICAL** line 324, `outline-instead-of-explanation` — **18. Version matrix**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 336, `bare-bullet-items` — **19. Integration verification**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API endpoint odpovedá,`, `DNS/TLS je funkčné,`, `IAM principal má iba očakávané permissions,`, `network path je otvorená/zatvorená podľa policy,`.
-- **CRITICAL** line 336, `outline-instead-of-explanation` — **19. Integration verification**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 349, `bare-bullet-items` — **20. Plan artifact**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viazaný na commit/configuration,`, `viazaný na variables/provider/module selections,`, `chránený ako sensitive artifact,`, `krátko uchovávaný,`.
-- **CRITICAL** line 349, `outline-instead-of-explanation` — **20. Plan artifact**: 5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 368, `bare-bullet-items` — **21. Machine-readable plan**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy evaluation,`, `change classification,`, `replacement count,`, `security scanning,`.
-- **CRITICAL** line 368, `outline-instead-of-explanation` — **21. Machine-readable plan**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 385, `bare-bullet-items` — **22. Policy as Code**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené regions,`, `mandatory encryption,`, `zakázaný public access,`, `required tags a owner,`.
-- **CRITICAL** line 385, `outline-instead-of-explanation` — **22. Policy as Code**: 8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 402, `bare-bullet-items` — **23. Policy input**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration,`, `resolved module/provider metadata,`, `plan JSON,`, `state metadata,`.
-- **CRITICAL** line 402, `outline-instead-of-explanation` — **23. Policy input**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 416, `empty-section` — **24. Policy levels**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 432, `bare-bullet-items` — **25. Policy exceptions**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy ID,`, `affected resource/change,`, `business a technical dôvod,`, `compensating controls,`.
-- **CRITICAL** line 432, `outline-instead-of-explanation` — **25. Policy exceptions**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 447, `bare-bullet-items` — **26. Policy testing**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compliant input prejde,`, `non-compliant input zlyhá,`, `boundary values,`, `unknown/missing fields,`.
-- **CRITICAL** line 447, `outline-instead-of-explanation` — **26. Policy testing**: 7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 461, `bare-bullet-items` — **27. Quality gate design**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tool failure,`, `missing evidence,`, `policy violation,`, `test failure,`.
-- **CRITICAL** line 461, `outline-instead-of-explanation` — **27. Quality gate design**: 5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 487, `bare-bullet-items` — **28. Cost a capacity checks**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odhad cost delta,`, `quota requirements,`, `replica/capacity reduction,`, `expensive instance classes,`.
-- **CRITICAL** line 487, `outline-instead-of-explanation` — **28. Cost a capacity checks**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 500, `bare-bullet-items` — **29. Drift a continuous validation**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduled drift plan,`, `check blocks alebo platform validation,`, `policy nad asset inventory,`, `security rescanning,`.
-- **CRITICAL** line 500, `outline-instead-of-explanation` — **29. Drift a continuous validation**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 513, `bare-bullet-items` — **30. Test isolation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique namespace/name prefix,`, `oddelený state,`, `isolated credentials,`, `bounded network scope,`.
-- **CRITICAL** line 513, `outline-instead-of-explanation` — **30. Test isolation**: 7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 527, `bare-bullet-items` — **31. Flaky Terraform tests**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `eventual consistency,`, `throttling,`, `mutable external data,`, `shared test environment,`.
-- **CRITICAL** line 527, `outline-instead-of-explanation` — **31. Flaky Terraform tests**: 14 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 549, `bare-bullet-items` — **32. Security testu**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source,`, `plan/state,`, `cloud metadata,`, `credentials,`.
-- **CRITICAL** line 549, `outline-instead-of-explanation` — **32. Security testu**: 12 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 569, `bare-bullet-items` — **33. Observability**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fmt/validate/test pass rate,`, `test duration a flakiness,`, `leaked-resource count,`, `policy violation trend,`.
-- **CRITICAL** line 569, `outline-instead-of-explanation` — **33. Observability**: 9 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 631, `bare-bullet-items` — **36. Rozhodovací rámec**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktoré chyby zachytí najlacnejšia vrstva?`, `Ktoré invariants patria do variable validation alebo conditions?`, `Aký reálny environment je bezpečný pre integration test?`, `Ako garantujeme cleanup a TTL?`.
-- **CRITICAL** line 631, `no-prose-concept` — **36. Rozhodovací rámec**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 631, `outline-instead-of-explanation` — **36. Rozhodovací rámec**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **HIGH** line 7, `single-sentence-concept` — **1. Testovací model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 25, `bare-bullet-items` — **2. terraform fmt**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `konzistentný diff,`, `menej review noise,`, `jednoduchú automatickú opravu.`.
-- **HIGH** line 25, `list-first-introduction` — **2. terraform fmt**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 41, `list-first-introduction` — **3. terraform validate**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 61, `single-sentence-concept` — **4. Static analysis**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 76, `list-first-introduction` — **5. Input validation**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 101, `bare-bullet-items` — **6. Preconditions a postconditions**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `precondition overuje predpoklad,`, `postcondition overuje result alebo observed attribute,`, `zlyhanie zastaví relevantný Terraform workflow.`.
-- **HIGH** line 101, `list-first-introduction` — **6. Preconditions a postconditions**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 101, `single-sentence-concept` — **6. Preconditions a postconditions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 140, `single-sentence-concept` — **8. Native Terraform tests**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 163, `list-first-introduction` — **9. Základ test file**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 163, `single-sentence-concept` — **9. Základ test file**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 182, `single-sentence-concept` — **10. Plan tests**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 202, `single-sentence-concept` — **11. Apply tests**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 240, `list-heavy-section` — **13. Mocking a overrides**: 10 odrážok a iba 37 slov súvislého vysvetlenia.
-- **HIGH** line 262, `single-sentence-concept` — **14. Test doubles vs. reálni providers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 273, `single-sentence-concept` — **15. Assertions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 291, `single-sentence-concept` — **16. Examples ako testované rozhranie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 303, `single-sentence-concept` — **17. Upgrade tests**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 336, `single-sentence-concept` — **19. Integration verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 349, `single-sentence-concept` — **20. Plan artifact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 368, `list-first-introduction` — **21. Machine-readable plan**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 418, `single-sentence-concept` — **Advisory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 422, `single-sentence-concept` — **Soft mandatory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 432, `single-sentence-concept` — **25. Policy exceptions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 447, `single-sentence-concept` — **26. Policy testing**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 461, `single-sentence-concept` — **27. Quality gate design**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 500, `single-sentence-concept` — **29. Drift a continuous validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 513, `single-sentence-concept` — **30. Test isolation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 527, `single-sentence-concept` — **31. Flaky Terraform tests**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 549, `single-sentence-concept` — **32. Security testu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 569, `single-sentence-concept` — **33. Observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 585, `single-sentence-concept` — **Iba terraform validate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 589, `single-sentence-concept` — **Snapshot celého plan textu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 593, `single-sentence-concept` — **Apply tests v production account-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 597, `single-sentence-concept` — **Mocks bez integration testu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 601, `single-sentence-concept` — **Policy bez exception lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 605, `single-sentence-concept` — **Apply sa vykoná znovu namiesto saved planu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 611, `single-sentence-concept` — **terraform test vytvoril resources a cleanup zlyhal**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 619, `single-sentence-concept` — **Mock test je zelený, reálny apply zlyhá**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 623, `single-sentence-concept` — **Policy nevie nájsť očakávaný field**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 627, `single-sentence-concept` — **CI a lokálny plan sa líšia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 631, `list-first-introduction` — **36. Rozhodovací rámec**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 25, `thin-concept-section` — **2. terraform fmt**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 61, `thin-concept-section` — **4. Static analysis**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 76, `thin-concept-section` — **5. Input validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 101, `thin-concept-section` — **6. Preconditions a postconditions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 182, `thin-concept-section` — **10. Plan tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 202, `thin-concept-section` — **11. Apply tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 225, `thin-concept-section` — **12. Cleanup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 262, `thin-concept-section` — **14. Test doubles vs. reálni providers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 273, `thin-concept-section` — **15. Assertions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 291, `thin-concept-section` — **16. Examples ako testované rozhranie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 303, `thin-concept-section` — **17. Upgrade tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 324, `thin-concept-section` — **18. Version matrix**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 336, `term-before-explanation` — **19. Integration verification**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`, `TLS`, `IAM`, `policy`
-- **HIGH** line 336, `thin-concept-section` — **19. Integration verification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 349, `thin-concept-section` — **20. Plan artifact**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 368, `thin-concept-section` — **21. Machine-readable plan**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 402, `thin-concept-section` — **23. Policy input**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 432, `thin-concept-section` — **25. Policy exceptions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 447, `thin-concept-section` — **26. Policy testing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 461, `thin-concept-section` — **27. Quality gate design**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 487, `thin-concept-section` — **28. Cost a capacity checks**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 500, `thin-concept-section` — **29. Drift a continuous validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 513, `thin-concept-section` — **30. Test isolation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 527, `thin-concept-section` — **31. Flaky Terraform tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 549, `thin-concept-section` — **32. Security testu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 569, `thin-concept-section` — **33. Observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 631, `thin-concept-section` — **36. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 44, `bare-bullet-items` — **3. Expected evidence inventory**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pass;`, `test alebo policy violation;`, `tool error;`, `missing/skipped evidence;`.
+- **CRITICAL** line 78, `empty-section` — **4. Najlacnejšie vrstvy: format, syntax a static model**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 88, `bare-bullet-items` — **terraform validate**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credentials a authorization;`, `quotas;`, `organization policy;`, `remote API behavior;`.
+- **CRITICAL** line 88, `outline-instead-of-explanation` — **terraform validate**: 7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 123, `empty-section` — **Input validation**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 189, `bare-bullet-items` — **Plan test**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typed input a validation behavior;`, `conditional resource inventory;`, `stable for each identities;`, `tags a known arguments;`.
+- **CRITICAL** line 189, `outline-instead-of-explanation` — **Plan test**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 219, `bare-bullet-items` — **Apply test**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider create/update/delete behavior;`, `organization policy a IAM;`, `API normalization;`, `eventual consistency;`.
+- **CRITICAL** line 219, `outline-instead-of-explanation` — **Apply test**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 256, `bare-bullet-items` — **8. Assertions a oracle fidelity**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource inventory a identity keys;`, `zakázanú kombináciu;`, `security invariant;`, `minimálny output contract;`.
+- **CRITICAL** line 256, `outline-instead-of-explanation` — **8. Assertions a oracle fidelity**: 11 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 277, `bare-bullet-items` — **9. Upgrade test ako stateful scenár**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúce moved blocks;`, `zmenu for each keys;`, `incompatible output types;`, `nový unsafe default;`.
+- **CRITICAL** line 277, `outline-instead-of-explanation` — **9. Upgrade test ako stateful scenár**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 316, `bare-bullet-items` — **11. Test isolation a cleanup verdict**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique run ID a naming prefix;`, `samostatný state;`, `isolated identity a target;`, `bounded network exposure;`.
+- **CRITICAL** line 316, `outline-instead-of-explanation` — **11. Test isolation a cleanup verdict**: 8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 346, `bare-bullet-items` — **12. Flakiness ako failure model**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `eventual consistency;`, `API throttling;`, `mutable data sources;`, `shared test target;`.
+- **CRITICAL** line 346, `outline-instead-of-explanation` — **12. Flakiness ako failure model**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 370, `bare-bullet-items` — **13. Saved plan ako rozhodovací subject**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration revision;`, `provider/module selections;`, `effective variables;`, `refreshed observations;`.
+- **CRITICAL** line 395, `bare-bullet-items` — **14. Machine-readable plan a policy input**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource address a action sequence;`, `before , after a unknown values;`, `sensitive markers;`, `replacement reasons;`.
+- **CRITICAL** line 480, `bare-bullet-items` — **1. Identifikuj evidence subject**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source revision;`, `module/provider versions;`, `effective variables;`, `plan digest;`.
+- **CRITICAL** line 480, `outline-instead-of-explanation` — **1. Identifikuj evidence subject**: 8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 493, `bare-bullet-items` — **2. Súťažiace hypotézy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Security scanner alebo policy job nebol vytvorený.`, `Report existoval, ale schema/processing zlyhali.`, `Policy vyhodnotila iný regenerated plan.`, `Public exposure bolo unknown pri policy čase.`.
+- **CRITICAL** line 493, `no-prose-concept` — **2. Súťažiace hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 493, `outline-instead-of-explanation` — **2. Súťažiace hypotézy**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 504, `bare-bullet-items` — **3. Diskriminačné observation points**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pipeline graph a job applicability;`, `report checksum/schema/processing verdict;`, `saved plan digest použitý policy aj apply jobom;`, `plan JSON address/action/unknown fields;`.
+- **CRITICAL** line 504, `no-prose-concept` — **3. Diskriminačné observation points**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 504, `outline-instead-of-explanation` — **3. Diskriminačné observation points**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 519, `no-prose-concept` — **5. Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 519, `outline-instead-of-explanation` — **5. Recovery**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 553, `bare-bullet-items` — **19. Continuous validation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduled drift plan;`, `check/health evaluation;`, `cloud asset policy;`, `vulnerability a deprecation inventory;`.
+- **CRITICAL** line 553, `outline-instead-of-explanation` — **19. Continuous validation**: 7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 567, `bare-bullet-items` — **20. Referenčný quality-gate chain**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zelený job bez validného reportu nie je evidence.`, `Skipped required test je incomplete, nie pass.`, `Mock test nedokazuje provider/API behavior.`, `Clean install nenahrádza upgrade test.`.
+- **CRITICAL** line 567, `outline-instead-of-explanation` — **20. Referenčný quality-gate chain**: 10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model: risk-to-runtime evidence lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 44, `list-heavy-section` — **3. Expected evidence inventory**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 80, `list-first-introduction` — **terraform fmt**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 88, `list-first-introduction` — **terraform validate**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 88, `single-sentence-concept` — **terraform validate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 119, `single-sentence-concept` — **5. Contract invariants v konfigurácii**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 143, `list-first-introduction` — **Preconditions a postconditions**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 169, `single-sentence-concept` — **6. Native test lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 189, `list-first-introduction` — **Plan test**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 189, `single-sentence-concept` — **Plan test**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 277, `single-sentence-concept` — **9. Upgrade test ako stateful scenár**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 316, `single-sentence-concept` — **11. Test isolation a cleanup verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 370, `list-heavy-section` — **13. Saved plan ako rozhodovací subject**: 6 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 395, `list-heavy-section` — **14. Machine-readable plan a policy input**: 6 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 476, `single-sentence-concept` — **17. Causal troubleshooting walkthrough: green pipeline, nebezpečný production plan**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 480, `single-sentence-concept` — **1. Identifikuj evidence subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 493, `list-first-introduction` — **2. Súťažiace hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 504, `list-first-introduction` — **3. Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 519, `bare-bullet-items` — **5. Recovery**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `broad exception → zúž/revoke exception;`, `unsafe default → oprav module contract a upgrade tests;`, `tool outage → použi schválený fail-closed/fallback workflow.`.
+- **HIGH** line 519, `list-first-introduction` — **5. Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 528, `single-sentence-concept` — **6. Over pôvodný outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 532, `single-sentence-concept` — **7. Posuň control skôr**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 567, `list-first-introduction` — **20. Referenčný quality-gate chain**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 567, `single-sentence-concept` — **20. Referenčný quality-gate chain**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 88, `thin-concept-section` — **terraform validate**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 189, `thin-concept-section` — **Plan test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 219, `thin-concept-section` — **Apply test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 277, `thin-concept-section` — **9. Upgrade test ako stateful scenár**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 316, `thin-concept-section` — **11. Test isolation a cleanup verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 480, `thin-concept-section` — **1. Identifikuj evidence subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 493, `thin-concept-section` — **2. Súťažiace hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 504, `term-before-explanation` — **3. Diskriminačné observation points**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `ID`, `policy`, `resource`, `scope`
+- **HIGH** line 504, `thin-concept-section` — **3. Diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 519, `thin-concept-section` — **5. Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 567, `thin-concept-section` — **20. Referenčný quality-gate chain**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md`
 
@@ -17995,19 +17936,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3508 | 437 | 0 | 0 | 3945 |
-| `single-sentence-concept` | 0 | 3697 | 0 | 0 | 3697 |
-| `outline-instead-of-explanation` | 3357 | 0 | 0 | 0 | 3357 |
-| `thin-concept-section` | 0 | 2957 | 0 | 0 | 2957 |
-| `term-before-explanation` | 0 | 457 | 2309 | 0 | 2766 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1798 | 1798 |
-| `example-not-explicit` | 0 | 0 | 0 | 1755 | 1755 |
-| `list-first-introduction` | 0 | 1108 | 0 | 0 | 1108 |
-| `short-concept-section` | 0 | 0 | 1089 | 0 | 1089 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 932 | 932 |
-| `empty-section` | 584 | 0 | 0 | 0 | 584 |
-| `no-prose-concept` | 459 | 0 | 0 | 0 | 459 |
-| `list-heavy-section` | 0 | 381 | 0 | 0 | 381 |
+| `bare-bullet-items` | 3495 | 436 | 0 | 0 | 3931 |
+| `single-sentence-concept` | 0 | 3675 | 0 | 0 | 3675 |
+| `outline-instead-of-explanation` | 3343 | 0 | 0 | 0 | 3343 |
+| `thin-concept-section` | 0 | 2941 | 0 | 0 | 2941 |
+| `term-before-explanation` | 0 | 457 | 2302 | 0 | 2759 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1804 | 1804 |
+| `example-not-explicit` | 0 | 0 | 0 | 1756 | 1756 |
+| `list-first-introduction` | 0 | 1110 | 0 | 0 | 1110 |
+| `short-concept-section` | 0 | 0 | 1092 | 0 | 1092 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 933 | 933 |
+| `empty-section` | 585 | 0 | 0 | 0 | 585 |
+| `no-prose-concept` | 461 | 0 | 0 | 0 | 461 |
+| `list-heavy-section` | 0 | 383 | 0 | 0 | 383 |
 
 ## Required remediation pattern
 
