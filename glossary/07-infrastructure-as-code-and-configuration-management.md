@@ -8,6 +8,10 @@ Systém alebo versionovaný artifact považovaný za rozhodujúcu deklaráciu po
 
 Riadený presun state lineage a snapshots z jedného backendu do druhého so zastavením writers, backupom, overením destination identity a následným planom. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
+## Change subject — IaC
+
+Presná identita infra zmeny zahŕňajúca source revision, resolved toolchain a dependencies, effective inputs, backend/state lineage a serial, target account/region, workload identity, saved plan a policy/approval context. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
 ## ClickOps
 
 Primárna správa infraštruktúry manuálnymi zmenami v UI alebo konzole bez versionovaného, reviewovaného a reprodukovateľného change pathu. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
@@ -36,6 +40,10 @@ Directed graph vytvorený z references, provider vzťahov a explicitných depend
 
 Súbor `.terraform.lock.hcl` zachytávajúci vybrané provider versions a package checksums pre reprodukovateľnejšiu inštaláciu dependencies. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
+## Effective input subject — Terraform
+
+Rekonštruovateľná množina root a module inputs po vyhodnotení source-u, precedence, default/null semantics, caller forwarding-u a sensitive markers, viazaná na konkrétny saved plan. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
+
 ## Force unlock — Terraform
 
 Riziková operácia odstránenia backend locku podľa lock ID bez ukončenia pôvodného procesu; smie sa použiť iba po potvrdení, že pôvodný writer už neexistuje. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
@@ -55,6 +63,10 @@ Jedinečný identifikátor histórie state-u používaný na rozlíšenie nezáv
 ## Local value — Terraform
 
 Pomenovaná interná expression modulu dostupná cez `local.<name>`, ktorú caller nemôže priamo nastaviť. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
+
+## Module interface contract — Terraform
+
+Versionované rozhranie modulu tvorené typovanými inputs, validation/default/null semantics, internými identity assumptions, minimálnymi stabilnými outputs a compatibility/deprecation policy. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
 
 ## Multi-writer race — Terraform
 
@@ -76,6 +88,10 @@ Runtime nastavenie providera, napríklad region, endpoint alebo authentication c
 
 Deklarácia provider source addressu a povoleného version rozsahu v `required_providers`, ktorú modul potrebuje pre svoje resources a data sources. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
+## Provider target identity — Terraform
+
+Effective provider configuration address spolu s caller accountom, regionom, endpointom a workload identity, ktorá určuje, ktorú remote authorization a failure boundary provider API operácia zasiahne. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
 ## Remote backend — Terraform
 
 Backend ukladajúci Terraform state mimo lokálneho working directory a podľa typu poskytujúci collaboration, locking, versioning alebo remote-operation capabilities. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
@@ -92,9 +108,17 @@ Jednoznačná konfiguračná adresa managed objektu vrátane module pathu, resou
 
 State mapovanie medzi Terraform resource instance addressou, provider contextom a konkrétnou remote object identity. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
 
+## Saved plan subject — Terraform
+
+Konkrétny plan artifact a digest viazaný na configuration, resolved dependencies, effective inputs, state lineage/serial, refresh observations, provider versions, target identity a policy/approval verdict. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
 ## Serial — Terraform state
 
 Monotónne rastúce číslo snapshotu v jednej state lineage používané na rozpoznanie novšej verzie a ochranu pred stale overwrite. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## Stable instance key — Terraform
+
+Configuration-derived key s dlhodobým identity významom používaný v `for_each` addressách; jeho zmena je resource identity change a môže vyžadovať `moved` alebo state migration contract. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
 
 ## State boundary — Terraform
 
@@ -127,6 +151,10 @@ Samostatne versionovaný plugin implementujúci resource types, data sources, sc
 ## Terraform state
 
 Persistentný model mapujúci Terraform resource addresses na remote identities a uchovávajúci metadata potrebné na ďalší plan/apply lifecycle. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## Unknown remote outcome — IaC
+
+Failure stav, v ktorom pipeline nedostala spoľahlivý výsledok remote mutation a pred retry musí cez request IDs, provider logs, remote observation a state reconciliation určiť, či operácia neprebehla, prebehla čiastočne alebo uspela bez state commit-u. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
 
 ## Unknown value — Terraform
 
