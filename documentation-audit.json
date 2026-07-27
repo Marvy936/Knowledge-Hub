@@ -1697,15 +1697,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
       "title": "Handlers, loops a conditionals",
-      "words": 1898,
-      "headings": 49,
-      "sections": 49,
-      "findings": 63,
-      "critical": 17,
-      "high": 38,
+      "words": 1835,
+      "headings": 27,
+      "sections": 27,
+      "findings": 45,
+      "critical": 15,
+      "high": 15,
       "medium": 4,
-      "low": 4,
-      "score": 521,
+      "low": 11,
+      "score": 328,
       "grade": "D"
     },
     {
@@ -91676,251 +91676,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "1. Conditionals",
-      "line": 5,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "4. Tests",
-      "line": 60,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "4. Tests",
-      "line": 60,
+      "section": "1. Atlas scenár: virtual-host rollout",
+      "line": 21,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `defined / undefined ,`, `succeeded / failed ,`, `changed ,`, `skipped ,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validovať všetky items;`, `renderovať iba enabled virtual hosts;`, `odstrániť disabled konfigurácie;`, `reloadnúť proxy iba pri reálnej content zmene;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "4. Tests",
-      "line": 60,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "5. Conditions založené na facts",
-      "line": 81,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "5. Conditions založené na facts",
-      "line": 81,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "5. Conditions založené na facts",
-      "line": 81,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "5. Conditions založené na facts",
-      "line": 81,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fact nemusí byť gathered,`, `platform field nemusí existovať,`, `hodnota môže byť stale z cache,`, `string/numeric comparison môže byť nesprávna,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "5. Conditions založené na facts",
-      "line": 81,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "5. Conditions založené na facts",
-      "line": 81,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "6. Conditions založené na registered result",
-      "line": 97,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "10. Loop cez dictionaries",
-      "line": 159,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "11. loop control",
-      "line": 176,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "11. loop control",
-      "line": 176,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `loop var zabraňuje collision s vnoreným item ,`, `label znižuje hlučný output,`, `index var poskytuje stabilný index pre diagnostiku.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "11. loop control",
-      "line": 176,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "12. Registered loop results",
-      "line": 198,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "12. Registered loop results",
-      "line": 198,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "12. Registered loop results",
-      "line": 198,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `item ,`, `changed ,`, `failed ,`, `status a module fields,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "12. Registered loop results",
-      "line": 198,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "14. Product loops",
-      "line": 232,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "14. Product loops",
-      "line": 232,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "14. Product loops",
-      "line": 232,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API calls,`, `runtime,`, `rate limits,`, `log volume,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "14. Product loops",
-      "line": 232,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "14. Product loops",
-      "line": 232,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "16. Retries a until",
-      "line": 259,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "16. Retries a until",
-      "line": 259,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `loop cez business items,`, `retry tej istej transient operácie.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "16. Retries a until",
-      "line": 259,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "19. Handler execution timing",
-      "line": 317,
+      "section": "1. Atlas scenár: virtual-host rollout",
+      "line": 21,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -91928,8 +91694,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "19. Handler execution timing",
-      "line": 317,
+      "section": "1. Atlas scenár: virtual-host rollout",
+      "line": 21,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -91937,35 +91703,80 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "20. meta: flush handlers",
-      "line": 329,
+      "section": "1. Atlas scenár: virtual-host rollout",
+      "line": 21,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "3. Boolean a type semantics",
+      "line": 101,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "5. Loop je item inventory, nie transakcia",
+      "line": 135,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 50 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "23. Handlers a failures",
-      "line": 378,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "23. Handlers a failures",
-      "line": 378,
+      "section": "5. Loop je item inventory, nie transakcia",
+      "line": 135,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový config na disku,`, `starý service process,`, `inconsistent runtime state.`, `block/rescue recovery,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `uniqueness identity keys;`, `required fields a types;`, `stable ordering tam, kde má význam;`, `forbidden combinations;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "23. Handlers a failures",
-      "line": 378,
+      "section": "5. Loop je item inventory, nie transakcia",
+      "line": 135,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "7. Registered loop result",
+      "line": 176,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "8. Loop a retry sú odlišné mechanizmy",
+      "line": 205,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "8. Loop a retry sú odlišné mechanizmy",
+      "line": 205,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximum attempts alebo total timeout;`, `classification transient vs. permanent failure;`, `idempotent operation alebo idempotency key;`, `last observation a request ID evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "8. Loop a retry sú odlišné mechanizmy",
+      "line": 205,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -91973,35 +91784,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "26. Conditions na handlers",
-      "line": 425,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `registered variable pochádza iba z niektorých paths,`, `condition sa zmení medzi notify a handler phase,`, `handler je shared medzi roles s odlišnými assumptions.`.",
-      "score": 8
+      "section": "8. Loop a retry sú odlišné mechanizmy",
+      "line": 205,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "26. Conditions na handlers",
-      "line": 425,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "26. Conditions na handlers",
-      "line": 425,
+      "section": "11. Worked failure: partial loop mutation bez handler transitionu",
+      "line": 279,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "27. Conditions a loops spolu",
-      "line": 437,
+      "section": "12. Worked failure: string boolean aktivoval disabled feature",
+      "line": 296,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -92009,35 +91811,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "28. Failure v loop-e",
-      "line": 454,
+      "section": "15. Notification topics a reusable contract",
+      "line": 347,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "16. Causal troubleshooting walkthrough: files sú nové, ale nie všetky hosts používajú nový runtime",
+      "line": 359,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "28. Failure v loop-e",
-      "line": 454,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pre-validation celého inputu,`, `stable ordering,`, `bounded side effects,`, `resume/retry semantics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "28. Failure v loop-e",
-      "line": 454,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "29. Idempotencia",
-      "line": 469,
+      "section": "1. Zafixuj control-flow subject",
+      "line": 361,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -92045,143 +91838,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "Task sa vykonal napriek očakávanej false condition",
-      "line": 493,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "Loop používa nesprávny item",
-      "line": 501,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "Registered loop result nemá očakávané field",
-      "line": 505,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "Handler sa nespustil",
-      "line": 509,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "Handler sa nespustil",
-      "line": 509,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "Handler sa nespustil",
-      "line": 509,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `notifying task mal changed: true ,`, `exact handler name alebo listen topic,`, `handler bol loaded,`, `host nevypadol pre failure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "Handler sa nespustil",
-      "line": 509,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "Handler sa spustil príliš často",
-      "line": 520,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "when expression dlhá desiatky riadkov",
-      "line": 530,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "String booleans bez validation",
-      "line": 534,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "Nested loops bez loop var",
-      "line": 538,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "Handler name ako generický restart service",
-      "line": 542,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "flush handlers po každom tasku",
-      "line": 546,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "force handlers globálne",
-      "line": 550,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "Retry každej chyby",
-      "line": 554,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 558,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -92189,8 +91847,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 558,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -92198,26 +91856,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 558,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 558,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je complex decision pomenované a testovateľné?`, `Podporuje module list input bez task loop-u?`, `Aký je počet host × item operations?`, `Potrebujem loop alebo retry?`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Condition skipla task pre časť hosts alebo items.`, `String/undefined type zmenil boolean decision.`, `Nested loop prepísal item a zmenil destination.`, `Item failure nastal po partial mutations.`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 558,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -92225,8 +91883,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 558,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -92234,11 +91892,191 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
-      "section": "32. Rozhodovací rámec",
-      "line": 558,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 377,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 377,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 377,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 377,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `redacted condition inputs a exact type;`, `per-host/per-item registered results ;`, `destination inventory a checksums;`, `skipped/failed sequence timeline;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 377,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "5. Recovery",
+      "line": 392,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "5. Recovery",
+      "line": 392,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "5. Recovery",
+      "line": 392,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "5. Recovery",
+      "line": 392,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "5. Recovery",
+      "line": 392,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "6. Over pôvodný outcome",
+      "line": 401,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "7. Posuň control skôr",
+      "line": 405,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 409,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 409,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 409,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 409,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Loop je per-item execution, nie transakcia.`, `Nested loops používajú explicitné loop var .`, `Retry potrebuje transient classification a idempotency.`, `changed je vstup do handler state machine.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 409,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 409,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 409,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md",
+      "section": "17. Referenčné pravidlá",
+      "line": 409,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {

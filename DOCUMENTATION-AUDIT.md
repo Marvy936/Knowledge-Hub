@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11337**
-- Total words: **580,143**
-- Findings: **24655** (critical 7820, high 8921, medium 3387, low 4527)
+- Audited conceptual sections: **11315**
+- Total words: **580,080**
+- Findings: **24637** (critical 7818, high 8898, medium 3387, low 4534)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -194,7 +194,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 525 | 22 | 14 | 19 | 57 | 4060 | `docs/13-security-and-identity/vulnerability-and-patch-management.md` |
 | D | 524 | 21 | 30 | 6 | 10 | 1755 | `docs/06-gitlab/artifacts-and-cache.md` |
 | D | 523 | 23 | 24 | 11 | 14 | 1961 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
-| D | 521 | 17 | 38 | 4 | 4 | 1898 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | D | 520 | 20 | 32 | 7 | 2 | 1216 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | D | 509 | 14 | 27 | 20 | 45 | 3416 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | D | 504 | 18 | 31 | 6 | 21 | 2365 | `docs/03-git-and-automation/merge-and-rebase.md` |
@@ -235,6 +234,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 346 | 12 | 20 | 5 | 19 | 1920 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | D | 337 | 11 | 16 | 6 | 44 | 3364 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 337 | 14 | 18 | 7 | 2 | 1085 | `docs/09-kubernetes/replicaset.md` |
+| D | 328 | 15 | 15 | 4 | 11 | 1835 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | D | 301 | 10 | 10 | 17 | 31 | 2685 | `docs/00-foundations/ownership-mindset.md` |
 | D | 293 | 10 | 9 | 8 | 58 | 4648 | `docs/13-security-and-identity/sbom.md` |
 | D | 287 | 10 | 12 | 7 | 35 | 3103 | `docs/01-linux-and-systems/namespaces.md` |
@@ -6437,61 +6437,36 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md`
 
-- **CRITICAL** line 60, `bare-bullet-items` — **4. Tests**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `defined / undefined ,`, `succeeded / failed ,`, `changed ,`, `skipped ,`.
-- **CRITICAL** line 60, `outline-instead-of-explanation` — **4. Tests**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 81, `bare-bullet-items` — **5. Conditions založené na facts**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fact nemusí byť gathered,`, `platform field nemusí existovať,`, `hodnota môže byť stale z cache,`, `string/numeric comparison môže byť nesprávna,`.
-- **CRITICAL** line 81, `outline-instead-of-explanation` — **5. Conditions založené na facts**: 5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 198, `bare-bullet-items` — **12. Registered loop results**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `item ,`, `changed ,`, `failed ,`, `status a module fields,`.
-- **CRITICAL** line 198, `outline-instead-of-explanation` — **12. Registered loop results**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 232, `bare-bullet-items` — **14. Product loops**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API calls,`, `runtime,`, `rate limits,`, `log volume,`.
-- **CRITICAL** line 232, `outline-instead-of-explanation` — **14. Product loops**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 378, `bare-bullet-items` — **23. Handlers a failures**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový config na disku,`, `starý service process,`, `inconsistent runtime state.`, `block/rescue recovery,`.
-- **CRITICAL** line 378, `outline-instead-of-explanation` — **23. Handlers a failures**: 8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 454, `bare-bullet-items` — **28. Failure v loop-e**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pre-validation celého inputu,`, `stable ordering,`, `bounded side effects,`, `resume/retry semantics,`.
-- **CRITICAL** line 454, `outline-instead-of-explanation` — **28. Failure v loop-e**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 509, `bare-bullet-items` — **Handler sa nespustil**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `notifying task mal changed: true ,`, `exact handler name alebo listen topic,`, `handler bol loaded,`, `host nevypadol pre failure,`.
-- **CRITICAL** line 509, `outline-instead-of-explanation` — **Handler sa nespustil**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 558, `bare-bullet-items` — **32. Rozhodovací rámec**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je complex decision pomenované a testovateľné?`, `Podporuje module list input bez task loop-u?`, `Aký je počet host × item operations?`, `Potrebujem loop alebo retry?`.
-- **CRITICAL** line 558, `no-prose-concept` — **32. Rozhodovací rámec**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 558, `outline-instead-of-explanation` — **32. Rozhodovací rámec**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `single-sentence-concept` — **1. Conditionals**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 81, `list-first-introduction` — **5. Conditions založené na facts**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 81, `single-sentence-concept` — **5. Conditions založené na facts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 97, `list-first-introduction` — **6. Conditions založené na registered result**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 159, `list-first-introduction` — **10. Loop cez dictionaries**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 176, `bare-bullet-items` — **11. loop control**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `loop var zabraňuje collision s vnoreným item ,`, `label znižuje hlučný output,`, `index var poskytuje stabilný index pre diagnostiku.`.
-- **HIGH** line 176, `list-first-introduction` — **11. loop control**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 198, `list-first-introduction` — **12. Registered loop results**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 232, `single-sentence-concept` — **14. Product loops**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 259, `bare-bullet-items` — **16. Retries a until**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `loop cez business items,`, `retry tej istej transient operácie.`.
-- **HIGH** line 259, `single-sentence-concept` — **16. Retries a until**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 329, `list-first-introduction` — **20. meta: flush handlers**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 425, `bare-bullet-items` — **26. Conditions na handlers**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `registered variable pochádza iba z niektorých paths,`, `condition sa zmení medzi notify a handler phase,`, `handler je shared medzi roles s odlišnými assumptions.`.
-- **HIGH** line 437, `single-sentence-concept` — **27. Conditions a loops spolu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 469, `single-sentence-concept` — **29. Idempotencia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 493, `single-sentence-concept` — **Task sa vykonal napriek očakávanej false condition**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 501, `single-sentence-concept` — **Loop používa nesprávny item**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 505, `single-sentence-concept` — **Registered loop result nemá očakávané field**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 509, `single-sentence-concept` — **Handler sa nespustil**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 520, `single-sentence-concept` — **Handler sa spustil príliš často**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 530, `single-sentence-concept` — **when expression dlhá desiatky riadkov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 534, `single-sentence-concept` — **String booleans bez validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 538, `single-sentence-concept` — **Nested loops bez loop var**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 542, `single-sentence-concept` — **Handler name ako generický restart service**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 546, `single-sentence-concept` — **flush handlers po každom tasku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 550, `single-sentence-concept` — **force handlers globálne**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 554, `single-sentence-concept` — **Retry každej chyby**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 558, `list-first-introduction` — **32. Rozhodovací rámec**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 60, `thin-concept-section` — **4. Tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 81, `thin-concept-section` — **5. Conditions založené na facts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 176, `thin-concept-section` — **11. loop control**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 198, `thin-concept-section` — **12. Registered loop results**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 232, `thin-concept-section` — **14. Product loops**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 259, `thin-concept-section` — **16. Retries a until**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 425, `thin-concept-section` — **26. Conditions na handlers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 454, `thin-concept-section` — **28. Failure v loop-e**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 509, `thin-concept-section` — **Handler sa nespustil**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 558, `thin-concept-section` — **32. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 21, `bare-bullet-items` — **1. Atlas scenár: virtual-host rollout**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validovať všetky items;`, `renderovať iba enabled virtual hosts;`, `odstrániť disabled konfigurácie;`, `reloadnúť proxy iba pri reálnej content zmene;`.
+- **CRITICAL** line 135, `bare-bullet-items` — **5. Loop je item inventory, nie transakcia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `uniqueness identity keys;`, `required fields a types;`, `stable ordering tam, kde má význam;`, `forbidden combinations;`.
+- **CRITICAL** line 205, `bare-bullet-items` — **8. Loop a retry sú odlišné mechanizmy**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximum attempts alebo total timeout;`, `classification transient vs. permanent failure;`, `idempotent operation alebo idempotency key;`, `last observation a request ID evidence;`.
+- **CRITICAL** line 205, `outline-instead-of-explanation` — **8. Loop a retry sú odlišné mechanizmy**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 359, `empty-section` — **16. Causal troubleshooting walkthrough: files sú nové, ale nie všetky hosts používajú nový runtime**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 365, `bare-bullet-items` — **2. Súťažiace hypotézy**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Condition skipla task pre časť hosts alebo items.`, `String/undefined type zmenil boolean decision.`, `Nested loop prepísal item a zmenil destination.`, `Item failure nastal po partial mutations.`.
+- **CRITICAL** line 365, `no-prose-concept` — **2. Súťažiace hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 365, `outline-instead-of-explanation` — **2. Súťažiace hypotézy**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 377, `bare-bullet-items` — **3. Diskriminačné observation points**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `redacted condition inputs a exact type;`, `per-host/per-item registered results ;`, `destination inventory a checksums;`, `skipped/failed sequence timeline;`.
+- **CRITICAL** line 377, `no-prose-concept` — **3. Diskriminačné observation points**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 377, `outline-instead-of-explanation` — **3. Diskriminačné observation points**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 392, `no-prose-concept` — **5. Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 392, `outline-instead-of-explanation` — **5. Recovery**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 409, `no-prose-concept` — **17. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 409, `outline-instead-of-explanation` — **17. Referenčné pravidlá**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 135, `list-heavy-section` — **5. Loop je item inventory, nie transakcia**: 6 odrážok a iba 50 slov súvislého vysvetlenia.
+- **HIGH** line 176, `single-sentence-concept` — **7. Registered loop result**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 296, `single-sentence-concept` — **12. Worked failure: string boolean aktivoval disabled feature**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 361, `single-sentence-concept` — **1. Zafixuj control-flow subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 365, `list-first-introduction` — **2. Súťažiace hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 377, `list-first-introduction` — **3. Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 392, `list-first-introduction` — **5. Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 401, `single-sentence-concept` — **6. Over pôvodný outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 405, `single-sentence-concept` — **7. Posuň control skôr**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 409, `bare-bullet-items` — **17. Referenčné pravidlá**: 7 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Loop je per-item execution, nie transakcia.`, `Nested loops používajú explicitné loop var .`, `Retry potrebuje transient classification a idempotency.`, `changed je vstup do handler state machine.`.
+- **HIGH** line 409, `list-first-introduction` — **17. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 365, `thin-concept-section` — **2. Súťažiace hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 377, `thin-concept-section` — **3. Diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 392, `thin-concept-section` — **5. Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 409, `thin-concept-section` — **17. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md`
 
@@ -17791,19 +17766,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3460 | 439 | 0 | 0 | 3899 |
-| `single-sentence-concept` | 0 | 3606 | 0 | 0 | 3606 |
-| `outline-instead-of-explanation` | 3310 | 0 | 0 | 0 | 3310 |
-| `thin-concept-section` | 0 | 2914 | 0 | 0 | 2914 |
+| `bare-bullet-items` | 3457 | 437 | 0 | 0 | 3894 |
+| `single-sentence-concept` | 0 | 3593 | 0 | 0 | 3593 |
+| `outline-instead-of-explanation` | 3307 | 0 | 0 | 0 | 3307 |
+| `thin-concept-section` | 0 | 2908 | 0 | 0 | 2908 |
 | `term-before-explanation` | 0 | 457 | 2302 | 0 | 2759 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1816 | 1816 |
-| `example-not-explicit` | 0 | 0 | 0 | 1772 | 1772 |
-| `list-first-introduction` | 0 | 1115 | 0 | 0 | 1115 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1818 | 1818 |
+| `example-not-explicit` | 0 | 0 | 0 | 1776 | 1776 |
+| `list-first-introduction` | 0 | 1112 | 0 | 0 | 1112 |
 | `short-concept-section` | 0 | 0 | 1085 | 0 | 1085 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 939 | 939 |
-| `empty-section` | 577 | 0 | 0 | 0 | 577 |
-| `no-prose-concept` | 473 | 0 | 0 | 0 | 473 |
-| `list-heavy-section` | 0 | 390 | 0 | 0 | 390 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 940 | 940 |
+| `empty-section` | 578 | 0 | 0 | 0 | 578 |
+| `no-prose-concept` | 476 | 0 | 0 | 0 | 476 |
+| `list-heavy-section` | 0 | 391 | 0 | 0 | 391 |
 
 ## Required remediation pattern
 
