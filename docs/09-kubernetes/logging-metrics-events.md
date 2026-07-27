@@ -1,553 +1,446 @@
 # Logging, metrics a events
 
-Kubernetes neposkytuje jeden kompletný observability backend. Platforma produkuje logs, metrics, Events, audit records a API status, ale ich dlhodobé uloženie, korelácia, alerting a vizualizácia vyžadujú samostatné components. Každý signál odpovedá na inú otázku a má odlišnú retenciu, cardinality a failure boundary.
+Kubernetes observability nie je zbierka dashboardov. Je to evidence lifecycle, ktorý musí preniesť dôveryhodné pozorovanie od konkrétneho processu, objektu, Node-u alebo API requestu až k rozhodnutiu o incidente, upgrade-e alebo business SLO. Signál môže byť emitovaný a pritom nikdy zozbieraný, prijatý backendom a pritom nevyhľadateľný, alebo správne zobrazený a pritom patriť inej Pod či release generácii.
 
-## 1. Signály
+Táto kapitola používa jeden dominantný lifecycle:
+
+```text
+incident, SLO, security a audit otázka
+→ signal contract a source identity
+→ instrumentation a emission
+→ node/component collection
+→ transport, buffering a backpressure
+→ enrichment, redaction a cardinality policy
+→ backend ingestion, indexing a retention
+→ query, correlation a alert verdict
+→ operational alebo business decision
+→ replay, recovery, deletion a evidence closure
+```
+
+## 1. Atlas observability subject
+
+Atlas Payments potrebuje korelovať jednu payment požiadavku cez edge, Service, Pod, databázu aj cluster zmenu. Exact correlation envelope obsahuje:
+
+```text
+cluster a environment
+upgrade/deployment operation ID
+release a image digest
+namespace a workload revision
+Pod UID, container ID a restart generation
+Node UID a Node-image generation
+request/trace/payment ID
+Service a EndpointSlice generation
+collector Pod/config/offset generation
+backend tenant, stream/index a retention class
+UTC timestamp a clock-quality verdict
+```
+
+Pod meno alebo label `app=payments` nestačí. Po replacement-e môže rovnakú logickú rolu vykonávať iný Pod UID, iný container ID a iná Node generation.
+
+## 2. Päť rozdielnych evidence typov
 
 ### Logs
 
-Chronologické textové alebo štruktúrované záznamy z applications, containers, Nodes a control-plane components.
+Chronologické records o konkrétnych udalostiach procesu alebo componentu. Poskytujú detail, ale nie automaticky agregovaný rozsah ani úplnosť.
 
 ### Metrics
 
-Číselné time series vhodné na trendy, alerting, capacity a SLI výpočty.
+Numerické time series vhodné na rate, latency, saturation, capacity a SLO výpočty. Agregácia je efektívna, ale môže skryť jednotlivý request alebo chybnú cohortu.
 
-### Events
+### Kubernetes Events
 
-Kubernetes API objekty reprezentujúce významné pozorovania controllerov, scheduleru, kubeletu a ďalších components. Sú diagnostické a krátkodobé, nie audit log ani business event store.
+Krátkodobé API objekty s diagnostickým pozorovaním scheduleru, kubeletu alebo controlleru. Môžu byť agregované, rate-limited a expirované.
 
-### Traces
+### Audit records
 
-Distribuované request spans s causality a latency contextom. Kubernetes ich automaticky nevytvorí pre application requests bez instrumentation.
+Záznamy Kubernetes API requests: kto, s akou identitou, nad ktorým resource-om, aký operation požadoval a aký bol API verdict. Audit nepreukazuje, že controller alebo workload následne dosiahol business outcome.
 
-### Audit logs
+### Traces a business events
 
-Bezpečnostný záznam Kubernetes API requests podľa audit policy. Odpovedá na otázku kto, čo, kedy a s akým výsledkom požadoval od API servera.
+Trace spája latency a causality requestu medzi services. Business event reprezentuje doménový fakt, napríklad autorizovanú platbu. Ani jeden nevzniká automaticky iba preto, že workload beží v Kubernetes.
 
-## 2. Container logging model
-
-Odporúčaný application model:
+Tieto signály sa dopĺňajú, ale nie sú vzájomne zameniteľné:
 
 ```text
-application
-→ stdout/stderr
-→ container runtime CRI log file
-→ kubelet log access
-→ node log agent
+Kubernetes Event: scheduler nenašiel feasible Node
+Audit record: identita požiadala o scale update
+Application log: worker začal spracúvať payment
+Trace: request čakal 700 ms na DB
+Business event: payment P-884 bol committed exactly once
+```
+
+## 3. Emission nie je collection
+
+Odporúčaný container logging chain:
+
+```text
+application stdout/stderr
+→ CRI runtime log record na Node-e
+→ kubelet/runtime log access
+→ node collector
+→ transport/buffer
 → central backend
+→ indexed a queryable record
 ```
 
-Application nemá závisieť od ručného čítania writable layer. Logs potrebujú lifecycle oddelený od Podu a Node-u.
+Každá šípka je samostatná failure boundary. `kubectl logs` môže fungovať, hoci central backend nemá record, pretože kubelet stále číta lokálny runtime log. Naopak collector môže odoslať record, ale backend ho odmietne pre credential, tenant quota, schema alebo timestamp.
 
-## 3. `kubectl logs`
+Application file v writable layeri nie je automaticky súčasť CRI logging pathu. Ak aplikácia musí používať file, potrebuje explicitný volume, collector contract, rotation a retention.
 
-```bash
-kubectl logs -n production pod-name -c app
-kubectl logs -n production pod-name -c app --previous
-kubectl logs -n production deployment/web --all-pods=true
-```
+## 4. Collection subject a offset identity
 
-`kubectl logs` číta container logs dostupné cez kubelet/runtime na konkrétnom Node-e.
-
-Limity:
-
-- Node alebo log file môže byť nedostupný,
-- rotation mohla odstrániť staré dáta,
-- zmazaný Pod nemusí mať logs,
-- `--previous` typicky vidí iba predchádzajúcu container instance,
-- nie je to central search ani compliance archive.
-
-## 4. CRI log format
-
-Container runtime zapisuje stdout/stderr do Node-local files podľa CRI logging convention. Záznam obsahuje napríklad:
-
-- timestamp,
-- stream `stdout` alebo `stderr`,
-- full/partial marker,
-- payload.
-
-Multi-line stack trace môže byť rozdelený na viac records. Log collector musí správne pracovať s partial lines a application multiline semantics.
-
-## 5. Log rotation
-
-Kubelet/runtime spravujú Node-local container log rotation podľa konfigurácie.
-
-Sleduj:
-
-- maximum file size,
-- počet files,
-- scan/rotation interval,
-- disk a inode pressure,
-- collector schopnosť sledovať rename/truncate.
-
-Príliš malá retencia odstráni incident evidence skôr, než collector obnoví spojenie. Príliš veľká retencia môže zaplniť Node disk.
-
-## 6. Cluster-level logging
-
-Bežné architektúry:
-
-### Node agent
-
-DaemonSet ako Fluent Bit, Vector alebo iný collector číta Node/container logs a odosiela ich do backendu.
-
-Výhody:
-
-- jeden agent na Node,
-- zachytí viac workloadov,
-- lifecycle oddelený od application Podu.
-
-### Sidecar collector
-
-Sidecar číta application-specific file alebo stream.
-
-Použi iba pri špecifickom formáte/protokole. Zvyšuje resource overhead, configuration duplicitu a failure surface.
-
-### Application direct shipping
-
-Application posiela logs priamo do backendu.
-
-Riziká:
-
-- application coupling,
-- credentials v každom workload-e,
-- blocking/backpressure,
-- zložitejšia platform governance.
-
-## 7. Structured logging
-
-Preferuj štruktúrovaný JSON alebo stabilný key/value formát s fields:
-
-- timestamp v UTC,
-- severity,
-- service a environment,
-- namespace/Pod/container enrichment,
-- request/trace/correlation ID,
-- error type a stack,
-- release/version,
-- bounded business identifiers.
-
-Nevkladaj:
-
-- passwords/tokens,
-- celé request bodies bez redakcie,
-- private keys,
-- nekontrolovanú high-cardinality payload,
-- osobné údaje bez retention a access policy.
-
-## 8. Log metadata enrichment
-
-Node collector môže doplniť:
-
-- cluster,
-- namespace,
-- Pod name/UID,
-- container,
-- Node,
-- labels a annotations,
-- workload owner,
-- image a restart count.
-
-Nekopíruj všetky labels automaticky. Dynamic alebo user-controlled labels môžu vytvoriť vysokú cardinality, storage cost a injection risk.
-
-## 9. System component logs
-
-Control-plane a Node components môžu logovať cez:
-
-- systemd journal,
-- container/static Pod files pod `/var/log`,
-- provider-managed logging service,
-- vendor-specific backend.
-
-Príklady:
-
-```bash
-journalctl -u kubelet
-journalctl -u containerd
-crictl ps -a
-crictl logs <container-id>
-```
-
-Pri static Pods rozlišuj kubelet/service logs od samotných component container logs.
-
-Kubernetes system log message format nie je stabilné API. Parser nemá závisieť od konkrétneho textu bez version kontroly.
-
-## 10. Metrics categories
-
-### Resource metrics
-
-CPU a memory usage Podov a Nodes, typicky poskytované Metrics API cez metrics-server.
-
-Používa ich napríklad:
-
-```bash
-kubectl top nodes
-kubectl top pods -A
-```
-
-Metrics-server nie je dlhodobý monitoring backend.
-
-### Component metrics
-
-Kube-apiserver, scheduler, controller-manager, kubelet, etcd a ďalšie components expose-ujú Prometheus-style `/metrics` podľa konfigurácie a authorization.
-
-### Object-state metrics
-
-Kube-state-metrics prekladá Kubernetes API object status/spec do metrics, napríklad:
-
-- desired/available replicas,
-- Pod phases,
-- HPA conditions,
-- PV/PVC status,
-- Node conditions.
-
-Nečíta process CPU alebo application latency.
-
-### Application metrics
-
-Workload-specific request rate, errors, latency, queues a business signals.
-
-## 11. Resource Metrics Pipeline
-
-Zjednodušene:
+Node collector musí vedieť, čo presne sleduje:
 
 ```text
-kubelet/cAdvisor summary
-→ metrics-server
-→ metrics.k8s.io API
-→ kubectl top / HPA resource metrics
+Node UID a host-image generation
+runtime a CRI log-path convention
+Pod UID, container ID a log stream
+file/inode alebo runtime source identity
+collector Pod UID a config hash
+read offset/checkpoint
+buffer generation a destination
 ```
 
-Failure môže byť v:
+Sledovanie iba pathname môže po rotation, truncate alebo Node replacement-e viesť k duplicite či medzere. Collector readiness, ktorá testuje iba vlastný HTTP endpoint, nepreukazuje, že číta všetky expected sources.
 
-- kubelet authentication/TLS,
-- Node reachability,
-- API aggregation,
-- APIService availability,
-- metrics-server resources,
-- clock skew,
-- missing requests pre HPA utilization.
+## 5. Rotation, buffering a backpressure
 
-## 12. Metrics API vrstvy
+Node-local rotation chráni disk, ale vytvára evidence window. Ak collector zaostáva dlhšie než lokálna retencia, incident data sa nenávratne stratia.
+
+Transport musí mať explicitný model:
+
+```text
+read source
+→ bounded memory/disk buffer
+→ batch/retry
+→ backend acknowledgement
+→ durable checkpoint/offset advance
+```
+
+Failure boundaries:
+
+- offset sa posunie pred durable backend acknowledgementom;
+- backend odpoveď sa stratí a retry vytvorí duplicates;
+- buffer zaplní disk a vyvolá Node pressure;
+- collector dropne records bez per-source counters;
+- credential expiry zastaví export, ale collector ostane `Ready`;
+- rotation odstráni unread file.
+
+Observability pipeline je produkčný distributed system. Potrebuje capacity, retries, idempotency alebo deduplication, SLO a recovery.
+
+## 6. Enrichment, provenance a redaction
+
+Enrichment musí zachovať provenance a nezmeniť identity význam:
+
+```text
+source timestamp a stream
+cluster/namespace
+Pod UID a owner UID
+container ID a image digest
+Node UID/generation
+release a operation ID
+request/trace ID
+collector a pipeline generation
+```
+
+Nekopíruj automaticky všetky labels a annotations. Dynamic labels ako request ID, account ID, Job/Pod UID alebo error message vytvárajú vysokú cardinality a môžu obsahovať nedôveryhodné dáta.
+
+Redakcia musí prebehnúť pred širokým backend accessom. Logs a audit records nesmú nekontrolovane obsahovať:
+
+- ServiceAccount alebo external tokens;
+- Secret payloady;
+- private keys;
+- celé citlivé request/response bodies;
+- osobné alebo platobné údaje bez policy;
+- environment dumpy.
+
+## 7. Metrics ako versionovaný contract
+
+Metric nie je iba názov. Contract obsahuje:
+
+```text
+source component a version
+metric name, type a units
+labels a ich bounded domain
+collection interval a freshness
+aggregation/window semantics
+missing-data behavior
+expected causal interpretation
+retention a query owner
+```
 
 Rozlišuj:
 
-- `metrics.k8s.io` — resource metrics,
-- `custom.metrics.k8s.io` — custom metrics via adapter,
-- `external.metrics.k8s.io` — metrics mimo Kubernetes object modelu.
+- resource metrics z metrics-server pipeline-u;
+- component metrics API servera, scheduleru, kubeletu, etcd a add-ons;
+- object-state metrics odvodené zo spec/status objektov;
+- application a business metrics;
+- custom/external metrics používané autoscalingom.
 
-API adapter je control dependency pre HPA. Stale alebo chýbajúce metrics musia mať jasný scaling failure model.
+Metrics-server poskytuje aktuálne resource metrics pre `kubectl top` a HPA. Nie je dlhodobý monitoring backend ani úplný incident archive.
 
-## 13. Prometheus-style scraping
+## 8. Cardinality ako capacity a availability boundary
 
-Scraper potrebuje:
+Počet time series rastie kartézskym súčinom label values. Rizikové dimensions:
 
-- target discovery,
-- authentication a TLS,
-- RBAC pre protected endpoints,
-- scrape interval a timeout,
-- relabeling a cardinality controls,
-- retention a remote storage,
-- HA/deduplication podľa požiadaviek.
+- Pod UID pri krátko žijúcich Jobs;
+- request, payment alebo user ID;
+- dynamická URL;
+- raw error message;
+- unbounded annotation;
+- duplicita target discovery;
+- per-object image digest tam, kde nie je potrebný.
 
-ServiceMonitor/PodMonitor sú operator-specific CRDs, nie core Kubernetes API.
+Cardinality explosion spôsobí ingest backpressure, vysokú memory, pomalé queries a oneskorené alerty. Detail requestu patrí typicky do logs alebo traces, nie do metric labelu.
 
-## 14. Component metrics stability
+## 9. Events, audit a business truth
 
-Kubernetes metrics môžu byť:
+Kubernetes Event je observation jedného reporteru v konkrétnom čase. Event series môže agregovať opakovania. Retencia býva kratšia než incident detection delay.
 
-- alpha,
-- beta,
-- stable.
+Audit record pre successful `PATCH deployments/scale` znamená iba, že API server request autorizoval a prijal. Neznamená, že:
 
-Stability ovplyvňuje deprecation a removal policy. Pred upgrade kontroluj:
+- Deployment controller vytvoril ReplicaSet;
+- Pods prešli admission a quota;
+- scheduler ich umiestnil;
+- readiness a traffic sa zvýšili;
+- business latency sa zlepšila.
 
-- removed/renamed metrics,
-- label changes,
-- histogram bucket changes,
-- hidden metrics flags,
-- dashboard a alert dependencies.
+Business event store musí mať vlastný durability, idempotency a audit contract. Kubernetes Events ho nenahrádzajú.
 
-Alert založený na nestabilnej metric potrebuje version-aware migration.
+## 10. Correlation a čas
 
-## 15. Cardinality
+Incident timeline potrebuje UTC a clock-quality evidence. Clock skew môže:
 
-Time-series cardinality rastie kombináciou label values.
+- obrátiť zdanlivé poradie logs;
+- poškodiť trace latency;
+- skryť causal vzťah Events a requests;
+- spôsobiť token/certificate failure;
+- zaradiť records mimo query window.
 
-Rizikové labels:
+Koreluj cez immutable alebo generation-aware identifiers. Pod name a timestamp bez UID sú slabé identity.
 
-- Pod UID/name pri krátko žijúcich Jobs,
-- request ID,
-- user/account ID,
-- URL s dynamickým path segmentom,
-- error message,
-- image digest v každom series,
-- arbitrary annotations.
+## 11. Telemetry coverage a acceptance
 
-Dôsledky:
-
-- vysoká memory a storage spotreba,
-- pomalé queries,
-- drahé remote write,
-- nestabilný monitoring backend.
-
-Používaj bounded labels a high-cardinality detail presuň do logs/traces.
-
-## 16. Kubernetes Events
-
-```bash
-kubectl get events -A --sort-by=.metadata.creationTimestamp
-kubectl describe pod -n production <pod>
-```
-
-Event obsahuje napríklad:
-
-- involved/regarding object,
-- reason,
-- type `Normal` alebo `Warning`,
-- message/note,
-- reporting controller/instance,
-- timestamps a occurrence count/series.
-
-Events môžu byť agregované, rate-limited a po krátkej retencii odstránené.
-
-## 17. Events nie sú audit trail
-
-Event:
+Observability acceptance nie je „collector Pods sú Ready“. Potrebuje end-to-end test pre každú expected cohortu:
 
 ```text
-FailedScheduling: 0/5 nodes are available...
+emit known test record/metric/event
+→ potvrď local source
+→ potvrď collector discovery a offset
+→ potvrď transport a backend acknowledgement
+→ potvrď query v správnom tenantovi a time range
+→ potvrď alert/rule alebo dashboard path
+→ potvrď retention a redaction
 ```
 
-je diagnostické pozorovanie scheduleru.
+Coverage inventár má zahŕňať:
 
-Audit log zaznamenáva napríklad:
+- všetky Nodes a Node generations;
+- control-plane a system components;
+- workload stdout/stderr a required files;
+- audit a Event export;
+- metrics targets a business SLIs;
+- buffering pri backend outage-i;
+- forbidden secret fields.
+
+## 12. Causal walkthrough: central logs chýbajú iba z novej Node cohorty
+
+### Symptom
+
+Po Kubernetes upgrade-e hlásia používatelia intermittent `502`. Infra dashboard je prevažne green. `kubectl logs` na affected Payments Pod-e obsahuje timeouty, ale central log search nevracia žiadne application ani CNI records z nových Nodes.
+
+### Exact subject
+
+Fixuj:
+
+- payment request a UTC time window;
+- release/image, Pod UID, container ID a restart generation;
+- old/new Node UID, image a runtime generation;
+- CRI local log path/file identity;
+- collector DaemonSet revision, Pod UID a config hash;
+- hostPath mounts, discovery rules a read offsets;
+- buffer state, backend credential/tenant/index;
+- backend ingest acknowledgement a query filters.
+
+### Competing hypotheses
+
+1. application na nových Nodes neloguje;
+2. logs idú do file-u mimo stdout/stderr;
+3. runtime nevytvára CRI records;
+4. collector nie je naplánovaný na target Nodes;
+5. collector má nesprávny hostPath alebo discovery pattern;
+6. rotation odstránila records pred prečítaním;
+7. collector buffer je plný;
+8. backend odmieta iba target-cohort metadata;
+9. query používa zlý cluster/tenant/time range;
+10. clock skew posúva records mimo incident window.
+
+### Discriminating observations
+
+Vytvor bounded test record s unikátnym correlation ID na jednom old a jednom target Node-e. Over ho postupne v `kubectl logs`, runtime log file-e, collector discovery/state/offsete, bufferi, transport acknowledgement a backend query.
+
+Finding:
 
 ```text
-user X požiadal UPDATE deployments/scale a API server odpovedal 200
+nový Node image používa odlišnú runtime log-path/symlink generation
+→ kubelet vie log čítať cez runtime
+→ collector DaemonSet je Ready
+→ collector hostPath/config sleduje iba legacy Node layout
+→ records z target Nodes nikdy nevstúpia do pipeline
+→ dashboard metrics zostávajú green
+→ incident diagnostika má cohort-specific blind spot
 ```
 
-Business event je napríklad:
+### Containment
 
-```text
-order 123 bol zaplatený
-```
+- nezmazávaj affected Pods ani lokálne files pred exportom evidence;
+- zastav Node rollout, ak telemetry blind spot znemožňuje bezpečný verdict;
+- zachovaj collector config, offsets, buffers a backend rejection logs;
+- použi kontrolovaný node-local zber s auditovaným accessom;
+- obmedz retry amplification v application path-e;
+- nevypínaj redakciu ani neposielaj raw Secrets ako rýchlu opravu.
 
-Tieto tri typy sa nesmú zamieňať.
+### Authoritative recovery
 
-## 18. Event export
+- versionuj collector mounts/discovery pre current runtime layout;
+- zaveď Node-generation aware conformance test;
+- rolloutni collector canary na target cohortu;
+- replay-ni zachované buffers alebo files, ak to identity/dedup model umožňuje;
+- pridaj per-Node source/collected/exported/accepted counters;
+- pridaj business SLI a external synthetic nezávislý od platform dashboardu;
+- retire-ni legacy config až po complete cohort coverage.
 
-Ak potrebuješ dlhodobejšiu históriu, exportuj Events do central backendu.
+### Verify original a forbidden outcomes
 
-Zohľadni:
+Over:
 
-- duplicate/series behavior,
-- object UID a namespace,
-- short-lived Jobs,
-- retention a search,
-- sensitive messages,
-- rate limits,
-- cluster a version metadata.
+1. test record je queryable z každého Node generation;
+2. source, collector a backend counts sa vysvetliteľne zhodujú;
+3. rotation a backend outage nespôsobia tichú stratu;
+4. CNI, kubelet a application records sú korelovateľné s requestom;
+5. Events a audit records sú odlíšené od business eventov;
+6. metrics a alerts pokrývajú target cohortu;
+7. sensitive values sú redacted a access ostáva least privilege;
+8. payment journey a jeho error path sú viditeľné end-to-end;
+9. collector replacement zachová offset/dedup contract.
 
-Event exportér nesmie spôsobiť API overload cez neefektívny polling.
+### Earlier controls
 
-## 19. Audit logging
+Použi telemetry conformance canary v Node-image CI, source-to-query synthetic, per-cohort coverage SLO, bounded cardinality budget, retention dlhšiu než detection delay, off-cluster buffer/evidence a alert na chýbajúce expected sources.
 
-API server audit policy určuje, ktoré requests a na akej úrovni zaznamenať:
-
-- Metadata,
-- Request,
-- RequestResponse podľa policy a rizika.
-
-Audit records môžu obsahovať citlivé dáta. Potrebujú:
-
-- secure backend,
-- redaction/policy,
-- restricted access,
-- integrity a retention,
-- časovú synchronizáciu,
-- alerting na privilege changes a denied requests.
-
-Full RequestResponse pre Secrets môže vytvoriť závažný disclosure risk.
-
-## 20. Correlation
-
-Incident analyzuj cez spoločné identifiers:
-
-- cluster,
-- namespace,
-- object UID,
-- Pod UID,
-- Node,
-- container ID,
-- request/trace ID,
-- deployment revision/image digest,
-- timestamp.
-
-Pod name sa môže opakovať pri StatefulSet identity alebo meniť pri Deploymente. UID presne odlišuje object instance.
-
-## 21. Time synchronization
-
-Bez synchronizovaného času:
-
-- logs sa zle zoradia,
-- token/certificate validity môže zlyhať,
-- trace spans majú nesprávnu latency,
-- audit correlation je nepresná,
-- etcd a distributed systems diagnostika je ťažšia.
-
-Monitoruj NTP/chrony offset na Nodes a observability backend hosts.
-
-## 22. Retention model
-
-Definuj samostatne:
-
-- Node-local container logs,
-- central application logs,
-- control-plane logs,
-- audit logs,
-- metrics high-resolution a downsampled data,
-- Events,
-- traces.
-
-Retention vychádza z:
-
-- incident detection delay,
-- compliance,
-- capacity/cost,
-- forensic požiadaviek,
-- RTO a postmortem procesu.
-
-## 23. Security
-
-Observability pipeline má často široký read access.
-
-Chráň:
-
-- log collector ServiceAccounts,
-- host `/var/log` mounts,
-- kubelet/API metrics credentials,
-- central backend write tokens,
-- tenant isolation,
-- query access a exports,
-- secret redaction,
-- audit log integrity.
-
-Monitoring stack nie je automaticky dôveryhodnejší než workload.
-
-## 24. SLO-oriented monitoring
-
-Platform metrics doplň application SLIs:
-
-- request success rate,
-- latency distribution,
-- availability,
-- queue lag,
-- data freshness,
-- saturation.
-
-Pod Ready alebo Deployment Available nie je business SLI. Kubernetes control signals hovoria o orchestrator stave, nie automaticky o používateľskom výsledku.
-
-## 25. Alert design
-
-Alert má mať:
-
-- actionable condition,
-- owner,
-- severity a urgency,
-- runbook,
-- deduplication/grouping,
-- symptom alebo cause classification,
-- suppression počas maintenance,
-- test a review cadence.
-
-Príklady:
-
-- API error-rate/SLO burn,
-- etcd quorum alebo latency,
-- Nodes NotReady,
-- CNI/CSI/DNS availability,
-- certificate expiry,
-- backup/restore-test failure,
-- workload SLO burn.
-
-Nealertuj na každý Warning Event samostatne.
-
-## 26. Troubleshooting
+## 13. Ďalšie failure boundaries
 
 ### `kubectl logs` je prázdne
 
-Over container selection, stdout/stderr behavior, current/previous instance, runtime log path, rotation a Node availability.
+Over exact container, current/previous container ID, stdout/stderr, runtime record, Node availability a rotation. Nezamieňaj application file logging s CRI streamom.
 
-### Logs chýbajú iba z jedného Node-u
+### `kubectl top` alebo HPA metric chýba
 
-Over node agent, permissions/SELinux, filesystem, collector buffer, network a backend rejection.
+Sleduj kubelet resource source → metrics-server → APIService/aggregation → client/HPA. Over TLS, RBAC, freshness a requests denominator.
 
-### `kubectl top` nefunguje
+### Prometheus backend rastie bez zvýšenia trafficu
 
-Over metrics-server Pods, `v1beta1.metrics.k8s.io` APIService, kubelet TLS/connectivity a aggregator path.
+Analyzuj new series, label cardinality, duplicate scraping a short-lived objects. Nestačí zvýšiť memory bez odstránenia unbounded dimensionu.
 
-### HPA hlási `FailedGetResourceMetric`
+### Events po incidente chýbajú
 
-Over metrics API, Pod requests, eligible Pods, stale metrics a adapter logs.
+Retencia bola kratšia než detection delay alebo Event bol agregovaný. Exportuj dôležité Events a koreluj ich s logs/auditom.
 
-### Prometheus memory rastie
+### Dashboard je green, business SLO horí
 
-Analyzuj active series, top labels/metrics, short-lived workloads, scrape duplication a unbounded labels.
+Dashboard sleduje nesprávnu vrstvu, cohortu alebo query. Over external journey, release/Node split, raw target freshness a absent-evidence stav.
 
-### Events chýbajú po incidente
+### Audit backend obsahuje Secret payload
 
-Ich retencia bola kratšia než detection delay. Potrebuješ Event export alebo central logs/audit.
+Audit policy alebo redaction je príliš široká. Obmedz Request/Response capture, chráň backend a rotuj exponované credentials.
 
-### Dashboard ukazuje healthy, používatelia hlásia outage
+## 14. Retention, security a disaster evidence
 
-Dashboard sleduje infra state, nie end-to-end SLI. Over DNS/LB/Gateway/Service/application a business metrics.
+Pre každý signal definuj:
 
-## 27. Anti-patterny
+```text
+owner a consumers
+retention a deletion policy
+failure-domain umiestnenie
+access a tenant isolation
+integrity a immutability
+redaction a legal/compliance scope
+replay/export a incident recovery
+```
 
-### Application loguje iba do file-u vo writable layeri
+Observability backend v rovnakom failure domain-e bez bufferu môže zmiznúť spolu s clusterom. Audit a recovery evidence potrebuje oddelenú trust a retention hranicu.
 
-Collector ani `kubectl logs` ho nemusí zachytiť a replacement ho odstráni.
+## 15. Alert a SLO closure
 
-### Metrics-server považovaný za monitoring systém
+Alert má byť viazaný na actionable subject a runbook. Potrebuje:
 
-Nemá dlhodobú retenciu ani plný alerting/query model.
+- symptom alebo causal classification;
+- owner, urgency a escalation;
+- grouping/deduplication;
+- maintenance suppression;
+- data freshness a absent-series handling;
+- test a review cadence;
+- business alebo platform SLO, ktoré chráni.
 
-### Všetky Kubernetes labels kopírované do metrics
+Nealertuj na každý Warning Event alebo jeden container restart. Alertuj na failure model: napríklad rollout bez serving capacity, etcd write SLO burn, chýbajúcu telemetry cohortu alebo payment error-rate burn.
 
-Vzniká nekontrolovaná cardinality.
+## 16. Referenčný katalóg
 
-### Events považované za permanentný incident záznam
+### Evidence boundaries
 
-Môžu expirovať a byť agregované.
+```text
+emitted
+collected
+buffered
+exported
+accepted
+indexed
+queryable
+retained
+correlated
+used in a verdict
+```
 
-### Audit RequestResponse bez redakcie
+### Základné source categories
 
-Do backendu sa môžu dostať Secrets a citlivé payloady.
+- application stdout/stderr, metrics a traces;
+- kubelet/runtime/Node logs a metrics;
+- control-plane a etcd telemetry;
+- Kubernetes Events a object status;
+- API audit records;
+- CNI/CSI/DNS/Gateway a policy signals;
+- business events a external synthetics.
 
-### Alert na každý container restart
+## 17. Anti-patterny
 
-Vytvára noise bez kontextu SLO, restart rate a failure reason.
+- collector `Ready` považovaný za coverage verdict;
+- metrics-server považovaný za monitoring backend;
+- Events považované za audit alebo business store;
+- všetky labels kopírované do metrics;
+- logs bez Pod UID/release/trace identity;
+- backend acknowledgement ignorované pri offset avance;
+- retention kratšia než detection delay;
+- audit RequestResponse bez redakcie;
+- dashboards bez freshness a cohort dimensions;
+- observability stack bez vlastného SLO a recovery;
+- green infra metrics považované za business success.
 
-### Observability backend v rovnakom failure domaine bez bufferu
+## 18. Kontrolné otázky
 
-Pri cluster incidente zmizne aj evidence.
-
-## 28. Kontrolné otázky
-
-1. Aký je rozdiel medzi logs, metrics, Events, traces a audit logs?
-2. Ako funguje stdout/stderr container logging path?
-3. Aké limity má `kubectl logs`?
-4. Čo poskytuje metrics-server a čo neposkytuje?
-5. Ako sa líši kube-state-metrics od resource metrics?
-6. Prečo Events nie sú audit trail?
-7. Čo spôsobuje time-series cardinality explosion?
-8. Ako koreluješ Pod replacement naprieč logs a Events?
-9. Prečo Pod readiness nie je application SLI?
-10. Čo musí obsahovať bezpečný cluster-level logging model?
+1. Ktoré boundaries oddeľujú emitted, collected a queryable record?
+2. Prečo `kubectl logs` môže fungovať pri prázdnom central backend-e?
+3. Ako sa líši Kubernetes Event, audit record a business event?
+4. Ktoré identities tvoria correlation envelope jedného requestu?
+5. Ako collector offset a backend acknowledgement ovplyvnia loss/duplicates?
+6. Prečo metrics-server nie je dlhodobý monitoring systém?
+7. Ako cardinality explosion ovplyvní availability observability backendu?
+8. Ako preukážeš telemetry coverage každej Node generation?
+9. Prečo absent data nie je automaticky dôkaz absent incidentu?
+10. Ktoré dôkazy uzatvárajú observability recovery?
 
 ## Glossary impact
 
-Relevantné pojmy: cluster-level logging, CRI log, log rotation, node log agent, resource metrics pipeline, metrics-server, kube-state-metrics, component metrics, metrics stability, time-series cardinality, Kubernetes Event, Event series, audit log, observability correlation a telemetry retention.
+Relevantné pojmy: telemetry lifecycle subject, signal contract, correlation envelope, emission boundary, collection subject, collector offset generation, telemetry backpressure boundary, backend acknowledgement, ingestion/query boundary, telemetry coverage generation, absent-evidence verdict, observability acceptance, cardinality budget, telemetry retention verdict, audit/Event/business-event separation a subject-bound evidence closure.
 
 ## Oficiálna dokumentácia
 
@@ -556,6 +449,7 @@ Relevantné pojmy: cluster-level logging, CRI log, log rotation, node log agent,
 - [Observability](https://kubernetes.io/docs/concepts/cluster-administration/observability/)
 - [Metrics for Kubernetes system components](https://kubernetes.io/docs/concepts/cluster-administration/system-metrics/)
 - [Events API](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/event-v1/)
+- [Auditing](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
