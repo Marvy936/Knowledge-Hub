@@ -1,593 +1,646 @@
 # BuildKit a Buildx
 
-BuildKit je moderný build backend pre container images a ďalšie build outputs. Buildx je Docker CLI plugin, ktorý spravuje BuildKit builders a sprístupňuje pokročilé capabilities ako multi-platform builds, viac exporterov, external cache, attestations a distribuované builder topológie. `docker build`, Buildx a BuildKit nie sú synonymá: CLI odošle build request vybranému builderu, ktorého backend vykoná build graph.
+BuildKit je execution backend, ktorý prekladá build program na dependency graph, vykonáva jeho nodes a exportuje výsledné artifacts. Buildx je Docker CLI vrstva, ktorá vyberá a spravuje BuildKit builder instances, nodes, drivers, platforms, caches a exporters. Ich spoločným výsledkom nemá byť iba „úspešný build“, ale presne identifikovaný, overiteľný a reprodukovateľne vysvetliteľný release artifact.
 
-## 1. Základný model
+Dominantný model kapitoly je:
 
 ```text
-Dockerfile / frontend
-        ↓
-      Buildx CLI
-        ↓
- selected builder instance
-        ↓
-      BuildKit daemon
-        ↓
- build graph execution
-        ↓
- image / registry / local / OCI / cache outputs
+release intent a expected evidence inventory
+→ immutable build subject
+→ builder trust domain a node/platform selection
+→ frontend translation na build graph
+→ per-node execution a cache decisions
+→ secrets, SSH a entitlement boundaries
+→ per-platform artifacts a tests
+→ exporter, registry graph a attestations
+→ read-back a runtime verification
+→ promotion, retention, recovery a builder retirement
 ```
 
-BuildKit môže:
+Tento lifecycle spája builder topology, multi-platform builds, cache, outputs, attestations aj troubleshooting. Samotné `docker buildx build` success nestačí. Musíš vedieť, čo sa buildovalo, kde, s akými inputs, aký graph sa vykonal, ktoré nodes a caches ovplyvnili výsledok, čo bolo exportované a či evidence patrí presne k publikovanému digestu.
 
-- vykonávať nezávislé graph nodes paralelne,
-- preniesť iba potrebnú časť contextu,
-- preskočiť nepoužité stages,
-- používať content-aware cache,
-- mountovať secrets, SSH agents a caches bez zámerného uloženia do final layer,
-- exportovať viac typov outputs,
-- vytvárať multi-platform image indexes,
-- generovať provenance a SBOM attestations podľa configuration.
+## 1. Atlas release subject
 
-## 2. Frontend a build graph
+Atlas Payments vydáva verziu `3.10.0` pre:
 
-Dockerfile frontend preloží Dockerfile do interného build graphu, často označovaného ako LLB model.
-
-```dockerfile
-# syntax=docker/dockerfile:1
+```text
+linux/amd64
+linux/arm64
 ```
 
-Frontend určuje syntax a semantics dostupných instructions. BuildKit potom vykonáva graph podľa dependencies, nie iba ako jednoduchý lineárny shell script.
+Release contract vyžaduje:
 
-Dôsledky:
+- source commit `C310`;
+- pinned Dockerfile frontend;
+- pinned base image subjects;
+- dependency locks a package repository snapshot;
+- exact BuildKit a Buildx versions;
+- native amd64 a arm64 runtime test;
+- image index s oboma platform manifests;
+- SBOM a provenance viazané na release subject;
+- signature a policy verdict;
+- read-back z production registry;
+- zachovaný rollback digest a build evidence.
 
-- nepoužitý stage nemusí byť vykonaný,
-- nezávislé stages môžu bežať paralelne,
-- cache key vychádza z operation a relevantných inputs,
-- secret mount nemusí byť súčasťou filesystem outputu.
-
-## 3. Buildx
-
-Základné príkazy:
+Build command je iba jedna mutation v tomto lifecycle-e:
 
 ```bash
-docker buildx version
+docker buildx build \
+  --builder atlas-release \
+  --platform linux/amd64,linux/arm64 \
+  --tag registry.example.com/atlas/payments:3.10.0 \
+  --tag registry.example.com/atlas/payments:${GIT_SHA} \
+  --provenance=true \
+  --sbom=true \
+  --push .
+```
+
+Pred jeho spustením musí existovať **build subject**. Po skončení musí existovať **publication a evidence verdict**.
+
+## 2. Immutable build subject
+
+Build subject identifikuje všetko, čo môže zmeniť graph alebo jeho výsledok:
+
+```text
+source repository + commit + submodules
+Dockerfile + frontend digest/version
+primary a named contexts
+expected context inventory a ignore rules
+base/external image digests
+dependency locks a repository snapshots
+build args a non-secret parameters
+secret/SSH reference identities
+BUILDPLATFORM a TARGETPLATFORM inventory
+selected target/stage DAG
+builder instance, nodes, driver a BuildKit config
+cache import subjects a trust domains
+exporter destinations a release purpose
+```
+
+Rovnaký Git commit nie je automaticky rovnaký build subject. Zmena frontendu, builder configuration, package repository snapshotu, platform node-u alebo external cache môže zmeniť final digest bez zmeny source tree.
+
+### Príčina → mechanizmus → dôsledok
+
+```text
+builder image sa aktualizuje mimo release manifestu
+→ zmení sa BuildKit worker, snapshotter alebo compression behavior
+→ rovnaký source vytvorí iný graph result alebo provenance
+→ release nie je vysvetliteľný iba commitom
+```
+
+Preto release evidence musí zaznamenať builder identity, nie iba `git rev-parse HEAD`.
+
+## 3. Buildx request a builder selection
+
+Buildx vytvára request a smeruje ho na selected builder:
+
+```text
+CLI context
+→ Buildx builder selection
+→ driver
+→ builder instance
+→ eligible node
+→ BuildKit worker
+```
+
+Výber môže pochádzať z:
+
+- explicitného `--builder`;
+- environmentu `BUILDX_BUILDER`;
+- aktuálne selected buildera;
+- Docker contextu;
+- CI wrappera alebo reusable jobu.
+
+Pred release buildom over:
+
+```bash
+docker context show
 docker buildx ls
-docker buildx inspect
-docker buildx build .
-```
-
-Buildx spravuje:
-
-- builder instances,
-- builder nodes,
-- drivers,
-- target platforms,
-- BuildKit configuration,
-- output a cache backends.
-
-Aktívny builder môže byť odlišný od default buildera používaného bežným Docker workflowom.
-
-## 4. Builder instance
-
-Builder je logical Buildx object s jedným alebo viacerými nodes.
-
-```bash
-docker buildx create --name release-builder --use
-docker buildx inspect --bootstrap
-```
-
-Builder metadata zahŕňa:
-
-- driver,
-- endpoint alebo nodes,
-- BuildKit status a version,
-- podporované platforms,
-- configuration a driver options.
-
-Pred release buildom zaznamenaj:
-
-```bash
-docker buildx inspect --bootstrap
+docker buildx inspect atlas-release --bootstrap
 docker version
 docker buildx version
 ```
 
-## 5. Build drivers
+Builder identity musí zahŕňať minimálne:
 
-Driver určuje, kde a ako BuildKit backend beží.
+- meno a purpose;
+- driver;
+- nodes a endpoints;
+- BuildKit version/config digest;
+- supported platforms;
+- worker/snapshotter details;
+- cache a registry endpoints;
+- tenant/trust classification;
+- credentials a entitlement policy.
 
-### `docker`
+### Failure boundary: wrong builder
 
-Používa BuildKit integrovaný do Docker Engine-u.
-
-Výhody:
-
-- jednoduchý default,
-- output je typicky ľahko dostupný v local image store,
-- bez samostatného builder containeru.
-
-Obmedzenia:
-
-- menšia konfigurovateľnosť BuildKit daemon-u,
-- nie všetky cache/export capabilities sú dostupné rovnako ako pri samostatných drivers.
-
-### `docker-container`
-
-BuildKit beží v samostatnom Docker containeri.
-
-Výhody:
-
-- izolovanejšia builder instance,
-- explicitná BuildKit verzia/configuration,
-- širšie cache/export možnosti,
-- multi-node builder topology.
-
-Výsledok sa bez `--load` nemusí automaticky objaviť v local Docker image store.
-
-### `kubernetes`
-
-BuildKit nodes bežia v Kubernetes workloadoch.
-
-Použitie:
-
-- elastickejší CI build pool,
-- native multi-architecture nodes,
-- persistent cache podľa storage modelu,
-- resource requests/limits a scheduling.
-
-Potrebuje cluster security, tenancy, network a cache isolation model.
-
-### `remote`
-
-Buildx sa pripája na existujúci remote BuildKit daemon.
-
-Potrebuje:
-
-- silnú transport authentication,
-- tenant isolation,
-- version compatibility,
-- external lifecycle ownership,
-- audit a capacity controls.
-
-### Cloud/managed builder
-
-Managed service môže poskytovať shared cache a native platform nodes. Posudzuj data residency, source/secrets exposure, provenance, pricing a vendor trust.
-
-## 6. Builder node
-
-Jeden builder môže mať viac nodes:
+Developer predtým používal local `desktop-linux` builder. CI job neuviedol `--builder` a inherited environment smeroval release request na shared development builder.
 
 ```text
-release-builder
+release source je správny
+→ wrong builder má odlišný frontend cache a credentials
+→ build reuse-ne development cache
+→ provenance ukazuje iný worker a final digest sa líši
+```
+
+Fix nie je iba „spustiť build znova“. Najprv treba zneplatniť release verdict, identifikovať artifacts vytvorené nesprávnym builderom a rebuildnúť ich v správnom trust domain-e.
+
+## 4. Builder trust domain
+
+Builder vykonáva repository-controlled code a môže dostať:
+
+- source a private dependencies;
+- build secrets alebo SSH agent;
+- registry write credentials;
+- shared cache read/write access;
+- signing alebo attestation identity;
+- host networking alebo insecure entitlements;
+- filesystem a compute resources.
+
+Preto oddeľ minimálne:
+
+```text
+untrusted fork/PR builders
+protected branch builders
+release builders
+signing/promotion identities
+```
+
+Untrusted build nesmie zapisovať do release cache, production repository ani subject-bound evidence namespace-u.
+
+### Failure boundary: cache poisoning
+
+Fork PR mal write access na `registry.example.com/cache/payments:main`. Release builder neskôr importoval ten istý cache subject.
+
+```text
+untrusted node publikuje podvrhnutý cached result
+→ release graph nájde technicky validný cache key
+→ reused result obíde očakávanú trusted execution
+→ final image obsahuje bytes, ktoré release pipeline priamo nevytvorila
+```
+
+Cache key validity a cache trust sú dve odlišné rozhodnutia. Correctness vyžaduje oboje.
+
+## 5. Frontend a graph translation
+
+Dockerfile frontend prekladá Dockerfile na interný dependency graph, často označovaný ako LLB.
+
+```dockerfile
+# syntax=docker/dockerfile:1@sha256:<frontend-digest>
+```
+
+Graph obsahuje:
+
+- source/context nodes;
+- image source nodes;
+- filesystem operations;
+- execution nodes;
+- mount dependencies;
+- stage a target edges;
+- platform-specific branches;
+- exporter roots.
+
+BuildKit nevykonáva Dockerfile iba ako lineárny shell script:
+
+- nepoužitý stage nemusí byť vykonaný;
+- nezávislé nodes môžu bežať paralelne;
+- selected target obmedzuje reachable graph;
+- cache hit môže execution preskočiť;
+- multi-platform request vytvorí platform-specific branches;
+- exporter určuje, ktorý result sa stane externým artifactom.
+
+### Failure boundary: test stage existuje, ale nie je v executed graph-e
+
+```dockerfile
+FROM build AS unit-test
+RUN go test ./...
+
+FROM runtime-base AS runtime
+COPY --from=build /out/payments-api /usr/local/bin/payments-api
+```
+
+Release target bol `runtime`. `unit-test` nebol ancestor targetu a pipeline ho nebuildovala samostatne.
+
+```text
+test stage je v Dockerfile
+→ nie je reachable z selected targetu
+→ BuildKit ho preskočí
+→ build success sa mylne interpretuje ako test pass
+```
+
+Expected evidence inventory musí vyžadovať samostatný subject-bound test verdict.
+
+## 6. Node scheduling a platform identity
+
+Builder môže mať viac nodes:
+
+```text
+atlas-release
 ├─ node-amd64
 └─ node-arm64
 ```
 
-Nodes môžu poskytovať native execution pre rôzne architectures. Scheduler vyberá node podľa target platform a capability.
+Pre každý platform branch zaznamenaj:
 
-Viac nodes vyžaduje:
+- target OS/architecture/variant;
+- selected node a native/emulated/cross-compile mode;
+- worker a kernel/runtime identity;
+- base platform manifest;
+- platform-specific cache sources;
+- produced manifest digest;
+- platform-specific tests a verdicty.
 
-- konzistentné frontend/BuildKit versions,
-- zdieľaný alebo prenosný cache model,
-- rovnaký registry a secret access contract,
-- observability per node,
-- capacity a failure handling.
+### Emulation
 
-## 7. Output model
+QEMU/binfmt môže spustiť target binaries na inom hoste. Je užitočná pre build operations, ale nie je plnou náhradou native runtime testu.
 
-Build nemusí skončiť iba local image-om.
+### Native nodes
 
-### Registry output
+Native nodes poskytujú realistickejšie execution a výkon, no môžu mať drift:
 
-```bash
-docker buildx build \
-  --tag registry.example.com/example/app:${GIT_SHA} \
-  --push .
-```
+- iný kernel;
+- inú BuildKit verziu;
+- odlišný package mirror;
+- rozdielne CPU features;
+- inú cache history;
+- rozdielne credentials alebo network path.
 
-### Local Docker image store
+### Cross-compilation
 
-```bash
-docker buildx build --load -t example:dev .
-```
-
-`--load` je vhodné najmä pre single-platform local testing. Multi-platform image index sa typicky publikuje do registry alebo compatible image store-u.
-
-### Local filesystem output
-
-```bash
-docker buildx build \
-  --target artifact \
-  --output type=local,dest=./dist .
-```
-
-### OCI alebo tar output
-
-Použiteľné pre air-gapped transfer, artifact inspection alebo ďalší supply-chain workflow.
-
-Output musí mať explicitnú identity a retention. Úspešný build bez požadovaného exporteru môže skončiť iba v builder cache.
-
-## 8. Multi-platform build
-
-```bash
-docker buildx build \
-  --platform linux/amd64,linux/arm64 \
-  --tag registry.example.com/example/app:${GIT_SHA} \
-  --push .
-```
-
-Výsledkom je typicky image index odkazujúci na platform-specific manifests.
-
-Tri hlavné stratégie:
-
-1. emulation,
-2. viac native builder nodes,
-3. cross-compilation.
-
-## 9. Emulation
-
-QEMU user-mode emulation môže spustiť target-architecture binaries na inom build hoste.
-
-Výhody:
-
-- jednoduchšie použitie existujúceho Dockerfile-u,
-- bez vlastného native node-u pre každú platformu.
-
-Nevýhody:
-
-- nižší výkon pri compilation/compression,
-- odlišné edge-case behavior,
-- potreba správne zaregistrovaných binfmt handlers,
-- test pod emuláciou nie je plná náhrada native runtime testu.
-
-## 10. Native nodes
-
-Native build na `amd64` a `arm64` nodes poskytuje realistickejší execution a lepší výkon.
-
-Riziká:
-
-- drift toolchainu medzi nodes,
-- odlišné kernel/platform capabilities,
-- cache fragmentation,
-- node availability,
-- credential distribution.
-
-Builder bootstrap má overiť podporované platforms a health všetkých nodes.
-
-## 11. Cross-compilation
-
-Dockerfile môže používať automatic platform arguments:
+Cross-compilation oddeľuje build platformu od target platformy:
 
 ```dockerfile
 FROM --platform=$BUILDPLATFORM golang:1.24 AS build
 ARG TARGETOS TARGETARCH
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH \
-    go build -o /out/example ./cmd/example
-
-FROM alpine:3.21
-COPY --from=build /out/example /usr/local/bin/example
+    go build -trimpath -o /out/payments ./cmd/payments
 ```
 
-Cross-compilation funguje dobre pri toolchainoch, ktoré ju podporujú. Stále potrebuješ:
+Stále treba overiť runtime dependency closure, native libraries, CGO, certificates, loader a target runtime behavior.
 
-- target runtime dependencies,
-- architecture-specific tests,
-- správny CGO/native-library model,
-- výsledný platform manifest.
+## 7. Cache decision lifecycle
 
-## 12. Cache exporters a importers
+Pre každý graph node BuildKit rozhoduje:
+
+```text
+node subject
+→ cache key
+→ eligible cache sources
+→ trust/freshness policy
+→ hit alebo miss
+→ reused result alebo bounded execution
+→ result export/retention
+```
+
+Dôležité identity:
+
+- node key;
+- platform;
+- source cache ref;
+- writer trust domain;
+- reused result digest;
+- creation/freshness generation;
+- cache export destination;
+- retention a GC lease.
 
 Príklad registry cache:
 
 ```bash
 docker buildx build \
-  --cache-from type=registry,ref=registry.example.com/example/cache:main \
-  --cache-to type=registry,ref=registry.example.com/example/cache:main,mode=max \
-  --tag registry.example.com/example/app:${GIT_SHA} \
+  --cache-from type=registry,ref=registry.example.com/atlas/cache/payments:main \
+  --cache-to type=registry,ref=registry.example.com/atlas/cache/payments:main,mode=max \
+  --platform linux/amd64,linux/arm64 \
   --push .
 ```
 
-Možné cache backends závisia od drivera a BuildKit configuration.
+### Cache freshness gap
 
-Cache potrebuje:
+Package install node môže mať validný cache key, hoci remote repository odvtedy vydal security update.
 
-- oddelenie trust domains,
-- scoped read/write credentials,
-- immutable alebo kontrolované refs,
-- retention a garbage collection,
-- capacity monitoring,
-- fallback na clean build.
+```text
+instruction a local inputs sú rovnaké
+→ cache key sa nemení
+→ remote mutable repository sa nečíta
+→ security rebuild reuse-ne starý package result
+```
 
-## 13. Inline vs. registry cache
+`--no-cache` vynúti execution, ale nevytvorí reproducibility. Potrebuješ controlled dependency refresh, pinned snapshot alebo explicitnú freshness generation.
 
-### Inline cache
+### Clean build ako control
 
-Cache metadata sa pridá k image outputu podľa podporovaného režimu. Je jednoduchšia, ale nemusí zachovať maximálny interný graph.
+Clean build má overiť, že build nemá skrytú correctness dependency na cache. Ak po prune zlyhá, prune neporušil correctness; odhalil neúplný input contract.
 
-### Samostatná registry cache
+## 8. Secrets, SSH a entitlements
 
-Cache je samostatný artifact/ref a môže používať širší `mode=max` graph.
-
-Production image a cache artifact majú odlišnú retention a trust policy.
-
-## 14. Secrets
-
-CLI secret:
+Build secret mount poskytuje secret iba konkrétnemu execution node-u:
 
 ```bash
 docker buildx build \
   --secret id=repo_token,src=./repo-token.txt .
 ```
 
-Dockerfile:
-
 ```dockerfile
 RUN --mount=type=secret,id=repo_token \
-    TOKEN="$(cat /run/secrets/repo_token)" \
-    && fetch-dependency "$TOKEN"
+    token="$(cat /run/secrets/repo_token)" \
+    && fetch-private-dependency "$token"
 ```
 
-Environment source možno použiť podľa Buildx secret syntax a podporovanej verzie.
+Secret mount nezaručuje, že secret nemôže uniknúť. Node ho môže zapísať do:
 
-Secret nesmie skončiť v:
-
-- copied output directory,
-- package-manager config,
-- build logs,
-- test reports,
-- cache mount,
-- provenance parameters,
+- generated artifactu;
+- package-manager configu;
+- cache mountu;
+- stdout/stderr;
+- test reportu;
+- source mapy;
+- provenance parameters;
 - final image metadata.
 
-## 15. SSH forwarding
+SSH forwarding podobne neposiela private key ako file, ale nedôveryhodný build code môže používať agent authority.
+
+Entitlements ako host networking alebo insecure security mode menia sandbox contract. Musia byť:
+
+- explicitné v requeste;
+- povolené iba na určenom builderi;
+- viazané na exact build subject;
+- auditované;
+- zakázané pre untrusted source;
+- odstránené po migrácii use case-u.
+
+### Failure boundary: secret v generated outpute
+
+Build stage použil secret mount správne, ale frontend tool vytvoril `.env.production` v `/app/dist`. Final stage vykonal narrow `COPY --from=build /app/dist`.
+
+```text
+secret mount nie je v layeri priamo
+→ build code odvodí secret-bearing output
+→ output je považovaný za release artifact
+→ final image a cache obsahujú secret
+```
+
+Recovery zahŕňa revocation, cache quarantine, clean graph rebuild a audit použitia credentialu.
+
+## 9. Exporter je súčasť correctness
+
+Build result môže skončiť v:
+
+- registry;
+- local Docker image store;
+- OCI layout/tar;
+- local filesystem;
+- BuildKit cache;
+- viacnásobných outputs.
 
 ```bash
-docker buildx build --ssh default .
+# Single-platform local test
+docker buildx build --load -t atlas/payments:dev .
+
+# Multi-platform release
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  --push \
+  -t registry.example.com/atlas/payments:3.10.0 .
 ```
 
-```dockerfile
-RUN --mount=type=ssh git clone git@github.com:example/private.git
+Úspešný graph execution bez požadovaného exporteru nie je úspešný release.
+
+### Failure boundary: build success, artifact neexistuje
+
+Release job skončil `0`, ale používal `docker-container` driver bez `--push`, `--load` alebo explicitného outputu.
+
+```text
+graph result vznikne
+→ zostane iba v builder cache
+→ pipeline označí release za publikovaný
+→ deployment nevie pullnuť očakávaný digest
 ```
 
-Build používa forwarded agent/socket bez kopírovania private key do image. Over host-key verification a nedovoľ nedôveryhodnému Dockerfile-u používať privilegovaný SSH agent.
+Acceptance musí zahŕňať registry read-back a complete artifact graph verification.
 
-## 16. Attestations
+## 10. Multi-platform publication subject
 
-BuildKit/Buildx môže vytvárať attestations ako:
+Multi-platform release typicky vytvorí:
 
-- build provenance,
-- SBOM.
+```text
+image index digest
+├─ linux/amd64 manifest digest
+│  ├─ config
+│  └─ layers
+└─ linux/arm64 manifest digest
+   ├─ config
+   └─ layers
+```
 
-Príklad:
+Release evidence musí rozlišovať:
+
+- index subject;
+- platform manifest subjects;
+- per-platform SBOM/provenance podľa modelu;
+- runtime tests per platform;
+- signature/policy scope;
+- registry read-back generation.
+
+Tag je mutable pointer. Index digest je immutable subject, ale platform-specific runtime verdict musí byť viazaný na manifest, ktorý node reálne pullne.
+
+## 11. Attestations a evidence binding
+
+BuildKit/Buildx môže vytvoriť provenance a SBOM:
 
 ```bash
 docker buildx build \
   --provenance=true \
   --sbom=true \
-  --tag registry.example.com/example/app:${GIT_SHA} \
   --push .
 ```
 
-Attestation musí byť:
+Evidence je použiteľná iba keď:
 
-- viazaná na správny subject digest,
-- zachovaná pri promotion/mirroringu,
-- podpísaná alebo overiteľná podľa supply-chain modelu,
-- kontrolovaná policy engine-om,
-- zbavená citlivých build arguments.
+- subject digest je presný;
+- expected platform inventory je úplný;
+- producer/builder identity je dôveryhodná;
+- source a inputs zodpovedajú release contractu;
+- evidence prežila promotion/mirroring;
+- policy engine ju reálne vyhodnotil;
+- missing evidence nie je interpretovaná ako pass;
+- runtime/deployment korelácia ukazuje rovnaký digest.
 
-SBOM ani provenance samy osebe nepreukazujú bezpečnosť.
+SBOM nepreukazuje, že image je bezpečný. Provenance nepreukazuje, že builder nebol kompromitovaný. Obe sú evidence inputs do širšieho verdictu.
 
-## 17. Reproducibility
+## 12. Build once a promotion
 
-BuildKit zlepšuje deterministický graph a cache, ale výsledok stále ovplyvňujú:
+Správny release flow:
 
-- mutable base tags,
-- package repositories,
-- network downloads,
-- timestamps,
-- platform/toolchain,
-- frontend a BuildKit version,
-- build args,
-- generated metadata.
+```text
+build exact source/input subject
+→ export immutable index a manifests
+→ read-back z registry
+→ test exact platform digests
+→ vytvoriť a overiť evidence
+→ podpísať/policy-approve subject
+→ promovovať rovnaký digest
+→ deploy a korelovať runtime subject
+```
 
-Release workflow potrebuje immutable inputs, provenance a občasný independent rebuild.
+Rebuild v každom environment-e vytvára nový build subject, aj keď source commit zostal rovnaký.
 
-## 18. Entitlements
+## 13. Builder capacity, retention a GC
 
-Niektoré build operations vyžadujú širšie capabilities, napríklad host networking alebo insecure security mode podľa BuildKit configuration.
+Builder má vlastný state lifecycle:
 
-Tieto entitlements:
-
-- rozširujú build sandbox,
-- musia byť povolené daemonom aj requestom,
-- nesmú byť defaultom pre nedôveryhodné builds,
-- potrebujú audit a izolovaný builder pool.
-
-Build je execution of repository-controlled code. Builder je security-sensitive workload.
-
-## 19. Rootless BuildKit
-
-Rootless BuildKit znižuje host root exposure využitím user namespaces a rootless runtime mechanizmov.
-
-Limity môžu zahŕňať:
-
-- snapshotter/filesystem požiadavky,
-- networking,
-- cgroups,
-- performance,
-- privileged build features.
-
-Rootless nie je náhradou tenant isolation pri vykonávaní nedôveryhodného code-u.
-
-## 20. BuildKit configuration
-
-Samostatný builder môže používať BuildKit daemon configuration pre:
-
-- registry mirrors a certificates,
-- garbage collection,
-- worker backends,
-- network mode,
-- debug/logging,
-- parallelism,
-- insecure entitlements,
-- cache retention.
-
-Configuration je súčasťou build provenance a platform ownershipu. Zmena builder configu môže zmeniť výsledok alebo performance bez zmeny repository.
-
-## 21. Garbage collection
-
-Builder cache spotrebúva významný disk.
+- content store;
+- snapshots;
+- cache records;
+- active build leases;
+- temporary exports;
+- node disks;
+- registry caches;
+- logs a traces.
 
 ```bash
 docker buildx du
 docker buildx prune
 ```
 
-GC policy má rozlišovať:
+GC policy musí chrániť active builds a potrebné cache subjects, ale build correctness nesmie závisieť od ich večnej existencie.
 
-- recent active cache,
-- large unused records,
-- shared release cache,
-- per-project/tenant quotas,
-- disk emergency threshold.
+### Failure boundary: disk full počas exportu
 
-Manuálny agresívny prune môže zvýšiť build times, ale nesmie porušiť correctness. Ak poruší, build mal skrytú cache dependency.
+Build nodes dokončili compilation, no builder disk sa zaplnil počas compression/exportu. Časť registry blobs bola uploadnutá, index nebol publikovaný a client connection sa stratila.
 
-## 22. Build observability
+Toto je **unknown publication outcome**. Pred retry treba overiť:
 
-```bash
-docker buildx build --progress=plain .
-docker buildx inspect --bootstrap
-docker buildx du
+- existenciu tagu a digestu;
+- reachable manifests/blobs;
+- active/incomplete uploads;
+- cache result identity;
+- attestation subjects;
+- či retry prepíše mutable tag alebo vytvorí duplicitné evidence.
+
+Blind retry môže zmiešať graph generations.
+
+## 14. Worked failure: arm64 manifest je green, ale runtime padá
+
+Atlas release `3.10.0` bol publikovaný pre amd64 aj arm64. CI bolo green. Na arm64 node workload skončil `exec format error` a následne pri ďalšom pokuse `no such file or directory`.
+
+### Zafixuj subject
+
+```text
+source commit a immutable input inventory
+Dockerfile/frontend digest
+selected builder a node inventory
+BuildKit/Buildx versions
+index digest
+amd64 a arm64 manifest digest
+per-platform config/layers
+cache import decisions
+build/test mode: native, emulated alebo cross-compiled
+runtime node/kernel/architecture
+exact command a loader/library evidence
+SBOM/provenance/test report subjects
 ```
 
-Sleduj:
+### Competing hypotheses
 
-- queue time,
-- duration per graph node,
-- context transfer,
-- cache hits/misses,
-- remote fetch latency,
-- CPU/memory/disk per builder node,
-- cache import/export duration,
-- output push time,
-- failures podľa platformy,
-- BuildKit daemon logs.
+1. arm64 branch použil amd64 binary;
+2. index odkazuje na nesprávny platform manifest;
+3. cross-compilation nastavila `TARGETARCH`, ale final stage skopíroval iný artifact;
+4. CGO alebo native library ostala amd64;
+5. cache result bol nesprávne reuse-nutý medzi platforms;
+6. shebang/interpreter alebo dynamic loader v final image chýba;
+7. emulated test prešiel, native runtime odhalil CPU/kernel edge case;
+8. arm64 test report patrí k inému digestu;
+9. registry mirror poskytol stale index generation;
+10. deployment vybral iný tag digest než release evidence.
 
-## 23. CI trust boundaries
+### Discriminating observation points
 
-Oddeľ minimálne:
+- `docker buildx inspect --bootstrap` a per-node platforms;
+- plain progress s platform/node/cache metadata;
+- index a platform manifests z registry read-backu;
+- binary `file`, `readelf`, loader a shared-library inspection;
+- final image config a runtime dependency closure;
+- per-platform SBOM a provenance subject;
+- test report artifact/manifest binding;
+- native arm64 pull a runtime smoke test;
+- deployed digest a mirror generation.
 
-- untrusted pull-request builders,
-- protected branch builders,
-- release/signing builders,
-- production registry credentials.
+### Containment
 
-Untrusted build nemá mať write access k release cache refu, signing identity ani production registry namespace.
+Zastav promotion a arm64 rollout. Quarantine-ni affected index/tag bez odstránenia evidence. Zachovaj builder logs, cache refs, manifests a failed runtime instance. Ak amd64 subject je nezávisle validný, môže zostať nasadený iba podľa explicitnej platform policy.
 
-Preferuj ephemeral builder workers alebo čistiteľný workspace pri nedôveryhodnom source.
+### Recovery
 
-## 24. Build once a promotion
+- wrong binary/transfer → oprav stage artifact identity a rebuildni oba platform branches;
+- cache cross-contamination → oddel platform keys/subjects a clean rebuild;
+- missing loader/library → oprav runtime dependency closure;
+- stale mirror/index → obnov replication generation a pinni digest;
+- evidence mismatch → zruš verdict a vytvor nové subject-bound testy;
+- emulation gap → pridaj native arm64 runtime gate.
 
-Release pipeline má:
+Publikuj nový index digest; neopravuj existujúci immutable subject v runtime.
 
-1. buildnúť konkrétny commit,
-2. otestovať výsledný digest/platform manifests,
-3. vytvoriť provenance/SBOM,
-4. podpísať alebo policy-overiť artifact,
-5. promovovať ten istý digest,
-6. nerekonštruovať image osobitne v každom environment-e.
+### Over pôvodný outcome
 
-Rebuild v production mení toolchain, network a cache context a porušuje artifact promotion model.
+Na oboch platformách potvrď:
 
-## 25. Anti-patterny
+- pull exact platform manifestu;
+- startup a signal contract;
+- health a readiness;
+- payment business transaction;
+- correct SBOM/provenance/test linkage;
+- absence starého failed digestu v deployment inventory.
 
-### `--load` pri multi-platform release a očakávanie plného indexu
+### Posuň control skôr
 
-Local image store nemusí reprezentovať registry multi-platform output podľa očakávania.
+Pridaj platform manifest inventory, native runtime gates, artifact lineage assertions, cache platform partitioning, registry read-back a deployment digest correlation.
 
-### Jeden shared builder pre fork PR aj release signing
+## 15. Referenčný builder katalóg
 
-Spája nedôveryhodný code, cache a credentials.
+| Driver/model | Execution boundary | Typické použitie | Hlavná failure boundary |
+|---|---|---|---|
+| `docker` | Engine-integrated BuildKit | local/simpler builds | obmedzené exporter/cache semantics |
+| `docker-container` | samostatný builder container | CI/release builder | output nie je automaticky local |
+| `kubernetes` | cluster builder nodes | elastický/native multi-platform pool | tenancy, storage a node drift |
+| `remote` | external BuildKit endpoint | central builder service | transport identity a lifecycle ownership |
+| managed/cloud | vendor trust domain | shared/native capacity | source/secrets/evidence residency a trust |
 
-### Cache bez namespace/trust isolation
+Katalóg nevyberá správny builder. Rozhodujú release purpose, trust domain, platform evidence, output contract a recovery model.
 
-Umožňuje poisoning alebo data leakage.
+## 16. Praktické controls
 
-### Mutable builder image/config bez auditu
+- explicitne definuj immutable build subject;
+- pinuj frontend, bases, dependencies a builder versions/config;
+- používaj named release builder a overuj context;
+- oddeľ untrusted, protected a release trust domains;
+- rozdeľ cache read/write policy podľa trustu a platformy;
+- udržuj expected stage a evidence inventory;
+- používaj secret/SSH mounts, ale audituj generated outputs;
+- povoľuj entitlements iba subject-bound a časovo obmedzene;
+- vyžaduj explicitný exporter a registry read-back;
+- viaž tests, SBOM, provenance a signature na exact index/manifest subjects;
+- vykonávaj native runtime verification pre podporované platforms;
+- promovuj rovnaký digest namiesto rebuild-u;
+- sleduj queue, node resources, cache, disk, export a registry latency;
+- chráň active leases a rollback evidence pri GC;
+- udržuj clean-build a builder-recovery postup.
 
-Výsledok sa mení bez repository change.
+## 17. Kontrolné otázky
 
-### Emulovaný build považovaný za native runtime test
-
-Emulation nemusí zachytiť všetky platform-specific chyby.
-
-### Secrets cez build args
-
-Môžu uniknúť do metadata, history alebo provenance.
-
-### Build úspešný, ale bez exporteru
-
-Výsledok zostal iba v cache a nie je release artifactom.
-
-### `prune -a` ako rutinná oprava
-
-Maskuje capacity a retention problém.
-
-## 26. Troubleshooting
-
-### Buildx používa iný builder
-
-Over:
-
-```bash
-docker buildx ls
-docker buildx inspect
-echo "$BUILDX_BUILDER"
-```
-
-### Image po build-e nie je v `docker images`
-
-Použitý driver/output ho neimportoval do local image store-u. Použi `--load` pre vhodný single-platform local build alebo `--push`/explicitný exporter.
-
-### Multi-platform build zlyhá s `exec format error`
-
-Over emulation registration, target platform, `FROM --platform`, cross-compilation a native dependency.
-
-### Cache sa neimportuje
-
-Over driver support, registry auth, cache ref, media type, platform a retention/GC.
-
-### Builder je veľmi pomalý
-
-Rozlíš context transfer, emulation, cache miss, network download, CPU/memory limit, disk I/O a registry push.
-
-### BuildKit disk je plný
-
-Použi `buildx du`, skontroluj GC policy, active builds a cache ownership. Pred prune zachovaj diagnostické dáta.
-
-### Provenance obsahuje neočakávané hodnoty
-
-Over build args, frontend, source metadata a attestation mode; secrets nesmú byť v arguments alebo labels.
-
-## 27. Kontrolné otázky
-
-1. Aký je rozdiel medzi BuildKit a Buildx?
-2. Čo je builder instance a builder node?
-3. Ako sa líšia `docker` a `docker-container` drivers?
-4. Aký je rozdiel medzi `--load` a `--push`?
-5. Ktoré tri stratégie existujú pre multi-platform build?
-6. Prečo emulation nenahrádza native runtime test?
-7. Ako sa odlišuje production image a build cache artifact?
-8. Aké riziká majú build secrets a SSH forwarding?
-9. Čo poskytuje provenance a SBOM?
-10. Prečo treba oddeliť untrusted a release builders?
+1. Ako sa líši Buildx request, builder instance, node a BuildKit worker?
+2. Čo tvorí immutable build subject?
+3. Prečo technicky validný cache hit nemusí byť dôveryhodný ani fresh?
+4. Ako selected target určuje executed stage graph?
+5. Prečo emulovaný test nenahrádza native runtime verdict?
+6. Čo musí evidence obsahovať pri multi-platform indexe?
+7. Prečo build success bez exporteru nie je release success?
+8. Ako môže secret mount napriek tomu viesť k secret leakage?
+9. Čo treba overiť po unknown publication outcome?
+10. Prečo sa má promovovať digest namiesto rebuild-u v každom prostredí?
 
 ## Glossary impact
 
-Relevantné pojmy: BuildKit, Buildx, build frontend, LLB, builder instance, builder node, build driver, Docker driver, Docker container driver, Kubernetes builder driver, remote builder, build exporter, `--load`, `--push`, multi-platform build, emulation, native builder, cross-compilation, cache exporter, build attestation a builder trust domain.
+Relevantné pojmy: BuildKit release subject, builder trust domain, builder node subject, graph execution subject, platform branch subject, cache trust and freshness verdict, BuildKit entitlement subject, exporter contract, unknown publication outcome, per-platform evidence inventory, native runtime gate, builder state lifecycle a build publication acceptance.
 
 ## Oficiálna dokumentácia
 
