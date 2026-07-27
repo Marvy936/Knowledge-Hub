@@ -6,8 +6,8 @@
 
 - Audited authoritative articles: **257**
 - Audited conceptual sections: **10952**
-- Total words: **619,744**
-- Findings: **24334** (critical 7623, high 8294, medium 3264, low 5153)
+- Total words: **620,281**
+- Findings: **24305** (critical 7609, high 8283, medium 3258, low 5155)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -63,7 +63,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1057 | 48 | 52 | 18 | 11 | 1353 | `docs/11-cloud-and-aws/iaas-paas-saas.md` |
 | D | 1049 | 46 | 53 | 19 | 14 | 1688 | `docs/11-cloud-and-aws/systems-manager.md` |
 | D | 1001 | 44 | 54 | 14 | 3 | 1181 | `docs/13-security-and-identity/iam-rbac.md` |
-| D | 987 | 43 | 54 | 14 | 3 | 1569 | `docs/10-helm-and-cka/helm-testing-troubleshooting.md` |
 | D | 982 | 43 | 45 | 21 | 26 | 2919 | `docs/05-ci-cd-and-release/release-management.md` |
 | D | 980 | 40 | 51 | 17 | 36 | 3261 | `docs/02-networking-and-web/dhcp.md` |
 | D | 975 | 41 | 56 | 13 | 2 | 1252 | `docs/13-security-and-identity/least-privilege.md` |
@@ -124,6 +123,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 728 | 30 | 40 | 10 | 14 | 2359 | `docs/06-gitlab/security-scanning.md` |
 | D | 726 | 32 | 33 | 14 | 25 | 1963 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | D | 726 | 35 | 32 | 12 | 12 | 1846 | `docs/09-kubernetes/etcd-backup-restore.md` |
+| D | 719 | 29 | 43 | 8 | 5 | 2106 | `docs/10-helm-and-cka/helm-testing-troubleshooting.md` |
 | D | 714 | 29 | 39 | 10 | 16 | 2038 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
 | D | 707 | 27 | 44 | 7 | 11 | 2183 | `docs/06-gitlab/environments-deployments-releases.md` |
 | D | 701 | 29 | 41 | 6 | 8 | 1775 | `docs/06-gitlab/merge-requests-and-approvals.md` |
@@ -10854,103 +10854,78 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/10-helm-and-cka/helm-testing-troubleshooting.md`
 
-- **CRITICAL** line 25, `bare-bullet-items` — **2. Static chart checks**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povinné chart metadata,`, `chart type a version,`, `dependency declarations,`, `duplicate alebo neplatné templates,`.
-- **CRITICAL** line 25, `outline-instead-of-explanation` — **2. Static chart checks**: 6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 47, `bare-bullet-items` — **3. Values matrix**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `defaults,`, `production-like values,`, `feature zapnutá,`, `feature vypnutá,`.
-- **CRITICAL** line 47, `outline-instead-of-explanation` — **3. Values matrix**: 9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 73, `bare-bullet-items` — **4. Render debugging**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `render jedného template súboru,`, `debug output,`, `explicitné API/Kubernetes version capabilities,`, `zahrnutie CRDs,`.
-- **CRITICAL** line 73, `outline-instead-of-explanation` — **4. Render debugging**: 13 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 101, `bare-bullet-items` — **5. Debug helper scope**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zisti aktuálny význam . ,`, `skontroluj range , with , include alebo template scope,`, `zachovaj root v $ ,`, `pri helperi odovzdaj explicitný dict ,`.
-- **CRITICAL** line 101, `outline-instead-of-explanation` — **5. Debug helper scope**: 5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 121, `bare-bullet-items` — **6. YAML troubleshooting**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesprávny indent / nindent ,`, `trim marker odstráni potrebný newline,`, `string bez quotes sa interpretuje ako bool/number,`, `multi-line block má chybnú indentation,`.
-- **CRITICAL** line 121, `outline-instead-of-explanation` — **6. YAML troubleshooting**: 6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 142, `bare-bullet-items` — **7. Kubernetes server validation**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúcu API version,`, `schema validation,`, `RBAC,`, `quota a LimitRange,`.
-- **CRITICAL** line 142, `outline-instead-of-explanation` — **7. Kubernetes server validation**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 164, `bare-bullet-items` — **8. Capabilities a lookup**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `.Capabilities.APIVersions ,`, `Kubernetes version branching,`, `lookup ,`, `cluster-dependent CRDs,`.
-- **CRITICAL** line 164, `outline-instead-of-explanation` — **8. Capabilities a lookup**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 176, `bare-bullet-items` — **9. Policy a security testing**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `privileged containers,`, `host namespaces a hostPath,`, `root user a capabilities,`, `missing requests/limits,`.
-- **CRITICAL** line 176, `outline-instead-of-explanation` — **9. Policy a security testing**: 10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 195, `bare-bullet-items` — **10. Unit testing templates**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource exists/does not exist,`, `exact labels a selectors,`, `image reference,`, `securityContext,`.
-- **CRITICAL** line 195, `outline-instead-of-explanation` — **10. Unit testing templates**: 12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 235, `bare-bullet-items` — **12. Chart tests**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS resolution Service-u,`, `TCP/HTTP response,`, `authentication s test identity,`, `database connectivity cez application path,`.
-- **CRITICAL** line 235, `outline-instead-of-explanation` — **12. Chart tests**: 12 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 261, `bare-bullet-items` — **13. Test hooks nie sú end-to-end monitoring**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dlhodobú availability,`, `production load,`, `všetky user journeys,`, `disaster recovery,`.
-- **CRITICAL** line 261, `outline-instead-of-explanation` — **13. Test hooks nie sú end-to-end monitoring**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 274, `empty-section` — **14. Install troubleshooting**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 288, `bare-bullet-items` — **Chart sa nedá stiahnuť**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository/OCI reference,`, `registry login,`, `TLS/CA,`, `proxy,`.
-- **CRITICAL** line 288, `outline-instead-of-explanation` — **Chart sa nedá stiahnuť**: 7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 309, `bare-bullet-items` — **15. Release status troubleshooting**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aká je posledná revision,`, `aký status Helm zapísal,`, `aký manifest a values pozná,`, `aké hooks patria release-u.`.
-- **CRITICAL** line 309, `outline-instead-of-explanation` — **15. Release status troubleshooting**: 4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 329, `bare-bullet-items` — **16. Pending states**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skontroluj hooks a Jobs,`, `skontroluj API a network connectivity,`, `zisti, či iný Helm process stále beží,`, `over release Secret revision/status,`.
-- **CRITICAL** line 329, `outline-instead-of-explanation` — **16. Pending states**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 342, `bare-bullet-items` — **17. Hook troubleshooting**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `render failure,`, `API admission failure,`, `scheduling/image pull,`, `runtime exit,`.
-- **CRITICAL** line 342, `outline-instead-of-explanation` — **17. Hook troubleshooting**: 7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 361, `bare-bullet-items` — **18. Workload troubleshooting po úspešnom Helme**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image pull,`, `config/Secret,`, `probes,`, `resources,`.
-- **CRITICAL** line 361, `outline-instead-of-explanation` — **18. Workload troubleshooting po úspešnom Helme**: 9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 387, `bare-bullet-items` — **19. Drift analysis**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manual edit,`, `mutating admission,`, `HPA,`, `operator,`.
-- **CRITICAL** line 387, `outline-instead-of-explanation` — **19. Drift analysis**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 410, `bare-bullet-items` — **20. Secrets a debug output**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `helm get all ,`, `helm get values --all ,`, `helm template --debug ,`, `install/upgrade dry-run,`.
-- **CRITICAL** line 410, `outline-instead-of-explanation` — **20. Secrets a debug output**: 6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 423, `bare-bullet-items` — **21. CRD troubleshooting**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CRD ešte neexistuje pri render/apply,`, `CRD existuje, ale controller nie,`, `version nie je served,`, `conversion webhook nefunguje,`.
-- **CRITICAL** line 423, `outline-instead-of-explanation` — **21. CRD troubleshooting**: 6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 445, `bare-bullet-items` — **22. Uninstall troubleshooting**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pre-delete hook,`, `finalizer,`, `API discovery/webhook,`, `namespace termination,`.
-- **CRITICAL** line 445, `outline-instead-of-explanation` — **22. Uninstall troubleshooting**: 12 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 490, `empty-section` — **24. Troubleshooting decision tree**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 541, `empty-section` — **26. Praktický checklist**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 5, `single-sentence-concept` — **1. Testovacia pyramída pre Helm chart**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 25, `single-sentence-concept` — **2. Static chart checks**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 47, `single-sentence-concept` — **3. Values matrix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 73, `list-first-introduction` — **4. Render debugging**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 73, `single-sentence-concept` — **4. Render debugging**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 101, `single-sentence-concept` — **5. Debug helper scope**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 121, `single-sentence-concept` — **6. YAML troubleshooting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 142, `single-sentence-concept` — **7. Kubernetes server validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 195, `single-sentence-concept` — **10. Unit testing templates**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 217, `single-sentence-concept` — **11. Ephemeral cluster test**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 235, `single-sentence-concept` — **12. Chart tests**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 288, `single-sentence-concept` — **Chart sa nedá stiahnuť**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 300, `list-first-introduction` — **Dependency chýba**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 300, `single-sentence-concept` — **Dependency chýba**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 309, `list-first-introduction` — **15. Release status troubleshooting**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 309, `single-sentence-concept` — **15. Release status troubleshooting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 329, `single-sentence-concept` — **16. Pending states**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 342, `list-first-introduction` — **17. Hook troubleshooting**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 342, `single-sentence-concept` — **17. Hook troubleshooting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 361, `single-sentence-concept` — **18. Workload troubleshooting po úspešnom Helme**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 387, `single-sentence-concept` — **19. Drift analysis**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 423, `single-sentence-concept` — **21. CRD troubleshooting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 445, `list-first-introduction` — **22. Uninstall troubleshooting**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 445, `single-sentence-concept` — **22. Uninstall troubleshooting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 469, `single-sentence-concept` — **23. CI pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 513, `single-sentence-concept` — **Iba helm lint**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 517, `single-sentence-concept` — **Debug output uložený bez sanitizácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 521, `single-sentence-concept` — **Test iba default values**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 525, `single-sentence-concept` — **Snapshot test bez semantic review**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 529, `single-sentence-concept` — **helm test bez timeoutu/resources**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 533, `single-sentence-concept` — **Ručné mazanie release Secrets**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 537, `single-sentence-concept` — **Helm error riešený iba cez Kubernetes dashboard**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 25, `thin-concept-section` — **2. Static chart checks**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 47, `thin-concept-section` — **3. Values matrix**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 73, `thin-concept-section` — **4. Render debugging**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 101, `thin-concept-section` — **5. Debug helper scope**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 121, `thin-concept-section` — **6. YAML troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 142, `thin-concept-section` — **7. Kubernetes server validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 176, `thin-concept-section` — **9. Policy a security testing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 195, `thin-concept-section` — **10. Unit testing templates**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 235, `term-before-explanation` — **12. Chart tests**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TCP`, `HTTP`, `identity`
-- **HIGH** line 235, `thin-concept-section` — **12. Chart tests**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 261, `thin-concept-section` — **13. Test hooks nie sú end-to-end monitoring**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 288, `term-before-explanation` — **Chart sa nedá stiahnuť**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `TLS`, `CA`, `scope`
-- **HIGH** line 288, `thin-concept-section` — **Chart sa nedá stiahnuť**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 309, `thin-concept-section` — **15. Release status troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 329, `thin-concept-section` — **16. Pending states**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 342, `thin-concept-section` — **17. Hook troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 361, `thin-concept-section` — **18. Workload troubleshooting po úspešnom Helme**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 387, `thin-concept-section` — **19. Drift analysis**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 410, `thin-concept-section` — **20. Secrets a debug output**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 423, `thin-concept-section` — **21. CRD troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 445, `term-before-explanation` — **22. Uninstall troubleshooting**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `PVC`, `PV`, `LB`, `DNS`, `IAM`
-- **HIGH** line 445, `thin-concept-section` — **22. Uninstall troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 112, `bare-bullet-items` — **5. Chart artifact a dependency gate**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected chart name/version/type;`, `exact Chart.lock ;`, `resolved first-level aj transitive dependencies;`, `source registry/repository identity;`.
+- **CRITICAL** line 112, `outline-instead-of-explanation` — **5. Chart artifact a dependency gate**: 7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 165, `bare-bullet-items` — **7. Deterministic render gate**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rovnaké inputs produkujú rovnaký manifest digest;`, `žiadne neplánované lookup , now alebo random outputs;`, `helper name/scope/output contracts;`, `correct YAML typing;`.
+- **CRITICAL** line 165, `outline-instead-of-explanation` — **7. Deterministic render gate**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 186, `bare-bullet-items` — **8. Template a helper assertions**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource names;`, `selectors a Pod labels;`, `Service ports/targetPorts;`, `image references;`.
+- **CRITICAL** line 186, `outline-instead-of-explanation` — **8. Template a helper assertions**: 10 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 203, `bare-bullet-items` — **9. YAML, API a admission boundaries**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepodporovanú API version;`, `OpenAPI/schema failure;`, `admission mutation alebo denial;`, `RBAC;`.
+- **CRITICAL** line 203, `outline-instead-of-explanation` — **9. YAML, API a admission boundaries**: 8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 253, `bare-bullet-items` — **11. Ephemeral cluster lifecycle test**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kubernetes minor/API versions;`, `admission a Pod Security;`, `CNI/CSI/DNS assumptions;`, `default StorageClass;`.
+- **CRITICAL** line 253, `outline-instead-of-explanation` — **11. Ephemeral cluster lifecycle test**: 6 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
+- **CRITICAL** line 277, `bare-bullet-items` — **12. Upgrade path je samostatný test**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stored legacy values;`, `renamed/removed keys;`, `immutable fields;`, `retained PVC/data;`.
+- **CRITICAL** line 277, `outline-instead-of-explanation` — **12. Upgrade path je samostatný test**: 8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 303, `bare-bullet-items` — **13. Helm test contract**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Service DNS a request path;`, `authentication;`, `schema compatibility endpoint;`, `read-only transaction;`.
+- **CRITICAL** line 303, `outline-instead-of-explanation` — **13. Helm test contract**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 425, `empty-section` — **Exact subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 437, `bare-bullet-items` — **Konkurenčné hypotézy**: 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target values stále odkazujú na SE09;`, `rendered manifest M59 obsahuje nesprávny provider reference;`, `external secret controller nepublikoval SE10;`, `Kubernetes Secret je current, ale projection je stale;`.
+- **CRITICAL** line 437, `no-prose-concept` — **Konkurenčné hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 437, `outline-instead-of-explanation` — **Konkurenčné hypotézy**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 485, `bare-bullet-items` — **Containment**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pozastaviť ďalšiu credential automation;`, `vyradiť P59c/P59d z trafficu alebo vykonať bounded restart;`, `zachovať per-Pod epoch a provider audit evidence;`, `nevracať chart ani Secret naslepo;`.
+- **CRITICAL** line 485, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 485, `outline-instead-of-explanation` — **Containment**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 493, `no-prose-concept` — **Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 493, `outline-instead-of-explanation` — **Recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 503, `empty-section` — **Verification**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 515, `bare-bullet-items` — **Earlier controls**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný rollout epoch v values schema;`, `process-loaded generation telemetry;`, `per-cohort chart test;`, `staged credential overlap/revocation state machine;`.
+- **CRITICAL** line 515, `no-prose-concept` — **Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 515, `outline-instead-of-explanation` — **Earlier controls**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 524, `empty-section` — **19. Failure boundaries**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 589, `empty-section` — **22. Troubleshooting closure checklist**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný evidence lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 7, `single-sentence-concept` — **1. Dominantný evidence lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 38, `single-sentence-concept` — **2. Atlas test subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 68, `single-sentence-concept` — **3. Expected evidence inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 91, `list-first-introduction` — **4. Testovacia pyramída**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 112, `single-sentence-concept` — **5. Chart artifact a dependency gate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 165, `list-first-introduction` — **7. Deterministic render gate**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 203, `single-sentence-concept` — **9. YAML, API a admission boundaries**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 253, `list-first-introduction` — **11. Ephemeral cluster lifecycle test**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 253, `single-sentence-concept` — **11. Ephemeral cluster lifecycle test**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 277, `single-sentence-concept` — **12. Upgrade path je samostatný test**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 351, `single-sentence-concept` — **15. Release evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 374, `single-sentence-concept` — **16. Troubleshooting domains**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 393, `single-sentence-concept` — **17. Incident subject protocol**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 437, `list-first-introduction` — **Konkurenčné hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 449, `list-first-introduction` — **Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 449, `single-sentence-concept` — **Diskriminačné observation points**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 485, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 493, `bare-bullet-items` — **Recovery**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vytvoriť novú Deployment generation;`, `rolloutovať Pods po bounded cohorts;`, `readiness overí process-loaded epoch SE10;`, `po complete cohort acceptance revokovať SE09;`.
+- **HIGH** line 493, `list-first-introduction` — **Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 515, `list-first-introduction` — **Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 526, `single-sentence-concept` — **Lint green, production matrix broken**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 530, `single-sentence-concept` — **Local render green, server denial**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 534, `single-sentence-concept` — **Ephemeral install green, upgrade broken**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 542, `single-sentence-concept` — **Helm test green, external route broken**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 550, `single-sentence-concept` — **Ručné zmazanie release Secretu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 554, `single-sentence-concept` — **20. Recovery hierarchy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 569, `list-first-introduction` — **21. Chart CI pipeline**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 569, `single-sentence-concept` — **21. Chart CI pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 112, `thin-concept-section` — **5. Chart artifact a dependency gate**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 165, `thin-concept-section` — **7. Deterministic render gate**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 186, `term-before-explanation` — **8. Template a helper assertions**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`, `CRD`, `API`, `resource`, `policy`
+- **HIGH** line 203, `term-before-explanation` — **9. YAML, API a admission boundaries**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `RBAC`, `CRD`, `policy`
+- **HIGH** line 203, `thin-concept-section` — **9. YAML, API a admission boundaries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 253, `term-before-explanation` — **11. Ephemeral cluster lifecycle test**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `CNI`, `CSI`, `DNS`
+- **HIGH** line 253, `thin-concept-section` — **11. Ephemeral cluster lifecycle test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 277, `thin-concept-section` — **12. Upgrade path je samostatný test**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 303, `thin-concept-section` — **13. Helm test contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 437, `term-before-explanation` — **Konkurenčné hypotézy**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SE09`, `M59`, `SE10`, `identity`
+- **HIGH** line 437, `thin-concept-section` — **Konkurenčné hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 485, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 493, `thin-concept-section` — **Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 515, `thin-concept-section` — **Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/10-helm-and-cka/hooks.md`
 
@@ -16967,18 +16942,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3217 | 446 | 0 | 0 | 3663 |
-| `outline-instead-of-explanation` | 3105 | 0 | 0 | 0 | 3105 |
-| `single-sentence-concept` | 0 | 2897 | 0 | 0 | 2897 |
-| `term-before-explanation` | 0 | 550 | 2219 | 0 | 2769 |
-| `thin-concept-section` | 0 | 2696 | 0 | 0 | 2696 |
+| `bare-bullet-items` | 3207 | 447 | 0 | 0 | 3654 |
+| `outline-instead-of-explanation` | 3096 | 0 | 0 | 0 | 3096 |
+| `single-sentence-concept` | 0 | 2888 | 0 | 0 | 2888 |
+| `term-before-explanation` | 0 | 551 | 2213 | 0 | 2764 |
+| `thin-concept-section` | 0 | 2687 | 0 | 0 | 2687 |
 | `example-not-explicit` | 0 | 0 | 0 | 2061 | 2061 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2020 | 2020 |
-| `list-first-introduction` | 0 | 1259 | 0 | 0 | 1259 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2022 | 2022 |
+| `list-first-introduction` | 0 | 1264 | 0 | 0 | 1264 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1072 | 1072 |
 | `short-concept-section` | 0 | 0 | 1045 | 0 | 1045 |
-| `no-prose-concept` | 706 | 0 | 0 | 0 | 706 |
-| `empty-section` | 595 | 0 | 0 | 0 | 595 |
+| `no-prose-concept` | 710 | 0 | 0 | 0 | 710 |
+| `empty-section` | 596 | 0 | 0 | 0 | 596 |
 | `list-heavy-section` | 0 | 446 | 0 | 0 | 446 |
 
 ## Required remediation pattern
