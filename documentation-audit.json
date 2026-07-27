@@ -1767,15 +1767,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
       "title": "Modules",
-      "words": 1190,
-      "headings": 34,
-      "sections": 34,
+      "words": 1917,
+      "headings": 37,
+      "sections": 37,
       "findings": 78,
-      "critical": 29,
-      "high": 39,
-      "medium": 9,
-      "low": 1,
-      "score": 683,
+      "critical": 27,
+      "high": 26,
+      "medium": 10,
+      "low": 15,
+      "score": 583,
       "grade": "D"
     },
     {
@@ -96203,224 +96203,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "1. Root a child module",
-      "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "1. Root a child module",
-      "line": 7,
+      "section": "1. Atlas scenár: interný service-platform module",
+      "line": 20,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "1. Root a child module",
-      "line": 7,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "1. Root a child module",
-      "line": 7,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "2. Module block",
-      "line": 16,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "2. Module block",
-      "line": 16,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "2. Module block",
-      "line": 16,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "2. Module block",
-      "line": 16,
+      "section": "1. Atlas scenár: interný service-platform module",
+      "line": 20,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source,`, `pri podporovanom source type aj version constraint,`, `input values,`, `provider mappings,`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable source 3.4.2 ;`, `production-safe defaults a validation;`, `explicitný provider target;`, `zdokumentované replacement a migration semantics;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "2. Module block",
-      "line": 16,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "3. Module source",
-      "line": 38,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "3. Module source",
-      "line": 38,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local relative path,`, `Terraform registry,`, `private registry,`, `Git/VCS source,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "3. Module source",
-      "line": 38,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "3. Module source",
-      "line": 38,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VCS`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "4. Modulový contract",
-      "line": 59,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "4. Modulový contract",
-      "line": 59,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "4. Modulový contract",
-      "line": 59,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input variables,`, `output values,`, `required providers,`, `resource behavior a lifecycle assumptions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "4. Modulový contract",
-      "line": 59,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "4. Modulový contract",
-      "line": 59,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "5. Input variables",
-      "line": 73,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "5. Input variables",
-      "line": 73,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "5. Input variables",
-      "line": 73,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typované,`, `pomenované podľa doménového významu,`, `validované,`, `s rozumnými defaults iba tam, kde sú bezpečné,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "5. Input variables",
-      "line": 73,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "6. Outputs",
-      "line": 100,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "6. Outputs",
-      "line": 100,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `úzke,`, `pomenované podľa významu,`, `typovo predvídateľné,`, `dokumentované,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "6. Outputs",
-      "line": 100,
+      "section": "1. Atlas scenár: interný service-platform module",
+      "line": 20,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -96428,53 +96230,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "8. Module composition",
-      "line": 149,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "1. Atlas scenár: interný service-platform module",
+      "line": 20,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "9. Úroveň abstrakcie",
-      "line": 176,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "9. Úroveň abstrakcie",
-      "line": 176,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "9. Úroveň abstrakcie",
-      "line": 176,
+      "section": "2. Root module a child module",
+      "line": 52,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reprezentuje opakovateľnú capability,`, `vynucuje bezpečné defaults,`, `kodifikuje organizačnú policy,`, `znižuje počet rozhodnutí callerovi,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend a state boundary;`, `environment composition;`, `provider configurations a credentials;`, `top-level inputs a policy;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "9. Úroveň abstrakcie",
-      "line": 176,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "2. Root module a child module",
+      "line": 52,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "9. Úroveň abstrakcie",
-      "line": 176,
+      "section": "2. Root module a child module",
+      "line": 52,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -96482,35 +96266,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "10. Veľkosť modulu",
-      "line": 188,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. Module source je executable dependency",
+      "line": 73,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "10. Veľkosť modulu",
-      "line": 188,
+      "section": "4. Public contract modulu",
+      "line": 88,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "10. Veľkosť modulu",
-      "line": 188,
+      "section": "4. Public contract modulu",
+      "line": 88,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľký blast radius,`, `veľa inputs a conditional paths,`, `pomalé testy,`, `komplikované upgrades,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `purpose a non-goals;`, `typed inputs, defaults, validation a null semantics;`, `stable outputs;`, `required providers a aliases;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "10. Veľkosť modulu",
-      "line": 188,
+      "section": "4. Public contract modulu",
+      "line": 88,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -96518,17 +96302,89 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "10. Veľkosť modulu",
-      "line": 188,
+      "section": "4. Public contract modulu",
+      "line": 88,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "4. Public contract modulu",
+      "line": 88,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "4. Public contract modulu",
+      "line": 88,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`, `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "11. count a for each na module calls",
-      "line": 207,
+      "section": "6. Caller-owned provider mapping",
+      "line": 132,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "9. Module boundary podľa capability a change coupling-u",
+      "line": 197,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "9. Module boundary podľa capability a change coupling-u",
+      "line": 197,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednu koherentnú capability;`, `jasného ownera;`, `spoločný lifecycle a upgrade cadence;`, `testovateľný state space;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "9. Module boundary podľa capability a change coupling-u",
+      "line": 197,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "9. Module boundary podľa capability a change coupling-u",
+      "line": 197,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "9. Module boundary podľa capability a change coupling-u",
+      "line": 197,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "11. Versioning je contract promise",
+      "line": 234,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96536,8 +96392,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "11. count a for each na module calls",
-      "line": 207,
+      "section": "Kompatibilná zmena",
+      "line": 238,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Kompatibilná zmena",
+      "line": 238,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -96545,35 +96410,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "12. Versioning modulov",
-      "line": 227,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "12. Versioning modulov",
-      "line": 227,
+      "section": "Kompatibilná zmena",
+      "line": 238,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "12. Versioning modulov",
-      "line": 227,
+      "section": "Kompatibilná zmena",
+      "line": 238,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compatibility inputs/outputs,`, `zmeny defaults,`, `resource replacement risk,`, `migration kroky,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový optional input s bezpečným defaultom;`, `nový output;`, `interný refactor s úplným moved chainom;`, `oprava bez zmeny identity alebo behavior contractu.`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "12. Versioning modulov",
-      "line": 227,
+      "section": "Kompatibilná zmena",
+      "line": 238,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -96581,8 +96437,53 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "12. Versioning modulov",
-      "line": 227,
+      "section": "Kompatibilná zmena",
+      "line": 238,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Potenciálne breaking zmena",
+      "line": 245,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Potenciálne breaking zmena",
+      "line": 245,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Potenciálne breaking zmena",
+      "line": 245,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena default semantics;`, `premenovanie alebo odstránenie inputu/outputu;`, `zmena provider requirementu;`, `zmena instance keys alebo resource addresses bez migration;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Potenciálne breaking zmena",
+      "line": 245,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Potenciálne breaking zmena",
+      "line": 245,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
@@ -96590,8 +96491,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "13. Upgrade workflow",
-      "line": 240,
+      "section": "15. Upgrade lifecycle",
+      "line": 302,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96599,26 +96500,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "13. Upgrade workflow",
-      "line": 240,
+      "section": "15. Upgrade lifecycle",
+      "line": 302,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "13. Upgrade workflow",
-      "line": 240,
+      "section": "15. Upgrade lifecycle",
+      "line": 302,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečíta release notes,`, `aktualizuje version constraint alebo source ref,`, `spustí terraform init -upgrade v kontrolovanom prostredí,`, `overí provider/module selections,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource moves;`, `replacements a destroys;`, `permission/exposure changes;`, `effective default changes;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "13. Upgrade workflow",
-      "line": 240,
+      "section": "15. Upgrade lifecycle",
+      "line": 302,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -96626,197 +96527,53 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "14. Module registry",
-      "line": 255,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "14. Module registry",
-      "line": 255,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bezpečný kód,`, `kompatibilitu,`, `kvalitný ownership,`, `vhodnosť pre konkrétny environment,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "14. Module registry",
-      "line": 255,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "15. Dokumentácia modulu",
-      "line": 267,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "15. Dokumentácia modulu",
-      "line": 267,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "15. Dokumentácia modulu",
-      "line": 267,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `purpose a non-goals,`, `inputs a outputs,`, `provider/Terraform requirements,`, `príklad použitia,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "15. Dokumentácia modulu",
-      "line": 267,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "15. Dokumentácia modulu",
-      "line": 267,
+      "section": "15. Upgrade lifecycle",
+      "line": 302,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "16. Testing",
-      "line": 282,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "16. Testing",
-      "line": 282,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "16. Testing",
-      "line": 282,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `formatting a validation,`, `input validation,`, `plan assertions,`, `apply/integration tests pre kritické behavior,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "16. Testing",
-      "line": 282,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "16. Testing",
-      "line": 282,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "17. Security",
-      "line": 296,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "17. Security",
-      "line": 296,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source integrity,`, `provider permissions,`, `defaults pre public access a encryption,`, `secret handling,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "17. Security",
-      "line": 296,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "18. Observability a audit",
-      "line": 311,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "18. Observability a audit",
-      "line": 311,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "18. Observability a audit",
-      "line": 311,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používané versions,`, `deprecated versions,`, `upgrade lead time,`, `plan/apply failure rate,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "18. Observability a audit",
-      "line": 311,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "18. Observability a audit",
-      "line": 311,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "Jeden mega-modul pre celý cloud účet",
+      "section": "16. Moved history a neskorí consumers",
       "line": 327,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "16. Moved history a neskorí consumers",
+      "line": 327,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálnu podporovanú source version;`, `retained moved/deprecation chain;`, `testované upgrade paths;`, `breaking release boundary;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "16. Moved history a neskorí consumers",
+      "line": 327,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "16. Moved history a neskorí consumers",
+      "line": 327,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "18. Consumer inventory a lifecycle",
+      "line": 358,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96824,8 +96581,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "Module source na mutable main",
-      "line": 331,
+      "section": "18. Consumer inventory a lifecycle",
+      "line": 358,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "18. Consumer inventory a lifecycle",
+      "line": 358,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorí consumers používajú ktorú version;`, `ktoré provider/Terraform versions používajú;`, `ktoré environments sú produkčné;`, `kto je owner;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "18. Consumer inventory a lifecycle",
+      "line": 358,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "19. Kauzálny diagnostický walkthrough",
+      "line": 371,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96833,8 +96617,80 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "Child module konfiguruje credentials",
-      "line": 335,
+      "section": "Krok 1 — stabilizuj subject",
+      "line": 375,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Krok 2 — konkurenčné hypotézy",
+      "line": 385,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 397,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 397,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 397,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `old/new address manifest a moved chain testujú H1/H2;`, `effective input diff testuje H3;`, `provider lock/schema a plan reasons testujú H4;`, `provider configuration address/account audit testuje H5;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 397,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 397,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 397,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H2`, `H3`, `H4`, `H5`, `VCS`, `H6`, `H7`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "Krok 6 — skorší control",
+      "line": 416,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96842,8 +96698,170 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "Výstupom je celý resource object",
-      "line": 339,
+      "section": "20. Diagnostický runbook",
+      "line": 420,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "20. Diagnostický runbook",
+      "line": 420,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "20. Diagnostický runbook",
+      "line": 420,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "20. Diagnostický runbook",
+      "line": 420,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Urči consumer commit, module source/version/digest a current state.`, `Rekonštruuj effective inputs, defaults a provider mappings.`, `Porovnaj old/new public contract a interný address manifest.`, `Oddel module zmenu od provider schema zmeny.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "20. Diagnostický runbook",
+      "line": 420,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "20. Diagnostický runbook",
+      "line": 420,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "20. Diagnostický runbook",
+      "line": 420,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "20. Diagnostický runbook",
+      "line": 420,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 433,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 433,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 433,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 433,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Module je capability contract, nie iba priečinok.`, `Child module nie je automaticky state boundary.`, `Module source je executable supply-chain dependency.`, `Root caller vlastní environment a provider configurations.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 433,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 433,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 433,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 433,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 433,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "22. Časté omyly",
+      "line": 447,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
+      "section": "„Registry version garantuje kvalitný modul“",
+      "line": 449,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96851,8 +96869,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "Desiatky boolean flags",
-      "line": 343,
+      "section": "„Minor upgrade môžeme automaticky applynuť“",
+      "line": 453,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96860,8 +96878,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "Kopírovanie modulu namiesto versioningu",
-      "line": 347,
+      "section": "„Module izoluje blast radius“",
+      "line": 457,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96869,8 +96887,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "Module not installed",
-      "line": 353,
+      "section": "„Output celého resource objectu je flexibilnejší“",
+      "line": 461,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -96878,26 +96896,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "Caller nevie použiť provider alias",
-      "line": 357,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "Upgrade plánuje recreations",
-      "line": 361,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
-      "section": "Module versions sa medzi CI a lokálom líšia",
-      "line": 369,
+      "section": "„Ručný state mv vyrieši module refactor“",
+      "line": 465,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11443**
-- Total words: **576,735**
-- Findings: **24876** (critical 7927, high 9096, medium 3400, low 4453)
+- Audited conceptual sections: **11446**
+- Total words: **577,462**
+- Findings: **24876** (critical 7925, high 9083, medium 3401, low 4467)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -149,7 +149,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 687 | 32 | 28 | 17 | 18 | 2845 | `docs/03-git-and-automation/python-for-automation.md` |
 | D | 684 | 28 | 37 | 14 | 6 | 1530 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
 | D | 683 | 30 | 29 | 19 | 18 | 2344 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
-| D | 683 | 29 | 39 | 9 | 1 | 1190 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | D | 679 | 31 | 35 | 7 | 6 | 1441 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
 | D | 676 | 28 | 38 | 10 | 6 | 1327 | `docs/08-container-fundamentals-and-docker/build-context-layer-cache.md` |
 | D | 674 | 32 | 26 | 16 | 18 | 2686 | `docs/04-testing-and-quality/code-coverage-and-quality-gates.md` |
@@ -179,6 +178,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 585 | 25 | 26 | 13 | 26 | 2460 | `docs/04-testing-and-quality/chaos-testing.md` |
 | D | 585 | 24 | 25 | 15 | 31 | 2237 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
 | D | 583 | 22 | 29 | 16 | 22 | 2022 | `docs/05-ci-cd-and-release/continuous-integration.md` |
+| D | 583 | 27 | 26 | 10 | 15 | 1917 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | D | 579 | 24 | 27 | 15 | 18 | 1864 | `docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md` |
 | D | 579 | 23 | 18 | 19 | 72 | 5784 | `docs/13-security-and-identity/secrets-management.md` |
 | D | 575 | 21 | 39 | 5 | 0 | 1338 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
@@ -6854,74 +6854,59 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/modules.md`
 
-- **CRITICAL** line 7, `outline-instead-of-explanation` — **1. Root a child module**: 4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 16, `bare-bullet-items` — **2. Module block**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source,`, `pri podporovanom source type aj version constraint,`, `input values,`, `provider mappings,`.
-- **CRITICAL** line 16, `outline-instead-of-explanation` — **2. Module block**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 38, `bare-bullet-items` — **3. Module source**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local relative path,`, `Terraform registry,`, `private registry,`, `Git/VCS source,`.
-- **CRITICAL** line 38, `outline-instead-of-explanation` — **3. Module source**: 11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 59, `bare-bullet-items` — **4. Modulový contract**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input variables,`, `output values,`, `required providers,`, `resource behavior a lifecycle assumptions,`.
-- **CRITICAL** line 59, `outline-instead-of-explanation` — **4. Modulový contract**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 73, `bare-bullet-items` — **5. Input variables**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typované,`, `pomenované podľa doménového významu,`, `validované,`, `s rozumnými defaults iba tam, kde sú bezpečné,`.
-- **CRITICAL** line 73, `outline-instead-of-explanation` — **5. Input variables**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 100, `bare-bullet-items` — **6. Outputs**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `úzke,`, `pomenované podľa významu,`, `typovo predvídateľné,`, `dokumentované,`.
-- **CRITICAL** line 100, `outline-instead-of-explanation` — **6. Outputs**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 176, `bare-bullet-items` — **9. Úroveň abstrakcie**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reprezentuje opakovateľnú capability,`, `vynucuje bezpečné defaults,`, `kodifikuje organizačnú policy,`, `znižuje počet rozhodnutí callerovi,`.
-- **CRITICAL** line 176, `outline-instead-of-explanation` — **9. Úroveň abstrakcie**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 188, `bare-bullet-items` — **10. Veľkosť modulu**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľký blast radius,`, `veľa inputs a conditional paths,`, `pomalé testy,`, `komplikované upgrades,`.
-- **CRITICAL** line 188, `outline-instead-of-explanation` — **10. Veľkosť modulu**: 9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 227, `bare-bullet-items` — **12. Versioning modulov**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compatibility inputs/outputs,`, `zmeny defaults,`, `resource replacement risk,`, `migration kroky,`.
-- **CRITICAL** line 227, `outline-instead-of-explanation` — **12. Versioning modulov**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 240, `bare-bullet-items` — **13. Upgrade workflow**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečíta release notes,`, `aktualizuje version constraint alebo source ref,`, `spustí terraform init -upgrade v kontrolovanom prostredí,`, `overí provider/module selections,`.
-- **CRITICAL** line 240, `outline-instead-of-explanation` — **13. Upgrade workflow**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 255, `bare-bullet-items` — **14. Module registry**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bezpečný kód,`, `kompatibilitu,`, `kvalitný ownership,`, `vhodnosť pre konkrétny environment,`.
-- **CRITICAL** line 255, `outline-instead-of-explanation` — **14. Module registry**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 267, `bare-bullet-items` — **15. Dokumentácia modulu**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `purpose a non-goals,`, `inputs a outputs,`, `provider/Terraform requirements,`, `príklad použitia,`.
-- **CRITICAL** line 267, `outline-instead-of-explanation` — **15. Dokumentácia modulu**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 282, `bare-bullet-items` — **16. Testing**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `formatting a validation,`, `input validation,`, `plan assertions,`, `apply/integration tests pre kritické behavior,`.
-- **CRITICAL** line 282, `outline-instead-of-explanation` — **16. Testing**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 296, `bare-bullet-items` — **17. Security**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source integrity,`, `provider permissions,`, `defaults pre public access a encryption,`, `secret handling,`.
-- **CRITICAL** line 296, `outline-instead-of-explanation` — **17. Security**: 8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 311, `bare-bullet-items` — **18. Observability a audit**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používané versions,`, `deprecated versions,`, `upgrade lead time,`, `plan/apply failure rate,`.
-- **CRITICAL** line 311, `outline-instead-of-explanation` — **18. Observability a audit**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **HIGH** line 7, `list-first-introduction` — **1. Root a child module**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 16, `list-first-introduction` — **2. Module block**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 16, `single-sentence-concept` — **2. Module block**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 59, `single-sentence-concept` — **4. Modulový contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 73, `single-sentence-concept` — **5. Input variables**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 149, `single-sentence-concept` — **8. Module composition**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 176, `single-sentence-concept` — **9. Úroveň abstrakcie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 188, `single-sentence-concept` — **10. Veľkosť modulu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 207, `list-first-introduction` — **11. count a for each na module calls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 207, `single-sentence-concept` — **11. count a for each na module calls**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 227, `single-sentence-concept` — **12. Versioning modulov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 240, `single-sentence-concept` — **13. Upgrade workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 267, `single-sentence-concept` — **15. Dokumentácia modulu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 282, `single-sentence-concept` — **16. Testing**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 311, `single-sentence-concept` — **18. Observability a audit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 327, `single-sentence-concept` — **Jeden mega-modul pre celý cloud účet**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 331, `single-sentence-concept` — **Module source na mutable main**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 335, `single-sentence-concept` — **Child module konfiguruje credentials**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 339, `single-sentence-concept` — **Výstupom je celý resource object**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 343, `single-sentence-concept` — **Desiatky boolean flags**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 347, `single-sentence-concept` — **Kopírovanie modulu namiesto versioningu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 353, `single-sentence-concept` — **Module not installed**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 357, `single-sentence-concept` — **Caller nevie použiť provider alias**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 361, `single-sentence-concept` — **Upgrade plánuje recreations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 369, `single-sentence-concept` — **Module versions sa medzi CI a lokálom líšia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 7, `thin-concept-section` — **1. Root a child module**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 16, `thin-concept-section` — **2. Module block**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 38, `thin-concept-section` — **3. Module source**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 59, `thin-concept-section` — **4. Modulový contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 73, `thin-concept-section` — **5. Input variables**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 176, `thin-concept-section` — **9. Úroveň abstrakcie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 188, `thin-concept-section` — **10. Veľkosť modulu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 227, `thin-concept-section` — **12. Versioning modulov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 240, `thin-concept-section` — **13. Upgrade workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 255, `thin-concept-section` — **14. Module registry**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 267, `thin-concept-section` — **15. Dokumentácia modulu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 282, `thin-concept-section` — **16. Testing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 296, `thin-concept-section` — **17. Security**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 311, `thin-concept-section` — **18. Observability a audit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 20, `bare-bullet-items` — **1. Atlas scenár: interný service-platform module**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable source 3.4.2 ;`, `production-safe defaults a validation;`, `explicitný provider target;`, `zdokumentované replacement a migration semantics;`.
+- **CRITICAL** line 20, `outline-instead-of-explanation` — **1. Atlas scenár: interný service-platform module**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 52, `bare-bullet-items` — **2. Root module a child module**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend a state boundary;`, `environment composition;`, `provider configurations a credentials;`, `top-level inputs a policy;`.
+- **CRITICAL** line 88, `bare-bullet-items` — **4. Public contract modulu**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `purpose a non-goals;`, `typed inputs, defaults, validation a null semantics;`, `stable outputs;`, `required providers a aliases;`.
+- **CRITICAL** line 88, `outline-instead-of-explanation` — **4. Public contract modulu**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 197, `bare-bullet-items` — **9. Module boundary podľa capability a change coupling-u**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednu koherentnú capability;`, `jasného ownera;`, `spoločný lifecycle a upgrade cadence;`, `testovateľný state space;`.
+- **CRITICAL** line 238, `bare-bullet-items` — **Kompatibilná zmena**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový optional input s bezpečným defaultom;`, `nový output;`, `interný refactor s úplným moved chainom;`, `oprava bez zmeny identity alebo behavior contractu.`.
+- **CRITICAL** line 238, `no-prose-concept` — **Kompatibilná zmena**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 238, `outline-instead-of-explanation` — **Kompatibilná zmena**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 245, `bare-bullet-items` — **Potenciálne breaking zmena**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena default semantics;`, `premenovanie alebo odstránenie inputu/outputu;`, `zmena provider requirementu;`, `zmena instance keys alebo resource addresses bez migration;`.
+- **CRITICAL** line 245, `outline-instead-of-explanation` — **Potenciálne breaking zmena**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 302, `bare-bullet-items` — **15. Upgrade lifecycle**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource moves;`, `replacements a destroys;`, `permission/exposure changes;`, `effective default changes;`.
+- **CRITICAL** line 302, `outline-instead-of-explanation` — **15. Upgrade lifecycle**: 6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 327, `bare-bullet-items` — **16. Moved history a neskorí consumers**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálnu podporovanú source version;`, `retained moved/deprecation chain;`, `testované upgrade paths;`, `breaking release boundary;`.
+- **CRITICAL** line 327, `outline-instead-of-explanation` — **16. Moved history a neskorí consumers**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 358, `bare-bullet-items` — **18. Consumer inventory a lifecycle**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorí consumers používajú ktorú version;`, `ktoré provider/Terraform versions používajú;`, `ktoré environments sú produkčné;`, `kto je owner;`.
+- **CRITICAL** line 358, `outline-instead-of-explanation` — **18. Consumer inventory a lifecycle**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 375, `empty-section` — **Krok 1 — stabilizuj subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 385, `empty-section` — **Krok 2 — konkurenčné hypotézy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 397, `bare-bullet-items` — **Krok 3 — diskriminačné observation points**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `old/new address manifest a moved chain testujú H1/H2;`, `effective input diff testuje H3;`, `provider lock/schema a plan reasons testujú H4;`, `provider configuration address/account audit testuje H5;`.
+- **CRITICAL** line 397, `outline-instead-of-explanation` — **Krok 3 — diskriminačné observation points**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 420, `bare-bullet-items` — **20. Diagnostický runbook**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Urči consumer commit, module source/version/digest a current state.`, `Rekonštruuj effective inputs, defaults a provider mappings.`, `Porovnaj old/new public contract a interný address manifest.`, `Oddel module zmenu od provider schema zmeny.`.
+- **CRITICAL** line 420, `no-prose-concept` — **20. Diagnostický runbook**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 420, `outline-instead-of-explanation` — **20. Diagnostický runbook**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 433, `no-prose-concept` — **21. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 433, `outline-instead-of-explanation` — **21. Referenčné pravidlá**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 447, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 197, `list-heavy-section` — **9. Module boundary podľa capability a change coupling-u**: 6 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 234, `single-sentence-concept` — **11. Versioning je contract promise**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 238, `list-first-introduction` — **Kompatibilná zmena**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 245, `list-first-introduction` — **Potenciálne breaking zmena**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 302, `single-sentence-concept` — **15. Upgrade lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 358, `single-sentence-concept` — **18. Consumer inventory a lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 371, `single-sentence-concept` — **19. Kauzálny diagnostický walkthrough**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 397, `list-first-introduction` — **Krok 3 — diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 416, `single-sentence-concept` — **Krok 6 — skorší control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 420, `list-first-introduction` — **20. Diagnostický runbook**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 433, `bare-bullet-items` — **21. Referenčné pravidlá**: 8 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Module je capability contract, nie iba priečinok.`, `Child module nie je automaticky state boundary.`, `Module source je executable supply-chain dependency.`, `Root caller vlastní environment a provider configurations.`.
+- **HIGH** line 433, `list-first-introduction` — **21. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 449, `single-sentence-concept` — **„Registry version garantuje kvalitný modul“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 453, `single-sentence-concept` — **„Minor upgrade môžeme automaticky applynuť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 457, `single-sentence-concept` — **„Module izoluje blast radius“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 461, `single-sentence-concept` — **„Output celého resource objectu je flexibilnejší“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 465, `single-sentence-concept` — **„Ručný state mv vyrieši module refactor“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 88, `thin-concept-section` — **4. Public contract modulu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 238, `thin-concept-section` — **Kompatibilná zmena**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 245, `thin-concept-section` — **Potenciálne breaking zmena**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 302, `thin-concept-section` — **15. Upgrade lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 358, `thin-concept-section` — **18. Consumer inventory a lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 397, `term-before-explanation` — **Krok 3 — diskriminačné observation points**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H2`, `H3`, `H4`, `H5`, `VCS`, `H6`, `H7`
+- **HIGH** line 397, `thin-concept-section` — **Krok 3 — diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 420, `thin-concept-section` — **20. Diagnostický runbook**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 433, `thin-concept-section` — **21. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md`
 
@@ -18073,19 +18058,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3520 | 436 | 0 | 0 | 3956 |
-| `single-sentence-concept` | 0 | 3748 | 0 | 0 | 3748 |
-| `outline-instead-of-explanation` | 3373 | 0 | 0 | 0 | 3373 |
-| `thin-concept-section` | 0 | 2976 | 0 | 0 | 2976 |
-| `term-before-explanation` | 0 | 453 | 2312 | 0 | 2765 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1787 | 1787 |
-| `example-not-explicit` | 0 | 0 | 0 | 1740 | 1740 |
-| `list-first-introduction` | 0 | 1107 | 0 | 0 | 1107 |
-| `short-concept-section` | 0 | 0 | 1088 | 0 | 1088 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 926 | 926 |
-| `empty-section` | 583 | 0 | 0 | 0 | 583 |
-| `no-prose-concept` | 451 | 0 | 0 | 0 | 451 |
-| `list-heavy-section` | 0 | 376 | 0 | 0 | 376 |
+| `bare-bullet-items` | 3517 | 437 | 0 | 0 | 3954 |
+| `single-sentence-concept` | 0 | 3736 | 0 | 0 | 3736 |
+| `outline-instead-of-explanation` | 3368 | 0 | 0 | 0 | 3368 |
+| `thin-concept-section` | 0 | 2970 | 0 | 0 | 2970 |
+| `term-before-explanation` | 0 | 454 | 2311 | 0 | 2765 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1792 | 1792 |
+| `example-not-explicit` | 0 | 0 | 0 | 1747 | 1747 |
+| `list-first-introduction` | 0 | 1109 | 0 | 0 | 1109 |
+| `short-concept-section` | 0 | 0 | 1090 | 0 | 1090 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 928 | 928 |
+| `empty-section` | 586 | 0 | 0 | 0 | 586 |
+| `no-prose-concept` | 454 | 0 | 0 | 0 | 454 |
+| `list-heavy-section` | 0 | 377 | 0 | 0 | 377 |
 
 ## Required remediation pattern
 
