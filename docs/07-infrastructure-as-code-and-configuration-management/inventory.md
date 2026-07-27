@@ -1,178 +1,267 @@
 # Inventory
 
-Ansible inventory určuje, **ktoré targety existujú pre automation**, ako sú zoskupené a aké connection alebo behavior metadata sa na ne viažu. Inventory nie je iba statický zoznam hostname. Je to runtime model, ktorý môže vzniknúť zlúčením viacerých files, directories, plugins a external systems.
+Ansible inventory určuje, ktoré targety automation pozná, pod akou logickou identitou ich adresuje, do akých groups patria a s akým connection a variable contextom sa na ne pripája. Inventory nie je iba zoznam hostnames. Je to prekladová vrstva medzi externou infraštruktúrnou realitou a konkrétnym execution scope-om playbooku.
 
-Nesprávny inventory môže spôsobiť, že správny playbook vykoná zmenu na nesprávnych hosts. Preto je inventory samostatná trust a blast-radius boundary.
+Táto kapitola používa jeden priebežný scenár. Atlas Payments má 12 produkčných application hosts v troch availability zones. Dynamic cloud inventory ich objavuje podľa tags, static inventory dopĺňa bastion a explicitné maintenance exclusions a playbook cieli `payments_app:&production:!maintenance`. Pred každým rolloutom musí pipeline dokázať, že resolved target set obsahuje presne očakávané host identity a že connection metadata smerujú na správne produkčné nodes.
 
-## 1. Inventory source
+## 1. Dominantný model: source-to-target-coverage lifecycle
 
-Inventory source je vstup, ktorý Ansible dokáže parsovať cez inventory plugin. Môže ním byť:
-
-- INI file,
-- YAML file,
-- directory obsahujúci viac sources,
-- plugin configuration file,
-- legacy dynamic inventory script,
-- external system poskytujúci host/group metadata.
-
-CLI môže dostať jeden alebo viac sources:
-
-```bash
-ansible-inventory -i inventories/prod -i inventories/shared --graph
+```text
+authoritative host sources
+→ plugin parsing a source aggregation
+→ stable inventory host identity
+→ group membership a hierarchy
+→ variable a connection-context resolution
+→ pattern a limit evaluation
+→ expected-vs-resolved target inventory
+→ host execution coverage
+→ runtime fleet verification
+→ cache/source reconciliation a audit
 ```
 
-Výsledný inventory sa agreguje. Poradie, duplicate host identity a variable precedence preto musia byť vedomé.
+Správny playbook nad nesprávnym resolved inventory je stále nebezpečná automation. Target identity a coverage preto musia byť schvaľovanou evidence rovnako ako samotný task content.
 
-## 2. Host identity
+## 2. Atlas inventory subject
 
-Základnou inventory identitou je `inventory_hostname`.
+Pred production runom zaznamenaj:
 
-Príklad:
+```text
+inventory source paths a plugin configuration digests
+inventory plugin/collection versions
+cloud/CMDB account a region identity
+source query, filters a tag schema
+cache backend, generation a age
+static inventory revision
+host/group vars source revisions
+resolved host identities a connection addresses
+pattern, limit a controller job template
+expected target manifest a count
+resolution timestamp
+```
+
+Toto je **inventory resolution subject**. Rovnaký playbook pattern môže vybrať inú množinu hosts, ak sa zmení cloud tag, plugin version, cache, source order alebo group construction rule.
+
+## 3. Inventory source verzus resolved inventory
+
+Source je vstup parsovaný inventory pluginom. Môže byť:
+
+- YAML alebo INI file;
+- directory viacerých sources;
+- dynamic inventory plugin configuration;
+- legacy script;
+- external CMDB, cloud alebo service registry.
+
+CLI môže agregovať viac sources:
+
+```bash
+ansible-inventory \
+  -i inventories/prod-static \
+  -i inventories/prod-cloud.yml \
+  --list
+```
+
+Resolved inventory je výsledok po:
+
+```text
+parse každého source
+→ merge duplicate host identities
+→ build groups a hierarchy
+→ load vars plugins/group_vars/host_vars
+→ resolve connection metadata
+```
+
+Source success neznamená správny výsledok. Dynamic plugin môže úspešne vrátiť prázdnu množinu alebo stale cache.
+
+## 4. Stable host identity
+
+Základnou logickou identitou je `inventory_hostname`.
 
 ```yaml
 all:
   hosts:
-    web-01:
-      ansible_host: 10.20.1.11
+    payments-app-a1:
+      ansible_host: 10.40.11.21
 ```
 
 Tu:
 
-- `inventory_hostname` je `web-01`,
-- connection address je `10.20.1.11`.
+```text
+inventory_hostname = payments-app-a1
+connection address = 10.40.11.21
+```
 
-Alias umožňuje používať stabilnú logickú identitu aj pri zmene IP alebo DNS. Zároveň môže skryť omyl, ak alias a real target nie sú kontrolované.
+Stabilný alias umožňuje meniť IP bez zmeny automation identity. Zároveň vytvára riziko, ak sa alias zlúči s iným source-om alebo `ansible_host` ukazuje na nesprávny objekt.
 
-## 3. Groups
+Host identity contract má podľa potreby obsahovať:
 
-Groups reprezentujú množiny hosts podľa napríklad:
+```text
+stable inventory name
+cloud/CMDB immutable instance ID
+environment/account
+region/AZ
+role
+lifecycle state
+connection address a host-key identity
+```
 
-- role,
-- environmentu,
-- regionu,
-- ownershipu,
-- OS family,
-- lifecycle stage,
-- deployment ring.
+IP adresa sama osebe je slabá dlhodobá identita. Môže byť recyklovaná.
 
-Príklad YAML inventory:
+## 5. Worked failure: recyklovaná IP za stabilným aliasom
+
+Static inventory stále obsahuje:
+
+```yaml
+payments-app-b2:
+  ansible_host: 10.40.12.44
+```
+
+Pôvodný production instance bol odstránený. IP neskôr dostal testovací host v peered networke. Host-key checking bolo vypnuté a connection credential sa na test hoste tiež akceptovalo.
+
+Mechanizmus:
+
+```text
+stable logical alias
++ stale address mapping
++ recyklovaná IP
++ chýbajúca remote identity verification
+→ správny host pattern vyberie nesprávny remote objekt
+```
+
+Controls:
+
+- dynamic source viazaný na immutable instance ID;
+- host-key/certificate identity verification;
+- environment/account assertion;
+- pre-run comparison inventory identity vs. cloud asset identity;
+- retirement reconciliation starej static entry.
+
+## 6. Groups ako scope a inheritance graph
+
+Groups môžu reprezentovať:
+
+- environment;
+- service role;
+- region/AZ;
+- deployment ring;
+- ownership;
+- OS family;
+- maintenance state;
+- compliance alebo failure domain.
+
+Príklad:
 
 ```yaml
 all:
   children:
     production:
       children:
-        web:
+        payments_app:
           hosts:
-            web-01:
-              ansible_host: 10.20.1.11
-            web-02:
-              ansible_host: 10.20.1.12
-        database:
-          hosts:
-            db-01:
-              ansible_host: 10.20.2.21
-```
-
-Host môže patriť do viacerých groups. Group hierarchy nie je filesystem hierarchy; vytvára parent/child membership a variable inheritance model.
-
-## 4. Built-in groups
-
-Ansible poskytuje špeciálne groups:
-
-- `all` — všetky inventory hosts,
-- `ungrouped` — hosts, ktoré nepatria do žiadnej user-defined group okrem `all`.
-
-Tieto groups sú vhodné pre globálne defaults, ale ukladať do `all` široké privilegované variables môže vytvoriť nebezpečný implicitný scope.
-
-## 5. Static inventory
-
-### INI
-
-```ini
-[web]
-web-01 ansible_host=10.20.1.11
-web-02 ansible_host=10.20.1.12
-
-[database]
-db-01 ansible_host=10.20.2.21
-
-[production:children]
-web
-database
-```
-
-INI syntax je stručná, ale typing hodnôt môže byť menej intuitívny. Hodnoty definované inline na host line a hodnoty v `:vars` sections nemusia byť interpretované rovnakým spôsobom.
-
-### YAML
-
-```yaml
-all:
-  children:
-    web:
+            payments-app-a1:
+            payments-app-a2:
+    maintenance:
       hosts:
-        web-01:
-          ansible_host: 10.20.1.11
+        payments-app-a2:
 ```
 
-YAML poskytuje čitateľnejšiu nested štruktúru a explicitnejšie dátové typy, ale stále vyžaduje validáciu parserom, nie iba YAML linterom.
+Host môže patriť do viacerých groups. Group hierarchy vytvára membership a variable inheritance, nie filesystem poradie.
 
-## 6. Dynamic inventory
+Built-in groups:
 
-Dynamic inventory plugin načíta hosts a groups z external source, napríklad:
+- `all` — všetky inventory hosts;
+- `ungrouped` — hosts mimo user-defined groups.
 
-- cloud API,
-- CMDB,
-- virtualization platformy,
-- service registry,
-- Kubernetes alebo iného infrastructure API.
+Ukladať privilegované defaults do `all` môže nečakane rozšíriť connection alebo become scope na každý target.
 
-Typický plugin configuration file:
+## 7. Dynamic inventory a authoritative metadata
+
+Dynamic plugin môže objavovať hosts z cloud API, virtualization platformy, CMDB alebo Kubernetes API.
 
 ```yaml
-plugin: some.collection.inventory_plugin
+plugin: vendor.cloud.compute
 regions:
   - eu-central-1
+filters:
+  tag:Environment: production
 keyed_groups:
-  - key: tags.environment
-    prefix: env
+  - key: tags.Role
+    prefix: role
+  - key: placement.availability_zone
+    prefix: az
 compose:
   ansible_host: private_ip_address
 ```
 
-Presná schema závisí od pluginu.
+Výhody:
 
-Dynamic inventory má výhody:
+- automatická discovery ephemeral hosts;
+- menšia manuálna synchronizácia;
+- groups odvodené z authoritative metadata;
+- jednoduchšia fleet coverage.
 
-- menej ručnej synchronizácie,
-- väzbu na authoritative source,
-- automatické groups podľa metadata,
-- aktuálnejšie ephemeral hosts.
+Failure boundaries:
 
-Riziká:
+- wrong cloud account/region;
+- broad alebo zmenený filter;
+- stale cache;
+- API partial result;
+- plugin version mení normalization;
+- tag typo presunie host do iného scope-u;
+- empty result sa interpretuje ako bezpečný no-op.
 
-- API outage,
-- stale cache,
-- rate limits,
-- credential scope,
-- neočakávané group composition,
-- zmena plugin version behavioru,
-- prázdny inventory interpretovaný ako úspešný no-op.
+Dynamic neznamená automaticky aktuálny ani autoritatívny. Autoritatívny musí byť source, query a identity contract spolu.
 
-## 7. Inventory plugins vs. scripts
+## 8. Worked failure: tag typo presunul database host
 
-Inventory plugins sú preferovaný extension model. Poskytujú:
+Database instance dostane omylom tag `Role=payments_app`. Dynamic inventory z neho vytvorí group membership `role_payments_app`. Patch playbook cieli túto group a vykoná application package tasks aj na database hoste.
 
-- dokumentovanú configuration schema,
-- integration s cache a Ansible plugin modelom,
-- verify/parse behavior,
-- collection versioning.
+```text
+cloud tag je automation input
+→ keyed_groups vytvorí scope
+→ playbook pattern dôveruje group membership
+→ správny task zasiahne nesprávny resource class
+```
 
-Legacy scripts typicky vypisujú JSON. Stále môžu fungovať, ale často majú slabšiu integráciu, validation a lifecycle.
+Pre kritické groups používaj kombinovaný invariant:
 
-## 8. Inventory directory
+```text
+role tag
++ expected image/OS/service facts
++ forbidden group overlap
++ asset type
++ environment identity
+```
 
-Directory môže obsahovať viac inventory sources:
+CI má odmietnuť host, ktorý súčasne patrí do nezlučiteľných groups, napríklad `payments_app` a `database`.
+
+## 9. Static inventory a explicitný ownership
+
+YAML inventory:
+
+```yaml
+all:
+  children:
+    bastions:
+      hosts:
+        prod-bastion-01:
+          ansible_host: 10.40.0.10
+```
+
+INI je stručnejšie, ale typing a `:vars` semantics môžu byť menej zrejmé. YAML linter sám nepotvrdí Ansible inventory schema ani výslednú group hierarchy.
+
+Static entry potrebuje ownera a retirement lifecycle. Bez reconciliation môže prežiť odstránený host alebo starú IP celé mesiace.
+
+Dobrý model:
+
+```text
+dynamic source pre ephemeral managed fleet
++ static source iba pre explicitne vlastnené stabilné exceptions
+→ validation proti authoritative asset inventory
+```
+
+## 10. Inventory directories a source aggregation
+
+Príklad layoutu:
 
 ```text
 inventories/prod/
@@ -180,193 +269,200 @@ inventories/prod/
 ├── 10-cloud.yml
 ├── group_vars/
 │   ├── all.yml
-│   └── web.yml
+│   └── payments_app.yml
 └── host_vars/
-    └── web-01.yml
+    └── payments-app-a1.yml
 ```
 
-Nie každý file v directory musí byť inventory source; extension a ignore patterns ovplyvňujú, čo sa načíta. Explicitné naming conventions znižujú nejasnosť.
+Directory loading závisí od plugin enablement, filenames, extensions a ignore patterns. Prefixy môžu zlepšiť čitateľnosť source orderu, ale critical semantics sa nemajú opierať o implicitné alfabetické poradie.
 
-## 9. Host a group variables
+Duplicate `inventory_hostname` z dvoch sources sa môže zlúčiť. Preto validuj:
 
-Variables možno definovať:
+- duplicate logical identity;
+- conflicting immutable instance IDs;
+- conflicting `ansible_host`;
+- source ownership;
+- unexpected variable override.
 
-- inline v inventory,
-- pod `vars` v YAML inventory,
-- v `group_vars/`,
-- v `host_vars/`,
-- cez vars plugins,
-- z dynamic inventory metadata.
+## 11. Variables ako behavior a connection inputs
 
-Odporúčaný model:
+Inventory môže poskytovať:
 
-- inventory definuje topology a environment-specific data,
-- roles definujú reusable defaults a behavior,
-- secrets sú v secret-management vrstve,
-- playbook explicitne prepája capability s target groups.
+- topology a environment data;
+- connection address/user/plugin;
+- interpreter;
+- role/service parameters;
+- references na secret sources.
 
-### `group_vars`
+Reusable role defaults a behavior nemajú byť nekontrolovane kopírované do inventory. Secrets nemajú byť plaintext inventory values.
 
-```yaml
-# group_vars/web.yml
-http_port: 8080
-app_environment: production
-```
-
-### `host_vars`
-
-```yaml
-# host_vars/web-01.yml
-maintenance_window: sunday-02:00
-```
-
-Host vars majú užší scope než group vars, ale celkový variable precedence model zahŕňa aj playbook, role, facts, registered values a extra vars.
-
-## 10. Group variable conflicts
-
-Host môže patriť do viacerých groups, ktoré definujú rovnaký variable name. Výsledok môže závisieť od:
-
-- parent/child hierarchy,
-- group priority,
-- inventory source ordering,
-- vars plugin behavior,
-- neskorších higher-precedence definitions.
-
-Neopieraj kritickú konfiguráciu o implicitné alfabetické poradie groups. Pri prekrývajúcich sa groups definuj jasný ownership alebo explicitnú priority policy.
-
-## 11. Connection variables
-
-Bežné connection variables zahŕňajú napríklad:
-
-- `ansible_host`,
-- `ansible_port`,
-- `ansible_user`,
-- `ansible_connection`,
-- `ansible_python_interpreter`,
-- privilege-escalation variables,
-- proxy alebo SSH common arguments.
-
-Connection variables môžu zásadne zmeniť trust boundary. Napríklad zmena `ansible_connection` zo SSH na local môže spôsobiť vykonanie tasku na control node.
-
-## 12. Inventory patterns
-
-Play alebo CLI command vyberá hosts cez pattern:
-
-```yaml
-- hosts: web
-```
-
-Príklady kombinácií:
+Connection variables ako:
 
 ```text
-web:database
-web:&production
-production:!maintenance
+ansible_host
+ansible_port
+ansible_user
+ansible_connection
+ansible_python_interpreter
+ansible_become*
 ```
 
-Význam:
+menia execution boundary. Zmena `ansible_connection: ssh` na `local` môže spôsobiť, že task pre host alias beží na control node-e.
 
-- union,
-- intersection,
-- exclusion.
+## 12. Group variable conflicts
 
-Pattern sa vyhodnocuje voči **aktuálne načítanému inventory**. Neexistujúca group môže viesť k nulovému target setu, nie automaticky k bezpečnému failure podľa očakávania workflowu.
+Host môže dediť rovnakú variable z viacerých groups. Výsledok ovplyvňuje group hierarchy, source ordering, group priority a vyššie precedence vrstvy.
 
-Pred citlivým runom over target set:
-
-```bash
-ansible-playbook -i inventories/prod site.yml --limit 'web:&production' --list-hosts
-```
-
-## 13. `--limit`
-
-`--limit` zužuje host pattern z playbooku. Nemal by byť jedinou production safety kontrolou, pretože:
-
-- operator ho môže zabudnúť,
-- pattern môže byť nesprávny,
-- inventory sa môže zmeniť,
-- automation controller môže používať vlastný limit field.
-
-Bezpečnosť má kombinovať environment isolation, approvals, inventory review a bounded rollout.
-
-## 14. Inventory inspection
-
-### Graph
-
-```bash
-ansible-inventory -i inventories/prod --graph
-```
-
-Ukáže group hierarchy a hosts.
-
-### List
-
-```bash
-ansible-inventory -i inventories/prod --list
-```
-
-Vypíše resolved inventory data v machine-readable forme.
-
-### Host view
-
-```bash
-ansible-inventory -i inventories/prod --host web-01
-```
-
-Zobrazí resolved variables pre konkrétny host.
-
-### Playbook target set
-
-```bash
-ansible-playbook -i inventories/prod site.yml --list-hosts
-```
-
-Každý production pipeline by mal uchovať target summary ako evidence bez leaknutia secrets.
-
-## 15. Dynamic groups
-
-Inventory plugin môže vytvárať groups z metadata cez `keyed_groups` alebo obdobný mechanizmus.
-
-Príklad výsledku:
+Príklad:
 
 ```text
-env_production
-role_web
-region_eu_central_1
+production: package_channel=stable
+canary: package_channel=candidate
+payments_app: package_channel=payments-stable
 ```
 
-Group naming musí byť stabilné a normalizované. Zmena tagu v cloud-e môže automaticky presunúť host do iného automation scope-u.
+Host patriaci do všetkých troch potrebuje explicitný contract, nie nádej, že správna group „vyhrá“ alfabeticky.
 
-## 16. Constructed inventory
+Pri critical values:
 
-Constructed plugin dokáže:
+- používaj jednoznačného ownera;
+- validuj forbidden multiple definitions;
+- publikuj resolved value identity pred runom;
+- neodstraňuj ambiguity ďalším extra-var override-om.
 
-- vytvárať variables cez expressions,
-- skladať groups podľa podmienok,
-- transformovať metadata z iných sources.
+## 13. Pattern a limit ako set algebra
 
-Je výkonný, ale môže skryť komplexnú business logiku v inventory vrstve. Výsledný graph treba testovať ako code.
+Play pattern sa vyhodnocuje voči aktuálnemu resolved inventory:
 
-## 17. Inventory caching
+```text
+payments_app:database       union
+payments_app:&production    intersection
+production:!maintenance     exclusion
+```
 
-Cache znižuje API latency a rate pressure, ale vytvára freshness trade-off.
+Atlas používa:
+
+```text
+payments_app:&production:!maintenance
+```
+
+`--limit` iba ďalej zužuje play pattern. Nie je samostatná environment safety boundary. Operator ho môže vynechať a dynamic inventory sa môže medzi review a runom zmeniť.
+
+Pred citlivým runom:
+
+```bash
+ansible-playbook \
+  -i inventories/prod \
+  site.yml \
+  --limit 'payments_app:&production:!maintenance' \
+  --list-hosts
+```
+
+Target manifest má byť uchovaný ako subject-bound evidence.
+
+## 14. Expected target inventory
+
+Resolved target set musí byť porovnaný s očakávaním:
+
+```text
+expected stable host IDs: 12
+resolved inventory hosts: 12
+selected by pattern: 11
+excluded maintenance: 1
+attempted: 11
+verified converged: 11
+```
+
+Expected inventory nemusí byť iba pevný count. Môže definovať:
+
+- minimálny/maximálny count;
+- presný release manifest;
+- požadované AZ/ring zastúpenie;
+- forbidden groups/overlaps;
+- allowed lifecycle states;
+- maximum cache age;
+- required connection identity fields.
+
+Prázdny target set musí mať explicitný verdict. Pre production rollout je typicky failure alebo manual review, nie green no-op.
+
+## 15. Worked failure: API outage vytvoril green no-op
+
+Dynamic inventory plugin pri API timeout-e vráti empty result a warning. Wrapper script warning nepropaguje a playbook skončí:
+
+```text
+skipping: no hosts matched
+exit code 0
+```
+
+Mechanizmus:
+
+```text
+source failure
+→ empty inventory namiesto invalid evidence
+→ pattern vyberie nula hosts
+→ žiadny task nemôže zlyhať
+→ process success sa interpretuje ako rollout success
+```
+
+Gate musí rozlišovať:
+
+- valid empty inventory podľa contractu;
+- source/API/tool failure;
+- stale-cache fallback;
+- filter, ktorý legitímne vrátil nula;
+- unexpected undersized target set.
+
+## 16. Inventory cache a freshness
+
+Cache znižuje API latency a rate pressure, ale mení target reality na snapshot.
 
 Definuj:
 
-- TTL,
-- cache backend,
-- invalidation,
-- behavior pri API outage,
-- fail-open/fail-closed model,
-- observability cache age.
+```text
+cache backend
+generation/timestamp
+TTL
+source query identity
+invalidation
+behavior pri API outage
+fail-open/fail-closed policy
+maximum age pre production mutation
+```
 
-Stale inventory môže obsahovať odstránený host alebo vynechať nový kritický node.
+Stale cache môže:
 
-## 18. Localhost
+- obsahovať terminated host;
+- vynechať nový host;
+- zachovať staré group membership;
+- používať starú IP;
+- skryť maintenance alebo quarantine tag.
 
-Ak play používa `localhost` bez explicitného inventory entry, Ansible môže vytvoriť implicitný localhost s osobitným správaním. Pre produkčný automation je vhodnejšie explicitne definovať local execution assumptions.
+Cache fallback môže byť vhodný pre read-only diagnostiku, ale production mutation potrebuje prísnejší freshness contract.
 
-Príklad:
+## 17. Constructed groups a hidden logic
+
+Constructed inventory môže transformovať metadata a vytvárať groups cez expressions. Je užitočný, ale môže skryť business policy v target-resolution vrstve.
+
+Príklad rizika:
+
+```text
+if tags.Environment != 'dev'
+→ group production
+```
+
+Missing alebo typo tag by host zaradil do production. Bezpečnejšie je explicitné positive matching a quarantine pre unknown metadata.
+
+Constructed logic testuj ako code:
+
+- fixtures pre valid metadata;
+- missing/null fields;
+- case/normalization;
+- forbidden overlaps;
+- plugin upgrade behavior.
+
+## 18. Localhost a local connection
+
+Implicitný localhost má osobitné behavior a môže použiť control-node Python. Produkčný automation má local execution assumptions deklarovať explicitne.
 
 ```yaml
 all:
@@ -376,143 +472,171 @@ all:
       ansible_python_interpreter: "{{ ansible_playbook_python }}"
 ```
 
-Localhost tasks majú prístup k control-node credentials, filesystemu a network pathu. Nie sú automaticky nízkorizikové.
+Localhost tasks majú prístup k controller filesystemu, tokens, networku a cloud credential chainu. Nie sú automaticky nízkorizikové.
 
-## 19. Inventory a secrets
+## 19. Secrets a resolved inventory output
 
-Do inventory repository nepatria plaintext:
+Do inventory repository nepatria plaintext passwords, private keys, tokens ani Vault passwords. Inventory môže niesť secret reference alebo credential selector, ale hodnotu má injektovať controller/Vault/external secret provider.
 
-- passwords,
-- private keys,
-- API tokens,
-- Vault passwords,
-- cloud secret keys.
+```bash
+ansible-inventory -i inventories/prod --list
+```
 
-Inventory môže obsahovať referencie alebo identity metadata, ale secret value má prísť cez Vault/external secret provider/controller credential injection.
-
-`ansible-inventory --list` môže zobraziť resolved variables. Preto aj diagnostický output potrebuje access control.
+môže zobraziť resolved variables. Diagnostický output preto potrebuje redaction, restricted access a retention.
 
 ## 20. Environment isolation
 
-Model jedného inventory s group `dev`, `stage`, `prod` je jednoduchý, ale nemusí byť dostatočná security boundary.
+Jedna group `prod` v globálnom inventory nie je dostatočná security boundary pre všetky organizácie.
 
-Silnejšie oddelenie môže používať:
+Silnejší model môže oddeliť:
 
-- samostatné inventory directories,
-- samostatné cloud identities,
-- samostatné controller credentials,
-- protected job templates,
-- odlišné network paths,
-- environment-specific approvals.
+- inventory sources/directories;
+- cloud accounts/subscriptions;
+- controller credentials;
+- execution environments/job templates;
+- network paths;
+- approval policy;
+- logging a recovery owners.
 
-Inventory separation nerieši všetko, ale znižuje accidental cross-environment targeting.
+Target pipeline má pred connection potvrdiť environment identity aj na provider/asset vrstve, nie iba podľa group name.
 
-## 21. Testing inventory
+## 21. Causal troubleshooting walkthrough: rollout zmenil nesprávny host a vynechal dva správne
 
-Testuj:
+Atlas očakával 12 application hosts, jeden v maintenance. `--list-hosts` ukázal desať targetov a po run-e telemetry našla zmenu na testovacom hoste.
 
-- parser success,
-- očakávaný host count,
-- required groups,
-- forbidden overlaps,
-- mandatory variables,
-- duplicate logical identities,
-- valid connection metadata,
-- production targets bez public/untrusted addresses,
-- dynamic inventory freshness.
+### 1. Zafixuj inventory subject
 
-Príklad jednoduchého CI checku:
+Zaznamenaj source digests, plugin versions, cloud account/region, filters, cache generation, static revision, pattern/limit a expected manifest.
 
-```bash
-ansible-inventory -i inventories/prod --list > inventory.json
-python scripts/validate_inventory.py inventory.json
+### 2. Súťažiace hypotézy
+
+1. Dynamic source vrátil partial result.
+2. Cache bola stale.
+3. Dva hosts stratili required tag/group membership.
+4. Static alias ukázal na recyklovanú IP.
+5. Duplicate `inventory_hostname` prepísal `ansible_host`.
+6. Pattern/exclusion odstránil správne hosts.
+7. Group variable zmenila `ansible_connection` alebo connection address.
+8. Pipeline použila staging account/plugin config.
+
+### 3. Diskriminačné observation points
+
+- raw source API result a request ID;
+- cache timestamp/generation;
+- `ansible-inventory --graph`, `--list` a `--host`;
+- immutable cloud instance IDs;
+- duplicate identity validation;
+- group/tag history v audit logu;
+- exact pattern set algebra a `--list-hosts`;
+- SSH host key/certificate a remote machine identity;
+- resolved connection variables bez secret values.
+
+### 4. Containment
+
+Pozastav rollout. Izoluj nesprávne zmenený host a over, či nebol production credential použitý mimo production boundary.
+
+### 5. Recovery
+
+- partial API/cache → obnov fresh source a rerun target validation;
+- tag/group error → oprav metadata a forbidden-overlap test;
+- stale static alias → odstráň entry a obnov host identity trust;
+- duplicate identity → rozdeľ/rename stable keys a audit affected runs;
+- wrong pattern → oprav target contract;
+- wrong account/config → revoke credentials a skontroluj zasiahnutý environment.
+
+### 6. Over pôvodný outcome
+
+Potvrď všetkých 12 immutable production instance IDs, jeden vedomý maintenance exclusion, správne connection identities a 11 verified converged hosts. Test host nesmie zostať s production configuration alebo credential residue.
+
+### 7. Posuň control skôr
+
+Pridaj immutable asset-ID binding, expected target manifest, cache-age gate, duplicate-host check, forbidden environment overlap a host identity verification.
+
+## 22. Inventory validation pipeline
+
+```text
+load pinned plugin a source configuration
+→ authenticate read-only source identity
+→ build fresh resolved inventory
+→ validate parser/source success
+→ validate host identity uniqueness
+→ validate required/forbidden groups
+→ validate connection metadata
+→ compare expected target inventory
+→ evaluate production pattern a limit
+→ publish redacted target manifest
+→ approval
+→ execute a compare verified coverage
 ```
 
-## 22. Troubleshooting
-
-### Inventory je prázdny
-
-Over `-i` path, current working directory, plugin enablement, file extension, YAML schema, credentials a plugin logs. Prázdny dynamic result môže byť API/filter problém.
-
-### Host nie je v očakávanej group
-
-Over source metadata, parent/child structure, `keyed_groups`, composition expression, cache age a exact group name.
-
-### Host používa nesprávnu IP
-
-Porovnaj `inventory_hostname`, `ansible_host`, duplicate definitions a variable precedence cez:
+Praktické inspection príkazy:
 
 ```bash
-ansible-inventory -i inventories/prod --host <host>
+ansible-inventory -i inventories/prod --graph
+ansible-inventory -i inventories/prod --list
+ansible-inventory -i inventories/prod --host payments-app-a1
+ansible-playbook -i inventories/prod site.yml --list-hosts
 ```
 
-### Variables sa prepisujú
+CI môže validovať machine-readable output, ale musí chrániť resolved secrets.
 
-Zisti všetky groups hostu a sources rovnakej variable. Neopravuj problém pridaním ďalšieho higher-precedence override bez odstránenia ambiguity.
+## 23. Evidence a observability
 
-### Plugin sa nepoužil
+Uchovaj:
 
-Over plugin configuration `plugin:` field, filename suffix, collection availability, enablement a verify conditions.
+```text
+inventory subject
+→ source health/freshness
+→ resolved host/group graph
+→ expected target comparison
+→ selected target manifest
+→ per-host connection identity metadata
+→ attempted a verified host inventory
+→ exclusions/failures/recovery
+```
 
-### `--limit` vybral neočakávané hosts
+Sleduj:
 
-Použi `--list-hosts`, rozlož union/intersection/exclusion pattern a over group graph.
+- unexpected host-count delta;
+- empty/undersized inventories;
+- cache age;
+- duplicate identities;
+- forbidden group overlaps;
+- source API failures;
+- hosts bez environment/owner metadata;
+- stale static entries;
+- selected-but-unverified hosts;
+- inventory plugin/version drift.
 
-## 23. Anti-patterny
+## 24. Referenčné pravidlá
 
-### Inventory ako CMDB dump bez ownershipu
-
-Veľké množstvo metadata nemá jasný význam ani lifecycle.
-
-### Secrets inline pri hosts
-
-Resolved inventory ich môže zobraziť v CLI, logs alebo debug outpute.
-
-### Jeden globálny inventory pre všetky boundaries
-
-Operator typo môže zasiahnuť development aj production.
-
-### Group names podľa dočasných organizačných tímov
-
-Topology a lifecycle sa menia inak než org chart.
-
-### Dynamic inventory bez cache observability
-
-Nie je známe, či automation používa aktuálny alebo starý target set.
-
-### Kritické variables definované vo viacerých groups
-
-Výsledok závisí od precedence detailov namiesto explicitného contractu.
-
-## 24. Rozhodovací rámec
-
-1. Ktorý systém je authoritative source host identity?
-2. Ktoré inventory sources sa agregujú?
-3. Ako sa definuje stabilný `inventory_hostname`?
-4. Aké groups reprezentujú role, environment a failure domain?
-5. Kde patria host/group variables a kde už role defaults?
-6. Ako sú oddelené secrets?
-7. Aký freshness model má dynamic inventory a cache?
-8. Ako CI overí target count a forbidden overlaps?
-9. Aká je production environment isolation?
-10. Aká evidence target setu sa uchová pred runom?
+- Inventory source a resolved inventory sú odlišné objekty.
+- `inventory_hostname` je automation identity; `ansible_host` je connection address.
+- Dynamic inventory potrebuje source, filter, plugin a cache subject.
+- Tag je executable scope input, nie iba metadata.
+- Empty target set nesmie byť ticho interpretovaný ako success.
+- Groups tvoria membership a variable inheritance graph.
+- Critical variables nemajú implicitne súťažiť vo viacerých groups.
+- `--limit` nie je environment security boundary.
+- Cache freshness je súčasť production mutation evidence.
+- Run success potrebuje expected-vs-verified host coverage.
 
 ## 25. Kontrolné otázky
 
-1. Aký je rozdiel medzi inventory source a výsledným inventory?
-2. Aký je rozdiel medzi `inventory_hostname` a `ansible_host`?
-3. Ako fungujú parent a child groups?
-4. Prečo host v mnohých groups komplikuje variables?
-5. Aké výhody a riziká má dynamic inventory?
-6. Na čo slúži inventory cache?
-7. Ako overiť resolved variables hostu?
-8. Prečo `--limit` nie je dostatočná safety boundary?
-9. Aké riziká má implicitný localhost?
-10. Ako testovať inventory v CI?
+1. Čo tvorí inventory resolution subject?
+2. Ako sa líši inventory source od resolved inventory?
+3. Prečo IP adresa nie je dostatočná stable host identity?
+4. Ako duplicate `inventory_hostname` zmení connection target?
+5. Prečo cloud tag patrí do automation trust boundary?
+6. Ako group hierarchy a variable precedence ovplyvnia host behavior?
+7. Kedy je empty inventory validný a kedy invalid evidence?
+8. Prečo stale cache môže zasiahnuť nesprávny host?
+9. Čo má obsahovať expected target inventory?
+10. Aké dôkazy potvrdia complete host coverage po run-e?
 
 ## Glossary impact
 
-Relevantné pojmy: Ansible inventory, inventory source, inventory plugin, static inventory, dynamic inventory, inventory host, inventory group, `inventory_hostname`, `ansible_host`, host variables, group variables, inventory pattern, constructed inventory, inventory cache a implicit localhost.
+Relevantné pojmy: inventory resolution subject, inventory source, resolved inventory, stable inventory host identity, connection address, dynamic inventory, constructed group, inventory cache generation, expected target inventory, target manifest, duplicate host identity, forbidden group overlap, empty-inventory verdict a host coverage.
 
 ## Oficiálna dokumentácia
 
