@@ -374,6 +374,10 @@ YAML dokument obsahujúci jeden alebo viac plays, ktorý zaznamenáva opakovate�
 
 Reusable Ansible capability organizujúca súvisiace defaults, variables, tasks, handlers, templates, files a metadata do definovaného contractu. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
+## Ansible run subject
+
+Rekonštruovateľná identita automation runu zahŕňajúca source revision, playbook, `ansible-core`, execution environment image, collections, inventory subject, resolved variables, credentials, strategy, batch a controller run ID. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
 ## Ansible task
 
 Jedna deklarovaná action s module arguments a execution controls aplikovaná na relevantný host context v playi. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
@@ -1445,6 +1449,10 @@ Build vykonaný bez dôvery v existujúcu local alebo external cache, používan
 ## Clean-room recovery
 
 Obnova do izolovaného a kontrolovaného prostredia pred production promotion, aby sa overila integrita a zabránilo opätovnému kompromitovaniu obnovených dát. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Cleanup-incomplete verdict
+
+Verdikt testu alebo automation runu, pri ktorom hlavné assertions prešli, ale vytvorené resources, credentials, temporary state alebo iné side effects neboli úplne odstránené. Nie je ekvivalentný plnému success-u. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
 ## Cleanup-incomplete verdict — GitLab Runner
 
@@ -3030,6 +3038,10 @@ Rozdiel medzi deklarovaným a skutočným stavom systému. Pozri [Desired State 
 
 Frekvencia, s akou sa pre konkrétny state alebo infra domain vykonáva refresh/plan a klasifikácia zmien podľa security, availability a change rizika. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
 
+## Drift detection subject — Terraform
+
+Presná identita drift porovnania zahŕňajúca configuration revision, resolved dependencies a variables, backend/state lineage a serial, provider target, read identity, refresh time a expected resource inventory. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
 ## Drift noise — Terraform
 
 Opakovaný alebo nerelevantný plan diff spôsobený napríklad provider normalizáciou, server defaults, orderingom, timestamps alebo eventual consistency namiesto významnej ownership zmeny. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
@@ -3554,6 +3566,10 @@ Viacfázový model databázovej alebo contract zmeny: najprv sa pridá kompatibi
 
 Backward-compatible database alebo API migration pattern, ktorý najprv pridá nový model, následne rolloutne kompatibilný software a až v neskoršom kroku odstráni starú kompatibilitu. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Expected evidence inventory — Terraform
+
+Vopred definovaná množina testov, reportov, planov, policy verdictov, cleanup výsledkov a runtime overení požadovaných pre konkrétnu risk class. Chýbajúca položka znamená incomplete evidence, nie pass. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
 ## Expected job inventory — GitLab CI
 
 Explicitný manifest jobs, child pipelines a reports, ktoré musia pre konkrétny pipeline subject existovať alebo preukázateľne nebyť applicable. Odlišuje complete pass od false-green runu s ticho chýbajúcou evidence. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
@@ -3573,6 +3589,10 @@ Pred vykonaním fan-out-u deklarovaná množina required a optional result ident
 ## Expected scanner inventory — GitLab
 
 Manifest security controls, analyzer jobs, reportov, componentov a platforiem, ktoré musia existovať alebo mať explicitný not-applicable/unsupported verdict pre konkrétny scan subject. Chýbajúca položka znamená incomplete evidence, nie clean result. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
+## Expected target inventory — Ansible
+
+Očakávaná množina alebo invariant targetov pred runom, napríklad stable host IDs, count bounds, AZ/ring coverage, forbidden overlaps, allowed lifecycle states a maximum cache age. Porovnáva sa s resolved, attempted a verified host inventory. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
 
 ## Experiment contract
 
@@ -3849,6 +3869,10 @@ Runtime rozhodnutie o variante alebo hodnote feature flagu na základe flag verz
 ## Flaky test
 
 Test, ktorý pri rovnakom kóde a deklarovaných vstupoch nedeterministicky prechádza alebo zlyháva. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
+
+## Fleet convergence — Ansible
+
+Stav, v ktorom všetky očakávané a oprávnené targety dosiahli požadovaný file, service a runtime outcome a následný run nevytvára nečakané changes. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
 ## Flexible Single Master Operations — FSMO
 
@@ -4206,6 +4230,10 @@ Správanie, pri ktorom viac notifications rovnakého handlera v príslušnej han
 
 Event vytvorený changed taskom cez `notify`, ktorý zaradí pomenovaný handler alebo `listen` topic do pending handler queue pre host. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
+## Handler transition — Ansible
+
+Prechod vyvolaný taskom reportujúcim `changed`, pri ktorom notification aktivuje handler, napríklad restart alebo reload služby. Je súčasťou convergence a môže zlyhať alebo sa nevykonať samostatne od pôvodného tasku. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
 ## Hard link
 
 Ďalší directory entry odkazujúci na ten istý inode. Pozri [Filesystem hierarchy, inodes a links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md).
@@ -4437,6 +4465,10 @@ Pridanie alebo odobratie instances, workers, replicas alebo partitions s potrebn
 ## Host bind address — Docker
 
 Host IP adresa, na ktorej Docker publikuje port, napríklad `127.0.0.1` pre local-only alebo `0.0.0.0` pre všetky IPv4 interfaces. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Host coverage — Ansible
+
+Porovnanie expected, resolved, attempted a runtime-verified host inventories. Zabraňuje tomu, aby zelený run nad neúplnou target množinou predstieral complete rollout. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md) a [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
 
 ## Host key — SSH host key
 
@@ -4893,6 +4925,10 @@ Expression vyberajúca hosts alebo groups pomocou union, intersection a exclusio
 ## Inventory plugin — Ansible
 
 Plugin parsujúci static alebo dynamic inventory source a vytvárajúci hosts, groups a variables v runtime inventory model-i. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Inventory resolution subject — Ansible
+
+Rekonštruovateľná identita inventory výpočtu zahŕňajúca source konfigurácie, plugin versions, source account/region a query, cache generation/age, static revision, vars sources, pattern/limit a resolution timestamp. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
 
 ## Inventory source — Ansible
 
@@ -6182,6 +6218,10 @@ Protokol na zisťovanie revocation statusu certificate; server môže status pos
 
 Štandardizované získanie OpenID Provider metadata vrátane issuer, endpoints a JWKS URI. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
+## Omitted target — Ansible
+
+Host alebo target, ktorý mal patriť do rollout scope-u, ale nevstúpil do resolved target inventory. Nemá task result ani `unreachable` verdict, preto sa odhalí iba porovnaním s expected target inventory. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
 ## One-shot service — Compose
 
 Service určená na jednorazové úspešné dokončenie úlohy, napríklad migration, ktorú môže dependency vyžadovať cez `service_completed_successfully`. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
@@ -6805,6 +6845,10 @@ Routing model, ktorý môže vyberať table podľa source address, marku, ingres
 ## Policy unit test
 
 Automatizovaný positive, negative alebo boundary scenario overujúci expected policy decision pre konkrétny input a data. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy verdict — Terraform
+
+Subject-bound rozhodnutie policy engine-u nad konkrétnou configuration alebo saved-plan evidence, ktoré explicitne rozlišuje pass, violation, exception, invalid/missing input a tool/service error. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
 ## Policy version pinning — Pod Security
 
@@ -8886,6 +8930,10 @@ Vstup s kontrolovanou identitou, typom a lifecycle, ktorého neočakávaná mut�
 
 Configuration-derived key s dlhodobým identity významom používaný v `for_each` addressách; jeho zmena je resource identity change a môže vyžadovať `moved` alebo state migration contract. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
 
+## Stable inventory host identity — Ansible
+
+Dlhodobá automation identita hostu spájajúca `inventory_hostname` s immutable asset alebo instance ID, environmentom a overiteľnou connection identity. IP adresa sama osebe nie je dostatočný identity contract. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
 ## Stable network identity — StatefulSet
 
 Predvídateľné per-ordinal DNS meno StatefulSet Podu, ktoré pretrváva ako logical slot identity naprieč Pod replacementom. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
@@ -9258,6 +9306,10 @@ Backend registration, protocol, port, health-check a traffic-lifecycle contract 
 
 Per-target-group stav vyjadrujúci, či registrovaný target prešiel health checks a je vhodný na routing trafficu. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
+## Target manifest — Ansible
+
+Subject-bound a auditovateľný zoznam stable host identities vybraných patternom a limitom pre konkrétny run, často doplnený environmentom, groups, connection identity a exclusion reason. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
 ## Target — Prometheus
 
 Network endpoint a associated labels, ktorý Prometheus plánuje pravidelne scrape-ovať. Pozri [Prometheus](docs/12-observability/prometheus.md).
@@ -9381,6 +9433,10 @@ Terraform Core komponent určujúci state storage a podľa backendu aj locking, 
 ## Terraform drift
 
 Významný rozdiel medzi desired configuration, Terraform state a skutočným remote stavom, ktorý vyžaduje klasifikáciu ownershipu a vedomé reconciliation rozhodnutie. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
+## Terraform evidence subject
+
+Presná identita testovacej a policy evidence zahŕňajúca source/module revision, Terraform a provider versions, fixture/effective inputs, target identity, prior upgrade version, plan digest, policy package a cleanup/runtime verdict. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
 ## Terraform import
 
