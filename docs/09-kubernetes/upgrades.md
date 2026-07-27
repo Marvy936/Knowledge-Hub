@@ -1,512 +1,440 @@
 # Upgrades
 
-Kubernetes upgrade je koordinovaná zmena control plane, etcd, Nodes, container runtime, APIs, add-ons a workloads. Nie je to iba výmena binárky `kubelet` alebo image tagu. Bez compatibility analýzy môže byť API server healthy, ale CNI, CSI, admission webhooks, controllers alebo aplikácie prestanú fungovať.
+Kubernetes upgrade nie je výmena jednej binárky. Je to riadený prechod celého clusteru z jednej podporovanej platformovej generácie do druhej. Control plane môže byť `Ready`, kým nový Node pool nemá funkčný Service dataplane, admission webhook nerozumie novému API objektu alebo operator používa odstránený endpoint. Upgrade je dokončený až po overení management plane-u, workload plane-u, dát, telemetry a business outcome-u.
 
-## 1. Upgrade scope
+Táto kapitola používa jeden dominantný lifecycle:
 
-Rozlišuj:
-
-- Kubernetes control-plane version,
-- etcd version,
-- kubeadm a kubelet,
-- kubectl clients,
-- container runtime,
-- CNI a Service dataplane,
-- CSI drivers,
-- CoreDNS a metrics pipeline,
-- ingress/Gateway controllers,
-- admission webhooks a operators,
-- CRDs a custom resources,
-- node OS/kernel,
-- workload images a APIs.
-
-Každá vrstva má vlastnú support matrix.
-
-## 2. Patch a minor upgrade
-
-### Patch upgrade
-
-Typicky zachováva rovnakú minor verziu a prináša bug/security fixes.
-
-### Minor upgrade
-
-Mení napríklad `1.35 → 1.36` a môže priniesť:
-
-- API removals,
-- feature-gate zmeny,
-- component flag/config changes,
-- metrics/logging zmeny,
-- cgroup/runtime requirements,
-- add-on compatibility zmeny.
-
-Pri kubeadm je preskakovanie minor verzií nepodporované. Upgrade vykonávaj po jednej minor verzii a podľa version-specific dokumentácie.
-
-## 3. Version skew
-
-Kubernetes definuje podporovaný skew medzi API serverom, kubeletmi, controller-managerom, schedulerom, kube-proxy a kubectl. Deployment tool môže mať prísnejšie pravidlá.
-
-Princípy:
-
-- API servers v HA clustri musia zostať v podporovanom vzájomnom skew,
-- kubelet nemá byť novší než API server,
-- control plane sa aktualizuje pred worker Nodes,
-- kubeadm version musí zodpovedať cieľovému upgrade kroku,
-- klientský skew nie je nekonečná backward compatibility.
-
-Pred každým upgrade over aktuálnu Version Skew Policy, nie historickú poznámku v runbooku.
-
-## 4. Support window
-
-Platforma musí poznať:
-
-- release cadence,
-- podporované minor verzie,
-- end-of-life dátumy,
-- provider support window,
-- add-on a OS support,
-- security patch SLA.
-
-Upgrade plán nemá začať až po skončení podpory aktuálnej verzie.
-
-## 5. Pre-upgrade inventory
-
-Zaznamenaj:
-
-```bash
-kubectl version
-kubectl get nodes -o wide
-kubectl get --raw /version
-kubectl get pods -A
-kubectl get apiservices
-kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations
-kubectl get crd
+```text
+support/security intent a target generation
+→ current cluster a consumer inventory
+→ compatibility graph a deprecated-API closure
+→ pre-upgrade health, capacity a recovery gate
+→ staged control-plane/etcd/API transition
+→ add-on, Node a runtime transition
+→ mixed-version a failure-domain containment
+→ workload, data a business acceptance
+→ roll-forward/rollback/recovery decision
+→ retirement starej generácie a upgrade closure
 ```
 
-Ďalej inventarizuj:
+## 1. Atlas upgrade subject
 
-- control-plane a etcd topology,
-- Node pools a OS images,
-- CNI/CSI/CoreDNS versions,
-- ingress/Gateway a operators,
-- deprecated API usage,
-- feature gates a component config,
-- admission dependencies,
-- critical PDBs a capacity,
-- backup a rollback možnosti.
+Atlas Payments prechádza z Kubernetes `1.35.x` na podporovanú `1.36.x` generáciu. Exact upgrade subject nie je iba cieľová verzia:
 
-## 6. Release notes a deprecations
+```text
+cluster identity a stable API endpoint
+current a target Kubernetes/control-plane/etcd generation
+kubeadm, kubelet, kubectl a container-runtime versions
+Node image, kernel, cgroup a package-repository generation
+CNI, CSI, CoreDNS, Service dataplane a metrics generation
+ingress/Gateway, admission, policy a secret controllers
+CRD schemas, served/storage versions a conversion webhooks
+workload image/API/schema compatibility
+etcd snapshot, PKI/encryption a application backup generation
+capacity, PDB, topology a abort criteria
+```
 
-Prečítaj:
+Ak tento inventár nie je versionovaný, operator nevie odlíšiť plánovanú mixed-version fázu od náhodného driftu.
 
-- release notes aktuálnej aj cieľovej verzie,
-- Version Skew Policy,
-- Deprecated API Migration Guide,
-- kubeadm upgrade guide,
-- provider/vendor advisories,
-- CNI/CSI/operator compatibility matrix.
+## 2. Prečo upgrade funguje ako compatibility graph
 
-Hľadaj najmä:
+Každá vrstva je providerom aj consumerom kontraktov:
 
-- removed APIs,
-- removed flags a feature gates,
-- default behavior changes,
-- storage/API conversion requirements,
-- metrics removals alebo renames,
-- security hardening zmeny,
-- known issues.
+```text
+API server
+→ API discovery, schemas a storage/conversion semantics
+→ controllers, operators, admission a clients
 
-## 7. Deprecated API detection
+Node image/runtime/kubelet
+→ CRI, cgroups, kernel a host-network/storage capabilities
+→ CNI, CSI, Pods a probes
 
-Manifest v Git-e nemusí byť jediný caller. Deprecated API môže používať:
+add-ons
+→ DNS, Service, policy, storage, metrics a routing capabilities
+→ workloads a platform automation
+```
 
-- Helm chart,
-- operator/controller,
-- CI pipeline,
-- kubectl plugin,
-- external automation,
-- starý CRD conversion webhook,
-- klientská knižnica.
+Komponent môže podporovať cieľový Kubernetes minor, ale nie nový kernel, cgroup mode, API storage version alebo susedný add-on. Preto nestačí samostatný zoznam „supported versions“. Potrebný je resolved compatibility graph pre presnú cieľovú generáciu.
 
-Použi:
+## 3. Patch, minor a support lifecycle
 
-- API server audit logs,
-- deprecation warning metrics/logs,
-- static manifest scanning,
-- server-side dry-run proti cieľovej API verzii,
-- staging cluster na cieľovej verzii.
+Patch upgrade zostáva v rovnakom minor rade a typicky prináša bug a security opravy. Minor upgrade môže meniť API, defaults, feature gates, component config, metrics, runtime requirements a podporované version skew.
 
-Objekt uložený v etcd môže byť čitateľný cez novšiu served API, ale klient používajúci odstránený endpoint zlyhá.
+Pre kubeadm cluster platí:
 
-## 8. Pre-upgrade health gate
+- používaj dokumentáciu konkrétnej cieľovej minor verzie;
+- nepreskakuj minor verzie;
+- aktualizuj na vhodný aktuálny patch pred ďalším minor krokom;
+- over upstream aj vendor/provider support window;
+- ukonči upgrade skôr, než sa current generation stane nepodporovanou.
 
-Neupgraduj cluster, ktorý už je degraded.
+Support deadline je vstup do plánovania, nie dôvod preskočiť rehearsal alebo health gate.
+
+## 4. Version skew ako dočasný transition contract
+
+HA upgrade úmyselne vytvára mixed-version stav. Version skew policy definuje, ktoré combinations sú podporované, ale nepreukazuje application compatibility.
+
+Praktické invarianty:
+
+1. API server generácia vedie transition.
+2. Kubelet nesmie byť novší než podporuje API server.
+3. Control-plane replicas sa menia sekvenčne.
+4. Worker Nodes sa menia až po prijatí control-plane transitionu.
+5. Mixed-version interval má byť krátky, pozorovaný a ukončený.
+6. Klient, operator alebo webhook môže mať prísnejšiu compatibility hranicu než upstream skew policy.
+
+## 5. Current-state a consumer inventory
+
+Pred zmenou zachyť:
+
+```text
+cluster/component/Node/add-on versions a digests
+API server feature gates a component configs
+etcd member topology, version, revision a health
+Node pools, OS/kernel/runtime/cgroup generations
+APIService, webhook, CRD a operator inventory
+served/storage API versions a stored object generations
+all deprecated API callers z audit evidence
+PDB, topology, quota a spare-capacity envelope
+certificate, backup a restore-rehearsal verdict
+critical application releases, schemas a data generations
+```
+
+Manifest scanning nestačí. Removed alebo deprecated endpoint môže používať Helm hook, CI, operator, kubectl plugin, external automation alebo staršia client library. API audit a server warnings odhaľujú reálnych callers.
+
+## 6. Deprecated API a CRD closure
+
+API migration má tri samostatné boundaries:
+
+```text
+caller používa served endpoint
+→ object je konvertovaný na storage version
+→ controller a webhook rozumejú effective objectu
+```
+
+Pred odstránením starej verzie over:
+
+- všetci callers používajú podporovaný endpoint;
+- CRD má validnú target schema;
+- conversion webhook je dostupný, HA a compatible;
+- existujúce objects sú migrované na správnu storage version;
+- controller rozumie starej aj novej generation počas transitionu;
+- rollback alebo roll-forward hranica je explicitná.
+
+Green static scan nepreukazuje, že external controller prestal volať staré API.
+
+## 7. Pre-upgrade health a recovery gate
+
+Neupgraduj už degraded cluster. Gate musí zahŕňať:
+
+```text
+API read/write/watch a semantic readiness
+etcd quorum, latency, disk a alarms
+scheduler/controller leadership a queue health
+Node, CNI, CSI, DNS, Service a admission capabilities
+certificate a credential expiry
+spare capacity pre drain, surge a failover
+current backup artifact a complete recovery set
+úspešný recent restore rehearsal
+critical workload a business SLO baseline
+```
+
+Etcd snapshot bez PKI, encryption history, external-state inventory a application backupu nie je úplný recovery point. Rollback stop point musí byť definovaný pred prvou irreversible storage/API zmenou.
+
+## 8. Staging, canary a acceptance matrix
+
+Rehearsal musí používať reprezentatívny compatibility graph, nie iba prázdny cluster. Testuj:
+
+- API create/update/delete/watch;
+- admission, aggregation a CRD conversion;
+- Pod sandbox, DNS, Service a NetworkPolicy;
+- PVC provision/attach/mount/snapshot;
+- Deployment, StatefulSet, Job a HPA;
+- Gateway/Ingress a certificate path;
+- logs, metrics, Events a audit;
+- Node drain, replacement a failure-domain loss;
+- critical payment journey a duplicate-prevention behavior.
+
+Canary Node pool má mať rovnaký target image, runtime, CNI/CSI a policy stack ako final fleet. Pod `Ready` na canary Node-e nie je dostatočný verdict.
+
+## 9. Control-plane transition
+
+Kubeadm-specific flow sa riadi dokumentáciou cieľovej verzie. Mechanicky však sleduje:
+
+```text
+upgrade kubeadm/planner na prvom control-plane Node-e
+→ validate target a preflight
+→ mutate local control-plane/etcd/static-Pod generation
+→ wait for semantic endpoint acceptance
+→ repeat one control-plane Node at a time
+→ close mixed-version control-plane state
+```
+
+Po každom backende over:
+
+- serving certificate a stable endpoint identity;
+- `/readyz` vrátane etcd;
+- read/write/watch cez konkrétny backend;
+- etcd quorum a leader stability;
+- scheduler/controller leadership;
+- admission a API aggregation;
+- load-balancer remove/add behavior.
+
+Drained control-plane Node môže stále prevádzkovať static Pods. Drain preto nie je control-plane shutdown mechanizmus.
+
+## 10. Add-on a Node transition
+
+Add-on ordering vychádza z vendor compatibility matrix. Osobitne sleduj:
+
+- CNI a Service dataplane;
+- CSI controller/node sidecars a snapshot APIs;
+- CoreDNS a NodeLocal DNS;
+- metrics-server a adapters;
+- ingress/Gateway, cert-manager a secret operators;
+- admission, policy, service mesh a observability agents.
+
+Worker transition preferuje immutable replacement:
+
+```text
+create target Node pool
+→ join a identity validation
+→ system DaemonSet a capability canaries
+→ canary workload a business tests
+→ controlled drain starej cohorty
+→ remove old Node/infra/credentials
+```
+
+In-place upgrade musí stále zachovať exact pre/post Node generation, drain evidence a rollback boundary.
+
+## 11. Capacity, PDB a stateful hranice
+
+Upgrade potrebuje capacity pre:
+
+- unavailable Node;
+- Deployment surge;
+- HPA burst;
+- hard anti-affinity a topology spread;
+- PDB;
+- volume topology a attach limits;
+- stateful quorum a fencing;
+- system DaemonSets a temporary overlap.
+
+PDB, ktorý blokuje drain, môže správne chrániť availability. `--force` alebo obídenie eviction API nie je oprava nedostatočnej capacity či zlého application disruption contractu.
+
+## 12. Observability počas transitionu
+
+Telemetry musí byť viazaná na upgrade cohort:
+
+```text
+cluster a upgrade operation ID
+component/Node/add-on generation
+old/new cohort a failure domain
+API/etcd/controller/scheduler signals
+Pod Pending/restart/eviction a probe verdicts
+CNI/CSI/DNS/Service paths
+application SLO a business transaction
+```
+
+Vopred definuj abort criteria, napríklad:
+
+- API alebo etcd SLO burn;
+- strata quorum margin;
+- canary Node capability failure;
+- rast admission/conversion errors;
+- storage attach/mount failure;
+- payment error alebo duplicate rate nad limit;
+- telemetry pipeline strata, ktorá znemožní bezpečný verdict.
+
+## 13. Causal walkthrough: control plane je green, ale traffic z nových Nodes zlyháva
+
+### Symptom
+
+Control plane a prvý nový Node pool boli aktualizované. API, Nodes aj system Pods vyzerajú green. Payments Pods na starých Nodes fungujú; Pods na target Node generation majú intermittent Service timeouty a cross-Node traffic failure.
+
+### Exact subject
+
+Fixuj:
+
+- upgrade operation a target generation;
+- old/new Node UID, image, kernel, runtime a cgroup generation;
+- CNI/Service-dataplane DaemonSet revisions a loaded configs;
+- Pod UID, sandbox, IPAM lease a endpoint cohort;
+- source/destination Nodes a pre/post-NAT flow;
+- route/tunnel/MTU/policy/conntrack state;
+- canary acceptance výsledky a čas rollout-u.
+
+### Competing hypotheses
+
+1. Service selector alebo EndpointSlice cohort je chybný;
+2. nový Node má inú CNI configuration;
+3. CNI agent beží, ale host initialization zlyhala;
+4. kernel alebo module generation je nekompatibilná;
+5. MTU sa zmenilo medzi old/new pools;
+6. NetworkPolicy program je stale;
+7. kube-proxy/eBPF dataplane nemá current Service generation;
+8. host firewall alebo forwarding policy sa zmenila;
+9. image/runtime upgrade zmenil Pod sandbox behavior;
+10. DNS alebo application connection pool maskuje skutočný packet failure.
+
+### Discriminating observations
+
+Porovnaj rovnaký fresh flow zo starej a novej cohorty. Sleduj Pod socket, netns, route/tunnel, policy verdict, Service translation, packet capture a reverse path. Porovnaj DaemonSet image/config, host init logs, kernel modules, MTU a dataplane maps/rules.
+
+Finding:
+
+```text
+nový Node image neobsahuje host networking prerequisite
+→ CNI agent process a shallow readiness sú green
+→ host dataplane initialization je partial
+→ same-Node/direct traffic môže fungovať
+→ cross-Node a Service-translated flows zlyhávajú
+→ control plane upgrade vyzerá úspešne, workload plane nie
+```
+
+### Containment
+
+- zastav rollout nového poolu;
+- cordon target cohort a drainni iba ak stateful/storage contract dovolí;
+- zachovaj Node/CNI logs, rules/maps a packet evidence;
+- neobchádzaj problém host networkingom, vypnutím policy alebo plošným firewall allow;
+- chráň downstream pred retry amplification.
+
+### Authoritative recovery
+
+- oprav versionovaný Node image alebo CNI host prerequisite;
+- vytvor novú Node generation namiesto ručného drift patchu;
+- spusti CNI/Service capability canary;
+- presuň bounded canary workload;
+- over exact allowed aj forbidden flows;
+- pokračuj rolloutom po failure domains;
+- retire-ni chybnú a starú cohortu až po acceptance.
+
+### Verify original a forbidden outcomes
 
 Over:
 
-- etcd quorum a latency,
-- API `/readyz`,
-- scheduler/controller-manager leadership,
-- všetky Nodes Ready,
-- CNI/CSI/CoreDNS health,
-- Pending/CrashLooping system Pods,
-- certificate expiry,
-- disk/inode capacity,
-- working backup a restore rehearsal,
-- spare workload capacity.
+1. API, etcd a control-plane capabilities zostali zdravé;
+2. Pod sandbox/IPAM vzniká na každom target Node-e;
+3. same-Node aj cross-Node Pod traffic fungujú;
+4. ClusterIP, DNS, policy a Gateway paths fungujú;
+5. forbidden NetworkPolicy flows zostávajú blokované;
+6. storage a probes na target cohort-e fungujú;
+7. payment journey uspeje bez duplicate retry side effects;
+8. old Node a add-on generations už neobsluhujú workloady;
+9. replacement ďalšieho Node-u reprodukuje rovnaký verdict.
 
-Upgrade zhoršuje diagnostiku existujúceho incidentu.
+### Earlier controls
 
-## 9. Backup a rollback boundary
+Použi immutable Node image conformance, add-on compatibility lock, per-cohort capability canary, semantic DaemonSet health, packet-path test v rehearsal clustri, staged Node pool rollout a explicitný workload-plane abort gate.
 
-Pred control-plane upgrade:
+## 14. Roll-forward, rollback a recovery
 
-- vytvor a over etcd snapshot,
-- zachovaj PKI/encryption config,
-- exportuj/versionuj component configuration,
-- zaznamenaj current images/packages,
-- over workload/application backups,
-- definuj rollback stop point.
+Roll-forward je vhodný, keď cluster zostáva operovateľný a oprava môže vytvoriť novú compatible generation. Rollback je prípustný iba po overení, že:
 
-Rollback po API/storage migration nemusí byť jednoduché package downgrade. Musí zostať v podporovanom skew a API compatibility okne.
+- old component je compatible s current API/storage state-om;
+- old Node pool stále existuje a je bezpečný;
+- CRD/storage migration neprekročila rollback boundary;
+- workload/schema/external state sa dá vrátiť;
+- version skew zostane podporovaný.
 
-## 10. Staging a canary
+Etcd restore patrí až k strate authoritative API state-u alebo testovanému disaster-recovery scenáru. Nie je remediation bežnej CNI alebo chart chyby.
 
-Najprv over upgrade na:
+## 15. Upgrade closure
 
-- disposable test clustri,
-- staging clustri s reprezentatívnymi add-ons,
-- canary node pool,
-- malej skupine workloadov podľa failure domainu.
+Upgrade je uzavretý až keď:
 
-Testuj:
-
-- create/update/delete APIs,
-- CNI a Service traffic,
-- CSI provision/attach/mount,
-- DNS,
-- ingress/Gateway,
-- admission webhooks,
-- autoscaling,
-- logging/metrics,
-- operators a CRDs,
-- node drain/replacement.
-
-## 11. Kubeadm control-plane upgrade
-
-Version-specific flow typicky zahŕňa:
-
-1. upgrade package `kubeadm` na prvom control-plane Node-e,
-2. `kubeadm upgrade plan`,
-3. `kubeadm upgrade apply <target-version>`,
-4. upgrade kubelet/kubectl package podľa plánu,
-5. restart kubelet a health validation,
-6. na ďalších control-plane Nodes `kubeadm upgrade node`,
-7. sekvenčnú validáciu každého endpointu.
-
-Príkazy a repository paths sa menia podľa minor verzie a OS. Používaj konkrétnu dokumentáciu cieľovej verzie.
-
-## 12. Control-plane sequencing
-
-V HA clustri:
-
-- aktualizuj jeden control-plane Node naraz,
-- zachovaj API server availability,
-- neohroz etcd quorum,
-- sleduj load-balancer health,
-- over leader election,
-- po každom kroku vykonaj health gate.
-
-Po upgrade prvého API servera cluster dočasne beží v podporovanom mixed-version stave. Minimalizuj jeho trvanie.
-
-## 13. Worker Node upgrade
-
-Typický flow:
-
-```bash
-kubectl cordon <node>
-kubectl drain <node> --ignore-daemonsets
-# upgrade OS/runtime/kubeadm/kubelet
-sudo kubeadm upgrade node
-sudo systemctl restart kubelet
-kubectl uncordon <node>
+```text
+všetky control-plane a Node subjects sú v target generation
+mixed-version interval skončil
+all add-ons/controllers/webhooks sú compatible a current
+removed API callers sú nulové
+storage/CRD migrations sú dokončené
+telemetry a alerts fungujú na target metrics/log schemas
+critical workloads a business SLO sú prijaté
+old artifacts, pools a credentials sú bezpečne retired
+actual duration, aborts, gaps a follow-up controls sú zaznamenané
 ```
 
-Presný sled závisí od distribúcie a node-image modelu.
+## 16. Ďalšie failure boundaries
 
-Pred drain over:
+### `kubeadm upgrade plan` odmieta target
 
-- PDB,
-- replacement capacity,
-- local data,
-- volume attach topology,
-- StatefulSet/quorum,
-- DaemonSets a static Pods,
-- graceful termination.
+Over current/target minor, kubeadm version, repository, control-plane health a skew. Neobchádzaj preflight bez cause modelu.
 
-## 14. Immutable Node replacement
+### API funguje, CRD operations zlyhávajú
 
-Pri managed node groups alebo immutable infraštruktúre je často bezpečnejšie:
-
-1. vytvoriť nový pool s cieľovou verziou,
-2. overiť CNI/CSI/system DaemonSets,
-3. presunúť canary workloady,
-4. postupne drainnuť starý pool,
-5. odstrániť staré Nodes a infraštruktúru.
-
-Výhody:
-
-- jednoduchší rollback cez starý pool,
-- menší host drift,
-- test nového OS/runtime obrazu,
-- jasnejší audit.
-
-## 15. Add-on upgrade ordering
-
-Poradie závisí od compatibility matrix. Typicky analyzuj:
-
-- CNI pred alebo po control-plane upgrade podľa vendor pokynov,
-- CSI sidecars a snapshot CRDs,
-- CoreDNS a kube-proxy,
-- metrics-server,
-- ingress/Gateway controllers,
-- cert-manager a secret operators,
-- policy/admission systems,
-- service mesh a observability agents.
-
-Nespoliehaj sa na to, že chart install úspešne prešiel. Validuj dataplane.
-
-## 16. CRDs a conversion
-
-CRD upgrade môže meniť:
-
-- served versions,
-- storage version,
-- schema a defaulting,
-- conversion webhook,
-- controller expectations.
-
-Pred odstránením starej version:
-
-- over všetkých clients,
-- migruj stored objects,
-- over conversion webhook availability,
-- testuj rollback hranicu,
-- zachovaj compatible controller.
-
-Nedostupný conversion webhook môže blokovať list/get/update custom resources a tým aj namespace deletion alebo cluster upgrade.
-
-## 17. Admission webhooks
-
-Upgrade môže naraziť na webhook, ktorý:
-
-- nepodporuje nový API object,
-- má expirovaný certificate,
-- nie je Ready počas Node drainu,
-- používa starú client library,
-- fail-closed blokuje system components.
-
-Pred upgrade over:
-
-- replicas a topology spread,
-- Service/EndpointSlices,
-- CA bundle a cert expiry,
-- timeout a failurePolicy,
-- compatibility s cieľovou verziou,
-- emergency bypass runbook.
-
-## 18. PDB a upgrade capacity
-
-PDB môže správne blokovať drain, ak by narušil availability. To nie je chyba drain-u.
-
-Over:
-
-- počet ready replicas,
-- `maxUnavailable` alebo `minAvailable`,
-- rollout surge capacity,
-- zone failure domains,
-- HPA minimum,
-- anti-affinity/topology constraints.
-
-Násilné obídenie PDB môže zmeniť plánovanú údržbu na outage.
-
-## 19. Storage počas upgrade
-
-Testuj:
-
-- PVC bind/provision,
-- volume attach/detach,
-- CSI node registration,
-- mount/unmount,
-- topology a zone behavior,
-- snapshot/restore,
-- filesystem compatibility.
-
-Node upgrade môže meniť kernel, multipath, filesystem tools alebo device plugins aj bez zmeny Kubernetes API.
-
-## 20. Metrics a alert compatibility
-
-Kubernetes component metrics a labels sa môžu deprecovať alebo meniť podľa stability policy.
-
-Pred upgrade:
-
-- porovnaj metrics changes,
-- over scraping a RBAC,
-- testuj dashboards a recording rules,
-- aktualizuj alerts pred odstránením starej metric,
-- zachovaj dual-query transition, ak je potrebný.
-
-Neplatný dashboard nie je iba kozmetika; môže skryť degraded control plane.
-
-## 21. Upgrade validation
-
-Po každej fáze over:
-
-```bash
-kubectl get --raw='/readyz?verbose'
-kubectl get nodes
-kubectl get pods -A
-kubectl get events -A --sort-by=.metadata.creationTimestamp
-kubectl get apiservices
-```
-
-Funkčné testy:
-
-- create/delete Pod,
-- Service a DNS,
-- NetworkPolicy,
-- PVC provision a mount,
-- Deployment rollout,
-- Job completion,
-- HPA metric a scale,
-- ingress/Gateway request,
-- Secret/ConfigMap projection,
-- audit/log/metric pipeline.
-
-## 22. Rollback vs. roll-forward
-
-### Roll-forward
-
-Preferovaný, ak:
-
-- problém má známu opravu,
-- cluster zostáva dostupný,
-- API/storage state už používa novú verziu,
-- downgrade by porušil skew alebo compatibility.
-
-### Rollback
-
-Možný iba v testovanej a podporovanej hranici. Môže zahŕňať:
-
-- starý Node pool,
-- staršiu add-on verziu,
-- workload rollback,
-- v krajnom prípade etcd disaster recovery.
-
-Etcd restore kvôli bežnej add-on chybe je neprimerane deštruktívny krok.
-
-## 23. Managed Kubernetes upgrade
-
-Provider môže riadiť control plane, ale používateľ musí riešiť:
-
-- maintenance window,
-- Node pool compatibility,
-- deprecated APIs,
-- add-ons a controllers,
-- admission a workload readiness,
-- PDB/capacity,
-- provider-specific feature changes,
-- application smoke tests.
-
-„Automatic upgrade“ neznamená automatickú application compatibility.
-
-## 24. Observability počas upgrade
-
-Sleduj:
-
-- API latency/error rate,
-- etcd leader/latency,
-- scheduler/controller queue,
-- Node Ready a kubelet errors,
-- Pod Pending/eviction/restart rate,
-- CNI/CSI/DNS errors,
-- webhook latency/rejection,
-- Service traffic success,
-- workload SLO a business metrics.
-
-Vopred definuj abort criteria.
-
-## 25. Troubleshooting
-
-### `kubeadm upgrade plan` odmieta verziu
-
-Over kubeadm version, package repository, current cluster version a podporovanú minor cestu.
+Over served/storage versions, conversion webhook cohort, certificates, schema a controller compatibility.
 
 ### Drain je blokovaný
 
-Over PDB, unmanaged Pod, local storage, DaemonSet a replacement capacity. Nezačni automaticky `--force`/`--disable-eviction`.
+PDB, topology, local data alebo stateful quorum môže správne zastaviť disruption. Oprav capacity alebo workload contract.
 
-### Node po upgrade zostáva `NotReady`
+### Node je `Ready`, ale workloads zlyhávajú
 
-Over kubelet, runtime, CNI, cgroup driver, certificates, Node conditions a version skew.
+Node heartbeat nepreukazuje CNI, CSI, DNS, Service, policy ani application capability. Použi acceptance matrix.
 
-### API funguje, ale CRD requests zlyhávajú
+### Dashboards po upgrade zmizli alebo sú green bez dát
 
-Over conversion webhook, served/storage versions, controller compatibility a APIService/webhook certificates.
+Metric names/labels alebo scrape authorization sa zmenili. Over raw targets, query results a SLO coverage; telemetry loss je upgrade failure boundary.
 
-### Workloady sa neškálujú
+### Automatic managed-service upgrade rozbije application
 
-Over metrics pipeline, HPA conditions, quota, Pending Pods a Node capacity.
+Provider vlastní iba časť lifecycle-u. Application tím stále vlastní APIs, add-ons, PDB, Node pools, controllers, data a business acceptance.
 
-### Service networking zlyhá iba na nových Nodes
+## 17. Referenčný katalóg
 
-Over CNI/Service dataplane DaemonSets, kernel modules, MTU, routes, firewall a kube-proxy/eBPF state.
+### Upgrade evidence
 
-## 26. Anti-patterny
+```text
+current a target generation manifest
+compatibility/deprecation findings
+health a recovery gate
+per-step operation log a approver
+per-cohort technical/business verdict
+abort/recovery decisions
+old-generation retirement proof
+```
 
-### Upgrade priamo z unsupported verzie s preskočením minors
+### High-cost boundaries
 
-Nie je testovaná compatibility cesta.
+- etcd/API storage migration;
+- CRD storage/conversion;
+- PKI a ServiceAccount signing changes;
+- CNI/CSI data-plane generation;
+- Node OS/kernel/runtime generation;
+- application schema a persistent data;
+- external cloud/provider resources.
 
-### Upgrade bez etcd snapshotu a restore testu
+## 18. Anti-patterny
 
-Control-plane rollback nemá dôveryhodný recovery bod.
+- preskočenie minor verzie;
+- upgrade degraded clusteru;
+- kontrola iba API `/readyz`;
+- inventory iba z Git manifestov;
+- mutable add-on alebo Node artifacts;
+- všetky control-plane alebo Nodes naraz;
+- force drain bez disruption/fencing analýzy;
+- old/new telemetry bez cohort labelu;
+- rollback zamieňaný za package downgrade;
+- etcd restore ako prvá remediation;
+- old generation ponechaná neurčito po „úspešnom“ upgrade-e.
 
-### Ignorovanie deprecated API callers mimo Git-u
+## 19. Kontrolné otázky
 
-Operator alebo CI prestane fungovať až po odstránení endpointu.
-
-### Všetky Nodes naraz
-
-Stratí sa kapacita, quorum alebo celé failure domainy.
-
-### Force drain bez application analýzy
-
-Obíde PDB a môže poškodiť stateful workload.
-
-### Control plane updated, add-ons „neskôr“ bez kompatibility
-
-Cluster je formálne novší, ale dataplane je nefunkčný.
-
-### Upgrade považovaný za rollback mechanizmus
-
-Restore staršej package verzie nevráti API/storage/external state.
-
-## 27. Kontrolné otázky
-
-1. Ktoré vrstvy okrem Kubernetes control plane patria do upgrade scope-u?
-2. Prečo sa pri kubeadm nepreskakujú minor verzie?
-3. Čo znamená version skew?
-4. Ako odhalíš deprecated API callers mimo manifestov?
-5. Prečo sa neupgraduje degraded cluster?
-6. Aké sú výhody immutable Node replacementu?
-7. Ako PDB ovplyvňuje drain?
-8. Prečo CRD conversion webhook môže zablokovať upgrade?
-9. Čo patrí do post-upgrade validation?
-10. Kedy je roll-forward bezpečnejší než downgrade?
+1. Čo tvorí exact Kubernetes upgrade subject?
+2. Prečo version skew nie je application compatibility verdict?
+3. Ako odhalíš deprecated API caller mimo Git repository?
+4. Ktoré podmienky tvoria pre-upgrade health a recovery gate?
+5. Prečo `Node Ready` nestačí na Node-pool acceptance?
+6. Ako PDB, topology a storage menia upgrade capacity?
+7. Ktoré observation points odlíšia CNI failure od Service selector chyby?
+8. Kedy je roll-forward bezpečnejší než rollback?
+9. Prečo etcd restore nie je bežný upgrade rollback?
+10. Ktoré dôkazy uzatvárajú retirement starej generácie?
 
 ## Glossary impact
 
-Relevantné pojmy: Kubernetes version skew, patch upgrade, minor upgrade, deprecated API caller, upgrade health gate, canary node pool, immutable node replacement, mixed-version control plane, add-on compatibility, storage version migration, upgrade abort criterion a unsupported cluster version.
+Relevantné pojmy: Kubernetes upgrade subject, target platform generation, compatibility graph, deprecated API caller inventory, deprecated-API closure, mixed-version transition, upgrade recovery gate, canary capability verdict, Node-generation acceptance, workload-plane abort criterion, upgrade cohort, irreversible migration boundary, old-generation retirement a subject-bound upgrade closure.
 
 ## Oficiálna dokumentácia
 
