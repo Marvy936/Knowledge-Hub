@@ -1,54 +1,106 @@
 # Template functions a pipelines
 
-Helm templates nie sú samostatný programovací jazyk. Spájajú Go `text/template`, Helm built-in objects, Helm-specific helpers a veľkú časť Sprig function library. Výsledkom templating-u musí byť deterministický, validný a bezpečný Kubernetes manifest. Funkcie a pipelines preto nie sú iba skrátený zápis; tvoria transformačnú vrstvu medzi typed values a YAML outputom.
+Helm template engine premieňa hodnoty a release context na text, ktorý sa následne interpretuje ako YAML a Kubernetes objekty. Funkcia alebo pipeline preto nie je iba syntaktická pomôcka. Je to compiler boundary, ktorá môže zmeniť typ, význam, dôvernosť, deterministickosť aj lifecycle výsledného resource-u.
 
-## 1. Funkcia
+Kľúčová otázka nie je „ktorú funkciu poznám“, ale:
 
-Základná syntax:
-
-```gotemplate
-{{ functionName argument1 argument2 }}
+```text
+aký input subject vstupuje
+→ akú transformáciu vykonávam
+→ aký typ/text vzniká
+→ do ktorého YAML a Kubernetes fieldu sa vloží
+→ aký runtime a business dôsledok má výsledok
 ```
 
-Príklad:
+## 1. Dominantný lifecycle
+
+```text
+values path a presence contract
+→ type/schema validation
+→ function alebo pipeline evaluation
+→ normalization a merge
+→ serialization a whitespace
+→ rendered field identity
+→ YAML/API/admission validation
+→ runtime effect
+→ deterministic replay a evidence
+```
+
+Pipeline je bezpečná iba vtedy, keď je pri každom kroku jasný vstupný typ, výstupný typ, empty semantics a trust boundary.
+
+## 2. Atlas transform subject
+
+Atlas release používa subject z predchádzajúcej kapitoly:
+
+```text
+chart CH57
+values bundle V57
+manifest M57
+release payments-prod revision 18
+cluster K136
+```
+
+Kritické values:
 
 ```yaml
-metadata:
-  name: {{ printf "%s-api" .Release.Name }}
+legacyAuthorizer:
+  enabled: false
+
+image:
+  digest: sha256:I57
+
+podAnnotations:
+  atlas.example/release: C57
 ```
 
-Helm vyhodnotí argumenty, zavolá funkciu a vloží jej textový výsledok do renderovaného outputu.
+Kritické rendered fields:
 
-## 2. Pipeline
+```text
+ConfigMap data.legacy-authorizer-enabled
+Deployment container image
+Pod template annotations
+Service a Deployment selectors
+```
 
-Pipeline posiela výsledok ľavej časti ako **posledný argument** nasledujúcej funkcie:
+Transform evidence musí spájať konkrétny values path s konkrétnym rendered fieldom. Nestačí vedieť, že „chart sa vyrenderoval“.
+
+## 3. Funkcia a pipeline
+
+Funkcia:
 
 ```gotemplate
-{{ .Values.image.repository | default "nginx" | lower | quote }}
+{{ quote .Values.logLevel }}
 ```
 
-Je to ekvivalent približne:
+Pipeline:
 
 ```gotemplate
-{{ quote (lower (default "nginx" .Values.image.repository)) }}
+{{ .Values.logLevel | lower | quote }}
 ```
 
-Pri viacargumentovej funkcii je poradie podstatné:
+Pipeline posiela výsledok ľavej časti ako posledný argument ďalšej funkcie:
 
 ```gotemplate
 {{ .Values.name | repeat 3 | quote }}
 ```
 
-Výsledok `.Values.name` je posledný argument funkcie `repeat`.
+je konceptuálne:
 
-## 3. Pipeline ako transformačný reťazec
+```gotemplate
+{{ quote (repeat 3 .Values.name) }}
+```
 
-Čitateľná pipeline má zvyčajne tento tvar:
+Pri viacargumentových funkciách môže nesprávny mentálny model vytvoriť validný, ale semanticky chybný output.
+
+## 4. Pipeline ako typed transformačný graph
+
+Čitateľná pipeline má typicky kroky:
 
 ```text
-source value
-→ default/validation
-→ normalization
+source
+→ presence/default rozhodnutie
+→ type conversion alebo normalization
+→ escaping/quoting
 → serialization
 → indentation
 ```
@@ -59,11 +111,45 @@ Príklad:
 {{ .Values.podAnnotations | default dict | toYaml | nindent 8 }}
 ```
 
-Každý krok má mať jasný typ vstupu a výstupu. Príliš dlhá pipeline je ťažko testovateľná; rozdeľ ju cez premenné alebo named helper.
+Implicitný type graph:
 
-## 4. Quoting a YAML typing
+```text
+map alebo nil
+→ map
+→ YAML string
+→ newline + indented YAML string
+```
 
-String value renderuj explicitne:
+Ak sa tento graph nedá jednoducho vysvetliť, pipeline rozdeľ na pomenované intermediate variables alebo named helper.
+
+## 5. Tri typing vrstvy
+
+Helm chart pracuje minimálne s troma typing vrstvami:
+
+```text
+YAML/CLI values parsing
+→ Go template runtime types
+→ rendered YAML + Kubernetes OpenAPI schema
+```
+
+Príklad:
+
+```yaml
+replicas: 3
+version: "3"
+enabled: false
+```
+
+A:
+
+```bash
+--set replicas=3
+--set-string version=3
+```
+
+môžu vytvoriť odlišné Go types a následne odlišný YAML output.
+
+String field:
 
 ```yaml
 env:
@@ -71,41 +157,72 @@ env:
     value: {{ .Values.logLevel | quote }}
 ```
 
-Numeric Kubernetes fields však nemajú byť automaticky quoted:
+Numeric Kubernetes field:
 
 ```yaml
 replicas: {{ .Values.replicaCount }}
 ```
 
-YAML parser, Helm values parser a Kubernetes OpenAPI schema tvoria tri odlišné typing vrstvy. `"3"` a `3` nemusia byť zameniteľné.
+Všeobecné pravidlo „všetko quote-ni“ je rovnako nesprávne ako „nič nequote-ni“. Typ určuje cieľový API contract.
 
-## 5. `default`
+## 6. Presence, empty a explicitná hodnota
+
+Helm/Sprig empty semantics považuje podľa typu za empty napríklad:
+
+- `nil`;
+- prázdny string;
+- `0`;
+- `false`;
+- prázdny list alebo mapu.
+
+To vytvára zásadný rozdiel:
+
+```text
+key chýba
+≠ key je false
+≠ key je 0
+≠ key je prázdny string
+```
+
+Tieto stavy môžu mať odlišný business význam.
+
+## 7. `default` ako policy decision
 
 ```gotemplate
 {{ .Values.service.port | default 8080 }}
 ```
 
-`default` použije fallback pri hodnote považovanej za empty. Do empty kategórie patria podľa typu napríklad `0`, `false`, prázdny string, prázdny list/map alebo `nil`.
-
-Dôsledok:
+`default` použije fallback pri empty inpute. Preto:
 
 ```gotemplate
-{{ .Values.feature.enabled | default true }}
+{{ .Values.legacyAuthorizer.enabled | default true }}
 ```
 
-nedokáže spoľahlivo odlíšiť explicitné `false` od chýbajúcej hodnoty. Pre boolean tri-state contract používaj `hasKey`, explicitný object alebo schema.
+nevie odlíšiť explicitné `false` od chýbajúcej hodnoty.
 
-Statické defaults patria primárne do `values.yaml`. `default` je vhodný najmä pre computed fallback alebo backward-compatible transition.
+Static defaults patria primárne do `values.yaml`. `default` používaj pre computed fallback alebo pre contract, kde všetky empty hodnoty skutočne znamenajú to isté.
 
-## 6. `required` a `fail`
-
-Povinná hodnota:
+Bezpečný boolean contract môže použiť schema s defaultom alebo explicitnú presence logiku:
 
 ```gotemplate
-{{ required "image.repository is required" .Values.image.repository }}
+{{- if hasKey .Values.legacyAuthorizer "enabled" -}}
+{{ .Values.legacyAuthorizer.enabled }}
+{{- else -}}
+true
+{{- end -}}
 ```
 
-Explicitná business validácia:
+Ešte lepšie je mať schema/default contract, ktorý nevyžaduje duplicitu v template.
+
+## 8. `required`, `fail` a schema boundaries
+
+Required value:
+
+```gotemplate
+{{ required "image.digest is required" .Values.image.digest }}
+```
+
+Semantic invariant:
 
 ```gotemplate
 {{- if and .Values.ingress.enabled (empty .Values.ingress.host) }}
@@ -113,62 +230,47 @@ Explicitná business validácia:
 {{- end }}
 ```
 
-`required` a `fail` zlyhajú počas renderovania. Nenahrádzajú `values.schema.json`, Kubernetes API validation ani admission policy; dopĺňajú ich pre chart-specific invariants.
+Rozdelenie zodpovedností:
 
-## 7. Logic a comparison functions
+```text
+values.schema.json
+→ typy, required fields, enum, štruktúra
 
-Go template operators sú funkcie:
+required/fail
+→ chart-specific cross-field invariant pri renderi
 
-```gotemplate
-{{ if and .Values.enabled (gt .Values.replicaCount 1) }}
+Kubernetes API/admission
+→ resource schema a platform policy
+
+runtime test
+→ controller a application outcome
 ```
 
-Bežné funkcie:
+Error message nesmie obsahovať secret payload alebo celý sensitive object.
 
-- `and`, `or`, `not`,
-- `eq`, `ne`, `lt`, `le`, `gt`, `ge`,
-- `empty`,
-- `coalesce`,
-- `ternary`.
-
-Komplexný boolean výraz radšej ulož do pomenovanej premennej:
+## 9. `coalesce` a fallback chains
 
 ```gotemplate
-{{- $haEnabled := and .Values.ha.enabled (ge (int .Values.replicaCount) 3) }}
+{{ coalesce .Values.serviceAccount.name .Values.global.serviceAccountName (include "atlas-payments.fullname" .) }}
 ```
 
-## 8. `coalesce`
+`coalesce` vyberie prvú non-empty hodnotu. Je vhodný iba pri explicitnej precedence, ktorú operator dokáže rekonštruovať.
 
-Vyberie prvú non-empty hodnotu:
+Dlhý fallback chain vytvára hidden configuration:
 
-```gotemplate
-{{ coalesce .Values.serviceAccount.name .Values.global.serviceAccountName (include "app.fullname" .) }}
+```text
+local value
+→ global value
+→ chart metadata
+→ computed release name
+→ live lookup
 ```
 
-Používaj ho pri jasnej precedence. Príliš veľa fallback vrstiev vytvára skrytú konfiguráciu, ktorú operator nevie jednoducho vysvetliť.
-
-## 9. String functions
-
-Typické:
-
-```gotemplate
-{{ .Values.name | lower | replace "_" "-" | trunc 63 | trimSuffix "-" }}
-```
-
-Bežné funkcie:
-
-- `lower`, `upper`, `title`,
-- `trim`, `trimSuffix`, `trimPrefix`,
-- `replace`,
-- `contains`, `hasPrefix`, `hasSuffix`,
-- `printf`,
-- `trunc`.
-
-Kubernetes name helper musí okrem dĺžky rešpektovať DNS naming pravidlá a collision model. Truncation môže odstrániť rozlišujúci suffix; hash alebo release identity navrhni explicitne.
+Incident potom nevie určiť authoritative source. Kritické identity a credentials majú mať kratší, dokumentovaný contract.
 
 ## 10. Type conversion
 
-Values môžu prísť z YAML, CLI `--set`, JSON alebo external automation. Pri nejednoznačnosti konvertuj explicitne:
+Príklady:
 
 ```gotemplate
 {{ int .Values.service.port }}
@@ -176,9 +278,18 @@ Values môžu prísť z YAML, CLI `--set`, JSON alebo external automation. Pri n
 {{ toJson .Values.policy | quote }}
 ```
 
-Funkcie typu `atoi`, `int`, `int64`, `float64`, `toString`, `toStrings` môžu zlyhať alebo vytvoriť nečakaný výsledok pri nesprávnom inpute. Schema validation je bezpečnejšia než tiché coercion.
+Explicitná conversion môže byť správna, ak vstupný contract pripúšťa viac source formats. Nemá však maskovať invalid input.
 
-## 11. Map access: dot, `index`, `get`, `dig`
+```text
+silent coercion
+→ render succeeds
+→ API prijme nečakaný typ alebo string formu
+→ application interpretuje inú hodnotu
+```
+
+Schema validation je bezpečnejšia než široké coercion rules roztrúsené po templates.
+
+## 11. Map access a missing intermediate objects
 
 Dot notation:
 
@@ -186,83 +297,70 @@ Dot notation:
 {{ .Values.image.repository }}
 ```
 
-Dynamický alebo problematický key:
+Problematic key:
 
 ```gotemplate
-{{ index .Values.annotations "example.com/key" }}
+{{ index .Values.annotations "atlas.example/key" }}
 ```
 
-Map helper:
-
-```gotemplate
-{{ get .Values.labels "team" }}
-```
-
-Nested lookup s fallbackom:
+Nested fallback:
 
 ```gotemplate
 {{ dig "service" "port" 8080 .Values }}
 ```
 
-Pri optional nested objects nepoužívaj dlhé dot chains bez guardu; intermediate `nil` môže renderovanie prerušiť.
-
-## 12. `hasKey`
-
-Rozlišuje neprítomný key od prítomnej empty hodnoty:
+Dlhý dot chain môže zlyhať na chýbajúcom intermediate objecte. Najprv fixni alebo default-ni mapu, nie iba posledný leaf.
 
 ```gotemplate
-{{- if hasKey .Values.feature "enabled" }}
-enabled: {{ .Values.feature.enabled }}
-{{- else }}
-enabled: true
-{{- end }}
+{{- $service := .Values.service | default dict -}}
+port: {{ get $service "port" | default 8080 }}
 ```
 
-Je dôležitý pri booleanoch, nule a prázdnych collections, kde `default` mení význam explicitnej hodnoty.
+Aj tu platí, že `0` môže byť explicitná hodnota a `default` ju zmení.
 
-## 13. Lists a dictionaries
-
-Vytvorenie dictionary:
+## 12. Dictionaries, mutation a copy boundary
 
 ```gotemplate
 {{- $labels := dict
-      "app.kubernetes.io/name" (include "app.name" .)
+      "app.kubernetes.io/name" (include "atlas-payments.name" .)
       "app.kubernetes.io/instance" .Release.Name
 }}
 ```
 
-List:
+`set` a `unset` mutujú mapu. Nested mapy môžu byť zdieľané references. Preto merge workflow potrebuje explicitný copy contract:
 
 ```gotemplate
-{{- $ports := list 8080 9090 }}
+{{- $merged := mergeOverwrite (deepCopy .Values.defaults) .Values.overrides -}}
 ```
 
-Bežné operácie:
+Bez `deepCopy` môže helper zmeniť input, ktorý neskôr používa iný template. Výsledok potom závisí od evaluation orderu a je ťažko reprodukovateľný.
 
-- `dict`, `list`,
-- `set`, `unset`,
-- `keys`, `values`,
-- `append`, `prepend`, `concat`,
-- `uniq`, `sortAlpha`,
-- `has`.
+## 13. Merge semantics
 
-`set` modifikuje mapu a vracia ju. Side effects v template logic používaj opatrne; komplikujú reasoning a reuse.
+Pred použitím `merge` alebo `mergeOverwrite` fixni:
 
-## 14. Merge semantics
+- ktorý source má prioritu;
+- čo znamená `null`;
+- ako sa správajú nested maps;
+- či arrays nahrádzajú alebo skladajú;
+- čo sa deje s `false` a `0`;
+- či input maps zostávajú immutable.
 
-```gotemplate
-{{- $merged := mergeOverwrite (deepCopy .Values.defaults) .Values.overrides }}
+Test matrix:
+
+```text
+missing leaf
+explicit false
+explicit zero
+empty map
+null
+nested override
+list replacement
 ```
 
-Rozlišuj:
+Merge contract nesmie byť založený na názve funkcie alebo odhade direction semantics.
 
-- `merge` — priorita závisí od direction semantics funkcie,
-- `mergeOverwrite` — neskoršie zdroje prepisujú skoršie podľa semantics,
-- `deepCopy` — zabraňuje neúmyselnej mutation shared nested map.
-
-Pred použitím merge funkcie vytvor test s nested maps, arrays, booleans a null hodnotami. Merge contract nesmie byť založený na odhade.
-
-## 15. YAML serialization
+## 14. Serialization boundary
 
 ```gotemplate
 {{- with .Values.podSecurityContext }}
@@ -271,31 +369,31 @@ securityContext:
 {{- end }}
 ```
 
-Užitočné funkcie:
+`toYaml` vracia text. Po serializácii už template engine nepozná semantic typ výsledného YAML subtree-u.
 
-- `toYaml`,
-- `toYamlPretty`,
-- `fromYaml`,
-- `fromYamlArray`,
-- `toJson`, `fromJson`.
+Potential chain:
 
-Serializovaný output vždy vizuálne over. Zlé odsadenie vytvorí syntakticky neplatný alebo semanticky iný YAML.
+```text
+Go map
+→ YAML string
+→ indentation
+→ outer YAML parse
+→ Kubernetes object
+```
 
-## 16. `indent` a `nindent`
+Chyba môže vzniknúť v každej hranici. Preto testuj final rendered document, nie iba helper output.
 
-`indent N` odsadí každý riadok. `nindent N` najprv vloží newline a potom odsadí.
+## 15. `indent`, `nindent` a whitespace
 
-Typický pattern:
+`indent N` odsadí riadky. `nindent N` najprv pridá newline a potom odsadí.
 
 ```gotemplate
 metadata:
   labels:
-{{ include "app.labels" . | nindent 4 }}
+{{ include "atlas-payments.labels" . | nindent 4 }}
 ```
 
-`nindent` je vhodný pre block YAML. `indent` je vhodný, keď newline už existuje. Výsledok kontroluj cez `helm template`, nie iba pohľadom na source template.
-
-## 17. Whitespace control
+Whitespace trim markers:
 
 ```gotemplate
 {{- if .Values.enabled }}
@@ -303,106 +401,101 @@ enabled: true
 {{- end }}
 ```
 
-Pomlčka pri delimiteri odstraňuje whitespace na príslušnej strane. Agresívne trimovanie môže spojiť dva YAML tokeny:
+Agresívny trim môže spojiť YAML tokeny:
 
 ```text
 food: "PIZZA"mug: "true"
 ```
 
-Whitespace je súčasť výsledného manifestu. Pri helperoch kombinuj trim markers s `nindent` konzistentne.
+Indentation a whitespace sú súčasť output contractu. Helper nemá hard-code-núť caller-specific nesting.
 
-## 18. `tpl`
+## 16. `include` ako string boundary
 
-`tpl` vyhodnotí string ako Helm template:
+```gotemplate
+{{ include "atlas-payments.labels" . | nindent 4 }}
+```
+
+`include` vyrenderuje named template do stringu, ktorý možno ďalej transformovať. To je praktické, ale vytvára textový boundary:
+
+```text
+helper scope
+→ helper text output
+→ pipeline transform
+→ caller YAML position
+```
+
+Caller musí poznať output shape: scalar, YAML map, list alebo celý fragment.
+
+## 17. `tpl` ako rozšírenie execution boundary
 
 ```gotemplate
 {{ tpl .Values.extraConfig . }}
 ```
 
-Použitie:
-
-- templated config file,
-- user-provided annotations alebo snippets,
-- environment-specific string composition.
+`tpl` vyhodnotí string ako template. Values sa tým menia z dát na executable render input.
 
 Riziká:
 
-- values sa menia na executable template input,
-- caller môže pristupovať k sprístupnenému scope-u,
-- `lookup` alebo iné functions môžu rozšíriť cluster read surface,
-- debugging a escaping sa komplikujú.
+- caller môže používať sprístupnený scope;
+- môže volať functions vrátane cluster-aware operations podľa Helm/version contextu;
+- escaping a debugging sú zložitejšie;
+- GitOps a policy review nevidia iba deklaratívny value;
+- tenant alebo untrusted pull request môže rozšíriť render capability.
 
-`tpl` používaj iba s jasným trust boundary a dokumentovaným contractom. Nevyhodnocuj neoverený tenant input v privilegovanom deployment pipeline.
+`tpl` používaj iba pre trusted, versionovaný contract. Nevyhodnocuj neoverený user payload v deployment pipeline s production cluster credentials.
 
-## 19. `lookup`
+## 18. `lookup` a live cluster dependency
 
 ```gotemplate
-{{- $existing := lookup "v1" "Secret" .Release.Namespace "database-credentials" }}
+{{- $existing := lookup "v1" "Secret" .Release.Namespace "database-credentials" -}}
 ```
 
-`lookup` číta live Kubernetes API. Pri nenájdenom objekte vracia empty value; API/RBAC chyba zlyhá renderovanie.
+`lookup` číta live API pri server-connected renderi. Zavádza:
+
+```text
+cluster identity
++ Helm caller RBAC
++ live object UID/resourceVersion
++ current API availability
+→ render input
+```
 
 Dôsledky:
 
-- local `helm template` nemusí reprodukovať výsledok,
-- render závisí od cluster state a identity,
-- GitOps diff môže byť nedeterministický,
-- required RBAC sa rozširuje,
-- restore do nového clusteru môže vytvoriť iný manifest.
+- local render môže vytvoriť iný output;
+- rovnaký chart a values nemusia dať rovnaký manifest;
+- restore do nového clusteru sa správa inak;
+- render potrebuje širšie RBAC;
+- timeout alebo API error zlyhá template processing;
+- live object môže byť stale alebo vlastnený iným controllerom.
 
-Preferuj deklaratívne values alebo external controller. `lookup` používaj iba pri explicitnom lifecycle dôvode a testuj cez server-connected dry-run.
+Preferuj explicitné values alebo controller reconciliation. `lookup` používaj iba pri jasnom lifecycle dôvode a fixni observed object identity v evidence.
 
-## 20. Nondeterministic functions
+## 19. Nondeterminism
 
-Funkcie ako random generators, `now` alebo certificate generation môžu meniť output pri každom renderi.
+Nondeterministické inputs:
 
-Riziká:
+- `now`;
+- random generators;
+- generated certificates;
+- live `lookup`;
+- mutable `.Capabilities` assumptions;
+- plugins/custom functions;
+- unordered alebo mutation-dependent map processing.
 
-- perpetual diff,
-- upgrade mení credentials alebo annotations,
-- GitOps neustále reconciliuje,
-- rollback nevytvorí pôvodný artifact,
-- testy sú nestabilné.
+Causal failure:
 
-Ak potrebuješ generated secret alebo identifier:
-
-1. vytvor ho mimo chartu,
-2. ulož ho v secret manageri alebo controlled release inpute,
-3. versionuj jeho ownership a rotation,
-4. nerenderuj novú hodnotu pri každom upgrade.
-
-## 21. Cryptographic a encoding functions
-
-Helm/Sprig poskytujú hashing, encoding a niektoré certificate helpers.
-
-Rozlišuj:
-
-- encoding (`b64enc`) nie je encryption,
-- checksum annotation nie je digital signature,
-- hash citlivého low-entropy secretu môže byť brute-forceable,
-- generated certificate bez PKI lifecycle nie je production trust model.
-
-Checksum helper je vhodný napríklad na rollout pri zmene ConfigMap:
-
-```gotemplate
-checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+```text
+rovnaký source a values
+→ nový random secret pri upgrade
+→ Pod credentials sa zmenia
+→ downstream credential ostane starý
+→ rollout je green, authentication zlyháva
 ```
 
-Musí však byť stabilný pre semanticky rovnaký input a nesmie exponovať secret material.
+Generated identity vytvor raz v controlled lifecycle-e, ulož ju v authoritative secret systeme a pri ďalšom renderi používaj stabilnú reference.
 
-## 22. `include` ako funkcia
-
-```gotemplate
-{{ include "app.labels" . | nindent 4 }}
-```
-
-`include` vráti rendered named template ako string, takže ho možno poslať do pipeline. Je preferovaný pre reusable YAML fragments, ktoré potrebujú indentation alebo ďalšiu transformáciu.
-
-Detaily named templates sú v nasledujúcej kapitole.
-
-## 23. `Capabilities`
-
-Podmienenie podľa podporovaného API:
+## 20. `.Capabilities` a target platform
 
 ```gotemplate
 {{- if .Capabilities.APIVersions.Has "policy/v1/PodDisruptionBudget" }}
@@ -412,74 +505,254 @@ apiVersion: policy/v1
 {{- end }}
 ```
 
-`Capabilities` pri local renderi závisí od Helm flags a default assumptions. Pre CI nastav explicitné Kubernetes/API versions alebo používaj server validation proti representative clusteru.
+Local render capabilities závisia od flags a Helm defaults. Production test má používať explicitný target Kubernetes/API inventory alebo server validation proti reprezentatívnemu clusteru.
 
-## 24. Debugging
+Compatibility fallback nie je vždy správna voľba. Ak staré API už nie je podporovaným platformovým contractom, fail je bezpečnejší než tiché renderovanie legacy variantu.
 
-Základ:
+## 21. Worked failure: explicitné `false` sa zmení na `true`
 
-```bash
-helm lint ./chart
-helm template example ./chart -f values-test.yaml --debug
-helm install example ./chart --dry-run=server --debug -n test
+Atlas values V57 obsahovali:
+
+```yaml
+legacyAuthorizer:
+  enabled: false
 ```
 
-Pri probléme oddel:
+Template:
 
-1. values typing,
-2. template execution,
-3. YAML parsing,
-4. Kubernetes schema,
-5. API availability,
-6. admission,
-7. runtime behavior.
+```gotemplate
+legacy-authorizer-enabled: {{ .Values.legacyAuthorizer.enabled | default true | quote }}
+```
+
+Rendered M57:
+
+```yaml
+data:
+  legacy-authorizer-enabled: "true"
+```
+
+### Subject identity
+
+```text
+values source/path: V57 / legacyAuthorizer.enabled
+Go runtime value: bool(false)
+pipeline: default true → quote
+rendered field: ConfigMap/data/legacy-authorizer-enabled
+manifest: M57
+Pod config generation: checksum CFG57
+request: P-884
+```
+
+### Competing hypotheses
+
+1. Effective values neobsahujú `false`.
+2. CLI override vytvoril string `"false"` alebo `true`.
+3. Pipeline empty semantics aktivovali fallback.
+4. Helper alebo merge prepísal subtree.
+5. ConfigMap bola správna, ale Pod používa starý projection/env snapshot.
+6. Application parsuje string opačne alebo používa iný key.
+7. Traffic ide na old-generation Pod.
+
+### Discriminating observations
+
+```text
+helm get values --all
+→ potvrdí effective value
+
+type-focused render test
+→ potvrdí bool false pred pipeline
+
+helm template --show-only templates/configmap.yaml
+→ ukáže rendered field
+
+live ConfigMap + managedFields
+→ odlíši admission/manual mutation
+
+Pod template checksum a creation time
+→ odlíši stale Pod generation
+
+process-loaded config endpoint alebo redacted startup log
+→ odlíši delivery od application parse
+
+request trace + Pod UID
+→ odlíši traffic cohort
+```
+
+### Finding
+
+Root cause je `default` empty semantics. `false` je empty, preto fallback `true` vyhral. Quote iba serializovalo už chybný boolean verdict.
+
+### Containment
+
+- zastav promotion M57;
+- zachovaj exact values, render a live/process evidence;
+- vypni legacy path cez úzky authoritative control, ak je možné bez ďalšieho driftu;
+- nevkladaj debug payload s celými values alebo Secrets do CI logu;
+- nepatchuj iba live ConfigMap bez opravy source/template writera.
+
+### Recovery
+
+```gotemplate
+{{- if hasKey .Values.legacyAuthorizer "enabled" -}}
+legacy-authorizer-enabled: {{ .Values.legacyAuthorizer.enabled | quote }}
+{{- else -}}
+legacy-authorizer-enabled: "true"
+{{- end -}}
+```
+
+Alebo presuň default do schema/default contractu a renderuj value priamo.
+
+Potom:
+
+1. pridaj golden tests pre missing, `false` a `true`;
+2. pridaj semantic assertion nad rendered ConfigMap;
+3. vytvor CH58/M58;
+4. vykonaj server validation;
+5. rolloutni novú Pod generation;
+6. over process-loaded state a request P-884-like business path.
+
+### Original a forbidden outcome verification
+
+- legacy flag je `false` v effective values, renderi, live ConfigMap aj procese;
+- explicitné `true` stále funguje;
+- missing value používa dokumentovaný default;
+- rovnaký input vytvorí rovnaký manifest digest;
+- old Pod generation už nie je endpoint eligible;
+- payment operation vznikne presne raz.
+
+### Earlier controls
+
+- schema tests;
+- values presence/type matrix;
+- helper/pipeline unit tests;
+- rendered semantic assertions;
+- deterministic render gate;
+- source-to-field provenance pre critical flags.
+
+## 22. Ďalšie failure boundaries
+
+### `toYaml` + nesprávny `nindent`
+
+Validný subtree sa vloží na zlú úroveň. YAML môže byť syntakticky validný, ale field skončí mimo očakávaného objectu.
+
+### `mergeOverwrite` bez copy boundary
+
+Jeden helper zmutuje shared mapu a neskorší template dostane iný input podľa evaluation orderu.
+
+### `tpl` nad untrusted inputom
+
+PR values získajú template execution capability a môžu používať production caller scope alebo live API reads.
+
+### `lookup` ako source of truth
+
+Release render závisí od live objectu, ktorý nie je versionovaný s chartom. Restore alebo diff nevie reprodukovať rovnaký desired state.
+
+### Random credential v každom renderi
+
+Upgrade vykoná neplánovanú rotation a rollback nevytvorí pôvodný credential subject.
+
+### `Capabilities` z lokálneho defaultu
+
+CI vyrenderuje API variant, ktorý nezodpovedá target clusteru.
+
+## 23. Referenčný function catalog
+
+### Presence a policy
+
+- `default`;
+- `required`;
+- `fail`;
+- `empty`;
+- `hasKey`;
+- `coalesce`.
+
+### Types a structures
+
+- `int`, `int64`, `toString`;
+- `dict`, `list`;
+- `get`, `index`, `dig`;
+- `set`, `unset`;
+- `deepCopy`, `merge`, `mergeOverwrite`.
+
+### Serialization a formatting
+
+- `quote`, `squote`;
+- `toYaml`, `fromYaml`;
+- `toJson`, `fromJson`;
+- `indent`, `nindent`;
+- whitespace trim markers.
+
+### Dynamic execution a cluster context
+
+- `tpl`;
+- `lookup`;
+- `.Capabilities.APIVersions.Has`;
+- `include`.
+
+Catalog je reference. Pri návrhu začni typovým a lifecycle modelom, nie výberom funkcie.
+
+## 24. Debugging workflow
+
+```text
+exact values sources a types
+→ isolate smallest template/field
+→ inspect each intermediate value
+→ render exact target capabilities
+→ parse final YAML
+→ server-side validate/admission diff
+→ compare live object
+→ verify process-loaded a business state
+```
+
+Príkazy:
+
+```bash
+helm lint ./chart -f values-test.yaml
+helm template payments-prod ./chart \
+  -f values-prod.yaml \
+  --show-only templates/configmap.yaml \
+  --debug
+helm install payments-prod ./chart \
+  -f values-prod.yaml \
+  --dry-run=server \
+  --debug \
+  -n atlas-payments-prod
+```
+
+Debug output rediguj. `--debug` môže exponovať rendered sensitive fields.
 
 ## 25. Anti-patterny
 
-### Dlhá pipeline bez pomenovaných intermediate values
-
-Nie je jasné, ktorý krok mení typ alebo zlyháva.
-
-### `default true` nad explicitným booleanom
-
-Môže prepísať zámerné `false`.
-
-### `toYaml` bez správneho `nindent`
-
-Vytvorí neplatnú alebo zle vnorenú štruktúru.
-
-### `tpl` nad neovereným inputom
-
-Rozširuje template execution a cluster-read surface.
-
-### `lookup` ako hlavný source desired state
-
-Render závisí od náhodného live state-u a nie je reprodukovateľný.
-
-### Random secret pri každom upgrade
-
-Spôsobí credential rotation bez koordinácie.
-
-### Silent type coercion
-
-Chybná hodnota prejde renderom a zlyhá až v API alebo runtime.
+- pipeline bez vysvetliteľného type graphu;
+- `default true` nad explicitným booleanom;
+- silent coercion namiesto schema validation;
+- nested dot chain bez presence guardu;
+- map mutation bez copy contractu;
+- merge semantics bez test matrix;
+- `toYaml` bez final rendered YAML testu;
+- hard-coded indentation v helper outpute;
+- `tpl` nad untrusted values;
+- `lookup` ako hlavný desired-state source;
+- random/time function v stable resource identity;
+- local capabilities považované za target-cluster verdict;
+- incident debugging cez dump celých values alebo Secrets.
 
 ## 26. Kontrolné otázky
 
-1. Kam pipeline posiela výsledok predchádzajúceho kroku?
-2. Prečo je `default` problematický pri `false` a `0`?
-3. Kedy použiť `required` a kedy `values.schema.json`?
-4. Aký je rozdiel medzi `indent` a `nindent`?
-5. Ako odlíšiš chýbajúci key od prítomnej empty hodnoty?
-6. Prečo môže byť `tpl` bezpečnostné riziko?
-7. Ako `lookup` ovplyvňuje reprodukovateľnosť renderu?
-8. Prečo nondeterministic functions spôsobujú GitOps drift?
-9. Načo slúži `deepCopy` pri merge operáciách?
-10. Ktoré validačné vrstvy nasledujú po úspešnom Helm renderi?
+1. Aký type graph vytvára konkrétna pipeline?
+2. Prečo `false` a `0` nie sú to isté ako missing key?
+3. Kedy je `default` správny policy mechanism a kedy nie?
+4. Ako rozdelíš schema, `required`/`fail` a API validation zodpovednosti?
+5. Prečo map mutation potrebuje copy boundary?
+6. Čo sa stráca pri `toYaml` serialization boundary?
+7. Ako `tpl` mení trust model values?
+8. Ktoré identity pridáva `lookup` do render subjectu?
+9. Ako preukážeš deterministic render?
+10. Ktoré observation points odlíšia render chybu od stale Pod konfigurácie?
 
 ## Glossary impact
 
-Relevantné pojmy: Helm template function, Helm pipeline, pipeline last argument, empty value — Helm, `default`, `required`, `fail`, `coalesce`, `hasKey`, `dict`, `list`, Helm merge, `toYaml`, `nindent`, whitespace control, `tpl`, `lookup`, nondeterministic template a Helm Capabilities.
+Relevantné pojmy: typed render pipeline, values presence contract, Helm empty semantics, rendered-field identity, template type graph, merge mutation boundary, serialization boundary, deterministic render verdict, dynamic template execution boundary, live-lookup render subject, capability-conditioned render a source-to-field provenance.
 
 ## Oficiálna dokumentácia
 
@@ -487,6 +760,7 @@ Relevantné pojmy: Helm template function, Helm pipeline, pipeline last argument
 - [Template Function List](https://helm.sh/docs/chart_template_guide/function_list/)
 - [Flow Control](https://helm.sh/docs/chart_template_guide/control_structures/)
 - [Debugging Templates](https://helm.sh/docs/chart_template_guide/debugging/)
+- [Chart Development Tips and Tricks](https://helm.sh/docs/howto/charts_tips_and_tricks/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
