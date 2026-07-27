@@ -1,216 +1,223 @@
 # Terraform state
 
-Terraform state je persistentný model, ktorý spája resource addresses v konfigurácii s konkrétnymi remote objektmi a uchováva metadata potrebné na plánovanie ďalších zmien.
+Terraform state je persistentný identity a observation model, ktorý spája Terraform resource instances s konkrétnymi remote objektmi. Nie je to desired configuration ani obyčajná cache. Bez správneho state-u Terraform nevie, ktorý remote objekt patrí ku ktorej resource address-e, aký snapshot bol naposledy autoritatívne zapísaný a ako má bezpečne pokračovať po partial alebo neznámom výsledku.
 
-State nie je náhrada konfigurácie ani všeobecná inventory databáza. Je to kritický operational asset Terraform execution modelu.
+Dominantný model tejto kapitoly je:
 
-## 1. Prečo Terraform potrebuje state
+```text
+configuration address a provider target
+→ resource binding na remote object ID
+→ versionovaný state snapshot
+→ refresh a plan nad desired/known/actual state
+→ remote mutation
+→ nový snapshot alebo unknown state-write outcome
+→ runtime a binding verification
+→ recovery, surgery alebo ďalší reconciled plan
+```
 
-Konfigurácia obsahuje deklarovanú adresu:
+State troubleshooting preto nezačína otázkou „čo je v JSON-e“, ale otázkou: **ktorá address, provider identity, remote object, lineage a serial tvoria subject konkrétneho rozhodnutia?**
+
+## 1. Atlas scenár: produkčná sieť ako state subject
+
+Atlas Payments spravuje produkčnú VPC cez root module `payments-prod`. Resource instance má adresu:
 
 ```text
 module.network.aws_vpc.main
 ```
 
-Cloud API pozná remote identitu:
+AWS pozná objekt ako:
 
 ```text
-vpc-0123456789abcdef0
+account 7711 / region eu-central-1 / vpc-0a42
 ```
 
-State uchováva mapovanie medzi nimi.
-
-Bez tohto mapovania by Terraform nevedel spoľahlivo určiť:
-
-- ktorý objekt má aktualizovať,
-- ktorý objekt už existuje,
-- ktoré instances patria ku `count` alebo `for_each`,
-- ktoré objekty boli presunuté medzi adresami,
-- ktoré provider configuration a schema metadata sa použili.
-
-## 2. State nie je desired state
-
-Desired state je konfigurácia.
-
-State reprezentuje Terraformom známy snapshot spravovaných objektov a ich identity/attributes z posledného úspešného alebo čiastočne úspešného runu.
-
-Remote systém je actual state.
+State uchováva binding:
 
 ```text
-configuration = desired
-state snapshot = Terraform knowledge
-remote APIs = actual
+module.network.aws_vpc.main
++ provider aws.production
+→ account 7711 / eu-central-1 / vpc-0a42
 ```
 
-Plan porovnáva všetky tri vrstvy.
+Tento binding je dôležitejší než podobnosť názvov. Ak zmizne alebo sa načíta iný backend/workspace, VPC môže stále existovať a obsluhovať produkciu, ale Terraform ju pri tejto address-e neuvidí. Nasledujúci plan potom môže navrhnúť duplicate create alebo deštrukciu úplne iného objektu.
 
-## 3. Resource binding
+## 2. Desired, known a actual state
+
+Pri každom plan-e odlišuj tri vrstvy:
+
+```text
+desired state = configuration + resolved inputs
+known state   = bindings a attributes v konkrétnom snapshot-e
+actual state  = objekty a hodnoty pozorované cez provider API
+```
+
+Plan vzniká porovnaním všetkých troch:
+
+```text
+configuration C42
++ state lineage L-prod / serial 208
++ provider reads v account-e 7711
+→ saved plan P209
+```
+
+Ak sa vrstvy rozídu, rozdiel nemusí znamenať obyčajný remote drift. Môže ísť o nesprávny backend, stratený binding, zmenu instance key, provider normalization, partial apply alebo manuálny ownership transfer. Správna náprava závisí od mechanizmu.
+
+## 3. Resource binding ako ownership record
+
+Resource binding prepája:
+
+- úplnú resource instance address-u vrátane module pathu a `for_each` key alebo `count` indexu;
+- provider configuration address a target identity;
+- provider-specific remote object ID;
+- známe attributes a schema metadata.
 
 Príklad:
 
-```hcl
-resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
-}
+```text
+module.network.aws_subnet.private["az-a"]
+→ provider aws.production
+→ subnet-0f18
 ```
 
-State binding:
+State binding hovorí, ktorý objekt Terraform spravuje. Nehovorí, že objekt je zdravý, že má správny traffic ani že ho nespravuje aj iný writer. Ownership musí byť potvrdený configuration contractom a organizačnou policy.
+
+Ak tú istú remote identitu spravujú dve resource addresses alebo dva states, oba workflows môžu striedavo prepisovať hodnoty alebo objekt odstrániť. Duplicate ownership je state-model incident, nie iba nepríjemný diff.
+
+## 4. Snapshot, lineage a serial
+
+State sa vyvíja cez snapshots. Snapshot typicky obsahuje:
+
+- resource bindings;
+- známe attributes a outputs;
+- provider associations;
+- Terraform/state format metadata;
+- **lineage**;
+- **serial**.
+
+Lineage rozlišuje nezávislé state histórie. Serial monotónne identifikuje novší snapshot v jednej lineage:
 
 ```text
-aws_vpc.main
-→ provider registry.terraform.io/hashicorp/aws
-→ remote ID vpc-0123456789
-→ known attributes
+L-prod / serial 208
+→ apply alebo state mutation
+→ L-prod / serial 209
 ```
 
-Ak state binding zmizne, remote objekt môže naďalej existovať, ale Terraform ho už nepovažuje za spravovaný touto adresou.
+Vyšší serial z inej lineage nie je automaticky „novší produkčný state“. Recovery musí overiť obidve identity aj environment/backend subject. Prepísanie snapshotu iba podľa času súboru môže obnoviť nesúvisiaci environment.
 
-## 4. State snapshot
+State formát je interný implementation detail. Preferuj stabilné CLI/API operácie a backend snapshots pred vlastným parserom alebo ručnou editáciou JSON-u.
 
-State sa vyvíja cez snapshots. Snapshot obsahuje okrem resources aj metadata ako:
+## 5. Refresh mení poznanie, nie intent
 
-- Terraform/state format version,
-- lineage,
-- serial,
-- outputs,
-- provider associations,
-- resource instance data,
-- dependency-related metadata podľa formátu a verzie.
-
-State format je interný implementation detail. Nespoliehaj sa na ručné parsovanie interného JSON tam, kde existuje stabilné CLI alebo API.
-
-## 5. Lineage
-
-Lineage identifikuje históriu konkrétneho state-u.
-
-Dva states s rozdielnym lineage typicky vznikli nezávisle. Terraform používa lineage ako ochranu pred prepísaním nesúvisiaceho state snapshotu.
-
-Pri disaster recovery treba overiť, že obnovuješ správny lineage pre správny environment a configuration boundary.
-
-## 6. Serial
-
-Serial je monotónne rastúce číslo snapshotu.
-
-Vyšší serial znamená novšiu známu state verziu v rovnakej lineage.
-
-Pri manuálnom push Terraform kontroluje, či sa operátor nepokúša prepísať novší snapshot starším. Force bypass je nebezpečný a môže spôsobiť stratu zmien.
-
-## 7. Local state
-
-Bez nakonfigurovaného remote backendu Terraform používa local backend a typicky uloží state do:
+Provider read operácie aktualizujú observation model:
 
 ```text
-terraform.tfstate
+prior state attributes
+→ provider Read(account, region, remote ID)
+→ refreshed actual attributes
 ```
 
-Môže vytvoriť aj backup predchádzajúcej verzie.
+Refresh môže odhaliť:
 
-Local state je vhodný pre:
+- manuálne zmenený firewall rule;
+- chýbajúci remote objekt;
+- platformou normalizovanú hodnotu;
+- attribute zmenený iným controllerom;
+- objekt v inom stave, než evidoval predchádzajúci snapshot.
 
-- učenie,
-- izolovaný experiment,
-- jedného operátora bez collaboration požiadaviek.
+Refresh nemení configuration intent. Až plan rozhodne, či bude rozdiel vrátený, adoptovaný, ignorovaný podľa explicitného ownership contractu alebo riešený importom či state repair-om.
 
-Nie je vhodný ako produkčný team model, pretože chýba central access, robustná locking/concurrency boundary a spravovaný recovery lifecycle.
+## 6. State a saved plan freshness
 
-## 8. State môže obsahovať secrets
-
-Provider attributes, outputs a resource arguments môžu skončiť v state.
-
-Príklady:
-
-- generated passwords,
-- connection strings,
-- private keys,
-- tokens,
-- database credentials,
-- sensitive configuration.
-
-`sensitive = true` obmedzuje zobrazovanie, ale state hodnotu môže stále obsahovať.
-
-State storage preto potrebuje:
-
-- encryption at rest a in transit,
-- least-privilege access,
-- audit logging,
-- versioning/backups,
-- secure CI handling,
-- zákaz publikovania ako bežný artifact.
-
-## 9. Refresh
-
-Terraform používa provider read operácie na aktualizáciu poznania o remote objektoch.
-
-Pri planning workflowe refresh odhalí napríklad:
-
-- manuálne zmenený argument,
-- chýbajúci remote objekt,
-- platformou zmenený computed attribute,
-- novú normalizovanú hodnotu.
-
-Refresh nemení desired configuration. Aktualizuje known actual state pre plan rozhodnutie.
-
-## 10. Drift
-
-Drift vznikne, keď remote objekt nezodpovedá konfigurácii/state očakávaniu.
-
-Plan môže navrhnúť:
-
-- vrátiť remote objekt ku konfigurácii,
-- adoptovať platformovú normalized hodnotu bez zmeny,
-- znovu vytvoriť chýbajúci objekt,
-- nahradiť objekt pri nekompatibilnej zmene.
-
-Drift musí mať ownership rozhodnutie:
+Saved plan je viazaný minimálne na:
 
 ```text
-revert remote change
-adopt change into code
-import/adopt object
-remove object from management
-repair provider/configuration mismatch
+configuration a resolved inputs
++ provider/module selections
++ backend/workspace identity
++ lineage a prior serial
++ refresh observations
++ target identity
 ```
 
-## 11. State a plan
+Approval nad planom P209 schvaľuje práve tento subject. Ak medzi planom a apply vznikne serial 209 z iného runu, pôvodný plan už nereprezentuje aktuálny state. Bezpečný workflow ho odmietne a vytvorí nový plan.
 
-Plan používa:
+Apply, ktorý namiesto schváleného saved planu potichu prepočíta nový plan, vykonáva iné rozhodnutie.
+
+## 7. Apply nie je jedna state transakcia
+
+Remote APIs a state storage netvoria jednu ACID transakciu. Typický operation path je:
 
 ```text
-configuration
-+ prior state
-+ refreshed remote observations
-+ provider schemas
-= proposed changes
+read snapshot S208
+→ provider Create/Update/Delete
+→ remote API dokončí alebo pokračuje asynchrónne
+→ provider vráti remote ID a attributes
+→ Terraform pripraví S209
+→ backend zapíše S209
 ```
 
-Saved plan je viazaný na konkrétny state a configuration context. Ak sa state medzi plan a apply zmení, apply môže odmietnuť stale plan alebo vyžadovať nový plan podľa workflowu.
-
-## 12. Partial apply a state
-
-Apply môže zlyhať po vykonaní časti operácií:
+Failure môže vzniknúť medzi ľubovoľnými krokmi. Kritický stav je:
 
 ```text
-resource A created
-resource B created
-resource C failed
+remote mutation možno uspela
++ state write outcome je unknown alebo failed
 ```
 
-Terraform sa snaží zapísať state pre úspešne dokončené operácie. Nasledujúci plan má vyhodnotiť nový partial stav a pokračovať alebo navrhnúť recovery.
+Slepý retry potom môže vytvoriť duplicate object alebo zopakovať nevratný side effect. Recovery najprv pozoruje backend aj remote platformu.
 
-Neopakuj slepo celý external workflow mimo Terraformu, ak už vznikli side effects.
+## 8. Worked failure: remote create uspel, binding sa nezapísal
 
-## 13. State commands
+Atlas pridával produkčný NAT gateway. Provider odoslal create request a AWS vytvoril `nat-0913`. Pri zápise snapshotu S209 vypadla sieť medzi runnerom a backendom.
 
-Bezpečnejšie inspection príkazy:
+```text
+configuration obsahuje NAT
+→ remote API vytvorí nat-0913
+→ state write connection reset
+→ pipeline skončí failed
+→ operátor spustí apply znova
+→ plan navrhuje ďalší NAT
+```
+
+Príčina nie je neúspešný remote create, ale **stratená alebo nepotvrdená state binding transition**.
+
+Správny recovery path:
+
+1. zastaviť ďalších writers;
+2. zachovať provider request ID, logs a lokálny recovery snapshot;
+3. overiť latest backend lineage/serial;
+4. vyhľadať remote objekt podľa request metadata, tags a account/region identity;
+5. ak binding chýba, importovať alebo obnoviť správny snapshot;
+6. vytvoriť čerstvý plan;
+7. overiť, že existuje jediný NAT a správne route bindings.
+
+## 9. Worked failure: restore vrátil starý binding
+
+Po chybnej state surgery tím obnovil snapshot S204, hoci produkcia už bola na S208. Medzičasom sa subnet presunul z indexovej address-y na stabilný key.
+
+```text
+S204 obsahuje subnet[0] → subnet-old
+S208 obsahuje subnet["az-a"] → subnet-current
+→ restore S204
+→ plan interpretuje current address ako nový objekt
+→ navrhne create/destroy proti živej sieti
+```
+
+Backup bol čitateľný, ale nebol kompatibilný s aktuálnou configuration a remote realitou. Restore capability preto musí overovať lineage, serial, address migrations a actual inventory, nie iba úspešné načítanie JSON-u.
+
+## 10. State inspection verzus state mutation
+
+Inspection príkazy pomáhajú identifikovať subject:
 
 ```bash
 terraform state list
-terraform state show <address>
+terraform state show 'module.network.aws_subnet.private["az-a"]'
 terraform show
 terraform output
 ```
 
-Manipulačné príkazy:
+`state show` je známa state reprezentácia, nie záruka live health. Pri aktuálnom remote rozhodnutí použi bezpečný refresh/plan a platformové observation points.
+
+Mutation príkazy menia management metadata:
 
 ```bash
 terraform state mv
@@ -220,307 +227,247 @@ terraform state pull
 terraform state push
 ```
 
-Manipulačné príkazy menia management metadata, nie vždy remote objekt.
+State mutation nemusí meniť remote objekt. Práve preto môže vytvoriť nebezpečný rozdiel medzi management modelom a runtime realitou.
 
-Každá state surgery má mať:
+## 11. State surgery protocol
 
-- backup,
-- exclusive lock,
-- peer review,
-- presný source/target address,
-- následný plan,
-- audit trail.
+Každá state surgery má mať tento lifecycle:
 
-## 14. `terraform state list`
-
-Zobrazí resource instance addresses v aktuálnom state:
-
-```bash
-terraform state list
+```text
+freeze writers
+→ identifikuj backend/workspace/lineage/serial
+→ vytvor a chráň backup
+→ inventory source/destination addresses a remote IDs
+→ vykonaj najmenšiu mutation
+→ čerstvý refresh/plan
+→ remote a runtime verification
+→ audit a odstránenie dočasného accessu
 ```
 
-Použitie:
+### `state mv`
 
-- overenie správneho workspace/backendu,
-- nájdenie module paths,
-- príprava `state mv`,
-- diagnostika missing bindingu.
-
-Výstup nemusí dokazovať, že remote objekt stále existuje alebo je healthy.
-
-## 15. `terraform state show`
-
-```bash
-terraform state show 'module.network.aws_subnet.private["a"]'
-```
-
-Zobrazuje známu state reprezentáciu konkrétnej instance.
-
-Nie je to vždy live API query v momente spustenia. Pre aktuálny remote stav použi čerstvý refresh/plan podľa bezpečného workflowu.
-
-## 16. `terraform state mv`
-
-Presúva binding medzi resource addresses:
+Presúva binding medzi addresses bez remote create/delete:
 
 ```bash
 terraform state mv aws_instance.old aws_instance.new
 ```
 
-Použitie:
+Pre versionovaný refaktoring preferuj `moved` block. Manuálny `state mv` je environment-specific zásah a pri viacerých consumers sa ľahko vykoná nekonzistentne.
 
-- refactor resource name,
-- presun do module,
-- zmena instance address.
+### `state rm`
 
-Preferuj versionované `moved` blocks pre opakovateľné refaktorizácie zdieľanej konfigurácie. Manuálne `state mv` je operatívny zásah viazaný na konkrétny state.
-
-## 17. `terraform state rm`
-
-Odstráni binding zo state bez zmazania remote objektu:
+Odstráni binding, ale ponechá remote objekt:
 
 ```bash
 terraform state rm aws_instance.legacy
 ```
 
-Po operácii Terraform objekt nespravuje. Ak resource block zostane v konfigurácii, ďalší plan sa môže pokúsiť vytvoriť nový objekt.
+Je legitímny pri explicitnom ownership transfere alebo oprave chybného bindingu. Ak configuration block zostane, ďalší plan môže navrhnúť duplicate create.
 
-Použi iba pri vedomom ownership transfere alebo oprave state modelu.
+### `state pull` a `state push`
 
-## 18. `terraform state pull` a `push`
+`state pull` môže vytvoriť recovery snapshot. `state push` manuálne prepisuje backend state a je posledná možnosť. Pred push musí byť overená lineage, serial, target backend, exclusive access a rollback snapshot. Force bypass nesmie slúžiť ako bežný workflow.
 
-`state pull` načíta aktuálny snapshot:
+## 12. State boundaries a blast radius
 
-```bash
-terraform state pull > backup.tfstate
-```
+Jeden state definuje spoločný:
 
-`state push` manuálne prepíše backend snapshot a je vysoko rizikový.
+- lock a writer queue;
+- plan/apply lifecycle;
+- apply permission scope;
+- recovery unit;
+- failure blast radius;
+- cross-resource dependency graph.
 
-Pred push:
+Boundary navrhuj podľa ownershipu, environmentu, security domain, lifecycle cadence, failure domainu a recovery nezávislosti.
 
-- zastav všetky applies,
-- získaj lock,
-- over lineage a serial,
-- vytvor backup remote state,
-- validuj obsah,
-- priprav recovery,
-- po push spusti refresh/plan.
+Príliš veľký state vytvára široké permissions, dlhý critical path a neprimerané incidenty. Príliš malé states vytvárajú množstvo cross-state contracts a orchestrácie.
 
-Force push používaj iba pri presne diagnostikovanej recovery situácii.
+Module boundary nie je automaticky state boundary. Samostatný state vzniká až samostatným root module/backend lifecycle-om.
 
-## 19. Manuálna editácia JSON
+## 13. Workspaces a environment identity
 
-Priame otvorenie a ručná úprava `terraform.tfstate` je posledná možnosť.
+CLI workspace vyberá state instance pod jednou backend configuration. Je vhodný len vtedy, keď environments zdieľajú rovnaký configuration shape a governance model.
 
-Riziká:
-
-- poškodená schema,
-- nesprávny serial/lineage,
-- stratené provider metadata,
-- citlivé údaje v editor backupoch,
-- nesúlad s remote backendom,
-- nevratná strata bindingu.
-
-Preferuj:
-
-- `moved` blocks,
-- import blocks/commands,
-- `terraform state` príkazy,
-- provider-supported migrations,
-- obnovenie snapshotu.
-
-## 20. State boundaries
-
-Samostatný state vytvára:
-
-- samostatný lock,
-- samostatný blast radius,
-- samostatné permissions,
-- samostatný plan/apply lifecycle,
-- explicitné cross-state contracts.
-
-Boundary navrhuj podľa:
-
-- environmentu,
-- ownershipu,
-- security domain,
-- lifecycle cadence,
-- failure domain,
-- resource count a provider limits.
-
-## 21. Workspaces
-
-CLI workspaces umožňujú viac state instances pre jednu backend configuration.
-
-Nie sú univerzálnou náhradou za:
-
-- samostatné accounts/subscriptions,
-- oddelené credentials,
-- environment-specific policy,
-- odlišné module composition,
-- bezpečnostné boundaries.
-
-Použi ich, keď states zdieľajú rovnakú configuration shape a backend governance. Produkčné prostredie nemá byť oddelené od developmentu iba ľahko prehliadnuteľným workspace selectionom bez ďalších controls.
-
-## 22. Cross-state dependencies
-
-Oddelené states môžu zdieľať údaje cez outputs alebo external registry.
-
-Priamy remote-state access vytvára coupling na:
-
-- backend availability,
-- state permissions,
-- output schema,
-- producer apply cadence.
-
-Consumer nemá dostávať širší state access, než potrebuje. Pri citlivých boundaries publikuj explicitný contract do vhodného systému.
-
-## 23. State backup a recovery
-
-Recovery plán má obsahovať:
-
-- backend versioning,
-- retention,
-- immutable alebo chránené backups,
-- restore procedure,
-- lineage/serial validation,
-- test restore,
-- ownera,
-- incident audit.
-
-Backup bez pravidelne overeného restore nie je dôveryhodná recovery capability.
-
-Po obnove state vždy porovnaj:
+Produkciu nesmie chrániť iba názov workspace-u zapamätaný operátorom. Apply job má pred mutation overiť:
 
 ```text
-restored state
-vs. configuration
-vs. remote actual state
+backend host/bucket
+state key alebo workspace
+lineage
+cloud account/subscription
+region
+apply identity
+expected environment marker
 ```
 
-## 24. State loss
+Zlý workspace je schopný vytvoriť plan, ktorý je syntakticky platný, ale mieri na nesprávny state subject.
 
-Pri strate state remote infraštruktúra nemusí zmiznúť.
+## 14. Cross-state contracts
 
-Možnosti recovery:
+Oddelené states si môžu publikovať úzke outputs cez parameter store, configuration registry, DNS/service discovery alebo iný explicitný contract.
 
-1. obnoviť backend snapshot,
-2. obnoviť lokálny backup,
-3. importovať existujúce objekty,
-4. rekonštruovať bindings po častiach,
-5. vedome odstrániť/recreate infraštruktúru.
+Priamy remote-state access viaže consumera na:
 
-Hromadný apply s prázdnym state môže vytvoriť duplicity alebo naraziť na name conflicts.
+- backend availability a permissions;
+- producer output schema;
+- producer apply cadence;
+- potenciálne širší snapshot access, než potrebuje.
 
-## 25. State corruption
+Silná security boundary má publikovať iba potrebnú hodnotu s ownerom, compatibility a freshness semantics, nie poskytovať všeobecné čítanie celého state-u.
 
-Symptómy:
+## 15. Secrets a state access
 
-- invalid JSON alebo schema,
-- provider address mismatch,
-- duplicate bindings,
-- serial/lineage konflikt,
-- state odkazuje na neexistujúce instances,
-- backend snapshot je čiastočne zapísaný.
+State môže obsahovať passwords, private keys, tokens, connection strings a provider-returned sensitive attributes. `sensitive = true` obmedzuje presentation, nie storage.
 
-Postup:
+State storage a recovery copies preto potrebujú:
 
-1. zastav writes,
-2. zachovaj všetky snapshots a logs,
-3. identifikuj posledný known-good serial,
-4. over remote infraštruktúru,
-5. obnov alebo oprav najmenší možný rozsah,
-6. spusti read-only inspection a plan,
-7. zdokumentuj incident.
+- encryption in transit a at rest;
+- narrowly scoped read/write identities;
+- audit;
+- versioning a retention;
+- ochranu backupov a plan artifacts;
+- kontrolovaný secret rotation a deletion lifecycle.
 
-## 26. Provider upgrade a state
+State sa nesmie publikovať ako bežný CI artifact ani pripájať k ticketu bez redakcie a access kontroly.
 
-Provider môže vykonať internal state schema migration.
+## 16. Backup a restore ako overiteľná capability
 
-Riziká:
+Dôveryhodný recovery model obsahuje:
 
-- downgrade nemusí rozumieť novému state formátu,
-- computed/default behavior sa zmení,
-- resource identity migration môže zlyhať,
-- nový provider navrhne unexpected diff.
+```text
+versionované snapshots
+→ oddelená alebo chránená backup vrstva podľa rizika
+→ restore do izolovaného test targetu
+→ lineage/serial a schema validation
+→ porovnanie s configuration
+→ read-only remote reconciliation plan
+→ dokumentovaný recovery verdict
+```
 
-Pred významným upgrade zachovaj backend snapshot a testuj plan na reprezentatívnom state.
+Backup v rovnakom účte nemusí chrániť pred account compromise, destructive adminom alebo key loss. Snapshot zašifrovaný zmazaným KMS keyom nie je recovery asset.
 
-## 27. Deletion remote objektu mimo Terraformu
+## 17. Kauzálny diagnostický walkthrough
 
-Ak operátor zmaže managed objekt manuálne, refresh ho označí ako chýbajúci a plan typicky navrhne recreation.
+Symptom: po refaktoringu root module plánuje zničiť 84 produkčných resources, hoci MR mal iba premiestniť súbory a module calls.
 
-Pred apply over:
+### Krok 1 — stabilizuj subject
 
-- či deletion bola zámerná,
-- či objekt má byť odstránený aj z konfigurácie,
-- či recreation nestratí data/identity,
-- či dependents zostali konzistentné.
+```text
+configuration commit C47
+backend/key payments/prod
+workspace default
+lineage L-prod / serial 208
+provider aws.production / account 7711
+saved plan digest P209
+```
 
-## 28. Anti-patterny
+### Krok 2 — konkurenčné hypotézy
 
-### State commitnutý do Git-u
+```text
+H1: pipeline načítala nesprávny backend alebo workspace
+H2: resource addresses sa zmenili bez moved mappings
+H3: for_each keys alebo count indexy sa zmenili
+H4: provider upgrade zmenil replacement behavior
+H5: state snapshot bol obnovený alebo prepísaný staršou verziou
+H6: remote objects boli odstránené mimo Terraformu
+H7: plan používa inú provider target identity
+```
 
-Môže obsahovať secrets a nepodporuje bezpečný multi-writer model.
+### Krok 3 — diskriminačné observation points
 
-### Jeden state pre celú organizáciu
+- backend config, workspace a lineage testujú H1/H5;
+- before/after addresses a moved chain testujú H2;
+- instance key inventory testuje H3;
+- lock file a provider schema diff testujú H4;
+- cloud inventory a provider reads testujú H6;
+- account/region/caller audit testuje H7.
 
-Lock, permissions a blast radius sú neprimerane široké.
+Atlas zistí, že resource addresses sa presunuli do `module.platform`, ale `moved` blocks chýbajú. Remote IDs, provider target aj state sú správne; H2 vysvetľuje deštruktívny plan.
 
-### Pravidelný manuálny `state push`
+### Krok 4 — containment a recovery
 
-Backend workflow a ownership sú zásadne chybné.
+Apply sa zablokuje. Tím pridá versionované `moved` mappings a nevykoná manuálne `state mv` iba v produkcii, pretože rovnaký upgrade musia bezpečne vykonať aj stage a disaster-recovery states.
 
-### `state rm` ako oprava každého driftu
+### Krok 5 — over pôvodný outcome
 
-Terraform prestane objekt spravovať, ale problém ownershipu zostane.
+Nový plan musí ukázať address moves bez remote replacementu. Po apply sa overí:
 
-### Workspace selection podľa manuálnej pamäti
+- rovnaký remote object inventory;
+- nový state serial;
+- správne resource addresses a bindings;
+- nezmenený traffic a health;
+- žiadne orphaned alebo duplicate resources.
 
-Apply môže zasiahnuť nesprávne prostredie.
+### Krok 6 — skorší control
 
-### Backup bez restore testu
+Finding sa mení na upgrade fixture test nad reprezentatívnym state-om, policy pre unexpected destroy/replace a povinný address-migration manifest pri refaktoringu.
 
-Počas incidentu sa môže ukázať ako nečitateľný alebo zastaraný.
+## 18. Diagnostický runbook
 
-## 29. Troubleshooting
+1. Identifikuj backend, workspace, lineage, serial a configuration revision.
+2. Zostav mapu resource address → provider target → remote object ID.
+3. Oddeľ desired, known a actual state.
+4. Over latest snapshot a lock/writer timeline.
+5. Klasifikuj problém ako binding loss, wrong state subject, remote drift, address/key change, provider migration alebo unknown write.
+6. Zastav ďalších writers pri nejasnej integrite.
+7. Preferuj refresh/plan a minimálnu versionovanú opravu pred force pushom.
+8. Pri surgery zachovaj backup a exact mapping.
+9. Over remote inventory, runtime outcome a nový snapshot.
+10. Zmeň incident na boundary, migration, backup alebo writer-control zlepšenie.
 
-### Terraform chce vytvoriť objekt, ktorý existuje
+## 19. Referenčné pravidlá
 
-State neobsahuje binding alebo používaš nesprávny backend/workspace. Over `state list`, import/adoption plán a remote identity.
+- State je identity a observation model, nie desired configuration.
+- Resource address a remote ID sú odlišné identity spojené bindingom.
+- Lineage a serial sa musia posudzovať spolu s environment/backend subjectom.
+- Saved plan je viazaný na konkrétny prior state.
+- Remote mutation a state write nie sú jedna transakcia.
+- Unknown state-write outcome sa nereparuje slepým retry.
+- State surgery mení management metadata a potrebuje lock, backup a následný plan.
+- Module nie je automaticky state boundary.
+- Workspaces samy osebe nie sú production security isolation.
+- Backup je dôveryhodný až po testovanom restore a reconciliation.
+- Sensitive presentation neznamená, že state secret neobsahuje.
 
-### Plan chce zmazať veľa resources
+## 20. Časté omyly
 
-Zastav apply. Over backend configuration, workspace, state lineage, credentials, module source a `for_each` keys.
+### „State je iba cache, môžeme ho zmazať“
 
-### State je locked
+Remote infraštruktúra môže zostať, ale bindings sa stratia a plan môže vytvoriť duplicity alebo deštrukcie.
 
-Over aktívny run a lock owner. Nevykonávaj force unlock, kým nie je potvrdené, že pôvodný writer skončil.
+### „Vyšší serial je vždy správny“
 
-### Provider hlási unsupported state
+Musí patriť správnej lineage, backendu a environmentu.
 
-Over provider version, lock file, upgrade/downgrade históriu a dostupný pre-upgrade snapshot.
+### „`state rm` odstráni infraštruktúru“
 
-### Output obsahuje starú hodnotu
+Odstráni management binding, nie remote objekt.
 
-Over posledný apply, refresh, output expression a backend/workspace selection.
+### „Backup sa dá obnoviť, lebo súbor existuje“
 
-## 30. Kontrolné otázky
+Môže byť starý, z inej lineage, nekompatibilný so schema alebo nezašifrovateľný po strate keya.
 
-1. Prečo Terraform potrebuje state?
-2. Aký je rozdiel medzi configuration, state a actual remote stavom?
-3. Na čo slúžia lineage a serial?
-4. Prečo môže state obsahovať secrets?
-5. Čo sa stane pri partial apply?
-6. Aký je rozdiel medzi `state mv` a remote API mutation?
-7. Kedy je `state rm` bezpečný?
-8. Ako navrhnúť state boundary?
-9. Ako sa obnovuje stratený state?
-10. Prečo backup bez restore testu nestačí?
+### „Plan po restore môžeme automaticky applynuť“
 
-## Glossary impact
+Najprv treba porovnať configuration, restored state a actual remote inventory.
 
-Relevantné pojmy: Terraform state, state snapshot, resource binding, lineage, serial, refresh, state surgery, state boundary, local state, CLI workspace, state backup, state recovery, partial apply a cross-state dependency.
+## Zhrnutie
+
+Dôveryhodný Terraform state lifecycle je:
+
+```text
+stable configuration address a provider target
+→ explicitný remote binding
+→ versionovaný lineage/serial snapshot
+→ refreshed plan subject
+→ remote mutation
+→ potvrdený snapshot transition
+→ runtime a binding verification
+→ controlled recovery alebo migration
+```
+
+State incident sa rieši rekonštrukciou identity a timeline-u, nie náhodnou editáciou JSON-u. Bez správneho bindingu a snapshot transitionu nemôže byť ďalší plan považovaný za bezpečný.
 
 ## Oficiálna dokumentácia
 
