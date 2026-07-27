@@ -1,357 +1,584 @@
 # Registries
 
-Container registry je distribution a storage služba pre manifests, blobs a súvisiace OCI artifacts. Registry nie je iba „miesto pre Docker images“. Je to content-addressed artifact systém s repository namespaces, authentication, authorization, retention, replication a supply-chain controls.
+Container registry je content-addressed distribution systém, ktorý spája build producerov, security evidence, deployment controllers a runtime consumers. Nie je to iba miesto, kam sa „pushne Docker image“.
 
-## 1. Registry, repository, image a reference
+Dominantný lifecycle:
+
+```text
+immutable build subject
+→ complete OCI artifact graph
+→ authenticated repository publication
+→ digest, tags a related evidence
+→ policy/retention/replication state
+→ consumer authorization a reference resolution
+→ exact graph pull a verification
+→ runtime/deployment correlation
+→ rescanning, rollback retention a safe garbage collection
+```
+
+Registry workflow je kompletný až vtedy, keď exact content schválený pri publication zostáva dostupný, overiteľný a korelovateľný s platform-specific artifactom, ktorý runtime skutočne spustil.
+
+## 1. Atlas release subject
+
+Atlas Payments publikuje release `3.13.0`:
+
+```text
+source commit: C417
+builder identity: atlas-build-prod
+OCI index digest: IDX313
+linux/amd64 manifest: MAMD313
+linux/arm64 manifest: MARM313
+SBOM subject: SBOM313
+provenance subject: PROV313
+signature subject: SIG313
+source registry: registry.build.example/atlas/payments
+production registry: registry.prod.example/atlas/payments
+release tag: 3.13.0
+channel tag: stable
+```
+
+Deployment record nesmie obsahovať iba `stable`. Potrebuje aspoň:
+
+```text
+registry + repository
+index digest
+selected platform manifest digest
+platform
+verification policy/verdict
+promotion generation
+deployment/runtime identity
+```
+
+## 2. Registry, repository a content graph
 
 Rozlišuj:
 
-- **registry** — server alebo služba poskytujúca distribution API,
-- **repository** — logical namespace pre príbuzné manifests a tags,
-- **manifest** — metadata odkazujúca na config a layers,
-- **blob** — content-addressed object,
-- **tag** — mutable human-readable pointer,
-- **digest** — immutable content identity.
+- **registry** — distribution API, identity a storage boundary;
+- **repository** — namespace pre manifests, tags a access policy;
+- **descriptor** — edge obsahujúci media type, digest a size;
+- **manifest alebo index** — graph root;
+- **blob** — content-addressed config alebo layer;
+- **tag** — mutable human-readable pointer;
+- **digest** — immutable content identity;
+- **referrer** — subject-bound related artifact, napríklad signature alebo SBOM.
 
-Príklad:
-
-```text
-registry.example.com/platform/api:v1.4.2
-│                    │            └─ tag
-│                    └────────────── repository
-└─────────────────────────────────── registry
-```
-
-Digest reference:
+Reference:
 
 ```text
-registry.example.com/platform/api@sha256:...
+registry.prod.example/atlas/payments:3.13.0
+registry.prod.example/atlas/payments@sha256:IDX313
 ```
 
-## 2. Push workflow
+Tag a digest majú odlišné lifecycle-y. Tag môže meniť mapping; digest identifikuje konkrétny manifest content.
 
-Typický push:
+## 3. Complete artifact graph
 
-1. client zistí, ktoré blobs už registry má,
-2. chýbajúce blobs uploadne,
-3. uploadne config,
-4. publikuje manifest alebo image index,
-5. priradí tag,
-6. prípadne publikuje signatures, SBOM a provenance artifacts.
-
-Manifest by sa mal publikovať až po dostupnosti všetkých referenced blobs. Inak môže vzniknúť neúplný artifact.
-
-## 3. Pull workflow
-
-Typický pull:
-
-1. resolve tag na manifest alebo index,
-2. over digest a media type,
-3. vyber platform manifest,
-4. stiahni config a chýbajúce layers,
-5. over digests,
-6. unpackni content,
-7. aplikuj trust a security policy.
-
-Pull podľa tagu a deployment podľa digestu sú rozdielne rozhodnutia. Tag možno použiť na discovery, ale deployment record má zachytiť resolved digest.
-
-## 4. Authentication a authorization
-
-Registry access typicky používa bearer token flow alebo product-specific identity integration.
-
-Rozlišuj scopes:
-
-- pull,
-- push,
-- delete,
-- tag mutation,
-- repository administration,
-- retention/GC administration,
-- signature alebo artifact publication.
-
-CI build identity nemá automaticky potrebovať delete/admin oprávnenia. Production runtime má typicky potrebovať iba pull pre konkrétne repositories.
-
-## 5. Repository naming a tenancy
-
-Repository namespace model má vyjadrovať:
-
-- organization alebo team ownership,
-- application alebo component,
-- environment separation iba ak je vedomá,
-- access boundary,
-- retention a replication policy.
-
-Kopírovanie rovnakého image do `dev`, `stage` a `prod` repository môže zmeniť digest iba v prípade transformácie; ideálne sa promotuje ten istý content a menia sa deployment references alebo registry-side trusted copies bez rebuild-u.
-
-## 6. Tags
-
-Tags sú užitočné pre:
-
-- release names,
-- channels,
-- branch builds,
-- compatibility aliases.
-
-Riziká mutable tags:
-
-- race medzi scanom a deploymentom,
-- nejasný rollback,
-- cache inconsistency,
-- audit trail bez content identity,
-- prepísanie release tagu.
-
-Odporúčanie:
+Release nie je jeden manifest. Multi-platform graph môže obsahovať:
 
 ```text
-immutable release tag + manifest digest + deployment record
+IDX313
+├── MAMD313
+│   ├── config AMD
+│   └── layer blobs
+├── MARM313
+│   ├── config ARM
+│   └── layer blobs
+├── SIG313
+├── SBOM313
+└── PROV313
 ```
 
-`latest` je iba konvenčný tag, nie špeciálna alebo bezpečná verzia.
+Complete publication contract definuje:
 
-## 7. Multi-platform artifacts
+- required platform manifests;
+- configs a layers reachable z každého manifestu;
+- signatures, SBOM a provenance;
+- media types a compression support;
+- policy verdicty;
+- read-back verification;
+- promotion a retention scope.
 
-Tag môže smerovať na image index, ktorý odkazuje na viac platform manifests. Registry musí zachovať celý graph.
+Green push jedného manifestu nie je dôkaz complete release-u.
 
-Pri promotion alebo mirroringu prenes:
+## 4. Publication lifecycle
 
-- index,
-- všetky potrebné platform manifests,
-- referenced configs a layers,
-- related signatures/SBOM/provenance podľa policy.
+Bezpečný push:
 
-Partial copy môže fungovať na jednej architecture a zlyhať na druhej.
+```text
+producer authenticates
+→ repository/action authorization
+→ upload missing blobs
+→ verify blob digest a size
+→ publish platform manifests
+→ publish index
+→ publish subject-bound evidence
+→ assign immutable release tag
+→ read back exact graph
+→ create publication record
+```
 
-## 8. OCI artifacts a referrers
+Manifest sa publikuje až po dostupnosti referenced blobs. Producer má potvrdiť read-after-write podľa consistency modelu registry alebo replica vrstvy.
 
-Registry môže ukladať artifacts previazané so subject digestom, napríklad:
+Publication identity nemá automaticky dostať delete, retention-admin alebo registry-admin oprávnenia.
 
-- SBOM,
-- signature,
-- provenance,
-- vulnerability report,
-- policy attestation.
+## 5. Authentication a authorization
 
-Security workflow musí vedieť, či destination registry a copy tool zachovávajú referrers. Samotné skopírovanie image manifestu nemusí preniesť všetku evidence.
+Registry access rozhoduje nad:
 
-## 9. Immutability policy
+```text
+principal
++ registry/repository
++ action
++ token audience/scope
++ trust boundary
++ time
+```
 
-Registry môže blokovať prepísanie vybraných tags alebo repositories.
+Typické actions:
 
-Immutability chráni:
+- pull;
+- push/blob upload;
+- manifest/tag mutation;
+- related-artifact publication;
+- delete;
+- policy/retention administration.
 
-- release identity,
-- deployment reproducibility,
-- scan evidence,
-- audit trail.
+Odporúčané oddelenie:
 
-Nechráni pred:
+```text
+build identity → push konkrétneho repository
+promotion identity → read source + push destination
+production node identity → pull konkrétneho repository
+audit/scanner identity → read manifests/blobs/referrers
+registry admin → výnimočné policy a recovery operácie
+```
 
-- kompromitovaným buildom pred pushom,
-- zlým artifactom publikovaným prvýkrát,
-- krádežou pull credentials,
-- deletion adminom,
-- zraniteľnosťou objavenou neskôr.
+Long-lived shared password v každom node-e rozširuje blast radius a sťažuje revocation.
 
-## 10. Retention
+## 6. Tag resolution a approval subject
 
-Retention policy má rozlišovať:
+Tag môže slúžiť na discovery:
 
-- release artifacts,
-- active deployment digests,
-- rollback window,
-- branch/PR builds,
-- untagged manifests,
-- signatures a SBOM,
-- legal/audit retention.
+```text
+3.13.0 → IDX313
+```
 
-„Delete untagged after 7 days“ môže odstrániť digest používaný deploymentom, ak deployment nepoužíva tag alebo registry nevie o runtime references.
+Approval však musí byť viazaný na digest subject. Inak vzniká TOCTOU race:
 
-## 11. Garbage collection
+```text
+scan tag stable → IDX313
+→ tag sa prepíše na IDX314
+→ deploy stable
+→ runtime spustí neschválený content
+```
 
-Garbage collection odstraňuje blobs, ktoré už nie sú reachable z retained manifests alebo iných references.
+Safe transition:
 
-Bezpečný GC potrebuje:
+```text
+resolve tag once
+→ record digest
+→ verify evidence pre digest
+→ deploy exact digest
+```
 
-- konzistentný repository graph,
-- koordináciu s concurrent pushes/deletes,
-- ochranu related artifacts,
-- backup/recovery model,
-- dry-run alebo report,
-- audit deletion.
+Release tag immutability znižuje race, ale nenahrádza digest v deployment recorde.
 
-Tag deletion a blob deletion nie sú rovnaká operácia.
+## 7. Platform selection
 
-## 12. Replication a mirroring
+Pri indexe musí consumer zachytiť obe identity:
 
-Registry replication môže byť:
+```text
+index digest IDX313
+→ platform selection linux/arm64
+→ selected manifest MARM313
+```
 
-- synchronous alebo asynchronous,
-- push-based alebo pull-through,
-- regionálny mirror,
-- air-gapped promotion,
-- disaster-recovery replica.
+Scanner, runtime a incident query môžu pracovať s rozdielnymi graph nodes. Bez explicitného edge-u index → selected manifest môže vulnerability correlation zlyhať.
 
-Overuj:
+Platform contract zahŕňa viac než `os/architecture`: variant, CPU features, kernel/runtime compatibility a podporované media/compression formats.
 
-- digest consistency,
-- lag,
-- delete propagation,
-- tags vs. immutable content,
-- referrer transfer,
-- access policy parity.
+## 8. Pull a consumption lifecycle
 
-Replica bez pravidelného restore/failover testu nie je dokázaná recovery capability.
+Runtime pull:
 
-## 13. Pull-through cache
+```text
+consumer workload identity
+→ repository pull authorization
+→ resolve exact index/manifest digest
+→ select platform manifest
+→ fetch config a missing layers
+→ verify digest a size
+→ verify signatures/provenance/policy
+→ unpack do snapshotteru
+→ create runtime subject
+→ record deployed index + platform digest
+```
 
-Pull-through cache alebo dependency proxy znižuje:
+Pull success neznamená unpack, runtime create alebo application readiness success. Registry evidence končí na distribution boundary; ďalšie chapters pokračujú snapshot a runtime lifecycle-om.
 
-- latency,
-- external rate limits,
-- repeated downloads,
-- dostupnostnú závislosť od upstreamu.
+## 9. Promotion
 
-Zároveň vytvára:
+Promotion má preniesť ten istý schválený content, nie ho rebuildnúť:
 
-- cache freshness policy,
-- trust boundary,
-- malware/vulnerability retention,
-- storage a eviction behavior,
-- potrebu pinovať upstream digest.
+```text
+verified source graph
+→ destination authorization
+→ copy all required manifests/blobs/referrers
+→ verify destination digests
+→ evaluate destination policy
+→ publish promotion record
+```
 
-Cacheovanie mutable tagu bez digest evidence môže viesť k rozdielnemu contentu medzi buildmi.
+Ak destination používa transformáciu, napríklad recompression meniacu manifest digest, promotion potrebuje explicitný source-to-destination mapping a nové evidence. Tvrdenie „rovnaký image“ bez digest relation nestačí.
 
-## 14. Signing a provenance
+## 10. Referrers a trust evidence
 
-Signature viazaná na digest môže dokazovať, že konkrétna identity schválila alebo podpísala konkrétny content. Provenance môže opisovať builder, source, inputs a build process.
+Signature, SBOM, provenance a vulnerability report majú vlastnú identity a freshness.
 
-Trust policy má definovať:
+Trust verdict môže vyžadovať:
 
-- kto smie podpisovať,
-- ktoré issuer/identity claims sú povolené,
-- ktoré repositories a environments policy pokrýva,
-- expiration/revocation,
-- offline alebo keyless model,
-- behavior pri nedostupnej verification službe.
+```text
+subject digest matches
++ signer/issuer identity allowed
++ provenance source a builder allowed
++ required platform inventory complete
++ report schema valid
++ scanner/database freshness acceptable
++ exception valid and unexpired
+```
 
-Podpis neznamená, že artifact je bez zraniteľností.
+Digest dokazuje content identity, nie dôveryhodnosť, bezpečnosť alebo application readiness.
 
-## 15. Vulnerability scanning
+Copy tool alebo destination registry môže image preniesť bez referrers. Promotion pipeline musí kontrolovať expected evidence inventory, nie iba manifest availability.
 
-Registry scanning môže analyzovať uložené images pri pushi alebo opakovane po zmene vulnerability databázy.
+## 11. Scanning a continuous reassessment
 
-Dôležité rozdiely:
+Scan subject:
 
-- scan time vs. deploy time,
-- OS packages vs. language dependencies,
-- image content vs. runtime reachability,
-- fixed version availability,
-- accepted risk a expiration,
-- platform-specific manifest coverage.
+```text
+platform manifest digest
++ artifact graph
++ scanner/version
++ vulnerability database generation
++ scope
++ report/verdict
+```
 
-Scan report musí byť viazaný na digest, scanner/version a database timestamp.
+Multi-platform release potrebuje coverage všetkých podporovaných manifests. Scan iba amd64 variantu nehovorí nič o arm64 layers.
 
-## 16. Secrets a credentials
+Nová CVE môže vzniknúť po deploymente. Registry alebo security platforma preto potrebuje:
 
-Registry credentials chráň pomocou:
+```text
+new advisory/database
+→ identify affected stored digests
+→ correlate deployed platform manifests
+→ risk decision
+→ rebuild/redeploy/revoke support
+```
 
-- short-lived tokens,
-- workload identity,
-- repository-scoped access,
-- credential helpers,
-- secret managers,
-- audit a rotation.
+## 12. Repository a tenancy boundary
 
-Neukladaj plaintext auth do image, source repository ani world-readable runtime config. Docker-style config môže obsahovať bearer/auth material alebo helper references a musí mať správne permissions.
+Repository naming má vyjadrovať ownership a authorization, nie iba estetiku.
 
-## 17. Availability a failure modes
+Contract:
 
-Registry je deployment dependency. Failure môže zasiahnuť:
+```text
+organization/team
+application/component
+producer identities
+consumer identities
+retention/replication policy
+trust policy
+incident owner
+```
 
-- nové node pulls,
-- autoscaling,
-- rollback na image, ktorý už nie je cached,
-- build pipelines,
-- vulnerability evidence,
-- disaster recovery.
+Environment-specific repositories môžu byť legitímne, ak tvoria odlišnú authorization alebo air-gap boundary. Nemajú však ospravedlniť rebuild rovnakého release-u pre každý environment.
 
-Mitigácie:
+## 13. Replication a mirrors
 
-- regionálne mirrors,
-- node/content cache,
-- digest pinning,
-- capacity planning,
-- backup a restore,
-- retention rollback artifacts,
-- rate-limit monitoring.
+Replica/mirror má vlastný state:
 
-## 18. Air-gapped workflow
-
-Air-gapped promotion potrebuje export/import contract pre:
-
-- image graph,
-- platform manifests,
-- signatures a attestations,
-- vulnerability evidence,
-- approval record,
-- malware scanning,
-- destination verification.
-
-Ručné prenesenie tar súboru bez digest ledgeru a chain of custody oslabuje auditovateľnosť.
-
-## 19. Observability
+```text
+source generation
+→ replication queue
+→ destination manifests/blobs/referrers
+→ policy/access parity
+→ read availability
+```
 
 Sleduj:
 
-- push/pull latency a error rate,
-- storage usage a growth,
-- GC reclaimed bytes,
-- replication lag,
-- auth failures,
-- rate limits,
-- scan backlog,
-- unsigned/unscanned artifact count,
-- stale tags,
-- active deployments odkazujúce na expiring content.
+- replication lag;
+- digest consistency;
+- partial graph;
+- tag a delete propagation;
+- referrer support;
+- authorization parity;
+- failover a failback behavior.
 
-## 20. Troubleshooting
+Replica bez restore/failover testu je nepotvrdená recovery hypotéza.
 
-### `manifest unknown`
+## 14. Pull-through cache
 
-Reference neexistuje, bola odstránená, klient používa zlý repository path alebo replica ešte nie je synchronizovaná.
+Cache pridáva ďalšiu resolution boundary:
 
-### `unauthorized` alebo `denied`
+```text
+client reference
+→ cache lookup
+→ cached tag/digest mapping alebo upstream fetch
+→ cached graph
+→ client pull
+```
 
-Rozlíš authentication failure od chýbajúceho repository/action scope-u.
+Mutable tag môže mať rozdielny obsah v rôznych cache locations. Bezpečný build/deploy používa upstream digest identity a zaznamenáva, odkiaľ bol content získaný.
 
-### Pull funguje na amd64, nie na arm64
+Cache musí mať policy pre:
 
-Tag/index neobsahuje arm64 manifest alebo promotion preniesol iba jednu platformu.
+- freshness a revalidation;
+- upstream trust;
+- eviction;
+- malicious/stale content;
+- rate limits;
+- vulnerability rescanning;
+- audit.
 
-### Tag ukazuje na iný digest než pri schválení
+## 15. Retention a rollback inventory
 
-Tag bol mutable alebo vznikol race. Deployment má používať schválený digest.
+Retention nemá rozhodovať iba podľa tags. Digest môže byť:
 
-### Registry storage rastie po mazaní tags
+- aktívne deployed;
+- potrebný pre rollback;
+- referencovaný indexom;
+- subjectom signatures/SBOM;
+- auditne alebo právne retained;
+- používaný air-gapped environmentom;
+- lokálne cached, ale nie bezpečne obnoviteľný.
 
-Blobs sú stále referenced alebo GC neprebehol. Over retention, manifests, referrers a running upload state.
+Safe deletion input:
 
-## 21. Kontrolné otázky
+```text
+registry reachability graph
++ active deployment inventory
++ rollback/support window
++ referrer relationships
++ replication/air-gap dependencies
++ legal retention
+```
 
-1. Aký je rozdiel medzi registry a repository?
-2. Prečo digest a tag nie sú ekvivalentné?
-3. Ako prebieha push a pull graphu?
-4. Čo musí preniesť multi-platform promotion?
-5. Ako referrers súvisia so SBOM a signatures?
-6. Prečo tag deletion neuvoľní automaticky blob?
-7. Aké riziká má pull-through cache?
-8. Čo podpis dokazuje a čo nie?
-9. Ako navrhnúť runtime pull permissions?
-10. Ako registry outage ovplyvní autoscaling a rollback?
+Policy „delete untagged after 7 days“ môže odstrániť digest-only deployment, ak registry nemá external deployment inventory.
+
+## 16. Garbage collection
+
+GC transition:
+
+```text
+freeze alebo coordinate writers
+→ build consistent reachability graph
+→ identify unreachable blobs/manifests
+→ protect uploads, leases a referrers
+→ dry-run/report
+→ delete
+→ verify retained subjects a rollback pull
+→ audit reclaimed content
+```
+
+Tag deletion odstráni pointer. Blob deletion nastáva až vtedy, keď content nie je reachable podľa platného graphu a policy.
+
+Concurrent push/GC bez coordination môže odstrániť blob, ktorý ešte nebol pripojený k manifestu.
+
+## 17. Availability a disaster recovery
+
+Registry outage môže zastaviť:
+
+- nový node pull;
+- autoscaling;
+- rollout;
+- rollback na necached digest;
+- build/promotion;
+- trust evidence lookup;
+- incident rebuild.
+
+Recovery plan obsahuje:
+
+- retained immutable release inventory;
+- regionálne replicas alebo export;
+- backup metadát a content store-u;
+- key/identity recovery;
+- clean restore test;
+- DNS/client failover;
+- post-failover digest a policy verification.
+
+Node cache je performance/availability layer, nie registry backup.
+
+## 18. Air-gapped promotion
+
+Air-gap package potrebuje:
+
+```text
+complete platform graph
++ subject-bound signatures/SBOM/provenance
++ vulnerability/policy evidence
++ source and destination digest ledger
++ chain of custody
++ malware scanning
++ destination read-back verification
+```
+
+Ručný tar bez graph manifestu môže stratiť platform variant, referrers alebo provenance.
+
+## 19. Worked failure: release tag bol prepísaný po approval
+
+Security schválila `stable → IDX313`. Build identity mala stále právo tag prepísať a nastavila `stable → IDX314`.
+
+```text
+approval subject = tag snapshot v čase T1
+→ mutable mapping sa zmení
+→ deployment resolve v čase T2
+→ runtime spustí IDX314
+→ approval evidence patrí IDX313
+```
+
+Root cause je tag použitý ako immutable decision subject. Recovery: zastaviť rollout, zistiť running platform digests, overiť alebo odstrániť IDX314, obnoviť exact approved digest a zaviesť immutable release tags plus digest deployment.
+
+## 20. Worked failure: promotion preniesla iba amd64
+
+Copy job preniesol `MAMD313` a priradil mu tag `3.13.0`, ale nepreniesol index ani arm64 manifest.
+
+```text
+amd64 pull succeeds
+→ arm64 node resolveuje reference
+→ required platform manifest chýba
+→ autoscaling zlyhá iba v arm64 poole
+```
+
+Promotion acceptance musí kontrolovať expected platform inventory a complete graph, nie jeden successful pull.
+
+## 21. Worked failure: referrers sa stratili
+
+Image graph sa preniesol do production registry, ale signature a SBOM zostali v build registry.
+
+```text
+content digest exists
+→ production trust policy hľadá subject-bound evidence
+→ evidence inventory je prázdny
+→ operator policy dočasne vypne
+→ unsigned deployment prejde
+```
+
+Missing evidence je fail-closed alebo explicitný incomplete verdict, nie dôvod policy obísť.
+
+## 22. Worked failure: GC odstránilo rollback digest
+
+Release `3.12.4` bol deployed podľa digestu bez tagu. Retention job vyhodnotil manifest ako untagged a GC odstránilo jeho unique blobs.
+
+```text
+runtime stále beží z local snapshotu
+→ incident vyžaduje nový node alebo rollback
+→ registry digest už nie je pullable
+→ recovery capacity je nižšia než deployment inventory tvrdí
+```
+
+GC potrebuje external active/rollback inventory a post-GC pull verification reprezentatívnych retained digests.
+
+## 23. Causal troubleshooting walkthrough: autoscaling nodes hlásia `manifest unknown`
+
+Existujúce Atlas instances bežia. Nové nodes nevedia pullnúť release `IDX313`; časť regiónov funguje a časť vracia `manifest unknown`.
+
+### 1. Zafixuj registry subject
+
+Zaznamenaj:
+
+- registry/repository a endpoint/region;
+- requested tag alebo digest;
+- index a platform manifest digests;
+- client platform;
+- authentication principal, token audience/scope;
+- replication generation/lag;
+- retention/GC timeline;
+- expected graph a referrers;
+- existing node content/snapshot identity.
+
+### 2. Súťažiace hypotézy
+
+1. Client používa nesprávny repository path.
+2. Tag chýba, ale digest existuje.
+3. Index existuje, no platform manifest alebo blob chýba.
+4. Replica ešte nie je synchronizovaná.
+5. GC odstránilo unreachable content.
+6. Promotion preniesla iba jednu platformu.
+7. Pull-through cache drží stale negative result.
+8. Authz skrýva object ako `not found`.
+9. Media type/referrer policy odmieta subject.
+10. Existing nodes bežia iba z local cache po registry deletion.
+
+### 3. Diskriminačné observation points
+
+- HEAD/GET exact digest na source a každej replica;
+- tag-to-digest mapping;
+- index descriptors a expected platform inventory;
+- blob existence, size a digest;
+- token scope a registry audit;
+- replication queue/generation;
+- retention/GC deletion report;
+- cache freshness/negative cache;
+- existing runtime selected manifest a local content store.
+
+### 4. Containment
+
+Pozastav scale-down existujúcich healthy instances a ďalší GC. Zastav rollout, ktorý by vyžadoval unavailable content. Zachovaj registry audit a local cached artifacts.
+
+### 5. Recovery
+
+- wrong path/reference → oprav deployment contract;
+- partial graph → republish z trusted source a read-back verify;
+- replication lag → route na complete region alebo dokonči replication;
+- GC deletion → restore exact digest z verified replica/export, nie rebuild pod rovnakou identity;
+- authz → oprav least-privilege pull scope;
+- stale cache → invalidate/revalidate exact digest;
+- missing platform → publish successor complete index a update approved subject.
+
+### 6. Over pôvodný outcome
+
+Na clean reprezentatívnych amd64 aj arm64 nodes over exact digest pull, trust policy, unpack, runtime start, readiness a deployment-record correlation. Potvrď rollback digest inventory.
+
+### 7. Posuň control skôr
+
+Pridaj complete-graph read-back gate, replication SLO, clean-node pull tests, active/rollback digest inventory a GC preconditions.
+
+## 24. Referenčné pravidlá
+
+- Registry je content graph, identity a policy boundary.
+- Repository namespace je authorization a ownership contract.
+- Tag je mutable pointer; deployment/approval subject je digest.
+- Index a selected platform manifest sú samostatné identity.
+- Green push neznamená complete multi-platform graph.
+- Promotion prenáša exact content a subject-bound evidence.
+- Missing trust evidence nie je clean pass.
+- Scan report je digest-, platform-, scanner- a time-bound evidence.
+- Runtime pull identity má byť narrow a short-lived.
+- Replica/mirror potrebuje integrity, lag a failover verification.
+- Cache nesmie byť jediný source of truth pre mutable tag.
+- Retention potrebuje active deployment a rollback inventory.
+- Tag deletion nie je blob deletion.
+- GC je coordinated reference-graph mutation.
+- Registry backup/recovery musí byť testovaný exact pullom.
+
+## 25. Kontrolné otázky
+
+1. Čo tvorí registry publication subject?
+2. Ako sa líši tag, index digest a platform manifest digest?
+3. Čo znamená complete OCI artifact graph?
+4. Prečo build, promotion a runtime identity potrebujú odlišné scopes?
+5. Ako sa overí, že promotion zachovala referrers?
+6. Prečo scan jedného platform manifestu nepokrýva celý index?
+7. Aké external informácie potrebuje retention a GC?
+8. Prečo existing running container nedokazuje registry availability?
+9. Ako sa líši replica, mirror a pull-through cache failure?
+10. Aké observation points lokalizujú `manifest unknown` medzi reference, authz, replication a GC?
 
 ## Glossary impact
 
-Relevantné pojmy: container registry, repository, tag, digest reference, immutable tag, manifest pull, blob upload, registry scope, pull-through cache, registry mirror, replication lag, registry retention, garbage collection, OCI referrer, artifact signature, build provenance a air-gapped promotion.
+Relevantné pojmy: registry publication subject, repository authorization boundary, complete OCI artifact graph, tag-resolution boundary, selected platform manifest, subject-bound evidence inventory, promotion generation, registry consumer subject, active deployment digest inventory, rollback digest inventory, replication generation, negative cache, GC reachability snapshot a registry recovery pull test.
 
 ## Oficiálna dokumentácia
 
