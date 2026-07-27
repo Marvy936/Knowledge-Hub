@@ -1,324 +1,712 @@
 # Images, layers a copy-on-write
 
-Container image je immutable, content-addressed artifact zložený z metadata a ordered filesystem layers. Pri spustení container runtime nad image pridá samostatnú writable vrstvu pre konkrétnu runtime inštanciu. Tento model umožňuje zdieľanie obsahu, rýchle vytváranie containers a efektívny distribution, ale vytvára aj špecifické performance, persistence a security trade-offy.
+Container image je immutable content graph zložený z metadata a ordered filesystem changesets. Runtime z tohto graphu vytvorí read-only snapshot a nad neho pridá writable state konkrétnej container instance.
 
-## 1. Image nie je container
-
-Image je read-only template. Container je runtime inštancia vytvorená z image plus:
-
-- process configuration,
-- namespaces a cgroups,
-- networking,
-- mounts a volumes,
-- secrets/configuration,
-- writable layer,
-- runtime identity a lifecycle metadata.
-
-Viac containers môže používať rovnaký image content, ale každý má vlastný process state a writable layer.
-
-## 2. Layered filesystem model
-
-Image layers reprezentujú postupné filesystem changesets:
+Dominantný lifecycle:
 
 ```text
-layer 1: base userspace
-layer 2: runtime dependencies
-layer 3: application files
-layer 4: configuration defaults
+source a pinned build inputs
+→ ordered filesystem changesets
+→ content-addressed image manifest/config
+→ registry a local content cache
+→ unpacked read-only snapshot
+→ per-container writable layer
+→ merged filesystem reads/writes/deletes
+→ explicit persistence handoff
+→ replacement, reference tracking a garbage collection
 ```
 
-Výsledný root filesystem je merged view týchto read-only layers. Runtime používa union/overlay filesystem alebo snapshotter implementation, ktorá prezentuje jeden strom.
+Tento model vysvetľuje naraz:
 
-## 3. Content-addressed storage
+- prečo viac containers zdieľa image bytes;
+- prečo prvý write do lower-layer file-u môže byť drahý;
+- prečo neskoršie `rm` neodstráni secret zo staršieho layeru;
+- prečo runtime mutation nie je súčasť image identity;
+- prečo dáta vo writable layeri zaniknú pri replacement-e;
+- prečo delete tagu nemusí okamžite uvoľniť disk.
 
-Layer a manifest identity sa odvodzuje z digestu obsahu. Výhody:
+## 1. Atlas image a runtime-state subject
 
-- integrity verification,
-- deduplication,
-- cache reuse,
-- immutable identity,
-- bezpečnejší promotion podľa digestu.
-
-Ak dve images odkazujú na rovnaký layer digest, registry a runtime ho môžu ukladať iba raz.
-
-## 4. Copy-on-write
-
-Copy-on-write (CoW) znamená, že read-only lower content sa pri prvom zápise neprepíše priamo. Zmenený file sa skopíruje alebo reprezentuje v upper writable layeri a ďalšie reads vidia novšiu verziu.
-
-Zjednodušenie:
+Atlas Payments release `3.13.0` používa platform manifest `MAMD313`:
 
 ```text
-read file
-→ nájdi najvyššiu viditeľnú verziu v layer stacku
-
-write lower-layer file
-→ copy-up do writable layeru
-→ zmeň writable kópiu
+image config: CAMD313
+layer B17: base userspace
+layer R22: language/runtime dependencies
+layer D31: application dependency artifacts
+layer A44: application binary and static assets
+layer C09: default configuration metadata
 ```
 
-CoW znižuje diskovú duplicitu, ale prvý write môže byť drahší a writable layer nie je vhodný ako jediný persistent storage.
-
-## 5. Overlay model
-
-Pri overlay-style filesysteme rozlišuj:
-
-- **lowerdir** — read-only image layers,
-- **upperdir** — writable layer containeru,
-- **workdir** — interný pracovný adresár,
-- **merged** — výsledný pohľad použitý containerom.
-
-Konkrétna implementácia závisí od runtime, kernelu a storage drivera alebo snapshottera.
-
-## 6. Whiteouts
-
-Image layer nemôže fyzicky odstrániť file z predchádzajúceho immutable layeru. Namiesto toho vytvorí whiteout marker, ktorý pri merged view skryje lower-layer path.
-
-Dôsledok:
-
-```dockerfile
-RUN create-large-file
-RUN delete-large-file
-```
-
-nemusí zmenšiť image, pretože bytes zostávajú v staršom layeri. Vytvorenie a odstránenie v jednom build step-e môže zabrániť ich zachovaniu vo výslednom layeri.
-
-## 7. Image history vs. layer content
-
-Build history opisuje instructions a metadata, ale nie je úplným bezpečnostným alebo filesystem auditom. Niektoré instructions môžu vytvoriť empty layers, niektoré build metadata môžu odhaliť sensitive arguments a layer obsah môže zachovať files odstránené v neskoršom kroku.
-
-Pri vyšetrovaní používaj:
-
-- manifest a config,
-- layer digests,
-- unpacked filesystem analysis,
-- SBOM,
-- build provenance,
-- history iba ako doplnkový signál.
-
-## 8. Layer ordering
-
-Poradie instructions ovplyvňuje cache aj výsledný image.
-
-Stabilné a zriedka sa meniace kroky dávaj pred často meniace sa kroky:
+Runtime container `AP-313-07` pridá:
 
 ```text
-base image
-→ system dependencies
-→ application dependency metadata
-→ dependency install
-→ application source
+snapshot/rootfs: SNAP-771
+writable layer: UPPER-771
+runtime config generation: C44
+persistent business data: managed PostgreSQL DB17
+cache path: /var/cache/atlas → bounded ephemeral volume
+upload path: object storage
+/tmp: tmpfs
 ```
 
-Zmena skorého layeru invaliduje downstream cache chain podľa build engine semantics.
+Úspešný outcome:
 
-## 9. Cache nie je correctness mechanizmus
+```text
+manifest a ordered layers zodpovedajú schválenému image subjectu
++ unpacked rootfs je integrity-verified
++ runtime mutations sú iba v explicitne ephemeral paths
++ business data má external persistent owner
++ replacement container reprodukuje application state z image + runtime config
++ secrets nie sú v žiadnom image layeri ani build metadata
++ GC neodstráni referenced content a odstráni skutočne orphaned content
+```
 
-Build cache môže zrýchliť build, ale nesmie byť jediným zdrojom dependencies alebo dôkazom reproducibility.
+## 2. Image, snapshot a container sú odlišné subjects
 
-Riziká:
+### Image subject
 
-- mutable package indexes,
-- unpinned versions,
-- stale cache,
-- cross-branch contamination,
-- secret leakage,
-- platform-specific cache records.
+Content-addressed artifact:
 
-Correctness vyžaduje pinned inputs, lock files, verified sources a deterministický build contract.
+```text
+manifest
+→ config
+→ ordered layer descriptors
+```
 
-## 10. Writable container layer
+### Local snapshot subject
 
-Writable layer zachytáva runtime mutations root filesystemu, napríklad:
+Runtime-specific unpacked representation image layers:
 
-- generated files,
-- temporary caches,
-- application writes,
-- package installation vykonanú za behu,
-- log files bez external loggingu.
+```text
+verified blobs
+→ decompression
+→ apply changesets
+→ snapshot/snapshot-chain identity
+```
 
-Je typicky viazaná na konkrétny container. Pri jeho odstránení môže zmiznúť.
+### Container runtime subject
 
-Runtime mutation navyše vytvára rozdiel medzi deklarovaným image a skutočným runtime stavom.
+```text
+read-only snapshot
++ writable upper layer
++ mounts/volumes/tmpfs
++ process/network/security config
+→ running container instance
+```
 
-## 11. Persistence boundary
+Image digest preto neidentifikuje runtime writable state, mounted secrets ani external volumes.
 
-Dáta, ktoré musia prežiť replacement, patria do explicitného persistence modelu:
+## 3. Filesystem layer ako changeset
 
-- volume,
-- bind mount,
-- object storage,
-- database,
-- external service,
-- orchestration-managed persistent volume.
+Layer nie je plný filesystem. Reprezentuje rozdiel oproti predchádzajúcemu view:
 
-Writable layer je vhodná pre ephemeral state. Nie je vhodná ako jediná kópia business dát, audit trailu alebo recovery artifactu.
+- added files/directories;
+- modified file content;
+- metadata changes;
+- ownership a permissions;
+- links;
+- whiteouts pre deletion;
+- opaque-directory semantics podľa format contractu.
 
-## 12. Read-only root filesystem
+Ordered application:
 
-Read-only root filesystem:
+```text
+B17
+→ apply R22
+→ apply D31
+→ apply A44
+→ apply C09
+→ final image rootfs view
+```
 
-- obmedzuje runtime mutation,
-- znižuje persistence malware alebo attacker changes,
-- odhaľuje nejasné writable paths,
-- podporuje immutable deployment model.
+Poradie je súčasť identity. Rovnaké layer blobs v inom poradí môžu vytvoriť iný filesystem a manifest.
 
-Aplikácia však môže potrebovať samostatné writable mounts pre:
+## 4. Content-addressed storage
 
-- `/tmp`,
-- runtime sockets,
-- caches,
-- uploaded data,
-- PID alebo state files.
+Descriptor digest viaže exact bytes. Registry a runtime môžu deduplikovať shared content:
 
-Tieto paths musia mať explicitný lifecycle, size limit a permissions.
-
-## 13. Layer size a image size
-
-Rozlišuj:
-
-- compressed transfer size,
-- uncompressed layer size,
-- shared content size,
-- per-container writable usage,
-- snapshot metadata a filesystem overhead.
-
-CLI-reported „image size“ nemusí presne znamenať disk space uvoľnený po deletion, pretože layers môžu byť zdieľané ďalšími images alebo containers.
-
-## 14. Base image selection
-
-Base image je supply-chain a runtime dependency. Hodnoť:
-
-- provenance a ownera,
-- update cadence,
-- package manager a debugging needs,
-- libc a runtime compatibility,
-- architecture support,
-- vulnerability surface,
-- CA certificates a timezone data,
-- support lifecycle.
-
-Menší image nie je automaticky bezpečnejší. Minimalizácia znižuje surface, ale chýbajúce observability/debug tools môžu skomplikovať incident response.
-
-## 15. Scratch a distroless images
-
-`FROM scratch` alebo distroless-style image môže znížiť userspace surface. Workload však musí explicitne obsahovať potrebné:
-
-- dynamic libraries,
-- CA certificates,
-- timezone data,
-- user/group metadata,
-- DNS/runtime dependencies,
-- debugging alebo support strategy.
-
-Production debugging nemusí znamenať inštalovanie shellu do image; možno použiť ephemeral debug container, host tooling alebo observability.
-
-## 16. Multi-stage build súvis
-
-Multi-stage build oddeľuje build environment od runtime image. Build tools a source artifacts nemusia skončiť v final stage.
+```text
+Image X ─┐
+         ├→ shared layer B17
+Image Y ─┘
+```
 
 Výhody:
 
-- menší runtime surface,
-- menej secrets a build tools,
-- jasnejší artifact handoff,
-- lepšia reproducibility.
+- integrity verification;
+- immutable references;
+- deduplication;
+- cache reuse;
+- promotion exact contentu;
+- reference-based GC.
 
-Podrobne sa rieši v samostatnej kapitole, ale layered model je jeho základ.
+Content digest nehovorí, či layer je bezpečný, podporovaný alebo pochádza z trusted build-u. To rieši provenance, policy, scan a release evidence.
 
-## 17. Runtime mutation anti-pattern
+## 5. Merged filesystem view
 
-Ručné spustenie package managera v bežiacom containeri:
+Overlay/snapshot implementation prezentuje processu jeden path tree z viacerých vrstiev.
 
-- zmenu nezachytí Dockerfile ani image digest,
-- replacement ju odstráni,
-- incident evidence je slabšia,
-- vzniká snowflake container,
-- security scanning image ju nemusí vidieť.
+Zjednodušený lookup:
 
-Oprava má vzniknúť novým buildom a deploymentom immutable image.
+```text
+read /app/config.yml
+→ pozri writable upper layer
+→ ak path nie je prítomný, hľadaj v najvyššom lower layeri
+→ pokračuj smerom k base layeru
+→ rešpektuj whiteout/opaque markers
+```
 
-## 18. Image garbage collection
+Pri overlay-style modeli sa často rozlišuje:
 
-Runtime/registry musí riadiť:
+- `lowerdir` — read-only layer/snapshot chain;
+- `upperdir` — per-container writable state;
+- `workdir` — interná filesystem operation state;
+- `merged` — view pre container process.
 
-- referenced a unreferenced manifests,
-- shared blobs,
-- stopped containers,
-- snapshots,
-- build cache,
-- retention a deletion races.
+Konkrétna implementácia môže byť overlayfs, native snapshotter, block-based snapshotter alebo platform-specific model. Semantic contract je dôležitejší než názov drivera.
 
-Deletion tagu nemusí okamžite uvoľniť blobs. Garbage collection potrebuje bezpečne určiť, ktorý content už nemá references.
+## 6. Copy-on-write a copy-up
 
-## 19. Security layers
+Read lower-layer file-u môže byť zdieľaný. Pri prvom write runtime nemôže meniť immutable lower content:
 
-Secrets nesmú byť zapísané do image layeru. Aj keď sa v neskoršom kroku odstránia, starší layer ich môže stále obsahovať.
+```text
+open lower file for write
+→ copy-up file/metadata do upper layeru
+→ vykonaj mutation nad upper copy
+→ ďalšie reads vidia upper version
+```
 
-Rizikové vstupy:
+Dôsledky:
 
-- copied credential files,
-- package registry tokens,
-- SSH keys,
-- `.env` files,
-- build arguments uložené v history,
-- private source archives.
+- prvý write môže mať vyššiu latency;
+- veľký file sa môže skopírovať celý aj pri malej zmene podľa filesystem semantics;
+- upper-layer disk usage môže prudko narásť;
+- zdieľaný page cache a storage behavior závisí od implementation;
+- runtime mutation zostáva lokálna konkrétnej instance.
 
-Používaj secret mounts alebo build-system secret mechanisms, scoped credentials a final-image scanning.
+Database alebo write-heavy workload vo writable layeri môže trpieť performance a recovery problémami aj vtedy, keď technicky funguje.
 
-## 20. Reproducibility
+## 7. Metadata copy-up
 
-Reproducible image build vyžaduje kontrolu:
+Zmena ownershipu, mode, xattr alebo inej metadata môže tiež vyvolať copy-up podľa implementation.
 
-- base image digestu,
-- source commitu,
-- dependency locks,
-- package repositories,
-- build toolchain,
-- timestamps a nondeterministic metadata,
-- architecture,
-- network inputs,
-- build arguments.
+```text
+chmod/chown lower file
+→ upper representation vznikne
+→ container už používa private copy
+```
 
-Rovnaký Dockerfile bez pinned externých vstupov nemusí vytvoriť rovnaký image.
+Pri diagnostike disk growth nestačí hľadať iba explicitné application writes. Package manager, permission-fixing init script alebo log rotation môže modifikovať veľké množstvo lower paths.
 
-## 21. Troubleshooting
+## 8. Deletion a whiteouts
 
-### Image je veľký aj po odstránení súboru
+Immutable lower file sa fyzicky neodstráni z historického layeru. Novšia vrstva vytvorí marker, ktorý ho skryje v merged view.
 
-Súbor vznikol v skoršom layeri a deletion ho iba skryl whiteoutom. Reorganizuj build steps alebo multi-stage handoff.
+```text
+layer N: /root/token.txt exists
+layer N+1: whiteout /root/token.txt
+merged view: file absent
+historical layer N: bytes stále existujú
+```
 
-### Zmena jedného source file invaliduje dependency cache
+Preto:
 
-Poradie `COPY` instructions vložilo source pred dependency install. Oddeľ dependency metadata od application source.
+```dockerfile
+RUN copy-secret
+RUN use-secret && rm secret
+```
 
-### Container po replacement-e stratil dáta
+môže zachovať secret v prvom layeri. Bezpečný build používa secret mount, ktorý nevstupuje do layer changesetu, a po exposure credential rotuje.
 
-Dáta boli iba vo writable layeri. Presuň ich do explicitného persistent storage.
+## 9. Opaque directories
 
-### Disk sa neuvoľnil po odstránení image tagu
+Ak novšia vrstva nahradí celý directory view, opaque marker môže skryť children z lower layers. To ovplyvňuje:
 
-Blobs môžu byť referencované inými manifests, containers, snapshots alebo build cache. Over content references a GC behavior.
+- extraction semantics;
+- diff/forensics;
+- migration medzi snapshotters;
+- image-size interpretation;
+- unexpected missing files.
 
-### Secret bol odstránený, ale scanner ho stále nájde
+Consumer musí aplikovať OCI changeset semantics, nie iba naivne rozbaliť tar archívy do jedného directory bez whiteout handlingu.
 
-Secret zostal v staršom layeri alebo build metadata. Rebuildni image z clean history a credential okamžite rotuj.
+## 10. Build instruction a layer boundary
 
-## 22. Kontrolné otázky
+Build engine vytvára cache a filesystem transitions podľa instruction graphu. Nie každá instruction musí vytvoriť non-empty filesystem layer, ale každá môže meniť image config alebo history.
 
-1. Aký je rozdiel medzi image a containerom?
-2. Ako funguje merged layer view?
-3. Čo je copy-up?
-4. Na čo slúži whiteout?
-5. Prečo neskoršie odstránenie nezmenší starší layer?
-6. Prečo writable layer nie je persistent storage?
-7. Čo poskytuje read-only root filesystem?
-8. Ako layer ordering ovplyvňuje cache?
-9. Prečo menší image nie je automaticky bezpečný?
-10. Prečo rovnaký Dockerfile nemusí vytvoriť rovnaký digest?
+Dôležitý model:
+
+```text
+build instruction
++ current rootfs/config state
++ resolved inputs
+→ successor filesystem/config state
+→ cache record a artifact evidence
+```
+
+Layer boundary ovplyvňuje:
+
+- čo zostane v history;
+- čo je zdieľateľné;
+- cache invalidation;
+- secret exposure;
+- final size;
+- forensic reconstruction.
+
+## 11. Layer ordering a cache chain
+
+Stabilné inputs sa často spracujú skôr než volatile source:
+
+```text
+base digest
+→ package metadata/lock files
+→ dependency install
+→ application source
+→ build artifact
+```
+
+Ak sa `COPY . .` vykoná pred dependency install, zmena jedného source file-u invaliduje celý downstream dependency layer.
+
+Optimalizácia však nesmie meniť correctness. Layer ordering musí stále zachovať:
+
+- exact dependency inputs;
+- complete source/artifact handoff;
+- security updates;
+- clean-build reproducibility;
+- final runtime content.
+
+## 12. Cache nie je source of truth
+
+Build cache je memoizácia predchádzajúcej transition, nie autoritatívny dependency store ani dôkaz správnosti.
+
+Riziká:
+
+- mutable package indexes;
+- unpinned base tag;
+- stale external download;
+- cache key bez hidden inputu;
+- cross-branch alebo cross-tenant poisoning;
+- platform-specific record reuse;
+- secret-bearing cache export;
+- local cache maskujúca missing dependency.
+
+Dôveryhodný build potrebuje clean-room alebo controlled-cache verification:
+
+```text
+exact source + locks + base digest + toolchain
+→ build bez correctness dependence na local cache
+→ compare expected artifact/runtime outcome
+```
+
+## 13. Image config a history nie sú filesystem oracle
+
+Image config/history pomáhajú vysvetliť build, ale nemusia úplne ukázať:
+
+- obsah každého layeru;
+- files odstránené neskôr;
+- secret v tar/xattr;
+- generated package content;
+- final effective runtime mounts;
+- provenance skutočného source-u.
+
+Forensics používa kombináciu:
+
+```text
+manifest/config/history
++ exact layer extraction
++ merged rootfs analysis
++ SBOM
++ provenance
++ runtime writable diff
+```
+
+## 14. Writable container layer
+
+Upper layer zachytáva runtime rootfs mutations:
+
+- application-generated files;
+- package install vykonaný za behu;
+- logs bez external sinku;
+- caches;
+- downloaded plugins;
+- attacker changes;
+- permission fixes;
+- temporary files.
+
+Je typicky viazaná na container instance. Restart tej istej instance ju môže zachovať podľa platformy, ale remove/recreate ju spravidla stratí.
+
+Preto runtime identity potrebuje rozlišovať:
+
+```text
+restart existing instance
+≠ replace with new instance from image
+```
+
+## 15. Persistence classification
+
+Každý writable path má dostať triedu:
+
+### Ephemeral
+
+Môže zaniknúť pri replacement-e:
+
+- `/tmp`;
+- rebuildable cache;
+- transient sockets;
+- scratch workspace.
+
+### Persistent business state
+
+Musí mať external owner:
+
+- database records;
+- uploads;
+- durable queues;
+- audit trail;
+- customer-generated content.
+
+### Configuration/secret state
+
+Má byť znovu injektovateľný z versionovaného alebo secret-management source-u, nie manuálne zachovaný z old containeru.
+
+### Incident evidence
+
+Logs, traces a relevant runtime metadata sa musia exportovať pred zánikom instance.
+
+## 16. Volumes a mounts obchádzajú image layer model
+
+Mounted path prekryje image content na rovnakom destination path-e:
+
+```text
+image obsahuje /var/lib/atlas/default.db
+→ volume mount na /var/lib/atlas
+→ process vidí volume content
+→ image file je obscured
+```
+
+Volume alebo bind mount má vlastný lifecycle, ownership, backup, security label a performance model. Image digest neidentifikuje mounted content.
+
+To je dôvod, prečo „funguje v image inspection, chýba v runtime“ môže byť mount-obscuring problém, nie broken layer.
+
+## 17. Read-only root filesystem
+
+Read-only rootfs zabraňuje writes do root snapshotu/writable layeru podľa runtime implementation a policy.
+
+Výhody:
+
+- odhaľuje implicitné write assumptions;
+- znižuje persistence runtime mutation a malware;
+- približuje runtime k immutable artifactu;
+- zjednodušuje diff a recovery model.
+
+Workload potrebuje explicitné writable paths s:
+
+- ownerom;
+- size limitom;
+- persistence class;
+- cleanup policy;
+- permissions/labels;
+- backup podľa potreby.
+
+## 18. Runtime mutation a snowflake container
+
+Interactive package install alebo hot edit:
+
+```text
+image MAMD313
++ local upper-layer mutation P1
+→ effective runtime ≠ declared artifact
+```
+
+Dôsledky:
+
+- replacement odstráni opravu;
+- ďalšia instance ju nemá;
+- image scan/SBOM ju nemusí vidieť;
+- incident evidence je viazaná na jednu instance;
+- rollout je nekonzistentný.
+
+Recovery path je rebuild successor image-u a redeploy, nie export náhodného upper layeru ako neauditovaný nový baseline.
+
+## 19. Layer size a effective disk usage
+
+Rozlišuj:
+
+```text
+compressed registry transfer size
+uncompressed layer size
+shared local content size
+snapshot filesystem usage
+per-container upper usage
+volume usage
+build cache
+metadata/inodes
+```
+
+CLI „image size“ nemusí byť množstvo disku uvoľnené pri deletion. Shared layer zostane, ak ho používa iný manifest, snapshot alebo build cache.
+
+## 20. Reference graph a garbage collection
+
+GC nemá začínať od tagov, ale od reachable content graphu:
+
+```text
+retained manifests/indexes
+→ referenced config/layer blobs
+→ running/stopped container snapshots
+→ leases/pins
+→ build cache records
+→ related artifacts podľa policy
+```
+
+Safe GC lifecycle:
+
+```text
+mark retained roots
+→ traverse references
+→ protect active uploads/leases
+→ identify unreachable content
+→ delete according to retention
+→ verify runtime/recovery invariants
+```
+
+Race medzi pull/create a GC môže poškodiť runtime, ak implementation nemá správne leases/fencing.
+
+## 21. Base image ako inherited supply chain
+
+Base layer chain prináša:
+
+- userspace packages;
+- libc a loader;
+- CA certificates;
+- timezone data;
+- users/groups;
+- package metadata;
+- vulnerabilities;
+- support lifecycle.
+
+Tag base image-u je mutable input. Reproducible subject používa digest a explicitnú update policy.
+
+Menší image môže znížiť surface a transfer, ale nie je automaticky bezpečnejší. Chýbajúce CA, user data alebo observability môžu spôsobiť runtime alebo incident-response failure.
+
+## 22. Scratch a distroless runtime
+
+Minimal runtime musí explicitne obsahovať alebo externým contractom poskytovať:
+
+- executable/interpreter;
+- dynamic libraries;
+- CA certificates;
+- timezone/locale podľa potreby;
+- user/group identity metadata;
+- DNS/runtime dependencies;
+- debugging strategy.
+
+Debugging nemusí znamenať shell v production image. Môže používať ephemeral debug workload, host tools, core dumps podľa policy alebo observability endpoints.
+
+## 23. Multi-stage handoff
+
+Multi-stage build oddeľuje build rootfs od final runtime rootfs:
+
+```text
+builder stage
+→ compile/test artifact
+→ narrow verified copy
+→ final runtime stage
+```
+
+Narrow handoff znižuje pravdepodobnosť, že final image obsahuje:
+
+- compiler/toolchain;
+- source tree;
+- package cache;
+- credentials;
+- test outputs;
+- unrelated build dependencies.
+
+Final image provenance musí stále dokazovať, že copied artifact pochádza z testovaného graphu.
+
+## 24. Worked failure: secret bol odstránený, ale stále bol v image
+
+Build vykonal:
+
+```dockerfile
+COPY .npmrc /root/.npmrc
+RUN npm ci
+RUN rm /root/.npmrc
+```
+
+Mechanizmus:
+
+```text
+COPY vytvorí layer s plaintext tokenom
+→ npm install použije token
+→ neskorší layer pridá whiteout
+→ merged view token neukazuje
+→ starší layer bytes zostávajú pullnuteľné
+```
+
+Required response:
+
+- credential okamžite revoke/rotate;
+- odstrániť secret z build contextu a history;
+- rebuildnúť image z clean graphu so secret mountom;
+- verify všetky layers a metadata;
+- redeploy successor digest;
+- riešiť registry retention/history podľa incident policy.
+
+## 25. Worked failure: malá runtime zmena skopírovala veľký lower file
+
+Atlas process aktualizoval jeden field v 4 GiB local database file uloženom v image lower layeri.
+
+```text
+first write
+→ copy-up celého file-u podľa storage semantics
+→ upper usage narastie o približne 4 GiB
+→ write latency a node disk pressure
+```
+
+Image nemá obsahovať mutable production database. Dáta patria do explicitného persistent storage s vhodným filesystem a backup modelom.
+
+## 26. Worked failure: replacement odstránil pending state
+
+Worker ukladal durable retry ledger do `/var/lib/atlas/retry.db` vo writable layeri.
+
+```text
+container healthy
+→ node drain/replacement
+→ old upper layer deleted
+→ successor container starts from clean image
+→ retry identity a pending work zmiznú
+```
+
+Chyba nie je v CoW. Je v nesprávnej persistence classification. Recovery potrebuje business reconciliation a external durable ledger.
+
+## 27. Worked failure: delete tagu neuvoľnil disk
+
+Operator odstránil `payments:3.12.0`, ale bytes zostali.
+
+Possible references:
+
+- iný tag/index odkazuje na rovnaké manifests;
+- running/stopped container má snapshot lease;
+- build cache používa layers;
+- retention drží untagged manifest;
+- related artifact graph alebo replication policy drží subject;
+- GC ešte neprebehlo.
+
+Tag je pointer, nie storage allocation unit.
+
+## 28. Worked failure: cache maskovala missing build input
+
+Lokálny build prešiel, pretože dependency layer bol v cache. Clean CI worker zlyhal, lebo private package už nebolo dostupné a lock/artifact mirror contract bol neúplný.
+
+```text
+cache hit preskočí network resolution
+→ local build green
+→ clean build potrebuje chýbajúci external input
+→ reproducibility claim zlyhá
+```
+
+Cache nesmie byť jediná kópia release dependency.
+
+## 29. Causal troubleshooting walkthrough: scanner stále nachádza zrušený secret
+
+Tím odstránil secret zo source-u aj final merged filesystemu, ale scanner stále reportuje token v image digest-e.
+
+### 1. Zafixuj image a scan subject
+
+Zaznamenaj:
+
+- source/build revision a build context inventory;
+- exact manifest/config/layer digests;
+- base image digest;
+- build args, secret mounts a provenance;
+- scanner version, scope a finding location;
+- registry/source/cache copies;
+- successor vs. old deployment digests;
+- credential revocation status.
+
+### 2. Súťažiace hypotézy
+
+1. Secret zostal v staršom filesystem layeri a je iba whiteoutnutý.
+2. Secret je v image config/history/build argument metadata.
+3. Secret je v archive/package/cache file-e vo final layeri.
+4. Base image už obsahovala matching value alebo test fixture.
+5. Build context zahŕňal editor backup, `.env` alebo Git history artifact.
+6. Scanner analyzuje starý digest alebo registry mirror cache.
+7. Multi-platform index obsahuje neopravený variant.
+8. Related SBOM/provenance artifact obsahuje sensitive value.
+9. Finding je false positive alebo secret-like test data.
+10. Runtime upper layer alebo volume, nie image, obsahuje secret.
+
+### 3. Diskriminačné observation points
+
+- inspect index a všetky platform manifests;
+- extract/search každý exact layer, vrátane deleted paths;
+- inspect config/history a annotations;
+- inventory build context a final filesystem archives;
+- compare scanner subject digest a deployment digest;
+- inspect base image chain;
+- inspect referrer artifacts podľa access policy;
+- separate image, runtime upper a mounted-volume scans;
+- provider audit potvrdzujúci revocation.
+
+### 4. Containment
+
+Považuj credential za kompromitovaný, obmedz pull/deploy old digestu a zachovaj incident evidence. Samotné „scanner finding možno zmizne po GC“ nie je containment.
+
+### 5. Recovery
+
+- historical layer → clean rebuild bez secretu a bez reuse kontaminovaného stage/layeru;
+- metadata → odstráň sensitive build args/annotations a rebuild;
+- archived file/build context → zúž context a `.dockerignore`, odstráň artifact;
+- base image → vyber fixed base digest;
+- platform gap → rebuild všetky required variants a successor index;
+- stale scan subject → oprav correlation a rescan exact running manifests;
+- runtime/volume exposure → rotate secret a oprav runtime injection/cleanup path;
+- false positive → dokumentuj subject-bound suppression bez zobrazenia secretu.
+
+### 6. Over pôvodný outcome
+
+Potvrď revocation starej hodnoty, layer-by-layer clean successor image, complete platform inventory, trusted provenance, exact production redeploy a absence secretu v image, runtime logs/artifacts a persistent mounts podľa scope-u.
+
+### 7. Posuň control skôr
+
+Pridaj build-context allowlist, secret mounts, layer-aware scanning pred publication, multi-platform completeness, source-to-deployed-digest correlation a mandatory credential revocation workflow.
+
+## 30. Referenčné pravidlá
+
+- Image, unpacked snapshot a runtime container sú odlišné subjects.
+- Layer je ordered filesystem changeset, nie celý filesystem.
+- Digest umožňuje integrity a deduplication, nie trust verdict.
+- Merged read používa najvyššiu visible path verziu a rešpektuje whiteouts.
+- First write do lower file-u môže vyvolať copy-up a veľký disk/latency cost.
+- Deletion v novšom layeri neodstráni bytes zo staršieho layeru.
+- Build cache je performance optimization, nie source of truth.
+- Image history nie je úplný filesystem alebo security audit.
+- Writable layer je per-instance runtime state, nie durable business storage.
+- Mount môže prekryť image content a má vlastný lifecycle.
+- Read-only rootfs potrebuje explicitné writable-path contracts.
+- Runtime mutation vytvára snowflake container mimo image identity.
+- Tag deletion nie je blob deletion; GC sleduje reference graph.
+- Secret exposure v layeri vyžaduje clean rebuild aj credential revocation.
+
+## 31. Kontrolné otázky
+
+1. Ako sa líši image subject, snapshot subject a container runtime subject?
+2. Prečo poradie filesystem changesets ovplyvňuje final rootfs?
+3. Ako funguje merged lookup a copy-up?
+4. Prečo metadata operation môže zvýšiť upper-layer usage?
+5. Ako whiteout skryje, ale neodstráni lower bytes?
+6. Prečo cache nemôže byť jediný dependency source?
+7. Ktoré writable paths môžu byť ephemeral a ktoré potrebujú external ownera?
+8. Ako volume mount môže skryť image content?
+9. Prečo delete tagu nemusí uvoľniť disk?
+10. Aké observation points potvrdia secret v layeri, metadata, runtime upper alebo volume?
 
 ## Glossary impact
 
-Relevantné pojmy: image layer, filesystem changeset, copy-on-write, copy-up, lower layer, upper layer, merged filesystem, whiteout, content-addressed storage, writable container layer, read-only root filesystem, base image, scratch image, distroless image, build cache, runtime mutation a snowflake container.
+Relevantné pojmy: image content subject, snapshot subject, writable-layer subject, filesystem changeset, ordered layer chain, merged filesystem lookup, copy-on-write, copy-up, metadata copy-up, whiteout, opaque directory, build transition, cache correctness boundary, runtime mutation, snowflake container, persistence classification, mount obscuring, reference graph, snapshot lease a layer-aware secret incident.
 
 ## Oficiálna dokumentácia
 
