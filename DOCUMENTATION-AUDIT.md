@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11221**
-- Total words: **583,103**
-- Findings: **24511** (critical 7745, high 8789, medium 3377, low 4600)
+- Audited conceptual sections: **11229**
+- Total words: **584,340**
+- Findings: **24535** (critical 7745, high 8797, medium 3375, low 4618)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -137,6 +137,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 697 | 28 | 25 | 28 | 56 | 4683 | `docs/13-security-and-identity/oauth-2.md` |
 | D | 695 | 28 | 40 | 13 | 1 | 1252 | `docs/11-cloud-and-aws/vpc-subnets-route-tables.md` |
 | D | 694 | 30 | 35 | 10 | 20 | 2171 | `docs/04-testing-and-quality/shift-right.md` |
+| D | 693 | 30 | 33 | 12 | 22 | 2412 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
 | D | 688 | 32 | 29 | 15 | 15 | 2130 | `docs/05-ci-cd-and-release/pipeline-as-code.md` |
 | D | 687 | 32 | 28 | 17 | 18 | 2845 | `docs/03-git-and-automation/python-for-automation.md` |
 | D | 684 | 28 | 37 | 14 | 6 | 1530 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
@@ -166,7 +167,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 627 | 29 | 29 | 9 | 15 | 1934 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
 | D | 622 | 24 | 34 | 13 | 16 | 2297 | `docs/02-networking-and-web/firewalls.md` |
 | D | 621 | 25 | 34 | 12 | 5 | 1464 | `docs/09-kubernetes/service-endpointslice.md` |
-| D | 611 | 30 | 25 | 14 | 4 | 1175 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
 | D | 611 | 24 | 35 | 14 | 1 | 1188 | `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md` |
 | D | 610 | 24 | 34 | 11 | 10 | 1719 | `docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md` |
 | D | 585 | 25 | 26 | 13 | 26 | 2460 | `docs/04-testing-and-quality/chaos-testing.md` |
@@ -8256,61 +8256,69 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md`
 
-- **CRITICAL** line 34, `bare-bullet-items` — **3. OCI image**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image manifest,`, `image configuration,`, `ordered filesystem layers,`, `media types,`.
-- **CRITICAL** line 34, `outline-instead-of-explanation` — **3. OCI image**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 48, `bare-bullet-items` — **4. Descriptor**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mediaType ,`, `digest ,`, `size ,`, `optional URLs, annotations alebo platform metadata podľa kontextu.`.
-- **CRITICAL** line 48, `outline-instead-of-explanation` — **4. Descriptor**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 75, `bare-bullet-items` — **6. Image configuration**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `architecture a OS,`, `environment variables,`, `entrypoint a command,`, `working directory,`.
-- **CRITICAL** line 75, `outline-instead-of-explanation` — **6. Image configuration**: 9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 91, `bare-bullet-items` — **7. Image index a multi-platform images**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS,`, `architecture,`, `variant,`, `ďalšie platform metadata.`.
-- **CRITICAL** line 91, `outline-instead-of-explanation` — **7. Image index a multi-platform images**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 111, `bare-bullet-items` — **8. Filesystem layer**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridané files,`, `zmenené metadata,`, `directories,`, `whiteouts reprezentujúce deletion.`.
-- **CRITICAL** line 111, `outline-instead-of-explanation` — **8. Filesystem layer**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 131, `bare-bullet-items` — **10. OCI artifact**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SBOM,`, `signatures,`, `provenance attestations,`, `Helm charts,`.
-- **CRITICAL** line 131, `outline-instead-of-explanation` — **10. OCI artifact**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 144, `bare-bullet-items` — **11. Runtime bundle**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `directory rootfs ,`, `config.json s runtime configuration.`, `process arguments a environment,`, `user,`.
-- **CRITICAL** line 144, `outline-instead-of-explanation` — **11. Runtime bundle**: 11 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 173, `bare-bullet-items` — **High-level runtime alebo container engine**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image pull a unpack,`, `snapshots,`, `networking,`, `metadata,`.
-- **CRITICAL** line 173, `outline-instead-of-explanation` — **High-level runtime alebo container engine**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 188, `bare-bullet-items` — **13. Container lifecycle states**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `start spustí definovaný process,`, `kill doručí signal,`, `delete odstráni runtime state po ukončení.`.
-- **CRITICAL** line 188, `outline-instead-of-explanation` — **13. Container lifecycle states**: 4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 199, `bare-bullet-items` — **14. Runtime hooks**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný owner,`, `pinned executable identity,`, `controlled environment,`, `timeout,`.
-- **CRITICAL** line 199, `outline-instead-of-explanation` — **14. Runtime hooks**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 214, `bare-bullet-items` — **15. OCI Distribution API**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `blob upload/download,`, `manifest push/pull,`, `tags,`, `content discovery,`.
-- **CRITICAL** line 214, `outline-instead-of-explanation` — **15. OCI Distribution API**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 243, `bare-bullet-items` — **17. Media types**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporované media types,`, `compression formáty,`, `schema compatibility,`, `artifact/referrer support,`.
-- **CRITICAL** line 243, `outline-instead-of-explanation` — **17. Media types**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 255, `bare-bullet-items` — **18. Docker a OCI**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OCI standard,`, `implementation,`, `Docker CLI/Engine behavior,`, `registry product features,`.
-- **CRITICAL** line 255, `outline-instead-of-explanation` — **18. Docker a OCI**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 267, `bare-bullet-items` — **19. Compatibility**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application compatibility s host kernelom,`, `rovnaký security profile,`, `rovnaký networking model,`, `rovnakú storage implementáciu,`.
-- **CRITICAL** line 267, `outline-instead-of-explanation` — **19. Compatibility**: 6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 280, `bare-bullet-items` — **20. Trust a verification**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry a repository identity,`, `manifest digest,`, `platform selection,`, `signature alebo trust policy,`.
-- **CRITICAL** line 280, `outline-instead-of-explanation` — **20. Trust a verification**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **HIGH** line 17, `single-sentence-concept` — **2. End-to-end model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 59, `bare-bullet-items` — **5. Image manifest**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `jednu image configuration,`, `ordered list filesystem layers,`, `media-type metadata.`.
-- **HIGH** line 122, `single-sentence-concept` — **9. Diff ID a blob digest**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 165, `single-sentence-concept` — **12. Low-level a high-level runtime**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 169, `single-sentence-concept` — **Low-level runtime**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 173, `single-sentence-concept` — **High-level runtime alebo container engine**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 227, `list-first-introduction` — **16. Tags a digests**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 267, `single-sentence-concept` — **19. Compatibility**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 280, `single-sentence-concept` — **20. Trust a verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 297, `single-sentence-concept` — **no matching manifest for platform**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 301, `single-sentence-concept` — **Digest sa líši medzi platformami**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 309, `single-sentence-concept` — **Signature alebo SBOM sa po copy stratili**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 313, `single-sentence-concept` — **Runtime config funguje v jednom engine a nie v inom**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 34, `thin-concept-section` — **3. OCI image**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 48, `thin-concept-section` — **4. Descriptor**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 59, `thin-concept-section` — **5. Image manifest**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 75, `thin-concept-section` — **6. Image configuration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 111, `thin-concept-section` — **8. Filesystem layer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 122, `thin-concept-section` — **9. Diff ID a blob digest**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 173, `thin-concept-section` — **High-level runtime alebo container engine**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 188, `thin-concept-section` — **13. Container lifecycle states**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 214, `thin-concept-section` — **15. OCI Distribution API**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 243, `thin-concept-section` — **17. Media types**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 267, `thin-concept-section` — **19. Compatibility**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 280, `thin-concept-section` — **20. Trust a verification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 61, `empty-section` — **2. Špecifikácie ako oddelené contracts**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 74, `bare-bullet-items` — **OCI Distribution Specification**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `blob upload/download;`, `manifest push/pull;`, `tag resolution;`, `content existence a upload sessions;`.
+- **CRITICAL** line 74, `outline-instead-of-explanation` — **OCI Distribution Specification**: 6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 160, `bare-bullet-items` — **5. Image index a platform selection**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operating system;`, `architecture;`, `architecture variant;`, `explicitného platform override-u;`.
+- **CRITICAL** line 160, `outline-instead-of-explanation` — **5. Image index a platform selection**: 11 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 187, `bare-bullet-items` — **6. Platform manifest**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vulnerability evidence môže byť platform-specific;`, `amd64 a arm64 variants môžu obsahovať iné packages;`, `runtime reálne unpackuje konkrétny manifest, nie abstraktný tag;`, `incident response potrebuje presný content inventory.`.
+- **CRITICAL** line 187, `outline-instead-of-explanation` — **6. Platform manifest**: 4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 205, `bare-bullet-items` — **7. Image configuration**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS a architecture;`, `environment defaults;`, `entrypoint a command;`, `working directory;`.
+- **CRITICAL** line 254, `bare-bullet-items` — **9. Image ako content-addressed graph**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deduplication shared blobs;`, `integrity verification;`, `platform inventory;`, `immutable promotion;`.
+- **CRITICAL** line 254, `outline-instead-of-explanation` — **9. Image ako content-addressed graph**: 12 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 302, `bare-bullet-items` — **11. Registry authorization boundary**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pull blob/manifest;`, `push blob;`, `push/delete manifest;`, `mutate tag;`.
+- **CRITICAL** line 318, `bare-bullet-items` — **12. Trust artifacts a subject binding**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signatures;`, `provenance attestations;`, `SBOM;`, `vulnerability reports;`.
+- **CRITICAL** line 365, `bare-bullet-items` — **14. Unpack a snapshot transition**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `corrupt layer;`, `unsupported compression;`, `invalid tar/path semantics;`, `insufficient disk/inodes;`.
+- **CRITICAL** line 365, `outline-instead-of-explanation` — **14. Unpack a snapshot transition**: 7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 390, `bare-bullet-items` — **15. Runtime bundle generation**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process arguments a environment;`, `cwd a user;`, `root filesystem;`, `mounts;`.
+- **CRITICAL** line 390, `outline-instead-of-explanation` — **15. Runtime bundle generation**: 10 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 550, `bare-bullet-items` — **1. Zafixuj artifact-to-runtime subject**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registry a repository;`, `tag resolution result;`, `index a selected platform manifest digest;`, `config/layer descriptors, sizes a media types;`.
+- **CRITICAL** line 550, `outline-instead-of-explanation` — **1. Zafixuj artifact-to-runtime subject**: 10 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 565, `bare-bullet-items` — **2. Súťažiace hypotézy**: 11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Client vybral nesprávny platform manifest.`, `Index neobsahuje required variant.`, `Runtime nepodporuje layer compression alebo media type.`, `Blob je missing/corrupt napriek stale registry metadata.`.
+- **CRITICAL** line 565, `no-prose-concept` — **2. Súťažiace hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 565, `outline-instead-of-explanation` — **2. Súťažiace hypotézy**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 580, `bare-bullet-items` — **3. Diskriminačné observation points**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inspect index a platform descriptors;`, `verify exact blob fetch, size a digest;`, `inspect media types a compression;`, `unpack/snapshotter events a filesystem evidence;`.
+- **CRITICAL** line 580, `no-prose-concept` — **3. Diskriminačné observation points**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 580, `outline-instead-of-explanation` — **3. Diskriminačné observation points**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 597, `no-prose-concept` — **5. Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 597, `outline-instead-of-explanation` — **5. Recovery**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 617, `bare-bullet-items` — **25. Čo OCI negarantuje**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application compatibility s host kernelom/CPU;`, `rovnaký network alebo storage model;`, `rovnaké security defaults;`, `rovnakú restart policy;`.
+- **CRITICAL** line 617, `outline-instead-of-explanation` — **25. Čo OCI negarantuje**: 9 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 633, `no-prose-concept` — **26. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 633, `outline-instead-of-explanation` — **26. Referenčné pravidlá**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 63, `single-sentence-concept` — **OCI Image Specification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 74, `single-sentence-concept` — **OCI Distribution Specification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 85, `single-sentence-concept` — **OCI Runtime Specification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 131, `single-sentence-concept` — **4. Tag, digest a resolution subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 160, `single-sentence-concept` — **5. Image index a platform selection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 205, `list-heavy-section` — **7. Image configuration**: 9 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 254, `single-sentence-concept` — **9. Image ako content-addressed graph**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 302, `list-heavy-section` — **11. Registry authorization boundary**: 7 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 318, `list-heavy-section` — **12. Trust artifacts a subject binding**: 11 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 365, `single-sentence-concept` — **14. Unpack a snapshot transition**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 488, `single-sentence-concept` — **20. Worked failure: multi-platform tag nemal arm64 variant**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 550, `single-sentence-concept` — **1. Zafixuj artifact-to-runtime subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 565, `list-first-introduction` — **2. Súťažiace hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 580, `list-first-introduction` — **3. Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 597, `bare-bullet-items` — **5. Recovery**: 5 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `snapshotter/storage gap → oprav node/runtime capability alebo presuň w`, `invalid bundle → oprav engine/deployment runtime config;`, `LSM/hook denial → uprav narrow policy/executable contract;`, `missing executable/interpreter → oprav image build;`.
+- **HIGH** line 597, `list-first-introduction` — **5. Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 609, `single-sentence-concept` — **6. Over pôvodný outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 613, `single-sentence-concept` — **7. Posuň control skôr**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 617, `single-sentence-concept` — **25. Čo OCI negarantuje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 633, `bare-bullet-items` — **26. Referenčné pravidlá**: 7 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Tag je mutable pointer; digest je content identity.`, `Platform match OS/architecture nie je celý compatibility contract.`, `Registry publication success nie je complete artifact-graph verificati`, `Related signatures/SBOM/provenance musia byť viazané na presný subject`.
+- **HIGH** line 633, `list-first-introduction` — **26. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 74, `thin-concept-section` — **OCI Distribution Specification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 160, `thin-concept-section` — **5. Image index a platform selection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 254, `thin-concept-section` — **9. Image ako content-addressed graph**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 365, `thin-concept-section` — **14. Unpack a snapshot transition**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 550, `thin-concept-section` — **1. Zafixuj artifact-to-runtime subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 565, `thin-concept-section` — **2. Súťažiace hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 580, `thin-concept-section` — **3. Diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 597, `term-before-explanation` — **5. Recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`, `CPU`, `workload`, `policy`
+- **HIGH** line 597, `thin-concept-section` — **5. Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 617, `thin-concept-section` — **25. Čo OCI negarantuje**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 633, `term-before-explanation` — **26. Referenčné pravidlá**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `OS`, `ID`, `SBOM`, `identity`
+- **HIGH** line 633, `thin-concept-section` — **26. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/08-container-fundamentals-and-docker/registries.md`
 
@@ -17584,19 +17592,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3422 | 439 | 0 | 0 | 3861 |
-| `single-sentence-concept` | 0 | 3487 | 0 | 0 | 3487 |
-| `outline-instead-of-explanation` | 3270 | 0 | 0 | 0 | 3270 |
-| `thin-concept-section` | 0 | 2872 | 0 | 0 | 2872 |
-| `term-before-explanation` | 0 | 469 | 2294 | 0 | 2763 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1842 | 1842 |
-| `example-not-explicit` | 0 | 0 | 0 | 1804 | 1804 |
-| `list-first-introduction` | 0 | 1125 | 0 | 0 | 1125 |
-| `short-concept-section` | 0 | 0 | 1083 | 0 | 1083 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 954 | 954 |
-| `empty-section` | 555 | 0 | 0 | 0 | 555 |
-| `no-prose-concept` | 498 | 0 | 0 | 0 | 498 |
-| `list-heavy-section` | 0 | 397 | 0 | 0 | 397 |
+| `bare-bullet-items` | 3420 | 440 | 0 | 0 | 3860 |
+| `single-sentence-concept` | 0 | 3488 | 0 | 0 | 3488 |
+| `outline-instead-of-explanation` | 3267 | 0 | 0 | 0 | 3267 |
+| `thin-concept-section` | 0 | 2870 | 0 | 0 | 2870 |
+| `term-before-explanation` | 0 | 471 | 2293 | 0 | 2764 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1850 | 1850 |
+| `example-not-explicit` | 0 | 0 | 0 | 1810 | 1810 |
+| `list-first-introduction` | 0 | 1128 | 0 | 0 | 1128 |
+| `short-concept-section` | 0 | 0 | 1082 | 0 | 1082 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 958 | 958 |
+| `empty-section` | 556 | 0 | 0 | 0 | 556 |
+| `no-prose-concept` | 502 | 0 | 0 | 0 | 502 |
+| `list-heavy-section` | 0 | 400 | 0 | 0 | 400 |
 
 ## Required remediation pattern
 
