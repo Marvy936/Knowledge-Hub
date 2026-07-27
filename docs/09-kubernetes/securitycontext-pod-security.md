@@ -1,505 +1,393 @@
 # SecurityContext a Pod Security
 
-Kubernetes `securityContext` definuje runtime privilege a filesystem identity pre Pod alebo konkrétny container. Pod Security Standards (PSS) definujú štandardizované policy profily a Pod Security Admission (PSA) ich môže vynucovať na namespace úrovni. Tieto mechanizmy sú defense in depth; nenahrádzajú bezpečný image, kernel patching, runtime sandbox, RBAC, NetworkPolicy ani secret management.
+Kubernetes security nie je jeden boolean `non-root`. Je to chain medzi threat modelom, image identity, admission policy, resolved Pod a container konfiguráciou, OCI runtime state-om, kernel enforcementom, mount/device authority a skutočným application outcome-om. Pod Security Admission môže Pod odmietnuť, ale prijatý Pod stále môže mať nesprávny filesystem access, nebezpečný socket alebo príliš širokú runtime autoritu.
 
-## 1. Pod-level a container-level security context
+Táto kapitola používa jeden dominantný lifecycle:
 
-Pod-level príklad:
+```text
+workload threat model a required capability inventory
+→ image user/filesystem/runtime assumptions
+→ namespace PSS/PSA a custom admission generation
+→ admitted Pod a container security contract
+→ OCI/runtime credentials, namespaces a capabilities
+→ seccomp/AppArmor/SELinux a no_new_privs enforcement
+→ mounts, devices, host namespaces a filesystem identity
+→ process execution a application behavior
+→ security aj business verification
+→ exception expiry, remediation a credential rotation
+```
+
+## 1. Atlas Payments security subject
+
+Payments API 5.4.0 má spracúvať autorizácie bez host authority. Reviewed contract:
+
+```text
+namespace: payments-production
+PSS: restricted, pinned na podporovanú minor verziu
+Pod UID + image digest: exact runtime subject
+UID/GID: 10001:10001
+root filesystem: read-only
+writable paths: /tmp a /var/run/atlas cez bounded emptyDir
+capabilities: drop ALL
+privilege escalation: disabled
+seccomp: RuntimeDefault
+host namespaces/devices/runtime sockets: forbidden
+persistent volume: iba retry-ledger claim
+ServiceAccount: bez API tokenu, ak ho workload nepotrebuje
+```
+
+Security acceptance neznamená iba `Pod Running`. Musí potvrdiť:
+
+1. admitted object zodpovedá reviewed policy generation;
+2. runtime process má očakávané UID, GID, groups a capabilities;
+3. zakázané host paths, devices a namespaces nie sú dostupné;
+4. povolené writable paths fungujú bez globálneho `chmod 777`;
+5. kernel policy neblokuje legitímny operation ani nepovoľuje zakázaný;
+6. application dokončí payment journey;
+7. forbidden escape, secret-read a host-control operations zlyhajú.
+
+## 2. Štyri odlišné security subjects
+
+Pri diagnostike oddeľuj:
+
+```text
+source manifest
+→ admitted Pod spec
+→ OCI/runtime configuration
+→ effective process a kernel authority
+```
+
+Source YAML môže byť zmenený defaultingom alebo mutating admissionom. Admitted Pod môže byť korektný, ale Node runtime, local security profiles alebo mounted volume labels môžu vytvoriť inú effective authority.
+
+Exact subject obsahuje minimálne:
+
+- cluster a namespace;
+- Pod UID a container ID;
+- image digest a declared image user;
+- Pod/container `securityContext` po admission-e;
+- PSS level, mode a pinned version;
+- RuntimeClass a Node generation;
+- UID, GID, supplemental groups a capabilities;
+- seccomp, AppArmor a SELinux profile/label;
+- mount, device a host-namespace inventory;
+- ServiceAccount a projected credential inventory.
+
+Názov Deploymentu ani status `Running` túto identitu nenahrádza.
+
+## 3. Admission boundary: PSS a PSA
+
+Pod Security Standards definujú tri policy levels:
+
+- `Privileged` — takmer bez štandardných obmedzení;
+- `Baseline` — blokuje známe privilege-escalation paths pri širšej kompatibilite;
+- `Restricted` — silnejší hardening contract pre bežné application workloads.
+
+Pod Security Admission aplikuje level na namespace cez:
+
+- `enforce` — odmietne nevyhovujúci Pod;
+- `audit` — zapíše violation do audit evidence;
+- `warn` — vráti warning klientovi.
+
+Policy version je súčasťou admission subjectu. Produkčný model často používa pinned `enforce` version a `audit`/`warn` voči novšiemu štandardu, aby upgrade ukázal budúce violations skôr než ich začne blokovať.
+
+PSA hodnotí Pod pri admission-e. Nemení už bežiace Pody retroaktívne a nie je plnou náhradou custom controls ako approved registry, digest pinning, mandatory requests, presný `hostPath` allowlist alebo sandbox requirement.
+
+## 4. Runtime identity a filesystem contract
+
+### UID, GID a non-root
+
+`runAsNonRoot: true` je guard. Bez explicitného numeric image usera alebo `runAsUser` môže runtime nevedieť potvrdiť, že process nebude root.
 
 ```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: web
 spec:
   securityContext:
     runAsNonRoot: true
     runAsUser: 10001
     runAsGroup: 10001
-    fsGroup: 20001
-    seccompProfile:
-      type: RuntimeDefault
-  containers:
-    - name: web
-      image: example/web:1
-      securityContext:
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
-        capabilities:
-          drop: ["ALL"]
 ```
 
-Pod-level fields sa aplikujú na Pod alebo poskytujú default pre containers podľa konkrétneho field-u. Container-level hodnota má pri prekrývajúcich sa fields typicky prednosť pre daný container.
+Non-root process stále potrebuje správne ownership a permissions pre image files, sockets, logs, temp paths a mounted data.
 
-## 2. `runAsUser`, `runAsGroup` a `runAsNonRoot`
+### Volume identity
+
+`fsGroup` môže pri podporovanom volume/driveri pridať group access. Nie je to application lock ani tenant isolation. Effective access závisí od:
+
+```text
+process UID/GID/groups
++ Unix mode/ACL
++ mount read-only state
++ CSI ownership behavior
++ SELinux/AppArmor policy
++ user-namespace mapping
+```
+
+Rekurzívna ownership zmena veľkého volume-u môže výrazne predĺžiť startup. `fsGroupChangePolicy` a CSI delegation musia byť testované na konkrétnom storage stacku.
+
+### Read-only root filesystem
+
+Read-only root odhaľuje skryté write dependencies. Potrebné paths deklaruj explicitne:
 
 ```yaml
-securityContext:
-  runAsNonRoot: true
-  runAsUser: 10001
-  runAsGroup: 10001
+volumeMounts:
+  - name: runtime
+    mountPath: /var/run/atlas
+volumes:
+  - name: runtime
+    emptyDir:
+      sizeLimit: 64Mi
 ```
 
-- `runAsUser` nastavuje numeric UID procesu,
-- `runAsGroup` primary GID,
-- `runAsNonRoot` odmietne startup, ak runtime nevie potvrdiť non-root identity alebo image smeruje na root.
+Nevracaj celý root filesystem na writable iba preto, že application zapisuje PID, cache alebo temp file na nesprávne miesto.
 
-`runAsNonRoot: true` je policy guard, nie náhrada za explicitne pripravený non-root image.
+## 5. Process privilege contract
 
-## 3. Image user a numeric identity
+### Capabilities
 
-Dockerfile môže obsahovať:
-
-```dockerfile
-USER 10001:10001
-```
-
-Kubernetes security context môže hodnotu prepísať. Runtime však stále potrebuje:
-
-- čitateľné application files,
-- zapisovateľné explicitné paths,
-- správny ownership volumes,
-- možnosť bindnúť potrebné ports,
-- kompatibilný entrypoint.
-
-Numeric UID/GID znižuje ambiguity oproti menu, ktoré nemusí existovať v minimalistickom image-i.
-
-## 4. `fsGroup`
-
-`fsGroup` ovplyvňuje group ownership alebo access na podporovaných mounted volumes:
-
-```yaml
-spec:
-  securityContext:
-    fsGroup: 20001
-    fsGroupChangePolicy: OnRootMismatch
-```
-
-Kubelet alebo CSI driver môže upraviť group ownership/permissions podľa volume typu a driver capabilities.
-
-Riziká:
-
-- rekurzívna zmena veľkého volume-u spomalí Pod startup,
-- shared volume môže dostať širší group access,
-- nie každý driver/filesystem implementuje rovnaké semantics,
-- `fsGroup` nie je application locking ani tenant isolation.
-
-## 5. Supplemental groups
-
-Pod môže definovať ďalšie groups pre filesystem access. Široké alebo implicitne zlúčené groups môžu sprístupniť files, ktoré workload nemá čítať.
-
-Pri platformách podporujúcich prísnejšie supplemental-group policy over:
-
-- Kubernetes verziu,
-- feature gate/stability,
-- runtime support,
-- image `/etc/group` behavior.
-
-Nezakladaj bezpečnostný model na neoverenom implicitnom group membership-e.
-
-## 6. Linux capabilities
-
-Root privileges možno rozdeliť na capabilities.
+Preferovaný model:
 
 ```yaml
 securityContext:
   capabilities:
-    drop:
-      - ALL
-    add:
-      - NET_BIND_SERVICE
-```
-
-Odporúčaný model:
-
-1. drop `ALL`,
-2. pridaj iba capability, ktorú aplikácia reálne potrebuje,
-3. over effective capabilities v runtime,
-4. odstráň capability po zmene application designu.
-
-Capability je významná kernel privilege. `NET_ADMIN`, `SYS_ADMIN`, `SYS_PTRACE` a podobné capabilities môžu výrazne rozšíriť attack surface.
-
-## 7. `allowPrivilegeEscalation`
-
-```yaml
-securityContext:
+    drop: ["ALL"]
   allowPrivilegeEscalation: false
 ```
 
-Na Linuxe súvisí s `no_new_privs` a bráni procesu získať viac privileges cez mechanizmy ako setuid binaries.
+Capability pridaj iba po identifikácii exact kernel operationu. `SYS_ADMIN`, `NET_ADMIN`, `SYS_PTRACE` a podobné capabilities výrazne menia threat boundary.
 
-Nemusí mať očakávaný efekt pri privileged containeri alebo pri capabilities, ktoré menia runtime semantics. Over výsledný OCI/runtime config.
+### `allowPrivilegeEscalation`
 
-## 8. Privileged container
+Na Linuxe sa typicky realizuje cez `no_new_privs`. Bráni získaniu nových privileges cez setuid alebo file capabilities, ale neodoberá authority, ktorú process už dostal cez UID, capabilities, mounts, devices alebo privileged mode.
 
-```yaml
-securityContext:
-  privileged: true
+### Privileged a host authority
+
+`privileged: true`, host namespaces, host devices, broad `hostPath` alebo container-runtime socket môžu zmeniť container na prakticky host-admin subject. Read-only runtime socket mount môže stále poskytovať control API authority.
+
+Hodnoť capability graph, nie iba jednotlivý YAML field:
+
+```text
+Pod create permission
+→ privileged/host-mounted workload
+→ runtime alebo host filesystem access
+→ Node a ostatné workloads
 ```
 
-Privileged container získava veľmi široký prístup k host kernelu, devices a security controls. Je často prakticky host-root-equivalent podľa ďalších mounts a namespace nastavení.
+## 6. Kernel enforcement profiles
 
-Použitie musí byť výnimočné, auditované a izolované. Bežná aplikácia privileged mode nepotrebuje.
+### Seccomp
 
-## 9. Read-only root filesystem
+Seccomp filtruje syscalls. `RuntimeDefault` je bezpečný východiskový profil, ale jeho exact obsah patrí runtime a verzii. `Localhost` profile potrebuje distribúciu, versioning a Node coverage.
 
-```yaml
-securityContext:
-  readOnlyRootFilesystem: true
+Pri denial-e porovnaj:
+
+- Pod/container profile declaration;
+- runtime-resolved profile;
+- blocked syscall a errno;
+- kernel/runtime audit evidence;
+- rozdiel medzi Nodes a runtime generations.
+
+Neprepínaj plošne na `Unconfined` bez určenia operationu, ktorý application potrebuje.
+
+### AppArmor a SELinux
+
+AppArmor viaže process na host profile. SELinux rozhoduje podľa process a object labels. Unix `rwx` bits preto nemusia vysvetliť `permission denied`.
+
+Profily a labels musia mať vlastný deployment lifecycle. Pod môže byť admitted správne, ale zlyhať iba na Node-e, kde profile chýba, má inú verziu alebo volume dostalo nesprávny label.
+
+## 7. User namespaces, sandbox a OS boundary
+
+SecurityContext a PSS stále používajú shared host kernel. Nedôveryhodný code môže potrebovať:
+
+- user namespaces;
+- sandboxed RuntimeClass;
+- microVM;
+- dedicated Nodes;
+- samostatný cluster alebo VM trust domain.
+
+Tieto mechanizmy majú vlastné scheduling, resource-overhead, CNI/CSI a upgrade contracts.
+
+Linux-specific fields ako capabilities, UID/GID, seccomp, AppArmor a SELinux nemajú rovnaký význam na Windows. Policy generation musí zohľadniť `spec.os.name`, runtime a Node support.
+
+## 8. Exception lifecycle
+
+System CNI, CSI alebo node agents môžu potrebovať authority nad bežný Restricted profil. Výnimka musí obsahovať:
+
+```text
+owner
+exact namespace a workload identity
+required host capability
+threat justification
+approved image digest/source
+Node a network scope
+RBAC a deployment writers
+monitoring a audit
+expiry a removal condition
 ```
 
-Aplikácia potom potrebuje explicitné writable mounts:
+`privileged` namespace bez deployment a identity boundary je trvalý bypass. Výnimka sa uzatvára až po overení, že bežné application identity v ňom nemôžu vytvárať workloady.
 
-```yaml
-volumeMounts:
-  - name: tmp
-    mountPath: /tmp
-volumes:
-  - name: tmp
-    emptyDir: {}
+## 9. Causal walkthrough: Pod funguje iba po nebezpečnom bypass-e
+
+### Symptom
+
+Payments 5.4.0 je po zapnutí Restricted policy odmietnutý. Operator presunie workload do `platform-exceptions`, kde Pod beží. Neskôr audit zistí, že release ServiceAccount môže cez debug sidecar ovládať container runtime na Node-e.
+
+### Exact subject
+
+Fixuj:
+
+- namespace labels a PSS version;
+- Deployment/ReplicaSet/Pod UID a image digest;
+- všetky init, application, sidecar a ephemeral containers;
+- resolved security contexts;
+- host namespaces, devices a mounts;
+- runtime socket path a API authority;
+- ServiceAccount/RBAC identity;
+- Node a RuntimeClass generation;
+- audit request a exact forbidden operation.
+
+### Competing hypotheses
+
+1. application legitímne potrebuje host runtime socket;
+2. socket je read-only, preto nie je nebezpečný;
+3. iba init container potrebuje root a po štarte authority zmizne;
+4. PSS version zmenila pravidlo neočakávane;
+5. custom admission pridalo mount alebo sidecar;
+6. release controller používa inú ServiceAccount;
+7. runtime socket neposkytuje write/control operations;
+8. Node isolation robí host access prijateľný;
+9. `allowPrivilegeEscalation=false` blokuje zneužitie socketu;
+10. broad namespace exception sprístupnila capability iným workload writerom.
+
+### Discriminating observations
+
+Porovnaj source a admitted Pod, namespace labels, admission warnings/audit, owner references, image digests, effective mounts, `id`, capabilities, `no_new_privs`, seccomp/AppArmor/SELinux state, RBAC na Pod/ephemeral-container creation a actual runtime API request.
+
+Finding:
+
+```text
+legacy metrics sidecar
+→ mount /run/containerd/containerd.sock
+→ namespace musí byť Privileged
+→ release ServiceAccount smie meniť Pod template
+→ sidecar alebo exec subject volá runtime API
+→ host workloads a credentials sú dostupné
 ```
 
-Read-only root filesystem:
+Read-only filesystem flag ani `allowPrivilegeEscalation=false` neodoberajú authority poskytovanú control socketom.
 
-- znižuje runtime mutation,
-- komplikuje persistence malware-u,
-- odhaľuje skryté write dependencies,
-- nenahrádza image integrity ani volume access control.
+### Containment
 
-## 10. Seccomp
+- pozastav rollout a debug access;
+- izoluj affected Nodes/workload podľa incident scope-u;
+- zachovaj admitted specs, audit logs a runtime events;
+- odober release writerovi možnosť vytvárať nové privileged Pods;
+- rotuj credentials, ku ktorým mohol host-access subject pristúpiť;
+- nemaž Pod/Node evidence skôr než je zachytená.
 
-```yaml
-securityContext:
-  seccompProfile:
-    type: RuntimeDefault
-```
+### Authoritative recovery
 
-Seccomp obmedzuje dostupné Linux syscalls.
+- odstráň legacy sidecar alebo nahraď runtime-socket dependency bounded metrics endpointom;
+- vráť workload do Restricted namespace-u;
+- nastav explicitný non-root/read-only/capability/seccomp contract;
+- vytvor iba potrebné writable mounts;
+- oddeľ platform exception deploy identity od application identity;
+- zaveď custom admission pre runtime sockets, hostPath a privileged workloads;
+- redeployni novú Pod generation a rotuj exposed secrets.
 
-Typy zahŕňajú:
+### Verify original a forbidden outcomes
 
-- `RuntimeDefault`,
-- `Localhost`,
-- `Unconfined`.
+Over:
 
-`RuntimeDefault` závisí od runtime implementation a verzie. Local profiles potrebujú distribúciu na Nodes a lifecycle management.
+1. payment journey funguje;
+2. Pod prejde pinned Restricted policy;
+3. process používa expected UID/GID/capabilities;
+4. legitímne writable paths a volume access fungujú;
+5. runtime socket, host filesystem, devices a host namespaces nie sú dostupné;
+6. application ServiceAccount nevie vytvoriť privileged/debug bypass;
+7. old credentials sú neplatné;
+8. replacement na inom Node-e má rovnaký security verdict.
 
-Pri seccomp denial sleduj runtime, kernel audit a application behavior; obyčajný exit code nemusí jasne ukázať blokovaný syscall.
+### Earlier controls
 
-## 11. AppArmor
+Použi security-contract test na admitted Pod, permission/capability diff gate, exception expiry, forbidden host-mount policy, runtime-profile conformance test, break-glass audit a pravidelný replacement test na každej Node generation.
 
-AppArmor profile obmedzuje file, capability, network a ďalšie operations podľa host podpory a profile configuration.
-
-Moderný Kubernetes API model môže používať security context fields podľa podporovanej verzie; staršie integrácie používali annotations. Pri authoringu vždy over cluster verziu a runtime/Node support.
-
-AppArmor profile musí existovať na Node-e alebo byť spravovaný platformovou distribúciou. Inak môže Pod zlyhať alebo bežať s iným profilom podľa policy.
-
-## 12. SELinux
-
-SELinux security options môžu nastaviť label context:
-
-```yaml
-securityContext:
-  seLinuxOptions:
-    type: container_t
-```
-
-Reálny význam závisí od host policy, runtime a storage labels. Nesprávny SELinux context sa často prejaví ako `permission denied` aj pri správnych Unix mode bits.
-
-Nepoužívaj globálne vypnutie SELinux ako bežnú opravu; analyzuj audit denial a oprav policy alebo mount labeling.
-
-## 13. Sysctls
-
-```yaml
-securityContext:
-  sysctls:
-    - name: net.ipv4.ip_local_port_range
-      value: "1024 65535"
-```
-
-Kubernetes rozlišuje safe a unsafe sysctls podľa namespacingu a Node konfigurácie. Unsafe sysctls môžu ovplyvniť host alebo iné workloads a vyžadujú explicitné kubelet povolenie.
-
-Sysctl patrí do platformového contractu, nie do náhodného application tuningu bez load testu.
-
-## 14. Host namespaces
-
-Citlivé Pod fields:
-
-```yaml
-spec:
-  hostNetwork: true
-  hostPID: true
-  hostIPC: true
-```
-
-Dôsledky:
-
-- zdieľanie host network namespace,
-- viditeľnosť host procesov,
-- zdieľanie IPC resources,
-- menšia isolation a väčší lateral-movement potenciál.
-
-Host namespace access povoľuj iba systémovým workloadom s jasným dôvodom.
-
-## 15. `hostPath`, devices a runtime sockets
-
-`hostPath` môže sprístupniť host filesystem:
-
-```yaml
-volumes:
-  - name: host-data
-    hostPath:
-      path: /var/lib/example
-      type: Directory
-```
-
-Rizikové paths:
-
-- `/`,
-- `/etc`,
-- `/var/lib/kubelet`,
-- runtime sockets,
-- container image stores,
-- `/proc`, `/sys`, `/dev`,
-- cloud credentials alebo host logs.
-
-Read-only mount stále môže sprístupniť credentials alebo citlivé host informácie.
-
-## 16. Proc mount a masked paths
-
-Runtime štandardne maskuje alebo nastavuje read-only vybrané `/proc` a system paths. Uvoľnenie `procMount` alebo related controls môže sprístupniť host/kernel informácie a escape primitives.
-
-Použitie musí prejsť security review a Pod Security policy kontrolou.
-
-## 17. Windows workloads
-
-Mnohé Linux-specific fields nemajú na Windows rovnaký význam:
-
-- Linux capabilities,
-- seccomp,
-- SELinux,
-- AppArmor,
-- UID/GID a `fsGroup`.
-
-Windows používa vlastné identity a host-process controls. Pod Security Standards majú OS-aware pravidlá, ale policy a manifests musia explicitne zohľadniť `spec.os.name` a cluster verziu.
-
-## 18. Pod Security Standards
-
-Kubernetes definuje tri profily:
-
-### Privileged
-
-Takmer bez obmedzení; určený pre dôveryhodné systémové workloads.
-
-### Baseline
-
-Blokuje známe nebezpečné privilege escalations a host access, pričom zachováva širšiu kompatibilitu.
-
-### Restricted
-
-Silnejší hardening profil, ktorý vyžaduje non-root model, seccomp a obmedzené capabilities podľa aktuálnej verzie štandardu.
-
-PSS je versionovaný policy contract. `latest` sa môže pri cluster upgrade sprísniť, preto produkčné namespaces často pinujú verziu a upgrade testujú.
-
-## 19. Pod Security Admission
-
-PSA je built-in admission controller. Namespace labels určujú režim:
-
-```yaml
-metadata:
-  labels:
-    pod-security.kubernetes.io/enforce: restricted
-    pod-security.kubernetes.io/enforce-version: v1.36
-    pod-security.kubernetes.io:audit: restricted
-    pod-security.kubernetes.io/audit-version: v1.36
-    pod-security.kubernetes.io/warn: restricted
-    pod-security.kubernetes.io/warn-version: v1.36
-```
-
-Režimy:
-
-- `enforce` — odmietne nevyhovujúci Pod admission,
-- `audit` — zaznamená violation do audit annotations,
-- `warn` — vráti warning klientovi.
-
-Verziu v príklade prispôsob reálnej podporovanej verzii clusteru.
-
-## 20. Rollout Pod Security policy
-
-Bezpečný postup:
-
-1. inventarizuj workloads,
-2. zapni `warn` a `audit`,
-3. oprav manifests a images,
-4. testuj controller-generated Pods, Jobs a upgrades,
-5. pinuj standard version,
-6. zapni `enforce`,
-7. monitoruj denied admissions,
-8. pravidelne posúvaj policy version.
-
-Priamy prechod na Restricted môže odstaviť system DaemonSets, storage/network plugins alebo legacy aplikácie.
-
-## 21. Namespace výnimky
-
-Niektoré platformové workloads potrebujú privileged access. Izoluj ich do samostatných namespaces s:
-
-- prísnym RBAC,
-- obmedzeným repository/deployment accessom,
-- NetworkPolicy,
-- auditom,
-- dedicated Nodes podľa threat modelu,
-- explicitným ownerom a exception expiry.
-
-`privileged` namespace nesmie byť všeobecné miesto na obchádzanie policy.
-
-## 22. PodSecurityPolicy je odstránené
-
-Legacy `PodSecurityPolicy` API bolo deprecated a odstránené z Kubernetes. Moderný model používa Pod Security Admission alebo external admission policy engines.
-
-Pri migrácii treba oddeliť:
-
-- štandardné PSS controls,
-- custom image/registry/hostPath/capability policy,
-- mutation/defaulting,
-- exceptions a audit.
-
-PSA nie je plná náhrada každého historického PSP use case-u.
-
-## 23. Custom admission policy
-
-PSS nepokrýva všetky organizational controls, napríklad:
-
-- povolené registries,
-- digest pinning,
-- mandatory resource requests,
-- zákaz konkrétnych `hostPath`,
-- workload identity labels,
-- TLS alebo backup policy.
-
-Doplniť ich možno cez:
-
-- ValidatingAdmissionPolicy,
-- validating/mutating admission webhooks,
-- policy engines.
-
-Admission dependency musí mať HA, timeout, fail-open/fail-closed rozhodnutie a upgrade compatibility.
-
-## 24. RuntimeClass a sandbox
-
-SecurityContext a PSS neznamenajú silný tenant sandbox. Pre nedôveryhodný code zváž:
-
-- sandboxed runtime,
-- microVM,
-- dedicated Nodes,
-- oddelený cluster,
-- hardware/VM isolation.
-
-RuntimeClass vyberá runtime handler, ale potrebuje scheduling, overhead a Node support model.
-
-## 25. Debugging a ephemeral containers
-
-Ephemeral debug container môže mať prístup k Pod namespaces a mounted data podľa konfigurácie. Prístup k `pods/ephemeralcontainers` je citlivá RBAC capability.
-
-Debugging nesmie automaticky obísť:
-
-- Pod Security,
-- image allowlist,
-- audit,
-- production change control,
-- secret handling.
-
-Minimalistický production image neospravedlňuje permanentný privileged debug sidecar.
-
-## 26. Observability
-
-```bash
-kubectl get pod -n production <pod> -o yaml
-kubectl describe pod -n production <pod>
-kubectl get events -n production --sort-by=.metadata.creationTimestamp
-kubectl get namespace production --show-labels
-kubectl auth can-i create pods -n production
-```
-
-Na Node-e sleduj podľa prístupu:
-
-- kubelet/runtime logs,
-- kernel audit log,
-- seccomp/AppArmor/SELinux denials,
-- effective UID/GID/capabilities,
-- mount options a file labels.
-
-## 27. Troubleshooting
+## 10. Ďalšie failure boundaries
 
 ### `runAsNonRoot` odmietne image
 
-Image používa root alebo runtime nevie určiť non-root user. Nastav numeric `USER` a explicitný `runAsUser`.
-
-### Read-only root filesystem rozbije aplikáciu
-
-Identifikuj write paths a pripoj bounded `emptyDir`, volume alebo tmpfs. Nevracaj celý root filesystem na writable bez analýzy.
+Image nemá jednoznačný non-root user alebo effective UID je 0. Oprav image a explicitný runtime contract; nevypínaj guard.
 
 ### Volume má `permission denied`
 
-Over UID/GID, `fsGroup`, CSI behavior, ownership, SELinux/AppArmor a read-only mount.
+Rozlišuj UID/GID, `fsGroup`, ACL, read-only mount, CSI ownership, SELinux/AppArmor denial a user-namespace mapping. `chmod 777` ničí diagnostickú aj security boundary.
 
-### Pod je rejected PSA
+### Read-only root rozbije startup
 
-Prečítaj admission warning/error, porovnaj namespace labels a PSS version, oprav konkrétny field; nepresúvaj workload automaticky do privileged namespace.
+Zachyť exact write path a účel. Pridaj bounded ephemeral/persistent mount, nie writable root.
 
-### Capability drop rozbije bind port
+### Capability drop rozbije application
 
-Použi vyšší port alebo pridaj iba `NET_BIND_SERVICE`, ak je to skutočne potrebné.
+Identifikuj syscall a kernel permission. Preferuj redesign alebo vyšší port; ak capability musí zostať, pridaj iba jednu a testuj forbidden operations.
 
-### Seccomp spôsobí runtime failure
+### Seccomp/AppArmor profile chýba iba na jednom Node-e
 
-Získaj syscall/audit evidence, over runtime default profile a application dependency. Neprepínaj plošne na `Unconfined`.
+Pod admission môže uspieť, ale runtime vytvorenie alebo operation zlyhá. Porovnaj profile distribution a Node generation.
 
-## 28. Anti-patterny
+### PSA `enforce` blokuje controller-generated Pod
 
-### `privileged: true` ako rýchla oprava permissions
+Validuj resolved Pod template všetkých workload controllers, Jobs a upgrade hooks. Presun do privileged namespace-u nie je automatická remediation.
 
-Odstraňuje veľkú časť isolation namiesto opravy ownershipu alebo capability.
+## 11. Referenčný katalóg
 
-### `runAsUser: 0` s `runAsNonRoot: true`
+### Identity a authority controls
 
-Manifest si protirečí a admission/runtime ho odmietne.
+- `runAsUser`, `runAsGroup`, `runAsNonRoot`;
+- `fsGroup` a supplemental groups;
+- capabilities a `allowPrivilegeEscalation`;
+- `privileged`, host namespaces, devices a `hostPath`;
+- read-only root a explicitné writable mounts;
+- seccomp, AppArmor a SELinux;
+- RuntimeClass, user namespaces a sandbox.
 
-### `chmod 777` na volume
+### PSS/PSA evidence
 
-Maskuje identity a policy chybu a zvyšuje write exposure.
+```text
+namespace policy level/mode/version
+admitted Pod spec
+warning/audit/enforce verdict
+runtime-resolved security config
+process/kernel authority
+allowed a forbidden operation tests
+```
 
-### Read-only root bez explicitných writable paths
+## 12. Anti-patterny
 
-Aplikácia zlyhá pri logs, cache, PID alebo temp files.
+- `privileged: true` ako oprava permissions;
+- `chmod 777` na volume;
+- runtime socket považovaný za neškodný read-only file;
+- PSS `latest` bez upgrade rehearsal;
+- privileged namespace dostupný application writerom;
+- seccomp/AppArmor/SELinux vypnuté bez evidence;
+- non-root považovaný za úplný sandbox;
+- permanentný privileged debug sidecar;
+- policy success považovaný za dôkaz bezpečného runtime-u.
 
-### PSS `latest` bez upgrade testov
+## 13. Kontrolné otázky
 
-Nová minor verzia môže zmeniť policy výsledok.
-
-### Privileged namespace dostupný application tímom
-
-Výnimka sa stane trvalým bypassom security governance.
-
-### SecurityContext považovaný za VM isolation
-
-Containers stále zdieľajú host kernel.
-
-## 29. Kontrolné otázky
-
-1. Aký je rozdiel medzi Pod a container security contextom?
-2. Čo rieši `runAsNonRoot` a čo nerieši?
-3. Načo slúži `fsGroup`?
-4. Prečo je vhodné dropnúť všetky capabilities?
-5. Čo mení `allowPrivilegeEscalation: false`?
-6. Ako sa líši seccomp, AppArmor a SELinux?
-7. Aké sú tri Pod Security Standards profily?
-8. Ako sa líši `enforce`, `audit` a `warn` v PSA?
-9. Prečo PSS version pinning patrí do upgrade stratégie?
-10. Kedy shared-kernel container potrebuje silnejší sandbox alebo VM boundary?
+1. Ktoré štyri security subjects musíš odlíšiť od source manifestu po process authority?
+2. Prečo `runAsNonRoot` nestačí bez image a filesystem contractu?
+3. Ako sa líši capability, `no_new_privs` a privileged mode?
+4. Prečo read-only runtime socket môže byť host-control capability?
+5. Ako sa líši PSS policy level od PSA mode a version?
+6. Prečo Unix mode bits nemusia vysvetliť SELinux/AppArmor denial?
+7. Kedy `fsGroup` mení startup latency a access boundary?
+8. Prečo Restricted Pod stále nemusí byť vhodný pre nedôveryhodný code?
+9. Ako uzavrieš privileged namespace exception?
+10. Ktoré forbidden outcomes musí overiť security recovery?
 
 ## Glossary impact
 
-Relevantné pojmy: Kubernetes SecurityContext, `runAsNonRoot`, `runAsUser`, `runAsGroup`, `fsGroup`, supplemental groups, Linux capabilities, `allowPrivilegeEscalation`, privileged container, read-only root filesystem, seccomp profile, AppArmor profile, SELinux options, safe sysctl, host namespace, Pod Security Standards, Privileged/Baseline/Restricted profile, Pod Security Admission, enforce/audit/warn mode, policy version pinning a privileged namespace exception.
+Relevantné pojmy: Kubernetes security lifecycle subject, admitted security contract, runtime authority generation, process credential subject, capability inventory, host-control mount, kernel enforcement generation, filesystem access verdict, PSS policy generation, PSA admission verdict, privileged exception subject, sandbox boundary, security evidence matrix a forbidden-authority verification.
 
 ## Oficiálna dokumentácia
 
