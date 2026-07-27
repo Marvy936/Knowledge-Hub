@@ -1,695 +1,572 @@
 # Terraform vs. Ansible
 
-Terraform a Ansible sa často označujú ako Infrastructure as Code nástroje, ale používajú odlišné execution, identity a state modely. Terraform je primárne resource lifecycle engine s persistentným state-om a dependency graphom. Ansible je primárne task-oriented automation a configuration-management engine pracujúci nad inventory targets.
+Terraform a Ansible sa prekrývajú v tom, že oba menia infraštruktúru a configuration, ale ich dominantné state a identity modely sú odlišné:
 
-Otázka preto nie je iba „ktorý nástroj je lepší“, ale:
+- Terraform je resource lifecycle engine s persistentnými bindings, dependency graphom a plan/apply transitionom.
+- Ansible je target-oriented automation engine, ktorý pri run-e skladá inventory, values a ordered per-host operations.
 
-- aký objekt a lifecycle spravujeme,
-- kto vlastní desired state,
-- akú identitu má resource alebo host,
-- ako sa deteguje current state,
-- aký recovery a drift model potrebujeme,
-- kde má byť boundary medzi provisioningom a konfiguráciou.
+Správna otázka preto nie je „ktorý nástroj je lepší“, ale:
 
-## 1. Základné mentálne modely
+```text
+aký objekt alebo attribute má lifecycle?
+→ akú stabilnú identitu potrebuje?
+→ kto je authoritative writer?
+→ ako vzniká proposed change a evidence?
+→ aký narrow contract prechádza medzi tools?
+→ ako sa overí combined runtime outcome?
+→ ako sa obnoví partial alebo conflicting state?
+```
 
-### Terraform
+Dominantný hybridný lifecycle:
+
+```text
+capability intent a object/attribute inventory
+→ assign authoritative ownership
+→ Terraform resource change subject
+→ plan, policy, apply a state/runtime verification
+→ publish narrow readiness/inventory contract
+→ Ansible run subject a host convergence
+→ combined service verification
+→ drift, upgrade a recovery closure
+```
+
+## 1. Atlas scenár
+
+Atlas Payments release 3.13.0 potrebuje:
+
+### Terraform-owned state
+
+- VPC, subnets a routes;
+- dvanásť VM instances;
+- instance profiles a IAM bindings;
+- security groups;
+- load balancer a target group;
+- DNS record;
+- image ID `ami-atlas-313`;
+- Terraform state lineage `L17`, serial `228`.
+
+### Ansible-owned state
+
+- package `atlas-payments-3.13.0`;
+- application user a directories;
+- configuration artifact `C44`;
+- runtime secret epoch `SE02`;
+- systemd service state;
+- process-level verification;
+- bounded host registration workflow podľa published contractu.
+
+Cross-tool contract `HC313` obsahuje iba:
+
+```text
+stable instance ID
+inventory hostname
+management address
+environment
+region/AZ
+service role
+image ID
+readiness generation
+load-balancer target identity
+```
+
+Ansible nečíta celý Terraform state. Terraform nespravuje application config file.
+
+Úspešný combined outcome:
+
+```text
+Terraform resources existujú pod správnymi identities
++ state bindings a runtime inventory sú konzistentné
++ HC313 obsahuje všetkých 12 ready hosts
++ Ansible dosiahne package/config/service state na všetkých 12 hosts
++ application transaction prejde cez production DNS a load balancer
++ fresh Terraform plan je no-op
++ second Ansible converge nemá unintended changes
+```
+
+## 2. Dva odlišné state stroje
+
+### Terraform resource lifecycle
 
 ```text
 configuration
-+ prior state
++ provider target identity
++ prior state bindings
 + refreshed remote observations
 → dependency graph
-→ plan
-→ apply
-→ new state
+→ saved plan
+→ create/update/replace/destroy/read
+→ successor state snapshot
+→ runtime verification
 ```
 
-Terraform pracuje s resource instances, addresses, providers, remote identities a persistentným state-om.
+Terraform stabilizuje resource identity cez address, provider context a remote object binding.
 
-### Ansible
+### Ansible host convergence lifecycle
 
 ```text
-playbook
-+ inventory
-+ variables/facts
-→ ordered tasks per host
-→ module/API operations
-→ per-task results
+playbook a execution environment
++ resolved inventory
++ effective variables/facts
+→ ordered per-host tasks
+→ module/API observations a mutations
+→ changed/failure/handler transitions
+→ loaded-runtime a fleet verification
 ```
 
-Ansible pracuje s inventory hosts alebo API targets, plays, tasks, modules a runtime results. Nemá univerzálny persistentný state mapujúci každý spravovaný objekt.
+Ansible nemá univerzálny persistentný binding pre každý file, package, service a API object. Current state typicky zisťuje konkrétny module pri run-e.
 
-## 2. Primárna doména Terraformu
+Dôsledok:
 
-Terraform je vhodný najmä na lifecycle resources, ako sú:
+- Terraform je silný tam, kde create/update/delete/replacement a dlhodobá object identity tvoria hlavný lifecycle.
+- Ansible je silný tam, kde hlavný lifecycle tvorí host alebo device configuration a ordered orchestration.
 
-- virtual networks a subnets,
-- cloud compute instances,
-- managed databases,
-- load balancers,
-- IAM resources,
-- DNS records,
-- Kubernetes clusters,
-- SaaS alebo platform resources s providerom,
-- infrastructure dependencies medzi týmito objektmi.
+## 3. Ownership sa prideľuje objektom a atribútom
 
-Silné stránky:
-
-- resource identity,
-- dependency graph,
-- plan pred apply,
-- create/update/delete lifecycle,
-- replacement analysis,
-- persistentný state,
-- import a moved history,
-- drift detection,
-- reusable modules,
-- Policy as Code nad planom.
-
-## 3. Primárna doména Ansible
-
-Ansible je vhodný najmä na:
-
-- konfiguráciu operačných systémov,
-- package, user, file a service management,
-- application deployment,
-- orchestráciu postupných krokov,
-- patching a maintenance workflows,
-- sieťové zariadenia,
-- ad hoc alebo event-driven operations,
-- post-provisioning konfiguráciu,
-- cross-system runbooks.
-
-Silné stránky:
-
-- agentless push model,
-- inventory a host grouping,
-- ordered orchestration,
-- conditional execution,
-- loops a handlers,
-- široký module/plugin ecosystem,
-- configuration templating,
-- jednoduché operatívne workflows,
-- postupný rollout cez batches.
-
-## 4. Declarative vs. imperative nie je binárne delenie
-
-Terraform configuration je prevažne deklaratívna: opisuje požadované resources a relationships.
-
-Ansible playbook je ordered sequence tasks, ale jednotlivé modules môžu byť deklaratívne:
-
-```yaml
-- name: Ensure service is running
-  ansible.builtin.service:
-    name: example
-    state: started
-```
-
-Ansible teda kombinuje:
-
-- deklaratívny module state,
-- imperatívnejšie task ordering,
-- orchestration controls.
-
-Terraform tiež môže obsahovať sekvenčné alebo imperatívne prvky cez provisioners alebo external scripts, ale tie oslabujú jeho resource model.
-
-## 5. State model
-
-### Terraform state
-
-Terraform state mapuje:
-
-```text
-resource address
-→ provider context
-→ remote object identity
-→ known attributes
-```
-
-State je základ ďalšieho plan/apply lifecycle.
-
-### Ansible state
-
-Ansible typicky načíta current state pri každom module tasku:
-
-```text
-module arguments
-→ inspect target
-→ decide whether change is required
-→ return changed/failed/result
-```
-
-Persistentné dáta môžu existovať ako:
-
-- inventory,
-- fact cache,
-- external CMDB,
-- application migration ledger,
-- controller job history,
-- resource-specific API state.
-
-Nie je to však univerzálny Terraform-like binding model.
-
-## 6. Resource identity
-
-Terraform potrebuje stabilnú resource addressu a remote identity.
+Boundary „Terraform infra, Ansible config“ je užitočný začiatok, ale nestačí. Ownership musí byť presný na úroveň mutable objectu alebo attribute.
 
 Príklad:
 
-```text
-module.network.aws_subnet.private["eu-central-1a"]
-```
+| Objekt alebo attribute | Authoritative writer | Consumer |
+|---|---|---|
+| VM lifecycle a image ID | Terraform | Ansible target |
+| Security-group ingress | Terraform | Ansible read-only |
+| Host package version | Ansible | runtime verifier |
+| Application config file | Ansible | service process |
+| Load-balancer object | Terraform | Ansible orchestration consumer |
+| Temporary target registration state | jeden explicitný owner podľa workflowu | druhý tool read/coordinate |
+| DNS record | Terraform | application/verifier |
 
-Ansible inventory používa stabilnú host identity:
+Jeden attribute nemá mať dvoch nezávislých authoritative writers.
 
-```text
-inventory_hostname = web-01
-ansible_host = 10.20.1.11
-```
-
-Ansible task môže navyše pracovať s resources v module/API bez trvalého globálneho address mappingu.
-
-Rozdiel ovplyvňuje refaktoring, import, drift aj replacement behavior.
-
-## 7. Dependency model
-
-### Terraform graph
-
-References vytvárajú directed dependency graph:
+Ownership contract obsahuje:
 
 ```text
-network
-→ subnet
-→ load balancer
-→ service
+object/attribute identity
+writer tool a team
+read-only consumers
+desired-state source
+mutation permissions
+drift detector
+recovery owner
+migration/transfer path
 ```
 
-Terraform môže nezávislé vertices vykonávať paralelne.
+## 4. Tool selection podľa lifecycle-u
 
-### Ansible order
-
-Ansible používa najmä:
-
-- poradie tasks,
-- plays,
-- role/import/include composition,
-- handlers,
-- per-host strategy,
-- `serial`, `throttle` a delegation.
-
-Dependency je často zapísaná explicitným workflow orderingom, nie odvodená z data references.
-
-## 8. Plan model
-
-### Terraform plan
-
-Plan je explicitný model navrhovaných resource actions:
-
-- create,
-- update in place,
-- replace,
-- destroy,
-- read,
-- output changes.
-
-Saved plan môže byť reviewovaný artifact, hoci zostáva citlivý a časovo viazaný na state a inputs.
-
-### Ansible check mode
-
-Ansible `--check` je best-effort predikcia podľa podpory konkrétnych modules.
-
-```bash
-ansible-playbook site.yml --check --diff
-```
-
-Nie je to transakčný saved plan. Niektoré modules:
-
-- check mode nepodporujú,
-- task preskočia,
-- nevedia predikovať runtime výsledok,
-- potrebujú reálne API side effects.
-
-Terraform plan a Ansible check mode preto nie sú ekvivalentné assurances.
-
-## 9. Drift
-
-### Terraform
-
-Refresh porovná remote objects so state-om a configuration. Drift sa objaví v plane.
-
-### Ansible
-
-Drift sa zistí pri ďalšom module run-e alebo samostatnej validation kontrole:
+Použi Terraform, keď hlavný problém je:
 
 ```text
-expected file content
-≠ actual file content
-→ changed task
+stable resource identity
++ dependency graph
++ persistent binding/state
++ plan create/update/replace/destroy
++ import/refactor/drift lifecycle
 ```
 
-Ansible nemá automaticky centralizovaný report všetkého driftu, pokiaľ ho nevytvorí scheduled run, audit alebo external inventory/compliance systém.
-
-## 10. Idempotencia
-
-Terraform sa snaží dosiahnuť no-op plan pri zhode configuration, state a remote reality.
-
-Ansible sa snaží dosiahnuť druhý converge run bez nečakaných changes.
-
-Oba modely môžu zlyhať pri:
-
-- unstable provider/module behavior,
-- mutable external inputs,
-- eventual consistency,
-- ownership konflikte,
-- nebezpečných scripts,
-- nesprávnom current-state detection.
-
-## 11. Provisioning a configuration management
-
-Typická boundary:
-
-### Terraform vlastní
-
-- network,
-- instance/VM lifecycle,
-- security groups,
-- managed service resources,
-- load balancer,
-- DNS,
-- IAM identity a role bindings,
-- cluster alebo platform primitives.
-
-### Ansible vlastní
-
-- OS packages,
-- system users,
-- service configuration,
-- application files,
-- agents,
-- certificates podľa určeného lifecycle,
-- service restart/reload,
-- host-level verification.
-
-Boundary nie je absolútna. Dôležité je, aby jeden object attribute nemal dvoch authoritative writers.
-
-## 12. Host bootstrap
-
-Príklad hybridného workflowu:
+Použi Ansible, keď hlavný problém je:
 
 ```text
-Terraform creates VM
-→ cloud-init establishes minimum bootstrap
-→ host registers in inventory/CMDB
-→ Ansible configures OS and application
-→ verification
+resolved target fleet
++ host/device current-state reads
++ ordered operations a conditions
++ batches/handlers/retries
++ loaded-runtime convergence
 ```
 
-Bootstrap má zabezpečiť iba minimum potrebné na bezpečnú správu:
+Použi oba, keď capabilities prirodzene prechádzajú dvoma boundaries a contract je explicitný.
 
-- identity/SSH alebo management channel,
-- trusted CA,
-- base package/runtime podľa potreby,
-- inventory registration,
-- security baseline potrebný pred prvým Ansible runom.
+Nástroj nevyberaj podľa popularity alebo jednej syntax feature. Cloud resource možno vytvoriť Ansible modulom a config file možno zapísať Terraform provisionerom; otázka je, či tým vznikne zrozumiteľný dlhodobý identity, drift, retry a recovery model.
 
-Neukladaj celý dlhodobý configuration lifecycle do jednorazového user data scriptu.
+## 5. Provisioning-to-configuration contract
 
-## 13. Terraform provisioners
-
-Terraform provisioners ako remote-exec môžu spúšťať scripts alebo configuration počas resource lifecycle.
-
-Riziká:
-
-- side effect nie je plnohodnotný resource,
-- slabý state a retry model,
-- partial failure,
-- tajné údaje v plan/state/logoch,
-- tight coupling infrastructure create s host configuration,
-- náročný re-run bez replacementu resource.
-
-Provisioner používaj ako výnimočný bootstrap alebo bridge, nie ako náhradu Ansible architecture.
-
-## 14. Ansible na provisioning resources
-
-Ansible collections obsahujú cloud a platform modules schopné vytvárať resources.
-
-To môže byť vhodné pre:
-
-- krátke orchestration workflows,
-- operatívne one-shot actions,
-- platformu bez vhodného Terraform providera,
-- workflow, kde persistentný Terraform state nie je žiaduci,
-- API operation viazanú na širší runbook.
-
-Pri dlhodobom resource lifecycle si polož otázky:
-
-- kde je resource identity?
-- ako sa plánuje destroy/replacement?
-- ako sa deteguje drift?
-- ako sa importuje existujúci object?
-- ako sa chráni concurrent writer?
-- ako sa reviewuje proposed change?
-
-## 15. Immutable infrastructure
-
-Terraform prirodzene podporuje model, kde sa infra resources nahrádzajú novými.
-
-Ansible prirodzene podporuje mutable in-place configuration, ale môže sa používať aj pri image build pipeline:
-
-```text
-Ansible configures image builder VM
-→ image artifact created
-→ Terraform deploys immutable instances from image
-```
-
-Tento model oddeľuje:
-
-- image construction,
-- infrastructure deployment,
-- runtime configuration.
-
-## 16. Golden image pattern
-
-Ansible môže vytvoriť alebo nakonfigurovať image počas build pipeline. Terraform potom nasadí konkrétny image ID/version.
-
-Výhody:
-
-- rýchlejší a predvídateľnejší startup,
-- menší runtime configuration drift,
-- testovateľný artifact,
-- jednoduchšia replacement stratégia.
-
-Runtime Ansible stále môže spravovať malé množstvo environment-specific configuration, ale nemá meniť základ image bez jasného ownershipu.
-
-## 17. Inventory integrácia
-
-Terraform outputs možno publikovať do inventory alebo CMDB:
-
-```text
-Terraform state/output
-→ stable integration contract
-→ dynamic inventory
-→ Ansible target selection
-```
+Terraform output nemá byť neobmedzený access k celému state-u.
 
 Nevhodný model:
 
 ```text
-Ansible číta celý citlivý Terraform state
-→ závisí od interných addresses a všetkých attributes
+Ansible dostane read access k production state backendu
+→ číta interné resource addresses a citlivé attributes
+→ Terraform refactor zmení internú štruktúru
+→ inventory alebo host mapping sa rozbije
 ```
 
-Preferuj úzky contract:
-
-- hostname/ID,
-- management address,
-- environment,
-- role/group metadata,
-- region,
-- immutable deployment identity.
-
-## 18. Pipeline ordering
-
-Bezpečný hybridný pipeline:
+Vhodnejší model:
 
 ```text
-terraform validate/test
-→ terraform plan + policy
-→ approval
-→ terraform apply
-→ wait for readiness
-→ publish/update inventory
-→ ansible syntax/lint/check
-→ ansible canary converge
-→ ansible rollout
-→ verification
+Terraform verified resource inventory
+→ publish versioned narrow host contract HC313
+→ inventory validation
+→ Ansible target manifest
 ```
 
-Každý krok potrebuje:
+Contract potrebuje:
 
-- vlastnú identity,
-- scoped permissions,
-- explicitné artifacts,
-- failure a retry behavior,
-- audit trail.
+- schema version;
+- immutable producer subject;
+- stable host/resource identity;
+- environment a readiness state;
+- required fields a null semantics;
+- consumer compatibility;
+- publication generation;
+- access policy;
+- retirement/deprecation path.
 
-## 19. Failure boundaries
+## 6. Readiness je samostatný transition
 
-### Terraform apply failure
+Terraform apply success môže znamenať, že VM a network resources vznikli. Neznamená automaticky:
 
-Môže zanechať partial resource changes a nový alebo neúplný state update.
+- boot dokončený;
+- cloud-init úspešný;
+- management identity pripravená;
+- SSH host identity stabilná;
+- route/firewall path funkčný;
+- package manager dostupný;
+- host registrovaný v authoritative inventory.
+
+Hybrid pipeline potrebuje explicitný readiness gate:
+
+```text
+Terraform apply success
+→ instance identity exists
+→ bootstrap completion observed
+→ management channel verified
+→ host contract published as ready
+→ Ansible may target host
+```
+
+Sleep nie je readiness model. Použi condition-based observation s bounded timeoutom a failure evidence.
+
+## 7. Bootstrap boundary
+
+Minimálny bootstrap môže vytvoriť:
+
+- management identity/channel;
+- trusted CA alebo host certificate;
+- základný runtime potrebný pre Ansible;
+- inventory/CMDB registration;
+- minimum security baseline pred prvým connectionom.
+
+Dlhodobý application configuration lifecycle neukladaj do jednorazového user-data scriptu. User data má slabý re-run, partial failure a observation model.
+
+Terraform provisioner má podobný problém:
+
+```text
+resource create
+→ remote-exec side effect
+→ side effect nie je samostatný managed resource binding
+→ retry/recovery sa viaže na resource lifecycle
+```
+
+Provisioner je výnimočný bridge alebo bootstrap, nie defaultná náhrada configuration-management systému.
+
+## 8. Plan a check mode nie sú ekvivalenty
+
+Terraform saved plan identifikuje konkrétny resource transition subject:
+
+```text
+configuration + dependencies + inputs + state serial + refresh + target
+→ proposed actions
+```
+
+Ansible check mode je module-specific predikcia:
+
+```text
+resolved play/task path
+→ module best-effort current-state model
+→ predicted changed/skipped/result
+```
+
+Niektoré Ansible modules check mode nepodporujú alebo nevedia predikovať external side effects. Terraform plan zas nemusí poznať post-apply application behavior.
+
+Hybrid approval preto potrebuje dve odlišné assurances:
+
+- Terraform plan/policy pre resource lifecycle;
+- Ansible syntax, contract, representative check/diff a canary evidence pre host convergence.
+
+## 9. Combined pipeline
+
+Atlas používa:
+
+```text
+1. build/test immutable machine image ami-atlas-313
+2. Terraform init/validate/test
+3. Terraform saved plan + policy + approval
+4. apply exact plan
+5. verify state serial, remote resources a readiness
+6. publish HC313
+7. validate inventory schema, identity, count a readiness generation
+8. Ansible syntax/lint/contract checks
+9. canary converge
+10. canary loaded-runtime verification
+11. fleet rollout
+12. full service transaction
+13. fresh Terraform no-op plan
+14. second Ansible converge
+15. publish combined release evidence
+```
+
+Každý krok má vlastnú identity, permissions, artifacts, retry semantics a recovery ownera.
+
+## 10. Failure boundaries
+
+### Terraform failure
+
+Môže zanechať:
+
+- partial remote mutations;
+- unknown API outcome;
+- successor state commit failure;
+- resource created but not ready;
+- valid infrastructure s nefunkčným application pathom.
+
+### Contract/publication failure
+
+Môže zanechať:
+
+- host existuje, ale inventory ho neobsahuje;
+- stale destroyed host zostáva targetom;
+- wrong environment alebo address;
+- schema mismatch;
+- readiness generation, ktorá nezodpovedá resource subjectu.
 
 ### Ansible failure
 
-Môže zanechať niektoré hosts alebo tasks zmenené a iné nezmenené.
+Môže zanechať:
 
-Hybridný recovery musí vedieť:
+- časť hosts zmenenú;
+- file update bez handleru;
+- package/config mismatch;
+- partial external side effect;
+- green run nad incomplete target setom.
 
-- či infrastructure resource existuje,
-- či je host reachable a ready,
-- ktoré Ansible tasks prebehli,
-- či handler prebehol,
-- či možno run bezpečne zopakovať,
-- či treba replacement alebo in-place repair.
+Recovery musí najprv určiť, v ktorej boundary sa aktuálny effective state nachádza.
 
-## 20. Concurrency
+## 11. Worked failure: dva tools menia rovnaký security-group attribute
 
-Terraform backend lock typicky serializuje writes nad jedným state-om.
-
-Ansible potrebuje concurrency control podľa resource a workflowu:
-
-- controller job lock,
-- deployment lock,
-- `serial`,
-- `throttle`,
-- resource-specific mutex,
-- API idempotency key.
-
-Terraform lock nechráni Ansible run a Ansible controller lock nechráni manuálny Terraform apply.
-
-## 21. Secrets
-
-### Terraform
-
-Secrets môžu skončiť v:
-
-- variables,
-- plans,
-- state,
-- provider request/response,
-- outputs,
-- logs.
-
-### Ansible
-
-Secrets môžu skončiť v:
-
-- variables/Vault,
-- module arguments,
-- templates,
-- target files,
-- callback logs,
-- registered results.
-
-Používaj external secret manager, short-lived identities a presný runtime scope. `sensitive` ani `no_log` nie sú encryption a access-control náhradou.
-
-## 22. Testing
-
-### Terraform testing
-
-- `fmt`,
-- `validate`,
-- static/IaC scanning,
-- native tests,
-- plan assertions,
-- policy,
-- integration apply tests,
-- drift/continuous validation.
-
-### Ansible testing
-
-- YAML/syntax/lint,
-- role/unit/plugin tests,
-- isolated converge,
-- assertions,
-- second-run idempotency,
-- check/diff,
-- canary inventory,
-- runtime verification.
-
-Hybridný system potrebuje contract test medzi Terraform outputom a Ansible inventory/inputom.
-
-## 23. Versioning
-
-Versionuj samostatne:
-
-- Terraform modules,
-- providers a lock files,
-- Ansible collections/roles,
-- execution environments,
-- machine images,
-- inventory schema,
-- cross-tool contract.
-
-Upgrade jedného nástroja môže zmeniť správanie druhého bez priameho source diffu, napríklad zmena Terraform output type alebo inventory hostname format.
-
-## 24. Ownership matrix
-
-Príklad:
-
-| Objekt/atribút | Terraform | Ansible |
-|---|---:|---:|
-| VPC/subnet | owner | consumer |
-| VM lifecycle | owner | target consumer |
-| Security group | owner | no write |
-| OS packages | no write | owner |
-| Application config file | no write | owner |
-| DNS record | owner | read only |
-| Service restart | no write | owner |
-| Host image ID | owner | build-input producer podľa workflowu |
-
-Každý mutable attribute má mať jedného authoritative writera.
-
-## 25. Rozhodovací rámec
-
-Použi Terraform, keď:
-
-- objekt má dlhodobý resource lifecycle,
-- potrebuje stable identity a dependency graph,
-- create/update/delete/replace musia byť plánované,
-- persistentný state prináša hodnotu,
-- provider vie čítať a spravovať objekt,
-- drift má byť viditeľný v plane.
-
-Použi Ansible, keď:
-
-- potrebuješ host alebo device configuration,
-- workflow je ordered orchestration,
-- current state vie zistiť module pri run-e,
-- potrebuješ batches, handlers a conditional tasks,
-- operácia patrí do runbooku,
-- universal persistent resource state by bol zbytočný.
-
-Použi oba, keď:
-
-- Terraform vytvára platform resources,
-- Ansible konfiguruje ich runtime,
-- boundary a data contract sú explicitné,
-- pipeline a identities sú oddelené,
-- nevznikajú dvaja writers rovnakého state-u.
-
-## 26. Praktické scenáre
-
-### Cloud VM s aplikáciou
+Terraform deklaruje production ingress iba z load balancera. Ansible incident runbook pridáva do rovnakej security group temporary admin CIDR cez cloud module.
 
 ```text
-Terraform: network, VM, disk, IAM, DNS
-Ansible: packages, user, config, service
+Ansible pridá rule
+→ Terraform drift plan ju vidí ako unmanaged difference
+→ scheduled apply rule odstráni
+→ incident runbook ju znovu pridá
+→ tools vytvoria oscillation
 ```
 
-### Managed database
+Problém nie je „Terraform je príliš deklaratívny“. Problém je chýbajúci ownership a break-glass adoption/expiry contract.
+
+Možnosti:
+
+- Terraform zostáva owner a incident zmena ide cez versionovaný emergency input;
+- samostatný explicitne shared attribute model s expiry a reconciliation;
+- ownership transfer na iný controller.
+
+Tichý druhý writer nie je prijateľný.
+
+## 12. Worked failure: inventory sa publikoval pred readiness
+
+Terraform apply vytvoril dvanásť VMs a okamžite publikoval IP addresses. Ansible začal, kým cloud-init ešte menil SSH configuration a host keys.
 
 ```text
-Terraform: instance, subnet group, security, parameter group podľa ownershipu
-Ansible: optional schema/bootstrap orchestration iba s migration ledgerom
+resource exists
+→ contract označí host ready bez readiness evidence
+→ Ansible vidí unreachable/host-key mismatch
+→ pipeline interpretuje failure ako config problém
+→ operator navrhne VM replacement
 ```
 
-### Kubernetes cluster
+Infrastructure existence, bootstrap completion a configuration readiness sú tri odlišné states. Recovery nemá automaticky nahrádzať resource; najprv over boot, identity, network a management channel.
+
+## 13. Worked failure: consumer čítal interný Terraform state
+
+Ansible dynamic inventory používal internú addressu:
 
 ```text
-Terraform: cluster, nodes, cloud IAM/network integrations
-Ansible: host bootstrap alebo operational runbook podľa platformy
-Kubernetes/GitOps: application manifests a continuous reconciliation
+module.compute.aws_instance.app[0]
 ```
 
-### Network devices
+Terraform refactor prešiel na `for_each` a `moved` blocks. Remote instances zostali zachované, ale consumer parser addressu prestal fungovať.
 
 ```text
-Terraform: vhodné resources tam, kde provider má robustný lifecycle model
-Ansible: configuration push, validation, backups a multi-device orchestration
+Terraform ownership migration je správna
+→ interný state layout sa zmení
+→ undocumented consumer coupling sa rozbije
+→ inventory je prázdny
+→ Ansible skončí green no-op
 ```
 
-### Golden image
+Narrow versioned contract má používať stable instance IDs a explicitnú schema, nie interné state addresses.
+
+## 14. Worked failure: golden image a runtime Ansible majú dvoch owners package-u
+
+Ansible image build publikuje image s package 3.13.0. Runtime role používa `state: latest` a pri boot-e ho aktualizuje na 3.13.1.
 
 ```text
-Ansible: configure image build instance
-Image pipeline: publish immutable image
-Terraform: deploy image version
+Terraform deploys immutable image subject 3.13.0
+→ runtime Ansible mutates base package
+→ fleet už nezodpovedá image identity
+→ replacement a in-place configuration model sa rozchádzajú
 ```
 
-## 27. Anti-patterny
+Ownership musí určiť, či package patrí image artifactu alebo runtime configuration. Security update workflow môže buildnúť nový image alebo vykonať explicitný bounded runtime patch, ale nie oba implicitne.
 
-### Terraform spravuje každý config file cez provisioner
+## 15. Causal troubleshooting walkthrough: Terraform je green, Ansible nevie nakonfigurovať štyri hosts
 
-State nepozná skutočný file/configuration lifecycle.
+Terraform apply a state verification prešli. HC313 obsahuje dvanásť hosts. Ansible nakonfiguroval osem a štyri sú unreachable.
 
-### Ansible vytvára dlhodobú cloud infra bez identity a drift modelu
+### 1. Zafixuj cross-tool subject
 
-Destroy, import a replacement sú nejasné.
+Zaznamenaj:
 
-### Oba nástroje menia rovnaký attribute
+- Terraform source, plan digest, state lineage/serial a target identity;
+- remote instance IDs, image IDs a bootstrap status;
+- HC313 schema, generation a producer digest;
+- Ansible inventory resolution subject a target manifest;
+- management addresses, host identity evidence a credentials;
+- per-host connection results a cloud-init/boot timeline.
 
-Vzniká perpetual drift a ownership konflikt.
+### 2. Súťažiace hypotézy
 
-### Terraform output čítaný priamo z citlivého celého state-u
+1. Terraform vytvoril resources, ale bootstrap ešte nebol complete.
+2. HC313 označil host ready príliš skoro.
+3. Contract obsahuje nesprávnu management address alebo environment.
+4. Dynamic inventory cache používa stale generation.
+5. Security group, route alebo NACL blokuje management path.
+6. SSH host key/certificate sa po publication zmenil.
+7. Ansible credential alebo become policy neplatí pre nový image.
+8. Štyri VMs bootli z iného image ID.
+9. Ansible target identity koliduje so starými destroyed hosts.
+10. Infrastructure je healthy a chyba je iba v controller network boundary.
 
-Ansible dostáva širší access a coupling než potrebuje.
+### 3. Diskriminačné observation points
 
-### Ansible sa spúšťa pred readiness
+- Terraform remote IDs a live instance lifecycle state;
+- cloud-init/bootstrap completion marker a logs;
+- exact HC313 generation a field values;
+- `ansible-inventory --host` a cache age;
+- route/firewall flow evidence z controllera k hostu;
+- host certificate/key identity;
+- image ID a management-user contract;
+- connection failure type: DNS, timeout, auth, host-key, Python/runtime;
+- destroyed/current instance-ID comparison.
 
-Nové hosts sú unreachable alebo ešte nemajú stabilný management channel.
+### 4. Containment
 
-### Infrastructure a configuration používajú jednu admin identity
+Pozastav ďalší Ansible batch a nepublikuj incomplete hosts do service trafficu. Nevynucuj Terraform replacement, kým nie je potvrdená infrastructure lifecycle chyba.
 
-Kompromitácia jedného jobu má zbytočne široký blast radius.
+### 5. Recovery
 
-### Nástroj vybraný podľa popularity
+- bootstrap incomplete → počkaj condition-based alebo oprav bootstrap a publish new readiness generation;
+- wrong contract field → publish corrected HC314 a invalidate inventory cache;
+- network path → oprav Terraform-owned route/security resource cez fresh plan;
+- host identity → obnov trusted identity path, nie `StrictHostKeyChecking=no`;
+- image mismatch → replace alebo repair podľa image ownership policy;
+- Ansible runtime contract → oprav user/interpreter/credential mapping a canary verify;
+- stale destroyed identity → odstráň ju z contractu a audituj collision.
 
-Execution a lifecycle model nezodpovedá spravovanému objektu.
+### 6. Over pôvodný outcome
 
-## 28. Troubleshooting
+Potvrď všetkých dvanásť stable instance IDs, readiness generation, management connection, Ansible loaded config C44, service health a end-to-end transaction. Následný Terraform plan má byť no-op a druhý Ansible run bez unintended changes.
 
-### Terraform vytvoril VM, Ansible ju nevidí
+### 7. Posuň control skôr
 
-Over output/inventory contract, host identity, DNS/IP readiness, inventory refresh/cache a network path.
+Pridaj explicitný readiness state machine, contract schema test, cache-generation gate, stable host-identity validation a combined release verifier.
 
-### Ansible zmení hodnotu, Terraform ju vracia späť
+## 16. Drift a continuous reconciliation
 
-Ide o ownership conflict. Urči authoritative writer a odstráň druhý write path alebo explicitne zmeň contract.
+Terraform drift sa typicky objaví v fresh plan-e voči configuration, state a remote observations.
 
-### Terraform apply prešiel, Ansible je unreachable
+Ansible drift sa objaví pri module current-state read-e, scheduled validation alebo external compliance kontrole.
 
-Infrastructure existence nie je runtime readiness. Over boot, cloud-init, firewall, route, SSH/WinRM, identity a host-key behavior.
+Combined monitoring má korelovať:
 
-### Ansible run zlyhal a Terraform chce resource nahradiť
+```text
+Terraform resource inventory
+↔ published host contract
+↔ Ansible expected/resolved/verified fleet
+↔ application runtime inventory
+```
 
-Rozlíš host configuration failure od infrastructure lifecycle failure. Replacement používaj iba pri immutable/recovery policy, nie automaticky pri každom task error-e.
+Príklady divergence:
 
-### Inventory obsahuje staré hosts
+- Terraform state má 12 instances, contract 11;
+- contract má 12, Ansible verified 10;
+- Ansible verified 12 files, runtime inventory 11 processes;
+- Terraform image ID 3.13.0, runtime package 3.13.1.
 
-Over dynamic inventory cache, Terraform destroy events, CMDB reconciliation a stable host IDs.
+## 17. Secrets a identity boundaries
 
-### Pipeline nevie bezpečne zopakovať krok
+Terraform a Ansible majú odlišné secret exposure paths.
 
-Over partial state, Terraform lock/state serial, Ansible idempotenciu, migration ledger a external side effects.
+Terraform secret môže skončiť v variables, saved plan-e, state-e, provider logs alebo outputs. Ansible secret môže skončiť vo variables/Vault, module arguments, rendered files, callbacks alebo registered results.
 
-## 29. Kontrolné otázky
+Cross-tool pipeline nemá používať jednu širokú admin identity.
 
-1. Aký je hlavný rozdiel medzi Terraform state-om a Ansible runtime state detection?
-2. Ako sa líši Terraform dependency graph od Ansible task orderingu?
-3. Prečo Terraform plan nie je ekvivalent Ansible check mode?
-4. Ktoré resources má typicky vlastniť Terraform?
-5. Ktorú konfiguráciu má typicky vlastniť Ansible?
-6. Prečo sú Terraform provisioners rizikové?
-7. Ako bezpečne prepojiť Terraform outputs s inventory?
-8. Ako vzniká ownership conflict medzi nástrojmi?
-9. Kedy je vhodný golden-image pattern?
-10. Ako navrhnúť recovery po partial Terraform a Ansible failure?
+Oddeľ:
+
+- Terraform plan read identity;
+- Terraform apply writer identity;
+- contract publisher identity;
+- inventory reader identity;
+- Ansible host configuration identity;
+- runtime verifier identity.
+
+Narrow contract nemá prenášať secrets, ak consumer potrebuje iba host identity a readiness.
+
+## 18. Versioning a upgrades
+
+Versionuj a testuj samostatne:
+
+- Terraform modules a providers;
+- state/backend schema assumptions;
+- cross-tool contract schema;
+- machine image;
+- Ansible roles/collections;
+- execution environment;
+- inventory plugin;
+- combined release workflow.
+
+Upgrade môže meniť boundary bez priameho diffu v druhom repository, napríklad:
+
+- Terraform output type alebo hostname normalization;
+- Ansible inventory plugin parsing;
+- image bootstrap user;
+- provider-computed address;
+- role expectation voči image package layoutu.
+
+Consumer compatibility a migration path patria do contract release-u.
+
+## 19. Referenčné pravidlá
+
+- Terraform a Ansible majú rozdielne identity, state a execution modely.
+- Ownership sa prideľuje objektu alebo attribute, nie iba celému „infra“ alebo „config“ svetu.
+- Jeden mutable attribute má mať jedného authoritative writera.
+- Terraform state nie je všeobecné consumer API.
+- Cross-tool integration používa narrow versioned contract.
+- Resource existence, bootstrap completion a configuration readiness sú odlišné states.
+- Terraform saved plan a Ansible check mode nie sú ekvivalentné assurances.
+- Provisioner a user data sú bootstrap bridges, nie defaultný dlhodobý config lifecycle.
+- Terraform backend lock nechráni Ansible writer a opačne.
+- Combined success potrebuje resource, contract, fleet a application-runtime verification.
+- Recovery začína identifikáciou failure boundary, nie automatickým replacementom alebo retry.
+- Golden image a runtime configuration potrebujú explicitný attribute ownership.
+
+## 20. Kontrolné otázky
+
+1. Ako sa líši Terraform resource binding od Ansible current-state detection?
+2. Prečo sa ownership prideľuje na úroveň objectu alebo attribute?
+3. Čo má obsahovať narrow Terraform-to-Ansible contract?
+4. Prečo apply success neznamená host readiness?
+5. Prečo Terraform plan nie je ekvivalent Ansible check mode?
+6. Kedy je provisioner iba prijateľný bootstrap bridge?
+7. Ako vzniká oscillation pri dvoch authoritative writers?
+8. Prečo Ansible nemá čítať interné Terraform state addresses?
+9. Ako golden-image model mení ownership package configuration?
+10. Aké evidence lokalizujú failure medzi resource, contract, inventory a host runtime boundary?
 
 ## Glossary impact
 
-Relevantné pojmy: provisioning, configuration management, resource lifecycle engine, task-oriented automation, provisioning/configuration boundary, cross-tool contract, authoritative writer, golden image, bootstrap configuration, readiness boundary a ownership matrix.
+Relevantné pojmy: cross-tool ownership subject, authoritative attribute writer, provisioning-to-configuration contract, host contract generation, readiness boundary, combined release subject, Terraform resource lifecycle, Ansible host convergence, cross-tool drift correlation, bootstrap boundary, golden-image ownership a combined recovery boundary.
 
 ## Oficiálna dokumentácia
 
