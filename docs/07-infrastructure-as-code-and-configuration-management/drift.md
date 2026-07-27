@@ -1,456 +1,483 @@
 # Drift
 
-**Drift** je rozdiel medzi deklarovaným desired state, Terraform state a skutočným remote stavom infraštruktúry. Nie každý rozdiel má rovnakú príčinu ani rovnakú remediation stratégiu.
+Terraform drift nie je iba „plan ukazuje diff“. Je to rozdiel medzi tým, čo má byť autoritatívne deklarované, čo Terraform eviduje v state-e a čo provider skutočne pozoruje na remote objekte. Dôveryhodný drift proces musí najprv dokázať, že porovnáva správny subject, potom určiť pôvod a intent rozdielu a až následne zvoliť reconciliation.
 
-Terraform drift management nie je iba príkaz `plan`. Je to ownership, detection, classification, decision a reconciliation workflow.
+Táto kapitola používa jeden priebežný scenár. Atlas Payments spravuje produkčný load balancer, security groups a autoscaling cez Terraform state `payments-network/prod`. Po incidente operátor cez break-glass dočasne pridá firewall rule pre diagnostický endpoint. Scheduled drift job neskôr uvidí rozdiel. Jeho úlohou nie je automaticky kliknúť `apply`, ale bezpečne uzavrieť lifecycle tejto odchýlky.
 
-## 1. Tri relevantné pohľady
+## 1. Dominantný model: evidence-to-reconciliation lifecycle
 
 ```text
-configuration
-↕
-Terraform state
-↕
-remote infrastructure
+authoritative configuration a ownership contract
++ state lineage, serial a resource binding
++ current provider observation
+→ subject-verified difference
+→ origin, intent a risk classification
+→ revert | adopt | transfer ownership | remove management | recover state
+→ fresh reviewed plan
+→ bounded mutation alebo metadata transition
+→ runtime a state verification
+→ closure, recurrence control a audit
 ```
 
-- **configuration** opisuje desired state,
-- **state** uchováva bindings a naposledy známe attributes,
-- **remote infrastructure** je aktuálny stav z provider API.
+Drift detection je iba prvá polovica procesu. Kým nie je známy správny environment, resource identity, writer a dôvod zmeny, diff nie je bezpečný príkaz na remediation.
 
-Plan môže správne rozhodovať iba vtedy, keď provider dokáže remote objekt načítať a identity/permissions smerujú na správne prostredie.
+## 2. Atlas drift subject
 
-## 2. Typy driftu
+Scheduled job musí vedieť spätne dokázať, čo presne porovnával:
 
-### Remote drift
+```text
+repository revision: 7f42...
+Terraform/provider/module versions
+resolved variable set: payments-prod
+backend key: payments-network/prod
+state lineage: L-PROD-NET
+state serial: 418
+provider target: production account, eu-central-1
+workload identity: drift-reader/payments-network
+refresh time: 2026-07-27T05:00Z
+```
 
-Objekt bol zmenený mimo Terraform workflowu.
+Toto je **drift detection subject**. Bez neho sa nedá odlíšiť reálny remote drift od plánu spusteného proti nesprávnemu workspace-u, účtu, regionu, module version alebo stale state snapshotu.
 
-### Configuration drift
+## 3. Tri stavy a ich mechanizmus
 
-Branches, environments alebo repositories používajú rozdielne deklarácie bez vedomej policy.
+Terraform porovnáva tri rozdielne pohľady:
 
-### State drift
+```text
+configuration = desired state
+state = binding a posledné Terraform knowledge
+remote API = current observed state
+```
 
-State binding alebo snapshot nezodpovedá skutočnému ownershipu či identite objektu.
+Príklad:
 
-### Provider interpretation drift
+```text
+configuration:
+  aws_security_group_rule.diagnostics absent
 
-Provider upgrade, API normalizácia alebo schema zmena spôsobí iné čítanie rovnakého remote objektu.
+state serial 418:
+  rule absent
 
-### Dependency drift
+remote API:
+  rule sgr-incident-42 present
+```
 
-Externá dependency zmení behavior bez priamej zmeny managed resource, napríklad image tag, policy attachment alebo data source result.
+Rozdiel môže znamenať:
 
-## 3. Drift vs. unmanaged infrastructure
+- neautorizovaný ClickOps zásah;
+- legitímny incidentný break-glass change;
+- zmenu iného autoritatívneho controllera;
+- neaktuálny alebo poškodený state;
+- provider/API normalizáciu;
+- nesprávny detection subject.
 
-Terraform automaticky nevie o každom objekte v účte alebo clustri. Objekt vytvorený mimo configuration nie je automaticky „drift“ konkrétneho state-u, pokiaľ:
+Rovnaký vizuálny diff preto môže vyžadovať opačné rozhodnutia.
 
-- nemá existujúci binding,
-- neovplyvní managed object,
-- nie je explicitne objavený data source alebo policy scanom.
+## 4. Detection: refresh nie je remediation
 
-Discovery unmanaged resources potrebuje inventory, cloud asset query alebo policy tooling nad rámec jedného Terraform planu.
+Bežný `terraform plan` typicky:
 
-## 4. Ako Terraform drift deteguje
+```text
+načíta configuration a prior state
+→ provider prečíta bound remote objects
+→ Terraform vytvorí refreshed working view
+→ porovná desired a observed hodnoty
+→ navrhne change graph
+```
 
-Pri bežnom `terraform plan` Terraform typicky:
+`terraform plan -refresh-only` izoluje otázku:
 
-1. načíta configuration a prior state,
-2. refreshne managed resources cez providers,
-3. aktualizuje working in-memory view,
-4. porovná desired configuration s refreshed stavom,
-5. navrhne create/update/replace/delete operácie.
-
-Plan môže ukázať poznámku, že objekty sa zmenili mimo Terraformu.
-
-## 5. Refresh-only mode
+> Ako by sa zmenilo Terraform knowledge, keby sme remote realitu prijali do state-u bez remote mutation?
 
 ```bash
 terraform plan -refresh-only
 ```
 
-Refresh-only plan ukáže, ako by sa state zmenil podľa remote reality bez plánovania zmien remote infraštruktúry k desired configuration.
+`terraform apply -refresh-only` už zapisuje nový snapshot. Nie je to neutrálne „upratanie“. Mení evidence, z ktorej vznikne ďalší plan, a preto musí nasledovať až po ownership rozhodnutí.
 
-Použitie:
-
-- vyšetrovanie manuálnej zmeny,
-- provider/API normalizácia,
-- potvrdenie deleted alebo changed objektu,
-- rozhodovanie, či drift adoptovať alebo revertovať.
-
-```bash
-terraform apply -refresh-only
-```
-
-Zapíše refreshed remote hodnoty do state-u bez zmeny remote infraštruktúry. To je ownership rozhodnutie, nie neutrálna technická oprava.
-
-## 6. `terraform refresh`
-
-Samostatný `terraform refresh` priamo aktualizuje state a neposkytuje rovnaký review model ako refresh-only plan/apply workflow.
-
-Preferuj:
+Samostatný `terraform refresh` neposkytuje rovnaký reviewed plan/apply contract. Pre produkčný workflow preferuj:
 
 ```text
-plan -refresh-only
-→ review
-→ apply -refresh-only, iba ak je adopcia rozhodnutá
+refresh-only plan
+→ review subjectu a rozdielu
+→ rozhodnutie o adopcii
+→ refresh-only apply iba pri schválenej adopcii knowledge
 ```
 
-## 7. Reconciliation možnosti
+## 5. Pôvod rozdielu
 
-Pri drift-e existujú štyri základné rozhodnutia.
+Taxonómia pomáha iba vtedy, keď vedie k odlišnej náprave.
 
-### Revert remote zmenu
+### Remote drift
 
-Configuration zostáva authoritative a Terraform vráti infraštruktúru k desired state.
-
-### Adopt remote zmenu
-
-Configuration sa upraví tak, aby nový stav bol deklarovaný a reviewovaný.
-
-### Zmeniť ownership
-
-Atribút alebo objekt prevezme iný controller; Terraform contract sa explicitne upraví.
-
-### Odstrániť management
-
-Binding sa riadene odstráni zo state-u alebo resource zanikne podľa migration plánu.
-
-„Apply bez analýzy“ nie je univerzálna drift remediation.
-
-## 8. Drift classification
-
-Každý drift klasifikuj podľa:
-
-- resource a ownera,
-- security dopadu,
-- availability dopadu,
-- data-loss rizika,
-- scope/blast radiusu,
-- či bol autorizovaný,
-- či configuration alebo remote stav je správny,
-- či je drift dočasný alebo trvalý,
-- či môže remediation spôsobiť replacement.
-
-## 9. Manual emergency change
-
-Emergency zmena môže byť legitímna, ale musí mať closed-loop lifecycle:
+Bound objekt alebo jeho atribút zmenil writer mimo autoritatívneho Terraform workflowu.
 
 ```text
-incident
-→ autorizovaný break-glass change
-→ zaznamenanie identity a dôvodu
-→ stabilizácia
-→ update configuration alebo revert
-→ fresh plan
-→ review a closure
+configuration: port 443
+state: port 443
+remote: port 8443
 ```
 
-Bez posledných krokov sa emergency zásah stáva permanentným ClickOps driftom.
+Najprv identifikuj writera a intent. Až potom rozhodni adopt/revert.
 
-## 10. Shared ownership
+### Configuration divergence
 
-Niektoré atribúty mení platforma alebo iný controller:
+Rôzne branches, repositories alebo environments deklarujú neúmyselne odlišný stav. Remote objekt môže byť presne v súlade s jednou konfiguráciou a driftovať voči druhej.
 
-- autoscaler mení replica count,
-- cloud service dopĺňa computed fields,
-- security controller pridáva managed rules,
-- scheduler mení placement,
-- external operator spravuje tags alebo members.
+### State/binding drift
 
-Shared ownership musí byť explicitný:
+State adresa, provider context alebo remote ID nezodpovedá aktuálnemu ownershipu. Príkladom je restore starého snapshotu, stratený binding alebo neúplný address move.
 
-- kto zapisuje ktorý field,
-- čo Terraform ignoruje,
-- aký je conflict resolution,
-- ako sa zmena audituje,
-- kedy sa ownership vracia.
+### Provider interpretation drift
 
-## 11. `ignore_changes` a drift
+Nová provider verzia alebo API normalization načíta rovnaký objekt odlišne. Dôsledkom môže byť perpetual diff alebo nový replacement signal bez manuálnej remote zmeny.
 
-`ignore_changes` potlačí remediation vybraného rozdielu pri update plánovaní. Neznamená, že drift neexistuje.
+### Dependency drift
 
-Potrebné je stále:
+Mutable data source, image tag, policy attachment alebo external catalog zmení resolved input. Managed resource nemusí byť manuálne upravený, no výsledný plan sa zmení.
 
-- externé monitorovanie atribútu,
-- owner,
-- policy limits,
-- security guardrails,
-- dokumentovaný dôvod.
+### Unmanaged infrastructure
 
-Použiť `ignore_changes` na každý nestabilný field je potlačenie signálu, nie drift management.
+Objekt bez bindingu nie je automaticky drift konkrétneho state-u. Jeho discovery vyžaduje cloud asset inventory, CMDB alebo policy scan. Ak sa má stať managed, potrebuje ownership adoption a import lifecycle.
 
-## 12. Deleted resource
+## 6. Worked failure: automatický revert incidentnej rule
 
-Ak remote objekt zmizne, refresh odstráni alebo označí jeho binding a bežný plan môže navrhnúť recreate.
+Počas incidentu operátor pridá diagnostickú ingress rule s ticketom `INC-8421` a expiráciou o dve hodiny. Scheduled pipeline o päť minút neskôr uvidí remote drift a automaticky vykoná bežný plan/apply.
 
-Pred apply over:
+Mechanizmus failure:
 
-- či deletion bola úmyselná,
-- či data/resource možno bezpečne obnoviť,
-- či rovnaké meno/ID stále nepatrí inému objektu,
-- či dependencies a secrets zostali platné,
-- či incident vyžaduje restore namiesto recreate.
+```text
+legitímny dočasný writer
+→ remote change ešte stabilizuje incident
+→ detector vidí iba rozdiel, nie intent/expiry
+→ automatic apply považuje configuration za jedinú pravdu
+→ rule odstráni
+→ diagnostický path zanikne uprostred incidentu
+```
 
-## 13. Drift a replacements
+Problémom nie je, že Terraform reconcilioval. Problémom je chýbajúci closed-loop break-glass contract.
 
-Malý remote rozdiel môže viesť k replacementu, ak provider atribút nepodporuje in-place update.
+Správny lifecycle:
 
-Pri review sleduj:
+```text
+strongly authenticated break-glass action
+→ ticket, owner, scope a expiry
+→ drift detector klasifikuje known exception
+→ incident stabilization
+→ adopt alebo revert cez reviewed configuration change
+→ fresh plan a runtime verification
+→ exception closure a credential revocation
+```
 
-- `-/+` a `+/-` semantics,
-- changed ForceNew-like attributes,
-- `create_before_destroy`,
-- unique constraints,
-- data persistence,
-- dependency rewiring,
-- quota a capacity.
+Policy má brániť nekontrolovanému auto-apply neznámeho driftu, nie skryť samotný rozdiel.
 
-## 14. Drift detection cadence
+## 7. Worked failure: refresh-only „adopcia“ bez configuration zmeny
 
-Cadence vyber podľa rizika:
+Autoscaling operátor dočasne zmení minimum instances z `6` na `10`. Operátor spustí `apply -refresh-only`, aby „odstránil drift“, ale configuration zostane na hodnote `6`.
 
-- kritická identity/network/security infra: častejšie,
-- stabilné non-production resources: menej často,
-- po incidente alebo emergency change: okamžite,
-- po provider upgrade: explicitne,
-- pred release/deployment: podľa dependency.
+Výsledok:
 
-Príliš častý full refresh môže zaťažovať APIs, naraziť na rate limits a vytvoriť noise.
+```text
+remote = 10
+state knowledge = 10
+configuration = 6
+→ nasledujúci bežný plan stále navrhne návrat na 6
+```
 
-## 15. CI drift job
+Refresh-only apply prijal remote observation do state snapshotu, ale nezmenil desired state. Skutočná adopcia vyžaduje reviewovanú configuration zmenu alebo explicitný transfer ownershipu daného atribútu.
 
-Typický scheduled workflow:
+## 8. Shared ownership a `ignore_changes`
+
+Niektoré polia legitimne mení iný controller:
+
+- autoscaler spravuje replica count;
+- security controller pridáva platform rules;
+- cloud platforma normalizuje computed fields;
+- scheduler spravuje placement;
+- external operator riadi membership.
+
+Shared ownership musí definovať field-level contract:
+
+```text
+attribute
+→ authoritative writer
+→ allowed range
+→ observation source
+→ conflict resolution
+→ expiry alebo ownership-return condition
+```
+
+`ignore_changes` môže zabrániť Terraform remediation vybraného atribútu, ale:
+
+- neodstráni security risk;
+- nevytvorí monitoring;
+- neurčí ownera;
+- neoverí povolený rozsah;
+- nevyrieši multi-writer konflikt.
+
+```hcl
+lifecycle {
+  ignore_changes = [desired_capacity]
+}
+```
+
+Takýto contract potrebuje externú kontrolu, že autoscaler neprekročí bezpečné minimum alebo maximum. `ignore_changes = all` zvyčajne znamená, že Terraform už nevynucuje významný desired state.
+
+## 9. Deleted a nahrádzaný objekt
+
+Keď provider nenájde bound remote objekt, bežný plan môže navrhnúť recreation. Pred apply treba odlíšiť:
+
+- úmyselnú deletion;
+- incident alebo compromise;
+- state smerujúci na nesprávny target;
+- provider/API visibility problém;
+- objekt vyžadujúci restore dát namiesto prázdnej recreation.
+
+Malý drift na replace-only atribúte môže vytvoriť celý replacement graph. Review musí sledovať:
+
+```text
+changed field
+→ provider replacement semantics
+→ old/new coexistence
+→ identity a data persistence
+→ dependency rewiring
+→ capacity/quota
+→ runtime cutover a recovery
+```
+
+Počet diff riadkov nie je risk metric.
+
+## 10. Drift detection pipeline
+
+Dôveryhodný scheduled workflow:
 
 ```text
 checkout pinned configuration
 → initialize pinned providers/modules
-→ authenticate short-lived identity
-→ acquire read/plan permissions
-→ terraform plan -detailed-exitcode
-→ archive plan summary
-→ classify changes
-→ notify owner
+→ resolve canonical backend a target identity
+→ authenticate read/plan identity
+→ record starting lineage/serial
+→ run refresh a detailed plan
+→ validate expected state/resource inventory
+→ classify configuration, remote, state a provider changes
+→ publish redacted subject-bound evidence
+→ route owner decision
 ```
 
-`-detailed-exitcode` rozlišuje:
+`terraform plan -detailed-exitcode` vracia:
 
-- `0`: bez zmien,
-- `1`: chyba,
-- `2`: plan obsahuje zmeny.
+- `0` — bez plánovaných changes;
+- `1` — chyba alebo neplatná evidence;
+- `2` — plan obsahuje changes.
 
-Exit code `2` nie je automaticky incident; potrebuje klasifikáciu.
+Exit code `2` nie je automaticky incident. Exit code `0` tiež nie je dôkaz clean state-u, ak refresh zlyhal, job použil nesprávny backend alebo expected resources neboli v state-e.
 
-## 16. Plan identity
+## 11. Worked failure: false clean pre nesprávny workspace
 
-Drift detector musí používať správny:
+Security tím vie, že produkčná rule bola manuálne otvorená, ale drift dashboard ukazuje `0 changes`.
 
-- backend,
-- workspace/state key,
-- provider account/subscription/project,
-- region,
-- credentials scope,
-- variable set,
-- module/provider versions.
-
-Plan voči nesprávnemu environmentu môže vyzerať ako masívny drift alebo destroy plan.
-
-## 17. Sensitive plans
-
-Plan a state môžu obsahovať:
-
-- IDs,
-- network topology,
-- policy documents,
-- computed secrets alebo sensitive values,
-- resource metadata.
-
-Drift artifacts potrebujú:
-
-- access control,
-- encryption,
-- retention,
-- redaction pre notifications,
-- audit downloadov.
-
-## 18. Drift noise
-
-Časté zdroje noise:
-
-- provider normalizácia ordering-u,
-- server-side defaults,
-- timestamps,
-- unordered collections modelované ako list,
-- eventual consistency,
-- transient API fields,
-- mutable external data sources.
-
-Riešenie:
-
-- provider upgrade alebo bug fix,
-- presnejšia schema/modeling,
-- stabilné sorting/sets,
-- bounded retry po eventual consistency,
-- explicitný ownership,
-- minimálne cielené `ignore_changes`.
-
-## 19. Provider upgrade drift
-
-Provider upgrade môže zmeniť:
-
-- defaults,
-- diff suppression,
-- schema types,
-- read normalization,
-- replacement behavior,
-- deprecated attributes.
-
-Upgrade workflow má oddeliť:
+Skutočný detection subject:
 
 ```text
-provider-induced plan changes
-od
-remote manual driftu
-od
-configuration changes
+workspace: stage
+provider account: stage
+state resources: 38
+expected production resources: 117
 ```
 
-Preto provider upgrade nemiešaj s veľkým feature changeom.
+Pipeline technicky prešla. Skenovala však inú infraštruktúru.
 
-## 20. Drift a import
+Skoršie controls:
 
-Ak je remote zmena novým objektom, ktorý má Terraform spravovať:
+- canonical environment identity assertion;
+- expected lineage a backend key;
+- expected resource/critical-address inventory;
+- provider account/region assertion;
+- notification obsahujúca subject metadata, nie iba počet changes.
 
-1. deklaruj resource,
-2. navrhni stable address,
-3. importuj binding,
-4. reviewni post-import plan,
-5. rozhodni desired values,
-6. odstráň pôvodný manual creation path.
+## 12. Drift noise a signal integrity
 
-Import bez odstránenia paralelného ownera vytvára multi-writer konflikt.
+Perpetual diff môže vzniknúť z:
 
-## 21. Drift a state recovery
+- unordered fields modelovaných ako list;
+- server-side defaults;
+- transient timestamps;
+- eventual consistency;
+- provider normalization;
+- mutable external data;
+- nestabilných generated values.
 
-Ak rozdiel vznikol stratou alebo poškodením state-u:
+Noise nie je iba ergonomický problém. Ak pipeline ukazuje rovnakých 200 neškodných zmien každý deň, reviewer môže prehliadnuť jednu novú IAM privilege expansion.
 
-- neapplyuj recreate plan,
-- zastav writers,
-- obnov posledný validný snapshot,
-- over lineage a serial,
-- porovnaj remote identities,
-- importuj chýbajúce bindings podľa recovery plánu,
-- vytvor fresh plan.
+Riešenie musí odstrániť príčinu:
 
-State loss nie je bežný configuration drift.
+```text
+provider fix/upgrade
+| schema a set modeling
+| deterministic sorting
+| bounded read-after-write retry
+| pinning external dependency
+| explicit ownership contract
+| úzko cielený ignore_changes s external guardrailom
+```
 
-## 22. Policy
+Provider upgrade oddeľ od feature change-u, aby bolo možné rozlíšiť provider-induced reinterpretation od remote a configuration driftu.
 
-Policy môže kontrolovať:
+## 13. Reconciliation decisions
 
-- zakázaný public access,
-- nešifrované storage,
-- neapproved regions,
-- destructive changes,
-- príliš veľký replacement count,
-- chýbajúce tags/owners,
-- drift na kritických security fields.
+Po overení subjectu a intentu existuje päť hlavných ciest.
 
-Policy nemá automaticky adoptovať alebo revertovať drift; má zviditeľniť porušenie a vynútiť rozhodovací workflow.
+### Revert
 
-## 23. Observability
+Configuration zostáva autoritatívna a reviewed apply vráti remote objekt do desired state-u.
 
-Sleduj:
+### Adopt
 
-- počet states s driftom,
-- čas od detekcie po rozhodnutie,
-- čas do reconciliation,
-- percent autorizovaných emergency changes uzavretých v Git-e,
-- drift podľa resource type/ownera,
-- false-positive/noise rate,
-- failed refresh rate,
-- stale alebo nefunkčné detector jobs.
+Remote intent je správny. Najprv sa aktualizuje configuration, potom sa vytvorí fresh plan, ktorý potvrdí nový desired state.
 
-„Žiadny hlásený drift“ môže znamenať aj nefunkčnú detekciu.
+### Transfer ownership
 
-## 24. Anti-patterny
+Iný controller prevezme objekt alebo atribút. Terraform configuration, lifecycle rules, monitoring a support contract sa upravia spolu.
 
-### Automatický scheduled apply na každý drift
+### Remove management
 
-Neznáma zmena môže byť incident response alebo legitímna migration.
+Binding sa riadene odstráni iba pri vedomom ownership transfere alebo retirement-e. Resource block nesmie zostať tak, aby ďalší plan vytvoril duplicate objekt.
 
-### `ignore_changes = all`
+### Recover state
 
-Terraform prestáva vynucovať desired attributes.
+Ak rozdiel vznikol stratou, restore alebo poškodením state-u, riešením nie je automatický apply. Najprv sa obnovia alebo zrekonštruujú bindings a overí remote identity.
 
-### Drift job používa admin credentials
+## 14. Causal troubleshooting walkthrough: rovnaký diff pri každom plane
 
-Read-only detection má zbytočne veľký blast radius.
+Atlas pipeline pri každom run-e tvrdí, že load balancer listener treba aktualizovať. Predchádzajúci apply je zelený, ale ďalší plan ukáže rovnakú zmenu.
 
-### Plan output sa posiela celý do verejného chatu
+### 1. Zafixuj subject
 
-Môže obsahovať citlivú topológiu alebo hodnoty.
+Zaznamenaj:
 
-### Každý exit code `2` je incident
+- final source revision;
+- provider/module versions;
+- variables;
+- backend key, lineage a serial;
+- provider account/region;
+- resource address a remote ID.
 
-Plánovaná configuration zmena tiež vytvára diff.
+### 2. Súťažiace hypotézy
 
-### Manuálna oprava bez update configuration
+1. Provider normalizuje hodnotu inak, než ju configuration zapisuje.
+2. Druhý writer po apply hodnotu prepisuje.
+3. Apply smeruje na iný target než následný plan.
+4. State write po apply zlyhal alebo bol nahradený stale snapshotom.
+5. Mutable data source dáva pri každom run-e inú hodnotu.
+6. Eventual consistency spôsobí dočasný stale read.
 
-Drift sa pri ďalšom apply vráti.
+### 3. Diskriminačné observation points
 
-## 25. Troubleshooting
+- plan JSON `before/after` a replacement reason;
+- provider debug/request IDs bez secrets;
+- cloud audit log writer identity a timestamp;
+- backend serial pred a po apply;
+- exact remote value bezprostredne po apply a po propagation intervale;
+- resolved data-source result a dependency digest;
+- account/region identity v oboch jobs.
 
-### Plan ukazuje zmeny pri každom run-e
+### 4. Containment
 
-Over provider normalization, unordered fields, server defaults, computed timestamps a eventual consistency.
+Pozastav automatický apply na affected state. Nepridávaj `ignore_changes`, kým nie je známy owner a security dopad.
 
-### Refresh zlyhá na permissions
+### 5. Recovery podľa dôkazu
 
-Detection identity nemá read access alebo smeruje na nesprávny account/project.
+- provider normalization → upgrade/fix alebo canonical configuration;
+- second writer → odstránenie konfliktu alebo transfer ownershipu;
+- wrong target → oprava provider/backend identity a audit zasiahnutého prostredia;
+- state failure → authoritative snapshot recovery a fresh plan;
+- mutable input → pinning immutable identity;
+- eventual consistency → bounded condition-based retry.
 
-### Resource sa chce recreate po manuálnej zmene
+### 6. Over pôvodný outcome
 
-Zmenil sa replace-only atribút. Rozhodni adopt/revert a priprav downtime/data recovery.
+Spusti apply, počkaj na definovaný convergence interval a vykonaj druhý fresh plan. Úspech znamená:
 
-### Scheduled plan nehlási známy drift
+```text
+runtime invariant je splnený
++ state binding/serial je správny
++ nový plan je no-op
++ conflict writer sa neobjavil
+```
 
-Over správny backend, variables, refresh behavior, credentials, conditional pipeline rules a či resource patrí do state-u.
+### 7. Posuň control skôr
 
-### Drift bol adoptovaný, ale configuration zostala stará
+Pridaj regression test provider behavioru, writer audit alert, subject assertion alebo immutable dependency control podľa zistenej príčiny.
 
-Refresh-only apply zmenil state, nie desired configuration. Ďalší bežný plan môže zmenu vrátiť.
+## 15. Policy, evidence a observability
 
-## 26. Rozhodovací rámec
+Policy môže blokovať alebo eskalovať:
 
-1. Ktorý resource a field driftuje?
-2. Kto je authoritative owner?
-3. Bola zmena autorizovaná?
-4. Aký je security/data/availability dopad?
-5. Je správne remote stav revertovať alebo adoptovať?
-6. Vyvolá reconciliation update alebo replacement?
-7. Je state a provider observation dôveryhodný?
-8. Treba import, ownership migration alebo recovery?
-9. Aké approvals a evidence sú potrebné?
-10. Ako zabránime opakovaniu driftu?
+- public exposure;
+- IAM privilege expansion;
+- destructive replacement kritického objektu;
+- nešifrované storage;
+- drift na protected fields;
+- neznámy writer alebo expired exception.
 
-## 27. Kontrolné otázky
+Policy však sama neurčuje intent remote zmeny. Musí viesť k owner decision workflowu.
 
-1. Aké tri pohľady Terraform porovnáva?
-2. Aký je rozdiel medzi remote driftom a unmanaged resource?
-3. Čo robí refresh-only plan?
-4. Prečo refresh-only apply nie je neutrálna operácia?
-5. Aké štyri základné remediation rozhodnutia existujú?
-6. Ako má skončiť emergency ClickOps change?
-7. Prečo `ignore_changes` nie je drift detection?
-8. Čo znamená exit code `2` pri detailed plan-e?
-9. Ako provider upgrade vytvára drift-like diff?
-10. Ktoré metriky dokazujú, že drift proces reálne funguje?
+Uchovávaná evidence má obsahovať:
+
+```text
+detection subject
+→ starting state lineage/serial
+→ refreshed resource inventory
+→ redacted change summary
+→ origin/owner classification
+→ decision a approvals
+→ plan/apply identity
+→ ending state serial
+→ runtime verification
+→ exception alebo incident closure
+```
+
+Sleduj minimálne:
+
+- drift age a recurrence;
+- čas od detekcie po owner decision;
+- čas do reconciliation;
+- failed alebo missing detector runs;
+- expected states bez čerstvej evidence;
+- noise rate;
+- break-glass changes bez closure;
+- replacements spôsobené driftom;
+- percent remediation s runtime verification.
+
+„Žiadny hlásený drift“ môže znamenať aj nefunkčný detector.
+
+## 16. Referenčné pravidlá
+
+- Najprv over detection subject, až potom interpretuj diff.
+- Refresh-only apply mení state knowledge, nie desired configuration.
+- Neznámy drift sa automaticky neapplyuje.
+- `ignore_changes` je ownership mechanizmus, nie detektor ani security control.
+- Unmanaged objekt potrebuje discovery a adoption workflow.
+- Provider upgrade môže vytvoriť drift-like diff bez remote writera.
+- State loss sa rieši recovery/importom, nie hromadnou recreation.
+- Každé rozhodnutie sa uzatvára fresh planom, runtime verification a auditom.
+
+## 17. Kontrolné otázky
+
+1. Čo tvorí drift detection subject?
+2. Prečo rovnaký diff môže znamenať legitímny break-glass aj neautorizovaný ClickOps?
+3. Čo zmení `apply -refresh-only` a čo nezmení?
+4. Ako sa líši remote drift od state/binding driftu?
+5. Prečo exit code `0` nemusí dokazovať clean produkciu?
+6. Kedy je `ignore_changes` legitímne a aké controls potrebuje?
+7. Ako noise oslabuje detekciu skutočného risku?
+8. Kedy treba drift adoptovať, revertovať alebo preniesť ownership?
+9. Aké observation points odlíšia second writera od provider normalization?
+10. Ako sa dokáže, že remediation obnovila pôvodný runtime outcome?
 
 ## Glossary impact
 
-Relevantné pojmy: Terraform drift, remote drift, configuration drift, state drift, provider interpretation drift, refresh-only plan, drift reconciliation, drift noise, unmanaged infrastructure a drift detection cadence.
+Relevantné pojmy: drift detection subject, remote drift, configuration divergence, state/binding drift, provider interpretation drift, dependency drift, unmanaged infrastructure, refresh-only plan, drift evidence, drift reconciliation, shared ownership, drift noise a break-glass closure.
 
 ## Oficiálna dokumentácia
 
