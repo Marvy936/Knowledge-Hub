@@ -1374,6 +1374,10 @@ SLO alert sledujúci rýchlosť spotrebúvania error budgetu oproti tempu, ktor�
 
 Kubernetes QoS class pre Pod, ktorý nie je Guaranteed a má aspoň niektorý relevantný CPU alebo memory request/limit. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
 
+## Business-compatible recovery — Helm
+
+Recovery verdict, pri ktorom technical release state, durable data, event/contracts, external integrations a pôvodný business outcome tvoria vzájomne kompatibilný celok. Technicky úspešný manifest rollback bez spracovateľného backlogu nie je business-compatible recovery. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
 ## Business Impact Analysis — BIA
 
 Proces určujúci kritické business capabilities, dopad výpadku, maximálne tolerované prerušenie, data-loss toleranciu, dependencies a priority obnovy. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
@@ -2021,6 +2025,10 @@ Náhodná PKCE hodnota uchovaná clientom a predložená pri authorization-code 
 ## Cohort assignment
 
 Deterministické priradenie subjektu do rollout alebo experiment skupiny pomocou stabilnej identity a versionovaného pravidla. Pozri [Canary deployment](docs/05-ci-cd-and-release/canary-deployment.md) a [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
+
+## Cohort-aware Helm test
+
+Release test, ktorý neoveruje iba jeden náhodný request, ale identifikuje všetky serving Pod alebo backend cohorts, ich image/configuration generations a rozloženie opakovaných requests. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
 
 ## Cohort differential diagnosis
 
@@ -3346,6 +3354,10 @@ Dôkaz, že rovnaký source a reviewed lock v clean prostredí vytvoria rovnaký
 
 Encryption model, v ktorom rovnaký plaintext pri rovnakom keyu a kontexte produkuje rovnaký ciphertext, čo môže umožniť equality queries, ale zároveň odhaľuje opakovanie a frequency patterns. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
+## Deterministic render evidence — Helm
+
+Dôkaz, že rovnaký chart artifact, dependency lock, effective values, release context a capabilities vytvárajú rovnaký rendered-manifest digest bez neplánovaného live, časového alebo random inputu. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
+
 ## Deterministic render verdict — Helm
 
 Dôkaz, že fixný chart, dependency graph, values, release context, capabilities a engine vytvoria rovnaký semantic manifest output pri opakovanom renderi. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
@@ -3797,6 +3809,10 @@ Hodnota potrebná iba na vyplnenie parametra bez aktívneho použitia v testovan
 ## Durable function — Lambda
 
 Lambda execution model pre dlhšie workflowy so service-managed durable state a checkpointingom, odlišný od štandardného krátkodobého invocation contractu. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
+
+## Durable operation ledger — Helm
+
+Autoritatívny persistentný záznam hook operácií podľa operation ID, source/target state-u, checksumu a výsledku, ktorý umožňuje rozlíšiť complete, partial, failed a unknown outcome aj po odstránení Job resource-u. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
 ## Duration distribution
 
@@ -4422,6 +4438,10 @@ Vopred validovaná množina paths a named contexts, ktoré musia alebo nesmú by
 
 Vopred definovaná množina testov, reportov, planov, policy verdictov, cleanup výsledkov a runtime overení požadovaných pre konkrétnu risk class. Chýbajúca položka znamená incomplete evidence, nie pass. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
+## Expected Helm evidence inventory
+
+Vopred definovaný zoznam dôkazov, ktoré musia vzniknúť pre konkrétny immutable release subject: artifact a lock digests, effective values, rendered manifest, admission verdict, hook results, live generations, runtime cohorts a business/forbidden outcomes. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
+
 ## Expected job inventory — GitLab CI
 
 Explicitný manifest jobs, child pipelines a reports, ktoré musia pre konkrétny pipeline subject existovať alebo preukázateľne nebyť applicable. Odlišuje complete pass od false-green runu s ticho chýbajúcou evidence. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
@@ -4533,6 +4553,10 @@ Systém mimo Kubernetes API, ktorý vydáva alebo uchováva citlivé hodnoty a s
 ## External secret provider — GitLab CI/CD
 
 Secret-management systém, z ktorého job explicitne načíta citlivú hodnotu po overení federovanej alebo inej scoped identity. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
+
+## External side-effect commit — Helm
+
+Bod, v ktorom hook durable zmení databázu, queue, external API alebo inú autoritatívnu vrstvu bez ohľadu na to, či Helm následne zaznamená successful hook alebo release status. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
 ## External-state reconciliation — etcd recovery
 
@@ -4825,6 +4849,10 @@ Aktívny test, že subject po recovery nevie vykonať Secrets, exec, proxy, work
 ## Forbidden outcome — Docker incident
 
 Stav, ktorý recovery nesmie povoliť, napríklad duplicate business side effect, staging access z production, stale writer, broad port exposure alebo strata authoritative data. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
+## Forbidden outcome test — Helm
+
+Negatívne acceptance overenie pre release alebo recovery, napríklad že starý credential je odmietnutý, duplicate authorization nevznikla, stale Pod UID neprijíma traffic alebo destructive hook sa nezopakoval. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
 
 ## Forbidden-outcome verification — Kubernetes
 
@@ -5322,6 +5350,10 @@ Porovnanie posledného release manifestu, navrhovaného renderu a live Kubernete
 
 Pravidlá, podľa ktorých template functions považujú `nil`, prázdny string, nulu, `false` alebo prázdnu collection za empty, čo môže aktivovať fallback. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
 
+## Helm evidence lifecycle
+
+Chain `release risk/contract → immutable subject → expected evidence → source/render/API/runtime/business observations → verdict → incident diagnosis → regression closure`, ktorý viaže všetky testy a findings na rovnaký release artifact. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
+
 ## Helm helper subject
 
 Exact helper name, definition origin, caller, scope, argument dictionary, output shape/digest a target Kubernetes field. Pozri [Named templates](docs/10-helm-and-cka/named-templates.md).
@@ -5329,6 +5361,14 @@ Exact helper name, definition origin, caller, scope, argument dictionary, output
 ## Helm hook
 
 Kubernetes resource template označený annotation `helm.sh/hook`, ktorý Helm vykoná v konkrétnom bode install, upgrade, rollback, delete alebo test lifecycle. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Helm hook operation subject
+
+Exact identity hook operácie tvorená release name, source/target revision, lifecycle pointom, rendered hook digestom, Job/Pod UIDs, operation ID a source/target durable state generation. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Helm incident subject
+
+Presný troubleshooting subject obsahujúci cluster/context/namespace, release revision, chart/dependency/values/manifest digests, live object a process identities, configuration/data generations, request alebo transaction ID a timeline. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
 
 ## Helm merge
 
@@ -5341,6 +5381,10 @@ Reusable template fragment, typicky uložený v underscore-prefixed súbore ako 
 ## Helm pipeline
 
 Template expression, v ktorom sa výsledok ľavej časti posiela ako posledný argument nasledujúcej funkcie. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
+## Helm recovery hierarchy
+
+Preferované poradie recovery od opravy authoritative source a novej revision cez dokončenie idempotentného hooku, roll-forward, eligible rollback a compensation až po restore pri skutočnej data/control-plane recovery potrebe. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
 
 ## Helm release
 
@@ -5362,9 +5406,17 @@ Metadata, chart/configuration a rendered manifest uložené Helm storage drivero
 
 Exact cluster, namespace, release name, Helm tool/apply mode, chart/dependency/values/manifest identities, target revision a business operation, ku ktorým sa viaže release verdict. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
 
+## Helm release transition subject
+
+Immutable source-to-target identity upgrade-u alebo rollbacku zahŕňajúca release revisions, chart/dependency/values/manifest digests, image digests, hook operation IDs, data/schema/event generations, cluster target a Helm/deployment-engine verziu. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
 ## Helm revision evidence
 
 Korelačný záznam spájajúci source commit, chart a dependency artifacts, effective values, rendered manifest, Helm revision, Kubernetes object generations a runtime/business outcome. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Helm roll-forward
+
+Recovery transition, ktorý nasadí novú opravenú a current-state-compatible revision namiesto návratu k historickej revision, najmä keď durable schema, event backlog alebo external side effects už nie sú backward-compatible. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
 ## Helm rollback
 
@@ -5385,6 +5437,10 @@ Funkcia dostupná v Helm template engine z Go templates, Sprig alebo Helm-specif
 ## Helm test pyramid
 
 Viacvrstvový chart validation model od metadata, schema a render checks cez server validation až po ephemeral cluster, test hooks a application end-to-end testy. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
+
+## Helm troubleshooting closure
+
+Incident closure verdict vyžadujúci opravený authoritative source, overený pôvodný aj forbidden outcome, kontrolu adjacent cohorts, stabilný druhý render/retry/reconcile a regression test na najskoršej spoľahlivej boundary. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
 
 ## Helm troubleshooting decision tree
 
@@ -5482,9 +5538,21 @@ Operácia vytvárajúca nové commit objects a meniaca branch-visible ancestry, 
 
 Annotation `helm.sh/hook-delete-policy` určujúca cleanup hook resource-u pred ďalším spustením, po úspechu alebo po failure. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
+## Hook evidence-retention contract — Helm
+
+Pravidlá určujúce, ktoré hook Job/Pod resources, logs, audit records a durable operation results prežijú success, failure, delete policy a TTL dostatočne dlho na diagnostiku a recovery. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Hook execution attempt — Helm
+
+Jedna konkrétna Job/Pod alebo container execution generation hooku, identifikovaná resource UID, Pod UID, container ID, retry countom a operation ID; nie je totožná s logical external operation. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
 ## `hook-failed` — Helm
 
 Hook delete-policy hodnota požadujúca odstránenie hook resource-u po neúspešnom vykonaní; môže znížiť dostupnosť incident evidence. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Hook fencing — Helm
+
+Lock, compare-and-set, advisory lock, epoch alebo iný control zabraňujúci concurrent hook attempts vykonať konfliktujúce durable side effects nad rovnakým target state-om. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
 ## Hook idempotency — Helm
 
@@ -5494,9 +5562,17 @@ Vlastnosť hook operácie, pri ktorej opakované alebo čiastočne dokončené v
 
 Konkrétny release moment, napríklad `pre-install`, `post-upgrade` alebo `pre-delete`, v ktorom Helm spustí označený hook resource. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
+## Hook readiness boundary — Helm
+
+Rozdiel medzi API loadom non-workload hook resource-u, completion Job/Pod hooku, durable external side-effect commitom a Helm release statusom; každý bod poskytuje iný dôkaz. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
 ## Hook readiness — Helm
 
 Podmienka, pri ktorej Helm považuje hook za dokončený; pri Job alebo Pod hooku čaká na úspešné completion, pri mnohých iných resource kinds stačí úspešné API načítanie. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Hook recovery verdict — Helm
+
+Rozhodnutie založené na operation ledger-e, target state-e a release evidence, či hook treba považovať za complete no-op, bezpečne resume-nuť, kompenzovať alebo zastaviť pre unknown outcome. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
 ## Hook resource retention — Helm
 
@@ -5805,6 +5881,10 @@ Token-based druhá verzia EC2 Instance Metadata Service používaná na získani
 ## Immutable build input inventory
 
 Úplná identita source/contextu, Dockerfile/frontendu, base/external image digestov, dependencies, args, secret references, platformy, buildera, cache a targetu. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Immutable chart test subject
+
+Exact testovaný Helm artifact a environment contract vrátane chart/dependency/values/manifest digests, Helm/deployment-engine verzie, target clusteru a očakávaných runtime/data generations. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
 
 ## Immutable ConfigMap alebo Secret
 
@@ -7950,6 +8030,10 @@ Per-domain FSMO role významná pre time hierarchy, password-change preference, 
 
 Alert instance, ktorej condition je aktívna, ale ešte nesplnila požadované `for` alebo ekvivalentné time semantics. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
+## Pending operation unknown outcome — Helm
+
+Stav, keď release metadata alebo klient nevie potvrdiť výsledok upgrade-u, rollbacku alebo hooku, hoci niektoré Kubernetes alebo external mutations mohli prebehnúť; vyžaduje observation pred retry. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
 ## Pending rollback — Helm
 
 Release status signalizujúci nedokončenú rollback operáciu, typicky prebiehajúcu alebo prerušenú pri hooku, API requeste, wait-e alebo release storage update. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
@@ -9058,6 +9142,10 @@ Control umožňujúci obnoviť službu, dáta alebo dôveryhodný stav po incide
 
 Aktuálny dôkaz, že konkrétny predchádzajúci release možno bezpečne použiť na rollback alebo inú recovery: artifacts sú dostupné a dôveryhodné, config a secrets existujú, shared data a events zostávajú kompatibilné a post-recovery validation je pripravená. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md) a [Release management](docs/05-ci-cd-and-release/release-management.md).
 
+## Recovery eligibility gate — Helm
+
+Pre-change alebo incident-time rozhodnutie, či konkrétny rollback, roll-forward, compensation alebo restore candidate je kompatibilný s current artifacts, APIs, data, events, credentials a external systems. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
 ## Recovery keys — Vault
 
 Quorum material používaný pri vybraných privileged Vault operations v auto-unseal modeli; nenahrádza stratený auto-unseal key. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
@@ -9234,6 +9322,10 @@ Pravidlo určujúce frekvenciu a časovanie releases, napríklad on-demand, fixe
 
 Immutable artifact považovaný za potenciálny final release, ktorý musí byť testovaný a promotionovaný bez rebuildu pod rovnakou release identity. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
 
+## Release compensation — Helm
+
+Cielená nápravná operácia nad external alebo durable side effectom, ktorý sa nedá vrátiť historickým rendered manifestom, napríklad duplicate message, API registration, authorization alebo DNS/IAM zmena. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
 ## Release evidence — Helm
 
 Súbor dôkazov zahŕňajúci release history, status, values, rendered manifest, hooks, artifact identity a live Kubernetes stav. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
@@ -9270,6 +9362,10 @@ Kurátorovaná komunikácia konkrétneho release pre používateľov, administr�
 
 Auditovateľný záznam spájajúci release version, artifacts, source, config, migrations, evidence, approvals, rollout a výsledok. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
 
+## Release/runtime evidence boundary — Helm
+
+Rozdiel medzi Helm-stored revision, values, manifestom a hook inventory na jednej strane a live object, process-loaded configuration, serving cohort a business outcome evidence na druhej strane. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
+
 ## Release state machine
 
 Auditovateľný lifecycle immutable release unit od draftu a candidate assembly cez evidence, eligibility, deployment, exposure a validation po support, closure, deprecation, revocation alebo end of life. Každý transition má subject, preconditions, evidence a ownera. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
@@ -9277,6 +9373,10 @@ Auditovateľný lifecycle immutable release unit od draftu a candidate assembly 
 ## Release train
 
 Cadence model, v ktorom zmeny pripravené do definovaného cutoffu vstúpia do spoločného release termínu a ostatné čakajú na ďalší vlak. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
+
+## Release transition closure — Helm
+
+Konečný verdict upgrade/recovery, ktorý viaže final Helm revision na live Kubernetes generations, durable data/contracts, business acceptance, forbidden outcomes a retirement starej alebo nekompatibilnej generation. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
 ## Release unit
 
@@ -9333,6 +9433,10 @@ Content-derived identity výslednej environment configuration po templates, over
 ## Rendered-field identity — Helm
 
 Konkrétny Kubernetes resource path a value generation, ku ktorej sa viaže values-to-template transform a runtime dôsledok. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
+## Rendered hook inventory
+
+Complete set hook resources vyrenderovaných z parent chartu aj enabled dependencies vrátane lifecycle points, weights, names, images, RBAC, arguments, timeouts, operation IDs a cleanup policies. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
 ## Rendered-manifest digest
 
@@ -9797,6 +9901,10 @@ Návrat k predchádzajúcej verzii aplikácie alebo konfigurácie. Pozri [Softwa
 ## Rollback compatibility
 
 Schopnosť predchádzajúcej application/chart revision bezpečne fungovať s aktuálnou databázovou schema, CRDs, Secrets, APIs, storage a external state-om. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
+## Rollback compatibility matrix — Helm
+
+Explicitné overenie historickej application/release generation voči current schema, event backlogu, external API, credential epoch, Kubernetes API a CRD storage generation pred vykonaním rollbacku. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
 ## Rollback compatibility subject
 
@@ -10970,6 +11078,10 @@ EC2 network-interface kontrola vyžadujúca, aby instance bola source alebo dest
 
 Attestation opisujúca, ako konkrétna source revision vznikla, kto a aký process ju vytvoril a ktoré source-control controls boli presadené. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
+## Source release generation — Helm
+
+Current release revision a jej immutable chart/dependency/values/manifest, image a durable-state identities, z ktorých začína plánovaný transition. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
 ## Source revision
 
 Konkrétny logicky immutable snapshot repository identifikovaný revision ID, napríklad Git commit SHA, spolu s relevantnou version-control metadata. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
@@ -11334,6 +11446,10 @@ Policy result obsahujúci okrem allow/deny aj reason, policy IDs, revision, viol
 
 Kontrolovaná náhrada dependency vracajúca vopred pripravené odpovede pre riadenie testovacieho scenára. Pozri [Mocks, stubs a fakes](docs/04-testing-and-quality/mocks-stubs-fakes.md).
 
+## Subchart hook authority
+
+RBAC, credentials a external side-effect capability pridaná dependency hookom do spoločného single-release execution surface-u, aj keď parent application runtime tieto oprávnenia nepotrebuje. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
 ## Subgroup — GitLab
 
 Group vnorená v parent group, používaná na delegovanie ownershipu, členstva a policy pre podmnožinu projects. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
@@ -11466,6 +11582,10 @@ Filesystem objekt obsahujúci textovú cestu na iný objekt. Pozri [Filesystem h
 
 Alert založený na user alebo business impacte namiesto jednej možnej technickej príčiny. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
+## Symptom-to-release translation — Helm
+
+Proces prekladu user alebo business symptómu na exact release, render, hook, live object, process, data a request identities pred formulovaním troubleshooting hypotéz. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
+
 ## Symptom-to-subject translation
 
 Prevod user alebo business symptómu na konkrétne cluster, release, object, process, data, flow a time identities vhodné na falsifikovateľnú diagnostiku. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
@@ -11574,6 +11694,10 @@ Policy overujúca, že production reference publikuje povolený target s expecte
 
 Prometheus relabeling fáza pred scrape-nutím, ktorá filtruje targets a mapuje discovery metadata na address, path, scheme a stabilné target labels. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
+## Target release generation — Helm
+
+Navrhovaná release revision so všetkými target chart/dependency/values/manifest, image, hook a durable-state generations, ktoré majú po transitione tvoriť accepted state. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
 ## target tracking — Auto Scaling
 
 Dynamic scaling policy snažiaca sa udržať zvolenú metric približne na target hodnote zmenou desired capacity. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
@@ -11605,6 +11729,10 @@ Praktický vrstvený model Application, Transport, Internet a Link používaný 
 ## TCP probe
 
 Kubernetes probe overujúca úspešné otvorenie TCP connectionu na Pod IP a port bez overenia application protocol response alebo business correctness. Pozri [Probes](docs/09-kubernetes/probes.md).
+
+## Technical rollback — Helm
+
+Rollback, pri ktorom Helm úspešne obnoví historický rendered manifest a vytvorí deployed revision, ale ešte nie je preukázaná kompatibilita runtime-u s current durable alebo external state-om. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
 ## Telemetry
 
@@ -12138,6 +12266,10 @@ Stav, keď worker nevie, či external side effect neprebehol, prebehol čiastoč
 
 Stav, keď klient nevie, či Engine mutation neprebehla, zanechala partial objects alebo úspešne spustila process; pred retry vyžaduje reconciliation. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
 
+## Unknown hook outcome
+
+Stav, keď hook side effect mohol commitnúť, ale Helm/Job completion alebo response evidence chýba; ďalší attempt musí najprv pozorovať durable operation state. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
 ## Unknown-operation outcome — Kubernetes
 
 Stav, keď request timeoutol alebo response zanikla, ale Kubernetes controller alebo external provider mohol side effect dokončiť; pred retry je potrebný authoritative read-back. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
@@ -12198,9 +12330,17 @@ Súbor pre-upgrade a post-upgrade podmienok nad clusterom, workloadom, dependenc
 
 Pre-upgrade kontrola API, etcd, Nodes, add-ons, certificates, capacity a backup stavu zabraňujúca upgradu už degraded clusteru. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
 
+## Upgrade input closure — Helm
+
+Úplný versionovaný súbor inputs rozhodujúcich o target renderi a operation behavior-e: chart artifact, dependency lock, effective values, release context, Capabilities/lookup state, post-renderer, Helm/plugins a target API/admission environment. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
 ## `upgrade --install` — Helm
 
 Helm deployment pattern, ktorý vytvorí release, ak neexistuje, alebo aktualizuje existujúcu release; nerieši automaticky concurrency, migrations, drift ani secret management. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Upgrade-path test — Helm
+
+Test, ktorý začína zo supported previous release s realistickými stored values, objects, retained data a external state-om a overuje target hooks, mixed-version transition, acceptance a recovery; fresh install ho nenahrádza. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
 
 ## Upgrade recovery gate
 
@@ -12277,6 +12417,10 @@ Versionovaný a redigovaný inventár všetkých values sources, ich poradia, ov
 ## Values — Helm
 
 Konfiguračné vstupy chart templates získané z default `values.yaml`, override files a command-line overrides. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Values matrix oracle — Helm
+
+Pre každý relevantný values case explicitne definovaný očakávaný resource, field, absence/presence a runtime effect, nie iba požiadavka, že render má skončiť bez chyby. Pozri [Helm testing a troubleshooting](docs/10-helm-and-cka/helm-testing-troubleshooting.md).
 
 ## Values precedence — Helm
 
