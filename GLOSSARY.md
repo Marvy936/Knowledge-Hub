@@ -322,6 +322,10 @@ Neidentifikačné key/value metadata objektu určené pre tool, controller alebo
 
 Docker-managed volume bez user-defined mena, vytvorené pre konkrétny mount request a schopné prežiť zmazanie containeru; bez explicitného ownershipu a cleanup policy ľahko vzniká orphan state. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
+## Ansible capability contract
+
+Versionované a dokumentované rozhranie reusable role alebo collection capability zahŕňajúce inputs, defaults, side effects, privilege a platform assumptions, notification topics, runtime outcome, compatibility a recovery behavior. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
 ## Ansible collection
 
 Versionovaný distribuovateľný balík modules, plugins, roles, playbooks, documentation a ďalšieho executable Ansible contentu. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
@@ -1670,6 +1674,10 @@ Deterministické priradenie subjektu do rollout alebo experiment skupiny pomocou
 
 Invocation, pri ktorom Lambda musí pripraviť nové execution environment a vykonať runtime, extension a static initialization pred handlerom. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
 
+## Collection artifact subject — Ansible
+
+Immutable identita publikovanej Ansible collection zahŕňajúca source revision, namespace a version, built artifact digest, publisher/provenance, resolved dependencies a podporovaný `ansible-core` contract. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
 ## Collection dependency — Ansible
 
 Versionovaný vzťah collection k inej collection, ktorý ovplyvňuje resolved executable content, compatibility a supply-chain risk. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
@@ -2049,6 +2057,10 @@ Strojovo aj manuálne overiteľná evidence, že starý databázový contract u�
 ## Contract test
 
 Test kompatibility producer/consumer rozhrania bez potreby spustiť celý distribuovaný systém. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
+
+## Control-flow subject — Ansible
+
+Rekonštruovateľná identita rozhodovania `when`/loop/handler pathu zahŕňajúca host, typed effective inputs, fact a registered-result freshness, item inventory, include path, changed signals, handler definitions a batch/run context. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
 ## Control group — experiment
 
@@ -3194,6 +3206,10 @@ Kapacita skutočne dostupná workloadu po zohľadnení quotas, reservations, fai
 
 Flag revision, variant, matched rule, evaluation context, SDK/cache state a application version, ktoré konkrétny runtime evaluator skutočne použil. Môže sa líšiť od poslednej hodnoty zobrazenej v control plane počas propagation alebo rejection failure. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
 
+## Effective host value subject — Ansible
+
+Rekonštruovateľný host-specific value set po vyhodnotení inventory a role sources, precedence, play/role parameters, facts a cache generation, registered alebo `set_fact` values, extra vars a lookup dependencies. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
+
 ## Effective input subject — Terraform
 
 Rekonštruovateľná množina root a module inputs po vyhodnotení source-u, precedence, default/null semantics, caller forwarding-u a sensitive markers, viazaná na konkrétny saved plan. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
@@ -4232,7 +4248,7 @@ Event vytvorený changed taskom cez `notify`, ktorý zaradí pomenovaný handler
 
 ## Handler transition — Ansible
 
-Prechod vyvolaný taskom reportujúcim `changed`, pri ktorom notification aktivuje handler, napríklad restart alebo reload služby. Je súčasťou convergence a môže zlyhať alebo sa nevykonať samostatne od pôvodného tasku. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+Prechod vyvolaný taskom reportujúcim `changed`, pri ktorom notification aktivuje handler, napríklad restart alebo reload služby. Je súčasťou convergence a môže zlyhať alebo sa nevykonať samostatne od pôvodného tasku. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md) a [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
 ## Hard link
 
@@ -4961,6 +4977,10 @@ Subnet bez všeobecného inbound internet pathu aj bez general outbound internet
 ## Isolation boundary
 
 Technická a bezpečnostná hranica oddeľujúca workload od hosta alebo iných workloads, napríklad shared-kernel container boundary alebo hypervisor/VM boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Item inventory — Ansible
+
+Vopred validovaná a identifikovateľná množina business items, nad ktorými loop vytvára per-item operations. Obsahuje identity keys, required fields, ordering alebo completeness invariants a recovery semantics pri partial failure. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
 ## Iterator age — Lambda
 
@@ -6518,6 +6538,10 @@ Release status signalizujúci nedokončenú rollback operáciu, typicky prebieha
 
 Release status signalizujúci nedokončenú upgrade operáciu; pred recovery vyžaduje kontrolu hooks, Jobs, client concurrency, live resources a release evidence. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Per-host task transition — Ansible
+
+Jedna task operation vyhodnotená a vykonaná pre konkrétny host s vlastnou eligibility, action/module contextom a resultom `ok`, `changed`, `failed`, `unreachable` alebo `skipped`. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
 ## Per-node overhead — DaemonSet
 
 CPU, memory, storage, network a operational cost jedného DaemonSet Podu vynásobený počtom eligible Nodes v clustri. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
@@ -7873,6 +7897,10 @@ Rollout policy, ktorá mení exposure, observation window, human boundary alebo 
 ## Role-Based Access Control — RBAC
 
 Authorization model, ktorý združuje permissions do roles a tieto roles priraďuje principals v konkrétnom scope-e. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Role consumer inventory — Ansible
+
+Evidencia repositories, playbooks a owners používajúcich konkrétnu role/collection version, execution environment, environment scope a podporovanú upgrade path. Umožňuje bezpečnú deprecation a security remediation. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
 ## Role contract — Ansible
 
@@ -9385,6 +9413,10 @@ Monitoring samotného telemetry pipeline cez accepted, queued, dropped, retried 
 ## Telemetry tragedy of the commons
 
 Stav shared observability platformy, v ktorom jednotliví producenti pridávajú drahú telemetry bez vlastného cost feedbacku a spoločne vyčerpajú kapacitu alebo budget. Pozri [Cardinality](docs/12-observability/cardinality.md).
+
+## Template artifact subject — Ansible
+
+Identita vyrenderovaného configuration artifactu zahŕňajúca template source digest, execution environment, host identity, effective non-secret values, fact/cache generation, lookup dependencies, rendered checksum, validation verdict a destination. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
 ## Template contract — CI/CD
 
