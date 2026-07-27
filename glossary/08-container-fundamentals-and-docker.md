@@ -2,87 +2,123 @@
 
 ## Active deployment digest inventory
 
-Evidencia exact image index a selected platform manifest digestov, ktoré sú aktuálne nasadené alebo potrebné pre podporovaný rollback; používa sa pri rescanningu, retention a garbage collection rozhodnutiach. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+Evidencia exact image index a selected platform manifest digestov, ktoré sú nasadené alebo potrebné pre podporovaný rollback, rescanning, retention a garbage collection. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+
+## Address-family publication contract
+
+Explicitný contract určujúci IPv4/IPv6 host bind addresses, container listen addresses, DNS A/AAAA odpovede, firewall rules a client selection pre published service. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
 
 ## Application-consistent backup
 
-Backup vytvorený po koordinácii s aplikáciou alebo databázou tak, aby zachytené dáta tvorili logicky konzistentný recovery point, nie iba náhodný filesystem okamih. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Backup vytvorený po koordinácii s aplikáciou alebo databázou tak, aby zachytené dáta tvorili logicky konzistentný recovery point. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
 ## Artifact lineage — multi-stage build
 
-Rekonštruovateľná väzba od source a immutable stage inputs cez konkrétny build/test node a artifact digest až po bytes prenesené do final stage-u a publikovaný image digest. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+Väzba od source a immutable stage inputs cez konkrétny build/test node a artifact digest až po bytes prenesené do final stage-u a publikovaný image digest. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## Artifact-to-process supply chain — OCI
 
-End-to-end transition od source/build subjectu cez OCI image graph, registry publication, platform selection, trust verification, pull/unpack a runtime bundle až po low-level runtime process a deployment evidence. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+End-to-end transition od source/build subjectu cez OCI image graph, registry, platform selection, trust verification, pull/unpack a runtime bundle až po process a deployment evidence. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Bind mount — container
 
-Sprístupnenie existujúceho host filesystem pathu do container mount namespace-u, ktoré vytvára silnú väzbu na host path, permissions, labels a lifecycle. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Sprístupnenie existujúceho daemon-host filesystem pathu do container mount namespace-u so silnou väzbou na host path, permissions, labels a lifecycle. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md) a [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
+
+## Bind-source resolution boundary
+
+Rozhranie medzi client pathom, Docker daemon alebo Desktop VM pathom a container destination, na ktorom sa bind source môže vyhodnotiť na inom hoste alebo directory, než operator očakáva. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
 ## Build context subject
 
-Immutable alebo rekonštruovateľná identita build contextu zahŕňajúca source type, root/ref/commit, effective ignore rules, expected file inventory, named contexts, submodules a relevantné file metadata. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+Identita build contextu zahŕňajúca source type, root/ref/commit, effective ignore rules, expected file inventory, named contexts, submodules a relevantné metadata. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Build graph node subject
 
-Identita jednej build operation zahŕňajúca frontend semantics, instruction, parent result, source/context inputs, mounts, args, platform a execution options, z ktorých builder odvodzuje result a cache decision. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+Identita jednej build operation zahŕňajúca frontend semantics, instruction, parent result, sources, mounts, args, platform a execution options. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Cache decision subject — BuildKit
 
-Rekonštruovateľné rozhodnutie spájajúce build node subject, cache key, cache source a trust domain, hit/miss outcome, reused result identity, platform, timestamp a export destination. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+Rozhodnutie spájajúce build node, cache key, cache source/trust domain, hit alebo miss, reused result, platform, timestamp a export destination. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Cache freshness gap
 
-Stav, keď je cached result technicky validný podľa key, ale nepozoroval mutable external input alebo zámerný security/update event a preto už nespĺňa požadovanú freshness policy. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+Stav, keď je cached result technicky validný podľa key, ale nepozoroval mutable external input alebo zámerný security/update event. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Cache poisoning path
 
-Trust-boundary failure, pri ktorom nedôveryhodný writer ovplyvní shared build cache a privilegovaný alebo release build následne reuseuje podvrhnutý result. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+Trust-boundary failure, pri ktorom nedôveryhodný writer ovplyvní shared build cache a release build reuseuje podvrhnutý result. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Capability drop — container
 
-Runtime policy odstraňujúca Linux capabilities z process credential sets, ideálne s defaultom drop-all a explicitným pridaním iba nevyhnutných oprávnení. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Runtime policy odstraňujúca Linux capabilities z process credential sets, ideálne drop-all s explicitným pridaním iba potrebných oprávnení. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
 ## Cgroup identity — container
 
-Rekonštruovateľná identita resource-control boundary zahŕňajúca cgroup path alebo ID, parent hierarchy, controller policy, process membership, limits, counters a pressure/event evidence. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
+Identita resource-control boundary zahŕňajúca cgroup path/ID, hierarchy, controller policy, process membership, limits, counters a pressure/events. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
 
 ## Cgroup OOM — container
 
-Ukončenie procesu v dôsledku prekročenia alebo nezvládnutia memory pressure v jeho cgroup boundary, ktoré nemusí znamenať vyčerpanie celej host memory. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
+Ukončenie procesu pre memory pressure alebo limit v jeho cgroup boundary, ktoré nemusí znamenať vyčerpanie celej host memory. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
 
 ## Cgroup v2
 
-Unified Linux control-group hierarchy organizujúca procesy a aplikujúca resource accounting, limits a distribution cez controllers ako CPU, memory, I/O a PIDs. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
+Unified Linux control-group hierarchy aplikujúca resource accounting, limits a distribution cez CPU, memory, I/O a PIDs controllers. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
 
 ## Clean image rebuild
 
-Nový build z trusted source a kontrolovaných inputs po odstránení kompromitovaného source, secret alebo cache pathu; musí vytvoriť nový digest a nové evidence namiesto live opravy containeru. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+Nový build z trusted source a kontrolovaných inputs po odstránení kompromitovaného source, secret alebo cache pathu; vytvára nový digest a nové evidence. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
 ## Clean restore verdict
 
-Subject-bound výsledok restore testu potvrdzujúci integrity a decryption backupu, správnu data identity, ownership/labels, application recovery, business invariant a namerané RPO/RTO na čistom targete. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Výsledok restore testu potvrdzujúci integrity/decryption backupu, správnu data identity, ownership, application recovery, business invariant a RPO/RTO. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
 ## Clean-room build evidence
 
-Dôkaz nového build-u bez reuse relevantnej cache spolu s porovnaním immutable inputs, builder/toolchain identity, final digestu, SBOM a runtime verdictu; používa sa na odhalenie skrytých alebo mutable inputs. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+Dôkaz build-u bez reuse relevantnej cache spolu s porovnaním inputs, builder/toolchain identity, final digestu, SBOM a runtime verdictu. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Complete artifact graph — OCI
 
-Očakávaná a overená množina image indexes, platform manifests, configs, layer blobs a subject-bound signatures, provenance, SBOM alebo ďalších referrers potrebných pre konkrétny release. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Očakávaná množina image indexes, platform manifests, configs, layers a subject-bound signatures, provenance, SBOM alebo ďalších referrers potrebných pre release. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## Compose acceptance subject
+
+Spoločná identita resolved Compose modelu, projektu, container/image generations, resource inventory, one-shot verdictov, health a end-to-end business verification potrebná na prijatie deploymentu. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose container generation
+
+Konkrétna container instance vytvorená z resolved service definition, identifikovaná Engine ID, config hashom, image digestom, project generation a health/runtime stavom. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose destructive scope
+
+Množina project-owned containers, networks, volumes a orphan resources, ktoré môže zasiahnuť `down`, `down -v`, `--remove-orphans` alebo iný cleanup command. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose project generation
+
+Versionovaný stav jedného Compose projektu viazaný na project name, Docker daemon/context, resolved model digest a vytvorené resource generations. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose resource ownership plan
+
+Inventory určujúci pre každý network, volume, bind, image, config alebo secret, či ho vlastní Compose, external systém alebo daemon host a kto riadi preflight, retention a cleanup. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose source subject
+
+Identita base a override files, includes/extends, active profiles, interpolation environment, project directory, Compose version a CLI options použitých na zostavenie modelu. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Compose volume identity
+
+Effective physical volume object odvodený z Compose projectu a logical volume key alebo explicitného external name, spolu s environment, data ID a lifecycle ownerom. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
 ## Conntrack — container networking
 
-Kernel connection-tracking state používaný firewallom a NAT-om; jeho vyčerpanie alebo nevhodné timeouts môžu spôsobovať dropped nové spojenia medzi containers a externými sieťami. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Kernel connection-tracking state používaný firewallom a NAT-om; jeho vyčerpanie môže blokovať nové connections pri stále funkčných existujúcich flows. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Container
 
-Izolovaný runtime process alebo skupina procesov používajúca host kernel a oddelený pohľad na resources cez namespaces, cgroups a ďalšie security controls. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Izolovaný runtime process alebo skupina procesov používajúca host kernel a oddelené views/resources cez namespaces, cgroups a security controls. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Container bridge network
 
-Network model, v ktorom host-side konce veth pairs pripájajú container network namespaces k Linux bridge-u a následne k host routing, firewall alebo NAT vrstve. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Model, v ktorom veth pairs pripájajú container network namespaces k Linux bridge-u a host routing, firewall alebo NAT vrstve. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Container escape
 
@@ -90,456 +126,584 @@ Prelomenie container isolation boundary, pri ktorom process získa access k host
 
 ## Container flow subject
 
-Rekonštruovateľná identita jedného network flowu zahŕňajúca source namespace/interface/address/port, destination name/address/port, route, veth/bridge/dataplane, pre- a post-NAT tuple, policy generation, DNS answer a timestamp. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Identita flowu zahŕňajúca source namespace/interface/address/port, destination, route, dataplane, pre/post-NAT tuple, policy generation, DNS answer a timestamp. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Container image
 
-Versionovaný a typicky content-addressed filesystem a runtime-metadata artifact používaný na vytvorenie container instance; bežne neobsahuje kernel použitý pri runtime. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md) a [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Content-addressed filesystem a runtime-metadata artifact používaný na vytvorenie container instance; typicky neobsahuje runtime kernel. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Container MTU
 
-Maximum Transmission Unit platná na container interface a jeho packet path-e; nesúlad s bridge, tunnel alebo host uplinkom môže spôsobovať partial connectivity a dropped veľké packets. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Maximum Transmission Unit platná na container packet path-e; nesúlad s bridge, tunnel alebo uplinkom môže spôsobiť partial connectivity. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Container network namespace
 
-Linux network namespace poskytujúci container procesu vlastné interfaces, IP adresy, routes, sockets, loopback a network state view. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Linux namespace poskytujúci procesu vlastné interfaces, IPs, routes, sockets, loopback a network-state view. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Container port
 
-Port, na ktorom process počúva vo svojom network namespace; nemusí byť dostupný z hosta alebo externej siete bez routing alebo port-publishing konfigurácie. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Port, na ktorom process počúva vo svojom network namespace; nemusí byť dostupný z hosta alebo externej siete. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Container replacement lifecycle
 
-Model, v ktorom sa application zmena realizuje buildom a nasadením novej exact image/runtime instance a odstránením starej, pričom persistent state a service identity sú oddelené od writable layeru. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Model, v ktorom sa release realizuje novou exact image/runtime instance a odstránením starej pri oddelenom persistent state a service identity. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Container runtime
 
-Software vrstva pripravujúca container filesystem, namespaces, cgroups, process a lifecycle podľa runtime configuration alebo štandardu. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Software vrstva pripravujúca filesystem, namespaces, cgroups, process a lifecycle podľa runtime configuration alebo OCI štandardu. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Container security baseline
 
-Minimálna kombinácia controls, napríklad trusted digest, non-root user, capability drop, seccomp, LSM policy, read-only root filesystem, resource limits, network segmentation a short-lived identity. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Minimálna kombinácia trusted digestu, non-root usera, capability dropu, seccomp/LSM, read-only rootfs, limits, segmentation a short-lived identity. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
 ## Container security subject
 
-Presná identita artifact a runtime security state-u zahŕňajúca source/build evidence, selected platform digest, node/runtime, process identity a authority, seccomp/LSM, mounts/devices, network exposure, workload identity, secrets, resources a policy exceptions. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Identita artifact a runtime security state-u zahŕňajúca digest, node/runtime, process authority, seccomp/LSM, mounts/devices, network, identity, secrets, resources a exceptions. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
 ## Container task subject
 
-Identita low-level running alebo exited tasku zahŕňajúca containerd namespace/task ID, runtime/shim, process PID, bundle/config, start/exit generation a väzbu na Docker container object. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+Identita low-level tasku zahŕňajúca containerd namespace/task ID, runtime/shim, PID, bundle/config, start/exit generation a väzbu na Docker object. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
 
 ## Container volume
 
-Runtime-managed storage object s lifecycle oddeleným od konkrétnej container instance, ktorý môže poskytovať persistence, ale nie automaticky backup, replication alebo multi-host durability. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Runtime-managed storage object s lifecycle oddeleným od containeru, ktorý však automaticky neposkytuje backup, replication ani multi-host durability. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
 ## Controlled dependency refresh
 
-Reviewovaný prechod na nový base, package-repository snapshot, lock alebo external input subject, ktorý zámerne mení build freshness a následne vytvára nový artifact, SBOM, scan a runtime evidence. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+Reviewovaný prechod na nový base, repository snapshot, lock alebo external input, ktorý zámerne mení build freshness a vytvára nové artifact evidence. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Copy-on-write — container filesystem
 
-Filesystem model, pri ktorom read-only image layer content zostáva zdieľaný a prvá zmena vytvorí novšiu kópiu alebo záznam vo writable upper layeri. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Model, pri ktorom read-only image content zostáva zdieľaný a prvá zmena vytvorí kópiu alebo záznam vo writable upper layeri. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
 ## Copy-up
 
-Operácia, pri ktorej sa file z read-only lower layeru pri prvom zápise prenesie do writable upper layeru a ďalšie zmeny sa vykonávajú nad touto kópiou. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Operácia prenesenia file-u z read-only lower layeru do writable upper layeru pri prvom zápise. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
 ## Crash-consistent snapshot
 
-Storage snapshot zodpovedajúci stavu po náhlom výpadku napájania bez garancie, že application buffers, transactions alebo koordinované multi-volume dáta boli konzistentne uzavreté. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Snapshot zodpovedajúci náhlemu výpadku bez garancie, že application buffers alebo transactions boli konzistentne uzavreté. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
 ## Data-ID preflight
 
-Kontrola pred spustením alebo recovery stateful workloadu, ktorá potvrdzuje logical environment, persistent data identity, generation/lineage, schema/application compatibility a writer authority pred prvou mutation. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Kontrola pred mutation potvrdzujúca environment, persistent data identity, generation/lineage, schema compatibility a writer authority. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+
+## Dependency-coupled health failure
+
+Failure, pri ktorom healthcheck stotožní vzdialenú dependency outage s local liveness a vyvolá zbytočné restarty alebo restart storm. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
 ## Descriptor — OCI
 
-Štruktúra identifikujúca OCI content pomocou media type, digestu a size, prípadne ďalších annotations alebo platform metadata. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Štruktúra identifikujúca OCI content cez media type, digest, size a prípadné platform metadata. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## Destructive volume cleanup subject
+
+Presná identita daemonu, projektu, volume objectu, logical data ID, ownera, backup/restore verdictu a retention approval potrebná pred odstránením volume-u. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
 ## Diff ID — OCI image
 
-Digest uncompressed filesystem layer changesetu uložený v OCI image configuration rootfs chain, odlišný od digestu compressed blobu prenášaného cez registry. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Digest uncompressed filesystem changesetu uložený v OCI image configuration rootfs chain. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Distribution digest — OCI
 
-Content digest registry blobu alebo manifestu v jeho distribuovanej reprezentácii, používaný na integrity verification a immutable references. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Digest registry blobu alebo manifestu v distribuovanej reprezentácii, používaný na integrity a immutable references. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Docker API operation subject
 
-Presná identita Engine API operácie zahŕňajúca Docker context a endpoint, caller identity, requested image/object, container name a labels, network/mount/port/resource policy, correlation ID a operation purpose. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+Identita Engine API mutation zahŕňajúca context/endpoint, caller, requested object/image, name/labels, runtime policy, correlation ID a purpose. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
 
 ## Docker context identity
 
-Resolved Docker client target zahŕňajúci context name, Engine endpoint, SSH/TLS metadata a očakávaný daemon/environment identity; musí sa overiť pred privilegovanou alebo deštruktívnou operáciou. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+Resolved Docker client target zahŕňajúci context name, Engine endpoint, SSH/TLS metadata a expected daemon/environment identity. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Docker DNS generation
+
+Versionovaný endpoint a alias inventory v konkrétnej Docker network/project boundary, ktorý mapuje stable service names na aktuálne container addresses a readiness state. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Docker endpoint subject
+
+Identita pripojenia containeru k Docker networku zahŕňajúca network/endpoint IDs, addresses, aliases, veth/interface, routes, DNS a attach generation. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Docker forwarding path
+
+Host-side packet transition od published bind addressu cez proxy alebo DNAT, forwarding policy, bridge/veth a reverse conntrack translation ku container socketu. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Docker mount subject
+
+Identita mountu zahŕňajúca daemon/context, source type a physical/logical identity, project, destination, access flags, UID/GID mapping, LSM, propagation, data generation a ownera. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
+
+## Docker network subject
+
+Identita Docker network objectu zahŕňajúca daemon/project, network ID/name, driver/options, subnet/gateway, flags, endpoint inventory, DNS, MTU a policy generation. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
 
 ## Docker object-task reconciliation
 
-Porovnanie Docker container object metadata, containerd task/shim state, runtime processu, network endpointov, mounts a application outcome-u po timeoute, daemon failure alebo partial operation. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+Porovnanie Docker object metadata, containerd task/shim, runtime processu, endpoints, mounts a application outcome-u po timeoute alebo partial operation. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
 
 ## Dockerfile frontend identity
 
-Versionovaná implementácia Dockerfile syntax a build semantics vybraná parser directive-om alebo builder defaultom, ktorá je súčasťou reprodukovateľného build subjectu. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+Versionovaná implementácia Dockerfile syntax a build semantics vybraná parser directive-om alebo builder defaultom. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
 ## Dockerfile program subject
 
-Rekonštruovateľná identita build programu zahŕňajúca Dockerfile a frontend, immutable input inventory, stage graph, build args/secrets references, target platform, builder a selected final target. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+Identita build programu zahŕňajúca Dockerfile/frontend, immutable inputs, stage graph, args/secrets references, platform, builder a selected target. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
 ## East-west traffic
 
-Network traffic medzi internými workloads alebo services v rámci platformy, ktorého nekontrolovaný default-allow model zvyšuje lateral-movement risk. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Traffic medzi internými workloads alebo services v rámci platformy. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Effective firewall verdict — container
 
-Výsledok packet-policy rozhodovania nad konkrétnym direction, interface a pre- alebo post-NAT tuple po zohľadnení container, engine-managed, host, cloud a remote policy vrstiev. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Výsledok policy rozhodovania nad konkrétnym direction/interface a pre/post-NAT tuple po zohľadnení Docker, host, cloud a remote rules. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Effective image metadata
 
-Runtime defaults v image configuration po vyhodnotení stage graphu, najmä entrypoint, command, environment, user, working directory, labels, healthcheck, exposed ports a stop signal, ešte pred runtime overrides. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+Runtime defaults vo final image confige, najmä entrypoint, command, environment, user, workdir, labels, healthcheck, exposed ports a stop signal. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Effective mount access verdict
+
+Kernel výsledok nad visible pathom po zohľadnení process UID/GID, user mapping, inode mode/ACL, mount read-only flags a SELinux/AppArmor policy. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
 ## Effective runtime policy subject
 
-Generated a kernel-enforced runtime state vzniknutý z image defaults, deployment overrides, daemon/orchestrator defaults a node policy, zahŕňajúci process identity, capabilities, seccomp, LSM, mounts, devices, network a cgroups. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Kernel-enforced state vzniknutý z image defaults, deployment overrides, daemon/orchestrator defaults a node policy vrátane credentials, capabilities, seccomp, LSM, mounts, devices, network a cgroups. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+
+## Endpoint replacement proof
+
+Dôkaz, že po replacement-e alebo drain-e Docker DNS a caller connection state prestali používať stale endpoint a traffic smeruje iba na aktuálnu ready generation. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
 
 ## Ephemeral runtime instance
 
-Nahraditeľná runtime inštancia, ktorej lokálny procesový a writable-layer stav nie je považovaný za jediný persistentný zdroj dát. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Nahraditeľná runtime inštancia, ktorej process a writable-layer state nie je jediným persistentným zdrojom dát. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Expected context inventory
 
-Vopred validovaná množina files, paths, metadata a named contexts, ktoré musia alebo nesmú byť dostupné builderu pre konkrétny build subject. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+Vopred validovaná množina paths a named contexts, ktoré musia alebo nesmú byť dostupné builderu. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Expected stage evidence inventory
 
-Vopred definovaná množina build, test, analysis, target a per-platform verdictov požadovaných pre release; missing stage alebo evidence nie je ekvivalent pass-u. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+Množina build, test, analysis, target a per-platform verdictov požadovaných pre release; missing evidence nie je pass. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## External cache trust domain
 
-Boundary určujúca, ktoré identities môžu čítať alebo zapisovať konkrétny external build cache subject a pre ktoré branches, repositories, platforms a release classes je jeho reuse prípustný. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+Boundary určujúca identities oprávnené čítať/zapisovať build cache a release classes, pre ktoré je reuse prípustný. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+
+## External resource preflight
+
+Kontrola external Compose networku, volume-u, configu alebo secretu pred deploymentom vrátane existence, environmentu, ownera, permissions, compatibility a cleanup zodpovednosti. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
 
 ## Filesystem transition — Dockerfile
 
-Build-time zmena stage filesystemu vytvorená napríklad `COPY`, `ADD` alebo `RUN`, ktorá vstupuje do layer/result graphu a môže preniesť content, ownership, permissions alebo secret residue. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+Build-time zmena stage filesystemu cez `COPY`, `ADD` alebo `RUN`, ktorá vstupuje do layer graphu a môže preniesť content, ownership, permissions alebo secret residue. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
 ## Garbage collection — registry
 
-Proces odstraňovania manifestov alebo blobs, ktoré už nie sú reachable z retained references, vykonávaný s koordináciou voči pushes, deletes, referrers a retention policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+Odstraňovanie manifestov alebo blobs, ktoré nie sú reachable z retained references, koordinované s pushes, deletes, referrers a retention policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
 ## GC reachability snapshot — registry
 
-Konzistentný pohľad na retained tags, manifests, blobs, referrers, active uploads, leases, deployments a rollback subjects používaný na bezpečné určenie obsahu oprávneného na garbage collection. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+Konzistentný pohľad na retained tags, manifests, blobs, referrers, uploads, leases, deployments a rollback subjects pre GC rozhodnutie. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
 ## Guest operating system
 
-Operačný systém bežiaci vo virtual machine nad virtualizovaným hardware a vlastným guest kernelom. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Operačný systém bežiaci vo VM nad virtualizovaným hardware a vlastným guest kernelom. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Health generation
+
+Versionovaný stav healthcheck definition, container generation a jej časovej health history, ktorý sa musí viazať na konkrétny runtime subject. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
+## Health remediation budget
+
+Limitovaný restart alebo recovery contract určujúci confidence, backoff, drain, stateful risk, post-action verification a escalation threshold pri unhealthy stave. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
+## Healthcheck subject
+
+Identita probe zahŕňajúca container/image generation, command, runtime user/env/PATH, target namespace/endpoint, timing, redaction a health history. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
 ## Host network mode
 
-Container runtime mode zdieľajúci host network namespace, čím odstraňuje bežnú container network izoláciu a vytvára priame host port, interface a traffic exposure. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Runtime mode zdieľajúci host network namespace a tým host ports, interfaces a traffic exposure. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Host port — container
 
-Port a bind address v host network namespace, ktorý forwarding alebo proxy mechanizmus mapuje na container port. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Port a bind address v host namespace, ktorý forwarding alebo proxy mapuje na container port. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+
+## Host-publication subject
+
+Exact mapping address family, host bind address/port/protocol, endpoint generation, container address/port, forwarding implementation a firewall/upstream policy. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
 
 ## Hypervisor
 
-Virtualization vrstva poskytujúca virtual hardware a izoláciu pre virtual machines. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Virtualization vrstva poskytujúca virtual hardware a isolation pre virtual machines. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Image configuration — OCI
 
-OCI JSON artifact obsahujúci platform, runtime defaults, environment, entrypoint/command, user, rootfs diff IDs a build history metadata image-u. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+OCI JSON artifact obsahujúci platform, runtime defaults, user, entrypoint/command, environment, rootfs diff IDs a history metadata. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Image content subject
 
-Rekonštruovateľná identita image graphu zahŕňajúca manifest, config a ordered layer descriptors/digests, oddelená od unpacked snapshotu a runtime writable state-u. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Identita image graphu zahŕňajúca manifest, config a ordered layer descriptors/digests, oddelená od snapshotu a runtime state-u. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
 ## Image index — OCI
 
-Manifest list odkazujúci na viac OCI manifests, typicky pre rozdielne OS, architecture a variant platformy. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Manifest list odkazujúci na viac platform-specific manifests. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Image layer
 
-Immutable filesystem changeset v ordered image graph-e, ktorý sa skladá s ostatnými layers do výsledného root filesystemu. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Immutable filesystem changeset v ordered image graph-e. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
 ## Image manifest — OCI
 
-OCI artifact odkazujúci descriptorom na jednu image configuration a ordered list filesystem layer blobs. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+OCI artifact odkazujúci na jednu image configuration a ordered layer blobs. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Image-config contract test
 
-Assertion nad final image configom a effective runtime override-mi, ktorá overuje expected entrypoint, command, user, environment, healthcheck, stop signal, port metadata a writable-path assumptions pre exact image digest. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+Assertion nad final image configom a runtime overrides overujúca entrypoint, command, user, environment, healthcheck, signal, ports a writable paths pre exact digest. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
 ## Image-config transition — Dockerfile
 
-Build instruction, ktorá mení runtime metadata image-u bez toho, aby sama vytvorila budúci process, napríklad `ENV`, `USER`, `ENTRYPOINT`, `CMD`, `HEALTHCHECK` alebo `STOPSIGNAL`. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+Instruction meniaca runtime metadata image-u, napríklad `ENV`, `USER`, `ENTRYPOINT`, `CMD`, `HEALTHCHECK` alebo `STOPSIGNAL`. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
 ## Immutable build input inventory
 
-Úplná identita source/contextu, Dockerfile/frontendu, base a external image digestov, dependency lockov/snapshots, args, secret references, platformy, buildera, cache subjects a targetu potrebná na vysvetlenie final artifactu. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+Úplná identita source/contextu, Dockerfile/frontendu, base/external image digestov, dependencies, args, secret references, platformy, buildera, cache a targetu. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Internal direct path
+
+Container-to-container flow cez spoločnú Docker network a service DNS priamo na container port bez host publication boundary. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
 
 ## Isolation boundary
 
-Technická a bezpečnostná hranica oddeľujúca workload od hosta alebo iných workloads, napríklad shared-kernel container boundary alebo hypervisor/VM boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Technická a bezpečnostná hranica oddeľujúca workload od hosta alebo iných workloads. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Layer-aware secret incident
 
-Incident, pri ktorom sa secret môže nachádzať v historickom layeri, image config/history, build context/cache, platform variante, runtime writable layeri alebo mounted storage a recovery vyžaduje presný subject, clean rebuild aj revocation credentialu. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Incident, pri ktorom secret môže byť v layeri, image metadata, context/cache, platform variante, writable layeri alebo mounted storage a vyžaduje clean rebuild aj revocation. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
 ## Low-level container runtime
 
-Runtime implementácia, ktorá vytvorí a spustí izolovaný process podľa OCI runtime bundle a spravuje jeho low-level lifecycle, namespaces, mounts a credentials. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Runtime vytvárajúci a spúšťajúci process podľa OCI runtime bundle a spravujúci namespaces, mounts a credentials. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Media type — OCI
 
-Identifikátor semantic formátu descriptorom odkazovaného contentu, napríklad image manifest, image index, configuration alebo layer blob. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Identifikátor semantic formátu OCI descriptorom odkazovaného contentu. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Merged filesystem lookup
 
-Path-resolution model, ktorý pri read-e hľadá najvyššiu visible verziu pathu vo writable upper layeri a následne v ordered lower layers, pričom rešpektuje whiteouts a opaque-directory semantics. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Path resolution cez writable upper layer a ordered lower layers so zohľadnením whiteouts a opaque directories. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
 ## MicroVM
 
-Minimalizovaná virtual machine navrhnutá na rýchlejší startup a menší overhead pri zachovaní samostatnej virtualized-kernel boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Minimalizovaná VM s rýchlejším startupom a menším overheadom pri zachovaní virtualized-kernel boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Mount obscuring
+
+Runtime jav, pri ktorom mount na destination path skryje image content v merged view bez odstránenia bytes z image layers. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
+
+## Mount source identity
+
+Logical a physical identita volume-u, external backendu, bind host pathu, tmpfs alebo socket/device source-u spolu s daemonom, hostom, projektom a lifecycle ownerom. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
 ## Multi-platform image
 
-OCI image index a súvisiaci graph poskytujúci platform-specific manifests pod jednou higher-level reference, napríklad pre `linux/amd64` a `linux/arm64`. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+OCI index a graph poskytujúci manifests pre viac OS/architecture/variant kombinácií. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Named context subject
 
-Immutable identita explicitne pomenovaného Docker build contextu, napríklad local directory, Git commit alebo image digest, používaného stage-like reference-om bez rozšírenia primary contextu. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
+Identita explicitne pomenovaného build contextu, napríklad directory, Git commit alebo image digest. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
 ## Namespace view
 
-Process-specific pohľad na vybranú kategóriu shared kernel state-u, napríklad PID tree, mount table alebo network stack; sám o sebe nepredstavuje resource limit ani access-control verdict. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
+Process-specific pohľad na shared kernel state, napríklad PID tree, mounts alebo network stack; sám nie je resource limit ani access verdict. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
 
 ## North-south traffic
 
-Traffic medzi interným workloadom a externým klientom, internetom alebo službou mimo platformovej boundary. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Traffic medzi interným workloadom a externým klientom alebo službou mimo platformy. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## OCI — Open Container Initiative
 
-Otvorená governance organizácia definujúca industry standards pre container image format, runtime bundle/lifecycle a registry distribution. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Organizácia definujúca standards pre image format, runtime lifecycle a registry distribution. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## OCI artifact
 
-Content uložený pomocou OCI image/distribution modelu, ktorý nemusí byť runnable image, napríklad SBOM, signature, provenance, Helm chart alebo policy bundle. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Content uložený OCI modelom, ktorý nemusí byť runnable image, napríklad SBOM, signature, provenance alebo chart. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## OCI referrer
 
-Artifact alebo discovery vzťah odkazujúci na subject digest, používaný napríklad na pripojenie signature, SBOM alebo provenance k image-u. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md) a [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+Artifact alebo discovery vzťah viažuci signature, SBOM alebo provenance na subject digest. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md) a [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
 ## OCI release subject
 
-Immutable release identity spájajúca source/build subject, image index digest, expected platform manifests, configs/layers, registry/repository, trust artifacts a podporovaný runtime/platform contract. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Immutable release identity spájajúca source/build, image index, platform manifests, configs/layers, registry, trust artifacts a runtime contract. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## OCI runtime bundle
 
-Directory forma pre low-level runtime obsahujúca `rootfs` a `config.json` s process, mount, namespace, capability a resource configuration. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Directory obsahujúca `rootfs` a `config.json` s process, mounts, namespaces, capabilities a resources. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## One-shot operation subject
+
+Identita Compose migration alebo init jobu zahŕňajúca operation ID, image/config/data subject, project, concurrency lock, result a rerun/unknown-outcome semantics. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
 
 ## Persistence classification — container
 
-Rozdelenie writable paths na ephemeral state, persistent business state, znovu injektovateľnú configuration/secret state a incident evidence, z ktorého vyplýva storage, backup, cleanup a replacement contract. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Rozdelenie writable paths na ephemeral, persistent business, re-injectable config/secret a incident evidence state. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+
+## Persistent data preflight
+
+Kontrola logical data ID, environmentu, generation/schema, writer epoch, source volume/backend identity a backup compatibility pred prvou runtime mutation. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
 ## Persistent data subject — container
 
-Rekonštruovateľná identita durable application state-u zahŕňajúca logical data ID, generation/lineage, backend object, filesystem alebo object identity, topology/access mode, writer authority, encryption a backup/restore contract. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Identita durable state-u zahŕňajúca logical data ID, generation, backend/filesystem, topology/access mode, writer authority, encryption a backup contract. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
 ## PID limit — container
 
-Cgroup process-count limit chrániaci host pred fork bomb alebo nekontrolovaným rastom procesov a threadov v workload-e. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
+Cgroup limit počtu procesov/threadov chrániaci host pred fork bomb alebo nekontrolovaným rastom. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
 
 ## Platform compatibility contract — container
 
-Súbor požiadaviek nad rámec OS a CPU architecture, napríklad kernel/runtime features, CPU variant, libc, devices, filesystem, seccomp/LSM a storage/network capabilities potrebné na úspešné spustenie workloadu. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md) a [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Požiadavky na kernel/runtime features, CPU, libc, devices, filesystem, seccomp/LSM, storage a network potrebné na spustenie workloadu. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Platform manifest — OCI
 
-Konkrétny image manifest vybraný z image indexu pre jednu OS/architecture/variant kombináciu, ktorý odkazuje na config a ordered layer blobs reálne použité pri pull/unpack. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Konkrétny manifest vybraný z indexu pre OS/architecture/variant, odkazujúci na config a layers. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
 ## Port-publication subject — container
 
-Effective mapping host bind addressu, host portu a protocolu cez forwarding/NAT/proxy na konkrétny container address a port spolu s firewall/exposure policy. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Mapping host bind addressu, portu a protocolu cez forwarding/NAT/proxy na container address/port s policy. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Port publishing
 
-Host-side forwarding alebo proxy konfigurácia, ktorá sprístupní container port cez zvolený host bind address a port. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Host-side forwarding alebo proxy konfigurácia sprístupňujúca container port cez host address a port. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Privileged container
 
-Container spustený s výrazne rozšírenými capabilities, device accessom a oslabenými security profiles, čím sa zásadne zmenšuje jeho isolation od hosta. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Container s výrazne rozšírenými capabilities, devices a oslabenými security profiles. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
 ## Privileged-policy collapse
 
-Runtime konfigurácia, pri ktorej privileged mode alebo kombinácia broad capabilities, devices, host mounts a oslabených seccomp/LSM controls zruší významnú časť pôvodne očakávanej container boundary. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
+Runtime configuration, pri ktorej privileged mode alebo broad authority zruší významnú časť očakávanej container boundary. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
+
+## Process-loaded configuration
+
+Non-secret effective state, ktorý application reálne načítala po startup/reload-e, odlíšený od source files, resolved modelu a container create configuration. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
 ## Process readiness boundary
 
-Prechod medzi existenciou/spustením container processu a jeho schopnosťou bezpečne prijímať traffic alebo vykonávať workload, potvrdený dependency, configuration a business-level oracle. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Prechod medzi spusteným processom a schopnosťou bezpečne prijímať traffic alebo vykonávať workload. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Project collision incident
+
+Failure, pri ktorom dve pipelines alebo environments používajú rovnaký Compose project a vzájomne recreatujú, testujú alebo mažú spoločné resources. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Project-network split
+
+Failure, pri ktorom services s rovnakými logical names bežia v rozdielnych Compose project networks a preto nezdieľajú DNS ani connectivity boundary. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
+
+## Publication exposure generation
+
+Versionovaný stav host publications, endpoint mappings, firewall/upstream policies a intended client scope použitý na audit dostupnosti aj neplánovanej exposure. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
 
 ## Pull-through cache — registry
 
-Lokálny registry cache model, ktorý pri prvom pull-e načíta content z upstream registry a ďalším clients ho poskytuje lokálne podľa cache a freshness policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+Registry cache, ktorý pri prvom pull-e načíta content z upstream a následne ho poskytuje lokálne podľa freshness policy. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
 ## Read-only root filesystem — container
 
-Runtime policy zakazujúca zápis do image-derived root filesystemu a povoľujúca iba explicitne pripojené writable paths. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Policy zakazujúca zápis do image-derived rootfs a povoľujúca iba explicitné writable paths. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+
+## Redacted effective configuration manifest
+
+Evidence názvov fields, source provenance, epochs a hashes bez plaintext secrets, ktorá vysvetľuje container create a process-loaded configuration. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
 ## Registry mirror
 
-Alternatívny registry endpoint replikujúci alebo cacheujúci content pre dostupnosť, latency, rate-limit alebo air-gap účely. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+Alternatívny registry endpoint replikujúci alebo cacheujúci content pre availability, latency alebo air-gap účely. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
 ## Registry publication subject
 
-Immutable identita publication operácie zahŕňajúca producer identity, registry/repository, index a platform manifests, complete reachable blobs, related evidence, tags, policy verdict a read-back generation. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+Identita publication zahŕňajúca producer, registry/repository, index/platform manifests, reachable blobs, evidence, tags, policy a read-back generation. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
 ## Replication generation — registry
 
-Versionovaný stav replica/mirror synchronizácie určujúci, ktoré manifests, blobs, tags, deletes a referrers destination preukázateľne prijala z konkrétneho source generation. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+Versionovaný stav synchronizácie replica/mirror určujúci prijaté manifests, blobs, tags, deletes a referrers. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+
+## Replacement persistence proof
+
+Dôkaz, že replacement container pripojil rovnaký expected persistent data subject a pokračuje bez neplánovanej initialization alebo data loss. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
+
+## Resolved Compose model subject
+
+Canonical effective application model po interpolation, merge, profiles, include a extends, viazaný na source inventory, Compose version a model digest. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
+
+## Resolved-model policy
+
+Policy vyhodnocujúca effective Compose model vrátane images, ports, mounts, networks, devices, privileged settings, secrets a external resources namiesto jednotlivých fragments. Pozri [Docker Compose](docs/08-container-fundamentals-and-docker/docker-compose.md).
 
 ## Rollback digest inventory
 
-Množina immutable registry subjects, ktoré musia zostať pullable a policy-valid počas deklarovaného rollback alebo support windowu aj vtedy, keď už nemajú aktívny tag. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
+Množina immutable registry subjects, ktoré musia zostať pullable a policy-valid počas rollback/support windowu. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
 
 ## Rootless container
 
-Container a runtime model fungujúci bez host-root daemon identity, typicky cez user namespaces a unprivileged networking/storage helpers. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Container/runtime model bez host-root daemon identity, typicky cez user namespaces a unprivileged helpers. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
 ## Runtime bundle subject — OCI
 
-Rekonštruovateľná identita generated `rootfs` a `config.json` zahŕňajúca selected platform manifest, runtime overrides, mounts, namespaces, capabilities, resource policy, hooks a bundle/config digest. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Identita generated `rootfs` a `config.json` zahŕňajúca selected manifest, overrides, mounts, namespaces, capabilities, resources a hooks. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## Runtime configuration subject
+
+Identita image defaults, Compose sources, interpolation/env files, CLI overrides, mounted configs/secrets, schema, container generation a process-loaded config epoch. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
 ## Runtime dependency closure
 
-Úplná množina executable, interpreter/dynamic linker, shared libraries, certificates, DNS/NSS, timezone/locale, user metadata, writable paths a helperov potrebných na spustenie final-stage processu. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+Úplná množina executable, interpreter/linker, libraries, certificates, DNS/NSS, timezone/locale, users, writable paths a helpers potrebných vo final stage-i. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## Runtime isolation subject
 
-Presná identita container process a policy kompozície zahŕňajúca host/runtime, namespace IDs, cgroup, UID/GID mappings, capability sets, `no_new_privs`, seccomp, LSM, mounts, devices a entrypoint. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
+Identita process policy vrátane host/runtime, namespaces, cgroup, UID/GID mappings, capabilities, `no_new_privs`, seccomp, LSM, mounts, devices a entrypoint. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md).
 
 ## Runtime process contract — image
 
-Vzťah medzi effective entrypoint, command/arguments, PID 1, signal a exit behaviorom, runtime userom, working directory, health/readiness oracle a required filesystem/dependency paths. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+Vzťah effective entrypoint/command, PID 1, signals, runtime usera, workdir, health/readiness a required filesystem/dependencies. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
 
 ## Runtime socket authority
 
-Host-admin-like authority získaná accessom ku container-engine socketu, ktorá často umožňuje vytvárať workloads s ľubovoľnými mounts, devices, capabilities alebo host namespace accessom. Pozri [Namespaces, cgroups a capabilities](docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md) a [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Host-admin-like authority získaná accessom k container-engine socketu. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
 ## Runtime socket exposure
 
-Sprístupnenie container-engine API socketu workloadu, ktoré často umožňuje vytvárať privileged containers, mounts alebo inak ovládať host a predstavuje host-admin trust boundary. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Sprístupnenie Engine API socketu workloadu, ktoré často umožňuje ovládať host cez privileged containers alebo mounts. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
 ## Sandboxed container runtime
 
-Runtime model pridávajúci medzi container workload a host kernel ďalšiu isolation vrstvu, napríklad user-space kernel alebo lightweight virtual machine. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Runtime pridávajúci ďalšiu isolation vrstvu medzi workload a host kernel, napríklad user-space kernel alebo lightweight VM. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Seccomp profile — container
 
-System-call filter policy aplikovaná na container processes s cieľom znížiť dostupný host-kernel attack surface. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+System-call filter policy znižujúca host-kernel attack surface dostupný workloadu. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
 ## Security exception subject — container
 
-Časovo obmedzená výnimka viazaná na exact workload/runtime subject, environment, bypassovaný control, risk, ownera, compensating controls, expiration a removal/revalidation trigger. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Časovo obmedzená výnimka viazaná na exact workload/runtime, environment, bypassovaný control, risk, ownera, compensating controls a expiration. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
 ## Selected build target
 
-Explicitne zvolený final, test, development, debug alebo artifact stage, ktorého identita musí byť súčasťou release subjectu a publication policy. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+Explicitne zvolený final, test, development, debug alebo artifact stage, ktorý je súčasťou release subjectu a publication policy. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
+## Service alias ownership
+
+Contract určujúci, ktorá service vlastní konkrétny alias v danej Docker network a aké replica/load-distribution semantics caller očakáva. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
 
 ## Service endpoint generation — container networking
 
-Versionovaný stav service discovery inventory viažuci stable workload identities, addresses, readiness, eligibility a draining/removal state tak, aby stale alebo recyklovaná IP nebola považovaná za správny endpoint. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Versionovaný service-discovery inventory viažuci stable workload identities, addresses, readiness, eligibility a draining/removal state. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Shared kernel
 
-Model, v ktorom viac host a container processes používa ten istý kernel, hoci môže mať odlišné namespace views a resource limits. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Model, v ktorom host a container processes používajú rovnaký kernel pri odlišných namespace views a limits. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Single-writer storage
 
-Storage contract povoľujúci v danom čase iba jedného aktívneho writer-a, ktorý potrebuje scheduling, attachment alebo fencing controls na zabránenie concurrent corruption. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Storage contract povoľujúci v danom čase iba jedného active writer-a a vyžadujúci scheduling/fencing. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
 ## Snapshot lease — container runtime
 
-Referencia alebo pin chrániaci unpacked content a snapshots používané aktívnym pullom, buildom alebo containerom pred garbage collection počas ich lifecycle-u. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Referencia chrániaca unpacked content a snapshots používané pullom, buildom alebo containerom pred GC. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
 ## Snapshot subject — container filesystem
 
-Runtime-specific unpacked representation verified image layers, z ktorej sa vytvorí root filesystem a nad ktorú sa pridá per-container writable layer. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Runtime-specific unpacked representation verified image layers, z ktorej vzniká rootfs a per-container writable layer. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+
+## Socket capability mount
+
+Mount Unix socketu alebo podobného host control endpointu, ktorého authority sa určuje server API oprávneniami, nie iba filesystem read/write flagom. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
 ## Split-writer incident
 
-Failure stav, v ktorom viac processov alebo nodes súčasne verí, že má authoritative write authority nad rovnakou persistent data identity, často po partitione alebo failover-e bez fencing-u. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Failure, pri ktorom viac processov alebo nodes verí, že má write authority nad rovnakou persistent data identity. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
 ## Stage DAG subject
 
-Rekonštruovateľná identita multi-stage graphu zahŕňajúca stage names, base/input subjects, dependency edges, selected targets, platform branches, cache outcomes a cross-stage artifact transfers. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+Identita multi-stage graphu zahŕňajúca stage names, base/inputs, dependency edges, targets, platforms, cache outcomes a transfers. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## Stage-output secret incident
 
-Incident, pri ktorom secret vložený alebo odvodený v build stage-i prejde cez generated artifact, broad alebo narrow `COPY --from`, cache či export do final image-u; recovery zahŕňa revocation aj clean graph rebuild. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+Incident, pri ktorom secret prejde cez generated artifact, `COPY --from`, cache alebo export z build stage-u do final image-u. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## Storage attachment subject
 
-Rekonštruovateľná identita backend volume/objectu, node/device pathu, filesystem UUID, host a container mountov, options, topology a active writer lease-u. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Identita backend volume/objectu, node/device pathu, filesystem UUID, host/container mounts, options, topology a active writer lease-u. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
 ## Storage fencing
 
-Mechanizmus zabezpečujúci, že starý alebo izolovaný writer už nemôže zapisovať na shared storage pred aktiváciou nového writer-a. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Mechanizmus zabezpečujúci, že stale writer už nemôže zapisovať pred aktiváciou nového writer-a. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
 ## Subject-bound referrer — OCI
 
-Signature, provenance, SBOM alebo iný related artifact, ktorého dôkazný význam je explicitne viazaný na konkrétny image index alebo platform manifest digest. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+Signature, provenance, SBOM alebo iný artifact explicitne viazaný na image index alebo platform manifest digest. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
+
+## Subject-bound runtime verification
+
+Health, configuration, client-path alebo business evidence viazaná na exact image, container/project generation a configuration/data epochs. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
 
 ## Subject-bound security evidence inventory
 
-Očakávaná množina signature, provenance, SBOM, scan, runtime-policy, identity, network/storage a exception evidence, ktorá musí byť validná pre exact artifact a workload subject; missing alebo invalid evidence nie je pass. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md) a [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Množina signature, provenance, SBOM, scan, runtime-policy, identity, network/storage a exception evidence validná pre exact artifact/workload. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
 ## Subject-bound test stage
 
-Test stage verdict viazaný na exact source, immutable inputs, platform, build artifact digest a final image subject, nie iba na názov stage-u alebo úspech nesúvisiaceho pipeline jobu. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+Test verdict viazaný na exact source, inputs, platform, build artifact a final image subject. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## Target publication policy
 
-Policy overujúca, že production reference publikuje povolený named target s expected final base, user, content, metadata, platform evidence a artifact lineage, nie development alebo debug stage. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+Policy overujúca, že production reference publikuje povolený target s expected base, user, content, metadata, platforms a lineage. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
 ## tmpfs mount — container
 
-Memory-backed temporary filesystem pripojený do containeru s lifecycle viazaným na runtime a potrebným explicitným size, memory a permissions limitom. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Memory-backed temporary filesystem s runtime lifecycle a explicitným size, memory a permissions contractom. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
 ## Unknown Docker operation outcome
 
-Failure stav, keď klient po timeoute alebo connection loss nevie, či Engine API mutation neprebehla, skončila partial object side effects alebo úspešne vytvorila task/process; pred retry vyžaduje object-task-runtime reconciliation. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+Stav, keď klient nevie, či Engine mutation neprebehla, zanechala partial objects alebo úspešne spustila process; pred retry vyžaduje reconciliation. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
 
 ## Veth pair
 
-Dvojica prepojených virtual Ethernet interfaces, ktorá typicky spája container network namespace s host bridge alebo routing vrstvou. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+Dvojica prepojených virtual Ethernet interfaces spájajúca container namespace s host bridge/routing vrstvou. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
 ## Virtual machine — VM
 
-Izolovaný machine environment s virtualizovaným hardware, vlastným guest kernelom a guest userspace, ktorý poskytuje hypervisor. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Izolovaný machine environment s virtual hardware, vlastným guest kernelom a userspace-om. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## VM escape
 
-Prelomenie guest/hypervisor isolation boundary, pri ktorom code z virtual machine ovplyvní hypervisor, host alebo inú VM. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Prelomenie guest/hypervisor boundary, pri ktorom code z VM ovplyvní hypervisor, host alebo inú VM. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+
+## Volume initialization subject
+
+Identita empty/new volume initialization alebo schema migration zahŕňajúca data ID, generation, writer lock, migration ledger a postcondition verdict. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
 
 ## Whiteout — image layer
 
-Marker vo filesystem changesete, ktorý v merged image view skryje path existujúci v staršom immutable layeri bez odstránenia jeho pôvodných bytes. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Marker v changesete, ktorý v merged view skryje path zo staršej layer bez odstránenia pôvodných bytes. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
 
 ## Workload density
 
-Počet alebo množstvo workloads, ktoré možno bezpečne a výkonovo prevádzkovať na spoločnej infraštruktúre pri danom resource a isolation modeli. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Počet workloads, ktoré možno bezpečne a výkonovo prevádzkovať na spoločnej infraštruktúre pri danom isolation/resource modeli. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Workload identity subject — container
 
-Rekonštruovateľná short-lived authorization identity viazaná na workload a environment, s audience, scopes, token epoch/expiration, issuance a use auditom. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
+Short-lived authorization identity viazaná na workload/environment s audience, scopes, token epoch/expiration, issuance a auditom. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
 
 ## Workload isolation subject
 
-Rekonštruovateľná identita workloadu a jeho zvolenej VM/container boundary zahŕňajúca release/image, host/guest kernel, runtime config, resource policy, network endpoint, persistent-state owner a isolation class. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
+Identita workloadu a VM/container boundary zahŕňajúca release/image, kernel, runtime config, resources, network, persistent ownera a isolation class. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
 ## Writer epoch — container storage
 
-Monotónna alebo fencing-aware generácia authoritative writera používaná na odmietnutie stale processu alebo node-u po failover-e a na koreláciu records s konkrétnou write authority. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+Monotónna alebo fencing-aware generation authoritative writer-a použitá na odmietnutie stale processu/node-u. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
 
 ## Writable layer — container
 
-Dočasná zapisovateľná filesystem vrstva konkrétnej container instance umiestnená nad read-only image layers, ktorej lifecycle je typicky viazaný na container. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
+Dočasná zapisovateľná filesystem vrstva konkrétnej container instance nad read-only image layers. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
