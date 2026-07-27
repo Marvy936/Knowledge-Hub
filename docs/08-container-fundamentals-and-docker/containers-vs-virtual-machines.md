@@ -1,625 +1,590 @@
 # Containers vs. virtual machines
 
-Containers a virtual machines izolujú workloads od host systému a od seba navzájom, ale používajú odlišnú virtualization boundary. Virtual machine virtualizuje hardware a spúšťa vlastný guest kernel. Linux container je izolovaný proces alebo skupina procesov zdieľajúca kernel hosta, pričom používa namespaces, cgroups a ďalšie kernel security controls.
+Container a virtual machine sú dve odlišné odpovede na otázku, **kde má byť runtime isolation boundary**. Virtual machine dostane virtualizovaný hardware a vlastný guest kernel. Linux container zostáva skupinou host procesov, ktoré zdieľajú host kernel, ale dostanú izolované views, resource controls a security policy.
 
-Kontajnery nenahrádzajú virtuálne stroje vo všetkých prípadoch. Často sa používajú **vo vnútri VM**, čím sa kombinuje infrastructure isolation hypervisora s application packaging a scheduling modelom kontajnerov.
-
-## 1. Proces bez izolácie
-
-Bežný Linux process zdieľa s ostatnými procesmi hosta:
-
-- kernel,
-- process namespace,
-- network stack,
-- mount tree,
-- hostname,
-- IPC resources,
-- user a group identity model,
-- CPU a memory resources podľa scheduler/cgroup konfigurácie.
-
-Process má vlastný virtual address space, file descriptors a runtime state, ale bez ďalších controls vidí veľkú časť spoločného host prostredia.
-
-## 2. Čo je container
-
-Container je runtime jednotka, v ktorej jeden alebo viac procesov beží s izolovaným pohľadom na vybrané systémové resources.
-
-Na Linuxe sa typicky kombinuje:
-
-- namespaces pre izolovaný pohľad,
-- cgroups pre accounting a resource control,
-- capabilities pre rozdelenie root privileges,
-- seccomp pre obmedzenie system calls,
-- SELinux alebo AppArmor pre mandatory access control,
-- izolovaný root filesystem,
-- runtime configuration a lifecycle.
-
-Container nie je samostatný mini-počítač. Z pohľadu kernelu ide stále o host processes.
-
-## 3. Čo je virtual machine
-
-Virtual machine používa virtualizovaný hardware poskytovaný hypervisorom:
+Rozhodnutie preto nemá začínať zoznamom výhod a nevýhod. Má sledovať celý workload lifecycle:
 
 ```text
-physical host
+workload intent a threat model
+→ vybraná isolation boundary
+→ immutable machine/image subject
+→ runtime instance creation
+→ resource, network, storage a identity attachment
+→ process start a readiness
+→ observation a policy enforcement
+→ patch, replacement alebo in-place recovery
+→ persistent-state a incident closure
+```
+
+Container ani VM nie sú samy osebe application architecture. Obe sú execution boundaries, ktoré musia byť zosúladené s identity, persistence, networking, security a recovery modelom workloadu.
+
+## 1. Atlas workload subject
+
+Atlas Payments release `3.13.0` beží v cloud modeli:
+
+```text
+physical cloud host
 → hypervisor
-→ virtual hardware
-→ guest operating system
-→ applications
+→ worker VM node-17
+→ Linux guest kernel 6.12
+→ container runtime
+→ Atlas Payments container AP-313-07
 ```
 
-Každá VM typicky obsahuje:
-
-- vlastný guest kernel,
-- init/service manager,
-- system libraries,
-- userspace tools,
-- vlastný filesystem a virtual devices,
-- applications.
-
-Guest OS môže mať inú kernel verziu a často aj inú OS family než host, pokiaľ to podporuje hypervisor a hardware architecture.
-
-## 4. Architektúrne porovnanie
-
-### Virtual machines
+Rekonštruovateľný runtime subject obsahuje:
 
 ```text
-Hardware
-└── Host/Hypervisor
-    ├── VM A
-    │   ├── Guest kernel
-    │   └── Applications
-    └── VM B
-        ├── Guest kernel
-        └── Applications
+service: Atlas Payments
+release: 3.13.0
+image index digest: IDX313
+platform manifest: linux/amd64 MAMD313
+worker VM identity: i-node-17
+VM image: node-os-2026.07.2
+host/guest kernel: 6.12.x
+container runtime configuration: RC882
+container instance: AP-313-07
+runtime config generation: C44
+secret epoch: SE02
+persistent data owner: managed PostgreSQL cluster DB17
+network endpoint: payments.prod.example
+resource policy: 2 CPU / 2 GiB / pids 512
+isolation class: internal trusted service
 ```
 
-### Containers
+Úspešný outcome nie je iba „container je running“ alebo „VM je powered on“. Úspech znamená:
 
 ```text
-Hardware
-└── Host kernel
-    ├── Container A processes
-    ├── Container B processes
-    └── Host processes
+správny artifact beží na kompatibilnej platforme
++ zvolená isolation boundary zodpovedá threat modelu
++ process je ready a reachable
++ limits neporušujú workload SLO
++ business data prežijú replacement runtime instance
++ patch a recovery zachovajú identity a audit
 ```
 
-Container runtime vytvára izolovaný execution context, ale všetky Linux containers na rovnakom hoste používajú ten istý host kernel.
+## 2. Process, container a VM
 
-## 5. Isolation boundary
+### Bežný host process
 
-### VM boundary
+Process má vlastný virtual address space, file descriptors a execution state, ale bez ďalších controls zdieľa host kernel, mount tree, network stack, process view a resource pool.
 
-Hypervisor oddeľuje guest memory, virtual CPU, devices a guest kernel. Útočník po kompromitácii aplikácie musí typicky prekonať guest OS a následne hypervisor boundary, aby ovplyvnil hosta alebo inú VM.
+### Linux container
+
+Container runtime vytvorí process alebo process group a zostaví jeho execution context:
+
+```text
+image root filesystem
++ namespaces
++ cgroup placement
++ credentials/capabilities
++ seccomp a LSM policy
++ mounts, devices a networking
++ entrypoint
+→ isolated host process tree
+```
+
+Z pohľadu kernelu sú to stále host processes. Container image typicky neprináša kernel, bootloader ani vlastný virtual hardware.
+
+### Virtual machine
+
+Hypervisor poskytne virtual hardware:
+
+```text
+physical CPU/memory/devices
+→ hypervisor isolation
+→ virtual CPU, memory, disk a NIC
+→ guest kernel boot
+→ guest userspace a services
+→ application process
+```
+
+Guest môže používať inú kernel verziu alebo OS family než host, ak to podporuje hypervisor a architecture.
+
+## 3. Isolation boundary ako hlavný rozdiel
 
 ### Container boundary
 
-Container zdieľa kernel s hostom. Kernel vulnerability, nebezpečná capability, privileged container alebo vystavený host socket môže izoláciu výrazne oslabiť.
+Container zdieľa kernel s ostatnými containers a host procesmi. Izolácia závisí od koordinácie:
 
-To neznamená, že containers nie sú bezpečné. Znamená to, že ich isolation model a threat model sú odlišné.
+- namespaces;
+- cgroups;
+- user a process credentials;
+- capability sets;
+- seccomp;
+- SELinux alebo AppArmor;
+- mount/device policy;
+- runtime a host hardening.
 
-## 6. Shared kernel
+Kernel vulnerability, privileged mode, runtime socket alebo writable host mount môže boundary výrazne oslabiť.
 
-Výhody zdieľaného kernelu:
+### VM boundary
 
-- menší per-workload overhead,
-- rýchlejší startup,
-- vyššia workload density,
-- jednoduchšie distribuovateľné userspace artifacts.
+VM pridáva guest-kernel a hypervisor boundary. Kompromitovaná aplikácia najprv zasiahne guest OS; pre priamy zásah hosta alebo inej VM musí útočník prekonať ďalšiu virtualization boundary.
 
-Obmedzenia:
+VM však nie je automaticky bezpečná. Guest image, hypervisor, virtual devices, management plane, identities a network stále potrebujú hardening.
 
-- Linux container potrebuje kompatibilný Linux kernel,
-- container nemôže priniesť vlastný kernel feature set nezávisle od hosta,
-- kernel attack surface je spoločný,
-- host kernel configuration ovplyvňuje všetky containers.
-
-Container image môže obsahovať userspace z inej Linux distribúcie, ale stále používa host kernel.
-
-## 7. Windows a macOS hosty
-
-Linux containers na Windows alebo macOS typicky bežia cez Linux VM alebo inú virtualization vrstvu poskytovanú platformou.
-
-Praktický model:
+### Dôsledok
 
 ```text
-Windows/macOS
-→ lightweight Linux VM
-→ Linux container runtime
-→ containers
+shared-kernel container
+→ menší overhead a rýchlejší lifecycle
+→ väčší spoločný kernel blast radius
+
+VM s guest kernelom
+→ silnejšia a samostatnejšia boundary
+→ vyšší per-instance overhead a širší OS lifecycle
 ```
 
-Preto „container beží priamo na mojom Windows hoste“ nemusí znamenať, že Linux process používa Windows kernel.
+## 4. Containers vo VMs
 
-## 8. Startup time
+Cloud platforms často kombinujú obe vrstvy:
 
-VM startup zahŕňa:
+```text
+hypervisor/VM
+→ izoluje node alebo tenant failure domain
 
-- virtual hardware initialization,
-- guest kernel boot,
-- init/system services,
-- application startup.
+container
+→ balí a spúšťa application workload
+```
 
-Container startup typicky zahŕňa:
+Atlas používa VM node ako infrastructure a kernel boundary a container ako replaceable application unit. To však znamená dva patch a observation lifecycles:
 
-- prípravu namespaces/cgroups/filesystem,
-- vytvorenie processu,
-- spustenie application entrypointu.
+- cloud host/hypervisor;
+- worker VM guest OS/kernel;
+- container runtime;
+- application image a config;
+- application process.
 
-Container môže štartovať výrazne rýchlejšie, ale application readiness môže stále trvať dlho kvôli:
+Green container health nepreukazuje zdravý node kernel. Green VM state nepreukazuje application readiness.
 
-- migrations,
-- cache warmup,
-- dependency checks,
-- JIT compilation,
-- veľkému image pullu,
-- pomalému storage/networku.
-
-Process started nie je to isté ako workload ready.
-
-## 9. Resource overhead
-
-VM potrebuje memory a storage pre guest OS a kernel. Containers zdieľajú host kernel a často používajú copy-on-write image layers.
-
-Vyššia density však neznamená bezplatné resources. Containers stále spotrebujú:
-
-- CPU,
-- memory,
-- page cache,
-- filesystem I/O,
-- network bandwidth,
-- kernel objects,
-- process IDs,
-- open files.
-
-Bez requests, limits a observability môže jeden container vyčerpať host resources.
-
-## 10. Resource isolation
-
-Cgroups môžu riadiť alebo účtovať:
-
-- CPU,
-- memory,
-- I/O,
-- process count,
-- cpuset placement,
-- ďalšie resource controllers podľa kernelu.
-
-Limit nie je automaticky rezervácia. Napríklad CPU limit, CPU request/share a dedicated CPU assignment reprezentujú odlišné scheduling semantics.
-
-VM má typicky explicitne pridelené virtual CPUs a memory, ale hypervisor môže používať overcommit, ballooning alebo shared storage/network resources.
-
-## 11. Packaging model
+## 5. Packaging identity
 
 ### VM image
 
-Obsahuje typicky celý bootovateľný guest systém:
+Machine image typicky obsahuje bootovateľný systém:
 
-- kernel alebo boot artifacts,
-- OS userspace,
-- system services,
-- application.
+- kernel alebo boot artifacts;
+- guest userspace;
+- init a system services;
+- drivers a agents;
+- application alebo container runtime podľa modelu.
 
 ### Container image
 
-Obsahuje typicky application filesystem a runtime metadata:
+Container image obsahuje application userspace artifact a runtime defaults:
 
-- application binaries,
-- libraries,
-- runtime,
-- configuration defaults,
-- entrypoint/command,
-- image layers.
+- executable a libraries;
+- filesystem layers;
+- user;
+- environment defaults;
+- entrypoint a command;
+- labels a platform metadata.
 
-Container image neobsahuje bežne kernel, ktorý sa použije pri runtime.
-
-## 12. Image nie je container
-
-Image je immutable alebo content-addressed template/artifact. Container je runtime instance image-u s vlastným writable layerom a runtime configuration.
+Image je template. Runtime container je:
 
 ```text
-image
-→ create runtime instance
-→ container process + writable state
+exact image manifest
++ runtime config
++ mounts/secrets/network/limits
++ process state
++ writable layer
 ```
 
-Z jedného image-u možno vytvoriť viac containers s odlišnými:
+Preto dve containers z rovnakého image digestu môžu mať odlišný effective runtime state.
 
-- environment variables,
-- secrets,
-- mounts,
-- network identities,
-- resource limits,
-- commands.
+## 6. Kernel compatibility a portability
 
-## 13. Filesystem
+Container image štandardizuje userspace artifact, nie celý machine environment.
 
-Container často používa:
+Runtime compatibility závisí od:
 
-- read-only image layers,
-- writable container layer,
-- volumes,
-- bind mounts,
-- tmpfs.
+- OS/kernel family;
+- CPU architecture a variant;
+- required syscalls a kernel features;
+- filesystem a mount semantics;
+- security profiles;
+- devices;
+- networking a storage capabilities;
+- runtime configuration.
 
-Writable container layer je typicky viazaný na lifecycle containeru. Dôležité dáta potrebujú explicitný persistence model.
-
-VM disk sa správa viac ako plný machine filesystem a často prežíva reboot VM, ale aj tam treba riešiť snapshot, backup, replication a replacement lifecycle.
-
-## 14. Persistence
-
-Container je vhodné považovať za replaceable runtime unit:
+Linux image na Windows alebo macOS typicky beží cez Linux VM alebo inú compatible virtualization vrstvu:
 
 ```text
-stop/remove old container
-→ create new container from image
+Windows/macOS
+→ Linux VM alebo sandbox
+→ Linux kernel
+→ container runtime
+→ Linux container
 ```
 
-Persistence patrí mimo ephemeral writable layer:
+„Runs anywhere“ znamená iba prenositeľnosť v rámci podporovaného platform contractu.
 
-- managed database,
-- object storage,
-- persistent volume,
-- external state service,
-- explicit host/remote mount podľa architektúry.
+## 7. Runtime creation a startup
 
-„Container je ephemeral“ neznamená, že aplikácia nemôže byť stateful. Znamená to, že runtime instance nemá byť jediným vlastníkom nenahraditeľných dát.
-
-## 15. Networking
-
-VM typicky dostáva virtual network interface pripojený k virtual switchu, bridge, overlay alebo cloud networku.
-
-Container môže používať:
-
-- samostatný network namespace,
-- virtual ethernet pair,
-- bridge,
-- host networking,
-- overlay alebo CNI model,
-- port publishing/NAT.
-
-Container network identity môže byť krátkodobá. Service discovery a stable endpoint nemajú závisieť od jednej ephemeral container IP.
-
-## 16. Process model
-
-Container runtime často sleduje hlavný process ako PID 1 v container PID namespace.
-
-Keď hlavný process skončí, container lifecycle typicky skončí.
-
-Dôsledky:
-
-- aplikácia má správne spracovať signals,
-- PID 1 má špecifické signal/reaping správanie,
-- background daemon bez foreground processu môže container okamžite ukončiť,
-- jeden container nemusí znamenať striktne jeden process, ale potrebuje jasný lifecycle owner.
-
-VM môže prevádzkovať mnoho nezávislých system services pod init systémom.
-
-## 17. Configuration model
-
-VM konfigurácia býva kombináciou:
-
-- machine image,
-- cloud-init,
-- configuration managementu,
-- package managera,
-- runtime zmien.
-
-Container configuration sa typicky skladá z:
-
-- immutable image,
-- environment-specific variables,
-- secrets,
-- mounted configuration,
-- command/arguments,
-- platform policy.
-
-Meniť production container interaktívne cez shell vytvára neauditovaný drift. Oprava má vzniknúť v image alebo deployment configuration a potom sa má vytvoriť nová instance.
-
-## 18. Immutable replacement
-
-Containers podporujú replacement-oriented workflow:
+VM startup:
 
 ```text
-source change
-→ build new image
+virtual hardware
+→ guest firmware/boot
+→ guest kernel
+→ init a system services
+→ application
+```
+
+Container startup:
+
+```text
+resolve/unpack image
+→ prepare snapshot/rootfs
+→ create namespaces a cgroups
+→ attach mounts/network/security policy
+→ exec entrypoint
+```
+
+Container môže začať rýchlejšie, ale process start nie je readiness. Atlas po starte ešte:
+
+- načíta secret epoch;
+- otvorí database pool;
+- vykoná compatibility check;
+- zahreje cache;
+- začne počúvať;
+- prejde readiness transaction.
+
+Runtime state preto rozlišuj:
+
+```text
+created
+started
+alive
+ready
+serving
+healthy under load
+terminating
+deleted
+```
+
+## 8. Resource model
+
+Container zdieľa host resources a cgroups riadia accounting a limits. VM má virtual CPUs a memory, ale host/hypervisor môže používať overcommit a shared I/O.
+
+Atlas container policy:
+
+```text
+CPU weight: relative scheduling priority
+CPU quota: maximum time budget
+memory.max: 2 GiB
+pids.max: 512
+I/O/network: shared node resources
+```
+
+Limit nie je rezervácia. Workload s memory limitom stále môže trpieť CPU alebo I/O contention. VM s 4 vCPU stále môže trpieť hypervisor steal alebo noisy-neighbor storage latency.
+
+Observation musí korelovať vrstvy:
+
+```text
+application latency
+↔ container cgroup throttling/OOM
+↔ guest kernel pressure
+↔ VM scheduling/steal
+↔ physical host/storage/network
+```
+
+## 9. Process lifecycle a PID 1
+
+Container runtime sleduje hlavný process. Ak PID 1 skončí, container lifecycle sa typicky ukončí.
+
+PID 1 potrebuje:
+
+- prijímať a forwardovať termination signals;
+- zbierať child processes;
+- ukončiť sa predvídateľným exit code-om;
+- neoddeľovať daemon od lifecycle ownera.
+
+VM má init systém spravujúci viac nezávislých services. Container nemusí mať iba jeden process, ale potrebuje jeden jasný lifecycle contract.
+
+## 10. Network identity
+
+VM typicky dostane stabilnejšiu virtual NIC identity. Container môže dostať krátkodobú network namespace a ephemeral IP.
+
+Stable service identity preto nemá byť jedna container IP:
+
+```text
+container instances
+→ service discovery/load balancer
+→ stable service endpoint
+```
+
+Atlas DNS a load balancer smerujú na verified ready instances. Replacement container môže mať inú IP, ale musí zachovať service release a endpoint contract.
+
+## 11. Persistence boundary
+
+Container writable layer je viazaná na runtime instance. Je vhodná pre:
+
+- temporary files;
+- caches;
+- ephemeral runtime state;
+- replaceable generated data.
+
+Nenahraditeľné dáta patria mimo nej:
+
+- managed database;
+- persistent volume;
+- object storage;
+- external state service;
+- explicitný backup/recovery systém.
+
+Stateful application môže bežať v containeri. „Ephemeral container“ znamená, že runtime instance nie je jediný vlastník business dát.
+
+VM disk môže prežiť guest reboot, ale tiež potrebuje explicitný lifecycle. Machine snapshot nie je automaticky application-consistent database backup.
+
+## 12. Configuration a immutable replacement
+
+Container model preferuje:
+
+```text
+source/config change
+→ build exact image
 → test/scan/sign
-→ deploy new container instances
+→ deploy new runtime instances
+→ verify
 → remove old instances
 ```
 
-To znižuje in-place configuration drift, ale iba ak:
+Interactive patch v running containeri vytvorí snowflake state:
 
-- image tag/digest je kontrolovaný,
-- runtime config je versionovaná,
-- persistent state je oddelený,
-- old instance nie je ručne upravená,
-- rollout a rollback sú definované.
+- zmena nie je v image digest-e;
+- replacement ju odstráni;
+- image scanner ju nevidí;
+- recovery je neauditovateľný.
 
-## 19. Security model
+VM môže používať image replacement alebo in-place patching. Obe stratégie potrebujú explicitnú ownership a rollback policy.
 
-Container security zahŕňa viac vrstiev:
+## 13. Patching dvoch vrstiev
 
-- trusted image provenance,
-- minimal image content,
-- non-root user,
-- dropped capabilities,
-- read-only root filesystem,
-- seccomp,
-- SELinux/AppArmor,
-- user namespaces,
-- resource limits,
-- network policy,
-- secret handling,
-- host hardening,
-- runtime patching.
+Container rebuild opraví userspace packages v image. Neopraví host/guest kernel, ktorý container zdieľa.
 
-Privileged container alebo mount host root filesystemu môže prakticky zrušiť významnú časť isolation boundary.
-
-VM security zahŕňa:
-
-- hypervisor patching,
-- guest OS hardening,
-- virtual device exposure,
-- image provenance,
-- network segmentation,
-- guest identity a patch lifecycle.
-
-## 20. Escape a blast radius
-
-### Container escape
-
-Útočník prekročí container isolation a získa access k hostu alebo iným workloads. Riziko zvyšujú:
-
-- privileged mode,
-- host PID/network namespace,
-- writable host mounts,
-- Docker/container runtime socket,
-- broad capabilities,
-- kernel vulnerabilities.
-
-### VM escape
-
-Útočník prekročí guest/hypervisor boundary. Je typicky odlišnou a silnejšou isolation vrstvou, ale nie absolútnou garanciou.
-
-Citlivé multi-tenant workloads môžu používať kombináciu VM isolation a containers.
-
-## 21. Portability
-
-Container image štandardizuje application userspace artifact, ale portability má podmienky:
-
-- CPU architecture,
-- OS/kernel family,
-- required kernel features,
-- filesystem a security policy,
-- runtime configuration,
-- external services,
-- storage a networking capabilities.
-
-„Runs anywhere“ neznamená bezpodmienečne rovnaký runtime behavior na každej platforme.
-
-Multi-platform images môžu publikovať variants pre viac architectures, ale každý variant je samostatný manifest/image content.
-
-## 22. Observability
-
-Pri VM typicky sleduješ:
-
-- guest OS metrics,
-- systemd/services,
-- kernel logs,
-- hypervisor metrics,
-- virtual disk/network.
-
-Pri containers sleduješ:
-
-- container lifecycle,
-- process exit code,
-- stdout/stderr logs,
-- cgroup resource metrics,
-- image/digest identity,
-- runtime events,
-- host kernel pressure,
-- orchestrator state.
-
-Container restart môže odstrániť lokálny writable state a starý process context. Logs a traces preto potrebujú external collection.
-
-## 23. Patching
-
-### VM patching
-
-Možnosti:
-
-- in-place package patch,
-- reboot,
-- image replacement,
-- configuration management.
-
-### Container patching
-
-Bežný model:
+Atlas patch lifecycle:
 
 ```text
-update base/application dependencies
-→ rebuild image
-→ scan/test
-→ redeploy
+application/base-image vulnerability
+→ rebuild MAMD313 successor
+→ redeploy containers
+
+kernel/runtime vulnerability
+→ patch alebo replace worker VM image
+→ drain workloads
+→ create new node
+→ reschedule exact application images
 ```
 
-Patch host kernelu stále vyžaduje host/VM lifecycle, pretože containers ho zdieľajú.
+Ak sa patchne iba application image, kernel risk môže zostať. Ak sa patchne iba node, vulnerable image môže byť znova spustený.
 
-## 24. Backup a recovery
+## 14. Security a blast radius
 
-Container image nie je backup application data.
+Container risk rastie pri:
 
-Zálohuj:
+- privileged mode;
+- broad capabilities;
+- host PID/network namespace;
+- runtime socket mount;
+- writable host root mount;
+- raw device access;
+- unconfined seccomp/LSM;
+- shared sensitive workloads na jednom kernel boundary.
 
-- persistent volumes,
-- databases,
-- object storage,
-- runtime configuration/secrets podľa policy,
-- image provenance a release metadata.
+VM risk zahŕňa:
 
-VM snapshot môže pomôcť pri recovery, ale crash-consistent snapshot celej VM nemusí byť application-consistent backup databázy.
+- guest compromise;
+- virtual-device alebo hypervisor vulnerability;
+- management-plane compromise;
+- shared storage/network;
+- stale guest OS;
+- broad cloud identity.
 
-## 25. Typické použitie containers
+Citlivý multi-tenant workload môže potrebovať dedicated VM, microVM alebo sandboxed runtime aj vtedy, keď application packaging zostáva container-based.
 
-Containers sú vhodné pre:
+## 15. Worked failure: privileged container zrušil očakávanú boundary
 
-- stateless services,
-- APIs,
-- workers,
-- batch jobs,
-- CI jobs,
-- reproducible development environments,
-- microservices,
-- stateful services s explicitným persistence modelom,
-- platform add-ons a agents podľa orchestration modelu.
-
-## 26. Typické použitie VMs
-
-VMs sú vhodné pre:
-
-- workloads vyžadujúce vlastný kernel alebo OS,
-- silnejšiu tenant isolation,
-- legacy applications očakávajúce full machine,
-- appliance-like software,
-- mixed service hosty,
-- platform nodes pre container orchestration,
-- špecifické kernel modules alebo drivers.
-
-## 27. Containers vo VMs
-
-Najbežnejší cloud model:
+Atlas support tool potreboval čítať host logs. Tím použil:
 
 ```text
-physical infrastructure
-→ cloud hypervisor
-→ VM worker node
-→ container runtime
-→ application containers
+privileged container
++ host root filesystem mounted writable
++ container runtime socket mounted
 ```
 
-Výhody:
+Predpoklad bol „stále je to container, takže host je izolovaný“.
 
-- VM ako infrastructure/security boundary,
-- container ako application packaging a scheduling unit,
-- nezávislý node replacement,
-- lepšia multi-workload density vo VM.
-
-Prevádzka však musí sledovať obe vrstvy: guest/host OS aj container platformu.
-
-## 28. MicroVM a sandboxed runtime
-
-Medzi klasickou VM a shared-kernel container izoláciou existujú hybridné modely:
-
-- microVMs,
-- sandboxed container runtimes,
-- user-space kernels,
-- lightweight virtualized pods.
-
-Cieľom je kombinovať rýchlejší startup a container workflow so silnejšou isolation boundary. Trade-offom je overhead, kompatibilita a prevádzková komplexita.
-
-## 29. Density vs. isolation
-
-Rozhodnutie nie je iba technické:
+Mechanizmus:
 
 ```text
-vyššia density
-↔ silnejšia isolation
-↔ jednoduchšia prevádzka
-↔ náklady
+workload dostane široké kernel capabilities a devices
+→ vidí host filesystem
+→ runtime socket umožní vytvárať ďalšie privileged workloads
+→ container compromise sa mení na node compromise
+→ všetky workloads na node zdieľajú blast radius
 ```
 
-Jeden veľký shared host môže byť lacnejší, ale zväčšuje blast radius kernel incidentu alebo resource exhaustion.
+Správny návrh používa narrow read-only log path, dedicated identity, minimum capabilities, oddelený support workflow alebo dedicated node podľa rizika.
 
-Viac menších VM boundaries znižuje blast radius, ale zvyšuje infrastructure overhead.
+## 16. Worked failure: business dáta boli vo writable layeri
 
-## 30. Rozhodovací rámec
+Atlas export worker zapisoval pending reconciliation records do `/var/lib/atlas/pending`. Path nebola volume.
 
-Pýtaj sa:
+```text
+container AP-313-07 spracuje 8 000 records
+→ node drain odstráni container
+→ writable layer sa odstráni
+→ nový container nemá pending ledger
+→ export a database stav sa rozídu
+```
+
+Container replacement fungoval presne podľa lifecycle-u. Chyba bola v persistence contracte.
+
+Recovery vyžaduje reconstruct/reconcile records zo zdrojového systému. Skorší control je explicitný data inventory, persistent owner a replacement test.
+
+## 17. Worked failure: running sa zamieňalo s ready
+
+Container process sa spustil za dve sekundy, ale database migration compatibility check trval 40 sekúnd. Load balancer pridal instance ihneď po process start-e.
+
+```text
+process exists
+→ platform označí instance available
+→ traffic príde pred dependency readiness
+→ requests zlyhávajú
+```
+
+Readiness musí testovať používateľsky významný precondition, nie iba PID existenciu.
+
+## 18. Worked failure: VM image a container image mali rozdielnych owners bez contractu
+
+Worker VM image obsahovala runtime version R7. Application image vyžadovala runtime/kernel feature R8, ale scheduler kontroloval iba CPU architecture.
+
+```text
+image manifest je linux/amd64
+→ node je tiež amd64
+→ deployment prejde platform selection
+→ required kernel/runtime feature chýba
+→ process zlyhá pri štarte
+```
+
+Platform contract potrebuje viac než OS/architecture: podporovaný kernel, runtime features a security policy.
+
+## 19. Causal troubleshooting walkthrough: application funguje vo VM, ale nie v containeri
+
+Atlas binary funguje ako systemd service v testovacej VM. Rovnaký binary v containeri skončí po štarte s `permission denied` a health endpoint nevznikne.
+
+### 1. Zafixuj runtime subject
+
+Zaznamenaj:
+
+- image index a platform manifest digest;
+- container config, user, entrypoint a arguments;
+- host/guest kernel a runtime version;
+- namespace, cgroup, capability, seccomp a LSM profile;
+- mounts, ownership a read-only flags;
+- effective environment/secrets;
+- network a port binding;
+- process exit code, audit events a runtime logs.
+
+### 2. Súťažiace hypotézy
+
+1. Binary alebo interpreter nemá execute permission.
+2. Dynamic library alebo loader chýba v image.
+3. Process beží pod iným UID/GID a nevie čítať config.
+4. Root filesystem je read-only a aplikácia zapisuje do implicitného pathu.
+5. Capability potrebná na bind alebo syscall bola odstránená.
+6. Seccomp blokuje syscall.
+7. SELinux/AppArmor blokuje file alebo socket operation.
+8. Architecture alebo libc nie je compatible.
+9. Entrypoint shell neforwarduje argumenty alebo signal.
+10. Service počúva iba na `127.0.0.1` v container namespace.
+11. Resource limit ukončí process pred readiness.
+12. Mounted config/secret má inú hodnotu než VM file.
+
+### 3. Diskriminačné observation points
+
+- exact image filesystem a dynamic linker inspection;
+- `stat`, UID/GID a mount flags;
+- `/proc/<pid>/status` capability sets;
+- seccomp/LSM audit denials;
+- runtime spec/config;
+- process syscall/exit evidence podľa policy;
+- socket bind address v container network namespace;
+- cgroup memory/CPU/PID events;
+- redacted effective config digest;
+- porovnanie VM a container execution identities.
+
+### 4. Containment
+
+Nezapínaj privileged mode ani globálne nevypínaj SELinux/AppArmor. Zastav rollout a zachovaj failed container metadata, image digest a host audit logs.
+
+### 5. Recovery
+
+- missing library/interpreter → oprav image build a rebuildni exact artifact;
+- UID/permissions → nastav explicitný user a file ownership;
+- writable-path assumption → pridaj bounded writable mount alebo oprav application path;
+- capability gap → pridaj iba potrebnú capability;
+- seccomp/LSM denial → uprav narrow policy podľa konkrétnej operation;
+- bind address → počúvaj na intended interface a zachovaj network policy;
+- resource failure → oprav limit alebo application usage podľa evidence;
+- config mismatch → zosúlaď versionovaný runtime contract.
+
+### 6. Over pôvodný outcome
+
+Nový image/runtime subject musí prejsť process start, readiness, business transaction, graceful termination, replacement a second-instance test bez privileged bypassu.
+
+### 7. Posuň control skôr
+
+Pridaj containerized integration test s production-like user, read-only rootfs, seccomp/LSM, resource limits, mounted config a readiness oracle.
+
+## 20. Rozhodovací rámec
+
+Vyber boundary podľa otázok:
 
 1. Potrebuje workload vlastný kernel alebo inú OS family?
-2. Aká silná musí byť tenant isolation?
-3. Aký je akceptovateľný blast radius shared kernelu?
-4. Aký startup a scaling čas potrebujeme?
-5. Aký je persistence model?
-6. Kto patchuje host kernel a guest OS?
-7. Je application pripravená na replacement?
-8. Aké kernel capabilities alebo devices potrebuje?
-9. Ako budeme zbierať logs a metrics po zániku instance?
-10. Má workload bežať v containeri vo vnútri VM?
+2. Aký tenant a kernel blast radius je prijateľný?
+3. Aké capabilities, devices a host mounts potrebuje?
+4. Je application pripravená na process-oriented replacement?
+5. Kde je authoritative persistent state?
+6. Aký startup a readiness čas potrebuje?
+7. Kto patchuje application userspace, runtime, guest kernel a hypervisor?
+8. Aký node/workload identity a attestation model je potrebný?
+9. Ako sa budú zbierať logs po zániku instance?
+10. Potrebuje workload container vo VM, dedicated VM, microVM alebo sandbox?
 
-## 31. Anti-patterny
+## 21. Referenčné pravidlá
 
-### Container ako malá VM
+- Container je izolovaný host process model, nie mini-VM.
+- VM virtualizuje hardware a prináša guest kernel boundary.
+- Containers vo VMs kombinujú dve boundaries a dva patch lifecycles.
+- Image identity a runtime effective state sú odlišné subjects.
+- OS/architecture compatibility nie je celý platform contract.
+- Process started nie je workload ready.
+- Resource limit nie je automaticky rezervácia ani SLO.
+- Stable service endpoint nemá závisieť od jednej ephemeral container IP.
+- Writable layer nie je jediný persistent-state owner.
+- Runtime patch v containeri vytvára snowflake state.
+- Container rebuild neopraví host kernel.
+- Privileged mode, runtime socket a host mounts zásadne menia trust boundary.
+- Recovery začína identitou failure vrstvy, nie automatickým zvýšením privileges.
 
-Inštalovanie SSH, systemd a množstva nesúvisiacich services môže skryť nejasný process lifecycle a image ownership.
+## 22. Kontrolné otázky
 
-### Všetky dáta vo writable layeri
-
-Odstránenie containeru odstráni jedinú kópiu state-u.
-
-### Privileged mode ako univerzálna oprava
-
-Funkčnosť sa dosiahne zrušením veľkej časti isolation boundary.
-
-### `latest` bez digest/release identity
-
-Nie je zrejmé, aký content runtime spustil.
-
-### Ručné patchovanie bežiaceho containeru
-
-Zmena nie je v image a po replacement-e zmizne.
-
-### Predpoklad, že VM automaticky znamená bezpečnosť
-
-Guest OS, images, identities a hypervisor stále potrebujú hardening a patching.
-
-### Predpoklad, že container nemôže byť stateful
-
-Stateful workload je možný, ale potrebuje explicitný storage, identity, backup a scheduling model.
-
-## 32. Troubleshooting
-
-### Container vidí inú kernel verziu než image distribúcia
-
-Je to očakávané: kernel poskytuje host, image poskytuje userspace.
-
-### Application funguje vo VM, ale v containeri nie
-
-Over filesystem paths, PID 1/signals, capabilities, read-only filesystem, port binding, DNS, environment variables a external state.
-
-### Container bol odstránený a dáta zmizli
-
-Dáta boli vo writable layeri bez volume alebo external persistence.
-
-### Container je killed pri load-e
-
-Over cgroup memory limit, host pressure, OOM events, CPU throttling a process count limits.
-
-### Linux image sa nespustí priamo na inom OS
-
-Image potrebuje kompatibilný kernel/runtime alebo virtualization vrstvu.
-
-### VM aj container ukazujú vysoké CPU
-
-Rozlišuj application process usage, cgroup throttling, guest scheduling a hypervisor steal/overcommit.
-
-## 33. Kontrolné otázky
-
-1. Aký je hlavný isolation rozdiel medzi containerom a VM?
+1. Kde leží hlavná isolation boundary containeru a VM?
 2. Prečo container image typicky neobsahuje kernel?
-3. Ako namespaces a cgroups prispievajú k container modelu?
-4. Prečo Linux containers na macOS/Windows často potrebujú VM?
-5. Aký je rozdiel medzi image a containerom?
-6. Prečo writable layer nie je vhodný ako jediný persistent storage?
-7. Ako sa líši patchovanie containeru a VM?
-8. Prečo privileged container zväčšuje blast radius?
-9. Kedy je vhodné spúšťať containers vo VMs?
-10. Aké limity má tvrdenie o container portability?
+3. Aké dva lifecycles vzniknú pri containers vo VMs?
+4. Ako sa líši image subject a runtime container subject?
+5. Prečo `running` nie je to isté ako `ready`?
+6. Prečo memory alebo CPU limit nie je garantovaná rezervácia?
+7. Kde majú byť dáta, ktoré musia prežiť replacement?
+8. Prečo privileged container môže znamenať node compromise?
+9. Ako sa líši patchovanie image a worker kernelu?
+10. Aké observation points odlíšia filesystem, privilege, platform a resource failure?
 
 ## Glossary impact
 
-Relevantné pojmy: container, virtual machine, hypervisor, guest OS, shared kernel, isolation boundary, container image, container runtime, writable layer, workload density, container escape, VM escape, microVM, sandboxed runtime a ephemeral runtime instance.
+Relevantné pojmy: workload isolation subject, container boundary, VM boundary, shared-kernel blast radius, guest-kernel boundary, runtime container subject, platform compatibility contract, process readiness boundary, container replacement lifecycle, writable-layer persistence failure, layered patch lifecycle, privileged-boundary collapse, microVM a sandboxed runtime.
 
 ## Oficiálna dokumentácia
 
