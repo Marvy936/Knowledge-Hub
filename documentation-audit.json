@@ -1879,15 +1879,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
       "title": "Variables, locals a outputs",
-      "words": 1256,
-      "headings": 37,
-      "sections": 37,
-      "findings": 53,
+      "words": 2046,
+      "headings": 39,
+      "sections": 39,
+      "findings": 67,
       "critical": 19,
-      "high": 25,
-      "medium": 7,
-      "low": 2,
-      "score": 453,
+      "high": 24,
+      "medium": 8,
+      "low": 16,
+      "score": 469,
       "grade": "D"
     },
     {
@@ -103412,80 +103412,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "3. Type constraints",
-      "line": 47,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "3. Type constraints",
-      "line": 47,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `string ,`, `number ,`, `bool .`, `list(T) ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "3. Type constraints",
-      "line": 47,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "4. Optional object attributes",
-      "line": 79,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "5. Validation",
-      "line": 96,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "5. Validation",
-      "line": 96,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "5. Validation",
-      "line": 96,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zlyhať skoro,`, `vysvetliť opravu,`, `overovať skutočný contract,`, `nezdvojovať provider validation bez pridanej hodnoty.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "5. Validation",
-      "line": 96,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "7. Sensitive variables",
-      "line": 134,
+      "section": "1. Dominantný model",
+      "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -103493,26 +103421,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "7. Sensitive variables",
-      "line": 134,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "7. Sensitive variables",
-      "line": 134,
-      "severity": "critical",
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encryption v state,`, `ochranu pred škodlivým providerom,`, `ochranu pred job scriptom,`, `bezpečné uloženie v source alebo .tfvars .`.",
-      "score": 12
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Variable: externý input, ktorý caller môže poskytnúť.`, `Local: interná odvodená hodnota, ktorú caller nemôže override-nuť.`, `Output: explicitne publikovaný výsledok modulu.`.",
+      "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "7. Sensitive variables",
-      "line": 134,
+      "section": "1. Dominantný model",
+      "line": 7,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -103520,26 +103439,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "8. Hodnoty root variables",
-      "line": 152,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "8. Hodnoty root variables",
-      "line": 152,
+      "section": "3. Typed variables sú executable contracts",
+      "line": 69,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý variable set bol použitý,`, `ktorý environment ho poskytol,`, `ktoré hodnoty boli sensitive,`, `ktorý commit a plan ich vyhodnotil.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odhalí chybu skôr než provider;`, `stabilizuje module API;`, `objasní collection identity;`, `umožní zmysluplnú validation;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "8. Hodnoty root variables",
-      "line": 152,
+      "section": "3. Typed variables sú executable contracts",
+      "line": 69,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -103547,8 +103457,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "8. Hodnoty root variables",
-      "line": 152,
+      "section": "3. Typed variables sú executable contracts",
+      "line": 69,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -103556,116 +103466,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "9. Variable files",
-      "line": 174,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. Typed variables sú executable contracts",
+      "line": 69,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`",
+      "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "9. Variable files",
-      "line": 174,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "9. Variable files",
-      "line": 174,
+      "section": "6. Validation chráni domain invariant",
+      "line": 146,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `passwords,`, `private keys,`, `dlhodobé cloud credentials,`, `customer secrets.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zlyhá pred remote mutation;`, `kontroluje domain contract, nie iba syntax;`, `vysvetľuje opravu;`, `pokrýva identity a risk hranice;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "9. Variable files",
-      "line": 174,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "10. Local values",
-      "line": 192,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "11. Na čo sú locals vhodné",
-      "line": 215,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "11. Na čo sú locals vhodné",
-      "line": 215,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomenovanie opakovanej expression,`, `normalizáciu vstupov,`, `odvodené názvy,`, `common tags/labels,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "11. Na čo sú locals vhodné",
-      "line": 215,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "13. Outputs",
-      "line": 242,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "15. Sensitive outputs",
-      "line": 292,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "16. Output preconditions",
-      "line": 305,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "17. Unknown values",
-      "line": 322,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `for each keys,`, `count ,`, `provider configuration,`, `backend configuration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "17. Unknown values",
-      "line": 322,
+      "section": "6. Validation chráni domain invariant",
+      "line": 146,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -103673,8 +103493,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "17. Unknown values",
-      "line": 322,
+      "section": "6. Validation chráni domain invariant",
+      "line": 146,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -103682,143 +103502,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "17. Unknown values",
-      "line": 322,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "18. Module composition",
-      "line": 342,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "19. Cross-state outputs",
-      "line": 360,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "19. Cross-state outputs",
-      "line": 360,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `remote state data source,`, `configuration registry,`, `service catalog,`, `DNS/service discovery,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "19. Cross-state outputs",
-      "line": 360,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "19. Cross-state outputs",
-      "line": 360,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "20. Naming a documentation",
-      "line": 375,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "20. Naming a documentation",
-      "line": 375,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "20. Naming a documentation",
-      "line": 375,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilné,`, `domain-oriented,`, `bez zbytočnej implementačnej terminológie,`, `konzistentné naprieč modules.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "20. Naming a documentation",
-      "line": 375,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "20. Naming a documentation",
-      "line": 375,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "21. Interface evolution",
-      "line": 394,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "21. Interface evolution",
-      "line": 394,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "21. Interface evolution",
-      "line": 394,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový optional input s bezpečným defaultom,`, `nový output,`, `rozšírenie object inputu o optional field.`, `premenovanie inputu/outputu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "21. Interface evolution",
-      "line": 394,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "21. Interface evolution",
-      "line": 394,
+      "section": "6. Validation chráni domain invariant",
+      "line": 146,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -103826,8 +103511,170 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "type = any bez dôvodu",
-      "line": 414,
+      "section": "7. Root input sources a effective value",
+      "line": 171,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "7. Root input sources a effective value",
+      "line": 171,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-var ;`, `-var-file ;`, `auto-loaded variable files;`, `TF VAR environment variables;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "7. Root input sources a effective value",
+      "line": 171,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "7. Root input sources a effective value",
+      "line": 171,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "7. Root input sources a effective value",
+      "line": 171,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TF`, `VAR`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "8. Sensitive hodnoty a secret references",
+      "line": 195,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encryption v state;`, `bezpečný provider alebo job;`, `ochranu pred terraform output -raw ;`, `odstránenie z plan artifactu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "8. Sensitive hodnoty a secret references",
+      "line": 195,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "9. Locals ako normalization vrstva",
+      "line": 216,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "9. Locals ako normalization vrstva",
+      "line": 216,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `canonical naming;`, `normalizáciu vstupov;`, `derived identifiers;`, `common tags;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "9. Locals ako normalization vrstva",
+      "line": 216,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "12. Output postconditions a unknown values",
+      "line": 286,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "12. Output postconditions a unknown values",
+      "line": 286,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `for each keys;`, `count ;`, `provider configuration;`, `policy decision;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "12. Output postconditions a unknown values",
+      "line": 286,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "14. Interface evolution",
+      "line": 332,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "14. Interface evolution",
+      "line": 332,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový optional input s bezpečným defaultom;`, `nový output;`, `nový optional object field;`, `interná local transformácia bez zmeny semantics.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "14. Interface evolution",
+      "line": 332,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "14. Interface evolution",
+      "line": 332,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "14. Interface evolution",
+      "line": 332,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "Príčina",
+      "line": 364,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -103835,44 +103682,98 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "Desiatky boolean flags",
+      "section": "18. Kauzálny diagnostický walkthrough",
+      "line": 403,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "Krok 1 — stabilizuj value subject",
+      "line": 407,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "Krok 2 — konkurenčné hypotézy",
       "line": 418,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "Secrets v .tfvars commite",
-      "line": 422,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "Output celého resource objectu",
-      "line": 426,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "Locals ako skrytý programovací jazyk",
+      "section": "Krok 3 — diskriminačné observation points",
       "line": 430,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "sensitive = true ako jediná secret control",
-      "line": 434,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 430,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 430,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `invocation arguments a loaded variable-file inventory testujú H1;`, `redacted variable provenance testuje H2;`, `root module call diff testuje H3;`, `module source/digest a variable block testujú H4;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 430,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 430,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 430,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 430,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H2`, `JSON`, `H5`, `H6`, `H7`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "Krok 5 — obnov správny contract",
+      "line": 446,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -103880,8 +103781,233 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
-      "section": "Child module používa nesprávny default",
-      "line": 456,
+      "section": "Krok 6 — over outcome",
+      "line": 450,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "Krok 7 — skorší control",
+      "line": 460,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "19. Diagnostický runbook",
+      "line": 464,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "19. Diagnostický runbook",
+      "line": 464,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "19. Diagnostický runbook",
+      "line": 464,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "19. Diagnostický runbook",
+      "line": 464,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Urči root/module revision, environment, plan a input subject.`, `Inventarizuj všetky root input sources a effective value.`, `Over required/default/optional/null semantics a custom validation.`, `Over output type, postcondition a consumer contract.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "19. Diagnostický runbook",
+      "line": 464,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "19. Diagnostický runbook",
+      "line": 464,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "19. Diagnostický runbook",
+      "line": 464,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "19. Diagnostický runbook",
+      "line": 464,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "19. Diagnostický runbook",
+      "line": 464,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 477,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 477,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 477,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 477,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Variables sú caller-controlled inputs.`, `Locals sú internal normalization, nie hidden override points.`, `Outputs sú stabilné verejné contracts.`, `Presný type je súčasť compatibility policy.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 477,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 477,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 477,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 477,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "20. Referenčné pravidlá",
+      "line": 477,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `resource`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "21. Časté omyly",
+      "line": 491,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "„Default znižuje množstvo konfigurácie“",
+      "line": 493,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "„Presný typ je iba dokumentácia“",
+      "line": 497,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "„Sensitive output je bezpečný secret store“",
+      "line": 501,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "„Local skryje komplexitu“",
+      "line": 505,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md",
+      "section": "„Viac outputs je flexibilnejšie“",
+      "line": 509,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11456**
-- Total words: **574,503**
-- Findings: **24904** (critical 7961, high 9132, medium 3404, low 4407)
+- Audited conceptual sections: **11458**
+- Total words: **575,293**
+- Findings: **24918** (critical 7961, high 9131, medium 3405, low 4421)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -210,11 +210,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 478 | 16 | 33 | 8 | 0 | 1400 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | D | 474 | 18 | 27 | 7 | 15 | 2058 | `docs/06-gitlab/runners-and-executors.md` |
 | D | 473 | 25 | 14 | 10 | 22 | 2494 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
+| D | 469 | 19 | 24 | 8 | 16 | 2046 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | D | 468 | 16 | 30 | 5 | 16 | 1975 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | D | 467 | 18 | 22 | 14 | 15 | 1966 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
 | D | 467 | 20 | 20 | 12 | 17 | 2550 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
 | D | 454 | 18 | 27 | 6 | 4 | 1468 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
-| D | 453 | 19 | 25 | 7 | 2 | 1256 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | D | 453 | 17 | 28 | 7 | 3 | 1447 | `docs/10-helm-and-cka/named-templates.md` |
 | D | 450 | 18 | 25 | 6 | 12 | 1787 | `docs/05-ci-cd-and-release/ring-deployment.md` |
 | D | 442 | 17 | 23 | 10 | 13 | 1881 | `docs/05-ci-cd-and-release/feature-flags.md` |
@@ -7539,50 +7539,49 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md`
 
-- **CRITICAL** line 47, `bare-bullet-items` — **3. Type constraints**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `string ,`, `number ,`, `bool .`, `list(T) ,`.
-- **CRITICAL** line 47, `outline-instead-of-explanation` — **3. Type constraints**: 8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 96, `bare-bullet-items` — **5. Validation**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zlyhať skoro,`, `vysvetliť opravu,`, `overovať skutočný contract,`, `nezdvojovať provider validation bez pridanej hodnoty.`.
-- **CRITICAL** line 96, `outline-instead-of-explanation` — **5. Validation**: 4 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 134, `bare-bullet-items` — **7. Sensitive variables**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encryption v state,`, `ochranu pred škodlivým providerom,`, `ochranu pred job scriptom,`, `bezpečné uloženie v source alebo .tfvars .`.
-- **CRITICAL** line 134, `outline-instead-of-explanation` — **7. Sensitive variables**: 4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 152, `bare-bullet-items` — **8. Hodnoty root variables**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý variable set bol použitý,`, `ktorý environment ho poskytol,`, `ktoré hodnoty boli sensitive,`, `ktorý commit a plan ich vyhodnotil.`.
-- **CRITICAL** line 152, `outline-instead-of-explanation` — **8. Hodnoty root variables**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 174, `bare-bullet-items` — **9. Variable files**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `passwords,`, `private keys,`, `dlhodobé cloud credentials,`, `customer secrets.`.
-- **CRITICAL** line 174, `outline-instead-of-explanation` — **9. Variable files**: 4 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 215, `bare-bullet-items` — **11. Na čo sú locals vhodné**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pomenovanie opakovanej expression,`, `normalizáciu vstupov,`, `odvodené názvy,`, `common tags/labels,`.
-- **CRITICAL** line 215, `outline-instead-of-explanation` — **11. Na čo sú locals vhodné**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 322, `bare-bullet-items` — **17. Unknown values**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `for each keys,`, `count ,`, `provider configuration,`, `backend configuration,`.
-- **CRITICAL** line 360, `bare-bullet-items` — **19. Cross-state outputs**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `remote state data source,`, `configuration registry,`, `service catalog,`, `DNS/service discovery,`.
-- **CRITICAL** line 360, `outline-instead-of-explanation` — **19. Cross-state outputs**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 375, `bare-bullet-items` — **20. Naming a documentation**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilné,`, `domain-oriented,`, `bez zbytočnej implementačnej terminológie,`, `konzistentné naprieč modules.`.
-- **CRITICAL** line 375, `outline-instead-of-explanation` — **20. Naming a documentation**: 9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 394, `bare-bullet-items` — **21. Interface evolution**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový optional input s bezpečným defaultom,`, `nový output,`, `rozšírenie object inputu o optional field.`, `premenovanie inputu/outputu,`.
-- **CRITICAL** line 394, `outline-instead-of-explanation` — **21. Interface evolution**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **HIGH** line 79, `single-sentence-concept` — **4. Optional object attributes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 96, `single-sentence-concept` — **5. Validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 134, `list-first-introduction` — **7. Sensitive variables**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 174, `single-sentence-concept` — **9. Variable files**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 192, `single-sentence-concept` — **10. Local values**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 242, `single-sentence-concept` — **13. Outputs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 292, `list-first-introduction` — **15. Sensitive outputs**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 305, `single-sentence-concept` — **16. Output preconditions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 342, `single-sentence-concept` — **18. Module composition**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 375, `single-sentence-concept` — **20. Naming a documentation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 394, `single-sentence-concept` — **21. Interface evolution**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 414, `single-sentence-concept` — **type = any bez dôvodu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 418, `single-sentence-concept` — **Desiatky boolean flags**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 422, `single-sentence-concept` — **Secrets v .tfvars commite**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 426, `single-sentence-concept` — **Output celého resource objectu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 430, `single-sentence-concept` — **Locals ako skrytý programovací jazyk**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 434, `single-sentence-concept` — **sensitive = true ako jediná secret control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 456, `single-sentence-concept` — **Child module používa nesprávny default**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 47, `thin-concept-section` — **3. Type constraints**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 96, `thin-concept-section` — **5. Validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 134, `thin-concept-section` — **7. Sensitive variables**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 174, `thin-concept-section` — **9. Variable files**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 215, `thin-concept-section` — **11. Na čo sú locals vhodné**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 375, `thin-concept-section` — **20. Naming a documentation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 394, `thin-concept-section` — **21. Interface evolution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 69, `bare-bullet-items` — **3. Typed variables sú executable contracts**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odhalí chybu skôr než provider;`, `stabilizuje module API;`, `objasní collection identity;`, `umožní zmysluplnú validation;`.
+- **CRITICAL** line 146, `bare-bullet-items` — **6. Validation chráni domain invariant**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zlyhá pred remote mutation;`, `kontroluje domain contract, nie iba syntax;`, `vysvetľuje opravu;`, `pokrýva identity a risk hranice;`.
+- **CRITICAL** line 171, `bare-bullet-items` — **7. Root input sources a effective value**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-var ;`, `-var-file ;`, `auto-loaded variable files;`, `TF VAR environment variables;`.
+- **CRITICAL** line 195, `bare-bullet-items` — **8. Sensitive hodnoty a secret references**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `encryption v state;`, `bezpečný provider alebo job;`, `ochranu pred terraform output -raw ;`, `odstránenie z plan artifactu;`.
+- **CRITICAL** line 216, `bare-bullet-items` — **9. Locals ako normalization vrstva**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `canonical naming;`, `normalizáciu vstupov;`, `derived identifiers;`, `common tags;`.
+- **CRITICAL** line 286, `bare-bullet-items` — **12. Output postconditions a unknown values**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `for each keys;`, `count ;`, `provider configuration;`, `policy decision;`.
+- **CRITICAL** line 332, `bare-bullet-items` — **14. Interface evolution**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nový optional input s bezpečným defaultom;`, `nový output;`, `nový optional object field;`, `interná local transformácia bez zmeny semantics.`.
+- **CRITICAL** line 332, `outline-instead-of-explanation` — **14. Interface evolution**: 10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 407, `empty-section` — **Krok 1 — stabilizuj value subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 418, `empty-section` — **Krok 2 — konkurenčné hypotézy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 430, `bare-bullet-items` — **Krok 3 — diskriminačné observation points**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `invocation arguments a loaded variable-file inventory testujú H1;`, `redacted variable provenance testuje H2;`, `root module call diff testuje H3;`, `module source/digest a variable block testujú H4;`.
+- **CRITICAL** line 430, `outline-instead-of-explanation` — **Krok 3 — diskriminačné observation points**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 450, `empty-section` — **Krok 6 — over outcome**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 464, `no-prose-concept` — **19. Diagnostický runbook**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 464, `outline-instead-of-explanation` — **19. Diagnostický runbook**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 477, `bare-bullet-items` — **20. Referenčné pravidlá**: 9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Variables sú caller-controlled inputs.`, `Locals sú internal normalization, nie hidden override points.`, `Outputs sú stabilné verejné contracts.`, `Presný type je súčasť compatibility policy.`.
+- **CRITICAL** line 477, `no-prose-concept` — **20. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 477, `outline-instead-of-explanation` — **20. Referenčné pravidlá**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 491, `empty-section` — **21. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 7, `bare-bullet-items` — **1. Dominantný model**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Variable: externý input, ktorý caller môže poskytnúť.`, `Local: interná odvodená hodnota, ktorú caller nemôže override-nuť.`, `Output: explicitne publikovaný výsledok modulu.`.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 171, `list-heavy-section` — **7. Root input sources a effective value**: 6 odrážok a iba 47 slov súvislého vysvetlenia.
+- **HIGH** line 216, `list-heavy-section` — **9. Locals ako normalization vrstva**: 6 odrážok a iba 47 slov súvislého vysvetlenia.
+- **HIGH** line 286, `list-heavy-section` — **12. Output postconditions a unknown values**: 6 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 364, `single-sentence-concept` — **Príčina**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 403, `single-sentence-concept` — **18. Kauzálny diagnostický walkthrough**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 430, `list-first-introduction` — **Krok 3 — diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 446, `single-sentence-concept` — **Krok 5 — obnov správny contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 460, `single-sentence-concept` — **Krok 7 — skorší control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 464, `bare-bullet-items` — **19. Diagnostický runbook**: 5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Urči root/module revision, environment, plan a input subject.`, `Inventarizuj všetky root input sources a effective value.`, `Over required/default/optional/null semantics a custom validation.`, `Over output type, postcondition a consumer contract.`.
+- **HIGH** line 464, `list-first-introduction` — **19. Diagnostický runbook**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 477, `list-first-introduction` — **20. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 493, `single-sentence-concept` — **„Default znižuje množstvo konfigurácie“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 497, `single-sentence-concept` — **„Presný typ je iba dokumentácia“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 501, `single-sentence-concept` — **„Sensitive output je bezpečný secret store“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 505, `single-sentence-concept` — **„Local skryje komplexitu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 509, `single-sentence-concept` — **„Viac outputs je flexibilnejšie“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 7, `thin-concept-section` — **1. Dominantný model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 332, `thin-concept-section` — **14. Interface evolution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 430, `term-before-explanation` — **Krok 3 — diskriminačné observation points**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H2`, `JSON`, `H5`, `H6`, `H7`, `identity`
+- **HIGH** line 430, `thin-concept-section` — **Krok 3 — diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 464, `thin-concept-section` — **19. Diagnostický runbook**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 477, `thin-concept-section` — **20. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/vault.md`
 
@@ -18143,19 +18142,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3546 | 433 | 0 | 0 | 3979 |
-| `single-sentence-concept` | 0 | 3777 | 0 | 0 | 3777 |
-| `outline-instead-of-explanation` | 3403 | 0 | 0 | 0 | 3403 |
-| `thin-concept-section` | 0 | 3004 | 0 | 0 | 3004 |
-| `term-before-explanation` | 0 | 449 | 2315 | 0 | 2764 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1775 | 1775 |
-| `example-not-explicit` | 0 | 0 | 0 | 1718 | 1718 |
-| `list-first-introduction` | 0 | 1100 | 0 | 0 | 1100 |
-| `short-concept-section` | 0 | 0 | 1089 | 0 | 1089 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 914 | 914 |
-| `empty-section` | 569 | 0 | 0 | 0 | 569 |
-| `no-prose-concept` | 443 | 0 | 0 | 0 | 443 |
-| `list-heavy-section` | 0 | 369 | 0 | 0 | 369 |
+| `bare-bullet-items` | 3545 | 435 | 0 | 0 | 3980 |
+| `single-sentence-concept` | 0 | 3770 | 0 | 0 | 3770 |
+| `outline-instead-of-explanation` | 3398 | 0 | 0 | 0 | 3398 |
+| `thin-concept-section` | 0 | 3002 | 0 | 0 | 3002 |
+| `term-before-explanation` | 0 | 450 | 2317 | 0 | 2767 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1780 | 1780 |
+| `example-not-explicit` | 0 | 0 | 0 | 1724 | 1724 |
+| `list-first-introduction` | 0 | 1102 | 0 | 0 | 1102 |
+| `short-concept-section` | 0 | 0 | 1088 | 0 | 1088 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 917 | 917 |
+| `empty-section` | 573 | 0 | 0 | 0 | 573 |
+| `no-prose-concept` | 445 | 0 | 0 | 0 | 445 |
+| `list-heavy-section` | 0 | 372 | 0 | 0 | 372 |
 
 ## Required remediation pattern
 
