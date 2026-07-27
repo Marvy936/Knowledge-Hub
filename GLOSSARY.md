@@ -106,6 +106,10 @@ Semantika, pri ktorej sa povolený traffic pre Pod skladá ako union pravidiel v
 
 Zmena resource alebo module addressy pri zachovaní identity toho istého remote objektu, typicky deklarovaná cez `moved` block, aby nevznikol neúmyselný destroy/create. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
+## Address transition — Terraform
+
+Versionovaná zmena resource alebo module instance address-y, pri ktorej má existujúci remote binding pokračovať pod novou address-ou bez neplánovaného destroy/create. Typicky sa deklaruje cez `moved` block. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
 ## Admission control — Kubernetes
 
 Request-time vrstva Kubernetes API, ktorá po authentication a authorization mutuje alebo validuje relevantné create, update a delete requests pred persistence. Pozri [Control plane components](docs/09-kubernetes/control-plane-components.md).
@@ -821,6 +825,10 @@ Tempo component, ktorý plánuje maintenance jobs ako compaction, retention aleb
 ## Backend worker — Tempo
 
 Tempo component vykonávajúci maintenance jobs pridelené backend schedulerom nad object-storage blocks. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
+
+## Backend writer subject — Terraform
+
+Presná identita state writera zahŕňajúca execution run, workload identity, backend endpoint, state key alebo workspace, lineage, prior serial, lock ID a operation purpose. Používa sa na rozlíšenie aktívneho, orphaned alebo nesprávne zacieleného writera. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
 ## BackendRef — Gateway API
 
@@ -1885,6 +1893,10 @@ Inventory transformation model vytvárajúci derived variables a groups z existu
 ## Consumer-driven contract
 
 Kontrakt definovaný consumerom podľa interactions, ktoré reálne potrebuje, a overovaný providerom v jeho pipeline. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
+
+## Consumer inventory — Terraform module
+
+Evidencia module consumers, používaných versions, environments, owners, provider/Terraform constraints a podporovaných upgrade paths. Umožňuje bezpečné deprecation, security remediation a retirement starého contractu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
 
 ## Container
 
@@ -5684,11 +5696,15 @@ Konkrétna inštancia child module callu v graph-e, vrátane prípadného `count
 
 ## Module interface contract — Terraform
 
-Versionované rozhranie modulu tvorené typovanými inputs, validation/default/null semantics, internými identity assumptions, minimálnymi stabilnými outputs a compatibility/deprecation policy. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
+Versionované rozhranie modulu tvorené typovanými inputs, validation/default/null semantics, internými identity assumptions, minimálnymi stabilnými outputs a compatibility/deprecation policy. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md) a [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
 
 ## Module registry — Terraform
 
 Distribučná služba publikujúca versionované Terraform modules a ich metadata pre verejnú alebo internú spotrebu; sama negarantuje bezpečnosť ani kompatibilitu modulu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
+## Module source subject — Terraform
+
+Immutable identita reusable modulu zahŕňajúca registry alebo VCS source, version/tag/commit, content digest alebo provenance podľa distribution modelu, ownera a release policy. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
 
 ## Module source — Terraform
 
@@ -6326,6 +6342,10 @@ Pod network model zapuzdrujúci cross-node Pod traffic do tunnel packetov, čím
 
 Metadata väzba dependent objectu na owner object pomocou owner UID, používaná controllers a garbage collectorom. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Ownership adoption — Terraform
+
+Riadené prevzatie existujúceho remote objektu do Terraform management modelu cez configuration, presný provider target, import mapping, nový state binding a reviewed post-import reconciliation. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
 ## Ownership matrix
 
 Dokumentované priradenie authoritative writera ku každému resource alebo mutable attribute naprieč provisioning, configuration a runtime systémami. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
@@ -6809,6 +6829,10 @@ Persistentný state Tail inputu uchovávajúci file identity a read offset na re
 ## Post-import plan — Terraform
 
 Prvý fresh plan po vytvorení import bindingu, používaný na rozhodnutie, či configuration remote stav adoptuje, zmení alebo by nebezpečne vyvolala update či replacement. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Post-import reconciliation — Terraform
+
+Review prvého planu po importe, ktorý rozhoduje, či sa remote hodnoty adoptujú do configuration, vrátia k desired state-u, rozdelí sa attribute ownership alebo sa chybný binding odstráni. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
 ## Post-promotion watch
 
@@ -9122,6 +9146,10 @@ Risk-based overovanie identity, procesov, controls, evidence, maintenance, incid
 
 Hranica určujúca, ktorú časť incidentu môže meniť alebo diagnostikovať provider, zákazník alebo third party a aké evidence sú potrebné na efektívnu eskaláciu. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
+## Supported upgrade path — Terraform module
+
+Module ownerom deklarovaná a testovaná cesta zo staršej podporovanej version na novšiu, zahŕňajúca contract zmeny, retained moved history, provider constraints, plan assertions a runtime verification. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
 ## Supported version policy
 
 Pravidlá určujúce, ktoré release lines dostávajú opravy, security updates a podporu a kedy dosiahnu end of life. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
@@ -9709,6 +9737,10 @@ AD DS group scope, ktorý môže obsahovať principals z viacerých domains vo f
 ## Unknown remote outcome — IaC
 
 Failure stav, v ktorom pipeline nedostala spoľahlivý výsledok remote mutation a pred retry musí cez request IDs, provider logs, remote observation a state reconciliation určiť, či operácia neprebehla, prebehla čiastočne alebo uspela bez state commit-u. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
+## Unknown state-write outcome — Terraform
+
+Failure stav, keď Terraform odoslal successor snapshot, ale pre timeout alebo network partition nevie, či backend write commitol. Pred ďalším writerom treba overiť version history, lineage/serial, lock a remote mutation timeline. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md) a [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
 ## Unknown value — Terraform
 
