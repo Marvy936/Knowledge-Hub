@@ -1,615 +1,578 @@
 # Ansible idempotencia
 
-Idempotentný Ansible run pri opakovaní s rovnakými vstupmi a rovnakým požadovaným stavom nevykoná ďalšiu zmenu. Druhý run má typicky skončiť bez nečakaného `changed: true` a bez ďalších side effects.
+Ansible idempotencia znamená, že opakovanie rovnakého automation intentu nad už zosúladeným systémom nevytvorí ďalšiu neplánovanú mutáciu ani side effect. Samotné `changed: 0` však nestačí: run môže byť stabilne nesprávny, môže skrývať zmenu cez `changed_when: false` alebo môže vynechať časť fleet-u.
 
-Idempotencia nie je vlastnosť YAML syntaxe ani Ansible ako celku. Vzniká kombináciou:
+Dominantný model je preto širší:
 
-- správneho module behavioru,
-- stabilných vstupov,
-- presného current-state detection,
-- deterministických templates,
-- správneho `changed` signal-u,
-- bounded external side effects,
-- explicitného ownershipu.
+```text
+immutable run subject a authoritative desired state
+→ fresh current-state observation
+→ classified delta
+→ bounded mutation so stable identity
+→ truthful per-host/per-item result
+→ handler a runtime convergence
+→ complete fleet verification
+→ second-run no-op evidence
+→ partial-state, drift a multi-writer recovery
+```
 
-## 1. Formálny model
+Idempotencia je výsledok celého chainu. Nie je to vlastnosť YAML syntaxe, názvu modulu ani jedného `changed_when` výrazu.
 
-Pre automation operáciu `f` a stav `S`:
+## 1. Atlas scenár
+
+Atlas Payments spravuje na dvanástich application hosts:
+
+- package `atlas-payments-3.13.0`;
+- configuration artifact `C44`;
+- systemd service;
+- database migration epoch `M27`;
+- registráciu hosta v load balanceri.
+
+Run subject:
+
+```text
+playbook revision: A417
+execution image: EE93
+collection set: CS18
+inventory subject: INV-882
+expected hosts: app-01..app-12
+effective config: C44
+package version: 3.13.0
+migration epoch: M27
+external API idempotency namespace: rollout-913
+```
+
+Desired outcome:
+
+```text
+všetkých 12 hosts má package 3.13.0
++ file checksum C44
++ process načítal C44
++ migration M27 je aplikovaná práve raz
++ každý healthy host je registrovaný práve raz
++ druhý complete run nevytvorí nečakanú zmenu
+```
+
+## 2. Idempotencia, convergence a correctness
+
+Formálny model jednej operácie `f` nad stavom `S` je:
 
 ```text
 f(f(S)) = f(S)
 ```
 
-Prvý run môže stav zmeniť:
+Configuration management však potrebuje tri odlišné vlastnosti:
+
+### Idempotencia
+
+Opakovanie už úspešnej operácie nemení výsledný stav znova.
+
+### Convergence
+
+Opakované vykonanie vedie systém k stabilnému desired state-u aj po partial failure alebo drift-e.
+
+### Correctness
+
+Desired state zodpovedá skutočnému business a security intentu.
+
+Príklad:
 
 ```text
-current state ≠ desired state
-→ change
+playbook konzistentne nastaví staging database endpoint v production
+→ druhý run je changed=0
+→ operácia je idempotentná
+→ systém konverguje
+→ výsledok je stále nesprávny
 ```
 
-Druhý run s rovnakými inputs:
+Preto acceptance nemôže byť iba second-run `changed=0`. Potrebuje runtime oracle.
+
+## 3. Run a state subject
+
+Idempotency test je platný iba pre rekonštruovateľný subject:
 
 ```text
-current state = desired state
-→ no change
+source revision
+execution environment a collections
+inventory a target manifest
+effective variables a secret epochs
+facts/lookups a freshness
+external dependency versions
+desired artifact identities
+controller run a concurrency context
 ```
 
-Tento model neznamená, že run musí mať rovnaký textový output. Dôležitý je výsledný stav a pravdivý change signal.
+„Rovnaký playbook“ nemusí znamenať rovnaký input. Package repository, DNS, fact cache, secret manager alebo dynamic inventory sa mohli zmeniť.
 
-## 2. Idempotencia a convergence
+Ak `state: latest` dnes nainštaluje inú verziu než včera, task môže byť idempotentný voči aktuálnemu repository, ale run nie je reprodukovateľný v čase.
 
-Configuration management smeruje systém k desired state:
+## 4. Current-state observation
+
+Každá mutácia potrebuje observation model:
 
 ```text
-observe current state
-→ compare with desired state
-→ apply required delta
-→ verify
+stable target identity
+→ read relevant current state
+→ normalize provider/module representation
+→ compare s authoritative desired state
+→ classify no-op, update, create, delete alebo unknown
 ```
 
-Idempotencia opisuje správanie opakovanej operácie. Convergence opisuje, či opakovanie vedie k požadovanému stabilnému stavu.
+Observation musí čítať celý stav, ktorý task tvrdí, že vlastní.
 
-Operácia môže byť idempotentná, ale konvergovať k nesprávnemu desired state-u. Preto treba validovať aj správnosť deklarácie.
+Ak template task spravuje content, owner, group a mode, všetky tieto fields sú súčasťou porovnania. Ak ďalší actor mení ACL alebo ownership, vznikne recurring drift.
 
-## 3. Module idempotencia
+Observation môže byť nepresná pre:
 
-Declarative modules typicky načítajú current state a zmenia iba potrebný rozdiel:
+- eventually consistent API;
+- server-side defaults;
+- unordered rules;
+- computed fields;
+- stale facts;
+- neúplný module schema;
+- process, ktorý načítava iný file než ten na disku.
 
-```yaml
-- name: Ensure package is installed
-  ansible.builtin.package:
-    name: nginx
-    state: present
+## 5. Declarative modules a operation contract
+
+State-aware module typicky vykonáva:
+
+```text
+read current state
+→ compare relevant attributes
+→ mutate iba rozdiel
+→ return changed/result
 ```
-
-Druhý run má reportovať `changed: false`, pokiaľ package zostáva nainštalovaný.
-
-Module môže mať caveats:
-
-- remote API nevracia stabilný stav,
-- provider normalizuje hodnoty,
-- module spravuje iba časť objektu,
-- defaulty sa menia podľa platformy,
-- resource je immutable a replacement je jediná zmena,
-- module má bug alebo neúplnú check-mode podporu.
-
-Idempotenciu nikdy nepredpokladaj iba podľa názvu modulu.
-
-## 4. Declarative state namiesto sequence
-
-Preferuj state-oriented module:
-
-```yaml
-- name: Ensure service is enabled and running
-  ansible.builtin.service:
-    name: example
-    enabled: true
-    state: started
-```
-
-Namiesto:
-
-```yaml
-- name: Start service every run
-  ansible.builtin.command: systemctl start example
-```
-
-Druhý variant nevyjadruje current-state detection a môže nesprávne reportovať change.
-
-## 5. `command` a `shell`
-
-`command` a `shell` sú často ne-idempotentné, pretože spustia príkaz bez znalosti desired state-u.
-
-Rizikový príklad:
-
-```yaml
-- name: Append configuration
-  ansible.builtin.shell: echo 'feature=true' >> /etc/example.conf
-```
-
-Každý run pridá ďalší riadok.
-
-Lepšie:
-
-```yaml
-- name: Ensure configuration line exists
-  ansible.builtin.lineinfile:
-    path: /etc/example.conf
-    regexp: '^feature='
-    line: 'feature=true'
-```
-
-Najlepšie je použiť module, ktorý spravuje celý configuration contract, alebo deterministický template.
-
-## 6. `creates` a `removes`
-
-Niektoré command operations možno ohraničiť:
-
-```yaml
-- name: Initialize application database
-  ansible.builtin.command: /opt/example/bin/init-database
-  args:
-    creates: /var/lib/example/.initialized
-```
-
-`creates` zabráni opakovaniu, ak file existuje.
-
-Limity:
-
-- marker nemusí dokazovať správny stav,
-- external operation mohla zlyhať po vytvorení markeru,
-- marker môže byť stale,
-- command môže mať ďalšie inputs, ktoré sa zmenili.
-
-Marker je zjednodušený state model, nie automaticky spoľahlivý dôkaz.
-
-## 7. `changed_when`
-
-Task, ktorý current state iba číta, má explicitne reportovať no change:
-
-```yaml
-- name: Read service state
-  ansible.builtin.command: systemctl is-active example
-  register: example_service_state
-  changed_when: false
-  failed_when: example_service_state.rc not in [0, 3]
-```
-
-Task vykonávajúci custom operation môže odvodiť change:
-
-```yaml
-- name: Reconcile custom configuration
-  ansible.builtin.command: /opt/example/bin/reconcile --format json
-  register: reconcile_result
-  changed_when: (reconcile_result.stdout | from_json).changed | bool
-```
-
-`changed_when: false` na reálne mutujúcom tasku nie je idempotencia. Iba skrýva zmenu.
-
-## 8. `failed_when`
-
-Idempotentný workflow potrebuje správne rozlíšiť:
-
-- success bez zmeny,
-- success so zmenou,
-- permanent failure,
-- transient failure,
-- acceptable absent state.
 
 Príklad:
 
 ```yaml
-failed_when: command_result.rc not in [0, 3]
-changed_when: command_result.rc == 3
+- name: Ensure Atlas Payments is enabled and running
+  ansible.builtin.service:
+    name: atlas-payments
+    enabled: true
+    state: started
 ```
 
-Exit-code contract musí byť dokumentovaný a testovaný.
+Názov modulu však nie je dôkaz. Contract treba overiť pre konkrétnu version a platformu:
 
-## 9. Templates
+- ktoré attributes číta a vlastní;
+- ako normalizuje hodnoty;
+- či podporuje check mode;
+- čo znamená `changed`;
+- ako rieši replacement alebo restart;
+- aké external defaults nevie modelovať.
 
-Deterministický template pri rovnakých inputs vytvorí rovnaký obsah:
+## 6. Command guard nie je plný state model
+
+`creates` a `removes` môžu ohraničiť command:
 
 ```yaml
-- name: Render configuration
-  ansible.builtin.template:
-    src: example.conf.j2
-    dest: /etc/example/example.conf
-    owner: root
-    group: example
-    mode: "0640"
+- name: Initialize Atlas Payments database
+  ansible.builtin.command: /opt/atlas/bin/init-db
+  args:
+    creates: /var/lib/atlas/.db-initialized
 ```
 
-Časté zdroje ne-idempotencie:
+Marker odpovedá iba na otázku „existuje file?“. Neodpovedá:
 
-- aktuálny timestamp,
-- náhodná hodnota,
-- nestabilné iteration order,
-- mutable external lookup,
-- environment-specific newline behavior,
-- generator pridávajúci whitespace,
-- dynamic secret version bez explicitného pinningu.
+- či database initialization uspela;
+- či marker patrí správnej database;
+- či schema version je správna;
+- či command skončil pred všetkými side effects;
+- či sa zmenili inputs.
 
-Nevkladaj do managed file-u čas každého runu:
+Silnejší contract používa migration ledger alebo structured status API:
+
+```text
+read database identity a schema epoch
+→ determine missing migration M27
+→ apply M27 so stable migration ID
+→ commit ledger entry M27
+→ verify schema invariant
+```
+
+## 7. Truthful result contract
+
+Ansible potrebuje rozlišovať:
+
+```text
+success/no change
+success/changed
+skipped
+failed permanent
+failed transient
+unknown remote outcome
+acceptable absent state
+```
+
+Read-only command:
+
+```yaml
+- name: Read Atlas Payments state
+  ansible.builtin.command:
+    argv:
+      - /opt/atlas/bin/status
+      - --format=json
+  register: atlas_status
+  changed_when: false
+  failed_when: atlas_status.rc != 0
+```
+
+Custom reconciler:
+
+```yaml
+- name: Reconcile Atlas Payments configuration
+  ansible.builtin.command:
+    argv:
+      - /opt/atlas/bin/reconcile
+      - --format=json
+  register: atlas_reconcile
+  changed_when: (atlas_reconcile.stdout | from_json).changed | bool
+  failed_when: (atlas_reconcile.stdout | from_json).status != 'success'
+```
+
+`changed_when: false` na mutujúcom tasku iba falšuje evidence. Môže zabrániť handleru a vytvoriť green run s old runtime state-om.
+
+## 8. Deterministic artifacts
+
+Pri rovnakom artifact subjecte musí render vytvoriť rovnaký obsah:
+
+```text
+template digest
++ effective values
++ filter/plugin versions
++ canonical ordering/serialization
+→ configuration artifact digest C44
+```
+
+Zdroje perpetual change:
+
+- timestamp každého runu;
+- random value;
+- unordered dictionary alebo set;
+- mutable lookup;
+- newline alebo whitespace drift;
+- secret version bez explicitnej epoch;
+- locale/timezone-dependent custom filter.
+
+Nevkladaj do managed configu:
 
 ```jinja2
 # Generated at {{ ansible_date_time.iso8601 }}
 ```
 
-Tým sa file mení pri každom run-e a handler sa stále notify-uje.
+ak timestamp nie je runtime requirement. Inak sa artifact mení pri každom run-e a handler sa stále spúšťa.
 
-## 10. Canonical serialization
+## 9. Changed signal a runtime transition
 
-Pri generovaní YAML, JSON alebo INI configuration používaj stabilné:
-
-- ordering,
-- quoting,
-- indentation,
-- newline convention,
-- omission/null semantics,
-- numeric a boolean types.
-
-Semanticky rovnaký, ale textovo inak serializovaný file môže spúšťať zbytočné zmeny a restarty.
-
-## 11. File ownership a mode
-
-Task je idempotentný iba vtedy, keď spravuje celý relevantný stav:
-
-```yaml
-- name: Manage application directory
-  ansible.builtin.file:
-    path: /etc/example
-    state: directory
-    owner: root
-    group: example
-    mode: "0750"
-```
-
-Ak task spravuje obsah, ale nie ownership alebo permissions, ďalší actor môže vytvárať opakovaný drift.
-
-## 12. Lists a ordering
-
-Nestabilný input list môže meniť generated content:
-
-```yaml
-example_backends:
-  - api-b
-  - api-a
-```
-
-Ak ordering nemá business význam, normalizuj ho:
-
-```jinja2
-{% for backend in example_backends | sort %}
-server {{ backend }};
-{% endfor %}
-```
-
-Ak ordering význam má, nepreusporadúvaj ho iba kvôli stabilite. Contract musí povedať, kto poradie vlastní.
-
-## 13. Package state
-
-### `present`
-
-Garantuje, že package existuje, ale nie konkrétnu verziu.
-
-### `latest`
-
-Môže vykonať zmenu pri každom novom repository release. Je opakovateľné voči aktuálnemu repository state-u, ale nie reprodukovateľné v čase.
-
-### Pinned version
-
-```yaml
-name: example-service-2.4.1
-state: present
-```
-
-Zvyšuje reproducibility, ale potrebuje explicitný upgrade a repository availability model.
-
-Idempotencia a reproducibility nie sú to isté.
-
-## 14. Service restarty
-
-Service restart je side effect. Nemá sa vykonať pri každom run-e.
-
-Správny pattern:
-
-```yaml
-- name: Render configuration
-  ansible.builtin.template:
-    src: example.conf.j2
-    dest: /etc/example/example.conf
-  notify: Restart example service
-```
-
-Handler sa spustí iba pri `changed: true`.
-
-Ak template mení timestamp pri každom run-e, handler architecture je správna, ale upstream change detection je chybná.
-
-## 15. API operations
-
-API môže podporovať:
-
-- declarative update,
-- upsert,
-- create-only,
-- patch,
-- non-idempotent action.
-
-Pred volaním zisti:
-
-- stabilný object identifier,
-- GET/read path,
-- create/update semantics,
-- idempotency token,
-- conflict behavior,
-- eventual consistency,
-- retry safety.
-
-`POST /send-email` nie je idempotentné iba preto, že Ansible task má rovnaké arguments.
-
-## 16. Cloud a network modules
-
-Remote control plane môže:
-
-- normalizovať hodnoty,
-- dopĺňať defaults,
-- meniť poradie rules,
-- poskytovať eventually consistent read,
-- vracať computed metadata,
-- obmedzovať update na replacement.
-
-Idempotency test musí bežať proti reprezentatívnemu API, nie iba syntax checkeru.
-
-## 17. Database migrations
-
-Migration je typicky forward-only side effect, nie jednoduchý desired-state resource.
-
-Bezpečný model:
+File mutation a runtime convergence sú odlišné transitions:
 
 ```text
-read schema version
-→ determine pending migrations
-→ apply each migration once
-→ record version
-→ verify
+artifact before ≠ artifact C44
+→ template changed
+→ handler notification
+→ process reload/restart
+→ loaded runtime C44
 ```
 
-Nespúšťaj rovnaký ne-idempotentný SQL script pri každom playbook run-e bez migration ledgeru.
+Ak artifact už je C44, handler nemá bežať. Ak artifact sa zmenil a `changed` je false, runtime zostane na starej verzii.
 
-## 18. User a credential operations
+Dôkaz preto obsahuje:
 
-Creating user môže byť idempotentné, ale generating password alebo key pri každom run-e nie.
+- destination checksum;
+- `changed` result;
+- handler notification a execution;
+- process start/reload time;
+- loaded configuration version;
+- health a traffic membership.
 
-Rizikový pattern:
+## 10. External API a idempotency identity
+
+Rovnaké HTTP arguments neznamenajú idempotentnú operáciu.
 
 ```text
-generate random password every run
-→ update account
-→ restart consumers
+POST /register-host
 ```
 
-Správny lifecycle potrebuje:
+môže pri opakovaní vytvoriť duplicate registráciu. Bezpečný model potrebuje podľa API:
 
-- stable secret source,
-- explicitnú rotation udalosť,
-- version/epoch,
-- consumer rollout,
-- revocation starého credentialu.
+- stable remote object ID;
+- GET/read-before-write;
+- upsert alebo compare-and-set;
+- idempotency key;
+- request ID a audit;
+- known conflict semantics;
+- bounded retry;
+- reconciliation po timeout-e.
 
-## 19. Facts a mutable external data
-
-Task behavior môže závisieť od:
-
-- facts,
-- inventory API,
-- DNS,
-- package repositories,
-- secret manager version,
-- current time,
-- service discovery.
-
-Rovnaký Git commit preto nemusí mať rovnaké inputs. Pri kritických rozhodnutiach zachovaj resolved input evidence.
-
-## 20. Check mode
-
-```bash
-ansible-playbook site.yml --check --diff
-```
-
-Check mode je best-effort predikcia. Module môže:
-
-- plne podporovať check mode,
-- podporovať ho čiastočne,
-- task preskočiť,
-- vrátiť nepresný predicted change,
-- nemať dostatok current-state dát.
-
-Check mode nie je dôkaz idempotencie. Dôkaz vyžaduje reálny druhý converge run.
-
-## 21. Idempotency test
-
-Základný test:
+Idempotency key musí byť viazaný na business operation, nie na jednotlivý network attempt:
 
 ```text
-clean environment
-→ first converge
-→ assert desired state
-→ second converge
-→ expect zero unintended changes
-→ assert desired state again
+rollout-913/app-07/load-balancer-registration
 ```
 
-Príklad acceptance kritéria:
+## 11. Unknown remote outcome
+
+Timeout neznamená, že operácia neprebehla.
 
 ```text
-first run: changed > 0 allowed
-second run: changed = 0
-failed = 0
-unreachable = 0
+controller odošle request
+→ server commitne mutation
+→ response sa stratí
+→ Ansible vidí timeout
 ```
 
-Niektoré tasks môžu legitímne meniť telemetry, rotating token alebo cache. Tieto výnimky musia byť explicitné a nemajú zakrývať širší drift.
+Blind retry môže vytvoriť duplicate side effect.
 
-## 22. Idempotency a Molecule/test harness
-
-Role test môže spustiť:
-
-1. prepare,
-2. converge,
-3. verify,
-4. idempotence converge,
-5. verify,
-6. cleanup.
-
-Dôležité nie je konkrétne testovacie meno, ale izolovaný target a machine-readable second-run result.
-
-## 23. Change budget
-
-Namiesto absolútneho `changed = 0` môže workflow definovať explicitný allowlist:
+Pred retry:
 
 ```text
-allowed recurring changes:
-- refresh ephemeral access token
-- rotate bounded temporary file
-
-all other changes:
-- fail test
+lookup podľa idempotency key alebo request ID
+→ read remote object state
+→ classify not-applied, applied, partial alebo unknown
+→ retry, complete alebo compensate
 ```
 
-Allowlist musí byť krátky, reviewovaný a časovo/architektonicky odôvodnený.
-
-## 24. Idempotencia pri partial failure
+## 12. Partial failure a resumability
 
 Scenár:
 
 ```text
-task A changes package
-→ task B writes config
-→ task C fails before handler
+package updated
+→ config C44 published
+→ validation task fails
+→ handler neprebehne
 ```
 
-Nasledujúci run musí bezpečne pokračovať z partial state-u.
-
-Navrhuj tasks tak, aby:
-
-- current state určoval ďalší krok,
-- side effects mali stabilné identity,
-- temp artifacts mali cleanup,
-- handler failure bol obnoviteľný,
-- retries neopakovali unsafe operation.
-
-## 25. Concurrency
-
-Dva Ansible runs môžu porušiť idempotentný výsledok:
+Host je v mixed state:
 
 ```text
-run A reads old state
-run B reads old state
-run A writes
-run B writes conflicting value
+new package + new file + old process
 ```
 
-Potrebné môžu byť:
+Nasledujúci run musí current state znovu prečítať a bezpečne pokračovať. Nemá predpokladať, že predchádzajúci run bol celý applied alebo celý rolled back.
 
-- deployment lock,
-- automation-controller concurrency rule,
-- resource-specific lock,
-- serializácia citlivých jobs,
-- API optimistic concurrency,
-- idempotency token.
+Resumable workflow potrebuje:
 
-Idempotencia jedného runu nerieši multi-writer race.
+- stable identities pre artifacts a external operations;
+- pre-validation pred rozsiahlymi mutations;
+- per-step postconditions;
+- recoverable handlers;
+- cleanup temporary state-u;
+- explicitný partial verdict;
+- scoped recovery run.
 
-## 26. Ownership conflict
+## 13. Worked failure: marker vznikol pred dokončením operácie
 
-Ak rovnaký file spravuje:
+Initialization script vytvoril `.db-initialized` na začiatku a potom zlyhal pri tretej schema zmene.
 
-- Ansible,
-- package post-install script,
-- application self-configuration,
-- človek cez SSH,
-- iný automation system,
+```text
+marker exists
+→ ďalší run preskočí command cez creates
+→ database ostáva partial
+→ changed=0 vyzerá ako idempotentný success
+```
 
-vzniká perpetual drift.
+Root cause je slabý observation contract. Marker sa nesmie stať authoritative dôkazom pred commitom celej operácie. Použi schema ledger a postcondition query.
 
-Riešenie je jasný authoritative owner, nie ďalší `changed_when: false`.
+## 14. Worked failure: retry vytvoril duplicate side effect
 
-## 27. Observability
+Task registruje host do load balancera cez non-idempotentný POST. Server operáciu vykonal, ale response timeoutla. `retries: 3` odoslal rovnaký request znova a vytvoril dve registrations.
 
-Sleduj:
+```text
+unknown remote outcome
+→ retry bez stable idempotency identity
+→ druhý create
+→ duplicate traffic entry
+```
 
-- changed task count,
-- second-run changes,
-- hosts s opakovaným driftom,
-- handlers spúšťané pri každom run-e,
-- command/shell tasks bez `changed_when`,
-- check-mode coverage,
-- idempotency-test pass rate,
-- top recurring changed resources,
-- duration first vs. second converge.
+Retry contract musí rozlišovať transient read failure od unknown write outcome a používať idempotency key alebo remote reconciliation.
 
-`changed: 0` nie je cieľ samo osebe. Cieľ je pravdivý, stabilný desired state.
+## 15. Worked failure: `changed=0`, ale runtime je nesprávny
 
-## 28. Anti-patterny
+Task používal:
 
-### `changed_when: false` na každom command tasku
+```yaml
+changed_when: false
+```
 
-Výsledky vyzerajú čisto, ale change evidence je falošná.
+na custom command, ktorý prepísal config. Handler sa nenotify-ol.
 
-### Timestamp v každom template
+```text
+file je C44
++ process stále používa C43
++ recap changed=0
+→ green second run neznamená convergence
+```
 
-Každý run mení file a spúšťa handler.
+Oprava vyžaduje truthful structured result a process-level loaded-config oracle.
 
-### `state: latest` bez upgrade policy
+## 16. Worked failure: concurrent writers vytvorili oscillation
 
-Environment sa mení podľa mutable repository obsahu.
+Dva controller jobs začali s rozdielnymi variables:
 
-### Append cez shell
+```text
+run A desired replicas=6
+run B desired replicas=4
+```
 
-Obsah sa pri každom run-e duplikuje.
+Oba prečítali current value 5 a postupne zapisovali svoj výsledok.
 
-### Random secret generation bez rotation triggeru
+```text
+A writes 6
+→ B writes 4
+→ scheduled A writes 6
+→ scheduled B writes 4
+```
 
-Credential sa stále mení.
+Každý run môže byť individuálne idempotentný voči vlastnému intentu. Systém ako celok nekonverguje, pretože chýba jeden authoritative writer a concurrency boundary.
 
-### Fixed sleep namiesto state checku
+## 17. Second-run test
 
-Run je pomalý a stále nemusí čakať dosť dlho.
+Základný acceptance lifecycle:
 
-### Ignorovanie druhého converge runu
+```text
+create isolated representative target
+→ first complete converge
+→ verify desired runtime outcome
+→ second complete converge s rovnakým subjectom
+→ expect no unintended changes
+→ verify runtime outcome znova
+→ cleanup a verify cleanup
+```
 
-Nie je dôkaz, že role stabilizuje stav.
+Machine-readable verdict má sledovať:
 
-### Viac automation owners jedného file-u
+```text
+expected hosts
+resolved hosts
+attempted hosts
+verified hosts
+changed tasks/items
+handler transitions
+external side-effect IDs
+runtime invariants
+cleanup verdict
+```
 
-Systémy si navzájom prepisujú desired state.
+`changed=0` je iba jedna položka.
 
-## 29. Troubleshooting
+## 18. Change budget
 
-### Template sa mení pri každom run-e
+Niektoré recurring changes môžu byť vedomé, napríklad short-lived token refresh. Namiesto globálneho ignorovania definuj krátky allowlist:
 
-Porovnaj diff a hľadaj timestamps, ordering, whitespace, newline, random values a mutable lookups.
+```text
+allowed recurring transition:
+- rotate runtime token epoch podľa explicitného triggeru
 
-### Package task stále reportuje change
+forbidden recurring transitions:
+- package update
+- config rewrite
+- service restart
+- user recreation
+```
 
-Over package manager backend, desired state, package name/version, repository metadata a module bug/version.
+Každá výnimka potrebuje ownera, dôvod, scope a test. Permanentný široký allowlist maskuje drift.
 
-### Command task vždy reportuje change
+## 19. Causal troubleshooting walkthrough: service sa reštartuje pri každom run-e
 
-Použi state-aware module alebo odvoď pravdivé `changed_when` z machine-readable resultu.
+Atlas Payments je healthy, ale každý scheduled run prepíše config a reštartuje všetkých dvanásť hosts.
 
-### Handler sa stále spúšťa
+### 1. Zafixuj run subject
 
-Nájdi notifying task a over, prečo reportuje change. Handler deduplication nerieši chybný upstream signal.
+Zaznamenaj source revision, execution environment, inventory, effective values, fact/lookup generations, template digest, destination checksums, module versions a competing writer inventory.
 
-### Druhý run mení permissions
+### 2. Súťažiace hypotézy
 
-Over competing actors, umask, ACLs, package scripts, parent directory behavior a exact mode/owner/group contract.
+1. Template obsahuje timestamp alebo random value.
+2. Input collection má nestabilné ordering.
+3. Secret lookup vracia vždy novú version.
+4. Newline, owner, group, mode alebo ACL sa mení medzi runs.
+5. Module/provider normalizuje remote value odlišne.
+6. Package script alebo application prepisuje file po Ansible run-e.
+7. Dva automation systems majú odlišný desired state.
+8. `changed_when` nesprávne reportuje change bez mutation.
+9. Verifier porovnáva iný file než process používa.
 
-### API object sa stále aktualizuje
+### 3. Diskriminačné observation points
 
-Porovnaj desired a normalized remote representation, ordering, defaults, computed fields a eventual consistency.
+- exact before/after diff a checksums;
+- redacted effective-value manifest;
+- sorted/canonical render fixture;
+- secret epoch a lookup request identity;
+- file metadata, ACL a audit writer timeline;
+- module raw result a normalization;
+- process open-file/config path;
+- controller/job overlap timeline;
+- handler notifications a process restart events.
 
-### Check mode hlási nulu, reálny run mení
+### 4. Containment
 
-Module má neúplný check-mode model alebo current-state query potrebuje runtime side effect.
+Pozastav scheduled writes alebo zníž rollout na canary, ak restarty ovplyvňujú availability. Nepridávaj `changed_when: false`, kým nie je známa príčina.
 
-## 30. Kontrolné otázky
+### 5. Recovery
 
-1. Čo presne znamená idempotencia?
-2. Aký je rozdiel medzi idempotenciou a convergence?
-3. Prečo `changed_when: false` nemusí byť riešenie?
-4. Ako `creates` a `removes` modelujú stav?
-5. Prečo timestamp narúša template idempotenciu?
-6. Aký je rozdiel medzi idempotenciou a reproducibility?
-7. Ako otestovať role druhým converge runom?
-8. Ako partial failure ovplyvňuje ďalší run?
-9. Prečo idempotencia nerieši concurrency?
-10. Ako ownership conflict vytvára perpetual drift?
+- nondeterministic render → canonicalizuj inputs a odstráň volatile fields;
+- secret churn → viaž render na explicitnú epoch;
+- metadata drift → urč authoritative ownera a spravuj celý contract;
+- provider normalization → uprav desired canonical representation alebo upgrade-ni module;
+- second writer → odstráň write path alebo transferuj ownership;
+- false result → oprav structured `changed` contract;
+- wrong path → zosúlaď artifact destination a runtime source.
+
+### 6. Over pôvodný outcome
+
+Spusti first recovery converge, potvrď loaded C44 a health. Potom spusti druhý complete run: žiadny nečakaný artifact diff, žiadny handler restart a všetkých dvanásť hosts runtime-verified.
+
+### 7. Posuň control skôr
+
+Pridaj deterministic render regression test, second-converge gate, writer audit, explicit secret epoch a process-level loaded-artifact verifier.
+
+## 20. Concurrency a ownership
+
+Idempotencia jedného tasku nerieši multi-writer race. Potrebné controls môžu byť:
+
+- controller job serialization;
+- deployment lock;
+- resource-specific mutex;
+- API optimistic concurrency/version field;
+- idempotency key;
+- one-writer ownership policy;
+- audit alert na neznámu mutation identity.
+
+Rovnaký file alebo attribute nemajú súčasne spravovať Ansible, package script, application self-configuration, človek cez SSH a druhý controller bez explicitného ownership contractu.
+
+## 21. Referenčné pravidlá
+
+- Idempotencia, convergence, correctness a reproducibility sú odlišné vlastnosti.
+- Run subject musí zahŕňať resolved external inputs.
+- Current-state observation musí pokryť celý owned state.
+- Command guard je zjednodušený state model, nie dôkaz correctness.
+- `changed_when: false` nemôže nahradiť truthful mutation evidence.
+- Deterministic artifact je predpoklad stabilného handler behavioru.
+- File state a loaded process state sú samostatné postconditions.
+- Retry write operácie potrebuje idempotency identity alebo reconciliation.
+- Unknown timeout outcome sa nesmie automaticky opakovať.
+- Partial failure potrebuje resumable current-state-based recovery.
+- Second-run `changed=0` musí byť spojený s runtime a host coverage verification.
+- Jeden idempotentný writer nezaručuje convergence pri viacerých writers.
+
+## 22. Kontrolné otázky
+
+1. Ako sa líši idempotencia, convergence a correctness?
+2. Čo tvorí Ansible idempotency subject?
+3. Prečo `creates` marker nemusí dokazovať správny stav?
+4. Ako false `changed` signal poškodí handler convergence?
+5. Prečo deterministic template potrebuje canonical inputs?
+6. Čo je unknown remote outcome a prečo je blind retry nebezpečný?
+7. Ako navrhnúť resumable run po partial failure?
+8. Čo musí obsahovať second-converge verdict okrem `changed=0`?
+9. Prečo dva individuálne idempotentné runs môžu vytvoriť oscillation?
+10. Aké observation points odlíšia volatile input od competing writera?
 
 ## Glossary impact
 
-Relevantné pojmy: Ansible idempotencia, convergence, idempotency test, second converge, recurring change, change budget, current-state detection, stable input, command guard, perpetual drift a multi-writer automation.
+Relevantné pojmy: Ansible idempotency subject, current-state observation contract, truthful changed signal, deterministic artifact, second-converge evidence, runtime convergence, command guard, unknown write outcome, resumable partial state, recurring-change budget, idempotency key, multi-writer convergence a consistently wrong state.
 
 ## Oficiálna dokumentácia
 
