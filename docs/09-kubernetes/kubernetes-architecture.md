@@ -1,501 +1,626 @@
 # Kubernetes architecture
 
-Kubernetes je API-driven platforma na deklaratívne riadenie containerized workloads a súvisiacich resources. Cluster tvorí **control plane**, ktorý uchováva a vyhodnocuje požadovaný stav, a jeden alebo viac **worker nodes**, ktoré spúšťajú Pods. Kubernetes nie je iba vzdialený wrapper nad `docker run`; jeho jadrom je versionovaný object model, distribuované control loops a oddelenie rozhodovania od samotného vykonania workloadu.
+Kubernetes nie je vzdialený wrapper nad `docker run`. Je to distribuovaný control system, ktorý prijíma versionovaný intent cez API, rozdeľuje ownership medzi viac control loops a node agents a priebežne približuje effective workload state požadovanému výsledku.
 
-## 1. Problém, ktorý Kubernetes rieši
-
-Pri väčšom počte containerov nestačí vedieť ich iba spustiť. Platforma musí riešiť:
-
-- na ktorom stroji workload pobeží,
-- ako sa nahradí po zlyhaní,
-- ako sa vykoná rollout novej verzie,
-- ako sa workload identifikuje v sieti,
-- ako dostane configuration, secrets a storage,
-- ako sa riadia CPU a memory resources,
-- ako sa presadzujú security a tenancy pravidlá,
-- ako sa pozoruje požadovaný a aktuálny stav,
-- ako sa platforma rozširuje o nové resource types a controllers.
-
-Kubernetes tieto problémy rieši pomocou spoločného API a sady komponentov, ktoré reagujú na objekty uložené v API serveri.
-
-## 2. Základný mentálny model
+Dominantný lifecycle tejto kapitoly:
 
 ```text
-používateľ / CI / controller
-            ↓
-      Kubernetes API
-            ↓
-       desired state
-            ↓
- controllers + scheduler
-            ↓
-      node agents/runtime
-            ↓
-      running workloads
-            ↑
-        observed state
+workload intent a cluster identity
+→ authenticated API request
+→ admitted a persisted object generation
+→ controller-owned dependent graph
+→ scheduler assignment
+→ kubelet, runtime, CNI a CSI execution
+→ Pod readiness a Service eligibility
+→ application-level verification
+→ continuous observation, replacement a recovery
 ```
 
-Používateľ typicky nehovorí platforme presnú sekvenciu shell príkazov. Vytvorí objekt, ktorý vyjadruje intent. Control loops potom priebežne približujú aktuálny stav požadovanému.
+Kľúčová diagnostická otázka nie je „funguje Kubernetes?“, ale:
 
-## 3. Cluster
+```text
+Ktorý subject a generation mali vzniknúť?
+Ktorý component vlastní ďalší transition?
+Čo už bolo prijaté, persistované, pridelené, vykonané a overené?
+Kde sa desired, observed a effective state rozdelili?
+```
 
-Kubernetes cluster je logická platformová jednotka pozostávajúca z:
+## 1. Atlas scenár
 
-- control plane components,
-- worker nodes,
-- cluster network,
-- storage integrations,
-- identity a policy vrstiev,
-- add-ons ako DNS, metrics alebo ingress/gateway implementation.
+Atlas Payments release `4.2.0` má bežať v production clusteri `atlas-prod-eu1`.
 
-Cluster boundary ovplyvňuje:
+Release contract:
 
-- blast radius,
-- tenancy,
-- upgrade lifecycle,
-- API availability,
-- network a identity trust,
-- operational ownership,
-- compliance a data residency.
+```text
+Deployment: production/payments-api
+Deployment UID: D42
+metadata.generation: 12
+image index digest: sha256:atlas420
+replicas: 6
+configuration epoch: C52
+secret epoch: SE08
+Service: production/payments-api
+forbidden outcome: traffic na starý digest alebo staging dependency
+required outcome: 6 ready Pods a úspešná payment authorization
+```
 
-Cluster nie je automaticky security boundary vhodná pre všetky nedôveryhodné tenants. Izolácia závisí aj od node, runtime, network, RBAC, admission a workload security controls.
+Želaný end-to-end výsledok:
 
-## 4. Control plane a worker plane
+```text
+API prijme generation 12
+→ Deployment controller vytvorí nový ReplicaSet
+→ ReplicaSet controller vytvorí 6 Pods
+→ scheduler pridelí Pods vhodným Nodes
+→ kubelet pripraví image, sandbox, network a volumes
+→ process načíta C52 a SE08
+→ readiness prejde
+→ EndpointSlice obsahuje iba ready generation
+→ Service traffic vykoná payment authorization exactly once
+```
+
+Každý šíp je samostatná ownership a failure boundary.
+
+## 2. Architektúra ako rozdelenie rozhodovania a vykonania
+
+Kubernetes má dve hlavné execution roviny.
 
 ### Control plane
 
 Control plane:
 
-- exponuje Kubernetes API,
-- autentifikuje a autorizuje requests,
-- vykonáva admission,
-- persistuje cluster state,
-- plánuje nescheduled Pods,
-- spúšťa controllers,
-- koordinuje cluster-wide decisions.
+- prijíma a chráni API requests;
+- persistuje cluster state;
+- vyhodnocuje desired state;
+- vytvára dependent resources;
+- robí scheduling a cluster-wide decisions;
+- koordinuje cloud a platform integrations.
 
-### Worker nodes
+### Worker plane
 
-Worker node:
+Worker nodes:
 
-- prijíma Pod assignments,
-- pripravuje container images, namespaces, cgroups a mounts,
-- spúšťa containers cez runtime,
-- reportuje Node a Pod status,
-- implementuje lokálnu service networking vrstvu podľa cluster architektúry,
-- poskytuje compute, memory, network a local storage resources.
+- vykonávajú pridelené Pod specs;
+- pripravujú images, sandboxes, networks, mounts a cgroups;
+- spúšťajú application processes;
+- vykonávajú probes a termination lifecycle;
+- reportujú effective Node, Pod a container state.
 
-Control plane rozhoduje, **čo a kde** má bežať. Node components zabezpečujú, **že pridelený workload reálne beží**.
+Control plane nespúšťa application process priamo. Scheduler nespúšťa container. API server nevykonáva rollout. Kubelet nemení Deployment replicas. Každý component vlastní iba určitý transition.
 
-## 5. API-centric architektúra
+## 3. API-centric integration model
 
-Kubernetes API server je centrálny komunikačný hub.
-
-Typické princípy:
-
-- clients komunikujú s API serverom,
-- controllers sledujú a menia objekty cez API,
-- scheduler zapisuje binding/assignment rozhodnutia cez API,
-- kubelet sleduje Pods pridelené svojmu node-u a zapisuje status,
-- ostatné control plane components typicky neexponujú všeobecné vzdialené API pre nodes.
-
-Tento model znižuje počet priameho component-to-component coupling-u a poskytuje spoločnú vrstvu pre:
-
-- authentication,
-- authorization,
-- admission,
-- audit,
-- validation,
-- object versioning,
-- watch streams.
-
-## 6. Hlavné komponenty
+Kubernetes components komunikujú o cluster state-e prevažne cez API server:
 
 ```text
-Control plane
-├─ kube-apiserver
-├─ etcd
-├─ kube-scheduler
-├─ kube-controller-manager
-└─ cloud-controller-manager (voliteľný)
-
-Worker node
-├─ kubelet
-├─ container runtime
-├─ network implementation / CNI
-└─ kube-proxy alebo alternatívna service dataplane implementácia
+users, CI a operators
+         ↓
+      API server
+         ↕
+        etcd
+         ↑
+controllers, scheduler, kubelets, add-ons
 ```
 
-Nie všetky distribúcie používajú identickú implementáciu dataplane-u alebo packaging. API contract však zostáva hlavnou integračnou hranicou.
+API server poskytuje spoločné boundaries pre:
 
-## 7. Request flow pri vytvorení workloadu
+- authentication;
+- authorization;
+- admission;
+- validation a conversion;
+- persistence;
+- optimistic concurrency;
+- list/watch;
+- audit;
+- subresources.
 
-Zjednodušený príklad:
+Dôsledok: priamy component-to-component call nie je automaticky authoritative state transition. Scheduler napríklad zapíše assignment do API; kubelet potom reaguje na pridelený Pod.
+
+## 4. Jeden request, viac control loops
+
+Pri:
 
 ```bash
 kubectl apply -f deployment.yaml
 ```
 
-Flow:
-
-1. `kubectl` načíta kubeconfig a vyberie cluster/context/user.
-2. Klient serializuje objekt a odošle request na `kube-apiserver`.
-3. API server overí authentication.
-4. Authorization rozhodne, či identita môže vykonať danú operáciu.
-5. Mutating admission môže objekt doplniť alebo zmeniť.
-6. Schema/defaulting/validation overia výsledný objekt.
-7. Validating admission môže request povoliť alebo odmietnuť.
-8. API server uloží objekt do etcd.
-9. Controllers cez list/watch zistia nový desired state.
-10. Deployment controller vytvorí alebo upraví ReplicaSet.
-11. ReplicaSet controller vytvorí Pods.
-12. Scheduler vyberie vhodný Node pre nescheduled Pods.
-13. Kubelet na danom Node-e zistí assignment.
-14. Kubelet cez container runtime a network/storage plugins pripraví Pod.
-15. Kubelet a ďalšie components zapisujú status späť do API.
-
-Jedna user operácia teda spustí viac nezávislých control loops.
-
-## 8. etcd a persistentný cluster state
-
-`etcd` je konzistentný distributed key-value store používaný ako backing store pre Kubernetes API data.
-
-Obsahuje napríklad:
-
-- object specs a metadata,
-- statuses,
-- RBAC resources,
-- Secrets v API reprezentácii,
-- leases,
-- cluster configuration objects.
-
-Kritické pravidlá:
-
-- API server je štandardná brána k etcd,
-- etcd availability a latency priamo ovplyvňujú control plane,
-- backup musí byť testovaný obnovou,
-- encryption at rest pre citlivé API data musí byť explicitne nakonfigurovaná,
-- pri HA topológii treba rozumieť quorum a failure domains.
-
-etcd nie je application database pre bežné workloads.
-
-## 9. Control loops
-
-Controller:
-
-1. pozoruje relevantné resources,
-2. porovná desired a observed state,
-3. vykoná alebo požiada o zmenu,
-4. aktualizuje status alebo vytvorí dependent objects,
-5. proces opakuje.
-
-Príklad:
+nevznikne jedna synchronná deployment transakcia.
 
 ```text
-Deployment spec: replicas = 3
-Observed Pods: 2
-ReplicaSet controller: vytvorí ďalší Pod
+kubectl context a caller identity
+→ API request
+→ authentication a authorization
+→ mutating admission
+→ schema/defaulting/conversion
+→ validating admission
+→ etcd persistence
+→ Deployment watch/reconcile
+→ ReplicaSet watch/reconcile
+→ Pod creation
+→ scheduler queue a binding
+→ kubelet sync
+→ runtime/CNI/CSI operations
+→ Pod status a conditions
+→ EndpointSlice eligibility
+→ client traffic
 ```
 
-Control loops sú navrhnuté tak, aby tolerovali opakovanie, oneskorenie a súbežné zmeny. Výsledok nemusí vzniknúť okamžite po prijatí API requestu.
+API response po persistence potvrdzuje prijatie desired state-u. Nepotvrdzuje, že workload vznikol, je ready alebo je business-correct.
 
-## 10. Scheduler a execution sú oddelené
+## 5. Cluster subject a failure boundary
 
-`kube-scheduler`:
-
-- hľadá Pods bez prideleného node-u,
-- filtruje nevhodné Nodes,
-- skóruje kandidátov,
-- vyberie Node,
-- zaznamená assignment.
-
-Scheduler nespúšťa container. To vykonáva kubelet na vybranom Node-e.
-
-Toto oddelenie je dôležité pri diagnostike:
+Pred troubleshootingom zafixuj cluster subject:
 
 ```text
-Pod Pending + bez nodeName
-→ scheduling problém
-
-Pod assigned + ContainerCreating
-→ node/runtime/network/storage problém
+cluster name a immutable infrastructure identity
+API endpoint a CA
+control-plane topology
+etcd cluster/member IDs
+Kubernetes version
+node pool generations
+CNI/CSI/CRI implementations
+admission a policy generation
+critical add-on versions
+failure-domain placement
 ```
 
-## 11. Node execution flow
+Rovnaký kubeconfig context name môže po obnove alebo migrácii smerovať na iný cluster. Rovnaký object name môže označovať inú UID generation. Rovnaký image tag môže označovať iný digest.
 
-Keď je Pod pridelený Node-u:
+## 6. API server a etcd
 
-1. kubelet získa Pod spec,
-2. overí local admission a resource podmienky,
-3. pripraví potrebné volumes,
-4. požiada runtime o image pull a sandbox/container lifecycle,
-5. network plugin pripraví Pod networking,
-6. spustia sa init containers a následne application containers,
-7. kubelet vykonáva probes a lifecycle actions,
-8. reportuje Pod status a Node heartbeats.
+`kube-apiserver` je front-end control plane-u. `etcd` je authoritative backing store pre Kubernetes API state.
 
-Presné interné poradie sa môže líšiť podľa runtime, pluginov a Pod specu, ale ownership jednotlivých vrstiev zostáva diagnosticky dôležitý.
-
-## 12. Add-ons
-
-Bežné add-ons alebo platformové služby:
-
-- cluster DNS,
-- metrics pipeline,
-- ingress controller alebo Gateway API implementation,
-- network policy implementation,
-- storage CSI drivers,
-- log collection,
-- policy engines,
-- certificate management,
-- autoscaling components.
-
-Add-on môže používať Kubernetes API, ale nie je automaticky súčasťou core control plane-u.
-
-Pri probléme vždy rozlišuj:
-
-- upstream Kubernetes component,
-- distribution-specific component,
-- managed-service integration,
-- third-party add-on.
-
-## 13. Extensibility
-
-Kubernetes sa rozširuje cez:
-
-- CustomResourceDefinitions,
-- custom controllers/operators,
-- admission webhooks,
-- aggregated API servers,
-- CNI/CSI/CRI integrations,
-- scheduler plugins alebo alternate schedulers,
-- device plugins,
-- cloud provider integrations.
-
-Rozšírenie musí rešpektovať API a reconciliation model. Custom resource bez controlleru je iba uložený intent bez automatizácie, pokiaľ ho nespracúva iný systém.
-
-## 14. High availability
-
-HA control plane typicky zahŕňa:
-
-- viac API server instances za load balancerom,
-- redundantný etcd cluster s quorum,
-- viac scheduler/controller-manager instances,
-- leader election pre components, ktoré majú mať jedného aktívneho leadera,
-- rozloženie naprieč failure domains,
-- zálohovanie a obnovu,
-- monitoring certificates, latency, capacity a quorum health.
-
-Viac replík bez nezávislých failure domains neposkytuje plnú dostupnosť. Tri control plane VMs na jednom fyzickom hoste nezvládnu výpadok hosta.
-
-## 15. Leader election
-
-Niektoré replicated control plane components používajú Kubernetes `Lease` objects na voľbu aktívneho leadera.
-
-Cieľ:
-
-- viac instances môže byť pripravených,
-- iba zvolená instance vykonáva leader-only control loop,
-- pri zlyhaní leadership prevezme iná instance.
-
-API server môže byť aktívny vo viacerých replicas súčasne, zatiaľ čo scheduler alebo controller-manager typicky koordinujú leadership pre príslušné loops.
-
-## 16. Failure domains
-
-Rozlišuj:
-
-- process failure,
-- Pod/static Pod failure,
-- Node failure,
-- availability-zone failure,
-- network partition,
-- API server failure,
-- etcd quorum loss,
-- registry failure,
-- DNS failure,
-- storage backend failure,
-- certificate alebo identity failure.
-
-Kubernetes môže nahradiť workload po Node failure, ale nevyrieši automaticky:
-
-- stratu jediného persistent volume-u,
-- application-level split brain,
-- nedostupný registry pri chýbajúcom local image,
-- chybné desired state,
-- nekompatibilnú databázovú migration,
-- vyčerpaný celý cluster.
-
-## 17. Self-managed a managed Kubernetes
-
-### Self-managed
-
-Tím vlastní:
-
-- control plane lifecycle,
-- etcd,
-- certificates,
-- upgrades,
-- node images,
-- networking/storage integrations,
-- backup a recovery.
-
-### Managed control plane
-
-Cloud provider typicky vlastní časť control plane prevádzky, ale zákazník stále rieši:
-
-- workloads,
-- RBAC a identities,
-- network/security policy,
-- node pools alebo compute profile,
-- add-ons,
-- data protection,
-- version compatibility,
-- cost a capacity.
-
-„Managed“ neznamená bez prevádzkovej zodpovednosti.
-
-## 18. Trust boundaries
-
-Kritické hranice:
-
-- API server endpoint,
-- kubeconfig a client credentials,
-- etcd data,
-- kubelet API,
-- node OS a container runtime,
-- CNI/CSI plugins s host privileges,
-- admission webhooks,
-- controller service accounts,
-- image registry a supply chain,
-- cloud provider credentials.
-
-Kompromitovaný Node môže ohroziť workloads a credentials dostupné na danom Node-e. Kompromitovaná privilegovaná control-plane identity môže mať cluster-wide dopad.
-
-## 19. Network communication model
-
-Kubernetes používa API-centric hub-and-spoke model:
-
-- nodes a Pods komunikujú s API serverom,
-- control plane components používajú API server,
-- API server komunikuje s kubeletom pre niektoré control-plane-to-node operácie,
-- cluster networking zabezpečuje Pod-to-Pod a Service connectivity podľa implementácie.
-
-API connectivity, workload networking a Service dataplane sú tri odlišné troubleshooting vrstvy.
-
-## 20. Static Pods
-
-Static Pods sú spravované priamo kubeletom na konkrétnom Node-e z local manifestu alebo iného local source-u. API server nad nimi nemá rovnaký controller ownership ako nad bežnými workload Pods.
-
-Časté použitie:
-
-- self-hosted control plane components pri kubeadm-like topológii.
-
-Kubelet môže vytvoriť mirror Pod objekt v API, ale authoritative manifest zostáva na Node-e. Úprava mirror Podu nie je správny spôsob zmeny static Podu.
-
-## 21. Pozorovanie architektúry
-
-Základné príkazy:
-
-```bash
-kubectl cluster-info
-kubectl get nodes -o wide
-kubectl get pods -A -o wide
-kubectl get --raw /readyz?verbose
-kubectl get events -A --sort-by=.metadata.creationTimestamp
-kubectl api-resources
+```text
+valid request
+→ API invariants
+→ etcd quorum write
+→ new resourceVersion
+→ watches inform consumers
 ```
 
-Podľa prístupu môžeš sledovať:
+Ak API server nevie persistovať state, write transition nie je complete. Ak etcd stratí quorum, bezpečné writes sa zastavia, hoci už spustené Pods môžu dočasne pokračovať.
 
-- API request latency a error rate,
-- etcd latency, size a leader/quorum health,
-- scheduler pending queue a scheduling latency,
-- controller work queues a retries,
-- Node heartbeats a Leases,
-- kubelet/runtime errors,
-- CNI/CSI failures,
-- admission webhook latency a availability.
+### Failure boundary: API funguje na TCP, ale nie je ready
 
-## 22. Typické zlyhania podľa vrstvy
+Load balancer môže úspešne otvoriť TCP connection, no API server môže mať:
 
-### `kubectl` nevie kontaktovať cluster
+- etcd latency alebo failure;
+- nedokončené post-start hooks;
+- informer/cache sync problém;
+- admission dependency failure;
+- certificate alebo authentication problém.
 
-Over context, DNS, routing, TLS, API load balancer a credentials.
+Použi semantic readiness, nie iba open port.
 
-### API request je `Forbidden`
+## 7. Controllers a dependent object graph
 
-API je dostupné; problém je authorization/RBAC alebo admission policy.
+Controllers menia top-level intent na nižšie resource contracts:
 
-### Objekt vznikol, ale nič sa nedeje
+```text
+Deployment D42 generation 12
+→ ReplicaSet RS-new
+→ Pods P1..P6
+```
 
-Over controller availability, object conditions, events a dependent resources.
+Dependent graph sa viaže cez:
 
-### Pod ostáva `Pending`
+- owner UID;
+- labels a selectors;
+- controller-specific status;
+- generation a conditions;
+- finalizers pri external state-e.
 
-Over scheduling constraints, capacity, PVC binding a admission.
+Controller nevykonáva celý workload lifecycle sám. Vytvorí alebo upraví ďalší object a ďalší owner pokračuje.
 
-### Pod je assigned, ale nevznikne container
+## 8. Scheduler assignment boundary
 
-Over kubelet, runtime, image pull, CNI, CSI, mounts a Node conditions.
+Scheduler sleduje Pods bez Node assignmentu.
 
-### Cluster API funguje, ale Service nie
+```text
+unscheduled Pod
+→ candidate Node inventory
+→ hard filters
+→ scoring
+→ reservation/permit podľa frameworku
+→ binding
+```
 
-Over Service/EndpointSlice, kube-proxy alebo alternate dataplane, DNS, CNI, network policy a application listen socket.
+Scheduler posudzuje deklarované requests a constraints. Nespúšťa image, network ani process a nečaká na readiness.
 
-## 23. Časté omyly
+Diagnostické rozdelenie:
 
-### Kubernetes spúšťa Docker containers priamo
+```text
+Pod Pending bez nodeName
+→ scheduling boundary
 
-Kubernetes používa CRI-compatible container runtime. Docker Engine nie je povinnou worker-node vrstvou.
+Pod má nodeName, ale je ContainerCreating
+→ kubelet/runtime/network/storage boundary
+```
 
-### Control plane spúšťa application process
+## 9. Node execution boundary
 
-Control plane rozhoduje a zapisuje desired/assigned state; kubelet a runtime vykonávajú workload na Node-e.
+Keď je Pod pridelený Node-u, kubelet približne koordinuje:
 
-### Viac control plane replicas automaticky znamená HA
+```text
+observe assigned Pod spec
+→ local admission a Node preconditions
+→ volume/device preparation
+→ image resolution a pull
+→ Pod sandbox a namespaces
+→ CNI network
+→ containers a init ordering
+→ probes a lifecycle hooks
+→ Pod status reporting
+```
 
-Potrebné sú quorum, load balancing, leader election, failure-domain separation a recovery.
+Kubelet používa CRI-compatible runtime. Docker Engine nie je povinná worker-node vrstva.
 
-### Kubernetes vždy obnoví aplikáciu
+CNI, CSI a runtime plugins môžu mať host-level privileges. Ich failure alebo compromise má inú boundary než bežný application Pod.
 
-Obnoví iba to, čo je vyjadrené v API a čo dependencies/capacity umožňujú. Chybný spec bude Kubernetes spoľahlivo reprodukovať.
+## 10. Service eligibility nie je Pod existence
 
-### Pod IP alebo Node je trvalá application identity
+Kubernetes môže mať:
 
-Workloads sú nahraditeľné; stabilita sa buduje vyššími abstractions ako Service, StatefulSet identity alebo external registry.
+- uložený Deployment;
+- vytvorený ReplicaSet;
+- Running Pod;
+- neúspešnú readiness probe;
+- žiadny eligible EndpointSlice endpoint;
+- nefunkčný business transaction.
 
-## 24. Rozhodovací rámec pre cluster boundary
+```text
+process exists
+≠ Pod Ready
+≠ Service endpoint eligible
+≠ client path funguje
+≠ business outcome je správny
+```
 
-Pýtaj sa:
+Architektúra preto potrebuje status a verification na viacerých úrovniach.
 
-1. Aký blast radius je prijateľný?
-2. Ktoré teams alebo tenants si navzájom dôverujú?
-3. Aký upgrade cadence a version policy potrebujú?
-4. Aké network a data residency hranice existujú?
-5. Kto vlastní control plane a nodes?
-6. Aký je RPO/RTO pre API a etcd?
-7. Aké add-ons a CRDs budú cluster-wide?
-8. Koľko capacity a operational overheadu unesie platform team?
-9. Je potrebná samostatná compliance alebo billing boundary?
-10. Ako sa bude cluster bootstrapovať a obnovovať?
+## 11. Observed state a eventual consistency
 
-## 25. Kontrolné otázky
+Každý actor pozoruje state s určitým oneskorením:
 
-1. Aké dve hlavné časti tvorí Kubernetes cluster?
-2. Prečo je API server centrálnym integračným bodom?
-3. Aký je rozdiel medzi schedulerom a kubeletom?
-4. Čo sa stane po `kubectl apply` workload manifestu?
-5. Akú úlohu má etcd?
-6. Prečo je Kubernetes architektúra založená na control loops?
-7. Aký je rozdiel medzi core componentom a add-onom?
-8. Prečo viac replík bez failure-domain separation nemusí znamenať HA?
-9. Kedy sú relevantné static Pods?
-10. Ako rozlíšiš API, scheduling, node-runtime a Service-networking problém?
+- API object môže byť persistovaný skôr, než ho controller spracuje;
+- informer cache môže krátko zaostávať;
+- scheduler assignment môže predchádzať kubelet execution;
+- kubelet status môže zaostávať za runtime processom;
+- EndpointSlice alebo dataplane môže zaostávať za readiness zmenou;
+- externý load balancer môže zaostávať za Service statusom.
+
+Eventual consistency neznamená, že všetko sa „časom opraví“. Permanentný invalid intent, chýbajúca capacity alebo broken dependency môže zostať nekonvergentná bez zmeny vstupu.
+
+## 12. High availability ako zachovanie konkrétnych transitions
+
+HA nie je iba počet replík.
+
+### API layer
+
+Potrebuje:
+
+- viac ready API server instances;
+- stabilný endpoint/load balancer;
+- rovnaké trust roots a policy;
+- dostupný etcd quorum;
+- failure-domain separation.
+
+### etcd
+
+Potrebuje:
+
+- quorum;
+- nízku a stabilnú disk/network latency;
+- správnu member topológiu;
+- snapshots a testovaný restore;
+- capacity a certificate lifecycle.
+
+### Scheduler a controller manager
+
+Môžu používať viac replicas s leader election. Leader election vyberá active instance, ale neposkytuje exactly-once execution ani idempotenciu.
+
+### Failure boundary: tri replicas v jednom fyzickom doméne
+
+```text
+3 control-plane VMs
+→ všetky na jednom hypervisor hoste
+→ host failure
+→ všetky replicas zaniknú naraz
+```
+
+Replica count bez nezávislého failure-domain placementu nie je požadované HA.
+
+## 13. Core components, integrations a add-ons
+
+Pri incidente rozlišuj:
+
+### Core control plane
+
+- API server;
+- etcd;
+- scheduler;
+- controller manager;
+- cloud controller manager podľa topológie.
+
+### Node execution
+
+- kubelet;
+- container runtime;
+- CNI;
+- CSI/node storage components;
+- Service dataplane implementation.
+
+### Add-ons a extensions
+
+- DNS;
+- metrics;
+- ingress/Gateway controller;
+- policy engine;
+- certificate manager;
+- custom controllers/operators;
+- aggregated APIs.
+
+Názov resource-u v API nehovorí, kto implementuje jeho behavior. CRD bez active controlleru je uložený intent bez automatizácie.
+
+## 14. Static Pods a bootstrap boundary
+
+V kubeadm-like topológii môžu control-plane components bežať ako static Pods.
+
+```text
+local manifest na control-plane Node-e
+→ kubelet
+→ runtime container
+→ mirror Pod v API
+```
+
+Authoritative source static Podu je local manifest, nie mirror Pod object. Pri API outage nemusia fungovať `kubectl logs` ani API-based diagnostics; potrebný je node-level runtime, filesystem a journal access.
+
+## 15. Trust boundaries
+
+Kritické boundaries:
+
+- API endpoint, kubeconfig a caller credentials;
+- API server identities a signing keys;
+- etcd data a snapshots;
+- admission webhooks;
+- controller service accounts;
+- kubelet API a node credentials;
+- node OS a runtime;
+- CNI/CSI plugins;
+- registry a image supply chain;
+- cloud provider identities.
+
+Cluster nie je automaticky silná isolation boundary pre vzájomne nedôveryhodných tenants. Node compromise môže sprístupniť workloads a credentials na Node-e; privilegovaná control-plane identity môže mať cluster-wide dopad.
+
+## 16. Failure scenáre podľa transitionu
+
+### API request sa k serveru nedostane
+
+Možné boundaries: context, DNS, route, load balancer, TLS.
+
+### API request je `Unauthorized` alebo `Forbidden`
+
+Server je dostupný; zlyhala identity alebo authorization boundary.
+
+### Request timeoutuje pri admission
+
+Core API a etcd môžu byť healthy, ale synchronous webhook dependency blokuje matching writes.
+
+### Object vznikol, dependent graph nie
+
+Deployment alebo custom controller môže byť down, bez leadershipu, preťažený alebo bez permissions.
+
+### Pods ostávajú `Pending`
+
+Scheduler/capacity/constraints/PVC binding boundary.
+
+### Pod je assigned, container nevznikne
+
+Kubelet, image, runtime, CNI, CSI, mount alebo Node condition boundary.
+
+### Pod je Ready, Service nefunguje
+
+Selector, EndpointSlice, dataplane, DNS, network policy alebo application listen/client path boundary.
+
+### API je unavailable, workload beží
+
+Management plane je poškodená, ale existujúce processes môžu pokračovať. To nie je plné zdravie clusteru; nové scheduling, replacement a config changes sú obmedzené.
+
+## 17. Worked failure: admission webhook zablokoval celý rollout
+
+Atlas nasadil nový policy webhook fail-closed na všetky Pod create/update requests. Webhook mal jednu repliku a pri vlastnom rolling update prestal byť reachable.
+
+```text
+API server healthy
++ etcd healthy
++ controllers healthy
+→ ReplicaSet controller vytvára Pod request
+→ admission volá unavailable webhook
+→ request timeout/reject
+→ žiadne nové Pods
+→ staré Pods zostanú
+```
+
+`kubectl get nodes` a API `/readyz` mohli vyzerať zdravo, ale workload write path bol nefunkčný pre konkrétny match scope.
+
+Recovery nie je restart všetkých control-plane components. Potrebuje:
+
+- identifikovať webhook configuration a match scope;
+- obnoviť webhook endpoint alebo aktivovať reviewovaný break-glass;
+- overiť CA/DNS/network/readiness;
+- znovu reconcile-nuť blocked objects;
+- zúžiť scope, timeout a failure policy;
+- zabezpečiť independent availability webhooku.
+
+## 18. Worked failure: etcd quorum loss pri stále bežiacich Pods
+
+Tri etcd members boli rozdelené sieťovou partition tak, že žiadna strana nemala bezpečné quorum.
+
+```text
+existujúce containers pokračujú
+→ kubelet môže dočasne udržať local workload
+→ API writes timeoutujú alebo zlyhávajú
+→ controllers nemôžu persistovať transitions
+→ scheduler nemôže zapisovať nové assignments
+→ self-healing je obmedzený
+```
+
+„Aplikácia stále odpovedá“ neznamená, že cluster je healthy alebo schopný recovery po ďalšom Node failure.
+
+## 19. Causal troubleshooting walkthrough: Deployment je prijatý, ale release sa nehýbe
+
+`kubectl apply` pre Atlas release `4.2.0` skončil úspešne. Deployment má generation 12, no šesť starých Pods naďalej obsluhuje traffic a nový ReplicaSet má nula Pods.
+
+### 1. Zafixuj subject a pôvodný outcome
+
+Zaznamenaj:
+
+```text
+cluster endpoint, CA a cluster UID/identity
+caller a field manager
+Deployment namespace/name/UID/generation/resourceVersion
+spec image digest, replicas, strategy a selectors
+status observedGeneration a conditions
+old/new ReplicaSet UID a revisions
+expected Pod template hash
+admission configuration generation
+controller-manager leader a version
+scheduler/kubelet/runtime generations podľa ďalšej vrstvy
+required business outcome a forbidden old/staging outcomes
+```
+
+### 2. Competing hypotheses
+
+1. Apply smeroval na nesprávny cluster/context.
+2. Mutating admission zmenila image, selector alebo Pod template.
+3. Deployment controller nevidel generation 12.
+4. Controller-manager nemá active leader alebo je preťažený.
+5. New ReplicaSet existuje, ale selector/ownership je chybný.
+6. Pod create requests blokuje admission webhook alebo quota.
+7. ReplicaSet controller nemá permissions.
+8. API/etcd writes zlyhávajú po create requeste.
+9. Scheduler nie je relevantný, pretože Pods ešte nevznikli.
+10. Status je stale a runtime už obsahuje inú generation.
+11. Iný field manager okamžite vracia Pod template na starý digest.
+12. Rollout je paused alebo blokovaný strategy invariants.
+
+### 3. Discriminating observation points
+
+- `kubectl config current-context` a server/CA identity;
+- live Deployment YAML vrátane `managedFields`, generation a status;
+- ReplicaSet ownerReferences, revisions, selectors a Pod template hashes;
+- audit/admission rejection a latency evidence;
+- controller-manager leader, queue depth a logs pre exact UID;
+- API response codes a etcd write latency;
+- ResourceQuota a policy verdicts;
+- events zoradené podľa času;
+- audit field-manager writes po pôvodnom apply;
+- absence/presence Pod create requests.
+
+Observation „žiadne nové Pods“ diskriminuje scheduling až vtedy, keď je potvrdené, že Pod objects vôbec vznikli.
+
+### 4. Containment
+
+- nezmaž starý ReplicaSet ani fungujúce Pods;
+- pozastav ďalšie automation writes nad rovnakými fields;
+- zachovaj audit, events, controller logs a live object YAML;
+- neforce-ni conflicts bez ownership rozhodnutia;
+- obmedz traffic iba vtedy, ak starý release porušuje forbidden outcome.
+
+### 5. Recovery podľa boundary
+
+- wrong context → zastav zmenu, audituj zasiahnutý cluster a aplikuj na správny subject;
+- admission mutation/rejection → oprav policy/webhook a znovu validuj final admitted object;
+- controller unavailable → obnov leader/permissions/queue processing;
+- ownership conflict → definuj authoritative field managera a reconcile-ni current object;
+- selector/owner mismatch → oprav versionovaný object contract bez manuálnej adopcie cudzích Pods;
+- etcd/API latency → obnov persistence health pred ďalšími writes;
+- paused/strategy constraint → vykonaj explicitný reviewovaný transition.
+
+### 6. Over pôvodný outcome
+
+Potvrď:
+
+- Deployment observed generation 12;
+- nový ReplicaSet s correct UID/template digest;
+- šesť new-generation Pods;
+- scheduler assignments a kubelet execution;
+- C52 a SE08 loaded state;
+- readiness a EndpointSlice eligibility;
+- payment authorization exactly once;
+- žiadny old digest ani staging dependency v active path-e.
+
+### 7. Posuň control skôr
+
+Pridaj:
+
+- cluster-subject preflight;
+- server-side dry run a admitted-object diff;
+- controller generation-lag SLO;
+- webhook availability a match-scope tests;
+- field-ownership policy;
+- rollout verification via UID/generation/digest chain;
+- business synthetic via Service path.
+
+## 20. Observation matrix
+
+| Boundary | Subject | Kľúčové observations |
+|---|---|---|
+| Client/API endpoint | context, endpoint, caller | kubeconfig, TLS, API response |
+| Admission | webhook/policy generation | mutation, reject, timeout, audit |
+| Persistence | object UID/resourceVersion, etcd cluster | API latency, etcd quorum/write |
+| Controller | owner UID/generation, queue key | observedGeneration, dependents, logs |
+| Scheduler | Pod UID a constraint set | nodeName, FailedScheduling, queue |
+| Node execution | Pod UID, Node, runtime sandbox | kubelet, runtime, CNI/CSI, status |
+| Service path | EndpointSlice generation, client flow | readiness, selectors, dataplane, DNS |
+| Business | request/operation ID | SLI, downstream audit, invariants |
+
+Matrix neurčuje príčinu. Pomáha zvoliť observation point, ktorý odlíši competing hypotheses.
+
+## 21. Managed a self-managed responsibility
+
+Managed control plane typicky presúva časť ownershipu na providera, ale zákazník naďalej vlastní:
+
+- workload specs a images;
+- namespaces, RBAC a identities;
+- policy a webhook configuration;
+- node pools alebo compute profile podľa služby;
+- CNI/CSI/add-on choices v podporovanom rozsahu;
+- persistent data protection;
+- application readiness a business verification;
+- upgrade compatibility a deprecated APIs.
+
+„Managed“ neznamená, že provider overí správnosť desired state-u alebo obnoví application data.
+
+## 22. Referenčné pravidlá
+
+- Kubernetes API success potvrdzuje accepted/persisted intent, nie workload readiness.
+- Object, controller, scheduler, kubelet a application majú odlišné ownership boundaries.
+- Scheduler priraďuje Node; kubelet vykonáva Pod.
+- Running process, Ready Pod, eligible endpoint a correct business outcome sú odlišné states.
+- etcd quorum chráni persistent cluster-state transitions.
+- Leader election neposkytuje exactly-once execution.
+- Static Pod mirror object nie je authoritative manifest.
+- Add-on alebo webhook môže byť critical control-plane dependency bez toho, aby bol core componentom.
+- Replica count bez failure-domain separation nie je HA.
+- Kubernetes môže spoľahlivo reprodukovať chybný desired state.
+- Troubleshooting začína exact cluster/object/generation subjectom a vlastníkom nasledujúceho transitionu.
+
+## 23. Kontrolné otázky
+
+1. Aký lifecycle spája API request s application business outcome-om?
+2. Prečo API response po `apply` nepotvrdzuje rollout success?
+3. Aký je rozdiel medzi controllerom, schedulerom a kubeletom?
+4. Prečo `Pod Pending` bez `nodeName` patrí do inej boundary než `ContainerCreating`?
+5. Čo znamená strata etcd quorum pre už bežiace a nové workloads?
+6. Prečo viac control-plane replík nemusí znamenať HA?
+7. Ako admission webhook ovplyvňuje write-path availability?
+8. Prečo mirror Pod nie je authoritative source static Podu?
+9. Aké observations odlíšia controller failure od scheduler failure?
+10. Ako overíš pôvodný workload outcome po recovery?
 
 ## Glossary impact
 
-Relevantné pojmy: Kubernetes cluster, control plane, worker node, API-centric architecture, cluster state, kube-apiserver, etcd, kube-scheduler, kube-controller-manager, cloud-controller-manager, kubelet, container runtime, cluster add-on, leader election, Lease, failure domain, managed control plane a static Pod.
+Relevantné pojmy: Kubernetes control-chain subject, cluster subject, API-to-workload lifecycle, admitted object generation, controller ownership boundary, scheduler assignment subject, node execution subject, Service eligibility generation, management-plane/workload-plane split, control-plane write path, etcd quorum boundary, static Pod authority, application acceptance subject a Kubernetes architecture observation matrix.
 
 ## Oficiálna dokumentácia
 
