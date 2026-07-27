@@ -1,82 +1,176 @@
 # Chart dependencies
 
-Helm chart môže skladať application z ďalších charts. Dependency nie je samostatný Helm release: templates parent chartu a všetkých enabled dependencies sa agregujú do jedného rendered manifest setu a jedného release lifecycle. Dependency graph preto ovplyvňuje values scope, resource ownership, upgrade blast radius, supply chain aj rollback.
+Helm dependency nie je samostatný release. Parent chart a všetky enabled application alebo library dependencies sa resolve-nú, zabalia, vyrenderujú a aplikujú ako jeden release subject. Dependency graph preto mení source code, values scope, global helper namespace, Kubernetes resources, hooks, CRDs, RBAC, images, data lifecycle aj rollback blast radius.
 
-## 1. Dependency declaration
+Hlavná otázka nie je „ako pridám subchart“, ale:
 
-Pre chart API `v2` sa dependencies deklarujú v `Chart.yaml`:
+```text
+ktorý component má patriť do tohto release ownershipu
+→ z akého immutable artifactu pochádza
+→ ako sa jeho verzia resolve-ne a uzamkne
+→ aký render/runtime surface pridáva
+→ ako sa upgrade, failure a decommission koordinujú
+```
+
+## 1. Dominantný lifecycle
+
+```text
+component ownership a lifecycle intent
+→ dependency declaration a source trust
+→ constraint resolution
+→ locked artifact graph
+→ values, alias, condition a global contract
+→ single-release aggregate render
+→ CRD/hook/API/admission execution
+→ workload a business acceptance
+→ dependency upgrade/recovery
+→ retirement alebo oddelenie lifecycle-u
+```
+
+Dependency je bezpečná iba vtedy, keď je exact resolved graph reprodukovateľný a celý jeho output patrí do vedome prijatého release failure domainu.
+
+## 2. Atlas dependency subject
+
+Atlas Payments používa:
+
+```text
+parent chart: atlas-payments 2.7.0 / CH57
+release: payments-prod revision 18
+cluster: K136
+dependency declaration: Chart.yaml C57
+dependency lock: Chart.lock / D57
+packaged graph: PG57
+rendered manifest: M57
+```
+
+Dependency graph:
+
+```text
+atlas-payments
+├── atlas-platform library chart
+│   └── common security/label helpers
+└── atlas-payment-metrics application chart
+    └── exporter image a ServiceMonitor resources
+```
+
+Každý node graphu potrebuje:
+
+- declared name a alias;
+- source repository/OCI identity;
+- constraint;
+- resolved version a digest;
+- publisher/trust evidence;
+- values scope;
+- templates/helpers/CRDs/hooks/RBAC inventory;
+- transitive dependencies;
+- lifecycle owner a support status.
+
+## 3. Dependency declaration
+
+Chart API v2 deklaruje dependencies v `Chart.yaml`:
 
 ```yaml
 apiVersion: v2
-name: payments
-version: 1.4.0
+name: atlas-payments
+version: 2.7.0
 
 dependencies:
-  - name: redis
-    version: 20.6.2
-    repository: https://charts.example.com
+  - name: atlas-platform
+    version: "~1.6.0"
+    repository: oci://registry.example.com/helm
+
+  - name: atlas-payment-metrics
+    version: "3.4.1"
+    repository: oci://registry.example.com/helm
+    condition: metrics.enabled
 ```
 
-Základné fields:
+Declaration je intent, nie resolved artifact graph.
 
-- `name` — chart name,
-- `version` — exact version alebo SemVer constraint,
-- `repository` — chart repository alebo podporovaný dependency source,
-- `alias` — local dependency identity,
-- `condition` — values path pre enable/disable,
-- `tags` — skupinové prepínanie,
-- `import-values` — prenos vybraných child values do parent scope.
+```text
+constraint ~1.6.0
+≠ exact version 1.6.3
+≠ exact chart digest LD58
+≠ verified publisher/provenance
+```
 
-## 2. Application chart a library chart
+Production subject potrebuje resolved identity.
+
+## 4. Application vs. library dependency
 
 ### Application dependency
 
-Renderuje Kubernetes resources a je súčasťou release manifestu.
+Renderuje Kubernetes resources a vstupuje do spoločného release manifestu. Je vhodná iba vtedy, keď parent release skutočne vlastní jej lifecycle.
 
 ### Library dependency
 
-Poskytuje reusable named templates a primitives, ale sama nevytvára application release resources ako bežný application chart.
+Poskytuje named templates a primitives. Sama typicky nevytvára workload resources, ale jej source code môže zmeniť parent rendered manifests.
 
-Library chart je vhodný na organization-wide helpers. Application dependency je vhodná, keď parent release skutočne vlastní lifecycle danej komponenty.
+Library chart preto nie je „bezpečnejšia, lebo nič nenasadzuje“. Môže meniť:
 
-## 3. Subchart je stand-alone
+- resource names;
+- selectors;
+- labels;
+- images;
+- securityContext;
+- RBAC fragments;
+- checksums;
+- API variants;
+- hook templates.
 
-Application subchart:
+Oba typy patria do supply-chain a compatibility reviewu.
 
-- má vlastné `Chart.yaml`, values a templates,
-- nemá implicitný prístup k parent values,
-- môže byť testovaný samostatne,
-- parent môže override-nuť jeho values,
-- všetky charts môžu čítať `global` values.
+## 5. Ownership test: dependency alebo samostatný release
 
-Subchart nemá byť napísaný tak, že funguje iba pri konkrétnom parent chart-e, pokiaľ ide o reusable application dependency.
+Component patrí do dependency graphu, ak:
 
-## 4. Values scope
+```text
+rovnaký owner
++ rovnaký deployment cadence
++ rovnaký rollback boundary
++ rovnaký namespace/tenant lifecycle
++ prijateľný spoločný blast radius
++ žiadny nezávislý durable data/SLO contract
+```
 
-Parent defaults:
+Samostatný release je vhodnejší, ak component má:
+
+- nezávislého ownera alebo support window;
+- vlastný SLO a scaling lifecycle;
+- shared použitie viacerými applications;
+- cluster-scoped CRDs/controllers;
+- vlastný persistent data a backup contract;
+- odlišnú upgrade/rollback cadence;
+- oddelené privileges alebo failure domain.
+
+Shared production database alebo cluster-wide operator zvyčajne nemá byť náhodne vlastnený jedným application release-om.
+
+## 6. Subchart values scope
+
+Parent values:
 
 ```yaml
-redis:
-  architecture: standalone
-  auth:
+atlas-payment-metrics:
+  enabled: true
+  serviceMonitor:
     enabled: true
 ```
 
-Subchart číta:
+V subcharte sa nesting key odstráni. Subchart číta:
 
 ```gotemplate
-{{ .Values.architecture }}
+{{ .Values.enabled }}
 ```
 
-Nie:
+nie:
 
 ```gotemplate
-{{ .Values.redis.architecture }}
+{{ .Values.atlas-payment-metrics.enabled }}
 ```
 
-Parent nesting key sa pri vstupe do subchart scope odstráni.
+Values scope je samostatný contract. Parent môže override-nuť child values, ale child nemá implicitný prístup k ľubovoľným parent values.
 
-## 5. Global values
+## 7. Global values
 
 ```yaml
 global:
@@ -84,238 +178,176 @@ global:
   environment: production
 ```
 
-`global` values sú dostupné parentu aj subcharts:
+`global` je cross-chart API. Použi ho pre úzke spoločné identity:
 
-```gotemplate
-{{ .Values.global.imageRegistry }}
+- registry prefix;
+- organization/tenant identity;
+- cluster domain;
+- shared external ServiceAccount alebo secret reference;
+- common labels, ak majú stabilný contract.
+
+Broad `global` tree vytvára implicitné coupling:
+
+```text
+parent mení jeden key
+→ viac subcharts ho interpretuje odlišne
+→ rendered diff sa rozšíri
+→ ownership effective value-u je nejasný
 ```
 
-Používaj ich iba pre skutočne cross-chart contracts, napríklad:
+Každý global key potrebuje ownera, schema a consumer inventory.
 
-- registry prefix,
-- organization labels,
-- shared cluster domain,
-- common identity reference.
+## 8. Constraint resolution
 
-Nedávaj do `global` celý environment configuration tree. Vznikne implicitné coupling a key collision.
-
-## 6. Version constraints
-
-Exact version:
+Exact constraint:
 
 ```yaml
-version: 20.6.2
+version: "1.6.2"
 ```
 
 Range:
 
 ```yaml
-version: ~20.6.0
+version: "~1.6.0"
 ```
 
-Range umožňuje `helm dependency update` vybrať najnovšiu verziu spĺňajúcu constraint. Release build však má používať commitnutý lock file a kontrolovaný dependency update workflow.
-
-Trade-off:
-
-- exact constraint zvyšuje explicitnosť,
-- range zjednodušuje patch discovery,
-- `Chart.lock` fixuje resolved verziu pre reprodukovateľný build,
-- update automation musí stále vykonávať testy a review changelogu.
-
-## 7. `helm dependency update`
-
-```bash
-helm dependency update ./payments-chart
-```
-
-Command:
-
-1. načíta constraints z `Chart.yaml`,
-2. vyberie kompatibilné dependency versions,
-3. stiahne charts do `charts/`,
-4. odstráni niektoré neaktuálne managed dependencies podľa command semantics,
-5. vytvorí alebo aktualizuje `Chart.lock`.
-
-`dependency update` **re-resolve-ne** dependency graph. Nepoužívaj ho ako implicitný krok production release bez review zmeneného locku.
-
-## 8. `helm dependency build`
-
-```bash
-helm dependency build ./payments-chart
-```
-
-Pri existujúcom `Chart.lock` rekonštruuje `charts/` podľa uzamknutých versions bez nového dependency negotiation.
-
-CI/release pattern:
+Range je discovery policy. Umožňuje controlled update vybrať novšiu compatible verziu. Release build však nemá opakovane vyjednávať graph.
 
 ```text
-reviewed Chart.yaml + committed Chart.lock
-→ helm dependency build
-→ verify/package/lint/test
+reviewed declaration
+→ controlled resolve
+→ reviewed lock
+→ reproducible build
 ```
 
-Ak lock neexistuje, behavior môže prejsť na update-like resolution. Preto lock file validuj explicitne.
+SemVer compatibility je publisher claim, nie dôkaz, že rendered Kubernetes identity, CRD, data alebo helper contract zostali compatible.
 
-## 9. `Chart.lock`
+## 9. `helm dependency update`
 
-Lock file zachytáva resolved dependency graph a digest metadata podľa Helm formátu.
-
-Commituj ho spolu s `Chart.yaml`, keď dependencies spravuješ deklaratívne.
-
-Pri zmene dependency:
-
-1. uprav `Chart.yaml`,
-2. spusti controlled `helm dependency update`,
-3. review-ni nový `Chart.lock`,
-4. skontroluj stiahnuté charts,
-5. renderuj a testuj celý release,
-6. commitni declaration a lock spolu.
-
-Ručná editácia lock file-u je anti-pattern.
-
-## 10. `charts/` directory
-
-Dependency chart môže byť v `charts/` ako:
-
-- packaged `.tgz`,
-- unpacked chart directory,
-- manually vendored dependency.
-
-Rozhodni repository policy:
-
-### Commitnuté dependency archives
-
-Výhody:
-
-- offline build,
-- menšia závislosť od repository availability,
-- jednoduchšia artifact inspection.
-
-Nevýhody:
-
-- binárny diff,
-- repository size,
-- duplicita lock + archive,
-- nutnosť supply-chain skenu vendored obsahu.
-
-### Necommitnuté `charts/`
-
-CI ho rekonštruuje cez `helm dependency build`.
-
-Výhody:
-
-- menší Git repository,
-- lock je source of resolution.
-
-Nevýhody:
-
-- release závisí od registry/repository availability,
-- air-gap potrebuje mirror/cache,
-- remote artifact môže zmiznúť bez retention policy.
-
-## 11. Repository identity
-
-Dependency source môže používať:
-
-```yaml
-repository: https://charts.example.com
+```bash
+helm dependency update ./atlas-payments
 ```
 
-alebo repository alias:
+`update`:
 
-```yaml
-repository: "@internal"
+1. načíta constraints;
+2. kontaktuje configured repositories/registries;
+3. vyberie aktuálne matching versions;
+4. stiahne artifacts;
+5. aktualizuje `charts/`;
+6. vytvorí alebo zmení `Chart.lock`.
+
+Je to graph mutation command.
+
+```text
+rovnaký Chart.yaml
++ neskorší repository state
+→ iný resolved dependency
+→ iný packaged chart
+→ iný manifest
 ```
 
-Alias závisí od local Helm repository configuration. Pre CI musí byť bootstrap aliasu explicitný.
+Nepoužívaj ho ako skrytý production release step bez review lock diffu a artifact evidence.
 
-Source contract musí definovať:
+## 10. `helm dependency build`
 
-- TLS validation,
-- authentication,
-- immutable artifact retention,
-- repository ownership,
-- provenance/signature policy,
-- availability a mirror strategy.
-
-## 12. OCI dependencies
-
-Helm charts možno distribuovať cez OCI registry. Pri dependency source dodrž:
-
-- registry authentication,
-- immutable version/tag policy,
-- namespace ownership,
-- content retention,
-- provenance/signature workflow,
-- air-gapped mirror.
-
-OCI registry support neznamená automatické trust verification. Artifact identity, publisher a policy musia byť overené osobitne.
-
-## 13. `condition`
-
-```yaml
-dependencies:
-  - name: redis
-    version: 20.6.2
-    repository: https://charts.example.com
-    condition: redis.enabled
+```bash
+helm dependency build ./atlas-payments
 ```
 
-Values:
+Pri existujúcom validnom `Chart.lock` rekonštruuje `charts/` podľa uzamknutého graphu bez nového version negotiation.
 
-```yaml
-redis:
-  enabled: false
+Release pattern:
+
+```text
+reviewed Chart.yaml + Chart.lock D57
+→ dependency build
+→ verify downloaded artifact digests
+→ package CH57
+→ render/test M57
 ```
 
-Condition riadi, či sa dependency načíta/renderuje.
+Ak lock chýba, workflow nesmie ticho prejsť do update-like behavioru. CI má explicitne zlyhať alebo používať samostatnú controlled dependency-update pipeline.
 
-Riziká:
+## 11. `Chart.lock` ako graph evidence
 
-- disabled dependency môže zanechať staré release resources podľa upgrade diff/lifecycle,
-- application môže stále očakávať jej Service,
-- PVC alebo external data lifecycle sa nesmie spoliehať iba na boolean,
-- schema má validovať dependent configuration.
+`Chart.lock` zachytáva resolved dependency versions a digest metadata podľa Helm formátu.
 
-## 14. Tags
+Pri dependency zmene:
 
-```yaml
-dependencies:
-  - name: redis
-    tags:
-      - cache
-  - name: memcached
-    tags:
-      - cache
+```text
+uprav declaration
+→ controlled dependency update
+→ review declaration + lock diff
+→ verify artifacts a source
+→ semantic render diff
+→ upgrade/data/security tests
+→ commit declaration a lock spolu
 ```
 
-Parent values:
+Lock file nie je publisher signature ani kompletný SBOM. Je však základný resolution contract.
 
-```yaml
-tags:
-  cache: false
+Ručná editácia locku ničí dôveru v resolver output a môže vytvoriť graph, ktorý Helm nevie reprodukovať.
+
+## 12. Packaged graph a `charts/`
+
+Dependency môže byť v `charts/` ako:
+
+- packaged `.tgz`;
+- unpacked directory;
+- vendored chart;
+- artifact rekonštruovaný počas build-u.
+
+Repository policy musí rozhodnúť:
+
+```text
+čo je source of truth
+kde sa overuje digest
+či sa archives commitujú
+ako sa rieši offline build
+kto vlastní retention/mirror
+ako sa skenuje vendored content
 ```
 
-Tags umožňujú skupinové prepínanie. Condition je spravidla presnejší per-dependency contract. Pri kombinácii tags a conditions dokumentuj precedence a testuj všetky relevantné kombinácie.
+`Chart.lock` + nedostupný upstream artifact bez mirror/retention policy nie je kompletný reproducibility model.
 
-## 15. Alias
+## 13. Repository a OCI source identity
 
-Rovnaký chart možno použiť viackrát:
+Dependency source môže byť HTTP chart repository alebo OCI registry.
+
+Source trust zahŕňa:
+
+```text
+registry/repository endpoint
+TLS a authentication
+publisher identity
+namespace ownership
+artifact version/digest
+provenance/signature policy
+retention a deletion policy
+mirror/air-gap path
+```
+
+OCI transport neposkytuje automaticky publisher trust. Mutable tag alebo retagged chart môže stále zmeniť content.
+
+Production release má package-núť alebo pinovať exact chart artifacts a podporiť read-back verification.
+
+## 14. Alias ako local dependency identity
 
 ```yaml
 dependencies:
   - name: redis
     alias: primaryCache
-    version: 20.6.2
-    repository: https://charts.example.com
+    version: "20.6.2"
+    repository: oci://registry.example.com/helm
 
   - name: redis
     alias: sessionCache
-    version: 20.6.2
-    repository: https://charts.example.com
+    version: "20.6.2"
+    repository: oci://registry.example.com/helm
 ```
 
-Values sa viažu na alias:
+Values:
 
 ```yaml
 primaryCache:
@@ -325,275 +357,464 @@ sessionCache:
   architecture: standalone
 ```
 
-Over resource naming, selectors, Services, PVCs a port collisions. Subchart musí podporovať viac inštancií v jednom namespace/release.
+Alias rieši values a dependency identity, nie automaticky resource uniqueness.
+
+Over:
+
+- fullname helpers;
+- Services;
+- selectors;
+- PVC names;
+- ports;
+- ServiceAccounts/RBAC;
+- hooks;
+- external resources.
+
+Subchart s hard-coded names nemusí podporovať dve inštancie v jednom release/namespace-e.
+
+## 15. `condition` a `tags`
+
+Condition:
+
+```yaml
+condition: metrics.enabled
+```
+
+Tags môžu skupinovo prepínať viac dependencies.
+
+Enable/disable rozhodnutie mení rendered graph:
+
+```text
+boolean/tag verdict
+→ dependency templates prítomné alebo neprítomné
+→ resources create/update/delete diff
+→ data a external lifecycle
+```
+
+Disabled dependency môže zanechať:
+
+- PVC/PV;
+- CRDs;
+- hook-created resources;
+- external DNS/LB/IAM;
+- credentials;
+- stale application references.
+
+Boolean nie je decommission plan. Schema a release logic musia validovať, že parent application nepoužíva disabled Service alebo config.
 
 ## 16. `import-values`
 
-Dependency môže exportovať vybraný values contract:
+Child môže exportovať explicitný values subtree a parent ho importovať.
 
-```yaml
-exports:
-  service:
-    port: 6379
-```
-
-Parent dependency declaration môže tento subtree importovať.
-
-Použitie je vhodné iba pri stabilnom explicitnom interface. Import values nemení rendered Kubernetes resources a nie je service discovery mechanizmus.
+To je configuration interface, nie runtime service discovery.
 
 Riziká:
 
-- key collision v parent scope,
-- nejasný source effective value,
-- breaking change child exports,
-- zložitejší values precedence model.
+- key collision;
+- nejasný authoritative source;
+- breaking child export;
+- zložitejšia precedence;
+- parent behavior sa zmení po dependency update.
 
-## 17. Transitive dependencies
+Importuj iba stabilný, versionovaný contract a testuj old/new child outputs.
 
-Dependency môže mať vlastné dependencies:
+## 17. Transitive graph
 
 ```text
-parent chart
-→ database chart
-  → metrics exporter chart
+atlas-payments
+→ atlas-payment-metrics
+  → common-observability-library
 ```
 
-Parent release tak nepriamo vlastní aj transitive resources a hooks.
+Parent release nepriamo získava templates, helpers, images, hooks, RBAC a supply-chain riziko transitive dependencies.
 
-Pri review analyzuj celý graph:
+Review musí enumerovať celý graph, nie iba first-level entries.
+
+Evidence:
 
 ```bash
 helm dependency list ./chart
-helm show chart <dependency>
-helm show values <dependency>
+helm show chart <artifact>
+helm show values <artifact>
 ```
 
-Security a compatibility audit nesmie skončiť pri first-level dependencies.
+Doplň artifact digests, packaged content inventory a rendered source comments.
 
-## 18. Jeden release, nie viac releases
+## 18. Single-release failure domain
 
-Parent a subcharts vytvárajú jeden Helm release.
+Parent a enabled dependencies vytvárajú jeden release:
+
+```text
+one release name
+one namespace/storage history
+one aggregate render
+one revision sequence
+one upgrade/rollback command
+```
 
 Dôsledky:
 
-- spoločná release revision,
-- spoločný upgrade/rollback blast radius,
-- aggregate manifest ordering,
-- shared namespace podľa templates,
-- subchart resource failure môže zlyhať celý release,
-- dependency nemožno samostatne rollbacknúť ako release.
+- dependency API error môže zlyhať celý release;
+- dependency hook môže zablokovať upgrade;
+- dependency helper môže zmeniť parent resource;
+- dependency CRD môže rozšíriť cluster-scoped blast radius;
+- dependency nemožno samostatne rollbacknúť ako inú release revision;
+- partial update môže zasiahnuť parent aj child resources.
 
-Komponent s nezávislým SLO, ownerom alebo lifecycle môže patriť do samostatného release-u, nie do dependency.
+Release boundary musí zodpovedať ownership boundary.
 
-## 19. Install a update ordering
+## 19. Resource ordering nie je readiness orchestration
 
-Helm agreguje resources parentu a dependencies, zoradí ich podľa resource kind a name rules a následne ich vytvára/aktualizuje.
+Helm agreguje a zoradí resources podľa svojho install/update behavioru. API create order však nepreukazuje, že dependency je ready pre parent application.
 
-Na poradie medzi aplikáciami sa nespoliehaj ako na readiness orchestration. Kubernetes API acceptance neznamená, že database, webhook alebo controller je pripravený.
+```text
+Service created
+≠ endpoints ready
 
-Použi:
+Deployment created
+≠ application initialized
 
-- readiness/startup probes,
-- init/migration Jobs s explicitným contractom,
-- `--wait` podľa release modelu,
-- controllers a reconciliation,
-- oddelené release stages, ak je dependency skutočne sekvenčná.
+CRD created
+≠ controller/webhook ready
 
-## 20. CRDs v dependencies
+Job created
+≠ durable migration safe
+```
 
-CRDs v dependency `crds/` môžu byť nainštalované pred templates v release lifecycle podľa Helm behavioru.
+Použi probes, controllers, Jobs s idempotentným contractom, explicitné staged releases alebo external orchestration podľa skutočnej dependency.
 
-Riziká:
+## 20. CRDs v dependency graph-e
 
-- CRD je cluster-scoped a môže byť shared,
-- Helm CRD upgrade/delete behavior má osobitné hranice,
-- dependency uninstall nesmie odstrániť shared schema bez migration analýzy,
-- CRD/controller version compatibility musí byť explicitná,
-- rollback application resources nemusí rollbacknúť schema.
+CRD je cluster-scoped schema a upgrade boundary.
 
-Shared operator/CRD často patrí do samostatného platform release-u.
+Dependency môže pridať:
 
-## 21. Hooks v dependencies
+- CRD source;
+- conversion webhook;
+- controller;
+- custom resources;
+- storage-version migration.
 
-Hooks deklarované v subcharts sa tiež vykonávajú. Parent chart ich nevie všeobecne vypnúť iba tým, že ich ignoruje.
+Rollback parent application manifestu nemusí rollbacknúť CRD schema ani stored objects.
 
-Pred prijatím dependency skontroluj:
+Shared operator/CRD často patrí do samostatného platform release-u s vlastným lifecycle-om.
 
-- pre/post install/upgrade/delete hooks,
-- hook RBAC a ServiceAccount,
-- Jobs a external side effects,
-- delete policy a TTL,
-- hook timeout/failure behavior,
-- compatibility s GitOps alebo restricted clusterom.
+Pred prijatím dependency over:
 
-## 22. Dependency upgrade
+```text
+CRD owner
+served/storage versions
+controller compatibility
+conversion availability
+install/upgrade/delete behavior
+existing consumers
+rollback a decommission boundary
+```
 
-Dependency version bump môže meniť:
+## 21. Hooks v dependency graph-e
 
-- resource names,
-- selectors,
-- labels,
-- APIs,
-- CRDs,
-- default values,
-- PVC/data model,
-- hooks,
-- RBAC,
-- security context,
-- container images,
-- metrics a probes.
+Dependency hook môže vykonať:
 
-Postup:
+- database migration;
+- backup;
+- registration do external API;
+- certificate generation;
+- RBAC/bootstrap operáciu;
+- cleanup.
 
-1. prečítaj changelog a migration guide,
-2. porovnaj old/new chart defaults,
-3. renderuj oba effective manifests,
-4. vykonaj semantic diff,
-5. over deprecated APIs,
-6. testuj install aj upgrade path,
-7. over rollback/data compatibility,
-8. update-ni lock po review.
+Hook resource a jeho side effects patria do release incident subjectu aj vtedy, keď helper/application subchart vyzerá „voliteľne“.
 
-## 23. Dependency supply chain
+Review-ni:
 
-Každá dependency pridáva:
+- lifecycle point a weight;
+- ServiceAccount/RBAC;
+- idempotency key;
+- unknown-operation handling;
+- delete policy a evidence retention;
+- timeout;
+- external/durable side effects;
+- rollback/compensation.
 
-- maintainer trust,
-- chart templates ako executable render logic,
-- images a external downloads,
-- RBAC a cluster-scoped resources,
-- hooks a Jobs,
-- transitive dependencies.
+## 22. Dependency upgrade lifecycle
+
+```text
+current locked graph D56
+→ target declaration change
+→ resolve target graph D57
+→ old/new artifact and default comparison
+→ aggregate render diff
+→ CRD/hook/data/security analysis
+→ install + upgrade + rollback tests
+→ canary release
+→ production acceptance
+→ old artifact retirement
+```
+
+Dependency bump môže meniť:
+
+- default values;
+- helper definitions;
+- names/selectors;
+- APIs/CRDs;
+- RBAC/SecurityContext;
+- images;
+- hooks;
+- PVC/data model;
+- probes/metrics;
+- transitive graph.
+
+Changelog je vstup, nie dôkaz compatibility.
+
+## 23. Worked failure: release build znovu resolve-ne library chart
+
+Parent declaration:
+
+```yaml
+- name: atlas-platform
+  version: "~1.6.0"
+  repository: oci://registry.example.com/helm
+```
+
+Reviewed development render používal atlas-platform `1.6.1`. `Chart.lock` však nebol commitnutý. Production CI pred každým release vykonávalo:
+
+```bash
+helm dependency update ./chart
+```
+
+Medzitým registry publikovalo `1.6.3` s helperom `common.selectorLabels`, ktorý kolidoval s parent helperom.
+
+### Exact dependency subject
+
+```text
+parent source commit C57
+Chart.yaml constraint ~1.6.0
+missing reviewed lock
+resolver time/repository index state
+resolved dependency version 1.6.3
+dependency artifact digest LD58
+packaged graph PG57
+helper collision subject common.selectorLabels
+rendered manifest M57
+release payments-prod revision 18
+```
+
+### Competing hypotheses
+
+1. Parent chart templates zmenili selector.
+2. Values override zmenil name/labels.
+3. CI použilo stale vendored dependency.
+4. Dependency range resolve-ol novú version.
+5. Registry tag/version content bol mutable.
+6. Transitive dependency pridala helper definition.
+7. Alias alebo condition aktivovali iný chart path.
+8. Admission zmenila live selector.
+9. Helm major/apply behavior spôsobil update failure bez render zmeny.
+
+### Discriminating observation points
+
+| Hypotéza | Observation |
+|---|---|
+| parent source | diff packaged parent templates proti reviewed commit |
+| values | exact V57 a render s pinned old dependency |
+| stale vendoring | `charts/` artifact digest vs. declared/lock graph |
+| new resolution | CI dependency command, repository response a resolved version |
+| mutable artifact | version/tag read-back digest a registry audit |
+| transitive helper | enumerate definitions across full packaged graph |
+| alias/condition | effective values a dependency enablement inventory |
+| admission | server dry-run/live managedFields |
+| apply semantics | same old/new manifests applied with pinned client mode |
+
+### Finding
+
+Production build nebol reprodukovateľný:
+
+```text
+missing Chart.lock
+→ dependency update re-resolve-ne range
+→ atlas-platform 1.6.3 vstúpi do package PG57
+→ global helper collision zmení selector output
+→ API odmietne immutable Deployment selector
+→ Helm release zlyhá po časti API/hook operations
+```
+
+Root cause nie je iba „chybný helper“. Release control dovolil nepreskúmanú dependency generation bez source/lock change-u.
+
+### Containment
+
+- zastav release a dependency-update jobs;
+- zachovaj Chart.yaml, resolved artifacts, registry digests, packaged chart, M57 a Helm history;
+- ponechaj fungujúci Deployment;
+- neforce-ni resource replacement;
+- over, či dependency hooks alebo cluster-scoped resources už vytvorili side effects;
+- blokuj ďalšiu promotion PG57.
+
+### Authoritative recovery
+
+1. vyber reviewed atlas-platform version a digest;
+2. oprav helper global names/contracts;
+3. vykonaj controlled `helm dependency update`;
+4. commitni `Chart.lock` D58 s declaration;
+5. mirror-ni artifacts do controlled registry;
+6. v release CI používaj `helm dependency build` a digest verification;
+7. pridaj full graph duplicate-helper a semantic-render diff;
+8. testuj upgrade proti existujúcej release revision;
+9. vytvor nový parent chart artifact CH58.
+
+### Verify original a forbidden outcomes
+
+- opakovaný clean build z C58 + D58 vytvorí rovnaký PG58 a chart digest;
+- žiadny network/repository timing nemení graph;
+- full dependency inventory zodpovedá locku;
+- duplicate global helper names sú nulové alebo explicitne approved;
+- Deployment selector zostáva stable;
+- dependency hooks/CRDs/RBAC zodpovedajú approved inventory;
+- release rollout a payment journey uspejú;
+- disabled dependencies nezanechajú neznámy state;
+- druhý build a render sú deterministic.
+
+### Earlier controls
+
+- lock-required CI gate;
+- oddelený dependency-update workflow;
+- exact artifact digest/read-back;
+- repository mirror a retention;
+- full graph scanner/SBOM;
+- helper collision test;
+- aggregate semantic diff;
+- install/upgrade/rollback test z previous production revision;
+- component-to-release ownership review.
+
+## 24. Supply-chain controls
+
+Každá dependency pridáva executable render logic a často ďalšie images alebo cluster privileges.
 
 Controls:
 
-- approved sources,
-- exact resolved versions,
-- lock file,
-- provenance/signature verification podľa platformy,
-- artifact mirroring,
-- chart content scanning,
-- rendered-manifest policy,
-- image digest policy,
-- periodic update a end-of-life monitoring.
-
-## 24. Air-gapped model
-
-Pre offline cluster potrebuješ mirrorovať:
-
-- chart dependencies,
-- container images,
-- provenance/signature metadata,
-- CRD/controller artifacts,
-- package indexes podľa workflowu.
-
-Prepíš dependency repositories a image registries kontrolovaným values alebo packaging procesom. Nepoužívaj ad hoc internet fallback z production clusteru.
-
-## 25. Testing dependency graphu
-
-Minimálne testy:
-
-```bash
-helm dependency build ./chart
-helm dependency list ./chart
-helm lint ./chart
-helm template test ./chart -f values-ci.yaml
-helm template test ./chart -f values-all-disabled.yaml
-helm template test ./chart -f values-all-enabled.yaml
+```text
+approved publisher a source
+exact resolved version/digest
+reviewed lock
+artifact retention/mirror
+provenance/signature verification
+chart content scan
+full rendered-manifest policy
+image digest policy
+CRD/RBAC/hook inventory
+transitive graph inventory
+EOL/vulnerability monitoring
+controlled update cadence
 ```
 
-Ďalej over:
+Dependency artifact musí byť možné vyhľadať aj po incidente a rollback reviewe.
 
-- duplicate resource names,
-- selector collisions,
-- disabled dependency cleanup,
-- alias combinations,
-- global value effects,
-- CRD/API compatibility,
-- hooks,
-- server-side validation,
-- upgrade z predchádzajúcej production revision.
+## 25. Air-gapped model
 
-## 26. Anti-patterny
+Offline release potrebuje mirrorovať:
 
-### `helm dependency update` pri každom release bez review locku
+- parent chart;
+- all first-level a transitive chart artifacts;
+- container images;
+- provenance/signature metadata;
+- CRDs/controllers;
+- relevant repository/index metadata.
 
-Release môže získať novú dependency bez source zmeny.
+```text
+internet source
+→ controlled import a verification
+→ internal immutable mirror
+→ locked build
+→ offline render/deploy
+```
 
-### Dependency pre platform-shared database
+Žiadny production fallback na verejný internet nemá obchádzať approved graph.
 
-Application release náhodne vlastní kritický shared stateful service.
+## 26. Test matrix
 
-### Broad `global` configuration
+```text
+clean dependency build z locku
+repeated deterministic package digest
+all dependencies enabled
+all optional dependencies disabled
+condition + tags combinations
+aliases a multiple instances
+global values effects
+full helper definition inventory
+resource-name/selector collisions
+CRD/controller compatibility
+hook execution/idempotency
+RBAC/security policy
+server-side install validation
+upgrade z current production revision
+rollback/roll-forward boundary
+disabled dependency decommission
+air-gapped mirror-only build
+```
 
-Subcharts sú implicitne previazané a values ownership je nejasný.
+## 27. Troubleshooting workflow
 
-### Range bez commitnutého `Chart.lock`
+```text
+fix parent release a source commit
+→ inspect Chart.yaml constraint
+→ inspect Chart.lock a charts/ artifacts
+→ verify source registry/digests
+→ enumerate full dependency graph
+→ resolve enablement/alias/global values
+→ compare aggregate rendered manifest
+→ inspect hooks/CRDs/RBAC
+→ map failure na single-release operation
+→ recover graph v authoritative source
+→ verify deterministic rebuild a business outcome
+```
 
-Build nie je reprodukovateľný.
+Príkazy:
 
-### Ignorovanie transitive hooks a RBAC
+```bash
+helm dependency list ./chart
+helm dependency build ./chart
+helm lint ./chart
+helm template payments-prod ./chart -f values-prod.yaml
+```
 
-Dependency môže vykonať privilegovaný cluster-side code.
+`helm dependency update` používaj počas troubleshooting-u iba v controlled workspace, keď zámerom je vedome vytvoriť nový graph. Nespúšťaj ho nad incident artifactom, ktorý chceš reprodukovať.
 
-### Podmienenie dependency bez data decommission modelu
+## 28. Anti-patterny
 
-Boolean disable odstráni workload, ale zostanú alebo sa stratia dáta nejasným spôsobom.
+- component s independent lifecycle vložený do application dependency;
+- range bez reviewed `Chart.lock`;
+- `helm dependency update` pri každom release;
+- dependency artifact identifikovaný iba version tagom;
+- broad global values bez consumer ownershipu;
+- alias považovaný za automatickú resource isolation;
+- boolean condition považovaný za decommission;
+- first-level review bez transitive graphu;
+- library chart považovaný za neškodný source;
+- CRD/operator vložený do náhodného application release-u;
+- dependency hook bez idempotency a external-state evidence;
+- release ordering považovaný za readiness orchestration;
+- manual edit vendored archive;
+- air-gap build s hidden internet fallbackom;
+- dependency failure riešený force delete/replace bez graph opravy.
 
-### Manual edit dependency archive
+## 29. Kontrolné otázky
 
-Artifact už nezodpovedá publisherovi, locku ani provenance.
-
-## 27. Troubleshooting
-
-### Dependency nie je v `charts/`
-
-Spusti `helm dependency build`, over `Chart.lock`, repository auth a network/TLS.
-
-### `Chart.lock` nie je synchronizovaný
-
-`Chart.yaml` sa zmenil bez controlled `dependency update`. Regeneruj lock a review-ni diff.
-
-### Subchart values sa neaplikujú
-
-Over dependency name/alias, nesting v parent values, values precedence a schema.
-
-### Disabled dependency sa stále renderuje
-
-Over exact `condition` path, boolean type, tags a effective values cez `helm get values` alebo local render.
-
-### Dve dependencies vytvárajú rovnaký resource
-
-Over alias support, fullname overrides, namespace a hard-coded names v subcharte.
-
-### Upgrade zlyhá na hooku dependency
-
-Použi `helm get hooks`, inspect-ni Job/Pod logs, RBAC, timeout a delete policy.
-
-### Air-gapped build sa pokúša o internet
-
-Skontroluj všetky first-level aj transitive repositories a image references.
-
-## 28. Kontrolné otázky
-
-1. Prečo dependency nevytvára samostatný Helm release?
-2. Aký je rozdiel medzi `dependency update` a `dependency build`?
-3. Načo slúži `Chart.lock`?
-4. Ako parent override-ne values subchartu?
-5. Kedy sú vhodné global values?
-6. Čo riešia `condition`, `tags` a `alias`?
-7. Prečo môže dependency hook zlyhať celý release?
-8. Kedy má byť komponent samostatný release namiesto subchartu?
-9. Aké riziko predstavujú CRDs v dependency graph-e?
-10. Ako zabezpečíš reprodukovateľný air-gapped dependency build?
+1. Kedy component patrí do dependency a kedy do samostatného release-u?
+2. Ako sa líši declaration constraint od resolved artifact identity?
+3. Prečo `dependency update` a `dependency build` nie sú zameniteľné?
+4. Čo `Chart.lock` preukazuje a čo nepreukazuje?
+5. Ako subchart values scope a `global` menia ownership configuration?
+6. Prečo alias nezaručuje resource uniqueness?
+7. Aké side effects môže mať disabled dependency?
+8. Ako transitive dependency rozširuje render a security surface?
+9. Prečo jeden dependency helper môže zlyhať parent release?
+10. Ktoré dôkazy uzatvárajú reprodukovateľný dependency upgrade?
 
 ## Glossary impact
 
-Relevantné pojmy: Helm chart dependency, Helm subchart, dependency constraint, `Chart.lock`, `helm dependency update`, `helm dependency build`, vendored chart, dependency condition, dependency tag, dependency alias, global value — Helm, `import-values`, transitive chart dependency a single-release dependency graph.
+Relevantné pojmy: dependency graph subject, dependency ownership test, dependency declaration generation, resolved dependency artifact, locked packaged graph, lock-required release gate, dependency enablement generation, single-release failure domain, library-chart source injection, transitive render surface, dependency decommission subject a deterministic dependency rebuild verdict.
 
 ## Oficiálna dokumentácia
 
-- [Charts — Chart Dependencies](https://helm.sh/docs/topics/charts/#chart-dependencies)
+- [Charts — Dependencies](https://helm.sh/docs/topics/charts/#chart-dependencies)
 - [Dependencies Best Practices](https://helm.sh/docs/chart_best_practices/dependencies/)
 - [Subcharts and Global Values](https://helm.sh/docs/chart_template_guide/subcharts_and_globals/)
 - [`helm dependency build`](https://helm.sh/docs/helm/helm_dependency_build/)
