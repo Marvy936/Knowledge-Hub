@@ -1,462 +1,545 @@
 # Service a EndpointSlice
 
-Kubernetes Service poskytuje stabilnú logical network identity pre meniacu sa množinu backendov. EndpointSlice reprezentuje konkrétne backend endpointy, ktoré Service aktuálne môže používať. Service nie je process ani proxy Pod; je API contract, ktorý cluster DNS a Service dataplane implementujú pomocou virtuálnej IP, routingu, load balancing-u alebo external integration.
+Kubernetes Service je stabilný network contract nad meniacu sa množinou backendov. EndpointSlice je verzovaný backend inventory, ktorý prepája Service selector alebo explicitného ownera s konkrétnymi addresses, ports, conditions a topology metadata. Ani jeden objekt sám nie je application process; request musí prejsť DNS, node dataplane, endpoint selection, backend socket a reverse path.
 
-## 1. Problém dynamických Podov
+Dominantný lifecycle:
 
-Pods sa vytvárajú, zanikajú a menia IP. Klient nemá poznať:
+```text
+client communication intent a Service contract
+→ Service UID, generation, VIP a port identity
+→ selector alebo explicitný endpoint ownership
+→ Pod inventory, readiness a endpoint classification
+→ EndpointSlice cohort generation
+→ node dataplane programming
+→ DNS alebo direct Service address lookup
+→ endpoint selection, forwarding a NAT/state
+→ backend socket a application processing
+→ reverse path a response
+→ drain, replacement, propagation a business verification
+```
 
-- konkrétne Pod mená,
-- aktuálny replica count,
-- Node placement,
-- rollout revision,
-- Pod IP lifecycle.
+Kapitola používa Atlas Payments. Service `payments-api` v namespace `production` prijíma TCP traffic na porte 8443 a smeruje ho na accepted Pods release 4.2.0. Klientský request má operation ID `pay-8842`. Cieľom nie je iba „Service existuje“, ale:
 
-Service poskytuje stabilné:
+```text
+accepted client
+→ správny Service contract
+→ správna EndpointSlice cohorta
+→ správny Pod UID a image/config generation
+→ presne jeden payment authorization
+→ korektná response a audit
+```
 
-- meno,
-- DNS record,
-- port contract,
-- virtual IP alebo external exposure model,
-- selector-based backend discovery.
+## 1. Service subject musí zahŕňať viac než meno
 
-## 2. Základný Service
+Pri diagnostike fixuj:
+
+```text
+cluster a namespace
+Service name a UID
+metadata.generation a resourceVersion
+Service type, ClusterIP/clusterIPs a IP family
+port name, protocol, port a targetPort
+selector alebo selectorless ownership
+traffic policies a session affinity
+EndpointSlice names, resourceVersions a managed-by owner
+endpoint targetRef UIDs, addresses, ports a conditions
+client Pod UID a Node
+node dataplane implementation/generation
+backend Pod UID, Node, imageID a listen socket
+request/connection tuple a business operation ID
+```
+
+Rovnaké Service meno po delete/create môže mať inú UID, ClusterIP a controller lifecycle. Rovnaká Pod IP môže neskôr patriť inému Pod UID.
+
+## 2. Service je contract, nie backend inventory
+
+Service definuje stabilnú identity a port semantics:
 
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: web
+  name: payments-api
   namespace: production
 spec:
   selector:
-    app: web
+    app.kubernetes.io/name: payments-api
+    release.atlas.example/generation: "42"
   ports:
-    - name: http
+    - name: https
       protocol: TCP
-      port: 80
-      targetPort: http
+      port: 8443
+      targetPort: https
 ```
 
-Relevantné polia:
+Service selector vyberá Pods podľa labels. Nevyberá Deployment ani ReplicaSet. Preto selector musí byť navrhnutý ako traffic ownership contract, nie iba ako pohodlné `app=payments`.
 
-- `selector` — vyberá backend Pods podľa labels,
-- `port` — port Service contractu,
-- `targetPort` — backend port alebo pomenovaný container port,
-- `protocol` — TCP, UDP alebo SCTP podľa podpory,
-- `type` — exposure model,
-- `clusterIP` a IP-family fields,
-- traffic policy a session-affinity options.
+## 3. EndpointSlice cohort je effective backend state
 
-Service selector nevyberá Deployment ani ReplicaSet. Vyberá Pods podľa aktuálnych labels.
+Pre selector-based Service control plane vytvára EndpointSlices z matching Podov.
 
-## 3. Named `targetPort`
+```text
+Service selector S42
+→ Pod UID inventory
+→ address family + port/protocol grouping
+→ EndpointSlice cohort ES42
+```
 
-Pod template:
+Pre jeden Service môže existovať viac slices. Full backend set je union všetkých slices označených `kubernetes.io/service-name=<service>`.
+
+Endpoint identity zahŕňa:
+
+- address;
+- targetRef UID, ak je dostupný;
+- port/protocol;
+- `ready`, `serving` a `terminating` conditions;
+- Node a zone metadata;
+- slice owner/managed-by generation.
+
+Slice name nie je stabilná backend identity.
+
+## 4. Readiness, serving a termination sú odlišné states
+
+Request path rozlišuje:
+
+```text
+Pod exists
+container Running
+Pod Ready
+endpoint serving
+endpoint terminating
+endpoint ready for ordinary traffic
+node dataplane processed update
+existing connection still alive
+```
+
+Asynchrónnosť medzi týmito stavmi je súčasť control loopu. `Ready=False` na Pode neznamená, že všetky existujúce connections okamžite skončili. `terminating=true` neznamená, že process už neobsluhuje žiadny request.
+
+## 5. Named `targetPort` je cross-revision contract
+
+Service môže používať:
 
 ```yaml
 ports:
-  - name: http
-    containerPort: 8080
+  - name: https
+    port: 8443
+    targetPort: https
 ```
 
-Service:
+Každá accepted Pod revision musí deklarovať a reálne otvoriť pomenovaný port `https`. Named target port umožňuje rozdielne numeric ports medzi revisions, ale iba ak každý backend spĺňa rovnaký logical contract.
 
-```yaml
-ports:
-  - name: http
-    port: 80
-    targetPort: http
+Failure boundary:
+
+```text
+Pod label match
++ Pod Ready
++ named port chýba alebo smeruje na nesprávny socket
+→ endpoint cohort neobsahuje použiteľný port alebo traffic zlyhá
 ```
 
-Named target port umožňuje, aby rôzne Pod revisions používali odlišné numeric ports pri zachovaní rovnakého logical mena. Počas mixed-version rollout-u musí každý backend poskytovať rovnaký pomenovaný port contract.
+`containerPort` metadata neotvorí socket. Listen state musí overiť application/runtime observation.
 
-`containerPort` je metadata a dokumentácia; application stále musí reálne počúvať na danom socket-e.
+## 6. ClusterIP request journey
 
-## 4. EndpointSlice controller
+ClusterIP je virtual Service address, nie interface s proxy processom.
 
-Pre selector-based Service control plane typicky vytvorí jeden alebo viac EndpointSlice objektov.
-
-```yaml
-apiVersion: discovery.k8s.io/v1
-kind: EndpointSlice
-metadata:
-  labels:
-    kubernetes.io/service-name: web
-addressType: IPv4
-ports:
-  - name: http
-    protocol: TCP
-    port: 8080
-endpoints:
-  - addresses: ["10.244.2.17"]
-    conditions:
-      ready: true
-    nodeName: worker-2
-    zone: eu-central-1a
+```text
+client Pod P17 na Node N3
+→ DNS payments-api.production.svc...
+→ ClusterIP 10.96.42.17:8443
+→ node Service dataplane generation DP88
+→ endpoint selection z ES42
+→ Pod P52 10.244.8.31:9443
+→ application process
+→ response cez conntrack/NAT/reverse path
 ```
 
-EndpointSlice obsahuje:
+Dataplane môže používať kube-proxy alebo inú implementation. Diagnostika sa musí prispôsobiť effective implementation, nie predpokladanému iptables modelu.
 
-- address type,
-- endpoint addresses,
-- port/protocol kombináciu,
-- readiness/serving/terminating conditions,
-- Node a zone metadata,
-- ownership/managed-by metadata.
+## 7. DNS success a Service success sú odlišné
 
-Pre jeden Service môže existovať viac slices. Nesmieš predpokladať 1:1 mapping alebo stabilné meno slice-u.
+Bežný Service DNS record typicky vracia ClusterIP. DNS nevie, či:
 
-## 5. Readiness a endpoints
+- EndpointSlice cohort je prázdna;
+- targetPort je správny;
+- node dataplane je aktuálny;
+- NetworkPolicy povoľuje flow;
+- backend process počúva;
+- business operation je korektná.
 
-Pod readiness ovplyvňuje, či má byť endpoint bežne použitý na Service traffic.
+Preto:
 
-Dôležité rozlíšenie:
+```text
+DNS answer success
+≠ endpoint availability
+≠ packet forwarding
+≠ application correctness
+```
 
-- Pod existuje,
-- container beží,
-- Pod je Ready,
-- EndpointSlice endpoint je ready/serving/terminating,
-- Service dataplane už spracoval zmenu,
-- client connection už bola presmerovaná.
+## 8. Headless Service mení selection ownera
 
-Tieto stavy sa menia asynchrónne. Krátke propagation okno je súčasťou eventual consistency.
+Headless Service s `clusterIP: None` typicky publikuje endpoint addresses cez DNS namiesto jednej VIP.
 
-`publishNotReadyAddresses` môže publikovať aj not-ready endpoints, napríklad pre špecifický peer discovery model. Nie je to všeobecná oprava zlej readiness probe.
+```text
+DNS
+→ viac endpoint addresses
+→ client-side selection, cache a failover
+```
 
-## 6. Service types
+To je vhodné pre peer discovery alebo StatefulSet identity, ale selection responsibility sa presúva na klienta. DNS poradie nie je leader election ani health-aware durable load balancer.
+
+## 9. Selectorless Service a explicitné ownership
+
+Service bez selectoru môže reprezentovať external alebo operator-managed backend.
+
+```text
+Service UID S-EXT
+→ EndpointSlice managed-by platform.example.com
+→ external backend identity DB-PROD-7
+```
+
+Custom controller musí vlastniť:
+
+- endpoint discovery;
+- addresses a ports;
+- conditions;
+- lifecycle a cleanup;
+- stale backend removal;
+- audit correlation.
+
+Needituj controller-managed slices ručne. Pri custom slices používaj jednoznačný `endpointslice.kubernetes.io/managed-by` a Service label.
+
+## 10. Service types sú exposure transitions
 
 ### ClusterIP
 
-Defaultný typ. Poskytuje virtual IP dostupnú v cluster networku.
-
-```yaml
-spec:
-  type: ClusterIP
-```
+Cluster-internal virtual identity. Neznamená security, encryption ani tenant isolation.
 
 ### NodePort
 
-Otvorí pridelený port na Nodes a smeruje ho na Service backendy.
-
-```yaml
-spec:
-  type: NodePort
-```
-
-NodePort zväčšuje host exposure a potrebuje firewall, source-IP a traffic-policy analýzu.
+Publikuje Service port cez Node addresses. Mení host exposure, firewall surface, source-IP behavior a capacity model.
 
 ### LoadBalancer
 
-Žiada cloud controller alebo inú implementation o external load balancer.
+Vytvára desired external exposure, ktoré musí reconciliovať cloud alebo platform controller.
 
-```yaml
-spec:
-  type: LoadBalancer
+```text
+Service generation
+→ LB controller request
+→ external LB resource
+→ listener/health-check generation
+→ NodePort alebo direct endpoint integration
+→ Service/EndpointSlice cohort
 ```
 
-Service object sám nevytvorí load balancer bez podporovanej integrácie. Sleduj status conditions/events a external controller.
+External address v `status` nie je end-to-end acceptance verdict.
 
 ### ExternalName
 
-```yaml
-spec:
-  type: ExternalName
-  externalName: database.example.com
-```
-
-Vytvára DNS alias semantics, nie L4 proxy. Nemá selector ani bežné EndpointSlices. TLS hostname a application protocol musia zodpovedať aliasovaniu.
-
-## 7. Headless Service
-
-```yaml
-spec:
-  clusterIP: None
-  selector:
-    app: database
-```
-
-Headless Service neposkytuje jednu virtual ClusterIP. DNS typicky vracia priamo backend addresses.
-
-Použitie:
-
-- StatefulSet stable identities,
-- peer discovery,
-- application-side load balancing,
-- priame spojenie na konkrétne replicas.
-
-Headless Service neznamená automaticky zdravý cluster database protocol. Client musí zvládnuť viac answers, readiness, failover a connection lifecycle.
-
-## 8. Service bez selectoru
-
-Service môže reprezentovať backend mimo Pod selector modelu.
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: external-db
-spec:
-  ports:
-    - name: postgres
-      port: 5432
-      targetPort: 5432
-```
-
-EndpointSlices potom spravuje iný controller alebo operator:
-
-```yaml
-apiVersion: discovery.k8s.io/v1
-kind: EndpointSlice
-metadata:
-  name: external-db-1
-  labels:
-    kubernetes.io/service-name: external-db
-    endpointslice.kubernetes.io/managed-by: platform.example.com
-addressType: IPv4
-ports:
-  - name: postgres
-    protocol: TCP
-    port: 5432
-endpoints:
-  - addresses: ["192.0.2.20"]
-```
-
-Needituj EndpointSlices spravované Kubernetes controllerom. Pri vlastných slices nastav jednoznačný managed-by ownership a lifecycle.
-
-## 9. ClusterIP dataplane
-
-Service ClusterIP typicky nie je interface s processom, ktorý na nej počúva. Je virtual address implementovaná dataplane mechanizmom, napríklad:
-
-- kube-proxy s iptables,
-- IPVS,
-- nftables podľa platformy/verzie,
-- eBPF alebo iná CNI-integrated implementation.
-
-Zjednodušený flow:
-
-```text
-client Pod
-→ Service ClusterIP:port
-→ node Service dataplane
-→ selected EndpointSlice backend
-→ Pod IP:targetPort
-```
-
-DNS resolution a packet forwarding sú samostatné vrstvy. DNS môže fungovať, ale Service dataplane alebo backend môže zlyhávať.
-
-## 10. Session affinity
-
-```yaml
-spec:
-  sessionAffinity: ClientIP
-```
-
-Client-IP affinity môže smerovať klienta na rovnaký backend v rámci timeoutu, ale:
-
-- nie je durable session store,
-- NAT môže zdieľať jednu source IP medzi klientmi,
-- backend replacement affinity zruší,
-- traffic distribution môže byť nevyvážená.
-
-State má byť mimo ephemeral Podu alebo replikovaný podľa application modelu.
+Poskytuje DNS alias. Nevytvára L4 proxy ani EndpointSlice backend cohort. TLS hostname a application protocol musia zodpovedať aliasu.
 
 ## 11. Internal a external traffic policy
 
-Traffic policies môžu ovplyvniť, či sa preferujú iba node-local endpoints alebo cluster-wide backends.
+Traffic policy mení eligible endpoint set a packet semantics.
 
-Trade-offy:
+Pri `Local` policy môže Node bez local ready endpointu traffic dropnúť alebo neposkytnúť rovnakú availability ako cluster-wide routing.
 
-- source IP preservation,
-- extra network hop,
-- load distribution,
-- dostupnosť pri Node bez local endpointu,
-- topology imbalance.
-
-`Local` policy nie je automatická latency optimalizácia. Môže spôsobiť drop alebo nerovnomerné rozdelenie, ak external load balancer posiela traffic na Nodes bez ready local backendu.
-
-## 12. Topology-aware routing
-
-EndpointSlice môže niesť zone/topology informácie a platforma môže preferovať topology-local traffic.
-
-Ciele:
-
-- znížiť cross-zone latency a cost,
-- zachovať locality,
-- zároveň neohroziť availability.
-
-Potrebuješ:
-
-- dostatok ready endpoints v každej zóne,
-- správne Node zone labels,
-- kompatibilnú Service/dataplane implementation,
-- metrics pre imbalance a fallback.
-
-## 13. Dual-stack
-
-Service môže používať IPv4, IPv6 alebo dual-stack podľa cluster configuration.
-
-Relevantné fields:
-
-- `ipFamilies`,
-- `ipFamilyPolicy`,
-- `clusterIPs`,
-- EndpointSlice `addressType`.
-
-Jedna EndpointSlice obsahuje jeden address type. Dual-stack Service preto potrebuje samostatné IPv4 a IPv6 slices.
-
-Application a probes musia počúvať na správnych address families. DNS A/AAAA success neznamená, že client network path podporuje obe.
-
-## 14. LoadBalancer lifecycle
-
-Pri `type: LoadBalancer` sleduj viac vrstiev:
+Service acceptance preto potrebuje:
 
 ```text
-Service spec
-→ cloud/load-balancer controller
-→ external LB resource
-→ health-check / NodePort / direct-Pod integration
-→ Service or EndpointSlice backends
+Node inventory
+local endpoint coverage
+external LB node selection
+source-IP requirement
+fallback behavior
+zone/failure-domain distribution
 ```
 
-Failure môže byť v:
+`Local` nie je automaticky „rýchlejšie“. Je to locality a source-path contract s availability trade-offom.
 
-- cloud credentials/permissions,
-- subnet alebo quota,
-- controller reconciliation,
-- load balancer health checks,
-- firewall/security groups,
-- source ranges,
-- NodePort/dataplane,
-- Pod readiness.
+## 12. Topology a traffic distribution
 
-External IP v `status` nepreukazuje end-to-end dostupnosť.
+EndpointSlice nesie Node/zone metadata a môže niesť routing hints. Effective behavior závisí od Service fields, controller/dataplane supportu, endpoint distribution a cluster version.
 
-## 15. Deletion a connection behavior
+Cieľom môže byť:
 
-Pri Pod termination:
+- preferovať same-zone endpoint;
+- znížiť cross-zone traffic;
+- zachovať fallback pri výpadku;
+- nepreťažiť jednu zónu.
 
-1. Pod readiness/terminating state sa zmení.
-2. EndpointSlice controller aktualizuje endpoint conditions.
-3. Service dataplane spracuje zmenu.
-4. Existujúce connections môžu pokračovať podľa protocol/NAT state-u.
-5. Application potrebuje connection draining a grace period.
+Topology hint nepreukazuje, že client request skutočne zostal v zóne. Overuj per-zone flows a backend cohort metrics.
 
-Service nedokáže vrátiť už odoslaný request. Rollout safety závisí od readiness, endpoint propagation, termination grace a application protocolu.
+## 13. Dual-stack je dvojitý path contract
 
-## 16. Security
+IPv4 a IPv6 majú samostatné address subjects a EndpointSlices.
 
-Service nie je security policy. Poskytuje reachability abstraction.
+```text
+Service clusterIPs
+→ IPv4 cohort
+→ IPv6 cohort
+→ client resolver/address selection
+→ family-specific dataplane a backend socket
+```
 
-Použi samostatne:
+A/AAAA records, CNI routes, NetworkPolicy, application listen addresses a upstream firewalls musia byť konzistentné. Funkčný IPv4 request nepreukazuje IPv6 acceptance.
 
-- NetworkPolicy alebo dataplane policy,
-- TLS/mTLS,
-- authentication/authorization,
-- firewall/security groups,
-- private/public load balancer controls,
-- least-privilege controller credentials.
+## 14. Session affinity a persistent connections
 
-ClusterIP „internal“ neznamená automaticky dôveryhodný alebo šifrovaný traffic.
+`ClientIP` affinity je temporary selection state, nie durable session store. NAT môže zdieľať source IP a replacement endpoint affinity zruší.
 
-## 17. Observability
+Aj bez affinity môžu keep-alive, HTTP/2 alebo gRPC connections držať klienta na starej Pod generation dlho po zmene EndpointSlice.
+
+Rollout verification preto testuje:
+
+- fresh DNS lookup, ak je relevantný;
+- fresh connection;
+- existujúcu connection počas drainu;
+- request distribution podľa Pod UID/revision;
+- session/data correctness.
+
+## 15. Endpoint drain a connection lifecycle
+
+Bezpečný Pod removal:
+
+```text
+readiness alebo custom drain state False
+→ EndpointSlice condition transition
+→ node/LB dataplane propagation
+→ nové connections prestanú smerovať na Pod
+→ existujúce connections sa drainujú
+→ process dokončí in-flight work
+→ termination
+```
+
+`preStop` bez readiness removal a propagation budgetu môže iba oddialiť ukončenie, nie zabrániť novému trafficu.
+
+Service nedokáže vrátiť request, ktorý už backend prijal. Non-idempotent operation potrebuje application-level idempotency a graceful termination.
+
+## 16. Service nie je security boundary
+
+Reachability abstraction nenahrádza:
+
+- NetworkPolicy alebo dataplane policy;
+- TLS/mTLS;
+- application authentication/authorization;
+- firewall/source range policy;
+- ServiceAccount/RBAC controls nad Service a EndpointSlice mutation;
+- controller trust.
+
+Actor, ktorý môže zmeniť Service selector alebo custom EndpointSlice, môže presmerovať traffic na svoj backend. To je routing authority a potenciálny credential/data interception path.
+
+## 17. Worked failure: široký selector zaradil debug Pod
+
+Service vyberal iba `app=payments`. Debug Pod mal rovnaký label, ale iný image a nemal správne auth middleware.
+
+```text
+broad selector
+→ debug Pod sa dostane do EndpointSlice cohorty
+→ časť trafficu ide na debug backend
+→ replica counts a Service status vyzerajú zdravo
+```
+
+Recovery vyžadovala:
+
+- zúžiť traffic labels na owner a release cohort;
+- odstrániť debug endpoint z dataplane;
+- auditovať requests, ktoré naň smerovali;
+- overiť forbidden endpoint membership test.
+
+## 18. Worked failure: named port mismatch počas rollout-u
+
+New Pods boli Ready, ale pomenovaný port `https` smeroval na 9444, zatiaľ čo process počúval na 9443.
+
+Kubernetes readiness testovala iný port cez explicitnú probe. Endpointy preto vyzerali ready, no Service traffic zlyhával.
+
+Fix spojil named port, readiness a application listen contract do jedného runtime testu.
+
+## 19. Worked failure: `externalTrafficPolicy: Local` bez coverage
+
+External load balancer posielal traffic na všetky Nodes. Dva Nodes nemali local Payments endpoint.
+
+```text
+LB Node selection
++ Local policy
++ no local endpoint
+→ drop/timeout na časti requests
+```
+
+Cluster-wide endpoint count bol zdravý. Root cause bola intersection Node cohorty a local endpoint cohorty.
+
+## 20. Worked failure: terminating endpoint stále dostával requests
+
+Readiness sa odstránila, ale:
+
+- LB health interval bol 30 sekúnd;
+- node dataplane propagation mala oneskorenie;
+- klient držal HTTP/2 connection;
+- application `preStop` iba sleepoval.
+
+Výsledkom boli requests na terminating Pod a duplicate payment retry. Recovery musela riešiť edge, Service aj application connection lifecycle.
+
+## 21. Causal troubleshooting walkthrough: Pod IP funguje, ClusterIP zlyháva iba z jedného Node-u
+
+Symptóm:
+
+```text
+client Pods na N1 a N2 úspešné
+client Pod P17 na N3 dostáva timeout na Service ClusterIP
+priame spojenie z P17 na backend Pod IP funguje
+DNS vracia správny ClusterIP
+EndpointSlices obsahujú ready backends
+```
+
+### 1. Zafixuj flow subject
+
+```text
+client Pod UID P17, Node N3 a network namespace
+source IP/port
+Service UID S42, ClusterIP, protocol a port
+Service generation a traffic policy
+EndpointSlice cohort ES42 a resourceVersions
+selected/eligible endpoint UIDs a addresses
+backend targetPort a listen socket
+node dataplane implementation a generation DP88
+NetworkPolicy generation
+request ID pay-8842
+```
+
+### 2. Konkurenčné hypotézy
+
+1. N3 má stale alebo chýbajúce Service dataplane rules;
+2. `internalTrafficPolicy: Local` nemá local endpoint na N3;
+3. targetPort/endpoint port je nesprávny;
+4. EndpointSlice watch na N3 dataplane zaostáva;
+5. conntrack/NAT state na N3 je vyčerpaný alebo stale;
+6. NetworkPolicy rozlišuje Service-translated a direct path;
+7. dual-stack/address-family selection je rozdielna;
+8. Node firewall alebo route blokuje VIP path;
+9. client používa stale persistent connection;
+10. direct Pod test obchádza inú application/TLS identity boundary.
+
+### 3. Diskriminačné observation points
+
+- porovnaj fresh connection z rovnakého client namespace-u na N1/N2/N3;
+- over Service fields a local traffic policy;
+- spoj všetky EndpointSlices do jednej cohorty a skontroluj targetRef UIDs;
+- over backend socket na resolved targetPort;
+- sleduj packet pred Service translation, po selection a na backend Node-e;
+- porovnaj dataplane program state/generation medzi Nodes;
+- skontroluj conntrack saturation a drops;
+- over IPv4/IPv6 family použitú klientom;
+- porovnaj NetworkPolicy verdict na actual tuple;
+- skontroluj terminating/stale endpoint entries.
+
+### 4. Containment
+
+- cordon alebo vyraď N3 z client/external trafficu, ak failure ohrozuje request correctness;
+- zachovaj dataplane a conntrack evidence pred restartom;
+- nemaž Service ani všetky EndpointSlices;
+- nevypínaj NetworkPolicy cluster-wide;
+- neprepínaj traffic na hard-coded Pod IPs;
+- obmedz retries pri non-idempotent requests.
+
+### 5. Authoritative recovery
+
+Podľa findingu:
+
+- obnov node dataplane agent a watch state;
+- oprav Local policy/LB node coverage;
+- oprav targetPort a rollout-ni new Pod generation;
+- vyčisti iba preukázateľne stale conntrack/dataplane state podľa runbooku;
+- oprav family-specific CNI/firewall path;
+- odstráň stale custom endpoint cez jeho owner controller.
+
+### 6. Over pôvodný outcome
+
+Potvrď:
+
+- S42 a ES42 tvoria správny endpoint inventory;
+- N1, N2 aj N3 majú rovnakú accepted dataplane generation;
+- fresh request z každého Node cohortu dosiahne accepted Pod UID;
+- terminating alebo debug UIDs nie sú v ordinary traffic cohort-e;
+- IPv4 aj IPv6 prejdú, ak sú podporované;
+- pay-8842 je autorizovaný presne raz;
+- backend response a downstream audit sedia;
+- ďalší Pod rollout a drain nemenia výsledok.
+
+### 7. Posuň control skôr
+
+Pridaj:
+
+- selector ownership test;
+- Service-to-Pod named-port contract test;
+- EndpointSlice cohort telemetry s targetRef UID/revision;
+- per-Node Service canary;
+- Local policy coverage preflight;
+- dual-stack path test;
+- endpoint drain propagation budget;
+- synthetic business request cez Service pred old Pod termination;
+- alert na dataplane generation skew medzi Nodes.
+
+## 22. Observation matrix
+
+| Boundary | Subject | Kľúčové observations |
+|---|---|---|
+| Contract | Service UID/generation | type, VIPs, selector, ports, policies |
+| Backend intent | selector/owner | labels, managed-by, external discovery |
+| Endpoint state | EndpointSlice cohort | targetRef UID, address, port, conditions, zone |
+| Pod | backend Pod UID | readiness, image/config, Node, listen socket |
+| Client | client Pod/Node | resolver, source tuple, family, connection state |
+| Dataplane | Node generation | Service rules/maps, watch lag, drops, conntrack |
+| Policy | actual translated flow | NetworkPolicy/firewall verdict, source identity |
+| External exposure | LB/NodePort subject | node coverage, health, source ranges |
+| Drain | endpoint/connection generation | terminating, propagation, keep-alive, grace |
+| Business | request/operation ID | accepted backend, response, exactly-once invariant |
+
+## 23. Referenčné príkazy
 
 ```bash
-kubectl get service web -n production -o wide
-kubectl describe service web -n production
+kubectl get service payments-api -n production -o yaml
 kubectl get endpointslice -n production \
-  -l kubernetes.io/service-name=web -o wide
-kubectl get pod -n production -l app=web -o wide
-kubectl get pod <pod> -o jsonpath='{.status.conditions}'
+  -l kubernetes.io/service-name=payments-api -o yaml
+kubectl get pods -n production -l '<service-selector>' -o wide
+kubectl get pod <pod> -n production -o yaml
+kubectl get networkpolicy -n production -o yaml
+kubectl get events -A --sort-by=.metadata.creationTimestamp
 ```
 
-Overuj:
+Node dataplane observations závisia od implementation. Najprv identifikuj, či cluster používa kube-proxy, eBPF/CNI dataplane alebo inú platformovú vrstvu.
 
-- selector a Pod labels,
-- Service port/targetPort,
-- EndpointSlice addresses a conditions,
-- Pod readiness,
-- application listen sockets,
-- dataplane implementation/logs,
-- DNS record,
-- Node/firewall route.
+## 24. Referenčné pravidlá
 
-## 18. Systematický troubleshooting
+- Service selector vyberá Pods, nie controllers.
+- Service object a EndpointSlice cohort sú odlišné generations.
+- Full endpoint inventory môže byť rozdelený do viacerých slices.
+- Pod Ready, endpoint serving a endpoint terminating sú odlišné states.
+- Named targetPort je cross-revision runtime contract.
+- ClusterIP je virtual dataplane address, nie proxy process.
+- DNS success nepreukazuje Service forwarding ani backend correctness.
+- Headless Service presúva selection zodpovednosť na clienta.
+- `Local` traffic policy potrebuje local endpoint coverage.
+- External address v Service status nie je end-to-end verdict.
+- Existing connections môžu prežiť endpoint removal.
+- Service nie je security policy.
+- Recovery musí overiť actual backend UID aj business outcome.
 
-### Service nemá EndpointSlices alebo sú prázdne
+## 25. Kontrolné otázky
 
-Over selector, Pod labels, namespace, EndpointSlice controller a či ide o selectorless Service.
-
-### Endpointy existujú, ale nie sú ready
-
-Over Pod readiness probes, readiness gates, container status a `publishNotReadyAddresses` zámer.
-
-### DNS meno sa resolve-ne, spojenie timeoutuje
-
-DNS funguje. Over ClusterIP route/dataplane, NetworkPolicy, targetPort, application bind address a backend readiness.
-
-### Priame Pod IP funguje, Service nie
-
-Over Service port mapping, kube-proxy/alternate dataplane, ClusterIP allocation, session/traffic policy a node firewall.
-
-### Service funguje iba z niektorých Nodes
-
-Over node-local dataplane, CNI routes, conntrack, local traffic policy, EndpointSlice sync a Node conditions.
-
-### LoadBalancer má external IP, ale health check je down
-
-Over health-check path/port, NodePort alebo direct endpoint mode, source firewall a readiness.
-
-### Po rollout-e prichádzajú chyby na terminating Pods
-
-Over readiness removal latency, `preStop`, application draining, termination grace, keep-alive connections a load balancer health intervals.
-
-## 19. Anti-patterny
-
-### Service selector príliš všeobecný
-
-Vyberie unrelated alebo staré rollout Pods.
-
-### Ručná editácia controller-managed EndpointSlice
-
-Controller zmenu prepíše a vzniká ownership conflict.
-
-### Používanie Pod IP ako configuration
-
-Obchádza stable discovery a zlyhá pri replacement-e.
-
-### NodePort na všetkých Nodes bez firewall analýzy
-
-Zväčšuje attack surface.
-
-### `externalTrafficPolicy: Local` bez local endpoint coverage
-
-Traffic môže byť zahadzovaný alebo výrazne nevyvážený.
-
-### Service ako security boundary
-
-Bez NetworkPolicy a application security ostáva backend dostupný každému, kto má network path.
-
-### Headless Service považovaný za load balancer
-
-DNS vracia endpoint set; client nesie selection/failover zodpovednosť.
-
-## 20. Kontrolné otázky
-
-1. Aký problém rieši Kubernetes Service?
-2. Ako Service selector súvisí s EndpointSlices?
-3. Aký je rozdiel medzi `port` a `targetPort`?
-4. Prečo je named target port užitočný počas rollout-u?
-5. Ako sa líši ClusterIP, NodePort, LoadBalancer a ExternalName?
-6. Čo poskytuje headless Service?
-7. Prečo DNS success nepreukazuje funkčný Service dataplane?
-8. Aké endpoint conditions sú relevantné pri termination?
-9. Prečo sa pri jednom Service môže vytvoriť viac EndpointSlices?
-10. Ako diagnostikuješ Service bez funkčných backendov?
+1. Aký lifecycle spája Service contract s verified application response?
+2. Prečo Service selector nevyberá Deployment?
+3. Ako vytvoríš full backend inventory z EndpointSlices?
+4. Ako sa líšia `ready`, `serving` a `terminating`?
+5. Prečo named targetPort patrí do rollout contractu?
+6. Čo ClusterIP dataplane robí s packetom?
+7. Prečo direct Pod IP test nepreukazuje Service path?
+8. Aké riziko má Local traffic policy bez Node coverage?
+9. Prečo endpoint removal neukončí všetky connections?
+10. Čo musí Service acceptance verdict overiť?
 
 ## Glossary impact
 
-Relevantné pojmy: Kubernetes Service, Service selector, ClusterIP, NodePort, LoadBalancer Service, ExternalName, headless Service, Service port, targetPort, EndpointSlice, endpoint readiness, selectorless Service, Service dataplane, internal/external traffic policy, session affinity, topology-aware routing a dual-stack Service.
+Relevantné pojmy: Service lifecycle subject, Service contract generation, endpoint-cohort subject, EndpointSlice ownership generation, endpoint target identity, endpoint condition lifecycle, named-port contract, Service dataplane generation, client-Service flow subject, local-endpoint coverage, external exposure subject, endpoint-drain generation, Service observation matrix a Service acceptance verdict.
 
 ## Oficiálna dokumentácia
 
