@@ -1,607 +1,775 @@
 # Desired state a reconciliation loops
 
-Kubernetes funguje ako distribuovaný systém control loops. Používateľ alebo vyšší controller zapíše do API **desired state**. Controllers a node agents priebežne pozorujú **current/observed state**, porovnávajú rozdiel a vykonávajú kroky, ktoré systém približujú požadovanému výsledku. Reconciliation nie je jednorazová deployment procedúra; je to opakovaný, failure-tolerant proces.
+Kubernetes funguje ako distribuovaný systém control loops. Reconciliation nie je jednorazová deployment procedúra ani sekvencia shell krokov. Je to opakovaný protocol, ktorý z versionovaného intentu a aktuálnych observations vypočíta bounded transition, vykoná ho bezpečne pri retries a reportuje, čo bolo skutočne dosiahnuté.
 
-## 1. Desired, observed a actual state
+Dominantný lifecycle:
+
+```text
+object intent a generation
+→ list/watch a cache observation
+→ reconciliation key
+→ subject reconstruction
+→ desired/current/external-state comparison
+→ bounded idempotent action
+→ optimistic object/status write
+→ condition, requeue a backoff
+→ convergence verification
+→ deletion/finalizer cleanup
+→ drift, partial-failure a ownership recovery
+```
+
+Controller je správny iba vtedy, keď zostane bezpečný pri:
+
+- zmeškanom alebo duplicitnom evente;
+- stale cache;
+- process restarte;
+- leader transition;
+- API conflict-e;
+- external timeout-e s unknown outcome;
+- object update alebo delete počas práce;
+- opakovanom reconcile rovnakého subjectu.
+
+## 1. Atlas controller scenár
+
+Atlas používa custom resource:
+
+```text
+Kind: PaymentGateway
+namespace/name: production/eu-gateway
+UID: PG42
+metadata.generation: 7
+spec:
+  serviceRef: payments-api
+  replicas: 6
+  publicHostname: pay.example.com
+  cloudLoadBalancerClass: premium
+```
+
+Controller vlastní:
+
+- Kubernetes Service a Endpoint policy;
+- external cloud load balancer `LB-PG42`;
+- DNS binding;
+- status/conditions;
+- cleanup finalizer.
+
+Desired outcome:
+
+```text
+PaymentGateway generation 7
+→ correct Service subject
+→ one external LB tagged ownerUID=PG42
+→ listener a backend set match ready Pods
+→ DNS points to current LB
+→ external transaction succeeds
+→ status observedGeneration=7 a Ready=True
+```
+
+Forbidden outcomes:
+
+- dva external load balancers pre jednu UID;
+- LB patriaci starej UID po name reuse;
+- DNS na partially configured LB;
+- finalizer removed pri existujúcom external resource;
+- `Ready=True` pre starú generation.
+
+## 2. Desired, observed a effective state
 
 ### Desired state
 
-To, čo je deklarované v object `spec` alebo odvodené z vyššieho resource-u.
-
-Príklad:
-
-```yaml
-spec:
-  replicas: 3
-```
+Intent z `spec`, field ownershipu a dependent contracts.
 
 ### Observed state
 
-Stav, ktorý controller alebo agent zistil z API, runtime alebo external systému.
+To, čo controller momentálne pozná z:
 
-### Actual state
+- API cache alebo fresh read-u;
+- dependent objects;
+- external APIs;
+- runtime statusu;
+- vlastných bindings.
 
-Reálny stav systému v danom okamihu:
+### Effective/actual state
 
-- existujúce Pods,
-- bežiace processes,
-- attached volumes,
-- load balancer rules,
-- cloud instances,
-- DNS records.
+To, čo reálne existuje a ovplyvňuje používateľa:
 
-Observed state môže za actual state zaostávať kvôli cache, network latency alebo neukončenému reconciliation kroku.
+- running processes;
+- cloud load balancer rules;
+- DNS records;
+- mounted data;
+- active endpoints;
+- accepted payment operation.
 
-## 2. Reconciliation loop
+Observed state môže za effective state zaostávať. Status môže za desired generation zaostávať. External API môže potvrdiť request, no client nemusí dostať response.
 
-Základný algoritmus:
+## 3. Level-based reconciliation
 
-```text
-observe desired state
-observe current state
-compute difference
-perform bounded action
-record result/status
-repeat
-```
-
-Príklad ReplicaSet:
+Robustný controller odpovedá:
 
 ```text
-desired replicas = 3
-currently controlled Pods = 2
-→ create one Pod
+Ak desired state je Y a current effective state je X,
+aký najmenší bezpečný transition je potrebný teraz?
 ```
 
-Ak je Pods 4:
+Nie:
 
 ```text
-desired replicas = 3
-currently controlled Pods = 4
-→ delete one Pod podľa controller policy
+Prišiel event Create, preto vykonaj steps A, B, C presne raz.
 ```
 
-## 3. Controller nie je shell script
+Events sú triggers. Autoritatívny je current object a relevantný external state.
 
-Imperatívny script často predpokladá:
+Dôsledok:
 
-1. krok A uspeje,
-2. potom krok B,
-3. potom krok C,
-4. celý proces sa skončí.
+- zmeškaný event nesmie trvalo blokovať convergence;
+- duplicate event nesmie vytvoriť duplicate side effect;
+- retry musí znovu načítať latest intent;
+- resync musí vedieť opraviť drift.
 
-Controller musí tolerovať:
+## 4. List, watch, cache a work queue
 
-- reštart medzi krokmi,
-- opakované events,
-- stale cache,
-- partial failure,
-- concurrent writers,
-- external API timeout,
-- object deletion počas práce,
-- leader transition,
-- retry po neznámom výsledku.
-
-Preto má reconciliation vychádzať z aktuálneho state-u, nie iba z pamäte predchádzajúceho kroku.
-
-## 4. Level-based model
-
-Robustný controller sa správa **level-based**:
+Typický control path:
 
 ```text
-Aktuálny stav je X, desired state je Y. Čo treba urobiť teraz?
+API LIST snapshot
+→ WATCH od collection resourceVersion
+→ informer cache
+→ event handler
+→ queue key namespace/name alebo UID-aware key
+→ reconcile worker
 ```
 
-Nie iba edge-based:
-
-```text
-Prišiel event „create“, preto vykonaj presne jednu sekvenciu.
-```
-
-Events slúžia ako trigger na skoršie prehodnotenie. Autoritatívny je aktuálny object state v API a external systéme.
-
-Ak controller zmešká event, resync alebo ďalší relevantný event musí stále viesť ku konvergencii.
-
-## 5. Watch, informer a cache
-
-Typický controller používa:
-
-1. `list` na získanie počiatočného snapshotu,
-2. `watch` na zmeny od `resourceVersion`,
-3. local cache na efektívne reads,
-4. event handlers na enqueue reconciliation key,
-5. work queue na retries a rate limiting.
-
-Zjednodušený model:
-
-```text
-API server
-   ↓ list/watch
-shared informer/cache
-   ↓ event handler
-work queue: namespace/name
-   ↓
-reconcile worker
-   ↓ read current state
-API/external writes
-```
-
-Cache znižuje API load, ale môže byť krátkodobo stale. Critical write-after-read workflow musí poznať consistency a conflict model.
-
-## 6. Reconciliation key
-
-Queue často neobsahuje celý event payload, ale identity key:
-
-```text
-default/web
-```
-
-Worker po dequeue znovu načíta aktuálny object.
+Queue zvyčajne nenesie authoritative event payload. Nesie key, podľa ktorého worker znovu načíta current state.
 
 Výhody:
 
-- viac events pre ten istý object sa môže zlúčiť,
-- controller nepracuje so starým snapshotom z eventu,
-- retry používa aktuálny desired state,
-- object mohol byť medzičasom zmazaný.
+- viac events sa deduplikuje;
+- stale payload sa nepoužije ako source of truth;
+- object mohol byť medzičasom updated alebo deleted;
+- retry pracuje s latest generation.
 
-## 7. Idempotencia
+### Failure boundary: cache ešte nie je synced
 
-Reconcile krok má byť bezpečný pri opakovaní.
+Controller začne workers skôr, než initial list dokončí cache sync.
+
+```text
+cache vyzerá prázdna
+→ controller interpretuje dependents ako missing
+→ vytvorí duplicate resources
+```
+
+Workers alebo leader readiness musia čakať na required cache sync.
+
+## 5. Reconciliation subject
+
+Každý reconcile potrebuje presnú identity:
+
+```text
+controller name a version
+leader/replica identity
+cluster a API endpoint
+object GVK, namespace, name, UID
+metadata.generation a resourceVersion
+field-manager/ownership context
+dependent object UIDs
+external resource IDs a owner tags
+reconcile ID a queue attempt
+credential/config generation
+```
+
+Namespace/name bez UID nestačí pri delete/recreate collision. Event bez current generation nestačí pri update burst-e.
+
+## 6. Observe before mutate
+
+Reconcile má zostaviť current state inventory:
+
+```text
+top-level object
++ owned Kubernetes dependents
++ external resource lookup
++ status/binding metadata
++ deletion state
++ policy a permissions
+```
+
+Potom klasifikuje delta:
+
+- no-op/converged;
+- create missing resource;
+- update owned fields;
+- replace incompatible resource;
+- wait for dependency;
+- report permanent invalid intent;
+- delete/cleanup;
+- unknown outcome requiring reconciliation;
+- ownership conflict requiring human/policy decision.
+
+Nerozlišovať tieto states vedie k blind create, hot retry alebo destructive overwrite.
+
+## 7. Stable identity a idempotent action
+
+External create potrebuje deterministic identity alebo idempotency mechanism.
+
+Atlas používa:
+
+```text
+external owner tag: kubernetesUID=PG42
+operation key: paymentgateway/PG42/lb-generation-7
+```
+
+Create protocol:
+
+```text
+lookup external resource podľa stable owner identity
+→ ak existuje, observe current owned fields
+→ ak neexistuje, create s idempotency key
+→ po timeout-e znovu lookup
+→ nikdy nevytváraj druhý resource iba preto, že response chýbala
+```
+
+Idempotencia neznamená iba „rovnaký call nevadí“. Znamená, že opakovaný reconcile konverguje k jednej intended identity bez duplicate side effects.
+
+## 8. Bounded transition
+
+Jeden reconcile nemá robiť neobmedzenú orchestration sekvenciu bez checkpoints.
+
+Vhodnejší protocol:
+
+```text
+ensure finalizer
+→ return/requeue
+ensure external LB identity
+→ record binding/status
+→ return/requeue
+ensure listeners/backends
+→ return/requeue
+ensure DNS
+→ verify
+→ Ready=True
+```
+
+Každý krok je reconstructable z current state-u.
+
+Dlhá blokujúca operácia:
+
+- zvyšuje queue latency;
+- komplikuje cancellation;
+- drží stale assumptions;
+- zvyšuje blast radius pri process failure;
+- môže preťažiť external API.
+
+## 9. Optimistic concurrency a conflict recovery
+
+Viac actors môže meniť object.
+
+```text
+controller načíta RV10
+user alebo iný manager uloží RV11
+controller odošle update založený na RV10
+→ Conflict
+```
+
+Správne:
+
+```text
+načítaj latest object
+→ over UID/generation/deletion state
+→ znovu vypočítaj owned delta
+→ patch/update iba intended fields
+```
 
 Nesprávne:
 
-```text
-pri každom reconcile vytvor nový external load balancer
-```
+- blind retry starej kompletnej reprezentácie;
+- force overwrite cudzieho fieldu;
+- status write, ktorý omylom vracia starý spec.
 
-Správnejšie:
+## 10. Field ownership a multiple writers
 
-```text
-nájdi external resource podľa stabilnej identity
-ak neexistuje, vytvor ho
-ak existuje, porovnaj configuration
-uprav iba rozdiel
-```
-
-Pri create timeout-e nemusíš vedieť, či server resource vytvoril. Použi idempotency key alebo následné lookup podľa deterministic identity.
-
-## 8. Convergence
-
-Systém **konverguje**, keď opakované control loops vedú desired a actual state k zhode.
-
-Konvergenciu môžu blokovať:
-
-- nedostatok capacity,
-- invalid configuration,
-- denied permissions,
-- unavailable dependency,
-- permanent external API error,
-- conflicting controllers,
-- selector/ownership chyba,
-- stuck finalizer,
-- rate limit,
-- stale alebo nekonzistentný status.
-
-Controller nemá nekonečne retry-ovať maximálnou rýchlosťou. Potrebuje backoff, conditions a observability.
-
-## 9. Eventual consistency
-
-Kubernetes operácie sú často asynchrónne.
-
-Po:
-
-```bash
-kubectl apply -f deployment.yaml
-```
-
-môže API okamžite potvrdiť uloženie desired state-u, ale:
-
-- controller ešte nevytvoril ReplicaSet,
-- scheduler ešte nepridelil Pods,
-- kubelet ešte nepullol image,
-- readiness ešte nie je splnená.
-
-API success neznamená workload readiness.
-
-## 10. Controller chaining
-
-Vyšší controller často nevykonáva low-level operáciu priamo.
-
-```text
-Deployment controller
-→ desired ReplicaSet
-
-ReplicaSet controller
-→ desired Pods
-
-Scheduler
-→ Pod-to-Node assignment
-
-Kubelet
-→ containers running
-```
-
-Každá vrstva má vlastný object contract a conditions. Zlyhanie sa diagnostikuje sledovaním chainu downward.
-
-## 11. Ownership a selectors
-
-Controller potrebuje vedieť, ktoré dependent objects vlastní.
-
-Používa:
-
-- ownerReferences,
-- labels a selectors,
-- UID ownera,
-- controller-specific annotations alebo status.
-
-Nesprávne prekrývajúce sa selectors môžu spôsobiť:
-
-- adoption cudzieho objectu,
-- súboj controllers,
-- nečakané scale/down,
-- Service traffic na nesprávne Pods.
-
-## 12. Optimistic concurrency
-
-Viac actors môže čítať a zapisovať rovnaký object. API server používa `resourceVersion` na detekciu stale update-u.
-
-Flow:
-
-1. controller načíta version 10,
-2. iný writer vytvorí version 11,
-3. controller odošle update založený na version 10,
-4. API vráti conflict,
-5. controller načíta nový state a prepočíta zmenu.
-
-Conflict nie je dôvod slepo zopakovať starý write. Je to signál znovu reconcile-nuť aktuálny state.
-
-## 13. Field ownership
-
-Pri server-side apply môžu rôzni field managers vlastniť odlišné fields.
+Reconciliation je bezpečná iba pri explicitnom ownership contracte.
 
 Príklad:
 
-- platform team vlastní security context,
-- application team vlastní image a replicas,
-- autoscaler vlastní `/scale` replicas field.
+```text
+PaymentGateway controller owns:
+  status
+  Service annotations pre external LB
+  external LB listeners/backends
 
-Nejasné ownership hranice vedú k field conflicts alebo perpetual overwrites.
+platform policy owns:
+  Pod security fields
 
-## 14. Status reporting
+DNS controller owns:
+  DNS provider record
+```
 
-Controller má reportovať:
-
-- observed generation,
-- conditions,
-- relevant counters,
-- assigned external identifiers,
-- last known error reason,
-- progress state.
-
-Status má pomôcť userovi odpovedať:
+Ak dva controllers vlastnia rovnaký mutable field alebo external object bez coordination:
 
 ```text
-Controller videl môj najnovší spec?
-Čo už dokončil?
+controller A nastaví X
+→ controller B nastaví Y
+→ A deteguje drift a vráti X
+→ nekonečná oscillation
+```
+
+Oba môžu byť individuálne idempotentné a systém ako celok nekonverguje.
+
+## 11. Status a conditions
+
+Status má odpovedať:
+
+```text
+Videl controller latest generation?
+Aký external/dependent state vytvoril?
+Čo je ready, progressing alebo degraded?
 Čo ho blokuje?
-Je chyba transient alebo permanent?
+Je failure permanent alebo transient?
 ```
 
-Status nemá obsahovať secrets ani nekontrolované external payloads.
+Relevantné fields:
 
-## 15. Conditions
+- `observedGeneration`;
+- stable condition types;
+- machine-readable reasons;
+- external resource IDs bez secretov;
+- progress counters;
+- last known failure summary.
 
-Dobrá condition používa stabilný `type` a machine-readable `reason`.
+### Failure boundary: stale success status
 
-```yaml
-status:
-  conditions:
-    - type: Ready
-      status: "False"
-      reason: DependencyUnavailable
-      message: Waiting for database endpoint
-      observedGeneration: 7
+Controller zmení spec generation 7, no ponechá `Ready=True` z generation 6 bez observedGeneration update-u.
+
+Consumer, ktorý condition neviaže na generation, vyhlási nový rollout za úspešný.
+
+## 12. Condition transitions a retry noise
+
+Condition transition nie je každý reconcile attempt.
+
+Ak stav zostáva:
+
+```text
+Ready=False
+Reason=DependencyUnavailable
 ```
 
-Condition transition a repeated retry sú odlišné udalosti. `lastTransitionTime` sa nemá meniť pri každom identickom reconcile pokuse.
+`lastTransitionTime` sa nemá meniť pri každom retry. Inak:
 
-## 16. Requeue a retry
+- alerting interpretuje permanent failure ako čerstvé zmeny;
+- incident timeline sa stratí;
+- controller generuje zbytočné writes a vlastné events.
 
-Reconciliation môže byť opätovne naplánovaná:
+Status update sa má vykonať iba pri semantic zmene.
 
-- pri watched evente,
-- po explicitnom časovom intervale,
-- po transient error-e,
-- po dependency zmene,
-- pri periodic resync.
+## 13. Requeue, retry a backpressure
+
+Reconcile môže byť znovu spustený:
+
+- watched eventom;
+- explicitným intervalom;
+- transient errorom;
+- dependency eventom;
+- periodic resyncom.
 
 Retry policy potrebuje:
 
-- exponential backoff,
-- maximum concurrency,
-- rate limiting,
-- distinction permanent/transient error,
-- dead-letter alebo visible degraded state podľa use case-u.
+- exponential backoff;
+- jitter;
+- bounded concurrency;
+- per-key deduplication;
+- rate limiting;
+- permanent/transient classification;
+- queue age/depth observability;
+- external API protection.
 
-Hot loop môže preťažiť API server aj external dependency.
+### Failure boundary: hot loop
 
-## 17. Partial failure
+Permanentne invalid credential vedie k immediate requeue bez backoffu.
 
-Príklad:
+```text
+reconcile
+→ external 401
+→ immediate retry
+→ vysoké CPU a API traffic
+→ ďalšie keys čakajú
+→ controller lag rastie
+```
 
-1. controller vytvorí cloud load balancer,
-2. pred zapísaním external ID do statusu zlyhá,
-3. retry nevie, či už resource existuje.
+Retry bez zmeny vstupu nie je progress.
 
-Riešenia:
+## 14. Controller chaining
 
-- deterministic tags/idempotency token,
-- lookup podľa owner UID,
-- external resource status sync,
-- finalizer pred vytvorením external state-u,
-- compensation/cleanup workflow.
+Kubernetes behavior vzniká reťazou owners:
 
-Distributed transaction cez Kubernetes API a cloud API typicky neexistuje. Controller musí navrhnúť recoverable protocol.
+```text
+Deployment controller
+→ ReplicaSet intent
 
-## 18. Finalizers a external cleanup
+ReplicaSet controller
+→ Pod intent
 
-Ak object vlastní external resource:
+scheduler
+→ Node assignment
 
-1. controller pridá finalizer,
-2. vytvorí alebo spravuje external state,
-3. pri `deletionTimestamp` prestane vytvárať nový desired state,
-4. odstráni external resource,
-5. overí cleanup,
-6. odstráni finalizer.
+kubelet/runtime
+→ running containers
 
-Riziká:
+EndpointSlice controller
+→ service endpoints
+```
 
-- controller je vypnutý,
-- credentials expirovali,
-- external API nefunguje,
-- resource bol ručne zmenený,
-- finalizer zostane stuck.
+Každý chain segment má:
 
-Ručné odstránenie finalizeru je break-glass operácia s možným resource leakom.
+- vstupný object subject;
+- ownera;
+- queue a retry;
+- output/dependent subject;
+- status/events;
+- failure boundary.
 
-## 19. Garbage collection a dependent resources
+Troubleshooting ide downward a overuje, či owner vytvoril správny output pre latest generation.
 
-Pre Kubernetes-native dependents používaj ownerReferences a garbage collection, nie vlastný neauditovaný delete traversal.
-
-Controller však musí zvážiť:
-
-- foreground/background deletion,
-- orphan policy,
-- cross-namespace obmedzenia,
-- external resources mimo API,
-- cleanup ordering,
-- finalizer interactions.
-
-## 20. Leader election
-
-Controller môže bežať vo viacerých replicas pre availability. Ak jeho execution model vyžaduje jedného aktívneho leadera, použije leader election, typicky cez Lease.
-
-Leader election:
-
-- rieši active instance selection,
-- nerieši idempotenciu,
-- nezaručuje exactly-once execution,
-- nevylučuje krátke overlap alebo retry scenáre pri partitions,
-- nenahrádza optimistic concurrency.
-
-Controller musí zostať bezpečný pri opakovanom reconcile aj s leader election.
-
-## 21. Multiple controllers
-
-Kubernetes používa veľa špecializovaných controllers namiesto jedného monolitu.
-
-Výhody:
-
-- menší responsibility scope,
-- samostatné retries,
-- failure isolation,
-- extensibility,
-- jasnejší resource ownership.
-
-Riziko vzniká, keď dva controllers menia rovnaký field alebo external resource bez contractu.
-
-## 22. Admission vs. reconciliation
+## 15. Admission vs. reconciliation
 
 ### Admission
 
-Synchronous request-time decision:
+Synchronný request-time gate:
 
-- mutate,
-- validate,
-- reject.
+```text
+mutate, validate alebo reject pred persistence
+```
 
 ### Reconciliation
 
-Asynchronous ongoing process po uložení objectu.
+Asynchrónny ongoing control loop po persistence.
 
-Admission webhook nemá vykonávať dlhú external orchestration. Request môže nakoniec odmietnuť iná admission vrstva a side effect by zostal bez ownera.
+Admission webhook nemá robiť dlhú external orchestration s irreversible side effects. Neskoršia admission vrstva môže request odmietnuť a external resource by zostal bez persisted ownera.
 
-External side effects patria do controlleru s cleanup a retry modelom.
+External side effects patria controlleru s:
 
-## 23. Drift
+- stable identity;
+- retries;
+- status;
+- finalizer;
+- cleanup;
+- observability.
 
-Drift vznikne, keď actual state nezodpovedá desired state-u.
+## 16. Partial failure a unknown outcome
 
-Príklady:
+Distributed transaction cez API server a cloud API typicky neexistuje.
 
-- user ručne zmaže Pod,
-- cloud load balancer rule je zmenené mimo controlleru,
-- Node prestane reportovať,
-- volume attach zmizne,
-- image tag ukazuje na iný digest.
+Atlas failure:
 
-Controller môže drift:
+```text
+controller odošle CreateLoadBalancer(PG42)
+→ cloud LB vznikne
+→ response sa stratí
+→ controller crashne pred status write
+```
 
-- opraviť,
-- reportovať,
-- odmietnuť prepis pri shared ownership,
-- vyžadovať human decision.
+Po restarte môže controller vidieť:
 
-Nie každý drift má byť automaticky overwrite-nutý. Ownership policy musí byť explicitná.
+- object bez external ID v status-e;
+- external LB existujúci pod owner tagom;
+- žiadny reliable memory checkpoint.
 
-## 24. Broken desired state
+Správny reconcile external resource adoptuje podľa UID/idempotency key. Nesprávny vytvorí druhý LB.
 
-Kubernetes spoľahlivo reconcile-uje aj chybný intent.
+## 17. Finalizer lifecycle
 
-Príklady:
+Controller, ktorý vlastní external state, pridá finalizer **pred** vytvorením resource-u.
 
-- neexistujúci image,
-- nemožné scheduling constraints,
-- selector bez Pods,
-- neplatný health endpoint,
-- príliš nízky memory limit,
-- chýbajúci Secret.
+```text
+ensure finalizer persisted
+→ create/manage external state
+```
 
-Control loop nepozná business správnosť. Potrebuje validation, testing, policy a observability.
+Deletion:
 
-## 25. Backpressure a work queues
+```text
+deletionTimestamp observed
+→ zastav create/update desired path
+→ locate exact external resources podľa UID
+→ delete alebo transfer ownership
+→ verify absence/closure
+→ remove finalizer
+```
 
-Pri veľkom event burst-e controller potrebuje:
+### Failure boundary: finalizer bez recoverable ownera
 
-- bounded workers,
-- rate-limited queue,
-- deduplication keys,
-- priority podľa potreby,
-- queue depth metrics,
-- latency SLO,
-- protection external APIs.
+Operator/controller bol odinštalovaný, no objects zostali s jeho finalizerom. Delete requests sú stuck.
 
-Neobmedzená goroutine/thread per event stratégia môže preťažiť API server alebo cloud provider.
+Recovery potrebuje:
 
-## 26. Reconciliation observability
+- obnoviť compatible cleanup controller;
+- alebo vykonať break-glass external inventory/cleanup;
+- až potom finalizer odstrániť.
+
+## 18. Garbage collection a Kubernetes dependents
+
+Kubernetes-native dependents majú používať ownerReferences a garbage collector podľa scope pravidiel.
+
+Controller stále musí rozhodnúť:
+
+- foreground/background/orphan semantics;
+- cleanup ordering;
+- cross-namespace constraints;
+- finalizer interactions;
+- external resources mimo API.
+
+Vlastný delete traversal bez UID checks môže zmazať cudzie alebo name-reused objects.
+
+## 19. Leader election
+
+Viac replicas môže používať Lease-based leader election.
+
+Leader election rieši:
+
+```text
+ktorá replica aktívne spracúva leader-only loop
+```
+
+Nerieši:
+
+- idempotenciu;
+- exactly-once execution;
+- external unknown outcomes;
+- optimistic concurrency;
+- short overlap pri lease/partition timing;
+- stale in-flight request po leadership loss.
+
+Controller musí byť bezpečný aj vtedy, keď starý leader dokončí request a nový leader začne reconcile bez knowledge o response.
+
+## 20. Broken desired state
+
+Kubernetes spoľahlivo reconcile-uje aj chybný intent:
+
+- neexistujúci image;
+- nemožné constraints;
+- selector bez targetov;
+- príliš nízky memory limit;
+- chýbajúci Secret;
+- invalid external class;
+- circular dependency.
+
+Controller má:
+
+- odmietnuť schema/semantic chybu čo najskôr, ak je deterministická;
+- reportovať permanent condition;
+- nehot-loopovať;
+- neprepisovať user intent, aby status vyzeral green;
+- poskytovať actionable reason.
+
+## 21. Drift a ownership policy
+
+Actual state môže byť zmenený mimo controlleru.
+
+Controller podľa contractu:
+
+- drift automaticky vráti;
+- adoptuje a zapíše nový desired state iba explicitným workflowom;
+- reportuje konflikt;
+- vyžaduje human decision;
+- prestane mutovať shared field.
+
+Nie každý drift sa má okamžite overwrite-nuť. Pri incidentnom break-glass zásahu musí byť jasné, kto a kedy authoritative ownership obnoví.
+
+## 22. Worked failure: duplicate load balancers po timeoute
+
+PaymentGateway `PG42` generation 7 skončil so statusom:
+
+```text
+Ready=False
+Reason=Provisioning
+externalID: empty
+```
+
+Cloud účet obsahoval dva load balancers s podobným názvom.
+
+### Subject inventory
+
+```text
+PaymentGateway UID/generation/resourceVersion
+controller version, replica a leader timeline
+reconcile IDs a queue attempts
+external create request IDs
+idempotency/owner tags
+LB IDs, creation timestamps a configuration
+status write audit
+finalizer presence timeline
+cloud API logs
+```
+
+### Competing hypotheses
+
+1. Create response sa stratila a retry vytvoril duplicate.
+2. Dve controller replicas konali súčasne po leader transition.
+3. Owner lookup používal meno namiesto UID.
+4. Old object PG41 zanechal LB a nový PG42 vytvoril ďalší.
+5. Status write conflict zmazal external ID.
+6. External provider ignoroval idempotency key.
+7. User alebo iný controller vytvoril druhý LB.
+8. Cache bola stale a nevidela binding object.
+9. Finalizer bol pridaný až po external create.
+10. Reconcile create path beží pri každom evente namiesto current-state lookup-u.
+
+### Discriminating observation points
+
+- external request/idempotency IDs;
+- tags s owner UID;
+- controller leader Lease timeline;
+- API audit pre status/finalizer writes;
+- managedFields/resourceVersion conflicts;
+- cloud creation audit caller identities;
+- object UID/name histories;
+- controller logs s reconcile ID;
+- cache sync/read source;
+- exact LB configuration a traffic/DNS binding.
+
+### Containment
+
+- zastav ďalší create path pre PG42;
+- neodstraňuj náhodný LB podľa mena;
+- zachovaj cloud/API/controller audit;
+- zafixuj active DNS a backend subject;
+- zamedz trafficu na incomplete LB;
+- pozastav deletion, kým nie je určený owner každého LB.
+
+### Recovery
+
+- identifikuj canonical LB podľa owner UID, operation key a effective traffic state;
+- zapíš verified binding do statusu alebo dedicated objectu;
+- odstráň duplicate cez audited cleanup;
+- oprav lookup/idempotency protocol;
+- zabezpeč finalizer-before-create;
+- zaveď status patch s conflict-aware retry;
+- otestuj leader failover a lost-response scenár.
+
+### Over pôvodný outcome
+
+Potvrď:
+
+- presne jeden LB pre UID PG42;
+- listeners/backends a DNS pre generation 7;
+- status observedGeneration 7 a correct external ID;
+- žiadny resource pre stale PG41;
+- payment transaction exactly once;
+- second reconcile je no-op;
+- delete test odstráni external state pred finalizer removalom.
+
+### Posuň control skôr
+
+Pridaj deterministic external identity, provider idempotency key, UID-based lookup, request correlation, leader-transition test, unknown-outcome integration test a external-resource inventory alert.
+
+## 23. Worked failure: controller sa self-triggeruje statusom
+
+Controller pri každom reconcile zapisoval aktuálny timestamp do status message.
+
+```text
+status write
+→ watch update
+→ enqueue same key
+→ new timestamp
+→ ďalší status write
+```
+
+Výsledok:
+
+- vysoké CPU;
+- vysoký API write rate;
+- queue starvation;
+- etcd churn;
+- noisy events;
+- žiadny semantic progress.
+
+Recovery:
+
+- zapisovať status iba pri semantic zmene;
+- oddeliť transition time od attempt time;
+- filtrovať nerelevantné updates;
+- pridať per-key rate limiting;
+- overiť queue age a convergence po fix-e.
+
+## 24. Reconciliation observability
 
 Sleduj:
 
-- reconcile count a duration,
-- success/error/requeue rate,
-- work queue depth,
-- oldest queue item age,
-- API request latency/errors,
-- conflict rate,
-- external API latency/rate limits,
-- condition transitions,
-- leader status,
-- cache sync status,
-- generation lag.
+- reconcile count, duration a outcome;
+- queue depth a oldest item age;
+- requeue/error/backoff rate;
+- cache sync a watch reconnects;
+- API conflicts a client throttling;
+- external API latency, request IDs a rate limits;
+- generation lag;
+- condition transitions;
+- leader identity/transitions;
+- finalizer age;
+- duplicate/orphan external resources;
+- second-reconcile no-op rate podľa controller contractu.
 
-Log fields:
+Logs majú obsahovať:
 
-- controller name,
-- namespace/name,
-- UID,
-- generation,
-- reconcile ID,
-- action,
-- reason,
-- external resource ID bez secretov.
+```text
+controller
+cluster
+namespace/name/UID
+generation
+reconcile ID
+queue attempt
+action/reason
+external resource ID/request ID bez secrets
+```
 
-## 27. Diagnostika reconciliation chainu
+## 25. Diagnostický walkthrough pre nekonvergujúci object
 
 Postup:
 
-1. načítaj top-level object `spec`, `status`, conditions,
-2. porovnaj `generation` a `observedGeneration`,
-3. nájdi owner/dependent hierarchy,
-4. skontroluj labels/selectors,
-5. prečítaj Events,
-6. over controller deployment/leader/logs,
-7. sleduj ďalšiu nižšiu vrstvu,
-8. over permissions a admission,
-9. over external dependency,
-10. identifikuj permanent vs. transient failure.
-
-Príklad:
-
 ```text
-Deployment not Available
-→ ReplicaSet desired/current replicas
-→ Pod status/conditions
-→ scheduler Events
-→ kubelet/runtime/probes
+1. zafixuj object UID a desired generation
+2. porovnaj status observedGeneration a conditions
+3. nájdi controller/owner a jeho leader
+4. over cache sync, queue a reconcile logs
+5. zostav dependent a external inventory
+6. over field ownership a conflicts
+7. klasifikuj failure ako permanent, transient alebo unknown
+8. zachovaj evidence pred restartom/finalizer editom
+9. contain-ni side effects
+10. obnov authoritative protocol a verify original outcome
 ```
 
-## 28. Časté anti-patterny
+Nezačni restartom controlleru. Restart môže odstrániť in-memory evidence, zmeniť leadera a vyvolať retry unknown operation.
 
-### Event payload ako jediný source of truth
+## 26. Referenčné pravidlá
 
-Event môže byť stale alebo zmeškaný.
+- Events sú triggers, nie source of truth.
+- Reconcile key sa musí premeniť na fresh current-state subject.
+- Controller má byť level-based a bezpečný pri opakovaní.
+- Idempotencia potrebuje stable resource identity, nie iba retry rovnakého callu.
+- Bounded transitions zlepšujú recovery a observability.
+- Conflict vyžaduje nový read a prepočet.
+- Status musí byť viazaný na observed generation.
+- Retry bez backoffu a bez zmeny vstupu môže byť hot loop.
+- Leader election neposkytuje exactly-once.
+- External side effects potrebujú recoverable binding a finalizer.
+- Dvaja idempotentní writers môžu vytvoriť oscillation.
+- Second reconcile no-op je dôležitá, ale nie jediná correctness evidence.
+- Convergence musí byť overená na effective a business state-e, nie iba na object status-e.
 
-### Create on every reconcile
+## 27. Kontrolné otázky
 
-Vznikajú duplicate external resources.
-
-### Status update, ktorý spustí nekonečný vlastný reconcile
-
-Controller musí filtrovať nerelevantné updates alebo stabilne zapisovať iba skutočné zmeny.
-
-### Immediate retry bez backoffu
-
-Vznikne API/external hot loop.
-
-### Dlhá blokujúca operácia v jednom workerovi
-
-Zvyšuje queue latency a komplikuje cancellation.
-
-### Finalizer bez dostupného cleanup controlleru
-
-Objects zostanú trvalo terminating.
-
-### Dvaja writers na rovnakom fielde
-
-Vzniká konflikt alebo perpetual drift.
-
-### Leader election považovaný za exactly-once garanciu
-
-Retry a partial failure stále existujú.
-
-## 29. Troubleshooting
-
-### `observedGeneration` zaostáva
-
-Controller ešte nespracoval nový spec, je nedostupný, queue je preťažená alebo reconciliation zlyháva.
-
-### Object má opakovane rovnaký warning Event
-
-Identifikuj permanent condition; nečakaj, že retry bez zmeny vstupu problém vyrieši.
-
-### Controller používa vysoké CPU
-
-Over hot reconciliation loop, status self-trigger, event storm, cache resync a retry bez backoffu.
-
-### Duplicované cloud resources
-
-Over idempotency key, external lookup, status persistence a create timeout recovery.
-
-### Object je stuck terminating
-
-Over deletionTimestamp, finalizers, controller logs, credentials a external cleanup state.
-
-### Controllers sa prepisujú
-
-Pozri managedFields, audit logs, field ownership a admission mutation.
-
-## 30. Kontrolné otázky
-
-1. Aký je rozdiel medzi desired, observed a actual state?
-2. Prečo má controller po evente načítať aktuálny object?
-3. Čo znamená level-based reconciliation?
-4. Prečo musí byť reconcile idempotentný?
-5. Ako funguje list/watch/cache/work-queue model?
-6. Na čo slúži `observedGeneration`?
-7. Ako sa controller zotaví z partial failure po external create requeste?
-8. Aký je rozdiel medzi admission a reconciliation?
-9. Prečo leader election neposkytuje exactly-once execution?
-10. Ako diagnostikuješ nekonvergujúci top-level workload?
+1. Aký je rozdiel medzi desired, observed a effective state?
+2. Prečo je level-based controller odolnejší než event script?
+3. Čo nesie work queue a prečo?
+4. Ako cache sync ovplyvňuje correctness?
+5. Čo tvorí reconciliation subject?
+6. Ako sa controller zotaví z lost create response?
+7. Prečo leader election nie je exactly-once garancia?
+8. Kedy má controller použiť finalizer?
+9. Ako vzniká status self-trigger hot loop?
+10. Ako overíš convergence po recovery?
 
 ## Glossary impact
 
-Relevantné pojmy: desired state, observed state, actual state, reconciliation loop, Kubernetes controller, level-based reconciliation, convergence, eventual consistency, informer, controller cache, work queue, reconciliation key, requeue, rate-limited retry, generation lag, idempotent reconcile, partial failure, field ownership, controller chaining, hot loop, external resource reconciliation a leader-elected controller.
+Relevantné pojmy: reconciliation subject, level-based control protocol, cache-sync boundary, bounded reconcile transition, external binding subject, unknown reconcile outcome, generation closure, semantic status transition, reconciliation hot loop, UID-based external ownership, finalizer-before-create invariant, second-reconcile evidence, controller convergence verdict a multi-controller oscillation.
 
 ## Oficiálna dokumentácia
 
