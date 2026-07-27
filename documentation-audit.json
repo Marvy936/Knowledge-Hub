@@ -1655,15 +1655,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
       "title": "Ansible idempotencia",
-      "words": 1769,
-      "headings": 50,
-      "sections": 50,
-      "findings": 83,
-      "critical": 31,
-      "high": 42,
-      "medium": 8,
-      "low": 2,
-      "score": 731,
+      "words": 2052,
+      "headings": 34,
+      "sections": 34,
+      "findings": 73,
+      "critical": 28,
+      "high": 24,
+      "medium": 11,
+      "low": 10,
+      "score": 580,
       "grade": "D"
     },
     {
@@ -89723,8 +89723,215 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "3. Module idempotencia",
-      "line": 54,
+      "section": "1. Atlas scenár",
+      "line": 21,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "1. Atlas scenár",
+      "line": 21,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "1. Atlas scenár",
+      "line": 21,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `package atlas-payments-3.13.0 ;`, `configuration artifact C44 ;`, `systemd service;`, `database migration epoch M27 ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "1. Atlas scenár",
+      "line": 21,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "1. Atlas scenár",
+      "line": 21,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `C44`, `M27`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "2. Idempotencia, convergence a correctness",
+      "line": 56,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "Idempotencia",
+      "line": 66,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "Convergence",
+      "line": 70,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "3. Run a state subject",
+      "line": 90,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "4. Current-state observation",
+      "line": 109,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "4. Current-state observation",
+      "line": 109,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `eventually consistent API;`, `server-side defaults;`, `unordered rules;`, `computed fields;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "4. Current-state observation",
+      "line": 109,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "5. Declarative modules a operation contract",
+      "line": 135,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "5. Declarative modules a operation contract",
+      "line": 135,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "5. Declarative modules a operation contract",
+      "line": 135,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré attributes číta a vlastní;`, `ako normalizuje hodnoty;`, `či podporuje check mode;`, `čo znamená changed ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "5. Declarative modules a operation contract",
+      "line": 135,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "6. Command guard nie je plný state model",
+      "line": 165,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "6. Command guard nie je plný state model",
+      "line": 165,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "6. Command guard nie je plný state model",
+      "line": 165,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či database initialization uspela;`, `či marker patrí správnej database;`, `či schema version je správna;`, `či command skončil pred všetkými side effects;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "6. Command guard nie je plný state model",
+      "line": 165,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "8. Deterministic artifacts",
+      "line": 236,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "8. Deterministic artifacts",
+      "line": 236,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamp každého runu;`, `random value;`, `unordered dictionary alebo set;`, `mutable lookup;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "8. Deterministic artifacts",
+      "line": 236,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "9. Changed signal a runtime transition",
+      "line": 266,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
@@ -89732,17 +89939,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "3. Module idempotencia",
-      "line": 54,
+      "section": "9. Changed signal a runtime transition",
+      "line": 266,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `remote API nevracia stabilný stav,`, `provider normalizuje hodnoty,`, `module spravuje iba časť objektu,`, `defaulty sa menia podľa platformy,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination checksum;`, `changed result;`, `handler notification a execution;`, `process start/reload time;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "3. Module idempotencia",
-      "line": 54,
+      "section": "9. Changed signal a runtime transition",
+      "line": 266,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -89750,53 +89957,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "3. Module idempotencia",
-      "line": 54,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "4. Declarative state namiesto sequence",
-      "line": 78,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "6. creates a removes",
-      "line": 124,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "6. creates a removes",
-      "line": 124,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `marker nemusí dokazovať správny stav,`, `external operation mohla zlyhať po vytvorení markeru,`, `marker môže byť stale,`, `command môže mať ďalšie inputs, ktoré sa zmenili.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "6. creates a removes",
-      "line": 124,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "6. creates a removes",
-      "line": 124,
+      "section": "9. Changed signal a runtime transition",
+      "line": 266,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -89804,71 +89966,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "8. failed when",
-      "line": 169,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "8. failed when",
-      "line": 169,
+      "section": "10. External API a idempotency identity",
+      "line": 289,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "8. failed when",
-      "line": 169,
+      "section": "10. External API a idempotency identity",
+      "line": 289,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `success bez zmeny,`, `success so zmenou,`, `permanent failure,`, `transient failure,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable remote object ID;`, `GET/read-before-write;`, `upsert alebo compare-and-set;`, `idempotency key;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "8. failed when",
-      "line": 169,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "9. Templates",
-      "line": 188,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "9. Templates",
-      "line": 188,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "9. Templates",
-      "line": 188,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktuálny timestamp,`, `náhodná hodnota,`, `nestabilné iteration order,`, `mutable external lookup,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "9. Templates",
-      "line": 188,
+      "section": "10. External API a idempotency identity",
+      "line": 289,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -89876,44 +89993,44 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "10. Canonical serialization",
-      "line": 220,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "10. External API a idempotency identity",
+      "line": 289,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `GET`",
+      "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "10. Canonical serialization",
-      "line": 220,
+      "section": "12. Partial failure a resumability",
+      "line": 336,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "10. Canonical serialization",
-      "line": 220,
+      "section": "12. Partial failure a resumability",
+      "line": 336,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ordering,`, `quoting,`, `indentation,`, `newline convention,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable identities pre artifacts a external operations;`, `pre-validation pred rozsiahlymi mutations;`, `per-step postconditions;`, `recoverable handlers;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "10. Canonical serialization",
-      "line": 220,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "12. Partial failure a resumability",
+      "line": 336,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "11. File ownership a mode",
-      "line": 233,
+      "section": "17. Second-run test",
+      "line": 430,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -89921,26 +90038,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "13. Package state",
-      "line": 269,
+      "section": "19. Causal troubleshooting walkthrough: service sa reštartuje pri každom run-e",
+      "line": 477,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "1. Zafixuj run subject",
+      "line": 481,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 485,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "present",
-      "line": 271,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Pinned version",
-      "line": 279,
+      "section": "2. Súťažiace hypotézy",
+      "line": 485,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -89948,35 +90074,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "15. API operations",
-      "line": 308,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "15. API operations",
-      "line": 308,
+      "section": "2. Súťažiace hypotézy",
+      "line": 485,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "15. API operations",
-      "line": 308,
+      "section": "2. Súťažiace hypotézy",
+      "line": 485,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `declarative update,`, `upsert,`, `create-only,`, `patch,`.",
+      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Template obsahuje timestamp alebo random value.`, `Input collection má nestabilné ordering.`, `Secret lookup vracia vždy novú version.`, `Module/provider normalizuje remote value odlišne.`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "15. API operations",
-      "line": 308,
+      "section": "2. Súťažiace hypotézy",
+      "line": 485,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -89984,125 +90101,44 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "15. API operations",
-      "line": 308,
+      "section": "2. Súťažiace hypotézy",
+      "line": 485,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 485,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 485,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GET`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "16. Cloud a network modules",
-      "line": 330,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "16. Cloud a network modules",
-      "line": 330,
+      "section": "3. Diskriminačné observation points",
+      "line": 497,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "16. Cloud a network modules",
-      "line": 330,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `normalizovať hodnoty,`, `dopĺňať defaults,`, `meniť poradie rules,`, `poskytovať eventually consistent read,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "16. Cloud a network modules",
-      "line": 330,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "18. User a credential operations",
-      "line": 359,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "18. User a credential operations",
-      "line": 359,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "18. User a credential operations",
-      "line": 359,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable secret source,`, `explicitnú rotation udalosť,`, `version/epoch,`, `consumer rollout,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "18. User a credential operations",
-      "line": 359,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "19. Facts a mutable external data",
-      "line": 379,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "19. Facts a mutable external data",
-      "line": 379,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `facts,`, `inventory API,`, `DNS,`, `package repositories,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "19. Facts a mutable external data",
-      "line": 379,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "19. Facts a mutable external data",
-      "line": 379,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "20. Check mode",
-      "line": 393,
+      "section": "3. Diskriminačné observation points",
+      "line": 497,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -90110,26 +90146,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "20. Check mode",
-      "line": 393,
+      "section": "3. Diskriminačné observation points",
+      "line": 497,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "20. Check mode",
-      "line": 393,
+      "section": "3. Diskriminačné observation points",
+      "line": 497,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `plne podporovať check mode,`, `podporovať ho čiastočne,`, `task preskočiť,`, `vrátiť nepresný predicted change,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact before/after diff a checksums;`, `redacted effective-value manifest;`, `sorted/canonical render fixture;`, `secret epoch a lookup request identity;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "20. Check mode",
-      "line": 393,
+      "section": "3. Diskriminačné observation points",
+      "line": 497,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -90137,35 +90173,53 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "22. Idempotency a Molecule/test harness",
-      "line": 433,
+      "section": "3. Diskriminačné observation points",
+      "line": 497,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "5. Recovery",
+      "line": 513,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "5. Recovery",
+      "line": 513,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "22. Idempotency a Molecule/test harness",
-      "line": 433,
+      "section": "5. Recovery",
+      "line": 513,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "22. Idempotency a Molecule/test harness",
-      "line": 433,
-      "severity": "critical",
+      "section": "5. Recovery",
+      "line": 513,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prepare,`, `converge,`, `verify,`, `idempotence converge,`.",
-      "score": 12
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nondeterministic render → canonicalizuj inputs a odstráň volatile fiel`, `secret churn → viaž render na explicitnú epoch;`, `second writer → odstráň write path alebo transferuj ownership;`, `false result → oprav structured changed contract;`.",
+      "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "22. Idempotency a Molecule/test harness",
-      "line": 433,
+      "section": "5. Recovery",
+      "line": 513,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -90173,8 +90227,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "23. Change budget",
-      "line": 446,
+      "section": "5. Recovery",
+      "line": 513,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "5. Recovery",
+      "line": 513,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "7. Posuň control skôr",
+      "line": 527,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -90182,35 +90254,89 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "24. Idempotencia pri partial failure",
-      "line": 461,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "24. Idempotencia pri partial failure",
-      "line": 461,
+      "section": "20. Concurrency a ownership",
+      "line": 531,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "24. Idempotencia pri partial failure",
-      "line": 461,
+      "section": "20. Concurrency a ownership",
+      "line": 531,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current state určoval ďalší krok,`, `side effects mali stabilné identity,`, `temp artifacts mali cleanup,`, `handler failure bol obnoviteľný,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `controller job serialization;`, `deployment lock;`, `resource-specific mutex;`, `API optimistic concurrency/version field;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "24. Idempotencia pri partial failure",
-      "line": 461,
+      "section": "20. Concurrency a ownership",
+      "line": 531,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "20. Concurrency a ownership",
+      "line": 531,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "20. Concurrency a ownership",
+      "line": 531,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`, `policy`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 545,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 545,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 545,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 545,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Idempotencia, convergence, correctness a reproducibility sú odlišné vl`, `Run subject musí zahŕňať resolved external inputs.`, `Current-state observation musí pokryť celý owned state.`, `changed when: false nemôže nahradiť truthful mutation evidence.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 545,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -90218,255 +90344,39 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "24. Idempotencia pri partial failure",
-      "line": 461,
+      "section": "21. Referenčné pravidlá",
+      "line": 545,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 545,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 545,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 545,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "25. Concurrency",
-      "line": 481,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "25. Concurrency",
-      "line": 481,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "25. Concurrency",
-      "line": 481,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment lock,`, `automation-controller concurrency rule,`, `resource-specific lock,`, `serializácia citlivých jobs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "25. Concurrency",
-      "line": 481,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "25. Concurrency",
-      "line": 481,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "26. Ownership conflict",
-      "line": 503,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "26. Ownership conflict",
-      "line": 503,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ansible,`, `package post-install script,`, `application self-configuration,`, `človek cez SSH,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "26. Ownership conflict",
-      "line": 503,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "26. Ownership conflict",
-      "line": 503,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSH`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "27. Observability",
-      "line": 517,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "27. Observability",
-      "line": 517,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `changed task count,`, `second-run changes,`, `hosts s opakovaným driftom,`, `handlers spúšťané pri každom run-e,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "27. Observability",
-      "line": 517,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "27. Observability",
-      "line": 517,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "changed when: false na každom command tasku",
-      "line": 535,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Timestamp v každom template",
-      "line": 539,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "state: latest bez upgrade policy",
-      "line": 543,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Append cez shell",
-      "line": 547,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Random secret generation bez rotation triggeru",
-      "line": 551,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Fixed sleep namiesto state checku",
-      "line": 555,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Ignorovanie druhého converge runu",
-      "line": 559,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Viac automation owners jedného file-u",
-      "line": 563,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Template sa mení pri každom run-e",
-      "line": 569,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Package task stále reportuje change",
-      "line": 573,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Command task vždy reportuje change",
-      "line": 577,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Druhý run mení permissions",
-      "line": 585,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "API object sa stále aktualizuje",
-      "line": 589,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md",
-      "section": "Check mode hlási nulu, reálny run mení",
-      "line": 593,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
