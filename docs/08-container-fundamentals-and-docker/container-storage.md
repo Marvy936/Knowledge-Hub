@@ -1,404 +1,646 @@
 # Container storage
 
-Container storage musí oddeliť image content, runtime writable layer a dáta, ktoré majú prežiť replacement. Container môže byť stateful, ale persistence, identity, consistency, backup a recovery nesmú byť implicitne viazané na existenciu jednej runtime inštancie.
+Container storage je lifecycle dát oddelený od lifecycle-u replaceable processu. Container môže byť stateful, ale image, writable layer, mounted storage, backup a restore musia mať samostatnú identity, ownership a failure boundary.
 
-## 1. Tri storage kategórie
-
-Pri container workload-e rozlišuj:
-
-1. **image layers** — immutable application a userspace content,
-2. **writable container layer** — ephemeral runtime mutations,
-3. **external alebo mounted storage** — dáta s explicitným lifecycle.
-
-Ich ownership, backup a performance model sú odlišné.
-
-## 2. Writable layer
-
-Writable layer je vhodná pre:
-
-- temporary files,
-- disposable cache,
-- runtime metadata obnoviteľné po štarte,
-- krátkodobý scratch space.
-
-Nie je vhodná ako jediná kópia:
-
-- databázových dát,
-- uploads,
-- audit logs,
-- encryption keys,
-- job výsledkov,
-- recovery checkpoints.
-
-Pri odstránení containeru môže writable layer zmiznúť. Pri novom image deployment-e sa vytvorí nová runtime instance.
-
-## 3. Volume
-
-Volume je runtime-managed storage object s lifecycle oddeleným od konkrétneho containeru. Runtime typicky spravuje jeho location a mount integration.
-
-Výhody:
-
-- jednoduchšia persistence než writable layer,
-- oddelený lifecycle,
-- možnosť backupu alebo migration podľa drivera,
-- explicitné pripojenie k viacerým containers podľa access modelu.
-
-Volume však automaticky negarantuje:
-
-- remote durability,
-- replication,
-- backup,
-- encryption,
-- multi-host portability,
-- application-consistent snapshot.
-
-## 4. Bind mount
-
-Bind mount sprístupní existujúci host path do containeru.
-
-Príklad konceptu:
+Dominantný model:
 
 ```text
-host /srv/app/config
-→ container /etc/app
+data intent a durability/consistency contract
+→ persistent data identity a authoritative writer
+→ storage class/backend/topology selection
+→ provision, attach a mount
+→ UID/GID/LSM/mount-policy transition
+→ initialize alebo recover
+→ application read/write a flush semantics
+→ snapshot/backup evidence
+→ detach, fencing, replacement a reattach
+→ restore verification, retention a retirement
 ```
 
-Výhody:
+Volume, bind mount alebo snapshot nie sú samy osebe durability guarantee. Úspech znamená, že správny workload používa správnu data identity, s podporovanými access semantics, a dáta možno obnoviť do overeného application outcome-u.
 
-- priamy access k host files,
-- vhodné pre development source mount,
-- jednoduchá integrácia s existujúcim host storage.
+## 1. Atlas data subject
 
-Riziká:
+Atlas Payments worker používa persistentný retry ledger:
 
-- tight coupling na host path a permissions,
-- host filesystem exposure,
-- portability problems,
-- SELinux/AppArmor labeling,
-- neúmyselný writable access,
-- symlink a path traversal riziká,
-- host replacement bez dátovej migrácie.
+```text
+logical data ID: atlas-payments/prod/retry-ledger
+data generation: DL-203
+owner: Payments Platform
+writer identity: worker-primary-07
+storage object: vol-atlas-retry-22
+backend: regional block storage
+zone: eu-central-1a
+filesystem UUID: FS-882
+mount source: /dev/disk/by-uuid/FS-882
+container target: /var/lib/atlas/retry
+access mode: single writer
+backup policy: hourly incremental + daily application checkpoint
+RPO: 1 hour
+RTO: 2 hours
+encryption key generation: K17
+last verified restore: RESTORE-119
+```
 
-## 5. tmpfs
+Image digest alebo container ID nie je data identity. Replacement container musí explicitne získať `DL-203`, nie „nejaký volume s podobným názvom“.
 
-`tmpfs` drží dáta v memory-backed filesysteme, prípadne s možným swap behaviorom podľa host konfigurácie.
+## 2. Storage state classes
 
-Vhodné pre:
+Každý writable path klasifikuj:
 
-- temporary sensitive data,
-- runtime sockets,
-- rýchly scratch space,
-- files, ktoré nemajú prežiť restart.
+### Immutable image content
 
-Potrebné controls:
+Application binary, libraries a defaults. Mení sa rebuildom image-u.
 
-- size limit,
-- memory accounting,
-- permissions,
-- cleanup expectations,
-- OOM impact.
+### Ephemeral runtime state
 
-Tmpfs nie je trvalé úložisko a spotreba môže ovplyvniť memory limit workloadu alebo hosta.
+Rebuildable cache, temporary files, sockets alebo scratch. Môže zaniknúť s containerom.
 
-## 6. Mount options
+### Persistent application state
 
-Bezpečnosť a behavior ovplyvňujú mount flags:
+Business records, uploads, ledger, database files, durable queue alebo recovery checkpoint. Musí mať external ownera a recovery contract.
 
-- read-only,
-- `noexec`,
-- `nosuid`,
-- `nodev`,
-- propagation,
-- recursive read-only behavior,
-- filesystem-specific options.
+### External service state
 
-Read-only mount znižuje mutation surface, ale application môže stále zapisovať cez iný mount alebo API. Security model musí kontrolovať celý path graph.
+Managed database, object storage alebo queue. Nie je v container filesysteme, ale stále potrebuje identity, backup a compatibility model.
 
-## 7. Ownership a permissions
+### Secret material
 
-Container process používa UID/GID, ktoré sa aplikujú na mounted filesystem. Problémy vznikajú pri:
+Temporary credential file alebo key. Môže byť mounted, no nesmie sa automaticky stať durable data alebo backup obsahom.
 
-- numeric UID mismatch,
-- user namespace remapping,
-- NFS root squashing,
-- host-created files,
-- shared volume medzi images s odlišným user modelom,
-- init process meniaci ownership pri každom štarte.
+Nejasná classification je hlavný zdroj straty dát a uncontrolled persistence.
 
-Preferuj stabilné numeric identity contracty a priprav storage permissions mimo kritického application startup pathu.
+## 3. Writable layer
 
-## 8. User namespaces a storage
+Per-container writable layer je runtime subject:
 
-Pri user namespace remapping môže container UID 0 mapovať na vysoký host UID. Host path musí byť prístupný mapped identity.
+```text
+image snapshot
+→ container upper layer
+→ mutations
+→ deleted with container/snapshot lifecycle
+```
 
-Riziká:
+Je vhodná pre explicitne disposable state. Nie je vhodná ako jediný owner:
 
-- `chown` veľkého stromu pri migrácii,
-- nekompatibilný network filesystem,
-- multiple remapping ranges,
-- backup tool zachovávajúci neočakávané numeric IDs.
+- database dát;
+- uploads;
+- audit logs;
+- job výsledkov;
+- retry ledgeru;
+- encryption keys;
+- migration checkpoints.
 
-Over restore na cieľovom hoste s rovnakým mapping modelom.
+Restart processu môže writable layer zachovať, zatiaľ čo remove/recreate ju odstráni. „Prežilo restart“ preto neznamená persistentné.
 
-## 9. SELinux labels
+## 4. Volume subject
 
-Na SELinux hoste nestačia Unix permissions. Bind mount alebo volume potrebuje správny security context.
+Runtime-managed volume má lifecycle oddelený od containeru, ale contract musí zahŕňať:
 
-Chybný label sa môže prejaviť ako `Permission denied`, aj keď UID/GID a mode bits vyzerajú správne.
+```text
+logical data ID
+runtime volume ID/name
+backend object ID
+filesystem UUID alebo object prefix
+topology/access mode
+owner a writer lease
+encryption key
+backup/restore policy
+retention/deletion protection
+```
 
-Nepoužívaj globálne vypnutie SELinux. Uprav label/mount integration a over audit denials.
+Volume automaticky negarantuje remote durability, replication, backup, encryption, multi-host attachment ani application-consistent snapshot.
 
-## 10. Storage driver vs. volume driver
+Anonymous volume bez inventory môže prežiť container a stať sa orphanom, alebo sa pri novom deployment-e nepripojí správny object.
 
-Rozlišuj:
+## 5. Bind mount subject
 
-- **image/storage driver alebo snapshotter** — spravuje image layers a writable snapshots,
-- **volume driver/plugin** — pripája persistent storage,
-- **filesystem/storage backend** — reálny local, block, network alebo cloud storage.
+Bind mount sprístupní host path:
 
-Performance problém „Docker storage“ môže byť v ktorejkoľvek vrstve.
+```text
+host path + mount namespace + flags
+→ container target path
+```
 
-## 11. Local storage
+Silno viaže workload na:
 
-Local disk môže poskytovať nízku latency, ale viaže dáta na host.
+- node identity;
+- path existence a symlink resolution;
+- host UID/GID/ACL;
+- SELinux/AppArmor labels;
+- mount propagation;
+- filesystem a backup policy;
+- host replacement lifecycle.
 
-Potrebný lifecycle:
+Bind mount development source-u a produkčný persistent host path sú odlišné risk models. Mount host rootu alebo runtime socketu je security-boundary zmena, nie storage convenience.
 
-- scheduling/placement constraint,
-- host failure recovery,
-- backup,
-- disk replacement,
-- capacity monitoring,
-- cleanup orphaned volumes.
+## 6. Tmpfs a memory-backed state
 
-Container replacement na rovnakom hoste nie je to isté ako host failure recovery.
+Tmpfs je vhodný pre temporary sensitive files, sockets alebo scratch:
 
-## 12. Network filesystem
+```text
+mount create
+→ memory-backed writes
+→ memory accounting/swap behavior
+→ teardown destroys state
+```
 
-NFS, SMB alebo distribuovaný filesystem umožňuje multi-host access, ale prináša:
+Potrebuje:
 
-- network latency,
-- server availability dependency,
-- locking a cache semantics,
-- UID/GID mapping,
-- stale mounts,
-- split-brain alebo consistency trade-offy,
-- mount timeout behavior.
+- size limit;
+- UID/GID/mode;
+- memory/cgroup accounting;
+- swap/confidentiality policy;
+- cleanup expectation;
+- behavior pri OOM.
 
-Application musí podporovať dané filesystem semantics. Databáza navrhnutá pre local POSIX disk nemusí byť bezpečná na ľubovoľnom network filesysteme.
+Tmpfs môže vyčerpať memory boundary a nie je automaticky „secret-safe“, ak application hodnotu kopíruje do logu alebo dumpu.
 
-## 13. Block storage
+## 7. Provision a topology
 
-Block device alebo cloud volume môže poskytovať filesystem alebo raw block access.
+Storage backend musí zodpovedať workload topology:
 
-Over:
+- local disk — nízka latency, node affinity a host-failure risk;
+- block storage — attach/detach, zone a single/multi-attach contract;
+- network filesystem — shared access, network/locking/cache semantics;
+- object storage — key/object API, nie POSIX filesystem;
+- managed database/service — external lifecycle a protocol consistency.
 
-- attach/detach lifecycle,
-- single-writer/multi-attach capabilities,
-- fencing,
-- filesystem mount state,
-- zone/region constraints,
-- snapshot consistency,
-- encryption keys,
-- performance class a burst limits.
+Selection questions:
 
-Súbežné pripojenie bez cluster-aware filesystemu môže poškodiť dáta.
+```text
+required durability a availability
+read/write access mode
+latency, IOPS a throughput
+filesystem/API semantics
+zone/region mobility
+backup/restore capabilities
+encryption a key ownership
+cost/capacity growth
+```
 
-## 14. Object storage
+„Dá sa mountnúť“ neznamená, že application podporuje backend semantics.
 
-Object storage nie je POSIX filesystem. Je vhodný pre:
+## 8. Attach, mount a namespace transition
 
-- uploads,
-- artifacts,
-- backups,
-- logs,
-- immutable blobs.
+Block storage lifecycle:
 
-Application musí používať object API semantics: keys, versions, eventual/defined consistency model, multipart uploads, retention a lifecycle rules.
+```text
+backend volume available
+→ attach to exact node
+→ device identity appears
+→ filesystem recognized
+→ mount with expected flags
+→ bind into container namespace
+→ application opens correct path
+```
 
-Mountovanie object storage ako filesystem môže skryť semantic rozdiely a vytvoriť nečakané rename, locking alebo durability behavior.
+Každý krok má samostatný failure verdict. Mount target môže navyše prekryť image directory a skryť default content.
 
-## 15. Access modes
+Observation subject:
 
-Pri návrhu definuj:
+- backend volume/attachment ID;
+- node a device path;
+- filesystem UUID/type;
+- host mount ID/options;
+- container mount namespace a target;
+- source/target inode/device identity;
+- open-file/process inventory.
 
-- single reader/writer,
-- multiple readers,
-- multiple writers,
-- read-only replicas,
-- writer fencing,
-- topology constraints.
+## 9. UID, GID a object authorization
 
-„Volume sa dá pripojiť k dvom containers“ neznamená, že application alebo filesystem bezpečne podporuje concurrent writers.
+Access verdict môže závisieť od:
 
-## 16. Stateful application identity
+```text
+process effective UID/GID/groups
+→ user namespace mapping
+→ filesystem owner/mode/ACL
+→ network filesystem identity mapping
+→ mount flags
+→ SELinux/AppArmor object policy
+```
+
+Container UID 0 môže mapovať na unprivileged host UID. Numeric ownership contract musí prežiť:
+
+- image upgrade;
+- node replacement;
+- backup/restore;
+- rootless/rootful migration;
+- network filesystem export rules.
+
+Recursive `chown` veľkého volume pri každom startup-e je availability a race risk.
+
+## 10. Mount policy
+
+Relevantné flags:
+
+- read-only;
+- `noexec`;
+- `nosuid`;
+- `nodev`;
+- propagation;
+- recursive read-only;
+- filesystem-specific consistency/cache options.
+
+Read-only target nezaručuje, že process nemá iný writable alias k rovnakým dátam. Audituj celý mount graph.
+
+Propagation môže preniesť mount event medzi hostom a containerom a musí byť explicitne zdôvodnená.
+
+## 11. Persistent data identity
 
 Stateful workload potrebuje oddeliť:
 
-- process/container identity,
-- persistent data identity,
-- network/service identity,
-- encryption identity,
-- backup/recovery identity.
+```text
+container/process identity
+persistent data identity
+service/network identity
+writer lease/epoch
+encryption identity
+backup/recovery identity
+```
 
-Container môže byť nahradený bez zmeny data identity. Naopak, omylom pripojený volume z iného environmentu môže spustiť správny image nad nesprávnymi dátami.
+Správny image nad nesprávnym production/staging volume je data incident, aj keď mount aj process start prešli.
 
-## 17. Initialization
+Preflight má overiť data marker alebo metadata bez nekontrolovanej mutation:
 
-Storage initialization môže zahŕňať:
+```text
+logical environment
+application/schema generation
+filesystem/backend identity
+writer lease
+restore lineage
+```
 
-- filesystem format,
-- directory layout,
-- ownership,
-- schema migration,
-- seed data,
-- encryption setup.
+## 12. Initialization
 
-Musí byť:
+Initialization môže zahŕňať filesystem format, directory layout, ownership, schema migration, seed alebo encryption setup.
 
-- idempotentná alebo ledger-based,
-- concurrency-safe,
-- versionovaná,
-- obnoviteľná po partial failure,
-- oddelená od bežného application startupu podľa rizika.
+Safe lifecycle:
 
-Dva containers súčasne inicializujúce rovnaké dáta môžu vytvoriť race.
+```text
+identify blank/existing subject
+→ acquire initialization/writer lock
+→ validate version and environment
+→ apply ledgered transition
+→ commit completion marker after success
+→ verify application invariant
+→ release lock
+```
 
-## 18. Backup
+Marker vytvorený pred dokončením operácie môže zakryť partial state. Dva containers inicializujúce rovnaký volume môžu corruptnúť data alebo vytvoriť divergent schema.
 
-Backup má zachytiť potrebný recovery unit:
+## 13. Single-writer a fencing
 
-- volume/filesystem data,
-- database-consistent state,
-- metadata a configuration,
-- encryption keys alebo key references,
-- application/version compatibility,
-- ownership a permissions.
+`single writer` je runtime safety contract, nie iba storage-driver label.
 
-Filesystem snapshot bez application quiesce alebo databázového consistency mechanizmu môže byť crash-consistent, nie application-consistent.
+Pri failover-e:
 
-## 19. Restore
+```text
+old writer loses authority
+→ fencing confirms no more writes
+→ storage detach/lease expires
+→ new writer attaches
+→ filesystem/application recovery
+→ new writer epoch becomes active
+```
 
-Restore test musí overiť:
+Network partition môže nechať old container živý aj po controller rozhodnutí. Bez fencing-u môžu oba writers zapisovať na shared block/filesystem a spôsobiť corruption.
 
-1. artifact dostupnosť,
-2. checksum/integritu,
-3. decryption,
-4. filesystem/volume creation,
-5. permissions a labels,
-6. application compatibility,
-7. data validation,
-8. RPO/RTO,
-9. cleanup a incident evidence.
+Fencing môže používať attachment exclusivity, lease epoch, storage reservation, node power fencing alebo application consensus podľa systému.
 
-Backup bez pravidelného restore testu je iba nepotvrdená hypotéza.
+## 14. Multi-reader/multi-writer semantics
 
-## 20. Snapshot
+Schopnosť backendu pripojiť storage viacerým clients nepreukazuje bezpečnosť application.
 
-Snapshot môže byť:
+Treba poznať:
 
-- copy-on-write storage snapshot,
-- filesystem snapshot,
-- cloud block snapshot,
-- database-native snapshot.
+- filesystem cluster awareness;
+- locking model;
+- cache coherence;
+- append/rename/fsync semantics;
+- application concurrency protocol;
+- split-brain recovery.
 
-Snapshot nie je automaticky backup. Môže zostať v rovnakom failure domain-e, závisieť od rovnakého accountu/kľúča alebo nezachytávať application consistency.
+Databázové files na arbitrary shared filesysteme sú nebezpečné bez vendor-supported modelu.
 
-## 21. Encryption
+## 15. Object storage boundary
+
+Object storage používa:
+
+```text
+bucket/container
++ object key/version
++ API operation
++ consistency/retention policy
+```
+
+Nie je POSIX filesystem. Rename môže byť copy+delete, directory môže byť prefix a file lock nemusí existovať.
+
+Filesystem gateway môže skryť semantic gap, no neodstráni ho. Application musí byť navrhnutá pre object API alebo explicitne testovaný adapter contract.
+
+## 16. Runtime write a durability
+
+Application success musí byť definovaný voči persistence semantics:
+
+```text
+application buffer
+→ syscall/write
+→ filesystem/page cache
+→ device/backend acknowledgement
+→ replication/commit semantics
+```
+
+`write()` success nemusí znamenať durable data po node failure. Database alebo ledger potrebuje podporovaný fsync/transaction protocol a backend, ktorý tieto semantics rešpektuje.
+
+## 17. Capacity a pressure
+
+Storage subject zahŕňa:
+
+- bytes a quota;
+- inodes;
+- IOPS/throughput;
+- latency a queue depth;
+- burst credits;
+- snapshot/backup space;
+- temp/migration/compaction headroom;
+- filesystem reserved space.
+
+Disk full môže súčasne zablokovať data write, WAL/checkpoint, logs a clean shutdown. Inode exhaustion môže nastať pri dostatku voľných bytes.
+
+## 18. Logs a runtime artifacts
+
+Logs nemajú zostať iba vo writable layeri. Output lifecycle:
+
+```text
+process stdout/stderr alebo file
+→ runtime/collector
+→ external sink
+→ retention/index/access
+```
+
+File logging potrebuje rotation, quota a behavior pri collector/sink outage. Unbounded logs môžu vyčerpať node filesystem a zasiahnuť nesúvisiace containers.
+
+## 19. Snapshot subject
+
+Snapshot subject obsahuje:
+
+```text
+source data ID/generation
+snapshot mechanism
+consistency method
+application version/schema
+write freeze/checkpoint
+storage/backend generation
+encryption key reference
+timestamp a integrity metadata
+```
+
+Snapshot môže byť iba crash-consistent. Ak application drží buffered alebo multi-volume transaction state, storage snapshot bez quiesce nemusí byť validný recovery point.
+
+Snapshot v rovnakom account/region/key failure domain-e nie je samostatný disaster-recovery backup.
+
+## 20. Backup lifecycle
+
+```text
+select recovery unit
+→ quiesce/checkpoint/export
+→ create immutable backup
+→ verify integrity a completeness
+→ encrypt and replicate to required failure domain
+→ catalog lineage/retention
+→ restore test
+→ application-level validation
+```
+
+Backup musí zahrnúť potrebné metadata, schema/application compatibility, permissions/labels a key references.
+
+„Backup job green“ môže znamenať iba successful API call, nie restorable business state.
+
+## 21. Restore subject
+
+Restore test:
+
+```text
+select backup lineage
+→ provision clean target storage
+→ retrieve/decrypt
+→ restore bytes/objects
+→ reapply ownership/labels
+→ attach/mount under controlled identity
+→ run application recovery
+→ validate data and business invariant
+→ measure RPO/RTO
+→ cleanup and publish verdict
+```
+
+Restore do existujúceho production volume bez isolation môže zničiť current state. Test potrebuje čistý target a explicitnú data identity.
+
+## 22. Encryption a key lifecycle
 
 Rozlišuj:
 
-- encryption at rest backendu,
-- filesystem-level encryption,
-- application-level encryption,
-- transport encryption pri network storage,
-- key management a rotation.
+- backend encryption at rest;
+- transport encryption;
+- filesystem encryption;
+- application/field encryption;
+- key wrapping a rotation;
+- runtime decryption identity.
 
-Encrypted volume pripojený kompromitovanému containeru poskytuje plaintext cez mount. Encryption at rest nechráni runtime access.
+Mounted encrypted volume poskytuje plaintext oprávnenému processu. Encryption at rest nechráni pred compromised workloadom s mount accessom.
 
-## 22. Capacity
+Backup je nepoužiteľný, ak key material alebo recovery access zanikol. Key rotation musí zachovať decryptability retained backups podľa policy.
 
-Storage limit musí pokrývať:
+## 23. Detach, replacement a retirement
 
-- persistent data,
-- temporary files,
-- logs,
-- compaction,
-- migrations,
-- backup staging,
-- filesystem reserved space,
-- snapshots.
+Safe replacement:
 
-Disk-full failure môže zabrániť application write, database checkpointu, logovaniu aj clean shutdownu.
+```text
+drain/quiesce writer
+→ flush/checkpoint
+→ revoke old writer lease
+→ verify no open writes
+→ unmount/detach
+→ attach to new authorized node
+→ mount and recover
+→ verify application outcome
+```
 
-Sleduj bytes, inodes, quota, latency, IOPS a throughput.
+Deletion volume-u potrebuje:
 
-## 23. Logging
+- owner approval;
+- active attachment/writer check;
+- backup/retention check;
+- environment/data marker;
+- reversible grace period podľa risku;
+- audit.
 
-Application logs nemajú zostať iba vo writable layeri. Preferuj stdout/stderr collection alebo explicitný external log sink.
+Container deletion a data deletion sú samostatné operations.
 
-Pri file loggingu definuj:
+## 24. Worked failure: dáta zmizli po replacement-e
 
-- rotation,
-- retention,
-- ownership,
-- disk quota,
-- collector behavior,
-- failure pri nedostupnom sinku.
+Retry ledger bol zapisovaný do `/var/lib/atlas/retry` vo writable layeri.
 
-Unbounded log file môže vyčerpať writable layer alebo host filesystem.
+```text
+container restart zachová upper layer
+→ tím považuje path za persistentný
+→ rollout remove/create vytvorí nový upper layer
+→ retry ledger zmizne
+→ payments sa spracujú duplicitne
+```
 
-## 24. Secret storage
+Root cause je nesprávna data classification a chýbajúci persistent data subject. Recovery potrebuje business reconciliation, nie iba nový volume.
 
-Secret môže byť pripojený ako temporary file alebo tmpfs mount. Potrebné controls:
+## 25. Worked failure: správny image, nesprávny volume
 
-- least privilege,
-- mode/ownership,
-- rotation behavior,
-- žiadny copy do image alebo persistent volume,
-- redaction,
-- cleanup po termination.
+Production container dostal staging volume s rovnakým directory layoutom.
 
-Application môže secret skopírovať do config, dumpu alebo logu; mount mechanismus sám nezaručuje end-to-end confidentiality.
+```text
+mount succeeds
+→ schema version je compatible
+→ application starts healthy
+→ production endpoint spracúva staging records
+```
 
-## 25. Troubleshooting
+Mount success a schema compatibility neoverujú environment/data identity. Preflight musí kontrolovať immutable environment marker, data lineage a approved mapping.
 
-### `Permission denied` na mounted path
+## 26. Worked failure: dva writers po node partition
 
-Over UID/GID, user namespace mapping, mode bits, ACL, SELinux/AppArmor, mount flags a network filesystem export policy.
+Old node stratil control-plane connectivity, ale pokračoval v zápise na network storage. Controller spustil replacement writer na inom node-e.
 
-### Dáta zmizli po `docker rm`
+```text
+controller považuje old writer za dead
+→ old writer má stále storage access
+→ new writer dostane rovnaké dáta
+→ concurrent writes corruptnú ledger
+```
 
-Boli vo writable layeri alebo anonymous storage bez správneho lifecycle/backup modelu.
+Health timeout nie je fencing. Recovery: zastaviť oboch writers, zachovať evidence, obnoviť z validného transaction/backup pointu, reconcile business operations a zaviesť storage/application writer epoch.
 
-### Volume je pripojený, ale application vidí prázdny directory
+## 27. Worked failure: snapshot bol green, restore neštartoval
 
-Over source volume identity, mount target, initialization order, host path, environment a či mount nezakryl image directory s pôvodným obsahom.
+Cloud snapshot sa vytvoril počas database write burstu bez checkpointu. Restore filesystem mountol, ale database recovery našla nekonzistentné multi-file state.
 
-### Vysoká latency
+```text
+storage API snapshot succeeded
+→ crash-consistent bytes existujú
+→ application consistency contract nebol splnený
+→ restore application invariant zlyhá
+```
 
-Rozlišuj application fsync pattern, filesystem, volume driver, network, backend throttling, queue depth a host I/O pressure.
+Backup verdict musí obsahovať successful clean restore a data validation, nie iba snapshot ID.
 
-### Volume nejde odpojiť
+## 28. Worked failure: volume prázdny po mountnutí
 
-Process drží open files, mount namespace stále existuje, filesystem je busy alebo storage backend čaká na fencing/detach.
+Image obsahovala default data v `/var/lib/atlas`. Empty volume sa mountol na rovnaký target a prekryl image directory.
 
-## 26. Kontrolné otázky
+```text
+image path contains files
+→ mount creates new lookup root at target
+→ lower image files sú skryté
+→ application vidí empty directory
+```
 
-1. Aký je rozdiel medzi writable layerom, volume a bind mountom?
-2. Kedy použiť tmpfs?
-3. Ako user namespaces ovplyvnia permissions?
-4. Prečo volume neznamená automaticky backup?
-5. Aké riziká má host-local storage?
-6. Prečo object storage nie je POSIX filesystem?
-7. Čo znamená single-writer contract?
-8. Aký je rozdiel medzi crash-consistent a application-consistent backupom?
-9. Prečo snapshot nemusí byť backup?
-10. Ako disk-full ovplyvní container workload?
+Initialization má vedome kopírovať/seedovať data s ledgerom, nie predpokladať merge image a volume contentu.
+
+## 29. Causal troubleshooting walkthrough: po failover-e sa objavujú corrupted records
+
+Atlas primary container zlyhal. Replacement je healthy, ale retry ledger obsahuje duplicate a poškodené entries.
+
+### 1. Zafixuj data a writer subject
+
+Zaznamenaj:
+
+- logical data ID a generation;
+- backend volume/filesystem ID;
+- old/new node a attachment timeline;
+- old/new writer identity/epoch;
+- mount/device/namespace identity;
+- flush/checkpoint a detach evidence;
+- storage/network events;
+- application transaction/ledger checksums;
+- backup/snapshot lineage.
+
+### 2. Súťažiace hypotézy
+
+1. Old writer pokračoval po partitione.
+2. Storage umožnila multi-attach bez fencing-u.
+3. New writer pripojil nesprávny volume alebo restore generation.
+4. Filesystem recovery po unclean detach bola neúplná.
+5. Backend/network cache alebo locking semantics nie sú podporované.
+6. Application replay nie je idempotentný.
+7. Snapshot/restore bol crash-consistent, ale nie application-consistent.
+8. Encryption/key alebo partial read vyzerá ako corruption.
+9. Disk-full/IO error spôsobil partial record.
+10. Corruption vznikla skôr a failover ju iba odhalil.
+
+### 3. Diskriminačné observation points
+
+- backend attachment a reservation/lease history;
+- node/process liveness a write audit;
+- writer epoch v records;
+- filesystem journal/check output podľa support modelu;
+- device/volume UUID a environment marker;
+- application transaction log sequence;
+- storage latency/error/capacity events;
+- backup/snapshot timestamp a consistency method;
+- checksums a corruption boundary.
+
+### 4. Containment
+
+Zastav všetkých writers a odober volume z trafficu. Nevynucuj nový mount na ďalšom node-e. Zachovaj snapshots, journals, logs a attachment metadata.
+
+### 5. Recovery
+
+- split writer → fence old identity a vyber last valid transaction point;
+- wrong volume/generation → pripoj správny subject read-only a audituj exposure;
+- filesystem issue → použite podporovaný recovery postup nad kópiou;
+- application replay → deduplicate/compensate podľa business ledgeru;
+- invalid snapshot → obnov last verified application-consistent backup;
+- capacity/I/O → odstráň root cause pred resume.
+
+### 6. Over pôvodný outcome
+
+Potvrď jednu active writer epoch, validný filesystem/application ledger, business reconciliation, durable new writes, restart/failover test a successful fresh backup/restore.
+
+### 7. Posuň control skôr
+
+Pridaj writer fencing gate, data-ID preflight, attachment audit, application checkpointed backups, periodic restore test a failover chaos test s business invariantom.
+
+## 30. Referenčné pravidlá
+
+- Container/process identity a persistent data identity sú odlišné.
+- Writable layer je ephemeral per-instance state.
+- Volume je storage object, nie automatická durability alebo backup guarantee.
+- Bind mount prenáša host path, identity a security coupling.
+- Tmpfs potrebuje memory a confidentiality contract.
+- Mount success neoveruje správnu data/environment identity.
+- UID/GID, user namespace, ACL a LSM tvoria combined access verdict.
+- Mount môže prekryť image content.
+- Multi-attach capability nie je application multi-writer safety.
+- Failover bez fencing-u môže vytvoriť split writer.
+- Object storage nie je POSIX filesystem.
+- Write acknowledgement a durable commit sú odlišné.
+- Snapshot nie je automaticky application-consistent backup.
+- Backup je potvrdený až clean restore a business validationom.
+- Encryption at rest nechráni mounted plaintext pred workloadom.
+- Container deletion a data deletion sú oddelené lifecycles.
+
+## 31. Kontrolné otázky
+
+1. Čo tvorí persistent data subject?
+2. Ako sa líši writable layer, volume a bind mount?
+3. Prečo mount success nedokazuje správnu data identity?
+4. Ako user namespace a LSM menia storage access verdict?
+5. Prečo volume multi-attach neznamená safe multi-writer?
+6. Čo je writer fencing a prečo health timeout nestačí?
+7. Ako mount obscuring skryje image data?
+8. Ako sa líši crash-consistent snapshot a application-consistent backup?
+9. Čo musí overiť clean restore test?
+10. Aké observation points lokalizujú corruption po failover-e?
 
 ## Glossary impact
 
-Relevantné pojmy: container volume, bind mount, tmpfs mount, storage driver, snapshotter, volume driver, persistent data identity, local persistent storage, network filesystem, block storage, object storage, single-writer storage, application-consistent backup, crash-consistent snapshot, restore test, storage fencing a inode exhaustion.
+Relevantné pojmy: persistent data subject, storage attachment subject, data generation, writer identity, writer epoch, storage fencing verdict, mount-namespace subject, mount obscuring, storage access verdict, application durability boundary, checkpointed backup subject, clean restore verdict, backup lineage, split-writer incident, data-ID preflight a storage retirement subject.
 
 ## Oficiálna dokumentácia
 
