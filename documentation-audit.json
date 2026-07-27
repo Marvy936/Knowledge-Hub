@@ -1809,15 +1809,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
       "title": "Terraform providers, resources a data sources",
-      "words": 1230,
+      "words": 1960,
       "headings": 37,
       "sections": 37,
-      "findings": 49,
-      "critical": 15,
-      "high": 26,
-      "medium": 7,
-      "low": 1,
-      "score": 414,
+      "findings": 56,
+      "critical": 14,
+      "high": 21,
+      "medium": 3,
+      "low": 18,
+      "score": 365,
       "grade": "D"
     },
     {
@@ -98534,8 +98534,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "1. Provider ako plugin boundary",
-      "line": 5,
+      "section": "1. Dominantný model",
+      "line": 7,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -98543,197 +98543,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "1. Provider ako plugin boundary",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "1. Provider ako plugin boundary",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načíta konfiguráciu,`, `zostaví dependency graph,`, `vyhodnotí expressions,`, `vytvorí plan,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "1. Provider ako plugin boundary",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "1. Provider ako plugin boundary",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "3. Provider configuration",
-      "line": 44,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "3. Provider configuration",
-      "line": 44,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workload identity,`, `environment alebo platform credential chain,`, `short-lived federation,`, `external secret manager.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "3. Provider configuration",
-      "line": 44,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "3. Provider configuration",
-      "line": 44,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "6. Resource block",
-      "line": 105,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "7. Arguments a attributes",
-      "line": 131,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "7. Arguments a attributes",
-      "line": 131,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required,`, `optional,`, `computed,`, `ForceNew/replacement-sensitive podľa provider schema.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "7. Arguments a attributes",
-      "line": 131,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "8. Resource lifecycle",
-      "line": 152,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "8. Resource lifecycle",
-      "line": 152,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `no-op,`, `in-place update,`, `replacement,`, `destroy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "8. Resource lifecycle",
-      "line": 152,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "11. Resources vs. data sources",
-      "line": 212,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "14. Explicitné depends on",
-      "line": 249,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "14. Explicitné depends on",
-      "line": 249,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "14. Explicitné depends on",
-      "line": 249,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konzervatívnejší plan,`, `viac unknown hodnôt,`, `znížená paralelizácia,`, `nejasný architecture contract.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "14. Explicitné depends on",
-      "line": 249,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "15. count a for each",
-      "line": 268,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "count",
-      "line": 272,
+      "section": "1. Dominantný model",
+      "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -98741,53 +98552,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "for each",
-      "line": 283,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "for each",
-      "line": 283,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "17. Authentication a authorization",
-      "line": 319,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "17. Authentication a authorization",
-      "line": 319,
+      "section": "1. Dominantný model",
+      "line": 7,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "17. Authentication a authorization",
-      "line": 319,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authentication: kto je caller,`, `authorization: čo smie vykonať.`, `plan/read identity podľa platformy,`, `apply identity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "17. Authentication a authorization",
-      "line": 319,
+      "section": "1. Dominantný model",
+      "line": 7,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -98795,35 +98570,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "18. Provider behavior a eventual consistency",
-      "line": 335,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "18. Provider behavior a eventual consistency",
-      "line": 335,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transient 404,`, `propagation delay,`, `throttling,`, `timeout,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "18. Provider behavior a eventual consistency",
-      "line": 335,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "18. Provider behavior a eventual consistency",
-      "line": 335,
+      "section": "1. Dominantný model",
+      "line": 7,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -98831,44 +98579,80 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "19. Provider schema a upgrades",
-      "line": 350,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
+      "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "19. Provider schema a upgrades",
-      "line": 350,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "3. Requirement, selection a lock",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "19. Provider schema a upgrades",
-      "line": 350,
+      "section": "6. Managed resource a identity binding",
+      "line": 136,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "6. Managed resource a identity binding",
+      "line": 136,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "6. Managed resource a identity binding",
+      "line": 136,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "8. Data source je read contract, nie ownership",
+      "line": 198,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `default values,`, `validation,`, `normalization,`, `computed attributes,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nevlastní lifecycle objektu;`, `nevytvára remote resource;`, `číta podľa provider query semantics;`, `môže priniesť dependency a unknown hodnoty;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "19. Provider schema a upgrades",
-      "line": 350,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "8. Data source je read contract, nie ownership",
+      "line": 198,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "19. Provider schema a upgrades",
-      "line": 350,
+      "section": "8. Data source je read contract, nie ownership",
+      "line": 198,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "8. Data source je read contract, nie ownership",
+      "line": 198,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
@@ -98876,8 +98660,53 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "Neobmedzené provider versions",
-      "line": 366,
+      "section": "9. Read timing a plan precision",
+      "line": 218,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "12. Eventual consistency a provider failure semantics",
+      "line": 271,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 59 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "12. Eventual consistency a provider failure semantics",
+      "line": 271,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transient 404;`, `propagation delay;`, `throttling;`, `timeout po úspešnej mutation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "12. Eventual consistency a provider failure semantics",
+      "line": 271,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "12. Eventual consistency a provider failure semantics",
+      "line": 271,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "Náprava",
+      "line": 303,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -98885,8 +98714,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "Credentials v provider blocku",
-      "line": 370,
+      "section": "Príčina",
+      "line": 319,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -98894,8 +98723,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "Dva states spravujú rovnaký remote objekt",
-      "line": 374,
+      "section": "16. Kauzálny diagnostický walkthrough",
+      "line": 340,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -98903,43 +98732,97 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "Data source vyberá „most recent“ mutable artifact bez policy",
-      "line": 378,
+      "section": "Krok 1 — stabilizuj object subject",
+      "line": 344,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "Krok 2 — konkurenčné hypotézy",
+      "line": 356,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 367,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "depends on medzi celými modules bez dôvodu",
-      "line": 382,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 367,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "Mutable provider/module source",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 367,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resolved module provider mapping testuje H1;`, `caller identity a account audit testujú H2;`, `effective provider configuration bez secretov testuje H3;`, `backend lineage, serial a resource address testujú H4;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 367,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 367,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 367,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 367,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H2`, `H3`, `H4`, `ID`, `H5`, `H6`, `identity`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "Krok 6 — over outcome",
       "line": 386,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "Provider sa neinštaluje",
-      "line": 392,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "Resource sa plánuje nahradiť",
+      "section": "Krok 7 — skorší control",
       "line": 396,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -98948,17 +98831,170 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "Data source je known after apply",
+      "section": "17. Diagnostický runbook",
+      "line": 400,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "17. Diagnostický runbook",
       "line": 400,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "Resource používa zlý account/region",
-      "line": 404,
+      "section": "17. Diagnostický runbook",
+      "line": 400,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "17. Diagnostický runbook",
+      "line": 400,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "17. Diagnostický runbook",
+      "line": 400,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "17. Diagnostický runbook",
+      "line": 400,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "17. Diagnostický runbook",
+      "line": 400,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "17. Diagnostický runbook",
+      "line": 400,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 413,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 413,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 413,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 413,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Provider je versionovaný executable dependency.`, `Requirement, lock a runtime configuration sú odlišné vrstvy.`, `Provider alias je súčasť target identity.`, `Child module má explicitný provider contract.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 413,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 413,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 413,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 413,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "18. Referenčné pravidlá",
+      "line": 413,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `API`, `identity`, `Resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "19. Časté omyly",
+      "line": 427,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "„Provider block s regionom stačí“",
+      "line": 429,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -98966,8 +99002,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
-      "section": "Terraform plánuje duplicate object",
-      "line": 408,
+      "section": "„Data source je bezpečný, lebo iba číta“",
+      "line": 433,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "„Resource name je cloud identity“",
+      "line": 437,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "„Provider upgrade nemení infra intent“",
+      "line": 441,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md",
+      "section": "„Timeout znamená, že create zlyhal“",
+      "line": 445,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
