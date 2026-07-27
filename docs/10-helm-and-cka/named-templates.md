@@ -1,8 +1,8 @@
 # Named templates
 
-Named template je reusable Helm template fragment. Jeho hodnota nie je v skrátení source-u, ale v centralizácii identity, labels, selectors, image references, ServiceAccount ownershipu a opakovaných YAML contracts.
+Named template je reusable Helm template fragment. Centralizuje naming, labels, selectors, image references, ServiceAccount ownership a opakované YAML contracts. Nie je to však typovaná funkcia: prijíma jeden scope object, vracia text a jeho meno žije v globálnom template namespace-e parent chartu aj dependencies.
 
-Helper však nie je typovaná funkcia. Prijíma jeden scope object, vracia text a jeho meno žije v globálnom template namespace-e parent chartu aj dependencies. Preto musí mať explicitný input, output, stability a compatibility contract.
+Preto helper potrebuje explicitný input, output, stability a compatibility contract.
 
 ## 1. Dominantný lifecycle
 
@@ -22,7 +22,7 @@ Helper je bezpečný iba vtedy, keď sa dá preukázať, ktorá definition bola 
 
 ## 2. Atlas helper subject
 
-Pre Atlas Payments release používame:
+Pre Atlas Payments release:
 
 ```text
 chart artifact: CH57
@@ -36,7 +36,7 @@ Kritický helper subject:
 ```text
 global helper name
 + definition origin chart/version/digest
-+ call site template
++ call-site template
 + caller scope identity
 + argument dictionary
 + output shape a digest
@@ -47,7 +47,8 @@ Príklad:
 
 ```text
 helper: atlas-payments.selectorLabels
-origin: parent chart CH57\caller: templates/deployment.yaml
+origin: parent chart CH57
+caller: templates/deployment.yaml
 scope: root release context payments-prod
 output: stable YAML map SL57
 field: Deployment.spec.selector.matchLabels
@@ -55,9 +56,7 @@ field: Deployment.spec.selector.matchLabels
 
 Rovnaké textové meno bez originu a output identity nestačí.
 
-## 3. `define` a partial files
-
-Definition:
+## 3. `define`, partials a global namespace
 
 ```gotemplate
 {{/* Stable labels used by workload selectors. */}}
@@ -67,51 +66,29 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 ```
 
-`define` samo nevytvára manifest output. Fragment vznikne až pri zavolaní.
+`define` samo nevytvára manifest output. Fragment vznikne až pri zavolaní. Konvenčné miesto je `templates/_helpers.tpl`; underscore-prefixed file sa nerenderuje ako samostatný resource.
 
-Konvenčné miesto:
+Názov súboru ale nevytvára namespace. Parent a subcharts sa kompilujú do jedného globálneho template namespace-u. Dve definitions s rovnakým menom môžu kolidovať.
 
 ```text
-templates/_helpers.tpl
+parent helper H1
++ dependency helper H2 s rovnakým menom
+→ effective global definition je H2
+→ caller vyrenderuje iný output
+→ manifest sa zmení bez zmeny call site-u
 ```
 
-Underscore-prefixed template file sa nerenderuje ako samostatný Kubernetes manifest. Názov súboru však nevytvára namespace. Všetky definitions z parent chartu a subcharts sa kompilujú do jedného globálneho template namespace-u.
-
-## 4. Global name resolution
-
-Rizikový helper:
-
-```gotemplate
-{{ define "labels" }}
-```
-
-Bezpečnejší helper:
+Používaj chart-specific prefix:
 
 ```gotemplate
 {{ define "atlas-payments.labels" }}
 ```
 
-Ak parent a dependency definujú rovnaké meno, jedna definition môže prepísať druhú podľa load behavioru. Source call site pritom zostáva nezmenený.
+Pri súbežných nekompatibilných contracts môže byť vhodné versioned meno, napríklad `atlas-platform.v2.podSecurityContext`.
 
-```text
-parent helper H1
-+ dependency helper H2 s rovnakým menom
-→ globálny namespace obsahuje iba effective definition
-→ caller vyrenderuje H2
-→ manifest sa zmení bez zmeny call site-u
-```
+## 4. `template` vs. `include`
 
-Chart-specific prefix je minimálny contract. Pri nekompatibilnej evolúcii reusable platform helpera môže byť potrebné paralelné versioned meno:
-
-```gotemplate
-{{ define "atlas-platform.v2.podSecurityContext" }}
-```
-
-Version suffix nepoužívaj pri každej chart release. Použi ho iba vtedy, keď musia súbežne existovať nekompatibilné helper contracts.
-
-## 5. `template` vs. `include`
-
-`template` je action:
+`template` vloží output inline:
 
 ```gotemplate
 metadata:
@@ -119,9 +96,7 @@ metadata:
     {{- template "atlas-payments.labels" . }}
 ```
 
-Output vloží inline a nie je prakticky transformovateľný ďalšou pipeline.
-
-`include` je Helm function:
+`include` vráti text použiteľný v pipeline:
 
 ```gotemplate
 metadata:
@@ -129,33 +104,25 @@ metadata:
 {{ include "atlas-payments.labels" . | nindent 4 }}
 ```
 
-`include` vráti text, ktorý možno poslať do `nindent`, `quote`, `sha256sum` alebo `fromYaml`.
+Pre YAML fragments je `include` zvyčajne vhodnejší, pretože caller vlastní indentation a ďalšiu transformáciu.
 
-Pre YAML fragmenty je `include` zvyčajne vhodnejší, pretože caller explicitne vlastní indentation a ďalšiu transformáciu.
-
-## 6. Scope je argument
-
-Helper nedostane automaticky root context:
+## 5. Scope je argument
 
 ```gotemplate
 {{ include "atlas-payments.labels" . }}
 ```
 
-tu `.` reprezentuje callerom odovzdaný root.
+Tu `.` reprezentuje root odovzdaný callerom.
 
-Ak caller urobí:
+Ak caller použije:
 
 ```gotemplate
 {{ include "atlas-payments.port" .Values.service }}
 ```
 
-potom `.` aj `$` vo vnútri helpera reprezentujú service subtree, nie pôvodný chart root.
+potom `.` aj `$` vo vnútri helpera reprezentujú service subtree, nie pôvodný chart root. `$` nie je univerzálny parent root.
 
-Preto je nesprávne považovať `$` za univerzálny parent root.
-
-## 7. Explicitný pseudo-signature cez `dict`
-
-Volanie:
+Helper, ktorý potrebuje viac údajov, má dostať explicitný dictionary contract:
 
 ```gotemplate
 {{ include "atlas-payments.containerPort" (dict
@@ -165,8 +132,6 @@ Volanie:
 ) }}
 ```
 
-Helper:
-
 ```gotemplate
 {{- define "atlas-payments.containerPort" -}}
 - name: {{ required "containerPort.name is required" .name | quote }}
@@ -175,13 +140,7 @@ Helper:
 {{- end -}}
 ```
 
-Root je dostupný cez:
-
-```gotemplate
-{{ .root.Release.Name }}
-```
-
-Contract dokumentuj:
+Pseudo-signature:
 
 ```text
 input keys: root, name, port
@@ -191,43 +150,32 @@ side effects: none
 determinism: required
 ```
 
-Dictionary nie je skutočný typed signature, ale robí input surface explicitný a testovateľný.
+## 6. Output-shape contract
 
-## 8. Output shape contract
+Named template vždy vracia text. Text môže reprezentovať scalar, YAML map, YAML list, resource fragment, serialized object alebo empty output.
 
-Named template vždy vracia text. Text môže reprezentovať:
-
-- scalar;
-- YAML map;
-- YAML list;
-- resource fragment;
-- serialized JSON/YAML object;
-- empty output.
-
-Dokumentovaný helper:
+Dokumentuj:
 
 ```gotemplate
 {{/*
 atlas-payments.selectorLabels
 Input: root chart context.
 Output: unindented YAML map without a leading newline.
-Stability: values must remain stable for existing workload selectors.
+Stability: values remain stable for existing workload selectors.
 */}}
 ```
 
-Caller musí vedieť:
+Caller musí poznať:
 
-```text
-output shape
-+ leading/trailing newline contract
-+ required indentation
-+ whether quoting is already applied
-+ whether mutable metadata is included
-```
+- output shape;
+- leading/trailing newline contract;
+- required indentation;
+- quoting contract;
+- mutable vs. stable metadata.
 
-Bez toho sa helper stáva textovou makro vrstvou bez API contractu.
+Bez toho je helper iba textová makro vrstva bez API contractu.
 
-## 9. Naming helper a resource identity
+## 7. Naming helper a resource identity
 
 ```gotemplate
 {{- define "atlas-payments.name" -}}
@@ -243,21 +191,11 @@ Bez toho sa helper stáva textovou makro vrstvou bez API contractu.
 {{- end -}}
 ```
 
-Naming contract ovplyvňuje:
+Naming contract ovplyvňuje create-vs-update identity, immutable references, Services, PVCs, external resources, truncation collisions a rollback compatibility.
 
-- resource create vs. update identity;
-- immutable names a references;
-- selector/service coupling;
-- PVC a external resource names;
-- release uniqueness;
-- truncation collision;
-- rollback compatibility.
+Zmena fullname helpera môže vytvoriť nový resource namiesto aktualizácie existujúceho. To je lifecycle migration, nie kozmetický refactor.
 
-Zmena fullname helpera môže namiesto update-u vytvoriť nový resource a ponechať starý. To je lifecycle migration, nie kozmetický refactor.
-
-## 10. Stable selector vs. mutable common labels
-
-Stable selector helper:
+## 8. Stable selector vs. mutable common labels
 
 ```gotemplate
 {{- define "atlas-payments.selectorLabels" -}}
@@ -265,8 +203,6 @@ app.kubernetes.io/name: {{ include "atlas-payments.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 ```
-
-Common labels:
 
 ```gotemplate
 {{- define "atlas-payments.labels" -}}
@@ -277,22 +213,11 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 ```
 
-Použitie:
+Chart version, app version ani image digest nepatria do immutable Deployment selectoru. Selector helper musí zostať stabilný medzi podporovanými revisions a zhodovať sa medzi workload selectorom, Pod labels a Service selection contractom.
 
-```gotemplate
-spec:
-  selector:
-    matchLabels:
-{{ include "atlas-payments.selectorLabels" . | nindent 6 }}
-  template:
-    metadata:
-      labels:
-{{ include "atlas-payments.labels" . | nindent 8 }}
-```
+## 9. Ownership helpers
 
-Chart version, app version ani image digest nepatria do immutable Deployment selectoru. Mutable metadata môže byť na Pod labels, ak Service selector zostane stabilný a cardinality/lifecycle sú prijateľné.
-
-## 11. ServiceAccount ownership helper
+ServiceAccount helper vyjadruje, kto resource vytvára:
 
 ```gotemplate
 {{- define "atlas-payments.serviceAccountName" -}}
@@ -304,17 +229,9 @@ Chart version, app version ani image digest nepatria do immutable Deployment sel
 {{- end -}}
 ```
 
-Helper vyjadruje ownership boundary:
+Silent fallback na `default` ServiceAccount je security regression.
 
-```text
-chart vytvára a spravuje ServiceAccount
-alebo
-release používa external ServiceAccount
-```
-
-Silent fallback na `default` ServiceAccount je security regression, nie pohodlný default.
-
-## 12. Image reference helper
+Production image helper má používať explicitný immutable contract:
 
 ```gotemplate
 {{- define "atlas-payments.image" -}}
@@ -324,78 +241,11 @@ Silent fallback na `default` ServiceAccount je security regression, nie pohodln�
 {{- end -}}
 ```
 
-Production helper contract má odlíšiť:
+## 10. Serialization, indentation a call graph
 
-- repository;
-- registry override;
-- tag;
-- digest;
-- platform/index identity;
-- quoting;
-- mutable-development a immutable-production policy.
+Helper môže vrátiť YAML a caller ho parsovať cez `fromYaml`, ale tým vzniká serialize/parse boundary s implicitným typingom a hidden output schema. Native values object je často jednoduchší.
 
-Neskladaj OCI reference len intuitívnou string concatenation bez tests pre empty registry, port, nested repository, tag a digest combinations.
-
-## 13. Structured output cez serialize/parse boundary
-
-Helper môže vrátiť YAML:
-
-```gotemplate
-{{- define "atlas-payments.defaultResources" -}}
-requests:
-  cpu: 100m
-  memory: 128Mi
-{{- end -}}
-```
-
-Caller:
-
-```gotemplate
-{{- $defaults := include "atlas-payments.defaultResources" . | fromYaml -}}
-```
-
-Tento pattern vytvára:
-
-```text
-helper logic
-→ YAML text
-→ YAML parse
-→ map
-```
-
-Riziká:
-
-- implicitné YAML typing;
-- menej čitateľné parse errors;
-- hidden output schema;
-- whitespace a serialization coupling;
-- zbytočná abstraction oproti native values objectu.
-
-Používaj ho iba vtedy, keď reusable structured contract prináša jasnú hodnotu a má semantic tests.
-
-## 14. Indentation a whitespace contract
-
-Helper pre YAML mapu má renderovať bez caller-specific indentation:
-
-```gotemplate
-{{- define "atlas-payments.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "atlas-payments.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end -}}
-```
-
-Caller rozhodne:
-
-```gotemplate
-matchLabels:
-{{ include "atlas-payments.selectorLabels" . | nindent 6 }}
-```
-
-Scalar helper nemá pridávať nečakaný newline. Multi-line helper musí mať explicitný leading/trailing newline contract.
-
-Hard-coded indentation v helperi viaže output na jedno miesto v YAML tree a znemožňuje bezpečný reuse.
-
-## 15. Helper call graph
+Helper pre YAML mapu má renderovať bez caller-specific indentation. Caller použije `nindent` podľa cieľovej pozície.
 
 Udržuj jednoduchý acyklický graph:
 
@@ -406,46 +256,16 @@ primitive identity helpers
 → manifests
 ```
 
-Cyklus:
+Cyklus alebo veľmi hlboký graph komplikuje render failure, source-to-field provenance a compatibility review.
+
+## 11. Library chart ako API provider
+
+Library chart poskytuje reusable helpers bez bežného workload lifecycle-u. Môže však meniť parent output vrátane names, selectors, images, securityContext a RBAC.
+
+Potrebuje:
 
 ```text
-A → B → A
-```
-
-vedie k render failure alebo recursion problému.
-
-Veľmi hlboký helper graph je síce acyklický, ale môže zakrývať source hodnoty a output ownership. Pre každý critical field má byť dohľadateľná krátka cesta od values k helperu a manifest call site-u.
-
-## 16. `block` a implicit override
-
-```gotemplate
-{{ block "atlas-payments.podAnnotations" . }}
-atlas.example/managed: "true"
-{{ end }}
-```
-
-`block` definuje default content a zároveň ho vyrenderuje. Iná definition rovnakého mena ho môže nahradiť.
-
-V multi-chart renderi je override citlivý na global names a load order. Explicitné values alebo versionovaný library-chart helper contract sú zvyčajne čitateľnejšie než implicitný block override.
-
-## 17. Library chart
-
-Library chart poskytuje reusable helpers a primitives bez bežného application resource lifecycle-u.
-
-Vhodné use cases:
-
-- organization labels;
-- security context primitives;
-- workload/container fragments;
-- policy-conformant metadata;
-- common image/reference logic.
-
-Library chart je API provider. Jeho zmena môže zmeniť output desiatok consumer charts bez zmeny ich templates.
-
-Preto potrebuje:
-
-```text
-versioned helper names/contracts
+versioned helper contracts
 consumer compatibility matrix
 rendered output fixtures
 dependency lock
@@ -453,39 +273,11 @@ changelog a migration guide
 canary consumers
 ```
 
-Library chart nesmie byť neviditeľný source code injection bez ownershipu.
+Library chart nie je neviditeľný bezpečný doplnok. Je source-code dependency celej release render generation.
 
-## 18. Parent a subchart scope
+## 12. Worked failure: dependency helper prepíše selector contract
 
-Parent a subcharts zdieľajú global helper namespace, ale nie automaticky values scope.
-
-Subchart helper môže dostať parent root, ak ho parent explicitne zavolá s týmto scope-om. Inak používa scope podľa svojho call site-u.
-
-Nespoliehaj sa na:
-
-- náhodný load order;
-- generické helper names;
-- implicitný prístup k parent values;
-- override dependency helpera bez explicitného contractu.
-
-## 19. Determinism a side effects
-
-Core identity helpers majú byť pure a deterministic.
-
-Rizikové inputs:
-
-- `now`;
-- random functions;
-- `lookup`;
-- mutable external values;
-- map mutation;
-- dependency helper collision.
-
-Naming alebo selector helper s nondeterminismom môže pri každom renderi meniť resource identity a vytvárať perpetual diff alebo replacement.
-
-## 20. Worked failure: dependency helper prepíše selector contract
-
-Parent chart 2.7.0 historicky používal generické meno:
+Parent chart definoval generické meno:
 
 ```gotemplate
 {{- define "common.selectorLabels" -}}
@@ -494,7 +286,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 ```
 
-Library dependency po update obsahovala rovnaké global meno:
+Aktualizovaná library dependency definovala rovnaké meno a pridala mutable chart version:
 
 ```gotemplate
 {{- define "common.selectorLabels" -}}
@@ -504,14 +296,7 @@ helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version }}
 {{- end -}}
 ```
 
-Caller sa nezmenil:
-
-```gotemplate
-matchLabels:
-{{ include "common.selectorLabels" . | nindent 6 }}
-```
-
-Po dependency resolution sa effective definition zmenila. Selector teraz obsahoval mutable chart version.
+Caller sa nezmenil. Effective definition sa však po dependency resolution zmenila.
 
 ### Exact subject
 
@@ -528,115 +313,91 @@ live Deployment UID/generation
 
 ### Competing hypotheses
 
-1. Values zmenili `nameOverride` alebo release identity.
+1. Values zmenili name alebo release identity.
 2. Parent helper source sa zmenil.
-3. Dependency definition collision zmenila effective helper.
-4. Helper dostal nesprávny local scope namiesto rootu.
-5. `nindent` alebo whitespace vložili iný YAML shape.
-6. Admission mutation zmenila labels/selectors.
-7. Helm update strategy alebo server-side apply vyhodnotili immutable field inak.
-8. Service a Deployment používajú odlišné helper outputs.
+3. Dependency collision zmenila effective definition.
+4. Helper dostal nesprávny scope.
+5. Whitespace/indentation zmenili YAML shape.
+6. Admission mutovalo labels.
+7. Service a Deployment používajú odlišné helper outputs.
 
-### Discriminating observation points
+### Discriminating observations
 
 | Hypotéza | Observation |
 |---|---|
 | values/name change | effective values a old/new helper input |
-| parent source change | packaged parent chart diff |
+| parent source | packaged parent chart diff |
 | collision | inventory všetkých `define "common.selectorLabels"` v packaged graph-e |
-| wrong scope | debug helper s redacted `.Chart/.Release` identity a call site |
-| whitespace | isolated `--show-only` final YAML parse |
-| admission | server dry-run response a live managedFields |
-| immutable update | API error na exact Deployment UID/selector |
-| divergent callers | semantic diff Deployment selector, Pod labels a Service selector |
+| wrong scope | redacted `.Chart/.Release` identity a call site |
+| whitespace | isolated final YAML parse |
+| admission | server dry-run response a managedFields |
+| divergent callers | semantic diff selectorov a Pod labels |
 
 ### Finding
 
-Dependency library chart zaviedol rovnaké global helper meno. Effective definition pridala `helm.sh/chart` do selector outputu. Upgrade chart version 2.6.4 → 2.7.0 preto menil immutable Deployment selector.
+Dependency library chart prepísal global helper. New output pridal `helm.sh/chart` do immutable selectoru.
 
 ```text
 unreviewed helper collision
-→ output SL56 sa zmení na SL57
+→ selector output SL56 sa zmení na SL57
 → rendered Deployment selector sa zmení
-→ API odmietne immutable field update
-→ Helm revision skončí failed
-→ časť ostatných resources alebo hooks už mohla byť zmenená
+→ API odmietne immutable update
+→ Helm release skončí failed
+→ časť ďalších operations už mohla prebehnúť
 ```
 
 ### Containment
 
-- zastav retry rovnakej release revision;
-- zachovaj packaged chart/dependencies, M57, API error, release history a live object;
+- zastav retry release-u;
+- zachovaj packaged graph, M57, API error, history a live object;
 - ponechaj starý Deployment/Pods v prevádzke;
-- nevymaž Deployment, aby upgrade „prešiel“;
-- nepouži `--force` bez resource identity a outage analýzy;
-- zastav automatické dependency re-resolution.
+- nemaž Deployment a nepouži `--force` bez identity/outage analýzy;
+- zastav dependency re-resolution.
 
 ### Authoritative recovery
 
-1. premenuj parent helper na `atlas-payments.selectorLabels`;
-2. library helper pomenuj versionovaným provider prefixom;
-3. oddeľ stable selector labels od mutable common labels;
-4. pinni dependency cez reviewed `Chart.lock`;
-5. pridaj test na duplicate global definitions;
+1. premenuj helper na `atlas-payments.selectorLabels`;
+2. library helpers pomenuj provider/version prefixom;
+3. oddeľ stable selector a mutable common labels;
+4. pinni dependency cez reviewed lock;
+5. pridaj duplicate-definition scanner;
 6. snapshot-ni old/new selector outputs;
-7. vytvor nový chart artifact a release revision;
-8. server-side validuj upgrade proti existujúcemu Deployment UID.
+7. server-side validuj upgrade proti existujúcemu Deployment UID.
 
 ### Verify original a forbidden outcomes
 
-- Deployment selector zostáva byte/semantic stable medzi podporovanými revisions;
-- Pod template a Service selector obsahujú matching stable labels;
-- mutable chart/app metadata nie je v selector contracte;
-- dependency upgrade bez parent source zmeny nevie potichu prepísať helper;
-- rollout vytvorí nové Pods bez replacementu identity celého Deploymentu;
-- old helper name sa už v packaged graph-e nenachádza;
+- selector zostáva semantic stable medzi revisions;
+- Pod a Service labels sa zhodujú;
+- mutable metadata nie je v selector contracte;
+- dependency nevie potichu prepísať helper;
+- rollout aktualizuje workload bez replacementu identity;
+- old generic helper už v graph-e neexistuje;
 - druhý render a upgrade sú deterministic a bounded.
 
 ### Earlier controls
 
-- chart-prefixed global names;
+- chart-prefixed names;
 - duplicate `define` scanner;
-- helper contract fixtures;
-- selector stability test naprieč revisions;
-- server-side upgrade test proti previous release;
+- helper fixtures a output digests;
+- selector stability test;
+- server-side upgrade test;
 - dependency lock review;
-- library chart consumer canary.
+- library consumer canary.
 
-## 21. Ďalšie failure boundaries
+## 13. Ďalšie failure boundaries
 
-### Caller odovzdá `.Values` namiesto rootu
+- Caller odovzdá `.Values` namiesto rootu a helper stratí `.Release`/`.Chart`.
+- Fullname refactor vytvorí nové Service/PVC/Secret identities.
+- Hard-coded indentation funguje iba v jednom call site-e.
+- Structured helper output zmení map/list type.
+- `block` override závisí od globálneho mena a load orderu.
+- Nondeterministic naming helper vytvára perpetual diff alebo replacement.
 
-Helper očakáva `.Release` a `.Chart`, ale dostane iba mapu. Render zlyhá alebo použije empty fallback a vytvorí chybnú identity.
-
-### Naming helper refactor
-
-Zmena fullname outputu vytvorí nový Service/PVC/Secret namiesto update-u existujúceho resource-u.
-
-### Mutable metadata v selector helperi
-
-Chart alebo app version mení immutable selector pri každom upgrade.
-
-### Hard-coded indentation
-
-Helper funguje v jednom call site-e, ale v inom vytvorí sibling field alebo neplatný YAML.
-
-### Library helper breaking change
-
-Consumer templates sa nezmenili, no dependency update zmení desiatky rendered resources.
-
-### Structured output parse drift
-
-Helper YAML output sa zmení typovo a `fromYaml` caller dostane inú map/list shape.
-
-## 22. Helper test matrix
-
-Minimálne testuj:
+## 14. Test matrix
 
 ```text
-default values
-nameOverride a fullnameOverride
-dlhé names a truncation collision
+default values a overrides
+dlhé names a truncation collisions
 missing, empty, false a zero
 root vs. local scope
 all helper call sites
@@ -644,28 +405,18 @@ exact whitespace/indentation
 stable selectors medzi revisions
 ServiceAccount create/external modes
 tag/digest image combinations
-parent + dependency global-name inventory
+parent + dependency definition inventory
 multiple dependency versions
-multiple Kubernetes/API capabilities
 deterministic repeated render
+server-side upgrade proti previous release
 ```
 
-Testing layers:
-
-```text
-isolated helper fixture
-→ rendered template snapshot
-→ semantic manifest assertions
-→ server-side upgrade validation
-→ live rollout/business verification
-```
-
-## 23. Debugging workflow
+## 15. Debugging workflow
 
 ```text
 fix exact helper name
 → enumerate all definitions a origins
-→ identify effective dependency graph
+→ identify dependency graph
 → fix caller a scope
 → inspect helper output in isolation
 → inspect final target field
@@ -674,8 +425,6 @@ fix exact helper name
 → verify runtime/service outcome
 ```
 
-Príklad:
-
 ```bash
 helm template payments-prod ./chart \
   -f values-prod.yaml \
@@ -683,36 +432,35 @@ helm template payments-prod ./chart \
   --debug
 ```
 
-Nevypisuj celý root scope, pretože môže obsahovať sensitive values.
+Nevypisuj celý root scope; môže obsahovať sensitive values.
 
-## 24. Anti-patterny
+## 16. Anti-patterny
 
 - generické global helper names;
-- helper contract definovaný iba implicitne call sites;
+- implicitný helper contract;
 - predpoklad, že `$` je pôvodný root;
-- helper s polymorfným nezdokumentovaným scope-om;
+- polymorfný nezdokumentovaný scope;
 - mutable version metadata v selector helperi;
-- fullname refactor bez resource migration analýzy;
+- fullname refactor bez migration analýzy;
 - hard-coded caller indentation;
-- jeden helper generujúci celý komplexný workload;
-- structured output bez schema/tests;
+- helper generujúci celý komplexný workload;
 - `block` override založený na load orderi;
-- library chart update bez consumer compatibility testu;
+- library chart update bez consumer testu;
 - nondeterministic identity helper;
-- duplicate helper name riešený `--force` alebo delete-nutím live resource-u.
+- collision riešená force/delete zásahom do live resource-u.
 
-## 25. Kontrolné otázky
+## 17. Kontrolné otázky
 
 1. Ktoré identity tvoria exact helper subject?
-2. Prečo je template namespace globálny naprieč dependencies?
+2. Prečo je template namespace globálny?
 3. Ako sa líši `template` od `include`?
 4. Čo znamená `.` a `$` po odovzdaní local scope-u?
-5. Ako dokumentuješ pseudo-signature cez `dict`?
+5. Ako dokumentuješ pseudo-signature a output shape?
 6. Prečo musí caller vlastniť indentation?
-7. Ktoré labels môžu byť mutable a ktoré nie?
-8. Ako library chart mení supply-chain a compatibility surface?
+7. Ktoré labels musia byť stabilné?
+8. Ako library chart mení supply-chain surface?
 9. Ktoré observations odhalia helper collision?
-10. Ako preukážeš stable resource identity naprieč chart revisions?
+10. Ako preukážeš stable resource identity medzi revisions?
 
 ## Glossary impact
 
