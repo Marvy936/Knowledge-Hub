@@ -8,9 +8,17 @@ Versionovaná zmena resource alebo module instance address-y, pri ktorej má exi
 
 Versionované a dokumentované rozhranie reusable role alebo collection capability zahŕňajúce inputs, defaults, side effects, privilege a platform assumptions, notification topics, runtime outcome, compatibility a recovery behavior. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
+## Ansible idempotency subject
+
+Rekonštruovateľná identita idempotency a convergence testu zahŕňajúca source revision, execution environment, collection set, inventory a target manifest, effective values, fact/lookup generations, desired artifact identities, external operation IDs a concurrency context. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
 ## Ansible run subject
 
 Rekonštruovateľná identita automation runu zahŕňajúca source revision, playbook, `ansible-core`, execution environment image, collections, inventory subject, resolved variables, credentials, strategy, batch a controller run ID. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
+## Authoritative attribute writer
+
+Jediný explicitne určený controller alebo tool oprávnený zapisovať konkrétny mutable object attribute. Ostatní consumers ho iba čítajú alebo používajú versionovaný transfer contract. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
 ## Authoritative source — IaC
 
@@ -40,6 +48,10 @@ Primárna správa infraštruktúry manuálnymi zmenami v UI alebo konzole bez ve
 
 Immutable identita publikovanej Ansible collection zahŕňajúca source revision, namespace a version, built artifact digest, publisher/provenance, resolved dependencies a podporovaný `ansible-core` contract. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
+## Combined release subject — Terraform a Ansible
+
+Spoločná identita hybridného release-u viažuca Terraform plan/state/resource inventory, publikovanú host-contract generation, Ansible run subject, expected/verified fleet a application-runtime verification. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Computed value — Terraform
 
 Hodnota atribútu určená providerom alebo remote API, ktorá nemusí byť známa počas planu a môže sa zobraziť ako `known after apply`. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
@@ -56,9 +68,21 @@ Rekonštruovateľná identita rozhodovania `when`/loop/handler pathu zahŕňajú
 
 Explicitné rozhranie medzi samostatnými Terraform states, typicky cez publikované outputs alebo externý registry, ktoré musí mať ownership, compatibility a access policy. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
 
+## Cross-tool ownership subject
+
+Versionovaný inventory objektov a atribútov spravovaných viacerými automation tools, ktorý pre každý mutable field určuje authoritative writera, read-only consumers, desired-state source, drift detector, permissions a recovery alebo transfer path. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
+## Current-state observation contract — Ansible
+
+Definícia target identity, relevantných owned fields, freshness a normalization pravidiel, podľa ktorých module alebo workflow rozpozná no-op, required delta, partial state alebo unknown outcome. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
 ## Data source — Terraform
 
 Provider-defined read-only query, ktorá načíta informácie o existujúcom alebo odvodenom objekte bez správy jeho lifecycle Terraform resource bindingom. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
+## Decryption identity — Ansible Vault
+
+Workload alebo používateľská identita oprávnená získať konkrétny vault password alebo secret domain a dešifrovať ho iba v definovanom protected runtime scope. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## Dependency cycle — Terraform
 
@@ -108,9 +132,17 @@ Hodnota, ktorá určuje samotnú množinu alebo identity graph objektov, naprík
 
 Prechod vyvolaný taskom reportujúcim `changed`, pri ktorom notification aktivuje handler, napríklad restart alebo reload služby. Je súčasťou convergence a môže zlyhať alebo sa nevykonať samostatne od pôvodného tasku. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md) a [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
+## Host contract generation — Terraform a Ansible
+
+Konkrétna versionovaná publikácia narrow resource-to-host contractu viazaná na Terraform resource subject, readiness observations, schema version a stable host identities, ktorú následne validuje Ansible inventory. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Host coverage — Ansible
 
 Porovnanie expected, resolved, attempted a runtime-verified host inventories. Zabraňuje tomu, aby zelený run nad neúplnou target množinou predstieral complete rollout. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md) a [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Idempotency key — automation
+
+Stabilná identity jednej business mutation používaná pri retries tak, aby viac network attempts nevytvorilo viac remote side effects. Musí byť kontrolovateľná alebo dohľadateľná cez remote API a audit. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
 ## Infrastructure as Code — IaC
 
@@ -184,6 +216,14 @@ Deklarácia provider source addressu a povoleného version rozsahu v `required_p
 
 Effective provider configuration address spolu s caller accountom, regionom, endpointom a workload identity, ktorá určuje, ktorú remote authorization a failure boundary provider API operácia zasiahne. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
+## Provisioning-to-configuration contract
+
+Úzke versionované rozhranie, ktorým Terraform alebo iný resource owner publikuje stable host identities, management addresses, environment a readiness metadata pre Ansible bez sprístupnenia interného alebo citlivého state-u. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
+## Readiness boundary
+
+Prechod medzi existenciou resource a jeho spôsobilosťou vstúpiť do ďalšieho automation kroku, potvrdený condition-based observation ako bootstrap completion, stable management identity a funkčný connection path. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
 ## Remote backend — Terraform
 
 Backend ukladajúci Terraform state mimo lokálneho working directory a podľa typu poskytujúci collaboration, locking, versioning alebo remote-operation capabilities. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
@@ -200,13 +240,33 @@ Jednoznačná konfiguračná adresa managed objektu vrátane module pathu, resou
 
 State mapovanie medzi Terraform resource instance addressou, provider contextom a konkrétnou remote object identity. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
 
+## Revocation-complete verdict — secret lifecycle
+
+Stav rotation, v ktorom všetci oprávnení consumers používajú novú secret epoch, stará hodnota bola zrušená a nezávislý test potvrdil, že už nie je akceptovaná. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
 ## Role consumer inventory — Ansible
 
 Evidencia repositories, playbooks a owners používajúcich konkrétnu role/collection version, execution environment, environment scope a podporovanú upgrade path. Umožňuje bezpečnú deprecation a security remediation. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
+## Runtime plaintext path — Ansible Vault
+
+Celý tok dešifrovanej secret hodnoty od password/secret source cez Ansible memory, template alebo module argument, temporary transfer a target destination až po application process, logs, callbacks a cleanup. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
 ## Saved plan subject — Terraform
 
 Konkrétny plan artifact a digest viazaný na configuration, resolved dependencies, effective inputs, state lineage/serial, refresh observations, provider versions, target identity a policy/approval verdict. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
+## Second-converge evidence — Ansible
+
+Subject-bound výsledok druhého complete runu po úspešnom convergence, ktorý porovná expected/resolved/verified hosts, unintended changes, handler transitions, external side effects a runtime invariants. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
+## Secret epoch
+
+Version alebo generácia cieľového credentialu používaná na koordináciu publication, consumer rollout, runtime verification a revocation predchádzajúcej hodnoty. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
+## Secret lifecycle subject — Ansible Vault
+
+Riadená identita secretu zahŕňajúca logical secret ID, target system, environment, owner, consumer inventory, secret epoch, encrypted artifact, vault domain, decryption identity, runtime destinations, rotation deadline a revocation status. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
 ## Serial — Terraform state
 
@@ -267,6 +327,10 @@ Samostatne versionovaný plugin implementujúci resource types, data sources, sc
 ## Terraform state
 
 Persistentný model mapujúci Terraform resource addresses na remote identities a uchovávajúci metadata potrebné na ďalší plan/apply lifecycle. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## Truthful changed signal — Ansible
+
+Per-host alebo per-item result, ktorý pravdivo rozlišuje no-op od vykonanej mutation a správne riadi handler, recovery, audit a second-converge evidence. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
 ## Unknown remote outcome — IaC
 
