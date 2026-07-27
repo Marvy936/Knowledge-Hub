@@ -1753,15 +1753,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
       "title": "Modules, tasks, plays a playbooks",
-      "words": 1750,
-      "headings": 47,
-      "sections": 47,
-      "findings": 75,
-      "critical": 32,
-      "high": 30,
-      "medium": 7,
-      "low": 6,
-      "score": 652,
+      "words": 1700,
+      "headings": 23,
+      "sections": 23,
+      "findings": 42,
+      "critical": 13,
+      "high": 12,
+      "medium": 4,
+      "low": 13,
+      "score": 283,
       "grade": "D"
     },
     {
@@ -94673,134 +94673,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "1. Module",
-      "line": 7,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "1. Module",
-      "line": 7,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ansible.builtin.package ,`, `ansible.builtin.service ,`, `ansible.builtin.user ,`, `ansible.builtin.copy ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "1. Module",
-      "line": 7,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "2. Fully Qualified Collection Name",
-      "line": 29,
+      "section": "1. Atlas scenár: rolling configuration update",
+      "line": 19,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 53 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "2. Fully Qualified Collection Name",
-      "line": 29,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "2. Fully Qualified Collection Name",
-      "line": 29,
+      "section": "1. Atlas scenár: rolling configuration update",
+      "line": 19,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znižuje collision risk,`, `ukazuje source contentu,`, `zlepšuje documentation lookup,`, `uľahčuje dependency review.`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstrániť aktuálny batch z load balancera;`, `nainštalovať podporovaný package;`, `vyrenderovať konfiguráciu;`, `validovať ju;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "2. Fully Qualified Collection Name",
-      "line": 29,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "3. Module arguments",
-      "line": 49,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "3. Module arguments",
-      "line": 49,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "3. Module arguments",
-      "line": 49,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required arguments,`, `defaults,`, `aliases a deprecations,`, `platform support,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "3. Module arguments",
-      "line": 49,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "5. Action plugin",
-      "line": 95,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "5. Action plugin",
-      "line": 95,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pripravovať alebo transferovať files,`, `renderovať templates,`, `spracovať includes,`, `optimalizovať remote execution,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "5. Action plugin",
-      "line": 95,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "5. Action plugin",
-      "line": 95,
+      "section": "1. Atlas scenár: rolling configuration update",
+      "line": 19,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -94808,35 +94700,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "6. Task",
-      "line": 107,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "1. Atlas scenár: rolling configuration update",
+      "line": 19,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "6. Task",
-      "line": 107,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `when ,`, `loop ,`, `register ,`, `notify ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "6. Task",
-      "line": 107,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "6. Task",
-      "line": 107,
+      "section": "3. Task: per-host transition",
+      "line": 89,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -94844,26 +94718,44 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "8. Changed state",
-      "line": 153,
+      "section": "3. Task: per-host transition",
+      "line": 89,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "4. Action location nie je host pattern",
+      "line": 128,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "5. Play: target a execution policy",
+      "line": 149,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "8. Changed state",
-      "line": 153,
+      "section": "5. Play: target a execution policy",
+      "line": 149,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `handlers,`, `change reporting,`, `idempotency tests,`, `audit,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target pattern;`, `connection a privilege policy;`, `fact gathering;`, `strategy, forks interaction a serial batching;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "8. Changed state",
-      "line": 153,
+      "section": "5. Play: target a execution policy",
+      "line": 149,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -94871,8 +94763,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "10. Command vs. shell",
-      "line": 188,
+      "section": "5. Play: target a execution policy",
+      "line": 149,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "9. Worked failure: tags preskočili prerequisite",
+      "line": 239,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "11. Worked failure: delegation znásobila shared API mutation",
+      "line": 279,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "12. Causal troubleshooting walkthrough: playbook je green, dva hosts stále používajú starý runtime",
+      "line": 292,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -94880,124 +94799,7 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "shell",
-      "line": 202,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "11. Ad hoc command",
-      "line": 210,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "11. Ad hoc command",
-      "line": 210,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `connectivity test,`, `read-only diagnostiku,`, `jednorazový bounded incident action.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "11. Ad hoc command",
-      "line": 210,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "12. Play",
-      "line": 226,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "12. Play",
-      "line": 226,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "12. Play",
-      "line": 226,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hosts ,`, `connection a become policy,`, `fact gathering,`, `strategy a serial,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "12. Play",
-      "line": 226,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "14. YAML documents a syntax validation",
-      "line": 277,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "14. YAML documents a syntax validation",
-      "line": 277,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "14. YAML documents a syntax validation",
-      "line": 277,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target connectivity,`, `module runtime behavior,`, `remote permissions,`, `template result correctness,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "14. YAML documents a syntax validation",
-      "line": 277,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "14. YAML documents a syntax validation",
-      "line": 277,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "15. Pre-tasks, roles, tasks a post-tasks",
+      "section": "1. Zafixuj execution subject",
       "line": 294,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -95006,287 +94808,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "16. Includes a imports",
-      "line": 315,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "Include",
-      "line": 323,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "Include",
-      "line": 323,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `variable evaluation,`, `condition application,`, `tags,`, `handler visibility,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "Include",
-      "line": 323,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "18. Delegation",
-      "line": 359,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "18. Delegation",
-      "line": 359,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `execution location,`, `connection context,`, `dostupné credentials,`, `facts a variable interpretation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "18. Delegation",
-      "line": 359,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "19. run once",
-      "line": 381,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "21. Check mode",
-      "line": 407,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "21. Check mode",
-      "line": 407,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presne predikovať zmenu,`, `poskytnúť čiastočnú predikciu,`, `byť preskočený,`, `vykonať read operácie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "21. Check mode",
-      "line": 407,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "23. Execution strategy a batches",
-      "line": 429,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "23. Execution strategy a batches",
-      "line": 429,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "23. Execution strategy a batches",
-      "line": 429,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `strategy,`, `forks,`, `serial,`, `delegation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "23. Execution strategy a batches",
-      "line": 429,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "23. Execution strategy a batches",
-      "line": 429,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `delegation`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "24. Error handling",
-      "line": 449,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "24. Error handling",
-      "line": 449,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ignore errors ,`, `ignore unreachable ,`, `failed when ,`, `blocks s rescue a always ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "24. Error handling",
-      "line": 449,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "25. Idempotency verification",
-      "line": 463,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "25. Idempotency verification",
-      "line": 463,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rotating token,`, `timestamped artifact,`, `external system s nondeterministickým outputom,`, `deliberately restarted service.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "25. Idempotency verification",
-      "line": 463,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "Module neexistuje",
-      "line": 487,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "Task je skipped",
-      "line": 495,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "Playbook pokračuje po chybe",
-      "line": 503,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "Task name run command",
-      "line": 513,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "shell pre každú operáciu",
-      "line": 517,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "ignore errors: true bez následnej kontroly",
-      "line": 521,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "Jeden monolitický playbook",
-      "line": 525,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "run once ako distributed lock",
-      "line": 529,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "Tags ako alternatívne dependency graphy",
-      "line": 533,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 537,
+      "section": "2. Súťažiace hypotézy",
+      "line": 298,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -95294,8 +94817,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 537,
+      "section": "2. Súťažiace hypotézy",
+      "line": 298,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -95303,26 +94826,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 537,
+      "section": "2. Súťažiace hypotézy",
+      "line": 298,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 537,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je operácia dostupná cez state-aware module?`, `Kde action a module skutočne bežia?`, `Aký result contract potrebujem registrovať?`, `Čo presne znamená changed a failed ?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 537,
+      "section": "2. Súťažiace hypotézy",
+      "line": 298,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -95330,8 +94844,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 537,
+      "section": "2. Súťažiace hypotézy",
+      "line": 298,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -95339,12 +94853,201 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 537,
+      "section": "2. Súťažiace hypotézy",
+      "line": 298,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 308,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 308,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 308,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 308,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parsed/listed task graph a dynamic include decisions;`, `per-host task events vrátane skipped/failed/rescued;`, `template destination a checksum;`, `changed result a handler notification queue;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 308,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 308,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "5. Recovery",
+      "line": 322,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "5. Recovery",
+      "line": 322,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "5. Recovery",
+      "line": 322,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "5. Recovery",
+      "line": 322,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "5. Recovery",
+      "line": 322,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "7. Posuň control skôr",
+      "line": 334,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "13. Referenčné pravidlá",
+      "line": 338,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "13. Referenčné pravidlá",
+      "line": 338,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "13. Referenčné pravidlá",
+      "line": 338,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "13. Referenčné pravidlá",
+      "line": 338,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `FQCN určuje namespace, nie automaticky immutable dependency version.`, `Task result je per host, nie iba globálny.`, `changed riadi ďalšie transitions a musí byť pravdivý.`, `delegate to nemení host iteration count.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "13. Referenčné pravidlá",
+      "line": 338,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "13. Referenčné pravidlá",
+      "line": 338,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "13. Referenčné pravidlá",
+      "line": 338,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "13. Referenčné pravidlá",
+      "line": 338,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md",
+      "section": "13. Referenčné pravidlá",
+      "line": 338,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `FQCN`, `policy`",
+      "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/modules.md",
