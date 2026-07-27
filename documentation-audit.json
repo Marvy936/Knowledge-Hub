@@ -1725,15 +1725,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
       "title": "Inventory",
-      "words": 1659,
-      "headings": 47,
-      "sections": 47,
-      "findings": 92,
-      "critical": 28,
-      "high": 42,
-      "medium": 15,
-      "low": 7,
-      "score": 734,
+      "words": 2325,
+      "headings": 34,
+      "sections": 34,
+      "findings": 93,
+      "critical": 29,
+      "high": 23,
+      "medium": 23,
+      "low": 18,
+      "score": 648,
       "grade": "D"
     },
     {
@@ -93098,26 +93098,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "1. Inventory source",
+      "section": "1. Dominantný model: source-to-target-coverage lifecycle",
       "line": 7,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "1. Inventory source",
-      "line": 7,
+      "section": "3. Inventory source verzus resolved inventory",
+      "line": 44,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `INI file,`, `YAML file,`, `directory obsahujúci viac sources,`, `plugin configuration file,`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "1. Inventory source",
-      "line": 7,
+      "section": "3. Inventory source verzus resolved inventory",
+      "line": 44,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `YAML alebo INI file;`, `directory viacerých sources;`, `dynamic inventory plugin configuration;`, `legacy script;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "3. Inventory source verzus resolved inventory",
+      "line": 44,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -93125,8 +93134,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "1. Inventory source",
-      "line": 7,
+      "section": "3. Inventory source verzus resolved inventory",
+      "line": 44,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -93134,8 +93143,53 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "1. Inventory source",
-      "line": 7,
+      "section": "3. Inventory source verzus resolved inventory",
+      "line": 44,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`, `INI`, `CMDB`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "4. Stable host identity",
+      "line": 75,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "5. Worked failure: recyklovaná IP za stabilným aliasom",
+      "line": 109,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "5. Worked failure: recyklovaná IP za stabilným aliasom",
+      "line": 109,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dynamic source viazaný na immutable instance ID;`, `host-key/certificate identity verification;`, `environment/account assertion;`, `pre-run comparison inventory identity vs. cloud asset identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "5. Worked failure: recyklovaná IP za stabilným aliasom",
+      "line": 109,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "5. Worked failure: recyklovaná IP za stabilným aliasom",
+      "line": 109,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -93143,26 +93197,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "1. Inventory source",
-      "line": 7,
+      "section": "5. Worked failure: recyklovaná IP za stabilným aliasom",
+      "line": 109,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INI`, `YAML`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "2. Host identity",
-      "line": 26,
+      "section": "6. Groups ako scope a inheritance graph",
+      "line": 138,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `inventory hostname je web-01 ,`, `connection address je 10.20.1.11 .`.",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 37 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "2. Host identity",
-      "line": 26,
+      "section": "6. Groups ako scope a inheritance graph",
+      "line": 138,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment;`, `service role;`, `region/AZ;`, `deployment ring;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "6. Groups ako scope a inheritance graph",
+      "line": 138,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -93170,206 +93233,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "3. Groups",
-      "line": 46,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "3. Groups",
-      "line": 46,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `role,`, `environmentu,`, `regionu,`, `ownershipu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "3. Groups",
-      "line": 46,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "3. Groups",
-      "line": 46,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "4. Built-in groups",
-      "line": 79,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "4. Built-in groups",
-      "line": 79,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "5. Static inventory",
-      "line": 88,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "INI",
-      "line": 90,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "YAML",
-      "line": 107,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "YAML",
-      "line": 107,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "6. Dynamic inventory",
-      "line": 120,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "6. Dynamic inventory",
-      "line": 120,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "6. Dynamic inventory",
-      "line": 120,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cloud API,`, `CMDB,`, `virtualization platformy,`, `service registry,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "6. Dynamic inventory",
-      "line": 120,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "6. Dynamic inventory",
-      "line": 120,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `CMDB`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "7. Inventory plugins vs. scripts",
-      "line": 162,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "7. Inventory plugins vs. scripts",
-      "line": 162,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dokumentovanú configuration schema,`, `integration s cache a Ansible plugin modelom,`, `verify/parse behavior,`, `collection versioning.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "7. Inventory plugins vs. scripts",
-      "line": 162,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "9. Host a group variables",
-      "line": 190,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "9. Host a group variables",
-      "line": 190,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "9. Host a group variables",
-      "line": 190,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inline v inventory,`, `pod vars v YAML inventory,`, `v group vars/ ,`, `v host vars/ ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "9. Host a group variables",
-      "line": 190,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "9. Host a group variables",
-      "line": 190,
+      "section": "6. Groups ako scope a inheritance graph",
+      "line": 138,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -93377,62 +93242,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "9. Host a group variables",
-      "line": 190,
+      "section": "6. Groups ako scope a inheritance graph",
+      "line": 138,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `OS`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "group vars",
-      "line": 208,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "host vars",
-      "line": 216,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "host vars",
-      "line": 216,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "10. Group variable conflicts",
-      "line": 225,
+      "section": "7. Dynamic inventory a authoritative metadata",
+      "line": 176,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "10. Group variable conflicts",
-      "line": 225,
+      "section": "7. Dynamic inventory a authoritative metadata",
+      "line": 176,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parent/child hierarchy,`, `group priority,`, `inventory source ordering,`, `vars plugin behavior,`.",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `automatická discovery ephemeral hosts;`, `menšia manuálna synchronizácia;`, `groups odvodené z authoritative metadata;`, `jednoduchšia fleet coverage.`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "10. Group variable conflicts",
-      "line": 225,
+      "section": "7. Dynamic inventory a authoritative metadata",
+      "line": 176,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -93440,8 +93278,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "10. Group variable conflicts",
-      "line": 225,
+      "section": "7. Dynamic inventory a authoritative metadata",
+      "line": 176,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -93449,233 +93287,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "11. Connection variables",
-      "line": 237,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "7. Dynamic inventory a authoritative metadata",
+      "line": 176,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "11. Connection variables",
-      "line": 237,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ansible host ,`, `ansible port ,`, `ansible user ,`, `ansible connection ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "11. Connection variables",
-      "line": 237,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "12. Inventory patterns",
-      "line": 251,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `union,`, `intersection,`, `exclusion.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "12. Inventory patterns",
-      "line": 251,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "13. --limit",
-      "line": 281,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "13. --limit",
-      "line": 281,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operator ho môže zabudnúť,`, `pattern môže byť nesprávny,`, `inventory sa môže zmeniť,`, `automation controller môže používať vlastný limit field.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "13. --limit",
-      "line": 281,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "14. Inventory inspection",
-      "line": 292,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Graph",
-      "line": 294,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Graph",
-      "line": 294,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "List",
-      "line": 302,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "List",
-      "line": 302,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Host view",
-      "line": 310,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Host view",
-      "line": 310,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Playbook target set",
-      "line": 318,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Playbook target set",
-      "line": 318,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "16. Constructed inventory",
-      "line": 340,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vytvárať variables cez expressions,`, `skladať groups podľa podmienok,`, `transformovať metadata z iných sources.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "16. Constructed inventory",
-      "line": 340,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "17. Inventory caching",
-      "line": 350,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "17. Inventory caching",
-      "line": 350,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TTL,`, `cache backend,`, `invalidation,`, `behavior pri API outage,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "17. Inventory caching",
-      "line": 350,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "17. Inventory caching",
-      "line": 350,
+      "section": "7. Dynamic inventory a authoritative metadata",
+      "line": 176,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "19. Inventory a secrets",
-      "line": 381,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `passwords,`, `private keys,`, `API tokens,`, `Vault passwords,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "19. Inventory a secrets",
-      "line": 381,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "19. Inventory a secrets",
-      "line": 381,
+      "section": "9. Static inventory a explicitný ownership",
+      "line": 237,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -93683,35 +93314,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "19. Inventory a secrets",
-      "line": 381,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "20. Environment isolation",
-      "line": 395,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "20. Environment isolation",
-      "line": 395,
+      "section": "10. Inventory directories a source aggregation",
+      "line": 262,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatné inventory directories,`, `samostatné cloud identities,`, `samostatné controller credentials,`, `protected job templates,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `duplicate logical identity;`, `conflicting immutable instance IDs;`, `conflicting ansible host ;`, `source ownership;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "20. Environment isolation",
-      "line": 395,
+      "section": "10. Inventory directories a source aggregation",
+      "line": 262,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -93719,8 +93332,134 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "21. Testing inventory",
-      "line": 410,
+      "section": "10. Inventory directories a source aggregation",
+      "line": 262,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "10. Inventory directories a source aggregation",
+      "line": 262,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "11. Variables ako behavior a connection inputs",
+      "line": 287,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `topology a environment data;`, `connection address/user/plugin;`, `interpreter;`, `role/service parameters;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "11. Variables ako behavior a connection inputs",
+      "line": 287,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "11. Variables ako behavior a connection inputs",
+      "line": 287,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "12. Group variable conflicts",
+      "line": 312,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používaj jednoznačného ownera;`, `validuj forbidden multiple definitions;`, `publikuj resolved value identity pred runom;`, `neodstraňuj ambiguity ďalším extra-var override-om.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "12. Group variable conflicts",
+      "line": 312,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "12. Group variable conflicts",
+      "line": 312,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "12. Group variable conflicts",
+      "line": 312,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "14. Expected target inventory",
+      "line": 363,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "14. Expected target inventory",
+      "line": 363,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálny/maximálny count;`, `presný release manifest;`, `požadované AZ/ring zastúpenie;`, `forbidden groups/overlaps;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "14. Expected target inventory",
+      "line": 363,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "14. Expected target inventory",
+      "line": 363,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "14. Expected target inventory",
+      "line": 363,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "15. Worked failure: API outage vytvoril green no-op",
+      "line": 388,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -93728,26 +93467,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "21. Testing inventory",
-      "line": 410,
+      "section": "15. Worked failure: API outage vytvoril green no-op",
+      "line": 388,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "21. Testing inventory",
-      "line": 410,
+      "section": "15. Worked failure: API outage vytvoril green no-op",
+      "line": 388,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser success,`, `očakávaný host count,`, `required groups,`, `forbidden overlaps,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `valid empty inventory podľa contractu;`, `source/API/tool failure;`, `stale-cache fallback;`, `filter, ktorý legitímne vrátil nula;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "21. Testing inventory",
-      "line": 410,
+      "section": "15. Worked failure: API outage vytvoril green no-op",
+      "line": 388,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93755,107 +93494,116 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "21. Testing inventory",
-      "line": 410,
+      "section": "16. Inventory cache a freshness",
+      "line": 415,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "16. Inventory cache a freshness",
+      "line": 415,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obsahovať terminated host;`, `vynechať nový host;`, `zachovať staré group membership;`, `používať starú IP;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "16. Inventory cache a freshness",
+      "line": 415,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Host nie je v očakávanej group",
-      "line": 437,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "16. Inventory cache a freshness",
+      "line": 415,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Host používa nesprávnu IP",
-      "line": 441,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "16. Inventory cache a freshness",
+      "line": 415,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
+      "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Plugin sa nepoužil",
-      "line": 453,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "17. Constructed groups a hidden logic",
+      "line": 442,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fixtures pre valid metadata;`, `missing/null fields;`, `case/normalization;`, `forbidden overlaps;`.",
+      "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "--limit vybral neočakávané hosts",
-      "line": 457,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "17. Constructed groups a hidden logic",
+      "line": 442,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Inventory ako CMDB dump bez ownershipu",
-      "line": 463,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Secrets inline pri hosts",
-      "line": 467,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Jeden globálny inventory pre všetky boundaries",
-      "line": 471,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Group names podľa dočasných organizačných tímov",
-      "line": 475,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Dynamic inventory bez cache observability",
-      "line": 479,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "Kritické variables definované vo viacerých groups",
-      "line": 483,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "24. Rozhodovací rámec",
+      "section": "20. Environment isolation",
       "line": 487,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "20. Environment isolation",
+      "line": 487,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory sources/directories;`, `cloud accounts/subscriptions;`, `controller credentials;`, `execution environments/job templates;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "20. Environment isolation",
+      "line": 487,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "20. Environment isolation",
+      "line": 487,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "1. Zafixuj inventory subject",
+      "line": 507,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 511,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -93863,8 +93611,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "24. Rozhodovací rámec",
-      "line": 487,
+      "section": "2. Súťažiace hypotézy",
+      "line": 511,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -93872,26 +93620,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "24. Rozhodovací rámec",
-      "line": 487,
+      "section": "2. Súťažiace hypotézy",
+      "line": 511,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "24. Rozhodovací rámec",
-      "line": 487,
+      "section": "2. Súťažiace hypotézy",
+      "line": 511,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorý systém je authoritative source host identity?`, `Ktoré inventory sources sa agregujú?`, `Ako sa definuje stabilný inventory hostname ?`, `Aké groups reprezentujú role, environment a failure domain?`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Dynamic source vrátil partial result.`, `Cache bola stale.`, `Dva hosts stratili required tag/group membership.`, `Static alias ukázal na recyklovanú IP.`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "24. Rozhodovací rámec",
-      "line": 487,
+      "section": "2. Súťažiace hypotézy",
+      "line": 511,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -93899,8 +93647,62 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "24. Rozhodovací rámec",
-      "line": 487,
+      "section": "2. Súťažiace hypotézy",
+      "line": 511,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 522,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 522,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 522,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 522,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw source API result a request ID;`, `cache timestamp/generation;`, `ansible-inventory --graph , --list a --host ;`, `immutable cloud instance IDs;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 522,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 522,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -93908,8 +93710,206 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "24. Rozhodovací rámec",
-      "line": 487,
+      "section": "3. Diskriminačné observation points",
+      "line": 522,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `ID`, `SSH`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "5. Recovery",
+      "line": 538,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "5. Recovery",
+      "line": 538,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "5. Recovery",
+      "line": 538,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "5. Recovery",
+      "line": 538,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `tag/group error → oprav metadata a forbidden-overlap test;`, `wrong pattern → oprav target contract;`, `wrong account/config → revoke credentials a skontroluj zasiahnutý envi`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "5. Recovery",
+      "line": 538,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "5. Recovery",
+      "line": 538,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "5. Recovery",
+      "line": 538,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "7. Posuň control skôr",
+      "line": 551,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "22. Inventory validation pipeline",
+      "line": 555,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "22. Inventory validation pipeline",
+      "line": 555,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "23. Evidence a observability",
+      "line": 583,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "23. Evidence a observability",
+      "line": 583,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "23. Evidence a observability",
+      "line": 583,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unexpected host-count delta;`, `empty/undersized inventories;`, `cache age;`, `duplicate identities;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "23. Evidence a observability",
+      "line": 583,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "23. Evidence a observability",
+      "line": 583,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 611,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 611,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 611,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 611,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Inventory source a resolved inventory sú odlišné objekty.`, `Tag je executable scope input, nie iba metadata.`, `Groups tvoria membership a variable inheritance graph.`, `Critical variables nemajú implicitne súťažiť vo viacerých groups.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 611,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 611,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 611,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -93917,11 +93917,20 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
-      "section": "24. Rozhodovací rámec",
-      "line": 487,
+      "section": "24. Referenčné pravidlá",
+      "line": 611,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/inventory.md",
+      "section": "24. Referenčné pravidlá",
+      "line": 611,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `identity`, `freshness`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`, `freshness`",
       "score": 4
     },
     {

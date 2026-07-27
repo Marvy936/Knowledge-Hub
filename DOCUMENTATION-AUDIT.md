@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11401**
-- Total words: **579,408**
-- Findings: **24725** (critical 7860, high 8981, medium 3387, low 4497)
+- Audited conceptual sections: **11388**
+- Total words: **580,074**
+- Findings: **24726** (critical 7861, high 8962, medium 3395, low 4508)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -124,7 +124,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 756 | 23 | 56 | 11 | 1 | 1475 | `docs/09-kubernetes/rbac.md` |
 | D | 754 | 30 | 39 | 16 | 27 | 2895 | `docs/02-networking-and-web/dns.md` |
 | D | 747 | 26 | 47 | 14 | 8 | 1566 | `docs/09-kubernetes/ingress-gateway-api.md` |
-| D | 734 | 28 | 42 | 15 | 7 | 1659 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | D | 734 | 32 | 38 | 12 | 7 | 1841 | `docs/10-helm-and-cka/hooks.md` |
 | D | 733 | 31 | 40 | 7 | 20 | 2322 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
 | D | 731 | 31 | 42 | 8 | 2 | 1769 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
@@ -159,6 +158,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 656 | 28 | 35 | 8 | 16 | 1792 | `docs/04-testing-and-quality/smoke-and-regression-tests.md` |
 | D | 652 | 32 | 30 | 7 | 6 | 1750 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | D | 650 | 27 | 32 | 16 | 11 | 1415 | `docs/08-container-fundamentals-and-docker/docker-architecture.md` |
+| D | 648 | 29 | 23 | 23 | 18 | 2325 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | D | 644 | 29 | 29 | 14 | 10 | 1651 | `docs/09-kubernetes/requests-limits-qos.md` |
 | D | 643 | 26 | 32 | 11 | 28 | 2923 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | D | 642 | 30 | 28 | 12 | 15 | 2582 | `docs/04-testing-and-quality/mocks-stubs-fakes.md` |
@@ -6547,76 +6547,58 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/inventory.md`
 
-- **CRITICAL** line 7, `bare-bullet-items` — **1. Inventory source**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `INI file,`, `YAML file,`, `directory obsahujúci viac sources,`, `plugin configuration file,`.
-- **CRITICAL** line 46, `bare-bullet-items` — **3. Groups**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `role,`, `environmentu,`, `regionu,`, `ownershipu,`.
-- **CRITICAL** line 46, `outline-instead-of-explanation` — **3. Groups**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 88, `empty-section` — **5. Static inventory**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 120, `bare-bullet-items` — **6. Dynamic inventory**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cloud API,`, `CMDB,`, `virtualization platformy,`, `service registry,`.
-- **CRITICAL** line 120, `outline-instead-of-explanation` — **6. Dynamic inventory**: 16 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 162, `bare-bullet-items` — **7. Inventory plugins vs. scripts**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dokumentovanú configuration schema,`, `integration s cache a Ansible plugin modelom,`, `verify/parse behavior,`, `collection versioning.`.
-- **CRITICAL** line 162, `outline-instead-of-explanation` — **7. Inventory plugins vs. scripts**: 4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 190, `bare-bullet-items` — **9. Host a group variables**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inline v inventory,`, `pod vars v YAML inventory,`, `v group vars/ ,`, `v host vars/ ,`.
-- **CRITICAL** line 190, `outline-instead-of-explanation` — **9. Host a group variables**: 10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 208, `empty-section` — **group vars**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 225, `bare-bullet-items` — **10. Group variable conflicts**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parent/child hierarchy,`, `group priority,`, `inventory source ordering,`, `vars plugin behavior,`.
-- **CRITICAL** line 225, `outline-instead-of-explanation` — **10. Group variable conflicts**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 237, `bare-bullet-items` — **11. Connection variables**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ansible host ,`, `ansible port ,`, `ansible user ,`, `ansible connection ,`.
-- **CRITICAL** line 237, `outline-instead-of-explanation` — **11. Connection variables**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 281, `bare-bullet-items` — **13. --limit**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operator ho môže zabudnúť,`, `pattern môže byť nesprávny,`, `inventory sa môže zmeniť,`, `automation controller môže používať vlastný limit field.`.
-- **CRITICAL** line 281, `outline-instead-of-explanation` — **13. --limit**: 4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 292, `empty-section` — **14. Inventory inspection**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 350, `bare-bullet-items` — **17. Inventory caching**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `TTL,`, `cache backend,`, `invalidation,`, `behavior pri API outage,`.
-- **CRITICAL** line 350, `outline-instead-of-explanation` — **17. Inventory caching**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 381, `bare-bullet-items` — **19. Inventory a secrets**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `passwords,`, `private keys,`, `API tokens,`, `Vault passwords,`.
-- **CRITICAL** line 395, `bare-bullet-items` — **20. Environment isolation**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatné inventory directories,`, `samostatné cloud identities,`, `samostatné controller credentials,`, `protected job templates,`.
-- **CRITICAL** line 395, `outline-instead-of-explanation` — **20. Environment isolation**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 410, `bare-bullet-items` — **21. Testing inventory**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser success,`, `očakávaný host count,`, `required groups,`, `forbidden overlaps,`.
-- **CRITICAL** line 410, `outline-instead-of-explanation` — **21. Testing inventory**: 9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 487, `bare-bullet-items` — **24. Rozhodovací rámec**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorý systém je authoritative source host identity?`, `Ktoré inventory sources sa agregujú?`, `Ako sa definuje stabilný inventory hostname ?`, `Aké groups reprezentujú role, environment a failure domain?`.
-- **CRITICAL** line 487, `no-prose-concept` — **24. Rozhodovací rámec**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 487, `outline-instead-of-explanation` — **24. Rozhodovací rámec**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **HIGH** line 7, `list-heavy-section` — **1. Inventory source**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 26, `bare-bullet-items` — **2. Host identity**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `inventory hostname je web-01 ,`, `connection address je 10.20.1.11 .`.
-- **HIGH** line 79, `single-sentence-concept` — **4. Built-in groups**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 90, `list-first-introduction` — **INI**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 107, `list-first-introduction` — **YAML**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 107, `single-sentence-concept` — **YAML**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 120, `single-sentence-concept` — **6. Dynamic inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 190, `single-sentence-concept` — **9. Host a group variables**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 216, `list-first-introduction` — **host vars**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 216, `single-sentence-concept` — **host vars**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 251, `bare-bullet-items` — **12. Inventory patterns**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `union,`, `intersection,`, `exclusion.`.
-- **HIGH** line 294, `list-first-introduction` — **Graph**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 294, `single-sentence-concept` — **Graph**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 302, `list-first-introduction` — **List**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 302, `single-sentence-concept` — **List**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 310, `list-first-introduction` — **Host view**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 310, `single-sentence-concept` — **Host view**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 318, `list-first-introduction` — **Playbook target set**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 318, `single-sentence-concept` — **Playbook target set**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 340, `bare-bullet-items` — **16. Constructed inventory**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vytvárať variables cez expressions,`, `skladať groups podľa podmienok,`, `transformovať metadata z iných sources.`.
-- **HIGH** line 410, `single-sentence-concept` — **21. Testing inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 437, `single-sentence-concept` — **Host nie je v očakávanej group**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 441, `single-sentence-concept` — **Host používa nesprávnu IP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 453, `single-sentence-concept` — **Plugin sa nepoužil**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 457, `single-sentence-concept` — **--limit vybral neočakávané hosts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 463, `single-sentence-concept` — **Inventory ako CMDB dump bez ownershipu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 467, `single-sentence-concept` — **Secrets inline pri hosts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 471, `single-sentence-concept` — **Jeden globálny inventory pre všetky boundaries**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 475, `single-sentence-concept` — **Group names podľa dočasných organizačných tímov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 479, `single-sentence-concept` — **Dynamic inventory bez cache observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 483, `single-sentence-concept` — **Kritické variables definované vo viacerých groups**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 487, `list-first-introduction` — **24. Rozhodovací rámec**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 79, `thin-concept-section` — **4. Built-in groups**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 120, `thin-concept-section` — **6. Dynamic inventory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 162, `thin-concept-section` — **7. Inventory plugins vs. scripts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 190, `thin-concept-section` — **9. Host a group variables**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 237, `thin-concept-section` — **11. Connection variables**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 281, `thin-concept-section` — **13. --limit**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 340, `thin-concept-section` — **16. Constructed inventory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 350, `thin-concept-section` — **17. Inventory caching**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 410, `thin-concept-section` — **21. Testing inventory**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 487, `thin-concept-section` — **24. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 44, `bare-bullet-items` — **3. Inventory source verzus resolved inventory**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `YAML alebo INI file;`, `directory viacerých sources;`, `dynamic inventory plugin configuration;`, `legacy script;`.
+- **CRITICAL** line 44, `outline-instead-of-explanation` — **3. Inventory source verzus resolved inventory**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 109, `bare-bullet-items` — **5. Worked failure: recyklovaná IP za stabilným aliasom**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dynamic source viazaný na immutable instance ID;`, `host-key/certificate identity verification;`, `environment/account assertion;`, `pre-run comparison inventory identity vs. cloud asset identity;`.
+- **CRITICAL** line 109, `outline-instead-of-explanation` — **5. Worked failure: recyklovaná IP za stabilným aliasom**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 138, `bare-bullet-items` — **6. Groups ako scope a inheritance graph**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment;`, `service role;`, `region/AZ;`, `deployment ring;`.
+- **CRITICAL** line 176, `bare-bullet-items` — **7. Dynamic inventory a authoritative metadata**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `automatická discovery ephemeral hosts;`, `menšia manuálna synchronizácia;`, `groups odvodené z authoritative metadata;`, `jednoduchšia fleet coverage.`.
+- **CRITICAL** line 176, `outline-instead-of-explanation` — **7. Dynamic inventory a authoritative metadata**: 11 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 262, `bare-bullet-items` — **10. Inventory directories a source aggregation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `duplicate logical identity;`, `conflicting immutable instance IDs;`, `conflicting ansible host ;`, `source ownership;`.
+- **CRITICAL** line 287, `bare-bullet-items` — **11. Variables ako behavior a connection inputs**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `topology a environment data;`, `connection address/user/plugin;`, `interpreter;`, `role/service parameters;`.
+- **CRITICAL** line 312, `bare-bullet-items` — **12. Group variable conflicts**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používaj jednoznačného ownera;`, `validuj forbidden multiple definitions;`, `publikuj resolved value identity pred runom;`, `neodstraňuj ambiguity ďalším extra-var override-om.`.
+- **CRITICAL** line 363, `bare-bullet-items` — **14. Expected target inventory**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálny/maximálny count;`, `presný release manifest;`, `požadované AZ/ring zastúpenie;`, `forbidden groups/overlaps;`.
+- **CRITICAL** line 388, `bare-bullet-items` — **15. Worked failure: API outage vytvoril green no-op**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `valid empty inventory podľa contractu;`, `source/API/tool failure;`, `stale-cache fallback;`, `filter, ktorý legitímne vrátil nula;`.
+- **CRITICAL** line 388, `outline-instead-of-explanation` — **15. Worked failure: API outage vytvoril green no-op**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 415, `bare-bullet-items` — **16. Inventory cache a freshness**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obsahovať terminated host;`, `vynechať nový host;`, `zachovať staré group membership;`, `používať starú IP;`.
+- **CRITICAL** line 415, `outline-instead-of-explanation` — **16. Inventory cache a freshness**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 442, `bare-bullet-items` — **17. Constructed groups a hidden logic**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fixtures pre valid metadata;`, `missing/null fields;`, `case/normalization;`, `forbidden overlaps;`.
+- **CRITICAL** line 487, `bare-bullet-items` — **20. Environment isolation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory sources/directories;`, `cloud accounts/subscriptions;`, `controller credentials;`, `execution environments/job templates;`.
+- **CRITICAL** line 511, `bare-bullet-items` — **2. Súťažiace hypotézy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Dynamic source vrátil partial result.`, `Cache bola stale.`, `Dva hosts stratili required tag/group membership.`, `Static alias ukázal na recyklovanú IP.`.
+- **CRITICAL** line 511, `no-prose-concept` — **2. Súťažiace hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 511, `outline-instead-of-explanation` — **2. Súťažiace hypotézy**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 522, `bare-bullet-items` — **3. Diskriminačné observation points**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw source API result a request ID;`, `cache timestamp/generation;`, `ansible-inventory --graph , --list a --host ;`, `immutable cloud instance IDs;`.
+- **CRITICAL** line 522, `no-prose-concept` — **3. Diskriminačné observation points**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 522, `outline-instead-of-explanation` — **3. Diskriminačné observation points**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 538, `no-prose-concept` — **5. Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 538, `outline-instead-of-explanation` — **5. Recovery**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 583, `bare-bullet-items` — **23. Evidence a observability**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unexpected host-count delta;`, `empty/undersized inventories;`, `cache age;`, `duplicate identities;`.
+- **CRITICAL** line 583, `outline-instead-of-explanation` — **23. Evidence a observability**: 10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 611, `no-prose-concept` — **24. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 611, `outline-instead-of-explanation` — **24. Referenčné pravidlá**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model: source-to-target-coverage lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 138, `list-heavy-section` — **6. Groups ako scope a inheritance graph**: 10 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 363, `list-heavy-section` — **14. Expected target inventory**: 7 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 388, `single-sentence-concept` — **15. Worked failure: API outage vytvoril green no-op**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 487, `list-heavy-section` — **20. Environment isolation**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 507, `single-sentence-concept` — **1. Zafixuj inventory subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 511, `list-first-introduction` — **2. Súťažiace hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 522, `list-first-introduction` — **3. Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 538, `bare-bullet-items` — **5. Recovery**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `tag/group error → oprav metadata a forbidden-overlap test;`, `wrong pattern → oprav target contract;`, `wrong account/config → revoke credentials a skontroluj zasiahnutý envi`.
+- **HIGH** line 538, `list-first-introduction` — **5. Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 551, `single-sentence-concept` — **7. Posuň control skôr**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 555, `list-first-introduction` — **22. Inventory validation pipeline**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 555, `single-sentence-concept` — **22. Inventory validation pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 583, `single-sentence-concept` — **23. Evidence a observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 611, `bare-bullet-items` — **24. Referenčné pravidlá**: 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Inventory source a resolved inventory sú odlišné objekty.`, `Tag je executable scope input, nie iba metadata.`, `Groups tvoria membership a variable inheritance graph.`, `Critical variables nemajú implicitne súťažiť vo viacerých groups.`.
+- **HIGH** line 611, `list-first-introduction` — **24. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 388, `thin-concept-section` — **15. Worked failure: API outage vytvoril green no-op**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 511, `thin-concept-section` — **2. Súťažiace hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 522, `term-before-explanation` — **3. Diskriminačné observation points**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `ID`, `SSH`, `identity`
+- **HIGH** line 522, `thin-concept-section` — **3. Diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 538, `thin-concept-section` — **5. Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 583, `thin-concept-section` — **23. Evidence a observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 611, `thin-concept-section` — **24. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md`
 
@@ -17891,19 +17873,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3483 | 437 | 0 | 0 | 3920 |
-| `single-sentence-concept` | 0 | 3656 | 0 | 0 | 3656 |
-| `outline-instead-of-explanation` | 3331 | 0 | 0 | 0 | 3331 |
-| `thin-concept-section` | 0 | 2933 | 0 | 0 | 2933 |
-| `term-before-explanation` | 0 | 456 | 2299 | 0 | 2755 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1804 | 1804 |
-| `example-not-explicit` | 0 | 0 | 0 | 1760 | 1760 |
-| `list-first-introduction` | 0 | 1113 | 0 | 0 | 1113 |
-| `short-concept-section` | 0 | 0 | 1088 | 0 | 1088 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 933 | 933 |
-| `empty-section` | 582 | 0 | 0 | 0 | 582 |
-| `no-prose-concept` | 464 | 0 | 0 | 0 | 464 |
-| `list-heavy-section` | 0 | 386 | 0 | 0 | 386 |
+| `bare-bullet-items` | 3485 | 436 | 0 | 0 | 3921 |
+| `single-sentence-concept` | 0 | 3641 | 0 | 0 | 3641 |
+| `outline-instead-of-explanation` | 3330 | 0 | 0 | 0 | 3330 |
+| `thin-concept-section` | 0 | 2929 | 0 | 0 | 2929 |
+| `term-before-explanation` | 0 | 457 | 2304 | 0 | 2761 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1812 | 1812 |
+| `example-not-explicit` | 0 | 0 | 0 | 1762 | 1762 |
+| `list-first-introduction` | 0 | 1111 | 0 | 0 | 1111 |
+| `short-concept-section` | 0 | 0 | 1091 | 0 | 1091 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 934 | 934 |
+| `empty-section` | 579 | 0 | 0 | 0 | 579 |
+| `no-prose-concept` | 467 | 0 | 0 | 0 | 467 |
+| `list-heavy-section` | 0 | 388 | 0 | 0 | 388 |
 
 ## Required remediation pattern
 
