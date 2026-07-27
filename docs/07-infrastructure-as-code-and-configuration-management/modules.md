@@ -1,142 +1,142 @@
 # Modules
 
-Terraform **module** je kolekcia konfiguračných súborov, ktoré Terraform vyhodnocuje ako jednu kompozičnú jednotku. Každá Terraform konfigurácia má root module; `module` blocky volajú child modules.
+Terraform module je versionovaná capability a contract boundary. Root module skladá environment-specific systém; child modules poskytujú opakovateľné capabilities cez inputs, outputs, provider requirements a migration semantics. Module nie je automaticky samostatný deployment ani state boundary.
 
-Modul nemá byť iba priečinok so skopírovanými resources. Má predstavovať stabilný contract, ktorý skrýva primeranú implementačnú komplexitu a umožňuje callerovi vyjadriť architektonický zámer.
+Dominantný model:
 
-## 1. Root a child module
+```text
+consumer intent
+→ immutable module source/version
+→ typed public contract
+→ caller-owned provider a environment mapping
+→ expanded graph a state addresses
+→ narrow outputs a runtime behavior
+→ tested upgrade/migration
+→ consumer inventory, support a retirement
+```
 
-- **root module** je konfigurácia spustená príkazom `terraform plan` alebo `terraform apply`,
-- **child module** je reusable konfigurácia volaná z iného modulu,
-- child module môže volať ďalšie child modules,
-- všetky resources z celej module hierarchy patria do jedného dependency graphu a state-u konkrétneho root module runu.
+Modul má znižovať počet nebezpečných rozhodnutí callerovi, nie iba premenovať provider arguments.
 
-Module nie je samostatná state boundary automaticky. Samostatný state vzniká až samostatným root module/backend lifecycle.
+## 1. Atlas scenár: interný service-platform module
 
-## 2. Module block
+Atlas Payments používa interný module:
 
 ```hcl
-module "network" {
-  source  = "app.terraform.io/example/network/aws"
-  version = "~> 3.4"
+module "payments_service" {
+  source  = "app.terraform.io/atlas/service-platform/aws"
+  version = "3.4.2"
 
-  name       = "payments-prod"
-  cidr_block = "10.40.0.0/16"
+  service = {
+    name        = "payments-api"
+    environment = "prod"
+    replicas    = 6
+  }
+
+  providers = {
+    aws = aws.production
+  }
 }
 ```
 
-Caller určuje:
+Module vytvorí compute, load-balancer integration, IAM a observability resources. Caller očakáva:
 
-- source,
-- pri podporovanom source type aj version constraint,
-- input values,
-- provider mappings,
-- `count`, `for_each` alebo dependencies podľa potreby.
+- immutable source `3.4.2`;
+- production-safe defaults a validation;
+- explicitný provider target;
+- stabilné outputy `service_id`, `endpoint` a `runtime_role_arn`;
+- zdokumentované replacement a migration semantics;
+- podporovanú upgrade path z `3.3.x`.
 
-Po zmene module source alebo version sa pracovný adresár znovu inicializuje cez `terraform init`.
+Caller nemusí poznať každú internú resource address-u, ale musí rozumieť capability, permissions, side effects a blast radiusu.
 
-## 3. Module source
+## 2. Root module a child module
 
-Bežné source modely:
+Root module je configuration subject, nad ktorým sa spúšťa plan/apply a ktorý vlastní:
 
-- local relative path,
-- Terraform registry,
-- private registry,
-- Git/VCS source,
-- podporované archive alebo object-storage zdroje.
+- backend a state boundary;
+- environment composition;
+- provider configurations a credentials;
+- top-level inputs a policy;
+- orchestration medzi capabilities.
 
-Source je executable dependency. Potrebuje:
+Child module je reusable implementation volaná cez `module` block. Všetky jeho resources sa rozvinú do dependency graphu a state-u root module-u:
 
-- dôveryhodného ownera,
-- immutable alebo presne pinovanú verziu,
-- review zmien,
-- release notes,
-- provenance a access controls,
-- kontrolovaný upgrade proces.
+```text
+root module payments-prod
+→ module.payments_service
+→ module.payments_service.aws_lb.this
+→ module.payments_service.aws_iam_role.runtime
+```
 
-Použitie mutable branch bez commit/tag/version identity oslabuje reprodukovateľnosť planu.
+Child module preto neizoluje lock, permissions ani blast radius. Samostatný state vzniká iba samostatným root/backend lifecycle-om.
 
-## 4. Modulový contract
+## 3. Module source je executable dependency
 
-Contract tvoria najmä:
+Source môže byť local path, registry, VCS alebo podporovaný archive/object source. Dôveryhodný source subject obsahuje:
 
-- input variables,
-- output values,
-- required providers,
-- resource behavior a lifecycle assumptions,
-- naming a tagging conventions,
-- compatibility a upgrade policy,
-- dokumentované side effects.
+```text
+registry/VCS identity
++ immutable version, tag alebo commit
++ checksum/provenance podľa distribution modelu
++ owner a release policy
+```
 
-Caller nemá byť nútený poznať interné resource addresses, pokiaľ nejde o vedomý operational contract.
+Mutable branch `main` znamená, že rovnaký consumer commit môže pri neskoršom `init` načítať iný kód. Plan potom závisí od skrytej supply-chain zmeny.
 
-## 5. Input variables
+Root configuration má pinovať alebo kontrolovane obmedziť module version. Upgrade je samostatná dependency zmena, nie vedľajší efekt bežného `init`.
 
-Inputs majú byť:
+## 4. Public contract modulu
 
-- typované,
-- pomenované podľa doménového významu,
-- validované,
-- s rozumnými defaults iba tam, kde sú bezpečné,
-- bez skrytých environment assumptions.
+Contract netvoria iba variable a output tabuľky. Obsahuje:
 
-Príliš veľa boolean switches často signalizuje, že modul obsahuje viac nesúvisiacich produktov alebo modes.
+- purpose a non-goals;
+- typed inputs, defaults, validation a null semantics;
+- stable outputs;
+- required providers a aliases;
+- resources a external side effects;
+- naming, tagging a identity model;
+- security a permission assumptions;
+- replacement/destruction behavior;
+- compatibility, deprecation a upgrade policy;
+- testované supported versions.
+
+Generated documentation je referenčný doplnok. Caller potrebuje vedieť, aké rozhodnutie modul robí a ktoré invarianty garantuje.
+
+## 5. Inputs ako intent, nie provider passthrough
+
+Slabý wrapper vystaví desiatky provider fields 1:1. Caller potom stále navrhuje celý low-level resource a modul nepridáva capability ani policy.
+
+Lepší contract prijme domain intent:
 
 ```hcl
 variable "service" {
   type = object({
     name        = string
     environment = string
-    replicas    = optional(number, 2)
+    replicas    = optional(number)
+    exposure    = optional(string, "internal")
   })
 
   validation {
-    condition     = contains(["dev", "stage", "prod"], var.service.environment)
-    error_message = "environment musí byť dev, stage alebo prod."
+    condition = (
+      var.service.environment != "prod" ||
+      coalesce(var.service.replicas, 0) >= 2
+    )
+    error_message = "Production service requires at least two replicas."
   }
 }
 ```
 
-## 6. Outputs
+Module môže odvodiť bezpečné implementation detaily, ale nesmie skryť risk-significant behavior za nejasným defaultom.
 
-Outputs majú publikovať stabilné capability alebo identity:
+## 6. Caller-owned provider mapping
 
-```hcl
-output "subnet_ids" {
-  value = values(aws_subnet.this)[*].id
-}
-```
-
-Nevystavuj celý provider resource object iba pre pohodlie. Caller sa tým naviaže na internú implementáciu, provider schema a budúce refaktoringy.
-
-Dobré outputy sú:
-
-- úzke,
-- pomenované podľa významu,
-- typovo predvídateľné,
-- dokumentované,
-- kompatibilné naprieč minor releases modulu.
-
-## 7. Providers v moduloch
-
-Reusable child module má deklarovať `required_providers`, ale provider configurations typicky vlastní root module.
-
-```hcl
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = ">= 5.0"
-    }
-  }
-}
-```
-
-Caller môže odovzdať alias:
+Reusable child module deklaruje `required_providers`. Authentication, account/region a environment target má typicky vlastniť root caller:
 
 ```hcl
 module "replica" {
-  source = "./modules/database"
+  source  = "./modules/database"
+  version = "2.1.0"
 
   providers = {
     aws = aws.replica
@@ -144,67 +144,74 @@ module "replica" {
 }
 ```
 
-Tým zostáva authentication, account/region selection a environment identity v orchestration vrstve.
+Provider mapping je súčasť execution subjectu. Hidden provider configuration v child module môže nasadiť resource do nesprávneho accountu alebo znemožniť callerovi uplatniť least privilege.
 
-## 8. Module composition
+Module documentation musí uviesť očakávané aliases a required capabilities plan/apply identity.
 
-Preferovaný model:
+## 7. Outputs ako úzke capability API
 
-```text
-root module
-→ skladá menšie capability modules
-→ prepája outputs na inputs
-→ vlastní environment-specific policy
+Output celého provider objectu:
+
+```hcl
+output "everything" {
+  value = aws_lb.this
+}
 ```
 
-Príklad:
+prenáša provider schema a interné attributes do caller contractu. Provider alebo module refactor potom vytvorí breaking change aj bez zmeny reálnej capability.
+
+Publikuj iba stabilné hodnoty:
+
+```hcl
+output "endpoint" {
+  value = aws_lb.this.dns_name
+}
+
+output "runtime_role_arn" {
+  value = aws_iam_role.runtime.arn
+}
+```
+
+Output contract má definovať typ, význam, sensitivity, availability phase a compatibility.
+
+## 8. Composition a dependency
+
+Root module skladá capabilities cez explicitné outputs a inputs:
 
 ```hcl
 module "network" {
-  source = "./modules/network"
-  cidr   = var.network_cidr
+  source  = "./modules/network"
+  version = "4.2.0"
 }
 
 module "service" {
-  source     = "./modules/service"
+  source  = "./modules/service"
+  version = "3.4.2"
+
   subnet_ids = module.network.private_subnet_ids
 }
 ```
 
-Reference vytvorí implicitnú dependency medzi module outputs a caller inputs.
+Referencia prenáša hodnotu aj dependency edge. Široké `depends_on = [module.network]` často vytvára false dependencies, viac unknown values a pomalší graph. Module contract má publikovať konkrétnu readiness alebo identity hodnotu, ktorú consumer skutočne potrebuje.
 
-## 9. Úroveň abstrakcie
+## 9. Module boundary podľa capability a change coupling-u
 
-Modul má zmysel, keď:
+Modul je primeraný, keď má:
 
-- reprezentuje opakovateľnú capability,
-- vynucuje bezpečné defaults,
-- kodifikuje organizačnú policy,
-- znižuje počet rozhodnutí callerovi,
-- má jasného ownera a lifecycle.
+- jednu koherentnú capability;
+- jasného ownera;
+- spoločný lifecycle a upgrade cadence;
+- testovateľný state space;
+- stabilný public contract;
+- pridanú policy alebo abstraction hodnotu.
 
-Modul bez pridanej hodnoty, ktorý iba premapuje každé provider pole 1:1 na input, vytvára wrapper layer bez abstrakcie.
+Mega-modul pre celý cloud account vytvára desiatky modes, široký blast radius a upgrade, ktorý môže meniť nesúvisiace systémy. Extrémne tenký wrapper zvyšuje nesting bez stability.
 
-## 10. Veľkosť modulu
+Boundary sa nevyberá podľa počtu `.tf` súborov, ale podľa ownershipu, behavioru a coupling-u.
 
-Príliš veľký modul má:
+## 10. Module instance identity
 
-- veľký blast radius,
-- veľa inputs a conditional paths,
-- pomalé testy,
-- komplikované upgrades,
-- nejasné ownership boundaries.
-
-Príliš malý modul:
-
-- nepridáva stabilný contract,
-- zvyšuje nesting,
-- komplikuje navigáciu a debugging,
-- môže iba premenovať jeden resource.
-
-Boundary vyber podľa capability, ownershipu, lifecycle a change coupling-u.
-
-## 11. `count` a `for_each` na module calls
+Pri `for_each`:
 
 ```hcl
 module "service" {
@@ -212,180 +219,268 @@ module "service" {
   source   = "./modules/service"
 
   name = each.key
-  port = each.value.port
 }
 ```
 
-Module instance address potom obsahuje key:
+vznikajú addresses:
 
 ```text
 module.service["payments"]
+module.service["orders"]
 ```
 
-Rovnako ako pri resources, stabilné `for_each` keys sú vhodnejšie než indexy, keď identity objektov nie sú pozičné.
+Key je súčasť state identity. Premenovanie display name použitého ako key môže vyzerať ako odstránenie starej module instance a vytvorenie novej. Použi stabilný business identifier a pri refaktoringu versionované `moved` mappings.
 
-## 12. Versioning modulov
+## 11. Versioning je contract promise
 
-Module release má komunikovať:
+Semantic Versioning má význam iba vtedy, keď module owner klasifikuje zmeny podľa reálneho contractu:
 
-- compatibility inputs/outputs,
-- zmeny defaults,
-- resource replacement risk,
-- migration kroky,
-- required Terraform/provider versions,
-- `moved` blocks a deprecations.
+### Kompatibilná zmena
 
-Semantic Versioning je užitočný iba vtedy, keď je public contract explicitný a release proces ho reálne dodržiava.
+- nový optional input s bezpečným defaultom;
+- nový output;
+- interný refactor s úplným moved chainom;
+- oprava bez zmeny identity alebo behavior contractu.
 
-## 13. Upgrade workflow
+### Potenciálne breaking zmena
 
-Bezpečný upgrade:
+- zmena default semantics;
+- premenovanie alebo odstránenie inputu/outputu;
+- zmena provider requirementu;
+- zmena instance keys alebo resource addresses bez migration;
+- nový replacement/destruction behavior;
+- zmena permissions alebo exposure.
 
-1. prečíta release notes,
-2. aktualizuje version constraint alebo source ref,
-3. spustí `terraform init -upgrade` v kontrolovanom prostredí,
-4. overí provider/module selections,
-5. vykoná static checks a tests,
-6. vytvorí plan voči aktuálnemu state-u,
-7. vyhodnotí replacements a address moves,
-8. applyne s observability a recovery plánom.
+„Minor release“ nie je dôkaz bezpečnosti. Consumer plan a upgrade test zostávajú autoritatívne.
 
-„Minor update“ nie je dôvod ignorovať plan.
+## 12. Worked failure: mutable source zmenil production plan bez local diffu
 
-## 14. Module registry
+Atlas consumer používal:
 
-Registry poskytuje distribution metadata, versions a dokumentáciu. Nezaručuje automaticky:
+```hcl
+source = "git::ssh://git/atlas/service-platform.git?ref=main"
+```
 
-- bezpečný kód,
-- kompatibilitu,
-- kvalitný ownership,
-- vhodnosť pre konkrétny environment,
-- bezpečné defaults.
+Module owner zmenil default `exposure` z `internal` na `public`. Consumer repository nemal žiadny diff, ale nový CI runner nemal module cache a načítal aktuálny `main`.
 
-Pred adopciou over source, maintainers, releases, tests, provider constraints a upgrade históriu.
+```text
+rovnaký consumer commit
+→ nový module source content
+→ load balancer scheme sa zmení
+→ production plan otvorí internet exposure
+```
 
-## 15. Dokumentácia modulu
+Príčina bola mutable executable dependency. Náprava: immutable release, reviewed upgrade, module provenance a policy blokujúca unexpected public exposure.
 
-Minimálne dokumentuj:
+## 13. Worked failure: bezpečne vyzerajúci default zmenil kapacitu
 
-- purpose a non-goals,
-- inputs a outputs,
-- provider/Terraform requirements,
-- príklad použitia,
-- security assumptions,
-- created resources a side effects,
-- upgrade/migration notes,
-- testing a support policy.
+Module `3.5.0` zaviedol `replicas = optional(number, 2)`. Starší caller input field neposielal, pretože predchádzajúca verzia odvodzovala produkčné minimum 6.
 
-Generated input/output tables sú doplnok, nie náhrada architektonického contractu.
+```text
+upgrade 3.4.2 → 3.5.0
+→ caller config bez replicas ostáva syntakticky validná
+→ effective default klesne na 2
+→ apply prejde
+→ produkcia stratí failure tolerance
+```
 
-## 16. Testing
+Default je súčasť public behavior contractu. Upgrade test musí vyhodnotiť effective inputs pre existujúcich consumers, nie iba validate nového module source-u.
 
-Module test portfolio má zahŕňať:
+## 14. Worked failure: provider alias sa stratil v kompozícii
 
-- formatting a validation,
-- input validation,
-- plan assertions,
-- apply/integration tests pre kritické behavior,
-- policy/security scans,
-- upgrade test z podporovanej predchádzajúcej verzie,
-- examples ako executable documentation.
+Root module mal `aws.production` a `aws.replica`. Nový wrapper module neforwardol replica mapping do nested database module-u.
 
-Testy majú používať izolované names, účty/projects a cleanup mechanizmus.
+```text
+root caller očakáva replica region
+→ wrapper použije inherited default provider
+→ nested resources vzniknú v primary regione
+→ state address vyzerá správne, target identity nie
+```
 
-## 17. Security
+Module composition test musí overovať effective provider configuration address a cloud target, nie iba resource count.
 
-Module môže vytvárať privileged resources vo veľkom rozsahu. Kontroluj:
+## 15. Upgrade lifecycle
 
-- source integrity,
-- provider permissions,
-- defaults pre public access a encryption,
-- secret handling,
-- network exposure,
-- destructive lifecycle,
-- cross-account alebo cross-project behavior,
-- supply-chain updates.
+Dôveryhodný upgrade:
 
-Caller musí vedieť, aké permissions potrebuje plan a apply identity.
+```text
+consumer inventory a supported source version
+→ release notes a migration contract
+→ immutable new version selection
+→ init/lock-file update
+→ static/module tests
+→ plan nad reprezentatívnym current state-om
+→ address/replacement/default/provider diff review
+→ staged apply a runtime verification
+→ consumer status a support update
+```
 
-## 18. Observability a audit
+Upgrade plan má osobitne označiť:
 
-Pre module consumption sleduj:
+- resource moves;
+- replacements a destroys;
+- permission/exposure changes;
+- effective default changes;
+- output schema changes;
+- provider target changes.
 
-- používané versions,
-- deprecated versions,
-- upgrade lead time,
-- plan/apply failure rate,
-- replacement count,
-- policy violations,
-- adoption bezpečnostných opráv.
+## 16. Moved history a neskorí consumers
 
-Bez inventory consumers nevie module owner bezpečne ukončiť starý contract.
+Reusable module consumers neupgradujú naraz. Consumer môže preskočiť z `2.8.0` na `3.4.2`. Ak module owner odstráni intermediate `moved` blocks, tento consumer uvidí destroy/create aj keď latest-to-latest test prechádza.
 
-## 19. Anti-patterny
+Module support policy musí definovať:
 
-### Jeden mega-modul pre celý cloud účet
+- minimálnu podporovanú source version;
+- retained moved/deprecation chain;
+- testované upgrade paths;
+- breaking release boundary;
+- retirement deadline.
 
-Veľký blast radius a nejasný lifecycle.
+## 17. Testing ako contract evidence
 
-### Module source na mutable `main`
+Test portfolio:
 
-Rovnaká konfigurácia môže neskôr načítať iný kód.
+```text
+format/validate
+→ input validation fixtures
+→ plan assertions pre supported modes
+→ policy a security checks
+→ apply/integration behavior
+→ runtime verification
+→ upgrade tests z podporovaných versions
+→ cleanup/recovery test
+```
 
-### Child module konfiguruje credentials
+Examples sú executable documentation iba vtedy, keď sa pravidelne plánujú alebo aplikujú v izolovanom targete.
 
-Authentication boundary je skrytá v reusable implementation.
+Module tests musia pokrývať defaulty, null semantics, provider aliases, instance keys, output types a destructive upgrade boundaries.
 
-### Výstupom je celý resource object
+## 18. Consumer inventory a lifecycle
 
-Caller sa viaže na internú provider schema.
+Owner interného modulu potrebuje vedieť:
 
-### Desiatky boolean flags
+- ktorí consumers používajú ktorú version;
+- ktoré provider/Terraform versions používajú;
+- ktoré environments sú produkčné;
+- kto je owner;
+- či majú deprecated alebo vulnerable release;
+- či je upgrade z ich verzie testovaný.
 
-Modul obsahuje príliš veľa nesúvisiacich modes.
+Bez inventory nemožno bezpečne odstrániť moved history, output alebo starú release ani koordinovať security fix.
 
-### Kopírovanie modulu namiesto versioningu
+## 19. Kauzálny diagnostický walkthrough
 
-Vznikajú divergentné forks bez centrálnej opravy.
+Symptom: upgrade module-u `service-platform` z `3.4.2` na `3.5.0` plánuje replacement load balancera, IAM role a všetkých compute instances.
 
-## 20. Troubleshooting
+### Krok 1 — stabilizuj subject
 
-### `Module not installed`
+```text
+consumer commit C52
+old module 3.4.2 / new 3.5.0
+state lineage L-prod / serial 220
+provider lock a target account
+module instance key payments
+```
 
-Spusti `terraform init` a over source, credentials, network a version availability.
+### Krok 2 — konkurenčné hypotézy
 
-### Caller nevie použiť provider alias
+```text
+H1: interné resource addresses sa zmenili bez moved blocks
+H2: instance keys alebo module call name sa zmenili
+H3: nový default zmenil replace-sensitive argument
+H4: provider version/schema zmenila replacement behavior
+H5: provider alias mapping mieri na iný target
+H6: source artifact nepatrí deklarovanej version
+H7: state používa starú alebo chybnú binding históriu
+```
 
-Over `required_providers`, alias mapping cez `providers` a očakávaný local provider name.
+### Krok 3 — diskriminačné observation points
 
-### Upgrade plánuje recreations
+- old/new address manifest a moved chain testujú H1/H2;
+- effective input diff testuje H3;
+- provider lock/schema a plan reasons testujú H4;
+- provider configuration address/account audit testuje H5;
+- registry/VCS digest testuje H6;
+- state binding a serial history testujú H7.
 
-Skontroluj release notes, resource addresses, changed defaults, provider behavior a dostupné `moved` blocks.
+Atlas zistí, že interný `aws_lb.this` sa presunul do `module.edge.aws_lb.this`, ale release neobsahovala moved mapping. H1 vysvetľuje replacement.
 
-### Module output je unknown
+### Krok 4 — containment a oprava
 
-Output závisí od apply-time hodnoty. Nevyužívaj ho na graph-shaping `for_each` keys v tom istom plane.
+Upgrade apply sa zablokuje. Module `3.5.1` pridá retained moved chain. Consumer nepoužije ručný `state mv`, pretože rovnakú migration potrebujú všetky states a neskorí consumers.
 
-### Module versions sa medzi CI a lokálom líšia
+### Krok 5 — over outcome
 
-Over source/version constraint, `terraform init` režim, cache a či source nie je mutable.
+Plan pre reprezentatívne `3.4.2 → 3.5.1` musí ukázať moves bez replacementu. Po apply sa overia rovnaké remote IDs, endpoint, traffic, IAM capability a nový state serial.
 
-## 21. Kontrolné otázky
+### Krok 6 — skorší control
 
-1. Aký je rozdiel medzi root a child module?
-2. Prečo module nie je automaticky state boundary?
-3. Čo tvorí public contract modulu?
-4. Prečo root module typicky vlastní provider configurations?
-5. Kedy je modul príliš tenký alebo príliš veľký?
-6. Ako `for_each` ovplyvňuje module addresses?
-7. Prečo mutable source oslabuje reprodukovateľnosť?
-8. Čo má obsahovať bezpečný module upgrade workflow?
-9. Ako testovať backward compatibility modulu?
-10. Ktoré metriky potrebuje owner interného module registry?
+Finding sa mení na automated address manifest diff, upgrade fixture matrix a release gate blokujúci removed address bez moved alebo explicitného breaking verdictu.
 
-## Glossary impact
+## 20. Diagnostický runbook
 
-Relevantné pojmy: Terraform module, root module, child module, module source, module contract, module composition, module registry, provider mapping, module instance a module versioning.
+1. Urči consumer commit, module source/version/digest a current state.
+2. Rekonštruuj effective inputs, defaults a provider mappings.
+3. Porovnaj old/new public contract a interný address manifest.
+4. Over `for_each` keys, module call names a moved history.
+5. Oddel module zmenu od provider schema zmeny.
+6. Klasifikuj plan podľa move/update/replace/destroy a security dopadu.
+7. Zastav upgrade pri nejasnom destructive behavior-e.
+8. Oprav module release versionovane, nie environment-specific surgery.
+9. Over remote IDs, runtime capability a output contract.
+10. Aktualizuj consumer inventory a supported upgrade path.
+
+## 21. Referenčné pravidlá
+
+- Module je capability contract, nie iba priečinok.
+- Child module nie je automaticky state boundary.
+- Module source je executable supply-chain dependency.
+- Root caller vlastní environment a provider configurations.
+- Inputs vyjadrujú intent; desiatky passthrough fields oslabujú abstraction.
+- Outputs majú byť úzke a stabilné.
+- Stable instance key je súčasť public identity contractu.
+- Default zmena môže byť breaking aj bez type zmeny.
+- Upgrade potrebuje plan nad aktuálnym state-om a runtime verification.
+- Moved history sa zachováva podľa podporovaných consumer upgrade paths.
+- Consumer inventory je podmienka deprecation a retirementu.
+
+## 22. Časté omyly
+
+### „Registry version garantuje kvalitný modul“
+
+Registry distribuuje metadata; negarantuje bezpečné defaults, ownership ani compatibility.
+
+### „Minor upgrade môžeme automaticky applynuť“
+
+Môže meniť default, provider behavior, addresses alebo permissions.
+
+### „Module izoluje blast radius“
+
+Resources child module-u zostávajú v root graph/state a pod rovnakou apply identity.
+
+### „Output celého resource objectu je flexibilnejší“
+
+Caller sa naviaže na provider internals a budúce refaktoringy.
+
+### „Ručný `state mv` vyrieši module refactor“
+
+Iba v jednom state-e; reusable migration má byť versionovaná a testovateľná.
+
+## Zhrnutie
+
+Dôveryhodný module lifecycle je:
+
+```text
+versionovaný capability source
+→ explicitný typed contract
+→ caller-owned target identity
+→ stable graph/state identities
+→ narrow outputs a verified behavior
+→ tested versioned migration
+→ consumer inventory a support closure
+```
+
+Module troubleshooting začína rekonštrukciou source, contractu, provider mappingu a state addressov. Počet resources ani úspešný `init` nedokazujú compatibility.
 
 ## Oficiálna dokumentácia
 
