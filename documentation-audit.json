@@ -1851,15 +1851,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
       "title": "Terraform vs. Ansible",
-      "words": 2047,
-      "headings": 67,
-      "sections": 67,
-      "findings": 153,
-      "critical": 62,
-      "high": 61,
-      "medium": 19,
-      "low": 11,
-      "score": 1303,
+      "words": 2346,
+      "headings": 36,
+      "sections": 36,
+      "findings": 108,
+      "critical": 35,
+      "high": 36,
+      "medium": 16,
+      "low": 21,
+      "score": 785,
       "grade": "D"
     },
     {
@@ -98633,17 +98633,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "1. Základné mentálne modely",
-      "line": 14,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform",
-      "line": 16,
+      "section": "1. Atlas scenár",
+      "line": 33,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -98651,431 +98642,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform",
-      "line": 16,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible",
-      "line": 30,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "2. Primárna doména Terraformu",
-      "line": 43,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "2. Primárna doména Terraformu",
-      "line": 43,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "19 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "2. Primárna doména Terraformu",
-      "line": 43,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "19 z 19 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `virtual networks a subnets,`, `cloud compute instances,`, `managed databases,`, `load balancers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "2. Primárna doména Terraformu",
-      "line": 43,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "2. Primárna doména Terraformu",
-      "line": 43,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "2. Primárna doména Terraformu",
-      "line": 43,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "2. Primárna doména Terraformu",
-      "line": 43,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `DNS`, `identity`, `Policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "3. Primárna doména Ansible",
-      "line": 70,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "3. Primárna doména Ansible",
-      "line": 70,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "18 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "3. Primárna doména Ansible",
-      "line": 70,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konfiguráciu operačných systémov,`, `package, user, file a service management,`, `application deployment,`, `orchestráciu postupných krokov,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "3. Primárna doména Ansible",
-      "line": 70,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "3. Primárna doména Ansible",
-      "line": 70,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "3. Primárna doména Ansible",
-      "line": 70,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "4. Declarative vs. imperative nie je binárne delenie",
-      "line": 96,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `deklaratívny module state,`, `imperatívnejšie task ordering,`, `orchestration controls.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "4. Declarative vs. imperative nie je binárne delenie",
-      "line": 96,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "4. Declarative vs. imperative nie je binárne delenie",
-      "line": 96,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "5. State model",
-      "line": 117,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform state",
-      "line": 119,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible state",
-      "line": 132,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible state",
-      "line": 132,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible state",
-      "line": 132,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory,`, `fact cache,`, `external CMDB,`, `application migration ledger,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible state",
-      "line": 132,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible state",
-      "line": 132,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CMDB`, `API`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "7. Dependency model",
-      "line": 175,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform graph",
-      "line": 177,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible order",
-      "line": 190,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible order",
-      "line": 190,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible order",
-      "line": 190,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poradie tasks,`, `plays,`, `role/import/include composition,`, `handlers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible order",
-      "line": 190,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible order",
-      "line": 190,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `delegation`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "8. Plan model",
-      "line": 203,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform plan",
-      "line": 205,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform plan",
-      "line": 205,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform plan",
-      "line": 205,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `create,`, `update in place,`, `replace,`, `destroy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform plan",
-      "line": 205,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible check mode",
-      "line": 218,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible check mode",
-      "line": 218,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `check mode nepodporujú,`, `task preskočia,`, `nevedia predikovať runtime výsledok,`, `potrebujú reálne API side effects.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible check mode",
-      "line": 218,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible check mode",
-      "line": 218,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "9. Drift",
-      "line": 235,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible",
-      "line": 241,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "10. Idempotencia",
-      "line": 253,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "10. Idempotencia",
-      "line": 253,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unstable provider/module behavior,`, `mutable external inputs,`, `eventual consistency,`, `ownership konflikte,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "10. Idempotencia",
-      "line": 253,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "11. Provisioning a configuration management",
-      "line": 268,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform vlastní",
-      "line": 272,
+      "section": "Terraform-owned state",
+      "line": 37,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -99083,8 +98651,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform vlastní",
-      "line": 272,
+      "section": "Terraform-owned state",
+      "line": 37,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -99092,8 +98660,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform vlastní",
-      "line": 272,
+      "section": "Terraform-owned state",
+      "line": 37,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -99101,17 +98669,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform vlastní",
-      "line": 272,
+      "section": "Terraform-owned state",
+      "line": 37,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network,`, `instance/VM lifecycle,`, `security groups,`, `managed service resources,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC, subnets a routes;`, `dvanásť VM instances;`, `instance profiles a IAM bindings;`, `security groups;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform vlastní",
-      "line": 272,
+      "section": "Terraform-owned state",
+      "line": 37,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -99119,17 +98687,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform vlastní",
-      "line": 272,
+      "section": "Terraform-owned state",
+      "line": 37,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`, `DNS`, `IAM`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `VM`, `IAM`, `DNS`, `ID`, `L17`",
       "score": 7
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible vlastní",
-      "line": 283,
+      "section": "Ansible-owned state",
+      "line": 48,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -99137,26 +98705,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible vlastní",
-      "line": 283,
+      "section": "Ansible-owned state",
+      "line": 48,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible vlastní",
-      "line": 283,
+      "section": "Ansible-owned state",
+      "line": 48,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS packages,`, `system users,`, `service configuration,`, `application files,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `package atlas-payments-3.13.0 ;`, `application user a directories;`, `configuration artifact C44 ;`, `runtime secret epoch SE02 ;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible vlastní",
-      "line": 283,
+      "section": "Ansible-owned state",
+      "line": 48,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -99164,17 +98732,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible vlastní",
-      "line": 283,
+      "section": "Ansible-owned state",
+      "line": 48,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `C44`, `SE02`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "12. Host bootstrap",
-      "line": 296,
+      "section": "2. Dva odlišné state stroje",
+      "line": 86,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "Terraform resource lifecycle",
+      "line": 88,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -99182,98 +98759,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "12. Host bootstrap",
-      "line": 296,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "12. Host bootstrap",
-      "line": 296,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity/SSH alebo management channel,`, `trusted CA,`, `base package/runtime podľa potreby,`, `inventory registration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "12. Host bootstrap",
-      "line": 296,
+      "section": "Terraform resource lifecycle",
+      "line": 88,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "12. Host bootstrap",
-      "line": 296,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSH`, `CA`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "13. Terraform provisioners",
-      "line": 318,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "13. Terraform provisioners",
-      "line": 318,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `side effect nie je plnohodnotný resource,`, `slabý state a retry model,`, `partial failure,`, `tajné údaje v plan/state/logoch,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "13. Terraform provisioners",
-      "line": 318,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "14. Ansible na provisioning resources",
-      "line": 333,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "14. Ansible na provisioning resources",
-      "line": 333,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "Ansible host convergence lifecycle",
+      "line": 104,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "14. Ansible na provisioning resources",
-      "line": 333,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátke orchestration workflows,`, `operatívne one-shot actions,`, `platformu bez vhodného Terraform providera,`, `workflow, kde persistentný Terraform state nie je žiaduci,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "14. Ansible na provisioning resources",
-      "line": 333,
+      "section": "Ansible host convergence lifecycle",
+      "line": 104,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -99281,8 +98786,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "14. Ansible na provisioning resources",
-      "line": 333,
+      "section": "Ansible host convergence lifecycle",
+      "line": 104,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -99290,170 +98795,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "14. Ansible na provisioning resources",
-      "line": 333,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "14. Ansible na provisioning resources",
-      "line": 333,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "14. Ansible na provisioning resources",
-      "line": 333,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "15. Immutable infrastructure",
-      "line": 354,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "15. Immutable infrastructure",
-      "line": 354,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `image construction,`, `infrastructure deployment,`, `runtime configuration.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "15. Immutable infrastructure",
-      "line": 354,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "16. Golden image pattern",
-      "line": 372,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "16. Golden image pattern",
-      "line": 372,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rýchlejší a predvídateľnejší startup,`, `menší runtime configuration drift,`, `testovateľný artifact,`, `jednoduchšia replacement stratégia.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "16. Golden image pattern",
-      "line": 372,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "17. Inventory integrácia",
-      "line": 385,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "17. Inventory integrácia",
-      "line": 385,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "17. Inventory integrácia",
-      "line": 385,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hostname/ID,`, `management address,`, `environment,`, `role/group metadata,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "17. Inventory integrácia",
-      "line": 385,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "17. Inventory integrácia",
-      "line": 385,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "18. Pipeline ordering",
-      "line": 412,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "18. Pipeline ordering",
-      "line": 412,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "18. Pipeline ordering",
-      "line": 412,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vlastnú identity,`, `scoped permissions,`, `explicitné artifacts,`, `failure a retry behavior,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "18. Pipeline ordering",
-      "line": 412,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "18. Pipeline ordering",
-      "line": 412,
+      "section": "Ansible host convergence lifecycle",
+      "line": 104,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -99461,395 +98804,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "19. Failure boundaries",
-      "line": 437,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform apply failure",
-      "line": 439,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible failure",
-      "line": 443,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible failure",
-      "line": 443,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible failure",
-      "line": 443,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či infrastructure resource existuje,`, `či je host reachable a ready,`, `ktoré Ansible tasks prebehli,`, `či handler prebehol,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible failure",
-      "line": 443,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible failure",
-      "line": 443,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "20. Concurrency",
-      "line": 456,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "20. Concurrency",
-      "line": 456,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `controller job lock,`, `deployment lock,`, `serial ,`, `throttle ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "20. Concurrency",
-      "line": 456,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "20. Concurrency",
-      "line": 456,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "21. Secrets",
-      "line": 471,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform",
-      "line": 473,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform",
-      "line": 473,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform",
-      "line": 473,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `variables,`, `plans,`, `state,`, `provider request/response,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform",
-      "line": 473,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible",
-      "line": 484,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible",
-      "line": 484,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `variables/Vault,`, `module arguments,`, `templates,`, `target files,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible",
-      "line": 484,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "22. Testing",
-      "line": 497,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform testing",
-      "line": 499,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform testing",
-      "line": 499,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform testing",
-      "line": 499,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform testing",
-      "line": 499,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fmt ,`, `validate ,`, `static/IaC scanning,`, `native tests,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform testing",
-      "line": 499,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform testing",
-      "line": 499,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible testing",
-      "line": 510,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible testing",
-      "line": 510,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible testing",
-      "line": 510,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible testing",
-      "line": 510,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `YAML/syntax/lint,`, `role/unit/plugin tests,`, `isolated converge,`, `assertions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible testing",
-      "line": 510,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible testing",
-      "line": 510,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "23. Versioning",
-      "line": 523,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "23. Versioning",
-      "line": 523,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "23. Versioning",
-      "line": 523,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform modules,`, `providers a lock files,`, `Ansible collections/roles,`, `execution environments,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "23. Versioning",
-      "line": 523,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "24. Ownership matrix",
-      "line": 537,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "25. Rozhodovací rámec",
-      "line": 554,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "25. Rozhodovací rámec",
-      "line": 554,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "25. Rozhodovací rámec",
-      "line": 554,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `objekt má dlhodobý resource lifecycle,`, `potrebuje stable identity a dependency graph,`, `create/update/delete/replace musia byť plánované,`, `persistentný state prináša hodnotu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "25. Rozhodovací rámec",
-      "line": 554,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "25. Rozhodovací rámec",
-      "line": 554,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "25. Rozhodovací rámec",
-      "line": 554,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "25. Rozhodovací rámec",
-      "line": 554,
+      "section": "3. Ownership sa prideľuje objektom a atribútom",
+      "line": 123,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -99857,17 +98813,197 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "25. Rozhodovací rámec",
-      "line": 554,
+      "section": "4. Tool selection podľa lifecycle-u",
+      "line": 154,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Provisioning-to-configuration contract",
+      "line": 180,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Provisioning-to-configuration contract",
+      "line": 180,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Provisioning-to-configuration contract",
+      "line": 180,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema version;`, `immutable producer subject;`, `stable host/resource identity;`, `environment a readiness state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Provisioning-to-configuration contract",
+      "line": 180,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Provisioning-to-configuration contract",
+      "line": 180,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`, `policy`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "26. Praktické scenáre",
-      "line": 582,
+      "section": "6. Readiness je samostatný transition",
+      "line": 214,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "6. Readiness je samostatný transition",
+      "line": 214,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `boot dokončený;`, `cloud-init úspešný;`, `management identity pripravená;`, `SSH host identity stabilná;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "6. Readiness je samostatný transition",
+      "line": 214,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "6. Readiness je samostatný transition",
+      "line": 214,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "6. Readiness je samostatný transition",
+      "line": 214,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "6. Readiness je samostatný transition",
+      "line": 214,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSH`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "7. Bootstrap boundary",
+      "line": 239,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `management identity/channel;`, `trusted CA alebo host certificate;`, `základný runtime potrebný pre Ansible;`, `inventory/CMDB registration;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "7. Bootstrap boundary",
+      "line": 239,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "7. Bootstrap boundary",
+      "line": 239,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "7. Bootstrap boundary",
+      "line": 239,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`, `CMDB`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "8. Plan a check mode nie sú ekvivalenty",
+      "line": 262,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "8. Plan a check mode nie sú ekvivalenty",
+      "line": 262,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "8. Plan a check mode nie sú ekvivalenty",
+      "line": 262,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "8. Plan a check mode nie sú ekvivalenty",
+      "line": 262,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "9. Combined pipeline",
+      "line": 286,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "10. Failure boundaries",
+      "line": 310,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -99875,53 +99011,161 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Cloud VM s aplikáciou",
-      "line": 584,
+      "section": "Terraform failure",
+      "line": 312,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "Terraform failure",
+      "line": 312,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Managed database",
-      "line": 591,
+      "section": "Terraform failure",
+      "line": 312,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `partial remote mutations;`, `unknown API outcome;`, `successor state commit failure;`, `resource created but not ready;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Kubernetes cluster",
-      "line": 598,
+      "section": "Terraform failure",
+      "line": 312,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "Terraform failure",
+      "line": 312,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "Contract/publication failure",
+      "line": 322,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "Contract/publication failure",
+      "line": 322,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Network devices",
-      "line": 606,
+      "section": "Contract/publication failure",
+      "line": 322,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host existuje, ale inventory ho neobsahuje;`, `stale destroyed host zostáva targetom;`, `wrong environment alebo address;`, `schema mismatch;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Golden image",
-      "line": 613,
+      "section": "Contract/publication failure",
+      "line": 322,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "Contract/publication failure",
+      "line": 322,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "Ansible failure",
+      "line": 332,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "Ansible failure",
+      "line": 332,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform spravuje každý config file cez provisioner",
-      "line": 623,
+      "section": "Ansible failure",
+      "line": 332,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `časť hosts zmenenú;`, `file update bez handleru;`, `package/config mismatch;`, `partial external side effect;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "Ansible failure",
+      "line": 332,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "11. Worked failure: dva tools menia rovnaký security-group attribute",
+      "line": 344,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "11. Worked failure: dva tools menia rovnaký security-group attribute",
+      "line": 344,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "11. Worked failure: dva tools menia rovnaký security-group attribute",
+      "line": 344,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "1. Zafixuj cross-tool subject",
+      "line": 417,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -99929,8 +99173,251 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible vytvára dlhodobú cloud infra bez identity a drift modelu",
-      "line": 627,
+      "section": "1. Zafixuj cross-tool subject",
+      "line": 417,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "1. Zafixuj cross-tool subject",
+      "line": 417,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `remote instance IDs, image IDs a bootstrap status;`, `HC313 schema, generation a producer digest;`, `Ansible inventory resolution subject a target manifest;`, `management addresses, host identity evidence a credentials;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "1. Zafixuj cross-tool subject",
+      "line": 417,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "1. Zafixuj cross-tool subject",
+      "line": 417,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HC313`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 428,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 428,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 428,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 428,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform vytvoril resources, ale bootstrap ešte nebol complete.`, `HC313 označil host ready príliš skoro.`, `Contract obsahuje nesprávnu management address alebo environment.`, `Dynamic inventory cache používa stale generation.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 428,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 428,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 428,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 428,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 428,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HC313`, `NACL`, `SSH`, `ID`, `policy`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 441,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 441,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 441,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 441,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform remote IDs a live instance lifecycle state;`, `cloud-init/bootstrap completion marker a logs;`, `exact HC313 generation a field values;`, `ansible-inventory --host a cache age;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 441,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 441,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 441,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HC313`, `ID`, `DNS`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Recovery",
+      "line": 457,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Recovery",
+      "line": 457,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Recovery",
+      "line": 457,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Recovery",
+      "line": 457,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Recovery",
+      "line": 457,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Recovery",
+      "line": 457,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "5. Recovery",
+      "line": 457,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HC314`, `resource`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "7. Posuň control skôr",
+      "line": 471,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -99938,8 +99425,80 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Oba nástroje menia rovnaký attribute",
-      "line": 631,
+      "section": "16. Drift a continuous reconciliation",
+      "line": 475,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "16. Drift a continuous reconciliation",
+      "line": 475,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform state má 12 instances, contract 11;`, `contract má 12, Ansible verified 10;`, `Ansible verified 12 files, runtime inventory 11 processes;`, `Terraform image ID 3.13.0, runtime package 3.13.1.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "16. Drift a continuous reconciliation",
+      "line": 475,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "16. Drift a continuous reconciliation",
+      "line": 475,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "16. Drift a continuous reconciliation",
+      "line": 475,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "17. Secrets a identity boundaries",
+      "line": 497,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 57 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "17. Secrets a identity boundaries",
+      "line": 497,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform plan read identity;`, `Terraform apply writer identity;`, `contract publisher identity;`, `inventory reader identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "17. Secrets a identity boundaries",
+      "line": 497,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "18. Versioning a upgrades",
+      "line": 516,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -99947,66 +99506,102 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform output čítaný priamo z citlivého celého state-u",
-      "line": 635,
+      "section": "18. Versioning a upgrades",
+      "line": 516,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "18. Versioning a upgrades",
+      "line": 516,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform modules a providers;`, `state/backend schema assumptions;`, `cross-tool contract schema;`, `machine image;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "18. Versioning a upgrades",
+      "line": 516,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 539,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
+      "section": "19. Referenčné pravidlá",
+      "line": 539,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Ansible sa spúšťa pred readiness",
-      "line": 639,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "19. Referenčné pravidlá",
+      "line": 539,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Infrastructure a configuration používajú jednu admin identity",
-      "line": 643,
+      "section": "19. Referenčné pravidlá",
+      "line": 539,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Nástroj vybraný podľa popularity",
-      "line": 647,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "19. Referenčné pravidlá",
+      "line": 539,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Terraform vytvoril VM, Ansible ju nevidí",
-      "line": 653,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "19. Referenčné pravidlá",
+      "line": 539,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Inventory obsahuje staré hosts",
-      "line": 669,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "19. Referenčné pravidlá",
+      "line": 539,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md",
-      "section": "Pipeline nevie bezpečne zopakovať krok",
-      "line": 673,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "19. Referenčné pravidlá",
+      "line": 539,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`, `Resource`",
+      "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",

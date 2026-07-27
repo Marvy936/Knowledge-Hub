@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11259**
-- Total words: **581,332**
-- Findings: **24571** (critical 7785, high 8814, medium 3403, low 4569)
+- Audited conceptual sections: **11228**
+- Total words: **581,631**
+- Findings: **24526** (critical 7758, high 8789, medium 3400, low 4579)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -46,7 +46,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1348 | 66 | 61 | 16 | 21 | 2097 | `docs/12-observability/alert-design-alert-fatigue.md` |
 | D | 1336 | 64 | 63 | 21 | 7 | 2104 | `docs/12-observability/cardinality.md` |
 | D | 1318 | 61 | 62 | 22 | 20 | 2668 | `docs/12-observability/prometheus.md` |
-| D | 1303 | 62 | 61 | 19 | 11 | 2047 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | D | 1292 | 60 | 59 | 27 | 12 | 2273 | `docs/09-kubernetes/worker-node-components.md` |
 | D | 1284 | 54 | 71 | 22 | 3 | 1740 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
 | D | 1255 | 58 | 62 | 20 | 4 | 1517 | `docs/12-observability/golden-signals.md` |
@@ -112,6 +111,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 805 | 33 | 41 | 17 | 13 | 1764 | `docs/09-kubernetes/probes.md` |
 | D | 801 | 31 | 48 | 11 | 12 | 2219 | `docs/04-testing-and-quality/security-and-infrastructure-tests.md` |
 | D | 788 | 37 | 34 | 14 | 19 | 2601 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
+| D | 785 | 35 | 36 | 16 | 21 | 2346 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | D | 779 | 34 | 40 | 15 | 8 | 1437 | `docs/11-cloud-and-aws/iam.md` |
 | D | 769 | 33 | 38 | 14 | 19 | 2119 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 767 | 33 | 35 | 21 | 11 | 2231 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
@@ -6937,129 +6937,77 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md`
 
-- **CRITICAL** line 14, `empty-section` — **1. Základné mentálne modely**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 43, `bare-bullet-items` — **2. Primárna doména Terraformu**: 19 z 19 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `virtual networks a subnets,`, `cloud compute instances,`, `managed databases,`, `load balancers,`.
-- **CRITICAL** line 43, `outline-instead-of-explanation` — **2. Primárna doména Terraformu**: 19 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 70, `bare-bullet-items` — **3. Primárna doména Ansible**: 18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konfiguráciu operačných systémov,`, `package, user, file a service management,`, `application deployment,`, `orchestráciu postupných krokov,`.
-- **CRITICAL** line 70, `outline-instead-of-explanation` — **3. Primárna doména Ansible**: 18 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 117, `empty-section` — **5. State model**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 132, `bare-bullet-items` — **Ansible state**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory,`, `fact cache,`, `external CMDB,`, `application migration ledger,`.
-- **CRITICAL** line 132, `outline-instead-of-explanation` — **Ansible state**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 175, `empty-section` — **7. Dependency model**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 190, `bare-bullet-items` — **Ansible order**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `poradie tasks,`, `plays,`, `role/import/include composition,`, `handlers,`.
-- **CRITICAL** line 190, `outline-instead-of-explanation` — **Ansible order**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 203, `empty-section` — **8. Plan model**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 205, `bare-bullet-items` — **Terraform plan**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `create,`, `update in place,`, `replace,`, `destroy,`.
-- **CRITICAL** line 205, `outline-instead-of-explanation` — **Terraform plan**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 218, `bare-bullet-items` — **Ansible check mode**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `check mode nepodporujú,`, `task preskočia,`, `nevedia predikovať runtime výsledok,`, `potrebujú reálne API side effects.`.
-- **CRITICAL** line 218, `outline-instead-of-explanation` — **Ansible check mode**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 235, `empty-section` — **9. Drift**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 253, `bare-bullet-items` — **10. Idempotencia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unstable provider/module behavior,`, `mutable external inputs,`, `eventual consistency,`, `ownership konflikte,`.
-- **CRITICAL** line 253, `outline-instead-of-explanation` — **10. Idempotencia**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 272, `bare-bullet-items` — **Terraform vlastní**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network,`, `instance/VM lifecycle,`, `security groups,`, `managed service resources,`.
-- **CRITICAL** line 272, `no-prose-concept` — **Terraform vlastní**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 272, `outline-instead-of-explanation` — **Terraform vlastní**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 283, `bare-bullet-items` — **Ansible vlastní**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS packages,`, `system users,`, `service configuration,`, `application files,`.
-- **CRITICAL** line 283, `outline-instead-of-explanation` — **Ansible vlastní**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 296, `bare-bullet-items` — **12. Host bootstrap**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity/SSH alebo management channel,`, `trusted CA,`, `base package/runtime podľa potreby,`, `inventory registration,`.
-- **CRITICAL** line 296, `outline-instead-of-explanation` — **12. Host bootstrap**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 318, `bare-bullet-items` — **13. Terraform provisioners**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `side effect nie je plnohodnotný resource,`, `slabý state a retry model,`, `partial failure,`, `tajné údaje v plan/state/logoch,`.
-- **CRITICAL** line 318, `outline-instead-of-explanation` — **13. Terraform provisioners**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 333, `bare-bullet-items` — **14. Ansible na provisioning resources**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `krátke orchestration workflows,`, `operatívne one-shot actions,`, `platformu bez vhodného Terraform providera,`, `workflow, kde persistentný Terraform state nie je žiaduci,`.
-- **CRITICAL** line 333, `outline-instead-of-explanation` — **14. Ansible na provisioning resources**: 11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 372, `bare-bullet-items` — **16. Golden image pattern**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rýchlejší a predvídateľnejší startup,`, `menší runtime configuration drift,`, `testovateľný artifact,`, `jednoduchšia replacement stratégia.`.
-- **CRITICAL** line 372, `outline-instead-of-explanation` — **16. Golden image pattern**: 4 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 385, `bare-bullet-items` — **17. Inventory integrácia**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hostname/ID,`, `management address,`, `environment,`, `role/group metadata,`.
-- **CRITICAL** line 385, `outline-instead-of-explanation` — **17. Inventory integrácia**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 412, `bare-bullet-items` — **18. Pipeline ordering**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vlastnú identity,`, `scoped permissions,`, `explicitné artifacts,`, `failure a retry behavior,`.
-- **CRITICAL** line 412, `outline-instead-of-explanation` — **18. Pipeline ordering**: 5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 437, `empty-section` — **19. Failure boundaries**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 443, `bare-bullet-items` — **Ansible failure**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či infrastructure resource existuje,`, `či je host reachable a ready,`, `ktoré Ansible tasks prebehli,`, `či handler prebehol,`.
-- **CRITICAL** line 443, `outline-instead-of-explanation` — **Ansible failure**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 456, `bare-bullet-items` — **20. Concurrency**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `controller job lock,`, `deployment lock,`, `serial ,`, `throttle ,`.
-- **CRITICAL** line 456, `outline-instead-of-explanation` — **20. Concurrency**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 471, `empty-section` — **21. Secrets**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 473, `bare-bullet-items` — **Terraform**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `variables,`, `plans,`, `state,`, `provider request/response,`.
-- **CRITICAL** line 473, `outline-instead-of-explanation` — **Terraform**: 6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 484, `bare-bullet-items` — **Ansible**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `variables/Vault,`, `module arguments,`, `templates,`, `target files,`.
-- **CRITICAL** line 484, `outline-instead-of-explanation` — **Ansible**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 497, `empty-section` — **22. Testing**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 499, `bare-bullet-items` — **Terraform testing**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fmt ,`, `validate ,`, `static/IaC scanning,`, `native tests,`.
-- **CRITICAL** line 499, `no-prose-concept` — **Terraform testing**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 499, `outline-instead-of-explanation` — **Terraform testing**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 510, `bare-bullet-items` — **Ansible testing**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `YAML/syntax/lint,`, `role/unit/plugin tests,`, `isolated converge,`, `assertions,`.
-- **CRITICAL** line 510, `outline-instead-of-explanation` — **Ansible testing**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 523, `bare-bullet-items` — **23. Versioning**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform modules,`, `providers a lock files,`, `Ansible collections/roles,`, `execution environments,`.
-- **CRITICAL** line 523, `outline-instead-of-explanation` — **23. Versioning**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 554, `bare-bullet-items` — **25. Rozhodovací rámec**: 17 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `objekt má dlhodobý resource lifecycle,`, `potrebuje stable identity a dependency graph,`, `create/update/delete/replace musia byť plánované,`, `persistentný state prináša hodnotu,`.
-- **CRITICAL** line 554, `outline-instead-of-explanation` — **25. Rozhodovací rámec**: 17 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 582, `empty-section` — **26. Praktické scenáre**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 584, `empty-section` — **Cloud VM s aplikáciou**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 591, `empty-section` — **Managed database**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 598, `empty-section` — **Kubernetes cluster**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 606, `empty-section` — **Network devices**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 613, `empty-section` — **Golden image**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 16, `list-first-introduction` — **Terraform**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 16, `single-sentence-concept` — **Terraform**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 30, `list-first-introduction` — **Ansible**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 43, `single-sentence-concept` — **2. Primárna doména Terraformu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 70, `single-sentence-concept` — **3. Primárna doména Ansible**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 96, `bare-bullet-items` — **4. Declarative vs. imperative nie je binárne delenie**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `deklaratívny module state,`, `imperatívnejšie task ordering,`, `orchestration controls.`.
-- **HIGH** line 119, `single-sentence-concept` — **Terraform state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 132, `single-sentence-concept` — **Ansible state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 177, `single-sentence-concept` — **Terraform graph**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 190, `single-sentence-concept` — **Ansible order**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 205, `single-sentence-concept` — **Terraform plan**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 241, `single-sentence-concept` — **Ansible**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 268, `single-sentence-concept` — **11. Provisioning a configuration management**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 272, `list-first-introduction` — **Terraform vlastní**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 283, `list-first-introduction` — **Ansible vlastní**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 296, `single-sentence-concept` — **12. Host bootstrap**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 333, `single-sentence-concept` — **14. Ansible na provisioning resources**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 354, `bare-bullet-items` — **15. Immutable infrastructure**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `image construction,`, `infrastructure deployment,`, `runtime configuration.`.
-- **HIGH** line 354, `single-sentence-concept` — **15. Immutable infrastructure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 385, `single-sentence-concept` — **17. Inventory integrácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 412, `single-sentence-concept` — **18. Pipeline ordering**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 439, `single-sentence-concept` — **Terraform apply failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 443, `single-sentence-concept` — **Ansible failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 473, `single-sentence-concept` — **Terraform**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 499, `list-first-introduction` — **Terraform testing**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 510, `list-first-introduction` — **Ansible testing**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 510, `single-sentence-concept` — **Ansible testing**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 523, `single-sentence-concept` — **23. Versioning**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 537, `single-sentence-concept` — **24. Ownership matrix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 554, `single-sentence-concept` — **25. Rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 623, `single-sentence-concept` — **Terraform spravuje každý config file cez provisioner**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 627, `single-sentence-concept` — **Ansible vytvára dlhodobú cloud infra bez identity a drift modelu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 631, `single-sentence-concept` — **Oba nástroje menia rovnaký attribute**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 635, `single-sentence-concept` — **Terraform output čítaný priamo z citlivého celého state-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 639, `single-sentence-concept` — **Ansible sa spúšťa pred readiness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 643, `single-sentence-concept` — **Infrastructure a configuration používajú jednu admin identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 647, `single-sentence-concept` — **Nástroj vybraný podľa popularity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 653, `single-sentence-concept` — **Terraform vytvoril VM, Ansible ju nevidí**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 669, `single-sentence-concept` — **Inventory obsahuje staré hosts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 673, `single-sentence-concept` — **Pipeline nevie bezpečne zopakovať krok**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 43, `term-before-explanation` — **2. Primárna doména Terraformu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `DNS`, `identity`, `Policy`
-- **HIGH** line 43, `thin-concept-section` — **2. Primárna doména Terraformu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 70, `thin-concept-section` — **3. Primárna doména Ansible**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 132, `thin-concept-section` — **Ansible state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 190, `thin-concept-section` — **Ansible order**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 205, `thin-concept-section` — **Terraform plan**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 272, `term-before-explanation` — **Terraform vlastní**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`, `DNS`, `IAM`, `identity`
-- **HIGH** line 272, `thin-concept-section` — **Terraform vlastní**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 283, `thin-concept-section` — **Ansible vlastní**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 296, `thin-concept-section` — **12. Host bootstrap**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 318, `thin-concept-section` — **13. Terraform provisioners**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 333, `thin-concept-section` — **14. Ansible na provisioning resources**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 385, `thin-concept-section` — **17. Inventory integrácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 412, `thin-concept-section` — **18. Pipeline ordering**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 443, `thin-concept-section` — **Ansible failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 473, `thin-concept-section` — **Terraform**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 484, `thin-concept-section` — **Ansible**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 499, `thin-concept-section` — **Terraform testing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 510, `thin-concept-section` — **Ansible testing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 523, `thin-concept-section` — **23. Versioning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 554, `thin-concept-section` — **25. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 37, `bare-bullet-items` — **Terraform-owned state**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC, subnets a routes;`, `dvanásť VM instances;`, `instance profiles a IAM bindings;`, `security groups;`.
+- **CRITICAL** line 37, `no-prose-concept` — **Terraform-owned state**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 37, `outline-instead-of-explanation` — **Terraform-owned state**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 48, `bare-bullet-items` — **Ansible-owned state**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `package atlas-payments-3.13.0 ;`, `application user a directories;`, `configuration artifact C44 ;`, `runtime secret epoch SE02 ;`.
+- **CRITICAL** line 48, `outline-instead-of-explanation` — **Ansible-owned state**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 86, `empty-section` — **2. Dva odlišné state stroje**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 180, `bare-bullet-items` — **5. Provisioning-to-configuration contract**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema version;`, `immutable producer subject;`, `stable host/resource identity;`, `environment a readiness state;`.
+- **CRITICAL** line 180, `outline-instead-of-explanation` — **5. Provisioning-to-configuration contract**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 214, `bare-bullet-items` — **6. Readiness je samostatný transition**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `boot dokončený;`, `cloud-init úspešný;`, `management identity pripravená;`, `SSH host identity stabilná;`.
+- **CRITICAL** line 214, `outline-instead-of-explanation` — **6. Readiness je samostatný transition**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 239, `bare-bullet-items` — **7. Bootstrap boundary**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `management identity/channel;`, `trusted CA alebo host certificate;`, `základný runtime potrebný pre Ansible;`, `inventory/CMDB registration;`.
+- **CRITICAL** line 310, `empty-section` — **10. Failure boundaries**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 312, `bare-bullet-items` — **Terraform failure**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `partial remote mutations;`, `unknown API outcome;`, `successor state commit failure;`, `resource created but not ready;`.
+- **CRITICAL** line 312, `outline-instead-of-explanation` — **Terraform failure**: 5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 322, `bare-bullet-items` — **Contract/publication failure**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host existuje, ale inventory ho neobsahuje;`, `stale destroyed host zostáva targetom;`, `wrong environment alebo address;`, `schema mismatch;`.
+- **CRITICAL** line 322, `outline-instead-of-explanation` — **Contract/publication failure**: 5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 332, `bare-bullet-items` — **Ansible failure**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `časť hosts zmenenú;`, `file update bez handleru;`, `package/config mismatch;`, `partial external side effect;`.
+- **CRITICAL** line 332, `outline-instead-of-explanation` — **Ansible failure**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 417, `bare-bullet-items` — **1. Zafixuj cross-tool subject**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `remote instance IDs, image IDs a bootstrap status;`, `HC313 schema, generation a producer digest;`, `Ansible inventory resolution subject a target manifest;`, `management addresses, host identity evidence a credentials;`.
+- **CRITICAL** line 417, `outline-instead-of-explanation` — **1. Zafixuj cross-tool subject**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 428, `bare-bullet-items` — **2. Súťažiace hypotézy**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform vytvoril resources, ale bootstrap ešte nebol complete.`, `HC313 označil host ready príliš skoro.`, `Contract obsahuje nesprávnu management address alebo environment.`, `Dynamic inventory cache používa stale generation.`.
+- **CRITICAL** line 428, `no-prose-concept` — **2. Súťažiace hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 428, `outline-instead-of-explanation` — **2. Súťažiace hypotézy**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 441, `bare-bullet-items` — **3. Diskriminačné observation points**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform remote IDs a live instance lifecycle state;`, `cloud-init/bootstrap completion marker a logs;`, `exact HC313 generation a field values;`, `ansible-inventory --host a cache age;`.
+- **CRITICAL** line 441, `no-prose-concept` — **3. Diskriminačné observation points**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 441, `outline-instead-of-explanation` — **3. Diskriminačné observation points**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 457, `no-prose-concept` — **5. Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 457, `outline-instead-of-explanation` — **5. Recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 475, `bare-bullet-items` — **16. Drift a continuous reconciliation**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform state má 12 instances, contract 11;`, `contract má 12, Ansible verified 10;`, `Ansible verified 12 files, runtime inventory 11 processes;`, `Terraform image ID 3.13.0, runtime package 3.13.1.`.
+- **CRITICAL** line 475, `outline-instead-of-explanation` — **16. Drift a continuous reconciliation**: 4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 497, `bare-bullet-items` — **17. Secrets a identity boundaries**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform plan read identity;`, `Terraform apply writer identity;`, `contract publisher identity;`, `inventory reader identity;`.
+- **CRITICAL** line 516, `bare-bullet-items` — **18. Versioning a upgrades**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Terraform modules a providers;`, `state/backend schema assumptions;`, `cross-tool contract schema;`, `machine image;`.
+- **CRITICAL** line 516, `outline-instead-of-explanation` — **18. Versioning a upgrades**: 13 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 539, `no-prose-concept` — **19. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 539, `outline-instead-of-explanation` — **19. Referenčné pravidlá**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 33, `single-sentence-concept` — **1. Atlas scenár**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 37, `list-first-introduction` — **Terraform-owned state**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 48, `list-first-introduction` — **Ansible-owned state**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 88, `list-first-introduction` — **Terraform resource lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 88, `single-sentence-concept` — **Terraform resource lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 104, `list-first-introduction` — **Ansible host convergence lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 180, `single-sentence-concept` — **5. Provisioning-to-configuration contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 286, `single-sentence-concept` — **9. Combined pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 312, `single-sentence-concept` — **Terraform failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 322, `single-sentence-concept` — **Contract/publication failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 332, `single-sentence-concept` — **Ansible failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 417, `single-sentence-concept` — **1. Zafixuj cross-tool subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 428, `list-first-introduction` — **2. Súťažiace hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 441, `list-first-introduction` — **3. Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 457, `list-first-introduction` — **5. Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 471, `single-sentence-concept` — **7. Posuň control skôr**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 497, `list-heavy-section` — **17. Secrets a identity boundaries**: 6 odrážok a iba 57 slov súvislého vysvetlenia.
+- **HIGH** line 516, `single-sentence-concept` — **18. Versioning a upgrades**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 539, `list-first-introduction` — **19. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 37, `term-before-explanation` — **Terraform-owned state**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `VM`, `IAM`, `DNS`, `ID`, `L17`
+- **HIGH** line 37, `thin-concept-section` — **Terraform-owned state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 48, `thin-concept-section` — **Ansible-owned state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 104, `thin-concept-section` — **Ansible host convergence lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 180, `thin-concept-section` — **5. Provisioning-to-configuration contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 312, `thin-concept-section` — **Terraform failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 322, `thin-concept-section` — **Contract/publication failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 332, `thin-concept-section` — **Ansible failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 417, `thin-concept-section` — **1. Zafixuj cross-tool subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 428, `term-before-explanation` — **2. Súťažiace hypotézy**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HC313`, `NACL`, `SSH`, `ID`, `policy`, `identity`
+- **HIGH** line 428, `thin-concept-section` — **2. Súťažiace hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 441, `term-before-explanation` — **3. Diskriminačné observation points**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HC313`, `ID`, `DNS`, `identity`
+- **HIGH** line 441, `thin-concept-section` — **3. Diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 457, `term-before-explanation` — **5. Recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HC314`, `resource`, `identity`, `policy`
+- **HIGH** line 457, `thin-concept-section` — **5. Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 516, `thin-concept-section` — **18. Versioning a upgrades**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 539, `thin-concept-section` — **19. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md`
 
@@ -17649,19 +17597,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3443 | 439 | 0 | 0 | 3882 |
-| `single-sentence-concept` | 0 | 3525 | 0 | 0 | 3525 |
-| `outline-instead-of-explanation` | 3287 | 0 | 0 | 0 | 3287 |
-| `thin-concept-section` | 0 | 2879 | 0 | 0 | 2879 |
-| `term-before-explanation` | 0 | 458 | 2307 | 0 | 2765 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1832 | 1832 |
-| `example-not-explicit` | 0 | 0 | 0 | 1790 | 1790 |
-| `list-first-introduction` | 0 | 1116 | 0 | 0 | 1116 |
-| `short-concept-section` | 0 | 0 | 1096 | 0 | 1096 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 947 | 947 |
-| `empty-section` | 568 | 0 | 0 | 0 | 568 |
-| `no-prose-concept` | 487 | 0 | 0 | 0 | 487 |
-| `list-heavy-section` | 0 | 397 | 0 | 0 | 397 |
+| `bare-bullet-items` | 3434 | 437 | 0 | 0 | 3871 |
+| `single-sentence-concept` | 0 | 3503 | 0 | 0 | 3503 |
+| `outline-instead-of-explanation` | 3278 | 0 | 0 | 0 | 3278 |
+| `thin-concept-section` | 0 | 2873 | 0 | 0 | 2873 |
+| `term-before-explanation` | 0 | 460 | 2305 | 0 | 2765 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1836 | 1836 |
+| `example-not-explicit` | 0 | 0 | 0 | 1794 | 1794 |
+| `list-first-introduction` | 0 | 1118 | 0 | 0 | 1118 |
+| `short-concept-section` | 0 | 0 | 1095 | 0 | 1095 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 949 | 949 |
+| `empty-section` | 556 | 0 | 0 | 0 | 556 |
+| `no-prose-concept` | 490 | 0 | 0 | 0 | 490 |
+| `list-heavy-section` | 0 | 398 | 0 | 0 | 398 |
 
 ## Required remediation pattern
 
