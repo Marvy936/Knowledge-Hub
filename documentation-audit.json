@@ -1865,15 +1865,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
       "title": "Variables, facts a templates",
-      "words": 1849,
-      "headings": 53,
-      "sections": 53,
-      "findings": 94,
-      "critical": 36,
-      "high": 40,
-      "medium": 10,
-      "low": 8,
-      "score": 792,
+      "words": 1968,
+      "headings": 26,
+      "sections": 26,
+      "findings": 56,
+      "critical": 14,
+      "high": 17,
+      "medium": 5,
+      "low": 20,
+      "score": 347,
       "grade": "D"
     },
     {
@@ -100541,116 +100541,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "1. Variable ako dátový vstup",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "1. Variable ako dátový vstup",
-      "line": 7,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "1. Variable ako dátový vstup",
-      "line": 7,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scalar,`, `list,`, `dictionary,`, `nested combinations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "1. Variable ako dátový vstup",
-      "line": 7,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "2. Variable sources",
-      "line": 38,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "2. Variable sources",
-      "line": 38,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `role defaults,`, `inventory group vars,`, `inventory host vars,`, `play vars,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "2. Variable sources",
-      "line": 38,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "3. Variable precedence",
-      "line": 58,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "3. Variable precedence",
-      "line": 58,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "3. Variable precedence",
-      "line": 58,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `role defaults sú zámerne ľahko override-nuteľné,`, `host-specific values sú spravidla konkrétnejšie než group defaults,`, `explicitné runtime values majú vysokú precedence,`, `extra vars majú veľmi vysokú precedence,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "3. Variable precedence",
-      "line": 58,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "3. Variable precedence",
-      "line": 58,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "3. Variable precedence",
-      "line": 58,
+      "section": "1. Atlas scenár: host-specific service configuration",
+      "line": 21,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -100658,404 +100550,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "4. Scope variables",
-      "line": 76,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Global scope",
-      "line": 80,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Play scope",
-      "line": 84,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "5. Role defaults a role vars",
-      "line": 94,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Defaults",
-      "line": 96,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "10. set fact",
-      "line": 173,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "10. set fact",
-      "line": 173,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `simulovanie imperative mutable variables,`, `komplikované business transformations,`, `skryté cross-play state,`, `secrets bez lifecycle.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "10. set fact",
-      "line": 173,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "11. Facts",
-      "line": 192,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "11. Facts",
-      "line": 192,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "11. Facts",
-      "line": 192,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS family a distribution,`, `network interfaces a addresses,`, `CPU a memory,`, `filesystems a mounts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "11. Facts",
-      "line": 192,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "11. Facts",
-      "line": 192,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "12. gather facts",
-      "line": 213,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "12. gather facts",
-      "line": 213,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "12. gather facts",
-      "line": 213,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednotný runtime context,`, `platform-aware branching,`, `templates založené na host properties.`, `extra connections a runtime,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "12. gather facts",
-      "line": 213,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "12. gather facts",
-      "line": 213,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "13. Fact caching",
-      "line": 236,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "13. Fact caching",
-      "line": 236,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend,`, `TTL,`, `invalidation,`, `encryption/access,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "13. Fact caching",
-      "line": 236,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "13. Fact caching",
-      "line": 236,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "14. Custom facts",
-      "line": 251,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "14. Custom facts",
-      "line": 251,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lokálny application metadata,`, `deployment marker,`, `site-specific capability.`, `target môže fact manipulovať,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "14. Custom facts",
-      "line": 251,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "14. Custom facts",
-      "line": 251,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "15. Magic variables",
-      "line": 270,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "15. Magic variables",
-      "line": 270,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory hostname ,`, `hostvars ,`, `groups ,`, `group names ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "15. Magic variables",
-      "line": 270,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Cross-host data",
-      "line": 286,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Cross-host data",
-      "line": 286,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Cross-host data",
-      "line": 286,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Cross-host data",
-      "line": 286,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `group je prázdna,`, `ordering nie je contract,`, `ansible host chýba,`, `first host nie je leader,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Cross-host data",
-      "line": 286,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "16. Templates",
-      "line": 302,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "17. Templating location",
-      "line": 330,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "17. Templating location",
-      "line": 330,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `filters/plugins musia existovať v execution environment-e,`, `local timezone/locale môže ovplyvniť custom logic,`, `lookup môže čítať control-node resources,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "17. Templating location",
-      "line": 330,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "18. Jinja expressions, filters a tests",
-      "line": 341,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Filter",
-      "line": 343,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Test",
-      "line": 351,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "19. Native types a serialization",
-      "line": 367,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepredpokladaj, že text false je boolean false ,`, `serializuj JSON/YAML cez filters namiesto ručného skladania,`, `explicitne quote file mode ako string,`, `testuj templating pri upgrade ansible-core a Jinja behavioru.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "19. Native types a serialization",
-      "line": 367,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "19. Native types a serialization",
-      "line": 367,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "19. Native types a serialization",
-      "line": 367,
+      "section": "2. Variable contract, source, scope a precedence",
+      "line": 75,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -101063,107 +100559,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "19. Native types a serialization",
-      "line": 367,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`",
-      "score": 4
+      "section": "2. Variable contract, source, scope a precedence",
+      "line": 75,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "21. Template validation",
-      "line": 396,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "21. Template validation",
-      "line": 396,
+      "section": "3. Effective host value subject",
+      "line": 102,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "21. Template validation",
-      "line": 396,
+      "section": "3. Effective host value subject",
+      "line": 102,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `side-effect free,`, `dostupná na targete,`, `správne quote-nutá podľa module semantics,`, `reprezentatívna pre runtime parser.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ansible-inventory --host <host pre resolved inventory variables;`, `ansible-config dump --only-changed pre effective engine configuration;`, `explicitné redacted preflight assertions;`, `controller job metadata;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "21. Template validation",
-      "line": 396,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "23. Secrets v variables a templates",
-      "line": 422,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "23. Secrets v variables a templates",
-      "line": 422,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "23. Secrets v variables a templates",
-      "line": 422,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neodstráni secret z target file,`, `nechráni pred malicious taskom,`, `nezaručí, že callback alebo dependent command secret nevypíše,`, `nerieši access k inventory/controller credentials,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "23. Secrets v variables a templates",
-      "line": 422,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "24. Deterministické templates",
-      "line": 434,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "24. Deterministické templates",
-      "line": 434,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current timestamp,`, `náhodné hodnoty,`, `unordered data,`, `host-dependent lookup bez contractu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "24. Deterministické templates",
-      "line": 434,
+      "section": "3. Effective host value subject",
+      "line": 102,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -101171,17 +100595,80 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "24. Deterministické templates",
-      "line": 434,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
+      "section": "3. Effective host value subject",
+      "line": 102,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "25. Variable validation",
-      "line": 448,
+      "section": "3. Effective host value subject",
+      "line": 102,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "4. Required values, defaults a validation",
+      "line": 127,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "4. Required values, defaults a validation",
+      "line": 127,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "5. Facts sú observations, nie desired state",
+      "line": 148,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "5. Facts sú observations, nie desired state",
+      "line": 148,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "6. Worked failure: stale fact cache vybral starý platform path",
+      "line": 174,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "8. Cross-host data a stable service contracts",
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "9. Template rendering a artifact identity",
+      "line": 231,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -101189,26 +100676,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "25. Variable validation",
-      "line": 448,
+      "section": "9. Template rendering a artifact identity",
+      "line": 231,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "25. Variable validation",
-      "line": 448,
+      "section": "9. Template rendering a artifact identity",
+      "line": 231,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required values,`, `allowed enum,`, `numeric ranges,`, `mutually exclusive options,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source template revision;`, `execution environment, ansible-core a Jinja version;`, `filter, test a lookup plugins;`, `effective host values;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "25. Variable validation",
-      "line": 448,
+      "section": "9. Template rendering a artifact identity",
+      "line": 231,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -101216,17 +100703,53 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "25. Variable validation",
-      "line": 448,
+      "section": "14. Secrets v values a artifacts",
+      "line": 328,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "14. Secrets v values a artifacts",
+      "line": 328,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `secret stále existuje v controller memory;`, `lookup alebo custom plugin ho môže leaknúť;`, `rendered file ho môže obsahovať;`, `validation command alebo process ho môže vypísať;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "14. Secrets v values a artifacts",
+      "line": 328,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Variable je undefined",
-      "line": 473,
+      "section": "14. Secrets v values a artifacts",
+      "line": 328,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "14. Secrets v values a artifacts",
+      "line": 328,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "1. Zafixuj artifact subject",
+      "line": 345,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -101234,89 +100757,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Fact chýba",
-      "line": 481,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Template je stále changed",
-      "line": 485,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Rovnaká variable definovaná na piatich úrovniach",
-      "line": 499,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "extra-vars ako bežná configuration databáza",
-      "line": 503,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Facts ako permanentný source of truth",
-      "line": 507,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Celý hostvars object v template",
-      "line": 511,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Business logika v Jinja template",
-      "line": 515,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "Timestamp v každom generated configu",
-      "line": 519,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "default() na povinné hodnoty",
-      "line": 523,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 527,
+      "section": "2. Súťažiace hypotézy",
+      "line": 349,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -101324,8 +100766,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 527,
+      "section": "2. Súťažiace hypotézy",
+      "line": 349,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -101333,26 +100775,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 527,
+      "section": "2. Súťažiace hypotézy",
+      "line": 349,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 527,
-      "severity": "critical",
+      "section": "2. Súťažiace hypotézy",
+      "line": 349,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Je variable public role input alebo internal constant?`, `Aký type a validation contract potrebuje?`, `Je hodnota secret a aký má lifecycle?`, `Potrebujem fact, inventory metadata alebo external source?`.",
-      "score": 12
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Host-specific alebo group variable prepísala production value.`, `Duplicate inventory definition zmenila host group membership.`, `hostvars vybral nestabilný prvý database host.`, `Lookup plugin čítal staging path alebo environment.`.",
+      "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 527,
+      "section": "2. Súťažiace hypotézy",
+      "line": 349,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -101360,8 +100802,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 527,
+      "section": "2. Súťažiace hypotézy",
+      "line": 349,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -101369,8 +100811,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 527,
+      "section": "2. Súťažiace hypotézy",
+      "line": 349,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -101378,11 +100820,227 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
-      "section": "28. Rozhodovací rámec",
-      "line": 527,
+      "section": "3. Diskriminačné observation points",
+      "line": 360,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 360,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 360,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 360,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ansible-inventory --host app-07 a group graph;`, `controller job extra vars metadata bez secret values;`, `redacted effective-value preflight;`, `fact cache timestamp a raw fresh capability observation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 360,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 360,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 360,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "5. Recovery",
+      "line": 375,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "5. Recovery",
+      "line": 375,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "5. Recovery",
+      "line": 375,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "5. Recovery",
+      "line": 375,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `stale fact → invaliduj cache a použi fresh observation;`, `cross-host inference → nahraď explicitným service contractom;`, `wrong lookup → oprav environment-scoped path/identity;`, `second writer → odstráň ownership konflikt a obnov artifact.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "5. Recovery",
+      "line": 375,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "5. Recovery",
+      "line": 375,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "5. Recovery",
+      "line": 375,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "6. Over pôvodný outcome",
+      "line": 384,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "7. Posuň control skôr",
+      "line": 388,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 392,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 392,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 392,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 392,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Precedence určuje víťaza, nie správneho ownera.`, `Facts sú časovo ohraničené observations.`, `hostvars vytvára cross-host dependency.`, `Template output je deployovaný artifact s vlastnou identitou.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 392,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 392,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 392,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 392,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 392,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
       "score": 4
     },
     {
