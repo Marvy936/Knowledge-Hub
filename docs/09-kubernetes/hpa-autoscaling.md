@@ -1,84 +1,112 @@
 # HPA a autoscaling
 
-Kubernetes autoscaling mení počet replík, resource requests alebo počet Nodes podľa pozorovaného dopytu a policy. Horizontal Pod Autoscaler (HPA) upravuje replica count škálovateľného workloadu. Vertical Pod Autoscaler (VPA) odporúča alebo mení Pod resources a Node autoscaling mení cluster capacity. Tieto slučky musia byť navrhnuté spoločne, inak môžu bojovať o rovnaký systém alebo prenášať bottleneck na inú vrstvu.
+Autoscaling je feedback control system, nie príkaz „pridaj Pody pri vysokej metrike“. Controller pozoruje definovaný signal pre konkrétnu workload generation, prepočíta ho na odporúčanú kapacitu, aplikuje tolerance a behavior policy, zapíše nový desired state a čaká na scheduler, Nodes, startup, readiness a downstream systém. Zelený HPA condition nepreukazuje, že business bottleneck sa škáluje alebo že nové replicas zlepšili výsledok.
 
-## 1. Horizontal scaling
-
-HPA typicky škáluje:
-
-- Deployment,
-- StatefulSet,
-- iný resource so `/scale` subresource.
-
-HPA nie je určený pre DaemonSet, pretože jeho replica count vyplýva z počtu eligible Nodes.
+Táto kapitola používa jeden dominantný lifecycle:
 
 ```text
-metrics
-→ HPA controller
-→ desired replicas
-→ scale subresource workloadu
+business demand, SLO a capacity model
+→ scaling subject a field ownership
+→ metric definition, labels, window a pipeline
+→ fresh sample a eligible Pod cohort
+→ normalization a per-metric recommendation
+→ tolerance, stabilization a rate policy
+→ scale subresource write
+→ workload controller, scheduler, Nodes a readiness
+→ downstream a business feedback
+→ containment, recovery a skorší control
+```
+
+## 1. Atlas Payments scaling subject
+
+Payments API 5.3.1 má baseline 6 replík. Pri incidente fixuj:
+
+```text
+HPA UID a generation
+scaleTargetRef a target UID/generation
+owner poľa replicas
+metric type, query, labels, aggregation window a freshness
+target value a unit
+current ready/not-ready/missing-metric Pod cohort
+per-metric recommendation
+tolerance/stabilization/rate-policy state
+current, desired, min a max replicas
+Deployment/ReplicaSet rollout generation
+Pending/Ready replica counts a Node capacity
+DB connection, retry a payment outcome
+```
+
+Názov HPA alebo údaj `desiredReplicas: 18` bez metric a cohort identity nestačí.
+
+## 2. Control loop musí mať správny causal signal
+
+Signal má odpovedať na otázku:
+
+```text
+Keď zvýšime kapacitu cieľového workloadu,
+ako a s akým oneskorením sa má táto metrika zmeniť?
+```
+
+CPU môže byť vhodný pre CPU-bound stateless service. Queue age môže byť vhodnejšia pre workers. Request rate môže byť zlý signal, ak zahŕňa retry amplification alebo ak bottleneckom je databáza, ktorá sa neškáluje s počtom API Podov.
+
+Metric contract potrebuje:
+
+- unit a business význam;
+- source a owner;
+- label/tenant scope;
+- aggregation a sampling window;
+- freshness a missing-data semantics;
+- expected response na replica change;
+- downstream capacity envelope;
+- attack/manipulation model.
+
+## 3. HPA scale subject a field ownership
+
+HPA upravuje replica count resource-u, ktorý poskytuje `/scale` subresource, typicky Deployment alebo StatefulSet.
+
+```text
+HPA recommendation
+→ scale subresource desired replicas
 → workload controller
-→ nové alebo odstránené Pody
-→ scheduler a Nodes
+→ ReplicaSet/Pod creation alebo deletion
 ```
 
-HPA nevytvára Nodes ani nezabezpečuje, že nové Pody budú schedulovateľné.
+HPA nevytvára Nodes, nerieši Pod placement, neinicializuje aplikáciu a nekoordinuje databázové connection limity.
 
-## 2. Základný HPA objekt
+`spec.replicas` musí mať jedného autoritatívneho runtime writera. Ak GitOps controller vynucuje statickú hodnotu a HPA ju mení, vzniká reconciliation fight. Declarative config má vlastniť HPA policy, min/max a metric contract; HPA má vlastniť live scale field podľa zvoleného operating modelu.
 
-```yaml
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: web
-  namespace: production
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: web
-  minReplicas: 3
-  maxReplicas: 20
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 65
+## 4. Metric pipeline je súčasť control-plane trust boundary
+
+Resource metrics typicky prichádzajú cez `metrics.k8s.io`; custom a external metrics cez príslušné adapters/APIs. HPA musí dostať správny signal pre správnu workload population.
+
+```text
+application/kubelet/external source
+→ scrape alebo adapter query
+→ label a tenant filtering
+→ aggregation/window
+→ Kubernetes metrics API
+→ HPA sample timestamp a value
 ```
 
-HPA zapisuje požadovaný replica count cieľového resource-u cez scale subresource.
+Stará, duplicovaná alebo cross-tenant metrika môže vytvoriť scale-out, scale-in alebo denial-of-wallet incident. Metrics adapter credentials, query definitions a label isolation sú security controls.
 
-## 3. Resource metrics pipeline
+Metrics Server je autoscaling/resource-metrics komponent, nie plnohodnotný historický observability systém. Incident stále potrebuje metrics/traces/logs s dlhšou retenciou.
 
-CPU a memory resource metrics typicky poskytuje `metrics.k8s.io` API, často cez Metrics Server.
+## 5. Resource utilization používa effective requests
 
-Over:
+Pri CPU alebo memory `averageUtilization` sa usage normalizuje voči relevantnému requestu. Zjednodušene:
 
-```bash
-kubectl top pods -n production
-kubectl get --raw /apis/metrics.k8s.io/v1beta1/namespaces/production/pods
-kubectl describe hpa -n production web
+```text
+utilization per Pod = observed usage / effective request
 ```
 
-Metrics Server nie je plnohodnotný dlhodobý monitoring systém. Poskytuje resource metrics pre autoscaling a `kubectl top`, nie historické SLI alebo capacity analytics.
+Nízky request zväčší percento a môže spustiť skorší scale-out. Vysoký request percento zníži a môže oddialiť reakciu. Chýbajúci request môže znemožniť použitie Podu v resource-utilization výpočte podľa metric/cohort semantics.
 
-## 4. CPU utilization a requests
+HPA preto závisí od admitted/effective Pod resource contractu, nie iba od hodnoty v Git source manifeste.
 
-Pri targete `averageUtilization` sa CPU utilization počíta relatívne k CPU requestu Pod containers zahrnutých do výpočtu.
+## 6. Recommendation model
 
-Príklad:
-
-- request: `500m`,
-- usage: `250m`,
-- utilization: približne 50 %.
-
-Bez správnych CPU requests môže resource-utilization autoscaling chýbať, byť nepresný alebo sa správať inak, než operator očakáva.
-
-## 5. Zjednodušený algoritmus
-
-HPA používa pomer aktuálnej a cieľovej metriky:
+Základný pomer možno chápať ako:
 
 ```text
 desiredReplicas = ceil(currentReplicas × currentMetric / desiredMetric)
@@ -87,348 +115,313 @@ desiredReplicas = ceil(currentReplicas × currentMetric / desiredMetric)
 Príklad:
 
 ```text
-current replicas = 4
-current utilization = 90 %
-target utilization = 60 %
-
-desired = ceil(4 × 90 / 60) = 6
+current replicas = 6
+current average = 90
+metric target = 60
+recommendation = ceil(6 × 90 / 60) = 9
 ```
 
-Reálny controller zohľadňuje tolerance, missing metrics, not-yet-ready Pody, stabilization a rate policies.
+Reálny controller navyše zohľadňuje tolerance, missing metrics, not-yet-ready Pods, metric errors a behavior history. Výsledok preto nemusí byť presne jednoduchý pomer z dashboardu.
 
-## 6. Typy metrík
+Pri viacerých metrics sa pre každú vypočíta recommendation a scaling policy typicky použije najvyššiu požadovanú replica count. Partial metric failure môže blokovať alebo konzervatívne meniť scale-down behavior; čítaj HPA conditions a Events.
 
-`autoscaling/v2` podporuje viac modelov:
+## 7. Eligible cohort a startup distortion
 
-- `Resource` — CPU alebo memory resource metrics,
-- `ContainerResource` — resource metric konkrétneho containeru,
-- `Pods` — priemerná custom metric na Pod,
-- `Object` — metric súvisiaca s jedným Kubernetes objektom,
-- `External` — metric mimo Kubernetes objektového modelu.
+Nový Pod môže počas bootstrapu spotrebovať vysoké CPU, ešte nemá reprezentatívny throughput alebo nemá fresh metric. Controller používa readiness/startup informácie a konfigurované initialization boundaries, ale workload musí mať:
 
-Custom a external metrics vyžadujú príslušné aggregated API adapters a dôveryhodnú metrics pipeline.
+- správnu startup probe;
+- readiness až po ukončení nereprezentatívneho warm-upu;
+- realistický request denominator;
+- bounded image pull a initialization;
+- metric, ktorá nerozlišuje bootstrap ako production demand.
 
-## 7. Priemer vs. absolútna hodnota
+Ak nový Pod zvýši CPU metric skôr, než začne obsluhovať traffic, HPA môže vytvoriť pozitívnu feedback slučku: viac Podov → viac warm-up CPU → ďalší scale-out.
 
-Target môže byť napríklad:
+## 8. Tolerance, stabilization a rate policy
 
-- `Utilization` — percento requestu,
-- `AverageValue` — priemerná absolútna hodnota na Pod,
-- `Value` — celková alebo object-specific hodnota podľa typu metric.
-
-Výber musí zodpovedať business modelu. Queue depth `100` môže znamenať:
-
-- 100 položiek celkovo,
-- 100 na repliku,
-- 100 na partition,
-- 100 iba pre konkrétny tenant.
-
-## 8. Viac metrík
-
-HPA môže vyhodnocovať viac metrics. Typicky zvolí odporúčanie, ktoré vedie k najvyššiemu potrebnému replica countu, ak sú metrics dostupné a policy to umožňuje.
-
-Príklad:
-
-- CPU odporúča 5 replík,
-- request rate odporúča 8,
-- výsledok je 8.
-
-Pri čiastočnom metric failure môže byť scale-down konzervatívnejší. Sleduj HPA conditions a Events, nie iba current replica count.
-
-## 9. Scale-up behavior
-
-```yaml
-spec:
-  behavior:
-    scaleUp:
-      stabilizationWindowSeconds: 0
-      selectPolicy: Max
-      policies:
-        - type: Percent
-          value: 100
-          periodSeconds: 60
-        - type: Pods
-          value: 4
-          periodSeconds: 60
-```
-
-Policies obmedzujú rýchlosť zmeny. Príliš pomalý scale-up zvyšuje latency a queue backlog; príliš rýchly môže spôsobiť:
-
-- image-pull storm,
-- connection storm na databázu,
-- thundering herd,
-- cluster capacity exhaustion,
-- neúmerný cloud cost.
-
-## 10. Scale-down stabilization
-
-```yaml
-spec:
-  behavior:
-    scaleDown:
-      stabilizationWindowSeconds: 300
-      policies:
-        - type: Percent
-          value: 25
-          periodSeconds: 60
-```
-
-Stabilization window používa predchádzajúce odporúčania na tlmenie flapping-u. Defaultné správanie a controller flags over podľa verzie a cluster konfigurácie.
-
-Scale-down musí zohľadniť:
-
-- traffic drain,
-- in-flight work,
-- queue partitioning,
-- connection pools,
-- cache warm-up,
-- PDB a termination grace period.
-
-## 11. Startup a readiness
-
-Nový Pod môže mať vysoké CPU počas inicializácie alebo ešte nemusí byť Ready. HPA má mechanizmy na konzervatívnejšie spracovanie not-yet-ready Podov a CPU initialization period, ale správny workload stále potrebuje:
-
-- startup probe,
-- readiness probe,
-- reprezentatívne requests,
-- bounded warm-up,
-- metric bez bootstrap spike distortion.
-
-## 12. Minimum a maximum replicas
-
-`minReplicas` je availability a baseline-capacity rozhodnutie. `maxReplicas` je ochranná hranica, nie garancia dostatočnej kapacity.
-
-Pri `maxReplicas` dosiahnutom pod rastúcim loadom musí monitoring upozorniť na saturation. HPA status môže byť „funkčný“, zatiaľ čo aplikácia už nestíha.
-
-## 13. Manual scaling a GitOps konflikt
-
-HPA vlastní `spec.replicas` cieľového workloadu. Ak GitOps controller alebo pipeline neustále zapisuje statickú hodnotu, vzniká field ownership alebo reconciliation konflikt:
+Control loop nemá reagovať na každý malý alebo krátky signal. Behavior policy môže obmedziť:
 
 ```text
-HPA nastaví replicas=10
-GitOps vráti replicas=3
-HPA znovu nastaví replicas=10
+ako rýchlo sa smie scale-up
+ako rýchlo sa smie scale-down
+ktoré historické recommendations sa použijú
+koľko replík alebo percent sa smie zmeniť za interval
 ```
 
-Riešenie:
+Scale-up príliš pomalý prehlbuje queue/latency. Scale-up príliš rýchly môže vytvoriť image-pull, connection, cold-cache alebo thundering-herd storm.
 
-- HPA-managed workloads nemajú mať statický replicas drift enforcement,
-- deklaruj HPA ako autoritatívneho vlastníka scale field-u,
-- oddeľ initial/bootstrap replica nastavenie od runtime autoscaling policy.
-
-## 14. HPA a Deployment rollout
-
-Počas rollout-u HPA škáluje Deployment, zatiaľ čo Deployment rozdeľuje replicas medzi starý a nový ReplicaSet podľa rollout strategy.
-
-Riziká:
-
-- surge zvyšuje krátkodobú capacity potrebu,
-- metrika sa mieša medzi revisions,
-- nová verzia má inú resource efficiency,
-- readiness znižuje počet dostupných backendov,
-- rollback nemení HPA policy.
-
-Canary s oddeleným Deploymentom potrebuje samostatný autoscaling model alebo vedomé fixed-capacity pravidlo.
-
-## 15. HPA a StatefulSet
-
-HPA môže škálovať StatefulSet, ale application musí podporovať:
-
-- dynamický membership,
-- per-replica storage provisioning,
-- scale-down bez straty quorum alebo dát,
-- bezpečné odstránenie najvyšších ordinalov,
-- rebalancing a bootstrap nových členov.
-
-Kubernetes nevie z CPU metriky odvodiť bezpečný database cluster membership model.
-
-## 16. Queue-based autoscaling
-
-Pre workers je často vhodnejšia business metric:
+Scale-down potrebuje dlhší outcome model:
 
 ```text
+nižší desired count
+→ endpoint drain
+→ in-flight work completion
+→ Pod termination
+→ queue/partition rebalancing
+→ downstream connection release
+```
+
+Replica count sa môže znížiť skôr, než application business work bezpečne skončí. PDB, readiness, `preStop`, termination grace a idempotency zostávajú samostatnými contracts.
+
+## 9. Min/max replicas sú policy hranice
+
+`minReplicas` vyjadruje baseline availability a capacity počas reaction delay. `maxReplicas` chráni cluster, downstream a budget, ale negarantuje SLO.
+
+Pri `ScalingLimited=True` alebo dosiahnutí maxima musí existovať explicitný saturation response:
+
+- alert a incident owner;
+- load shedding alebo rate limit;
+- queue/degradation mode;
+- downstream protection;
+- capacity alebo architecture remediation.
+
+HPA, ktoré korektne drží maximum počas rastúcej chybovosti, technicky funguje, ale business systém je saturovaný.
+
+## 10. HPA, VPA a Node autoscaling sú oddelené loops
+
+### HPA
+
+Mení počet replík cieľového workloadu.
+
+### VPA
+
+Samostatne inštalovaný controller môže odporúčať alebo meniť resource requests. Zmena requests môže zmeniť CPU-utilization denominator HPA.
+
+### Node autoscaling
+
+Reaguje na unschedulable/capacity potrebu Node poolov. Typický chain:
+
+```text
+HPA požaduje viac replík
+→ controller vytvorí Pody
+→ scheduler ich nevie umiestniť
+→ node autoscaler vyhodnotí node-group templates
+→ nový Node sa provisionuje a bootstrapuje
+→ scheduler bindne Pod
+→ image/startup/readiness
+→ až potom nová serving capacity
+```
+
+Celkový reaction time zahŕňa metric delay, reconciliation interval, Node provisioning, scheduling, image pull, startup, readiness a traffic propagation.
+
+Loops musia mať oddelené field ownership a rozdielne signals. HPA a VPA nad rovnakým CPU signalom môžu oscilovať: HPA mení replicas, VPA requests, requests menia utilization denominator a HPA recommendation.
+
+## 11. Queue a event-driven scaling
+
+Pre workers je často reprezentatívnejšie:
+
+```text
+oldest unprocessed item age
 backlog per ready worker
-oldest message age
-processing latency
+arrival rate vs. verified service rate
+partition lag
 ```
 
-Samotná queue depth môže byť zavádzajúca, ak sa mení:
+Queue depth bez processing time, retries, partition distribution a downstream rate limitu je neúplný signal. Exactly-once, acknowledgment a work ownership zostávajú application/queue zodpovednosťou.
 
-- priemerný processing time,
-- počet partitions,
-- retry/dead-letter traffic,
-- downstream rate limit,
-- batch size.
+Event-driven controllery môžu poskytovať activation alebo scale-to-zero patterns, ale pridávajú vlastné CRDs, credentials, metric freshness a lost-wakeup failure modes. Cold-start a minimum concurrency musia byť súčasťou SLO.
 
-Exactly-once a work distribution zostávajú application/queue zodpovednosťou.
+## 12. Worked failure: scale-out zosilnil payment incident
 
-## 17. Event-driven autoscaling
-
-Ekosystémové controllery, napríklad KEDA, môžu škálovať podľa event sources a podporovať scale-to-zero modely. Nie sú súčasťou core HPA API a vyžadujú vlastný lifecycle, security, CRDs, upgrades a metrics trust model.
-
-Scale-to-zero potrebuje riešiť:
-
-- cold start,
-- activation metric,
-- lost wake-up prevention,
-- minimum processing concurrency,
-- event-source credentials.
-
-## 18. VPA
-
-Vertical Pod Autoscaler je samostatne inštalovaný controller a API, ktorý môže:
-
-- odporúčať requests,
-- aplikovať nové resources pri Pod replacement-e alebo podporovanom update modeli,
-- pomôcť rightsizing-u.
-
-VPA a HPA na tej istej CPU/memory signalizácii môžu vytvárať feedback loop. Bežný model:
-
-- HPA škáluje podľa external/business metric,
-- VPA odporúča alebo upravuje CPU/memory requests,
-- policy určuje, kto vlastní ktoré fields.
-
-## 19. Node autoscaling
-
-Node autoscaler reaguje na schedulovateľnosť a capacity potrebu clusteru, nie priamo na application latency.
-
-Typický chain:
+Payments 5.3.1 používal external metric:
 
 ```text
-load rastie
-→ HPA vytvorí viac replicas
-→ Pody zostanú Pending pre nedostatok capacity
-→ node autoscaler pridá Node
-→ scheduler bindne Pody
-→ kubelet stiahne image a spustí workload
+payments_requests_total rate za poslednú minútu
 ```
 
-Celková reakcia zahŕňa metric delay, HPA interval, provisioning Node-u, bootstrap, image pull a Pod readiness.
+Metric zahŕňala originálne klientské requesty aj interné retries po DB timeoutoch. Každá API replika zároveň otvárala pool 30 DB connections.
 
-## 20. Scale-to-zero a minimum capacity
+Incident:
 
-Core HPA typicky pracuje s minimálne jednou replikou v bežnom workload modeli; scale-to-zero závisí od konkrétnej API/metric/controller podpory.
+```text
+DB latency mierne vzrastie
+→ API retry rate rastie
+→ request-rate metric rastie bez nového business demandu
+→ HPA škáluje 6 → 12 → 20 replík
+→ connection pools rastú 180 → 600
+→ DB connection queue a latency rastú
+→ ďalšie timeouty a retries
+→ HPA dosiahne maxReplicas
+→ payment success rate klesá
+```
 
-Pre latency-sensitive služby drž baseline capacity, ktorá absorbuje load počas autoscaling delay.
+HPA algoritmus reagoval podľa definovaného signalu. Chybný bol causal metric a downstream capacity model.
 
-## 21. Metrics security a correctness
+Zníženie CPU targetu alebo zvýšenie `maxReplicas` by incident zhoršilo. Vypnutie HPA bez retry containmentu by zase nemuselo odstrániť existujúcu amplification.
 
-Metrics adapter je control-plane vstup. Falošná alebo manipulovateľná metric môže:
+## 13. Causal troubleshooting walkthrough
 
-- vytvoriť denial of wallet,
-- znížiť replicas počas útoku,
-- preťažiť downstream,
-- obísť tenant capacity policy.
+### Subject a timeline
 
-Chráň:
+Fixuj HPA/target generation, exact metric query a labels, sample timestamps, ready/missing Pod cohort, recommendation history, scale writes, ReplicaSet/Pod generations, Pending/Ready counts, Node provisioning, connection pool a payment traces.
 
-- metrics API RBAC,
-- adapter credentials,
-- query definitions,
-- tenant label isolation,
-- metric freshness,
-- audit a alerting.
+### Competing hypotheses
 
-## 22. Observability
+1. metrics API alebo adapter je nedostupný;
+2. sample je stale alebo má nesprávne labels/tenant scope;
+3. CPU request denominator je chybný;
+4. startup Pods deformujú metric;
+5. HPA je limitované min/max alebo rate policy;
+6. GitOps prepisuje replicas;
+7. nové Pody zostávajú Pending;
+8. nové Pody nie sú Ready alebo sa zahrievajú príliš dlho;
+9. load balancer neposiela traffic novej cohort-e;
+10. bottleneck je DB/external dependency;
+11. metric obsahuje retries alebo duplicate events;
+12. každá replika pridáva väčší downstream load než serving capacity;
+13. HPA/VPA loops menia rovnaký signal/denominator;
+14. scale-down prerušuje in-flight work.
+
+### Discriminating observations
 
 ```bash
-kubectl get hpa -n production
-kubectl describe hpa -n production web
-kubectl get deployment -n production web
+kubectl get hpa -n production payments -o yaml
+kubectl describe hpa -n production payments
+kubectl get deployment,replicaset,pod -n production -l app=payments
 kubectl get events -n production --sort-by=.metadata.creationTimestamp
-kubectl top pods -n production
+kubectl get --raw /apis/metrics.k8s.io/
+kubectl top pod -n production --containers
 ```
 
-Sleduj:
+Koreluj:
 
-- current a desired replicas,
-- current/target metrics,
-- `AbleToScale`, `ScalingActive`, `ScalingLimited` conditions,
-- metric fetch errors,
-- čas na Ready po scale-up,
-- saturation pri max replicas,
-- scale events a flapping,
-- Pending Pods a node provisioning latency.
+- exact current/target metric values a timestamps;
+- HPA conditions `AbleToScale`, `ScalingActive`, `ScalingLimited`;
+- per-metric recommendation a behavior history;
+- source vs. admitted requests;
+- ready, not-yet-ready a missing-metric cohort;
+- scale subresource field owner;
+- Pending reasons a Node provisioning latency;
+- per-replica throughput, connection pool a dependency saturation;
+- retry, duplicate a payment outcome rates.
 
-## 23. Troubleshooting
+### Containment
+
+Zastav retry amplification a chráň DB load sheddingom/rate limitom. Zachovaj HPA status, metric samples/query, recommendation history, Pod cohort a traces. Dočasný versionovaný cap alebo fixed replica count musí mať jedného ownera a nesmie vytvoriť fight s HPA/GitOps.
+
+### Authoritative recovery
+
+- oddeľ originálny demand od retry trafficu;
+- používaj signal s overeným causal vzťahom ku serving capacity;
+- nastav per-replica downstream connection/concurrency budget;
+- oprav request denominator alebo startup/readiness contract;
+- uprav min/max a behavior podľa measured reaction time;
+- oprav scheduler/Node capacity, ak desired Pods nevznikajú ako Ready capacity;
+- rozdeľ HPA/VPA field ownership a signals;
+- rolloutni policy/metric generation a sleduj celý feedback loop.
+
+### Verify original a forbidden outcomes
+
+Over:
+
+1. business demand rastie → serving capacity rastie v očakávanom čase;
+2. krátky DB incident nespustí nekontrolovaný replica/connection storm;
+3. HPA nepoužíva stale alebo cross-tenant metric;
+4. nové replicas sú Scheduled, Ready a dostávajú traffic;
+5. payment success/latency sa zlepšia, nie iba replica count;
+6. scale-down nestratí ani neduplikuje in-flight work;
+7. GitOps, HPA a VPA nebojujú o rovnaké fields;
+8. maxReplicas saturation spustí ochranu a alert.
+
+### Earlier controls
+
+Použi metric contract review, closed-loop load test, per-replica service-rate model, downstream capacity budget, startup/cold-start test, HPA/VPA ownership policy, autoscaling chaos experiment, metric provenance/freshness alert a payment-level SLO gate.
+
+## 14. Ďalšie failure boundaries
 
 ### HPA ukazuje `<unknown>`
 
-Over metrics API, Metrics Server/adapter health, RBAC, selector, metric name a freshness.
+Rozlišuj metrics API availability, adapter RBAC, query/selector chybu, missing requests a stale samples. Nezvyšuj replicas manuálne bez poznania demandu a capacity.
 
-### CPU HPA neškáluje
+### HPA škáluje, Pody sú Pending
 
-Over CPU requests, current metric, tolerance, min/max replicas, startup/readiness a HPA conditions.
+HPA loop dosiahol scale write. Zlyháva placement, capacity, PVC alebo node-autoscaler template. Desired replicas nie sú serving capacity.
 
-### HPA škáluje, ale latency rastie
+### HPA škáluje, latency stále rastie
 
-Over cold start, downstream bottleneck, queueing, load balancing, readiness, Node capacity a max replicas.
+Over downstream bottleneck, cold start, traffic distribution, lock contention, connection pool a per-replica throughput. Horizontálne škálovanie môže zvýšiť pressure na nescalable dependency.
 
 ### Neustále scale up/down
 
-Over noisy metric, krátke windows, cache warm-up, request spikes, percent policy a metric aggregation interval.
-
-### Nové Pody zostávajú Pending
-
-HPA funguje; zlyháva scheduler/capacity/storage/placement vrstva. Over `FailedScheduling` a node autoscaler.
+Signal, window a control delays sú nekompatibilné. Skontroluj stabilization, readiness warm-up, cache/queue dynamics a HPA/VPA interactions.
 
 ### Scale-down prerušuje prácu
 
-Over readiness drain, preStop, termination grace, PDB, queue acknowledgment a connection handling.
+Replica deletion predchádza drain/acknowledgment. Oprav work ownership, readiness drain, termination grace a idempotency; samotné dlhšie stabilization window nie je úplná náprava.
 
-## 24. Anti-patterny
+### Memory metric škáluje leak
 
-### CPU target bez CPU requests
+Viac replík vytvorí viac leakujúcich processov. Autoscaling nemá nahradiť opravu unbounded memory growth.
 
-Utilization nemá správny denominator.
+## 15. Referenčný katalóg
 
-### HPA nad bottleneckom, ktorý sa neškáluje
+### Metric source typy v `autoscaling/v2`
 
-Viac Podov iba zvýši tlak na databázu alebo external API.
+- `Resource`;
+- `ContainerResource`;
+- `Pods`;
+- `Object`;
+- `External`.
 
-### Statický `replicas` neustále vynucovaný GitOps-om
+### Scaling evidence
 
-Vzniká reconciliation fight.
+```text
+metric definition a timestamp
+eligible Pod cohort
+per-metric recommendation
+behavior/stabilization verdict
+scale write
+created/Pending/Ready Pods
+traffic a downstream utilization
+business SLO
+```
 
-### Memory utilization ako jediný signal pre leak
+### Control boundaries
 
-HPA pridá ďalšie leakujúce Pody namiesto odstránenia chyby.
+| Loop | Mení | Nezaručuje |
+|---|---|---|
+| HPA | replica count | Node capacity, readiness, downstream scalability |
+| VPA | requests/recommendations | application correctness alebo horizontal capacity |
+| Node autoscaler | Node capacity | logicky splniteľný placement alebo Pod readiness |
 
-### Príliš nízke `maxReplicas`
+## 16. Anti-patterny
 
-Autoscaling narazí na strop bez dostatočnej alerting signalizácie.
+- CPU utilization target bez správnych requests;
+- signal obsahujúci retries/duplicates bez business semantics;
+- HPA nad bottleneckom, ktorý sa horizontálne neškáluje;
+- GitOps staticky prepisujúci HPA-owned replicas;
+- veľmi vysoké maximum bez downstream/budget guardrail;
+- veľmi nízke maximum bez saturation response;
+- memory autoscaling ako „oprava“ leak-u;
+- scale-down bez drain a idempotency;
+- hodnotenie úspechu iba podľa desired/current replicas;
+- HPA a VPA nad rovnakým signalom bez ownership modelu.
 
-### Príliš vysoké `maxReplicas`
+## 17. Kontrolné otázky
 
-Application môže vyčerpať database connections, quota alebo budget.
-
-### Scale-down bez idempotencie a draining-u
-
-In-flight práca sa stratí alebo vykoná duplicitne.
-
-## 25. Kontrolné otázky
-
-1. Čo HPA mení a čo nemení?
-2. Prečo CPU utilization závisí od requests?
-3. Ako sa približne vypočíta desired replica count?
-4. Aké metric types podporuje `autoscaling/v2`?
-5. Načo slúži stabilization window?
-6. Ako HPA interaguje s Deployment rolloutom?
-7. Prečo HPA a GitOps môžu bojovať o `spec.replicas`?
-8. Ako sa líši HPA, VPA a Node autoscaling?
-9. Prečo viac replicas nemusí znížiť latency?
-10. Ako diagnostikuješ HPA, ktoré vytvorilo Pending Pody?
+1. Aký causal vzťah musí mať metric ku replica capacity?
+2. Ktoré identities tvoria HPA scaling subject?
+3. Prečo CPU utilization závisí od effective requests?
+4. Ako missing a not-yet-ready Pods menia jednoduchý ratio model?
+5. Prečo desired replicas nie sú serving capacity?
+6. Ako stabilization a rate policy súvisia s reaction delay?
+7. Ako HPA môže zosilniť downstream incident?
+8. Prečo GitOps a HPA potrebujú explicitný field ownership?
+9. Ako sa líši HPA, VPA a Node autoscaling loop?
+10. Ako overíš payment outcome, nie iba scale action?
 
 ## Glossary impact
 
-Relevantné pojmy: Horizontal Pod Autoscaler, scale subresource, resource metric, custom metric, external metric, average utilization, desired replica calculation, HPA tolerance, scale-up policy, scale-down stabilization, `ScalingLimited`, Metrics Server, metrics adapter, Vertical Pod Autoscaler, Node autoscaling, event-driven autoscaling, scale-to-zero a autoscaling feedback loop.
+Relevantné pojmy: autoscaling control subject, metric contract, metric provenance a freshness, eligible autoscaling cohort, resource-utilization denominator, per-metric recommendation, HPA behavior generation, scale-field ownership, serving-capacity realization, autoscaling reaction time, downstream capacity envelope, retry-amplified metric, scaling saturation verdict, multi-loop ownership, subject-bound scaling verification a forbidden feedback outcome.
 
 ## Oficiálna dokumentácia
 
 - [Horizontal Pod Autoscaling](https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
+- [HorizontalPodAutoscaler v2 API](https://kubernetes.io/docs/reference/kubernetes-api/autoscaling-resources/horizontal-pod-autoscaler-v2/)
 - [Autoscaling Workloads](https://kubernetes.io/docs/concepts/workloads/autoscaling/)
 - [Vertical Pod Autoscaling](https://kubernetes.io/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
 - [Node Autoscaling](https://kubernetes.io/docs/concepts/cluster-administration/node-autoscaling/)
+- [Resource metrics pipeline](https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
