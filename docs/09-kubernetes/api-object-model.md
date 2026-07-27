@@ -1,654 +1,651 @@
 # API a object model
 
-Kubernetes API je versionované rozhranie, cez ktoré users, `kubectl`, controllers, operators a node components čítajú a menia cluster state. Kubernetes object je persistentný **record of intent** uložený cez API server. Object model poskytuje spoločnú syntax pre desired state, status, identity, ownership, selection, versioning a lifecycle.
+Kubernetes object nie je iba YAML dokument. Je to versionovaný, serverom spravovaný **record of intent a observed state** s vlastnou identitou, concurrency modelom, field ownershipom, dependent graphom a deletion lifecycle-om.
 
-## 1. Resource a object
-
-**Resource type** je API endpoint a schema určitého druhu dát, napríklad Pods, Deployments alebo Nodes.
-
-**Object** je konkrétna inštancia resource type-u:
+Dominantný lifecycle:
 
 ```text
-resource type: pods
-object: Pod/default/web-7d9f6b8d9c-x2abc
+resource schema a caller intent
+→ API request subject
+→ decoding, conversion, defaulting a admission
+→ persisted object UID/resourceVersion/generation
+→ field-manager a selector ownership
+→ controller observation a status/conditions
+→ dependent graph a external state
+→ update, conflict alebo drift
+→ deletionTimestamp, finalizers a garbage collection
+→ verified cleanup alebo recovery
 ```
 
-API operácie typicky zahŕňajú:
-
-- `get`,
-- `list`,
-- `watch`,
-- `create`,
-- `update`,
-- `patch`,
-- `delete`.
-
-Podporované verbs sa môžu líšiť podľa resource a subresource.
-
-## 2. Group, version a kind
-
-Kubernetes object identifikuje API schema cez:
-
-- **group** — API family,
-- **version** — konkrétna externá API verzia,
-- **kind** — typ objektu.
-
-Príklady:
-
-```yaml
-apiVersion: v1
-kind: Pod
-```
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-```
-
-Core API group používa skrátené `v1`. Ostatné groups používajú formu `group/version`.
-
-## 3. GVK a GVR
-
-### GVK — GroupVersionKind
-
-Opisuje schema objektu:
+Pri diagnostike sa nepýtaj iba „čo je v manifeste“, ale:
 
 ```text
-apps / v1 / Deployment
+Aký GVK/GVR a cluster boli cieľom?
+Aká object UID a generation reálne vznikla?
+Kto vlastní relevantné fields?
+Ktorý status zodpovedá ktorej generation?
+Ktoré dependents a external resources patria tejto UID?
+Je object active, replacing, deleting alebo iba menovite rovnaký?
 ```
 
-### GVR — GroupVersionResource
+## 1. Atlas object subject
 
-Opisuje REST resource endpoint:
+Atlas Payments release `4.2.0` používa:
 
 ```text
-apps / v1 / deployments
+cluster: atlas-prod-eu1
+GVK: apps/v1, Kind=Deployment
+GVR: apps/v1/deployments
+namespace/name: production/payments-api
+UID: D42
+metadata.generation: 12
+resourceVersion: RV9081
+field managers:
+  atlas-delivery → image, strategy, replicas baseline
+  platform-policy → securityContext, tolerations
+  payments-hpa → scale replicas
+selector: app=payments-api
+Pod template digest: PT420
 ```
 
-Kind býva singular CamelCase. Resource býva plural lowercase. Klienti používajú API discovery na mapovanie medzi nimi.
-
-## 4. Povinné polia manifestu
-
-Bežný objekt obsahuje:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: web
-  namespace: default
-spec:
-  containers:
-    - name: web
-      image: nginx:1.27
-```
-
-Kľúčové polia:
-
-- `apiVersion` — použitá API group/version,
-- `kind` — schema objektu,
-- `metadata` — identity a organizačné metadata,
-- `spec` — desired state, ak ho resource používa,
-- `status` — observed/current state spravovaný systémom.
-
-Presný obsah `spec` a `status` závisí od kind-u.
-
-## 5. `spec` a `status`
-
-### `spec`
-
-Vyjadruje intent používateľa alebo vyššieho controlleru.
-
-Príklady:
-
-- image a containers v Pode,
-- počet replicas v Deploymente,
-- selector v Service,
-- storage request v PVC.
-
-### `status`
-
-Vyjadruje pozorovaný stav:
-
-- Pod phase a conditions,
-- available replicas,
-- assigned addresses,
-- bound volume,
-- Node conditions.
-
-Controller nemá prepisovať desired state iba preto, aby sa zhodoval s aktuálnym stavom. Má meniť actual state alebo reportovať status.
-
-## 6. Metadata identity
-
-### `name`
-
-User-defined meno unikátne v príslušnom scope.
-
-### `namespace`
-
-Logická namespaced boundary. Nie všetky resources sú namespaced.
-
-### `uid`
-
-Server-generated immutable identity konkrétnej object inštancie. Zmazaný a znovu vytvorený object s rovnakým menom dostane iné UID.
-
-### `creationTimestamp`
-
-Čas vytvorenia pridelený API serverom.
-
-### `generateName`
-
-Prefix, z ktorého server vytvorí unikátne meno:
-
-```yaml
-metadata:
-  generateName: batch-
-```
-
-Používa sa pre nahraditeľné alebo jednorazové objects.
-
-## 7. Namespaced a cluster-scoped resources
-
-Namespaced resources:
-
-- Pod,
-- Deployment,
-- ConfigMap,
-- Secret,
-- Service,
-- Role.
-
-Cluster-scoped resources:
-
-- Node,
-- Namespace,
-- ClusterRole,
-- PersistentVolume,
-- CustomResourceDefinition.
-
-Overenie:
-
-```bash
-kubectl api-resources
-```
-
-Namespace nie je iba prefix mena. Ovplyvňuje API path, RBAC, quota, policy a ownership constraints.
-
-## 8. Labels
-
-Labels sú indexovateľné key/value metadata určené na selection a grouping.
-
-```yaml
-metadata:
-  labels:
-    app.kubernetes.io/name: web
-    app.kubernetes.io/component: frontend
-    environment: production
-```
-
-Použitie:
-
-- selectors,
-- Service-to-Pod matching,
-- controller ownership tracking,
-- policy targeting,
-- scheduling/topology,
-- cost alebo inventory grouping.
-
-Label value má byť stabilná kategória, nie veľký alebo citlivý text.
-
-## 9. Selectors
-
-Label selector vyberá množinu objects.
-
-Equality-based:
+Správny object outcome:
 
 ```text
-app=web
-environment!=development
+request je admitted pre správny GVK a namespace
+→ server vytvorí generation 12
+→ field ownership ostane konzistentný
+→ controller observedGeneration dosiahne 12
+→ dependents nesú owner UID D42 a template PT420
+→ conditions opisujú generation 12
+→ deletion/replacement nezasiahne cudzie objects
 ```
 
-Set-based:
+## 2. Resource type, object a endpoint
+
+Resource type je API schema a REST collection, napríklad:
 
 ```text
-environment in (production,staging)
-tier notin (cache)
+apps/v1/deployments
 ```
 
-Príkaz:
-
-```bash
-kubectl get pods -l app=web
-```
-
-Selector je často súčasťou controller alebo Service contractu. Nesprávny selector môže adoptovať, ignorovať alebo smerovať traffic na nesprávne Pods.
-
-## 10. Annotations
-
-Annotations ukladajú neidentifikačné metadata:
-
-```yaml
-metadata:
-  annotations:
-    example.com/change-ticket: CHG-1234
-    example.com/checksum-config: abcdef
-```
-
-Vhodné pre:
-
-- tool metadata,
-- external identifiers,
-- checksums,
-- build/release references,
-- controller hints,
-- human-readable descriptions.
-
-Annotations nie sú určené na efektívnu selection a nemajú obsahovať secrets.
-
-## 11. `resourceVersion`
-
-`metadata.resourceVersion` reprezentuje storage version objektu alebo collection snapshotu pre:
-
-- optimistic concurrency,
-- change detection,
-- list/watch continuity.
-
-Nie je to business version ani monotónne číslo, ktoré má application interpretovať numericky.
-
-Pri replace/update môže stale `resourceVersion` viesť ku konfliktu namiesto prepísania novšej zmeny.
-
-## 12. `generation` a `observedGeneration`
-
-`metadata.generation` sa typicky zvyšuje pri relevantnej zmene desired state.
-
-Controller môže v status conditions reportovať `observedGeneration`, aby klient vedel, či status zodpovedá aktuálnemu specu.
+Object je konkrétna inštancia:
 
 ```text
-metadata.generation = 8
-status.observedGeneration = 7
+Deployment/production/payments-api UID D42
 ```
 
-Tento stav znamená, že status môže ešte opisovať predchádzajúcu generáciu.
+Rozlišuj:
 
-Nie každý resource používa generation a observedGeneration identicky; vždy over konkrétnu API schema.
+- **GVK** — Group, Version, Kind; schema reprezentácie;
+- **GVR** — Group, Version, Resource; REST endpoint;
+- **name/namespace** — human-facing scoped meno;
+- **UID** — immutable server-generated identita jednej object inštancie.
 
-## 13. List a watch
+Object zmazaný a znovu vytvorený s rovnakým menom dostane nové UID. Staré owner references, audit records alebo external bindings nesmú byť automaticky priradené novej inštancii iba podľa mena.
 
-Controller alebo klient typicky:
+## 3. Request subject
 
-1. vykoná `list`,
-2. získa current objects a collection `resourceVersion`,
-3. otvorí `watch` od tejto version,
-4. spracúva create/update/delete events,
-5. po prerušení watch obnoví stream alebo vykoná nový list.
-
-Watch je efektívnejší než neustále full polling. Event však nie je authoritative state; klient musí byť schopný znovu zostaviť stav z API.
-
-## 14. Object updates
-
-### Replace/update
-
-Odosiela kompletnú novú reprezentáciu objektu a používa optimistic concurrency.
-
-### Patch
-
-Mení iba vybrané fields. Kubernetes podporuje viac patch typov podľa resource a klienta.
-
-### Apply
-
-Deklaratívne spravuje fields podľa field ownership modelu.
-
-Nemiešaj bez rozmyslu viac management techník a field managers nad rovnakými fields.
-
-## 15. Server-side apply a field ownership
-
-Server-side apply:
-
-- posiela deklaratívny intent,
-- API server sleduje field manager ownership v `managedFields`,
-- konflikt vznikne, keď iný manager vlastní rovnaký field a zmena nie je force prevzatá,
-- rôzni managers môžu bezpečne vlastniť odlišné fields.
-
-Príklad:
-
-```bash
-kubectl apply --server-side --field-manager=platform-team -f manifest.yaml
-```
-
-`--force-conflicts` používaj iba po pochopení, koho ownership preberáš.
-
-## 16. Subresources
-
-Subresource poskytuje samostatný API endpoint pre časť resource behavior.
-
-Bežné príklady:
-
-- `/status`,
-- `/scale`,
-- `/exec`,
-- `/log`,
-- `/portforward`,
-- `/eviction`.
-
-Výhoda `/status`:
-
-- controller môže aktualizovať observed state,
-- user alebo config manager pritom neprepisuje spec,
-- RBAC môže oddeliť oprávnenia na spec a status.
-
-## 17. Conditions
-
-Status conditions sú štruktúrované signály:
-
-```yaml
-status:
-  conditions:
-    - type: Ready
-      status: "True"
-      reason: MinimumReplicasAvailable
-      message: Deployment has minimum availability
-```
-
-Dôležité fields:
-
-- `type`,
-- `status`,
-- `reason`,
-- `message`,
-- `lastTransitionTime`,
-- často `observedGeneration`.
-
-Condition nie je iba event log. Opisuje aktuálne významný aspekt state-u.
-
-## 18. Events
-
-Kubernetes Event je časovo obmedzený diagnostický object viazaný na involved object.
-
-Príklady:
-
-- scheduling failure,
-- image pull failure,
-- volume attach error,
-- probe failure,
-- eviction.
-
-```bash
-kubectl get events -A --sort-by=.metadata.creationTimestamp
-kubectl describe pod web
-```
-
-Events nie sú dlhodobý audit trail a môžu byť agregované alebo odstránené retention policy.
-
-## 19. Owner references
-
-Controller vytvára dependent objects s `ownerReferences`.
-
-Príklad hierarchy:
+Pred create/update/apply zafixuj:
 
 ```text
-Deployment
-└─ ReplicaSet
-   └─ Pods
+cluster endpoint a CA
+caller identity a groups
+verb a subresource
+GVR, namespace a name
+request content digest
+field manager a force-conflict flag
+precondition UID/resourceVersion podľa operácie
+API discovery/schema generation
+admission a policy generation
 ```
 
-Owner reference obsahuje UID ownera, nie iba meno. Pomáha:
+Rovnaký YAML aplikovaný:
 
-- controllers rozlíšiť vlastné dependents,
-- garbage collectoru spracovať deletion,
-- tools zobraziť hierarchy.
+- do iného clusteru;
+- pod iným field managerom;
+- proti inej API version;
+- s inou admission konfiguráciou;
 
-Cross-namespace a scope pravidlá owner references sú obmedzené.
+nie je rovnaký change subject.
 
-## 20. Garbage collection
+## 4. API request pipeline mení effective object
 
-Pri zmazaní ownera môže garbage collector spracovať dependents podľa propagation policy:
+Zjednodušený write lifecycle:
 
-- background,
-- foreground,
-- orphan.
+```text
+wire representation
+→ decode podľa requested API version
+→ conversion do internal/storage modelu
+→ defaulting
+→ mutating admission
+→ validation
+→ validating admission/policy/quota
+→ persistence
+→ response v requested representation
+```
 
-Deletion nie je vždy okamžité odstránenie zo storage. Objekt môže vstúpiť do terminating stavu.
+Manifest v Git-e preto nemusí byť byte-for-byte zhodný s persisted objectom.
 
-## 21. Finalizers
+### Failure boundary: green manifest, iný admitted object
 
-Finalizer je qualified string v `metadata.finalizers`, ktorý blokuje finálne odstránenie objektu, kým príslušný controller nevykoná cleanup.
+Mutating webhook môže:
 
-Deletion flow:
+- prepísať image registry;
+- pridať sidecar;
+- doplniť labels;
+- zmeniť security context;
+- pridať toleration;
+- vložiť environment variable.
 
-1. user požiada o delete,
-2. API server nastaví `deletionTimestamp`,
-3. objekt zostáva viditeľný ako terminating,
-4. controllers vykonajú cleanup,
-5. odstránia svoj finalizer,
-6. po vyprázdnení finalizers sa object odstráni.
+Release evidence musí podľa rizika zachytiť aj **admitted object**, nie iba source YAML.
 
-Ručné odstránenie finalizeru môže opustiť external resources, volumes alebo cloud objects.
+## 5. `spec`, `status` a generation
 
-## 22. Deletion grace period
+`spec` vyjadruje desired state. `status` reportuje observed state.
 
-Niektoré resources podporujú graceful deletion.
+```text
+metadata.generation = 12
+status.observedGeneration = 11
+```
 
-Pri Pode:
+znamená, že status môže stále opisovať predchádzajúci intent.
 
-- nastaví sa termination intent,
-- kubelet spustí shutdown lifecycle,
-- po grace period môže process dostať force kill,
-- object sa nakoniec odstráni.
+### Failure boundary: stale `Available=True`
 
-API deletion a okamžité ukončenie processu nie sú tá istá operácia.
+Deployment generation 12 zmenila image. Status stále obsahoval `Available=True` z generation 11 a controller ešte nový spec nespracoval.
 
-## 23. API discovery
+```text
+user číta iba condition status
+→ ignoruje observedGeneration
+→ vyhlási rollout za úspešný
+→ traffic stále obsluhuje starý digest
+```
 
-Klient môže zistiť dostupné groups, versions, resources a verbs.
+Condition je použiteľná iba v kontexte object UID, desired generation a semantics konkrétneho controlleru.
+
+## 6. `resourceVersion` a optimistic concurrency
+
+`resourceVersion` pomáha chrániť pred lost update a podporuje list/watch continuity.
+
+```text
+writer A načíta RV10
+writer B uloží RV11
+writer A pošle replace založený na RV10
+→ API vráti conflict
+```
+
+Conflict nie je transportný šum. Znamená, že assumption writera o current object state už neplatí.
+
+Správny recovery:
+
+```text
+načítaj latest object
+→ znovu vyhodnoť intent a ownership
+→ vypočítaj nový patch/apply
+→ over resulting generation
+```
+
+Slepý retry starej kompletnej reprezentácie môže prepísať cudziu legitímnu zmenu.
+
+## 7. List/watch a reconstructable state
+
+Controller typicky používa:
+
+```text
+LIST snapshot + collection resourceVersion
+→ WATCH changes
+→ local cache
+→ reconcile key
+```
+
+Watch event je notification, nie jediný source of truth. Klient musí vedieť:
+
+- obnoviť watch po prerušení;
+- relistovať po expired/compacted version;
+- deduplikovať alebo opakovane spracovať events;
+- znovu načítať current object;
+- tolerovať krátko stale cache.
+
+Business logika nesmie interpretovať `resourceVersion` ako business sequence number.
+
+## 8. Labels a selectors ako dynamic ownership contract
+
+Labels sú machine-selectable identity attributes. Annotations sú neindexované metadata a hints.
+
+Selector môže určovať:
+
+- ktoré Pods vlastní ReplicaSet;
+- kam Service smeruje traffic;
+- ktoré objects zasiahne policy;
+- kde scheduler uplatní topology rules;
+- ktoré resources nájde controller.
+
+### Failure boundary: široký selector adoptuje cudzie Pods
+
+Dva controllers použili:
+
+```text
+app=payments-api
+```
+
+bez environment alebo release boundary. Nový controller začal považovať staré diagnostické Pods za svoj target inventory.
+
+Dôsledky:
+
+- nesprávny replica count;
+- neočakávané deletion/adoption;
+- Service traffic na debug Pod;
+- policy alebo cost attribution na nesprávne objects.
+
+Selector je súčasť stable ownership contractu, nie iba pohodlný filter pre `kubectl get`.
+
+## 9. Server-side apply a field ownership
+
+Server-side apply eviduje field managers v `managedFields`.
+
+Príklad hraníc:
+
+```text
+atlas-delivery owns:
+  spec.template.spec.containers[*].image
+  spec.strategy
+
+platform-policy owns:
+  spec.template.spec.securityContext
+
+payments-hpa owns:
+  scale/replicas
+```
+
+Field conflict je signál prekrytia ownershipu.
+
+### Failure boundary: `--force-conflicts` zruší autoscaler ownership
+
+Delivery pipeline force-applied `spec.replicas: 6` a prevzala field od HPA.
+
+```text
+release je green
+→ HPA už nevlastní replicas podľa očakávania
+→ scale behavior sa zmení
+→ peak traffic spôsobí capacity incident
+```
+
+Force nie je univerzálny conflict resolver. Je to explicitný ownership transfer s blast radiusom.
+
+## 10. Subresources oddeľujú authority
+
+Relevantné subresources:
+
+- `/status` — observed state;
+- `/scale` — replica interface;
+- `/exec`, `/log`, `/portforward` — operational access;
+- `/eviction` — policy-aware eviction.
+
+Oddelenie umožňuje samostatný RBAC a ownership model.
+
+Application delivery identity nemusí mať právo zapisovať status. Controller nemusí mať právo meniť celý spec. User s `get pods` nemá automaticky právo na `pods/exec`.
+
+## 11. Conditions ako current semantic state
+
+Dobrá condition obsahuje:
+
+```text
+type
+status: True/False/Unknown
+reason
+message
+lastTransitionTime
+observedGeneration podľa API contractu
+```
+
+Condition nie je event log. Má opisovať aktuálne relevantný aspekt state-u.
+
+Zlé použitie:
+
+- meniť `lastTransitionTime` pri každom rovnakom retry;
+- používať iba voľný text bez stable reason;
+- hlásiť `Ready=True` pre starú generation;
+- skrývať permanent failure za nekonečný `Progressing=True`.
+
+## 12. Events, audit a status sú tri odlišné evidence
+
+### Status/conditions
+
+Current summarized state resource-u.
+
+### Events
+
+Krátkodobé diagnostické observations, napríklad scheduling alebo pull failure. Môžu byť agregované a expirovať.
+
+### Audit
+
+Request-level evidence o callerovi, verb-e, targete a výsledku podľa audit policy.
+
+Žiadna z týchto vrstiev sama osebe nevysvetľuje celý incident. Event nie je permanentný audit. Audit write nepreukazuje effective workload outcome. Status môže byť stale.
+
+## 13. Owner references a dependent graph
+
+Owner reference používa owner UID.
+
+```text
+Deployment D42
+└─ ReplicaSet RS84 ownerUID=D42
+   └─ Pods P1..P6 ownerUID=RS84
+```
+
+Owner references pomáhajú:
+
+- controllerom nájsť svoje dependents;
+- garbage collectoru určiť lifecycle;
+- tools zostaviť hierarchy.
+
+Scope a namespace pravidlá sú obmedzené. External cloud resource nemá Kubernetes ownerReference; potrebuje vlastný binding a cleanup protocol.
+
+## 14. Garbage collection a propagation
+
+Pri delete ownera môže API garbage collection použiť:
+
+- foreground;
+- background;
+- orphan propagation.
+
+Voľba ovplyvňuje:
+
+- či owner zostáva viditeľný počas dependent cleanup;
+- poradie deletion;
+- observability;
+- možnosť orphaned dependents;
+- interaction s finalizers.
+
+Delete request nie je okamžité fyzické odstránenie všetkých dependents ani runtime processes.
+
+## 15. Finalizers a external cleanup
+
+Finalizer deklaruje:
+
+```text
+pred finálnym odstránením musí konkrétny owner dokončiť cleanup
+```
+
+Lifecycle:
+
+```text
+delete request
+→ deletionTimestamp
+→ object ostáva viditeľný
+→ controller zastaví create/update path
+→ vyčistí external alebo dependent state
+→ overí cleanup
+→ odstráni svoj finalizer
+→ object sa odstráni
+```
+
+### Failure boundary: ručné odstránenie finalizeru leakne load balancer
+
+Object ostal `Terminating`, preto operator vymazal finalizer bez kontroly external resource identity.
+
+```text
+Kubernetes object zmizne
+→ cloud load balancer a DNS ostanú
+→ billing a attack surface pokračujú
+→ nový object s rovnakým menom môže vytvoriť druhý resource
+```
+
+Break-glass finalizer removal potrebuje explicitný leak inventory, ownera a následný cleanup.
+
+## 16. Object name reuse a stale identity
+
+Meno nie je lifetime identity.
+
+```text
+Deployment production/payments-api UID D41 deleted
+Deployment production/payments-api UID D42 created
+```
+
+External automation, caches a dependents musia rozlíšiť D41 a D42.
+
+Failure patterns:
+
+- stale controller zapisuje status novej inštancii podľa mena;
+- external load balancer tag obsahuje iba namespace/name;
+- cleanup D41 zmaže resource patriaci D42;
+- audit alebo alert spojí dve nesúvisiace generations.
+
+Stabilný external binding používa UID alebo vlastný collision-safe operation/resource identity.
+
+## 17. API discovery, versions a conversion
+
+Klient musí poznať aktuálne cluster capabilities:
 
 ```bash
 kubectl api-resources
 kubectl api-versions
-kubectl explain deployment
-kubectl explain deployment.spec.template.spec.containers
+kubectl explain deployment.spec
 ```
 
-Discovery je dôležité, pretože:
+API version lifecycle môže zahŕňať:
 
-- cluster môže mať CRDs,
-- niektoré API versions môžu byť vypnuté,
-- distribution môže pridať resources,
-- klient a server môžu mať odlišné capabilities.
+```text
+external version v1beta1
+→ conversion
+→ storage version v1
+→ read ako v1
+```
 
-## 24. Validation, defaulting a admission
+Upgrade risks:
 
-Pri create/update requeste sa môžu uplatniť:
+- removed API version;
+- changed defaults;
+- conversion webhook outage;
+- lossy conversion;
+- CRD schema incompatibility;
+- stale client discovery.
 
-- decoding a conversion,
-- schema validation,
-- defaulting,
-- mutating admission,
-- validating admission,
-- policy a quota checks.
+YAML syntakticky validný pre jeden cluster/version nemusí byť validný alebo významovo rovnaký v inom.
 
-Manifest, ktorý je syntakticky validný YAML, nemusí byť validný Kubernetes object.
+## 18. CRD nie je controller
 
-Použi server-side dry run:
+CustomResourceDefinition pridáva:
+
+- GVK/GVR;
+- schema;
+- scope;
+- storage/version conversion;
+- status/scale subresources podľa konfigurácie.
+
+Nevytvára automaticky business reconciliation.
+
+```text
+CR object accepted a persisted
++ žiadny active controller
+→ intent existuje
+→ external/runtime outcome nevznikne
+```
+
+Status, conditions, finalizers a upgrade conversion pre custom resources musia mať rovnakú disciplínu ako core resources.
+
+## 19. Validation a dry-run boundaries
+
+Client-side YAML alebo schema check nepozná celý server state.
 
 ```bash
 kubectl apply --dry-run=server -f manifest.yaml
 ```
 
-Client-side validation nepozná všetky server-side webhooks a dynamic policy.
+môže zachytiť:
 
-## 25. API versioning a conversion
+- server schema/defaulting;
+- admission mutation/rejection;
+- quota/policy;
+- aktuálne dostupné API resources.
 
-Resource môže byť dostupný vo viacerých external API versions. API server môže:
+Ani server dry-run nepreukazuje, že controller, scheduler, runtime alebo business outcome následne uspejú.
 
-- prijať jednu version,
-- convertovať ju na storage version,
-- pri čítaní ju vrátiť v requested version.
+## 20. Worked failure: status je green, release stále používa starý digest
 
-Upgrade riziká:
+Atlas pipeline aplikovala generation 12 s image digestom `sha256:atlas420`. Dashboard čítal `Available=True` a označil release ako successful. Traffic však stále smeroval na generation 11.
 
-- deprecated API version,
-- removed API version,
-- zmenené defaults,
-- conversion loss,
-- webhook unavailability,
-- CRD schema incompatibility.
-
-Pred upgrade skenuj manifests a live objects na deprecated APIs.
-
-## 26. Custom resources
-
-CustomResourceDefinition pridáva nový resource type do Kubernetes API.
-
-CRD môže definovať:
-
-- group/version/kind,
-- schema,
-- namespaced alebo cluster scope,
-- status subresource,
-- scale subresource,
-- printer columns,
-- conversion webhooks.
-
-CRD sama nevykonáva business logiku. Potrebuje controller/operator alebo external consumer.
-
-## 27. Declarative a imperative management
-
-### Imperative command
-
-```bash
-kubectl create deployment web --image=nginx
-```
-
-Vhodné pre rýchle learning alebo diagnostic operácie.
-
-### Declarative manifest
-
-```bash
-kubectl diff -f manifests/
-kubectl apply -f manifests/
-```
-
-Vhodné pre version control, review a opakovateľnosť.
-
-Jeden object nemá byť súčasne nejasne spravovaný viacerými technikami a automation vlastníkmi.
-
-## 28. Security hranice API
-
-Request pipeline typicky zahŕňa:
+### Subject inventory
 
 ```text
-TLS
-→ authentication
-→ authorization
-→ mutating admission
-→ validation/defaulting
-→ validating admission
-→ persistence
+cluster identity
+Deployment UID D42
+metadata.generation 12
+resourceVersion timeline
+status.observedGeneration 11
+condition generation semantics
+managedFields a field-manager writes
+ReplicaSet owner UID/revision/template hash
+Pod image digests
+Service/EndpointSlice selected Pod UIDs
+admission mutations
 ```
 
-Chráň:
+### Competing hypotheses
 
-- kubeconfig a bearer tokens,
-- client certificates,
-- service account identities,
-- API server endpoint,
-- admission webhooks,
-- audit logs,
-- Secrets a etcd encryption,
-- field managers a automation credentials.
+1. Dashboard ignoruje `observedGeneration`.
+2. Apply smeroval na iný cluster alebo namespace.
+3. Admission vrátila old image.
+4. Iný field manager prepísal image po apply.
+5. Deployment controller nespracoval generation 12.
+6. New ReplicaSet vznikol, ale selector vyberá staré Pods.
+7. Deployment name bol znovu použitý s novým UID a dashboard mieša histories.
+8. Status writer reportuje condition nesprávne.
+9. EndpointSlice zaostáva za Pod readiness generation.
+10. Mutable tag sa zmenil, dashboard sleduje tag namiesto digestu.
 
-## 29. Diagnostika objektu
+### Discriminating observations
 
-Základný postup:
+- live object `metadata.uid`, generation, managedFields a spec image;
+- audit writes zoradené podľa času a field managera;
+- admitted object alebo webhook audit;
+- ReplicaSet revisions, owner UID a Pod template hash;
+- status observedGeneration;
+- Pod exact image IDs/digests;
+- EndpointSlice targetRef UIDs a readiness;
+- cluster endpoint/CA;
+- controller logs pre UID D42.
+
+### Containment
+
+- zastav ďalšie conflicting writes;
+- neforce-ni field ownership;
+- nevymaž starý ReplicaSet, kým nie je overený service outcome;
+- zachovaj live YAML, audit, events a dependents inventory;
+- explicitne označ dashboard verdict ako stale/incomplete.
+
+### Recovery
+
+- stale status consumer → viaž verdict na UID + desired/observed generation;
+- wrong field owner → obnov authoritative ownership a apply latest intent;
+- admission rewrite → oprav policy a validuj admitted object;
+- selector mismatch → oprav immutable ownership/selection contract cez nový safe transition;
+- controller lag/failure → obnov reconcile path a sleduj generation closure;
+- EndpointSlice lag → over Pod readiness a controller/dataplane generation;
+- name reuse → oddel histories podľa UID.
+
+### Over pôvodný outcome
+
+Potvrď:
+
+- D42 generation 12 a observedGeneration 12;
+- correct image digest v Pod template aj running Pods;
+- dependents s correct owner UIDs;
+- correct field managers;
+- iba new-generation ready endpoints;
+- payment transaction cez Service;
+- absence old digestu a staging dependency.
+
+### Posuň control skôr
+
+Pridaj UID/generation-aware dashboards, admitted-object diff, field-ownership policy, immutable digest assertions, selector collision tests a endpoint targetRef verification.
+
+## 21. Causal walkthrough: object ostáva `Terminating`
+
+Object s external DNS finalizerom ostáva terminating 40 minút.
+
+### Competing hypotheses
+
+- cleanup controller je down;
+- finalizer owner nevlastní credentials;
+- external API timeoutuje;
+- DNS object už neexistuje, ale lookup používa stale ID;
+- finalizer patrí odinštalovanému operatoru;
+- dependent object má vlastný finalizer;
+- admission alebo RBAC blokuje finalizer update;
+- cleanup prebehol, ale status/write response sa stratila.
+
+### Observation points
+
+- UID, deletionTimestamp a finalizer list;
+- owner/controller deployment, leader a logs;
+- external resource ID a audit;
+- dependent graph;
+- RBAC `update .../finalizers`;
+- API conflicts/resourceVersion;
+- request IDs a external lookup.
+
+### Recovery
+
+Najprv obnov alebo nahradi cleanup ownera. Ak je potrebný break-glass removal, vytvor explicitný orphan inventory, zabezpeč manual cleanup a až potom odstráň finalizer s auditom.
+
+## 22. Object inspection workflow
 
 ```bash
-kubectl get <resource> <name> -o yaml
-kubectl describe <resource> <name>
-kubectl get events --field-selector involvedObject.name=<name>
+kubectl get <resource> <name> -n <namespace> -o yaml
+kubectl describe <resource> <name> -n <namespace>
+kubectl get events -A --sort-by=.metadata.creationTimestamp
 kubectl api-resources
 kubectl explain <resource>
 ```
 
-Kontroluj:
+Kontroluj v poradí:
 
-- GVK a namespace,
-- spec,
-- status a conditions,
-- generation/observedGeneration,
-- labels/selectors,
-- ownerReferences,
-- finalizers/deletionTimestamp,
-- managedFields,
-- events.
+```text
+cluster a GVR
+→ namespace/name/UID
+→ spec a generation
+→ managedFields
+→ status/observedGeneration/conditions
+→ selectors a labels
+→ ownerReferences a dependents
+→ deletionTimestamp/finalizers
+→ events, audit a controller evidence
+→ effective runtime/business outcome
+```
 
-## 30. Časté omyly
+## 23. Referenčné pravidlá
 
-### `status` je to, čo chcem
+- YAML je request input; persisted admitted object je server-managed state.
+- GVK opisuje schema, GVR endpoint.
+- Name nie je lifetime identity; UID je identity jednej object inštancie.
+- `resourceVersion` chráni concurrency a watch continuity, nie business ordering.
+- `generation` a `observedGeneration` odlišujú intent od spracovaného intentu.
+- Condition bez generation contextu môže byť stale.
+- Selector je ownership a routing contract.
+- `--force-conflicts` je ownership transfer, nie univerzálny fix.
+- Status, Events a audit sú odlišné evidence vrstvy.
+- Owner references riešia Kubernetes dependents, nie automaticky external resources.
+- Finalizer blokuje deletion kvôli cleanup contractu.
+- CRD pridáva API schema, nie controller behavior.
+- Delete request, object removal a process/external cleanup sú odlišné transitions.
 
-`spec` vyjadruje intent. `status` reportuje observed state.
+## 24. Kontrolné otázky
 
-### Meno jednoznačne identifikuje objekt navždy
-
-UID odlišuje zmazanú a znovu vytvorenú inštanciu s rovnakým menom.
-
-### Annotation a label sú zameniteľné
-
-Labels sú určené na selection; annotations na neidentifikačné metadata.
-
-### Delete okamžite odstráni resource
-
-Finalizers a graceful termination môžu objekt ponechať v terminating stave.
-
-### Event je trvalý audit záznam
-
-Events sú krátkodobé diagnostické objekty.
-
-### CRD automaticky poskytuje controller
-
-CRD rozšíri API schema, nie reconciliation behavior.
-
-## 31. Troubleshooting
-
-### `no matches for kind`
-
-Over API group/version, CRD existence, discovery cache a cluster capabilities.
-
-### `field not declared in schema`
-
-Manifest obsahuje typo, nepodporované pole alebo používa inú API version.
-
-### `object has been modified`
-
-Optimistic concurrency conflict. Načítaj nový `resourceVersion`, znovu vyhodnoť zmenu alebo použi správny patch/apply workflow.
-
-### Object ostáva `Terminating`
-
-Over finalizers, owner dependencies a controller, ktorý má vykonať cleanup. Finalizer nemaž naslepo.
-
-### Controller ignoruje objects
-
-Over labels/selectors, namespace, ownerReferences, generation a controller logs.
-
-### Apply hlási field conflict
-
-Pozri `managedFields` a identifikuj iného field managera. Rozhodni ownership namiesto automatického force.
-
-## 32. Kontrolné otázky
-
-1. Aký je rozdiel medzi resource type a objectom?
-2. Čo je GVK a čo GVR?
-3. Aký je rozdiel medzi `spec` a `status`?
-4. Prečo je UID dôležitejšie než meno pri ownership vzťahu?
-5. Kedy použiť label a kedy annotation?
-6. Na čo slúži `resourceVersion`?
-7. Ako funguje list/watch pattern?
-8. Čo riešia ownerReferences, garbage collection a finalizers?
-9. Aký je rozdiel medzi CRD a controllerom?
-10. Ako diagnostikuješ object, ktorý sa nereconcile-uje?
+1. Aký je rozdiel medzi GVK, GVR a object UID?
+2. Prečo source manifest nemusí byť zhodný s admitted objectom?
+3. Ako `generation` a `observedGeneration` chránia rollout verdict?
+4. Prečo conflict vyžaduje nový read a prepočet?
+5. Ako selector ovplyvňuje ownership aj traffic?
+6. Čo znamená server-side apply field ownership?
+7. Prečo status, Event a audit nie sú zameniteľné?
+8. Ako owner references a finalizers spolupracujú pri deletion?
+9. Prečo name reuse môže poškodiť external cleanup?
+10. Ako diagnostikuješ green condition patriacu starej generation?
 
 ## Glossary impact
 
-Relevantné pojmy: Kubernetes API, Kubernetes resource, Kubernetes object, API group, API version, kind, GVK, GVR, namespaced resource, cluster-scoped resource, spec, status, object UID, resourceVersion, generation, observedGeneration, label, selector, annotation, field manager, server-side apply, subresource, condition, Kubernetes Event, ownerReference, garbage collection, finalizer, deletionTimestamp, API discovery, CustomResourceDefinition a storage version.
+Relevantné pojmy: Kubernetes object subject, API request subject, admitted object, object UID generation, field ownership subject, generation closure, selector ownership contract, owner-dependent graph, deletion subject, finalizer cleanup contract, name-reuse collision, status evidence subject, API conversion subject a object acceptance verdict.
 
 ## Oficiálna dokumentácia
 
