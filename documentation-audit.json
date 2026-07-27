@@ -1683,15 +1683,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
       "title": "Expressions a dependency graph",
-      "words": 1400,
-      "headings": 40,
-      "sections": 40,
-      "findings": 57,
-      "critical": 16,
-      "high": 33,
-      "medium": 8,
-      "low": 0,
-      "score": 478,
+      "words": 2131,
+      "headings": 43,
+      "sections": 43,
+      "findings": 66,
+      "critical": 19,
+      "high": 26,
+      "medium": 9,
+      "low": 12,
+      "score": 483,
       "grade": "D"
     },
     {
@@ -91910,116 +91910,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "1. Expressions",
-      "line": 5,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "1. Expressions",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "1. Expressions",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `references,`, `operators,`, `conditional expressions,`, `for expressions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "1. Expressions",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "2. Typy a hodnoty",
-      "line": 32,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 44 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "2. Typy a hodnoty",
-      "line": 32,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `string,`, `number,`, `bool,`, `list/tuple,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "2. Typy a hodnoty",
-      "line": 32,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "3. References",
-      "line": 49,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "3. References",
-      "line": 49,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `poskytne hodnotu expression,`, `vytvorí dependency edge k objektu, ktorý hodnotu produkuje.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "3. References",
-      "line": 49,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "5. Graph-shaping expressions",
-      "line": 86,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `count ,`, `for each keys,`, `module source/version selection,`, `provider configuration v relevantných contextoch,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "5. Graph-shaping expressions",
-      "line": 86,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "6. Conditional expression",
-      "line": 108,
+      "section": "1. Dominantný model",
+      "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -92027,44 +91919,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "8. Splat expressions",
-      "line": 145,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "8. Splat expressions",
-      "line": 145,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "9. Functions",
-      "line": 157,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "9. Functions",
-      "line": 157,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `strings,`, `numeric operations,`, `collections,`, `encoding/decoding,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "9. Functions",
-      "line": 157,
+      "section": "1. Dominantný model",
+      "line": 7,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -92072,62 +91928,107 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "14. Explicitný depends on",
-      "line": 256,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "14. Explicitný depends on",
-      "line": 256,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `policy musí byť aplikovaná pred vytvorením workloadu,`, `external side effect nie je vyjadrený argumentom.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "14. Explicitný depends on",
-      "line": 256,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "14. Explicitný depends on",
-      "line": 256,
+      "section": "1. Dominantný model",
+      "line": 7,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Identity`, `resource`",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "15. Prečo široký depends on škodí",
-      "line": 274,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "4. Types, collections a identity",
+      "line": 89,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "15. Prečo široký depends on škodí",
-      "line": 274,
+      "section": "4. Types, collections a identity",
+      "line": 89,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "5. Plan-time a apply-time values",
+      "line": 103,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znížená paralelizácia,`, `viac hodnôt known after apply ,`, `väčší blast radius planu,`, `falošné dependencies,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `count ;`, `for each keys;`, `module instance keys;`, `provider configuration v relevantných contextoch;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "15. Prečo široký depends on škodí",
-      "line": 274,
+      "section": "7. count ako indexová identity",
+      "line": 158,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "9. String, JSON a dynamic generation",
+      "line": 210,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "10. Implicitný dependency edge",
+      "line": 240,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "12. Prečo široký dependency edge škodí",
+      "line": 282,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "12. Prečo široký dependency edge škodí",
+      "line": 282,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "12. Prečo široký dependency edge škodí",
+      "line": 282,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čakanie na celý upstream module;`, `zníženú paralelizáciu;`, `data-source reads odložené do apply;`, `viac unknown values;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "12. Prečo široký dependency edge škodí",
+      "line": 282,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -92135,8 +92036,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "15. Prečo široký depends on škodí",
-      "line": 274,
+      "section": "12. Prečo široký dependency edge škodí",
+      "line": 282,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
@@ -92144,71 +92045,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "17. Parallel execution",
-      "line": 304,
+      "section": "15. Cycles sú architecture signal",
+      "line": 334,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "17. Parallel execution",
-      "line": 304,
-      "severity": "critical",
+      "section": "15. Cycles sú architecture signal",
+      "line": 334,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API rate limits,`, `quotas,`, `provider concurrency bugs,`, `shared external locks,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "17. Parallel execution",
-      "line": 304,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "17. Parallel execution",
-      "line": 304,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "18. Cycles",
-      "line": 324,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `security groups potrebujú navzájom computed IDs;`, `locals sa kruhovo referencujú.`.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "18. Cycles",
-      "line": 324,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "18. Cycles",
-      "line": 324,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vzájomne referencované security groups,`, `module outputs spätne použité ako inputs rovnakého graphu,`, `provider configuration závislá od resource spravovaného tým providerom`, `circular locals.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "18. Cycles",
-      "line": 324,
+      "section": "15. Cycles sú architecture signal",
+      "line": 334,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -92216,8 +92072,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "18. Cycles",
-      "line": 324,
+      "section": "15. Cycles sú architecture signal",
+      "line": 334,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
@@ -92225,44 +92081,89 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "19. count identity",
-      "line": 341,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "16. State addresses a refactoring",
+      "line": 351,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "19. count identity",
-      "line": 341,
-      "severity": "high",
+      "section": "16. State addresses a refactoring",
+      "line": 351,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `homogénny počet instances,`, `optional single resource cez 0/1 ,`, `prípady, kde index je skutočná identita.`.",
-      "score": 8
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skutočnú remote replacement;`, `address-only refactor;`, `key identity change;`, `stratený state binding;`.",
+      "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "19. count identity",
-      "line": 341,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "19. count identity",
-      "line": 341,
+      "section": "16. State addresses a refactoring",
+      "line": 351,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "20. for each identity",
-      "line": 358,
+      "section": "Príčina",
+      "line": 383,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "19. Worked failure: graph-shaping keys vznikali z remote API",
+      "line": 407,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "Príčina",
+      "line": 417,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "20. Kauzálny diagnostický walkthrough",
+      "line": 425,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "Krok 1 — stabilizuj graph subject",
+      "line": 429,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "Krok 2 — konkurenčné hypotézy",
+      "line": 440,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 452,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -92270,35 +92171,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "23. terraform graph",
-      "line": 401,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "23. terraform graph",
-      "line": 401,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 452,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "23. terraform graph",
-      "line": 401,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 452,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cycles,`, `nečakanej serializácii,`, `module dependencies,`, `provider edges.`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `before/after resource addresses testujú H1/H2/H5;`, `input collection type a ordering testujú H3;`, `plan replacement reasons a provider schema testujú H4;`, `state list/show a lineage testujú H6;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "23. terraform graph",
-      "line": 401,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 452,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -92306,44 +92198,269 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "24. Plan JSON",
-      "line": 416,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 452,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "24. Plan JSON",
-      "line": 416,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource changes,`, `unknown values,`, `replacement actions,`, `sensitive markers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "24. Plan JSON",
-      "line": 416,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 452,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "24. Plan JSON",
-      "line": 416,
-      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H2`, `H5`, `H3`, `H4`, `H6`, `H7`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "Krok 6 — over pôvodný outcome",
+      "line": 471,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "Krok 7 — skorší control",
+      "line": 481,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "21. Diagnostické nástroje",
+      "line": 485,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "21. Diagnostické nástroje",
+      "line": 485,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "21. Diagnostické nástroje",
+      "line": 485,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `addresses a actions;`, `before/after values;`, `unknown inventory;`, `replacement reasons;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "21. Diagnostické nástroje",
+      "line": 485,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "Dependencies cez názvy súborov",
-      "line": 431,
+      "section": "21. Diagnostické nástroje",
+      "line": 485,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "21. Diagnostické nástroje",
+      "line": 485,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "22. Diagnostický runbook",
+      "line": 511,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "22. Diagnostický runbook",
+      "line": 511,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "22. Diagnostický runbook",
+      "line": 511,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "22. Diagnostický runbook",
+      "line": 511,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Urči configuration, effective inputs, state a provider subject.`, `Zostav affected resource/module addresses pred a po zmene.`, `Rozlíš value transformáciu od graph-shaping expression.`, `Sleduj implicitné references cez locals a outputs.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "22. Diagnostický runbook",
+      "line": 511,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "22. Diagnostický runbook",
+      "line": 511,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "22. Diagnostický runbook",
+      "line": 511,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "22. Diagnostický runbook",
+      "line": 511,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "22. Diagnostický runbook",
+      "line": 511,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 524,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 524,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 524,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 524,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Expression nesie value aj dependency provenance.`, `Graph shape musí byť známy pred apply.`, `Unknown nie je null ani wildcard.`, `Stable instance keys majú pochádzať z desired configuration.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 524,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 524,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 524,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 524,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "23. Referenčné pravidlá",
+      "line": 524,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "24. Časté omyly",
+      "line": 538,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
+      "section": "„Terraform vykonáva súbory podľa názvu“",
+      "line": 540,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -92351,8 +92468,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "depends on ako univerzálna oprava",
-      "line": 435,
+      "section": "„Known after apply je chyba providera“",
+      "line": 544,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -92360,8 +92477,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "Unknown values nahradené hardcoded placeholderom",
-      "line": 439,
+      "section": "„ depends on opraví race“",
+      "line": 548,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -92369,8 +92486,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "for each nad computed setom",
-      "line": 443,
+      "section": "„Set je vhodný pre stabilný zoznam“",
+      "line": 552,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -92378,44 +92495,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "Jeden obrovský nested expression",
-      "line": 447,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "timestamp() v managed argumente",
-      "line": 451,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "Cycle error",
-      "line": 461,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "Príliš veľa known after apply",
-      "line": 465,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",
-      "section": "Apply je zbytočne pomalý",
-      "line": 469,
+      "section": "„Pridanie jednej položky znamená jednu create action“",
+      "line": 556,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
