@@ -1669,15 +1669,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "title": "Drift",
-      "words": 1484,
-      "headings": 49,
-      "sections": 49,
-      "findings": 112,
-      "critical": 35,
-      "high": 58,
-      "medium": 15,
-      "low": 4,
-      "score": 935,
+      "words": 1995,
+      "headings": 37,
+      "sections": 37,
+      "findings": 68,
+      "critical": 21,
+      "high": 24,
+      "medium": 10,
+      "low": 13,
+      "score": 497,
       "grade": "D"
     },
     {
@@ -90902,16 +90902,7 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "1. Tri relevantné pohľady",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "1. Tri relevantné pohľady",
+      "section": "1. Dominantný model: evidence-to-reconciliation lifecycle",
       "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -90920,17 +90911,35 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "1. Tri relevantné pohľady",
-      "line": 7,
+      "section": "3. Tri stavy a ich mechanizmus",
+      "line": 42,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `configuration opisuje desired state,`, `state uchováva bindings a naposledy známe attributes,`, `remote infrastructure je aktuálny stav z provider API.`.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "1. Tri relevantné pohľady",
-      "line": 7,
+      "section": "3. Tri stavy a ich mechanizmus",
+      "line": 42,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "3. Tri stavy a ich mechanizmus",
+      "line": 42,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neautorizovaný ClickOps zásah;`, `legitímny incidentný break-glass change;`, `zmenu iného autoritatívneho controllera;`, `neaktuálny alebo poškodený state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "3. Tri stavy a ich mechanizmus",
+      "line": 42,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -90938,8 +90947,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "1. Tri relevantné pohľady",
-      "line": 7,
+      "section": "3. Tri stavy a ich mechanizmus",
+      "line": 42,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
@@ -90947,17 +90956,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "2. Typy driftu",
-      "line": 23,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Remote drift",
-      "line": 25,
+      "section": "5. Pôvod rozdielu",
+      "line": 107,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -90965,116 +90965,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Configuration drift",
-      "line": 29,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "6. Worked failure: automatický revert incidentnej rule",
+      "line": 143,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "State drift",
-      "line": 33,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Provider interpretation drift",
-      "line": 37,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Dependency drift",
-      "line": 41,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "3. Drift vs. unmanaged infrastructure",
-      "line": 45,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nemá existujúci binding,`, `neovplyvní managed object,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "3. Drift vs. unmanaged infrastructure",
-      "line": 45,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "4. Ako Terraform drift deteguje",
-      "line": 55,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "4. Ako Terraform drift deteguje",
-      "line": 55,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "4. Ako Terraform drift deteguje",
-      "line": 55,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načíta configuration a prior state,`, `refreshne managed resources cez providers,`, `aktualizuje working in-memory view,`, `porovná desired configuration s refreshed stavom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "4. Ako Terraform drift deteguje",
-      "line": 55,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "5. Refresh-only mode",
-      "line": 67,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyšetrovanie manuálnej zmeny,`, `provider/API normalizácia,`, `potvrdenie deleted alebo changed objektu,`, `rozhodovanie, či drift adoptovať alebo revertovať.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "5. Refresh-only mode",
-      "line": 67,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "5. Refresh-only mode",
-      "line": 67,
+      "section": "7. Worked failure: refresh-only „adopcia“ bez configuration zmeny",
+      "line": 174,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -91082,8 +90983,80 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "5. Refresh-only mode",
-      "line": 67,
+      "section": "8. Shared ownership a ignore changes",
+      "line": 189,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "8. Shared ownership a ignore changes",
+      "line": 189,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autoscaler spravuje replica count;`, `security controller pridáva platform rules;`, `cloud platforma normalizuje computed fields;`, `scheduler spravuje placement;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "8. Shared ownership a ignore changes",
+      "line": 189,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "8. Shared ownership a ignore changes",
+      "line": 189,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "8. Shared ownership a ignore changes",
+      "line": 189,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "9. Deleted a nahrádzaný objekt",
+      "line": 226,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `úmyselnú deletion;`, `incident alebo compromise;`, `state smerujúci na nesprávny target;`, `provider/API visibility problém;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "9. Deleted a nahrádzaný objekt",
+      "line": 226,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "9. Deleted a nahrádzaný objekt",
+      "line": 226,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "9. Deleted a nahrádzaný objekt",
+      "line": 226,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
@@ -91091,170 +91064,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "6. terraform refresh",
-      "line": 88,
+      "section": "10. Drift detection pipeline",
+      "line": 250,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "7. Reconciliation možnosti",
-      "line": 100,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Revert remote zmenu",
-      "line": 104,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Adopt remote zmenu",
-      "line": 108,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Zmeniť ownership",
-      "line": 112,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "8. Drift classification",
-      "line": 122,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "8. Drift classification",
-      "line": 122,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "8. Drift classification",
-      "line": 122,
-      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource a ownera,`, `security dopadu,`, `availability dopadu,`, `data-loss rizika,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "8. Drift classification",
-      "line": 122,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "8. Drift classification",
-      "line": 122,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `availability`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "9. Manual emergency change",
-      "line": 136,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `0 — bez plánovaných changes;`, `2 — plan obsahuje changes.`.",
       "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "10. Shared ownership",
-      "line": 152,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "10. Shared ownership",
-      "line": 152,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "10. Shared ownership",
-      "line": 152,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autoscaler mení replica count,`, `cloud service dopĺňa computed fields,`, `security controller pridáva managed rules,`, `scheduler mení placement,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "10. Shared ownership",
-      "line": 152,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "10. Shared ownership",
-      "line": 152,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "11. ignore changes a drift",
-      "line": 170,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "11. ignore changes a drift",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `externé monitorovanie atribútu,`, `owner,`, `policy limits,`, `security guardrails,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "11. ignore changes a drift",
-      "line": 170,
+      "section": "10. Drift detection pipeline",
+      "line": 250,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -91262,44 +91082,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "11. ignore changes a drift",
-      "line": 170,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "12. Deleted resource",
-      "line": 184,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "12. Deleted resource",
-      "line": 184,
+      "section": "11. Worked failure: false clean pre nesprávny workspace",
+      "line": 275,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "12. Deleted resource",
-      "line": 184,
+      "section": "11. Worked failure: false clean pre nesprávny workspace",
+      "line": 275,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či deletion bola úmyselná,`, `či data/resource možno bezpečne obnoviť,`, `či rovnaké meno/ID stále nepatrí inému objektu,`, `či dependencies a secrets zostali platné,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `canonical environment identity assertion;`, `expected lineage a backend key;`, `expected resource/critical-address inventory;`, `provider account/region assertion;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "12. Deleted resource",
-      "line": 184,
+      "section": "11. Worked failure: false clean pre nesprávny workspace",
+      "line": 275,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -91307,8 +91109,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "12. Deleted resource",
-      "line": 184,
+      "section": "11. Worked failure: false clean pre nesprávny workspace",
+      "line": 275,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -91316,8 +91118,98 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "12. Deleted resource",
-      "line": 184,
+      "section": "11. Worked failure: false clean pre nesprávny workspace",
+      "line": 275,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "12. Drift noise a signal integrity",
+      "line": 298,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "12. Drift noise a signal integrity",
+      "line": 298,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unordered fields modelovaných ako list;`, `server-side defaults;`, `transient timestamps;`, `eventual consistency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "12. Drift noise a signal integrity",
+      "line": 298,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "13. Reconciliation decisions",
+      "line": 326,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "Revert",
+      "line": 330,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "1. Zafixuj subject",
+      "line": 354,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "1. Zafixuj subject",
+      "line": 354,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "1. Zafixuj subject",
+      "line": 354,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `final source revision;`, `provider/module versions;`, `variables;`, `backend key, lineage a serial;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "1. Zafixuj subject",
+      "line": 354,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "1. Zafixuj subject",
+      "line": 354,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`",
@@ -91325,530 +91217,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "13. Drift a replacements",
-      "line": 196,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "13. Drift a replacements",
-      "line": 196,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "13. Drift a replacements",
-      "line": 196,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-/+ a +/- semantics,`, `changed ForceNew-like attributes,`, `create before destroy ,`, `unique constraints,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "13. Drift a replacements",
-      "line": 196,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "14. Drift detection cadence",
-      "line": 210,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "14. Drift detection cadence",
-      "line": 210,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "14. Drift detection cadence",
-      "line": 210,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kritická identity/network/security infra: častejšie,`, `stabilné non-production resources: menej často,`, `po incidente alebo emergency change: okamžite,`, `po provider upgrade: explicitne,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "14. Drift detection cadence",
-      "line": 210,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "14. Drift detection cadence",
-      "line": 210,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "15. CI drift job",
-      "line": 222,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "15. CI drift job",
-      "line": 222,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `0 : bez zmien,`, `1 : chyba,`, `2 : plan obsahuje zmeny.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "15. CI drift job",
-      "line": 222,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "16. Plan identity",
-      "line": 245,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "16. Plan identity",
-      "line": 245,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "16. Plan identity",
-      "line": 245,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend,`, `workspace/state key,`, `provider account/subscription/project,`, `region,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "16. Plan identity",
-      "line": 245,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "16. Plan identity",
-      "line": 245,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "17. Sensitive plans",
-      "line": 259,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "17. Sensitive plans",
-      "line": 259,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "17. Sensitive plans",
-      "line": 259,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IDs,`, `network topology,`, `policy documents,`, `computed secrets alebo sensitive values,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "17. Sensitive plans",
-      "line": 259,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "17. Sensitive plans",
-      "line": 259,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "18. Drift noise",
-      "line": 277,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "18. Drift noise",
-      "line": 277,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "18. Drift noise",
-      "line": 277,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider normalizácia ordering-u,`, `server-side defaults,`, `timestamps,`, `unordered collections modelované ako list,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "18. Drift noise",
-      "line": 277,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "18. Drift noise",
-      "line": 277,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "19. Provider upgrade drift",
-      "line": 298,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "19. Provider upgrade drift",
-      "line": 298,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "19. Provider upgrade drift",
-      "line": 298,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `defaults,`, `diff suppression,`, `schema types,`, `read normalization,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "19. Provider upgrade drift",
-      "line": 298,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "20. Drift a import",
-      "line": 321,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "20. Drift a import",
-      "line": 321,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "20. Drift a import",
-      "line": 321,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deklaruj resource,`, `navrhni stable address,`, `importuj binding,`, `reviewni post-import plan,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "20. Drift a import",
-      "line": 321,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "20. Drift a import",
-      "line": 321,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "21. Drift a state recovery",
-      "line": 334,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "21. Drift a state recovery",
-      "line": 334,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "21. Drift a state recovery",
-      "line": 334,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neapplyuj recreate plan,`, `zastav writers,`, `obnov posledný validný snapshot,`, `over lineage a serial,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "21. Drift a state recovery",
-      "line": 334,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "22. Policy",
-      "line": 348,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "22. Policy",
-      "line": 348,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "22. Policy",
-      "line": 348,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zakázaný public access,`, `nešifrované storage,`, `neapproved regions,`, `destructive changes,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "22. Policy",
-      "line": 348,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "23. Observability",
-      "line": 362,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "23. Observability",
-      "line": 362,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "23. Observability",
-      "line": 362,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet states s driftom,`, `čas od detekcie po rozhodnutie,`, `čas do reconciliation,`, `percent autorizovaných emergency changes uzavretých v Git-e,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "23. Observability",
-      "line": 362,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "23. Observability",
-      "line": 362,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Automatický scheduled apply na každý drift",
-      "line": 379,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "ignore changes = all",
-      "line": 383,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Drift job používa admin credentials",
-      "line": 387,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Plan output sa posiela celý do verejného chatu",
-      "line": 391,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Každý exit code 2 je incident",
-      "line": 395,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Manuálna oprava bez update configuration",
-      "line": 399,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Plan ukazuje zmeny pri každom run-e",
-      "line": 405,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Refresh zlyhá na permissions",
-      "line": 409,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "Scheduled plan nehlási známy drift",
-      "line": 417,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "26. Rozhodovací rámec",
-      "line": 425,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -91856,8 +91226,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "26. Rozhodovací rámec",
-      "line": 425,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -91865,26 +91235,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "26. Rozhodovací rámec",
-      "line": 425,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "26. Rozhodovací rámec",
-      "line": 425,
-      "severity": "critical",
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorý resource a field driftuje?`, `Kto je authoritative owner?`, `Bola zmena autorizovaná?`, `Aký je security/data/availability dopad?`.",
-      "score": 12
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Provider normalizuje hodnotu inak, než ju configuration zapisuje.`, `Druhý writer po apply hodnotu prepisuje.`, `Apply smeruje na iný target než následný plan.`, `Eventual consistency spôsobí dočasný stale read.`.",
+      "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "26. Rozhodovací rámec",
-      "line": 425,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -91892,8 +91262,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "26. Rozhodovací rámec",
-      "line": 425,
+      "section": "2. Súťažiace hypotézy",
+      "line": 365,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -91901,12 +91271,246 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
-      "section": "26. Rozhodovací rámec",
-      "line": 425,
+      "section": "3. Diskriminačné observation points",
+      "line": 374,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 374,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 374,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 374,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `plan JSON before/after a replacement reason;`, `provider debug/request IDs bez secrets;`, `cloud audit log writer identity a timestamp;`, `backend serial pred a po apply;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 374,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 374,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 374,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `availability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`, `identity`",
       "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "5. Recovery podľa dôkazu",
+      "line": 388,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "5. Recovery podľa dôkazu",
+      "line": 388,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "5. Recovery podľa dôkazu",
+      "line": 388,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "5. Recovery podľa dôkazu",
+      "line": 388,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider normalization → upgrade/fix alebo canonical configuration;`, `second writer → odstránenie konfliktu alebo transfer ownershipu;`, `state failure → authoritative snapshot recovery a fresh plan;`, `mutable input → pinning immutable identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "5. Recovery podľa dôkazu",
+      "line": 388,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "5. Recovery podľa dôkazu",
+      "line": 388,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "6. Over pôvodný outcome",
+      "line": 397,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "7. Posuň control skôr",
+      "line": 408,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "15. Policy, evidence a observability",
+      "line": 412,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "15. Policy, evidence a observability",
+      "line": 412,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `public exposure;`, `IAM privilege expansion;`, `destructive replacement kritického objektu;`, `nešifrované storage;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "15. Policy, evidence a observability",
+      "line": 412,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "15. Policy, evidence a observability",
+      "line": 412,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "15. Policy, evidence a observability",
+      "line": 412,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 454,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 454,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 454,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 454,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Najprv over detection subject, až potom interpretuj diff.`, `Refresh-only apply mení state knowledge, nie desired configuration.`, `Neznámy drift sa automaticky neapplyuje.`, `Unmanaged objekt potrebuje discovery a adoption workflow.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 454,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 454,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
+      "section": "16. Referenčné pravidlá",
+      "line": 454,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md",

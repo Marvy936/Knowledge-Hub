@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11440**
-- Total words: **577,972**
-- Findings: **24872** (critical 7922, high 9071, medium 3403, low 4476)
+- Audited conceptual sections: **11428**
+- Total words: **578,483**
+- Findings: **24828** (critical 7908, high 9037, medium 3398, low 4485)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -87,7 +87,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 944 | 42 | 53 | 7 | 4 | 1645 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | D | 939 | 52 | 30 | 21 | 8 | 1654 | `docs/08-container-fundamentals-and-docker/container-security.md` |
 | D | 938 | 45 | 40 | 19 | 14 | 2606 | `docs/04-testing-and-quality/flaky-tests-and-test-data.md` |
-| D | 935 | 35 | 58 | 15 | 4 | 1484 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | D | 932 | 43 | 40 | 26 | 4 | 1525 | `docs/13-security-and-identity/active-directory.md` |
 | D | 916 | 38 | 44 | 23 | 22 | 2247 | `docs/11-cloud-and-aws/ec2-auto-scaling.md` |
 | D | 911 | 44 | 43 | 10 | 13 | 2465 | `docs/03-git-and-automation/merge-conflicts.md` |
@@ -203,6 +202,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 504 | 18 | 31 | 6 | 21 | 2365 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | D | 503 | 23 | 18 | 15 | 20 | 2893 | `docs/04-testing-and-quality/static-analysis-linting-type-checking.md` |
 | D | 498 | 20 | 26 | 8 | 17 | 1840 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
+| D | 497 | 21 | 24 | 10 | 13 | 1995 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | D | 490 | 21 | 25 | 6 | 17 | 1993 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
 | D | 489 | 19 | 27 | 13 | 1 | 1428 | `docs/09-kubernetes/serviceaccount.md` |
 | D | 483 | 19 | 26 | 9 | 12 | 2131 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
@@ -6386,99 +6386,51 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/drift.md`
 
-- **CRITICAL** line 23, `empty-section` — **2. Typy driftu**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 55, `bare-bullet-items` — **4. Ako Terraform drift deteguje**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načíta configuration a prior state,`, `refreshne managed resources cez providers,`, `aktualizuje working in-memory view,`, `porovná desired configuration s refreshed stavom,`.
-- **CRITICAL** line 55, `outline-instead-of-explanation` — **4. Ako Terraform drift deteguje**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 67, `bare-bullet-items` — **5. Refresh-only mode**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyšetrovanie manuálnej zmeny,`, `provider/API normalizácia,`, `potvrdenie deleted alebo changed objektu,`, `rozhodovanie, či drift adoptovať alebo revertovať.`.
-- **CRITICAL** line 122, `bare-bullet-items` — **8. Drift classification**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource a ownera,`, `security dopadu,`, `availability dopadu,`, `data-loss rizika,`.
-- **CRITICAL** line 122, `outline-instead-of-explanation` — **8. Drift classification**: 9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 152, `bare-bullet-items` — **10. Shared ownership**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autoscaler mení replica count,`, `cloud service dopĺňa computed fields,`, `security controller pridáva managed rules,`, `scheduler mení placement,`.
-- **CRITICAL** line 152, `outline-instead-of-explanation` — **10. Shared ownership**: 10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 170, `bare-bullet-items` — **11. ignore changes a drift**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `externé monitorovanie atribútu,`, `owner,`, `policy limits,`, `security guardrails,`.
-- **CRITICAL** line 170, `outline-instead-of-explanation` — **11. ignore changes a drift**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 184, `bare-bullet-items` — **12. Deleted resource**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či deletion bola úmyselná,`, `či data/resource možno bezpečne obnoviť,`, `či rovnaké meno/ID stále nepatrí inému objektu,`, `či dependencies a secrets zostali platné,`.
-- **CRITICAL** line 184, `outline-instead-of-explanation` — **12. Deleted resource**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 196, `bare-bullet-items` — **13. Drift a replacements**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `-/+ a +/- semantics,`, `changed ForceNew-like attributes,`, `create before destroy ,`, `unique constraints,`.
-- **CRITICAL** line 196, `outline-instead-of-explanation` — **13. Drift a replacements**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 210, `bare-bullet-items` — **14. Drift detection cadence**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kritická identity/network/security infra: častejšie,`, `stabilné non-production resources: menej často,`, `po incidente alebo emergency change: okamžite,`, `po provider upgrade: explicitne,`.
-- **CRITICAL** line 210, `outline-instead-of-explanation` — **14. Drift detection cadence**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 245, `bare-bullet-items` — **16. Plan identity**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend,`, `workspace/state key,`, `provider account/subscription/project,`, `region,`.
-- **CRITICAL** line 245, `outline-instead-of-explanation` — **16. Plan identity**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 259, `bare-bullet-items` — **17. Sensitive plans**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IDs,`, `network topology,`, `policy documents,`, `computed secrets alebo sensitive values,`.
-- **CRITICAL** line 259, `outline-instead-of-explanation` — **17. Sensitive plans**: 10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 277, `bare-bullet-items` — **18. Drift noise**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider normalizácia ordering-u,`, `server-side defaults,`, `timestamps,`, `unordered collections modelované ako list,`.
-- **CRITICAL** line 277, `outline-instead-of-explanation` — **18. Drift noise**: 13 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 298, `bare-bullet-items` — **19. Provider upgrade drift**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `defaults,`, `diff suppression,`, `schema types,`, `read normalization,`.
-- **CRITICAL** line 298, `outline-instead-of-explanation` — **19. Provider upgrade drift**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 321, `bare-bullet-items` — **20. Drift a import**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deklaruj resource,`, `navrhni stable address,`, `importuj binding,`, `reviewni post-import plan,`.
-- **CRITICAL** line 321, `outline-instead-of-explanation` — **20. Drift a import**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 334, `bare-bullet-items` — **21. Drift a state recovery**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neapplyuj recreate plan,`, `zastav writers,`, `obnov posledný validný snapshot,`, `over lineage a serial,`.
-- **CRITICAL** line 334, `outline-instead-of-explanation` — **21. Drift a state recovery**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 348, `bare-bullet-items` — **22. Policy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zakázaný public access,`, `nešifrované storage,`, `neapproved regions,`, `destructive changes,`.
-- **CRITICAL** line 348, `outline-instead-of-explanation` — **22. Policy**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 362, `bare-bullet-items` — **23. Observability**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet states s driftom,`, `čas od detekcie po rozhodnutie,`, `čas do reconciliation,`, `percent autorizovaných emergency changes uzavretých v Git-e,`.
-- **CRITICAL** line 362, `outline-instead-of-explanation` — **23. Observability**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 425, `bare-bullet-items` — **26. Rozhodovací rámec**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorý resource a field driftuje?`, `Kto je authoritative owner?`, `Bola zmena autorizovaná?`, `Aký je security/data/availability dopad?`.
-- **CRITICAL** line 425, `no-prose-concept` — **26. Rozhodovací rámec**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 425, `outline-instead-of-explanation` — **26. Rozhodovací rámec**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **HIGH** line 7, `bare-bullet-items` — **1. Tri relevantné pohľady**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `configuration opisuje desired state,`, `state uchováva bindings a naposledy známe attributes,`, `remote infrastructure je aktuálny stav z provider API.`.
-- **HIGH** line 7, `list-first-introduction` — **1. Tri relevantné pohľady**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 7, `single-sentence-concept` — **1. Tri relevantné pohľady**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 25, `single-sentence-concept` — **Remote drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 29, `single-sentence-concept` — **Configuration drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 33, `single-sentence-concept` — **State drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 37, `single-sentence-concept` — **Provider interpretation drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 41, `single-sentence-concept` — **Dependency drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 45, `bare-bullet-items` — **3. Drift vs. unmanaged infrastructure**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nemá existujúci binding,`, `neovplyvní managed object,`.
-- **HIGH** line 55, `single-sentence-concept` — **4. Ako Terraform drift deteguje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 88, `single-sentence-concept` — **6. terraform refresh**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 100, `single-sentence-concept` — **7. Reconciliation možnosti**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 104, `single-sentence-concept` — **Revert remote zmenu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 108, `single-sentence-concept` — **Adopt remote zmenu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 112, `single-sentence-concept` — **Zmeniť ownership**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 122, `single-sentence-concept` — **8. Drift classification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 136, `single-sentence-concept` — **9. Manual emergency change**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 152, `single-sentence-concept` — **10. Shared ownership**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 184, `single-sentence-concept` — **12. Deleted resource**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 196, `single-sentence-concept` — **13. Drift a replacements**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 210, `single-sentence-concept` — **14. Drift detection cadence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 222, `bare-bullet-items` — **15. CI drift job**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `0 : bez zmien,`, `1 : chyba,`, `2 : plan obsahuje zmeny.`.
-- **HIGH** line 222, `single-sentence-concept` — **15. CI drift job**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 245, `single-sentence-concept` — **16. Plan identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 259, `single-sentence-concept` — **17. Sensitive plans**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 277, `single-sentence-concept` — **18. Drift noise**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 298, `single-sentence-concept` — **19. Provider upgrade drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 321, `single-sentence-concept` — **20. Drift a import**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 334, `single-sentence-concept` — **21. Drift a state recovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 348, `single-sentence-concept` — **22. Policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 362, `single-sentence-concept` — **23. Observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 379, `single-sentence-concept` — **Automatický scheduled apply na každý drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 383, `single-sentence-concept` — **ignore changes = all**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 387, `single-sentence-concept` — **Drift job používa admin credentials**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 391, `single-sentence-concept` — **Plan output sa posiela celý do verejného chatu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 395, `single-sentence-concept` — **Každý exit code 2 je incident**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 399, `single-sentence-concept` — **Manuálna oprava bez update configuration**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 405, `single-sentence-concept` — **Plan ukazuje zmeny pri každom run-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 409, `single-sentence-concept` — **Refresh zlyhá na permissions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 417, `single-sentence-concept` — **Scheduled plan nehlási známy drift**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 425, `list-first-introduction` — **26. Rozhodovací rámec**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 7, `thin-concept-section` — **1. Tri relevantné pohľady**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 55, `thin-concept-section` — **4. Ako Terraform drift deteguje**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 122, `thin-concept-section` — **8. Drift classification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 152, `thin-concept-section` — **10. Shared ownership**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 184, `thin-concept-section` — **12. Deleted resource**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 196, `thin-concept-section` — **13. Drift a replacements**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 210, `thin-concept-section` — **14. Drift detection cadence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 222, `thin-concept-section` — **15. CI drift job**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 245, `thin-concept-section` — **16. Plan identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 259, `thin-concept-section` — **17. Sensitive plans**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 277, `thin-concept-section` — **18. Drift noise**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 298, `thin-concept-section` — **19. Provider upgrade drift**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 321, `thin-concept-section` — **20. Drift a import**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 334, `thin-concept-section` — **21. Drift a state recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 348, `thin-concept-section` — **22. Policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 362, `thin-concept-section` — **23. Observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 425, `thin-concept-section` — **26. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 42, `bare-bullet-items` — **3. Tri stavy a ich mechanizmus**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neautorizovaný ClickOps zásah;`, `legitímny incidentný break-glass change;`, `zmenu iného autoritatívneho controllera;`, `neaktuálny alebo poškodený state;`.
+- **CRITICAL** line 42, `outline-instead-of-explanation` — **3. Tri stavy a ich mechanizmus**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 189, `bare-bullet-items` — **8. Shared ownership a ignore changes**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autoscaler spravuje replica count;`, `security controller pridáva platform rules;`, `cloud platforma normalizuje computed fields;`, `scheduler spravuje placement;`.
+- **CRITICAL** line 226, `bare-bullet-items` — **9. Deleted a nahrádzaný objekt**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `úmyselnú deletion;`, `incident alebo compromise;`, `state smerujúci na nesprávny target;`, `provider/API visibility problém;`.
+- **CRITICAL** line 275, `bare-bullet-items` — **11. Worked failure: false clean pre nesprávny workspace**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `canonical environment identity assertion;`, `expected lineage a backend key;`, `expected resource/critical-address inventory;`, `provider account/region assertion;`.
+- **CRITICAL** line 275, `outline-instead-of-explanation` — **11. Worked failure: false clean pre nesprávny workspace**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 298, `bare-bullet-items` — **12. Drift noise a signal integrity**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unordered fields modelovaných ako list;`, `server-side defaults;`, `transient timestamps;`, `eventual consistency;`.
+- **CRITICAL** line 354, `bare-bullet-items` — **1. Zafixuj subject**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `final source revision;`, `provider/module versions;`, `variables;`, `backend key, lineage a serial;`.
+- **CRITICAL** line 354, `outline-instead-of-explanation` — **1. Zafixuj subject**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 365, `no-prose-concept` — **2. Súťažiace hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 365, `outline-instead-of-explanation` — **2. Súťažiace hypotézy**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 374, `bare-bullet-items` — **3. Diskriminačné observation points**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `plan JSON before/after a replacement reason;`, `provider debug/request IDs bez secrets;`, `cloud audit log writer identity a timestamp;`, `backend serial pred a po apply;`.
+- **CRITICAL** line 374, `no-prose-concept` — **3. Diskriminačné observation points**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 374, `outline-instead-of-explanation` — **3. Diskriminačné observation points**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 388, `bare-bullet-items` — **5. Recovery podľa dôkazu**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider normalization → upgrade/fix alebo canonical configuration;`, `second writer → odstránenie konfliktu alebo transfer ownershipu;`, `state failure → authoritative snapshot recovery a fresh plan;`, `mutable input → pinning immutable identity;`.
+- **CRITICAL** line 388, `no-prose-concept` — **5. Recovery podľa dôkazu**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 388, `outline-instead-of-explanation` — **5. Recovery podľa dôkazu**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 412, `bare-bullet-items` — **15. Policy, evidence a observability**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `public exposure;`, `IAM privilege expansion;`, `destructive replacement kritického objektu;`, `nešifrované storage;`.
+- **CRITICAL** line 412, `outline-instead-of-explanation` — **15. Policy, evidence a observability**: 15 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 454, `no-prose-concept` — **16. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 454, `outline-instead-of-explanation` — **16. Referenčné pravidlá**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model: evidence-to-reconciliation lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 42, `single-sentence-concept` — **3. Tri stavy a ich mechanizmus**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 107, `single-sentence-concept` — **5. Pôvod rozdielu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 189, `list-heavy-section` — **8. Shared ownership a ignore changes**: 10 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 250, `bare-bullet-items` — **10. Drift detection pipeline**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `0 — bez plánovaných changes;`, `2 — plan obsahuje changes.`.
+- **HIGH** line 298, `list-heavy-section` — **12. Drift noise a signal integrity**: 7 odrážok a iba 49 slov súvislého vysvetlenia.
+- **HIGH** line 326, `single-sentence-concept` — **13. Reconciliation decisions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 330, `single-sentence-concept` — **Revert**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 354, `single-sentence-concept` — **1. Zafixuj subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 365, `bare-bullet-items` — **2. Súťažiace hypotézy**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Provider normalizuje hodnotu inak, než ju configuration zapisuje.`, `Druhý writer po apply hodnotu prepisuje.`, `Apply smeruje na iný target než následný plan.`, `Eventual consistency spôsobí dočasný stale read.`.
+- **HIGH** line 365, `list-first-introduction` — **2. Súťažiace hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 374, `list-first-introduction` — **3. Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 388, `list-first-introduction` — **5. Recovery podľa dôkazu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 397, `single-sentence-concept` — **6. Over pôvodný outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 408, `single-sentence-concept` — **7. Posuň control skôr**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 454, `bare-bullet-items` — **16. Referenčné pravidlá**: 5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Najprv over detection subject, až potom interpretuj diff.`, `Refresh-only apply mení state knowledge, nie desired configuration.`, `Neznámy drift sa automaticky neapplyuje.`, `Unmanaged objekt potrebuje discovery a adoption workflow.`.
+- **HIGH** line 454, `list-first-introduction` — **16. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 42, `thin-concept-section` — **3. Tri stavy a ich mechanizmus**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 275, `thin-concept-section` — **11. Worked failure: false clean pre nesprávny workspace**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 354, `thin-concept-section` — **1. Zafixuj subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 365, `thin-concept-section` — **2. Súťažiace hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 374, `thin-concept-section` — **3. Diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 388, `thin-concept-section` — **5. Recovery podľa dôkazu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 454, `thin-concept-section` — **16. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md`
 
@@ -18043,19 +17995,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3516 | 437 | 0 | 0 | 3953 |
-| `single-sentence-concept` | 0 | 3726 | 0 | 0 | 3726 |
-| `outline-instead-of-explanation` | 3365 | 0 | 0 | 0 | 3365 |
-| `thin-concept-section` | 0 | 2967 | 0 | 0 | 2967 |
-| `term-before-explanation` | 0 | 457 | 2314 | 0 | 2771 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1795 | 1795 |
-| `example-not-explicit` | 0 | 0 | 0 | 1751 | 1751 |
-| `list-first-introduction` | 0 | 1105 | 0 | 0 | 1105 |
+| `bare-bullet-items` | 3508 | 437 | 0 | 0 | 3945 |
+| `single-sentence-concept` | 0 | 3697 | 0 | 0 | 3697 |
+| `outline-instead-of-explanation` | 3357 | 0 | 0 | 0 | 3357 |
+| `thin-concept-section` | 0 | 2957 | 0 | 0 | 2957 |
+| `term-before-explanation` | 0 | 457 | 2309 | 0 | 2766 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1798 | 1798 |
+| `example-not-explicit` | 0 | 0 | 0 | 1755 | 1755 |
+| `list-first-introduction` | 0 | 1108 | 0 | 0 | 1108 |
 | `short-concept-section` | 0 | 0 | 1089 | 0 | 1089 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 930 | 930 |
-| `empty-section` | 585 | 0 | 0 | 0 | 585 |
-| `no-prose-concept` | 456 | 0 | 0 | 0 | 456 |
-| `list-heavy-section` | 0 | 379 | 0 | 0 | 379 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 932 | 932 |
+| `empty-section` | 584 | 0 | 0 | 0 | 584 |
+| `no-prose-concept` | 459 | 0 | 0 | 0 | 459 |
+| `list-heavy-section` | 0 | 381 | 0 | 0 | 381 |
 
 ## Required remediation pattern
 
