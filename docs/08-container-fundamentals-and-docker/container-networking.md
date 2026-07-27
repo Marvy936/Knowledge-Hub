@@ -1,362 +1,547 @@
 # Container networking
 
-Container networking prepája process v network namespace s hostom, ostatnými containers a externými sieťami. Runtime môže vytvoriť samostatný namespace, virtual interfaces, bridge, routes, DNS configuration, NAT a firewall rules, ale konkrétny packet path závisí od zvoleného drivera, host networking stacku a orchestrátora.
+Container networking je packet lifecycle medzi application socketom v network namespace, host dataplane-om a remote peerom. Nefunguje ako jedna abstraktná „Docker sieť“: každý packet prechádza konkrétnymi interfaces, routes, firewall/NAT states, service-discovery records a return pathom.
 
-## 1. Network namespace ako základ
-
-Container s vlastným network namespace má vlastné:
-
-- interfaces,
-- IP adresy,
-- routing table,
-- neighbor cache,
-- sockets a port namespace,
-- loopback interface,
-- časť firewall/network state podľa implementácie.
-
-`127.0.0.1` alebo `localhost` označuje aktuálny namespace. Dva containers so samostatnými network namespaces nemajú spoločný loopback.
-
-## 2. Veth pair
-
-Bežný Linux container model používa virtual Ethernet pair:
+Dominantný model:
 
 ```text
-container namespace                host namespace
-
-eth0  <==========================>  vethXYZ
+application endpoint intent
+→ socket bind a network-namespace identity
+→ container address, route a neighbor state
+→ veth/bridge alebo alternate dataplane
+→ host forwarding, firewall a NAT
+→ physical/overlay path
+→ remote listener a policy
+→ reverse path a conntrack
+→ application protocol/readiness verification
 ```
 
-Packet zapísaný na jeden koniec sa objaví na druhom. Host-side endpoint sa môže pripojiť k bridge, route table alebo špecializovanej dataplane vrstve.
+Troubleshooting musí nájsť prvý observation point, na ktorom očakávaný flow prestal existovať alebo zmenil identity.
 
-Diagnostika:
+## 1. Atlas flow subject
 
-```bash
-ip link
-ip netns list
-ip -d link show
-```
-
-Runtime nemusí svoje namespaces pomenovať cez `ip netns`, preto sa často pracuje s process namespace cez `/proc/<pid>/ns/net` a `nsenter`.
-
-## 3. Linux bridge model
-
-Bridge funguje ako software L2 switch. Viac host-side veth interfaces môže byť pripojených k jednému bridge:
+Atlas Payments container `pay-07` poskytuje HTTPS API a volá database:
 
 ```text
-container A eth0 ─ vethA ┐
-                          ├─ bridge ─ host routing/NAT ─ external network
-container B eth0 ─ vethB ┘
+image/platform digest: MAMD313
+container runtime ID: CT-PAY-07
+network namespace inode: NS-4401
+container interface: eth0
+container IP: 172.22.0.17/24
+default gateway: 172.22.0.1
+host veth: veth8ab1
+bridge: br-atlas
+published endpoint: 10.20.4.12:443 → 172.22.0.17:8443
+application bind: 0.0.0.0:8443
+database name: payments-db.internal
+resolved endpoint: 10.40.8.21:5432
+flow ID: TCP 172.22.0.17:51844 → 10.40.8.21:5432
 ```
 
-Bridge učí MAC addresses a forwarduje frames. L3 reachability potom závisí od IP subnetu, routes, forwarding a firewall/NAT pravidiel.
+Flow subject musí zachytiť:
 
-## 4. Default route
+- source namespace/interface/address/port;
+- destination name/address/port/protocol;
+- route a gateway;
+- veth/bridge/dataplane identity;
+- NAT/conntrack tuple;
+- firewall/policy generation;
+- DNS answer a freshness;
+- timestamp a node identity.
 
-Container typicky dostane:
+## 2. Socket bind je prvá hranica
 
-- IP adresu z runtime-managed subnetu,
-- route do lokálneho subnetu,
-- default gateway na bridge alebo host-side router.
-
-Kontrola:
-
-```bash
-ip addr
-ip route
-ip neigh
-```
-
-Chýbajúci default route, nesprávny subnet alebo stale neighbor entry sa môže prejaviť ako všeobecný timeout.
-
-## 5. NAT a masquerading
-
-Private container subnety často používajú source NAT/masquerading pre outbound traffic:
+Application môže počúvať na:
 
 ```text
-container source IP
-→ host NAT
-→ host/external source IP
+127.0.0.1:8443
+172.22.0.17:8443
+0.0.0.0:8443
+[::]:8443
 ```
 
-NAT rieši address translation, nie application-level service discovery ani bezpečnostnú autorizáciu.
+`127.0.0.1` patrí aktuálnemu namespace-u. Ak process počúva iba na container loopback, packet prichádzajúci cez `eth0` nemá matching listener.
 
-Dôsledky:
-
-- external server môže vidieť host IP namiesto container IP,
-- connection tracking spotrebúva state,
-- port exhaustion môže obmedziť počet outbound connections,
-- original source identity môže byť skrytá,
-- packet capture treba robiť na viacerých interfaces.
-
-## 6. Port publishing
-
-Container process môže počúvať na port 8080 vo svojom namespace. Bez route alebo publish pravidla to neznamená, že je port dostupný na hoste.
-
-Port publishing vytvorí host-side listener alebo NAT/forwarding rule:
-
-```text
-host 0.0.0.0:8080
-→ containerIP:8080
-```
-
-Rozlišuj:
-
-- container port,
-- host published port,
-- bind address,
-- protocol TCP/UDP,
-- firewall exposure.
-
-Publikovanie na `127.0.0.1` má inú exposure boundary než `0.0.0.0`.
-
-## 7. `EXPOSE` nie je firewall rule
-
-Image metadata `EXPOSE` dokumentuje očakávaný listening port/protocol. Samo osebe nemusí:
-
-- publikovať port,
-- otvoriť host firewall,
-- vytvoriť load balancer,
-- garantovať, že application počúva.
-
-Runtime networking configuration je samostatná vrstva.
-
-## 8. Bind address aplikácie
-
-Application môže počúvať:
-
-- na `127.0.0.1` v container namespace,
-- na konkrétnej container IP,
-- na `0.0.0.0`,
-- na IPv6 `::` podľa socket behavioru.
-
-Ak application počúva iba na container loopback, port publish na container interface nemusí fungovať.
-
-Kontrola:
+Observation:
 
 ```bash
 ss -lntup
 ```
 
-## 9. Host networking
+Port metadata v image alebo deployment spec nepreukazuje listener. `EXPOSE 8443` nevytvára socket, firewall rule ani host publication.
 
-Pri host network mode container zdieľa host network namespace.
+## 3. Network namespace identity
 
-Výhody:
+Network namespace izoluje pohľad na:
 
-- menej virtual networking vrstiev,
-- priame host interfaces a ports,
-- vhodné pre špecifické performance alebo network tooling prípady.
+- interfaces;
+- addresses;
+- routes;
+- neighbor cache;
+- sockets a ports;
+- loopback;
+- časť firewall/network state podľa implementácie.
 
-Riziká:
+Runtime namespace nemusí byť pomenovaný v `ip netns`. Identifikuj ho cez process:
 
-- port collisions,
-- slabšia isolation,
-- širšia visibility host trafficu,
-- neplatí bežný container IP model,
-- väčší blast radius pri `CAP_NET_ADMIN` alebo packet capture permissions.
+```bash
+readlink /proc/<pid>/ns/net
+nsenter -t <pid> -n ip addr
+nsenter -t <pid> -n ip route
+nsenter -t <pid> -n ss -lntup
+```
 
-## 10. None/isolated networking
+Container name alebo IP nie sú dostatočná dlhodobá identity. Po replacement-e sa namespace inode, veth a IP môžu zmeniť.
 
-Container môže bežať bez externého network interface, typicky iba s loopbackom. Je to vhodné pre offline batch alebo security-sensitive workloads, ktoré nepotrebujú network.
+## 4. Interface, address a route
 
-Application dependency na DNS, metadata service, licensing alebo telemetry sa v takomto režime prejaví explicitne a môže odhaliť skryté egress požiadavky.
+Packet odchádza iba ak namespace obsahuje:
 
-## 11. DNS v containeri
+```text
+UP interface
++ valid source address
++ matching route
++ reachable next hop
+```
 
-Runtime typicky pripraví `/etc/resolv.conf`, `/etc/hosts` a hostname metadata. DNS môže smerovať:
+Typický bridge model:
 
-- priamo na host resolver,
-- na embedded runtime DNS,
-- na orchestrator DNS service,
-- na enterprise resolver.
+```text
+container eth0
+↔ veth pair
+host veth
+↔ Linux bridge
+↔ host route/firewall/NAT
+↔ uplink
+```
 
-Riziká:
+Observation:
 
-- search domain rozširuje dotazy,
-- `ndots` môže meniť poradie lookupov,
-- stale service records,
-- split DNS,
-- DNS timeouty vyzerajú ako application latency,
-- container restart môže zmeniť IP, ale service name zostáva stabilný.
+```bash
+ip -br link
+ip -br addr
+ip route get 10.40.8.21
+ip neigh
+```
 
-## 12. Service discovery
+`ip route get` ukazuje effective source, interface a next hop pre konkrétny destination, nie iba statický zoznam routes.
 
-Pri dynamických containers nepoužívaj ich krátkodobú IP ako dlhodobý application contract. Preferuj:
+## 5. Veth a bridge transition
 
-- runtime-managed DNS names,
-- service abstraction,
-- load balancer,
-- registry/discovery systém,
-- orchestrator service.
+Veth pair prenáša frame medzi namespace-mi. Host-side veth môže byť:
 
-Service discovery musí riešiť readiness, stale endpoints a retry behavior, nielen name-to-IP mapping.
+- pripojený k Linux bridge-u;
+- routovaný priamo;
+- spravovaný CNI/eBPF/overlay dataplane-om;
+- odpojený alebo v nesprávnom bridge/networke.
 
-## 13. IPv4 a IPv6
+Bridge rieši L2 forwarding. Nezaručuje L3 route, host forwarding, firewall acceptance ani remote return path.
 
-Container networking môže používať IPv4, IPv6 alebo dual stack. Over:
+Observation points:
 
-- address allocation,
-- routes,
-- DNS A/AAAA behavior,
-- firewall parity,
-- NAT66/NAT64 alebo routed model,
-- application listen addresses,
-- MTU a path behavior.
+```bash
+ip -d link show
+bridge link
+bridge fdb show
+```
 
-„IPv6 enabled“ na hoste neznamená, že runtime network alebo application má správne IPv6 routes a policy.
+Packet capture na container `eth0`, host veth, bridge a uplinku umožní určiť, medzi ktorými dvoma bodmi packet zmizol.
 
-## 14. MTU
+## 6. Port publishing
 
-Virtual encapsulation, VPN alebo overlay network môže znížiť efektívnu MTU. Nesúlad môže spôsobiť:
+Port publishing vytvára host-side exposure contract:
 
-- fragmentáciu,
-- dropped large packets,
-- TLS handshake alebo upload failures,
-- fungujúci ping s malým packetom, ale nefunkčné application requests.
+```text
+host bind address + host port + protocol
+→ forwarding/NAT/proxy
+→ container address + container port
+```
 
-Diagnostika:
+Príklad:
+
+```text
+10.20.4.12:443/TCP
+→ 172.22.0.17:8443/TCP
+```
+
+Rozlišuj:
+
+- host bind `127.0.0.1`, konkrétnu IP alebo `0.0.0.0`;
+- TCP a UDP;
+- host firewall/security group;
+- IPv4 a IPv6 publication;
+- application listener address;
+- source-IP preservation.
+
+Publish na `0.0.0.0` môže vytvoriť širšiu exposure boundary než reverse proxy alebo operator očakával.
+
+## 7. Host networking
+
+Host network mode odstráni bežnú network-namespace boundary:
+
+```text
+container process
+→ host interfaces, routes, sockets a port namespace
+```
+
+Dôsledky:
+
+- port collision s hostom alebo iným host-network workloadom;
+- širšia traffic visibility;
+- priamy host firewall contract;
+- `localhost` je host loopback;
+- `CAP_NET_ADMIN` má výrazne väčší blast radius.
+
+Použi ho iba pri explicitnom performance/tooling/lifecycle dôvode, nie ako univerzálnu opravu connectivity.
+
+## 8. Outbound NAT a conntrack
+
+Private container subnet často používa source NAT:
+
+```text
+original tuple:
+172.22.0.17:51844 → 10.40.8.21:5432
+
+translated tuple:
+10.20.4.12:43122 → 10.40.8.21:5432
+```
+
+Conntrack uchováva mapping a protocol state pre reverse packet.
+
+Failure boundaries:
+
+- table exhaustion;
+- NAT source-port exhaustion;
+- stale entries;
+- asymmetric return path;
+- firewall verdict pred/po translation;
+- short timeout voči application keepalive modelu.
+
+External server môže vidieť node IP, nie container IP. Authorization založená na source IP preto musí rozumieť translation pathu.
+
+## 9. Firewall a policy order
+
+Verdict môže vzniknúť na viacerých boundaries:
+
+```text
+container namespace policy
+→ bridge/forward chain
+→ engine-managed chains
+→ host firewall
+→ cloud security control
+→ remote host/service policy
+```
+
+Ručné pravidlo v jednej chain-e nedokazuje effective policy. Container engine môže vytvárať alebo meniť iptables/nftables state.
+
+Zaznamenaj:
+
+- packet direction;
+- pre-NAT a post-NAT tuple;
+- interface pair;
+- chain/hook priority;
+- policy generation;
+- counter/log verdict.
+
+IPv4 allow a IPv6 default-allow môžu vytvoriť policy bypass.
+
+## 10. DNS resolution subject
+
+DNS query v containeri má vlastný lifecycle:
+
+```text
+application resolver behavior
+→ /etc/resolv.conf a search/ndots
+→ embedded/host/enterprise resolver
+→ authoritative/cache answer
+→ selected A/AAAA endpoint
+→ connection attempt
+```
+
+DNS subject obsahuje:
+
+- queried name;
+- effective search expansion;
+- resolver IP;
+- record type;
+- answer a TTL;
+- cache generation;
+- selected address;
+- timestamp.
+
+DNS success neznamená service readiness. Service discovery navyše potrebuje endpoint eligibility, stale removal a stable identity.
+
+## 11. Service discovery a endpoint lifecycle
+
+Dynamický workload nemá používať jednu ephemeral container IP ako dlhodobý contract.
+
+Service lifecycle:
+
+```text
+container created
+→ readiness verified
+→ endpoint published
+→ traffic eligible
+→ draining
+→ endpoint removed
+→ container deleted
+```
+
+Failure môže nastať, keď DNS alebo registry obsahuje:
+
+- endpoint pred readiness;
+- terminated IP;
+- IP recyklovanú inému workloadu;
+- unhealthy endpoint;
+- subset z nesprávneho environmentu.
+
+Name-to-IP mapping je iba jedna časť service discovery.
+
+## 12. East-west, north-south a egress
+
+Rozlišuj flow classes:
+
+- **north-south ingress** — externý klient → workload;
+- **north-south egress** — workload → externý systém;
+- **east-west** — workload → interný service;
+- **control-plane** — runtime/orchestrator/registry/secret API;
+- **infrastructure** — DNS, time, metadata, telemetry.
+
+Každá class potrebuje explicitný source, destination, protocol, identity a policy owner.
+
+Default-allow east-west zväčšuje lateral-movement blast radius. Egress allowlist musí riešiť DNS/CDN volatility, nie iba statické IP.
+
+## 13. Cloud metadata exposure
+
+Container s node egressom môže dosiahnuť cloud metadata endpoint. Application compromise sa potom môže zmeniť na credential theft.
+
+Controls:
+
+- workload identity namiesto node credentialu;
+- metadata endpoint policy/hop limits podľa platformy;
+- network deny alebo proxy boundary;
+- short-lived scoped credentials;
+- audit token issuance/use.
+
+`169.254.x.x` je network path a identity boundary, nie nevinná link-local adresa.
+
+## 14. IPv4, IPv6 a dual stack
+
+Dual-stack flow môže vybrať inú family než operator testoval.
+
+Over:
+
+```text
+A/AAAA answer
+→ application address selection
+→ namespace route
+→ firewall/NAT parity
+→ remote listener
+→ return path
+```
+
+Application môže počúvať na IPv6 `::`, ale nie na IPv4 podľa socket/kernel settings. Test `curl localhost` nemusí reprezentovať external family.
+
+## 15. MTU a PMTU
+
+Každá encapsulation layer znižuje payload MTU:
+
+```text
+container interface
+→ bridge/veth
+→ overlay/VPN/tunnel
+→ host uplink
+→ remote path
+```
+
+Malý ping môže prejsť, zatiaľ čo TLS handshake, upload alebo database response zlyhá.
+
+Observation:
 
 ```bash
 ip link show
-tracepath destination
-ping -M do -s SIZE destination
-```
-
-Over MTU na container interface, bridge/veth, host uplinku a overlay/tunnel vrstve.
-
-## 15. Conntrack
-
-Stateful NAT a firewall používajú connection tracking. Pri vysokom connection churn môže nastať:
-
-- conntrack table exhaustion,
-- dropped new connections,
-- vysoká CPU contention,
-- dlhé timeouty stale entries.
-
-Sleduj table usage, protocol states, NAT port range a application keepalive/pooling behavior.
-
-## 16. Firewall rules
-
-Container engine môže meniť host firewall cez iptables/nftables integration. Security model musí rozumieť:
-
-- chain ordering,
-- forwarding policy,
-- published ports,
-- host firewall manageru,
-- direct-routing pravidlám,
-- IPv4/IPv6 parity.
-
-Ručné pravidlo môže byť prepísané alebo obídené engine-managed chainom. Overuj reálny packet path, nie iba očakávanú konfiguráciu.
-
-## 17. East-west a north-south traffic
-
-- **east-west** — traffic medzi workloads alebo internými services,
-- **north-south** — traffic medzi workloadom a externým klientom/službou.
-
-Policy sa môže líšiť:
-
-- service-to-service allowlist,
-- ingress exposure,
-- egress restriction,
-- metadata endpoint protection,
-- DNS a time services,
-- observability collectors.
-
-Default allow east-west model zvyšuje lateral-movement risk.
-
-## 18. Egress control
-
-Outbound access nie je automaticky bezpečný. Container môže kontaktovať:
-
-- internet,
-- cloud metadata service,
-- internal databases,
-- control-plane APIs,
-- registry alebo secret manager.
-
-Egress policy má definovať destination, protocol, identity a DNS behavior. IP allowlist bez kontroly DNS/CDN volatility môže byť krehký.
-
-## 19. Rootless networking
-
-Rootless containers nemôžu vždy vytvárať rovnaké host networking primitives ako privileged daemon. Môžu používať user-space networking, slirp-style stack alebo helper processes.
-
-Trade-offy:
-
-- lepšia host privilege boundary,
-- odlišný performance profil,
-- port binding limitations,
-- odlišná source IP visibility,
-- MTU a protocol caveats.
-
-## 20. Packet path troubleshooting
-
-Postupuj po vrstvách:
-
-1. application počúva na očakávanom address/porte,
-2. container interface je UP,
-3. IP a route sú správne,
-4. neighbor/gateway funguje,
-5. bridge/veth je pripojený,
-6. host forwarding je aktívny,
-7. firewall/NAT pravidlá zodpovedajú,
-8. external route a return path fungujú,
-9. DNS resolveuje správne,
-10. application protocol/TLS je validný.
-
-Užitočné nástroje:
-
-```bash
-ss
-ip
-nsenter
-ping
-tracepath
-dig
-curl
+tracepath <destination>
+ping -M do -s <size> <destination>
 tcpdump
-conntrack
-nft
-iptables
 ```
 
-## 21. Troubleshooting scenáre
+Blokované ICMP „packet too big“ môže rozbiť Path MTU Discovery a vytvoriť black-hole behavior.
 
-### Container dosiahne IP, ale nie hostname
+## 16. Rootless networking
 
-Network route funguje, problém je DNS config, resolver reachability, search domain alebo application resolver behavior.
+Rootless runtime môže používať user-space stack alebo helper process namiesto bežného privileged host dataplane-u.
 
-### Port funguje z hosta, nie zvonku
+To mení:
 
-Over publish bind address, host firewall, external security group, route a return path.
+- source IP visibility;
+- throughput/latency;
+- port binding;
+- MTU;
+- IPv6 support;
+- packet capture observation points;
+- failure ownership medzi processom a helperom.
 
-### Connection funguje pre malé requesty, veľké timeoutujú
+Rootless connectivity sa nemá diagnostikovať automaticky rovnakým packet pathom ako rootful bridge.
 
-Over MTU, PMTU discovery, tunnel overhead a firewall blocking ICMP potrebný pre path discovery.
+## 17. Worked failure: application počúva iba na loopback
 
-### Container nevie volať host service
+Atlas API v containeri hlási healthy pri internom `curl 127.0.0.1:8443`, ale host publication timeoutuje.
 
-`localhost` je container loopback. Použi explicitnú host route/address alebo podporovaný host-gateway model.
+```text
+host packet je DNATovaný na 172.22.0.17:8443
+→ packet príde cez eth0
+→ process počúva iba na 127.0.0.1
+→ žiadny matching listener na eth0 address
+```
 
-### Po reštarte sa zmenila IP
+Oprava je explicitný application bind contract, nie host networking alebo privileged mode.
 
-Container IP je runtime identity. Použi service discovery a názov, nie uloženú IP.
+## 18. Worked failure: port bol publikovaný na všetkých interfaces
 
-## 22. Kontrolné otázky
+Deployment mal byť dostupný iba cez local reverse proxy, no runtime použil `0.0.0.0:8443`.
 
-1. Čo izoluje network namespace?
-2. Ako funguje veth pair a bridge?
-3. Prečo `localhost` nie je host?
-4. Čo robí port publishing?
-5. Prečo `EXPOSE` neotvára port?
-6. Aké riziká má host network mode?
-7. Ako DNS a service discovery súvisia, ale nie sú totožné?
-8. Ako MTU spôsobí partial connectivity?
-9. Čo je conntrack exhaustion?
-10. Ako postupovať pri packet-path diagnostike?
+```text
+host publication vytvorí external listener
+→ cloud firewall port povoľuje
+→ klient obíde reverse proxy authentication/TLS policy
+```
+
+Security review musí porovnávať effective host bind a packet path, nie iba `EXPOSE` alebo application config.
+
+## 19. Worked failure: DNS držalo terminated endpoint
+
+Container `pay-04` bol odstránený a IP `172.22.0.14` bola pridelená debug workloadu. Stale service record stále smeroval traffic na túto IP.
+
+```text
+service name resolveuje syntakticky správne
+→ IP identity bola recyklovaná
+→ klient kontaktuje nesprávny workload
+```
+
+Service records potrebujú stable workload identity, readiness generation a removal/TTL contract.
+
+## 20. Worked failure: malé requests fungovali, veľké timeoutovali
+
+Overlay MTU bola 1450, container interface 1500 a firewall blokoval potrebný ICMP feedback.
+
+```text
+small packets pass
+→ large packet requires fragmentation/PMTU correction
+→ ICMP feedback je dropped
+→ TCP retransmits až do timeoutu
+```
+
+Recovery zahŕňa zosúladenie MTU alebo povolenie potrebného PMTU feedbacku, potom end-to-end large-payload test.
+
+## 21. Worked failure: conntrack exhaustion
+
+Atlas worker vytváral tisíce krátkych outbound connections bez pooling-u. Node conntrack table sa naplnila.
+
+```text
+existing flows continue
+→ new SYN packets sú dropped
+→ iba časť requests timeoutuje
+→ application a remote service vyzerajú healthy
+```
+
+Observation musí spojiť node conntrack usage, drop counters, flow churn a application connection model.
+
+## 22. Causal troubleshooting walkthrough: host dosiahne API, externý klient nie
+
+`curl 172.22.0.17:8443` z node-u funguje. `curl https://api.example` zvonku timeoutuje.
+
+### 1. Zafixuj flow subject
+
+Zaznamenaj:
+
+- external client source a DNS answer;
+- load balancer/public IP a port;
+- node IP a published bind;
+- pre/post-NAT tuples;
+- container namespace/IP/listener;
+- bridge/veth identities;
+- firewall/cloud-policy generations;
+- captures/counters a return path.
+
+### 2. Súťažiace hypotézy
+
+1. Public DNS smeruje na zlý endpoint.
+2. Load balancer/backend registration alebo health je nesprávny.
+3. Host port nie je publikovaný.
+4. Publication binduje iba `127.0.0.1` alebo inú node IP.
+5. Host/cloud firewall blokuje ingress.
+6. DNAT pravidlo smeruje na stale container IP.
+7. Application listener alebo readiness sa zmenil medzi testami.
+8. Return path je asymetrický.
+9. IPv6 klient používa AAAA path bez parity.
+10. MTU/TLS spôsobuje partial failure, nie L3 timeout.
+
+### 3. Diskriminačné observation points
+
+- authoritative DNS A/AAAA a client selection;
+- LB listener/backend/health evidence;
+- `ss` v host a container namespace;
+- effective NAT/firewall rules a counters;
+- packet captures na uplinku, host bind, bridge/veth a container eth0;
+- conntrack original/reply tuples;
+- container IP/runtime generation;
+- remote/client TCP a TLS evidence.
+
+### 4. Containment
+
+Neotváraj všetky ports ani nevypínaj firewall. Zachovaj effective rules/counters a failed flow capture. Ak existuje bypass exposure, dočasne ho uzavri.
+
+### 5. Recovery
+
+- DNS/LB gap → oprav endpoint subject a verify health;
+- bind mismatch → publish na intended node address;
+- stale DNAT → reconcile runtime network state;
+- firewall denial → pridaj narrow source/destination/protocol rule;
+- return-path issue → oprav routing/NAT symmetry;
+- IPv6 gap → zosúlaď dual-stack policy alebo odstráň nefunkčný record;
+- MTU → oprav interface/tunnel MTU a PMTU behavior.
+
+### 6. Over pôvodný outcome
+
+Z externého reprezentatívneho clienta over DNS, TCP, TLS a business request. Potvrď container readiness, expected source identity, return flow a absence neplánovaného direct exposure.
+
+### 7. Posuň control skôr
+
+Pridaj effective-flow manifest, external synthetic test, IPv4/IPv6 parity gate, stale-endpoint test a packet-path observability s runtime generation.
+
+## 23. Referenčné pravidlá
+
+- Network troubleshooting začína application socketom a flow identity.
+- `localhost` patrí aktuálnemu namespace-u.
+- `EXPOSE` nie je listener, publication ani firewall rule.
+- Bridge L2 forwarding nezaručuje L3 alebo policy reachability.
+- Port publication má host bind, protocol a exposure boundary.
+- NAT mení visible source identity a potrebuje reverse conntrack state.
+- Effective firewall verdict závisí od hook/chain orderu a tuple view.
+- DNS answer nie je service readiness.
+- Ephemeral IP nie je dlhodobá workload identity.
+- Dual stack potrebuje policy a listener parity.
+- Malý ping nepreukazuje správnu MTU pre application flow.
+- Existing connections môžu fungovať pri conntrack exhaustion nových flows.
+- Rootless a rootful dataplane majú odlišné observation points.
+- Host networking je boundary change, nie diagnostický shortcut.
+
+## 24. Kontrolné otázky
+
+1. Čo tvorí container flow subject?
+2. Prečo listener na loopbacku nemusí fungovať cez veth?
+3. Aké transitions spája veth a bridge?
+4. Čo presne vytvorí port publishing?
+5. Ako sa líši original a translated conntrack tuple?
+6. Prečo DNS success nie je service-discovery success?
+7. Ako stale endpoint a IP reuse vytvoria identity failure?
+8. Prečo dual-stack failure môže byť selektívny?
+9. Ako MTU a PMTU vytvoria partial connectivity?
+10. Ktoré observation points lokalizujú external-ingress timeout?
 
 ## Glossary impact
 
-Relevantné pojmy: container network namespace, veth pair, Linux bridge, container subnet, port publishing, container port, host port, host network mode, embedded DNS, container service discovery, east-west traffic, north-south traffic, egress policy, conntrack, rootless networking a container MTU.
+Relevantné pojmy: container flow subject, network namespace identity, socket-bind boundary, veth transition, bridge dataplane, port-publication subject, pre-NAT tuple, post-NAT tuple, effective firewall verdict, DNS resolution subject, service endpoint generation, stale endpoint identity, metadata-service exposure, dual-stack parity, PMTU black hole, conntrack capacity boundary a rootless dataplane subject.
 
 ## Oficiálna dokumentácia
 
