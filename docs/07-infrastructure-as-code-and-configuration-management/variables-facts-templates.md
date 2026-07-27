@@ -1,558 +1,423 @@
 # Variables, facts a templates
 
-Ansible používa variables na oddelenie reusable automation logic od rozdielov medzi hosts, groups, environments a run contexts. Facts dopĺňajú runtime informácie o managed nodes a templates premieňajú variables na výsledný textový configuration artifact.
+Variables, facts a templates tvoria jeden host-specific configuration pipeline. Variable sources vyjadrujú intent a environment data, precedence vytvorí effective value set, facts doplnia runtime observations a template z týchto vstupov vytvorí konkrétny artifact, ktorý sa validuje, publikuje a načíta do procesu.
 
-Táto flexibilita je zároveň častým zdrojom nečitateľnosti. Ak rovnaká hodnota môže vzniknúť z inventory, role, playbooku, facts, registered resultu alebo extra vars, bez jasného ownershipu je ťažké vysvetliť, prečo host dostal konkrétnu konfiguráciu.
+Hlavný model:
 
-## 1. Variable ako dátový vstup
-
-Variables môžu obsahovať:
-
-- scalar,
-- list,
-- dictionary,
-- nested combinations,
-- hodnotu získanú počas runu,
-- fact alebo magic variable.
-
-Príklad:
-
-```yaml
-app_port: 8080
-app_features:
-  - audit
-  - metrics
-app_database:
-  host: db.internal
-  port: 5432
+```text
+declared variable contracts a sources
+→ precedence a host scope
+→ effective host value subject
+→ fresh facts a external lookups
+→ derived values
+→ deterministic template render
+→ parser validation a atomic publication
+→ handler/runtime transition
+→ loaded-artifact verification a provenance
 ```
 
-Referencia používa Jinja expression syntax:
+Keď host dostane nesprávnu konfiguráciu, nestačí čítať template. Treba rekonštruovať celý effective input subject vrátane zdrojov, precedence, freshness a controller runtime.
+
+## 1. Atlas scenár: host-specific service configuration
+
+Atlas Payments renderuje `/etc/atlas/payments.yml` pre každý application host. Verejný role contract obsahuje:
 
 ```yaml
-- name: Open application port
-  ansible.builtin.debug:
-    msg: "Application listens on {{ app_port }}"
+atlas_environment: production
+atlas_listen_port: 8443
+atlas_tls_enabled: true
+atlas_database_endpoint: db.prod.internal:5432
+atlas_release_version: v43
 ```
 
-## 2. Variable sources
+Host-specific runtime observations dopĺňajú:
 
-Variables môžu pochádzať napríklad z:
-
-- role defaults,
-- inventory group vars,
-- inventory host vars,
-- play vars,
-- `vars_files`,
-- role vars,
-- block alebo task vars,
-- `include_vars`,
-- facts,
-- registered results,
-- `set_fact`,
-- role/include parameters,
-- command-line extra vars.
-
-Ansible načíta relevantné definitions a aplikuje precedence rules. Vyššia precedence neznamená, že zdroj je architektonicky správny.
-
-## 3. Variable precedence
-
-Variable precedence je rozsiahly model. Praktické pravidlá:
-
-- role defaults sú zámerne ľahko override-nuteľné,
-- host-specific values sú spravidla konkrétnejšie než group defaults,
-- explicitné runtime values majú vysokú precedence,
-- extra vars majú veľmi vysokú precedence,
-- rovnaký name v mnohých sources znižuje vysvetliteľnosť.
-
-Pri návrhu sa nepýtaj iba „čo vyhrá“, ale:
-
-1. kto hodnotu vlastní,
-2. na akej úrovni sa smie meniť,
-3. či je súčasťou reusable contractu,
-4. či ide o secret,
-5. ako sa validuje.
-
-## 4. Scope variables
-
-Prakticky možno rozlišovať:
-
-### Global scope
-
-Configuration, environment alebo CLI behavior relevantný pre celý run.
-
-### Play scope
-
-Variables viazané na play a jeho tasks/roles.
-
-### Host scope
-
-Inventory variables, facts, registered results a `set_fact` hodnoty priradené konkrétnemu hostu.
-
-`hostvars` poskytuje prístup k host-scoped dátam iných hosts, ale vytvára cross-host coupling a závislosť od toho, či boli facts alebo variables už dostupné.
-
-## 5. Role defaults a role vars
-
-### Defaults
-
-`defaults/main.yml` definuje overridable public defaults role.
-
-```yaml
-example_service_port: 8080
-example_service_enabled: true
+```text
+stable host ID
+OS family a major version
+primary address
+available memory
+installed runtime capability
 ```
 
-### Vars
-
-`vars/main.yml` má vyššiu precedence a je vhodný skôr pre interné constants, ktoré caller nemá bežne meniť.
-
-Používanie role vars na bežné environment values robí role ťažko konfigurovateľnou.
-
-## 6. Naming a namespacing
-
-Generic names ako `port`, `user` alebo `path` sa ľahko zrazia.
-
-Preferuj domain prefix:
-
-```yaml
-example_web_port: 8080
-example_web_user: example
-example_web_config_path: /etc/example/web.conf
-```
-
-Role a collection content má definovať stabilný variable contract s documentation a validation.
-
-## 7. Required a optional values
-
-Optional value môže mať default. Required value má zlyhať s jasným message.
-
-Template alebo task môže použiť `mandatory` filter, assertion alebo explicitnú validation task.
-
-```yaml
-- name: Validate required configuration
-  ansible.builtin.assert:
-    that:
-      - example_api_endpoint is defined
-      - example_api_endpoint | length > 0
-    fail_msg: example_api_endpoint must be configured
-```
-
-Fail early je lepší než zlyhanie uprostred rollout-u po čiastočných zmenách.
-
-## 8. Undefined values
-
-Undefined variable typicky spôsobí failure pri evaluation. Filter `default` môže poskytnúť fallback:
+Template následne vytvorí artifact:
 
 ```jinja2
-workers = {{ example_workers | default(4) }}
+# managed by Ansible
+release: {{ atlas_release_version }}
+environment: {{ atlas_environment }}
+listen:
+  address: {{ ansible_facts.default_ipv4.address }}
+  port: {{ atlas_listen_port }}
+tls:
+  enabled: {{ atlas_tls_enabled | bool | to_json }}
+database:
+  endpoint: {{ atlas_database_endpoint }}
+workers: {{ atlas_effective_workers }}
 ```
 
-Nadmerné používanie `default` môže skryť missing required configuration. Default používaj iba tam, kde existuje bezpečný a dokumentovaný fallback.
-
-## 9. Registered variables
-
-Task result možno registrovať:
+Task musí artifact validovať pred nahradením aktívneho súboru:
 
 ```yaml
-- name: Read application status
-  ansible.builtin.command: /opt/example/bin/status --json
-  register: example_status
-  changed_when: false
-```
-
-Použitie:
-
-```yaml
-- name: Show version
-  ansible.builtin.debug:
-    var: example_status.stdout
-```
-
-Registered variable existuje pre host, aj keď task skončí skipped alebo failed; presná result štruktúra sa však môže líšiť. Pred prístupom k nested fields over status.
-
-## 10. `set_fact`
-
-`set_fact` vytvorí host-scoped value počas runu:
-
-```yaml
-- name: Calculate endpoint
-  ansible.builtin.set_fact:
-    example_endpoint: "https://{{ inventory_hostname }}:{{ example_port }}"
-```
-
-Je vhodný pre runtime-derived hodnoty. Nevhodné použitie:
-
-- simulovanie imperative mutable variables,
-- komplikované business transformations,
-- skryté cross-play state,
-- secrets bez lifecycle.
-
-`cacheable` môže ovplyvniť fact cache a precedence pri ďalších runs. Tento behavior treba testovať s konkrétnou core/cache konfiguráciou.
-
-## 11. Facts
-
-Facts sú údaje objavené o managed node, napríklad:
-
-- OS family a distribution,
-- network interfaces a addresses,
-- CPU a memory,
-- filesystems a mounts,
-- hostname,
-- Python runtime,
-- devices.
-
-Typický prístup:
-
-```yaml
-ansible_facts['os_family']
-ansible_facts['default_ipv4']['address']
-```
-
-Facts sa často získajú module `ansible.builtin.setup` pri začiatku playu.
-
-## 12. `gather_facts`
-
-```yaml
-- hosts: all
-  gather_facts: true
-```
-
-Výhody:
-
-- jednotný runtime context,
-- platform-aware branching,
-- templates založené na host properties.
-
-Náklady:
-
-- extra connections a runtime,
-- dependency na remote Python a fact modules,
-- veľký variable payload,
-- stale data pri dlhom playbooku,
-- potenciálna expozícia system metadata.
-
-Ak facts nepotrebuješ, vypni ich. Ak potrebuješ iba subset, zvažuj explicitný `setup` filter podľa use case.
-
-## 13. Fact caching
-
-Fact cache umožňuje použiť objavené údaje aj mimo okamžitého gather runu.
-
-Musí mať definované:
-
-- backend,
-- TTL,
-- invalidation,
-- encryption/access,
-- behavior pri stale values,
-- ownership a observability.
-
-Fact cache nie je authoritative CMDB. Runtime host sa mohol zmeniť po poslednom gather-e.
-
-## 14. Custom facts
-
-Managed node môže poskytovať local/custom facts, napríklad cez `facts.d` na podporovaných POSIX systems.
-
-Použitie:
-
-- lokálny application metadata,
-- deployment marker,
-- site-specific capability.
-
-Riziká:
-
-- target môže fact manipulovať,
-- stale file,
-- nejednotný format,
-- privilege a trust ambiguity.
-
-Custom fact nie je bezpečný dôkaz identity bez ďalšej attestation vrstvy.
-
-## 15. Magic variables
-
-Ansible poskytuje reserved variables opisujúce execution context. Bežné príklady:
-
-- `inventory_hostname`,
-- `hostvars`,
-- `groups`,
-- `group_names`,
-- `ansible_play_hosts`,
-- `ansible_play_batch`,
-- `playbook_dir`,
-- `role_path`,
-- `ansible_version`.
-
-Magic variable names neprepisuj vlastnými values.
-
-### Cross-host data
-
-```jinja2
-{{ hostvars[groups['database'][0]]['ansible_host'] }}
-```
-
-Tento pattern je krehký, ak:
-
-- group je prázdna,
-- ordering nie je contract,
-- `ansible_host` chýba,
-- first host nie je leader,
-- inventory sa dynamicky zmení.
-
-Lepšie je publikovať explicitný service endpoint contract.
-
-## 16. Templates
-
-Template je source text spracovaný Jinja templating engine-om na control node a následne doručený na target.
-
-Source:
-
-```jinja2
-# templates/app.conf.j2
-listen_port = {{ example_app_port }}
-environment = {{ example_environment }}
-{% for peer in example_peers %}
-peer = {{ peer }}
-{% endfor %}
-```
-
-Task:
-
-```yaml
-- name: Render application configuration
+- name: Render validated Atlas configuration
   ansible.builtin.template:
-    src: app.conf.j2
-    dest: /etc/example/app.conf
+    src: payments.yml.j2
+    dest: /etc/atlas/payments.yml
     owner: root
-    group: root
+    group: atlas
     mode: "0640"
-  notify: Restart example application
+    validate: /usr/bin/atlas-payments validate --config %s
+  notify: Atlas payments configuration changed
 ```
 
-## 17. Templating location
+Correctness závisí od hodnôt aj ich provenance. Rovnaký text `8443` môže pochádzať z role defaultu, inventory, extra vars alebo stale cached fact-derived výpočtu; tieto zdroje nemajú rovnaký ownership ani audit význam.
 
-Jinja evaluation typicky prebieha na control node v host-specific variable context-e. To znamená:
+## 2. Variable contract, source, scope a precedence
 
-- filters/plugins musia existovať v execution environment-e,
-- local timezone/locale môže ovplyvniť custom logic,
-- lookup môže čítať control-node resources,
-- rendered secret existuje v controller memory a možno temporary files/logs.
+Variable je typed-by-convention dátový vstup. Ansible môže hodnotu načítať z role defaults, inventory, play vars, role parameters, `vars_files`, facts, registered results, `set_fact`, includes alebo extra vars.
 
-Template nie je vykonávaný managed node Jinja interpreterom.
+Pre každú významnú hodnotu definuj:
 
-## 18. Jinja expressions, filters a tests
-
-### Filter
-
-Transformuje hodnotu:
-
-```jinja2
-{{ example_hosts | sort | join(',') }}
+```text
+name a domain meaning
+expected type a valid range
+default alebo required status
+allowed override sources
+host/play/run scope
+secret classification
+owner a compatibility policy
 ```
 
-### Test
+Vyššia precedence znamená, že hodnota vyhrá. Neznamená, že zdroj je architektonicky správny.
 
-Vyhodnocuje vlastnosť alebo condition:
-
-```jinja2
-{% if example_feature is defined %}
-...
-{% endif %}
-```
-
-### Lookup/query
-
-Načíta dáta z control-node alebo external source podľa pluginu.
-
-Lookup plugin je executable dependency a môže pristupovať k environmentu, filesystemu alebo API. Pinned collections a least privilege sú nevyhnutné.
-
-## 19. Native types a serialization
-
-Variables nie sú vždy strings. YAML, filters a module arguments môžu pracovať s boolean, integer, list a mapping typmi.
-
-Kritické pravidlá:
-
-- nepredpokladaj, že text `false` je boolean `false`,
-- serializuj JSON/YAML cez filters namiesto ručného skladania,
-- explicitne quote file mode ako string,
-- testuj templating pri upgrade `ansible-core` a Jinja behavioru.
-
-Moderné `ansible-core` verzie sprísnili niektoré templating semantics. Content musí byť testovaný proti pinned runtime verzii a porting guide.
-
-## 20. Safe serialization
-
-Pre structured config:
-
-```jinja2
-{{ example_config | to_nice_json }}
-```
-
-alebo:
-
-```jinja2
-{{ example_config | to_nice_yaml }}
-```
-
-Neskladaj JSON pomocou string concatenation. Escaping a data types sa ľahko poškodia.
-
-## 21. Template validation
-
-`template` module môže pred replacementom spustiť validation command:
+Praktický contract:
 
 ```yaml
-- name: Render sudo configuration
-  ansible.builtin.template:
-    src: sudoers.j2
-    dest: /etc/sudoers.d/example
-    mode: "0440"
-    validate: /usr/sbin/visudo -cf %s
+atlas_listen_port: 8443       # overridable role default
+atlas_unit_name: atlas-payments.service  # internal constant
 ```
 
-Validation znižuje risk neplatného configu, ale musí byť:
+Role defaults sú vhodné pre podporované customization points. Role vars s vysokou precedence patria skôr interným constants; environment-specific hodnoty v nich môžu znemožniť callerovi vyjadriť správny intent.
 
-- side-effect free,
-- dostupná na targete,
-- správne quote-nutá podľa module semantics,
-- reprezentatívna pre runtime parser.
+## 3. Effective host value subject
 
-## 22. Atomic file update
+Pred mutáciou treba vedieť, aké hodnoty konkrétny host reálne použije. Effective subject zahŕňa:
 
-File-oriented modules sa často snažia použiť temporary file a atomic replace. To pomáha zabrániť partial reads.
+```text
+run/source revision
+inventory sources a host identity
+group memberships
+role a collection version
+play/role parameters
+facts a cache generation
+registered a set_fact values
+extra vars a controller-injected values
+lookup/plugin version a external query identity
+```
 
-Atomicity môže zlyhať alebo byť obmedzená na špecifických filesystems, containers či mountoch. `unsafe_writes` alebo obdobné fallbacky zvyšujú risk corruption/race conditions.
+Ansible neposkytuje jeden univerzálny bezpečný príkaz, ktorý vysvetlí provenance každého value bez rizika secret leakage. Kombinuj:
 
-## 23. Secrets v variables a templates
+- `ansible-inventory --host <host>` pre resolved inventory variables;
+- `ansible-config dump --only-changed` pre effective engine configuration;
+- explicitné redacted preflight assertions;
+- controller job metadata;
+- role contract a source review;
+- task-level debug iba pre allowlisted non-secret fields.
 
-`no_log: true` môže obmedziť zobrazenie task arguments/resultu, ale:
+## 4. Required values, defaults a validation
 
-- neodstráni secret z target file,
-- nechráni pred malicious taskom,
-- nezaručí, že callback alebo dependent command secret nevypíše,
-- nerieši access k inventory/controller credentials,
-- komplikuje troubleshooting.
-
-Secrets majú byť načítané čo najneskôr, používané v najmenšom scope a zapisované iba tam, kde je to nevyhnutné.
-
-## 24. Deterministické templates
-
-Template má pri rovnakom inpute vytvoriť rovnaký output.
-
-Nondeterminism spôsobujú napríklad:
-
-- current timestamp,
-- náhodné hodnoty,
-- unordered data,
-- host-dependent lookup bez contractu,
-- volatile external API.
-
-Ak sa do configu zapisuje timestamp pri každom run-e, task bude stále `changed` a handler sa stále spustí.
-
-## 25. Variable validation
-
-Validuj:
-
-- required values,
-- allowed enum,
-- numeric ranges,
-- mutually exclusive options,
-- list uniqueness,
-- hostname/IP format podľa potreby,
-- cross-variable invariants.
-
-Príklad:
+Required input má zlyhať pred side effects:
 
 ```yaml
-- name: Validate application inputs
+- name: Validate Atlas inputs
   ansible.builtin.assert:
     that:
-      - example_replicas | int >= 1
-      - example_environment in ['dev', 'stage', 'prod']
-      - example_tls_enabled | bool or example_environment != 'prod'
+      - atlas_environment in ['dev', 'stage', 'production']
+      - atlas_listen_port | int > 0
+      - atlas_listen_port | int < 65536
+      - atlas_tls_enabled | bool or atlas_environment != 'production'
+      - atlas_database_endpoint is defined
+      - atlas_database_endpoint | length > 0
+    fail_msg: Atlas configuration contract is invalid
 ```
 
-## 26. Troubleshooting
+`default()` je vhodný iba pre bezpečný a dokumentovaný fallback. Použitie defaultu na production database endpoint alebo TLS flag konvertuje missing intent na tichú konfiguráciu.
 
-### Variable je undefined
+Dátový typ je súčasť contractu. Text `"false"` a boolean `false` nemusia mať rovnaké správanie pri každej expression. Critical inputs validuj a normalizuj raz, nie ad hoc v každom tasku.
 
-Over exact name, scope, host/group membership, include timing, registered task status a role contract.
+## 5. Facts sú observations, nie desired state
 
-### Hodnota je iná než očakávaná
+Facts opisujú host v čase gather-u:
 
-Nájdi všetky definitions a porovnaj precedence. Extra vars alebo role vars často prepisujú nižšie sources.
+```yaml
+ansible_facts.os_family
+ansible_facts.distribution_major_version
+ansible_facts.default_ipv4.address
+ansible_facts.memtotal_mb
+```
 
-### Fact chýba
+Sú vhodné na platform capability selection a host-specific render. Nie sú automaticky authoritative CMDB ani immutable identity proof.
 
-Over `gather_facts`, `setup` success, platform support, remote Python, fact subset/filter a cache freshness.
+Fact lifecycle:
 
-### Template je stále changed
+```text
+connection a module runtime
+→ setup alebo custom fact read
+→ host-scoped observation
+→ optional cache write
+→ later condition/render use
+→ expiry alebo invalidation
+```
 
-Porovnaj rendered diff, ordering collections, whitespace, timestamps, generated IDs a line endings.
+Fact cache potrebuje backend, TTL, source/run identity, invalidation a maximum acceptable age. Host môže byť preinštalovaný, IP sa môže zmeniť a custom fact môže zostať na disku po starom deploymente.
 
-### Template syntax zlyhá po upgrade
+## 6. Worked failure: stale fact cache vybral starý platform path
 
-Over pinned `ansible-core`, collection/filter versions a porting guide. Spusti syntax, unit a representative rendering tests.
+Host `app-09` bol aktualizovaný z OS major version 8 na 9. Fact cache má TTL 24 hodín a production run použije cached value `8`.
 
-### Secret sa zobrazil v logu
+```text
+host runtime je OS 9
+→ stale fact tvrdí OS 8
+→ condition načíta legacy task path
+→ template používa deprecated directive
+→ parser validation zlyhá až po package alebo file side effects
+```
 
-Okamžite revoke/rotate secret, odstráň log access, audituj použitie a oprav task/callback design. Samotné dodatočné `no_log` nerieši kompromitovaný credential.
+Fix nie je zvýšiť počet retries. Pre platform migration vyžaduj fresh gather alebo explicitný capability probe a viaž cache generation na run evidence.
 
-## 27. Anti-patterny
+## 7. Registered values a `set_fact`
 
-### Rovnaká variable definovaná na piatich úrovniach
+Registered result je host-scoped observation z konkrétneho tasku:
 
-Precedence nahrádza jasný contract.
+```yaml
+- name: Read Atlas runtime metadata
+  ansible.builtin.command:
+    argv: [/usr/bin/atlas-payments, runtime, --json]
+  register: atlas_runtime_result
+  changed_when: false
+  failed_when: atlas_runtime_result.rc != 0
+```
 
-### `extra-vars` ako bežná configuration databáza
+Jeho schema závisí od task outcome. Skipped alebo failed result nemusí mať rovnaké nested fields ako successful result.
 
-Najvyššia precedence skryje repository defaults a znižuje reprodukovateľnosť.
+`set_fact` vytvára derived host value počas runu:
 
-### Facts ako permanentný source of truth
+```yaml
+- name: Derive bounded worker count
+  ansible.builtin.set_fact:
+    atlas_effective_workers: "{{ [ansible_facts.memtotal_mb // 1024, 8] | min }}"
+```
 
-Facts sú runtime observation s freshness limitom.
+Používaj ho pre jasné derivácie, nie ako imperative mutable store. `cacheable` môže preniesť hodnotu do budúcich runs a zmeniť freshness aj precedence behavior; preto potrebuje explicitný lifecycle.
 
-### Celý `hostvars` object v template
+## 8. Cross-host data a stable service contracts
 
-Vytvára široký coupling a môže leaknúť citlivé variables.
+Prístup cez `hostvars` je možný, ale krehký:
 
-### Business logika v Jinja template
+```jinja2
+{{ hostvars[groups['database'][0]].ansible_host }}
+```
 
-Configuration generator sa stane nečitateľným programom bez testovateľného contractu.
+Tento expression predpokladá, že group existuje, ordering má význam, prvý host je správny endpoint a jeho values sú dostupné a fresh.
 
-### Timestamp v každom generated configu
+Pre shared service endpoint preferuj explicitný contract z inventory, service discovery alebo controlled lookup:
 
-Porušuje idempotenciu bez runtime prínosu.
+```yaml
+atlas_database_endpoint: db.prod.internal:5432
+```
 
-### `default()` na povinné hodnoty
+Cross-host inference je execution dependency. Musí mať identity, availability a freshness semantics, nie iba fungovať v jednom inventory snapshot-e.
 
-Missing configuration zostane skrytá.
+## 9. Template rendering a artifact identity
 
-## 28. Rozhodovací rámec
+Jinja rendering typicky prebieha na control node-e v host-specific variable context-e. Výsledok preto závisí od:
 
-1. Kto vlastní variable a na akej úrovni sa smie override-nuť?
-2. Je variable public role input alebo internal constant?
-3. Aký type a validation contract potrebuje?
-4. Je hodnota secret a aký má lifecycle?
-5. Potrebujem fact, inventory metadata alebo external source?
-6. Aká freshness facts je prijateľná?
-7. Je cross-host referencia stabilný contract?
-8. Je template deterministický a validovaný?
-9. Ako sa testuje rendering proti podporovaným versions?
-10. Aké logs, diffs a artifacts môžu obsahovať citlivé dáta?
+- source template revision;
+- execution environment, `ansible-core` a Jinja version;
+- filter, test a lookup plugins;
+- effective host values;
+- external lookup results;
+- locale/timezone alebo custom code podľa implementácie.
 
-## 29. Kontrolné otázky
+Configuration artifact subject má obsahovať aspoň:
 
-1. Aký je rozdiel medzi variable source, scope a precedence?
-2. Kedy používať role defaults a kedy role vars?
-3. Čo je registered variable?
-4. Aké riziká má `set_fact`?
-5. Čo sú Ansible facts a magic variables?
-6. Prečo fact cache potrebuje TTL?
-7. Kde sa renderuje Jinja template?
-8. Aký je rozdiel medzi filter, test a lookup?
-9. Ako template validation znižuje risk?
-10. Prečo `no_log` nie je kompletná secret ochrana?
+```text
+template source digest
+execution environment digest
+host stable identity
+effective non-secret input manifest
+fact/cache generation
+lookup dependency identities
+rendered artifact checksum
+validation command/result
+destination path a ownership
+```
+
+## 10. Deterministic rendering
+
+Rovnaký subject má vytvoriť rovnaký artifact. Nondeterminism vzniká z timestampov, random hodnôt, unordered collections alebo volatile lookups.
+
+Zlé:
+
+```jinja2
+generated_at: {{ now() }}
+```
+
+Každý run zmení checksum, template task reportuje `changed` a handler reštartuje službu aj bez functional change.
+
+Pre structured configuration používaj serializačné filters:
+
+```jinja2
+{{ atlas_feature_map | to_nice_json }}
+```
+
+Ručné skladanie JSON/YAML cez string concatenation poškodzuje escaping a typy.
+
+## 11. Validation, atomic publication a runtime load
+
+Template success má viac fáz:
+
+```text
+render temporary artifact
+→ validate parser/domain invariants
+→ atomic replace, ak filesystem podporuje
+→ report changed podľa content delta
+→ notify handler
+→ process reload/restart
+→ verify loaded artifact checksum/version
+```
+
+`validate` musí byť side-effect free a reprezentatívny pre runtime parser. Atomic file replace chráni pred partial reads, ale nie pred semantic incompatibility, nesprávnym destination pathom ani procesom, ktorý config znovu nenačíta.
+
+Fallback typu unsafe writes zvyšuje race a corruption risk a musí byť explicitne zdôvodnený podľa filesystem/runtime boundary.
+
+## 12. Worked failure: extra vars ticho prepli production endpoint
+
+Controller job template povoľuje operator-defined extra vars. Operátor pri rerun-e ponechá starú hodnotu:
+
+```text
+atlas_database_endpoint=db.stage.internal:5432
+```
+
+Extra vars majú vysokú precedence:
+
+```text
+inventory definuje production endpoint
+→ controller injektuje stale extra var
+→ effective value je staging endpoint
+→ template a parser validation prejdú
+→ production process sa pripojí do staging databázy
+```
+
+Syntax a parser correctness neoverujú environment identity. Production preflight musí porovnať endpoint s allowlisted environment/service identity a uchovať redacted effective input evidence.
+
+## 13. Worked failure: timestamp vytvoril perpetual restart loop
+
+Template zapisuje current timestamp. Pri každom scheduled convergence run-e:
+
+```text
+nový timestamp
+→ nový artifact checksum
+→ template reports changed
+→ handler restartuje service
+→ druhý run nie je no-change
+```
+
+Dôsledkom môže byť pravidelný availability drop, session loss a alert noise. Generated timestamp patrí do deployment evidence alebo runtime metadata, nie do desired configu, ak nemá functional význam.
+
+## 14. Secrets v values a artifacts
+
+`no_log: true` obmedzuje bežný task output, ale nie je secret lifecycle:
+
+- secret stále existuje v controller memory;
+- lookup alebo custom plugin ho môže leaknúť;
+- rendered file ho môže obsahovať;
+- validation command alebo process ho môže vypísať;
+- diff, callback a downstream debug môžu secret odhaliť;
+- cached fact alebo registered result môže predĺžiť exposure.
+
+Secret načítaj čo najneskôr, používaj v najmenšom scope, neukladaj do fact cache a po exposure ho revoke/rotate. Dodatočné pridanie `no_log` neopraví kompromitovaný credential.
+
+## 15. Causal troubleshooting walkthrough: jeden host používa nesprávny database endpoint
+
+`app-07` po green run-e používa staging endpoint. Ostatné production hosts používajú správny endpoint.
+
+### 1. Zafixuj artifact subject
+
+Zaznamenaj host stable ID, run/source revision, role/collection a execution image, inventory sources, group membership, fact cache generation, template digest, destination checksum a loaded runtime version.
+
+### 2. Súťažiace hypotézy
+
+1. Host-specific alebo group variable prepísala production value.
+2. Extra var alebo controller credential field bolo aplikované iba na recovery job.
+3. Duplicate inventory definition zmenila host group membership.
+4. Stale cached fact alebo `set_fact` zvolil nesprávnu derived branch.
+5. `hostvars` vybral nestabilný prvý database host.
+6. Lookup plugin čítal staging path alebo environment.
+7. Správny artifact bol vyrenderovaný, ale proces načítava iný file path.
+8. Artifact sa po Ansible run-e zmenil druhým writerom.
+
+### 3. Diskriminačné observation points
+
+- `ansible-inventory --host app-07` a group graph;
+- controller job extra vars metadata bez secret values;
+- redacted effective-value preflight;
+- fact cache timestamp a raw fresh capability observation;
+- lookup request identity a path;
+- rendered artifact checksum/content allowlist comparison;
+- process command line, open file/config endpoint a loaded version;
+- host audit/file modification timeline.
+
+### 4. Containment
+
+Odstráň host z trafficu a zablokuj ďalší rollout s rovnakým value subjectom. Ak sa použili production credentials voči staging systému alebo opačne, začni identity a data-impact audit.
+
+### 5. Recovery
+
+- precedence/source error → odstráň nesprávny override a zúž allowed sources;
+- stale fact → invaliduj cache a použi fresh observation;
+- cross-host inference → nahraď explicitným service contractom;
+- wrong lookup → oprav environment-scoped path/identity;
+- wrong runtime path → zosúlaď destination a process config source;
+- second writer → odstráň ownership konflikt a obnov artifact.
+
+### 6. Over pôvodný outcome
+
+Potvrď production endpoint cez process-level/runtime API na všetkých expected hosts, artifact checksum a fresh second run bez unintended changes.
+
+### 7. Posuň control skôr
+
+Pridaj effective-value manifest, environment identity assertion, cache-age gate, deterministic render regression test a loaded-config oracle.
+
+## 16. Referenčné pravidlá
+
+- Precedence určuje víťaza, nie správneho ownera.
+- Critical value potrebuje type, scope, source a validation contract.
+- Facts sú časovo ohraničené observations.
+- Cached facts a `set_fact cacheable` menia lifecycle medzi runs.
+- `hostvars` vytvára cross-host dependency.
+- Jinja sa renderuje v controller runtime a používa executable plugins.
+- Template output je deployovaný artifact s vlastnou identitou.
+- Parser validation nenahrádza environment ani runtime verification.
+- Deterministic template je predpoklad idempotencie.
+- `no_log` nie je revocation, storage ani access-control mechanizmus.
+
+## 17. Kontrolné otázky
+
+1. Čo tvorí effective host value subject?
+2. Prečo vysoká precedence neznamená správny ownership?
+3. Kedy je `default()` bezpečný a kedy skrýva missing intent?
+4. Prečo fact cache potrebuje generation a TTL?
+5. Aké riziká má cached `set_fact`?
+6. Prečo je výber `groups['database'][0]` krehký?
+7. Ktoré identity určujú template artifact?
+8. Ako timestamp v configu porušuje convergence?
+9. Čo validation a atomic replace dokážu a čo nie?
+10. Ako dokážeš, že proces načítal správny vyrenderovaný artifact?
 
 ## Glossary impact
 
-Relevantné pojmy: Ansible variable, variable precedence, variable scope, role defaults, role vars, registered variable, `set_fact`, Ansible facts, fact gathering, fact cache, custom facts, magic variable, `hostvars`, Jinja template, filter, test, lookup plugin, template validation, deterministic template a `no_log`.
+Relevantné pojmy: effective host value subject, variable ownership contract, variable provenance, fact observation, fact cache generation, derived host value, cross-host value dependency, template artifact subject, deterministic rendering, parser validation, atomic configuration publication, loaded-artifact verification a secret-bearing render path.
 
 ## Oficiálna dokumentácia
 
