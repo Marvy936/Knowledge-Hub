@@ -1,495 +1,417 @@
 # etcd backup a restore
 
-Etcd je konzistentný distribuovaný key-value store, v ktorom Kubernetes uchováva API object state. Pri self-managed control plane je etcd snapshot jadrom cluster-state backupu, ale nie je úplným backupom celej platformy ani application dát. Obnova musí rešpektovať quorum, revision history, PKI, encryption keys, API server konfiguráciu a external resources.
+Etcd snapshot nie je iba súbor databázy. Je to recovery artifact pre konkrétnu API-state generation, revision a cluster identity. Bez integrity, PKI/encryption materialu, external-state inventory, application-data koordinácie a testovaného restore postupu môže byť snapshot technicky validný, ale prevádzkovo nepoužiteľný alebo nebezpečný.
 
-## 1. Čo etcd obsahuje
-
-Etcd typicky obsahuje:
-
-- Kubernetes API objekty,
-- workload specs a status,
-- Secrets a ConfigMaps,
-- RBAC a ServiceAccounts,
-- CRDs a custom resources,
-- leases, endpoints a controller state,
-- admission a cluster configuration uloženú cez API.
-
-Etcd neobsahuje automaticky:
-
-- data v persistent volumes,
-- container images,
-- Node filesystemy,
-- external load balancers, DNS alebo IAM,
-- Git repository s deklaratívnym source,
-- private keys, ktoré sú iba na filesysteme,
-- encryption-at-rest configuration file a external KMS keys,
-- logs, metrics a traces uložené mimo API.
-
-## 2. Quorum model
-
-Etcd používa consensus. Cluster s `N` members potrebuje väčšinu:
+Táto kapitola používa jeden dominantný lifecycle:
 
 ```text
-quorum = floor(N / 2) + 1
+recovery objectives a authoritative state inventory
+→ healthy etcd source, cluster identity a revision
+→ snapshot creation a metadata
+→ integrity, encryption a offsite retention
+→ complete recovery-set binding
+→ repair-versus-restore decision
+→ write isolation a evidence preservation
+→ restore ako nový logical etcd cluster
+→ revision bump/compaction a API-server rebind
+→ controller, external a application-state reconciliation
+→ traffic reopening a recovery closure
+→ recurring restore rehearsal a retention
 ```
 
-Príklady:
+## 1. Atlas recovery subject
 
-- 1 member → potrebuje 1,
-- 3 members → potrebuje 2,
-- 5 members → potrebuje 3.
-
-Pridanie párneho člena nezvýši počet tolerovaných súčasných výpadkov oproti predchádzajúcemu nepárnemu počtu a môže rozšíriť operational surface.
-
-## 3. Stacked a external etcd
-
-### Stacked etcd
-
-Etcd member beží na každom control-plane Node-e, často ako static Pod. Data directory býva napríklad:
+Cluster `atlas-prod-eu2` používa 3-member stacked etcd. Recovery subject musí obsahovať:
 
 ```text
-/var/lib/etcd
+Kubernetes cluster identity a control-plane endpoint
+etcd cluster ID, member names/IDs a peer URLs
+etcd version a data-directory generation
+snapshot hash, revision, key count, size a creation time
+Kubernetes/etcd PKI a certificate generation
+API encryption configuration a KMS/key history
+static Pod/kubeadm/component configuration
+external resource inventory
+application-data backup generations
+RPO, RTO a traffic-reopen verdict
 ```
 
-### External etcd
+Snapshot filename ani timestamp bez trusted metadata túto identitu nenahrádza.
 
-Etcd cluster má vlastné hosts, certificates, monitoring a lifecycle.
+## 2. Čo etcd obsahuje a čo nie
 
-Pri oboch modeloch musí backup vedieť:
+Etcd typicky obsahuje Kubernetes API objects:
 
-- endpointy,
-- CA a client certificate paths,
-- etcd verziu,
-- member topology,
-- data directory,
-- API server etcd connection configuration.
+- workload specs/status;
+- Secrets, ConfigMaps a ServiceAccounts;
+- RBAC a admission configuration uloženú cez API;
+- Services, EndpointSlices, Leases a controller state;
+- CRDs a custom resources;
+- PVC/PV/VolumeAttachment objects.
 
-## 4. Snapshot vs. filesystem copy
+Neobsahuje automaticky:
 
-### Online snapshot
+- persistent-volume content;
+- container images;
+- host filesystem a local PKI files;
+- external LB, DNS, IAM, disks alebo queues;
+- API encryption config file, KMS keys a CA private keys;
+- Git/IaC source;
+- application-consistent database backup;
+- logs, metrics a traces mimo API.
 
-Preferovaný spôsob:
+Etcd restore obnovuje API intent/history do snapshot revision. Neobnovuje automaticky celý business system.
 
-```bash
-ETCDCTL_API=3 etcdctl \
-  --endpoints=https://127.0.0.1:2379 \
-  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
-  --cert=/etc/kubernetes/pki/etcd/healthcheck-client.crt \
-  --key=/etc/kubernetes/pki/etcd/healthcheck-client.key \
-  snapshot save /secure-backup/etcd-snapshot.db
-```
+## 3. Quorum, repair a disaster recovery
 
-Snapshot získaný cez etcd API má integrity metadata.
-
-### Filesystem copy
-
-Kopírovanie live data directory bez koordinácie môže vytvoriť nekonzistentnú alebo neoverenú kópiu. Pri offline data-directory backup-e musí byť etcd bezpečne zastavený a musí sa zachovať celý required state podľa etcd dokumentácie.
-
-## 5. Snapshot z leadera
-
-Snapshot je možné získať z healthy endpointu. Pri automatizácii over:
-
-- endpoint health,
-- kto je leader,
-- aktuálnu revision,
-- snapshot duration a size,
-- filesystem capacity,
-- úspešné dokončenie a hash.
-
-Nespoliehaj sa iba na exit code wrapper skriptu; validuj výsledný snapshot.
-
-## 6. Snapshot status
-
-Moderné etcd verzie používajú `etcdutl` na offline snapshot inspection a restore:
-
-```bash
-etcdutl --write-out=table snapshot status /secure-backup/etcd-snapshot.db
-```
-
-Over najmä:
-
-- hash/integrity,
-- revision,
-- total keys,
-- size,
-- creation timestamp z backup metadata,
-- etcd/tool version compatibility.
-
-Snapshot file bez úspešného status checku a restore testu nie je dôveryhodný backup.
-
-## 7. Backup frekvencia
-
-Frekvencia vychádza z RPO:
+Etcd cluster potrebuje majority:
 
 ```text
-maximálna prijateľná strata API state-u
+quorum = floor(member_count / 2) + 1
 ```
 
-Cluster s častými:
+Ak quorum existuje, restore nemusí byť správna prvá akcia. Často je bezpečnejšie:
 
-- deployments,
-- Job/CronJob zmenami,
-- certificate requests,
-- operators/custom resources,
-- dynamic provisioning,
-- identity a RBAC zmenami
-
-môže potrebovať častejšie snapshots než statický cluster.
-
-RPO etcd a RPO application dát musia byť koordinované. Obnova API state-u na čas T a databázy na čas T−6h môže vytvoriť nekonzistentný systém.
-
-## 8. Backup storage
-
-Snapshot ukladaj:
-
-- mimo etcd hosta,
-- mimo rovnakého failure domainu,
-- šifrovane,
-- s least-privilege write/read identities,
-- s immutable alebo object-lock retention podľa rizika,
-- s checksumom a metadata,
-- s pravidelným restore testom.
-
-Snapshot môže obsahovať Kubernetes Secrets a ďalšie citlivé API dáta. Aj pri encryption at rest musia byť chránené encryption keys a configuration.
-
-## 9. Backup set
-
-Kompletný recovery set zahŕňa:
-
-- etcd snapshot,
-- etcd CA/client/peer certificates podľa topológie,
-- Kubernetes CA a ServiceAccount signing keys podľa recovery plánu,
-- API server encryption configuration,
-- external KMS state alebo keys,
-- static Pod manifests/component config,
-- kubeadm config a cluster endpoint metadata,
-- CNI/CSI/add-on versions a manifests,
-- persistent application data backups,
-- DNS/LB/IAM/firewall infrastructure source,
-- restore runbook.
-
-Private keys v backup sete musia mať silnejší access model než bežné manifests.
-
-## 10. Kedy restore nepoužiť
-
-Restore nie je prvá reakcia na každý etcd incident.
-
-Ak quorum stále existuje, môže byť vhodnejšie:
-
-- opraviť alebo nahradiť failed member,
-- obnoviť connectivity,
-- odstrániť disk pressure,
-- vykonať defragmentáciu/maintenance,
-- vyriešiť certificate expiry,
+- obnoviť connectivity;
+- nahradiť failed member;
+- odstrániť disk pressure;
+- opraviť TLS/time;
+- vykonať maintenance/defragmentation;
 - obnoviť API server endpoint.
 
-Snapshot restore je cluster-state rollback alebo disaster recovery. Môže stratiť všetky zmeny po snapshot revision.
+Snapshot restore je disaster-recovery alebo logical rollback operation. Všetky changes po snapshot revision môžu byť stratené a external state sa môže rozísť.
 
-## 11. Recovery rozhodnutie
+## 4. Snapshot creation subject
 
-Pred obnovou zaznamenaj:
+Preferovaný online snapshot používa healthy endpoint a authenticated TLS client. Backup operation musí zaznamenať:
 
-- posledný healthy timestamp,
-- aktuálnu member list a health,
-- dostupnosť quorum,
-- podozrenie na corruption,
-- snapshot revisions a časy,
-- posledné významné workload/storage/RBAC zmeny,
-- dostupnosť application data backups,
-- možnosť exportovať current evidence.
+- selected endpoint/member a health;
+- leader/member inventory;
+- source cluster ID a current revision;
+- command/tool version;
+- start/end time;
+- destination path a free space;
+- resulting hash, keys a size;
+- copy/retention destination;
+- operation identity a audit event.
 
-Náhodné spustenie restore na jednom členovi existujúceho clusteru môže vytvoriť split-brain alebo identity konflikt.
+Live filesystem copy bez koordinácie nie je ekvivalent API snapshotu. Offline data-directory backup vyžaduje riadené zastavenie a exact etcd-version workflow.
 
-## 12. Restore vytvára nový logical cluster
+## 5. Integrity a recovery-set binding
 
-Etcd restore typicky vytvorí nový data directory a nové member/cluster metadata z poskytnutej konfigurácie.
+`etcdutl snapshot status` overuje hash, revision, keys a size. To je artifact integrity, nie úplný recovery test.
 
-Zjednodušený single-member príklad pre izolovaný recovery lab:
+Snapshot musí byť viazaný na recovery set:
 
-```bash
-etcdutl snapshot restore /secure-backup/etcd-snapshot.db \
-  --name control-plane-1 \
-  --initial-cluster control-plane-1=https://10.0.0.11:2380 \
-  --initial-advertise-peer-urls https://10.0.0.11:2380 \
-  --data-dir /var/lib/etcd-restored
+```text
+etcd snapshot
++ etcd a Kubernetes PKI
++ API encryption/KMS material
++ kubeadm/static Pod/component config
++ control-plane endpoint/infra metadata
++ CNI/CSI/DNS/admission versions
++ Git/IaC a image artifacts
++ application-data backups
++ restore runbook a authorized identities
 ```
 
-Produkčný príkaz musí presne zodpovedať:
+Snapshot obsahuje citlivé API dáta vrátane Secrets. Ukladaj ho off-host, mimo rovnakého failure domainu, šifrovane, s least privilege, immutable retention a auditom.
 
-- počtu members,
-- member names,
-- peer URLs,
-- data directories,
-- TLS a API server topology.
+## 6. RPO, RTO a cross-system consistency
 
-Nikdy nekopíruj príklad bez adaptácie a testu na rovnakú verziu/topológiu.
+Etcd RPO je maximálna prijateľná strata API-state changes. Musí byť koordinovaný s:
 
-## 13. Revision bump a informer cache
-
-Po restore sa etcd revision vráti na hodnotu snapshotu. Kubernetes controllers a clients môžu mať cache alebo watch assumptions založené na vyššej revision pred incidentom.
-
-Aktuálne etcd recovery tooling podporuje pri restore mechanizmy ako:
-
-```bash
---bump-revision <delta>
---mark-compacted
-```
-
-Ich cieľom je posunúť revision a označiť starú históriu ako compacted, aby watchers vykonali relist namiesto použitia stale cache assumptions.
-
-Použitie musí vychádzať z dokumentácie konkrétnej etcd verzie a testovaného Kubernetes recovery runbooku. Arbitrárny malý revision bump nemusí prekročiť pôvodnú revision.
-
-## 14. Stacked kubeadm restore flow
-
-Typický riadený flow:
-
-1. zastav alebo izoluj API server writes,
-2. zachovaj current data directories a logs ako evidence,
-3. over snapshot status a recovery metadata,
-4. restore-ni snapshot do nového data directory,
-5. aktualizuj etcd static Pod manifest `hostPath`/arguments podľa plánu,
-6. obnov etcd members sekvenčne podľa topológie,
-7. over etcd endpoint a member health,
-8. obnov API servers,
-9. over API resources, controllers a Nodes,
-10. vykonaj application/data consistency kontrolu.
-
-Pri HA topológii musí byť celý restored etcd cluster vytvorený konzistentne. Nemiešaj staré a restored member state.
-
-## 15. API server koordinácia
-
-Počas restore zabráň API serverom zapisovať do starého alebo čiastočne obnoveného etcd clusteru.
-
-Over API server flags/config:
-
-- etcd endpoints,
-- `--etcd-cafile`,
-- `--etcd-certfile`,
-- `--etcd-keyfile`,
-- encryption provider configuration,
-- storage prefix podľa architektúry.
-
-Po zmene endpointov/certificates musia všetky API server replicas používať rovnaký autoritatívny etcd cluster.
-
-## 16. Encryption at rest
-
-Ak API server šifroval Secrets/resources pred zápisom do etcd, snapshot obsahuje ciphertext.
-
-Na restore potrebuješ:
-
-- rovnakú encryption configuration,
-- required key material alebo KMS provider,
-- správne poradie providers,
-- dostupný KMS endpoint a identity,
-- rotation history potrebnú na decrypt starších dát.
-
-Snapshot bez decryption keys môže byť integrity-valid, ale prakticky nepoužiteľný.
-
-## 17. Certificates a identity
-
-Etcd peer a client TLS závisí od:
-
-- CA,
-- SANs,
-- member names a addresses,
-- file permissions,
-- system time,
-- certificate expiry.
-
-Pri recovery na nové IP/hostnames môže byť potrebné znovu vydať certificates. Nepoužívaj vypnutie TLS ako rýchlu opravu produkčného restore.
-
-## 18. Post-restore validácia
-
-### Etcd
-
-```bash
-ETCDCTL_API=3 etcdctl endpoint health --cluster ...
-ETCDCTL_API=3 etcdctl endpoint status --cluster --write-out=table ...
-ETCDCTL_API=3 etcdctl member list --write-out=table ...
-```
-
-Over:
-
-- všetky members healthy,
-- jeden leader,
-- rovnakú cluster ID perspektívu,
-- konzistentné revisions a raft state,
-- disk latency/space.
-
-### Kubernetes API
-
-```bash
-kubectl get --raw='/readyz?verbose'
-kubectl get nodes
-kubectl get pods -A
-kubectl get events -A --sort-by=.metadata.creationTimestamp
-```
-
-### Controllers a workloads
-
-Over:
-
-- controller-manager a scheduler leadership,
-- EndpointSlices a Services,
-- Deployments/StatefulSets/Jobs,
-- PVC/PV/VolumeAttachments,
-- admission webhooks,
-- Secrets a ServiceAccounts,
-- operators/custom resources,
-- CNI/CSI/DNS.
-
-## 19. External state reconciliation
-
-Etcd rollback môže obnoviť API object, ktorého external resource už neexistuje, alebo odstrániť object pre external resource, ktorý stále existuje.
-
-Príklady:
-
-- cloud load balancer,
-- disk/PV,
-- DNS record,
-- certificate,
-- external secret,
-- operator-managed database.
-
-Po restore controllers začnú znovu reconcile-ovať. Pred otvorením production trafficu analyzuj potenciálne destructive side effects.
-
-## 20. Application data consistency
+- database/data-volume RPO;
+- queue a object-storage checkpoints;
+- deployment/schema generation;
+- certificate/secret rotation;
+- external LB/DNS/cloud resources.
 
 Príklad:
 
-- etcd snapshot obsahuje StatefulSet a PVC z 10:00,
-- database backup je z 09:30,
-- application deployment z 09:50 očakáva novšiu schema.
+```text
+etcd snapshot: 10:00
+database backup: 09:30
+release 5.4.0/schema change: 09:50
+```
 
-Cluster API state môže byť úspešne obnovený, ale application je nekonzistentná.
+Technicky úspešný etcd restore môže vytvoriť workload, ktorý očakáva schema absentnú v databázovom backup-e.
 
-Recovery plan musí koordinovať:
+RTO sa meria až po obnovení API, controllers, storage, external dependencies a critical business journey — nie po štarte etcd processu.
 
-- deployment revision,
-- database schema,
-- persistent data,
-- secrets/certificates,
-- external queues/object storage,
-- traffic reopening.
+## 7. Restore decision a evidence boundary
 
-## 21. Restore test
+Pred restore zachyť:
 
-Pravidelný restore test má:
+- member list, health, leader a quorum;
+- current revisions/alarms/hash evidence;
+- logs a data directories;
+- posledný healthy timestamp;
+- available snapshots a metadata;
+- recent RBAC, Secret, Deployment, PVC a CRD changes;
+- external resources vytvorené po snapshot čase;
+- application-data backup generations;
+- suspected corruption/disk/root-cause evidence.
 
-1. vybrať reálny backup artifact,
-2. overiť integrity a decryption access,
-3. obnoviť izolovaný cluster alebo recovery environment,
-4. zmerať RTO,
-5. validovať API resources a critical workloads,
-6. vykonať application data restore/consistency test,
-7. zaznamenať gaps a aktualizovať runbook,
-8. bezpečne zlikvidovať citlivý test environment.
+Neobnovuj jeden member do existujúceho quorum ad hoc. Restore vytvára nový logical cluster/member state; miešanie old a restored state môže vytvoriť identity alebo consensus konflikt.
 
-Test iba príkazu `snapshot status` nie je disaster-recovery test.
+## 8. Write isolation a restored cluster generation
 
-## 22. Monitoring
+Po rozhodnutí restore:
 
-Sleduj:
+```text
+contain client/API writes
+→ preserve old member data a logs
+→ verify selected snapshot/recovery set
+→ restore všetky planned members do clean data dirs
+→ configure exact member names/peer URLs
+→ establish one restored cluster identity
+→ start/verify etcd
+→ point all API servers na rovnaký cluster
+```
 
-- snapshot success/failure,
-- snapshot age a revision,
-- file size a duration,
-- offsite copy completion,
-- restore-test age a výsledok,
-- etcd leader changes,
-- proposal failures,
-- fsync/commit latency,
-- database quota/size,
-- disk capacity a inodes,
-- member health a clock skew.
+Počas transition nesmú niektoré API servers zapisovať do starého etcd a iné do restored etcd.
 
-Alert na neúspešný backup je kritickejší než dashboard zobrazujúci iba etcd `up`.
+TLS, SANs, peer mapping, file permissions, system time a initial-cluster configuration musia zodpovedať novej topology.
 
-## 23. Corruption
+## 9. Revision rollback a Kubernetes informer caches
 
-Pri podozrení na corruption:
+Restore vráti keyspace na snapshot revision. Controllers a clients mohli pred incidentom vidieť vyššie revisions a držať caches/watch state.
 
-- zastav automatické destructive pokusy,
-- zachovaj logs a data directories,
-- porovnaj member hashes podľa podporovaného etcd workflowu,
-- identifikuj healthy member/snapshot,
-- nevytváraj snapshot z neovereného corrupted source ako jediný backup,
-- postupuj podľa etcd data-corruption recovery dokumentácie.
+Etcd recovery tooling podporuje:
 
-Disk/filesystem/kernel chyby môžu byť root cause; samotný restore na rovnaký chybný disk incident zopakuje.
+- revision bump;
+- marking restored history compacted.
 
-## 24. Troubleshooting
+Cieľom je vytvoriť revision vyššiu než predchádzajúca observed history a prinútiť watchers k relistu namiesto pokračovania zo stale cache assumption. Hodnota bump-u musí vychádzať z revision rate, outage window a testovaného runbooku; arbitrárny malý delta nemusí stačiť.
 
-### `context deadline exceeded` pri snapshot save
+## 10. API server a encryption boundary
 
-Over endpoint health, TLS, leader/network latency, disk write capacity a snapshot size.
+Všetky API servers musia používať:
 
-### Snapshot status hlási hash mismatch
+- rovnaké restored etcd endpoints;
+- správny etcd CA/client certificate;
+- rovnaký storage prefix;
+- compatible API server version;
+- správnu encryption configuration a KMS access.
 
-Artifact je poškodený alebo nekompletný. Nepoužívaj ho bez ďalšieho forensic overenia.
+Snapshot môže byť hash-validný, ale Secrets nečitateľné, ak chýba staršia encryption key generation alebo KMS provider. Recovery set musí zachovať key order/history potrebnú na decrypt existujúcich records.
+
+## 11. Post-restore reconciliation
+
+### Etcd a API
+
+Over:
+
+```text
+member health, one leader a cluster ID
+revision/raft consistency
+latency, disk space a alarms
+API read, write a watch
+admission a authentication
+```
+
+### Kubernetes controllers
+
+Over leadership, queues, relists a reconciliation pre:
+
+- Deployments/StatefulSets/Jobs;
+- Services/EndpointSlices;
+- PVC/PV/VolumeAttachments;
+- Secrets/ServiceAccounts/RBAC;
+- CRDs/operators;
+- CNI/CSI/DNS a admission webhooks.
+
+### External state
+
+Etcd rollback môže:
+
+- obnoviť object pre už neexistujúci cloud resource;
+- odstrániť object pre stále existujúci disk/LB/DNS/certificate;
+- vrátiť staré Secret alebo RBAC intent;
+- spustiť controller, ktorý external resource znovu vytvorí alebo zmaže.
+
+Pred otvorením trafficu analyzuj destructive reconcile possibilities a rozhodni canonical external state.
+
+## 12. Application a traffic acceptance
+
+Recovery verdict musí overiť:
+
+- correct deployment/image/schema generation;
+- správne PVC/data a fencing identity;
+- current credentials/certificates;
+- queue/work-item consistency;
+- Service/DNS/Gateway paths;
+- idempotency a duplicate prevention;
+- end-to-end payment transaction;
+- forbidden old credential/RBAC/external-resource outcomes.
+
+Traffic otvor až po coordinated API, external a application consistency verdict-e.
+
+## 13. Causal walkthrough: API funguje, ale controllers sa po restore správajú nekonzistentne
+
+### Incident
+
+Po disk corruption a strate quorum bol cluster obnovený zo snapshotu z 10:00. O 10:40 API read/write funguje a etcd má leadera, ale niektoré controllers nereagujú na resources. EndpointSlices a operator-managed database state sú nekonzistentné.
+
+### Exact subject
+
+Fixuj:
+
+- old cluster ID/member/revision evidence;
+- selected snapshot hash a revision;
+- restore command, data dirs a member mapping;
+- revision bump/compaction flags;
+- API server endpoints/encryption generation;
+- controller Pod UID, leader term, watch resourceVersion a cache start time;
+- exact object UID/generation a external resource identity;
+- application-data backup time.
+
+### Competing hypotheses
+
+1. jeden API server stále používa starý etcd;
+2. mixed old/restored members vytvorili cluster konflikt;
+3. etcd TLS alebo encryption key zlyháva iba pre časť records;
+4. controller leader election je nefunkčné;
+5. admission webhook blokuje reconciliation;
+6. restored revision je nižšia než controller cache history;
+7. revision bump bol nedostatočný;
+8. compaction marker nebol použitý;
+9. external resource sa rozchádza s restored objectom;
+10. application data generation nezodpovedá API state-u.
+
+### Discriminating observations
+
+Porovnaj API server etcd endpoints, etcd cluster IDs/revisions, restore metadata, controller logs/watch errors/relist events, leader leases, object UIDs/generations, external provider audit a data backup lineage.
+
+Finding:
+
+```text
+snapshot revision: 8.1M
+pre-incident controllers videli: >9.0M
+restore bez adequate revision bump a mark-compacted
+→ long-lived controller caches/watch assumptions ostali nad restored history
+→ časť controllers nere-listovala authoritative state
+→ API requests fungovali, reconciliation graph bol nekonzistentný
+```
+
+### Containment
+
+- neotváraj production traffic;
+- zastav destructive external reconcilers, ak ich outcome je neistý;
+- zachovaj restored aj old data dirs, logs a exact commands;
+- zastav ďalšie manual object edits;
+- inventarizuj external resources a application data pred opakovaním restore.
+
+### Authoritative recovery
+
+- zopakuj restore z verified snapshotu do clean data directories;
+- vytvor jeden consistent restored cluster;
+- použij testovaný revision bump nad pre-incident high-water mark a `mark-compacted` podľa podporovanej etcd verzie;
+- bindni všetky API servers na restored cluster;
+- reštartuj/reconcile controllers tak, aby vykonali fresh list/watch;
+- reconciliuj external resources podľa canonical owner/data identity;
+- zosúlaď deployment/schema/data/secret generations.
+
+### Verify original a forbidden outcomes
+
+Over:
+
+1. etcd health, one leader, cluster ID a expected revision;
+2. API read/write/watch z každého endpointu;
+3. controllers vykonali fresh relist a queues konvergujú;
+4. Services/EndpointSlices, storage a operators zodpovedajú desired state-u;
+5. external LB/DNS/disks/certificates nemajú orphan alebo duplicate generation;
+6. application data je compatible s restored API state-om;
+7. old Secrets/RBAC/credentials nie sú znovu použiteľné;
+8. payment journey uspeje exactly once;
+9. second reconciliation je bounded/no-op podľa intentu;
+10. RPO/RTO a actual data loss sú zaznamenané.
+
+### Earlier controls
+
+Použi revision-rate telemetry, automatic high-water metadata pri backup-e, offsite immutable snapshots, full recovery-set manifest, isolated periodic restore, controller relist verification, external-state inventory a application cross-system recovery test.
+
+## 14. Ďalšie failure boundaries
+
+### Snapshot command skončil úspešne, artifact je chybný
+
+Wrapper exit code nepreukazuje hash, size ani complete offsite copy. Over snapshot status a retention manifest.
 
 ### Restored etcd beží, API server nie
 
-Over endpoints, TLS SANs, client certificates, encryption config, static Pod manifest a network/firewall.
+Skontroluj endpoints, TLS SAN/client identity, storage prefix, encryption config/KMS a static Pod manifest.
 
-### API funguje, ale controllers sa správajú nekonzistentne
+### API funguje, Secrets sú nečitateľné
 
-Over restore revision model, informer relist, controller logs, leader election a resource versions.
+Chýba encryption key/KMS history alebo provider order. Neprepisuj ciphertext novým key materialom naslepo.
 
 ### Po restore chýbajú novšie resources
 
-Je to očakávaná strata po snapshot čase. Reconcile-ni ich z autoritatívneho Git/IaC source-u až po analýze external state.
+Je to očakávaná strata po snapshot revision. Reaplikuj source až po external-state reconciliation, aby si nevytvoril duplicates alebo destructive deletes.
 
-### Etcd members sa nevedia spojiť
+### Member hash mismatch/corruption
 
-Over initial cluster mapping, peer URLs, certificates, member names, cluster token a firewall.
+Zastav destructive automation, zachovaj disks/logs a postupuj podľa etcd corruption recovery. Restore na rovnaký chybný disk zopakuje incident.
 
-## 25. Anti-patterny
+### Restore test overil iba `snapshot status`
 
-### Snapshot iba na rovnakom etcd disku
+To nie je DR test. Potrebný je isolated cluster, API/controllers, external/application consistency a measured RTO.
 
-Host/disk failure odstráni primary aj backup.
+## 15. Referenčný katalóg
 
-### Backup bez integrity a restore testu
+### Snapshot evidence
 
-Existencia file-u nepreukazuje obnoviteľnosť.
+```text
+source cluster/member/leader
+snapshot hash/revision/keys/size/time
+tool a etcd version
+encryption a PKI binding
+offsite copy a retention
+restore rehearsal verdict
+```
 
-### Restore jedného člena do existujúceho quorum bez plánu
+### Recovery phases
 
-Môže vytvoriť member/cluster identity konflikt.
+1. decide repair vs restore;
+2. isolate writes a preserve evidence;
+3. restore clean logical cluster;
+4. bind API and encryption;
+5. force fresh watcher state;
+6. reconcile Kubernetes a external resources;
+7. restore/verify application data;
+8. reopen traffic;
+9. record RPO/RTO a closure.
 
-### Obnova etcd bez encryption keys
+## 16. Anti-patterny
 
-Citlivé resources zostanú nečitateľné.
+- snapshot iba na rovnakom etcd disku;
+- backup bez hash/status a restore testu;
+- restore jedného člena do existujúceho quorum;
+- mixed old a restored member data;
+- restore bez encryption/PKI materialu;
+- predpoklad, že etcd obsahuje PV dáta;
+- traffic otvorený po `etcd endpoint health` bez controller/application testu;
+- revision bump zvolený náhodne;
+- Git source reaplikovaný bez external-state reconciliation;
+- cleanup backupov bez immutable retention.
 
-### Predpoklad, že etcd snapshot obsahuje PV dáta
+## 17. Kontrolné otázky
 
-Application state sa neobnoví.
-
-### Restore priamo v produkcii bez izolovaného rehearsal
-
-RTO a side effects sú neznáme.
-
-### Automatický cleanup starých backupov bez immutable retention
-
-Compromise alebo chyba môže odstrániť všetky recovery points.
-
-## 26. Kontrolné otázky
-
-1. Ktoré dáta etcd snapshot obsahuje a ktoré nie?
-2. Ako sa počíta etcd quorum?
-3. Prečo je online snapshot vhodnejší než live filesystem copy?
-4. Načo slúži `etcdutl snapshot status`?
-5. Čo musí obsahovať kompletný recovery set?
-6. Prečo restore vytvára nový logical etcd cluster?
-7. Aký problém po restore rieši revision bump a compaction marker?
-8. Ako encryption-at-rest ovplyvňuje obnoviteľnosť snapshotu?
-9. Prečo treba po restore analyzovať external controller state?
-10. Čo preukazuje plnohodnotný restore test?
+1. Čo tvorí exact etcd recovery subject?
+2. Kedy je member repair vhodnejší než snapshot restore?
+3. Prečo snapshot integrity nie je recovery readiness?
+4. Čo musí obsahovať complete recovery set?
+5. Prečo restore vytvára nový logical etcd cluster?
+6. Aký problém rieši revision bump a `mark-compacted`?
+7. Ako encryption-at-rest mení backup requirements?
+8. Prečo controllers a external resources môžu po restore konať nebezpečne?
+9. Ako koordinuješ etcd RPO s application-data RPO?
+10. Ktoré business a forbidden outcomes uzatvárajú restore?
 
 ## Glossary impact
 
-Relevantné pojmy: etcd snapshot, snapshot revision, etcd quorum, member health, disaster recovery, restored cluster identity, revision bump, compaction marker, recovery set, restore rehearsal, etcd corruption, API-state RPO a cross-system recovery consistency.
+Relevantné pojmy: etcd recovery subject, snapshot evidence manifest, API-state generation, recovery-set binding, repair-versus-restore verdict, restored logical cluster, revision high-water mark, informer relist boundary, external-state reconciliation, cross-system recovery generation, traffic-reopen verdict, recovery closure a restore-rehearsal evidence.
 
 ## Oficiálna dokumentácia
 
