@@ -1781,15 +1781,15 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
       "title": "Remote backend a state locking",
-      "words": 1770,
-      "headings": 47,
-      "sections": 47,
-      "findings": 101,
-      "critical": 41,
-      "high": 38,
-      "medium": 14,
-      "low": 8,
-      "score": 849,
+      "words": 1961,
+      "headings": 36,
+      "sections": 36,
+      "findings": 69,
+      "critical": 19,
+      "high": 23,
+      "medium": 10,
+      "low": 17,
+      "score": 470,
       "grade": "D"
     },
     {
@@ -96905,26 +96905,17 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "1. Čo je backend",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "1. Čo je backend",
-      "line": 5,
+      "section": "1. Atlas scenár: produkčný state backend",
+      "line": 21,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `umiestnenie state snapshotu,`, `čítanie a zápis state,`, `locking, ak ho backend podporuje,`, `workspaces alebo state namespaces podľa backendu,`.",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čítať a zapisovať iba daný state key;`, `vytvoriť a uvoľniť iba zodpovedajúci lock;`, `čítať version history;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "1. Čo je backend",
-      "line": 5,
+      "section": "1. Atlas scenár: produkčný state backend",
+      "line": 21,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -96932,125 +96923,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "1. Čo je backend",
-      "line": 5,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "2. Local backend",
-      "line": 19,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "2. Local backend",
-      "line": 19,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "2. Local backend",
-      "line": 19,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `state je viazaný na konkrétny filesystem,`, `collaboration vyžaduje ručný prenos,`, `bezpečný multi-writer model chýba,`, `backup a access control závisia od hosta,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "2. Local backend",
-      "line": 19,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "2. Local backend",
-      "line": 19,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "3. Remote backend",
-      "line": 36,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "3. Remote backend",
-      "line": 36,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `object storage,`, `managed Terraform platformy,`, `HTTP-compatible state service,`, `cloud-native storage backendu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "3. Remote backend",
-      "line": 36,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "3. Remote backend",
-      "line": 36,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "3. Remote backend",
-      "line": 36,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP-`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "6. terraform init",
-      "line": 93,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inicializuje backend,`, `overí alebo nakonfiguruje state access,`, `nainštaluje providers,`, `načíta modules,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "6. terraform init",
-      "line": 93,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "6. terraform init",
-      "line": 93,
+      "section": "1. Atlas scenár: produkčný state backend",
+      "line": 21,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -97058,107 +96932,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "7. Backend migration",
-      "line": 118,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "7. Backend migration",
-      "line": 118,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "7. Backend migration",
-      "line": 118,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migrácia nesprávneho workspace,`, `prepísanie existujúceho destination state,`, `rozdielne credentials,`, `strata locking,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "7. Backend migration",
-      "line": 118,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "9. Nie každý backend podporuje locking",
-      "line": 161,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "9. Nie každý backend podporuje locking",
-      "line": 161,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporu locking,`, `consistency model,`, `lock timeout/retry behavior,`, `failure recovery,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "9. Nie každý backend podporuje locking",
-      "line": 161,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "10. Lock acquisition failure",
-      "line": 176,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "10. Lock acquisition failure",
-      "line": 176,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktívny apply,`, `zaseknutý predchádzajúci run,`, `network/API outage,`, `permissions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "10. Lock acquisition failure",
-      "line": 176,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "10. Lock acquisition failure",
-      "line": 176,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "13. Force unlock",
-      "line": 224,
+      "section": "2. Backend verzus provider",
+      "line": 41,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -97166,413 +96941,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "13. Force unlock",
-      "line": 224,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "13. Force unlock",
-      "line": 224,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pôvodný run už nebeží,`, `žiadny writer nepracuje so state,`, `lock patrí správnemu backendu/workspace,`, `máš lock ID a audit evidence,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "13. Force unlock",
-      "line": 224,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "13. Force unlock",
-      "line": 224,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "13. Force unlock",
-      "line": 224,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "14. Pipeline concurrency",
-      "line": 242,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "14. Pipeline concurrency",
-      "line": 242,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment deployment locks,`, `resource groups/concurrency groups,`, `remote run queue,`, `one-active-apply policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "14. Pipeline concurrency",
-      "line": 242,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "14. Pipeline concurrency",
-      "line": 242,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "14. Pipeline concurrency",
-      "line": 242,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "15. State storage security",
-      "line": 256,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "15. State storage security",
-      "line": 256,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "15. State storage security",
-      "line": 256,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `confidentiality,`, `integrity,`, `availability.`, `encryption in transit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "15. State storage security",
-      "line": 256,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "15. State storage security",
-      "line": 256,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "15. State storage security",
-      "line": 256,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `identity`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "16. Identity model",
-      "line": 279,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "16. Identity model",
-      "line": 279,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `developer read/plan,`, `CI plan,`, `CI apply,`, `backend administration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "16. Identity model",
-      "line": 279,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "16. Identity model",
-      "line": 279,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "17. Short-lived credentials",
-      "line": 293,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "17. Short-lived credentials",
-      "line": 293,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "17. Short-lived credentials",
-      "line": 293,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bez dlhodobého access key v CI variables,`, `audience a subject restrictions,`, `kratší exposure window,`, `lepší audit.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "17. Short-lived credentials",
-      "line": 293,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "17. Short-lived credentials",
-      "line": 293,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "18. Encryption a key management",
-      "line": 311,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "18. Encryption a key management",
-      "line": 311,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto smie decryptovať,`, `key rotation,`, `key deletion protection,`, `cross-account access,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "18. Encryption a key management",
-      "line": 311,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "19. Versioning a retention",
-      "line": 326,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "19. Versioning a retention",
-      "line": 326,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "19. Versioning a retention",
-      "line": 326,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accidental overwrite,`, `corruption,`, `chybná state surgery,`, `compromised pipeline,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "19. Versioning a retention",
-      "line": 326,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "20. Backup vs. backend versioning",
-      "line": 345,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "20. Backup vs. backend versioning",
-      "line": 345,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "20. Backup vs. backend versioning",
-      "line": 345,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account compromise,`, `policy misconfiguration,`, `region-wide incidentom,`, `destructive adminom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "20. Backup vs. backend versioning",
-      "line": 345,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "20. Backup vs. backend versioning",
-      "line": 345,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "22. Environment isolation",
-      "line": 370,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "22. Environment isolation",
-      "line": 370,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "22. Environment isolation",
-      "line": 370,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatnú identity boundary,`, `jasný backend/workspace identifier,`, `chránený apply workflow,`, `prísnejšiu retention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "22. Environment isolation",
-      "line": 370,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "22. Environment isolation",
-      "line": 370,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "24. Remote state access",
-      "line": 399,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "24. Remote state access",
-      "line": 399,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consumer potrebuje backend credentials,`, `producer/consumer sú časovo coupled,`, `output zmena je breaking contract,`, `citlivé outputs sa môžu preniesť ďalej.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "24. Remote state access",
-      "line": 399,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "24. Remote state access",
-      "line": 399,
+      "section": "3. Backend identity vzniká pri init",
+      "line": 52,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -97580,62 +96950,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "26. Saved plans",
-      "line": 434,
+      "section": "5. Lock ako writer lease",
+      "line": 89,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "26. Saved plans",
-      "line": 434,
+      "section": "5. Lock ako writer lease",
+      "line": 89,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration,`, `provider/module selections,`, `variables,`, `prior state,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend/state subject;`, `ownera alebo run ID;`, `acquisition time;`, `operation type;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "26. Saved plans",
-      "line": 434,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "27. Backend outage",
-      "line": 448,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "27. Backend outage",
-      "line": 448,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "27. Backend outage",
-      "line": 448,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav automatické deploymenty,`, `zachovaj error logs a request IDs,`, `over storage a locking service zvlášť,`, `neprepínaj narýchlo na nový backend bez migrácie lineage,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "27. Backend outage",
-      "line": 448,
+      "section": "5. Lock ako writer lease",
+      "line": 89,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -97643,8 +96977,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "27. Backend outage",
-      "line": 448,
+      "section": "5. Lock ako writer lease",
+      "line": 89,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "6. Locking a pipeline serialization",
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "7. Multi-writer race",
+      "line": 126,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -97652,8 +97004,44 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "28. Network partition",
-      "line": 461,
+      "section": "8. Worked failure: force unlock uvoľnil stále aktívneho writera",
+      "line": 142,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "8. Worked failure: force unlock uvoľnil stále aktívneho writera",
+      "line": 142,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť oboch writers a nové applies;`, `zachovať lock/run/backend logs;`, `overiť latest authoritative serial a version history;`, `inventory remote mutations oboch runs;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "8. Worked failure: force unlock uvoľnil stále aktívneho writera",
+      "line": 142,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "8. Worked failure: force unlock uvoľnil stále aktívneho writera",
+      "line": 142,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "9. Force unlock protocol",
+      "line": 168,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -97661,26 +97049,134 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "28. Network partition",
-      "line": 461,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "11. Worked failure: network partition po state write requeste",
+      "line": 197,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "28. Network partition",
-      "line": 461,
+      "section": "11. Worked failure: network partition po state write requeste",
+      "line": 197,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepridávaj druhého writera,`, `over backend snapshot a serial,`, `over lock,`, `porovnaj remote objects,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepridávať druhého writera;`, `prečítať backend object/version inventory a serial;`, `overiť lock stav;`, `porovnať remote route table s S208/S209 intentom;`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "28. Network partition",
-      "line": 461,
+      "section": "11. Worked failure: network partition po state write requeste",
+      "line": 197,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "11. Worked failure: network partition po state write requeste",
+      "line": 197,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "11. Worked failure: network partition po state write requeste",
+      "line": 197,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "11. Worked failure: network partition po state write requeste",
+      "line": 197,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "11. Worked failure: network partition po state write requeste",
+      "line": 197,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S208`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "12. Backend migration ako ownership cutover",
+      "line": 222,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "14. State storage security",
+      "line": 272,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "14. State storage security",
+      "line": 272,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `confidentiality;`, `integrity;`, `availability;`, `recovery history.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "14. State storage security",
+      "line": 272,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "14. State storage security",
+      "line": 272,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "15. Encryption a key lifecycle",
+      "line": 295,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "15. Encryption a key lifecycle",
+      "line": 295,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `decrypt permissions;`, `rotation behavior;`, `deletion protection;`, `cross-account/region recovery;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "15. Encryption a key lifecycle",
+      "line": 295,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -97688,8 +97184,44 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "29. Backend migration rollback",
-      "line": 480,
+      "section": "16. Versioning, backup a retention",
+      "line": 308,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account compromise;`, `destructive adminom;`, `region-wide incidentom;`, `policy alebo key lossom.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "16. Versioning, backup a retention",
+      "line": 308,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "16. Versioning, backup a retention",
+      "line": 308,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "16. Versioning, backup a retention",
+      "line": 308,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "19. Kauzálny diagnostický walkthrough",
+      "line": 346,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -97697,26 +97229,53 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "29. Backend migration rollback",
-      "line": 480,
+      "section": "Krok 1 — stabilizuj subject",
+      "line": 350,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "Krok 2 — konkurenčné hypotézy",
+      "line": 361,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 373,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 373,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "29. Backend migration rollback",
-      "line": 480,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 373,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachovaj source aj destination snapshoty,`, `neumožni writes do oboch backendov,`, `vyber authoritative backend,`, `over lineage/serial/resources,`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CI a remote-run process inventory testuje H1/H2;`, `backend authorization audit testuje H4;`, `service/network telemetry testuje H5/H7;`, `init metadata, key a lineage testujú H6.`.",
       "score": 12
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "29. Backend migration rollback",
-      "line": 480,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 373,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -97724,8 +97283,26 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "Remote state bez locking",
-      "line": 495,
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 373,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "Krok 3 — diskriminačné observation points",
+      "line": 373,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `H1`, `ID`, `H3`, `H4`, `H5`, `H7`, `H6`",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "Krok 6 — skorší control",
+      "line": 391,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -97733,8 +97310,179 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "Force unlock ako bežná operácia",
-      "line": 499,
+      "section": "20. Diagnostický runbook",
+      "line": 395,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "20. Diagnostický runbook",
+      "line": 395,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "20. Diagnostický runbook",
+      "line": 395,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "20. Diagnostický runbook",
+      "line": 395,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Identifikuj writer identity, run ID a miesto executionu.`, `Over aktívne a child/remote processes pred force unlockom.`, `Pri unknown write outcome-e zastav ďalších writers.`, `Porovnaj backend version history s remote mutation timeline-om.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "20. Diagnostický runbook",
+      "line": 395,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "20. Diagnostický runbook",
+      "line": 395,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "20. Diagnostický runbook",
+      "line": 395,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "20. Diagnostický runbook",
+      "line": 395,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "20. Diagnostický runbook",
+      "line": 395,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `KMS`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 408,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 408,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 408,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 408,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Backend je state/change-control boundary, provider je remote-object bo`, `Pipeline queue a backend lock sa dopĺňajú.`, `Force unlock odstraňuje lock, nie pôvodný proces.`, `Unknown state-write outcome sa najprv pozoruje, nie retryuje.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 408,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 408,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 408,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 408,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 408,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "22. Časté omyly",
+      "line": 421,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
+      "section": "„Remote backend automaticky rieši concurrency“",
+      "line": 423,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -97742,8 +97490,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "Jeden backend admin key vo všetkých projects",
-      "line": 503,
+      "section": "„Lock je starý, môžeme ho force-unlocknúť“",
+      "line": 427,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -97751,8 +97499,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "State bucket bez versioning/backupu",
-      "line": 507,
+      "section": "„State write timeout znamená, že sa nič nezapísalo“",
+      "line": 431,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -97760,8 +97508,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "Secrets v backend config commite",
-      "line": 511,
+      "section": "„Migráciu môžeme chvíľu prevádzkovať v oboch backendoch“",
+      "line": 435,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -97769,44 +97517,8 @@
     },
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "Development a production oddelené iba workspace názvom",
-      "line": 515,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "terraform remote state ako univerzálny service catalog",
-      "line": 519,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "Terraform používa nesprávny state",
-      "line": 529,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "init chce migrovať state",
-      "line": 533,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md",
-      "section": "CI nemá prístup, developer áno",
-      "line": 541,
+      "section": "„Backend credentials sú menej citlivé než cloud credentials“",
+      "line": 439,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

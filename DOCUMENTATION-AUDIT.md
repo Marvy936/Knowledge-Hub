@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11454**
-- Total words: **576,544**
-- Findings: **24908** (critical 7949, high 9111, medium 3404, low 4444)
+- Audited conceptual sections: **11443**
+- Total words: **576,735**
+- Findings: **24876** (critical 7927, high 9096, medium 3400, low 4453)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -105,7 +105,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 862 | 42 | 40 | 10 | 9 | 1354 | `docs/12-observability/red-method.md` |
 | D | 859 | 39 | 41 | 18 | 5 | 1478 | `docs/12-observability/monitoring-vs-observability.md` |
 | D | 853 | 40 | 41 | 11 | 14 | 1328 | `docs/11-cloud-and-aws/shared-responsibility-model.md` |
-| D | 849 | 41 | 38 | 14 | 8 | 1770 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | D | 844 | 37 | 42 | 16 | 10 | 1665 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
 | D | 843 | 34 | 46 | 17 | 11 | 1495 | `docs/09-kubernetes/cni-networkpolicy.md` |
 | D | 836 | 35 | 41 | 21 | 13 | 1375 | `docs/11-cloud-and-aws/public-private-hybrid-cloud.md` |
@@ -209,6 +208,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 483 | 19 | 26 | 9 | 12 | 2131 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | D | 474 | 18 | 27 | 7 | 15 | 2058 | `docs/06-gitlab/runners-and-executors.md` |
 | D | 473 | 25 | 14 | 10 | 22 | 2494 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
+| D | 470 | 19 | 23 | 10 | 17 | 1961 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | D | 469 | 19 | 24 | 8 | 16 | 2046 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | D | 468 | 16 | 30 | 5 | 16 | 1975 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | D | 467 | 18 | 22 | 14 | 15 | 1966 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
@@ -6925,85 +6925,48 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md`
 
-- **CRITICAL** line 5, `bare-bullet-items` — **1. Čo je backend**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `umiestnenie state snapshotu,`, `čítanie a zápis state,`, `locking, ak ho backend podporuje,`, `workspaces alebo state namespaces podľa backendu,`.
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **1. Čo je backend**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 19, `bare-bullet-items` — **2. Local backend**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `state je viazaný na konkrétny filesystem,`, `collaboration vyžaduje ručný prenos,`, `bezpečný multi-writer model chýba,`, `backup a access control závisia od hosta,`.
-- **CRITICAL** line 19, `outline-instead-of-explanation` — **2. Local backend**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 36, `bare-bullet-items` — **3. Remote backend**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `object storage,`, `managed Terraform platformy,`, `HTTP-compatible state service,`, `cloud-native storage backendu,`.
-- **CRITICAL** line 36, `outline-instead-of-explanation` — **3. Remote backend**: 11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 93, `bare-bullet-items` — **6. terraform init**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inicializuje backend,`, `overí alebo nakonfiguruje state access,`, `nainštaluje providers,`, `načíta modules,`.
-- **CRITICAL** line 118, `bare-bullet-items` — **7. Backend migration**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migrácia nesprávneho workspace,`, `prepísanie existujúceho destination state,`, `rozdielne credentials,`, `strata locking,`.
-- **CRITICAL** line 118, `outline-instead-of-explanation` — **7. Backend migration**: 6 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 161, `bare-bullet-items` — **9. Nie každý backend podporuje locking**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporu locking,`, `consistency model,`, `lock timeout/retry behavior,`, `failure recovery,`.
-- **CRITICAL** line 161, `outline-instead-of-explanation` — **9. Nie každý backend podporuje locking**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 176, `bare-bullet-items` — **10. Lock acquisition failure**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktívny apply,`, `zaseknutý predchádzajúci run,`, `network/API outage,`, `permissions,`.
-- **CRITICAL** line 176, `outline-instead-of-explanation` — **10. Lock acquisition failure**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 224, `bare-bullet-items` — **13. Force unlock**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pôvodný run už nebeží,`, `žiadny writer nepracuje so state,`, `lock patrí správnemu backendu/workspace,`, `máš lock ID a audit evidence,`.
-- **CRITICAL** line 224, `outline-instead-of-explanation` — **13. Force unlock**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 242, `bare-bullet-items` — **14. Pipeline concurrency**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment deployment locks,`, `resource groups/concurrency groups,`, `remote run queue,`, `one-active-apply policy,`.
-- **CRITICAL** line 242, `outline-instead-of-explanation` — **14. Pipeline concurrency**: 5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 256, `bare-bullet-items` — **15. State storage security**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `confidentiality,`, `integrity,`, `availability.`, `encryption in transit,`.
-- **CRITICAL** line 256, `outline-instead-of-explanation` — **15. State storage security**: 13 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 279, `bare-bullet-items` — **16. Identity model**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `developer read/plan,`, `CI plan,`, `CI apply,`, `backend administration,`.
-- **CRITICAL** line 279, `outline-instead-of-explanation` — **16. Identity model**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 293, `bare-bullet-items` — **17. Short-lived credentials**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bez dlhodobého access key v CI variables,`, `audience a subject restrictions,`, `kratší exposure window,`, `lepší audit.`.
-- **CRITICAL** line 293, `outline-instead-of-explanation` — **17. Short-lived credentials**: 4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 311, `bare-bullet-items` — **18. Encryption a key management**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto smie decryptovať,`, `key rotation,`, `key deletion protection,`, `cross-account access,`.
-- **CRITICAL** line 311, `outline-instead-of-explanation` — **18. Encryption a key management**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 326, `bare-bullet-items` — **19. Versioning a retention**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accidental overwrite,`, `corruption,`, `chybná state surgery,`, `compromised pipeline,`.
-- **CRITICAL** line 326, `outline-instead-of-explanation` — **19. Versioning a retention**: 9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 345, `bare-bullet-items` — **20. Backup vs. backend versioning**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account compromise,`, `policy misconfiguration,`, `region-wide incidentom,`, `destructive adminom,`.
-- **CRITICAL** line 345, `outline-instead-of-explanation` — **20. Backup vs. backend versioning**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 370, `bare-bullet-items` — **22. Environment isolation**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatnú identity boundary,`, `jasný backend/workspace identifier,`, `chránený apply workflow,`, `prísnejšiu retention,`.
-- **CRITICAL** line 370, `outline-instead-of-explanation` — **22. Environment isolation**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 399, `bare-bullet-items` — **24. Remote state access**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `consumer potrebuje backend credentials,`, `producer/consumer sú časovo coupled,`, `output zmena je breaking contract,`, `citlivé outputs sa môžu preniesť ďalej.`.
-- **CRITICAL** line 399, `outline-instead-of-explanation` — **24. Remote state access**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 434, `bare-bullet-items` — **26. Saved plans**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration,`, `provider/module selections,`, `variables,`, `prior state,`.
-- **CRITICAL** line 434, `outline-instead-of-explanation` — **26. Saved plans**: 5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 448, `bare-bullet-items` — **27. Backend outage**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav automatické deploymenty,`, `zachovaj error logs a request IDs,`, `over storage a locking service zvlášť,`, `neprepínaj narýchlo na nový backend bez migrácie lineage,`.
-- **CRITICAL** line 448, `outline-instead-of-explanation` — **27. Backend outage**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 461, `bare-bullet-items` — **28. Network partition**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepridávaj druhého writera,`, `over backend snapshot a serial,`, `over lock,`, `porovnaj remote objects,`.
-- **CRITICAL** line 461, `outline-instead-of-explanation` — **28. Network partition**: 6 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 480, `bare-bullet-items` — **29. Backend migration rollback**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachovaj source aj destination snapshoty,`, `neumožni writes do oboch backendov,`, `vyber authoritative backend,`, `over lineage/serial/resources,`.
-- **CRITICAL** line 480, `outline-instead-of-explanation` — **29. Backend migration rollback**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **HIGH** line 19, `single-sentence-concept` — **2. Local backend**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 118, `single-sentence-concept` — **7. Backend migration**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 224, `list-first-introduction` — **13. Force unlock**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 256, `single-sentence-concept` — **15. State storage security**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 293, `single-sentence-concept` — **17. Short-lived credentials**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 326, `single-sentence-concept` — **19. Versioning a retention**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 345, `single-sentence-concept` — **20. Backup vs. backend versioning**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 370, `single-sentence-concept` — **22. Environment isolation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 448, `single-sentence-concept` — **27. Backend outage**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 461, `single-sentence-concept` — **28. Network partition**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 480, `single-sentence-concept` — **29. Backend migration rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 495, `single-sentence-concept` — **Remote state bez locking**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 499, `single-sentence-concept` — **Force unlock ako bežná operácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 503, `single-sentence-concept` — **Jeden backend admin key vo všetkých projects**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 507, `single-sentence-concept` — **State bucket bez versioning/backupu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 511, `single-sentence-concept` — **Secrets v backend config commite**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 515, `single-sentence-concept` — **Development a production oddelené iba workspace názvom**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 519, `single-sentence-concept` — **terraform remote state ako univerzálny service catalog**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 529, `single-sentence-concept` — **Terraform používa nesprávny state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 533, `single-sentence-concept` — **init chce migrovať state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 541, `single-sentence-concept` — **CI nemá prístup, developer áno**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 19, `thin-concept-section` — **2. Local backend**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 36, `thin-concept-section` — **3. Remote backend**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 118, `thin-concept-section` — **7. Backend migration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 161, `thin-concept-section` — **9. Nie každý backend podporuje locking**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 176, `thin-concept-section` — **10. Lock acquisition failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 224, `thin-concept-section` — **13. Force unlock**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 256, `thin-concept-section` — **15. State storage security**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 279, `thin-concept-section` — **16. Identity model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 293, `thin-concept-section` — **17. Short-lived credentials**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 311, `thin-concept-section` — **18. Encryption a key management**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 326, `thin-concept-section` — **19. Versioning a retention**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 345, `thin-concept-section` — **20. Backup vs. backend versioning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 370, `thin-concept-section` — **22. Environment isolation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 399, `thin-concept-section` — **24. Remote state access**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 448, `thin-concept-section` — **27. Backend outage**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 461, `thin-concept-section` — **28. Network partition**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 480, `thin-concept-section` — **29. Backend migration rollback**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 21, `bare-bullet-items` — **1. Atlas scenár: produkčný state backend**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čítať a zapisovať iba daný state key;`, `vytvoriť a uvoľniť iba zodpovedajúci lock;`, `čítať version history;`.
+- **CRITICAL** line 89, `bare-bullet-items` — **5. Lock ako writer lease**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backend/state subject;`, `ownera alebo run ID;`, `acquisition time;`, `operation type;`.
+- **CRITICAL** line 89, `outline-instead-of-explanation` — **5. Lock ako writer lease**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 142, `bare-bullet-items` — **8. Worked failure: force unlock uvoľnil stále aktívneho writera**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť oboch writers a nové applies;`, `zachovať lock/run/backend logs;`, `overiť latest authoritative serial a version history;`, `inventory remote mutations oboch runs;`.
+- **CRITICAL** line 197, `bare-bullet-items` — **11. Worked failure: network partition po state write requeste**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepridávať druhého writera;`, `prečítať backend object/version inventory a serial;`, `overiť lock stav;`, `porovnať remote route table s S208/S209 intentom;`.
+- **CRITICAL** line 272, `bare-bullet-items` — **14. State storage security**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `confidentiality;`, `integrity;`, `availability;`, `recovery history.`.
+- **CRITICAL** line 272, `outline-instead-of-explanation` — **14. State storage security**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 295, `bare-bullet-items` — **15. Encryption a key lifecycle**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `decrypt permissions;`, `rotation behavior;`, `deletion protection;`, `cross-account/region recovery;`.
+- **CRITICAL** line 295, `outline-instead-of-explanation` — **15. Encryption a key lifecycle**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
+- **CRITICAL** line 308, `bare-bullet-items` — **16. Versioning, backup a retention**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account compromise;`, `destructive adminom;`, `region-wide incidentom;`, `policy alebo key lossom.`.
+- **CRITICAL** line 350, `empty-section` — **Krok 1 — stabilizuj subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 361, `empty-section` — **Krok 2 — konkurenčné hypotézy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 373, `bare-bullet-items` — **Krok 3 — diskriminačné observation points**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CI a remote-run process inventory testuje H1/H2;`, `backend authorization audit testuje H4;`, `service/network telemetry testuje H5/H7;`, `init metadata, key a lineage testujú H6.`.
+- **CRITICAL** line 373, `outline-instead-of-explanation` — **Krok 3 — diskriminačné observation points**: 5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 395, `no-prose-concept` — **20. Diagnostický runbook**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 395, `outline-instead-of-explanation` — **20. Diagnostický runbook**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 408, `no-prose-concept` — **21. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 408, `outline-instead-of-explanation` — **21. Referenčné pravidlá**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 421, `empty-section` — **22. Časté omyly**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 41, `list-first-introduction` — **2. Backend verzus provider**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 142, `list-heavy-section` — **8. Worked failure: force unlock uvoľnil stále aktívneho writera**: 8 odrážok a iba 46 slov súvislého vysvetlenia.
+- **HIGH** line 168, `single-sentence-concept` — **9. Force unlock protocol**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 197, `list-heavy-section` — **11. Worked failure: network partition po state write requeste**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 222, `single-sentence-concept` — **12. Backend migration ako ownership cutover**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 346, `single-sentence-concept` — **19. Kauzálny diagnostický walkthrough**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 373, `list-first-introduction` — **Krok 3 — diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 391, `single-sentence-concept` — **Krok 6 — skorší control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 395, `bare-bullet-items` — **20. Diagnostický runbook**: 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Identifikuj writer identity, run ID a miesto executionu.`, `Over aktívne a child/remote processes pred force unlockom.`, `Pri unknown write outcome-e zastav ďalších writers.`, `Porovnaj backend version history s remote mutation timeline-om.`.
+- **HIGH** line 395, `list-first-introduction` — **20. Diagnostický runbook**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 408, `bare-bullet-items` — **21. Referenčné pravidlá**: 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Backend je state/change-control boundary, provider je remote-object bo`, `Pipeline queue a backend lock sa dopĺňajú.`, `Force unlock odstraňuje lock, nie pôvodný proces.`, `Unknown state-write outcome sa najprv pozoruje, nie retryuje.`.
+- **HIGH** line 408, `list-first-introduction` — **21. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 423, `single-sentence-concept` — **„Remote backend automaticky rieši concurrency“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 427, `single-sentence-concept` — **„Lock je starý, môžeme ho force-unlocknúť“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 431, `single-sentence-concept` — **„State write timeout znamená, že sa nič nezapísalo“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 435, `single-sentence-concept` — **„Migráciu môžeme chvíľu prevádzkovať v oboch backendoch“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 439, `single-sentence-concept` — **„Backend credentials sú menej citlivé než cloud credentials“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 89, `thin-concept-section` — **5. Lock ako writer lease**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 295, `thin-concept-section` — **15. Encryption a key lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 373, `term-before-explanation` — **Krok 3 — diskriminačné observation points**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `H1`, `ID`, `H3`, `H4`, `H5`, `H7`, `H6`
+- **HIGH** line 373, `thin-concept-section` — **Krok 3 — diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 395, `thin-concept-section` — **20. Diagnostický runbook**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 408, `thin-concept-section` — **21. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md`
 
@@ -18110,19 +18073,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3533 | 434 | 0 | 0 | 3967 |
-| `single-sentence-concept` | 0 | 3759 | 0 | 0 | 3759 |
-| `outline-instead-of-explanation` | 3387 | 0 | 0 | 0 | 3387 |
-| `thin-concept-section` | 0 | 2988 | 0 | 0 | 2988 |
-| `term-before-explanation` | 0 | 452 | 2316 | 0 | 2768 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1786 | 1786 |
-| `example-not-explicit` | 0 | 0 | 0 | 1735 | 1735 |
-| `list-first-introduction` | 0 | 1104 | 0 | 0 | 1104 |
+| `bare-bullet-items` | 3520 | 436 | 0 | 0 | 3956 |
+| `single-sentence-concept` | 0 | 3748 | 0 | 0 | 3748 |
+| `outline-instead-of-explanation` | 3373 | 0 | 0 | 0 | 3373 |
+| `thin-concept-section` | 0 | 2976 | 0 | 0 | 2976 |
+| `term-before-explanation` | 0 | 453 | 2312 | 0 | 2765 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1787 | 1787 |
+| `example-not-explicit` | 0 | 0 | 0 | 1740 | 1740 |
+| `list-first-introduction` | 0 | 1107 | 0 | 0 | 1107 |
 | `short-concept-section` | 0 | 0 | 1088 | 0 | 1088 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 923 | 923 |
-| `empty-section` | 580 | 0 | 0 | 0 | 580 |
-| `no-prose-concept` | 449 | 0 | 0 | 0 | 449 |
-| `list-heavy-section` | 0 | 374 | 0 | 0 | 374 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 926 | 926 |
+| `empty-section` | 583 | 0 | 0 | 0 | 583 |
+| `no-prose-concept` | 451 | 0 | 0 | 0 | 451 |
+| `list-heavy-section` | 0 | 376 | 0 | 0 | 376 |
 
 ## Required remediation pattern
 
