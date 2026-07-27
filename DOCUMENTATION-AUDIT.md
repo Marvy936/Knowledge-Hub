@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11414**
-- Total words: **578,921**
-- Findings: **24773** (critical 7884, high 9002, medium 3394, low 4493)
+- Audited conceptual sections: **11401**
+- Total words: **579,408**
+- Findings: **24725** (critical 7860, high 8981, medium 3387, low 4497)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -69,7 +69,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1057 | 48 | 52 | 18 | 11 | 1353 | `docs/11-cloud-and-aws/iaas-paas-saas.md` |
 | D | 1049 | 46 | 53 | 19 | 14 | 1688 | `docs/11-cloud-and-aws/systems-manager.md` |
 | D | 1019 | 46 | 50 | 17 | 16 | 1894 | `docs/09-kubernetes/cluster-installation-lifecycle.md` |
-| D | 1005 | 49 | 44 | 17 | 9 | 1820 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
 | D | 1001 | 44 | 54 | 14 | 3 | 1181 | `docs/13-security-and-identity/iam-rbac.md` |
 | D | 987 | 43 | 54 | 14 | 3 | 1569 | `docs/10-helm-and-cka/helm-testing-troubleshooting.md` |
 | D | 982 | 43 | 45 | 21 | 26 | 2919 | `docs/05-ci-cd-and-release/release-management.md` |
@@ -189,6 +188,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 541 | 19 | 28 | 9 | 46 | 3195 | `docs/01-linux-and-systems/selinux-and-apparmor.md` |
 | D | 538 | 21 | 30 | 10 | 11 | 1867 | `docs/05-ci-cd-and-release/quality-gates-and-approvals.md` |
 | D | 538 | 23 | 28 | 6 | 15 | 2121 | `docs/06-gitlab/variables-and-secrets.md` |
+| D | 534 | 25 | 23 | 10 | 13 | 2307 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
 | D | 533 | 21 | 29 | 12 | 4 | 1548 | `docs/09-kubernetes/cluster-dns.md` |
 | D | 533 | 17 | 36 | 11 | 4 | 1432 | `docs/09-kubernetes/taints-tolerations-affinity-topology.md` |
 | D | 529 | 22 | 20 | 16 | 32 | 3180 | `docs/03-git-and-automation/git-object-model.md` |
@@ -6214,99 +6214,54 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md`
 
-- **CRITICAL** line 7, `empty-section` — **1. Základné komponenty**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 9, `bare-bullet-items` — **Control node**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ansible ,`, `ansible-playbook ,`, `ansible-inventory ,`, `ansible-doc ,`.
-- **CRITICAL** line 9, `outline-instead-of-explanation` — **Control node**: 15 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 34, `bare-bullet-items` — **Managed node**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Linux alebo Unix host,`, `Windows host,`, `network device,`, `cloud API,`.
-- **CRITICAL** line 34, `outline-instead-of-explanation` — **Managed node**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 47, `bare-bullet-items` — **Inventory**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hosts,`, `groups a group hierarchy,`, `connection metadata,`, `host/group variables,`.
-- **CRITICAL** line 47, `outline-instead-of-explanation` — **Inventory**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 59, `bare-bullet-items` — **Playbook**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host pattern,`, `variables,`, `privilege escalation,`, `execution strategy,`.
-- **CRITICAL** line 59, `outline-instead-of-explanation` — **Playbook**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 70, `bare-bullet-items` — **Module**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správu package,`, `vytvorenie usera,`, `zápis file,`, `volanie cloud API,`.
-- **CRITICAL** line 70, `outline-instead-of-explanation` — **Module**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 83, `bare-bullet-items` — **Plugin**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection plugins,`, `inventory plugins,`, `action plugins,`, `callback plugins,`.
-- **CRITICAL** line 83, `outline-instead-of-explanation` — **Plugin**: 8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 98, `bare-bullet-items` — **Collection**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `modules,`, `plugins,`, `roles,`, `playbooks,`.
-- **CRITICAL** line 98, `outline-instead-of-explanation` — **Collection**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 119, `empty-section` — **2. ansible-core , Ansible package a automation platforma**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 168, `bare-bullet-items` — **4. Action plugin a module execution**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `action plugin beží na control node,`, `pripraví arguments a connection context,`, `Ansible prenesie alebo zostaví module payload,`, `target runtime module vykoná,`.
-- **CRITICAL** line 168, `outline-instead-of-explanation` — **4. Action plugin a module execution**: 11 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 189, `bare-bullet-items` — **5. Agentless model a runtime požiadavky**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sieťový path,`, `autentifikáciu,`, `podporovaný connection plugin,`, `shell alebo API podľa targetu,`.
-- **CRITICAL** line 189, `outline-instead-of-explanation` — **5. Agentless model a runtime požiadavky**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 203, `bare-bullet-items` — **6. Connection plugins**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SSH,`, `local,`, `WinRM/PSRP,`, `network CLI,`.
-- **CRITICAL** line 203, `outline-instead-of-explanation` — **6. Connection plugins**: 13 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 237, `bare-bullet-items` — **7. Privilege escalation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection identity,`, `become identity,`, `credential source,`, `tasks, ktoré privilege skutočne potrebujú,`.
-- **CRITICAL** line 251, `empty-section` — **8. Strategy, forks a execution order**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 259, `bare-bullet-items` — **Forks**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `load control node,`, `connection burst,`, `API rate pressure,`, `load managed services,`.
-- **CRITICAL** line 259, `outline-instead-of-explanation` — **Forks**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 281, `bare-bullet-items` — **9. Facts a implicitné úvodné tasks**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čas runu,`, `required Python/packages,`, `network traffic,`, `variable context,`.
-- **CRITICAL** line 293, `bare-bullet-items` — **10. Idempotencia nie je vlastnosť engine-u**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `module implementácie,`, `arguments,`, `external API semantics,`, `current state detection,`.
-- **CRITICAL** line 293, `outline-instead-of-explanation` — **10. Idempotencia nie je vlastnosť engine-u**: 7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 316, `empty-section` — **11. Check mode a diff mode**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 338, `bare-bullet-items` — **12. Configuration precedence**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `command-line options,`, `environment variables,`, `ansible.cfg ,`, `playbook keywords,`.
-- **CRITICAL** line 338, `outline-instead-of-explanation` — **12. Configuration precedence**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 355, `bare-bullet-items` — **13. Search paths a content resolution**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `collections,`, `roles,`, `modules/plugins,`, `inventory plugins,`.
-- **CRITICAL** line 355, `outline-instead-of-explanation` — **13. Search paths a content resolution**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 369, `empty-section` — **14. Security boundaries**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 371, `bare-bullet-items` — **Control node**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source checkout,`, `execution environment,`, `SSH keys a tokens,`, `Vault passwords,`.
-- **CRITICAL** line 371, `outline-instead-of-explanation` — **Control node**: 8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 384, `bare-bullet-items` — **Collections**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitné sources,`, `version pinning,`, `controlled upgrades,`, `artifact integrity,`.
-- **CRITICAL** line 384, `outline-instead-of-explanation` — **Collections**: 6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 399, `bare-bullet-items` — **Managed nodes**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host-key verification,`, `least-privilege connection identity,`, `scoped become ,`, `bounded batches,`.
-- **CRITICAL** line 399, `outline-instead-of-explanation` — **Managed nodes**: 7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 411, `bare-bullet-items` — **15. Failure model**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unreachable host,`, `failed task,`, `changed task,`, `skipped task,`.
-- **CRITICAL** line 411, `outline-instead-of-explanation` — **15. Failure model**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 425, `bare-bullet-items` — **16. Observability**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target host count,`, `unreachable/failed/changed/skipped counts,`, `duration podľa tasku a hostu,`, `retry a timeout rate,`.
-- **CRITICAL** line 425, `outline-instead-of-explanation` — **16. Observability**: 10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 452, `bare-bullet-items` — **Task funguje lokálne, ale nie v automation controlleri**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ansible-core version,`, `collections,`, `execution environment image,`, `ansible.cfg ,`.
-- **CRITICAL** line 452, `outline-instead-of-explanation` — **Task funguje lokálne, ale nie v automation controlleri**: 8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 503, `no-prose-concept` — **19. Rozhodovací rámec**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 503, `outline-instead-of-explanation` — **19. Rozhodovací rámec**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **HIGH** line 59, `single-sentence-concept` — **Playbook**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 70, `single-sentence-concept` — **Module**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 98, `single-sentence-concept` — **Collection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 121, `single-sentence-concept` — **ansible-core**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 129, `single-sentence-concept` — **Automation platforma**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 203, `single-sentence-concept` — **6. Connection plugins**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 224, `single-sentence-concept` — **Connection reuse**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 259, `single-sentence-concept` — **Forks**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 269, `single-sentence-concept` — **serial**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 338, `single-sentence-concept` — **12. Configuration precedence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 371, `single-sentence-concept` — **Control node**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 384, `single-sentence-concept` — **Collections**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 399, `single-sentence-concept` — **Managed nodes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 411, `single-sentence-concept` — **15. Failure model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 444, `single-sentence-concept` — **Host je UNREACHABLE**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 452, `single-sentence-concept` — **Task funguje lokálne, ale nie v automation controlleri**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 465, `single-sentence-concept` — **Zmenil sa nesprávny host**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 469, `single-sentence-concept` — **Task je stále changed**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 473, `single-sentence-concept` — **Handler sa nespustil**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 479, `single-sentence-concept` — **Jeden privilegovaný control node bez izolácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 483, `single-sentence-concept` — **Mutable latest execution environment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 487, `single-sentence-concept` — **Všetko cez shell**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 491, `single-sentence-concept` — **Globálne vypnuté host-key checking**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 495, `single-sentence-concept` — **Secrets v inventory alebo logoch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 499, `single-sentence-concept` — **Ignorovanie failures bez klasifikácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 503, `bare-bullet-items` — **19. Rozhodovací rámec**: 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Ktorý control node alebo execution environment bude autoritatívny?`, `Aké targety a connection plugins používame?`, `Kde sú credentials a ako sa rotujú?`, `Ktoré tasks potrebujú privilege escalation?`.
-- **HIGH** line 503, `list-first-introduction` — **19. Rozhodovací rámec**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 9, `thin-concept-section` — **Control node**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 59, `thin-concept-section` — **Playbook**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 70, `thin-concept-section` — **Module**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 98, `thin-concept-section` — **Collection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 168, `thin-concept-section` — **4. Action plugin a module execution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 203, `term-before-explanation` — **6. Connection plugins**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSH`, `PSRP`, `CLI`, `HTTP`, `API`
-- **HIGH** line 203, `thin-concept-section` — **6. Connection plugins**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 259, `thin-concept-section` — **Forks**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 338, `thin-concept-section` — **12. Configuration precedence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 355, `thin-concept-section` — **13. Search paths a content resolution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 371, `thin-concept-section` — **Control node**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 384, `thin-concept-section` — **Collections**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 399, `thin-concept-section` — **Managed nodes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 411, `thin-concept-section` — **15. Failure model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 425, `thin-concept-section` — **16. Observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 452, `thin-concept-section` — **Task funguje lokálne, ale nie v automation controlleri**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 503, `thin-concept-section` — **19. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 45, `empty-section` — **3. Komponenty ako execution boundaries**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 47, `bare-bullet-items` — **Control node**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načíta configuration a execution environment;`, `načíta inventory sources a plugins;`, `rozlíši playbook, roles, includes a collections;`, `vytvorí variable context pre každý host;`.
+- **CRITICAL** line 47, `outline-instead-of-explanation` — **Control node**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 101, `bare-bullet-items` — **4. Execution environment a content resolution**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ansible-core ;`, `Python/runtime dependencies;`, `collections;`, `system packages a SSH tooling;`.
+- **CRITICAL** line 148, `bare-bullet-items` — **6. Variables a effective host context**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory host/group vars;`, `vars plugins;`, `facts;`, `play a task vars;`.
+- **CRITICAL** line 170, `bare-bullet-items` — **7. Connection, authentication a runtime discovery**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupný network path;`, `credential;`, `podporovaný connection plugin;`, `remote shell alebo API;`.
+- **CRITICAL** line 170, `outline-instead-of-explanation` — **7. Connection, authentication a runtime discovery**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 268, `outline-instead-of-explanation` — **11. Failure model a partial success**: 7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 291, `bare-bullet-items` — **12. Worked failure: zelený run vynechal dva hosts**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected production host count alebo immutable deployment manifest;`, `forbidden empty/undersized target set;`, `inventory cache age evidence;`, `target summary pred approval;`.
+- **CRITICAL** line 291, `outline-instead-of-explanation` — **12. Worked failure: zelený run vynechal dva hosts**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 372, `bare-bullet-items` — **16. Check mode a diff mode**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ho nepodporujú;`, `vrátia neúplný result;`, `potrebujú current remote state;`, `nevedia predikovať external side effects;`.
+- **CRITICAL** line 412, `bare-bullet-items` — **2. Súťažiace hypotézy**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Dva hosts neboli v resolved inventory.`, `Hosty boli skipped pre condition/group var.`, `Failures boli ignored alebo rescued bez convergence.`, `Template reportoval no-change pre stale rendered input.`.
+- **CRITICAL** line 412, `no-prose-concept` — **2. Súťažiace hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 412, `outline-instead-of-explanation` — **2. Súťažiace hypotézy**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 423, `bare-bullet-items` — **3. Diskriminačné observation points**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected vs. --list-hosts target inventory;`, `inventory plugin/cache timestamp;`, `per-host recap a event stream;`, `resolved variables pre affected hosts;`.
+- **CRITICAL** line 423, `no-prose-concept` — **3. Diskriminačné observation points**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 423, `outline-instead-of-explanation` — **3. Diskriminačné observation points**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 439, `bare-bullet-items` — **5. Recovery**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skipped condition → oprav variable/condition contract;`, `ignored/rescued failure → zmeň verdict a recovery semantics;`, `handler gap → vykonaj bounded restart alebo revert;`, `stale render input → oprav source/fact/cache freshness;`.
+- **CRITICAL** line 439, `no-prose-concept` — **5. Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 439, `outline-instead-of-explanation` — **5. Recovery**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 456, `empty-section` — **19. Security boundaries**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 474, `bare-bullet-items` — **20. Run evidence a observability**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected vs. targeted vs. verified host count;`, `unreachable a omitted targets;`, `task/host duration;`, `handler failures;`.
+- **CRITICAL** line 474, `outline-instead-of-explanation` — **20. Run evidence a observability**: 10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 502, `no-prose-concept` — **21. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 502, `outline-instead-of-explanation` — **21. Referenčné pravidlá**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 101, `list-heavy-section` — **4. Execution environment a content resolution**: 6 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 148, `list-heavy-section` — **6. Variables a effective host context**: 8 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 215, `bare-bullet-items` — **9. Strategy, forks a serial**: 5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `connection burst;`, `API throttling;`, `load na shared service;`, `počet súbežných failure paths;`.
+- **HIGH** line 215, `list-heavy-section` — **9. Strategy, forks a serial**: 8 odrážok a iba 50 slov súvislého vysvetlenia.
+- **HIGH** line 408, `single-sentence-concept` — **1. Zafixuj run subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 412, `list-first-introduction` — **2. Súťažiace hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 423, `list-first-introduction` — **3. Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 439, `list-first-introduction` — **5. Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 452, `single-sentence-concept` — **7. Posuň control skôr**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 458, `single-sentence-concept` — **Control node/execution environment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 462, `single-sentence-concept` — **Collections a plugins**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 470, `single-sentence-concept` — **Managed nodes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 474, `single-sentence-concept` — **20. Run evidence a observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 502, `bare-bullet-items` — **21. Referenčné pravidlá**: 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Agentless neznamená bez target runtime a transport assumptions.`, `forks , strategy a serial riadia odlišné concurrency vrstvy.`, `changed nie je runtime verification.`, `Handler transition je súčasť desired-state convergence.`.
+- **HIGH** line 502, `list-first-introduction` — **21. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 47, `thin-concept-section` — **Control node**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 268, `thin-concept-section` — **11. Failure model a partial success**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 291, `thin-concept-section` — **12. Worked failure: zelený run vynechal dva hosts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 412, `thin-concept-section` — **2. Súťažiace hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 423, `thin-concept-section` — **3. Diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 439, `thin-concept-section` — **5. Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 474, `thin-concept-section` — **20. Run evidence a observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 502, `thin-concept-section` — **21. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md`
 
@@ -17936,19 +17891,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3495 | 436 | 0 | 0 | 3931 |
-| `single-sentence-concept` | 0 | 3675 | 0 | 0 | 3675 |
-| `outline-instead-of-explanation` | 3343 | 0 | 0 | 0 | 3343 |
-| `thin-concept-section` | 0 | 2941 | 0 | 0 | 2941 |
-| `term-before-explanation` | 0 | 457 | 2302 | 0 | 2759 |
+| `bare-bullet-items` | 3483 | 437 | 0 | 0 | 3920 |
+| `single-sentence-concept` | 0 | 3656 | 0 | 0 | 3656 |
+| `outline-instead-of-explanation` | 3331 | 0 | 0 | 0 | 3331 |
+| `thin-concept-section` | 0 | 2933 | 0 | 0 | 2933 |
+| `term-before-explanation` | 0 | 456 | 2299 | 0 | 2755 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1804 | 1804 |
-| `example-not-explicit` | 0 | 0 | 0 | 1756 | 1756 |
-| `list-first-introduction` | 0 | 1110 | 0 | 0 | 1110 |
-| `short-concept-section` | 0 | 0 | 1092 | 0 | 1092 |
+| `example-not-explicit` | 0 | 0 | 0 | 1760 | 1760 |
+| `list-first-introduction` | 0 | 1113 | 0 | 0 | 1113 |
+| `short-concept-section` | 0 | 0 | 1088 | 0 | 1088 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 933 | 933 |
-| `empty-section` | 585 | 0 | 0 | 0 | 585 |
-| `no-prose-concept` | 461 | 0 | 0 | 0 | 461 |
-| `list-heavy-section` | 0 | 383 | 0 | 0 | 383 |
+| `empty-section` | 582 | 0 | 0 | 0 | 582 |
+| `no-prose-concept` | 464 | 0 | 0 | 0 | 464 |
+| `list-heavy-section` | 0 | 386 | 0 | 0 | 386 |
 
 ## Required remediation pattern
 
