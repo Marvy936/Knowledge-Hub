@@ -1,8 +1,12 @@
-# Infrastructure as Code and Terraform glossary entries
+# Infrastructure as Code, Terraform and Ansible glossary entries
 
 ## Address transition — Terraform
 
 Versionovaná zmena resource alebo module instance address-y, pri ktorej má existujúci remote binding pokračovať pod novou address-ou bez neplánovaného destroy/create. Typicky sa deklaruje cez `moved` block. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Ansible run subject
+
+Rekonštruovateľná identita automation runu zahŕňajúca source revision, playbook, `ansible-core`, execution environment image, collections, inventory subject, resolved variables, credentials, strategy, batch a controller run ID. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
 ## Authoritative source — IaC
 
@@ -19,6 +23,10 @@ Presná identita state writera zahŕňajúca execution run, workload identity, b
 ## Change subject — IaC
 
 Presná identita infra zmeny zahŕňajúca source revision, resolved toolchain a dependencies, effective inputs, backend/state lineage a serial, target account/region, workload identity, saved plan a policy/approval context. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
+## Cleanup-incomplete verdict
+
+Verdikt testu alebo automation runu, pri ktorom hlavné assertions prešli, ale vytvorené resources, credentials, temporary state alebo iné side effects neboli úplne odstránené. Nie je ekvivalentný plnému success-u. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
 ## ClickOps
 
@@ -52,9 +60,25 @@ Directed graph vytvorený z references, provider vzťahov a explicitných depend
 
 Súbor `.terraform.lock.hcl` zachytávajúci vybrané provider versions a package checksums pre reprodukovateľnejšiu inštaláciu dependencies. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
+## Drift detection subject — Terraform
+
+Presná identita drift porovnania zahŕňajúca configuration revision, resolved dependencies a variables, backend/state lineage a serial, provider target, read identity, refresh time a expected resource inventory. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
 ## Effective input subject — Terraform
 
 Rekonštruovateľná množina root a module inputs po vyhodnotení source-u, precedence, default/null semantics, caller forwarding-u a sensitive markers, viazaná na konkrétny saved plan. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
+
+## Expected evidence inventory — Terraform
+
+Vopred definovaná množina testov, reportov, planov, policy verdictov, cleanup výsledkov a runtime overení požadovaných pre konkrétnu risk class. Chýbajúca položka znamená incomplete evidence, nie pass. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
+
+## Expected target inventory — Ansible
+
+Očakávaná množina alebo invariant targetov pred runom, napríklad stable host IDs, count bounds, AZ/ring coverage, forbidden overlaps, allowed lifecycle states a maximum cache age. Porovnáva sa s resolved, attempted a verified host inventory. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Fleet convergence — Ansible
+
+Stav, v ktorom všetky očakávané a oprávnené targety dosiahli požadovaný file, service a runtime outcome a následný run nevytvára nečakané changes. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
 ## Force unlock — Terraform
 
@@ -64,9 +88,21 @@ Riziková operácia odstránenia backend locku podľa lock ID bez ukončenia pô
 
 Hodnota, ktorá určuje samotnú množinu alebo identity graph objektov, napríklad `count` alebo `for_each` keys, a preto musí byť známa pred apply. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
 
+## Handler transition — Ansible
+
+Prechod vyvolaný taskom reportujúcim `changed`, pri ktorom notification aktivuje handler, napríklad restart alebo reload služby. Je súčasťou convergence a môže zlyhať alebo sa nevykonať samostatne od pôvodného tasku. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
+## Host coverage — Ansible
+
+Porovnanie expected, resolved, attempted a runtime-verified host inventories. Zabraňuje tomu, aby zelený run nad neúplnou target množinou predstieral complete rollout. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md) a [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
 ## Infrastructure as Code — IaC
 
 Správa infraštruktúry pomocou versionovanej deklarácie, automatizovaného plan/apply alebo reconciliation procesu, review, policy a auditovateľného recovery lifecycle. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
+## Inventory resolution subject — Ansible
+
+Rekonštruovateľná identita inventory výpočtu zahŕňajúca source konfigurácie, plugin versions, source account/region a query, cache generation/age, static revision, vars sources, pattern/limit a resolution timestamp. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
 
 ## Lineage — Terraform state
 
@@ -88,6 +124,10 @@ Immutable identita reusable modulu zahŕňajúca registry alebo VCS source, vers
 
 Concurrency stav, keď viac procesov číta rovnaký prior state a pokúša sa zapísať konfliktujúce snapshots alebo remote zmeny bez účinného locku a serialization. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
+## Omitted target — Ansible
+
+Host alebo target, ktorý mal patriť do rollout scope-u, ale nevstúpil do resolved target inventory. Nemá task result ani `unreachable` verdict, preto sa odhalí iba porovnaním s expected target inventory. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
 ## Output value — Terraform
 
 Explicitne publikovaná hodnota modulu tvoriaca jeho výstupný contract pre callerov, CLI alebo ďalšiu automatizáciu. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
@@ -95,6 +135,10 @@ Explicitne publikovaná hodnota modulu tvoriaca jeho výstupný contract pre cal
 ## Ownership adoption — Terraform
 
 Riadené prevzatie existujúceho remote objektu do Terraform management modelu cez configuration, presný provider target, import mapping, nový state binding a reviewed post-import reconciliation. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Policy verdict — Terraform
+
+Subject-bound rozhodnutie policy engine-u nad konkrétnou configuration alebo saved-plan evidence, ktoré explicitne rozlišuje pass, violation, exception, invalid/missing input a tool/service error. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
 ## Post-import reconciliation — Terraform
 
@@ -144,6 +188,10 @@ Monotónne rastúce číslo snapshotu v jednej state lineage používané na roz
 
 Configuration-derived key s dlhodobým identity významom používaný v `for_each` addressách; jeho zmena je resource identity change a môže vyžadovať `moved` alebo state migration contract. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
 
+## Stable inventory host identity — Ansible
+
+Dlhodobá automation identita hostu spájajúca `inventory_hostname` s immutable asset alebo instance ID, environmentom a overiteľnou connection identity. IP adresa sama osebe nie je dostatočný identity contract. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
 ## State boundary — Terraform
 
 Rozsah resources zdieľajúcich jeden state, lock, permissions, plan/apply lifecycle a failure blast radius. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md) a [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
@@ -164,9 +212,17 @@ Riadená zmena state metadata pomocou príkazov ako `state mv`, `state rm` alebo
 
 Module ownerom deklarovaná a testovaná cesta zo staršej podporovanej version na novšiu, zahŕňajúca contract zmeny, retained moved history, provider constraints, plan assertions a runtime verification. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
 
+## Target manifest — Ansible
+
+Subject-bound a auditovateľný zoznam stable host identities vybraných patternom a limitom pre konkrétny run, často doplnený environmentom, groups, connection identity a exclusion reason. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
 ## Terraform backend
 
 Terraform Core komponent určujúci state storage a podľa backendu aj locking, workspaces alebo remote execution behavior. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
+
+## Terraform evidence subject
+
+Presná identita testovacej a policy evidence zahŕňajúca source/module revision, Terraform a provider versions, fixture/effective inputs, target identity, prior upgrade version, plan digest, policy package a cleanup/runtime verdict. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
 ## Terraform input variable
 
