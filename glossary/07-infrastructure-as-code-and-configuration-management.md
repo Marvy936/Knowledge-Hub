@@ -4,6 +4,10 @@
 
 Versionovaná zmena resource alebo module instance address-y, pri ktorej má existujúci remote binding pokračovať pod novou address-ou bez neplánovaného destroy/create. Typicky sa deklaruje cez `moved` block. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
+## Ansible capability contract
+
+Versionované a dokumentované rozhranie reusable role alebo collection capability zahŕňajúce inputs, defaults, side effects, privilege a platform assumptions, notification topics, runtime outcome, compatibility a recovery behavior. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
 ## Ansible run subject
 
 Rekonštruovateľná identita automation runu zahŕňajúca source revision, playbook, `ansible-core`, execution environment image, collections, inventory subject, resolved variables, credentials, strategy, batch a controller run ID. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
@@ -32,6 +36,10 @@ Verdikt testu alebo automation runu, pri ktorom hlavné assertions prešli, ale 
 
 Primárna správa infraštruktúry manuálnymi zmenami v UI alebo konzole bez versionovaného, reviewovaného a reprodukovateľného change pathu. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
 
+## Collection artifact subject — Ansible
+
+Immutable identita publikovanej Ansible collection zahŕňajúca source revision, namespace a version, built artifact digest, publisher/provenance, resolved dependencies a podporovaný `ansible-core` contract. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
 ## Computed value — Terraform
 
 Hodnota atribútu určená providerom alebo remote API, ktorá nemusí byť známa počas planu a môže sa zobraziť ako `known after apply`. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
@@ -39,6 +47,10 @@ Hodnota atribútu určená providerom alebo remote API, ktorá nemusí byť zná
 ## Consumer inventory — Terraform module
 
 Evidencia module consumers, používaných versions, environments, owners, provider/Terraform constraints a podporovaných upgrade paths. Umožňuje bezpečné deprecation, security remediation a retirement starého contractu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
+## Control-flow subject — Ansible
+
+Rekonštruovateľná identita rozhodovania `when`/loop/handler pathu zahŕňajúca host, typed effective inputs, fact a registered-result freshness, item inventory, include path, changed signals, handler definitions a batch/run context. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
 ## Cross-state contract
 
@@ -63,6 +75,10 @@ Súbor `.terraform.lock.hcl` zachytávajúci vybrané provider versions a packag
 ## Drift detection subject — Terraform
 
 Presná identita drift porovnania zahŕňajúca configuration revision, resolved dependencies a variables, backend/state lineage a serial, provider target, read identity, refresh time a expected resource inventory. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
+## Effective host value subject — Ansible
+
+Rekonštruovateľný host-specific value set po vyhodnotení inventory a role sources, precedence, play/role parameters, facts a cache generation, registered alebo `set_fact` values, extra vars a lookup dependencies. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
 ## Effective input subject — Terraform
 
@@ -90,7 +106,7 @@ Hodnota, ktorá určuje samotnú množinu alebo identity graph objektov, naprík
 
 ## Handler transition — Ansible
 
-Prechod vyvolaný taskom reportujúcim `changed`, pri ktorom notification aktivuje handler, napríklad restart alebo reload služby. Je súčasťou convergence a môže zlyhať alebo sa nevykonať samostatne od pôvodného tasku. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+Prechod vyvolaný taskom reportujúcim `changed`, pri ktorom notification aktivuje handler, napríklad restart alebo reload služby. Je súčasťou convergence a môže zlyhať alebo sa nevykonať samostatne od pôvodného tasku. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md) a [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
 ## Host coverage — Ansible
 
@@ -103,6 +119,10 @@ Správa infraštruktúry pomocou versionovanej deklarácie, automatizovaného pl
 ## Inventory resolution subject — Ansible
 
 Rekonštruovateľná identita inventory výpočtu zahŕňajúca source konfigurácie, plugin versions, source account/region a query, cache generation/age, static revision, vars sources, pattern/limit a resolution timestamp. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Item inventory — Ansible
+
+Vopred validovaná a identifikovateľná množina business items, nad ktorými loop vytvára per-item operations. Obsahuje identity keys, required fields, ordering alebo completeness invariants a recovery semantics pri partial failure. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
 ## Lineage — Terraform state
 
@@ -135,6 +155,10 @@ Explicitne publikovaná hodnota modulu tvoriaca jeho výstupný contract pre cal
 ## Ownership adoption — Terraform
 
 Riadené prevzatie existujúceho remote objektu do Terraform management modelu cez configuration, presný provider target, import mapping, nový state binding a reviewed post-import reconciliation. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Per-host task transition — Ansible
+
+Jedna task operation vyhodnotená a vykonaná pre konkrétny host s vlastnou eligibility, action/module contextom a resultom `ok`, `changed`, `failed`, `unreachable` alebo `skipped`. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
 
 ## Policy verdict — Terraform
 
@@ -176,6 +200,10 @@ Jednoznačná konfiguračná adresa managed objektu vrátane module pathu, resou
 
 State mapovanie medzi Terraform resource instance addressou, provider contextom a konkrétnou remote object identity. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
 
+## Role consumer inventory — Ansible
+
+Evidencia repositories, playbooks a owners používajúcich konkrétnu role/collection version, execution environment, environment scope a podporovanú upgrade path. Umožňuje bezpečnú deprecation a security remediation. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
+
 ## Saved plan subject — Terraform
 
 Konkrétny plan artifact a digest viazaný na configuration, resolved dependencies, effective inputs, state lineage/serial, refresh observations, provider versions, target identity a policy/approval verdict. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
@@ -215,6 +243,10 @@ Module ownerom deklarovaná a testovaná cesta zo staršej podporovanej version 
 ## Target manifest — Ansible
 
 Subject-bound a auditovateľný zoznam stable host identities vybraných patternom a limitom pre konkrétny run, často doplnený environmentom, groups, connection identity a exclusion reason. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Template artifact subject — Ansible
+
+Identita vyrenderovaného configuration artifactu zahŕňajúca template source digest, execution environment, host identity, effective non-secret values, fact/cache generation, lookup dependencies, rendered checksum, validation verdict a destination. Pozri [Variables, facts a templates](docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md).
 
 ## Terraform backend
 
