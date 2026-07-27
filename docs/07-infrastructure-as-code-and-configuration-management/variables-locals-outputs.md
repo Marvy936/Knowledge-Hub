@@ -1,101 +1,149 @@
 # Variables, locals a outputs
 
-Input variables, local values a outputs tvoria interface Terraform modulov. Variables prinášajú vstupy, locals pomenúvajú interné expressions a outputs publikujú výsledky pre callerov, operátorov alebo ďalšie automatizácie.
+Variables, locals a outputs tvoria interface medzi caller intentom, internou module implementáciou a downstream consumers. Nie sú iba tri syntaxické kategórie. Spoločne rozhodujú, ktoré hodnoty smie caller meniť, ako sa vstupy validujú a normalizujú, aké dependencies vzniknú a ktoré výsledky sa stanú stabilným verejným contractom.
 
-Dobrý module interface oddeľuje stabilný kontrakt od implementačných detailov.
+Kapitola pokračuje v scenári Atlas Payments. Root configuration `prod-eu` volá module `service-platform` pre release `3.14.0`. Module prijíma environment, image digest, replica policy, subnet mapu a secret reference; interne vytvára canonical names a tags a publikuje iba endpoint a stabilné resource IDs.
 
-## 1. Input variables
+## 1. Dominantný model
 
-Variable block definuje vstup modulu:
+```text
+caller intent
+→ typed input contract
+→ source, precedence a validation
+→ default/null resolution
+→ local normalization a derived values
+→ resource graph a provider operations
+→ output postconditions
+→ stable consumer contract
+→ interface evolution a deprecation
+```
+
+Tri vrstvy majú odlišný účel:
+
+- **Variable:** externý input, ktorý caller môže poskytnúť.
+- **Local:** interná odvodená hodnota, ktorú caller nemôže override-nuť.
+- **Output:** explicitne publikovaný výsledok modulu.
+
+Dôveryhodný interface zachováva význam hodnoty od input source-u až po consumer. Nestačí, že Terraform dokáže hodnotu typovo spracovať.
+
+## 2. Atlas module contract
+
+Root module volá:
 
 ```hcl
-variable "environment" {
-  description = "Deployment environment name."
-  type        = string
+module "payments" {
+  source = "./modules/service-platform"
+
+  environment  = "prod"
+  image_digest = "sha256:314..."
+  replicas     = 6
+  secret_ref   = "vault://payments/prod/runtime"
+
+  subnets = {
+    private_a = {
+      cidr = "10.40.10.0/24"
+      zone = "eu-central-1a"
+    }
+    private_b = {
+      cidr = "10.40.20.0/24"
+      zone = "eu-central-1b"
+    }
+  }
 }
 ```
 
-Referencia:
+Module contract nie je iba zoznam argumentov. Pre každý input určuje:
 
-```hcl
-var.environment
+```text
+name + semantic purpose
++ exact type
++ required/optional/null behavior
++ validation
++ sensitive handling
++ compatibility policy
++ effect on resource identity a risk
 ```
 
-V child module je variable argument, ktorý poskytuje caller. V root module možno hodnotu dodať cez CLI, variable files, environment variables alebo remote execution platformu.
+`replicas = 6` je capacity intent. `image_digest` je immutable release identity. `secret_ref` je referencia, nie samotný secret. Zamenenie týchto významov za všeobecné stringy oslabí review aj policy.
 
-## 2. Povinná a voliteľná variable
-
-Variable bez `default` je povinná:
-
-```hcl
-variable "region" {
-  type = string
-}
-```
-
-Variable s defaultom je voliteľná:
-
-```hcl
-variable "replica_count" {
-  type    = number
-  default = 2
-}
-```
-
-Default má byť bezpečný a predvídateľný. Produkčné rizikové správanie nemá byť skryté za pohodlným defaultom.
-
-## 3. Type constraints
-
-Type constraint dokumentuje a validuje vstupný kontrakt.
-
-Primitívne typy:
-
-- `string`,
-- `number`,
-- `bool`.
-
-Kolekcie a štruktúry:
-
-- `list(T)`,
-- `set(T)`,
-- `map(T)`,
-- `tuple([...])`,
-- `object({...})`.
-
-Príklad:
+## 3. Typed variables sú executable contracts
 
 ```hcl
 variable "subnets" {
+  description = "Stable subnet definitions keyed by logical identity."
+
   type = map(object({
-    cidr              = string
-    availability_zone = string
-    public            = bool
+    cidr = string
+    zone = string
   }))
 }
 ```
 
-Presný typ znižuje runtime prekvapenia a zlepšuje editor/tooling support.
+Presný typ:
 
-## 4. Optional object attributes
+- odhalí chybu skôr než provider;
+- stabilizuje module API;
+- objasní collection identity;
+- umožní zmysluplnú validation;
+- zníži implicitné konverzie.
 
-Komplexný input môže mať optional fields:
+`type = any` prenáša chybu hlbšie do expressions alebo provider schema a robí interface neauditovateľný.
+
+Object type môže úmyselne zahodiť extra attributes pri konverzii. Caller preto nemá predpokladať, že module zachová dáta mimo deklarovaného contractu.
+
+## 4. Required, optional a bezpečné defaults
+
+Variable bez `default` vyžaduje explicitný caller intent. Default je vhodný iba vtedy, keď je bezpečný a rovnaký význam platí pre všetkých callerov.
 
 ```hcl
-variable "service" {
+variable "replicas" {
+  type = number
+
+  validation {
+    condition     = var.replicas >= 2 && var.replicas <= 20
+    error_message = "Replica count must be between 2 and 20."
+  }
+}
+```
+
+Atlas zámerne nepoužíva produkčný default `replicas = 2`. Chýbajúci capacity intent má zlyhať pri plan-e, nie ticho znížiť production capacity.
+
+Optional object attributes sú vhodné pre kompatibilnú evolúciu:
+
+```hcl
+variable "runtime" {
   type = object({
-    name        = string
-    port        = number
-    enable_tls  = optional(bool, true)
-    description = optional(string)
+    cpu_architecture = optional(string, "amd64")
+    enable_metrics   = optional(bool, true)
   })
 }
 ```
 
-Optional fields pomáhajú evolúcii module interface, ale veľké množstvo voliteľných kombinácií môže vytvoriť neotestovateľný „univerzálny“ modul.
+Veľké množstvo optional fields a boolean flags však vytvára neotestovateľný behavior state space. Vtedy module pravdepodobne spája viac capabilities, než by mal.
 
-## 5. Validation
+## 5. `null` je súčasť semantics
 
-Custom validation kontroluje business alebo domain invariant:
+`null` nie je prázdny string, nula ani prázdna kolekcia. Podľa contextu môže znamenať omission, inherit/default alebo explicitnú neprítomnosť.
+
+```hcl
+variable "custom_domain" {
+  type     = string
+  nullable = true
+  default  = null
+}
+```
+
+Module musí definovať:
+
+```text
+null → nepoužívaj custom domain
+""   → invalid input
+value → vytvor DNS/TLS contract
+```
+
+Ak caller pošle `null`, môže tým potlačiť default alebo vyvolať provider-specific omission behavior. Null semantics patria do testov a compatibility dokumentácie.
+
+## 6. Validation chráni domain invariant
 
 ```hcl
 variable "environment" {
@@ -108,30 +156,43 @@ variable "environment" {
 }
 ```
 
-Validácia má:
+Dobrá validation:
 
-- zlyhať skoro,
-- vysvetliť opravu,
-- overovať skutočný contract,
-- nezdvojovať provider validation bez pridanej hodnoty.
+- zlyhá pred remote mutation;
+- kontroluje domain contract, nie iba syntax;
+- vysvetľuje opravu;
+- pokrýva identity a risk hranice;
+- používa fixture tests.
 
-## 6. `nullable`
+Atlas validuje aj to, že `image_digest` je digest, nie mutable tag, subnet keys sú stabilné a production replica count neporušuje capacity minimum.
 
-Variable môže explicitne riadiť, či prijíma `null`:
+Validation však nenahrádza provider alebo runtime kontrolu. Formát CIDR môže byť správny, ale stále kolidovať s existujúcou sieťou.
 
-```hcl
-variable "description" {
-  type     = string
-  nullable = true
-  default  = null
-}
+## 7. Root input sources a effective value
+
+Root variables môžu prísť z:
+
+- `-var`;
+- `-var-file`;
+- auto-loaded variable files;
+- `TF_VAR_*` environment variables;
+- remote workspace variable setu;
+- pipeline orchestration vrstvy.
+
+Dôveryhodný plan musí vedieť zostaviť non-secret provenance:
+
+```text
+replicas
+→ prod.tfvars = 6
+→ žiadny vyšší override
+→ effective value = 6
 ```
 
-`null` typicky znamená omission alebo neprítomnosť hodnoty podľa kontextu. Nie je to to isté ako prázdny string, nula alebo prázdna kolekcia.
+Skryté source a precedence kombinácie komplikujú reprodukciu. Atlas preto vytvára input manifest s keyom, source class, version/fingerprintom a sensitive markerom bez logovania secret values.
 
-Module contract má presne definovať semantics `null`.
+Apply musí použiť rovnaký resolved input subject ako approved saved plan.
 
-## 7. Sensitive variables
+## 8. Sensitive hodnoty a secret references
 
 ```hcl
 variable "api_token" {
@@ -140,339 +201,330 @@ variable "api_token" {
 }
 ```
 
-`sensitive` obmedzuje zobrazovanie hodnoty v bežnom CLI/UI outpute. Neznamená:
+`sensitive` obmedzuje zobrazenie v štandardnom outpute. Nezaručuje:
 
-- encryption v state,
-- ochranu pred škodlivým providerom,
-- ochranu pred job scriptom,
-- bezpečné uloženie v source alebo `.tfvars`.
+- encryption v state;
+- bezpečný provider alebo job;
+- ochranu pred `terraform output -raw`;
+- odstránenie z plan artifactu;
+- provider-side revocation.
 
-Secrets majú prichádzať zo secure identity alebo secret-management workflowu.
+Atlas preto module nedáva samotný runtime secret. Poskytne `secret_ref`, z ktorej workload identity načíta secret až v runtime. Ak provider musí dostať citlivú hodnotu, state/backend a log lifecycle sa navrhnú ako secret-bearing boundary.
 
-## 8. Hodnoty root variables
+Secret commitnutý v `.tfvars` sa najprv revokuje u providera. History rewrite nie je revokácia.
 
-Root module môže dostať hodnoty napríklad cez:
-
-```text
--var
--var-file
-*.auto.tfvars
-terraform.tfvars
-TF_VAR_<name>
-HCP Terraform workspace variables
-```
-
-Precedence a source hodnoty musia byť zrozumiteľné. Skrytá kombinácia viacerých files a environment variables komplikuje reprodukciu planu.
-
-V CI zachovaj evidence:
-
-- ktorý variable set bol použitý,
-- ktorý environment ho poskytol,
-- ktoré hodnoty boli sensitive,
-- ktorý commit a plan ich vyhodnotil.
-
-## 9. Variable files
-
-Príklad `prod.tfvars`:
-
-```hcl
-environment   = "prod"
-replica_count = 6
-```
-
-Variable files s necitlivou environment konfiguráciou môžu byť versionované.
-
-Do repository nepatria:
-
-- passwords,
-- private keys,
-- dlhodobé cloud credentials,
-- customer secrets.
-
-## 10. Local values
-
-Locals pomenúvajú expressions v module:
+## 9. Locals ako normalization vrstva
 
 ```hcl
 locals {
+  canonical_name = "atlas-payments-${var.environment}"
+
   common_tags = {
+    Application = "payments"
     Environment = var.environment
     ManagedBy   = "terraform"
   }
-
-  name_prefix = "${var.project}-${var.environment}"
 }
 ```
 
-Referencia:
+Locals sú vhodné na:
 
-```hcl
-local.common_tags
-```
-
-Local nie je vstup a caller ho nemôže override-nuť.
-
-## 11. Na čo sú locals vhodné
-
-Použi locals na:
-
-- pomenovanie opakovanej expression,
-- normalizáciu vstupov,
-- odvodené názvy,
-- common tags/labels,
-- transformáciu collections,
+- canonical naming;
+- normalizáciu vstupov;
+- derived identifiers;
+- common tags;
+- transformáciu collections;
 - interný compatibility adapter.
 
-Nepoužívaj locals na skrytie stoviek riadkov business logiky. Príliš komplexné locals znižujú čitateľnosť planu a module contractu.
+Local nie je override point ani runtime resource. Referencie cez local zachovávajú dependency provenance.
 
-## 12. Locals a dependencies
+Príliš komplexné locals môžu skryť business decision tree. Keď review nevie vysvetliť, ako input vytvorí resource identity a plan action, transformácia patrí do menšieho contractu, testu alebo samostatného module.
 
-Local môže referencovať variables, resources, data sources a iné locals:
+## 10. Stable identity cez normalized keys
+
+Atlas subnet map používa keys `private_a` a `private_b` ako module-level logical identity. Local ich môže zoradiť alebo doplniť tags, ale nesmie ich premenovať podľa mutable display name-u.
 
 ```hcl
 locals {
-  endpoint = "https://${example_service.app.hostname}"
-}
-```
-
-Dependency sa zachová cez expression. Local nevytvára runtime objekt; iba pomenúva hodnotu a dependency path.
-
-Circular local references nie sú povolené.
-
-## 13. Outputs
-
-Output publikuje hodnotu modulu:
-
-```hcl
-output "service_url" {
-  description = "Public service endpoint."
-  value       = "https://${example_service.app.hostname}"
-}
-```
-
-V caller module:
-
-```hcl
-module.app.service_url
-```
-
-Root outputs možno čítať cez:
-
-```bash
-terraform output
-terraform output -json
-```
-
-## 14. Output ako module API
-
-Output má publikovať stabilný contract, nie celý provider resource object.
-
-Slabý interface:
-
-```hcl
-output "everything" {
-  value = aws_vpc.main
-}
-```
-
-Lepší interface:
-
-```hcl
-output "vpc_id" {
-  value = aws_vpc.main.id
-}
-
-output "private_subnet_ids" {
-  value = values(aws_subnet.private)[*].id
-}
-```
-
-Explicitné outputs znižujú coupling na provider schema a module internals.
-
-## 15. Sensitive outputs
-
-```hcl
-output "generated_password" {
-  value     = random_password.app.result
-  sensitive = true
-}
-```
-
-Sensitive output sa stále môže uložiť v state. Navyše `terraform output -json` alebo `-raw` môže hodnotu zobraziť v plain texte oprávnenému callerovi.
-
-Sensitive output preto nie je náhrada za secret manager.
-
-## 16. Output preconditions
-
-Output môže kontrolovať invariant výsledku:
-
-```hcl
-output "service_url" {
-  value = local.service_url
-
-  precondition {
-    condition     = startswith(local.service_url, "https://")
-    error_message = "Service URL must use HTTPS."
+  subnet_contract = {
+    for key, subnet in var.subnets : key => {
+      cidr = subnet.cidr
+      zone = subnet.zone
+      name = "${local.canonical_name}-${key}"
+    }
   }
 }
 ```
 
-Precondition dokumentuje assumption, ktorý musí platiť pred publikovaním contractu.
+Key zmena môže viesť na resource address change a replacement. Preto je input interface zároveň identity contractom.
 
-## 17. Unknown values
+## 11. Outputs sú verejné API modulu
 
-Pri plan-e nemusí byť output známy:
+```hcl
+output "service_endpoint" {
+  description = "HTTPS endpoint for the deployed service."
+  value       = "https://${example_lb.payments.hostname}"
+}
 
-```text
-service_url = (known after apply)
+output "service_security_group_id" {
+  description = "Stable security-group identifier for approved consumers."
+  value       = example_security_group.service.id
+}
 ```
 
-Unknown nie je chyba. Znamená, že provider alebo upstream resource hodnotu určí až pri apply.
+Output má publikovať minimum stabilných capabilities, ktoré consumer potrebuje. Nemá exportovať celý provider resource object:
 
-Riziko vzniká, keď unknown hodnoty ovplyvňujú:
+```hcl
+# slabý contract
+output "everything" {
+  value = example_lb.payments
+}
+```
 
-- `for_each` keys,
-- `count`,
-- provider configuration,
-- backend configuration,
-- plan-time policy rozhodnutia.
+Taký output viaže caller na provider internals, computed fields a upgrade behavior. Explicitné outputs obmedzujú coupling a umožňujú semantické versionovanie module interface-u.
 
-Keys pre `for_each` musia byť známe dostatočne skoro na zostavenie resource graphu.
+## 12. Output postconditions a unknown values
 
-## 18. Module composition
+Output môže mať precondition:
 
-Moduly sa skladajú cez explicitné inputs a outputs:
+```hcl
+output "service_endpoint" {
+  value = local.service_endpoint
+
+  precondition {
+    condition     = startswith(local.service_endpoint, "https://")
+    error_message = "Service endpoint must use HTTPS."
+  }
+}
+```
+
+Počas planu môže byť endpoint unknown, pretože hostname vznikne až po create. Unknown nie je `null` ani wildcard. Zachová type a dependency, ale konkrétnu hodnotu poskytne apply.
+
+Riziko vzniká, ak unknown ovplyvňuje:
+
+- `for_each` keys;
+- `count`;
+- provider configuration;
+- policy decision;
+- target identity;
+- module source.
+
+Graph shape a authorization inputs musia byť známe pred mutation.
+
+## 13. Module composition
 
 ```hcl
 module "network" {
-  source = "./modules/network"
-  cidr   = var.vpc_cidr
+  source  = "./modules/network"
+  subnets = var.subnets
 }
 
-module "application" {
-  source     = "./modules/application"
+module "payments" {
+  source     = "./modules/service-platform"
   subnet_ids = module.network.private_subnet_ids
 }
 ```
 
-Referencia na output zároveň vytvorí dependency.
+Output reference prenáša hodnotu aj dependency edge. Consumer nemá čítať upstream internals priamo ani zdieľať celý state, ak stačí užší publish contract.
 
-## 19. Cross-state outputs
+Cross-state contract môže byť publikovaný cez service catalog, parameter store, DNS, registry manifest alebo riadený remote-state read. Remote state access často poskytuje širšiu visibility než logický output contract a musí sa posudzovať ako security boundary.
 
-Zdieľanie outputs medzi oddelenými states vytvára external contract.
+## 14. Interface evolution
 
-Možnosti:
+Backward-compatible zmeny môžu byť:
 
-- remote state data source,
-- configuration registry,
-- service catalog,
-- DNS/service discovery,
-- cloud-native parameter store,
-- pipeline-publikovaný manifest.
+- nový optional input s bezpečným defaultom;
+- nový output;
+- nový optional object field;
+- interná local transformácia bez zmeny semantics.
 
-Remote state consumer typicky potrebuje prístup k state snapshotu, nie iba k logicky publikovaným hodnotám. Pre citlivé boundaries môže byť bezpečnejší explicitný publish mechanizmus.
+Potentially breaking zmeny:
 
-## 20. Naming a documentation
+- premenovanie inputu alebo outputu;
+- zmena type constraint;
+- zmena default/null semantics;
+- odstránenie outputu;
+- zmena collection keys;
+- zmena sensitive alebo ownership behavioru.
 
-Variable a output názvy majú byť:
+Module release musí komunikovať compatibility a supported upgrade path. Deprecation má ownera, deadline a migration guidance.
 
-- stabilné,
-- domain-oriented,
-- bez zbytočnej implementačnej terminológie,
-- konzistentné naprieč modules.
+## 15. Worked failure: production capacity ticho použila default
 
-Každý významný input/output má mať `description`.
+Root caller zabudol poslať `replicas`. Module mal pohodlný default `2`, ktorý vznikol pre development.
 
-Dokumentuj aj:
+```text
+production caller omitne replicas
+→ module default = 2
+→ plan je validný
+→ apply prejde
+→ load balancer posiela production traffic na poddimenzovanú service
+```
 
-- units,
-- accepted values,
-- null semantics,
-- sensitive behavior,
-- compatibility/deprecation policy.
+### Príčina
 
-## 21. Interface evolution
+Interface nerozlišoval environment-specific required intent od bezpečného univerzálneho defaultu.
 
-Backward-compatible zmeny:
+### Náprava
 
-- nový optional input s bezpečným defaultom,
-- nový output,
-- rozšírenie object inputu o optional field.
+`replicas` sa stala required variable. Root environment policy kontroluje minimum a post-apply capacity oracle potvrdzuje healthy replicas. Development convenience sa rieši v development caller configuration, nie v shared module default-e.
 
-Potenciálne breaking zmeny:
+## 16. Worked failure: output celého objectu rozbil consumera
 
-- premenovanie inputu/outputu,
-- zmena type constraint,
-- zmena default semantics,
-- odstránenie outputu,
-- zmena identity keys v collection.
+Network module exportoval celý provider subnet object. Consumer používal field, ktorý nebol súčasťou dokumentovaného module contractu. Provider upgrade field premenoval alebo zmenil jeho computed behavior.
 
-Module versioning má tieto zmeny komunikovať.
+```text
+provider internals leaknú cez output
+→ consumer sa na ne naviaže
+→ provider upgrade zmení object shape/semantics
+→ downstream plan zlyhá bez vedomej module API zmeny
+```
 
-## 22. Anti-patterny
+### Náprava
 
-### `type = any` bez dôvodu
+Module publikuje iba `private_subnet_ids` a explicitné metadata potrebné consumerom. Contract tests pokrývajú output types a upgrade path.
 
-Contract je nejasný a chyby sa objavia hlboko v expressions alebo providerovi.
+## 17. Worked failure: sensitive output unikol cez automation
 
-### Desiatky boolean flags
+Module publikoval generated password ako sensitive output. Pipeline následne použila:
 
-Modul má príliš veľa behavior kombinácií a slabú cohesion.
+```bash
+terraform output -json
+```
 
-### Secrets v `.tfvars` commite
+Výsledný JSON bol uložený ako diagnostický artifact.
 
-Version control history ich zachová aj po zmazaní aktuálneho súboru.
+`sensitive` skryl hodnotu v bežnom CLI zobrazení, ale oprávnený command ju exportoval v plain texte.
 
-### Output celého resource objectu
+### Náprava
 
-Caller sa naviaže na provider internals.
+Credential sa revokoval, artifact access a downloads sa auditovali a password lifecycle sa presunul do secret managera. Terraform output publikuje iba secret reference a version ID.
 
-### Locals ako skrytý programovací jazyk
+## 18. Kauzálny diagnostický walkthrough
 
-Komplexná transformácia je ťažko testovateľná a čitateľná.
+Symptom: approved production plan očakával šesť replicas, ale nový plan na rovnakom source commite ukazuje dve.
 
-### `sensitive = true` ako jediná secret control
+### Krok 1 — stabilizuj value subject
 
-Hodnota môže zostať v state a byť dostupná jobu/providerovi.
+```text
+root configuration    C74
+module version        M14
+environment           prod-eu
+saved plan            PL430
+expected input        replicas = 6
+observed plan input   replicas = 2
+```
 
-## 23. Troubleshooting
+### Krok 2 — konkurenčné hypotézy
 
-### Terraform žiada hodnotu nečakanej variable
+```text
+H1: prod.tfvars nebol načítaný
+H2: TF_VAR_replicas alebo workspace variable prepísali hodnotu
+H3: root module prestal forwardovať replicas do child module
+H4: child module default sa zmenil
+H5: null semantics aktivovali default
+H6: pipeline použila iný module version alebo variable set
+H7: zobrazený plan patrí inému environmentu
+```
 
-Variable nemá default alebo root input source nebol načítaný. Over názov, `-var-file`, workspace variables a environment.
+### Krok 3 — diskriminačné observation points
 
-### Type conversion mení dáta
+- invocation arguments a loaded variable-file inventory testujú H1;
+- redacted variable provenance testuje H2;
+- root module call diff testuje H3;
+- module source/digest a variable block testujú H4;
+- plan JSON value path a caller expression testujú H5;
+- resolved module/input manifest testuje H6;
+- backend/workspace/target identity testuje H7.
 
-Over object/tuple constraints, optional attributes a implicitné conversions. Použi presnejší typ.
+Atlas zistí, že pipeline refactor prestal odovzdávať `replicas`; child module použil default `2`. H3/H4 vysvetľujú plan.
 
-### Output je unknown
+### Krok 4 — contain-ni nesprávny subject
 
-Nájdi upstream computed value. Over, či unknown neblokuje graph-shaping expression.
+Plan `PL430` sa označí invalid a apply sa nespustí. Neopravuje sa ručným zvýšením capacity po deploymente.
 
-### Sensitive hodnota sa objavila v logu
+### Krok 5 — obnov správny contract
 
-Masking nie je transitívna ochrana všetkých tools. Rotuj secret, audituj exfiltration path a oprav job/provider logging.
+Root module explicitne forwarduje `replicas`, shared module odstráni production-unsafe default a validation/policy vyžaduje explicitnú capacity hodnotu.
 
-### Child module používa nesprávny default
+### Krok 6 — over outcome
 
-Over caller arguments, default values, null semantics a module version.
+```text
+input provenance = prod capacity contract V33
+saved plan = 6 replicas
+runtime healthy replicas = 6
+module output endpoint = stable
+no secret value v logs/artifacts
+```
 
-## 24. Kontrolné otázky
+### Krok 7 — skorší control
 
-1. Aký je rozdiel medzi variable, local a output?
-2. Prečo je presný type constraint súčasťou module contractu?
-3. Ako sa líši `null` od prázdnej hodnoty?
-4. Čo `sensitive` chráni a čo nechráni?
-5. Kedy použiť custom validation?
-6. Ako locals zachovávajú dependency graph?
-7. Prečo output celého resource objectu vytvára coupling?
-8. Ako outputs skladajú modules?
-9. Kedy unknown value komplikuje plan?
-10. Ako bezpečne evolvovať module interface?
+Finding sa mení na module interface fixture, required-input test a resolved value manifest porovnávaný medzi plan a apply.
 
-## Glossary impact
+## 19. Diagnostický runbook
 
-Relevantné pojmy: Terraform input variable, type constraint, optional attribute, variable validation, nullable value, sensitive value, local value, output value, module interface, unknown value, root module input a cross-state contract.
+1. Urči root/module revision, environment, plan a input subject.
+2. Klasifikuj hodnotu ako public config, sensitive value, identity alebo release input.
+3. Inventarizuj všetky root input sources a effective value.
+4. Over required/default/optional/null semantics a custom validation.
+5. Sleduj caller argument do child variable a local normalization.
+6. Pri unknown hodnote nájdi upstream computed producer a graph dopad.
+7. Over output type, postcondition a consumer contract.
+8. Pri secret incidente revokuj provider capability a audituj state/log/artifact exposure.
+9. Invaliduj stale alebo wrong-input plan pred apply.
+10. Zmeň finding na type, validation, default, provenance alebo API stability control.
+
+## 20. Referenčné pravidlá
+
+- Variables sú caller-controlled inputs.
+- Locals sú internal normalization, nie hidden override points.
+- Outputs sú stabilné verejné contracts.
+- Presný type je súčasť compatibility policy.
+- Produkčný risk intent nemá byť skrytý v pohodlnom default-e.
+- `null`, empty a omitted majú odlišnú semantics.
+- `sensitive` chráni presentation, nie celý lifecycle.
+- Secret reference je bezpečnejší contract než secret value.
+- Collection keys sú resource identity inputs.
+- Output nemá exportovať celý provider object.
+- Plan a apply musia používať rovnaký effective input subject.
+
+## 21. Časté omyly
+
+### „Default znižuje množstvo konfigurácie“
+
+Môže ticho nahradiť chýbajúci production intent.
+
+### „Presný typ je iba dokumentácia“
+
+Určuje konverziu, validation, compatibility aj collection identity.
+
+### „Sensitive output je bezpečný secret store“
+
+Hodnota môže zostať v state a byť exportovaná oprávneným commandom.
+
+### „Local skryje komplexitu“
+
+Môže skryť aj business decisions a identity transformácie pred reviewom.
+
+### „Viac outputs je flexibilnejšie“
+
+Export provider internals zväčšuje coupling a breaking surface.
+
+## 22. Zhrnutie
+
+Dôveryhodný module value lifecycle je:
+
+```text
+caller intent
+→ typed a validated inputs
+→ explicit source/default/null semantics
+→ local normalization so stable identity
+→ resource graph
+→ postconditioned minimal outputs
+→ versionovaný consumer contract
+```
+
+Troubleshooting nekontroluje iba declaration variable. Rekonštruuje effective source, caller forwarding, local transformáciu, unknown dependency a output consumer a overuje, že plan aj runtime použili rovnaký interface subject.
 
 ## Oficiálna dokumentácia
 
