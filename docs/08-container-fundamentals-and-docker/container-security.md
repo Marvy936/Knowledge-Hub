@@ -1,471 +1,645 @@
 # Container security
 
-Container security je defense-in-depth model naprieč source, buildom, registry, runtime, host kernelom, identities, networkingom, storage a operations. Container nie je automatická security boundary rovnocenná virtual machine. Väčšina Linux containers zdieľa host kernel, preto kompromitácia runtime alebo kernelu môže mať širší blast radius.
+Container security je effective trust lifecycle od source-u a artifactu až po process authority, host-kernel exposure, network/storage access, observation, patchovanie a incident recovery. Zoznam flags nie je security model: rozhoduje ich kombinácia nad konkrétnym workload subjectom.
 
-## 1. Threat model
-
-Najprv definuj, pred čím sa chrániš:
-
-- zraniteľná aplikácia,
-- malicious image alebo dependency,
-- kompromitovaný CI builder,
-- ukradnuté registry credentials,
-- container escape,
-- lateral movement medzi workloads,
-- host compromise,
-- secret exfiltration,
-- supply-chain substitution,
-- denial of service cez resources,
-- privileged insider alebo chybnú konfiguráciu.
-
-Bez threat modelu sa security redukuje na nekonzistentný zoznam flags.
-
-## 2. Security lifecycle
-
-Bezpečný lifecycle:
+Dominantný lifecycle:
 
 ```text
-trusted source
-→ reproducible build
-→ signed/provenance artifact
-→ registry policy
-→ admission/deployment policy
-→ hardened runtime
-→ observed execution
-→ patch/rebuild/replace
+workload threat model a data/tenant classification
+→ trusted source/build/image subject
+→ registry evidence a deployment eligibility
+→ effective runtime policy construction
+→ process identity, authority a filesystem/network/storage access
+→ host/runtime isolation boundary
+→ continuous observation a vulnerability reassessment
+→ bounded incident containment
+→ rebuild, credential rotation, redeploy a adjacent-scope verification
 ```
 
-Kontrola v jednej vrstve nenahrádza ostatné. Image scan nezachytí všetky runtime misconfigurations; seccomp neodstráni vulnerable dependency.
+Security success neznamená iba „container beží ako non-root“ alebo „scanner je green“. Znamená, že exact runtime subject dodržiava schválenú authority a exposure boundary a incident možno bezpečne vyšetriť a odstrániť bez neauditovaného live patchu.
 
-## 3. Minimal image
+## 1. Atlas security subject
 
-Minimalizuj runtime obsah:
+Atlas Payments API release `3.13.0`:
 
-- nepoužívané packages,
-- compilers a build tools,
-- shells, ak nie sú potrebné,
-- package manager cache,
-- debugging utilities bez support dôvodu,
-- default credentials a sample config.
+```text
+source commit: C417
+platform manifest: MAMD313
+provenance: PROV313
+signature: SIG313
+SBOM: SBOM313
+vulnerability verdict generation: VDB-2026-07-27
+runtime node: node-12
+container ID: CT-PAY-07
+process UID/GID: 10001:10001
+capabilities: NET_BIND_SERVICE
+no_new_privs: true
+seccomp profile: atlas-default-v7
+LSM profile/label: atlas-payments-prod-v4
+rootfs: read-only
+writable mounts: /tmp, /var/run/atlas
+network policy: NP-552
+workload identity: WI-PAY-PROD-07
+secret epoch: SE02
+resource policy: RP-88
+```
 
-Menší image znižuje attack surface, ale musí zostať operabilný. Incident response môže používať external alebo ephemeral debug tooling namiesto permanentného toolsetu v application image.
+Security verdict musí viazať artifact evidence na effective runtime state, nie iba na deployment YAML.
 
-## 4. Trusted base image
+## 2. Threat model
 
-Base image musí mať:
+Začni assets, actors a boundaries:
 
-- známeho ownera,
-- update a support policy,
-- pinned digest,
-- provenance,
-- vulnerability monitoring,
-- kompatibilitu s workloadom,
-- pravidelný rebuild.
+```text
+assets:
+payment data, credentials, signing keys, node/runtime authority, adjacent workloads
 
-Tag ako `ubuntu:latest` alebo `alpine:3` nie je immutable input. Pinning digestu zvyšuje reproducibility, ale potrebuje automatizovaný update workflow, inak zamrzne na starej zraniteľnej verzii.
+threats:
+vulnerable app, malicious dependency/image, compromised builder,
+stolen registry identity, container escape, lateral movement,
+resource DoS, secret exfiltration, privileged insider, policy misconfiguration
 
-## 5. Build security
+boundaries:
+source/build, registry, deployment controller, runtime daemon,
+container process, shared host kernel, network, storage, external services
+```
 
-Build environment často pristupuje k source, registries, package repositories a secrets. Chráň:
+Threat model určuje, či shared-kernel container boundary postačuje alebo workload potrebuje dedicated VM, microVM či sandboxed runtime.
 
-- isolated builders,
-- short-lived credentials,
-- secret mounts namiesto build args,
-- restricted network egress,
-- pinned build images/actions,
-- clean workspaces,
-- artifact provenance,
-- build logs a cache.
+## 3. Security subject a evidence inventory
 
-Build cache môže obsahovať source alebo credentials. Zdieľanie cache medzi nedôveryhodnými projects vytvára cross-tenant risk.
+Rekonštruovateľný subject zahŕňa:
 
-## 6. Secrets v image
+- source a build revision;
+- builder/execution identity;
+- image index a selected platform digest;
+- signature, provenance, SBOM a scan reports;
+- node kernel/runtime/snapshotter versions;
+- generated runtime configuration;
+- process UID/GID/groups a capabilities;
+- `no_new_privs`, seccomp a LSM policy;
+- mounts, devices a runtime-socket exposure;
+- network policy a published ports;
+- secrets/workload identity;
+- cgroup limits;
+- policy exceptions a expiration;
+- runtime/deployment generation.
 
-Secret zapísaný do layeru zostáva dostupný aj po odstránení v neskoršom layeri.
+Chýbajúca evidence nie je clean pass.
 
-Nikdy nevkladaj do image:
+## 4. Source, build a image trust
 
-- `.env` s reálnymi credentials,
-- SSH private keys,
-- cloud access keys,
-- registry tokens,
-- TLS private keys,
-- production configuration s heslami.
+Artifact trust chain:
 
-Pri náleze secretu:
+```text
+reviewed source
+→ isolated builder a pinned toolchain
+→ controlled dependencies/secrets/network
+→ image digest
+→ provenance a SBOM
+→ scan/policy verdict
+→ signature
+→ registry publication
+```
 
-1. okamžite revoke/rotate credential,
-2. odstráň ho zo source/build history,
-3. rebuildni clean image,
-4. odstráň alebo quarantine staré artifacts,
-5. audituj použitie.
+Build environment má často širší access než runtime. Chráň:
 
-## 7. SBOM
+- short-lived scoped credentials;
+- secret mounts namiesto build arguments;
+- trusted pinned build images/actions;
+- isolated workspaces a caches;
+- restricted egress;
+- complete build-context inventory;
+- artifact read-back a provenance verification.
 
-Software Bill of Materials inventarizuje components a versions v artifacte. Pomáha pri:
+Compromised builder môže vytvoriť validne podpísaný malicious artifact, ak signing policy iba slepo dôveruje builder identity. Trust model potrebuje hardened builder a source/input claims.
 
-- vulnerability response,
-- license governance,
-- dependency ownership,
-- incident scope,
-- provenance analýze.
+## 5. Base image lifecycle
 
-SBOM nie je vulnerability scan ani dôkaz, že všetky runtime dependencies boli zachytené. Musí byť viazaný na konkrétny image digest.
+Base image je executable dependency:
 
-## 8. Vulnerability scanning
+```text
+publisher/source
++ platform digest
++ package/userspace inventory
++ support/update policy
++ compatibility
+```
 
-Skenuj:
+Digest pinning dáva reprodukovateľnú identity, ale môže zamraziť vulnerability. Potrebuje update workflow:
 
-- OS packages,
-- language dependencies,
-- application binaries,
-- base image,
-- secrets a malware podľa toolchainu,
-- configuration/IaC/runtime manifests.
+```text
+new trusted base digest alebo advisory
+→ rebuild bez source change
+→ test/scan/sign
+→ deploy successor digest
+→ verify runtime
+```
 
-Výsledok vyhodnocuj podľa:
+Mutable `latest` nie je patch policy.
 
-- severity,
-- exploitability,
-- reachability,
-- runtime exposure,
-- fixed version availability,
-- compensating controls,
-- environmentu,
-- exception expiration.
+## 6. SBOM a vulnerability evidence
 
-Scan je bodový dôkaz. Nové CVE môže vzniknúť po deployment-e, preto je potrebné continuous rescanning a rebuild policy.
+SBOM inventarizuje components pre konkrétny digest. Nepreukazuje:
 
-## 9. Signing a provenance
+- že inventory je complete;
+- že component je reachable;
+- že artifact je bez malware;
+- že runtime configuration je bezpečná;
+- že neskoršia CVE nevznikne.
 
-Signature viazaná na digest dokazuje schválenie alebo pôvod podľa trust policy. Provenance môže zachytiť:
+Scan subject:
 
-- source repository a commit,
-- builder identity,
-- build process,
-- inputs,
-- timestamps,
-- artifact digest.
+```text
+platform manifest digest
++ scanner/version
++ vulnerability database generation
++ analyzované ecosystems/layers
++ report validity
++ exceptions
+```
 
-Verification policy musí overovať identity claims, nie iba prítomnosť ľubovoľného podpisu.
+Risk decision zahŕňa severity, exploitability, reachability, runtime exposure, fix availability, compensating controls a exception expiry.
 
-## 10. Run as non-root
+Continuous reassessment musí korelovať nové advisories s running platform digests.
 
-Workload má typicky bežať ako explicitný non-root UID/GID.
+## 7. Deployment eligibility
 
-Výhody:
+Pred runtime create:
 
-- menší dopad application compromise,
-- obmedzený write access,
-- lepšia kompatibilita s restricted policies.
+```text
+exact digest
+→ required artifact/evidence inventory
+→ signer/provenance policy
+→ vulnerability/configuration policy
+→ environment/tenant restrictions
+→ exception validation
+→ eligible alebo denied
+```
 
-Obmedzenia:
+Policy engine outage, invalid report alebo missing signature nie sú „0 violations“. Majú samostatný fail/incomplete verdict.
 
-- non-root môže stále mať capabilities,
-- writable host mount môže byť prístupný,
-- kernel vulnerability zostáva relevantná,
-- application secret môže byť čitateľný processom.
+Admission/deployment policy nemá dôverovať mutable tagu ani image-supplied claims o vlastnej bezpečnosti.
 
-Použi explicitné numeric UID, stabilné ownership contracts a `USER` v image alebo runtime override.
+## 8. Effective runtime policy
 
-## 11. Rootless containers
+Effective state môže vzniknúť z image defaults, deployment spec, daemon defaults, orchestrator policy, user namespace a host configuration.
 
-Rootless engine/runtime beží bez host root daemon identity a používa user namespaces a unprivileged helpers.
+```text
+image config
++ deployment overrides
++ runtime/daemon defaults
++ node security policy
+→ generated OCI runtime config
+→ kernel-enforced process state
+```
 
-Výhody:
+Kontroluj generated/effective state, nie iba source manifest.
 
-- znižuje blast radius daemon/runtime compromise,
-- host root nie je default control identity.
+## 9. Process identity
 
-Trade-offy:
+Preferuj explicitný non-root numeric UID/GID a stable ownership contract.
 
-- networking/storage limitations,
-- odlišné performance,
-- device a low-port restrictions,
-- filesystem UID mapping,
-- nie všetky workloads sú kompatibilné.
+Non-root znižuje authority iba v kombinácii s:
 
-Rootless neznamená bezrizikové; application, kernel a user account stále tvoria attack surface.
+- filesystem permissions/ACL;
+- user namespace mapping;
+- capabilities;
+- seccomp/LSM;
+- mount/device exposure;
+- runtime socket absence;
+- network/storage credentials.
 
-## 12. Drop capabilities
+Non-root process s writable host mountom alebo runtime socketom môže stále ovládnuť host alebo citlivé dáta.
 
-Začni s minimálnym capability setom:
+Rootless runtime znižuje default host-daemon authority, ale nemení application vulnerabilities a potrebuje vlastný networking/storage/user-mapping model.
+
+## 10. Capabilities a privilege transitions
+
+Capabilities rozdeľujú root authority. Policy:
 
 ```text
 drop all
-→ pridaj iba dokázateľne potrebné capabilities
+→ pridaj iba konkrétnu operation potrebnú workloadom
 ```
 
-Vyhýbaj sa širokým capabilities ako `CAP_SYS_ADMIN`, `CAP_NET_ADMIN`, `CAP_SYS_PTRACE` alebo `CAP_DAC_OVERRIDE`, ak nie sú nevyhnutné.
+Každá capability potrebuje ownera, workload use case, test a scope.
 
-Každá pridaná capability má mať:
+Broad capabilities ako `SYS_ADMIN`, `NET_ADMIN`, `SYS_PTRACE` alebo `DAC_OVERRIDE` môžu výrazne oslabiť boundary.
 
-- ownera,
-- zdôvodnenie,
-- test,
-- scope,
-- review pri zmene image alebo kernelu.
+`no_new_privs` zabraňuje novému privilege gain-u cez `execve`, ale neodstraňuje už existujúce capabilities alebo file access.
 
-## 13. Privileged mode
+## 11. Seccomp a LSM
 
-Privileged container zásadne oslabuje isolation. Môže dostať široké capabilities, devices a uvoľnené security profiles.
+Authorization layers:
 
-Použitie je vhodné iba pre úzko definované infra workloads, ak neexistuje bezpečnejšia alternatíva. Aplikácia nesmie používať privileged mode ako opravu permission alebo device problému.
+```text
+syscall exists/support
+→ seccomp allow/deny
+→ capability/credential check
+→ LSM object/operation policy
+→ filesystem/network/device-specific check
+```
 
-## 14. Seccomp
+Seccomp zmenšuje syscall surface. SELinux/AppArmor riadi object/operation policy. Jedna vrstva nenahrádza druhú.
 
-Seccomp obmedzuje syscalls. Default profile znižuje kernel attack surface. Custom profile môže byť presnejší, ale musí byť testovaný proti reálnemu behavioru.
+Pri `EPERM` alebo `permission denied` zachovaj:
 
-Pri policy návrhu:
+- failing operation/syscall;
+- capability sets;
+- seccomp verdict/audit;
+- SELinux AVC/AppArmor denial;
+- path label/profile;
+- mount flags a UID mapping.
 
-- začni z maintained baseline,
-- sleduj denials,
-- povoľ konkrétny syscall iba s dôvodom,
-- testuj upgrade runtime/application,
-- nepoužívaj `unconfined` bez risk acceptance.
+`unconfined` alebo globálne vypnutie LSM ničí observation aj protection boundary.
 
-## 15. AppArmor a SELinux
+## 12. Privileged mode a host authority
 
-Mandatory Access Control obmedzuje process aj pri povolených Unix permissions.
+Privileged mode môže rozšíriť capabilities, devices a security profiles natoľko, že container boundary prakticky kolabuje.
 
-Policy môže kontrolovať:
+Osobitne rizikové:
 
-- filesystem paths,
-- executable transitions,
-- capabilities,
-- network alebo ďalšie operácie podľa LSM.
+- host root filesystem mount;
+- Docker/containerd/CRI socket;
+- host PID/network namespace;
+- `/dev` alebo raw block devices;
+- `CAP_SYS_ADMIN`;
+- writable `/proc`/`sysfs`;
+- unconfined seccomp/LSM.
 
-Runtime labels/profiles a mounted storage musia byť koordinované. Audit denial je diagnostický dôkaz, nie dôvod vypnúť host policy.
+Runtime socket často umožní vytvoriť nový privileged container, host mount alebo exec a predstavuje host-admin authority.
 
-## 16. Read-only root filesystem
+Privileged mode nie je diagnostický nástroj.
 
-Read-only root filesystem:
+## 13. Filesystem authority
 
-- obmedzuje persistence útočníka,
-- zabraňuje package/runtime mutation,
-- zmenšuje writable surface,
-- podporuje immutable operation.
+Secure filesystem model:
 
-Explicitne povoľ iba potrebné writable mounts. Každý writable path má mať size, permissions, data classification a cleanup policy.
+```text
+read-only image rootfs
++ explicit writable paths
++ least-privilege UID/GID
++ narrow mount sources
++ noexec/nosuid/nodev podľa contractu
++ LSM labels
++ size/cleanup policy
+```
 
-## 17. Filesystem permissions
+Writable paths klasifikuj podľa data sensitivity a persistence. Read-only rootfs nebráni zápisu do volume, tmpfs, host mountu alebo external API.
 
-Používaj:
+Secrets nesmú byť baked do layers. Nález secretu vyžaduje rotate/revoke, clean rebuild, old-digest containment a usage audit.
 
-- least-privilege UID/GID,
-- presné mode bits,
-- read-only mounts,
-- `noexec`, `nosuid`, `nodev` podľa potreby,
-- bez host root mountu,
-- bez runtime socketu v application containeri.
+## 14. Device boundary
 
-Mount Docker/containerd socketu často poskytuje možnosť ovládať host runtime a prakticky predstavuje host-admin boundary.
+Device sprístupňuje host kernel subsystem. GPU, KVM, FUSE, block, USB alebo network device potrebuje:
 
-## 18. Device access
+- exact device allowlist;
+- driver/kernel risk;
+- process permissions/capabilities;
+- LSM policy;
+- tenant/node placement;
+- audit;
+- behavior pri reset/failure.
 
-Sprístupnenie device môže otvoriť host kernel subsystem. Pri GPU, KVM, block device, USB alebo network device kontroluj:
+Device plugin alebo helper môže byť privileged component a musí byť súčasť threat modelu.
 
-- konkrétny device allowlist,
-- permissions,
-- capabilities,
-- driver attack surface,
-- isolation medzi tenants,
-- node placement,
-- audit.
+## 15. Network security
 
-`/dev` ako široký host mount je neprimeraný default.
+Effective exposure:
 
-## 19. PID a process controls
+```text
+application listener
+→ namespace/dataplane
+→ port publication/load balancer
+→ firewall/network policy
+→ remote identity/protocol
+```
 
-Použi:
+Controls:
 
-- PID limit,
-- správny init/PID 1 behavior,
-- zakázanie privilege escalation,
-- signal handling,
-- process count monitoring.
+- explicit ingress allowlist;
+- default-deny east-west podľa platformy;
+- egress restrictions;
+- metadata-service protection;
+- DNS/control-plane/registry/secret paths;
+- IPv4/IPv6 parity;
+- mTLS alebo workload identity podľa threat modelu.
 
-Fork bomb alebo runaway thread creation môže poškodiť host aj bez container escape.
+Port publish na `0.0.0.0` môže obísť reverse proxy alebo expected authentication boundary.
 
-## 20. Resource limits
+Network location/container name nie sú sufficient identity.
 
-CPU, memory, PID a I/O limits znižujú denial-of-service blast radius. Limity musia byť založené na workload profile a load tests.
+## 16. Workload identity a secrets
 
-Bez limitov môže jeden container vyčerpať shared host. Príliš nízke limity spôsobia OOM, throttling alebo nestabilitu, čo môže viesť k security bypassom počas incidentu.
+Preferuj short-lived federated workload identity pred statickým cloud credentialom.
 
-## 21. Network segmentation
+Identity subject:
 
-Default-deny alebo explicitný allow model znižuje lateral movement.
+```text
+workload/environment identity
++ audience
++ scope/permissions
++ token epoch/expiration
++ issuance and use audit
+```
 
-Kontroluj:
+Runtime secret path môže viesť cez environment, mounted file/tmpfs, API response, process memory, child process, logs a dumps.
 
-- ingress ports,
-- service-to-service paths,
-- egress destinations,
-- metadata service,
-- DNS,
-- control-plane a registry access,
-- IPv4/IPv6 parity.
+File mount alebo environment injection nie je end-to-end confidentiality. Rotation musí overiť loaded new value a revoke old credential.
 
-Port publish na všetkých host interfaces môže neúmyselne obísť očakávaný reverse proxy alebo firewall boundary.
+## 17. Storage security
 
-## 22. Secrets pri runtime
+Mounted encrypted volume poskytuje plaintext oprávnenému processu. Storage security preto zahŕňa:
 
-Runtime secrets dodávaj cez:
+- correct data/volume identity;
+- read/write access mode;
+- writer fencing;
+- UID/GID/ACL/LSM;
+- secret exclusion z backups;
+- encryption keys a restore access;
+- host-path exposure;
+- mount propagation a flags.
 
-- secret manager,
-- workload identity,
-- short-lived token,
-- memory/tmpfs file,
-- protected environment variable iba pri akceptovanom leakage modeli.
+Application container nesmie dostať runtime socket len preto, aby „spravoval volumes“.
 
-Environment variables môžu uniknúť cez process inspection, debug dumps, logs alebo child processes. File secret potrebuje permissions, rotation a cleanup.
+## 18. Resource security a availability
 
-## 23. Workload identity
+CPU, memory, PID a I/O policy obmedzuje denial-of-service blast radius.
 
-Preferuj federovanú alebo workload identity pred statickými cloud credentials v image/config.
+Príliš vysoké alebo chýbajúce limits umožnia noisy-neighbor/host exhaustion. Príliš nízke limits môžu spôsobiť:
 
-Identity má byť:
+- cgroup OOM;
+- CPU throttling;
+- PID exhaustion;
+- storage queue collapse;
+- restart storm;
+- operator bypass security controls počas incidentu.
 
-- viazaná na workload a environment,
-- krátkodobá,
-- audience/scoped,
-- least privilege,
-- auditovaná,
-- revokovateľná.
+Security baseline musí byť load-tested a spojený s availability SLO.
 
-Network location alebo container name nie sú dostatočná identita.
+## 19. Host a runtime boundary
 
-## 24. Host hardening
+Shared kernel a privileged daemon robia node kritickou boundary.
 
-Shared kernel znamená, že host je kritická boundary. Chráň:
+Host controls:
 
-- kernel a runtime patching,
-- minimal host OS,
-- runtime API/socket,
-- SSH/admin access,
-- audit logs,
-- kernel modules,
-- LSM a seccomp,
-- filesystem a disk encryption,
-- node separation podľa trust levelu.
+- patched minimal OS/kernel/runtime;
+- restricted runtime socket/API;
+- short-lived admin access;
+- LSM/seccomp enforcement;
+- audit a runtime event collection;
+- node trust/attestation podľa potreby;
+- workload separation podľa tenant/risku;
+- immutable/recoverable node lifecycle;
+- kernel module a device policy.
 
-Nedôveryhodné multi-tenant workloads môžu vyžadovať VM, microVM alebo sandboxed runtime boundary.
+Containers vo VMs vytvárajú dve boundaries a dva patch lifecycles. Sensitive untrusted workloads môžu potrebovať sandbox/microVM.
 
-## 25. Runtime daemon
+## 20. Observability a effective-state verification
 
-Container daemon môže mať vysoké host privileges. Chráň:
+Zachytávaj mimo ephemeral containeru:
 
-- Unix socket permissions,
-- remote API TLS a authentication,
-- authorization plugins/policy,
-- žiadny public unauthenticated endpoint,
-- audit API operations,
-- oddelené admin a workload identities.
+- source/image/platform digests;
+- signature/provenance/scan verdicts;
+- generated runtime config;
+- process UID/GID/capabilities/`no_new_privs`;
+- seccomp a LSM profile/denials;
+- mounts/devices/socket exposure;
+- network publication/policy;
+- cgroup state a OOM/throttling;
+- secret/workload identity generation;
+- create/start/exec/stop events;
+- runtime/admin API access.
 
-Členstvo v skupine s prístupom k Docker socketu je často prakticky root-equivalentné.
+Source policy bez effective-state telemetry nevie odhaliť mutation, daemon default alebo emergency bypass.
 
-## 26. Logging a audit
+## 21. Patch a replacement lifecycle
 
-Zachytávaj:
+Immutable patch model:
 
-- image digest a signature verification,
-- runtime configuration,
-- user/capabilities/seccomp/LSM profile,
-- mounts a devices,
-- network exposure,
-- container create/start/stop/exec events,
-- admin API access,
-- OOM a security denials.
+```text
+new advisory alebo fixed input
+→ rebuild exact source/base/dependencies
+→ regenerate SBOM/provenance
+→ scan/policy/sign
+→ deploy new digest
+→ verify effective runtime state a business outcome
+→ retire old instances/digest support
+```
 
-Logs nesmú obsahovať secrets. Audit trail musí prežiť zánik containeru.
+Ručný package install v live containeri vytvára snowflake state, ktorý zmizne pri replacement-e a scan image-u ho nemusí vidieť.
 
-## 27. Patchovanie
+Host-kernel vulnerability sa neopraví application image rebuildom. Potrebuje node patch/replacement a workload rescheduling.
 
-Container sa typicky nepatchuje ručne. Bezpečný model:
+## 22. Exceptions
 
-1. aktualizuj source/base/dependencies,
-2. rebuildni image,
-3. znovu skenuj a podpíš,
-4. deployni nový digest,
-5. over runtime,
-6. odstráň staré instances podľa rollout policy.
+Security exception obsahuje:
 
-Rebuildni aj bez source zmeny, ak sa zmení base image alebo security data.
+```text
+exact subject a environment
+control being bypassed
+risk a business reason
+owner/approver
+compensating controls
+expiration
+revalidation trigger
+removal plan
+```
 
-## 28. Incident response
+Exception pre `privileged: true` bez scope-u a expiry je nová permanentná security architecture.
 
-Pri kompromitácii:
+## 23. Incident state machine
 
-- izoluj workload/network,
-- zachovaj image digest, runtime config a logs,
-- rotuj secrets a identities,
-- nepatchuj iba live container,
-- analyzuj host/kernel exposure,
-- rebuildni z trusted source,
-- over adjacent workloads,
-- zdokumentuj initial access a persistence path.
+```text
+detect and classify subject
+→ contain workload/network/credentials
+→ preserve volatile and durable evidence
+→ determine host/adjacent blast radius
+→ eradicate through trusted rebuild/replacement
+→ rotate/revoke identities
+→ redeploy verified successor
+→ validate business/security outcome
+→ close root cause and earlier control
+```
 
-Odstránenie containeru môže zničiť volatile evidence. Forensic postup musí byť pripravený vopred.
+Blind `docker rm` môže zničiť volatile evidence. Naopak compromised process nemá zostať aktívny iba kvôli forensics bez containment.
 
-## 29. Security baseline
+## 24. Worked failure: application fungovala iba privileged
 
-Praktický baseline:
+Application nevedela bindovať low port. Operator nastavil privileged mode.
 
-- trusted pinned image,
-- signature/provenance verification,
-- non-root user,
-- no privilege escalation,
-- drop capabilities,
-- default seccomp,
-- SELinux/AppArmor enforced,
-- read-only root filesystem,
-- explicit writable mounts,
-- resource limits,
-- network allowlist,
-- short-lived workload identity,
-- bez runtime socketu a host root mounts.
+```text
+missing narrow NET_BIND_SERVICE authority
+→ privileged grants broad capabilities/devices/policy bypass
+→ one socket problem becomes host-compromise path
+```
 
-Exceptions musia mať ownera, dôvod, compensating controls a expiration.
+Recovery: zachovať denial evidence, vrátiť restrictive baseline, použiť high port + proxy alebo pridať iba required capability, potom verify forbidden operations zostávajú denied.
 
-## 30. Troubleshooting
+## 25. Worked failure: runtime socket v application containeri
 
-### Aplikácia funguje iba v privileged mode
+Atlas helper potreboval „zistiť stav ostatných containers“ a dostal Docker socket.
 
-Izoluj konkrétnu chýbajúcu capability, device, mount alebo syscall. Privileged mode neponechávaj ako výsledné riešenie.
+```text
+application compromise
+→ attacker calls daemon API
+→ creates privileged container with host root mount
+→ reads host credentials and controls node
+```
 
-### Non-root process nevie zapisovať
+Socket read/write API má root-equivalent impact podľa daemon capabilities. Použi narrow read-only mediated service alebo external telemetry, nie raw admin API.
 
-Over image ownership, runtime UID, volume permissions, user namespace mapping a SELinux/AppArmor label.
+## 26. Worked failure: signed image z compromised buildera
 
-### Scanner hlási CVE bez fixu
+Builder credential a signing identity boli kompromitované. Attacker vložil binary a publikoval platnú signature.
 
-Vyhodnoť reachability, exposure, base alternative, compensating controls a časovo obmedzenú exception. Finding neignoruj bez evidence.
+```text
+policy checks allowed signer
+→ signature cryptographically valid
+→ builder/source/input trust was compromised
+→ malicious artifact becomes eligible
+```
 
-### Container nevie vykonať syscall
+Signature nie je náhrada builder security a provenance verification. Incident scope zahŕňa všetky artifacts podpísané počas compromise window, credentials, registry records a running digests.
 
-Over seccomp denial, capability checks, kernel podporu a LSM audit. Neprepínaj profil na unconfined bez analýzy.
+## 27. Worked failure: non-root s writable host mountom
 
-### Secret sa objavil v logu
+Process bežal ako UID 10001, ale host path `/srv/shared` bol world-writable a obsahoval script spúšťaný host service-om.
 
-Okamžite ho rotuj, obmedz log access/retention, oprav redaction a audituj použitie. `no_log` alebo masking nie sú náhradou rotácie uniknutého credentialu.
+```text
+non-root container writes host script
+→ host service executes modified content as root
+→ privilege crosses mount boundary
+```
 
-## 31. Kontrolné otázky
+Security review musí sledovať mount consumer graph a host execution context, nie iba container UID.
 
-1. Prečo container security potrebuje lifecycle model?
-2. Čo SBOM poskytuje a čo neposkytuje?
-3. Prečo digest pinning potrebuje update workflow?
-4. Prečo non-root sám nestačí?
-5. Aké riziko predstavuje Docker socket?
-6. Ako sa líšia capabilities, seccomp a LSM?
-7. Prečo privileged mode nie je bežný fix?
-8. Ako resource limits prispievajú k security?
-9. Kedy je vhodná silnejšia VM/microVM boundary?
-10. Ako sa patchuje immutable container workload?
+## 28. Worked failure: secret v logu
+
+Application pri startup chybe vypísala celý environment vrátane database tokenu.
+
+```text
+short-lived token enters process env
+→ error path logs env
+→ external log sink retains plaintext
+→ broad log readers gain credential
+```
+
+Containment: restrict log access, rotate/revoke token, inspect use, remove/expire copies podľa policy a opraviť redacted error contract. Masking future output nerevokuje uniknutú hodnotu.
+
+## 29. Worked failure: image scan green, runtime vulnerable
+
+Image nemala critical findings. Deployment však pripojil host runtime socket a publikoval debug port na všetkých interfaces.
+
+```text
+artifact evidence clean
+→ runtime effective policy introduces host-admin and network exposure
+→ image-only gate misses dominant risk
+```
+
+Security evidence inventory musí zahŕňať runtime config a effective exposure.
+
+## 30. Causal troubleshooting walkthrough: container bol podozrivý z escape-u
+
+Atlas container vytvoril neočakávaný process na node-e a security monitoring hlási access k host pathu.
+
+### 1. Zafixuj workload a host subject
+
+Zaznamenaj:
+
+- source/image/platform digest a provenance;
+- container/runtime/node identity;
+- generated OCI config;
+- UID/GID, namespace maps a capabilities;
+- seccomp/LSM profiles a audit;
+- mounts, devices, runtime socket a host namespaces;
+- process tree, executable digests a network flows;
+- workload/secret credentials a use audit;
+- daemon/admin API events;
+- host kernel/runtime versions a adjacent workloads.
+
+### 2. Súťažiace hypotézy
+
+1. Legitímny host helper alebo runtime process bol pripísaný containeru.
+2. Container mal host PID namespace alebo broad process visibility.
+3. Writable host mount umožnil modification/host execution.
+4. Runtime socket umožnil vytvoriť ďalší container.
+5. Privileged capability/device umožnil host mutation.
+6. User namespace mapping/UID attribution je nesprávna.
+7. Kernel/runtime vulnerability umožnila escape.
+8. Compromised builder/image už obsahoval malicious code.
+9. Admin vykonal `exec` alebo debug operation.
+10. Security alert vznikol z LSM denial bez successful mutation.
+
+### 3. Diskriminačné observation points
+
+- runtime create/exec/API audit a container ancestry;
+- host/container PID, mount a user namespace relations;
+- exact mount/device/socket exposure;
+- capabilities, seccomp a LSM allowed/denied events;
+- host file inode/change/audit timeline;
+- executable provenance a image-layer membership;
+- network/credential use timeline;
+- kernel exploit indicators a host integrity;
+- adjacent container runtime subjects.
+
+### 4. Containment
+
+Izoluj node a workload traffic, revoke relevant identities a zablokuj runtime-admin access. Zachovaj memory/process, runtime metadata, logs a filesystem evidence podľa incident planu. Nespoliehaj sa iba na restart containeru.
+
+### 5. Recovery
+
+- false attribution/helper → oprav telemetry a zachovaj narrow helper policy;
+- host mount/socket/privileged exposure → odstráň boundary bypass a rebuild deployment;
+- malicious image/builder → quarantine digests, rotate build/signing identities a rebuild z trusted source;
+- kernel/runtime escape → replace node z trusted image, patch platform a presuň workloads;
+- admin misuse → revoke access a audit all operations;
+- LSM denial only → potvrď, že mutation neprešla, a oprav alert/policy podľa intentu.
+
+### 6. Over pôvodný outcome
+
+Deploy successor na clean patched node. Potvrď exact digest/evidence, restrictive runtime policy, žiadny host socket/root mount, expected network/storage access, valid business transaction a nulové adjacent indicators.
+
+### 7. Posuň control skôr
+
+Pridaj effective-runtime admission, socket/host-mount/privileged deny policy, node isolation telemetry, builder attestation a tested forensic/credential-rotation workflow.
+
+## 31. Referenčné pravidlá
+
+- Container security je subject-bound lifecycle, nie zoznam flags.
+- Shared kernel určuje host-wide failure boundary.
+- Signature dokazuje iba to, čo trust policy overí o signerovi a subjecte.
+- SBOM a scan sú artifact evidence, nie runtime-policy evidence.
+- Missing/invalid security evidence nie je pass.
+- Non-root neznamená bez capabilities, mounts, devices alebo secrets.
+- Rootless znižuje daemon authority, nie application risk na nulu.
+- `no_new_privs`, capabilities, seccomp a LSM riešia odlišné transitions.
+- Privileged mode je boundary collapse.
+- Runtime socket je host-admin authority.
+- Read-only rootfs potrebuje explicitný writable-path model.
+- Workload identity má byť short-lived, scoped a auditovaná.
+- Resource policy je súčasť security aj availability.
+- Image rebuild neopraví host kernel.
+- Live container patch nie je durable remediation.
+- Incident recovery potrebuje adjacent-host/workload scope a credential revocation.
+
+## 32. Kontrolné otázky
+
+1. Čo tvorí container security subject?
+2. Ako threat model určuje isolation boundary?
+3. Prečo signature a green scan nestačia?
+4. Ako vzniká effective runtime policy z viacerých sources?
+5. Prečo non-root process môže stále kompromitovať host?
+6. Ako sa líšia capability, `no_new_privs`, seccomp a LSM?
+7. Prečo runtime socket predstavuje host-admin authority?
+8. Aký je rozdiel medzi image patchom a host-kernel patchom?
+9. Čo musí obsahovať container incident subject?
+10. Aké evidence odlíšia host helper, policy denial, runtime socket abuse a kernel escape?
 
 ## Glossary impact
 
-Relevantné pojmy: container threat model, container security baseline, trusted base image, image signing, build provenance, SBOM, continuous image scanning, rootless container, non-root container, no privilege escalation, capability drop, seccomp profile, container LSM profile, read-only root filesystem, runtime socket exposure, workload identity, container host hardening a container forensic evidence.
+Relevantné pojmy: container security subject, effective runtime policy subject, workload threat boundary, artifact evidence inventory, runtime security evidence, builder compromise window, privileged-boundary collapse, runtime-socket authority, mount-mediated privilege path, workload identity subject, security exception subject, node compromise subject, adjacent workload scope, trusted successor runtime a container incident closure.
 
 ## Oficiálna dokumentácia
 
