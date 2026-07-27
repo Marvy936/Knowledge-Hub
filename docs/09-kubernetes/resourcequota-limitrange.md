@@ -1,484 +1,344 @@
 # ResourceQuota a LimitRange
 
-ResourceQuota a LimitRange sú namespaced governance mechanizmy. ResourceQuota obmedzuje súhrnnú spotrebu resources alebo počet objektov v namespace. LimitRange nastavuje alebo validuje minimá, maximá a defaulty pre jednotlivé Pods, containers alebo claims. Ani jeden mechanizmus nevytvára cluster capacity, negarantuje performance ani nenahrádza application-level rate limiting.
+ResourceQuota a LimitRange nie sú iba tabuľky limitov. Tvoria admission a governance chain medzi tenantovým SLO/cost modelom, defaultmi jednotlivých workloadov, agregovaným namespace budgetom, autoscalingom, schedulerom a skutočnou serving capacity. Policy môže správne odmietnuť nový Pod a zároveň spôsobiť produkčný incident, ak default alebo quota nezodpovedá recovery a rollout potrebám.
 
-## 1. Prečo namespace governance
-
-Bez limitov môže jeden tím alebo chybný controller:
-
-- vytvoriť tisíce Podov alebo Jobs,
-- spotrebovať všetok CPU/memory allocatable,
-- vytvoriť veľké množstvo PVCs alebo LoadBalancer Services,
-- zaplniť API server/etcd objektmi,
-- zvýšiť cloud cost,
-- zablokovať iné namespaces.
-
-Governance potrebuje kombináciu:
-
-- ResourceQuota,
-- LimitRange,
-- requests/limits,
-- PriorityClass a fairness,
-- autoscaling boundaries,
-- cloud/account quotas,
-- budget a cost observability.
-
-## 2. ResourceQuota
-
-```yaml
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: production-quota
-  namespace: production
-spec:
-  hard:
-    requests.cpu: "20"
-    requests.memory: 40Gi
-    limits.cpu: "40"
-    limits.memory: 80Gi
-    pods: "100"
-    persistentvolumeclaims: "20"
-```
-
-Status obsahuje:
-
-- `hard` — platný limit,
-- `used` — aktuálne účtovaná spotreba.
-
-```bash
-kubectl describe resourcequota -n production production-quota
-```
-
-## 3. Compute quota
-
-Bežné quota keys:
-
-- `requests.cpu`,
-- `requests.memory`,
-- `limits.cpu`,
-- `limits.memory`,
-- `requests.ephemeral-storage`,
-- `limits.ephemeral-storage`,
-- huge pages podľa veľkosti,
-- extended resources podľa podporovaného modelu.
-
-Quota počíta deklarované requests/limits, nie live utilization.
-
-Pod s CPU requestom `500m`, ktorý používa iba `50m`, stále spotrebúva `500m` z `requests.cpu` quota.
-
-## 4. Object count quota
-
-```yaml
-spec:
-  hard:
-    count/deployments.apps: "20"
-    count/jobs.batch: "100"
-    count/secrets: "200"
-    services.loadbalancers: "5"
-```
-
-Object quotas chránia:
-
-- API server a etcd,
-- controller workload,
-- cloud resources,
-- namespace operability.
-
-Limit počtu objektov nie je retention policy. CronJobs a Jobs stále potrebujú history/TTL cleanup.
-
-## 5. Storage quota
-
-Príklady:
-
-```yaml
-spec:
-  hard:
-    requests.storage: 2Ti
-    persistentvolumeclaims: "50"
-    fast.storageclass.storage.k8s.io/requests.storage: 500Gi
-    fast.storageclass.storage.k8s.io/persistentvolumeclaims: "10"
-```
-
-StorageClass-scoped quota umožňuje odlišné hranice pre drahé alebo špeciálne storage tiers.
-
-Quota nezaručuje, že backing storage je dostupné alebo provisionovateľné v požadovanej topology.
-
-## 6. Scope
-
-ResourceQuota môže mať scopes, napríklad podľa Pod lifecycle alebo QoS-related kategórie podľa podporovaného API:
-
-```yaml
-spec:
-  scopes:
-    - NotTerminating
-```
-
-Scope rozhoduje, ktoré objects sa do quota počítajú. Pred použitím over presné semantics a podporované resource combinations.
-
-## 7. Scope selectors
-
-`scopeSelector` umožňuje expresívnejší výber:
-
-```yaml
-spec:
-  scopeSelector:
-    matchExpressions:
-      - scopeName: PriorityClass
-        operator: In
-        values: [high-priority]
-```
-
-Použitie:
-
-- quota pre konkrétne PriorityClasses,
-- oddelenie critical a bežných workloadov,
-- governance podľa resource scope.
-
-Nesprávne scope rules môžu vytvoriť nečakanú medzeru, v ktorej workload nespadá do plánovanej quota.
-
-## 8. ResourceQuota admission
-
-Pri create/update API requeste quota admission kontroluje, či nová deklarácia neprekročí hard limit.
-
-Request môže byť odmietnutý napríklad:
+Táto kapitola používa jeden dominantný lifecycle:
 
 ```text
-exceeded quota: production-quota,
-requested: requests.cpu=2,
-used: requests.cpu=19,
-limited: requests.cpu=20
+namespace owner, SLO, cost a fairness intent
+→ versionovaný LimitRange a ResourceQuota contract
+→ create/update request a source resource intent
+→ LimitRange defaulting/validation
+→ effective admitted resource delta
+→ ResourceQuota accounting a allow/reject verdict
+→ workload controller, scheduler a runtime realization
+→ HPA/Job/PVC/object lifecycle feedback
+→ quota usage, cleanup a policy reconciliation
+→ business, recovery a cost verification
 ```
 
-Quota je API admission control. Nezastaví už bežiaci Pod iba preto, že operator neskôr zníži hard limit pod aktuálne `used`.
+## 1. Atlas Payments governance subject
 
-## 9. Quota a chýbajúce requests/limits
-
-Ak namespace quota vyžaduje `requests.cpu`, `requests.memory`, `limits.cpu` alebo `limits.memory`, Pod bez príslušných fields môže byť odmietnutý.
-
-LimitRange môže doplniť default values, ale defaulting musí byť zámerný. Tichý default môže spôsobiť:
-
-- prehnané reservation,
-- nečakaný CPU throttling,
-- HPA denominator zmenu,
-- quota exhaustion.
-
-## 10. LimitRange
-
-```yaml
-apiVersion: v1
-kind: LimitRange
-metadata:
-  name: container-defaults
-  namespace: production
-spec:
-  limits:
-    - type: Container
-      defaultRequest:
-        cpu: 100m
-        memory: 128Mi
-      default:
-        cpu: 500m
-        memory: 512Mi
-      min:
-        cpu: 50m
-        memory: 64Mi
-      max:
-        cpu: "2"
-        memory: 4Gi
-      maxLimitRequestRatio:
-        cpu: "10"
-```
-
-LimitRange sa uplatňuje pri admission-e nových alebo menených objects podľa podporovaného typu.
-
-## 11. `default` a `defaultRequest`
-
-Pre `type: Container`:
-
-- `defaultRequest` doplní request, ak chýba,
-- `default` doplní limit, ak chýba.
-
-Kubernetes resource defaulting môže tiež odvodiť request z limitu podľa všeobecných resource pravidiel. Preto vždy over výsledný admitted Pod:
-
-```bash
-kubectl get pod -n production <pod> -o yaml
-```
-
-Manifest v Git-e nemusí byť identický s objektom po admission defaulting-u.
-
-## 12. Min a max
-
-LimitRange môže odmietnuť container, ktorý požaduje príliš málo alebo príliš veľa:
-
-```yaml
-min:
-  cpu: 50m
-max:
-  cpu: "4"
-```
-
-Minimálny request môže chrániť scheduler accuracy, ale príliš vysoké minimum plytvá capacity pri drobných sidecaroch alebo Jobs.
-
-Maximum chráni namespace pred jedným extrémnym workloadom, ale musí zohľadniť legitímne memory-intensive alebo batch workloads.
-
-## 13. `maxLimitRequestRatio`
-
-```yaml
-maxLimitRequestRatio:
-  cpu: "4"
-```
-
-Obmedzuje pomer limit/request. Príklad:
-
-- request `100m`,
-- limit `1000m`,
-- ratio `10`,
-- pri maxime `4` bude request odmietnutý.
-
-Cieľom je obmedziť extrémny overcommit. Pomer však nie je univerzálna performance politika; CPU burst a memory behavior sa zásadne líšia.
-
-## 14. Typy LimitRange
-
-LimitRange môže podľa resource typu pracovať s:
-
-- `Container`,
-- `Pod`,
-- `PersistentVolumeClaim`.
-
-PVC príklad:
-
-```yaml
-spec:
-  limits:
-    - type: PersistentVolumeClaim
-      min:
-        storage: 1Gi
-      max:
-        storage: 500Gi
-```
-
-Storage min/max nehovorí nič o IOPS, throughput, topology alebo backup policy.
-
-## 15. ResourceQuota vs. LimitRange
-
-### ResourceQuota
-
-Rieši agregovaný namespace strop:
+Namespace `payments-production` prevádzkuje API, settlement Jobs a retry-ledger PVC. Reviewed contract:
 
 ```text
-súčet všetkých Pod requests.cpu ≤ 20 CPU
+namespace UID a owner: exact tenant subject
+baseline replicas: 6
+rollout surge: 2
+HPA range: 6–20
+per-Pod effective CPU request: 500m
+per-Pod effective memory request: 768Mi
+recovery reserve: minimálne 4 ďalšie Pods
+PVC a Job count: bounded
+high-priority workload: samostatná scoped quota
 ```
 
-### LimitRange
+Quota musí umožniť bežnú prevádzku, rollout, Node replacement aj incident recovery. Ak je `used` tesne pod `hard`, namespace môže fungovať, ale nemá žiadny recovery headroom.
 
-Rieši jednotlivý object/container contract:
+## 2. Tri odlišné policy subjects
+
+Pri diagnostike oddeľuj:
 
 ```text
-každý container CPU request ≥ 50m a limit ≤ 2 CPU
+source workload resources
+→ admitted effective object contract
+→ namespace quota accounting delta
 ```
 
-Používajú sa spolu. LimitRange nedokáže obmedziť celkový počet Podov a ResourceQuota sama neurčuje rozumný default pre jeden container.
+Source Deployment môže nemať limit, no LimitRange ho doplní. ResourceQuota potom účtuje admitted requests/limits, nie Git YAML ani live CPU usage.
 
-## 16. Quota nie je reservation cluster capacity
+Exact subject obsahuje:
 
-Namespace quota `requests.cpu: 20` neznamená, že namespace má rezervovaných 20 CPU na Nodes.
+- cluster, namespace UID a policy owner;
+- ResourceQuota UID/generation, `spec.hard` a `status.used`;
+- LimitRange UID/generation a všetky matching rules;
+- workload object UID/generation a Pod template;
+- admitted Pod resources pre application, sidecars a init containers;
+- HPA/Job/StatefulSet desired count;
+- rejected API request, requested delta a timestamp;
+- finalizers/terminating objects ovplyvňujúce `used`;
+- Node capacity a scheduler state ako samostatnú downstream boundary.
 
-Reálna schedulovateľnosť závisí od:
+## 3. LimitRange: per-object admission contract
 
-- Node allocatable,
-- iných namespaces a workloads,
-- PriorityClass/preemption,
-- placement constraints,
-- storage topology,
-- aktuálneho cluster scale.
+LimitRange môže pre podporované object types:
 
-Pre garantovaný tenant capacity model potrebuješ ďalšie mechanizmy alebo dedicated capacity.
+- doplniť `defaultRequest`;
+- doplniť default limit;
+- odmietnuť hodnotu pod `min` alebo nad `max`;
+- obmedziť `maxLimitRequestRatio`;
+- obmedziť PVC storage request.
 
-## 17. Quota nie je runtime throttling
+Default je mutation na admission boundary. Nový Pod preto môže mať iné requests/limits než stará replika z rovnakého Deploymentu, ak sa policy medzi generáciami zmenila.
 
-ResourceQuota nepoužíva cgroups a netlmí proces po prekročení namespace agregátu. Runtime enforcement vykonávajú container limits, kubelet a kernel.
+Dôsledky tichého defaultu:
 
-Quota zabraňuje admission-u nových deklarácií, ktoré by strop prekročili.
+```text
+vyšší request
+→ vyššie quota used
+→ menší feasible-Node set
+→ iný HPA denominator
 
-## 18. Autoscaling interakcie
-
-HPA scale-up môže naraziť na:
-
-- Pod-count quota,
-- CPU/memory requests quota,
-- PVC quota pri StatefulSete,
-- object-count quota,
-- LimitRange maximum/default.
-
-HPA potom môže odporúčať viac replicas, ale workload controller nevytvorí ďalšie Pody. Alerting musí sledovať:
-
-- HPA `ScalingLimited`,
-- ReplicaFailure/FailedCreate Events,
-- quota usage,
-- Pending Pods a scheduler status.
-
-## 19. Job a CronJob interakcie
-
-Batch workload môže vyčerpať:
-
-- Pod count,
-- Job count,
-- CPU/memory quota,
-- ephemeral storage,
-- PVC count.
-
-Použi:
-
-- `parallelism` limit,
-- TTL-after-finished,
-- CronJob history limits,
-- samostatný namespace alebo scoped quota,
-- external results/log retention.
-
-## 20. PriorityClass-scoped quota
-
-Bez scoped quota môže tenant označiť všetky workloady vysokou prioritou, ak má permission používať PriorityClass.
-
-Kombinuj:
-
-- RBAC/admission kontrolu PriorityClass,
-- ResourceQuota scope podľa PriorityClass,
-- limit počtu a resources high-priority workloadov,
-- audit pre preemption udalosti.
-
-## 21. Multi-tenancy
-
-Pre každý namespace definuj:
-
-- owner a cost center,
-- CPU/memory/storage/object quotas,
-- LimitRange defaults a bounds,
-- autoscaling max,
-- PriorityClass policy,
-- network/security policy,
-- exception workflow a expiry.
-
-Rovnaká quota pre dev, batch a production často nedáva zmysel. Governance má odrážať SLO, cost a failure model.
-
-## 22. Quota controller a eventual consistency
-
-`used` status aktualizuje quota controller/admission coordination. Pri vysokom API concurrency môže byť interné účtovanie a reconciliation komplexné, ale API musí zabrániť jednoduchému prekročeniu hard limitu cez paralelné requests.
-
-Pri diagnostike sleduj:
-
-- `status.hard`,
-- `status.used`,
-- API admission chybu,
-- controller-manager health,
-- resources, ktoré sa nezmazali pre finalizer.
-
-## 23. Zmeny policy nie sú retroaktívne
-
-Nový LimitRange typicky nezmení resources existujúcich Podov. Nový ResourceQuota neevictne existujúce workloads.
-
-Pre adoption:
-
-1. audituj current state,
-2. zvoľ defaults a limits,
-3. testuj v staging namespace,
-4. aplikuj policy,
-5. rolloutni workloads s explicitnými resources,
-6. monitoruj rejected admissions,
-7. odstráň dočasné exceptions.
-
-## 24. Observability
-
-```bash
-kubectl get resourcequota,limitrange -n production
-kubectl describe resourcequota -n production
-kubectl describe limitrange -n production
-kubectl get events -n production --sort-by=.metadata.creationTimestamp
-kubectl get pods -n production -o custom-columns=NAME:.metadata.name,CPU_REQ:.spec.containers[*].resources.requests.cpu,MEM_REQ:.spec.containers[*].resources.requests.memory
+nižší CPU limit
+→ cgroup throttling
+→ probe failures a latency
 ```
 
-Sleduj:
+Policy musí mať ownera, versioning, rollout plan a admitted-object test.
 
-- percento quota `used/hard`,
-- odmietnuté admissions,
-- namespaces blízko limitu,
-- dominant resource,
-- object count growth,
-- defaults aplikované na nové workloads,
-- HPA alebo Job failures spôsobené quota.
+## 4. ResourceQuota: agregovaný admission budget
 
-## 25. Troubleshooting
+ResourceQuota porovnáva current účtovaný stav a delta nového requestu s `hard` limitom. Môže obmedziť:
 
-### Pod je rejected pre quota
+- CPU, memory, ephemeral storage a extended resources;
+- počet Pods, Jobs, Secrets, ConfigMaps a ďalších API objects;
+- PVC count a cumulative storage;
+- LoadBalancer Services;
+- selected PriorityClass alebo ďalšie scopes.
 
-Porovnaj requested delta, `status.used`, `status.hard` a všetky containers/init/sidecars resources.
+Quota je API admission control. Nie je:
+
+- rezervovaná Node capacity;
+- runtime cgroup limit pre celý namespace;
+- application rate limiter;
+- cloud-provider quota;
+- retention alebo backup policy.
+
+Zníženie `hard` pod current `used` neevictne existujúce workloads. Zablokuje budúce creates/updates, často práve replacement alebo recovery Pody.
+
+## 5. Quota accounting a lifecycle
+
+Admission request pre nový Pod sa účtuje podľa effective resources. Pri controller-managed workloade je chain:
+
+```text
+HPA alebo rollout zvýši desired replicas
+→ Deployment/StatefulSet vytvorí Pod request
+→ LimitRange defaulting/validation
+→ quota delta calculation
+→ Pod create allowed alebo rejected
+→ scheduler až po úspešnom admission-e
+```
+
+`desired replicas=20` preto neznamená, že vzniklo 20 Podov. HPA môže byť funkčné, ale Deployment bude hlásiť `FailedCreate` pre quota.
+
+Object-count quota musí zohľadniť cleanup. Finished Jobs, terminating resources, finalizers alebo retained PVCs môžu držať `used` aj po tom, čo operator považuje workflow za ukončený.
+
+## 6. Capacity, fairness a recovery headroom
+
+Quota chráni iné tenants, ale sama negarantuje tomuto namespace-u capacity. Reálna dostupnosť závisí od:
+
+```text
+quota allow verdict
++ cluster allocatable
++ placement/topology
++ priority/preemption
++ storage capacity
++ Node-autoscaler templates
+```
+
+Critical namespace potrebuje explicitný recovery envelope:
+
+- baseline capacity;
+- maximum rollout surge;
+- HPA scale-up burst;
+- Node-drain replacement;
+- Job alebo migration overlap;
+- emergency debug/repair workload;
+- PVC snapshot/restore objects podľa platformy.
+
+Quota nastavená presne na steady state je availability risk.
+
+## 7. Scopes a PriorityClass governance
+
+Scope alebo `scopeSelector` môže vytvoriť samostatný budget pre high-priority workloads. To však funguje iba spolu s:
+
+- RBAC/admission kontrolou použitia PriorityClass;
+- exact matching scope semantics;
+- bounded high-priority object/resource budgetom;
+- preemption auditom.
+
+Ak tenant môže ľubovoľne označiť všetko ako high priority, scoped quota ani PriorityClass nevytvoria férovosť.
+
+## 8. Storage a object governance
+
+Storage quota môže rozlišovať StorageClass. Stále však nepreukazuje:
+
+- že backend má voľnú capacity;
+- že volume vznikne v správnej zone;
+- IOPS alebo throughput;
+- backup a restore;
+- správnu application data identity.
+
+Object-count quota chráni API server, etcd a controllers pred floodom. CronJob history, TTL a finalizer hygiene zostávajú samostatným lifecycle contractom.
+
+## 9. Causal walkthrough: HPA chce škálovať, ale nové Pods nevznikajú
+
+### Symptom
+
+Payments latency rastie. HPA odporúča 18 replík, Deployment má 14. Events ukazujú `exceeded quota: requests.cpu`. Dashboard pritom uvádza quota `used=19.5`, `hard=20` CPU a source Deployment deklaruje 500m na hlavný container.
+
+### Exact subject
+
+Fixuj:
+
+- HPA UID/generation, metric a desired replicas;
+- Deployment/ReplicaSet generation a rejected Pod create request;
+- ResourceQuota UID/generation, `hard` a `used` v rovnakom čase;
+- LimitRange UID/generation;
+- source a admitted resources každého containeru/init containeru;
+- old/new Pod cohorty;
+- terminating Pods, Jobs a finalizers;
+- Node capacity oddelene od quota.
+
+### Competing hypotheses
+
+1. HPA max replicas je 14;
+2. scheduler nemá CPU capacity;
+3. Deployment controller nereaguje;
+4. quota `used` je stale;
+5. terminating Pods stále spotrebúvajú quota;
+6. nový sidecar dostal default request;
+7. init container zvýšil effective request;
+8. iný workload alebo Job spotreboval namespace budget;
+9. scope selector účtuje workload do nesprávnej quota;
+10. Git manifest a admitted Pod sa líšia pre zmenu LimitRange.
+
+### Discriminating observations
+
+Porovnaj HPA conditions, Deployment `ReplicaFailure`, create Events, exact API error, ResourceQuota status, všetky active/terminating Pods a admitted resource specs old/new cohorty.
+
+Finding:
+
+```text
+nový logging sidecar nemá explicitný request
+→ LimitRange generation LR-12 doplní 500m
+→ nový Payments Pod účtuje 1 CPU namiesto 500m
+→ quota zostáva iba 500m headroom
+→ Pod create je odmietnutý
+→ HPA desired rastie, serving capacity nie
+→ latency a retries rastú
+```
+
+Scheduler nebol observation boundary, pretože Pod objekt vôbec nevznikol.
+
+### Containment
+
+- pozastav ďalší rollout alebo batch launch, ktorý spotrebúva quota;
+- neznižuj existujúce requests bez performance evidence;
+- nemaž náhodné Pody, čím by si znížil serving capacity;
+- zachovaj rejected request, policy generations a old/new admitted specs;
+- obmedz retry amplification a chráň downstream.
+
+### Authoritative recovery
+
+- nastav explicitný tested request/limit pre sidecar;
+- oprav alebo rozdeli LimitRange podľa workload class;
+- zvýš quota iba ak existuje cluster a budget capacity;
+- uvoľni stale Jobs/objects cez bezpečný lifecycle cleanup;
+- zachovaj recovery headroom;
+- rolloutni novú Pod generation a nechaj HPA znovu reconcile-ovať.
+
+### Verify original a forbidden outcomes
+
+Over:
+
+1. HPA recommendation vedie k admitted Pod creates;
+2. nové Pods sú Scheduled, Ready a serving;
+3. per-Pod effective requests zodpovedajú reviewed contractu;
+4. CPU throttling a memory behavior sú prijateľné;
+5. quota má definovaný recovery headroom;
+6. iný namespace nemôže spotrebovať tento namespace quota, ale cluster fairness zostáva zachovaná;
+7. batch flood alebo object flood je stále blokovaný;
+8. payment latency a duplicate rate sa vrátia do SLO.
+
+### Earlier controls
+
+Použi admission dry-run test, source-vs-admitted diff, quota capacity model pre baseline/surge/HPA/recovery, policy canary namespace, alert na `used/hard`, `FailedCreate` a object growth, explicitné sidecar resources a periodický Node-drain/HPA scale game day.
+
+## 10. Ďalšie failure boundaries
 
 ### Manifest nemá limit, admitted Pod ho má
 
-LimitRange alebo iný mutating admission doplnil default. Skontroluj resolved object.
-
-### HPA neškáluje nad určitý počet
-
-Over HPA max replicas, quota, FailedCreate Events, scheduler capacity a namespace object limits.
-
-### PVC zostáva nevytvorené pre quota
-
-Over `requests.storage`, PVC count a StorageClass-specific quota.
+LimitRange alebo iný admission controller doplnil default. Zdroj pravdy pre runtime je admitted object.
 
 ### Quota `used` zostáva vysoké po cleanup-e
 
-Hľadaj terminating/finalized objects, zostávajúce Jobs/PVCs a controller-manager/quota reconciliation problém.
+Hľadaj terminating objects, finalizers, retained Jobs/PVCs a quota-controller health. Neupravuj `status.used` ručne.
 
-### LimitRange odmieta in-place resource resize
+### HPA škáluje, ale Pods sú Pending
 
-Nová hodnota porušuje min/max/ratio policy. Existujúci Pod zostáva na predchádzajúcich hodnotách podľa update semantics.
+Quota boundary už prešla. Pokračuj scheduler/capacity/storage diagnostikou.
 
-## 26. Anti-patterny
+### Zníženie hard quota blokuje recovery
 
-### Quota považovaná za rezervovanú kapacitu
+Existing workloads pokračujú, ale replacement sa nevytvorí. Pred policy zmenou simuluj Node loss, rollout a failover.
 
-Namespace môže mať quota, ale cluster nemá feasible Nodes.
+### PVC create je rejected
 
-### Default CPU limit pre každý workload bez testu
+Rozlišuj cumulative `requests.storage`, PVC count a StorageClass-scoped quota. Quota success stále nepreukazuje provisioning.
 
-Spôsobí plošný throttling a probe latency.
+### In-place resize je odmietnutý
 
-### Veľký limit, malý request
+Nová effective hodnota porušuje LimitRange alebo quota. Over update semantics a current admitted contract.
 
-Scheduler preplní Node a workload má nepredvídateľný burst/pressure behavior.
+## 11. Referenčný katalóg
 
-### Žiadna object-count quota
+### ResourceQuota oblasti
 
-Chybný controller zaplaví API množstvom Jobs, Secrets alebo ConfigMaps.
+- compute requests/limits;
+- object counts;
+- PVC/storage a StorageClass-scoped limits;
+- Services a ďalšie API-specific quotas;
+- scopes a scope selectors.
 
-### Quota bez alertingu
+### LimitRange oblasti
 
-Prvý signál je až failed production rollout alebo HPA scale-up.
+- `defaultRequest` a default limit;
+- `min` a `max`;
+- `maxLimitRequestRatio`;
+- Container, Pod a PVC rules podľa podporovaného API.
 
-### Jedna univerzálna LimitRange pre všetky workloady
+### Governance evidence
 
-Batch, sidecars, databases a web services majú odlišné resource profily.
+```text
+policy UID/generation
+source request
+admitted effective object
+delta charged to quota
+hard/used verdict
+controller create result
+scheduler/runtime result
+business/cost outcome
+```
 
-### Zníženie hard quota pod aktuálne used ako okamžitá remediation
+## 12. Anti-patterny
 
-Existujúce workloady pokračujú; zablokujú sa iba nové zmeny a recovery Pody.
+- quota považovaná za reserved cluster capacity;
+- quota presne na steady-state spotrebu;
+- default CPU limit pre všetko bez load testu;
+- jedna LimitRange pre web, batch, database a sidecars;
+- žiadna object-count quota;
+- HPA bez quota saturation alertu;
+- zníženie `hard` ako okamžitá remediation;
+- ručné mazanie Pods namiesto opravy policy/template-u;
+- source manifest považovaný za admitted resource truth.
 
-## 27. Kontrolné otázky
+## 13. Kontrolné otázky
 
-1. Aký je rozdiel medzi ResourceQuota a LimitRange?
-2. Čo znamenajú `hard` a `used`?
-3. Prečo quota počíta requests a nie live usage?
-4. Ako fungujú object-count quotas?
-5. Načo slúži StorageClass-scoped quota?
-6. Aký je rozdiel medzi `default` a `defaultRequest`?
-7. Čo kontroluje `maxLimitRequestRatio`?
-8. Prečo quota negarantuje schedulovateľnú capacity?
-9. Ako quota ovplyvní HPA alebo CronJob?
-10. Prečo nové policy nie sú automaticky retroaktívne?
+1. Ktoré tri policy subjects musíš oddeliť pri quota incidente?
+2. Ako LimitRange zmení HPA denominator a quota usage?
+3. Prečo ResourceQuota nie je runtime throttling ani capacity reservation?
+4. Kedy HPA funguje správne, ale serving capacity nerastie?
+5. Prečo policy zmena nie je retroaktívna pre existujúce Pody?
+6. Ako finalizers a finished Jobs ovplyvnia `used`?
+7. Čo musí obsahovať recovery headroom model?
+8. Ako sa líši storage quota od backend capacity a backupu?
+9. Prečo PriorityClass-scoped quota potrebuje access control?
+10. Ako overíš business a forbidden outcomes po quota recovery?
 
 ## Glossary impact
 
-Relevantné pojmy: ResourceQuota, quota hard limit, quota used status, compute quota, object-count quota, storage quota, quota scope, scope selector, PriorityClass-scoped quota, LimitRange, `defaultRequest`, default limit, minimum resource constraint, maximum resource constraint, `maxLimitRequestRatio`, namespace governance, quota admission a quota saturation.
+Relevantné pojmy: namespace governance subject, LimitRange generation, admitted resource delta, quota accounting subject, quota admission verdict, quota recovery headroom, object-count lifecycle, scoped quota subject, policy adoption generation, quota saturation incident, source-to-admitted resource diff, namespace capacity envelope a subject-bound governance verification.
 
 ## Oficiálna dokumentácia
 
