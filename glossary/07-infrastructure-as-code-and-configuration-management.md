@@ -1,5 +1,9 @@
 # Infrastructure as Code and Terraform glossary entries
 
+## Address transition — Terraform
+
+Versionovaná zmena resource alebo module instance address-y, pri ktorej má existujúci remote binding pokračovať pod novou address-ou bez neplánovaného destroy/create. Typicky sa deklaruje cez `moved` block. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
 ## Authoritative source — IaC
 
 Systém alebo versionovaný artifact považovaný za rozhodujúcu deklaráciu požadovaného infraštruktúrneho stavu; manuálne runtime zmeny sa voči nemu musia adoptovať, vrátiť alebo explicitne vyriešiť. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
@@ -7,6 +11,10 @@ Systém alebo versionovaný artifact považovaný za rozhodujúcu deklaráciu po
 ## Backend migration — Terraform
 
 Riadený presun state lineage a snapshots z jedného backendu do druhého so zastavením writers, backupom, overením destination identity a následným planom. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
+
+## Backend writer subject — Terraform
+
+Presná identita state writera zahŕňajúca execution run, workload identity, backend endpoint, state key alebo workspace, lineage, prior serial, lock ID a operation purpose. Používa sa na rozlíšenie aktívneho, orphaned alebo nesprávne zacieleného writera. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
 ## Change subject — IaC
 
@@ -19,6 +27,10 @@ Primárna správa infraštruktúry manuálnymi zmenami v UI alebo konzole bez ve
 ## Computed value — Terraform
 
 Hodnota atribútu určená providerom alebo remote API, ktorá nemusí byť známa počas planu a môže sa zobraziť ako `known after apply`. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
+## Consumer inventory — Terraform module
+
+Evidencia module consumers, používaných versions, environments, owners, provider/Terraform constraints a podporovaných upgrade paths. Umožňuje bezpečné deprecation, security remediation a retirement starého contractu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
 
 ## Cross-state contract
 
@@ -66,7 +78,11 @@ Pomenovaná interná expression modulu dostupná cez `local.<name>`, ktorú call
 
 ## Module interface contract — Terraform
 
-Versionované rozhranie modulu tvorené typovanými inputs, validation/default/null semantics, internými identity assumptions, minimálnymi stabilnými outputs a compatibility/deprecation policy. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
+Versionované rozhranie modulu tvorené typovanými inputs, validation/default/null semantics, internými identity assumptions, minimálnymi stabilnými outputs a compatibility/deprecation policy. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md) a [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
+## Module source subject — Terraform
+
+Immutable identita reusable modulu zahŕňajúca registry alebo VCS source, version/tag/commit, content digest alebo provenance podľa distribution modelu, ownera a release policy. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
 
 ## Multi-writer race — Terraform
 
@@ -75,6 +91,14 @@ Concurrency stav, keď viac procesov číta rovnaký prior state a pokúša sa z
 ## Output value — Terraform
 
 Explicitne publikovaná hodnota modulu tvoriaca jeho výstupný contract pre callerov, CLI alebo ďalšiu automatizáciu. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
+
+## Ownership adoption — Terraform
+
+Riadené prevzatie existujúceho remote objektu do Terraform management modelu cez configuration, presný provider target, import mapping, nový state binding a reviewed post-import reconciliation. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Post-import reconciliation — Terraform
+
+Review prvého planu po importe, ktorý rozhoduje, či sa remote hodnoty adoptujú do configuration, vrátia k desired state-u, rozdelí sa attribute ownership alebo sa chybný binding odstráni. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
 ## Provider alias — Terraform
 
@@ -136,6 +160,10 @@ Konkrétna verzia Terraform state-u obsahujúca resource bindings, known attribu
 
 Riadená zmena state metadata pomocou príkazov ako `state mv`, `state rm` alebo výnimočne recovery push, vykonaná s lockom, backupom, review a následným planom. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
 
+## Supported upgrade path — Terraform module
+
+Module ownerom deklarovaná a testovaná cesta zo staršej podporovanej version na novšiu, zahŕňajúca contract zmeny, retained moved history, provider constraints, plan assertions a runtime verification. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
 ## Terraform backend
 
 Terraform Core komponent určujúci state storage a podľa backendu aj locking, workspaces alebo remote execution behavior. Pozri [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
@@ -155,6 +183,10 @@ Persistentný model mapujúci Terraform resource addresses na remote identities 
 ## Unknown remote outcome — IaC
 
 Failure stav, v ktorom pipeline nedostala spoľahlivý výsledok remote mutation a pred retry musí cez request IDs, provider logs, remote observation a state reconciliation určiť, či operácia neprebehla, prebehla čiastočne alebo uspela bez state commit-u. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
+## Unknown state-write outcome — Terraform
+
+Failure stav, keď Terraform odoslal successor snapshot, ale pre timeout alebo network partition nevie, či backend write commitol. Pred ďalším writerom treba overiť version history, lineage/serial, lock a remote mutation timeline. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md) a [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
 
 ## Unknown value — Terraform
 
