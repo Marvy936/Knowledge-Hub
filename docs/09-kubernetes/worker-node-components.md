@@ -1,731 +1,660 @@
 # Worker node components
 
-Worker node poskytuje compute prostredie, v ktorom Kubernetes spúšťa Pods. Control plane pridelí Pod na Node, ale samotné image pull, container lifecycle, network namespace, mounts, probes, resource controls a status reporting vykonávajú node-level components. Pri diagnostike treba oddeliť kubelet, container runtime, CNI, service dataplane, CSI, operating system a samotnú aplikáciu.
+Worker node nie je iba server, na ktorom „beží container“. Je to execution boundary, ktorá z prideleného Pod objectu vytvorí konkrétny sandbox, network identity, mounts, cgroups a processes, priebežne reportuje ich stav a pri termination alebo pressure vykoná cleanup či eviction.
 
-## 1. Node ako API objekt a reálny stroj
+Dominantný lifecycle tejto kapitoly:
 
-`Node` je Kubernetes object reprezentujúci fyzický alebo virtuálny stroj.
-
-Reálny worker node obsahuje:
-
-- operating system a kernel,
-- kubelet,
-- CRI-compatible container runtime,
-- CNI plugin a node network components,
-- kube-proxy alebo alternatívny Service dataplane,
-- CSI node plugins podľa storage architektúry,
-- local filesystem a image/content store,
-- system services a security controls.
-
-Node object je reportovaný pohľad v API. Nie je samotný server.
-
-## 2. Hlavný execution flow
-
-Keď scheduler pridelí Pod na Node:
-
-1. Pod `.spec.nodeName` alebo binding ukazuje na Node.
-2. Kubelet cez watch/list zistí pridelený Pod.
-3. Kubelet vyhodnotí local admission a dependencies.
-4. Volume manager pripraví mounts a CSI operácie.
-5. Kubelet požiada runtime cez CRI o Pod sandbox.
-6. Runtime a CNI pripravia network namespace a interface.
-7. Runtime pullne images podľa policy.
-8. Spustia sa init containers.
-9. Spustia sa application a sidecar containers podľa lifecycle semantics.
-10. Kubelet vykonáva probes a reportuje status.
-11. Pri deletion alebo failure vykoná termination/cleanup.
-
-## 3. kubelet
-
-Kubelet je primary node agent.
-
-Zodpovednosti:
-
-- registrácia Node-u,
-- Node status a heartbeat reporting,
-- sledovanie Pods pridelených Node-u,
-- Pod admission na Node-e,
-- koordinácia container runtime,
-- volume mount lifecycle,
-- probes,
-- container restart podľa Pod policy,
-- Pod status updates,
-- static Pods,
-- image garbage collection coordination,
-- eviction pri node pressure,
-- cgroup/resource management podľa configuration.
-
-Kubelet nescheduluje Pods medzi Nodes. Vykonáva Pods, ktoré mu boli pridelené alebo ktoré sú static Pods.
-
-## 4. Node registration
-
-Node môže byť do API pridaný:
-
-- self-registration kubeletom,
-- manuálne alebo bootstrap automation.
-
-Kubelet potrebuje:
-
-- cluster CA trust,
-- client identity,
-- API server endpoint,
-- node name contract,
-- authorization na Node a Pod operations,
-- správnu runtime/network configuration.
-
-Duplicitné alebo meniace sa node names môžu vytvoriť nejasnú identity a orphan Node objects.
-
-## 5. Node status
-
-Dôležité oblasti:
-
-- `addresses`,
-- `conditions`,
-- `capacity`,
-- `allocatable`,
-- system info,
-- images podľa API/reporting behavior.
-
-Príkazy:
-
-```bash
-kubectl get nodes -o wide
-kubectl describe node <node>
-kubectl get node <node> -o yaml
+```text
+assigned Pod UID a immutable spec snapshot
+→ kubelet observation a local admission
+→ Node capacity, identity a dependency preflight
+→ volume, device a projected-data príprava
+→ CRI Pod sandbox
+→ CNI network a Service-dataplane prerequisites
+→ image resolution a container creation
+→ init, sidecar a application execution
+→ probes, cgroups, status a Node heartbeats
+→ EndpointSlice a application-path verification
+→ restart, termination, eviction, replacement a cleanup
 ```
 
-`capacity` je hrubá kapacita. `allocatable` je časť dostupná pre Pods po odpočítaní system a kube reservations podľa konfigurácie.
+Pri diagnostike sa nepýtaj iba „je Node Ready?“. Pýtaj sa:
 
-## 6. Node conditions
+```text
+Ktorý Pod UID bol pridelený ktorému Node UID?
+Ktorý node component vlastní ďalší transition?
+Bol vytvorený sandbox, network, mount, image a process?
+Ktorý reportovaný stav je ešte aktuálny a ktorý je stale?
+Je poškodená iba execution vrstva, Service dataplane alebo celý Node?
+```
 
-Bežné conditions:
+## 1. Atlas node-execution subject
 
-- `Ready`,
-- `MemoryPressure`,
-- `DiskPressure`,
-- `PIDPressure`,
-- `NetworkUnavailable` podľa implementácie.
+Atlas Payments release `4.2.0` vytvoril Pod:
 
-Condition je reportovaný signál, nie kompletná root cause.
+```text
+cluster: atlas-prod-eu1
+Pod: production/payments-api-7d6f9d8b7b-k4m2p
+Pod UID: P42
+Pod template hash: 7d6f9d8b7b
+assigned Node: atlas-worker-a7
+Node UID: N7
+image: registry.atlas.example/payments-api@sha256:4a20...
+config generation: C52
+secret epoch: SE08
+service account: payments-api
+expected port: 8443
+```
+
+Pôvodný outcome nie je iba `Running`. Potrebné je overiť:
+
+- sandbox a Pod IP vznikli na Node `N7`;
+- init krok dokončil prípravu konfigurácie;
+- application process načítal digest, C52 a SE08;
+- startup a readiness contract prešli;
+- EndpointSlice obsahuje Pod UID `P42` ako ready backend;
+- request cez Service vykoná payment authorization presne raz;
+- žiadna staging dependency ani starý digest nie sú v active path-e.
+
+## 2. Node object a reálny server sú odlišné subjects
+
+`Node` object v API je reportovaný a controller-observed pohľad. Reálny worker je host s kernelom, kubeletom, runtime-om, network a storage plugins a lokálnym stavom.
+
+```text
+Node object
+├─ metadata.name a UID
+├─ labels, taints a addresses
+├─ capacity a allocatable
+├─ conditions a Lease heartbeat
+└─ system/runtime information
+
+reálny worker
+├─ operating system a kernel
+├─ kubelet a credentials
+├─ CRI runtime a content/snapshot store
+├─ CNI a Service dataplane
+├─ CSI/device plugins
+├─ cgroups, mounts a namespaces
+└─ bežiace Pod sandboxy a processes
+```
+
+`Ready=True` môže byť krátkodobo stale. Naopak network partition môže ponechať processes bežať, hoci control plane označí Node ako nedostupný. Preto verdict vždy viaž na Node UID, heartbeat timeline a konkrétny execution subject.
+
+## 3. Ownership jednotlivých transitionov
+
+| Transition | Primárny vlastník | Typické evidence |
+|---|---|---|
+| Pod-to-Node assignment | scheduler/API binding | `.spec.nodeName`, scheduling Events |
+| pridelený Pod zistený na Node | kubelet | Pod worker/sync logs, kubelet metrics |
+| local admission | kubelet | allocatable, limits, admission reason |
+| sandbox a containers | CRI runtime | `crictl`, runtime logs a metadata |
+| Pod network | CNI/IPAM/dataplane | CNI result, namespace, interface, routes |
+| volume mount | kubelet/CSI node plugin | attach/mount Events, device a mount state |
+| image content | runtime/registry path | resolved digest, pull status, content store |
+| probes a status | kubelet + application endpoint | probe results, Pod conditions |
+| Service forwarding | kube-proxy alebo alternatívny dataplane | Service/EndpointSlice rules a packet flow |
+| pressure eviction | kubelet | Node pressure signals, eviction Events |
+| replacement na inom Node | workload controller + scheduler | nový Pod UID a assignment |
+
+Komponent môže byť healthy ako process a stále neplniť konkrétnu capability. Napríklad kubelet môže posielať heartbeats, ale jeho runtime endpoint môže timeoutovať.
+
+## 4. Assignment nie je execution
+
+Scheduler ukončí svoju hlavnú úlohu zápisom Node assignmentu. Potom začína node lifecycle:
+
+```text
+Pod P42 bez nodeName
+→ scheduler vyberie N7
+→ API persistuje assignment
+→ kubelet N7 pozoruje P42
+→ local admission
+→ dependencies a sandbox
+→ containers
+```
+
+Dôležité rozlíšenie:
+
+```text
+Pod Pending bez nodeName
+→ scheduling boundary
+
+Pod má nodeName, ale sandbox nevznikol
+→ worker-node boundary
+```
+
+Kubelet nesmie byť diagnostikovaný pre Pod, ktorý ešte nebol pridelený jeho Node-u.
+
+## 5. Kubelet ako node reconciler
+
+Kubelet priebežne porovnáva pridelené Pod specs s local runtime state-om. Jeho práca nie je jednorazový `run` príkaz.
+
+```text
+observe assigned Pods
+→ reconstruct Pod execution subject
+→ local admission a dependency checks
+→ ensure sandbox, volumes a containers
+→ run probes a lifecycle actions
+→ report Pod a Node status
+→ repeat pri evente, timeri alebo runtime zmene
+```
+
+Kubelet zabezpečuje najmä:
+
+- Node registration, status a Lease heartbeats;
+- synchronizáciu Pods pridelených Node-u;
+- local admission proti Node capabilities a limits;
+- CRI, volume a probe orchestration;
+- container restart v rámci existujúceho Pod UID;
+- pressure eviction a garbage collection;
+- static Pod lifecycle podľa local authority.
+
+Kubelet však nevytvára náhradný Pod na inom Node-e. To je úloha vyššieho controlleru a schedulera.
+
+## 6. Node identity, bootstrap a configuration generation
+
+Kubelet potrebuje stabilný contract:
+
+```text
+Node name + Node UID continuity
+cluster CA a API endpoint
+node/client identity
+CRI endpoint
+cgroup driver a hierarchy
+CNI/CSI paths a versions
+reserved resources a eviction policy
+certificate rotation
+```
+
+Ak autoscaling alebo reprovisioning znovu použije meno pri inom hoste, tools nesmú zamieňať starú a novú Node inštanciu. Pri audite používaj aj provider ID, system UUID alebo inú platformovú identity podľa prostredia.
+
+Node pool má mať versionovaný **node execution generation**, napríklad:
+
+```text
+image generation: NI27
+kubelet config: KC14
+runtime config: RC09
+CNI generation: CN18
+CSI generation: CS11
+```
+
+„Všetky Nodes sú Ready“ nepreukazuje, že používajú rovnakú generation.
+
+## 7. Local admission a allocatable
+
+`capacity` je fyzická alebo reportovaná hrubá kapacita. `allocatable` je časť dostupná pre Pods po rezerváciách pre OS a Kubernetes components.
+
+Kubelet môže odmietnuť alebo nedokázať realizovať pridelený Pod kvôli:
+
+- local resource alebo topology constraints;
+- max Pods alebo PID limits;
+- chýbajúcemu RuntimeClass/device capability;
+- volume alebo mount preconditions;
+- cgroup incompatibility;
+- node pressure;
+- policy implementovanej node vrstvou.
+
+Scheduler rozhoduje z API-visible inputs. Kubelet rozhoduje z aktuálneho local state-u. Medzi nimi môže byť časový alebo capability rozdiel.
+
+## 8. Volume, projected data a device preflight
+
+Pred application štartom môže Node potrebovať:
+
+```text
+volume attachment
+→ CSI node staging/publish
+→ filesystem a mount options
+→ ownership/SELinux relabeling
+→ Secret/ConfigMap/projected token materialization
+→ device allocation
+→ container mount namespace
+```
+
+Failure boundaries:
+
+- cloud disk je attached, ale node mount zlyhal;
+- PVC je Bound, ale device alebo filesystem na Node-e nie je použiteľný;
+- Secret existuje, ale kubelet ho nemôže načítať kvôli API alebo authorization problému;
+- projected token vznikol, ale application načítala starý súbor alebo environment snapshot;
+- device plugin resource bol schedulovateľný, ale device setup na Node-e zlyhal.
+
+`ContainerCreating` preto nie je jedna príčina. Je to fáza s viacerými vlastníkmi.
+
+## 9. CRI, sandbox a container runtime
+
+CRI je gRPC contract medzi kubeletom a runtime-om. Zjednodušený chain:
+
+```text
+kubelet
+→ CRI RuntimeService/ImageService
+→ containerd, CRI-O alebo iný CRI runtime
+→ OCI runtime
+→ namespaces, mounts, capabilities, seccomp a cgroups
+→ container process
+```
+
+Pod sandbox drží najmä spoločnú network identity Podu. Ak sandbox nevznikne, application containers ešte nemajú kde bežať.
+
+Observation points:
+
+```bash
+crictl info
+crictl pods
+crictl ps -a
+crictl inspectp <sandbox-id>
+crictl inspect <container-id>
+crictl logs <container-id>
+```
+
+Runtime CLI je observation tool, nie alternatívny workload manager. Ručne vytvorený container mimo kubelet contractu nebude controllerom považovaný za Pod repliku.
+
+## 10. CNI a Pod network
+
+CNI setup typicky vykoná:
+
+```text
+network namespace
+→ interface
+→ IPAM allocation
+→ routes a MTU
+→ node/overlay/routed dataplane
+→ policy hooks
+→ result späť runtime-u/kubeletu
+```
+
+Dve odlišné failure triedy:
+
+```text
+sandbox nemá Pod IP alebo route
+→ CNI/IPAM/network setup
+
+Pod IP funguje, ale ClusterIP nie
+→ Service dataplane, EndpointSlice alebo policy
+```
+
+CNI `ADD` alebo cleanup môže mať unknown outcome. Po timeoute over namespace, IPAM lease, interface a routes pred slepým retry alebo ručným uvoľnením adresy.
+
+## 11. Image resolution a runtime content
+
+Runtime musí vyriešiť image reference na konkrétny platform manifest a digest, autentifikovať sa, stiahnuť chýbajúce blobs a pripraviť snapshot.
+
+Failure boundaries:
+
+- tag ukazuje na iný digest než release contract;
+- Node má cached content a odlišnú pull policy;
+- platform index nemá správnu architecture;
+- registry DNS/TLS/auth funguje na jednom Node-e, nie na inom;
+- image store má voľné bytes, ale nemá inodes;
+- unpack alebo snapshot zlyhá po úspešnom pull-e.
+
+Runtime evidence musí obsahovať effective `imageID`, nie iba pôvodný tag.
+
+## 12. Init, sidecar a application execution
+
+Kubelet a runtime realizujú ordering definovaný Pod lifecycle-om:
+
+```text
+sandbox a mounts ready
+→ regular init containers postupne
+→ supported sidecar semantics podľa Pod specu
+→ application containers
+→ startup/readiness/liveness evaluation
+```
+
+Jedna neukončená init úloha môže držať Pod mimo application execution. Sidecar môže spotrebovať resources, bindovať port, meniť localhost path alebo spomaľovať shutdown. Preto je Pod execution subject celý Pod, nie iba „main container“.
+
+## 13. Probes, conditions a reportovaný stav
+
+Kubelet vykonáva probes, ale probe target implementuje application alebo image.
+
+```text
+startup success
+→ liveness aktivovaná
+→ container process continuity
+
+readiness success
+→ container ready
+→ Pod readiness + readiness gates
+→ EndpointSlice eligibility
+```
+
+`Running` neznamená Ready. `Ready` neznamená, že Service dataplane alebo business path je správny. Status môže navyše krátkodobo zaostávať za runtime-om.
+
+## 14. Resource enforcement a pressure
+
+Rozlišuj tri mechanizmy:
+
+```text
+container cgroup limit
+→ napríklad CPU throttling alebo cgroup OOM
+
+Node pressure
+→ kubelet eviction na uvoľnenie resources
+
+host/kernel failure
+→ host-wide OOM, disk alebo PID exhaustion
+```
 
 Príklad:
 
 ```text
-Ready=False
+host má 24 GiB free
+Pod limit je 512 MiB
+container prekročí svoj cgroup limit
+→ OOMKilled
 ```
 
-môže znamenať kubelet heartbeat problém, runtime issue, network partition, certificate failure alebo node shutdown.
+Voľná host memory nevylučuje cgroup-local OOM. Naopak evicted Pod nemusí mať `OOMKilled=true`.
 
-## 7. Heartbeats a Leases
+Sleduj:
 
-Node availability sa sleduje cez:
+- CPU throttling a single-thread saturation;
+- memory working set, limit a kernel OOM evidence;
+- MemoryPressure, DiskPressure a PIDPressure;
+- filesystem bytes, inodes a latency;
+- image, writable-layer, log a `emptyDir` consumption;
+- conntrack, packet drops a MTU;
+- system reservations a noisy system daemons.
 
-- updates Node `.status`,
-- Lease object v namespace `kube-node-lease`.
+## 15. Node heartbeats, partitions a replacement
 
-Lease poskytuje lightweight heartbeat s menším write overheadom.
-
-Node controller v control plane vyhodnocuje heartbeats a pri ich absencii mení Node conditions a podľa policy spracúva Pods.
-
-Network partition môže viesť k tomu, že workload na Node-e stále beží, ale control plane ho považuje za nedostupný.
-
-## 8. kubelet configuration
-
-Kubelet behavior ovplyvňujú napríklad:
-
-- API/kubeconfig,
-- CRI endpoint,
-- cgroup driver,
-- cluster DNS a domain,
-- eviction thresholds,
-- image garbage collection,
-- authentication a authorization pre kubelet API,
-- certificate rotation,
-- reserved resources,
-- max Pods,
-- static Pod path,
-- feature gates podľa verzie.
-
-Configuration má byť versionovaná a validovaná. Rozdiely medzi Nodes vytvárajú heterogénne runtime behavior.
-
-## 9. Kubelet API
-
-Kubelet exponuje API pre operations ako:
-
-- logs,
-- exec,
-- attach,
-- port-forward related streams,
-- metrics/status podľa endpointu a configuration.
-
-API server môže proxy-ovať niektoré requests ku kubeletu.
-
-Kubelet API je citlivá node-level trust boundary. Anonymous alebo broad authorization môže viesť k workload alebo node compromise.
-
-## 10. Container Runtime Interface — CRI
-
-CRI je gRPC interface medzi kubeletom a container runtime implementation.
-
-Hlavné časti:
-
-- RuntimeService,
-- ImageService.
-
-Kubelet používa CRI na:
-
-- Pod sandbox lifecycle,
-- container create/start/stop/remove,
-- image pull/list/remove,
-- exec/attach/port-forward endpoints,
-- status a stats.
-
-Kubernetes worker node nepotrebuje Docker Engine. Používa CRI-compatible runtime, napríklad containerd alebo CRI-O podľa distribúcie.
-
-## 11. Pod sandbox
-
-Pod sandbox vytvára zdieľané runtime prostredie Podu, najmä network namespace a infra lifecycle.
-
-Containers v jednom Pode typicky zdieľajú:
-
-- network namespace,
-- Pod IP,
-- port space,
-- localhost,
-- volumes podľa mounts,
-- IPC alebo process namespace iba podľa explicitnej konfigurácie.
-
-Runtime môže používať infra/pause container ako držiteľa namespace lifecycle-u.
-
-Ak sandbox creation zlyhá, application container sa nemusí vôbec vytvoriť.
-
-## 12. containerd/CRI-O a OCI runtime
-
-Zjednodušená vrstva:
+Node availability chain:
 
 ```text
-kubelet
-  ↓ CRI
-containerd / CRI-O
-  ↓
-OCI runtime
-  ↓
-container process
+kubelet Lease/Node status
+→ Node controller observation
+→ Ready/Unknown condition a taints
+→ Pod eviction/replacement policy
+→ nový Pod UID na inom Node-e
 ```
 
-Runtime:
+Pri partition môže starý process stále bežať, zatiaľ čo control plane vytvorí replacement inde. Aplikácie so single-writer alebo exactly-once požiadavkou potrebujú external fencing, lease alebo idempotency; samotná Pod replacement logika nezaručuje, že starý process prestal konať.
 
-- spravuje image/content store,
-- snapshots,
-- sandbox a container metadata,
-- volá OCI runtime,
-- koordinuje logs a streaming endpoints podľa implementation.
+## 16. Service dataplane na Node-e
 
-OCI runtime vytvorí low-level process isolation, mounts, capabilities, seccomp a cgroups podľa generated runtime spec.
-
-## 13. `crictl`
-
-`crictl` je diagnostický CLI pre CRI.
-
-Príklady:
-
-```bash
-crictl info
-crictl ps -a
-crictl pods
-crictl images
-crictl inspect <container-id>
-crictl inspectp <pod-sandbox-id>
-crictl logs <container-id>
-```
-
-Používaj správny runtime endpoint a rešpektuj node root privileges.
-
-Docker CLI nemusí vidieť Kubernetes containers, ak Node nepoužíva Docker Engine ako backend.
-
-## 14. CNI
-
-Container Network Interface integruje Pod network setup.
-
-CNI plugin pri Pod sandbox lifecycle typicky:
-
-- vytvorí alebo nakonfiguruje interface,
-- priradí IP,
-- nastaví routes,
-- pripojí namespace do node/cluster dataplane-u,
-- vykoná cleanup pri delete.
-
-Kubernetes definuje network expectations, ale konkrétny dataplane implementuje CNI solution.
-
-CNI failure sa často prejaví ako:
+Pod-to-Pod connectivity, DNS a Service forwarding sú samostatné vrstvy.
 
 ```text
-FailedCreatePodSandBox
+client Pod
+→ DNS name
+→ Service VIP/port
+→ node Service dataplane
+→ EndpointSlice backend Pod IP
+→ application listen socket
 ```
 
-## 15. Pod network requirements
+Kube-proxy alebo alternatívna implementácia môže byť poškodená iba na jednom Node-e. Potom:
 
-Klasický Kubernetes network model očakáva, že Pods majú routovateľnú identity v cluster networku bez application-managed NAT medzi každou dvojicou Pods, hoci konkrétna implementation môže interne používať encapsulation, routing, eBPF alebo NAT na boundaries.
+- direct Pod IP funguje;
+- ClusterIP z konkrétneho Node-u zlyháva;
+- application a readiness môžu byť healthy;
+- problém je node-local forwarding, conntrack, firewall alebo route state.
 
-Node musí mať:
+## 17. Termination, restart, eviction a replacement
 
-- správny Pod CIDR alebo IPAM contract,
-- route/overlay connectivity,
-- MTU,
-- firewall pravidlá,
-- DNS reachability,
-- CNI config a binaries.
-
-## 16. kube-proxy
-
-`kube-proxy` je bežný node component implementujúci časť Service virtual IP modelu.
-
-Môže programovať dataplane cez platform-specific modes, napríklad iptables alebo nftables podľa podporovanej konfigurácie.
-
-Responsibilities:
-
-- Service ClusterIP/port forwarding,
-- EndpointSlice-derived backend rules,
-- NodePort handling,
-- session affinity podľa modelu.
-
-Niektoré CNI/eBPF platforms nahrádzajú kube-proxy alternate Service dataplane-om. Preto neprítomnosť kube-proxy nemusí byť chyba, ak architektúra používa náhradu.
-
-## 17. Service dataplane vs. Pod networking
-
-Rozlišuj:
-
-- CNI/Pod networking — Pod IP a Pod-to-Pod connectivity,
-- Service dataplane — virtual Service IP/port na backends,
-- DNS — name-to-Service discovery,
-- ingress/gateway — external/application routing.
-
-Pod-to-Pod môže fungovať, ale ClusterIP nemusí, ak je poškodený Service dataplane.
-
-## 18. CSI node component
-
-Container Storage Interface node plugin môže vykonávať:
-
-- stage/unstage volume,
-- publish/unpublish volume do Pod pathu,
-- mount operations,
-- filesystem setup,
-- node capability reporting.
-
-Control-plane CSI controller a node plugin majú odlišné responsibilities.
-
-Volume attach môže byť úspešný v cloud API, ale node mount môže zlyhať kvôli filesystemu, device pathu, credentials alebo pluginu.
-
-## 19. Device plugins
-
-Device plugin umožňuje Nodes reportovať a prideľovať špeciálne devices, napríklad GPU.
-
-Node-level responsibilities:
-
-- device discovery,
-- health reporting,
-- allocation instructions,
-- runtime device mounts/environment.
-
-Scheduler rozhoduje podľa advertised resources a requests, ale samotné device setup vykonávajú node components/runtime.
-
-## 20. Cgroups a resource enforcement
-
-Scheduler používa resource requests na placement. Node runtime/kubelet používajú limits a QoS policy na enforcement.
-
-Node musí mať konzistentný cgroup model medzi:
-
-- systemd/kernel,
-- kubelet,
-- container runtime.
-
-Cgroup driver mismatch alebo nekompatibilná configuration môže spôsobiť Node startup alebo resource-accounting problémy.
-
-## 21. CPU
-
-Node-level CPU behavior zahŕňa:
-
-- requests pre scheduling/share,
-- limits a CFS quota/throttling podľa platformy,
-- CPU manager policy pre pinned CPUs,
-- host contention,
-- steal time vo VM,
-- system reserved workloads.
-
-Pod môže mať nízky CPU utilization a stále vysokú latency kvôli throttlingu alebo single-thread saturation.
-
-## 22. Memory
-
-Memory limit môže viesť ku cgroup OOM kill.
-
-Rozlišuj:
-
-- container cgroup OOM,
-- Pod-level behavior podľa cgroup hierarchy/features,
-- host-wide OOM,
-- kubelet eviction pri MemoryPressure,
-- application self-termination.
-
-`OOMKilled=true` je silný signál, ale root cause potrebuje memory metrics, limits, working set a kernel/runtime evidence.
-
-## 23. PID pressure
-
-Každý process/thread spotrebúva PID namespace/host resources.
-
-Node môže reportovať `PIDPressure` pri nedostatku PIDs.
-
-Riziká:
-
-- fork bomb,
-- zombie processes,
-- application leak,
-- príliš veľa containers,
-- nízke pid limits.
-
-Symptómy môžu vyzerať ako náhodné zlyhania process creation.
-
-## 24. Disk pressure a storage vrstvy
-
-Node storage spotrebúva:
-
-- container images,
-- writable layers,
-- container logs,
-- emptyDir volumes,
-- runtime metadata,
-- kubelet state,
-- CNI/CSI logs,
-- OS logs.
-
-Sleduj bytes aj inodes.
-
-Kubelet môže vykonať image/container garbage collection alebo Pod eviction pri pressure. GC nie je náhrada capacity planningu a log rotation.
-
-## 25. Image pull
-
-Kubelet/runtime posudzuje:
-
-- image reference,
-- `imagePullPolicy`,
-- local cache,
-- registry authentication,
-- platform manifest,
-- network/DNS/TLS,
-- disk capacity.
-
-Typické statuses:
-
-- `ErrImagePull`,
-- `ImagePullBackOff`.
-
-Mutable tag a cached image môžu viesť k rozdielnym digests medzi Nodes podľa pull policy a timing. Production artifacts majú mať kontrolovanú identity.
-
-## 26. Container logs
-
-Kubernetes logging model typicky očakáva application output na stdout/stderr.
-
-Kubelet/runtime zabezpečuje local log files a rotation podľa configuration.
-
-`kubectl logs` číta logs cez API server/kubelet path.
-
-Riziká:
-
-- local disk exhaustion,
-- log loss po Node failure,
-- multiline parsing,
-- secret leakage,
-- rotation bez central shippingu.
-
-Node log collector je add-on, nie automatická trvalá vlastnosť Kubernetes.
-
-## 27. Probes
-
-Kubelet vykonáva:
-
-- startup probes,
-- liveness probes,
-- readiness probes.
-
-Dôsledky:
-
-- liveness failure môže viesť k container restartu,
-- readiness failure odstráni Pod z ready endpointov,
-- startup probe môže odložiť liveness/readiness počas inicializácie.
-
-Probe execution patrí kubeletu, ale endpoint/command implementuje application/image.
-
-## 28. Container restart
-
-Kubelet podľa Pod `restartPolicy` a workload state-u spúšťa container znovu v tom istom Pode.
-
-To nie je vytvorenie nového Podu.
+Tieto operácie nie sú zameniteľné:
 
 ```text
 container restart
-→ rovnaký Pod UID, Pod IP a volumes môžu zostať
+→ rovnaký Pod UID a sandbox
 
-Pod replacement
-→ nový Pod UID a typicky nová Pod IP
+Pod termination
+→ graceful lifecycle a cleanup konkrétneho UID
+
+kubelet eviction
+→ ukončenie Podu kvôli Node pressure
+
+controller replacement
+→ nový Pod UID, často iný Node a IP
 ```
 
-CrashLoopBackOff je backoff behavior pri opakovanom container failure, nie samostatná Pod phase.
+Node cleanup zahŕňa container stop/remove, unmount/unpublish, CNI delete a sandbox removal. Unknown alebo partial cleanup môže zanechať mount, IPAM, namespace alebo runtime metadata leak.
 
-## 29. Static Pods
+## 18. Maintenance a graceful node shutdown
 
-Kubelet môže sledovať local static Pod manifests.
-
-Vlastnosti:
-
-- viazané na konkrétny Node,
-- nie sú spravované bežným workload controllerom,
-- kubelet ich reštartuje podľa local manifestu,
-- API môže obsahovať mirror Pod.
-
-Pri static Pod probléme kontroluj local manifest path a runtime, nie iba API object.
-
-## 30. Eviction
-
-Kubelet môže evictovať Pods pri node pressure podľa thresholds a QoS/priority pravidiel.
-
-Signals:
-
-- memory available,
-- node filesystem/image filesystem capacity/inodes,
-- PID availability.
-
-Eviction nie je to isté ako cgroup OOM kill. Pri eviction Pod status/events zvyčajne reportujú dôvod a vyšší controller vytvorí replacement podľa desired state-u.
-
-## 31. Graceful node shutdown
-
-Pri podporovanej konfigurácii môže kubelet koordinovať Pod termination počas OS shutdownu.
-
-Potrebné je:
-
-- system manager integration,
-- dostatočný shutdown budget,
-- priority-aware ordering podľa policy,
-- application graceful termination,
-- workload controller replacement.
-
-Hard power loss graceful flow neumožní.
-
-## 32. Node maintenance
-
-Bežný workflow:
-
-```bash
-kubectl cordon <node>
-kubectl drain <node> --ignore-daemonsets --delete-emptydir-data
-# maintenance
-kubectl uncordon <node>
-```
-
-`cordon` zabráni novému scheduling-u.
-
-`drain` používa eviction/delete workflow pre existing Pods podľa flags a policy.
-
-Pred drainom over:
-
-- PodDisruptionBudgets,
-- local/emptyDir data,
-- DaemonSets,
-- unmanaged Pods,
-- stateful storage,
-- capacity na ostatných Nodes.
-
-## 33. Node security
-
-Chráň:
-
-- OS a kernel,
-- kubelet credentials,
-- kubelet API,
-- container runtime socket,
-- CNI/CSI sockets a binaries,
-- host filesystem,
-- cloud instance identity/metadata,
-- privileged Pods,
-- device access,
-- SSH/admin access,
-- local logs a image credentials.
-
-Node compromise môže umožniť čítanie memory, volumes alebo credentials workloadov na danom Node-e.
-
-## 34. Taints pri node stave
-
-Control plane môže pridať taints podľa Node conditions, napríklad pri unreachable/not-ready stave.
-
-Taints ovplyvňujú scheduling a eviction podľa tolerations.
-
-Node condition, taint a Pod eviction sú súvisiace, ale odlišné mechanisms.
-
-## 35. Heterogénne Nodes
-
-Cluster môže obsahovať Nodes s odlišnými:
-
-- architecture,
-- OS,
-- kernel,
-- runtime version,
-- GPU/devices,
-- zone/region,
-- instance type,
-- labels/taints,
-- storage/network capabilities.
-
-Workload potrebuje správne image manifests a scheduling constraints.
-
-„Funguje na jednom Node-e“ nemusí znamenať cluster-wide kompatibilitu.
-
-## 36. Observability
-
-### Kubelet
-
-Sleduj:
-
-- health a startup,
-- Pod sync latency/errors,
-- runtime operation latency/errors,
-- PLEG/runtime state podľa implementation,
-- volume operation errors,
-- probe failures,
-- eviction signals,
-- certificate rotation.
-
-### Runtime
-
-Sleduj:
-
-- sandbox/container create failures,
-- image pulls,
-- snapshot/content storage,
-- task exits,
-- runtime daemon health.
-
-### Node OS
-
-Sleduj:
-
-- CPU, memory, load,
-- pressure stall information,
-- disk bytes/inodes/latency,
-- network errors/drops/MTU,
-- conntrack,
-- kernel OOM,
-- filesystem a mount errors,
-- clock a certificates.
-
-## 37. Troubleshooting workflow
+Bezpečný maintenance flow:
 
 ```text
-Pod status/Event
-→ Pod assigned Node?
-→ Node Ready/conditions/taints
-→ kubelet logs
-→ CRI sandbox/container state
-→ CNI network setup
-→ CSI/mount state
-→ image/content store
-→ cgroups/resources
-→ host kernel/network/storage
+capacity a disruption preflight
+→ cordon
+→ drain cez eviction API
+→ Pod shutdown a replacement verification
+→ node maintenance
+→ node execution-generation validation
+→ uncordon
+→ business-path verification
 ```
 
-Príkazy:
+Pred drainom over PDB, DaemonSets, unmanaged Pods, local data, volume topology a voľnú kapacitu. Hard power loss neumožní graceful shutdown ani `preStop`.
+
+## 19. Node security boundary
+
+Kompromitovaný Node môže ohroziť workloads a credentials dostupné na danom hoste. Chráň najmä:
+
+- kubelet a bootstrap credentials;
+- kubelet API authorization;
+- runtime, CNI a CSI sockets;
+- host filesystem a kernel;
+- cloud instance identity;
+- image pull credentials;
+- privileged Pods, host namespaces, devices a hostPath;
+- local logs, crash dumps a projected secrets.
+
+Read-only prístup k runtime socketu nemusí byť neškodný, ak API umožňuje privileged operations alebo čítanie workload state-u.
+
+## 20. Worked failure: Node je Ready, runtime však neprijíma nové sandboxy
+
+Node `N7` obnovuje Lease a `Ready=True`, ale všetky nové Pods na ňom zostávajú v `ContainerCreating`.
+
+Mechanizmus:
+
+```text
+kubelet process a API connectivity healthy
+→ Lease updates pokračujú
+→ runtime metadata database alebo socket je stuck
+→ CRI RunPodSandbox timeoutuje
+→ Pod sandbox nevznikne
+→ Node môže zostať Ready
+```
+
+`Ready=True` preto nie je dôkaz všetkých execution capabilities. Recovery musí obnoviť runtime capability a následne overiť nové sandbox create/delete, nie iba restartovať kubelet.
+
+## 21. Worked failure: cgroup OOM bol zamieňaný za Node MemoryPressure
+
+Pod `P42` mal memory limit `512Mi`, host mal voľnú memory a Node nemal `MemoryPressure`. Process bol opakovane `OOMKilled`.
+
+```text
+application working set > 512Mi
+→ cgroup-local OOM
+→ container termination
+→ kubelet restart podľa policy
+→ CrashLoopBackOff
+```
+
+Zvýšenie Node size bez zmeny Pod limitu by problém nevyriešilo. Potrebná je application memory analýza a review request/limit contractu.
+
+## 22. Worked failure: Service nefunguje iba z jedného Node-u
+
+Payments Pods boli Ready a direct Pod IP fungovalo. Requesty z Node `N9` cez ClusterIP timeoutovali, z ostatných Nodes nie.
+
+```text
+Service a EndpointSlice correct
++ backend Pod listen correct
++ Pod network route correct
+→ node-local Service rule alebo conntrack state na N9 poškodený
+```
+
+Restart application Podov by iba menil backends. Recovery patrí do Service-dataplane boundary na `N9` a musí overiť forward aj reverse path.
+
+## 23. Causal troubleshooting walkthrough: Pod je assigned, ale application container nevznikne
+
+Pod `P42` je 12 minút v `ContainerCreating` na `N7`. Sesterský Pod rovnakej revision na `N6` je Ready.
+
+### 1. Zafixuj subject a pôvodný outcome
+
+Zaznamenaj:
+
+```text
+cluster endpoint a CA
+Pod namespace/name/UID/resourceVersion
+Pod template hash a effective admitted spec
+assigned Node name/UID/provider identity
+Node execution generations NI/KC/RC/CN/CS
+image digest a platform
+volume/PVC/attachment IDs
+C52 a SE08 projected-data subjects
+sandbox/container IDs, ak existujú
+CNI request/IPAM identity
+required Service a business outcome
+```
+
+### 2. Competing hypotheses
+
+1. Pod je v skutočnosti pridelený inému Node-u alebo starej Node inštancii s rovnakým menom.
+2. Kubelet nepozoroval najnovší Pod resourceVersion.
+3. Local admission odmietlo Pod kvôli resources, max Pods alebo RuntimeClass.
+4. Volume attach prešiel, ale CSI node mount zlyhal.
+5. Kubelet nevie načítať Secret alebo projected data.
+6. CRI runtime je nedostupný alebo jeho content/snapshot store je poškodený.
+7. Sandbox vznikol, ale CNI `ADD` zlyhal alebo má unknown outcome.
+8. Image pull, platform selection alebo unpack zlyhal.
+9. Init container opakovane zlyháva; application container preto ešte nemal vzniknúť.
+10. Node má disk/inode/PID pressure bez správne reportovanej condition.
+11. Admission alebo mutating webhook vytvorili Node-incompatible effective spec.
+12. Sesterský Pod používa iný digest, config alebo node generation.
+
+### 3. Discriminating observation points
+
+- live Pod `nodeName`, UID, conditions, init/container statuses a Events;
+- Node UID, provider ID, Lease age, conditions, allocatable a taints;
+- kubelet logs korelované podľa Pod UID;
+- `crictl pods`, `inspectp`, `ps -a` a runtime logs;
+- sandbox/network namespace/interface/IPAM lease;
+- CSI node plugin logs, device, mount table a filesystem evidence;
+- effective image reference a runtime `imageID`;
+- filesystem bytes, inodes, PID a kernel logs;
+- admitted Pod spec vs. sesterský Pod;
+- Node execution-generation rozdiel medzi N7 a N6.
+
+Observation `Pod má nodeName` vylučuje základnú scheduler boundary. Observation `sandbox ID neexistuje` posúva diagnózu pred application start a probe vrstvu.
+
+### 4. Containment
+
+- zastav scheduling ďalších Pods na N7 cez cordon, ak failure scope nie je známy;
+- nereštartuj naraz kubelet, runtime, CNI a CSI;
+- zachovaj kubelet/runtime/plugin logs, Events a namespace/mount state;
+- nevytváraj containers ručne mimo kubeletu;
+- neuvoľňuj IPAM alebo detach volume bez overenia ownershipu;
+- ponechaj zdravé replicas a traffic na N6/N8.
+
+### 5. Recovery podľa boundary
+
+- stale/wrong Node identity → odstráň bootstrap/name collision a znovu registruj správny subject;
+- local capacity/config → oprav node generation alebo reschedule na compatible Node;
+- CSI mount → oprav device/filesystem/plugin a dokonči idempotentný publish;
+- projected data → obnov API/authorization path a recreate Pod, ak process snapshot musí byť nový;
+- CRI/runtime → obnov runtime store/socket a over sandbox create/remove;
+- CNI unknown outcome → lookup podľa Pod UID/container ID, oprav alebo cleanup-ni presný lease/interface a retry;
+- image → oprav digest/platform/auth/disk a over effective imageID;
+- init failure → oprav init contract, nie application probe.
+
+### 6. Over pôvodný outcome
+
+Potvrď:
+
+- Pod P42 alebo jeho reviewovaný replacement má správny Node a UID chain;
+- sandbox, Pod IP, routes, mounts a image digest sú správne;
+- init containers skončili úspešne;
+- application process načítal C52 a SE08;
+- Pod je Ready a EndpointSlice odkazuje na správny UID;
+- payment authorization cez Service prejde presne raz;
+- N7 zvládne ďalší canary sandbox create/delete bez leakov;
+- žiadna stará IPAM lease, mount alebo sandbox metadata nezostala.
+
+### 7. Posuň control skôr
+
+Pridaj:
+
+- versionovaný node execution manifest a drift report;
+- canary Pod pre CRI/CNI/CSI capability po node bootstrap/upgrade;
+- alerts na sandbox, mount a image operation latency;
+- disk bytes/inodes/PID a cgroup-specific observability;
+- immutable digest a platform preflight;
+- Node UID/provider-ID koreláciu;
+- cordon-before-repair runbook s evidence-preservation krokom.
+
+## 24. Observation matrix
+
+| Boundary | Subject | Kľúčové observations |
+|---|---|---|
+| Assignment | Pod UID, Node UID | nodeName, Events, binding |
+| Kubelet | Pod UID, KC generation | sync logs, local admission, status writes |
+| Runtime | sandbox/container ID, RC generation | CRI calls, task state, content/snapshot store |
+| Network | Pod UID/IPAM/CN generation | namespace, interface, routes, MTU, policy |
+| Storage | volume/device/CS generation | attach, stage/publish, mount, filesystem |
+| Image | manifest/digest/platform | pull, imageID, unpack, disk/inodes |
+| Resources | Pod cgroup, Node pressure | throttling, OOM, eviction, PID/disk signals |
+| Service path | Service/EndpointSlice + Node dataplane | VIP rules, conntrack, forward/reverse packets |
+| Business | request/operation ID | SLI, downstream audit, exactly-once invariant |
+
+## 25. Referenčné diagnostické príkazy
 
 ```bash
-kubectl get pod <pod> -o wide
-kubectl describe pod <pod>
+kubectl get pod <pod> -n <namespace> -o wide
+kubectl get pod <pod> -n <namespace> -o yaml
+kubectl describe pod <pod> -n <namespace>
+kubectl get node <node> -o yaml
 kubectl describe node <node>
+kubectl get lease -n kube-node-lease <node> -o yaml
+crictl info
 crictl pods
 crictl ps -a
 journalctl -u kubelet
 journalctl -u containerd
 ```
 
-Service names a log paths sa líšia podľa distribúcie.
+Názvy services, paths a runtime tooling závisia od distribúcie. Príkaz je observation point, nie diagnóza.
 
-## 38. Typické zlyhania
+## 26. Referenčné pravidlá
 
-### Node `NotReady`
+- Node object a reálny host sú odlišné subjects.
+- Assignment nie je sandbox ani process execution.
+- `Ready=True` nepreukazuje každú node capability.
+- Kubelet reconcile-uje pridelené Pods; nescheduluje ich medzi Nodes.
+- CRI, CNI, CSI a Service dataplane majú odlišné ownership boundaries.
+- Pod sandbox failure nastáva pred application-container troubleshootingom.
+- Effective image identity je digest a runtime `imageID`, nie mutable tag.
+- Container restart, Pod eviction a controller replacement sú odlišné transitions.
+- Voľná host memory nevylučuje cgroup-local OOM.
+- PVC `Bound` nepreukazuje úspešný node mount.
+- Network partition môže ponechať starý process aktívny po replacement-e.
+- Recovery musí overiť cleanup aj pôvodný Service/business outcome.
 
-Over heartbeat/Lease, kubelet, runtime, CNI, certificate, disk pressure a API connectivity.
+## 27. Kontrolné otázky
 
-### `FailedCreatePodSandBox`
-
-Over runtime sandbox, CNI config/binaries, IPAM, network namespace, routes a disk.
-
-### `ContainerCreating` dlho
-
-Over image pull, volume attach/mount, Secret/ConfigMap projection, sandbox a runtime events.
-
-### `CrashLoopBackOff`
-
-Over previous logs, exit code, command, configuration, probes, permissions, dependencies a resource limits.
-
-### `ImagePullBackOff`
-
-Over image name/digest, credentials, registry DNS/TLS/network, rate limits, platform a disk.
-
-### Pod evicted
-
-Over Node pressure signals, requests/limits/QoS, local storage, logs a capacity trend.
-
-### ClusterIP nefunguje len na jednom Node-e
-
-Over kube-proxy/alternate dataplane, EndpointSlices, firewall, conntrack a node routes.
-
-## 39. Anti-patterny
-
-### Ručné spúšťanie workload containerov cez runtime CLI
-
-Kubelet ich nepozná a nereconcile-uje.
-
-### Docker CLI ako jediný node diagnostic tool
-
-Node môže používať containerd/CRI-O bez Docker Engine-u.
-
-### Restart kubeletu ako prvý krok
-
-Môže odstrániť evidence a spustiť ďalšie reconciliation bez root cause.
-
-### `chmod 777` pri volume probléme
-
-Maskuje UID/GID, SELinux alebo mount policy problém.
-
-### Disable probes alebo security controls bez analýzy
-
-Odstráni symptom, nie príčinu.
-
-### Všetky Nodes bez reservations a eviction planningu
-
-System daemons súťažia s Pods a Node môže destabilizovať.
-
-## 40. Kontrolné otázky
-
-1. Aký je rozdiel medzi Node objektom a reálnym worker serverom?
-2. Aké hlavné responsibilities má kubelet?
-3. Čo rieši CRI?
-4. Čo je Pod sandbox?
-5. Aký je rozdiel medzi CNI a kube-proxy/Service dataplane-om?
-6. Ako sa líši container restart a Pod replacement?
-7. Čo znamená `allocatable`?
-8. Aký je rozdiel medzi OOM kill a kubelet eviction?
-9. Prečo Node Lease existuje popri Node status updates?
-10. Ako diagnostikuješ `FailedCreatePodSandBox`?
+1. Aký lifecycle spája Pod assignment s business-ready application processom?
+2. Prečo Node `Ready=True` nemusí preukazovať funkčný CRI runtime?
+3. Ako odlíšiš scheduling failure od worker-node failure?
+4. Aký je rozdiel medzi Pod sandboxom a application containerom?
+5. Ako sa líši CNI Pod networking od Service dataplane-u?
+6. Prečo PVC `Bound` neznamená, že mount na Node-e prešiel?
+7. Ako odlíšiš cgroup OOM, host OOM a kubelet eviction?
+8. Čo treba zachovať pred restartom kubeletu alebo runtime-u?
+9. Ako môže network partition vytvoriť dva aktívne application processes?
+10. Čo musí node recovery verdict overiť?
 
 ## Glossary impact
 
-Relevantné pojmy: Kubernetes Node, Node capacity, Node allocatable, Node condition, node heartbeat, Node Lease, kubelet, kubelet API, Container Runtime Interface, RuntimeService, ImageService, Pod sandbox, pause container, CRI runtime, `crictl`, CNI, kube-proxy, Service dataplane, CSI node plugin, device plugin, cgroup driver, Node pressure, kubelet eviction, image garbage collection, static Pod mirror, cordon, drain a graceful node shutdown.
+Relevantné pojmy: assigned-Pod execution subject, Node execution generation, kubelet reconciliation subject, local admission boundary, Pod sandbox subject, CRI capability subject, CNI/IPAM operation subject, CSI node-publish subject, effective image identity, node capability verdict, node pressure subject, Service dataplane subject, partitioned-node execution, worker-node observation matrix a node recovery verdict.
 
 ## Oficiálna dokumentácia
 
 - [Nodes](https://kubernetes.io/docs/concepts/architecture/nodes/)
 - [Kubernetes components](https://kubernetes.io/docs/concepts/overview/components/)
-- [Node status](https://kubernetes.io/docs/reference/node/node-status/)
-- [Container Runtime Interface](https://kubernetes.io/docs/concepts/architecture/cri/)
+- [Container Runtime Interface](https://kubernetes.io/docs/concepts/containers/cri/)
 - [Installing and using crictl](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/)
 - [Node-pressure eviction](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 - [Safely drain a Node](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)
-- [Communication between Nodes and control plane](https://kubernetes.io/docs/concepts/architecture/control-plane-node-communication/)
+- [Communication between Nodes and the control plane](https://kubernetes.io/docs/concepts/architecture/control-plane-node-communication/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
