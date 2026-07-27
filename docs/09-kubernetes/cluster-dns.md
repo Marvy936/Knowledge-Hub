@@ -1,77 +1,69 @@
 # Cluster DNS
 
-Cluster DNS poskytuje service discovery pre Kubernetes Services a vybrané Pod identity. Kubelet konfiguruje DNS resolver v Pode a cluster DNS add-on, typicky CoreDNS, odpovedá na cluster-local mená alebo forwarduje external queries upstream resolverom. DNS vytvára stabilné mená, ale negarantuje readiness backendu, funkčný Service dataplane ani dostupnosť aplikácie.
+Cluster DNS je resolver a discovery control chain medzi application lookup intentom a adresou, ktorú klient následne použije. Kubelet vytvára Pod resolver configuration, cluster DNS Service smeruje query na CoreDNS alebo inú implementation, DNS server sleduje Kubernetes API alebo forwarduje upstream a odpoveď prechádza viacerými cache vrstvami. Úspešný lookup však stále nepreukazuje funkčný Service dataplane ani application outcome.
 
-## 1. Mentálny model
-
-Zjednodušený request flow:
+Dominantný lifecycle:
 
 ```text
-application resolver
-→ /etc/resolv.conf v Pode
-→ cluster DNS Service IP
-→ CoreDNS replicas
-→ kubernetes plugin alebo upstream DNS
-→ odpoveď a cache
+application lookup intent a exact query name/type
+→ Pod UID, namespace, dnsPolicy a generated resolv.conf
+→ search-domain a ndots expansion
+→ NodeLocal alebo direct cluster-DNS path
+→ kube-dns Service a EndpointSlice cohort
+→ CoreDNS instance a loaded Corefile generation
+→ Kubernetes API watch alebo upstream forwarding
+→ response, TTL alebo negative result
+→ node/runtime/application cache
+→ address selection a fresh connection
+→ Service/EndpointSlice alebo external path
+→ verified application request
 ```
 
-Pri Service requeste pokračuje flow:
+Kapitola používa Atlas Payments. Pod `payments-api` potrebuje resolve-nuť:
 
 ```text
-DNS meno
-→ Service ClusterIP alebo headless endpoint addresses
-→ Service dataplane
-→ EndpointSlice backend
-→ Pod application
+ledger-db.production.svc.cluster.local
+vault.prod.example
 ```
 
-DNS a Service forwarding sú samostatné vrstvy.
+Prvé meno je cluster-local Service discovery. Druhé je external/split-horizon name forwardované upstream. Acceptance vyžaduje nielen správne DNS answers, ale aj fresh connection a úspešný payment request.
 
-## 2. Cluster DNS add-on
+## 1. DNS subject musí byť presný
 
-Cluster DNS je add-on, nie súčasť `kube-apiserver` procesu. Bežne pozostáva z:
-
-- CoreDNS Deploymentu,
-- Service typu ClusterIP, často pomenovaného `kube-dns`,
-- ConfigMapu s Corefile configuration,
-- ServiceAccount/RBAC,
-- autoscaling a monitoring podľa platformy.
-
-Ak API funguje, ale CoreDNS Pods alebo DNS Service zlyhajú, workloads nemusia resolve-nuť Service names ani external domains.
-
-## 3. Service DNS names
-
-Service `web` v namespace `production` má typické meno:
+Pri incidentoch fixuj:
 
 ```text
-web.production.svc.cluster.local
+cluster domain a DNS implementation
+Pod UID, namespace, Node a network namespace
+dnsPolicy a dnsConfig
+actual /etc/resolv.conf generation
+exact query string, trailing dot a record type
+search expansion attempts a ndots
+NodeLocal DNSCache instance/generation, ak existuje
+kube-dns Service UID/ClusterIP a EndpointSlice cohort
+CoreDNS Pod UID, image a loaded Corefile hash
+Kubernetes API watch/resource generation alebo upstream resolver
+response code, answer, authority, TTL a latency
+application/runtime cache generation
+selected address a subsequent connection subject
+business request/operation ID
 ```
 
-Časti:
+`nslookup web` a `dig web.production.svc.cluster.local.` nie sú rovnaký query subject.
 
-```text
-<service>.<namespace>.svc.<cluster-domain>
-```
+## 2. Pod resolver configuration vzniká pri Pod lifecycle-e
 
-Cluster domain nemusí byť `cluster.local`; závisí od cluster konfigurácie.
+Kubelet vytvára resolver config podľa:
 
-Pod v rovnakom namespace môže používať krátke meno:
+- cluster DNS Service addresses;
+- cluster domain;
+- Pod namespace;
+- `dnsPolicy`;
+- `dnsConfig`;
+- Node resolver configuration;
+- runtime/OS resolver limits.
 
-```text
-web
-```
-
-Pod v inom namespace typicky používa:
-
-```text
-web.production
-```
-
-alebo plné FQDN.
-
-## 4. Search domains a `ndots`
-
-Typický `/etc/resolv.conf` v Pode:
+Typický Pod:
 
 ```text
 nameserver 10.96.0.10
@@ -79,440 +71,555 @@ search production.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
 ```
 
-Resolver môže neplné meno skúšať s viacerými search suffixes.
+Source Pod spec, kubelet configuration a actual `/etc/resolv.conf` sú odlišné states. Diagnostikuj actual file v affected Pode.
 
-Príklad query:
+## 3. DNS policies menia upstream a search contract
 
-```text
-api.example.com
-```
+### `ClusterFirst`
 
-Pri vysokom `ndots` môže resolver najprv skúšať viac cluster-local variantov a až potom absolute meno. To zvyšuje:
+Cluster-local queries smerujú na cluster DNS; ostatné sa typicky forwardujú upstream.
 
-- počet DNS queries,
-- latency pri negatívnych odpovediach,
-- CoreDNS load,
-- vplyv packet lossu.
+### `Default`
 
-Plné absolute meno s trailing dot môže obísť search expansion:
+Pod používa Node resolver model podľa kubelet/platform semantics.
 
-```text
-api.example.com.
-```
+### `ClusterFirstWithHostNet`
 
-Application/library behavior však over v konkrétnom runtime.
+Host-network Pod si zachová cluster DNS behavior.
 
-## 5. ClusterIP Service records
+### `None`
 
-Bežný Service dostane A a/alebo AAAA record, ktorý resolve-ne na Service ClusterIP/clusterIPs.
+Workload owner definuje nameservers/search/options cez `dnsConfig`.
 
-```text
-web.production.svc.cluster.local
-→ 10.96.120.15
-```
+`dnsPolicy: None` je ownership transfer. Platform už neposkytuje bežný service-discovery contract automaticky.
 
-DNS nevracia priamo Pod IPs pre bežný ClusterIP Service. Backend selection vykonáva Service dataplane podľa EndpointSlices.
+## 4. Search expansion a `ndots`
 
-## 6. Headless Service records
-
-Headless Service má:
-
-```yaml
-spec:
-  clusterIP: None
-```
-
-Jeho DNS record typicky vracia IP adresy ready endpointov namiesto jednej ClusterIP.
-
-```text
-database.production.svc.cluster.local
-→ 10.244.1.20
-→ 10.244.2.31
-```
-
-Client nesie väčšiu zodpovednosť za:
-
-- address selection,
-- connection pooling,
-- failover,
-- TTL/cache behavior,
-- multiple A/AAAA answers.
-
-Poradie DNS answers nie je garantovaný load-balancing alebo leader-election contract.
-
-## 7. SRV records
-
-Named Service ports môžu vytvoriť SRV records.
-
-Service port:
-
-```yaml
-ports:
-  - name: grpc
-    protocol: TCP
-    port: 9090
-```
+Resolver môže krátke alebo neabsolútne meno skúšať s viacerými suffixmi.
 
 Query:
 
 ```text
-_grpc._tcp.web.production.svc.cluster.local
+vault.prod.example
 ```
 
-SRV odpoveď obsahuje target name a port. Pri headless Service môže smerovať na jednotlivé Pod hostnames.
-
-Application musí SRV lookup explicitne podporovať; bežný HTTP client ho nemusí používať automaticky.
-
-## 8. Pod hostname a subdomain
-
-Pod môže definovať:
-
-```yaml
-spec:
-  hostname: db-0
-  subdomain: database
-```
-
-Ak existuje headless Service `database` v rovnakom namespace, cluster DNS môže publikovať FQDN:
+môže pri vysokom `ndots` viesť k pokusom:
 
 ```text
-db-0.database.production.svc.cluster.local
+vault.prod.example.production.svc.cluster.local
+vault.prod.example.svc.cluster.local
+vault.prod.example.cluster.local
+vault.prod.example
 ```
-
-StatefulSet používa podobný model na stabilné per-ordinal DNS identity.
-
-Stabilné DNS meno neznamená stabilný Pod UID alebo process. Po replacement-e môže rovnaké logical meno smerovať na nový Pod.
-
-## 9. Pod DNS policy
-
-### `ClusterFirst`
-
-Default pre bežné Pods. Cluster-local queries rieši cluster DNS a ostatné sa forwardujú upstream.
-
-```yaml
-spec:
-  dnsPolicy: ClusterFirst
-```
-
-### `Default`
-
-Pod zdedí resolver model Node-u podľa kubelet/platform semantics.
-
-### `ClusterFirstWithHostNet`
-
-Používa sa pri `hostNetwork: true`, ak Pod stále potrebuje cluster DNS behavior.
-
-```yaml
-spec:
-  hostNetwork: true
-  dnsPolicy: ClusterFirstWithHostNet
-```
-
-### `None`
-
-Pod ignoruje štandardné DNS nastavenie a používa explicitný `dnsConfig`.
-
-```yaml
-spec:
-  dnsPolicy: None
-  dnsConfig:
-    nameservers:
-      - 192.0.2.53
-    searches:
-      - example.internal
-```
-
-`None` prenáša plnú zodpovednosť za resolver configuration na workload ownera.
-
-## 10. `dnsConfig`
-
-`dnsConfig` môže doplniť:
-
-- nameservers,
-- search domains,
-- resolver options.
-
-```yaml
-spec:
-  dnsConfig:
-    options:
-      - name: ndots
-        value: "2"
-```
-
-Zmena `ndots` môže znížiť query amplification, ale môže zmeniť resolution semantics pre krátke mená. Testuj:
-
-- same-namespace Service names,
-- cross-namespace names,
-- external domains,
-- trailing-dot behavior,
-- library-specific resolver caching.
-
-## 11. CoreDNS a Kubernetes plugin
-
-CoreDNS typicky používa `kubernetes` plugin na sledovanie Services, EndpointSlices, Pods alebo Namespaces podľa configuration.
-
-Corefile môže obsahovať napríklad:
-
-```text
-.:53 {
-    errors
-    health
-    ready
-    kubernetes cluster.local in-addr.arpa ip6.arpa
-    forward . /etc/resolv.conf
-    cache 30
-    loop
-    reload
-    loadbalance
-}
-```
-
-Význam configuration závisí od plugin verzie a platformy. Corefile je production configuration s rollout, validation a rollback požiadavkami.
-
-## 12. Upstream forwarding
-
-External queries CoreDNS forwarduje upstream resolverom.
-
-Failure vrstvy:
-
-- nesprávny upstream v Node `/etc/resolv.conf`,
-- systemd-resolved stub loop,
-- nedostupný corporate/VPN DNS,
-- firewall alebo NetworkPolicy blokuje UDP/TCP 53,
-- DNSSEC/EDNS/fragmentation problémy,
-- split-horizon domain routing,
-- upstream rate limiting.
-
-Cluster-local mená môžu fungovať, zatiaľ čo external resolution zlyháva, alebo naopak.
-
-## 13. UDP a TCP
-
-DNS bežne používa UDP, ale pri veľkej alebo truncated odpovedi môže klient retryovať cez TCP.
-
-Firewall a NetworkPolicy musia podľa potreby povoliť:
-
-- UDP/53,
-- TCP/53.
-
-Symptóm „malé DNS odpovede fungujú, veľké nie“ môže súvisieť s:
-
-- blokovaným TCP fallbackom,
-- MTU/fragmentation,
-- EDNS behavior,
-- starým resolverom alebo libc implementáciou.
-
-## 14. Caching
-
-Caching existuje na viacerých vrstvách:
-
-- application/library,
-- libc/runtime,
-- local caching agent,
-- CoreDNS cache,
-- upstream resolver.
 
 Dôsledky:
 
-- DNS zmena sa neprejaví okamžite,
-- negative cache môže predĺžiť NXDOMAIN incident,
-- dlhé persistent connections obídu nové DNS lookupy,
-- TTL nie je garancia okamžitého connection failoveru.
+- viac queries;
+- negative-cache load;
+- vyššia latency;
+- väčší dopad packet lossu;
+- možný namespace/search collision;
+- odlišné behavior medzi runtime knižnicami.
 
-Pri diagnostike testuj nový lookup aj nový connection, nie iba existujúci process pool.
+Absolute FQDN s trailing dot obchádza search expansion, ak to resolver/library podporuje podľa očakávania.
 
-## 15. NodeLocal DNSCache
+## 5. Service DNS generation
 
-Niektoré clustre používajú NodeLocal DNSCache. Pod query smeruje na local node agent, ktorý cache-uje a forwarduje do cluster DNS.
+Pre ClusterIP Service:
 
-Výhody:
-
-- nižšia latency,
-- menej conntrack/UDP pressure,
-- lokálne caching,
-- izolovanejší failure behavior.
-
-Riziká:
-
-- DaemonSet/node-local agent failure,
-- rozdielna configuration medzi Nodes,
-- local bind/IP rules,
-- ďalšia cache vrstva,
-- problém iba na konkrétnych Nodes.
-
-Over reálnu cluster implementation; nepredpokladaj, že každý cluster používa rovnaký DNS datapath.
-
-## 16. DNS a readiness
-
-DNS record pre bežný Service smeruje na ClusterIP bez ohľadu na počet backendov. Ak Service nemá ready EndpointSlices:
-
-- DNS stále môže úspešne vrátiť ClusterIP,
-- connection môže timeoutovať alebo byť odmietnutá podľa dataplane,
-- problém nie je DNS.
-
-Pri headless Service DNS answers typicky viac súvisia s endpoint readiness, ale publication policy môže zmeniť `publishNotReadyAddresses`.
-
-## 17. DNS security
-
-Riziká:
-
-- DNS spoofing alebo kompromitovaný cluster DNS,
-- exfiltrácia cez DNS queries,
-- citlivé mená v query logs,
-- broad ability meniť Services/EndpointSlices,
-- malicious namespace/service names ovplyvňujúce search resolution,
-- upstream poisoning alebo nesprávny split DNS,
-- plaintext DNS bez aplikačnej identity.
-
-DNS nie je authentication. Aj po správnom resolve musí application používať TLS/mTLS a overiť server identity.
-
-## 18. Observability
-
-```bash
-kubectl get pods -n kube-system -l k8s-app=kube-dns
-kubectl get service -n kube-system kube-dns
-kubectl get endpointslice -n kube-system \
-  -l kubernetes.io/service-name=kube-dns
-kubectl logs -n kube-system deployment/coredns
-kubectl get configmap -n kube-system coredns -o yaml
+```text
+payments-api.production.svc.<cluster-domain>
+→ Service ClusterIP
 ```
 
-Z test Podu:
+DNS server sleduje Service API state. Backend Pods nie sú priamo v bežnej ClusterIP A/AAAA odpovedi; endpoint selection vykonáva Service dataplane.
 
-```bash
-cat /etc/resolv.conf
-getent hosts web
-nslookup web.production.svc.cluster.local
-dig A web.production.svc.cluster.local
-dig SRV _grpc._tcp.web.production.svc.cluster.local
+Preto DNS record môže byť validný aj keď Service nemá ready EndpointSlices.
+
+## 6. Headless Service discovery
+
+Headless Service typicky publikuje endpoint addresses namiesto jednej ClusterIP.
+
+```text
+ledger-db.production.svc...
+→ 10.244.1.20
+→ 10.244.2.31
+→ 10.244.3.44
 ```
 
-Tools nemusia byť v minimal image. Použi schválený diagnostic Pod alebo ephemeral container.
+Client preberá:
 
-## 19. Systematický troubleshooting
+- address selection;
+- multi-answer behavior;
+- TTL/cache;
+- failover;
+- connection pooling;
+- role/membership validation.
 
-### Krátke meno zlyhá, FQDN funguje
+DNS answer order nie je leader-election ani quorum contract. Stabilné StatefulSet hostname nie je stabilný Pod UID ani fencing token.
 
-Over Pod namespace, search list, `ndots`, `dnsPolicy` a `dnsConfig`.
+## 7. SRV records sú port discovery contract
 
-### Cluster-local mená fungujú, external domains zlyhávajú
+Named Service port môže mať SRV record:
 
-Over CoreDNS forward plugin, upstream resolver, Node `/etc/resolv.conf`, firewall, VPN/split DNS a CoreDNS logs.
+```text
+_grpc._tcp.payments-api.production.svc.cluster.local
+```
 
-### External mená fungujú, Service names zlyhávajú
+SRV poskytuje target a port metadata. Application ho musí explicitne používať. Bežný HTTP client automaticky neprepne na SRV discovery iba preto, že record existuje.
 
-Over Kubernetes plugin, API watch/RBAC, Service object, cluster domain a CoreDNS readiness.
+## 8. CoreDNS Kubernetes watch path
 
-### DNS funguje iba na niektorých Nodes
+CoreDNS Kubernetes plugin typicky sleduje Services, EndpointSlices, Pods alebo Namespaces podľa configuration.
 
-Over NodeLocal DNSCache, kubelet `resolvConf`, node firewall/routes, CNI a per-node agent logs.
+```text
+API watch/list
+→ internal DNS object cache
+→ authoritative cluster-local answer
+```
 
-### DNS timeoutuje pod loadom
+Failure boundaries:
 
-Over CoreDNS CPU/memory, replica count, query rate, cache hit ratio, conntrack, packet loss, upstream latency a autoscaling.
+- RBAC/list-watch zlyhanie;
+- API connectivity;
+- stale informer/cache;
+- nesprávny cluster domain;
+- Corefile syntax alebo plugin order;
+- partial CoreDNS rollout;
+- negative cache po oneskorenej object observation.
 
-### NXDOMAIN po vytvorení Service
+`CoreDNS Pod Ready` nepreukazuje, že loaded data generation obsahuje najnovší Service.
 
-Over namespace/name, Service existence, CoreDNS API watch, negative cache a či query používa správny cluster domain.
+## 9. kube-dns Service path
 
-### Meno sa resolve-ne, ale application sa nepripojí
+Pods typicky neposielajú query priamo na konkrétny CoreDNS Pod. Používajú Service ClusterIP, často s názvom `kube-dns`.
 
-Pokračuj na Service, EndpointSlice, NetworkPolicy, targetPort a application listen socket. DNS vrstva už prešla.
+```text
+Pod resolver
+→ kube-dns ClusterIP:53
+→ node Service dataplane
+→ CoreDNS EndpointSlice backend
+```
 
-### Veľké odpovede zlyhávajú
+DNS failure môže teda patriť do Service dataplane, EndpointSlice alebo NetworkPolicy boundary, aj keď CoreDNS application je zdravá.
 
-Over TCP/53 fallback, MTU, fragmentation, EDNS a resolver implementation.
+## 10. NodeLocal DNSCache pridáva node-specific generation
 
-## 20. `systemd-resolved` a Node resolver
+Pri NodeLocal DNSCache:
 
-Na niektorých Linux distribúciách `/etc/resolv.conf` smeruje na local stub. Nesprávny kubelet `resolvConf` môže vytvoriť forwarding loop:
+```text
+Pod
+→ local DNS IP/agent na Node-e
+→ local cache
+→ cluster DNS alebo upstream
+```
+
+Výhody zahŕňajú nižšiu latency a menší UDP/conntrack pressure. Zároveň vzniká:
+
+- per-Node config drift;
+- per-Node cache state;
+- local bind/routing boundary;
+- ďalší DaemonSet lifecycle;
+- failure iba na jednom Node-e.
+
+DNS observation musí potvrdiť effective path v konkrétnom clustri.
+
+## 11. Upstream forwarding je samostatný dependency graph
+
+External/split DNS:
+
+```text
+CoreDNS forward/stubDomains
+→ Node alebo explicitný upstream resolver
+→ corporate/cloud authoritative chain
+→ response
+```
+
+Failure boundaries:
+
+- Node `/etc/resolv.conf` ukazuje na local stub loop;
+- corporate resolver je nedostupný;
+- split-horizon zone smeruje nesprávne;
+- firewall/NetworkPolicy blokuje UDP/TCP 53;
+- upstream rate limit;
+- DNSSEC/EDNS/fragmentation;
+- clock alebo trust issue pri encrypted upstream implementation;
+- partial CoreDNS config rollout.
+
+Cluster-local names môžu fungovať, zatiaľ čo external names zlyhávajú, a naopak.
+
+## 12. UDP, truncation a TCP fallback
+
+DNS často začína cez UDP. Pri truncated alebo veľkej odpovedi klient môže prejsť na TCP.
+
+```text
+UDP query
+→ TC bit alebo response-size limit
+→ TCP/53 connection
+→ full answer
+```
+
+Povolený iba UDP/53 vytvára symptom „malé answers fungujú, veľké timeoutujú“. MTU, fragmentation, EDNS a middlebox behavior patria do rovnakého path subjectu.
+
+## 13. Cache je viacvrstvový state
+
+Cache môže existovať v:
+
+```text
+application/library
+runtime/libc
+local DNS agent
+CoreDNS
+upstream recursive resolver
+client-side connection pool
+```
+
+Rozlišuj:
+
+- positive cache;
+- negative cache/NXDOMAIN;
+- TTL expiry;
+- serve-stale behavior podľa implementation;
+- existing connection bez nového lookupu;
+- process, ktorý cacheuje navždy.
+
+Po DNS zmene testuj fresh lookup aj fresh connection. Starý HTTP/gRPC pool môže obísť nový DNS result.
+
+## 14. NXDOMAIN je výsledok s lifecycle-om
+
+NXDOMAIN po query môže byť správny pre observation time T1. Ak Service vznikne v T2, negative cache môže starý verdict držať do expiry.
+
+```text
+query pred create
+→ NXDOMAIN cache
+→ Service create
+→ API/CoreDNS už current
+→ client/local cache stále vracia NXDOMAIN
+```
+
+Random CoreDNS restart môže zmazať jednu cache vrstvu, ale nie application, NodeLocal ani upstream cache. Recovery musí identifikovať cache ownera.
+
+## 15. DNS answer a application connection
+
+Pre ClusterIP Service:
+
+```text
+DNS answer
+→ Service VIP
+→ node dataplane
+→ EndpointSlice
+→ backend socket
+```
+
+Pre external host:
+
+```text
+DNS answer
+→ external address
+→ route/firewall/TLS
+→ service
+```
+
+Ak meno resolve-ne, ale connection zlyhá, DNS vrstva môže byť už úspešná. Pokračuj na actual selected address a connection path.
+
+## 16. Resolver library behavior
+
+Application runtime môže:
+
+- cacheovať dlhšie než DNS TTL;
+- ignorovať viac answers;
+- preferovať IPv6 a pomaly fallbackovať na IPv4;
+- nepodporovať SRV;
+- používať vlastný async resolver;
+- meniť retry/timeouts;
+- nečítať zmenený `/etc/resolv.conf` počas process lifecycle-u.
+
+DNS acceptance sa preto testuje v rovnakom runtime/library path-e ako production application, nie iba cez `dig`.
+
+## 17. Corefile je versionovaný platform configuration subject
+
+Corefile určuje plugin chain, cache, forwarding, rewrites, logging a reload behavior.
+
+```text
+source Corefile generation
+→ ConfigMap object
+→ CoreDNS Pod delivery
+→ process-loaded config hash
+→ readiness
+→ query behavior
+```
+
+ConfigMap update nepreukazuje, že všetky CoreDNS Pods načítali rovnakú configuration. Použi validation, rollout/reload evidence a per-Pod loaded hash.
+
+## 18. `systemd-resolved` forwarding loop
+
+Node `/etc/resolv.conf` môže ukazovať na local stub, ktorý nie je vhodný ako CoreDNS upstream.
+
+Loop:
 
 ```text
 CoreDNS
-→ Node stub resolver
-→ cluster DNS
+→ Node stub
+→ cluster DNS Service
 → CoreDNS
 ```
 
-Over:
+Symptómy môžu byť timeouty, `SERVFAIL`, vysoká query rate a self-amplification. Over actual symlink target a kubelet/CoreDNS upstream file; neopravuj to zmenou application FQDN.
 
-```bash
-readlink -f /etc/resolv.conf
-cat /run/systemd/resolve/resolv.conf
+## 19. DNS security boundary
+
+DNS nie je authentication ani authorization.
+
+Riziká:
+
+- kompromitovaný DNS server alebo upstream;
+- Service/EndpointSlice mutation meniaca answer alebo downstream path;
+- exfiltration cez query names;
+- citlivé names v logs;
+- search-path collision;
+- spoofing pri plaintext DNS path;
+- broad CoreDNS ServiceAccount/RBAC;
+- untrusted Corefile plugin/config mutation.
+
+Application musí po resolve overiť server identity cez TLS/mTLS alebo iný protocol contract.
+
+## 20. Worked failure: krátke meno zlyhá, FQDN funguje
+
+Pod mal `dnsPolicy: None` a custom search list bez `production.svc.cluster.local`.
+
+```text
+query ledger-db
+→ search list bez namespace suffixu
+→ NXDOMAIN
+
+query ledger-db.production.svc.cluster.local.
+→ authoritative answer
 ```
 
-Kubelet musí používať správny upstream resolver file podľa distribúcie a cluster bootstrap nástroja.
+CoreDNS bolo zdravé. Finding bol v Pod resolver generation, nie v DNS serveri.
 
-## 21. Resolver limits
+## 21. Worked failure: nový Service, stale negative cache
 
-Host a container runtime môžu mať limity na:
+Application sa pokúsila resolve-nuť `risk-api` pred jeho vytvorením. JVM resolver držal NXDOMAIN dlhšie než CoreDNS negative TTL.
 
-- počet `nameserver` entries,
-- počet search domains,
-- celkovú dĺžku search line,
-- retries/timeouts,
-- hostname/FQDN dĺžku,
-- response size a TCP fallback.
+Service aj CoreDNS watch boli current, ale application process stále zlyhával. Recovery vyžadovala process/runtime cache policy a controlled reconnect, nie CoreDNS restart.
 
-Kubernetes/kubelet môže zlučovať Node a cluster DNS configuration. Pri prekročení limitu sleduj Pod Events a výsledný `/etc/resolv.conf`.
+## 22. Worked failure: external DNS zlyháva, cluster-local funguje
 
-## 22. Anti-patterny
+CoreDNS Kubernetes plugin odpovedal správne, ale forward plugin smeroval na Node stub, ktorý vytvoril loop.
 
-### Hard-coded Service ClusterIP
+```text
+cluster-local query
+→ kubernetes plugin
+→ success
 
-Obchádza DNS identity a komplikuje migration/restore.
+external query
+→ forward
+→ Node stub
+→ cluster DNS
+→ loop/SERVFAIL
+```
 
-### FQDN všade bez pochopenia namespace boundary
+Rozdelenie query namespaces bolo diskriminačný dôkaz.
 
-Znižuje portability medzi namespaces a prostrediami.
+## 23. Worked failure: DNS iba na jednom Node-e
 
-### Krátke external meno s vysokým `ndots`
+Node N9 mal NodeLocal DNSCache s old Corefile a stale upstream address. Pody na iných Nodes používali current generation.
 
-Vytvára viac negatívnych cluster-local queries.
+Cluster-wide CoreDNS metrics vyzerali zdravo. Per-Node resolver path a local agent hash odhalili drift.
 
-### DNS ako health check backendu
+## 24. Worked failure: UDP funguje, TCP fallback blokovaný
 
-Úspešný lookup nepreukazuje ready endpoints ani application health.
+Malé A records fungovali. Veľká TXT/DNSSEC odpoveď bola truncated a TCP/53 blokovala NetworkPolicy.
 
-### Povolený iba UDP/53
+Symptóm sa javil domain-specific. Packet observation ukázal UDP response s truncation a chýbajúci TCP handshake.
 
-TCP fallback môže zlyhať.
+## 25. Causal troubleshooting walkthrough: intermittent NXDOMAIN a timeout iba na jednom Node-e
 
-### Ručná editácia CoreDNS bez validation a rollbacku
+Symptóm:
 
-Môže odstaviť service discovery pre celý cluster.
+```text
+Payments Pods na N1/N2 fungujú
+Pod P52 na N3 občas dostane NXDOMAIN pre ledger-db
+občas timeout pre vault.prod.example
+restart P52 dočasne pomôže
+Service a external DNS existujú
+```
 
-### Application cacheuje DNS navždy
+### 1. Zafixuj resolver a query subject
 
-Po backend alebo Service zmene používa stale address.
+```text
+Pod UID P52, Node N3, namespace a creation time
+dnsPolicy/dnsConfig a actual resolv.conf
+exact query names, trailing dot a A/AAAA/SRV type
+search expansion sequence a ndots
+NodeLocal DNSCache Pod UID/config hash na N3
+kube-dns Service UID a EndpointSlice cohort
+CoreDNS Pod/config generations
+Kubernetes Service UID/resourceVersion
+upstream resolver address/generation
+response code, TTL, latency a packet tuple
+application runtime/cache a fresh-connection behavior
+operation ID pay-8842
+```
 
-### Debugging iba cez `ping`
+### 2. Konkurenčné hypotézy
 
-ICMP nemusí byť povolené a neoveruje Service port/protocol.
+1. NodeLocal DNSCache na N3 má stale config/cache;
+2. N3 kubelet generuje nesprávny `resolv.conf`;
+3. CNI/Service dataplane z N3 stráca DNS packets;
+4. NetworkPolicy blokuje TCP fallback alebo časť DNS pathu;
+5. CoreDNS cohort je mixed a LB selection koreluje s failure;
+6. CoreDNS API watch zaostáva pre Service record;
+7. upstream forwarding zlyháva iba cez N3 local agent;
+8. application negative cache prežíva DNS recovery;
+9. ndots/search expansion vytvára query amplification a timeout;
+10. IPv6 preference vyberá nefunkčnú family.
 
-## 23. Kontrolné otázky
+### 3. Diskriminačné observation points
 
-1. Akú úlohu má kubelet pri Pod DNS configuration?
-2. Ako vyzerá FQDN Service-u?
-3. Ako sa líši DNS record ClusterIP a headless Service-u?
-4. Načo slúžia search domains a `ndots`?
-5. Kedy vznikajú SRV records?
-6. Aký je rozdiel medzi `ClusterFirst`, `Default`, `ClusterFirstWithHostNet` a `None`?
-7. Prečo treba povoliť UDP aj TCP port 53?
-8. Ako odlíšiš cluster-local a upstream DNS failure?
-9. Prečo DNS success nepreukazuje fungujúcu application?
-10. Ako diagnostikuješ DNS problém iba na jednom Node-e?
+- porovnaj actual `/etc/resolv.conf` na P52 a healthy Pode;
+- testuj absolute FQDN a short name oddelene;
+- testuj cluster-local a external query oddelene;
+- identifikuj DNS server IP, na ktorý packet skutočne ide;
+- porovnaj NodeLocal agent UID/config hash/cache metrics medzi Nodes;
+- sleduj UDP query/response a prípadný TCP fallback;
+- dotazuj konkrétnu CoreDNS repliku na oddelenie Service LB pathu;
+- skontroluj CoreDNS Kubernetes watch a upstream latency;
+- porovnaj fresh diagnostic process s long-lived application;
+- testuj A a AAAA selection a následnú connection.
+
+### 4. Containment
+
+- cordon N3 pre nové application Pods, ak resolver path je nebezpečný;
+- zachovaj resolv.conf, local-agent config/cache metrics a packet evidence;
+- nereštartuj všetky CoreDNS a NodeLocal Pods naraz;
+- nehardcoduj Service ClusterIP alebo external IP do application configu;
+- obmedz retry/query amplification;
+- pri NXDOMAIN nevytváraj broad search-domain workaround.
+
+### 5. Authoritative recovery
+
+Pri stale NodeLocal generation:
+
+1. oprav source configuration alebo rollout ownership;
+2. nahraj reviewed generation na N3;
+3. over local bind, upstream a cache state;
+4. testuj internal aj external queries;
+5. uncordon N3 až po resolver a application canary;
+6. dokonči fleet rollout a odstráň stale generations.
+
+Iné findings oprav v kubelet resolver, CoreDNS, NetworkPolicy, upstream alebo application cache boundary.
+
+### 6. Over pôvodný outcome
+
+Potvrď:
+
+- P52 replacement má accepted resolver generation;
+- short a FQDN query majú očakávané semantics;
+- `ledger-db` answer patrí current Service/endpoint generation;
+- `vault.prod.example` používa correct split-horizon/upstream answer;
+- UDP aj TCP fallback prejdú;
+- A/AAAA behavior zodpovedá supported family contractu;
+- fresh connection dosiahne správny Service/external endpoint;
+- pay-8842 prejde presne raz;
+- negative/stale cache sa neobjaví pri ďalšom Service rollout-e.
+
+### 7. Posuň control skôr
+
+Pridaj:
+
+- per-Pod resolver-generation inventory;
+- per-Node DNS canary pre internal/external/FQDN/short/TCP tests;
+- loaded Corefile hash telemetry;
+- NodeLocal fleet drift alert;
+- ndots/query-amplification budget;
+- application resolver/cache integration test;
+- Kubernetes API watch freshness metric;
+- upstream/split-DNS synthetic;
+- DNS-to-fresh-connection business synthetic.
+
+## 26. Observation matrix
+
+| Boundary | Subject | Kľúčové observations |
+|---|---|---|
+| Intent | lookup subject | exact name, absolute/relative, type, expected owner |
+| Pod | resolver generation | UID, namespace, dnsPolicy/config, resolv.conf |
+| Expansion | search/ndots attempts | query sequence, latency, NXDOMAINs |
+| Node-local | Node DNS generation | agent UID/config, cache, bind, upstream |
+| DNS Service | kube-dns Service/EndpointSlices | VIP, ready CoreDNS cohort, dataplane path |
+| CoreDNS | Pod + loaded Corefile | plugin chain, watch state, cache, errors |
+| Kubernetes data | Service/EndpointSlice generation | API visibility, cluster domain, records |
+| Upstream | forwarding subject | resolver, split zone, latency, UDP/TCP |
+| Cache | runtime/cache generation | TTL, negative state, process lifetime |
+| Connection | selected address/path | family, socket, Service/LB/backend |
+| Business | request/operation ID | correct dependency, response, no duplicate |
+
+## 27. Referenčné príkazy
+
+```bash
+kubectl get service kube-dns -n kube-system -o yaml
+kubectl get endpointslice -n kube-system \
+  -l kubernetes.io/service-name=kube-dns -o yaml
+kubectl get pods -n kube-system -l k8s-app=kube-dns -o wide
+kubectl get configmap coredns -n kube-system -o yaml
+kubectl logs -n kube-system deployment/coredns
+kubectl get events -A --sort-by=.metadata.creationTimestamp
+```
+
+Z affected Podu alebo schváleného diagnostic Podu:
+
+```bash
+cat /etc/resolv.conf
+getent hosts ledger-db
+nslookup ledger-db.production.svc.cluster.local
+dig A ledger-db.production.svc.cluster.local.
+dig AAAA ledger-db.production.svc.cluster.local.
+dig SRV _grpc._tcp.payments-api.production.svc.cluster.local.
+```
+
+Použi rovnaký runtime resolver path ako application, keď je library-specific cache alebo address selection relevantná.
+
+## 28. Referenčné pravidlá
+
+- Pod DNS configuration je generated runtime state.
+- Short name a FQDN sú odlišné query subjects.
+- `ndots` a search list môžu násobiť queries.
+- ClusterIP Service DNS vracia VIP, nie backend health.
+- Headless Service presúva selection na clienta.
+- CoreDNS readiness nepreukazuje current API data ani loaded config na celej cohorte.
+- kube-dns je Service path a môže zlyhať v node dataplane.
+- NodeLocal DNSCache pridáva per-Node failure domain.
+- Cluster-local a upstream forwarding sú odlišné paths.
+- DNS potrebuje UDP aj TCP podľa response behavioru.
+- Negative cache môže prežiť object create alebo recovery.
+- Fresh lookup bez fresh connection nepreukazuje application transition.
+- DNS nie je server authentication.
+- Recovery musí overiť lookup, selected address, connection a business outcome.
+
+## 29. Kontrolné otázky
+
+1. Aký lifecycle spája application lookup s verified requestom?
+2. Ktoré inputs vytvárajú Pod `/etc/resolv.conf`?
+3. Ako sa líšia short name, relative name a absolute FQDN?
+4. Prečo `ndots` môže vytvoriť query amplification?
+5. Ako sa líši ClusterIP a headless DNS answer?
+6. Prečo CoreDNS Pod Ready nemusí znamenať current Service record?
+7. Aký failure domain pridáva NodeLocal DNSCache?
+8. Prečo treba testovať UDP aj TCP/53?
+9. Ako odlíšiš DNS cache od Service/connectivity failure?
+10. Čo musí DNS acceptance verdict overiť?
 
 ## Glossary impact
 
-Relevantné pojmy: cluster DNS, CoreDNS, cluster domain, Service FQDN, DNS search domain, `ndots`, ClusterIP DNS record, headless Service DNS, SRV record, Pod hostname/subdomain, DNS policy, `dnsConfig`, upstream forwarding, negative caching, NodeLocal DNSCache, DNS TCP fallback a resolver forwarding loop.
+Relevantné pojmy: DNS lookup lifecycle subject, Pod resolver generation, query expansion subject, cluster-DNS Service subject, CoreDNS loaded configuration, Kubernetes DNS watch generation, NodeLocal DNS generation, upstream forwarding subject, negative-cache generation, DNS answer subject, resolver-library cache subject, fresh-connection verdict, DNS observation matrix a DNS acceptance verdict.
 
 ## Oficiálna dokumentácia
 
 - [DNS for Services and Pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 - [Configure DNS for a Cluster](https://kubernetes.io/docs/tasks/access-application-cluster/configure-dns-cluster/)
 - [Debugging DNS Resolution](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/)
-- [Customizing DNS Service](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/)
+- [Using CoreDNS for Service Discovery](https://kubernetes.io/docs/tasks/administer-cluster/coredns/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
