@@ -1,534 +1,533 @@
 # Ansible architecture
 
-Ansible je automation engine určený na configuration management, deployment, provisioning a orchestration. Jeho typický model je **agentless push execution**: automation sa spúšťa z control node a na managed nodes sa pripája cez existujúce transporty, najčastejšie SSH. Agentless však neznamená „bez runtime požiadaviek“ ani „bez dôveryhodnej infraštruktúry“.
+Ansible je automation engine, ktorý typicky vykonáva agentless push automation z control node-u na množinu managed nodes alebo API targetov. „Agentless“ však neznamená bez runtime, identity, transportu ani supply-chain dependencies. Každý run vzniká z konkrétneho execution environmentu, inventory snapshotu, variable contextu, credentials a content graphu; následne sa rozvetví na samostatné host execution paths.
 
-Cieľom kapitoly je pochopiť, ktoré komponenty vykonávajú jednotlivé časti práce, kde vznikajú trust boundaries a prečo úspešný Ansible run nie je iba interpretácia YAML súboru.
+Táto kapitola používa jeden priebežný scenár. Atlas Payments nasadzuje novú konfiguráciu služby na 12 produkčných application hosts v troch availability zones. Playbook má postupovať po štyroch hostoch, vyrenderovať config, reštartovať službu cez handler a po každom batchi overiť health endpoint. Cieľom nie je iba „playbook skončil zeleno“, ale dokázať, ktoré hosty, pod akými identitami a s akou verziou contentu dosiahli požadovaný runtime stav.
 
-## 1. Základné komponenty
+## 1. Dominantný model: run-subject-to-host-outcome lifecycle
+
+```text
+immutable automation content a execution environment
++ inventory/variable/credential subject
+→ resolved target inventory
+→ per-host execution context
+→ strategy, batch a task scheduling
+→ connection/authentication/become
+→ action/plugin/module alebo API operation
+→ structured result a handler transition
+→ host-level failure/continuation decision
+→ effective-state verification
+→ run coverage, audit a recovery closure
+```
+
+Ansible run nie je jedna globálna transakcia. Každý host má vlastný task state a môže skončiť ako changed, failed, unreachable, skipped, rescued alebo nedosiahnutý. Dôveryhodný verdict preto potrebuje host inventory a coverage, nie iba process exit code.
+
+## 2. Atlas Ansible run subject
+
+Pred vykonaním musí pipeline vedieť spätne zrekonštruovať:
+
+```text
+source revision a playbook path
+ansible-core version
+execution environment image digest
+collections a versions/checksums
+ansible.cfg a relevant environment
+inventory sources, plugin versions a cache timestamp
+resolved host pattern a limit
+variable/secret source identities
+controller job/run ID
+connection credential a become role
+strategy, forks, serial a failure policy
+```
+
+Toto je **Ansible run subject**. Rovnaký `site.yml` môže vykonať odlišnú zmenu, ak sa zmení collection, inventory, configuration precedence, execution environment alebo credential injection.
+
+## 3. Komponenty ako execution boundaries
 
 ### Control node
 
-Systém, na ktorom beží:
+Control node alebo automation controller:
 
-- `ansible`,
-- `ansible-playbook`,
-- `ansible-inventory`,
-- `ansible-doc`,
-- `ansible-galaxy`,
-- Python runtime,
-- `ansible-core`, collections a plugins,
-- inventory a playbook content.
+1. načíta configuration a execution environment;
+2. načíta inventory sources a plugins;
+3. rozlíši playbook, roles, includes a collections;
+4. vytvorí variable context pre každý host;
+5. naplánuje tasks podľa strategy a batch pravidiel;
+6. otvorí connections alebo vykoná local/API actions;
+7. zhromaždí results, notifications a callback evidence.
 
-Control node:
+Je to privilegovaná automation boundary. Ovládnutie source checkout-u, plugin pathu, execution image alebo credentials môže ovplyvniť všetky targety.
 
-1. načíta configuration,
-2. zostaví inventory,
-3. vyhodnotí playbook a variables,
-4. naplánuje tasks pre konkrétne hosts,
-5. otvorí connections,
-6. vykoná action/module workflow,
-7. zhromaždí výsledky a rozhodne o ďalšom postupe.
+### Managed node alebo API target
 
-Control node je privilegovaná automation boundary. Kto ovláda jeho content, credentials alebo plugin search path, môže často ovplyvniť všetky spravované systémy.
-
-### Managed node
-
-Host, zariadenie alebo API target spravovaný Ansible automation. Môže ísť napríklad o:
-
-- Linux alebo Unix host,
-- Windows host,
-- network device,
-- cloud API,
-- Kubernetes API,
-- storage alebo security appliance.
-
-Nie každý target vykonáva Python module lokálne. Network a cloud collections často komunikujú cez API alebo špecializovaný connection/plugin model.
+Target môže byť Linux host, Windows host, network device, cloud API, Kubernetes API alebo appliance. Nie každý module payload beží ako Python na remote hoste. Niektoré collections vykonávajú API calls z control node-u alebo používajú špecializovaný connection plugin.
 
 ### Inventory
 
-Inventory popisuje:
+Inventory určuje host identity, groups, connection metadata a variables. Je to target-selection a blast-radius contract, nie iba address book.
 
-- hosts,
-- groups a group hierarchy,
-- connection metadata,
-- host/group variables,
-- dynamic discovery zdroje.
+### Playbook, play a task
 
-Inventory nie je iba zoznam IP adries. Je to topologický a behaviorálny model, podľa ktorého sa rozhoduje, na aké targets a s akými parametrami sa automation aplikuje.
+Playbook obsahuje plays. Play spája host pattern s ordered task flow, variables, privilege, strategy a failure policy. Task volá module/action alebo riadi execution (`include`, `block`, `rescue`, `meta`, handler notification).
 
-### Playbook
+### Module a action plugin
 
-Playbook je YAML dokument obsahujúci jeden alebo viac plays. Play mapuje:
+Module implementuje state observation a mutation. Action plugin beží na control node-e a môže pripraviť arguments, transfer alebo časť logiky. Pri bežnom remote flow:
 
-- host pattern,
-- variables,
-- privilege escalation,
-- execution strategy,
-- ordered tasks,
-- handlers a ďalšie execution controls.
+```text
+action plugin na controlleri
+→ connection context
+→ module payload/command/API request
+→ remote alebo API execution
+→ structured result
+→ changed/failed/facts/notifications
+```
 
-### Module
+### Plugin a collection
 
-Module implementuje konkrétnu operáciu, napríklad:
+Connection, inventory, action, callback, lookup, filter, vars, cache a strategy plugins menia execution path. Collection môže obsahovať executable Python code, roles aj modules. Je preto supply-chain dependency, nie iba balík YAML.
 
-- správu package,
-- vytvorenie usera,
-- zápis file,
-- volanie cloud API,
-- správu service,
-- načítanie facts.
-
-Module typicky prijme arguments a vráti machine-readable result obsahujúci napríklad `changed`, `failed`, `msg`, `stdout` alebo module-specific fields.
-
-### Plugin
-
-Plugin rozširuje správanie Ansible control plane. Dôležité typy zahŕňajú:
-
-- connection plugins,
-- inventory plugins,
-- action plugins,
-- callback plugins,
-- lookup plugins,
-- filter a test plugins,
-- strategy plugins,
-- vars a cache plugins.
-
-Plugin sa vykonáva na control node alebo ovplyvňuje jeho execution path. Neoverená collection preto nie je iba „knižnica YAML“; môže obsahovať executable Python code.
-
-### Collection
-
-Collection je distribuovateľný balík Ansible contentu, ktorý môže obsahovať:
-
-- modules,
-- plugins,
-- roles,
-- playbooks,
-- documentation,
-- tests.
-
-Content sa identifikuje cez fully qualified collection name, napríklad:
+Používaj fully qualified collection names:
 
 ```yaml
-ansible.builtin.template:
-  src: app.conf.j2
-  dest: /etc/example/app.conf
+- name: Render payments configuration
+  ansible.builtin.template:
+    src: payments.conf.j2
+    dest: /etc/payments/payments.conf
 ```
 
-FQCN znižuje nejednoznačnosť a explicitne určuje content namespace.
+FQCN určuje namespace, ale stále potrebuje pinned collection release a execution environment.
 
-## 2. `ansible-core`, Ansible package a automation platforma
+## 4. Execution environment a content resolution
 
-### `ansible-core`
+Reprodukovateľný run potrebuje pinované:
 
-Obsahuje základný execution engine, CLI, Ansible language, built-in plugins a minimálny core content.
+- `ansible-core`;
+- Python/runtime dependencies;
+- collections;
+- system packages a SSH tooling;
+- callback a inventory plugins;
+- CA certificates a helper binaries.
 
-### Ansible community package
+Mutable image tag `latest` môže spôsobiť, že lokálny a controller run použijú odlišný module behavior.
 
-Distribúcia, ktorá kombinuje `ansible-core` s výberom community collections. Jej version lifecycle nie je totožný s version lifecycle `ansible-core`.
-
-### Automation platforma
-
-Nad core engine môže existovať controller, execution environments, credential management, job templates, RBAC, audit, scheduling a workflow orchestration.
-
-Pri diagnostike vždy rozlišuj:
+Content resolution zahŕňa:
 
 ```text
-playbook behavior
-vs.
-ansible-core behavior
-vs.
-collection behavior
-vs.
-platform/controller behavior
+ansible.cfg a environment
+→ collection/role/plugin search paths
+→ playbook relative paths
+→ group_vars/host_vars discovery
+→ templates/includes/files
 ```
 
-## 3. Typický execution lifecycle
+Relatívny path a short module name môžu smerovať na iný content podľa execution contextu. Repository layout, FQCN a immutable execution environment znižujú nejednoznačnosť.
 
-Zjednodušený playbook run:
+## 5. Inventory resolution pred taskom
 
-```text
-CLI alebo controller spustí run
-→ načíta ansible.cfg a environment
-→ načíta inventory sources a plugins
-→ vyrieši host pattern
-→ načíta playbook, roles, includes a collections
-→ zostaví variable context pre každý host
-→ strategy plugin plánuje tasks
-→ action plugin pripraví vykonanie
-→ connection plugin otvorí transport
-→ module alebo API operation sa vykoná
-→ result sa vráti control node
-→ callback zobrazí alebo uloží výsledok
-→ changed tasks môžu notify handlers
-→ failure policy rozhodne o pokračovaní
+Atlas play používa:
+
+```yaml
+- name: Roll out payments configuration
+  hosts: payments_app:&production
+  serial: 4
 ```
 
-Execution nie je jedna globálna sekvencia. Každý host má vlastný task state a pri paralelnom vykonávaní môžu byť rôzne hosts v rôznych časoch na odlišných tasks.
-
-## 4. Action plugin a module execution
-
-Pri bežnom remote module workflow:
-
-1. action plugin beží na control node,
-2. pripraví arguments a connection context,
-3. Ansible prenesie alebo zostaví module payload,
-4. target runtime module vykoná,
-5. module vráti štruktúrovaný result,
-6. control node spracuje `changed`, `failed`, facts a notifications.
-
-Niektoré actions prebiehajú prevažne alebo úplne lokálne, napríklad:
-
-- `debug`,
-- `include_*`,
-- niektoré lookup operácie,
-- cloud/API modules podľa implementácie,
-- `delegate_to: localhost` workflows.
-
-Preto otázka „kde task beží?“ nemá univerzálnu odpoveď. Treba overiť module/action/connection documentation.
-
-## 5. Agentless model a runtime požiadavky
-
-Ansible typicky neinštaluje dlhodobo bežiaceho agenta. Stále však potrebuje:
-
-- sieťový path,
-- autentifikáciu,
-- podporovaný connection plugin,
-- shell alebo API podľa targetu,
-- pri mnohých POSIX modules kompatibilný Python runtime,
-- privilege escalation podľa operácie,
-- dočasný execution priestor a oprávnenia.
-
-Modul `raw` môže vykonať príkaz bez bežného Python module subsystemu a používa sa napríklad pri bootstrap-e Pythonu. Nie je však náhradou za idempotentné modules.
-
-## 6. Connection plugins
-
-Connection plugin určuje transport a remote execution semantics. Príklady:
-
-- SSH,
-- local,
-- WinRM/PSRP,
-- network CLI,
-- HTTP API,
-- container-oriented connections.
-
-Connection context môže obsahovať:
-
-- remote user,
-- port,
-- private key alebo iný credential,
-- proxy/jump host,
-- timeout,
-- host-key verification,
-- privilege escalation.
-
-### Connection reuse
-
-Persistent connections môžu znížiť latency, ale pridávajú lifecycle, socket a credential considerations. Pri chybe treba rozlíšiť:
+Pred prvým taskom musí Ansible:
 
 ```text
-DNS/routing
+načítať inventory sources
+→ zlúčiť host a group identity
+→ vyhodnotiť pattern a limit
+→ vyriešiť variables a connection data per host
+→ vytvoriť target inventory
+```
+
+Ak dynamic inventory vynechá dva hosts, playbook môže byť úplne zelený pre zvyšných desať. Architektúra preto potrebuje expected target count alebo explicitný target manifest.
+
+## 6. Variables a effective host context
+
+Každý host dostane effective context z viacerých vrstiev:
+
+- inventory host/group vars;
+- vars plugins;
+- facts;
+- play a task vars;
+- role defaults/vars;
+- registered values;
+- extra vars;
+- secret injection.
+
+Configuration precedence a variable precedence nie sú totožné. Pri diagnostike controller behavioru používaj napríklad:
+
+```bash
+ansible-config dump --only-changed
+ansible-inventory -i inventories/prod --host app-01
+```
+
+Dôveryhodná evidence nemusí zverejňovať secret values, ale má zaznamenať source identity a scope významných variables.
+
+## 7. Connection, authentication a runtime discovery
+
+Pre host execution treba odlíšiť observation points:
+
+```text
+resolved host identity/address
+→ DNS a route
 → transport handshake
+→ host identity verification
 → authentication
-→ shell/runtime discovery
+→ shell/runtime/interpreter discovery
+→ temporary module path
 → privilege escalation
-→ module execution
+→ module operation
 ```
 
-## 7. Privilege escalation
+Connection plugin môže používať SSH, local, WinRM/PSRP, network CLI, HTTP API alebo container transport.
 
-`become` umožňuje vykonať task pod inou identitou. Najčastejšie používa `sudo`, ale podporovaný mechanizmus závisí od platformy a pluginov.
+Agentless model stále potrebuje:
 
-Bezpečný návrh oddeľuje:
+- dostupný network path;
+- credential;
+- podporovaný connection plugin;
+- remote shell alebo API;
+- kompatibilný Python pri mnohých POSIX modules;
+- temporary filesystem permissions;
+- scoped privilege escalation.
 
-- connection identity,
-- become identity,
-- credential source,
-- tasks, ktoré privilege skutočne potrebujú,
-- logging a audit.
+`raw` môže bootstrapovať Python, ale nemá nahradiť state-aware modules.
 
-Globálne `become: true` pre celý play je jednoduché, ale môže zbytočne rozšíriť blast radius.
+## 8. Connection identity a `become`
 
-## 8. Strategy, forks a execution order
+Oddeľ:
 
-### Strategy
+```text
+connection identity
+→ transport authentication
+→ become mechanism
+→ effective mutation identity
+```
 
-Strategy plugin určuje, ako Ansible posúva hosts cez tasks.
+Globálne `become: true` rozširuje privilege na všetky tasks vrátane tých, ktoré ho nepotrebujú. Preferuj úzky scope a audit sudo/become transitions.
 
-Typický linear model zachováva task barrier medzi hosts v aktuálnom batchi. Iné stratégie môžu umožniť rýchlejším hostom pokračovať bez čakania.
+Host-key checking je target identity control. Jeho globálne vypnutie môže spôsobiť, že platný key autentifikuje spojenie k nesprávnemu hostu alebo intermediary.
 
-### Forks
+## 9. Strategy, forks a `serial`
 
-`forks` obmedzuje počet paralelných worker procesov na control node. Vyššia hodnota môže zrýchliť run, ale zvyšuje:
+Tieto controls riešia odlišné vrstvy:
 
-- load control node,
-- connection burst,
-- API rate pressure,
-- load managed services,
-- počet súbežných failure paths.
+- **strategy** — ako hosts postupujú cez tasks;
+- **forks** — koľko workerov môže control node spracovať paralelne;
+- **serial** — koľko hosts patrí do rollout batchu.
 
-### `serial`
+Atlas používa `serial: 4`. Linear strategy znamená, že hosts aktuálneho batchu typicky dokončia task barrier pred prechodom na ďalší task. Free-like strategy môže umožniť rýchlejším hosts pokračovať skôr.
 
-Play môže rozdeliť hosty do batches, napríklad pre rolling update:
+Vyššie `forks` môže zvýšiť:
+
+- connection burst;
+- API throttling;
+- load na shared service;
+- počet súbežných failure paths;
+- tlak na control node CPU/memory.
+
+Concurrency nastavenie nie je náhrada za správne dependency, batch safety a runtime verification.
+
+## 10. Task result, handler a host state
+
+Module vracia štruktúrovaný result, napríklad:
+
+```text
+changed
+failed
+skipped
+msg
+stdout/stderr
+facts alebo module-specific fields
+```
+
+Task, ktorý reportuje `changed`, môže notify handler. Handler sa typicky vykoná v handler phase podľa play semantics. Ak host zlyhá skôr alebo notification nevznikne, config file môže byť zmenený bez reštartu služby.
+
+Atlas flow:
 
 ```yaml
-- name: Rolling application update
-  hosts: app
-  serial: 10%
+- name: Render config
+  ansible.builtin.template:
+    src: payments.conf.j2
+    dest: /etc/payments/payments.conf
+  notify: Restart payments
+
+handlers:
+  - name: Restart payments
+    ansible.builtin.service:
+      name: payments
+      state: restarted
 ```
 
-`forks`, strategy a `serial` riešia odlišné vrstvy concurrency.
+Dôveryhodný outcome musí overiť aj runtime service state, nie iba `template: changed`.
 
-## 9. Facts a implicitné úvodné tasks
+## 11. Failure model a partial success
 
-Pri `gather_facts: true` Ansible pred bežnými tasks spustí fact gathering pre hosts v play. To môže ovplyvniť:
+Rozlišuj:
 
-- čas runu,
-- required Python/packages,
-- network traffic,
-- variable context,
-- prvý failure point.
+- **unreachable** — connection path nevznikol;
+- **failed** — task/module operation zlyhala;
+- **skipped** — task sa pre host neaplikoval;
+- **ignored** — failure bola vedome potlačená;
+- **rescued** — block failure prešla recovery branchom;
+- **handler failure** — mutation prebehla, convergence action zlyhala;
+- **omitted target** — host nebol vo resolved target inventory.
 
-Ak play facts nepoužíva, môže ich vypnúť. Ak ich používa vo veľkom prostredí, môže zvážiť fact caching s jasnou freshness policy.
+Posledný stav sa nemusí objaviť ako failure. Ak inventory vynechá host, Ansible ho nevie označiť `unreachable`.
 
-## 10. Idempotencia nie je vlastnosť engine-u
+Run verdict preto potrebuje:
 
-Ansible podporuje idempotentný configuration-management štýl, ale každý task nie je automaticky idempotentný.
+```text
+expected target inventory
+vs. resolved target inventory
+vs. attempted hosts
+vs. successful effective-state verification
+```
 
-Idempotencia závisí od:
+## 12. Worked failure: zelený run vynechal dva hosts
 
-- module implementácie,
-- arguments,
-- external API semantics,
-- current state detection,
-- command side effects,
-- ordering a concurrency,
-- custom `changed_when`/`failed_when` logiky.
+Dynamic inventory API vráti desať z dvanástich produkčných hosts pre stale cache/filter issue. Všetky targetované hosts prejdú a controller označí job ako success.
 
-Príklad problematického tasku:
+Mechanizmus:
+
+```text
+inventory omission nastane pred play execution
+→ chýbajúce hosts nemajú task state
+→ recap obsahuje iba desať hosts
+→ bez expected inventory gate-u je partial coverage interpretovaná ako success
+```
+
+Skoršie controls:
+
+- expected production host count alebo immutable deployment manifest;
+- forbidden empty/undersized target set;
+- inventory cache age evidence;
+- target summary pred approval;
+- post-run fleet-level version inventory.
+
+## 13. Worked failure: mutable execution environment
+
+Developer lokálne používa collection `vendor.service` 2.4. Controller image `latest` už obsahuje 3.0, ktorá zmenila default restart behavior. Lokálny check mode ukáže bezpečný update, controller vykoná hard restart všetkých hosts.
+
+```text
+rovnaký playbook source
++ rozdielny core/collection runtime
+→ rozdielna module schema/default/implementation
+→ rozdielny remote outcome
+```
+
+Fix nie je pinovať iba YAML repository. Pinuj execution image digest a collection lock/requirements, uchovaj ich v run subjecte a testuj upgrade samostatne.
+
+## 14. Worked failure: local delegation zasiahla nesprávny účet
+
+Task používa:
+
+```yaml
+- name: Update load balancer registration
+  vendor.cloud.target:
+    instance_ids: "{{ batch_ids }}"
+  delegate_to: localhost
+```
+
+Module sa vykoná na control node-e a použije controller cloud credential chain, nie SSH identity managed hostu. Controller mal default credential pre staging účet.
+
+Dôsledok:
+
+```text
+host batch je production
+→ delegated action je local
+→ effective provider identity je staging
+→ playbook host context neznamená remote API target identity
+```
+
+Pre API/local tasks zaznamenávaj provider account/region identity a používaj environment-scoped credential injection.
+
+## 15. Idempotencia a state awareness
+
+Ansible engine negarantuje idempotenciu každého tasku. Závisí od module behavioru, arguments, current-state observation, external API a custom conditions.
+
+Neidempotentný príklad:
 
 ```yaml
 - name: Append configuration every run
-  ansible.builtin.shell: echo 'feature=true' >> /etc/example.conf
+  ansible.builtin.shell: echo 'feature=true' >> /etc/payments/app.conf
 ```
 
-Opakovaný run mení systém znova. Preferuj state-aware module alebo template s explicitným desired contentom.
+State-aware model:
 
-## 11. Check mode a diff mode
-
-### Check mode
-
-Pokus o predikciu zmien bez ich vykonania:
-
-```bash
-ansible-playbook site.yml --check
+```yaml
+- name: Render complete desired configuration
+  ansible.builtin.template:
+    src: app.conf.j2
+    dest: /etc/payments/app.conf
+    mode: '0640'
 ```
 
-Presnosť závisí od podpory modules. Check mode nie je transakčný plan ekvivalentný Terraform saved planu.
+Aj template môže byť stále `changed`, ak obsahuje timestamp alebo nondeterministic ordering. Second-run convergence je dôležitý test.
 
-### Diff mode
-
-Zobrazuje rozdiel pri podporovaných modules:
+## 16. Check mode a diff mode
 
 ```bash
 ansible-playbook site.yml --check --diff
 ```
 
-Diff môže obsahovať citlivé dáta. CI logs a artifacts musia mať primeraný access a retention.
+Check mode je module-dependent predikcia, nie Terraform saved plan. Niektoré modules:
 
-## 12. Configuration precedence
+- ho nepodporujú;
+- vrátia neúplný result;
+- potrebujú current remote state;
+- nevedia predikovať external side effects;
+- môžu pri lookup/action fáze stále vykonať local reads alebo calls.
 
-Behavior môže ovplyvniť:
+Diff môže obsahovať secrets alebo celé konfigurácie. Potrebuje redaction, restricted logs a retention.
 
-- command-line options,
-- environment variables,
-- `ansible.cfg`,
-- playbook keywords,
-- variables,
-- direct module arguments.
+Check mode evidence musí byť označená ako prediction, nie potvrdený runtime outcome.
 
-Configuration precedence a variable precedence nie sú totožné mechanizmy. Pri neočakávanom správaní over effective configuration:
+## 17. Worked failure: config zmenený, handler neprebehol
 
-```bash
-ansible-config dump --only-changed
+Na hoste `app-07` template task reportuje `changed`. Nasledujúci validation task zlyhá a host je vyradený pred handler phase. Ostatné hosts službu reštartujú.
+
+Výsledok:
+
+```text
+app-07 má nový file content
++ starý process state
+→ fleet je konfiguračne a runtime zmiešaný
 ```
 
-## 13. Search paths a content resolution
+Recovery musí určiť, či starý process bezpečne beží s novým file-om, následne vykonať handler/revert a overiť health. Run nemá byť zhrnutý iba globálnym počtom failed tasks.
 
-Ansible vyhľadáva:
+## 18. Causal troubleshooting walkthrough: run green, fleet používa dve verzie configu
 
-- collections,
-- roles,
-- modules/plugins,
-- inventory plugins,
-- configuration files,
-- `group_vars` a `host_vars`,
-- templates a included files.
+Po rolloute telemetry ukazuje, že desať hosts používa config `v43`, dva stále `v42`. Controller job je zelený.
 
-Relatívny path môže byť interpretovaný podľa typu contentu a execution contextu. Explicitné repository layout, FQCN a pinned collections znižujú nejednoznačnosť.
+### 1. Zafixuj run subject
 
-## 14. Security boundaries
+Zaznamenaj source revision, execution image digest, core/collections, inventory sources/cache age, pattern/limit, variables, strategy/serial, credential identity a run ID.
 
-### Control node
+### 2. Súťažiace hypotézy
 
-Chráň:
+1. Dva hosts neboli v resolved inventory.
+2. Hosty boli `skipped` pre condition/group var.
+3. Failures boli ignored alebo rescued bez convergence.
+4. Template reportoval no-change pre stale rendered input.
+5. Handler nebol notified alebo sa nevykonal.
+6. Hosts boli unreachable a failure policy ich neblokovala.
+7. Free/parallel strategy umožnila neskorší batch pred úplným verification.
+8. Runtime verifier číta stale cache alebo nesprávny fleet identity source.
 
-- source checkout,
-- execution environment,
-- SSH keys a tokens,
-- Vault passwords,
-- plugin/collection paths,
-- temporary files,
-- callback output,
-- process environment.
+### 3. Diskriminačné observation points
 
-### Collections
+- expected vs. `--list-hosts` target inventory;
+- inventory plugin/cache timestamp;
+- per-host recap a event stream;
+- resolved variables pre affected hosts;
+- template checksum pred/po;
+- handler notification a execution events;
+- connection/unreachable history;
+- service process start time a loaded config version;
+- batch/strategy timeline.
 
-Collection je executable dependency. Potrebné sú:
+### 4. Containment
 
-- explicitné sources,
-- version pinning,
-- controlled upgrades,
-- artifact integrity,
-- review a testing,
-- minimal runtime permissions.
+Pozastav ďalšie batches alebo následné deploymenty. Vyraď neoverené hosts z trafficu, ak mixed configuration nie je bezpečná.
+
+### 5. Recovery
+
+- omitted target → oprav inventory a spusti explicitne scoped recovery run;
+- skipped condition → oprav variable/condition contract;
+- ignored/rescued failure → zmeň verdict a recovery semantics;
+- handler gap → vykonaj bounded restart alebo revert;
+- stale render input → oprav source/fact/cache freshness;
+- unreachable → obnov connection path a zopakuj host-level operation.
+
+### 6. Over pôvodný outcome
+
+Potvrď všetkých 12 stable host identities, config checksum `v43`, service health a traffic inclusion. Potom vykonaj second run, ktorý má byť no-change okrem vedomých health checks.
+
+### 7. Posuň control skôr
+
+Pridaj expected host inventory, per-host version oracle, handler regression test a batch gate, ktorý nepokračuje bez complete verification.
+
+## 19. Security boundaries
+
+### Control node/execution environment
+
+Chráň source checkout, plugin paths, temporary files, callback output, process environment, SSH sockets, cloud tokens a Vault credentials.
+
+### Collections a plugins
+
+Používaj approved sources, version pinning, artifact integrity, controlled upgrades a minimálne runtime permissions.
 
 ### Inventory a variables
 
-Inventory plugin alebo variable source môže meniť target set a credentials. Zmena host patternu môže mať väčší dopad než zmena samotného tasku.
+Zmena target group alebo `ansible_connection` môže mať väčší blast radius než zmena tasku. Inventory a variable source sú code/trust boundaries.
 
 ### Managed nodes
 
-Použi:
+Použi host identity verification, least-privilege connection identity, scoped `become`, bounded batches, timeouts a audit.
 
-- host-key verification,
-- least-privilege connection identity,
-- scoped `become`,
-- bounded batches,
-- timeouts,
-- audit,
-- bezpečné temporary directory permissions.
+## 20. Run evidence a observability
 
-## 15. Failure model
+Uchovaj bez secret leakage:
 
-Ansible rozlišuje napríklad:
-
-- unreachable host,
-- failed task,
-- changed task,
-- skipped task,
-- ignored failure,
-- rescued failure,
-- handler failure.
-
-„Run skončil zeleno“ nemusí znamenať, že všetky hosts dosiahli desired state, ak boli failures ignorované alebo hosts vylúčené patternom.
-
-## 16. Observability
+```text
+run subject
+→ resolved target inventory a count
+→ per-host effective context identity
+→ task/handler event stream
+→ unreachable/failed/skipped/changed/rescued verdicts
+→ batch progression
+→ runtime verification inventory
+→ recovery/cleanup actions
+```
 
 Sleduj:
 
-- target host count,
-- unreachable/failed/changed/skipped counts,
-- duration podľa tasku a hostu,
-- retry a timeout rate,
-- handler notifications,
-- check-mode drift,
-- collection a core versions,
-- inventory source freshness,
-- credential/connection failures,
-- batch rollout progress.
+- expected vs. targeted vs. verified host count;
+- unreachable a omitted targets;
+- task/host duration;
+- handler failures;
+- repeated changed tasks;
+- inventory freshness;
+- core/collection drift;
+- controller/local reproducibility;
+- batch abort a recovery rate;
+- secret-redaction failures.
 
-Callback plugins môžu posielať výsledky do logov alebo external systems. Pred uložením vždy vyhodnoť secret exposure.
+## 21. Referenčné pravidlá
 
-## 17. Troubleshooting
+- Ansible run je subject z contentu, runtime, inventory, variables a credentials.
+- Agentless neznamená bez target runtime a transport assumptions.
+- Host pattern sa vyhodnocuje pred task execution; omitted host nie je unreachable host.
+- Action/plugin môže bežať lokálne, aj keď play cieli remote hosts.
+- `forks`, strategy a `serial` riadia odlišné concurrency vrstvy.
+- `changed` nie je runtime verification.
+- Handler transition je súčasť desired-state convergence.
+- Check mode je predikcia s module-specific fidelity.
+- Globálny process success nenahrádza per-host coverage a outcome.
+- Druhý no-change run je dôležitý dôkaz idempotencie.
 
-### Host je `UNREACHABLE`
+## 22. Kontrolné otázky
 
-Over inventory identity, resolved address, DNS, route, port, connection plugin, user, key, host-key policy a proxy settings.
-
-### Module zlyhá na chýbajúcom Python-e
-
-Over interpreter discovery a podporovanú Python version. Pri bootstrap-e použi úzko ohraničený `raw` task, potom prejdite na štandardné modules.
-
-### Task funguje lokálne, ale nie v automation controlleri
-
-Porovnaj:
-
-- `ansible-core` version,
-- collections,
-- execution environment image,
-- `ansible.cfg`,
-- environment variables,
-- inventory source,
-- credential injection,
-- network path.
-
-### Zmenil sa nesprávny host
-
-Over host pattern, inventory aliases, `ansible_host`, group membership, limit a dynamic inventory freshness.
-
-### Task je stále `changed`
-
-Over module semantics, rendered content, timestamps, ordering, nondeterministic template values, command/shell behavior a `changed_when`.
-
-### Handler sa nespustil
-
-Over, či notifying task reportoval `changed`, či handler name/listen topic sedí a či failure nezabránil handler phase.
-
-## 18. Anti-patterny
-
-### Jeden privilegovaný control node bez izolácie
-
-Každý playbook a collection dostane implicitne široký trust.
-
-### Mutable `latest` execution environment
-
-Rovnaký commit môže používať iné core alebo collection versions.
-
-### Všetko cez `shell`
-
-Stráca sa state awareness, portability, structured result a často aj check mode.
-
-### Globálne vypnuté host-key checking
-
-Zjednoduší prvé pripojenie, ale oslabí identitu targetu.
-
-### Secrets v inventory alebo logoch
-
-Private Git repository ani masked callback nie sú secret manager.
-
-### Ignorovanie failures bez klasifikácie
-
-Zelený run môže skrývať nedokončenú konfiguráciu.
-
-## 19. Rozhodovací rámec
-
-1. Ktorý control node alebo execution environment bude autoritatívny?
-2. Aké targety a connection plugins používame?
-3. Kde sú credentials a ako sa rotujú?
-4. Ktorý content pochádza z collections a ako je pinned?
-5. Ktoré tasks potrebujú privilege escalation?
-6. Aký concurrency a batch model je bezpečný?
-7. Aké modules podporujú check/diff mode?
-8. Ako sa odlíši unreachable, failed a partial success?
-9. Aké logs a callbacks sú povolené vzhľadom na secrets?
-10. Ako sa reprodukuje rovnaký run v CI a lokálne?
-
-## 20. Kontrolné otázky
-
-1. Aký je rozdiel medzi control node a managed node?
-2. Čo vykonáva action plugin a čo module?
-3. Prečo agentless neznamená bez runtime požiadaviek?
-4. Ako sa odlišujú connection, strategy a callback plugins?
-5. Aký je vzťah medzi `forks`, strategy a `serial`?
-6. Prečo idempotencia nie je garantovaná engine-om?
-7. Čo check mode nedokáže garantovať?
-8. Prečo je collection supply-chain dependency?
-9. Ako diagnostikovať rozdiel medzi lokálnym a controller runom?
-10. Ktoré trust boundaries treba chrániť na control node?
+1. Čo tvorí Ansible run subject?
+2. Ktoré kroky prebiehajú na control node-e a ktoré na managed node-e?
+3. Prečo inventory omission nevytvorí `unreachable` failure?
+4. Ako sa líšia connection a become identity?
+5. Kedy môže task cieliaci production hosts volať staging API?
+6. Aký je rozdiel medzi strategy, forks a `serial`?
+7. Prečo `template: changed` nepotvrdzuje nový runtime stav?
+8. Čo check mode dokáže a čo nedokáže?
+9. Ako mutable execution environment mení behavior rovnakého playbooku?
+10. Aké evidence dokazujú complete fleet convergence?
 
 ## Glossary impact
 
-Relevantné pojmy: Ansible control node, managed node, agentless automation, `ansible-core`, Ansible collection, module, action plugin, connection plugin, strategy plugin, callback plugin, execution environment, forks, privilege escalation, check mode a diff mode.
+Relevantné pojmy: Ansible run subject, control node, managed node, execution environment, agentless push execution, action plugin, module execution, connection identity, become identity, strategy, forks, serial batch, host execution state, omitted target, handler transition, check-mode prediction, fleet convergence a run coverage.
 
 ## Oficiálna dokumentácia
 
