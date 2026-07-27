@@ -1,206 +1,229 @@
 # Expressions a dependency graph
 
-Terraform expressions vypočítavajú hodnoty a references medzi hodnotami zároveň vytvárajú dependency graph. Graph určuje, ktoré objekty možno plánovať a aplikovať paralelne a ktoré musia čakať na upstream dependencies.
+Terraform expressions nepočítajú iba hodnoty. References medzi hodnotami zároveň vytvárajú dependency edges a resource addresses. Z expressions preto vzniká execution graph, ktorý určuje identity objektov, poradie create/destroy operácií, paralelizáciu, unknown values a hranice plan-time rozhodovania.
 
-## 1. Expressions
+Kapitola pokračuje v scenári Atlas Payments. Configuration `prod-eu` vytvára network, private subnets, security policies, runtime service a DNS record. Cieľom nie je zapamätať všetky expression formy, ale vedieť vysvetliť, ako input identity vytvorí graph a ako graph vedie k remote mutations.
 
-Expression môže byť jednoduchý literal:
+## 1. Dominantný model
 
-```hcl
-name    = "api"
-enabled = true
-count   = 3
+```text
+configuration inputs a stable identity keys
+→ expressions vypočítajú hodnoty
+→ references vytvoria dependency edges
+→ plan-time známy graph shape
+→ scheduler vyberie ready vertices
+→ provider operations vyriešia unknown values
+→ state uloží instance addresses a remote bindings
+→ runtime verification potvrdí outcome
 ```
 
-Alebo odvodená hodnota:
+Graph odpovedá na tri samostatné otázky:
+
+1. **Identity:** ktoré resource/module instances existujú a aké majú addresses?
+2. **Dependency:** ktorý objekt potrebuje hodnotu alebo behavior upstream objektu?
+3. **Execution:** ktoré operations možno vykonať paralelne a ktoré musia čakať?
+
+Textové poradie `.tf` súborov tieto otázky nerieši. Rozhodujú expressions, references, meta-arguments, provider configurations a state.
+
+## 2. Atlas graph subject
+
+Zjednodušený graph:
+
+```text
+var.subnets
+    ↓
+module.network
+    ├──→ private subnets ──→ runtime service
+    └──→ load balancer ─────→ DNS record
+
+module.identity ─────────────→ runtime service
+module.security-policy ──────→ runtime service
+```
+
+Každý vertex má Terraform address a podľa lifecycle aj remote identity. Každý edge musí mať vysvetliteľný value alebo behavior contract.
+
+Atlas uchováva pre plan:
+
+```text
+configuration revision
++ effective input keys
++ module/provider revisions
++ state lineage/serial
++ graph-affecting unknown inventory
++ resource change addresses
+```
+
+Bez stabilných instance keys sa môže zmeniť identity graphu aj pri malej úprave input listu.
+
+## 3. Expressions ako value provenance
+
+Expression môže byť literal:
+
+```hcl
+replicas = 6
+```
+
+alebo odvodená hodnota:
 
 ```hcl
 name = "${var.project}-${var.environment}"
 ```
 
-Terraform expressions podporujú:
-
-- references,
-- operators,
-- conditional expressions,
-- `for` expressions,
-- splat expressions,
-- function calls,
-- string templates,
-- collection transformations.
-
-## 2. Typy a hodnoty
-
-Terraform pracuje s typmi:
-
-- string,
-- number,
-- bool,
-- list/tuple,
-- map/object,
-- set,
-- `null`,
-- unknown value počas planu.
-
-Typ hodnoty a type constraint nie sú vždy totožné. Terraform môže vykonať bezpečné konverzie, napríklad tuple na list alebo object na obmedzenejší object type.
-
-Implicitná konverzia môže zahodiť extra object attributes. Preto module interfaces majú používať presné typy a testy.
-
-## 3. References
-
-Named value references:
+Reference:
 
 ```hcl
-var.environment
-local.name_prefix
-module.network.vpc_id
-data.aws_ami.base.id
-aws_vpc.main.id
+module.network.private_subnet_ids
 ```
 
-Referencia plní dve úlohy:
-
-1. poskytne hodnotu expression,
-2. vytvorí dependency edge k objektu, ktorý hodnotu produkuje.
-
-## 4. Unknown values
-
-Pri plan-e Terraform používa unknown values pre údaje, ktoré poskytne až apply:
+plní dve úlohy:
 
 ```text
-id = (known after apply)
+poskytne hodnotu
++ vytvorí dependency provenance
 ```
 
-Unknown value nie je wildcard ani `null`. Terraform zachová typ a dependency, ale konkrétnu hodnotu ešte nepozná.
+Ak runtime service používa subnet IDs z network module outputu, Terraform vie, že ich nemôže plne naplánovať alebo aplikovať pred upstream výsledkom.
 
-Príklad:
+Locals a module outputs túto dependency nestrácajú. Iba ju pomenúvajú a prenášajú cez interface.
 
-```hcl
-resource "example_record" "app" {
-  value = example_service.app.hostname
-}
+## 4. Types, collections a identity
+
+Terraform hodnoty zahŕňajú strings, numbers, bools, lists/tuples, maps/objects, sets, `null` a unknown values.
+
+Collection semantics ovplyvňujú graph:
+
+- **list/tuple** — majú poradie;
+- **set** — nemá business-stabilné poradie;
+- **map/object** — keys poskytujú explicitnú identity;
+- **null** — reprezentuje absenciu/omission podľa contractu;
+- **unknown** — hodnota ešte nie je známa, ale type a dependency áno.
+
+Konverzia setu na list alebo použitie mutable display name-u ako map key môže vytvoriť nestabilné addresses. Graph identity musí vychádzať zo stabilných configuration inputs.
+
+## 5. Plan-time a apply-time values
+
+Provider môže hodnotu poskytnúť až po remote create:
+
+```text
+example_service.payments.hostname
+= (known after apply)
 ```
 
-Ak hostname vznikne až po create, record možno naplánovať iba čiastočne.
+Unknown value nie je chyba. Terraform zachová dependency a vie, že DNS record potrebuje výsledný hostname.
 
-## 5. Graph-shaping expressions
+Niektoré hodnoty však musia byť známe už pred apply, pretože určujú graph shape:
 
-Niektoré hodnoty musia byť známe pred apply, pretože určujú samotnú štruktúru graphu:
-
-- `count`,
-- `for_each` keys,
-- module source/version selection,
-- provider configuration v relevantných contextoch,
+- `count`;
+- `for_each` keys;
+- module instance keys;
+- provider configuration v relevantných contextoch;
 - resource addresses.
 
-Toto nefunguje bezpečne:
+Toto je problematické:
 
 ```hcl
-resource "example_item" "child" {
-  for_each = toset(example_parent.main.generated_names)
+resource "example_monitor" "service" {
+  for_each = toset(example_service.payments.generated_instance_names)
 }
 ```
 
-Ak `generated_names` nie sú známe pri plan-e, Terraform nevie, aké resource instances majú existovať.
+Ak names vzniknú až po create, Terraform nevie pred apply určiť, koľko monitor resources existuje ani aké majú addresses.
 
-Stabilné identity keys majú pochádzať z configuration inputs, nie z remote-generated values.
+Riešením je použiť stable desired keys z configuration alebo rozdeliť lifecycle boundary. Hardcoded placeholder iba predstiera presnosť a vytvára nesprávny desired state.
 
-## 6. Conditional expression
+## 6. `for_each` ako identity contract
+
+Atlas subnets používa mapu:
 
 ```hcl
-instance_type = var.environment == "prod" ? "large" : "small"
+resource "example_subnet" "private" {
+  for_each = var.subnets
+
+  cidr = each.value.cidr
+  zone = each.value.zone
+}
 ```
 
-Obe vetvy musia mať kompatibilný result type.
+Addresses:
 
-Conditional expression je vhodná pre jednoduché value rozhodnutie. Veľké nested conditions znižujú čitateľnosť a komplikujú test matrix.
+```text
+example_subnet.private["private_a"]
+example_subnet.private["private_b"]
+```
 
-## 7. `for` expressions
+Key je identity. Zmena `private_a` na `app_a` nie je iba rename stringu; môže vyzerať ako remove/create, pokiaľ sa identity migration nezachytí `moved` contractom.
+
+`for_each` je vhodný, keď objekty majú stabilné logické alebo business identifiers.
+
+## 7. `count` ako indexová identity
+
+```hcl
+resource "example_worker" "node" {
+  count = length(var.workers)
+  name  = var.workers[count.index]
+}
+```
+
+Addresses:
+
+```text
+example_worker.node[0]
+example_worker.node[1]
+```
+
+Ak sa vloží položka do stredu listu, indexy a tým identities sa posunú. Terraform môže meniť alebo nahrádzať viac remote objektov, hoci business intent bol „pridať jedného workera“.
+
+`count` je primeraný pre homogénny počet instances alebo optional `0/1`, keď index skutočne predstavuje identity. Nie je vhodný pre dlhodobo pomenované objekty s nezávislým lifecycle.
+
+## 8. Conditional a `for` expressions
+
+Jednoduché value rozhodnutie:
+
+```hcl
+instance_size = var.environment == "prod" ? "large" : "small"
+```
 
 Transformácia mapy:
 
 ```hcl
 locals {
-  subnet_cidrs = {
-    for name, subnet in var.subnets :
-    name => subnet.cidr
+  subnet_ids_by_key = {
+    for key, subnet in example_subnet.private :
+    key => subnet.id
   }
 }
 ```
 
-Filtrovanie:
+Filtrovanie môže meniť graph inventory:
 
 ```hcl
 locals {
-  public_subnets = {
-    for name, subnet in var.subnets :
-    name => subnet
-    if subnet.public
+  enabled_checks = {
+    for key, check in var.checks : key => check
+    if check.enabled
   }
 }
 ```
 
-Groupovanie, duplicate keys a ordering semantics treba navrhovať vedome. Sets nemajú stabilné používateľsky významné poradie.
+Review musí vedieť, či expression iba transformuje value alebo mení počet a identity vertices. Nested conditions a generické transforms môžu skryť deštruktívny identity change pred plan reviewerom.
 
-## 8. Splat expressions
+## 9. String, JSON a dynamic generation
+
+Pri generovaní structured data preferuj encoders:
 
 ```hcl
-aws_instance.worker[*].id
+policy = jsonencode({
+  Version = "2012-10-17"
+  Statement = local.policy_statements
+})
 ```
 
-Splat je skrátenie transformácie collection objektov. Pri resources s `for_each` je často jasnejšie použiť explicitný `for`:
+Ručné skladanie JSON/YAML môže rozbiť escaping alebo zmeniť typy.
+
+Dynamic block je vhodný, keď provider schema vyžaduje opakované nested blocks:
 
 ```hcl
-[for instance in values(aws_instance.worker) : instance.id]
-```
-
-## 9. Functions
-
-Terraform obsahuje built-in functions pre:
-
-- strings,
-- numeric operations,
-- collections,
-- encoding/decoding,
-- filesystem a paths,
-- date/time,
-- cryptographic hashes,
-- type conversions.
-
-Príklad:
-
-```hcl
-name = lower(join("-", [var.project, var.environment]))
-```
-
-Funkcie nemajú byť používané na vytvorenie nečitateľnej jednej expression. Komplexnú transformáciu rozdeľ do pomenovaných locals.
-
-## 10. String templates
-
-Interpolation:
-
-```hcl
-name = "${var.project}-${var.environment}"
-```
-
-Template directives:
-
-```hcl
-user_data = <<-EOT
-%{ for server in var.servers ~}
-server=${server}
-%{ endfor ~}
-EOT
-```
-
-Pri generovaní JSON/YAML preferuj `jsonencode` alebo `yamlencode` pred ručným skladaním textu. Encoder správne escapuje hodnoty a zachová dátový model.
-
-## 11. Dynamic blocks
-
-Dynamic block generuje opakované nested blocks:
-
-```hcl
-resource "example_firewall" "main" {
+resource "example_firewall" "service" {
   dynamic "rule" {
     for_each = var.rules
 
@@ -212,118 +235,105 @@ resource "example_firewall" "main" {
 }
 ```
 
-Používaj ho iba tam, kde provider schema vyžaduje nested blocks. Dynamic blocks nemôžu generovať meta-arguments ako `lifecycle`.
+Dynamic blocks nemenia základnú potrebu stable keys, types a testovateľného contractu. Nadmerná dynamika mení module na neprehľadný generický framework.
 
-Nadmerná dynamika robí konfiguráciu podobnú generickému programovaciemu frameworku a oslabuje čitateľnosť.
-
-## 12. Implicitný dependency graph
-
-Terraform analyzuje references:
+## 10. Implicitný dependency edge
 
 ```hcl
-resource "aws_subnet" "app" {
-  vpc_id = aws_vpc.main.id
+resource "example_runtime" "payments" {
+  subnet_ids = module.network.private_subnet_ids
 }
 ```
 
-Graph obsahuje edge:
+Reference vytvorí edge:
 
 ```text
-aws_vpc.main
-→ aws_subnet.app
+module.network
+→ example_runtime.payments
 ```
 
-Pri create sa VPC vytvorí prvé. Pri destroy sa poradie obráti.
+Pri create upstream predchádza consumerovi. Pri destroy sa poradie podľa dependency obráti.
 
-## 13. Dependency cez locals a outputs
+Value reference je najpresnejší dependency contract, pretože pomenúva, ktorú konkrétnu hodnotu consumer potrebuje.
 
-Dependency sa nestratí, keď referencia prejde cez local:
+## 11. Explicitný `depends_on`
+
+Behaviorálna dependency niekedy nemá value edge:
 
 ```hcl
-locals {
-  vpc_id = aws_vpc.main.id
-}
-
-resource "aws_subnet" "app" {
-  vpc_id = local.vpc_id
+resource "example_runtime" "payments" {
+  depends_on = [example_policy.runtime_authorization]
 }
 ```
 
-Rovnako module output prenáša dependency medzi modules.
+Legitímny príklad: authorization policy musí byť propagovaná pred vytvorením workloadu, hoci workload nepoužíva jej ID ako argument.
 
-Terraform sleduje expression provenance, nie iba textové poradie blockov v súbore.
-
-## 14. Explicitný `depends_on`
-
-```hcl
-resource "example_service" "app" {
-  depends_on = [example_policy.runtime]
-}
-```
-
-Použi ho, keď dependency existuje behaviorálne, ale neexistuje value reference.
-
-Príklady:
-
-- policy musí byť aplikovaná pred vytvorením workloadu,
-- logging service musí byť pripravený pred aktiváciou audit source,
-- external side effect nie je vyjadrený argumentom.
-
-`depends_on` má byť last resort a komentovaný.
-
-## 15. Prečo široký `depends_on` škodí
-
-`depends_on = [module.platform]` môže znamenať, že consumer čaká na všetky actions a reads v module.
-
-Dôsledky:
-
-- znížená paralelizácia,
-- viac hodnôt `known after apply`,
-- väčší blast radius planu,
-- falošné dependencies,
-- dlhší apply.
-
-Preferuj konkrétny output contract.
-
-## 16. Data sources a dependency graph
-
-Data source sa môže načítať počas planu, ak sú jeho arguments známe.
-
-Ak závisí od resource vytvoreného v rovnakom apply:
-
-```hcl
-data "example_object" "current" {
-  id = example_object.managed.id
-}
-```
-
-Read môže byť odložený do apply fázy a downstream hodnoty budú unknown.
-
-Explicitný `depends_on` na data source môže tiež odložiť read a zhoršiť plan precision.
-
-## 17. Parallel execution
-
-Objekty bez dependency vzťahu môže Terraform spracovať paralelne.
+Každý explicitný edge musí vysvetliť:
 
 ```text
-network ──→ subnet ──→ instance
-storage ─────────────→ application
-identity ────────────→ application
+ktorý upstream behavior musí byť complete
+→ prečo value reference neexistuje
+→ aký failure nastane bez edge-u
+→ ako sa completion overuje
 ```
 
-Parallelism skracuje apply, ale môže naraziť na:
+`depends_on` nie je univerzálna oprava pre race. Môže skryť chýbajúci provider waiter, external reconciliation alebo zlú architecture boundary.
 
-- API rate limits,
-- quotas,
-- provider concurrency bugs,
-- shared external locks,
-- network saturation.
+## 12. Prečo široký dependency edge škodí
 
-`-parallelism` je execution tuning, nie oprava chýbajúcej dependency.
+```hcl
+module "application" {
+  depends_on = [module.platform]
+}
+```
 
-## 18. Cycles
+môže spôsobiť:
 
-Cycle vznikne, keď objekt nepriamo závisí sám od seba:
+- čakanie na celý upstream module;
+- zníženú paralelizáciu;
+- data-source reads odložené do apply;
+- viac unknown values;
+- širší replacement a plan blast radius;
+- nejasný contract.
+
+Preferuj konkrétny output alebo úzky behavior edge. Graph má reprezentovať skutočné causality, nie organizačné želanie „platforma musí byť hotová“.
+
+## 13. Data-source edges a deferred reads
+
+Data source s plne známymi arguments sa môže načítať pri plan-e. Ak argument závisí od created resource, read sa odloží:
+
+```hcl
+data "example_endpoint" "current" {
+  service_id = example_runtime.payments.id
+}
+```
+
+```text
+runtime ID unknown
+→ data read deferred to apply
+→ downstream endpoint unknown
+```
+
+Široký explicitný dependency môže odložiť read aj vtedy, keď arguments už známe sú. To znižuje plan precision a môže zakryť replacement alebo policy finding.
+
+## 14. Parallel execution a critical path
+
+Vertices bez dependency vzťahu možno spracovať paralelne:
+
+```text
+network ─→ subnets ──────────→ runtime
+identity ────────────────────→ runtime
+storage ─────────────────────→ runtime
+runtime ─→ load balancer ────→ DNS
+```
+
+Parallelism môže naraziť na API rate limits, quotas, shared locks alebo provider bugs. `-parallelism` je execution tuning. Nie je náhradou za chýbajúci dependency edge.
+
+Pri pomalom apply treba nájsť critical path a observation points, nie mechanicky serializovať celý graph.
+
+## 15. Cycles sú architecture signal
+
+Cycle:
 
 ```text
 A → B → C → A
@@ -331,165 +341,238 @@ A → B → C → A
 
 Typické príčiny:
 
-- vzájomne referencované security groups,
-- module outputs spätne použité ako inputs rovnakého graphu,
-- provider configuration závislá od resource spravovaného tým providerom,
-- circular locals.
+- security groups potrebujú navzájom computed IDs;
+- provider configuration závisí od resource, ktorý má spravovať ten istý provider;
+- module output sa vracia ako input do vlastného lifecycle;
+- locals sa kruhovo referencujú.
 
-Riešenie je zmeniť architecture boundary alebo rozdeliť lifecycle fázy, nie náhodne pridávať `depends_on`.
+Cycle sa rieši oddelením identity od attachmentu, rozdelením lifecycle fáz alebo zmenou ownership boundary. Pridanie ďalšieho `depends_on` cycle neodstráni.
 
-## 19. `count` identity
+## 16. State addresses a refactoring
 
-```hcl
-resource "example_user" "member" {
-  count = length(var.users)
-  name  = var.users[count.index]
-}
-```
-
-Pri vložení položky do stredu listu sa indexy posunú. Terraform môže plánovať zmeny viacerých instances.
-
-`count` je vhodný pre:
-
-- homogénny počet instances,
-- optional single resource cez `0/1`,
-- prípady, kde index je skutočná identita.
-
-## 20. `for_each` identity
-
-```hcl
-resource "example_user" "member" {
-  for_each = toset(var.users)
-  name     = each.key
-}
-```
-
-Resource addresses používajú stabilné keys:
+Graph identity sa ukladá do state addresses. Legitímny refactor musí zachovať väzbu medzi starou a novou address:
 
 ```text
-example_user.member["alice"]
+example_subnet.private[0]
+→ example_subnet.private["private_a"]
 ```
 
-Key zmena je identity zmena. Nepoužívaj mutable display name ako key, ak objekt má stabilnejší business identifier.
+Bez `moved` alebo riadenej state migration môže Terraform navrhnúť destroy/create. Plan reviewer musí rozlíšiť:
 
-## 21. Collection ordering
+- skutočnú remote replacement;
+- address-only refactor;
+- key identity change;
+- stratený state binding;
+- provider-induced replacement.
 
-Lists/tuples majú poradie. Sets nie.
+## 17. Worked failure: `count` posunul production identities
 
-Konverzia setu na list môže vytvoriť ordering, ktorý nie je business-stabilný. Ak poradie ovplyvňuje resource identity alebo priority, definuj ho explicitne.
+Atlas spravoval firewall rules cez list a `count`. Tím vložil novú rule na začiatok listu.
 
-Pri maps je key stabilnejší contract než iteration order.
+```text
+old rule[0] = payment-api
+old rule[1] = monitoring
 
-## 22. `terraform console`
-
-Console umožňuje skúšať expressions:
-
-```bash
-terraform console
+insert new rule at index 0
+→ payment-api sa stane rule[1]
+→ monitoring sa stane rule[2]
+→ plan mení viac address bindings
+→ provider navrhne replacement rules
 ```
 
-Príklady:
+### Príčina
+
+Pozícia v liste bola použitá ako identity pre business-pomenované objekty.
+
+### Náprava
+
+Rules sa migrujú na `for_each` keyed stabilným policy ID. `moved` mappings zachovajú state identity a fixture plan overí, že pridanie jednej rule vytvorí jednu novú instance.
+
+## 18. Worked failure: module-level `depends_on` vytvoril false uncertainty
+
+Application module mal `depends_on = [module.platform]`. Platform module obsahoval aj unrelated audit resource, ktorého computed attribute bol známy až po apply.
+
+```text
+široký module dependency
+→ application data-source read sa odloží
+→ endpoint a policy inputs sú unknown
+→ plan gate nevie vyhodnotiť exposure
+→ reviewer vidí neúplný risk obraz
+```
+
+### Náprava
+
+Consumer sa naviaže na konkrétny platform output. Skrytá behavior dependency dostane úzky explicitný edge a samostatný readiness oracle.
+
+## 19. Worked failure: graph-shaping keys vznikali z remote API
+
+Tím chcel vytvoriť monitoring checks pre dynamicky vygenerované runtime instance names:
 
 ```hcl
-> merge({a = 1}, {b = 2})
-> [for x in [1,2,3] : x * 2]
-> cidrsubnet("10.0.0.0/16", 8, 3)
+for_each = toset(example_runtime.payments.generated_names)
 ```
 
-Console používa configuration a dostupný state context. Je vhodná na overenie types a transformácií pred apply.
+Plan zlyhal, pretože names boli known after apply.
 
-## 23. `terraform graph`
+### Príčina
+
+Remote-generated values mali určovať Terraform instance addresses, ktoré musia byť známe pred apply.
+
+### Náprava
+
+Desired check identities sa definujú v configuration. Runtime-generated instances sa monitorujú cez service-level discovery alebo samostatný controller, nie ako graph-shaping Terraform resources.
+
+## 20. Kauzálny diagnostický walkthrough
+
+Symptom: pridanie jedného production consumeru spôsobí plan replacement pätnástich IAM bindings.
+
+### Krok 1 — stabilizuj graph subject
+
+```text
+configuration       C82
+state serial        S244
+input consumers     before/after
+resource addresses  example_binding.consumer[*]
+provider lock       P8
+plan                PL501
+```
+
+### Krok 2 — konkurenčné hypotézy
+
+```text
+H1: `count` indexy sa posunuli
+H2: `for_each` key normalization sa zmenila
+H3: set/list ordering nie je stabilný
+H4: provider označil changed argument ako replacement
+H5: address refactor nemá moved mapping
+H6: state binding je stale alebo poškodený
+H7: plan patrí inému variable setu alebo state-u
+```
+
+### Krok 3 — diskriminačné observation points
+
+- before/after resource addresses testujú H1/H2/H5;
+- input collection type a ordering testujú H3;
+- plan replacement reasons a provider schema testujú H4;
+- state list/show a lineage testujú H6;
+- plan subject metadata testuje H7;
+- Git diff ukáže, či sa zmenila iba collection alebo aj argument semantics.
+
+Atlas zistí, že bindings používali `count` nad zoradeným listom a nový consumer bol vložený na začiatok. H1 je potvrdená.
+
+### Krok 4 — contain-ni deštruktívny graph
+
+Apply sa zablokuje. IAM bindings sa nemenia ručne, pretože by vznikol ďalší ownership drift.
+
+### Krok 5 — migruj identity
+
+Configuration prejde na `for_each` keyed immutable consumer ID. `moved` mappings zachovajú existujúce bindings a nový plan vytvorí iba jednu novú instance.
+
+### Krok 6 — over pôvodný outcome
+
+```text
+existujúce address → rovnaké remote bindings
+nový consumer → jedna create action
+žiadne unexpected replacements
+permissions a access journey → správne
+state serial → auditovaný
+```
+
+### Krok 7 — skorší control
+
+Finding sa mení na graph-contract test: pridanie jedného keyed inputu nesmie zmeniť addresses existujúcich instances.
+
+## 21. Diagnostické nástroje
+
+`terraform console` pomáha overiť type a transformáciu:
+
+```hcl
+> keys(var.subnets)
+> { for key, value in var.subnets : key => value.cidr }
+```
+
+`terraform graph` môže pomôcť pri cycle alebo nečakanej serializácii:
 
 ```bash
 terraform graph | dot -Tsvg > graph.svg
 ```
 
-Graph môže pomôcť pri:
+Plan JSON umožňuje analyzovať:
 
-- cycles,
-- nečakanej serializácii,
-- module dependencies,
-- provider edges.
+- addresses a actions;
+- before/after values;
+- unknown inventory;
+- replacement reasons;
+- sensitive markers;
+- policy evidence.
 
-Veľký graph je hlučný. Začni konkrétnym symptomom a kombinuj ho s planom a configuration references.
+Tieto artifacts môžu obsahovať citlivé údaje a patria do chráneného evidence lifecycle-u.
 
-## 24. Plan JSON
+## 22. Diagnostický runbook
 
-Machine-readable plan umožňuje analyzovať:
+1. Urči configuration, effective inputs, state a provider subject.
+2. Zostav affected resource/module addresses pred a po zmene.
+3. Rozlíš value transformáciu od graph-shaping expression.
+4. Identifikuj unknown producer a fázu, v ktorej sa hodnota vyrieši.
+5. Sleduj implicitné references cez locals a outputs.
+6. Audituj explicitné a module-level dependencies a ich mechanistický dôvod.
+7. Pri replacement-e odlíš key/index shift, provider behavior, refactor a state drift.
+8. Pri cycle rozdeľ identity, attachment alebo lifecycle boundary.
+9. Pri pomalom apply nájdi critical path a external rate/lock observation points.
+10. Over remote bindings a pôvodný runtime outcome po graph zmene.
 
-- resource changes,
-- unknown values,
-- replacement actions,
-- sensitive markers,
-- before/after hodnoty,
-- policy decisions.
+## 23. Referenčné pravidlá
 
-Plan file a JSON môžu obsahovať citlivé údaje. Chráň ich ako secrets/evidence artifacts.
+- Expression nesie value aj dependency provenance.
+- Graph shape musí byť známy pred apply.
+- Unknown nie je `null` ani wildcard.
+- Stable instance keys majú pochádzať z desired configuration.
+- `count` používa indexovú identity.
+- `for_each` key je resource identity.
+- Value reference je preferovaný dependency contract.
+- `depends_on` je úzky behavior edge, nie univerzálna oprava.
+- Široké edges znižujú parallelism aj plan precision.
+- Cycle signalizuje architecture alebo lifecycle konflikt.
+- Address refactor potrebuje moved/state migration contract.
 
-## 25. Anti-patterny
+## 24. Časté omyly
 
-### Dependencies cez názvy súborov
+### „Terraform vykonáva súbory podľa názvu“
 
-Terraform nevyhodnocuje `.tf` súbory sekvenčne podľa názvu.
+Textové poradie `.tf` súborov neurčuje graph.
 
-### `depends_on` ako univerzálna oprava
+### „Known after apply je chyba providera“
 
-Skryje chybný contract a serializuje graph.
+Často je prirodzeným dôsledkom remote-generated value; problém je iba pri plan-time requirements.
 
-### Unknown values nahradené hardcoded placeholderom
+### „`depends_on` opraví race“
 
-Plan môže vyzerať presnejšie, ale vytvára nesprávny desired state.
+Môže iba skryť chýbajúci readiness alebo ownership contract.
 
-### `for_each` nad computed setom
+### „Set je vhodný pre stabilný zoznam“
 
-Terraform nevie zostaviť instance addresses pred apply.
+Nemá business-stabilné poradie; identity musí niesť key.
 
-### Jeden obrovský nested expression
+### „Pridanie jednej položky znamená jednu create action“
 
-Review a troubleshooting sú neprimerane náročné.
+Nie pri indexovej identity alebo zmenenej key normalizácii.
 
-### `timestamp()` v managed argumente
+## 25. Zhrnutie
 
-Každý plan môže produkovať zmenu a porušiť convergence.
+Dôveryhodný Terraform graph lifecycle je:
 
-## 26. Troubleshooting
+```text
+stable desired identity keys
+→ expressions a value provenance
+→ explicitný dependency graph
+→ plan-time známy inventory
+→ bounded parallel execution
+→ resolved provider values
+→ preserved state addresses
+→ verified remote outcome
+```
 
-### `Invalid for_each argument`
-
-Keys alebo collection nie sú známe pri plan-e. Presuň identity do input configuration alebo rozdeľ states/lifecycle.
-
-### `Cycle` error
-
-Zobraz graph, nájdi spätnú referenciu a rozdeľ ownership alebo fázy.
-
-### Príliš veľa `known after apply`
-
-Skontroluj explicitné dependencies, data source deferral, module-level `depends_on` a provider computed attributes.
-
-### Apply je zbytočne pomalý
-
-Over critical dependency path, široké module dependencies, provider rate limits a `parallelism`.
-
-### Resource instances sa masovo presúvajú
-
-Skontroluj zmenu `count` indexov alebo `for_each` keys. Použi `moved` blocks pri legitímnej identity refaktorizácii.
-
-## 27. Kontrolné otázky
-
-1. Čo je unknown value a ako sa líši od `null`?
-2. Ktoré expressions musia byť známe pred apply?
-3. Ako reference vytvára dependency edge?
-4. Prečo locals nezrušia dependency?
-5. Kedy použiť explicitný `depends_on`?
-6. Prečo module-level `depends_on` znižuje plan precision?
-7. Aký je identity rozdiel medzi `count` a `for_each`?
-8. Ako vzniká dependency cycle?
-9. Na čo slúži `terraform console`?
-10. Prečo dynamická konfigurácia môže zhoršiť maintainability?
-
-## Glossary impact
-
-Relevantné pojmy: Terraform expression, reference, unknown value, graph-shaping value, implicit dependency, explicit dependency, dependency graph, dependency cycle, `for` expression, dynamic block, `count` identity, `for_each` identity, plan-time value a apply-time value.
+Graph troubleshooting rekonštruuje addresses, keys, unknown producers a edges. Cieľom nie je iba odstrániť error, ale zachovať remote identity a zabezpečiť, že malá zmena intentu nevytvorí nečakaný deštruktívny graph.
 
 ## Oficiálna dokumentácia
 
