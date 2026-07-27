@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11228**
-- Total words: **581,631**
-- Findings: **24526** (critical 7758, high 8789, medium 3400, low 4579)
+- Audited conceptual sections: **11209**
+- Total words: **581,901**
+- Findings: **24479** (critical 7739, high 8772, medium 3380, low 4588)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -52,7 +52,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1237 | 58 | 56 | 25 | 13 | 1960 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 1171 | 50 | 60 | 21 | 21 | 1801 | `docs/11-cloud-and-aws/ecs-eks.md` |
-| D | 1166 | 53 | 52 | 28 | 11 | 2095 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | D | 1165 | 47 | 74 | 8 | 4 | 1174 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
 | D | 1148 | 57 | 51 | 15 | 11 | 1728 | `docs/12-observability/metrics-logs-traces-events.md` |
 | D | 1137 | 52 | 55 | 21 | 10 | 1623 | `docs/09-kubernetes/upgrades.md` |
@@ -123,6 +122,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 747 | 26 | 47 | 14 | 8 | 1566 | `docs/09-kubernetes/ingress-gateway-api.md` |
 | D | 734 | 32 | 38 | 12 | 7 | 1841 | `docs/10-helm-and-cka/hooks.md` |
 | D | 733 | 31 | 40 | 7 | 20 | 2322 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
+| D | 732 | 34 | 35 | 8 | 20 | 2365 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | D | 731 | 36 | 27 | 21 | 7 | 1177 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | D | 730 | 31 | 32 | 19 | 26 | 2530 | `docs/03-git-and-automation/branching-strategies.md` |
 | D | 728 | 30 | 40 | 10 | 14 | 2359 | `docs/06-gitlab/security-scanning.md` |
@@ -7536,111 +7536,75 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md`
 
-- **CRITICAL** line 7, `bare-bullet-items` — **1. Proces bez izolácie**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kernel,`, `process namespace,`, `network stack,`, `mount tree,`.
-- **CRITICAL** line 7, `outline-instead-of-explanation` — **1. Proces bez izolácie**: 8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 22, `bare-bullet-items` — **2. Čo je container**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespaces pre izolovaný pohľad,`, `cgroups pre accounting a resource control,`, `capabilities pre rozdelenie root privileges,`, `seccomp pre obmedzenie system calls,`.
-- **CRITICAL** line 38, `bare-bullet-items` — **3. Čo je virtual machine**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vlastný guest kernel,`, `init/service manager,`, `system libraries,`, `userspace tools,`.
-- **CRITICAL** line 38, `outline-instead-of-explanation` — **3. Čo je virtual machine**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 61, `empty-section` — **4. Architektúrne porovnanie**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 63, `empty-section` — **Virtual machines**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 88, `empty-section` — **5. Isolation boundary**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 100, `bare-bullet-items` — **6. Shared kernel**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší per-workload overhead,`, `rýchlejší startup,`, `vyššia workload density,`, `jednoduchšie distribuovateľné userspace artifacts.`.
-- **CRITICAL** line 100, `outline-instead-of-explanation` — **6. Shared kernel**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 133, `bare-bullet-items` — **8. Startup time**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `virtual hardware initialization,`, `guest kernel boot,`, `init/system services,`, `application startup.`.
-- **CRITICAL** line 133, `outline-instead-of-explanation` — **8. Startup time**: 13 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 159, `bare-bullet-items` — **9. Resource overhead**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU,`, `memory,`, `page cache,`, `filesystem I/O,`.
-- **CRITICAL** line 176, `bare-bullet-items` — **10. Resource isolation**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU,`, `memory,`, `I/O,`, `process count,`.
-- **CRITICAL** line 191, `empty-section` — **11. Packaging model**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 193, `bare-bullet-items` — **VM image**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kernel alebo boot artifacts,`, `OS userspace,`, `system services,`, `application.`.
-- **CRITICAL** line 193, `outline-instead-of-explanation` — **VM image**: 4 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 202, `bare-bullet-items` — **Container image**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application binaries,`, `libraries,`, `runtime,`, `configuration defaults,`.
-- **CRITICAL** line 202, `outline-instead-of-explanation` — **Container image**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 215, `bare-bullet-items` — **12. Image nie je container**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment variables,`, `secrets,`, `mounts,`, `network identities,`.
-- **CRITICAL** line 215, `outline-instead-of-explanation` — **12. Image nie je container**: 6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 234, `bare-bullet-items` — **13. Filesystem**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read-only image layers,`, `writable container layer,`, `volumes,`, `bind mounts,`.
-- **CRITICAL** line 248, `bare-bullet-items` — **14. Persistence**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `managed database,`, `object storage,`, `persistent volume,`, `external state service,`.
-- **CRITICAL** line 248, `outline-instead-of-explanation` — **14. Persistence**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 267, `bare-bullet-items` — **15. Networking**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatný network namespace,`, `virtual ethernet pair,`, `bridge,`, `host networking,`.
-- **CRITICAL** line 282, `outline-instead-of-explanation` — **16. Process model**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 297, `bare-bullet-items` — **17. Configuration model**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `machine image,`, `cloud-init,`, `configuration managementu,`, `package managera,`.
-- **CRITICAL** line 297, `outline-instead-of-explanation` — **17. Configuration model**: 11 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 318, `bare-bullet-items` — **18. Immutable replacement**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image tag/digest je kontrolovaný,`, `runtime config je versionovaná,`, `persistent state je oddelený,`, `old instance nie je ručne upravená,`.
-- **CRITICAL** line 318, `outline-instead-of-explanation` — **18. Immutable replacement**: 5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 338, `bare-bullet-items` — **19. Security model**: 19 z 19 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted image provenance,`, `minimal image content,`, `non-root user,`, `dropped capabilities,`.
-- **CRITICAL** line 338, `outline-instead-of-explanation` — **19. Security model**: 19 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 367, `empty-section` — **20. Escape a blast radius**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 369, `bare-bullet-items` — **Container escape**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `privileged mode,`, `host PID/network namespace,`, `writable host mounts,`, `Docker/container runtime socket,`.
-- **CRITICAL** line 369, `outline-instead-of-explanation` — **Container escape**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 386, `bare-bullet-items` — **21. Portability**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU architecture,`, `OS/kernel family,`, `required kernel features,`, `filesystem a security policy,`.
-- **CRITICAL** line 402, `bare-bullet-items` — **22. Observability**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `guest OS metrics,`, `systemd/services,`, `kernel logs,`, `hypervisor metrics,`.
-- **CRITICAL** line 402, `outline-instead-of-explanation` — **22. Observability**: 13 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 425, `empty-section` — **23. Patching**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 427, `bare-bullet-items` — **VM patching**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `in-place package patch,`, `reboot,`, `image replacement,`, `configuration management.`.
-- **CRITICAL** line 427, `outline-instead-of-explanation` — **VM patching**: 4 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 449, `bare-bullet-items` — **24. Backup a recovery**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `persistent volumes,`, `databases,`, `object storage,`, `runtime configuration/secrets podľa policy,`.
-- **CRITICAL** line 449, `outline-instead-of-explanation` — **24. Backup a recovery**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 463, `bare-bullet-items` — **25. Typické použitie containers**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stateless services,`, `APIs,`, `workers,`, `batch jobs,`.
-- **CRITICAL** line 463, `outline-instead-of-explanation` — **25. Typické použitie containers**: 9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 477, `bare-bullet-items` — **26. Typické použitie VMs**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workloads vyžadujúce vlastný kernel alebo OS,`, `silnejšiu tenant isolation,`, `legacy applications očakávajúce full machine,`, `appliance-like software,`.
-- **CRITICAL** line 477, `outline-instead-of-explanation` — **26. Typické použitie VMs**: 7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 489, `bare-bullet-items` — **27. Containers vo VMs**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VM ako infrastructure/security boundary,`, `container ako application packaging a scheduling unit,`, `nezávislý node replacement,`, `lepšia multi-workload density vo VM.`.
-- **CRITICAL** line 489, `outline-instead-of-explanation` — **27. Containers vo VMs**: 4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 510, `bare-bullet-items` — **28. MicroVM a sandboxed runtime**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `microVMs,`, `sandboxed container runtimes,`, `user-space kernels,`, `lightweight virtualized pods.`.
-- **CRITICAL** line 510, `outline-instead-of-explanation` — **28. MicroVM a sandboxed runtime**: 4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 536, `bare-bullet-items` — **30. Rozhodovací rámec**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potrebuje workload vlastný kernel alebo inú OS family?`, `Aká silná musí byť tenant isolation?`, `Aký je akceptovateľný blast radius shared kernelu?`, `Aký startup a scaling čas potrebujeme?`.
-- **CRITICAL** line 536, `outline-instead-of-explanation` — **30. Rozhodovací rámec**: 10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **HIGH** line 7, `single-sentence-concept` — **1. Proces bez izolácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 22, `list-heavy-section` — **2. Čo je container**: 7 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 38, `single-sentence-concept` — **3. Čo je virtual machine**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 76, `list-first-introduction` — **Containers**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 76, `single-sentence-concept` — **Containers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 100, `single-sentence-concept` — **6. Shared kernel**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 133, `single-sentence-concept` — **8. Startup time**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 159, `list-heavy-section` — **9. Resource overhead**: 8 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 176, `list-heavy-section` — **10. Resource isolation**: 6 odrážok a iba 42 slov súvislého vysvetlenia.
-- **HIGH** line 193, `single-sentence-concept` — **VM image**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 202, `single-sentence-concept` — **Container image**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 267, `list-heavy-section` — **15. Networking**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 282, `bare-bullet-items` — **16. Process model**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `aplikácia má správne spracovať signals,`, `PID 1 má špecifické signal/reaping správanie,`.
-- **HIGH** line 318, `single-sentence-concept` — **18. Immutable replacement**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 338, `single-sentence-concept` — **19. Security model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 369, `single-sentence-concept` — **Container escape**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 386, `list-heavy-section` — **21. Portability**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 427, `single-sentence-concept` — **VM patching**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 436, `single-sentence-concept` — **Container patching**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 463, `single-sentence-concept` — **25. Typické použitie containers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 477, `single-sentence-concept` — **26. Typické použitie VMs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 489, `single-sentence-concept` — **27. Containers vo VMs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 536, `single-sentence-concept` — **30. Rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 553, `single-sentence-concept` — **Container ako malá VM**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 557, `single-sentence-concept` — **Všetky dáta vo writable layeri**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 561, `single-sentence-concept` — **Privileged mode ako univerzálna oprava**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 565, `single-sentence-concept` — **latest bez digest/release identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 569, `single-sentence-concept` — **Ručné patchovanie bežiaceho containeru**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 573, `single-sentence-concept` — **Predpoklad, že VM automaticky znamená bezpečnosť**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 577, `single-sentence-concept` — **Predpoklad, že container nemôže byť stateful**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 583, `single-sentence-concept` — **Container vidí inú kernel verziu než image distribúcia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 587, `single-sentence-concept` — **Application funguje vo VM, ale v containeri nie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 591, `single-sentence-concept` — **Container bol odstránený a dáta zmizli**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 595, `single-sentence-concept` — **Container je killed pri load-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 599, `single-sentence-concept` — **Linux image sa nespustí priamo na inom OS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 603, `single-sentence-concept` — **VM aj container ukazujú vysoké CPU**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 100, `thin-concept-section` — **6. Shared kernel**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 193, `thin-concept-section` — **VM image**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 202, `thin-concept-section` — **Container image**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 215, `thin-concept-section` — **12. Image nie je container**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 318, `thin-concept-section` — **18. Immutable replacement**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 338, `term-before-explanation` — **19. Security model**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `resource`, `policy`, `identity`
-- **HIGH** line 338, `thin-concept-section` — **19. Security model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 369, `thin-concept-section` — **Container escape**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 402, `thin-concept-section` — **22. Observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 427, `thin-concept-section` — **VM patching**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 449, `thin-concept-section` — **24. Backup a recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 463, `thin-concept-section` — **25. Typické použitie containers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 477, `thin-concept-section` — **26. Typické použitie VMs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 489, `thin-concept-section` — **27. Containers vo VMs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 536, `term-before-explanation` — **30. Rozhodovací rámec**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `VM`, `workload`, `blast radius`
-- **HIGH** line 536, `thin-concept-section` — **30. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 65, `empty-section` — **2. Process, container a VM**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 103, `empty-section` — **3. Isolation boundary ako hlavný rozdiel**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 105, `bare-bullet-items` — **Container boundary**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespaces;`, `cgroups;`, `user a process credentials;`, `capability sets;`.
+- **CRITICAL** line 105, `outline-instead-of-explanation` — **Container boundary**: 8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 126, `empty-section` — **Dôsledok**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 138, `bare-bullet-items` — **4. Containers vo VMs**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cloud host/hypervisor;`, `worker VM guest OS/kernel;`, `container runtime;`, `application image a config;`.
+- **CRITICAL** line 160, `empty-section` — **5. Packaging identity**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 162, `bare-bullet-items` — **VM image**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kernel alebo boot artifacts;`, `guest userspace;`, `init a system services;`, `drivers a agents;`.
+- **CRITICAL** line 162, `outline-instead-of-explanation` — **VM image**: 5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **CRITICAL** line 172, `bare-bullet-items` — **Container image**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `executable a libraries;`, `filesystem layers;`, `user;`, `environment defaults;`.
+- **CRITICAL** line 172, `outline-instead-of-explanation` — **Container image**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 195, `bare-bullet-items` — **6. Kernel compatibility a portability**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS/kernel family;`, `CPU architecture a variant;`, `required syscalls a kernel features;`, `filesystem a mount semantics;`.
+- **CRITICAL** line 222, `bare-bullet-items` — **7. Runtime creation a startup**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načíta secret epoch;`, `otvorí database pool;`, `vykoná compatibility check;`, `zahreje cache;`.
+- **CRITICAL** line 222, `outline-instead-of-explanation` — **7. Runtime creation a startup**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 292, `bare-bullet-items` — **9. Process lifecycle a PID 1**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prijímať a forwardovať termination signals;`, `zbierať child processes;`, `ukončiť sa predvídateľným exit code-om;`, `neoddeľovať daemon od lifecycle ownera.`.
+- **CRITICAL** line 319, `bare-bullet-items` — **11. Persistence boundary**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `temporary files;`, `caches;`, `ephemeral runtime state;`, `replaceable generated data.`.
+- **CRITICAL** line 340, `bare-bullet-items` — **12. Configuration a immutable replacement**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena nie je v image digest-e;`, `replacement ju odstráni;`, `image scanner ju nevidí;`, `recovery je neauditovateľný.`.
+- **CRITICAL** line 340, `outline-instead-of-explanation` — **12. Configuration a immutable replacement**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 382, `bare-bullet-items` — **14. Security a blast radius**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `privileged mode;`, `broad capabilities;`, `host PID/network namespace;`, `runtime socket mount;`.
+- **CRITICAL** line 382, `outline-instead-of-explanation` — **14. Security a blast radius**: 14 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 477, `bare-bullet-items` — **1. Zafixuj runtime subject**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image index a platform manifest digest;`, `container config, user, entrypoint a arguments;`, `host/guest kernel a runtime version;`, `namespace, cgroup, capability, seccomp a LSM profile;`.
+- **CRITICAL** line 477, `outline-instead-of-explanation` — **1. Zafixuj runtime subject**: 8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 490, `bare-bullet-items` — **2. Súťažiace hypotézy**: 10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Binary alebo interpreter nemá execute permission.`, `Dynamic library alebo loader chýba v image.`, `Capability potrebná na bind alebo syscall bola odstránená.`, `Seccomp blokuje syscall.`.
+- **CRITICAL** line 490, `no-prose-concept` — **2. Súťažiace hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 490, `outline-instead-of-explanation` — **2. Súťažiace hypotézy**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 505, `bare-bullet-items` — **3. Diskriminačné observation points**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact image filesystem a dynamic linker inspection;`, `stat , UID/GID a mount flags;`, `/proc/<pid /status capability sets;`, `seccomp/LSM audit denials;`.
+- **CRITICAL** line 505, `no-prose-concept` — **3. Diskriminačné observation points**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 505, `outline-instead-of-explanation` — **3. Diskriminačné observation points**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 522, `no-prose-concept` — **5. Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 522, `outline-instead-of-explanation` — **5. Recovery**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 541, `bare-bullet-items` — **20. Rozhodovací rámec**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potrebuje workload vlastný kernel alebo inú OS family?`, `Aký tenant a kernel blast radius je prijateľný?`, `Aké capabilities, devices a host mounts potrebuje?`, `Je application pripravená na process-oriented replacement?`.
+- **CRITICAL** line 541, `outline-instead-of-explanation` — **20. Rozhodovací rámec**: 10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 556, `no-prose-concept` — **21. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 556, `outline-instead-of-explanation` — **21. Referenčné pravidlá**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 21, `single-sentence-concept` — **1. Atlas workload subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 67, `single-sentence-concept` — **Bežný host process**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 88, `single-sentence-concept` — **Virtual machine**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 162, `single-sentence-concept` — **VM image**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 195, `list-heavy-section` — **6. Kernel compatibility a portability**: 8 odrážok a iba 39 slov súvislého vysvetlenia.
+- **HIGH** line 222, `single-sentence-concept` — **7. Runtime creation a startup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 319, `list-heavy-section` — **11. Persistence boundary**: 9 odrážok a iba 53 slov súvislého vysvetlenia.
+- **HIGH** line 382, `single-sentence-concept` — **14. Security a blast radius**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 477, `single-sentence-concept` — **1. Zafixuj runtime subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 490, `list-first-introduction` — **2. Súťažiace hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 505, `list-first-introduction` — **3. Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 522, `bare-bullet-items` — **5. Recovery**: 4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `UID/permissions → nastav explicitný user a file ownership;`, `capability gap → pridaj iba potrebnú capability;`, `seccomp/LSM denial → uprav narrow policy podľa konkrétnej operation;`, `config mismatch → zosúlaď versionovaný runtime contract.`.
+- **HIGH** line 522, `list-first-introduction` — **5. Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 533, `single-sentence-concept` — **6. Over pôvodný outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 537, `single-sentence-concept` — **7. Posuň control skôr**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 541, `single-sentence-concept` — **20. Rozhodovací rámec**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 556, `bare-bullet-items` — **21. Referenčné pravidlá**: 8 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Container je izolovaný host process model, nie mini-VM.`, `VM virtualizuje hardware a prináša guest kernel boundary.`, `OS/architecture compatibility nie je celý platform contract.`, `Process started nie je workload ready.`.
+- **HIGH** line 556, `list-first-introduction` — **21. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 105, `thin-concept-section` — **Container boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 162, `thin-concept-section` — **VM image**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 222, `thin-concept-section` — **7. Runtime creation a startup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 340, `thin-concept-section` — **12. Configuration a immutable replacement**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 382, `term-before-explanation` — **14. Security a blast radius**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `LSM`, `OS`, `identity`
+- **HIGH** line 382, `thin-concept-section` — **14. Security a blast radius**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 477, `thin-concept-section` — **1. Zafixuj runtime subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 490, `term-before-explanation` — **2. Súťažiace hypotézy**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `VM`, `Resource`
+- **HIGH** line 490, `thin-concept-section` — **2. Súťažiace hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 505, `term-before-explanation` — **3. Diskriminačné observation points**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `LSM`, `CPU`, `PID`, `VM`, `policy`
+- **HIGH** line 505, `thin-concept-section` — **3. Diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 522, `term-before-explanation` — **5. Recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `LSM`, `policy`, `resource`
+- **HIGH** line 522, `thin-concept-section` — **5. Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 541, `term-before-explanation` — **20. Rozhodovací rámec**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `VM`, `workload`, `blast radius`, `identity`, `attestation`
+- **HIGH** line 541, `thin-concept-section` — **20. Rozhodovací rámec**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 556, `term-before-explanation` — **21. Referenčné pravidlá**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`, `OS`, `SLO`, `IP`, `identity`, `workload`, `Resource`
+- **HIGH** line 556, `thin-concept-section` — **21. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/08-container-fundamentals-and-docker/docker-architecture.md`
 
@@ -17597,19 +17561,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3434 | 437 | 0 | 0 | 3871 |
-| `single-sentence-concept` | 0 | 3503 | 0 | 0 | 3503 |
-| `outline-instead-of-explanation` | 3278 | 0 | 0 | 0 | 3278 |
-| `thin-concept-section` | 0 | 2873 | 0 | 0 | 2873 |
-| `term-before-explanation` | 0 | 460 | 2305 | 0 | 2765 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1836 | 1836 |
-| `example-not-explicit` | 0 | 0 | 0 | 1794 | 1794 |
-| `list-first-introduction` | 0 | 1118 | 0 | 0 | 1118 |
-| `short-concept-section` | 0 | 0 | 1095 | 0 | 1095 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 949 | 949 |
-| `empty-section` | 556 | 0 | 0 | 0 | 556 |
-| `no-prose-concept` | 490 | 0 | 0 | 0 | 490 |
-| `list-heavy-section` | 0 | 398 | 0 | 0 | 398 |
+| `bare-bullet-items` | 3422 | 438 | 0 | 0 | 3860 |
+| `single-sentence-concept` | 0 | 3484 | 0 | 0 | 3484 |
+| `outline-instead-of-explanation` | 3269 | 0 | 0 | 0 | 3269 |
+| `thin-concept-section` | 0 | 2870 | 0 | 0 | 2870 |
+| `term-before-explanation` | 0 | 464 | 2294 | 0 | 2758 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1838 | 1838 |
+| `example-not-explicit` | 0 | 0 | 0 | 1798 | 1798 |
+| `list-first-introduction` | 0 | 1121 | 0 | 0 | 1121 |
+| `short-concept-section` | 0 | 0 | 1086 | 0 | 1086 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 952 | 952 |
+| `empty-section` | 554 | 0 | 0 | 0 | 554 |
+| `no-prose-concept` | 494 | 0 | 0 | 0 | 494 |
+| `list-heavy-section` | 0 | 395 | 0 | 0 | 395 |
 
 ## Required remediation pattern
 

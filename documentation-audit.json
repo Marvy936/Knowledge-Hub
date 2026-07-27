@@ -1977,15 +1977,15 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
       "title": "Containers vs. virtual machines",
-      "words": 2095,
-      "headings": 58,
-      "sections": 58,
-      "findings": 144,
-      "critical": 53,
-      "high": 52,
-      "medium": 28,
-      "low": 11,
-      "score": 1166,
+      "words": 2365,
+      "headings": 39,
+      "sections": 39,
+      "findings": 97,
+      "critical": 34,
+      "high": 35,
+      "medium": 8,
+      "low": 20,
+      "score": 732,
       "grade": "D"
     },
     {
@@ -105734,8 +105734,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "1. Proces bez izolácie",
-      "line": 7,
+      "section": "1. Atlas workload subject",
+      "line": 21,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -105743,125 +105743,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "1. Proces bez izolácie",
-      "line": 7,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "1. Proces bez izolácie",
-      "line": 7,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kernel,`, `process namespace,`, `network stack,`, `mount tree,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "1. Proces bez izolácie",
-      "line": 7,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "1. Proces bez izolácie",
-      "line": 7,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "1. Proces bez izolácie",
-      "line": 7,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IPC`, `CPU`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "2. Čo je container",
-      "line": 22,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "2. Čo je container",
-      "line": 22,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespaces pre izolovaný pohľad,`, `cgroups pre accounting a resource control,`, `capabilities pre rozdelenie root privileges,`, `seccomp pre obmedzenie system calls,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "2. Čo je container",
-      "line": 22,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "2. Čo je container",
-      "line": 22,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "3. Čo je virtual machine",
-      "line": 38,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "3. Čo je virtual machine",
-      "line": 38,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "3. Čo je virtual machine",
-      "line": 38,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vlastný guest kernel,`, `init/service manager,`, `system libraries,`, `userspace tools,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "3. Čo je virtual machine",
-      "line": 38,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "4. Architektúrne porovnanie",
-      "line": 61,
+      "section": "2. Process, container a VM",
+      "line": 65,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -105869,17 +105752,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Virtual machines",
-      "line": 63,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Containers",
-      "line": 76,
+      "section": "Bežný host process",
+      "line": 67,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -105887,26 +105761,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Containers",
-      "line": 76,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "5. Isolation boundary",
+      "section": "Virtual machine",
       "line": 88,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "6. Shared kernel",
-      "line": 100,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -105914,26 +105770,35 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "6. Shared kernel",
-      "line": 100,
+      "section": "3. Isolation boundary ako hlavný rozdiel",
+      "line": 103,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "Container boundary",
+      "line": 105,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "6. Shared kernel",
-      "line": 100,
+      "section": "Container boundary",
+      "line": 105,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší per-workload overhead,`, `rýchlejší startup,`, `vyššia workload density,`, `jednoduchšie distribuovateľné userspace artifacts.`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespaces;`, `cgroups;`, `user a process credentials;`, `capability sets;`.",
       "score": 12
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "6. Shared kernel",
-      "line": 100,
+      "section": "Container boundary",
+      "line": 105,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -105941,26 +105806,62 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "6. Shared kernel",
-      "line": 100,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "6. Shared kernel",
-      "line": 100,
+      "section": "Container boundary",
+      "line": 105,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
       "score": 4
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "8. Startup time",
-      "line": 133,
+      "section": "Dôsledok",
+      "line": 126,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "4. Containers vo VMs",
+      "line": 138,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cloud host/hypervisor;`, `worker VM guest OS/kernel;`, `container runtime;`, `application image a config;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "4. Containers vo VMs",
+      "line": 138,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "4. Containers vo VMs",
+      "line": 138,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "5. Packaging identity",
+      "line": 160,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "VM image",
+      "line": 162,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -105968,26 +105869,53 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "8. Startup time",
-      "line": 133,
+      "section": "VM image",
+      "line": 162,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "8. Startup time",
-      "line": 133,
+      "section": "VM image",
+      "line": 162,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `virtual hardware initialization,`, `guest kernel boot,`, `init/system services,`, `application startup.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kernel alebo boot artifacts;`, `guest userspace;`, `init a system services;`, `drivers a agents;`.",
       "score": 12
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "8. Startup time",
-      "line": 133,
+      "section": "VM image",
+      "line": 162,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "Container image",
+      "line": 172,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "Container image",
+      "line": 172,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `executable a libraries;`, `filesystem layers;`, `user;`, `environment defaults;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "Container image",
+      "line": 172,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -105995,8 +105923,35 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "8. Startup time",
-      "line": 133,
+      "section": "6. Kernel compatibility a portability",
+      "line": 195,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "6. Kernel compatibility a portability",
+      "line": 195,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS/kernel family;`, `CPU architecture a variant;`, `required syscalls a kernel features;`, `filesystem a mount semantics;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "6. Kernel compatibility a portability",
+      "line": 195,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "6. Kernel compatibility a portability",
+      "line": 195,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -106004,44 +105959,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "8. Startup time",
-      "line": 133,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "9. Resource overhead",
-      "line": 159,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "9. Resource overhead",
-      "line": 159,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU,`, `memory,`, `page cache,`, `filesystem I/O,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "9. Resource overhead",
-      "line": 159,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "9. Resource overhead",
-      "line": 159,
+      "section": "6. Kernel compatibility a portability",
+      "line": 195,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
@@ -106049,44 +105968,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "10. Resource isolation",
-      "line": 176,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 42 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "10. Resource isolation",
-      "line": 176,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU,`, `memory,`, `I/O,`, `process count,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "10. Resource isolation",
-      "line": 176,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "11. Packaging model",
-      "line": 191,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "VM image",
-      "line": 193,
+      "section": "7. Runtime creation a startup",
+      "line": 222,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -106094,26 +105977,26 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "VM image",
-      "line": 193,
+      "section": "7. Runtime creation a startup",
+      "line": 222,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "VM image",
-      "line": 193,
+      "section": "7. Runtime creation a startup",
+      "line": 222,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kernel alebo boot artifacts,`, `OS userspace,`, `system services,`, `application.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `načíta secret epoch;`, `otvorí database pool;`, `vykoná compatibility check;`, `zahreje cache;`.",
       "score": 12
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "VM image",
-      "line": 193,
+      "section": "7. Runtime creation a startup",
+      "line": 222,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -106121,323 +106004,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "VM image",
-      "line": 193,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container image",
-      "line": 202,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container image",
-      "line": 202,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container image",
-      "line": 202,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application binaries,`, `libraries,`, `runtime,`, `configuration defaults,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container image",
-      "line": 202,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "12. Image nie je container",
-      "line": 215,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "12. Image nie je container",
-      "line": 215,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment variables,`, `secrets,`, `mounts,`, `network identities,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "12. Image nie je container",
-      "line": 215,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "12. Image nie je container",
-      "line": 215,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "13. Filesystem",
-      "line": 234,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read-only image layers,`, `writable container layer,`, `volumes,`, `bind mounts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "13. Filesystem",
-      "line": 234,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "14. Persistence",
-      "line": 248,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "14. Persistence",
-      "line": 248,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `managed database,`, `object storage,`, `persistent volume,`, `external state service,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "14. Persistence",
-      "line": 248,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "14. Persistence",
-      "line": 248,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "15. Networking",
-      "line": 267,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "15. Networking",
-      "line": 267,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `samostatný network namespace,`, `virtual ethernet pair,`, `bridge,`, `host networking,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "15. Networking",
-      "line": 267,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "15. Networking",
-      "line": 267,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CNI`, `NAT`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "16. Process model",
-      "line": 282,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "16. Process model",
-      "line": 282,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `aplikácia má správne spracovať signals,`, `PID 1 má špecifické signal/reaping správanie,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "16. Process model",
-      "line": 282,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "16. Process model",
-      "line": 282,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "17. Configuration model",
-      "line": 297,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "17. Configuration model",
-      "line": 297,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `machine image,`, `cloud-init,`, `configuration managementu,`, `package managera,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "17. Configuration model",
-      "line": 297,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "17. Configuration model",
-      "line": 297,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "18. Immutable replacement",
-      "line": 318,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "18. Immutable replacement",
-      "line": 318,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "18. Immutable replacement",
-      "line": 318,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image tag/digest je kontrolovaný,`, `runtime config je versionovaná,`, `persistent state je oddelený,`, `old instance nie je ručne upravená,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "18. Immutable replacement",
-      "line": 318,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "19. Security model",
-      "line": 338,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "19. Security model",
-      "line": 338,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "19 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "19. Security model",
-      "line": 338,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "19 z 19 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted image provenance,`, `minimal image content,`, `non-root user,`, `dropped capabilities,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "19. Security model",
-      "line": 338,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "19. Security model",
-      "line": 338,
+      "section": "8. Resource model",
+      "line": 266,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -106445,98 +106013,62 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "19. Security model",
-      "line": 338,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `resource`, `policy`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "20. Escape a blast radius",
-      "line": 367,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container escape",
-      "line": 369,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container escape",
-      "line": 369,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container escape",
-      "line": 369,
+      "section": "9. Process lifecycle a PID 1",
+      "line": 292,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `privileged mode,`, `host PID/network namespace,`, `writable host mounts,`, `Docker/container runtime socket,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prijímať a forwardovať termination signals;`, `zbierať child processes;`, `ukončiť sa predvídateľným exit code-om;`, `neoddeľovať daemon od lifecycle ownera.`.",
       "score": 12
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container escape",
-      "line": 369,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container escape",
-      "line": 369,
+      "section": "9. Process lifecycle a PID 1",
+      "line": 292,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "21. Portability",
-      "line": 386,
+      "section": "9. Process lifecycle a PID 1",
+      "line": 292,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "10. Network identity",
+      "line": 305,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "11. Persistence boundary",
+      "line": 319,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "detail": "9 odrážok a iba 53 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "21. Portability",
-      "line": 386,
+      "section": "11. Persistence boundary",
+      "line": 319,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU architecture,`, `OS/kernel family,`, `required kernel features,`, `filesystem a security policy,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `temporary files;`, `caches;`, `ephemeral runtime state;`, `replaceable generated data.`.",
       "score": 12
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "21. Portability",
-      "line": 386,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "21. Portability",
-      "line": 386,
+      "section": "11. Persistence boundary",
+      "line": 319,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -106544,359 +106076,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "21. Portability",
-      "line": 386,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `OS`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "22. Observability",
-      "line": 402,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "22. Observability",
-      "line": 402,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `guest OS metrics,`, `systemd/services,`, `kernel logs,`, `hypervisor metrics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "22. Observability",
-      "line": 402,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "22. Observability",
-      "line": 402,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "22. Observability",
-      "line": 402,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `resource`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "23. Patching",
-      "line": 425,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "VM patching",
-      "line": 427,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "VM patching",
-      "line": 427,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "VM patching",
-      "line": 427,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `in-place package patch,`, `reboot,`, `image replacement,`, `configuration management.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "VM patching",
-      "line": 427,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container patching",
-      "line": 436,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "24. Backup a recovery",
-      "line": 449,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "24. Backup a recovery",
-      "line": 449,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `persistent volumes,`, `databases,`, `object storage,`, `runtime configuration/secrets podľa policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "24. Backup a recovery",
-      "line": 449,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "24. Backup a recovery",
-      "line": 449,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "25. Typické použitie containers",
-      "line": 463,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "25. Typické použitie containers",
-      "line": 463,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "25. Typické použitie containers",
-      "line": 463,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stateless services,`, `APIs,`, `workers,`, `batch jobs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "25. Typické použitie containers",
-      "line": 463,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "25. Typické použitie containers",
-      "line": 463,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "26. Typické použitie VMs",
-      "line": 477,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "26. Typické použitie VMs",
-      "line": 477,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "26. Typické použitie VMs",
-      "line": 477,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workloads vyžadujúce vlastný kernel alebo OS,`, `silnejšiu tenant isolation,`, `legacy applications očakávajúce full machine,`, `appliance-like software,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "26. Typické použitie VMs",
-      "line": 477,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "26. Typické použitie VMs",
-      "line": 477,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "27. Containers vo VMs",
-      "line": 489,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "27. Containers vo VMs",
-      "line": 489,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "27. Containers vo VMs",
-      "line": 489,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VM ako infrastructure/security boundary,`, `container ako application packaging a scheduling unit,`, `nezávislý node replacement,`, `lepšia multi-workload density vo VM.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "27. Containers vo VMs",
-      "line": 489,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "27. Containers vo VMs",
-      "line": 489,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "28. MicroVM a sandboxed runtime",
-      "line": 510,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "28. MicroVM a sandboxed runtime",
-      "line": 510,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `microVMs,`, `sandboxed container runtimes,`, `user-space kernels,`, `lightweight virtualized pods.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "28. MicroVM a sandboxed runtime",
-      "line": 510,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 536,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 536,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 536,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potrebuje workload vlastný kernel alebo inú OS family?`, `Aká silná musí byť tenant isolation?`, `Aký je akceptovateľný blast radius shared kernelu?`, `Aký startup a scaling čas potrebujeme?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 536,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 536,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 536,
+      "section": "11. Persistence boundary",
+      "line": 319,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -106904,17 +106085,44 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "30. Rozhodovací rámec",
-      "line": 536,
+      "section": "11. Persistence boundary",
+      "line": 319,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "12. Configuration a immutable replacement",
+      "line": 340,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "12. Configuration a immutable replacement",
+      "line": 340,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmena nie je v image digest-e;`, `replacement ju odstráni;`, `image scanner ju nevidí;`, `recovery je neauditovateľný.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "12. Configuration a immutable replacement",
+      "line": 340,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `VM`, `workload`, `blast radius`",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container ako malá VM",
-      "line": 553,
+      "section": "14. Security a blast radius",
+      "line": 382,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -106922,8 +106130,62 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Všetky dáta vo writable layeri",
-      "line": 557,
+      "section": "14. Security a blast radius",
+      "line": 382,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "14. Security a blast radius",
+      "line": 382,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `privileged mode;`, `broad capabilities;`, `host PID/network namespace;`, `runtime socket mount;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "14. Security a blast radius",
+      "line": 382,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "14. Security a blast radius",
+      "line": 382,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "14. Security a blast radius",
+      "line": 382,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "14. Security a blast radius",
+      "line": 382,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `LSM`, `OS`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "1. Zafixuj runtime subject",
+      "line": 477,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -106931,8 +106193,260 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Privileged mode ako univerzálna oprava",
-      "line": 561,
+      "section": "1. Zafixuj runtime subject",
+      "line": 477,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "1. Zafixuj runtime subject",
+      "line": 477,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image index a platform manifest digest;`, `container config, user, entrypoint a arguments;`, `host/guest kernel a runtime version;`, `namespace, cgroup, capability, seccomp a LSM profile;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "1. Zafixuj runtime subject",
+      "line": 477,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "1. Zafixuj runtime subject",
+      "line": 477,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 490,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 490,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 490,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 490,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Binary alebo interpreter nemá execute permission.`, `Dynamic library alebo loader chýba v image.`, `Capability potrebná na bind alebo syscall bola odstránená.`, `Seccomp blokuje syscall.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 490,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 490,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 490,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 490,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 490,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `VM`, `Resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 505,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 505,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 505,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 505,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact image filesystem a dynamic linker inspection;`, `stat , UID/GID a mount flags;`, `/proc/<pid /status capability sets;`, `seccomp/LSM audit denials;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 505,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 505,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 505,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `GID`, `LSM`, `CPU`, `PID`, `VM`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "5. Recovery",
+      "line": 522,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "5. Recovery",
+      "line": 522,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "5. Recovery",
+      "line": 522,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "5. Recovery",
+      "line": 522,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `UID/permissions → nastav explicitný user a file ownership;`, `capability gap → pridaj iba potrebnú capability;`, `seccomp/LSM denial → uprav narrow policy podľa konkrétnej operation;`, `config mismatch → zosúlaď versionovaný runtime contract.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "5. Recovery",
+      "line": 522,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "5. Recovery",
+      "line": 522,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "5. Recovery",
+      "line": 522,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "5. Recovery",
+      "line": 522,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `LSM`, `policy`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "6. Over pôvodný outcome",
+      "line": 533,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -106940,8 +106454,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "latest bez digest/release identity",
-      "line": 565,
+      "section": "7. Posuň control skôr",
+      "line": 537,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -106949,8 +106463,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Ručné patchovanie bežiaceho containeru",
-      "line": 569,
+      "section": "20. Rozhodovací rámec",
+      "line": 541,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -106958,75 +106472,138 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Predpoklad, že VM automaticky znamená bezpečnosť",
-      "line": 573,
+      "section": "20. Rozhodovací rámec",
+      "line": 541,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "20. Rozhodovací rámec",
+      "line": 541,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potrebuje workload vlastný kernel alebo inú OS family?`, `Aký tenant a kernel blast radius je prijateľný?`, `Aké capabilities, devices a host mounts potrebuje?`, `Je application pripravená na process-oriented replacement?`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "20. Rozhodovací rámec",
+      "line": 541,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "20. Rozhodovací rámec",
+      "line": 541,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "20. Rozhodovací rámec",
+      "line": 541,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "20. Rozhodovací rámec",
+      "line": 541,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `VM`, `workload`, `blast radius`, `identity`, `attestation`",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 556,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 556,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Predpoklad, že container nemôže byť stateful",
-      "line": 577,
+      "section": "21. Referenčné pravidlá",
+      "line": 556,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
+      "section": "21. Referenčné pravidlá",
+      "line": 556,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Container je izolovaný host process model, nie mini-VM.`, `VM virtualizuje hardware a prináša guest kernel boundary.`, `OS/architecture compatibility nie je celý platform contract.`, `Process started nie je workload ready.`.",
       "score": 8
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container vidí inú kernel verziu než image distribúcia",
-      "line": 583,
+      "section": "21. Referenčné pravidlá",
+      "line": 556,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Application funguje vo VM, ale v containeri nie",
-      "line": 587,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "21. Referenčné pravidlá",
+      "line": 556,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container bol odstránený a dáta zmizli",
-      "line": 591,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "21. Referenčné pravidlá",
+      "line": 556,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Container je killed pri load-e",
-      "line": 595,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "21. Referenčné pravidlá",
+      "line": 556,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "Linux image sa nespustí priamo na inom OS",
-      "line": 599,
+      "section": "21. Referenčné pravidlá",
+      "line": 556,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md",
-      "section": "VM aj container ukazujú vysoké CPU",
-      "line": 603,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`, `OS`, `SLO`, `IP`, `identity`, `workload`, `Resource`",
+      "score": 7
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-architecture.md",
