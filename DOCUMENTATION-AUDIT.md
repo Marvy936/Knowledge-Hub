@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10951**
-- Total words: **619,385**
-- Findings: **24340** (critical 7621, high 8297, medium 3268, low 5154)
+- Audited conceptual sections: **10952**
+- Total words: **619,744**
+- Findings: **24334** (critical 7623, high 8294, medium 3264, low 5153)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -97,8 +97,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 834 | 35 | 42 | 16 | 17 | 3114 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 831 | 37 | 38 | 17 | 22 | 2511 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
-| D | 831 | 36 | 45 | 11 | 8 | 1789 | `docs/10-helm-and-cka/upgrade-rollback.md` |
 | D | 819 | 31 | 51 | 10 | 10 | 2417 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
+| D | 814 | 38 | 42 | 7 | 7 | 2148 | `docs/10-helm-and-cka/upgrade-rollback.md` |
 | D | 811 | 37 | 41 | 8 | 19 | 2477 | `docs/09-kubernetes/ingress-gateway-api.md` |
 | D | 807 | 40 | 31 | 18 | 12 | 2145 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | D | 802 | 37 | 42 | 7 | 5 | 2208 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
@@ -11138,87 +11138,86 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/10-helm-and-cka/upgrade-rollback.md`
 
-- **CRITICAL** line 5, `bare-bullet-items` — **1. Release revision model**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployed ,`, `superseded ,`, `failed ,`, `pending-install ,`.
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **1. Release revision model**: 12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 34, `bare-bullet-items` — **2. Upgrade inputs**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chart artifactu alebo directory contentu,`, `chart version/digest,`, `dependency locku a vendored dependencies,`, `values defaults,`.
-- **CRITICAL** line 34, `outline-instead-of-explanation` — **2. Upgrade inputs**: 11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 52, `bare-bullet-items` — **3. Basic upgrade flow**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Helm načíta chart a dependencies.`, `Zostaví effective values.`, `Validuje values schema.`, `Renderuje templates.`.
-- **CRITICAL** line 52, `outline-instead-of-explanation` — **3. Basic upgrade flow**: 9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 92, `bare-bullet-items` — **Reuse values**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `staré keys zostanú aktívne,`, `nové chart defaults sa nemusia aplikovať podľa očakávania,`, `odstránené alebo premenované values vytvoria neviditeľný legacy state,`.
-- **CRITICAL** line 92, `outline-instead-of-explanation` — **Reuse values**: 4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 120, `bare-bullet-items` — **5. Pre-upgrade evidence**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktuálny chart artifact digest,`, `image digests,`, `Git revision,`, `databázovú schema version,`.
-- **CRITICAL** line 120, `outline-instead-of-explanation` — **5. Pre-upgrade evidence**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 145, `bare-bullet-items` — **6. Render a diff pred upgrade**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current release manifest,`, `proposed rendered manifest,`, `live objects,`, `immutable fields,`.
-- **CRITICAL** line 145, `outline-instead-of-explanation` — **6. Render a diff pred upgrade**: 9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 172, `bare-bullet-items` — **7. Wait, timeout a Jobs**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `na ktoré resources Helm čaká,`, `čo znamená ready,`, `či čaká na Jobs,`, `operation timeout,`.
-- **CRITICAL** line 205, `bare-bullet-items` — **8. Automatic rollback behavior**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obnoviť predchádzajúci rendered manifest,`, `vytvoriť rollback revision,`, `odstrániť niektoré nové resources podľa flags,`, `znovu spustiť rollback hooks.`.
-- **CRITICAL** line 228, `bare-bullet-items` — **9. Manual rollback**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chart a values obsiahnuté v cieľovej revision,`, `image availability,`, `API compatibility,`, `DB schema compatibility,`.
-- **CRITICAL** line 228, `outline-instead-of-explanation` — **9. Manual rollback**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 272, `bare-bullet-items` — **11. Force replacement**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Services s meniacou sa identity,`, `PVC/PV,`, `StatefulSets,`, `immutable selectors,`.
-- **CRITICAL** line 272, `outline-instead-of-explanation` — **11. Force replacement**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 286, `bare-bullet-items` — **12. Cleanup on failure**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `modified existing resources,`, `hook side effects,`, `resources bez release ownershipu,`, `operators/external controllers,`.
-- **CRITICAL** line 286, `outline-instead-of-explanation` — **12. Cleanup on failure**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 299, `bare-bullet-items` — **13. Hooks pri rollbacku**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pre-rollback ,`, `bežné resource reconciliation,`, `post-rollback .`, `idempotentný,`.
-- **CRITICAL** line 299, `outline-instead-of-explanation` — **13. Hooks pri rollbacku**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 317, `bare-bullet-items` — **14. CRDs a rollback**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `served/storage API versions,`, `conversion webhook,`, `stored-version migration,`, `controller compatibility,`.
-- **CRITICAL** line 317, `outline-instead-of-explanation` — **14. CRDs a rollback**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 333, `bare-bullet-items` — **15. Stateful workloads**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ordered/parallel rollout,`, `quorum a leader election,`, `version skew replík,`, `PVC retention,`.
-- **CRITICAL** line 333, `outline-instead-of-explanation` — **15. Stateful workloads**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 360, `bare-bullet-items` — **17. Pending release states**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prerušení klienta,`, `Helm process crashi,`, `API/network timeout-e,`, `hook Job failure,`.
-- **CRITICAL** line 360, `outline-instead-of-explanation` — **17. Pending release states**: 12 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 382, `bare-bullet-items` — **18. Concurrent writers**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative writer pre každý field,`, `GitOps/Helm integration model,`, `scaling ownership,`, `admission mutation expectations,`.
-- **CRITICAL** line 382, `outline-instead-of-explanation` — **18. Concurrent writers**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 397, `bare-bullet-items` — **19. Release history retention**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupné rollback targets,`, `namespace Secret count,`, `forensic evidence,`, `sensitive values/manifests exposure,`.
-- **CRITICAL** line 397, `outline-instead-of-explanation` — **19. Release history retention**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 427, `bare-bullet-items` — **21. Roll-forward vs. rollback**: 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `predchádzajúci stav je stále kompatibilný,`, `side effects sú nulové alebo reverzibilné,`, `image/artifacts sú dostupné,`, `recovery je rýchlejšia a bezpečnejšia než oprava.`.
-- **CRITICAL** line 427, `outline-instead-of-explanation` — **21. Roll-forward vs. rollback**: 9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 446, `bare-bullet-items` — **22. Post-upgrade validation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application SLI,`, `error rate/latency,`, `queue lag,`, `DB migration status,`.
-- **CRITICAL** line 446, `outline-instead-of-explanation` — **22. Post-upgrade validation**: 7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `single-sentence-concept` — **1. Release revision model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 34, `single-sentence-concept` — **2. Upgrade inputs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 52, `list-first-introduction` — **3. Basic upgrade flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 52, `single-sentence-concept` — **3. Basic upgrade flow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 75, `single-sentence-concept` — **4. Values pri upgrade**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 79, `single-sentence-concept` — **Explicitné values files**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 92, `list-first-introduction` — **Reuse values**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 120, `single-sentence-concept` — **5. Pre-upgrade evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 172, `list-heavy-section` — **7. Wait, timeout a Jobs**: 12 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 205, `list-heavy-section` — **8. Automatic rollback behavior**: 11 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 228, `list-first-introduction` — **9. Manual rollback**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 248, `single-sentence-concept` — **10. Rollback nie je time travel**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 333, `single-sentence-concept` — **15. Stateful workloads**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 360, `single-sentence-concept` — **17. Pending release states**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 409, `single-sentence-concept` — **20. CI/CD upgrade workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 427, `single-sentence-concept` — **21. Roll-forward vs. rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 446, `single-sentence-concept` — **22. Post-upgrade validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 471, `single-sentence-concept` — **--reuse-values bez auditu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 475, `single-sentence-concept` — **Automatický rollback považovaný za databázový rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 479, `single-sentence-concept` — **--force na immutable-field problém**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 483, `single-sentence-concept` — **Upgrade bez zachovania current manifestu a values**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 487, `single-sentence-concept` — **Rollback na revision bez kontroly image availability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 491, `single-sentence-concept` — **Zvýšenie timeoutu ako univerzálna oprava**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 495, `single-sentence-concept` — **Súbežný Helm a GitOps writer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 509, `single-sentence-concept` — **Rollback je successful, aplikácia nefunguje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 517, `single-sentence-concept` — **Nové chart defaults sa neaplikovali**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 521, `single-sentence-concept` — **Rollback zlyhá na chýbajúcom resource**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 5, `thin-concept-section` — **1. Release revision model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 34, `thin-concept-section` — **2. Upgrade inputs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 52, `thin-concept-section` — **3. Basic upgrade flow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 92, `thin-concept-section` — **Reuse values**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 120, `thin-concept-section` — **5. Pre-upgrade evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 145, `thin-concept-section` — **6. Render a diff pred upgrade**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 205, `term-before-explanation` — **8. Automatic rollback behavior**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`, `IAM`, `CRD`
-- **HIGH** line 228, `thin-concept-section` — **9. Manual rollback**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 272, `thin-concept-section` — **11. Force replacement**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 286, `thin-concept-section` — **12. Cleanup on failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 299, `thin-concept-section` — **13. Hooks pri rollbacku**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 333, `thin-concept-section` — **15. Stateful workloads**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 360, `thin-concept-section` — **17. Pending release states**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 382, `thin-concept-section` — **18. Concurrent writers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 397, `thin-concept-section` — **19. Release history retention**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 427, `thin-concept-section` — **21. Roll-forward vs. rollback**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 446, `term-before-explanation` — **22. Post-upgrade validation**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `DB`, `resource`, `policy`
-- **HIGH** line 446, `thin-concept-section` — **22. Post-upgrade validation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 80, `bare-bullet-items` — **3. Release revision model**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployed ;`, `superseded ;`, `failed ;`, `pending-install ;`.
+- **CRITICAL** line 80, `outline-instead-of-explanation` — **3. Release revision model**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 130, `empty-section` — **5. Values transition**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 146, `bare-bullet-items` — **--reuse-values**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstránené legacy keys;`, `staré boolean flags;`, `staré subchart enablement;`, `values, ktoré nový chart už nezdokumentuje;`.
+- **CRITICAL** line 146, `outline-instead-of-explanation` — **--reuse-values**: 5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 169, `bare-bullet-items` — **6. Current, target a live state**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `server-side defaulting;`, `mutating admission;`, `HPA;`, `operatora;`.
+- **CRITICAL** line 169, `outline-instead-of-explanation` — **6. Current, target a live state**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 218, `bare-bullet-items` — **8. Render a semantic diff**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource identity a names;`, `selectors a ownership labels;`, `image digestoch;`, `ConfigMap/Secret references;`.
+- **CRITICAL** line 218, `outline-instead-of-explanation` — **8. Render a semantic diff**: 10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 262, `bare-bullet-items` — **10. Wait a timeout semantics**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny image digest na každom serving Pode;`, `process-loaded configuration;`, `Service/edge traffic cohort;`, `schema alebo event compatibility;`.
+- **CRITICAL** line 262, `outline-instead-of-explanation` — **10. Wait a timeout semantics**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 285, `bare-bullet-items` — **11. Automatic failure recovery**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aplikovať predchádzajúci release manifest;`, `vytvoriť ďalšiu rollback revision;`, `vykonať rollback hooks;`, `odstrániť vybrané newly-created resources podľa flags.`.
+- **CRITICAL** line 330, `outline-instead-of-explanation` — **13. Rollback compatibility matrix**: 4 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 350, `empty-section` — **14. Roll-forward, compensation a restore**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 352, `bare-bullet-items` — **Rollback**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current durable state je backward-compatible;`, `side effects sú nulové alebo reverzibilné;`, `artifacts a dependencies sú dostupné;`, `návrat je najmenší bezpečný change.`.
+- **CRITICAL** line 352, `outline-instead-of-explanation` — **Rollback**: 4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 361, `bare-bullet-items` — **Roll-forward**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema alebo event contract už nie je backward-compatible;`, `external migration dokončila;`, `malý fix obnoví správny desired state;`, `rollback hooks alebo old application predstavujú väčšie riziko.`.
+- **CRITICAL** line 361, `outline-instead-of-explanation` — **Roll-forward**: 4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 385, `bare-bullet-items` — **15. Force replacement boundary**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Service/LB identity;`, `StatefulSet a PVC;`, `immutable selectors;`, `CRDs;`.
+- **CRITICAL** line 385, `outline-instead-of-explanation` — **15. Force replacement boundary**: 7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 419, `bare-bullet-items` — **17. Stateful a data-bearing resources**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data generation;`, `writer/fencing epoch;`, `quorum a version skew;`, `storage snapshot a restore test;`.
+- **CRITICAL** line 419, `outline-instead-of-explanation` — **17. Stateful a data-bearing resources**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 435, `bare-bullet-items` — **18. Pending operation a unknown outcome**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `klient bol prerušený;`, `API response sa stratila;`, `hook stále beží;`, `release storage write zlyhal;`.
+- **CRITICAL** line 435, `outline-instead-of-explanation` — **18. Pending operation a unknown outcome**: 12 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 489, `empty-section` — **Subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 501, `bare-bullet-items` — **Konkurenčné hypotézy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rollback manifest sa neaplikoval;`, `old image I57 nie je dostupný;`, `Pody revision 19 neprešli readiness;`, `old app nevie pracovať so schema S14;`.
+- **CRITICAL** line 501, `no-prose-concept` — **Konkurenčné hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 501, `outline-instead-of-explanation` — **Konkurenčné hypotézy**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 536, `bare-bullet-items` — **Containment**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť ďalšie automatic retries/rollbacks;`, `pozastaviť E2 producers;`, `zachovať mixed queue evidence;`, `nevymazávať E2 messages;`.
+- **CRITICAL** line 536, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 536, `outline-instead-of-explanation` — **Containment**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 545, `bare-bullet-items` — **Recovery decision**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opraviť missing fraud endpoint v C58;`, `vytvoriť I58.1 s tolerantným E1/E2 consumerom;`, `renderovať a server-validate revision 22;`, `nasadiť bounded cohortu;`.
+- **CRITICAL** line 545, `outline-instead-of-explanation` — **Recovery decision**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
+- **CRITICAL** line 558, `empty-section` — **Verification**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 571, `bare-bullet-items` — **Earlier controls**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event expand/contract compatibility;`, `old/new application × old/new event contract matrix;`, `canary s reálnou queue cohortou;`, `automatic rollback eligibility gate;`.
+- **CRITICAL** line 571, `no-prose-concept` — **Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 571, `outline-instead-of-explanation` — **Earlier controls**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 580, `empty-section` — **21. Failure boundaries**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 7, `single-sentence-concept` — **1. Dominantný lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 34, `single-sentence-concept` — **2. Atlas revision subjects**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 80, `single-sentence-concept` — **3. Release revision model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 132, `single-sentence-concept` — **Explicitný values contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 146, `single-sentence-concept` — **--reuse-values**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 169, `single-sentence-concept` — **6. Current, target a live state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 218, `single-sentence-concept` — **8. Render a semantic diff**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 246, `list-first-introduction` — **9. Upgrade execution chain**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 285, `list-heavy-section` — **11. Automatic failure recovery**: 12 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 309, `list-first-introduction` — **12. Manual rollback subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 330, `single-sentence-concept` — **13. Rollback compatibility matrix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 352, `single-sentence-concept` — **Rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 361, `single-sentence-concept` — **Roll-forward**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 370, `single-sentence-concept` — **Compensation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 435, `single-sentence-concept` — **18. Pending operation a unknown outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 501, `list-first-introduction` — **Konkurenčné hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 512, `list-first-introduction` — **Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 536, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 545, `single-sentence-concept` — **Recovery decision**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 571, `list-first-introduction` — **Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 594, `single-sentence-concept` — **CRD rollback bez storage compatibility**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 598, `single-sentence-concept` — **GitOps vráti rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 602, `single-sentence-concept` — **22. Release transition evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 80, `thin-concept-section` — **3. Release revision model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 146, `thin-concept-section` — **--reuse-values**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 169, `thin-concept-section` — **6. Current, target a live state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 218, `term-before-explanation` — **8. Render a semantic diff**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PVC`, `RBAC`, `resource`, `identity`, `policy`
+- **HIGH** line 218, `thin-concept-section` — **8. Render a semantic diff**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 262, `thin-concept-section` — **10. Wait a timeout semantics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 285, `term-before-explanation` — **11. Automatic failure recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `CRD`, `PVC`, `DNS`, `IAM`
+- **HIGH** line 330, `thin-concept-section` — **13. Rollback compatibility matrix**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 352, `thin-concept-section` — **Rollback**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 361, `thin-concept-section` — **Roll-forward**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 419, `thin-concept-section` — **17. Stateful a data-bearing resources**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 435, `thin-concept-section` — **18. Pending operation a unknown outcome**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 501, `term-before-explanation` — **Konkurenčné hypotézy**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `I57`, `S14`, `E2`, `I58`
+- **HIGH** line 501, `thin-concept-section` — **Konkurenčné hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 536, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 545, `term-before-explanation` — **Recovery decision**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `C58`, `I58`, `E1`, `I57`
+- **HIGH** line 545, `thin-concept-section` — **Recovery decision**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 571, `thin-concept-section` — **Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/11-cloud-and-aws/aws-backup.md`
 
@@ -16968,19 +16967,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3221 | 446 | 0 | 0 | 3667 |
-| `outline-instead-of-explanation` | 3107 | 0 | 0 | 0 | 3107 |
-| `single-sentence-concept` | 0 | 2903 | 0 | 0 | 2903 |
-| `term-before-explanation` | 0 | 548 | 2222 | 0 | 2770 |
-| `thin-concept-section` | 0 | 2698 | 0 | 0 | 2698 |
+| `bare-bullet-items` | 3217 | 446 | 0 | 0 | 3663 |
+| `outline-instead-of-explanation` | 3105 | 0 | 0 | 0 | 3105 |
+| `single-sentence-concept` | 0 | 2897 | 0 | 0 | 2897 |
+| `term-before-explanation` | 0 | 550 | 2219 | 0 | 2769 |
+| `thin-concept-section` | 0 | 2696 | 0 | 0 | 2696 |
 | `example-not-explicit` | 0 | 0 | 0 | 2061 | 2061 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 2020 | 2020 |
-| `list-first-introduction` | 0 | 1255 | 0 | 0 | 1255 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1073 | 1073 |
-| `short-concept-section` | 0 | 0 | 1046 | 0 | 1046 |
-| `no-prose-concept` | 703 | 0 | 0 | 0 | 703 |
-| `empty-section` | 590 | 0 | 0 | 0 | 590 |
-| `list-heavy-section` | 0 | 447 | 0 | 0 | 447 |
+| `list-first-introduction` | 0 | 1259 | 0 | 0 | 1259 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1072 | 1072 |
+| `short-concept-section` | 0 | 0 | 1045 | 0 | 1045 |
+| `no-prose-concept` | 706 | 0 | 0 | 0 | 706 |
+| `empty-section` | 595 | 0 | 0 | 0 | 595 |
+| `list-heavy-section` | 0 | 446 | 0 | 0 | 446 |
 
 ## Required remediation pattern
 

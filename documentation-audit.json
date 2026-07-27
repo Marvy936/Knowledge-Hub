@@ -2705,15 +2705,15 @@
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
       "title": "Upgrade a rollback",
-      "words": 1789,
-      "headings": 43,
-      "sections": 43,
-      "findings": 100,
-      "critical": 36,
-      "high": 45,
-      "medium": 11,
-      "low": 8,
-      "score": 831,
+      "words": 2148,
+      "headings": 44,
+      "sections": 44,
+      "findings": 94,
+      "critical": 38,
+      "high": 42,
+      "medium": 7,
+      "low": 7,
+      "score": 814,
       "grade": "D"
     },
     {
@@ -150374,8 +150374,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "1. Release revision model",
-      "line": 5,
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -150383,98 +150383,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "1. Release revision model",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "1. Release revision model",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployed ,`, `superseded ,`, `failed ,`, `pending-install ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "1. Release revision model",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "2. Upgrade inputs",
-      "line": 34,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "2. Upgrade inputs",
-      "line": 34,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "2. Upgrade inputs",
-      "line": 34,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chart artifactu alebo directory contentu,`, `chart version/digest,`, `dependency locku a vendored dependencies,`, `values defaults,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "2. Upgrade inputs",
-      "line": 34,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "2. Upgrade inputs",
-      "line": 34,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "2. Upgrade inputs",
-      "line": 34,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CLI`, `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "3. Basic upgrade flow",
-      "line": 52,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "3. Basic upgrade flow",
-      "line": 52,
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -150482,35 +150392,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "3. Basic upgrade flow",
-      "line": 52,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "3. Basic upgrade flow",
-      "line": 52,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Helm načíta chart a dependencies.`, `Zostaví effective values.`, `Validuje values schema.`, `Renderuje templates.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "3. Basic upgrade flow",
-      "line": 52,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "4. Values pri upgrade",
-      "line": 75,
+      "section": "2. Atlas revision subjects",
+      "line": 34,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -150518,8 +150401,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Explicitné values files",
-      "line": 79,
+      "section": "3. Release revision model",
+      "line": 80,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -150527,35 +150410,26 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Reuse values",
-      "line": 92,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Reuse values",
-      "line": 92,
+      "section": "3. Release revision model",
+      "line": 80,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Reuse values",
-      "line": 92,
+      "section": "3. Release revision model",
+      "line": 80,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `staré keys zostanú aktívne,`, `nové chart defaults sa nemusia aplikovať podľa očakávania,`, `odstránené alebo premenované values vytvoria neviditeľný legacy state,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployed ;`, `superseded ;`, `failed ;`, `pending-install ;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Reuse values",
-      "line": 92,
+      "section": "3. Release revision model",
+      "line": 80,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -150563,8 +150437,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "5. Pre-upgrade evidence",
-      "line": 120,
+      "section": "5. Values transition",
+      "line": 130,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Explicitný values contract",
+      "line": 132,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -150572,26 +150455,35 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "5. Pre-upgrade evidence",
-      "line": 120,
+      "section": "--reuse-values",
+      "line": 146,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "--reuse-values",
+      "line": 146,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "5. Pre-upgrade evidence",
-      "line": 120,
+      "section": "--reuse-values",
+      "line": 146,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktuálny chart artifact digest,`, `image digests,`, `Git revision,`, `databázovú schema version,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstránené legacy keys;`, `staré boolean flags;`, `staré subchart enablement;`, `values, ktoré nový chart už nezdokumentuje;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "5. Pre-upgrade evidence",
-      "line": 120,
+      "section": "--reuse-values",
+      "line": 146,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -150599,35 +150491,80 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "5. Pre-upgrade evidence",
-      "line": 120,
+      "section": "6. Current, target a live state",
+      "line": 169,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "6. Current, target a live state",
+      "line": 169,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "6. Current, target a live state",
+      "line": 169,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `server-side defaulting;`, `mutating admission;`, `HPA;`, `operatora;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "6. Current, target a live state",
+      "line": 169,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "6. Current, target a live state",
+      "line": 169,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `SLO`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPA`",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "6. Render a diff pred upgrade",
-      "line": 145,
+      "section": "8. Render a semantic diff",
+      "line": 218,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "8. Render a semantic diff",
+      "line": 218,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "6. Render a diff pred upgrade",
-      "line": 145,
+      "section": "8. Render a semantic diff",
+      "line": 218,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current release manifest,`, `proposed rendered manifest,`, `live objects,`, `immutable fields,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource identity a names;`, `selectors a ownership labels;`, `image digestoch;`, `ConfigMap/Secret references;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "6. Render a diff pred upgrade",
-      "line": 145,
+      "section": "8. Render a semantic diff",
+      "line": 218,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -150635,8 +150572,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "6. Render a diff pred upgrade",
-      "line": 145,
+      "section": "8. Render a semantic diff",
+      "line": 218,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -150644,368 +150581,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "6. Render a diff pred upgrade",
-      "line": 145,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PVC`, `RBAC`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "7. Wait, timeout a Jobs",
-      "line": 172,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "7. Wait, timeout a Jobs",
-      "line": 172,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `na ktoré resources Helm čaká,`, `čo znamená ready,`, `či čaká na Jobs,`, `operation timeout,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "7. Wait, timeout a Jobs",
-      "line": 172,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "7. Wait, timeout a Jobs",
-      "line": 172,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "7. Wait, timeout a Jobs",
-      "line": 172,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "8. Automatic rollback behavior",
-      "line": 205,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "8. Automatic rollback behavior",
-      "line": 205,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obnoviť predchádzajúci rendered manifest,`, `vytvoriť rollback revision,`, `odstrániť niektoré nové resources podľa flags,`, `znovu spustiť rollback hooks.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "8. Automatic rollback behavior",
-      "line": 205,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "8. Automatic rollback behavior",
-      "line": 205,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`, `IAM`, `CRD`",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "9. Manual rollback",
-      "line": 228,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "9. Manual rollback",
-      "line": 228,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "9. Manual rollback",
-      "line": 228,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chart a values obsiahnuté v cieľovej revision,`, `image availability,`, `API compatibility,`, `DB schema compatibility,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "9. Manual rollback",
-      "line": 228,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "9. Manual rollback",
-      "line": 228,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DB`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "10. Rollback nie je time travel",
-      "line": 248,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "11. Force replacement",
-      "line": 272,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "11. Force replacement",
-      "line": 272,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Services s meniacou sa identity,`, `PVC/PV,`, `StatefulSets,`, `immutable selectors,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "11. Force replacement",
-      "line": 272,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "11. Force replacement",
-      "line": 272,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PVC`, `PV`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "12. Cleanup on failure",
-      "line": 286,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "12. Cleanup on failure",
-      "line": 286,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `modified existing resources,`, `hook side effects,`, `resources bez release ownershipu,`, `operators/external controllers,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "12. Cleanup on failure",
-      "line": 286,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "13. Hooks pri rollbacku",
-      "line": 299,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "13. Hooks pri rollbacku",
-      "line": 299,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pre-rollback ,`, `bežné resource reconciliation,`, `post-rollback .`, `idempotentný,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "13. Hooks pri rollbacku",
-      "line": 299,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "13. Hooks pri rollbacku",
-      "line": 299,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "14. CRDs a rollback",
-      "line": 317,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "14. CRDs a rollback",
-      "line": 317,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `served/storage API versions,`, `conversion webhook,`, `stored-version migration,`, `controller compatibility,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "14. CRDs a rollback",
-      "line": 317,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "14. CRDs a rollback",
-      "line": 317,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "15. Stateful workloads",
-      "line": 333,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "15. Stateful workloads",
-      "line": 333,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "15. Stateful workloads",
-      "line": 333,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ordered/parallel rollout,`, `quorum a leader election,`, `version skew replík,`, `PVC retention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "15. Stateful workloads",
-      "line": 333,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "17. Pending release states",
-      "line": 360,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "17. Pending release states",
-      "line": 360,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "17. Pending release states",
-      "line": 360,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prerušení klienta,`, `Helm process crashi,`, `API/network timeout-e,`, `hook Job failure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "17. Pending release states",
-      "line": 360,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "17. Pending release states",
-      "line": 360,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "17. Pending release states",
-      "line": 360,
+      "section": "8. Render a semantic diff",
+      "line": 218,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -151013,116 +150590,80 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "17. Pending release states",
-      "line": 360,
-      "severity": "medium",
+      "section": "8. Render a semantic diff",
+      "line": 218,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PVC`, `RBAC`, `resource`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "9. Upgrade execution chain",
+      "line": 246,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "10. Wait a timeout semantics",
+      "line": 262,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "10. Wait a timeout semantics",
+      "line": 262,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny image digest na každom serving Pode;`, `process-loaded configuration;`, `Service/edge traffic cohort;`, `schema alebo event compatibility;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "10. Wait a timeout semantics",
+      "line": 262,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "11. Automatic failure recovery",
+      "line": 285,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "11. Automatic failure recovery",
+      "line": 285,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aplikovať predchádzajúci release manifest;`, `vytvoriť ďalšiu rollback revision;`, `vykonať rollback hooks;`, `odstrániť vybrané newly-created resources podľa flags.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "11. Automatic failure recovery",
+      "line": 285,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "18. Concurrent writers",
-      "line": 382,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "18. Concurrent writers",
-      "line": 382,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative writer pre každý field,`, `GitOps/Helm integration model,`, `scaling ownership,`, `admission mutation expectations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "18. Concurrent writers",
-      "line": 382,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "19. Release history retention",
-      "line": 397,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "19. Release history retention",
-      "line": 397,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dostupné rollback targets,`, `namespace Secret count,`, `forensic evidence,`, `sensitive values/manifests exposure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "19. Release history retention",
-      "line": 397,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "20. CI/CD upgrade workflow",
-      "line": 409,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "21. Roll-forward vs. rollback",
-      "line": 427,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "21. Roll-forward vs. rollback",
-      "line": 427,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "21. Roll-forward vs. rollback",
-      "line": 427,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `predchádzajúci stav je stále kompatibilný,`, `side effects sú nulové alebo reverzibilné,`, `image/artifacts sú dostupné,`, `recovery je rýchlejšia a bezpečnejšia než oprava.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "21. Roll-forward vs. rollback",
-      "line": 427,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "21. Roll-forward vs. rollback",
-      "line": 427,
+      "section": "11. Automatic failure recovery",
+      "line": 285,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -151130,17 +150671,26 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "21. Roll-forward vs. rollback",
-      "line": 427,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "11. Automatic failure recovery",
+      "line": 285,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `CRD`, `PVC`, `DNS`, `IAM`",
+      "score": 7
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "22. Post-upgrade validation",
-      "line": 446,
+      "section": "12. Manual rollback subject",
+      "line": 309,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "13. Rollback compatibility matrix",
+      "line": 330,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151148,26 +150698,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "22. Post-upgrade validation",
-      "line": 446,
+      "section": "13. Rollback compatibility matrix",
+      "line": 330,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "22. Post-upgrade validation",
-      "line": 446,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application SLI,`, `error rate/latency,`, `queue lag,`, `DB migration status,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "22. Post-upgrade validation",
-      "line": 446,
+      "section": "13. Rollback compatibility matrix",
+      "line": 330,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -151175,17 +150716,53 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "22. Post-upgrade validation",
-      "line": 446,
+      "section": "14. Roll-forward, compensation a restore",
+      "line": 350,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Rollback",
+      "line": 352,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `DB`, `resource`, `policy`",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Rollback",
+      "line": 352,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Rollback",
+      "line": 352,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current durable state je backward-compatible;`, `side effects sú nulové alebo reverzibilné;`, `artifacts a dependencies sú dostupné;`, `návrat je najmenší bezpečný change.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Rollback",
+      "line": 352,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "--reuse-values bez auditu",
-      "line": 471,
+      "section": "Roll-forward",
+      "line": 361,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151193,8 +150770,35 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Automatický rollback považovaný za databázový rollback",
-      "line": 475,
+      "section": "Roll-forward",
+      "line": 361,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Roll-forward",
+      "line": 361,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema alebo event contract už nie je backward-compatible;`, `external migration dokončila;`, `malý fix obnoví správny desired state;`, `rollback hooks alebo old application predstavujú väčšie riziko.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Roll-forward",
+      "line": 361,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Compensation",
+      "line": 370,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151202,8 +150806,71 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "--force na immutable-field problém",
-      "line": 479,
+      "section": "15. Force replacement boundary",
+      "line": 385,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "15. Force replacement boundary",
+      "line": 385,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Service/LB identity;`, `StatefulSet a PVC;`, `immutable selectors;`, `CRDs;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "15. Force replacement boundary",
+      "line": 385,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "15. Force replacement boundary",
+      "line": 385,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LB`, `PVC`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "17. Stateful a data-bearing resources",
+      "line": 419,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "17. Stateful a data-bearing resources",
+      "line": 419,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data generation;`, `writer/fencing epoch;`, `quorum a version skew;`, `storage snapshot a restore test;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "17. Stateful a data-bearing resources",
+      "line": 419,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "18. Pending operation a unknown outcome",
+      "line": 435,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151211,8 +150878,197 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Upgrade bez zachovania current manifestu a values",
-      "line": 483,
+      "section": "18. Pending operation a unknown outcome",
+      "line": 435,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "18. Pending operation a unknown outcome",
+      "line": 435,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `klient bol prerušený;`, `API response sa stratila;`, `hook stále beží;`, `release storage write zlyhal;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "18. Pending operation a unknown outcome",
+      "line": 435,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "18. Pending operation a unknown outcome",
+      "line": 435,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "18. Pending operation a unknown outcome",
+      "line": 435,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "18. Pending operation a unknown outcome",
+      "line": 435,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Subject",
+      "line": 489,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 501,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 501,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 501,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 501,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rollback manifest sa neaplikoval;`, `old image I57 nie je dostupný;`, `Pody revision 19 neprešli readiness;`, `old app nevie pracovať so schema S14;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 501,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 501,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 501,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `I57`, `S14`, `E2`, `I58`",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Diskriminačné observation points",
+      "line": 512,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Containment",
+      "line": 536,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Containment",
+      "line": 536,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Containment",
+      "line": 536,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Containment",
+      "line": 536,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť ďalšie automatic retries/rollbacks;`, `pozastaviť E2 producers;`, `zachovať mixed queue evidence;`, `nevymazávať E2 messages;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Containment",
+      "line": 536,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Containment",
+      "line": 536,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2`, `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Recovery decision",
+      "line": 545,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151220,8 +151076,125 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Rollback na revision bez kontroly image availability",
-      "line": 487,
+      "section": "Recovery decision",
+      "line": 545,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Recovery decision",
+      "line": 545,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opraviť missing fraud endpoint v C58;`, `vytvoriť I58.1 s tolerantným E1/E2 consumerom;`, `renderovať a server-validate revision 22;`, `nasadiť bounded cohortu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Recovery decision",
+      "line": 545,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Recovery decision",
+      "line": 545,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Recovery decision",
+      "line": 545,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `C58`, `I58`, `E1`, `I57`",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Verification",
+      "line": 558,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Earlier controls",
+      "line": 571,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Earlier controls",
+      "line": 571,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Earlier controls",
+      "line": 571,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Earlier controls",
+      "line": 571,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event expand/contract compatibility;`, `old/new application × old/new event contract matrix;`, `canary s reálnou queue cohortou;`, `automatic rollback eligibility gate;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Earlier controls",
+      "line": 571,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "Earlier controls",
+      "line": 571,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `E2`, `SLI`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "21. Failure boundaries",
+      "line": 580,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
+      "section": "CRD rollback bez storage compatibility",
+      "line": 594,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151229,8 +151202,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Zvýšenie timeoutu ako univerzálna oprava",
-      "line": 491,
+      "section": "GitOps vráti rollback",
+      "line": 598,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151238,35 +151211,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Súbežný Helm a GitOps writer",
-      "line": 495,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Rollback je successful, aplikácia nefunguje",
-      "line": 509,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Nové chart defaults sa neaplikovali",
-      "line": 517,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/upgrade-rollback.md",
-      "section": "Rollback zlyhá na chýbajúcom resource",
-      "line": 521,
+      "section": "22. Release transition evidence",
+      "line": 602,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
