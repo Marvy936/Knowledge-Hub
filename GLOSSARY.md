@@ -1314,6 +1314,10 @@ Podiel deploymentov, ktoré spôsobia degradáciu služby a vyžadujú nápravu.
 
 Čas od vzniku sledovanej zmeny po jej úspešný deployment do produkcie. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
 
+## Change subject — IaC
+
+Presná identita infra zmeny zahŕňajúca source revision, resolved toolchain a dependencies, effective inputs, backend/state lineage a serial, target account/region, workload identity, saved plan a policy/approval context. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
 ## Changed state — Ansible
 
 Task result signal `changed: true`, ktorým module alebo custom `changed_when` oznamuje, že target state bol zmenený; používa sa aj na handler notifications. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
@@ -3165,6 +3169,10 @@ Kapacita skutočne dostupná workloadu po zohľadnení quotas, reservations, fai
 ## Effective flag state
 
 Flag revision, variant, matched rule, evaluation context, SDK/cache state a application version, ktoré konkrétny runtime evaluator skutočne použil. Môže sa líšiť od poslednej hodnoty zobrazenej v control plane počas propagation alebo rejection failure. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
+
+## Effective input subject — Terraform
+
+Rekonštruovateľná množina root a module inputs po vyhodnotení source-u, precedence, default/null semantics, caller forwarding-u a sensitive markers, viazaná na konkrétny saved plan. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
 
 ## Effective release values — Helm
 
@@ -5674,6 +5682,10 @@ Stabilné rozhranie reusable modulu tvorené inputs, outputs, provider requireme
 
 Konkrétna inštancia child module callu v graph-e, vrátane prípadného `count` indexu alebo `for_each` key v module address-e. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
 
+## Module interface contract — Terraform
+
+Versionované rozhranie modulu tvorené typovanými inputs, validation/default/null semantics, internými identity assumptions, minimálnymi stabilnými outputs a compatibility/deprecation policy. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
+
 ## Module registry — Terraform
 
 Distribučná služba publikujúca versionované Terraform modules a ich metadata pre verejnú alebo internú spotrebu; sama negarantuje bezpečnosť ani kompatibilitu modulu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
@@ -7018,6 +7030,10 @@ Deklarácia provider source addressu a povoleného version rozsahu v `required_p
 
 Deterministicky pripravený stav providera potrebný na overenie konkrétnej consumer-driven contract interaction. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
 
+## Provider target identity — Terraform
+
+Effective provider configuration address spolu s caller accountom, regionom, endpointom a workload identity, ktorá určuje, ktorú remote authorization a failure boundary provider API operácia zasiahne. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
+
 ## Provisioned concurrency — Lambda
 
 Počet predinicializovaných Lambda execution environments pripravených na invocations pre konkrétnu version alebo alias s cieľom znížiť startup latency. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
@@ -8110,6 +8126,10 @@ Stav, keď resource nestačí okamžite obslúžiť všetku prácu a vzniká que
 
 Množstvo práce, ktoré resource nedokáže okamžite obslúžiť a prejavuje sa queueingom, wait time, throttlingom alebo rejection. Pozri [USE method](docs/12-observability/use-method.md).
 
+## Saved plan subject — Terraform
+
+Konkrétny plan artifact a digest viazaný na configuration, resolved dependencies, effective inputs, state lineage/serial, refresh observations, provider versions, target identity a policy/approval verdict. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
+
 ## SBOM
 
 Machine-readable inventory software components a relationships viazaný na konkrétny software artifact alebo system. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
@@ -8837,6 +8857,10 @@ Deterministické mapovanie subjektov do percentuálnych rollout alebo experiment
 ## Stable input — automation
 
 Vstup s kontrolovanou identitou, typom a lifecycle, ktorého neočakávaná mutácia nespôsobuje nepredvídateľné recurring changes. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
+## Stable instance key — Terraform
+
+Configuration-derived key s dlhodobým identity významom používaný v `for_each` addressách; jeho zmena je resource identity change a môže vyžadovať `moved` alebo state migration contract. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
 
 ## Stable network identity — StatefulSet
 
@@ -9681,6 +9705,10 @@ Rýchly test malej izolovanej jednotky správania s úzkym diagnostickým scope-
 ## Universal group — AD DS
 
 AD DS group scope, ktorý môže obsahovať principals z viacerých domains vo forest-e a je replikovaný cez Global Catalog podľa platform semantics. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
+## Unknown remote outcome — IaC
+
+Failure stav, v ktorom pipeline nedostala spoľahlivý výsledok remote mutation a pred retry musí cez request IDs, provider logs, remote observation a state reconciliation určiť, či operácia neprebehla, prebehla čiastočne alebo uspela bez state commit-u. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
 
 ## Unknown value — Terraform
 
