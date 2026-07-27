@@ -1,152 +1,205 @@
 # Build context a layer cache
 
-Docker build nepracuje iba s Dockerfile. Potrebuje aj **build context**: množinu files a metadata dostupných builderu. Spôsob výberu contextu, poradie instructions a cache keys zásadne ovplyvňujú build performance, reproducibility, security aj výslednú veľkosť image-u.
+Docker build nevykonáva Dockerfile nad celým host filesystemom. Builder dostane explicitný context alebo viac named contexts, vytvorí input inventory, odvodí build graph a pre každý node rozhodne, či použije dôveryhodný cached result alebo vykoná novú operáciu.
 
-## 1. Build context
+Dominantný model kapitoly je:
 
-Bežný príkaz:
-
-```bash
-docker build -t example:dev .
+```text
+immutable build subject
+→ context sources a exclusion rules
+→ normalized input inventory
+→ stage/node dependency graph
+→ cache-key derivation
+→ trusted cache lookup
+→ cache hit alebo bounded execution
+→ result a cache export
+→ final artifact/provenance verification
+→ retention, clean-room rebuild a GC
 ```
 
-Bodka určuje current directory ako build context. Dockerfile môže cez `COPY` alebo `ADD` pristupovať iba k contentu v povolených contextoch, nie k ľubovoľnému host filesystemu.
+Cache je optimalizácia výsledkov už definovaného build contractu. Nesmie byť skrytým zdrojom correctness, identity ani bezpečnostných aktualizácií.
 
-Context môže byť:
+## 1. Atlas build subject
 
-- local directory,
-- local tar archive,
-- Git repository,
-- remote tarball,
-- stdin bez filesystem contextu,
-- named context.
+Atlas Payments release `R42` používa:
 
-## 2. Context root a Dockerfile path
-
-Dockerfile nemusí byť v root-e contextu:
-
-```bash
-docker build -f docker/production.Dockerfile .
+```text
+source commit: C42
+Dockerfile: docker/payments.Dockerfile
+primary context: repository root at C42
+named context docs: documentation commit D17
+base image digest: B9
+platform: linux/amd64
+release target: runtime
+builder: buildkit cluster BK7
+external cache: registry cache subject RC-main-884
 ```
 
-Tu:
+Build subject musí identifikovať nielen source commit, ale aj:
 
-- Dockerfile je `docker/production.Dockerfile`,
-- build context je stále `.`.
+- context root a context type,
+- effective `.dockerignore` rules,
+- named/Git/image contexts,
+- Dockerfile a frontend,
+- base/external image digests,
+- build args a target platform,
+- cache import subjects a trust domain,
+- remote dependency snapshots alebo lock contract,
+- selected stage/target.
 
-`COPY` paths sú vyhodnocované voči context rootu, nie voči directory Dockerfile-u.
+Ak niektorý významný input chýba z identity alebo cache dependency modelu, build môže byť rýchly a zároveň nesprávny.
 
-## 3. Prečo veľký context škodí
+## 2. Context je security a correctness boundary
 
-Príliš široký context môže obsahovať:
+Príkaz:
 
-- `.git` history,
-- test artifacts,
-- local dependencies,
-- build outputs,
-- secrets a `.env` files,
-- IDE metadata,
-- logs a dumps,
-- inú application source tree.
+```bash
+docker build -f docker/payments.Dockerfile .
+```
 
-Dôsledky:
+znamená:
 
-- pomalší transfer alebo hashing,
-- väčší cache invalidation scope,
-- riziko neúmyselného `COPY`,
-- secret leakage do buildera,
-- nepresná provenance.
+```text
+Dockerfile path = docker/payments.Dockerfile
+context root = current directory
+```
 
-Context má byť minimálny, ale musí obsahovať všetky deklarované build inputs.
+`COPY` source paths sa vyhodnocujú voči context rootu, nie voči directory Dockerfile-u.
 
-## 4. `.dockerignore`
+Builder štandardne nemá čítať ľubovoľný host path mimo povolených contexts. To vytvára dôležitú boundary:
 
-`.dockerignore` filtruje files odoslané do build contextu.
+```text
+host filesystem
+→ selected context inventory
+→ builder-visible files
+→ files skutočne použité build graphom
+→ content vo výslednom artifacte
+```
+
+Tieto množiny nie sú totožné. Secret môže byť odoslaný builderu, aj keď ho žiadny `COPY` neprenesie do final image-u. Tým sa stále rozšíri builder trust a incident scope.
+
+## 3. `.dockerignore` ako input-filter contract
 
 Príklad:
 
 ```text
 .git
 .env
-*.log
+*.pem
 node_modules
 coverage
 build
-*.pem
+*.log
 ```
 
-Dôležité:
+`.dockerignore` znižuje:
 
-- `.dockerignore` nie je secret manager,
-- file už commitnutý v repository zostáva v Git history,
-- patterns musia byť testované,
-- príliš široké pravidlo môže odstrániť potrebný source,
-- exceptions sa zapisujú cez `!pattern`.
+- context transfer a hashing,
+- cache invalidation surface,
+- accidental copy risk,
+- builder-visible secret surface,
+- nepresnú provenance.
 
-Príklad:
+Nie je to secret manager ani náhrada source hygiene. File môže zostať:
+
+- v Git history,
+- v inom named contexte,
+- v CI artifacte,
+- v build cache,
+- na builder workeri.
+
+### Failure boundary: ignore rule odstráni required migration
+
+Rule:
 
 ```text
-*.md
-!README.md
+migrations/
 ```
 
-## 5. Named contexts
+bola pridaná kvôli lokálnym test artifacts, ale zároveň odstránila production SQL migrations z contextu. `COPY . .` prešla, build aj smoke test boli green, no final image nedokázal vykonať database upgrade.
 
-BuildKit umožňuje pridať viac explicitne pomenovaných contexts:
+Mechanizmus:
+
+```text
+broad ignore rule
+→ required file nie je v input inventory
+→ COPY ho nemôže preniesť
+→ final artifact je neúplný
+→ failure sa prejaví až pri runtime workflowe
+```
+
+Kontrola musí validovať expected context inventory, nie iba úspech build-u.
+
+## 4. Context typy a immutable identity
+
+Context môže byť napríklad:
+
+- local directory,
+- local tar archive,
+- Git repository/ref,
+- remote tarball,
+- stdin,
+- named context,
+- image context.
+
+Git branch `main` nie je immutable build input. Reprodukovateľnejší Git context potrebuje:
+
+- exact commit SHA,
+- submodule identity,
+- source authentication bez leakage,
+- expected repository/ref verification,
+- commit metadata v provenance.
+
+Named contexts umožňujú zmenšiť primary context a explicitne pomenovať dependencies:
 
 ```bash
 docker buildx build \
   --build-context docs=./documentation \
-  --build-context base=docker-image://alpine:3.21 \
+  --build-context policy=docker-image://registry.atlas.example/policy@sha256:abc... \
   .
 ```
 
-Dockerfile môže named context použiť podobne ako stage:
+Dockerfile ich môže používať podobne ako stage:
 
 ```dockerfile
-COPY --from=docs / /usr/share/doc/example
+COPY --from=docs / /usr/share/doc/payments
 ```
 
-Named contexts znižujú potrebu rozširovať default context a umožňujú explicitnejší supply-chain contract.
+Každý named context musí mať vlastnú immutable identity a trust policy.
 
-## 6. Git context
+## 5. Cache node nie je iba „starý layer“
 
-Remote Git context môže buildnúť konkrétny repository ref. Pre reprodukovateľnosť potrebuješ:
+Moderný BuildKit modeluje build ako graph operations. Cache key môže závisieť od:
 
-- commit SHA alebo immutable tag policy,
-- kontrolu submodules,
-- autentifikáciu bez secret leakage,
-- overenie source identity,
-- zachovanie commit metadata v provenance.
-
-Mutable branch `main` nie je immutable build input.
-
-## 7. Cache model
-
-Builder môže znovu použiť výsledok predchádzajúcej instruction, keď sa zhoduje jej cache key a relevantné inputs.
-
-Cache key môže závisieť napríklad od:
-
-- instruction textu,
-- parent stage/layer state,
+- instruction a frontend semantics,
+- parent node/result identity,
 - copied file contentu a metadata,
+- mount configuration,
 - build args,
-- mount options,
-- base image identity,
-- frontend a platform configuration.
+- base image a platformy,
+- source/named context identity,
+- relevantných execution options.
 
-Cache nie je iba „layer s rovnakým poradím“. Moderný BuildKit používa graph-based execution a content-derived metadata.
+Ak sa key zhoduje a cache source je dôveryhodný, builder môže použiť predchádzajúci result bez opakovania execution.
 
-## 8. Cache invalidation
+To vedie k trom odlišným otázkam:
 
-Príklad zlého poradia:
+1. **Je cache hit technicky validný podľa key?**
+2. **Je cache source dôveryhodný pre tento build?**
+3. **Je cache key úplným modelom všetkých correctness a freshness inputs?**
+
+Technicky validný hit môže byť bezpečnostne alebo produktovo zastaraný, ak build step číta mutable remote state, ktoré nie je reprezentované immutable inputom.
+
+## 6. Poradie instructions ako dependency model
+
+Neefektívne:
 
 ```dockerfile
 COPY . .
 RUN npm ci
 ```
 
-Každá zmena source file-u invaliduje dependency install.
+Každá source zmena mení broad `COPY` result a invaliduje dependency install.
 
 Lepšie:
 
@@ -156,284 +209,348 @@ RUN npm ci
 COPY . .
 ```
 
-Dependency layer sa invaliduje iba pri zmene dependency manifestu alebo relevantného build inputu.
+Graph teraz vyjadruje:
+
+```text
+dependency manifests
+→ dependency install
+→ application source
+→ build/test
+```
 
 Všeobecné pravidlo:
 
 ```text
-stabilné a drahé kroky skôr
-často meniace sa kroky neskôr
+stabilnejšie a drahé declared inputs skôr
+→ často meniace sa inputs neskôr
 ```
 
-Nesmie to však narušiť correctness alebo secret boundary.
+Optimalizácia nesmie vynechať skrytý input. Ak dependency install reálne používa ďalší config, certificate alebo workspace file, musí byť zahrnutý do node dependency subjectu.
 
-## 9. `RUN` cache
+## 7. Mutable remote inputs a stale `RUN` result
 
-Builder typicky nevie, či remote package repository zmenilo obsah, iba z textu commandu.
+Instruction:
 
 ```dockerfile
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y libexample
 ```
 
-Pri nezmenenej instruction môže byť použitá cache. Preto:
+obsahuje text commandu, ale remote repository state sa môže meniť bez zmeny Dockerfile-u. Pri cache hit-e sa command nevykoná a remote update sa vôbec nepozoruje.
 
-- používaj explicitný update policy,
-- pravidelne rebuildni image,
-- používaj controlled base image update,
-- podľa potreby invaliduj konkrétny stage,
-- nespoliehaj sa na `--no-cache` ako jediný security update proces.
+Pri cache miss-e sa command vykoná, ale výsledok môže byť odlišný v rôznych časoch, ak package version alebo repository snapshot nie sú kontrolované.
 
-## 10. `COPY` cache
+Preto treba rozlišovať:
 
-`COPY` cache závisí od source contentu a metadata. Zmeny mimo copied paths nemusia invalidovať instruction.
+- **reproducibility** — rovnaký immutable input subject dá rovnaký výsledok;
+- **freshness/update** — workflow zámerne vytvorí nový input subject;
+- **cache reuse** — optimalizácia už zvoleného subjectu.
 
-Preto je výhodné kopírovať dependency manifests oddelene od zvyšku source-u.
+`--no-cache` iba núti execution graphu. Nepinuje remote packages, neoveruje ich trust a negarantuje rovnaký výsledok.
 
-Riziká:
-
-- generated timestamps,
-- nečakané file permissions,
-- case-sensitive rozdiely,
-- `.dockerignore` zmena,
-- symlink behavior,
-- line-ending transformations.
-
-## 11. Cache mounts
-
-BuildKit cache mount:
+## 8. Cache mounts: performance state, nie build truth
 
 ```dockerfile
 RUN --mount=type=cache,target=/root/.cache/go-build \
     go build ./...
 ```
 
-Alebo package cache:
+Cache mount poskytuje pomocný mutable storage pre command, zatiaľ čo instruction result vzniká znovu.
+
+Musí platiť:
+
+```text
+empty cache
+→ build je pomalší
+→ výsledný correctness contract zostáva rovnaký
+```
+
+Ak build bez cache nevie obnoviť required artifact alebo dependency, cache sa stala nezdokumentovaným source-of-truth.
+
+Concurrency behavior je tiež contract:
 
 ```dockerfile
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    --mount=type=cache,target=/var/cache/apt,sharing=locked \
     apt-get update && apt-get install -y gcc
 ```
 
-Cache mount:
+Nesprávne shared state môže viesť ku corruption alebo nondeterministic resultom.
 
-- zrýchľuje build,
-- nie je súčasťou výslednej image layer podľa bežného použitia,
-- môže byť odstránený garbage collectionom,
-- nesmie byť correctness dependency,
-- potrebuje správny concurrency mode.
+## 9. Secret, SSH a bind mounts
 
-Build musí fungovať aj s prázdnou cache.
-
-## 12. Bind mount v build-e
-
-```dockerfile
-RUN --mount=type=bind,source=.,target=/src,ro \
-    make -C /src
-```
-
-Bind mount sprístupní context alebo iný source počas instruction bez automatického skopírovania všetkého do layer.
-
-Writes do default read-only mountu nie sú povolené; pri writable variante sa nemusia stať súčasťou výslednej layer. Výsledné artifacts musíš explicitne uložiť na layer filesystem alebo skopírovať zo stage.
-
-## 13. Secret a SSH mounts
+### Secret mount
 
 ```dockerfile
 RUN --mount=type=secret,id=npmrc,target=/root/.npmrc \
     npm ci
 ```
 
+### SSH mount
+
 ```dockerfile
 RUN --mount=type=ssh \
-    git clone git@github.com:example/private-repo.git
+    git clone git@github.com:atlas/private-module.git
 ```
 
-Tieto mounts znižujú riziko uloženia credentials do image layers alebo build args. Stále musíš kontrolovať:
+### Bind mount
 
-- command output,
-- package-manager config copy,
-- generated files,
-- cache content,
-- remote dependency trust.
+```dockerfile
+RUN --mount=type=bind,source=.,target=/src,ro \
+    make -C /src
+```
 
-## 14. External cache
+Tieto mounts oddeľujú execution-time access od automatického uloženia mount contentu do layeru. Nezaručujú však, že command:
 
-CI builders často nemajú stabilný local cache. BuildKit môže exportovať/importovať cache napríklad do:
+- nevypíše secret,
+- nevytvorí credential file v layer filesysteme,
+- nezapíše citlivé dáta do cache,
+- nevloží secret do binary alebo bundle,
+- správne deklaruje všetky relevantné inputs.
 
-- registry,
-- local directory,
-- CI cache backendu,
-- inline image metadata podľa režimu.
+Výsledný artifact a cache/export treba analyzovať nezávisle od mount type-u.
 
-Príklad:
+## 10. External cache ako samostatný supply-chain artifact
+
+CI často importuje cache z registry:
 
 ```bash
 docker buildx build \
-  --cache-from type=registry,ref=registry.example.com/example/cache:main \
-  --cache-to type=registry,ref=registry.example.com/example/cache:main,mode=max \
-  -t registry.example.com/example/app:${GIT_SHA} \
-  --push .
+  --cache-from type=registry,ref=registry.atlas.example/cache/payments:main \
+  --cache-to type=registry,ref=registry.atlas.example/cache/payments:main,mode=max \
+  --push \
+  -t registry.atlas.example/payments/api:${GIT_SHA} \
+  .
 ```
 
-Cache artifact nie je production image a potrebuje vlastnú:
+Cache subject potrebuje:
 
-- access policy,
-- retention,
-- namespace isolation,
-- poisoning threat model.
+- namespace a ownera,
+- writer/read identities,
+- source branch/trust domain,
+- platform a builder compatibility,
+- retention a GC policy,
+- provenance alebo audit podľa rizika,
+- poisoning response.
 
-## 15. Cache poisoning
+Production image a external cache sú odlišné artifacts. Cache nesmie dostať production dôveru iba preto, že je uložená v rovnakej registry.
 
-Nedôveryhodný actor môže ovplyvniť shared cache tak, aby privileged build použil podvrhnutý result.
+## 11. Cache poisoning a trust-domain separation
+
+Rizikový model:
+
+```text
+untrusted fork build
+→ write do shared cache refu
+→ protected release importuje cache
+→ reuse podvrhnutého resultu
+→ trusted image publication
+```
 
 Riziko rastie pri:
 
-- shared cache medzi fork PR a protected branch,
-- mutable cache refs,
-- širokom registry write access-e,
-- nesprávnom key namespace,
-- používaní cache ako correctness source.
+- mutable shared cache references,
+- broad registry write permission,
+- spoločnom namespace pre forks a protected branches,
+- absent provenance/audit,
+- cache používanom ako jediný source required artifactu.
 
-Ochrana:
+Controls:
 
-- oddeľ trust domains,
-- fork cache používaj iba read-only alebo izolovane,
-- privileged release build nepoužíva untrusted write cache,
-- zachovaj provenance a rebuild capability,
-- pinuj external executable inputs.
+- oddeľ writable cache trust domains,
+- untrusted cache nepoužívaj ako authoritative input protected release-u,
+- používaj read-only alebo isolated fork cache,
+- viaž cache subject na repository, branch/trust class, platform a builder,
+- zachovaj clean rebuild capability,
+- over final artifact nezávislými tests/policy.
 
-## 16. Layer cache vs. package cache
+## 12. Multi-platform cache
 
-### Layer/instruction cache
+Cache pre `linux/amd64` nemusí byť validná pre `linux/arm64`.
 
-Znovu používa celý výsledok build graph node-u.
+Platform-relevantné inputs zahŕňajú:
 
-### Cache mount
-
-Zachová pomocné dáta pre nový execution instruction.
-
-Príklad:
-
-- layer cache môže preskočiť celé `go build`,
-- cache mount umožní `go build` znovu prebehnúť rýchlejšie s cached objects.
-
-Tieto mechanizmy riešia odlišné problémy.
-
-## 17. Multi-platform cache
-
-Cache musí rozlišovať platform-relevantné inputs:
-
-- `TARGETPLATFORM`,
 - `BUILDPLATFORM`,
-- architecture-specific toolchain,
-- native dependencies,
-- emulation vs. native builder.
+- `TARGETPLATFORM`,
+- `TARGETOS`, `TARGETARCH`,
+- native toolchain a system libraries,
+- emulation/native builder mode,
+- architecture-specific generated artifacts.
 
-Cache result pre `linux/amd64` nemusí byť validný pre `linux/arm64`.
+Ak cache subject neoddeľuje platformy správne, môže final image obsahovať nesprávny executable a zlyhať `exec format error` až pri runtime.
 
-## 18. Reproducibility vs. cache
+## 13. Causal walkthrough: security rebuild stále obsahuje zraniteľnú knižnicu
 
-Cache môže skryť nedeterministický build. Preto release workflow potrebuje občas:
+### Symptóm
 
-- clean-room rebuild,
-- comparison výsledných digests,
-- provenance kontrolu,
-- base/dependency refresh,
-- explicitný cache bypass pre relevantný stage.
+Vulnerability team očakáva, že rebuild `R42-security1` načíta opravenú `libexample`. Pipeline prebehne rýchlo a green, ale SBOM final image-u stále obsahuje vulnerable version.
 
-`--no-cache` nepinuje remote dependencies a samo osebe negarantuje reproducibility.
+### Competing hypotheses
 
-## 19. Build performance observability
+1. base image digest stále obsahuje starú knižnicu;
+2. package install node bol cache hit;
+3. package repository ešte neposkytuje fix;
+4. Dockerfile pinuje vulnerable version;
+5. external cache bol podvrhnutý alebo nesprávne namespaced;
+6. scanner analyzuje starý digest;
+7. release tag smeruje na starý image;
+8. fix existuje iba pre inú platform variantu.
+
+### Discriminating observation points
+
+Zachovaj exact subjects:
+
+```text
+source commit
+Dockerfile/frontend
+base digest
+platform
+cache-from refs
+final digest
+scanner/SBOM subject
+```
+
+Spusť plain progress:
+
+```bash
+docker buildx build --progress=plain ...
+```
+
+Porovnaj:
+
+- ktorý node bol `CACHED`,
+- base a final manifest digest,
+- cache source/ref a platform,
+- effective package pin/lock,
+- repository snapshot alebo package metadata,
+- SBOM package origin,
+- deployment/tag correlation.
+
+### Finding
+
+`RUN apt-get update && apt-get install libexample` bol obnovený z external cache, preto sa remote repository vôbec nečítalo. Workflow vytvoril nový release label, ale nevytvoril nový immutable dependency subject ani zámernú invalidáciu security-sensitive node-u.
+
+### Containment a recovery
+
+1. zablokuj publication/deployment vulnerable digestu;
+2. potvrď dostupnosť a identity opravenej package version;
+3. vytvor nový controlled dependency/base input subject;
+4. invaliduj iba relevantný stage/node alebo vykonaj trusted clean build;
+5. nepouži cache z nedôveryhodného subjectu;
+6. vygeneruj nový SBOM/scan pre každý platform manifest;
+7. over runtime smoke a exact deployed digest.
+
+### Skoršie controls
+
+- explicitný base/dependency update workflow,
+- immutable repository snapshot alebo lock podľa ecosystemu,
+- security rebuild epoch viazaný na reviewed input change,
+- subject-bound cache inventory,
+- expected SBOM delta assertion,
+- clean-room rebuild sampling,
+- deny, ak scanner analyzuje iný digest než release.
+
+## 14. Causal walkthrough: rovnaký commit, rozdielny image
+
+### Symptóm
+
+Dva builders vytvoria z commitu `C42` odlišné final digests.
+
+### Hypotheses
+
+- odlišný base tag resolution,
+- iný Git submodule alebo named context,
+- mutable package repository,
+- odlišná target platforma,
+- generated timestamp alebo locale,
+- odlišný frontend/toolchain,
+- iný `.dockerignore`/context root,
+- cache result z iného trust domainu.
+
+### Dôkazný postup
+
+Porovnaj build subjects, nie iba Dockerfile text:
+
+```text
+source/context inventory
+frontend
+base digests
+args/platform
+named contexts
+external dependency snapshots
+cache import subjects
+builder/toolchain
+final manifests/config/layers
+```
+
+Recovery je odstránenie neidentifikovaného alebo mutable inputu. Nútenie rovnakého digestu bez pochopenia príčiny by iba skrylo provenance gap.
+
+## 15. Build observability
 
 Sleduj:
 
-- context size,
-- context transfer time,
-- cache hit rate,
-- duration per stage,
+- context size a file count,
+- excluded/expected input inventory,
+- context transfer a hashing time,
+- duration a cache outcome per node,
+- cache source a export result,
 - external download time,
-- cache export/import size,
-- final image size,
-- changed layers medzi releases,
-- builder CPU/memory/disk pressure.
+- builder CPU, memory, disk a inode pressure,
+- output/image size,
+- changed manifests/layers medzi releases,
+- clean-room digest comparison,
+- cache retention a GC events.
 
-BuildKit progress output:
+BuildKit progress je execution trace, nie úplná provenance. Potrebuje doplniť immutable input a artifact subjects.
 
-```bash
-docker buildx build --progress=plain .
-```
+## 16. Referenčný cache katalóg
 
-## 20. Anti-patterny
+| Mechanizmus | Čo reuseuje alebo sprístupňuje | Nesmie sa stať |
+|---|---|---|
+| Instruction/layer cache | celý predchádzajúci graph-node result | skrytý freshness policy |
+| Cache mount | mutable pomocné dáta pre nový execution | jediný source required artifactu |
+| Bind mount | context/source počas instruction | implicitný undeclared output path |
+| Secret mount | krátkodobý secret počas instruction | secret v layer/log/cache |
+| SSH mount | forwarded SSH agent/socket | neauditovaný mutable source |
+| Registry cache export | zdieľané build graph results | cross-trust poisoning path |
+| Inline cache | cache metadata spojená s image | production attestation replacement |
+| Clean-room build | nový build bez reuse relevantnej cache | jednorazový rituál bez input porovnania |
 
-### Context je celý monorepo bez `.dockerignore`
+## 17. Praktické controls
 
-Zvyšuje transfer, invalidáciu a secret exposure.
+- definuj minimálny, ale úplný context inventory;
+- testuj `.dockerignore` proti expected files;
+- pinuj Git/named/image context subjects;
+- kopíruj dependency manifests pred application source iba ak sú všetky inputs explicitné;
+- build musí byť correct s prázdnou cache;
+- oddeľ cache trust domains a write permissions;
+- zaznamenávaj cache import/export subjects v provenance;
+- nevydávaj cache hit za security update;
+- porovnávaj SBOM a digests pri controlled rebuildoch;
+- chráň cache, builder a registry cleanup vlastnými retention rules.
 
-### `COPY . .` pred dependency install
+## 18. Kontrolné otázky
 
-Každá source zmena invaliduje drahý dependency layer.
-
-### Cache ako povinný source artifacts
-
-Po garbage collectione build zlyhá alebo vytvorí iný výsledok.
-
-### Shared writable cache medzi untrusted a release builds
-
-Vzniká cache-poisoning path.
-
-### Secret uložený do package-manager cache
-
-Secret mount nezabráni tomu, aby si ho tool skopíroval inde.
-
-### `--no-cache` ako security patch stratégia
-
-Nezaručuje nové ani dôveryhodné remote inputs.
-
-## 21. Troubleshooting
-
-### Build odosiela stovky MB contextu
-
-Over context root a `.dockerignore`. Skontroluj `.git`, dependencies, artifacts a dumps.
-
-### Cache sa neočakávane invaliduje
-
-Over zmenené copied files, build args, base digest, permissions, frontend version a platform.
-
-### Cache sa neočakávane používa
-
-Over mutable remote dependencies a explicitne invaliduj konkrétny stage alebo zmeň controlled cache-busting input.
-
-### CI nemá cache hit
-
-Over cache export po úspešnom build-e, registry auth, ref naming, platform, builder driver a retention.
-
-### Release image sa líši pri rovnakom commite
-
-Porovnaj base digest, package indexes, timestamps, architecture, generated files, toolchain a build arguments.
-
-## 22. Kontrolné otázky
-
-1. Čo je build context?
-2. Voči čomu sa vyhodnocuje source path v `COPY`?
-3. Čo `.dockerignore` rieši a čo nerieši?
-4. Prečo záleží na poradí Dockerfile instructions?
-5. Aký je rozdiel medzi layer cache a cache mountom?
+1. Aký je rozdiel medzi host filesystemom, contextom a files použitými build graphom?
+2. Prečo `.dockerignore` nie je secret manager?
+3. Čo musí obsahovať context subject?
+4. Prečo technicky validný cache hit nemusí byť freshness-correct?
+5. Aký je rozdiel medzi instruction cache a cache mountom?
 6. Prečo build musí fungovať s prázdnou cache?
-7. Ako vzniká cache poisoning?
-8. Prečo `--no-cache` negarantuje reprodukovateľnosť?
-9. Ako named contexts zlepšujú build boundary?
-10. Ktoré metriky pomáhajú diagnostikovať pomalý build?
+7. Ako vzniká cache poisoning medzi fork a release buildom?
+8. Prečo `--no-cache` negarantuje reproducibility ani security update?
+9. Ktoré inputs musia byť platform-specific?
+10. Ako diagnostikuješ rozdielne digests z rovnakého source commit-u?
 
 ## Glossary impact
 
-Relevantné pojmy: build context, context root, `.dockerignore`, named context, Git build context, build cache, cache key, cache invalidation, cache mount, build bind mount, secret mount, SSH mount, external cache, cache poisoning a clean-room rebuild.
+Relevantné pojmy: build context subject, expected context inventory, effective ignore rules, named context subject, build graph node subject, cache decision subject, external cache trust domain, cache freshness gap, cache poisoning path, controlled dependency refresh, clean-room build evidence a cache retention subject.
 
 ## Oficiálna dokumentácia
 
 - [Build context](https://docs.docker.com/build/concepts/context/)
-- [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)
 - [Using the build cache](https://docs.docker.com/get-started/docker-concepts/building-images/using-the-build-cache/)
 - [Build cache optimization](https://docs.docker.com/build/cache/optimize/)
+- [Cache storage backends](https://docs.docker.com/build/cache/backends/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
