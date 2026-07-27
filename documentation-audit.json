@@ -2663,15 +2663,15 @@
     {
       "path": "docs/10-helm-and-cka/hooks.md",
       "title": "Hooks",
-      "words": 1841,
-      "headings": 47,
-      "sections": 47,
-      "findings": 89,
-      "critical": 32,
-      "high": 38,
+      "words": 1853,
+      "headings": 35,
+      "sections": 35,
+      "findings": 72,
+      "critical": 28,
+      "high": 25,
       "medium": 12,
       "low": 7,
-      "score": 734,
+      "score": 585,
       "grade": "D"
     },
     {
@@ -148421,53 +148421,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "1. Hook annotation",
-      "line": 5,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "2. Dostupné hooks",
-      "line": 23,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "2. Dostupné hooks",
-      "line": 23,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "2. Dostupné hooks",
-      "line": 23,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pre-install ,`, `post-install ,`, `pre-upgrade ,`, `post-upgrade ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "2. Dostupné hooks",
-      "line": 23,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "5. Rollback lifecycle",
-      "line": 71,
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -148475,80 +148430,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "6. Delete lifecycle",
-      "line": 84,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "6. Delete lifecycle",
-      "line": 84,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstrániť workload z external registry,`, `vykonať controlled drain,`, `exportovať metadata,`, `validovať retention policy.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "6. Delete lifecycle",
-      "line": 84,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "6. Delete lifecycle",
-      "line": 84,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "9. Hook weight",
-      "line": 133,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "9. Hook weight",
-      "line": 133,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "9. Hook weight",
-      "line": 133,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `musia byť string reprezentácia čísla,`, `môžu byť záporné, nulové alebo kladné,`, `nižšia hodnota sa vykoná skôr,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "9. Hook weight",
-      "line": 133,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "10. Hook delete policy",
-      "line": 157,
+      "section": "2. Atlas hook subject",
+      "line": 34,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -148556,89 +148439,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "10. Hook delete policy",
-      "line": 157,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "10. Hook delete policy",
-      "line": 157,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "10. Hook delete policy",
-      "line": 157,
+      "section": "3. Annotation a lifecycle point",
+      "line": 64,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `before-hook-creation ,`, `hook-succeeded ,`, `hook-failed .`, `zmazanie úspešného Jobu znižuje clutter,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pre-install a post-install ;`, `pre-upgrade a post-upgrade ;`, `pre-rollback a post-rollback ;`, `pre-delete a post-delete ;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "10. Hook delete policy",
-      "line": 157,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "11. Job TTL",
-      "line": 178,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "11. Job TTL",
-      "line": 178,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "11. Job TTL",
-      "line": 178,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hook policy riadi cleanup počas Helm lifecycle,`, `TTL čistí dokončený Job neskôr,`, `príliš krátky TTL odstráni incident evidence,`, `bez central logs môže byť diagnostika nemožná.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "11. Job TTL",
-      "line": 178,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "12. Hook resources nie sú bežný release inventory",
-      "line": 195,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique alebo reusable naming model,`, `delete policy alebo TTL,`, `owner/labels,`, `manual cleanup runbook,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "12. Hook resources nie sú bežný release inventory",
-      "line": 195,
+      "section": "3. Annotation a lifecycle point",
+      "line": 64,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -148646,8 +148457,44 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "12. Hook resources nie sú bežný release inventory",
-      "line": 195,
+      "section": "4. Hook inventory vzniká renderovaním",
+      "line": 94,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "4. Hook inventory vzniká renderovaním",
+      "line": 94,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hooks z parent chartu aj dependencies;`, `image digest;`, `ServiceAccount a RBAC;`, `lifecycle point a weight;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "4. Hook inventory vzniká renderovaním",
+      "line": 94,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "4. Hook inventory vzniká renderovaním",
+      "line": 94,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "4. Hook inventory vzniká renderovaním",
+      "line": 94,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -148655,17 +148502,26 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "12. Hook resources nie sú bežný release inventory",
-      "line": 195,
-      "severity": "medium",
+      "section": "4. Hook inventory vzniká renderovaním",
+      "line": 94,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`, `ID`, `TTL`, `policy`",
+      "score": 7
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "14. Idempotencia",
-      "line": 229,
+      "section": "6. Readiness semantics",
+      "line": 146,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "7. Hook Job contract",
+      "line": 175,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -148673,26 +148529,35 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "14. Idempotencia",
-      "line": 229,
+      "section": "8. Idempotency a unknown outcome",
+      "line": 223,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "8. Idempotency a unknown outcome",
+      "line": 223,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "14. Idempotencia",
-      "line": 229,
-      "severity": "critical",
+      "section": "8. Idempotency a unknown outcome",
+      "line": 223,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zopakovaný operatorom,`, `retryovaný pipeline-om,`, `rollbacknutý,`, `spustený súbežne z dvoch automation systémov.`.",
-      "score": 12
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `načíta durable migration ledger;`, `vyhľadá operation ID atlas-payments/schema-expand/19 ;`, `overí výslednú schema generation;`.",
+      "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "14. Idempotencia",
-      "line": 229,
+      "section": "8. Idempotency a unknown outcome",
+      "line": 223,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -148700,8 +148565,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "14. Idempotencia",
-      "line": 229,
+      "section": "8. Idempotency a unknown outcome",
+      "line": 223,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -148709,8 +148574,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "14. Idempotencia",
-      "line": 229,
+      "section": "8. Idempotency a unknown outcome",
+      "line": 223,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -148718,62 +148583,35 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "15. Concurrency control",
-      "line": 250,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "15. Concurrency control",
-      "line": 250,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden release writer,`, `CI/CD concurrency lock,`, `database advisory lock,`, `migration table/version lock,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "15. Concurrency control",
-      "line": 250,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "15. Concurrency control",
-      "line": 250,
+      "section": "8. Idempotency a unknown outcome",
+      "line": 223,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `CD`, `ID`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "16. Database migrations",
-      "line": 265,
+      "section": "9. Concurrency a fencing",
+      "line": 246,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "16. Database migrations",
-      "line": 265,
+      "section": "9. Concurrency a fencing",
+      "line": 246,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `downtime je akceptovaný alebo nevznikne incompatibility,`, `operation je bounded,`, `rollback model je známy,`, `database lock neodstaví všetky replicas,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `migration table s unique operation ID;`, `advisory lock;`, `compare-and-set nad schema generation;`, `fencing epoch pre stateful writera.`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "16. Database migrations",
-      "line": 265,
+      "section": "9. Concurrency a fencing",
+      "line": 246,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -148781,161 +148619,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "17. Backup hook",
-      "line": 289,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "17. Backup hook",
-      "line": 289,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application-consistent snapshot,`, `uloženie mimo cluster failure domain,`, `encryption,`, `retention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "17. Backup hook",
-      "line": 289,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "18. Validation hook",
-      "line": 302,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "18. Validation hook",
-      "line": 302,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "18. Validation hook",
-      "line": 302,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS/Service connectivity,`, `základný API request,`, `schema version,`, `required dependency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "18. Validation hook",
-      "line": 302,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "18. Validation hook",
-      "line": 302,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `API`, `CI`, `SLO`",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "19. Test hook",
-      "line": 321,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "19. Test hook",
-      "line": 321,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "19. Test hook",
-      "line": 321,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používať least-privilege ServiceAccount,`, `mať timeout a bounded retry,`, `nemať deštruktívne side effects,`, `generovať čitateľný exit status a logs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "19. Test hook",
-      "line": 321,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "19. Test hook",
-      "line": 321,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "20. RBAC a identity",
-      "line": 345,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "20. RBAC a identity",
-      "line": 345,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "20. RBAC a identity",
-      "line": 345,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reuse cluster-admin ,`, `mount default ServiceAccount token bez potreby,`, `prístup ku všetkým Secrets,`, `create/update CRDs z application namespace hooku.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "20. RBAC a identity",
-      "line": 345,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "20. RBAC a identity",
-      "line": 345,
+      "section": "9. Concurrency a fencing",
+      "line": 246,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -148943,44 +148628,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "20. RBAC a identity",
-      "line": 345,
+      "section": "9. Concurrency a fencing",
+      "line": 246,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `workload`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "21. Secrets",
-      "line": 364,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "21. Secrets",
-      "line": 364,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `command-line arguments viditeľné v process metadata,`, `logs,`, `Job manifest/release state,`, `environment variables,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "21. Secrets",
-      "line": 364,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "22. Resource limits a scheduling",
-      "line": 379,
+      "section": "10. Database migration lifecycle",
+      "line": 269,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -148988,26 +148646,26 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "22. Resource limits a scheduling",
-      "line": 379,
+      "section": "10. Database migration lifecycle",
+      "line": 269,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "22. Resource limits a scheduling",
-      "line": 379,
+      "section": "10. Database migration lifecycle",
+      "line": 269,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zostať Pending pre quota/LimitRange,`, `byť OOMKilled počas migrácie,`, `súperiť s production workloadom,`, `spôsobiť Node pressure.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je bounded;`, `nevytvorí nekompatibilitu so starou cohortou;`, `lock neodstaví všetky replicas;`, `rollback/roll-forward hranica je známa;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "22. Resource limits a scheduling",
-      "line": 379,
+      "section": "10. Database migration lifecycle",
+      "line": 269,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -149015,8 +148673,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "22. Resource limits a scheduling",
-      "line": 379,
+      "section": "10. Database migration lifecycle",
+      "line": 269,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -149024,35 +148682,35 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "23. Observability",
-      "line": 399,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "10. Database migration lifecycle",
+      "line": 269,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "23. Observability",
-      "line": 399,
+      "section": "12. RBAC a secret boundary",
+      "line": 310,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "23. Observability",
-      "line": 399,
+      "section": "12. RBAC a secret boundary",
+      "line": 310,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release name a revision,`, `chart/app version,`, `hook type a weight,`, `Job UID,`.",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dedicated ServiceAccount;`, `namespaced Role/RoleBinding, ak cluster scope nie je nutný;`, `minimálne verbs a resources;`, `short-lived workload identity pre external systems;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "23. Observability",
-      "line": 399,
+      "section": "12. RBAC a secret boundary",
+      "line": 310,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -149060,62 +148718,80 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "23. Observability",
-      "line": 399,
+      "section": "12. RBAC a secret boundary",
+      "line": 310,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "12. RBAC a secret boundary",
+      "line": 310,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `UTC`, `ID`, `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `scope`, `workload`, `identity`",
       "score": 7
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "24. Timeout a --wait",
-      "line": 424,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "13. Timeout layers",
+      "line": 333,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "24. Timeout a --wait",
-      "line": 424,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "24. Timeout a --wait",
-      "line": 424,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "26. Hooks a GitOps",
-      "line": 450,
+      "section": "13. Timeout layers",
+      "line": 333,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "26. Hooks a GitOps",
-      "line": 450,
+      "section": "13. Timeout layers",
+      "line": 333,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či controller hooks podporuje alebo prekladá,`, `rozdiel medzi Helm hook a controller-specific hook annotation,`, `retry a health behavior,`, `garbage collection,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Job UID a attempts;`, `operation ledger;`, `target schema alebo external object;`, `current release status;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "26. Hooks a GitOps",
-      "line": 450,
+      "section": "13. Timeout layers",
+      "line": 333,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "13. Timeout layers",
+      "line": 333,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "14. Cleanup a evidence retention",
+      "line": 355,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `before-hook-creation ;`, `hook-succeeded ;`, `hook-failed .`.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "14. Cleanup a evidence retention",
+      "line": 355,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -149123,17 +148799,71 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "26. Hooks a GitOps",
-      "line": 450,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "Subject",
+      "line": 415,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "Každý deployment používa mnoho sekvenčných hooks",
-      "line": 487,
+      "section": "Konkurenčné hypotézy",
+      "line": 426,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 426,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 426,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 426,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hook sa nikdy nespustil;`, `Job bol Pending alebo admission-denied;`, `container zlyhal pred commitom;`, `migration commitla, ale Job completion sa stratila;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 426,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 426,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S13`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Diskriminačné observation points",
+      "line": 437,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -149141,80 +148871,197 @@
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "Dlhá migrácia v pre-upgrade",
-      "line": 491,
+      "section": "Diskriminačné observation points",
+      "line": 437,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "Hook bez idempotencie",
-      "line": 495,
+      "section": "Containment",
+      "line": 458,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Containment",
+      "line": 458,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "hook-succeeded,hook-failed bez central logs",
-      "line": 499,
+      "section": "Containment",
+      "line": 458,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Containment",
+      "line": 458,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť automatické retry;`, `ponechať revision 18 workload cohortu;`, `zabrániť ďalšiemu schema writerovi;`, `zachovať release, audit a DB evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Containment",
+      "line": 458,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Containment",
+      "line": 458,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Recovery",
+      "line": 466,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Recovery",
+      "line": 466,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "Hook s cluster-admin",
-      "line": 503,
+      "section": "Recovery",
+      "line": 466,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Recovery",
+      "line": 466,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `overiť kompatibilitu revision 18 so schema S13;`, `predĺžiť failed evidence retention;`, `spustiť controlled retry revision 19;`, `hook vykoná no-op verification, nie druhú migration;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Recovery",
+      "line": 466,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Recovery",
+      "line": 466,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S13`, `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Verification",
+      "line": 475,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Earlier control",
+      "line": 486,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "Earlier control",
+      "line": 486,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "Automatický restore pri failed upgrade",
-      "line": 507,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Earlier control",
+      "line": 486,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "Spoliehanie sa na uninstall cleanup",
-      "line": 511,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Earlier control",
+      "line": 486,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `durable operation ledger;`, `idempotent migration;`, `release concurrency lock;`, `central logs;`.",
+      "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "Static Job name bez delete policy",
-      "line": 515,
+      "section": "Earlier control",
+      "line": 486,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "Release visí na hooku",
-      "line": 521,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Earlier control",
+      "line": 486,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S12`, `S13`",
+      "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/hooks.md",
-      "section": "Hook funguje cez Helm CLI, ale nie cez GitOps",
-      "line": 541,
+      "section": "17. Failure boundaries",
+      "line": 496,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/hooks.md",
+      "section": "18. Referenčný operation checklist",
+      "line": 518,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
