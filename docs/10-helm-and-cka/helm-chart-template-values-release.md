@@ -1,518 +1,592 @@
 # Helm chart, template, values a release
 
-Helm je package manager a templating/release tool pre Kubernetes. **Chart** je versionovaný balík Kubernetes templates a metadata. **Values** sú vstupy do renderovania. **Release** je konkrétna inštalovaná inštancia chartu v clustri s menom, namespace, revision history a effective configuration. Helm nevytvára nový workload controller; renderuje a aplikuje Kubernetes API objekty a uchováva release state.
+Helm je package, render a release-lifecycle nástroj pre Kubernetes. Jeho hlavná hodnota nie je iba skrátenie YAML-u. Spája versionovaný chart artifact, values contract, release identity a cluster capabilities do konkrétnej sady Kubernetes objektov a uchováva históriu tejto operácie.
 
-## 1. Mentálny model
+Helm však nevlastní runtime reconciliation workloadu. Po prijatí manifestov preberajú stav Kubernetes API server, controllers, scheduler, kubelet, CNI, CSI a samotná aplikácia. Preto úspešný Helm command nepreukazuje správny rollout, správnu effective konfiguráciu ani business outcome.
+
+## 1. Dominantný lifecycle
 
 ```text
-chart artifact
-+ values
-+ release identity
-+ cluster capabilities
-        ↓ render
-Kubernetes manifests
-        ↓ install/upgrade
-Kubernetes API objects
-        ↓
-Helm release revision
+release intent a outcome contract
+→ immutable release subject
+→ chart a dependency resolution
+→ effective values resolution
+→ template render generation
+→ schema, API a admission validation
+→ Helm release mutation
+→ Kubernetes reconciliation
+→ live/effective/application verification
+→ revision evidence a support state
+→ rollback, roll-forward alebo decommission
 ```
 
-Rozlišuj:
+Každý krok mení inú vrstvu. Pri incidente musí byť jasné, v ktorej vrstve vznikol nesúlad.
 
-- chart source a chart version,
-- application version,
-- values files,
-- rendered manifest,
-- live Kubernetes objects,
-- Helm release metadata/history.
+## 2. Atlas Payments release subject
 
-Tieto vrstvy sa môžu dostať do driftu.
-
-## 2. Chart
-
-Chart je directory alebo packaged archive s definovanou štruktúrou:
+Sekcia používa jeden prepojený scenár:
 
 ```text
-example/
+cluster: atlas-prod-eu1
+cluster generation: K136
+namespace: atlas-payments-prod
+release: payments-prod
+current release revision: 17
+target release revision: 18
+chart: atlas-payments
+chart version: 2.7.0
+chart OCI digest: CH57
+dependency lock digest: D57
+values bundle digest: V57
+rendered manifest digest: M57
+application image digest: I57
+source commit: C57
+business operation: payment authorization P-884
+```
+
+Release cieľ je:
+
+```text
+nasadiť image I57
+vypnúť legacy authorizer
+zachovať presne-once authorization
+nezmeniť Service identity ani persistent data
+```
+
+Zakázané výsledky sú:
+
+- legacy authorizer zostane aktívny;
+- release použije iný chart, dependency alebo image artifact;
+- vzniknú duplicate payment authorizations;
+- Service stratí eligible endpointy;
+- plaintext credentials sa objavia v values alebo release storage;
+- uninstall alebo rollback poškodí dáta.
+
+## 3. Chart artifact
+
+Chart je versionovaný balík. Typicky obsahuje:
+
+```text
+atlas-payments/
 ├── Chart.yaml
+├── Chart.lock
 ├── values.yaml
 ├── values.schema.json
 ├── charts/
 ├── crds/
 ├── templates/
+│   ├── _helpers.tpl
 │   ├── deployment.yaml
 │   ├── service.yaml
-│   ├── _helpers.tpl
+│   ├── configmap.yaml
 │   └── NOTES.txt
 └── .helmignore
 ```
 
-Nie každý file je povinný. Základ tvorí `Chart.yaml` a `templates/` podľa účelu chartu.
+Chart source directory nie je automaticky release artifact. Production subject má identifikovať packaged chart alebo OCI manifest podľa immutable digestu, nie iba mutable repository pathu alebo tagu.
 
-## 3. `Chart.yaml`
+```text
+Git source C57
+→ dependency build podľa D57
+→ lint, render a tests
+→ package atlas-payments-2.7.0.tgz
+→ publish OCI artifact CH57
+→ promote ten istý digest
+```
 
-Typické metadata:
+Ak sa chart pri každom prostredí znovu balí alebo dependency graph znovu resolve-ne, environment promotion už nie je promotion rovnakého artifactu.
+
+## 4. `Chart.yaml`, chart version a application version
+
+Príklad:
 
 ```yaml
 apiVersion: v2
-name: example
-version: 1.4.0
-appVersion: "2.8.1"
-description: Example application
+name: atlas-payments
+version: 2.7.0
+appVersion: "3.12.0"
+kubeVersion: ">=1.32.0-0"
 ```
 
-### Chart `version`
-
-Verzia package contractu. Zmena templates, defaults, dependencies alebo metadata má vytvoriť novú chart verziu.
-
-### `appVersion`
-
-Informačná verzia aplikácie. Nie je automaticky image tag ani chart version.
-
-Nezamieňaj:
+Rozlišuj:
 
 ```text
-chart version ≠ application version ≠ release revision
+chart version
+≠ application version
+≠ image tag alebo digest
+≠ Helm release revision
+≠ Kubernetes Deployment revision
 ```
 
-## 4. Template
+`version` identifikuje package contract chartu. Zmena templates, defaults, dependencies alebo schema má vytvoriť novú chart version.
 
-Files v `templates/` Helm spracuje cez Go template language, Helm functions a Sprig functions.
+`appVersion` je metadata. Sama nemení image reference. Ak chart používa `appVersion` ako fallback tag, musí to byť explicitný, testovaný contract, nie predpoklad operátora.
 
-Príklad:
+## 5. Helm client a major-version subject
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ include "example.fullname" . }}
-spec:
-  replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: {{ include "example.name" . }}
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: {{ include "example.name" . }}
-    spec:
-      containers:
-        - name: app
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-```
+Helm client version a apply mode patria do release subjectu. Helm major verzie môžu meniť command behavior, apply semantics, plugin rozhrania alebo storage detaily, aj keď chart format zostáva kompatibilný.
 
-Template output musí byť validný Kubernetes manifest. Úspešné textové renderovanie ešte nepreukazuje API schema, admission ani runtime správnosť.
-
-## 5. Built-in objects
-
-V template sú dostupné napríklad:
-
-- `.Values` — merged user/default values,
-- `.Chart` — metadata z `Chart.yaml`,
-- `.Release` — release name, namespace a operation context,
-- `.Capabilities` — Kubernetes version a dostupné API versions,
-- `.Files` — files zabalené v charte,
-- `.Template` — current template metadata.
-
-Príklad:
-
-```yaml
-metadata:
-  labels:
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version }}
-```
-
-## 6. Values
-
-Default values sú v:
+Production evidence preto obsahuje:
 
 ```text
-values.yaml
+Helm version
+command a relevant flags
+apply mode
+plugins a post-renderers
+Kubernetes API endpoint a context
+storage driver
 ```
 
-Príklad:
+Nepoužívaj historický Helm 2/Tiller model na opis moderného Helm release-u. Pri Helm 3 a Helm 4 používaj dokumentáciu pre konkrétnu major/minor verziu a pinuj toolchain v CI.
+
+## 6. Values ako public configuration contract
+
+`values.yaml` definuje default interface chartu:
 
 ```yaml
-replicaCount: 2
+replicaCount: 4
 
 image:
-  repository: registry.example.com/example
-  tag: "2.8.1"
-  pullPolicy: IfNotPresent
+  repository: registry.example.com/atlas/payments
+  digest: ""
+
+legacyAuthorizer:
+  enabled: true
 
 service:
   port: 8080
 ```
 
-Templates pristupujú cez `.Values`.
+Values contract zahŕňa:
 
-Values sú public chart interface. Názvy, typy a defaults musia byť stabilné, dokumentované a validované.
+- názov a path každého inputu;
+- typ a allowed values;
+- default;
+- ownership;
+- sensitivity;
+- compatibility pri upgrade;
+- vzťah k výslednému Kubernetes fieldu;
+- či zmena vyžaduje Pod replacement, data migration alebo external action.
 
-## 7. Values precedence
+Values nie sú iba template variables. Sú verejné API chartu.
 
-Zjednodušene majú vyššiu prioritu neskoršie explicitné overrides:
+## 7. Effective values resolution
 
-1. chart `values.yaml`,
-2. parent/dependency defaults podľa merge modelu,
-3. files cez `-f`/`--values` v uvedenom poradí,
-4. command-line overrides ako `--set`, `--set-string`, `--set-file`.
+Effective values vznikajú merge-om viacerých zdrojov:
 
-Príklad:
-
-```bash
-helm upgrade --install example ./chart \
-  -f values-production.yaml \
-  -f values-production-eu.yaml \
-  --set image.tag=2.8.2
+```text
+chart defaults
+→ parent/subchart values podľa scope-u
+→ prvý -f file
+→ ďalší -f file
+→ --set / --set-string / --set-file
+→ operation-specific computed context
 ```
 
-Effective values nie sú iba jeden file. Pred release ich renderuj a archivuj bez secretov.
+Atlas release používa:
 
-## 8. Value typing
+```bash
+helm upgrade --install payments-prod \
+  oci://registry.example.com/charts/atlas-payments \
+  --version 2.7.0 \
+  -f values-prod.yaml \
+  -f values-prod-eu1.yaml \
+  --set-string image.digest=sha256:I57 \
+  --namespace atlas-payments-prod
+```
 
-YAML implicit typing môže zmeniť význam:
+Source inventory musí zachytiť poradie files aj exact CLI overrides. Samotný `values-prod.yaml` nie je effective configuration.
+
+Pre incident-safe evidence ukladaj:
+
+- redacted effective values;
+- values source revisions a digest V57;
+- schema validation result;
+- explicitný zoznam secret references bez secret payloadu;
+- mapping kritických values na rendered fields.
+
+## 8. Values schema a semantic invariants
+
+`values.schema.json` môže validovať typy, required fields, enums a štruktúru. Nenahrádza však semantic pravidlá.
+
+Príklady semantic invariants:
+
+```text
+legacyAuthorizer.enabled=false
+→ legacy endpoint, env a policy resources sa nesmú renderovať
+
+serviceAccount.create=false
+→ serviceAccount.name musí byť explicitný
+
+image.digest je nastavený
+→ mutable tag nesmie určovať runtime artifact
+```
+
+Validácia musí odlíšiť:
+
+```text
+input je syntakticky platný
+≠ input je semanticky konzistentný
+≠ rendered manifest je validný
+≠ live workload dosiahol požadovaný outcome
+```
+
+## 9. Render generation
+
+Helm kombinuje:
+
+```text
+chart CH57
++ dependency graph D57
++ values V57
++ release name/namespace
++ capabilities/API inventory
++ Helm engine/version
++ optional live lookup a post-renderer
+→ rendered manifest M57
+```
+
+Relevantné built-in objects:
+
+- `.Values` — effective values;
+- `.Chart` — chart metadata;
+- `.Release` — release identity a operation context;
+- `.Capabilities` — API/Kubernetes capability view;
+- `.Files` — packaged files;
+- `.Template` — current template metadata.
+
+Render je vlastná evidence generation. Rovnaký chart version nemusí vytvoriť rovnaký M57, ak sa zmení values, dependency artifact, capabilities, live `lookup`, random/time function, plugin alebo post-renderer.
+
+## 10. Render validation ladder
+
+Použi viac vrstiev:
+
+```text
+chart structure a dependency lock
+→ values schema
+→ template execution
+→ YAML parse
+→ Kubernetes object schema
+→ API discovery
+→ admission mutation a validation
+→ apply/update semantics
+→ controller rollout
+→ application/business outcome
+```
+
+Príklady:
+
+```bash
+helm dependency build ./chart
+helm lint ./chart -f values-prod.yaml
+helm template payments-prod ./chart \
+  -f values-prod.yaml \
+  -f values-prod-eu1.yaml > rendered.yaml
+kubectl apply --dry-run=server -f rendered.yaml
+kubectl diff -f rendered.yaml
+```
+
+Local render nepreukazuje live admission, permissions, current immutable fields, controller behavior ani business correctness.
+
+## 11. Release identity
+
+Helm release je pomenovaná inštancia chartu v namespace-e:
+
+```text
+release name + namespace + cluster identity
+```
+
+`payments-prod` v dvoch clusteroch sú dve odlišné releases. Rovnaký name v inom namespace-e je tiež iný release subject.
+
+Pred write operáciou over:
+
+```bash
+kubectl config current-context
+helm list -A
+helm status payments-prod -n atlas-payments-prod
+helm history payments-prod -n atlas-payments-prod
+```
+
+Context name sám nestačí. Pre high-risk release zaznamenaj API endpoint, CA/cluster identity a environment generation.
+
+## 12. Release mutation nie je jedna transakcia
+
+Zjednodušený flow:
+
+```text
+Helm resolve a render
+→ API requests pre resource set
+→ Helm čaká podľa command flags
+→ Kubernetes controllers pokračujú v reconciliation
+→ release state dostane revision/status
+```
+
+Môžu existovať partial states:
+
+- časť objektov bola aktualizovaná, ďalší API request zlyhal;
+- hook vykonal durable side effect, ale release skončil failed;
+- timeout nastal, no rollout pokračuje;
+- release je `deployed`, ale aplikácia je business-incorrect;
+- API objekty sú healthy, no external DNS alebo database contract nie.
+
+Timeout alebo non-zero exit preto neznamená automaticky, že žiadna zmena neprebehla. Pred retry read-back-ni release history, live objects, hooks a external side effects.
+
+## 13. Release revision a evidence
+
+Revision je Helm lifecycle identity:
+
+```bash
+helm history payments-prod -n atlas-payments-prod
+helm status payments-prod -n atlas-payments-prod
+helm get values payments-prod -n atlas-payments-prod --all
+helm get manifest payments-prod -n atlas-payments-prod
+helm get hooks payments-prod -n atlas-payments-prod
+```
+
+Revision 18 nie je Git commit C57 ani Deployment revision. Release evidence musí vytvoriť koreláciu:
+
+```text
+C57 → CH57 + D57 + V57 → M57 → Helm revision 18
+→ Kubernetes object UID/generation
+→ Pod image I57 a process-loaded config
+→ request P-884 outcome
+```
+
+Helm release storage môže obsahovať chart/config/manifests. Preto je citlivý RBAC subject a nie je náhradou za Git, artifact registry, secret manager ani application-data backup.
+
+## 14. Live state a field ownership
+
+Po apply môže live object zmeniť:
+
+- API defaulting;
+- mutating admission;
+- HPA;
+- operator/controller;
+- GitOps reconciler;
+- manual edit;
+- iný field manager;
+- server-side alebo client-side apply behavior.
+
+Porovnávaj:
+
+```text
+versionovaný source
+→ effective values
+→ rendered manifest M57
+→ Helm-stored manifest revision 18
+→ admitted live object
+→ controller status
+→ process-loaded effective state
+```
+
+Drift nie je jedna kategória. Niektorý drift je očakávaný controller-owned status alebo replicas field. Iný je konflikt dvoch authoritative writers.
+
+## 15. Worked failure: green release, zakázaná funkcia aktívna
+
+CI vykonalo release revision 18. Helm command skončil úspešne. Deployment bol Available a syntetický health endpoint bol green. Payment audit však ukázal, že request P-884 stále použil legacy authorizer, hoci `V57` explicitne obsahoval:
 
 ```yaml
-port: 8080
-version: "1.0"
-enabled: true
+legacyAuthorizer:
+  enabled: false
 ```
 
-Command-line `--set` má vlastné parsing semantics. Pre hodnoty, ktoré musia zostať string, používaj vhodnú quoting/`--set-string` stratégiu.
+### Exact subject
 
-Komplexné structures preferuj v versionovanom values file namiesto dlhého `--set` commandu.
+```text
+cluster K136
+release payments-prod revision 18
+chart CH57
+lock D57
+values V57
+manifest M57
+Deployment UID/generation
+Pods s image I57
+request P-884
+```
 
-## 9. Values schema
+### Competing hypotheses
 
-`values.schema.json` môže validovať values pred render/install/upgrade.
+1. CI použilo nesprávny values file alebo override poradie.
+2. `--set` alebo inherited value prepísal `false`.
+3. Template transformácia zmenila explicitné `false` na default `true`.
+4. Dependency helper vyrenderoval starý config fragment.
+5. Admission webhook doplnil legacy env/config.
+6. Pods neboli recreated a používajú starú process-loaded konfiguráciu.
+7. Traffic stále smeruje na old-generation Pods.
+8. Audit request patrí inému clusteru alebo release subjectu.
 
-Môže definovať:
+### Discriminating observation points
 
-- required fields,
-- types,
-- enums,
-- ranges,
-- object structure,
-- patterns.
+| Hypotéza | Observation |
+|---|---|
+| wrong values inventory | CI command record, values digests a `helm get values --all` |
+| pipeline zmenila `false` | render relevantného template s exact V57 a manifest M57 |
+| helper/dependency drift | packaged chart CH57, lock D57 a helper call graph |
+| admission mutation | dry-run/server response, audit a live managed fields |
+| stale Pod generation | Deployment/ReplicaSet UID, config checksum, Pod creation time |
+| old traffic cohort | EndpointSlices, Pod labels, request trace a image digest |
+| wrong cluster | kubeconfig endpoint/CA a release storage identity |
 
-Schema znižuje tiché chyby, ale nenahrádza semantic a Kubernetes runtime testy.
+`helm status: deployed` nediskriminuje žiadnu z týchto príčin.
 
-## 10. Release
+### Finding
 
-Release je konkrétne nasadenie chartu:
+Template obsahoval:
+
+```gotemplate
+legacyAuthorizerEnabled: {{ .Values.legacyAuthorizer.enabled | default true }}
+```
+
+Helm/Sprig považovalo explicitné `false` za empty, takže render M57 obsahoval `true`. Helm a Kubernetes vykonali presne chybný desired state.
+
+### Containment
+
+- zastav ďalšie automatic releases nad rovnakou release identity;
+- zachovaj CH57, D57, V57, M57, revision storage, audit a Pod evidence;
+- obmedz legacy path cez úzky versionovaný config/policy change, ak je bezpečný;
+- chráň payment idempotency a downstream pred retries;
+- nemaž release history ani Pods pred získaním process-loaded evidence.
+
+### Authoritative recovery
+
+1. oprav template contract tak, aby rozlišoval missing a explicitné `false`;
+2. pridaj schema a render test pre boolean false;
+3. vytvor nový chart artifact CH58 a manifest M58;
+4. vykonaj server-side validation a admitted-object diff;
+5. rolloutni novú release revision 19;
+6. over exact Pod generation, config checksum a image digest;
+7. požiadaj business synthetic o legacy aj current authorization path.
+
+### Verify original a forbidden outcomes
+
+Potvrď:
+
+- request P-884-like synthetic používa nový authorizer;
+- legacy endpoint/env/config nie je v rendered ani live state-e;
+- všetky active endpoints patria revision 19 generation;
+- payment authorization vznikne presne raz;
+- druhý render rovnakého subjectu vytvorí rovnaký M58;
+- opakovaný upgrade je bounded no-op alebo vysvetliteľná reconciliation;
+- starý broken chart digest už nie je promotion target.
+
+### Earlier controls
+
+- values schema a contract tests;
+- golden render pre `false`, `0`, empty a missing;
+- release manifest digest v provenance;
+- admitted-object diff;
+- business synthetic s forbidden-outcome assertion;
+- release acceptance via chart/values/manifest/image identity chain.
+
+## 16. Secrets a release storage
+
+Helm values nie sú secret manager. Secret môže uniknúť cez:
+
+- values Git history;
+- CLI history a CI logs;
+- rendered manifest;
+- Helm release storage;
+- `helm get values` a `helm get manifest`;
+- debug output;
+- Kubernetes Secret bez primeraného encryption/RBAC modelu.
+
+Preferuj reference na external secret, encrypted source workflow alebo workload identity. Evidence archivuj redacted a porovnávaj cez epoch, resourceVersion alebo checksum bez publikovania payloadu.
+
+## 17. Uninstall a decommission
 
 ```bash
-helm install payments ./payments-chart \
-  --namespace production \
-  --create-namespace
+helm uninstall payments-prod -n atlas-payments-prod
 ```
 
-Tu:
+Uninstall je iba časť decommission lifecycle-u. Analyzuj:
 
-- `payments` je release name,
-- chart môže byť použitý viackrát,
-- namespace je súčasť release scope-u,
-- prvá úspešná inštalácia vytvorí release revision.
-
-Moderný Helm uchováva release information v Kubernetes, štandardne cez release Secrets podľa storage drivera/configurácie.
-
-## 11. Release revision
-
-Každý úspešný alebo zaznamenaný release lifecycle krok môže vytvoriť novú revision.
-
-```bash
-helm history payments -n production
-helm status payments -n production
+```text
+Helm-managed resources
++ hooks a retained resources
++ CRDs a cluster-scoped objects
++ PVC/PV a application data
++ external DNS/LB/IAM
++ operator-created dependents
++ credentials a release history
++ backups, audit a legal retention
 ```
 
-Revision nie je Deployment revision ani Git commit. Koreluj ich cez labels, annotations a release evidence.
+Helm labels a release state nie sú univerzálny Kubernetes ownerReference garbage-collection graph. `uninstall` nesmie byť použitý ako neanalyzovaný data cleanup.
 
-## 12. Install
+## 18. Rollback a roll-forward boundary
 
-```bash
-helm install payments oci://registry.example.com/charts/payments \
-  --version 1.4.0 \
-  -f values-production.yaml \
-  --namespace production
+Rollback na staršiu revision obnovuje Helm-stored chart/config/manifest intent v rámci Helm mechanizmu. Nemusí vrátiť:
+
+- database schema;
+- CRD storage version;
+- hook side effects;
+- external resources;
+- immutable field transitions;
+- credentials;
+- data zapísané novou aplikáciou.
+
+Rozhodnutie musí vychádzať z current durable state-u, nie iba z existencie starej revision.
+
+## 19. Referenčný release record
+
+```text
+release intent a approver
+cluster endpoint/CA/generation
+namespace a release name
+Helm version, apply mode, plugins/post-renderers
+source commit
+chart version a digest
+Chart.lock a dependency digest
+values sources, order a redacted effective digest
+rendered manifest digest
+server/admission validation evidence
+release revision a timestamps
+live object UID/generation inventory
+image/config/secret epochs
+hooks a external side effects
+technical a business acceptance
+rollback/roll-forward boundary
+retirement/decommission evidence
 ```
 
-Production install má pinovať:
-
-- Helm major/minor podľa support policy,
-- chart version alebo digest/provenance policy,
-- image digests/tags podľa artifact modelu,
-- values source revision,
-- target cluster/context/namespace.
-
-## 13. Upgrade
-
-```bash
-helm upgrade payments ./payments-chart \
-  -f values-production.yaml \
-  --namespace production
-```
-
-Upgrade môže zmeniť:
-
-- chart version,
-- values,
-- rendered manifests,
-- release revision.
-
-Pred upgrade porovnaj:
-
-```bash
-helm template ...
-helm diff ...       # plugin alebo external workflow
-kubectl diff ...
-```
-
-Presné diff capabilities závisia od tooling-u. Helm core a plugins nepredstavujú rovnaký trust boundary.
-
-## 14. `upgrade --install`
-
-Idempotentnejší deployment entry point:
-
-```bash
-helm upgrade --install payments ./payments-chart \
-  -f values-production.yaml \
-  --namespace production \
-  --create-namespace
-```
-
-Znižuje branch medzi first install a update, ale nerieši:
-
-- concurrent releases,
-- drift,
-- failed hooks,
-- immutable-field conflicts,
-- schema migrations,
-- secret management.
-
-## 15. Renderovanie
-
-```bash
-helm template payments ./payments-chart \
-  -f values-production.yaml \
-  --namespace production
-```
-
-Local render umožňuje:
-
-- review manifests,
-- schema/lint checks,
-- policy/security scanning,
-- Git/CI artifact,
-- test rôznych values.
-
-Limit: local render nemusí presne reprodukovať cluster API discovery, lookup calls, admission defaulting alebo server-side validation bez vhodných flags/capabilities a live clusteru.
-
-## 16. Lint a server validation
-
-```bash
-helm lint ./payments-chart -f values-production.yaml
-helm template ... | kubectl apply --dry-run=server -f -
-```
-
-Vrstvy:
-
-- Helm lint/template syntax,
-- values schema,
-- YAML/Kubernetes schema,
-- API availability,
-- admission policies/webhooks,
-- runtime tests.
-
-Jedna zelená vrstva nepreukazuje ďalšie.
-
-## 17. Release state a Secrets
-
-Release state môže obsahovať:
-
-- chart metadata/content,
-- effective configuration,
-- rendered manifest,
-- revision/status metadata.
-
-Dôsledky:
-
-- RBAC nad release Secrets je citlivé,
-- values nesmú obsahovať plaintext secrets bez bezpečnostného modelu,
-- namespace deletion môže odstrániť release history,
-- external Git/source zostáva potrebný pre disaster recovery,
-- release storage nie je backup application dát.
-
-## 18. Secrets
-
-Helm values nie sú secret manager.
-
-Riziká:
-
-- values v Git-e,
-- CI logs a command history,
-- rendered manifest,
-- Helm release storage,
-- `helm get values`/`helm get manifest`,
-- Kubernetes Secrets bez encryption/RBAC.
-
-Preferuj external secret integration, encrypted Git workflow alebo runtime identity podľa platformy. Do chart defaults nepatria reálne credentials.
-
-## 19. Namespace a ownership
-
-Release spravidla vlastní resources cez labels/annotations a release state, ale Kubernetes ownerReferences medzi release Secretom a všetkými resources nie sú univerzálny garbage-collection model.
-
-Pred uninstallom analyzuj:
-
-- PVC/PV a data retention,
-- CRDs a cluster-scoped resources,
-- hooks,
-- external load balancers,
-- shared resources,
-- finalizers.
-
-## 20. Uninstall
-
-```bash
-helm uninstall payments -n production
-```
-
-Odstráni resources spravované release lifecycle podľa Helm behavioru, ale nemusí odstrániť:
-
-- CRDs,
-- retained resources,
-- PVC/PV/external storage,
-- external DNS/LB/IAM resources,
-- resources vytvorené hooks alebo operators,
-- data backups.
-
-Uninstall nie je automatický bezpečný decommission.
-
-## 21. Drift
-
-Live resources sa môžu líšiť od posledného Helm manifestu kvôli:
-
-- manual edit,
-- mutating admission,
-- operator/controller,
-- HPA scale,
-- server-side defaults,
-- GitOps controller,
-- external policy.
-
-Helm upgrade môže časť driftu prepísať alebo zachovať podľa field ownership a update behavioru. Definuj authoritative writer pre každý field.
-
-## 22. Chart artifact distribution
-
-Chart možno distribuovať cez:
-
-- HTTP chart repository,
-- OCI registry,
-- packaged `.tgz`,
-- local/VCS source v CI.
-
-Production workflow potrebuje:
-
-- immutable versioning,
-- registry/repository auth,
-- integrity/provenance alebo signature policy,
-- retention,
-- dependency locking,
-- promotion bez rebuild-u.
-
-## 23. Compatibility
-
-Over:
-
-- Helm client support voči Kubernetes version,
-- chart `kubeVersion` constraint,
-- API versions v templates,
-- CRDs a controller version,
-- Helm major-version behavior,
-- plugins a post-renderers,
-- OCI/chart repository support.
-
-Používaj dokumentáciu pre konkrétnu Helm major verziu. Starý Helm 2/Tiller obsah nie je aktuálny architecture model.
-
-## 24. Anti-patterny
-
-### Chart a release považované za to isté
-
-Jeden chart môže mať viac releases s odlišnými values a revisions.
-
-### `appVersion` použitá ako automatický image tag bez contractu
-
-Metadata field sám runtime image nemení.
-
-### Všetko konfigurované cez `--set`
-
-Deployment nie je reprodukovateľný ani reviewable.
-
-### Secret v `values.yaml`
-
-Môže skončiť v Git-e, CI logs, rendered manifeste a release storage.
-
-### Mutable chart reference bez verzie
-
-Rovnaký deployment command môže neskôr renderovať iný content.
-
-### Helm install úspech považovaný za application readiness
-
-API prijatie resources nepreukazuje rollout, probes ani user path.
-
-### Uninstall bez storage/CRD analýzy
-
-Môže zanechať alebo odstrániť kritický state podľa nejasného lifecycle.
-
-## 25. Troubleshooting
-
-### Template render zlyhá
-
-Použi `helm lint`, `helm template --debug`, over values path/type a template scope.
-
-### Manifest renderuje, API ho odmieta
-
-Použi server-side dry-run, over API version, schema, RBAC, admission a immutable fields.
-
-### Release name už existuje
-
-Over namespace, release status/history a či ide o failed/pending release alebo iný owner.
-
-### Upgrade visí alebo zlyhá
-
-Over hooks, workload rollout, admission, Jobs, timeouts, release status a Kubernetes Events.
-
-### Live object sa líši od template
-
-Over admission mutation, controllers, HPA, manual drift a field ownership.
-
-### Release history existuje, workloads nie
-
-Resources mohli byť ručne zmazané alebo controllerom odstránené. Release metadata nie je záruka live state-u.
-
-## 26. Kontrolné otázky
-
-1. Aký je rozdiel medzi chartom, values, rendered manifestom a release-om?
-2. Ako sa líši chart version, appVersion a release revision?
-3. Ktoré built-in objects sú dostupné v template?
-4. Ako funguje values precedence?
-5. Čo `helm template` preukazuje a čo nie?
-6. Kde Helm uchováva release state a prečo je citlivý?
-7. Prečo Helm values nie sú secret manager?
-8. Ako vzniká drift medzi release manifestom a live objectom?
-9. Prečo uninstall nie je kompletný decommission?
-10. Ktoré compatibility vrstvy overíš pred chart upgrade-om?
+## 20. Anti-patterny
+
+- chart version, appVersion a release revision považované za jednu identitu;
+- mutable chart reference bez digestu alebo version policy;
+- `helm dependency update` počas release bez review locku;
+- effective values rekonštruované iba z jedného file-u;
+- plaintext secret v values;
+- local render považovaný za server/admission/runtime verdict;
+- Helm `deployed` považovaný za business success;
+- timeout okamžite retryovaný bez read-backu;
+- manual live patch bez rozhodnutia o authoritative writerovi;
+- rollback považovaný za zvrátenie durable side effects;
+- uninstall považovaný za kompletný decommission.
+
+## 21. Kontrolné otázky
+
+1. Ktoré identity tvoria immutable Helm release subject?
+2. Prečo chart source directory nie je automaticky production artifact?
+3. Ako sa líši chart version, appVersion, Helm revision a Deployment revision?
+4. Ako vznikajú effective values a prečo záleží na poradí?
+5. Ktoré inputs môžu meniť rendered manifest bez zmeny chart version?
+6. Čo preukazuje `helm status: deployed` a čo nepreukazuje?
+7. Ako odlíšiš rendered, admitted, live a process-loaded state?
+8. Prečo timeout Helm operácie nemusí znamenať nulový side effect?
+9. Ktoré boundaries musí posúdiť rollback?
+10. Aké dôkazy uzatvárajú release acceptance a decommission?
 
 ## Glossary impact
 
-Relevantné pojmy: Helm, Helm chart, chart version, appVersion, Helm template, values, values precedence, values schema, Helm release, release revision, release state, rendered manifest, `upgrade --install`, chart repository a OCI chart.
+Relevantné pojmy: Helm release subject, chart artifact generation, values bundle generation, effective values, render generation, rendered-manifest digest, release mutation boundary, Helm revision evidence, admitted/live/process-loaded state chain, release acceptance, forbidden release outcome, Helm unknown-operation outcome a Helm decommission subject.
 
 ## Oficiálna dokumentácia
 
-- [Introduction to Helm](https://helm.sh/docs/intro/introduction/)
+- [Helm documentation](https://helm.sh/docs/)
 - [Charts](https://helm.sh/docs/topics/charts/)
 - [Chart Template Guide](https://helm.sh/docs/chart_template_guide/)
 - [Values Files](https://helm.sh/docs/chart_template_guide/values_files/)
+- [Helm 4 Overview](https://helm.sh/docs/overview/)
 - [Helm Version Support Policy](https://helm.sh/docs/topics/version_skew/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
