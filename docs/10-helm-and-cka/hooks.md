@@ -1,10 +1,69 @@
 # Hooks
 
-Helm hook je Kubernetes resource template označený špeciálnou annotation, ktorý Helm vykoná v konkrétnom bode release lifecycle. Hook môže pripraviť alebo overiť release, spustiť migráciu, backup, cleanup alebo test. Zároveň však pridáva imperative a side-effectful krok do deklaratívneho deploymentu. Každý hook preto potrebuje idempotenciu, timeout, ownership, cleanup a recovery contract.
+Helm hook je Kubernetes resource spustený v konkrétnom bode release lifecycle. Jeho účelom nie je „vykonať niečo pred alebo po deploymente“ všeobecne, ale uskutočniť presne identifikovanú operáciu, ktorej výsledok môže meniť Kubernetes aj externý durable state.
 
-## 1. Hook annotation
+Hook preto nie je iba template annotation. Je to imperative operation boundary vložená do deklaratívneho release procesu. Musí mať vlastnú identitu, idempotency model, timeout, evidence, recovery a cleanup contract.
 
-Resource sa stane hookom cez:
+## 1. Dominantný lifecycle
+
+```text
+release operation intent a side-effect contract
+→ rendered hook inventory
+→ lifecycle point a ordering
+→ Kubernetes API create/update
+→ Job/Pod execution alebo non-workload API load
+→ external/durable operation commit
+→ Helm hook readiness verdict
+→ release continuation alebo failure
+→ evidence retention
+→ retry, compensation alebo recovery
+→ cleanup a closure
+```
+
+Kritická hranica je medzi:
+
+```text
+hook resource accepted
+hook workload completed
+external side effect committed
+Helm release status recorded
+```
+
+Tieto stavy nemusia nastať naraz. Ak sa operácia commitne v databáze, ale Job alebo Helm klient stratí výsledok, ďalší retry nesmie predpokladať, že operácia neprebehla.
+
+## 2. Atlas hook subject
+
+Pre Atlas Payments pokračujeme v release chaine:
+
+```text
+chart artifact: CH57
+dependency lock: D57
+values bundle: V57
+rendered manifest: M57
+current release: payments-prod revision 18
+target operation: upgrade na revision 19
+```
+
+Pre-upgrade migration hook identifikujeme ako:
+
+```text
+release: payments-prod
+source revision: 18
+target revision: 19
+hook lifecycle point: pre-upgrade
+rendered hook digest: HK57
+Job UID: J57
+Pod attempts: P57a, P57b
+operation ID: atlas-payments/schema-expand/19
+source schema generation: S12
+target schema generation: S13
+```
+
+Bez operation ID, Job UID a durable schema evidence je výraz „migration hook už bežal“ nepresný.
+
+## 3. Annotation a lifecycle point
+
+Resource sa stane hookom cez annotation:
 
 ```yaml
 metadata:
@@ -12,97 +71,119 @@ metadata:
     helm.sh/hook: pre-upgrade
 ```
 
-Bez annotation je resource bežnou súčasťou release manifestu.
+Bežné lifecycle points:
 
-Jeden resource môže implementovať viac lifecycle bodov:
-
-```yaml
-helm.sh/hook: post-install,post-upgrade
-```
-
-## 2. Dostupné hooks
-
-Bežné hodnoty:
-
-- `pre-install`,
-- `post-install`,
-- `pre-upgrade`,
-- `post-upgrade`,
-- `pre-rollback`,
-- `post-rollback`,
-- `pre-delete`,
-- `post-delete`,
+- `pre-install` a `post-install`;
+- `pre-upgrade` a `post-upgrade`;
+- `pre-rollback` a `post-rollback`;
+- `pre-delete` a `post-delete`;
 - `test`.
 
-Historický `crd-install` hook sa nepoužíva; CRDs majú osobitný `crds/` lifecycle.
+Hook timing určuje, kedy Helm resource načíta a kedy čaká na jeho readiness. Neurčuje však application compatibility.
 
-## 3. Install lifecycle
-
-Zjednodušený install flow:
+Napríklad:
 
 ```text
-chart validation
-→ CRDs z crds/
-→ template render
-→ pre-install hooks
-→ bežné release resources
-→ prípadné wait
-→ post-install hooks
-→ release result
+pre-upgrade migration dokončí schema S13
+→ staré Pody revision 18 ešte stále bežia
+→ stará aplikácia musí vedieť čítať S13
 ```
 
-Hook môže zablokovať celý Helm command. Ak Job alebo Pod hook zlyhá, release operation zlyhá.
+Ak nevie, správne zoradený hook aj tak vytvorí outage.
 
-## 4. Upgrade lifecycle
+## 4. Hook inventory vzniká renderovaním
+
+Hooks sú templates. Pred execution prechádzajú rovnakým render chainom ako bežné resources:
 
 ```text
-render target revision
-→ pre-upgrade hooks
-→ update/create/delete release resources
-→ prípadné wait
-→ post-upgrade hooks
-→ revision result
+chart + dependencies + effective values + release context
+→ rendered hook resources
+→ hook type, weight, name, image, RBAC a arguments
 ```
 
-`pre-upgrade` prebehne pred aktualizáciou bežných resources. `post-upgrade` prebehne až po ich spracovaní a podľa wait modelu môže čakať na ready stav.
+Pred upgrade preto archivuj:
 
-Hook timing nie je náhrada za application-level compatibility. Database migration musí podporovať súbeh starej a novej application revision podľa rollout modelu.
+```bash
+helm get hooks payments-prod -n production
+helm template payments-prod ./chart -f values-production.yaml
+```
 
-## 5. Rollback lifecycle
+Kontroluj najmä:
+
+- hooks z parent chartu aj dependencies;
+- image digest;
+- ServiceAccount a RBAC;
+- lifecycle point a weight;
+- resource requests, deadline a retry policy;
+- operation ID a external target;
+- delete policy a TTL.
+
+Subchart hooks sú súčasťou rovnakého release execution surface. Top-level chart ich nemôže všeobecne ignorovať.
+
+## 5. Ordering a hook weights
+
+Hook weight:
+
+```yaml
+metadata:
+  annotations:
+    helm.sh/hook-weight: "-10"
+```
+
+Nižšia hodnota sa vykoná skôr. Typický malý graph:
 
 ```text
-render/retrieve rollback target
-→ pre-rollback hooks
-→ rollback release resources
-→ post-rollback hooks
+-20: dedicated ServiceAccount a RBAC
+-10: precondition Job
+  0: migration Job
+ 10: verification Job
 ```
 
-Rollback hook nie je automatická inverse operácia upgrade hooku. Ak pre-upgrade migrácia zmenila schema alebo external system, rollback manifestu nemusí vedieť túto zmenu bezpečne vrátiť.
+Weight poskytuje ordering, nie workflow correctness.
 
-Preferuj backward-compatible migrations a roll-forward recovery.
+Ak správnosť vyžaduje rozsiahly graph s podmienkami, paralelizmom, retry politikou, manual approval a compensation, operácia už pravdepodobne patrí do samostatného workflow engine-u alebo deployment stage-u.
 
-## 6. Delete lifecycle
+## 6. Readiness semantics
 
-`pre-delete` môže napríklad:
+### Job alebo Pod hook
 
-- odstrániť workload z external registry,
-- vykonať controlled drain,
-- exportovať metadata,
-- validovať retention policy.
+Helm čaká na úspešné completion. Neúspech zablokuje alebo zlyhá release operation.
 
-`post-delete` môže vykonať cleanup external integration.
+```text
+API create
+→ scheduling
+→ image pull
+→ container execution
+→ exit status
+→ Job/Pod completion
+→ Helm readiness verdict
+```
 
-Deletion hook nesmie byť jediný ochranný mechanizmus kritických dát. Operator môže resource alebo namespace odstrániť mimo Helm lifecycle.
+### Ostatné resource kinds
 
-## 7. Hook resource kinds
+ConfigMap, Secret, Role alebo podobný resource môže byť považovaný za ready po úspešnom API load-e.
 
-Najčastejší hook je `Job`:
+```text
+ConfigMap created
+≠ consumer mounted current generation
+≠ process reloaded configuration
+≠ business operation completed
+```
+
+Business operácie preto modeluj ako completion-oriented Job s explicitným durable resultom.
+
+## 7. Hook Job contract
+
+Príklad:
 
 ```yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "payments.fullname" . }}-migrate-{{ .Release.Revision }}
+  name: payments-migrate-{{ .Release.Revision }}
+  labels:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    atlas.example.com/operation-id: "schema-expand-{{ .Release.Revision }}"
   annotations:
     helm.sh/hook: pre-upgrade
     helm.sh/hook-weight: "0"
@@ -110,454 +191,364 @@ metadata:
 spec:
   backoffLimit: 1
   activeDeadlineSeconds: 600
+  ttlSecondsAfterFinished: 86400
   template:
     spec:
       restartPolicy: Never
-      serviceAccountName: {{ include "payments.migrationServiceAccount" . }}
+      serviceAccountName: payments-migration
       containers:
         - name: migrate
-          image: {{ include "payments.image" . | quote }}
-          args: ["migrate"]
+          image: registry.example.com/payments-migrate@sha256:...
+          args:
+            - expand
+            - --operation-id=atlas-payments/schema-expand/{{ .Release.Revision }}
 ```
 
-Použiť možno aj ConfigMap, Secret, ServiceAccount, Role alebo iné Kubernetes resources. Pri non-Job resources však Helm readiness semantics nemusia znamenať, že naviazaný proces alebo controller dokončil business operáciu.
-
-## 8. Ready semantics
-
-Pre Job alebo Pod hook Helm čaká na úspešné dokončenie. Failure hooku zlyhá release operation.
-
-Pri ostatných resource kinds môže byť resource považovaný za ready už po úspešnom API create/update. Napríklad vytvorený ConfigMap nepreukazuje, že ho workload načítal.
-
-Pre business operáciu používaj completion-oriented Job s explicitným exit statusom.
-
-## 9. Hook weight
-
-```yaml
-helm.sh/hook-weight: "-10"
-```
-
-Weights:
-
-- musia byť string reprezentácia čísla,
-- môžu byť záporné, nulové alebo kladné,
-- nižšia hodnota sa vykoná skôr,
-- pri rovnakom weight sa uplatnia ďalšie Helm ordering pravidlá.
-
-Príklad:
+Contract musí definovať:
 
 ```text
--20 → ServiceAccount/RBAC
--10 → precondition Job
-  0 → migration Job
- 10 → verification Job
+exact operation ID
+source a target state
+idempotency/fencing mechanism
+success oracle
+retry boundary
+timeout
+credentials a authority
+logs a durable audit result
+cleanup a retention
 ```
 
-Aj pri weightoch sa vyhýbaj zložitému hook orchestration graphu. Viac krokov môže patriť do jednej explicitnej workflow application alebo pipeline stage.
+Exit code 0 má nasledovať až po durable commit-e a overení očakávaného state-u.
 
-## 10. Hook delete policy
+## 8. Idempotency a unknown outcome
+
+Helm operation môže byť prerušená po side effecte, ale pred úspešným release statusom:
+
+```text
+migration transaction commitne S13
+→ API response alebo Pod status sa stratí
+→ Helm timeoutuje
+→ release revision 19 je failed/pending
+→ operator nevie, či migration prebehla
+```
+
+Správny hook pri retry:
+
+1. načíta durable migration ledger;
+2. vyhľadá operation ID `atlas-payments/schema-expand/19`;
+3. overí výslednú schema generation;
+4. ak je výsledok complete a zhodný, skončí ako no-op success;
+5. ak je partial, vykoná bounded resume alebo explicitnú compensation;
+6. ak je stav neznámy, zastaví sa a neaplikuje side effect druhýkrát.
+
+Exactly-once execution neposkytuje Helm, Job controller ani `backoffLimit`.
+
+## 9. Concurrency a fencing
+
+Dve pipeline-y môžu spustiť rovnaký alebo susedný release naraz.
+
+Potrebné controls:
+
+```text
+single authoritative release writer
++ CI/CD concurrency lock
++ external operation lock/fencing token
++ unique operation ID
++ state-aware retry
+```
+
+Helm release metadata sama nechráni databázu, queue ani external API pred duplicate side effectom.
+
+Pre databázovú migráciu môže byť autoritou:
+
+- migration table s unique operation ID;
+- advisory lock;
+- compare-and-set nad schema generation;
+- fencing epoch pre stateful writera.
+
+## 10. Database migration lifecycle
+
+Bezpečný model:
+
+```text
+expand kompatibilnú schema
+→ deploy tolerant readers/writers
+→ bounded backfill alebo dual-write
+→ verify current consumers
+→ contract v neskoršom release
+```
+
+Blocking `pre-upgrade` migration je prijateľná iba keď:
+
+- je bounded;
+- nevytvorí nekompatibilitu so starou cohortou;
+- lock neodstaví všetky replicas;
+- rollback/roll-forward hranica je známa;
+- operation je idempotentná;
+- credentials a resource usage sú obmedzené.
+
+Dlhá data migration nepatrí do hooku, ak release timeout alebo retry nie sú vhodný orchestration model.
+
+## 11. Backup hook nie je restore guarantee
+
+Úspešný backup hook musí preukázať:
+
+```text
+source data generation
+→ application-consistent capture
+→ encrypted off-cluster artifact
+→ integrity metadata
+→ retention
+→ restore compatibility
+→ testovaný restore path
+```
+
+Samotný vznik súboru alebo snapshot ID nie je recovery verdict.
+
+Failed upgrade nesmie automaticky spustiť restore starého backupu bez porovnania current data generation. Taký restore by mohol prepísať novšie platné dáta.
+
+## 12. RBAC a secret boundary
+
+Hook Job často potrebuje širšie oprávnenia než runtime application. To zvyšuje blast radius chartu.
+
+Používaj:
+
+- dedicated ServiceAccount;
+- namespaced Role/RoleBinding, ak cluster scope nie je nutný;
+- minimálne verbs a resources;
+- short-lived workload identity pre external systems;
+- `automountServiceAccountToken: false`, keď Kubernetes API netreba;
+- immutable image digest;
+- redaction-aware logs.
+
+Secret nesmie skončiť v:
+
+- hook name alebo annotation;
+- command-line argumente;
+- Helm error message;
+- rendered debug outpute;
+- retained Job manifeste;
+- central logs.
+
+## 13. Timeout layers
+
+Rozlišuj:
+
+```text
+application/external operation timeout
+Job activeDeadlineSeconds
+container retry/backoff
+Helm operation timeout
+pipeline timeout
+```
+
+Helm timeout je observation deadline, nie dôkaz, že side effect neprebehol.
+
+Pred retry vždy over:
+
+- Job UID a attempts;
+- operation ledger;
+- target schema alebo external object;
+- current release status;
+- live workload generation.
+
+## 14. Cleanup a evidence retention
+
+Hook resources nie sú bežný release inventory. `helm uninstall` ich nemusí odstrániť.
+
+Delete policy:
 
 ```yaml
 helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
 ```
 
-Hodnoty:
+Možnosti:
 
-- `before-hook-creation`,
-- `hook-succeeded`,
+- `before-hook-creation`;
+- `hook-succeeded`;
 - `hook-failed`.
 
-Bez explicitnej policy sa typicky používa `before-hook-creation` behavior.
+Kubernetes Job TTL je samostatný cleanup mechanizmus.
 
-Trade-off:
-
-- zmazanie úspešného Jobu znižuje clutter,
-- ponechanie failed Jobu zachová logs a evidence,
-- stále potrebuješ central logs a audit,
-- rovnaký názov bez cleanupu môže blokovať ďalší release.
-
-## 11. Job TTL
-
-Kubernetes Job môže používať:
-
-```yaml
-ttlSecondsAfterFinished: 3600
-```
-
-TTL controller je Kubernetes cleanup mechanizmus nezávislý od Helm hook delete policy.
-
-Kombinácia musí byť vedomá:
-
-- hook policy riadi cleanup počas Helm lifecycle,
-- TTL čistí dokončený Job neskôr,
-- príliš krátky TTL odstráni incident evidence,
-- bez central logs môže byť diagnostika nemožná.
-
-## 12. Hook resources nie sú bežný release inventory
-
-Hook-created resources Helm aktuálne nespravuje rovnakým spôsobom ako bežné release resources. `helm uninstall` preto nemusí automaticky odstrániť hook Jobs, Secrets alebo RBAC objects.
-
-Každý hook resource potrebuje:
-
-- unique alebo reusable naming model,
-- delete policy alebo TTL,
-- owner/labels,
-- manual cleanup runbook,
-- retention decision.
-
-`helm.sh/resource-policy: keep` používaj iba pri explicitnom durable ownership modeli; môže zanechať orphan resources.
-
-## 13. Naming
-
-Statický názov:
-
-```yaml
-name: payments-migration
-```
-
-môže pri ďalšom release kolidovať s predchádzajúcim Jobom.
-
-Revision-specific názov:
-
-```yaml
-name: {{ include "payments.fullname" . }}-migrate-{{ .Release.Revision }}
-```
-
-zlepšuje traceability, ale vytvára viac objects a potrebuje cleanup.
-
-Názov musí rešpektovať Kubernetes length/format limity a byť deterministický pre retry tej istej revision.
-
-## 14. Idempotencia
-
-Helm command môže byť:
-
-- zopakovaný operatorom,
-- retryovaný pipeline-om,
-- prerušený po vykonaní side effectu, ale pred uložením úspešného release statusu,
-- rollbacknutý,
-- spustený súbežne z dvoch automation systémov.
-
-Hook preto nesmie predpokladať exactly-once execution.
-
-Idempotentná migration:
-
-- pozná aktuálnu schema version,
-- používa transaction/lock podľa databázy,
-- bezpečne rozpozná už aplikovaný krok,
-- má bounded retry,
-- nezopakuje external billing/message side effect,
-- ukladá audit result mimo ephemeral Jobu.
-
-## 15. Concurrency control
-
-Dva Helm upgrades alebo release automation runs môžu súperiť.
-
-Controls:
-
-- jeden release writer,
-- CI/CD concurrency lock,
-- database advisory lock,
-- migration table/version lock,
-- unique operation ID,
-- safe retry semantics.
-
-Helm release state lock sám osebe nemusí chrániť všetky external side effects hooku.
-
-## 16. Database migrations
-
-Najčastejší use case, ale aj najrizikovejší.
-
-Bezpečný model:
+Navrhni retention tak, aby:
 
 ```text
-expand schema
-→ deploy backward-compatible application
-→ migrate/backfill data
-→ over usage
-→ contract schema v neskoršom release
+failed evidence prežila incident diagnosis
+central logs prežili resource deletion
+successful resources nezostali bez limitu
+manual cleanup mal ownera a runbook
 ```
 
-`pre-upgrade` blocking migration je vhodná iba keď:
+`hook-failed` môže odstrániť presne tú evidence, ktorú potrebuješ pri incidente.
 
-- downtime je akceptovaný alebo nevznikne incompatibility,
-- operation je bounded,
-- rollback model je známy,
-- database lock neodstaví všetky replicas,
-- Job resources a credentials sú obmedzené.
+## 15. GitOps a deployment-engine boundary
 
-Dlhé data migrations často patria do samostatného riadeného workflowu, nie do Helm hooku.
+Helm CLI, GitOps controller a iný deployment engine nemusia interpretovať hooks identicky.
 
-## 17. Backup hook
-
-Pre-upgrade backup Job môže byť užitočný, ale úspešný exit code musí preukázať:
-
-- application-consistent snapshot,
-- uloženie mimo cluster failure domain,
-- encryption,
-- retention,
-- integrity metadata,
-- restore compatibility.
-
-„Backup file bol vytvorený“ nie je recovery guarantee. Hook by nemal automaticky obnovovať starý backup po failed upgrade bez explicitného rozhodnutia; mohol by zničiť novšie dáta.
-
-## 18. Validation hook
-
-Post-install/post-upgrade Job môže overiť:
-
-- DNS/Service connectivity,
-- základný API request,
-- schema version,
-- required dependency,
-- release-specific invariant.
-
-Nemá nahrádzať:
-
-- readiness probe,
-- continuous synthetic monitoring,
-- integration tests v CI,
-- SLO alerting.
-
-Validation hook je release gate v konkrétnom okamihu.
-
-## 19. Test hook
-
-Resource s:
-
-```yaml
-helm.sh/hook: test
-```
-
-sa spustí cez:
-
-```bash
-helm test <release> -n <namespace>
-```
-
-Test Job má:
-
-- používať least-privilege ServiceAccount,
-- mať timeout a bounded retry,
-- nemať deštruktívne side effects,
-- generovať čitateľný exit status a logs,
-- po sebe upratať podľa policy.
-
-Detailné Helm testing patrí do samostatnej kapitoly.
-
-## 20. RBAC a identity
-
-Hook Job často potrebuje viac oprávnení než application runtime.
-
-Nevhodné:
-
-- reuse `cluster-admin`,
-- mount default ServiceAccount token bez potreby,
-- prístup ku všetkým Secrets,
-- create/update CRDs z application namespace hooku.
-
-Preferuj:
-
-- dedicated ServiceAccount,
-- namespaced Role/RoleBinding,
-- explicitné verbs/resources,
-- krátkodobé external credentials cez workload identity,
-- `automountServiceAccountToken: false`, ak API netreba.
-
-## 21. Secrets
-
-Hook môže spracovať database credentials, backup keys alebo API tokens.
-
-Riziká:
-
-- command-line arguments viditeľné v process metadata,
-- logs,
-- Job manifest/release state,
-- environment variables,
-- failed Pod retained pre debugging,
-- temporary files a dumps.
-
-Secret nevkladaj do annotation, name, Helm error message ani hook output. Preferuj mounted Secret/external provider a redaction-aware tooling.
-
-## 22. Resource limits a scheduling
-
-Hook bez requests/limits môže:
-
-- zostať Pending pre quota/LimitRange,
-- byť OOMKilled počas migrácie,
-- súperiť s production workloadom,
-- spôsobiť Node pressure.
-
-Nastav:
-
-- requests/limits podľa load testu,
-- node placement podľa data/network locality,
-- tolerations iba podľa potreby,
-- PriorityClass opatrne,
-- `activeDeadlineSeconds`,
-- `backoffLimit`.
-
-Pre-upgrade hook blokujúci release potrebuje alerting pri Pending aj Running timeout-e.
-
-## 23. Observability
-
-Zaznamenaj:
-
-- release name a revision,
-- chart/app version,
-- hook type a weight,
-- Job UID,
-- start/end UTC,
-- exit status,
-- operation/migration ID,
-- affected schema/resource,
-- retry count.
-
-Príkazy:
-
-```bash
-helm get hooks <release> -n <namespace>
-kubectl get jobs,pods -n <namespace> -l app.kubernetes.io/instance=<release>
-kubectl logs job/<hook-job> -n <namespace>
-kubectl describe job/<hook-job> -n <namespace>
-```
-
-Central logs musia prežiť hook cleanup.
-
-## 24. Timeout a `--wait`
-
-Helm command timeout zahŕňa blocking operations podľa command a wait semantics. Hook Job bez vlastného deadline môže čakať až do Helm timeoutu.
-
-Navrhni dve hranice:
-
-- Job `activeDeadlineSeconds`,
-- Helm operation timeout s rezervou na API propagation a cleanup.
-
-Timeout neznamená, že external side effect neprebehol. Pred retry over operation state.
-
-## 25. Atomic release behavior
-
-Flags ako atomic/cleanup behavior môžu ovplyvniť release remediation pri failure, ale nezvrátia automaticky external side effects hooku.
-
-Príklad:
+Pre každý engine over:
 
 ```text
-pre-upgrade migration zmení databázu
-→ Deployment rollout zlyhá
-→ Helm rollbackne manifests
-→ database schema zostane nová
+hook annotation support
+ordering
+retry
+timeout
+health/readiness
+garbage collection
+release-history ownership
 ```
 
-Application a schema musia byť backward-compatible alebo mať explicitný recovery runbook.
+Chart, ktorý funguje cez Helm CLI, nemusí mať rovnaký lifecycle v GitOps systéme. Engine identity je súčasť release subjectu.
 
-## 26. Hooks a GitOps
+## 16. Worked incident — migration commitla, release je failed
 
-GitOps controller typicky reconciliuje deklaratívne manifests; Helm hooks sú imperative lifecycle behavior konkrétnej Helm integrácie.
+Atlas Payments upgrade revision 19 skončí po 15 minútach ako failed. Migration Job už neexistuje, pretože delete policy a krátky TTL odstránili Pod aj Job.
 
-Over:
+Business symptom:
 
-- či controller hooks podporuje alebo prekladá,
-- rozdiel medzi Helm hook a controller-specific hook annotation,
-- retry a health behavior,
-- garbage collection,
-- drift po ponechaných hook resources,
-- kto vlastní release history.
-
-Chart testovaný cez Helm CLI nemusí mať identické hook semantics v inom deployment engine.
-
-## 27. Hooks v subcharts
-
-Hooks deklarované dependency chartom sa tiež vyhodnocujú. Top-level chart ich nevie všeobecne ignorovať.
-
-Pred dependency upgrade skontroluj:
-
-```bash
-helm template example ./chart | grep -n "helm.sh/hook"
+```text
+nový rollout sa nespustil
+Helm revision 19 je failed
+schema dashboard ukazuje S13
+operator zvažuje opakovať upgrade
 ```
 
-Lepšie je analyzovať source charts a rendered hooks cez Helm commands, pretože annotation môže byť templated alebo viacriadková.
+### Subject
 
-Subchart hook rozširuje release RBAC, timeout a side-effect surface.
+```text
+release payments-prod
+source revision 18
+target revision 19
+rendered hook digest HK57
+operation ID atlas-payments/schema-expand/19
+expected S12 → S13
+```
 
-## 28. CRDs nie sú hook orchestration
+### Konkurenčné hypotézy
 
-CRDs patria do osobitného lifecycle modelu. Helm ich spracúva pred templates z `crds/`, ale ich upgrades, conversion webhooks, data migration a deletion musia byť riadené explicitne.
+1. hook sa nikdy nespustil;
+2. Job bol Pending alebo admission-denied;
+3. container zlyhal pred commitom;
+4. migration commitla, ale Job completion sa stratila;
+5. migration commitla a verification krok zlyhal;
+6. iný writer zmenil schema na S13;
+7. retry už vykonal operáciu druhýkrát;
+8. cleanup odstránil jedinú lokálnu evidence.
 
-Nepoužívaj hook Job na neoverenú delete/recreate CRD operáciu. Môže dôjsť k strate všetkých custom resources.
+### Diskriminačné observation points
 
-## 29. Anti-patterny
+```text
+helm history/status/get hooks
+Kubernetes Events a audit
+central Job/Pod logs
+migration ledger podľa operation ID
+DB schema generation a migration checksum
+release writer/pipeline concurrency records
+```
 
-### Každý deployment používa mnoho sekvenčných hooks
+Finding:
 
-Chart sa mení na skrytý workflow engine.
+```text
+migration ledger: operation ID complete
+schema: S13 s očakávaným checksumom
+central logs: transaction commit success
+Job evidence: odstránená pred incident review
+Helm: timeout pred uložením successful hook verdictu
+```
 
-### Dlhá migrácia v `pre-upgrade`
+### Containment
 
-Blokuje release, prekračuje timeout a komplikuje rollback.
+- zastaviť automatické retry;
+- ponechať revision 18 workload cohortu;
+- zabrániť ďalšiemu schema writerovi;
+- zachovať release, audit a DB evidence;
+- neobnovovať databázu ani nemaž release Secrets.
 
-### Hook bez idempotencie
+### Recovery
 
-Retry zopakuje side effects.
+1. overiť kompatibilitu revision 18 so schema S13;
+2. upraviť hook tak, aby rovnaký operation ID rozpoznal complete state;
+3. predĺžiť failed evidence retention;
+4. spustiť controlled retry revision 19;
+5. hook vykoná no-op verification, nie druhú migration;
+6. pokračovať rolloutom a post-upgrade validation.
 
-### `hook-succeeded,hook-failed` bez central logs
+### Verification
 
-Všetka evidence sa okamžite zmaže.
+```text
+jedna migration ledger entry
+schema S13 s očakávaným checksumom
+revision 19 deployed
+nové Pody používajú image I57
+payment request P-884 prejde presne raz
+starý operation ID už nevytvorí side effect
+```
 
-### Hook s `cluster-admin`
+### Earlier control
 
-Application chart získava cluster takeover capability.
+- durable operation ledger;
+- idempotent migration;
+- release concurrency lock;
+- central logs;
+- failed Job retention;
+- compatibility test S12/S13 × old/new app;
+- chaos test straty response po commit-e.
 
-### Automatický restore pri failed upgrade
+## 17. Failure boundaries
 
-Môže prepísať novšie alebo konzistentné dáta.
+### Non-Job hook je „ready“, consumer ešte nie
 
-### Spoliehanie sa na uninstall cleanup
+Secret hook sa vytvorí, ale application process stále používa starý credential. API acceptance nie je process-loaded verification.
 
-Hook resources nemusia byť súčasťou bežného release inventory.
+### Hook s broad authority
 
-### Static Job name bez delete policy
+Dependency pridá pre-upgrade hook s `cluster-admin`. Chart dependency upgrade tak rozšíri cluster takeover capability bez zmeny application runtime RBAC.
 
-Ďalší release zlyhá na `AlreadyExists`.
+### Static Job name
 
-## 30. Troubleshooting
+Predchádzajúci failed Job zostane a ďalší release zlyhá na `AlreadyExists`. Naming, delete policy a retry identity musia byť navrhnuté spolu.
 
-### Release visí na hooku
+### Automatic rollback po migration
 
-Over Job/Pod phase, scheduling Events, image pull, RBAC, quota, PVC, logs, active deadline a Helm timeout.
+Helm obnoví manifests revision 18, ale schema ostane S13. Bez backward compatibility je Helm technicky deployed a aplikácia funkčne broken.
 
-### Hook Job zlyhal, ale Pod už neexistuje
+### Pre-delete hook ako jediná ochrana dát
 
-Delete policy alebo TTL odstránili evidence. Použi central logs/audit a uprav retention.
+Namespace alebo PVC môže byť odstránený mimo Helm uninstall lifecycle. Kritická retention policy musí existovať v storage/platform control plane.
 
-### Ďalší upgrade hlási `AlreadyExists`
+## 18. Referenčný operation checklist
 
-Predchádzajúci hook resource ostal. Over name, delete policy a bezpečnosť manual cleanupu.
+Pred prijatím hooku over:
 
-### Migration prebehla, release je failed
+```text
+[ ] exact lifecycle point a engine semantics
+[ ] rendered hook inventory vrátane dependencies
+[ ] operation ID a authoritative target state
+[ ] idempotency, lock a unknown-outcome behavior
+[ ] image digest, ServiceAccount a RBAC
+[ ] requests, limits, deadline a retry
+[ ] external side-effect audit
+[ ] compatibility starej a novej application cohorty
+[ ] delete policy, TTL a central evidence
+[ ] rollback/roll-forward/compensation runbook
+[ ] original aj forbidden outcome test
+```
 
-Neopakuj ju naslepo. Over migration table/operation ID, schema a application compatibility.
+## 19. Kontrolné otázky
 
-### Uninstall zanechal hook resources
-
-Je to očakávaná lifecycle hranica. Použi documented cleanup podľa labels a data-retention modelu.
-
-### Hook funguje cez Helm CLI, ale nie cez GitOps
-
-Porovnaj deployment engine hook semantics, service account, timeout, health a garbage collection.
-
-## 31. Kontrolné otázky
-
-1. Čo odlišuje hook resource od bežného release resource?
-2. Ktoré lifecycle hooks sú dostupné?
-3. Ako sa vyhodnocuje hook weight?
-4. Čo znamená ready pre Job hook a pre ConfigMap hook?
-5. Prečo hook resources nemusia byť odstránené pri uninstall-e?
-6. Aký je rozdiel medzi hook delete policy a Job TTL?
-7. Prečo migration hook potrebuje idempotenciu?
-8. Ako hook failure interaguje s databázovým side effectom?
-9. Prečo sú subchart hooks supply-chain riziko?
-10. Kedy operácia už nepatrí do Helm hooku, ale do samostatného workflowu?
+1. Ktoré štyri stavy oddeľuje hook operation boundary?
+2. Prečo Helm timeout nepreukazuje, že migration neprebehla?
+3. Ako sa líši readiness Job hooku od readiness ConfigMap hooku?
+4. Prečo hook potrebuje durable operation ID?
+5. Ktoré controls zabránia duplicate side effectu pri concurrent upgrades?
+6. Prečo delete policy a Job TTL nie sú to isté?
+7. Kedy už migration nepatrí do Helm hooku?
+8. Ako subchart hook mení release trust a authority surface?
+9. Prečo automatic rollback nevracia durable external state?
+10. Aké forbidden outcomes overíš po recovery?
 
 ## Glossary impact
 
-Relevantné pojmy: Helm hook, hook lifecycle point, hook weight, hook readiness, hook delete policy, `before-hook-creation`, `hook-succeeded`, `hook-failed`, hook Job, hook idempotency, hook side effect, test hook, hook resource retention a subchart hook.
+Relevantné pojmy: Helm hook operation subject, rendered hook inventory, hook execution attempt, external side-effect commit, unknown hook outcome, hook readiness boundary, durable operation ledger, hook fencing, hook evidence-retention contract, subchart hook authority a hook recovery verdict.
 
 ## Oficiálna dokumentácia
 
