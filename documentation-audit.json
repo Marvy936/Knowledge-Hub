@@ -2103,15 +2103,15 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
       "title": "Namespaces, cgroups a capabilities",
-      "words": 1389,
-      "headings": 28,
-      "sections": 28,
-      "findings": 63,
-      "critical": 22,
-      "high": 11,
-      "medium": 17,
-      "low": 13,
-      "score": 436,
+      "words": 2591,
+      "headings": 40,
+      "sections": 40,
+      "findings": 95,
+      "critical": 28,
+      "high": 28,
+      "medium": 14,
+      "low": 25,
+      "score": 641,
       "grade": "D"
     },
     {
@@ -112988,125 +112988,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "1. Tri rozdielne otázky",
-      "line": 5,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Čo process vidí? — namespaces.`, `Koľko resources môže spotrebovať? — cgroups a limits.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "1. Tri rozdielne otázky",
-      "line": 5,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "1. Tri rozdielne otázky",
-      "line": 5,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "1. Tri rozdielne otázky",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "2. Namespace model",
-      "line": 15,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "2. Namespace model",
-      "line": 15,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "3. PID namespace a PID 1",
-      "line": 34,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zbiera orphaned child processes,`, `správne forwarduje signals,`, `ukončuje sa predvídateľne,`, `drží container lifecycle.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "3. PID namespace a PID 1",
-      "line": 34,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "3. PID namespace a PID 1",
-      "line": 34,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "4. Mount namespace",
-      "line": 52,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "4. Mount namespace",
-      "line": 52,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image root filesystem,`, `bind mounts alebo volumes,`, `pseudo-filesystems ako /proc ,`, `read-only alebo masked paths,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "4. Mount namespace",
-      "line": 52,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "4. Mount namespace",
-      "line": 52,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "5. Network namespace",
-      "line": 72,
+      "section": "1. Atlas runtime-isolation subject",
+      "line": 28,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -113114,53 +112997,17 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "5. Network namespace",
-      "line": 72,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "5. Network namespace",
-      "line": 72,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network interfaces,`, `IP adresy,`, `routing table,`, `neighbor table,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "5. Network namespace",
-      "line": 72,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "5. Network namespace",
-      "line": 72,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "6. User namespace",
-      "line": 97,
+      "section": "3. Namespace lifecycle",
+      "line": 84,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "6. User namespace",
-      "line": 97,
+      "section": "3. Namespace lifecycle",
+      "line": 84,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -113168,332 +113015,35 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "7. Cgroups",
-      "line": 105,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "7. Cgroups",
-      "line": 105,
+      "section": "4. PID namespace a PID 1",
+      "line": 111,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU weight a quota,`, `memory limits a events,`, `process count cez pids ,`, `I/O limits,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prijímať a forwardovať signals;`, `reaping orphaned children;`, `držať foreground lifecycle;`, `vracať pravdivý exit code;`.",
       "score": 12
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "7. Cgroups",
-      "line": 105,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "4. PID namespace a PID 1",
+      "line": 111,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "7. Cgroups",
-      "line": 105,
+      "section": "4. PID namespace a PID 1",
+      "line": 111,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "7. Cgroups",
-      "line": 105,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "8. CPU limits",
-      "line": 120,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "8. CPU limits",
-      "line": 120,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "8. CPU limits",
-      "line": 120,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NUMA`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "9. Memory limits",
-      "line": 137,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reclaim,`, `throttling,`, `cgroup OOM,`, `host-level OOM,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "9. Memory limits",
-      "line": 137,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "9. Memory limits",
-      "line": 137,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "10. PID limit",
-      "line": 151,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "10. PID limit",
-      "line": 151,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `thread pools,`, `process-based workers,`, `shell helpers,`, `package/runtime subprocessoch.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "10. PID limit",
-      "line": 151,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "11. Capabilities",
-      "line": 162,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "11. Capabilities",
-      "line": 162,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CAP NET BIND SERVICE ,`, `CAP NET ADMIN ,`, `CAP SYS ADMIN ,`, `CAP CHOWN ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "11. Capabilities",
-      "line": 162,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "11. Capabilities",
-      "line": 162,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `BIND`, `SERVICE`, `CHOWN`, `SETUID`, `PTRACE`",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "12. Capability sets",
-      "line": 182,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "12. Capability sets",
-      "line": 182,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `permitted,`, `effective,`, `inheritable,`, `bounding,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "12. Capability sets",
-      "line": 182,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "14. Seccomp",
-      "line": 207,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "14. Seccomp",
-      "line": 207,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unconfined vypne významnú ochranu,`, `príliš úzky profil spôsobí runtime failures,`, `profil musí zohľadniť architecture a application behavior,`, `povolenie syscallu stále podlieha ďalším permission checks.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "14. Seccomp",
-      "line": 207,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "14. Seccomp",
-      "line": 207,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "14. Seccomp",
-      "line": 207,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "15. Mandatory Access Control",
-      "line": 220,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runtime-generated labels/profiles,`, `host policy,`, `volume labels,`, `custom profiles,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "15. Mandatory Access Control",
-      "line": 220,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "15. Mandatory Access Control",
-      "line": 220,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "16. Privileged container",
-      "line": 234,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "16. Privileged container",
-      "line": 234,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `udeľuje široké capabilities,`, `sprístupňuje devices,`, `oslabuje seccomp/LSM confinement,`, `rozširuje host filesystem a kernel attack surface.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "16. Privileged container",
-      "line": 234,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "16. Privileged container",
-      "line": 234,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`",
-      "score": 4
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "17. Device access",
-      "line": 245,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "17. Device access",
-      "line": 245,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowlistom konkrétnych devices,`, `cgroup/device policy podľa runtime,`, `capabilities,`, `ownershipom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "17. Device access",
-      "line": 245,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "17. Device access",
-      "line": 245,
+      "section": "4. PID namespace a PID 1",
+      "line": 111,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -113501,26 +113051,413 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "18. Resource limits nie sú rezervácie",
-      "line": 258,
+      "section": "5. Mount namespace a root filesystem",
+      "line": 151,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "5. Mount namespace a root filesystem",
+      "line": 151,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "18. Resource limits nie sú rezervácie",
-      "line": 258,
+      "section": "5. Mount namespace a root filesystem",
+      "line": 151,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduling/reservation model,`, `maximum limit,`, `host overcommit,`, `noisy-neighbor contention,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host / alebo /etc bind mount;`, `container runtime socket;`, `writable /proc alebo /sys subtree;`, `device nodes;`.",
       "score": 12
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "18. Resource limits nie sú rezervácie",
+      "section": "5. Mount namespace a root filesystem",
+      "line": 151,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "5. Mount namespace a root filesystem",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "6. Network namespace",
+      "line": 183,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "6. Network namespace",
+      "line": 183,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interfaces a routes;`, `host forwarding/NAT;`, `firewall/network policy;`, `DNS/service discovery;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "6. Network namespace",
+      "line": 183,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "6. Network namespace",
+      "line": 183,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "6. Network namespace",
+      "line": 183,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "6. Network namespace",
+      "line": 183,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `DNS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "7. User namespace a credential mapping",
+      "line": 209,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "7. User namespace a credential mapping",
+      "line": 209,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znižuje dopad container root-u;`, `podporuje rootless runtime;`, `oddeľuje numeric IDs od host ownershipu.`, `bind-mounted host file nemá mapped ownership;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "7. User namespace a credential mapping",
+      "line": 209,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "7. User namespace a credential mapping",
+      "line": 209,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "7. User namespace a credential mapping",
+      "line": 209,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GID`",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "8. Cgroup placement ako runtime identity",
+      "line": 236,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "9. CPU weight, quota a cpuset",
+      "line": 252,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "CPU quota",
       "line": 258,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "10. Memory lifecycle",
+      "line": 282,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "10. Memory lifecycle",
+      "line": 282,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application leak;`, `legitimate burst;`, `page-cache pressure;`, `host-level pressure;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "10. Memory lifecycle",
+      "line": 282,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "10. Memory lifecycle",
+      "line": 282,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "12. I/O a pressure",
+      "line": 327,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `block I/O throttling;`, `shared filesystem latency;`, `writeback congestion;`, `storage queue contention;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "12. I/O a pressure",
+      "line": 327,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "13. Capabilities ako rozdelené privileges",
+      "line": 339,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "13. Capabilities ako rozdelené privileges",
+      "line": 339,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CAP NET BIND SERVICE pre low ports;`, `CAP CHOWN ;`, `CAP SETUID ;`, `CAP NET ADMIN ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "13. Capabilities ako rozdelené privileges",
+      "line": 339,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "13. Capabilities ako rozdelené privileges",
+      "line": 339,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "13. Capabilities ako rozdelené privileges",
+      "line": 339,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAP`, `NET`, `BIND`, `SERVICE`, `CHOWN`, `SETUID`, `ADMIN`, `SYS`",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "14. Capability sets a exec transition",
+      "line": 360,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `permitted;`, `effective;`, `inheritable;`, `bounding;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "14. Capability sets a exec transition",
+      "line": 360,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "14. Capability sets a exec transition",
+      "line": 360,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "16. Seccomp syscall boundary",
+      "line": 393,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "16. Seccomp syscall boundary",
+      "line": 393,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU architecture a syscall numbering;`, `application/runtime version;`, `language runtime behavior;`, `optional features;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "16. Seccomp syscall boundary",
+      "line": 393,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "16. Seccomp syscall boundary",
+      "line": 393,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "16. Seccomp syscall boundary",
+      "line": 393,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "17. SELinux/AppArmor object policy",
+      "line": 417,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "18. Devices a runtime socket",
+      "line": 432,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "18. Devices a runtime socket",
+      "line": 432,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `GPU;`, `block device;`, `KVM;`, `FUSE;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "18. Devices a runtime socket",
+      "line": 432,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "18. Devices a runtime socket",
+      "line": 432,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GPU`, `KVM`, `FUSE`, `USB`",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "19. Privileged mode ako policy collapse",
+      "line": 448,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "19. Privileged mode ako policy collapse",
+      "line": 448,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridať široké capabilities;`, `sprístupniť devices;`, `oslabiť seccomp;`, `zmeniť LSM confinement;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "19. Privileged mode ako policy collapse",
+      "line": 448,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -113528,8 +113465,26 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "19. Isolation matrix",
-      "line": 271,
+      "section": "19. Privileged mode ako policy collapse",
+      "line": 448,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "19. Privileged mode ako policy collapse",
+      "line": 448,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSM`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "1. Zafixuj process a policy subject",
+      "line": 541,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -113537,8 +113492,251 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "Operácia vracia Operation not permitted",
-      "line": 294,
+      "section": "1. Zafixuj process a policy subject",
+      "line": 541,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "1. Zafixuj process a policy subject",
+      "line": 541,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host PID a namespace PID;`, `UID/GID a user namespace mappings;`, `capability sets a bounding set;`, `no new privs ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "1. Zafixuj process a policy subject",
+      "line": 541,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "1. Zafixuj process a policy subject",
+      "line": 541,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `UID`, `GID`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 556,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 556,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 556,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 556,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Chýba CAP NET BIND SERVICE .`, `Capability bola v permitted, ale nie effective sete.`, `Seccomp blokuje socket alebo related syscall.`, `SELinux/AppArmor odmieta bind alebo key read.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 556,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 556,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 556,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 556,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "2. Súťažiace hypotézy",
+      "line": 556,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAP`, `NET`, `BIND`, `SERVICE`, `TLS`, `UID`",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 569,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 569,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 569,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 569,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `/proc/<pid /status capabilities a NoNewPrivs ;`, `seccomp mode a audit events;`, `SELinux AVC/AppArmor denial;`, `stat , mountinfo a user namespace maps;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 569,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "3. Diskriminačné observation points",
+      "line": 569,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AVC`, `OCI`",
+      "score": 4
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "5. Recovery",
+      "line": 584,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "5. Recovery",
+      "line": 584,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "5. Recovery",
+      "line": 584,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "5. Recovery",
+      "line": 584,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `LSM denial → oprav profile alebo object label;`, `user/mount permission → zosúlaď mapping, owner a mount flags;`, `port collision → oprav namespace/process lifecycle;`, `wrong operation → oprav application writable-path/config contract.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "5. Recovery",
+      "line": 584,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "5. Recovery",
+      "line": 584,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "5. Recovery",
+      "line": 584,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "5. Recovery",
+      "line": 584,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `BIND`, `SERVICE`, `LSM`",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "6. Over pôvodný outcome",
+      "line": 594,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -113546,12 +113744,102 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
-      "section": "CPU latency rastie bez 100 % host CPU",
-      "line": 302,
+      "section": "7. Posuň control skôr",
+      "line": 598,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "26. Isolation matrix",
+      "line": 602,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "26. Isolation matrix",
+      "line": 602,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 615,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 615,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 615,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 615,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 615,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 615,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 615,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md",
+      "section": "27. Referenčné pravidlá",
+      "line": 615,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `CPU`, `UID`, `LSM`, `policy`, `identity`, `workload`",
+      "score": 7
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md",

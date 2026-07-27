@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11209**
-- Total words: **581,901**
-- Findings: **24479** (critical 7739, high 8772, medium 3380, low 4588)
+- Audited conceptual sections: **11221**
+- Total words: **583,103**
+- Findings: **24511** (critical 7745, high 8789, medium 3377, low 4600)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -157,6 +157,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 644 | 29 | 29 | 14 | 10 | 1651 | `docs/09-kubernetes/requests-limits-qos.md` |
 | D | 643 | 26 | 32 | 11 | 28 | 2923 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | D | 642 | 30 | 28 | 12 | 15 | 2582 | `docs/04-testing-and-quality/mocks-stubs-fakes.md` |
+| D | 641 | 28 | 28 | 14 | 25 | 2591 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
 | D | 635 | 26 | 32 | 14 | 14 | 2164 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | D | 635 | 27 | 33 | 11 | 9 | 2049 | `docs/06-gitlab/container-and-package-registry.md` |
 | D | 633 | 26 | 25 | 21 | 31 | 2970 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
@@ -216,7 +217,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 442 | 17 | 23 | 10 | 13 | 1881 | `docs/05-ci-cd-and-release/feature-flags.md` |
 | D | 442 | 17 | 17 | 11 | 52 | 4110 | `docs/13-security-and-identity/kerberos.md` |
 | D | 437 | 18 | 15 | 13 | 43 | 3662 | `docs/00-foundations/three-ways.md` |
-| D | 436 | 22 | 11 | 17 | 13 | 1389 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
 | D | 434 | 22 | 14 | 12 | 10 | 1931 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
 | D | 430 | 18 | 16 | 12 | 35 | 2923 | `docs/04-testing-and-quality/test-pyramid.md` |
 | D | 426 | 17 | 20 | 11 | 18 | 2145 | `docs/04-testing-and-quality/shift-left.md` |
@@ -8197,39 +8197,62 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md`
 
-- **CRITICAL** line 34, `bare-bullet-items` — **3. PID namespace a PID 1**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zbiera orphaned child processes,`, `správne forwarduje signals,`, `ukončuje sa predvídateľne,`, `drží container lifecycle.`.
-- **CRITICAL** line 52, `bare-bullet-items` — **4. Mount namespace**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image root filesystem,`, `bind mounts alebo volumes,`, `pseudo-filesystems ako /proc ,`, `read-only alebo masked paths,`.
-- **CRITICAL** line 52, `outline-instead-of-explanation` — **4. Mount namespace**: 10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 72, `bare-bullet-items` — **5. Network namespace**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network interfaces,`, `IP adresy,`, `routing table,`, `neighbor table,`.
-- **CRITICAL** line 72, `outline-instead-of-explanation` — **5. Network namespace**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 105, `bare-bullet-items` — **7. Cgroups**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU weight a quota,`, `memory limits a events,`, `process count cez pids ,`, `I/O limits,`.
-- **CRITICAL** line 137, `bare-bullet-items` — **9. Memory limits**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reclaim,`, `throttling,`, `cgroup OOM,`, `host-level OOM,`.
-- **CRITICAL** line 151, `bare-bullet-items` — **10. PID limit**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `thread pools,`, `process-based workers,`, `shell helpers,`, `package/runtime subprocessoch.`.
-- **CRITICAL** line 151, `outline-instead-of-explanation` — **10. PID limit**: 4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 162, `bare-bullet-items` — **11. Capabilities**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CAP NET BIND SERVICE ,`, `CAP NET ADMIN ,`, `CAP SYS ADMIN ,`, `CAP CHOWN ,`.
-- **CRITICAL** line 162, `outline-instead-of-explanation` — **11. Capabilities**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 182, `bare-bullet-items` — **12. Capability sets**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `permitted,`, `effective,`, `inheritable,`, `bounding,`.
-- **CRITICAL** line 182, `outline-instead-of-explanation` — **12. Capability sets**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 207, `bare-bullet-items` — **14. Seccomp**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unconfined vypne významnú ochranu,`, `príliš úzky profil spôsobí runtime failures,`, `profil musí zohľadniť architecture a application behavior,`, `povolenie syscallu stále podlieha ďalším permission checks.`.
-- **CRITICAL** line 207, `outline-instead-of-explanation` — **14. Seccomp**: 4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 220, `bare-bullet-items` — **15. Mandatory Access Control**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runtime-generated labels/profiles,`, `host policy,`, `volume labels,`, `custom profiles,`.
-- **CRITICAL** line 234, `bare-bullet-items` — **16. Privileged container**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `udeľuje široké capabilities,`, `sprístupňuje devices,`, `oslabuje seccomp/LSM confinement,`, `rozširuje host filesystem a kernel attack surface.`.
-- **CRITICAL** line 234, `outline-instead-of-explanation` — **16. Privileged container**: 4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 245, `bare-bullet-items` — **17. Device access**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowlistom konkrétnych devices,`, `cgroup/device policy podľa runtime,`, `capabilities,`, `ownershipom,`.
-- **CRITICAL** line 245, `outline-instead-of-explanation` — **17. Device access**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 258, `bare-bullet-items` — **18. Resource limits nie sú rezervácie**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduling/reservation model,`, `maximum limit,`, `host overcommit,`, `noisy-neighbor contention,`.
-- **CRITICAL** line 258, `outline-instead-of-explanation` — **18. Resource limits nie sú rezervácie**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `bare-bullet-items` — **1. Tri rozdielne otázky**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Čo process vidí? — namespaces.`, `Koľko resources môže spotrebovať? — cgroups a limits.`.
-- **HIGH** line 72, `single-sentence-concept` — **5. Network namespace**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 105, `list-heavy-section` — **7. Cgroups**: 6 odrážok a iba 37 slov súvislého vysvetlenia.
-- **HIGH** line 271, `single-sentence-concept` — **19. Isolation matrix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 294, `single-sentence-concept` — **Operácia vracia Operation not permitted**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 302, `single-sentence-concept` — **CPU latency rastie bez 100 % host CPU**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 72, `thin-concept-section` — **5. Network namespace**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 120, `thin-concept-section` — **8. CPU limits**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 162, `term-before-explanation` — **11. Capabilities**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `BIND`, `SERVICE`, `CHOWN`, `SETUID`, `PTRACE`
-- **HIGH** line 245, `thin-concept-section` — **17. Device access**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 258, `thin-concept-section` — **18. Resource limits nie sú rezervácie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 111, `bare-bullet-items` — **4. PID namespace a PID 1**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prijímať a forwardovať signals;`, `reaping orphaned children;`, `držať foreground lifecycle;`, `vracať pravdivý exit code;`.
+- **CRITICAL** line 151, `bare-bullet-items` — **5. Mount namespace a root filesystem**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host / alebo /etc bind mount;`, `container runtime socket;`, `writable /proc alebo /sys subtree;`, `device nodes;`.
+- **CRITICAL** line 151, `outline-instead-of-explanation` — **5. Mount namespace a root filesystem**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 183, `bare-bullet-items` — **6. Network namespace**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interfaces a routes;`, `host forwarding/NAT;`, `firewall/network policy;`, `DNS/service discovery;`.
+- **CRITICAL** line 209, `bare-bullet-items` — **7. User namespace a credential mapping**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znižuje dopad container root-u;`, `podporuje rootless runtime;`, `oddeľuje numeric IDs od host ownershipu.`, `bind-mounted host file nemá mapped ownership;`.
+- **CRITICAL** line 252, `empty-section` — **9. CPU weight, quota a cpuset**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 282, `bare-bullet-items` — **10. Memory lifecycle**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application leak;`, `legitimate burst;`, `page-cache pressure;`, `host-level pressure;`.
+- **CRITICAL** line 282, `outline-instead-of-explanation` — **10. Memory lifecycle**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 327, `bare-bullet-items` — **12. I/O a pressure**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `block I/O throttling;`, `shared filesystem latency;`, `writeback congestion;`, `storage queue contention;`.
+- **CRITICAL** line 339, `bare-bullet-items` — **13. Capabilities ako rozdelené privileges**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CAP NET BIND SERVICE pre low ports;`, `CAP CHOWN ;`, `CAP SETUID ;`, `CAP NET ADMIN ;`.
+- **CRITICAL** line 339, `outline-instead-of-explanation` — **13. Capabilities ako rozdelené privileges**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 360, `bare-bullet-items` — **14. Capability sets a exec transition**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `permitted;`, `effective;`, `inheritable;`, `bounding;`.
+- **CRITICAL** line 393, `bare-bullet-items` — **16. Seccomp syscall boundary**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU architecture a syscall numbering;`, `application/runtime version;`, `language runtime behavior;`, `optional features;`.
+- **CRITICAL** line 432, `bare-bullet-items` — **18. Devices a runtime socket**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `GPU;`, `block device;`, `KVM;`, `FUSE;`.
+- **CRITICAL** line 432, `outline-instead-of-explanation` — **18. Devices a runtime socket**: 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 448, `bare-bullet-items` — **19. Privileged mode ako policy collapse**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridať široké capabilities;`, `sprístupniť devices;`, `oslabiť seccomp;`, `zmeniť LSM confinement;`.
+- **CRITICAL** line 448, `outline-instead-of-explanation` — **19. Privileged mode ako policy collapse**: 11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 541, `bare-bullet-items` — **1. Zafixuj process a policy subject**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host PID a namespace PID;`, `UID/GID a user namespace mappings;`, `capability sets a bounding set;`, `no new privs ;`.
+- **CRITICAL** line 541, `outline-instead-of-explanation` — **1. Zafixuj process a policy subject**: 10 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 556, `no-prose-concept` — **2. Súťažiace hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 556, `outline-instead-of-explanation` — **2. Súťažiace hypotézy**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 569, `bare-bullet-items` — **3. Diskriminačné observation points**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `/proc/<pid /status capabilities a NoNewPrivs ;`, `seccomp mode a audit events;`, `SELinux AVC/AppArmor denial;`, `stat , mountinfo a user namespace maps;`.
+- **CRITICAL** line 569, `no-prose-concept` — **3. Diskriminačné observation points**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 569, `outline-instead-of-explanation` — **3. Diskriminačné observation points**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 584, `no-prose-concept` — **5. Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 584, `outline-instead-of-explanation` — **5. Recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 615, `no-prose-concept` — **27. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 615, `outline-instead-of-explanation` — **27. Referenčné pravidlá**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 28, `single-sentence-concept` — **1. Atlas runtime-isolation subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 151, `single-sentence-concept` — **5. Mount namespace a root filesystem**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 183, `list-heavy-section` — **6. Network namespace**: 6 odrážok a iba 42 slov súvislého vysvetlenia.
+- **HIGH** line 209, `list-heavy-section` — **7. User namespace a credential mapping**: 8 odrážok a iba 49 slov súvislého vysvetlenia.
+- **HIGH** line 258, `single-sentence-concept` — **CPU quota**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 393, `list-heavy-section` — **16. Seccomp syscall boundary**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 541, `single-sentence-concept` — **1. Zafixuj process a policy subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 556, `bare-bullet-items` — **2. Súťažiace hypotézy**: 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Chýba CAP NET BIND SERVICE .`, `Capability bola v permitted, ale nie effective sete.`, `Seccomp blokuje socket alebo related syscall.`, `SELinux/AppArmor odmieta bind alebo key read.`.
+- **HIGH** line 556, `list-first-introduction` — **2. Súťažiace hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 569, `list-first-introduction` — **3. Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 584, `bare-bullet-items` — **5. Recovery**: 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `LSM denial → oprav profile alebo object label;`, `user/mount permission → zosúlaď mapping, owner a mount flags;`, `port collision → oprav namespace/process lifecycle;`, `wrong operation → oprav application writable-path/config contract.`.
+- **HIGH** line 584, `list-first-introduction` — **5. Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 594, `single-sentence-concept` — **6. Over pôvodný outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 598, `single-sentence-concept` — **7. Posuň control skôr**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 602, `single-sentence-concept` — **26. Isolation matrix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 615, `list-first-introduction` — **27. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 339, `term-before-explanation` — **13. Capabilities ako rozdelené privileges**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAP`, `NET`, `BIND`, `SERVICE`, `CHOWN`, `SETUID`, `ADMIN`, `SYS`
+- **HIGH** line 432, `term-before-explanation` — **18. Devices a runtime socket**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GPU`, `KVM`, `FUSE`, `USB`
+- **HIGH** line 448, `thin-concept-section` — **19. Privileged mode ako policy collapse**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 541, `term-before-explanation` — **1. Zafixuj process a policy subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `UID`, `GID`, `resource`
+- **HIGH** line 541, `thin-concept-section` — **1. Zafixuj process a policy subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 556, `term-before-explanation` — **2. Súťažiace hypotézy**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAP`, `NET`, `BIND`, `SERVICE`, `TLS`, `UID`
+- **HIGH** line 556, `thin-concept-section` — **2. Súťažiace hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 569, `thin-concept-section` — **3. Diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 584, `term-before-explanation` — **5. Recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NET`, `BIND`, `SERVICE`, `LSM`
+- **HIGH** line 584, `thin-concept-section` — **5. Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 615, `term-before-explanation` — **27. Referenčné pravidlá**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PID`, `CPU`, `UID`, `LSM`, `policy`, `identity`, `workload`
+- **HIGH** line 615, `thin-concept-section` — **27. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md`
 
@@ -17561,19 +17584,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3422 | 438 | 0 | 0 | 3860 |
-| `single-sentence-concept` | 0 | 3484 | 0 | 0 | 3484 |
-| `outline-instead-of-explanation` | 3269 | 0 | 0 | 0 | 3269 |
-| `thin-concept-section` | 0 | 2870 | 0 | 0 | 2870 |
-| `term-before-explanation` | 0 | 464 | 2294 | 0 | 2758 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1838 | 1838 |
-| `example-not-explicit` | 0 | 0 | 0 | 1798 | 1798 |
-| `list-first-introduction` | 0 | 1121 | 0 | 0 | 1121 |
-| `short-concept-section` | 0 | 0 | 1086 | 0 | 1086 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 952 | 952 |
-| `empty-section` | 554 | 0 | 0 | 0 | 554 |
-| `no-prose-concept` | 494 | 0 | 0 | 0 | 494 |
-| `list-heavy-section` | 0 | 395 | 0 | 0 | 395 |
+| `bare-bullet-items` | 3422 | 439 | 0 | 0 | 3861 |
+| `single-sentence-concept` | 0 | 3487 | 0 | 0 | 3487 |
+| `outline-instead-of-explanation` | 3270 | 0 | 0 | 0 | 3270 |
+| `thin-concept-section` | 0 | 2872 | 0 | 0 | 2872 |
+| `term-before-explanation` | 0 | 469 | 2294 | 0 | 2763 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1842 | 1842 |
+| `example-not-explicit` | 0 | 0 | 0 | 1804 | 1804 |
+| `list-first-introduction` | 0 | 1125 | 0 | 0 | 1125 |
+| `short-concept-section` | 0 | 0 | 1083 | 0 | 1083 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 954 | 954 |
+| `empty-section` | 555 | 0 | 0 | 0 | 555 |
+| `no-prose-concept` | 498 | 0 | 0 | 0 | 498 |
+| `list-heavy-section` | 0 | 397 | 0 | 0 | 397 |
 
 ## Required remediation pattern
 
