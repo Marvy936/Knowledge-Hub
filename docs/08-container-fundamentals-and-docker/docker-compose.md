@@ -1,159 +1,284 @@
 # Docker Compose
 
-Docker Compose opisuje multi-container application model v deklaratívnom `compose.yaml`. Definuje services, networks, volumes, configs, secrets a ich vzťahy. Compose nie je Kubernetes orchestrator ani image build systém sám osebe; je to application-model a lifecycle nástroj, ktorý používa Docker Engine a BuildKit capabilities.
+Docker Compose je application-model a bounded reconciliation nástroj nad Docker Engine. Nevykonáva iba „spustenie YAML“. Najprv skladá sources, interpolation, includes a overrides do **resolved modelu**, potom tento model aplikuje pod konkrétnou **project identity** na containers, networks, volumes a ďalšie objects.
 
-## 1. Compose application model
+Dominantný lifecycle:
 
-Základný súbor:
+```text
+application intent a source inventory
+→ interpolation, include, extends a merge
+→ resolved Compose model subject
+→ project a Docker context identity
+→ resource ownership a destructive-scope plan
+→ image pull/build eligibility
+→ create/recreate a startup ordering
+→ service health, readiness a one-shot verdicts
+→ application/business verification
+→ bounded update reconciliation
+→ down, orphan handling, retention a cleanup
+```
+
+Compose command success nie je automaticky application success. Rovnako `down` nemusí byť harmless cleanup: pri nesprávnom projekte alebo `-v` môže odstrániť authoritative state.
+
+## 1. Atlas scenár
+
+Atlas Payments stack:
+
+```text
+Compose source revision: CP-44
+Compose plugin version: 2.x subject CV-18
+Docker context/daemon: prod-engine-01
+project name: atlas-payments-prod
+resolved model digest: CM-118
+application release: payments-api@sha256:I44
+configuration epoch: CE-118
+frontend network: atlas-payments-prod_frontend
+backend network: atlas-payments-prod_backend
+external volume: atlas-payments-prod-ledger
+migration ID: M27
+expected services: proxy, api, db, migrate
+project generation: PG-203
+```
+
+Úspešný deployment:
+
+```text
+resolved model je policy-valid
+→ exact images sú pullable a verified
+→ external resources prejdú preflightom
+→ migration M27 skončí práve raz
+→ db je semanticky ready
+→ api načíta CE-118 a dosiahne readiness
+→ proxy/client path prejde
+→ project resource inventory zodpovedá modelu
+→ staré/orphan resources sú bezpečne retired
+```
+
+## 2. Compose source subject
+
+Source inventory zahŕňa:
+
+```text
+base compose file a digest
+override files a poradie
+include/extends sources a immutable identity
+project directory
+interpolation environment a `.env` identity
+CLI options a profiles
+Compose version/features
+Docker context/daemon
+image/build references
+external resource contracts
+```
+
+Review jedného `compose.yaml` nestačí, ak production command pridáva ďalšie files alebo profiles.
+
+## 3. Resolved model
+
+Compose najprv vytvorí effective model:
+
+```text
+sources
++ interpolation
++ merge/override rules
++ profiles
++ includes/extends
+→ resolved services, networks, volumes, configs a secrets
+```
+
+Over:
+
+```bash
+docker compose \
+  -f compose.yaml \
+  -f compose.production.yaml \
+  --project-name atlas-payments-prod \
+  config
+```
+
+Resolved model subject má obsahovať digest a non-secret summary:
+
+- service/image digests;
+- commands/entrypoints;
+- ports a host bind addresses;
+- mounts a external resource names;
+- networks a aliases;
+- environment source provenance;
+- healthchecks a dependencies;
+- security/resource settings;
+- profiles a replicas;
+- orphan/destructive policy.
+
+## 4. Merge a override semantics
+
+Nie všetky fields sa skladajú rovnako. Mappings môžu merge-nuť, sequences sa môžu appendovať alebo mať špeciálne semantics a fields ako `command`, `entrypoint` či `healthcheck.test` sa typicky nahrádzajú.
+
+Príklad nebezpečného override-u:
 
 ```yaml
 services:
-  app:
-    image: example:1
-    ports:
-      - "127.0.0.1:8080:8080"
-    depends_on:
-      db:
-        condition: service_healthy
-
   db:
-    image: postgres:17
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 3s
-      retries: 20
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./debug-data:/var/lib/postgresql/data
 ```
 
-Top-level model môže obsahovať najmä:
+Top-level production file môže vyzerať bezpečne, ale resolved model publikuje DB a mení data source. Policy musí vyhodnocovať resolved model, nie fragmenty.
 
-- `services`,
-- `networks`,
-- `volumes`,
-- `configs`,
-- `secrets`,
-- `name`,
-- `include` podľa podporovaného Compose workflowu.
+## 5. Project identity
 
-Service nie je konkrétny container. Je to požadovaná definícia, z ktorej Compose vytvorí jednu alebo viac runtime inštancií podľa commandu a platform capabilities.
+Project identity ovplyvňuje generated names, labels a lifecycle scope:
 
-## 2. Compose V2 CLI
-
-Moderný príkaz používa Docker CLI plugin:
-
-```bash
-docker compose version
-docker compose up -d
+```text
+<project>_<service>_<replica>
+<project>_default
+<project>_<volume-key>
 ```
 
-Legacy standalone binary používal zápis:
-
-```bash
-docker-compose
-```
-
-Pri dokumentácii a automation preferuj `docker compose`. Zaznamenaj Compose version, pretože nové attributes nemusia fungovať v staršom plugine alebo na odlišnej platforme.
-
-## 3. Compose project
-
-Compose zoskupuje resources do **projectu**.
-
-Project identity ovplyvňuje názvy:
-
-- containers,
-- default networku,
-- named resources bez explicitného external mena,
-- labels,
-- lifecycle commandov.
-
-Project name môže pochádzať napríklad z:
-
-- CLI `--project-name`,
-- environmentu,
-- top-level `name`,
-- project directory.
-
-V CI vždy nastav stabilný, collision-safe project name:
+Project name môže pochádzať z CLI, top-level `name`, environmentu alebo directory. V automation ho nastav explicitne:
 
 ```bash
 docker compose --project-name "pr-${CI_PIPELINE_ID}" up -d
 ```
 
-Inak paralelné pipeline môžu meniť rovnaké resources.
+Project collision môže spôsobiť, že dva pipelines alebo environments vytvárajú, recreatujú alebo mažú rovnaké resources.
 
-## 4. Service definition
+## 6. Service nie je container
 
-Service môže definovať:
+Service je desired runtime definition. Container je konkrétna Engine object instance z tejto definition.
 
-- `image` alebo `build`,
-- `command` a `entrypoint`,
-- `environment` a `env_file`,
-- `ports`, `expose`,
-- `networks`,
-- `volumes`,
-- `healthcheck`,
-- `depends_on`,
-- `restart`,
-- `user`, `working_dir`,
-- resource a security options,
-- profiles,
-- labels,
-- configs a secrets.
-
-Service-level options sú runtime contract. Image musí zostať použiteľný aj mimo konkrétneho Compose file-u, pokiaľ architektúra nehovorí inak.
-
-## 5. `image` a `build`
-
-Použitie existujúceho artifactu:
-
-```yaml
-services:
-  app:
-    image: registry.example.com/example/app@sha256:...
+```text
+service api
+→ container generation api-1 / ID C203
+→ task/process PID 1822
+→ health generation HG-992
 ```
 
-Local build:
+Pri update môže Compose container nahradiť. Persistent data, service DNS identity a external clients musia replacement tolerovať.
+
+## 7. Image a build boundary
+
+Production model má preferovať vopred vytvorený exact artifact:
 
 ```yaml
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: example/app:dev
+  api:
+    image: registry.example.com/atlas/payments-api@sha256:I44
 ```
 
-Ak sú uvedené `build` aj `image`, Compose build môže výsledok označiť daným image menom. Pull/build behavior závisí aj od commandu a `pull_policy`.
+`build:` na runtime hoste rozširuje deployment subject o source context, builder, cache a credentials. To obchádza artifact promotion, ak production host vytvorí nový image z mutable source.
 
-Production deployment má preferovať vopred vytvorený, testovaný a digestom identifikovaný artifact namiesto build-u priamo na production hoste.
+Ak sú `build` aj `image`, over command a pull/build policy. Názov tagu nepreukazuje, ktorý digest bol vytvorený alebo spustený.
 
-## 6. Commands a image defaults
+## 8. Resource ownership plan
 
-Compose môže prepísať image metadata:
+Každý top-level object potrebuje ownera:
 
-```yaml
-services:
-  app:
-    command: ["serve", "--port", "8080"]
-    entrypoint: ["/usr/local/bin/example"]
+| Resource | Compose ownership | Preflight/cleanup dôsledok |
+|---|---|---|
+| Project network | Compose-managed | môže sa vytvoriť/odstrániť s projectom |
+| Project volume | Compose-managed | `down -v` ho môže odstrániť |
+| External volume | iný owner | Compose ho nemá vytvoriť ani zmazať |
+| External network | iný owner | treba overiť environment a policy |
+| Bind mount | daemon-host owner | path, permissions a data identity mimo Compose |
+| Image digest | registry/release owner | Compose ho konzumuje, nemá ho mutovať |
+
+`external: true` nie je iba syntax; je ownership transfer.
+
+## 9. Create a update reconciliation
+
+`docker compose up` typicky:
+
+```text
+read resolved model
+→ identify project resources podľa labels/names
+→ pull/build podľa policy
+→ create missing networks/volumes
+→ create alebo recreate changed containers
+→ start podľa dependency conditions
+→ podľa options čakať na health
+→ report command verdict
 ```
 
-Rozlišuj:
+Compose nie je nepretržitý control loop. Po skončení commandu nemusí korigovať manual drift, host failure alebo neskoršiu dependency outage.
 
-- Dockerfile `ENTRYPOINT`,
-- Dockerfile `CMD`,
-- Compose `entrypoint`,
-- Compose `command`.
+## 10. Recreate decision a change subject
 
-Príliš veľa environment-specific command overrides znamená, že image runtime contract nie je stabilný.
+Container môže byť recreated pri zmene image/configuration. Recreate subject má zahŕňať:
 
-## 7. Networks
+- old/new container config hash;
+- image digest;
+- environment/config epoch;
+- mounts/networks;
+- command/entrypoint;
+- security/resource options;
+- project generation;
+- persistent-state compatibility.
 
-Compose štandardne vytvorí project default network. Services v nej môžu komunikovať podľa service name.
+Zmena mutable tagu nemusí byť zrejmá bez pull policy a digest correlation. Preferuj exact digest a explicitný rollout.
+
+## 11. Startup ordering nie je runtime dependency management
+
+Krátke `depends_on` riadi ordering. Dlhá forma môže čakať na:
+
+- `service_started`;
+- `service_healthy`;
+- `service_completed_successfully`.
+
+To nerieši neskorší restart DB, connection loss ani application retry. `depends_on` je create/start transition, nie permanentný service manager.
+
+## 12. One-shot service a migration verdict
 
 ```yaml
 services:
-  app:
+  migrate:
+    image: payments-api@sha256:I44
+    command: ["migrate", "M27"]
+
+  api:
+    image: payments-api@sha256:I44
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+```
+
+Migration potrebuje:
+
+```text
+stable migration ID
+single-writer lock/ledger
+old/new schema compatibility
+structured success/failure result
+unknown-outcome reconciliation
+rerun/recovery semantics
+```
+
+Compose ordering nie je distributed lock. Paralelné projects môžu spustiť rovnakú migration súčasne.
+
+## 13. Health, wait a application acceptance
+
+`up --wait` alebo health conditions môžu potvrdiť Compose health states. Acceptance však potrebuje aj:
+
+- expected service/container inventory;
+- process-loaded configuration;
+- external/client-path test;
+- data identity a migration epoch;
+- forbidden exposure test;
+- exact image digest correlation.
+
+Green `docker compose ps` nepreukazuje business transaction.
+
+## 14. Networks a publication v resolved modeli
+
+```yaml
+services:
+  proxy:
+    ports:
+      - "127.0.0.1:18080:8080"
+    networks: [frontend]
+
+  api:
     networks: [frontend, backend]
 
   db:
@@ -165,554 +290,291 @@ networks:
     internal: true
 ```
 
-Princípy:
+Segmentation má nasledovať communication graph. `ports` vytvára host publication; `expose` nie. Interná communication používa service DNS a container port.
 
-- segmentuj podľa communication graphu,
-- nepoužívaj host-published ports pre internú komunikáciu,
-- service name je logical discovery identity,
-- explicitne kontroluj external network ownership,
-- nepripájaj každú service do každej network.
-
-## 8. Ports a `expose`
-
-```yaml
-services:
-  app:
-    ports:
-      - "127.0.0.1:8080:8080"
-```
-
-Publikuje host port.
-
-```yaml
-services:
-  app:
-    expose:
-      - "8080"
-```
-
-Dokumentuje/internalizuje container port v application modeli, ale samo osebe nevytvára host publishing.
-
-Pre backend služby bez external clients často nepotrebuješ `ports`.
-
-## 9. Volumes
+## 15. Volumes, bindy a destructive scope
 
 ```yaml
 services:
   db:
-    image: postgres:17
     volumes:
       - type: volume
-        source: db-data
+        source: ledger-data
         target: /var/lib/postgresql/data
 
 volumes:
-  db-data:
-```
-
-Top-level volume deklaruje object. Service mount deklaruje použitie.
-
-External volume:
-
-```yaml
-volumes:
-  db-data:
+  ledger-data:
     external: true
-    name: production-db-data
+    name: atlas-payments-prod-ledger
 ```
 
-Compose potom nepreberá plný lifecycle ownership. Deployment musí overiť existenciu, schema, permissions a backup.
-
-## 10. Bind mounts
-
-```yaml
-services:
-  app:
-    volumes:
-      - type: bind
-        source: ./config/app.yaml
-        target: /etc/example/app.yaml
-        read_only: true
-```
-
-Relative source sa vyhodnocuje podľa Compose project/file modelu. Pri remote daemon-e alebo CI workspace môže host path znamenať niečo iné, než operator očakáva.
-
-Production bind mounts používaj úzko a explicitne.
-
-## 11. Configs a secrets
-
-Compose model podporuje `configs` a `secrets`, ale runtime semantics závisia od použitej platformy a deployment režimu.
-
-Príklad:
-
-```yaml
-services:
-  app:
-    configs:
-      - source: app-config
-        target: /etc/example/app.yaml
-    secrets:
-      - db-password
-
-configs:
-  app-config:
-    file: ./config/app.yaml
-
-secrets:
-  db-password:
-    file: ./secrets/db-password.txt
-```
-
-Lokálny file source stále potrebuje:
-
-- bezpečný storage,
-- permissions,
-- rotation,
-- cleanup,
-- ochranu CI logs a artifacts.
-
-Názov `secrets` sám osebe negarantuje enterprise secret-manager vlastnosti.
-
-## 12. `depends_on`
-
-Krátka forma:
-
-```yaml
-services:
-  app:
-    depends_on:
-      - db
-```
-
-Vyjadruje startup/shutdown dependency order, nie application readiness.
-
-Dlhá forma:
-
-```yaml
-services:
-  app:
-    depends_on:
-      db:
-        condition: service_healthy
-        required: true
-```
-
-Podporované conditions zahŕňajú podľa Compose modelu:
-
-- `service_started`,
-- `service_healthy`,
-- `service_completed_successfully`.
-
-Application musí aj po štarte zvládať dependency restart, network partition a transient failure.
-
-## 13. One-shot services
-
-Database migration alebo initialization možno modelovať ako service:
-
-```yaml
-services:
-  migrate:
-    image: example:1
-    command: ["migrate"]
-
-  app:
-    image: example:1
-    depends_on:
-      migrate:
-        condition: service_completed_successfully
-```
-
-Migration potrebuje:
-
-- idempotenciu alebo ledger,
-- single-run concurrency control,
-- failure evidence,
-- compatibility s old/new application version,
-- jasný rerun a recovery postup.
-
-Compose ordering nie je distributed lock.
-
-## 14. Healthchecks
-
-```yaml
-services:
-  db:
-    image: postgres:17
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 3s
-      retries: 20
-      start_period: 10s
-```
-
-Compose healthcheck môže prepísať image default. Pri merge viacerých files sa `healthcheck.test` správa ako override, nie ako zoznam na append.
-
-## 15. Restart policy
-
-```yaml
-services:
-  app:
-    restart: unless-stopped
-```
-
-Standalone Engine restart policies sa viažu najmä na process exit a daemon lifecycle. Nezamieňaj ich s orchestration deployment policy, replica managementom alebo automatickým restartom na základe health statusu.
-
-Restart môže skryť crash loop. Sleduj restart count, exit code a logs.
-
-## 16. Environment a interpolation
-
-```yaml
-services:
-  app:
-    image: example:${IMAGE_TAG:?IMAGE_TAG is required}
-    environment:
-      APP_MODE: ${APP_MODE:-development}
-```
-
-Používaj required/default syntax zámerne. Pred spustením:
-
-```bash
-docker compose config
-docker compose config --environment
-```
-
-Resolved output môže obsahovať citlivé hodnoty; riadne ho rediguj.
-
-## 17. Profiles
-
-```yaml
-services:
-  app:
-    image: example:1
-
-  debug:
-    image: example-debug:1
-    profiles: [debug]
-```
-
-Spustenie:
-
-```bash
-docker compose --profile debug up
-```
-
-Profiles sú vhodné pre optional development/test tools. Core services, bez ktorých application model nedáva zmysel, nemajú byť skryté za nejasným profilom.
-
-## 18. Multiple Compose files
-
-```bash
-docker compose \
-  -f compose.yaml \
-  -f compose.production.yaml \
-  config
-```
-
-Files sa merge-nú podľa Compose rules. Nie všetky fields sa správajú rovnako:
-
-- mappings sa môžu merge-núť,
-- sequences sa môžu appendovať alebo mať special semantics,
-- `command`, `entrypoint` a `healthcheck.test` sa typicky override-nú,
-- relative paths môžu byť vyhodnotené voči base file/project modelu.
-
-Vždy kontroluj resolved `config`, nie iba jednotlivé fragments.
-
-## 19. `include` a `extends`
-
-### `include`
-
-Importuje celý Compose application model alebo submodel z ďalšieho source-u podľa podporovanej Compose Specification.
-
-### `extends`
-
-Odvodzuje service configuration z inej service definition.
-
-Riziká:
-
-- transitive host mounts,
-- privileged settings,
-- remote mutable sources,
-- nečakané networks/volumes,
-- skrytý command alebo image override.
-
-Compose file je executable infrastructure configuration. Audituj celý resolved dependency graph, nie iba top-level file.
-
-## 20. Lifecycle commands
-
-### Vytvorenie a spustenie
-
-```bash
-docker compose up -d
-```
-
-### Stav
-
-```bash
-docker compose ps
-docker compose top
-docker compose images
-```
-
-### Logs
-
-```bash
-docker compose logs -f --tail=200
-```
-
-### Jednorazový command
-
-```bash
-docker compose run --rm app migrate
-```
-
-### Command v existujúcom containeri
-
-```bash
-docker compose exec app sh
-```
-
-### Zastavenie a odstránenie
-
-```bash
-docker compose down
-```
-
-### Odstránenie aj volumes
+Pre external data vykonaj preflight. Pre project-managed volume musí cleanup policy explicitne rozhodnúť, či je ephemeral alebo authoritative.
 
 ```bash
 docker compose down -v
 ```
 
-Posledný command môže zmazať persistentné dáta. Nepoužívaj ho bez ownership a backup kontroly.
+je destructive operation nad project-owned volumes, nie bežný univerzálny cleanup.
 
-## 21. `up` reconciliation
+## 16. Profiles
 
-Pri `docker compose up` Compose porovnáva application model s existujúcimi project resources a podľa potreby:
+Profiles menia active service inventory:
 
-- vytvorí chýbajúce containers,
-- nahradí containers pri configuration/image zmene,
-- vytvorí networks/volumes podľa ownershipu,
-- ponechá alebo odstráni orphan resources podľa options.
+```yaml
+services:
+  debug:
+    profiles: [debug]
+```
 
-Compose nie je nepretržitý reconciliation controller. Po skončení commandu typicky neudržiava desired state proti všetkým budúcim zmenám.
+Debug/admin profile môže zaviesť broad port, host mount alebo privileged mode. Deployment subject musí zaznamenať active profiles a policy ich musí kontrolovať.
 
-## 22. Scaling
+Core service nemá byť skrytá za profilom, ktorý sa ľahko zabudne aktivovať.
+
+## 17. Include a extends trust boundary
+
+Transitive model môže priniesť:
+
+- mutable image/build source;
+- host root/socket mount;
+- devices alebo privileged mode;
+- broad ports;
+- external volumes/networks;
+- command/entrypoint override;
+- secret/env sources.
+
+Compose file je privilegovaná executable configuration. Nedôveryhodný model nespúšťaj na produkčnom alebo developer hoste s citlivými credentials bez full resolved audit-u.
+
+## 18. Scaling boundary
 
 ```bash
 docker compose up -d --scale worker=3
 ```
 
-Viac replicas vyžaduje:
+Scaling potrebuje:
 
-- žiadne fixed `container_name`,
-- žiadny collision host port pre každú repliku,
-- stateless alebo správne shardovaný state,
-- load-balancing/discovery model,
-- concurrency-safe jobs,
-- external health a capacity observability.
+- žiadny fixed `container_name`;
+- collision-free port model;
+- stateless alebo explicitne partitioned state;
+- concurrency-safe jobs;
+- discovery/load balancing;
+- replica-level health a capacity evidence.
 
-Compose scaling nie je náhrada za cluster scheduler.
+Compose scaling nie je multi-node scheduler ani HA control plane.
 
-## 23. `container_name`
+## 19. Orphans a rename migration
+
+Orphan je project resource bez zodpovedajúcej service v aktuálnom modeli. `--remove-orphans` môže byť správny cleanup, ale najprv odlíš:
+
+- service rename bez migration;
+- old release potrebný na rollback;
+- one-shot job s incident logs;
+- manuálny diagnostic workload;
+- stale unauthorized resource.
+
+Removal má byť subject-bound retirement verdict, nie slepá hygiene operácia.
+
+## 20. Worked failure: CI pipelines zdieľali project a zmazali si resources
+
+Dve pipelines spustili:
+
+```bash
+docker compose --project-name atlas-ci up -d
+```
+
+Prvá testovala commit A, druhá commit B. Obe menili rovnaké containers, network a volume. Pipeline A na konci vykonala `down -v`.
+
+```text
+project identity collision
+→ resource labels/names sú rovnaké
+→ pipeline B recreatuje A containers
+→ A tests bežia nad mixed release
+→ A cleanup odstráni B containers a volume
+```
+
+Riešenie:
+
+- collision-safe project name per pipeline;
+- immutable image subjects;
+- ephemeral volume labels/retention;
+- cleanup iba vlastného project subjectu;
+- cross-project collision assertion pred `up`.
+
+## 21. Worked failure: production override publikoval DB a zmenil data source
+
+Base file definoval internal DB bez ports a external production volume. Debug override pridal:
 
 ```yaml
 services:
-  app:
-    container_name: fixed-app
+  db:
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./debug-db:/var/lib/postgresql/data
 ```
 
-Tento attribute často znižuje Compose project isolation a bráni scale-outu. Preferuj project-generated container names a service DNS identity.
+Production command omylom načítal debug override.
 
-Použi fixné meno iba pri presnom external integration requirement-e.
-
-## 24. Resource limits a security
-
-Service môže deklarovať podľa podporovaného runtime modelu:
-
-- CPU a memory limits,
-- `user`,
-- `read_only`,
-- `cap_drop`,
-- `security_opt`,
-- `tmpfs`,
-- `pids_limit`,
-- devices,
-- privileged mode.
-
-Security baseline:
-
-```yaml
-services:
-  app:
-    image: example@sha256:...
-    user: "10001:10001"
-    read_only: true
-    cap_drop: [ALL]
-    security_opt:
-      - no-new-privileges:true
-    tmpfs:
-      - /tmp
+```text
+review base file je safe
+→ override merge zmení publication a mount
+→ relative bind sa resolve-ne na production daemon hoste
+→ DB štartuje nad prázdnym debug directory
+→ port je vystavený na všetkých interfaces
 ```
 
-Presné fields a support over podľa Compose/Engine verzie.
+Containment zahŕňa zastavenie writes/trafficu, uzavretie portu, identifikáciu oboch data subjects a audit external accessu. Root control je resolved-model policy.
 
-## 25. Development watch a bind-mount model
+## 22. Worked failure: migration prebehla dvakrát
 
-Development Compose môže používať:
+Dva Compose projects spustili one-shot `migrate` s `service_completed_successfully`. Migration script nemal ledger ani lock a vytvoril duplicate billing records.
 
-- source bind mounts,
-- hot reload,
-- debug profile,
-- build watch/sync capabilities podľa Compose verzie.
-
-Production model má zostať artifact-based. Nevynášaj development host mounts, source code a debugger do production override-u.
-
-## 26. External resources
-
-`external: true` znamená, že resource lifecycle vlastní iný systém.
-
-Pred deploymentom over:
-
-- existence,
-- správny environment/account,
-- permissions,
-- labels/ownership,
-- compatibility,
-- cleanup zodpovednosť.
-
-Compose `down` external resource typicky neodstráni, čo je správne iba pri jasnom ownership contracte.
-
-## 27. Orphans
-
-Orphan container je project resource zo staršej Compose konfigurácie, ktorý už nemá service v aktuálnom modeli.
-
-```bash
-docker compose up -d --remove-orphans
+```text
+každý project má vlastné ordering
+→ oba vidia migrate ako svoj prerequisite
+→ Compose nemá cross-project lock
+→ side effect sa vykoná dvakrát
 ```
 
-Pred removalom over, či nejde o:
+Oprava je stable migration identity, database lock/ledger, unknown-outcome reconciliation a business invariant verification.
 
-- rename service bez migration,
-- one-shot job s potrebnými logs,
-- manually attached diagnostic container,
-- starú verziu potrebnú na rollback.
+## 23. Causal walkthrough: `compose up` je green, ale aplikácia používa nesprávny stack
 
-## 28. CI workflow
+### Symptóm
 
-Odporúčaný test flow:
+Deployment command skončí úspešne. API je healthy, ale používa staging DB a client sa pripája na starý proxy container.
 
-1. `docker compose config --quiet`,
-2. overiť resolved model a policy,
-3. build/pull immutable images,
-4. unikátny project name,
-5. `up -d --wait` alebo explicitné health čakanie podľa verzie,
-6. integration/smoke tests,
-7. zhromaždiť `ps`, logs, inspect a events pri failure,
-8. `down --remove-orphans`,
-9. volume cleanup iba pre ephemeral test data.
+### Zafixuj Compose subject
 
-Cleanup sa musí vykonať aj po zlyhaní pipeline.
-
-## 29. Trust model
-
-Nedôveryhodný Compose file môže:
-
-- spustiť privileged container,
-- mountnúť host root alebo Docker socket,
-- pripojiť devices,
-- publikovať ports,
-- buildnúť nedôveryhodný Dockerfile,
-- načítať remote includes,
-- exfiltrovať environment a credentials.
-
-Nespúšťaj cudzí Compose model na privilegovanom Docker hoste bez auditu. `docker compose config` pomáha vidieť resolved model, ale nenahrádza source a image trust verification.
-
-## 30. Anti-patterny
-
-### Compose ako production cluster orchestrator bez limitov
-
-Nemá automaticky multi-node scheduling, robustný reconciliation a HA control plane.
-
-### `container_name` pre každú service
-
-Spôsobuje collisions a blokuje scaling.
-
-### Všetky ports publikované na `0.0.0.0`
-
-Zväčšuje exposure bez potreby.
-
-### `depends_on` považovaný za aplikačný retry model
-
-Po štarte dependency môže kedykoľvek zlyhať.
-
-### Secrets commitnuté v `.env`
-
-Private repository nie je secret manager.
-
-### `docker compose down -v` ako bežný cleanup
-
-Môže zmazať authoritative state.
-
-### Production build cez mutable source na runtime hoste
-
-Obchádza artifact promotion a provenance.
-
-### Review iba top-level file-u
-
-`include`, `extends` alebo override môže zaviesť privileged configuration.
-
-## 31. Troubleshooting
-
-### Compose používa iný project než očakávaš
-
-Over:
-
-```bash
-docker compose ls
-docker compose config
-docker compose --project-name expected ps
+```text
+Docker context/daemon
+Compose version
+files/includes/overrides a poradie
+active profiles
+interpolation environment
+resolved model digest
+project name/directory
+service image digests
+container IDs/config hashes
+network/volume physical identities
+configuration/data/migration epochs
+health a client-path evidence
 ```
 
-### Service name sa nedá resolve-nuť
+### Competing hypotheses
 
-Over spoločnú network, service health, aliases a project isolation.
+1. aktívny Docker context smeruje na iný daemon;
+2. project name je odlišný a vytvoril paralelný stack;
+3. override/include zmenil DB env alebo volume;
+4. mutable tag/local image spustil starý digest;
+5. existujúci container nebol recreated;
+6. proxy port patrí orphan/starej service;
+7. external volume/network smeruje na staging;
+8. healthcheck je shallow;
+9. `depends_on` potvrdil iba startup, nie semantic readiness;
+10. DNS/client cache smeruje na starú endpoint generation.
 
-### `depends_on` nezabránil startup failure
+### Discriminating observation points
 
-Použi `service_healthy` a implementuj application retry. `service_started` neznamená readiness.
+- `docker context show` a daemon identity;
+- exact deployment command history;
+- `docker compose ... config` pre rovnaký source environment;
+- project labels a `docker compose ls/ps/images`;
+- container inspect image/config hash/mounts/networks;
+- Engine events create/recreate/remove timeline;
+- data-ID/configuration/migration markers;
+- port owner a packet/client path;
+- process-loaded downstream identities;
+- external transaction a DB audit.
 
-### Override file vytvoril neočakávaný model
+### Containment
 
-Spusť celý `docker compose -f ... config` a skontroluj ports, mounts, command, healthcheck, networks a images.
+Zastav writes a traffic cutover. Nevykonávaj `down -v` ani `--remove-orphans`, kým nie je známy project/data ownership. Zachovaj resolved model a object inventory.
 
-### Volume dáta zmizli
+### Recovery
 
-Over project name, volume name, `external`, anonymous volumes a použitie `down -v`.
+- wrong context → prepnúť na explicitný trusted daemon a auditovať zasiahnutý host;
+- wrong project → identifikovať oba stacks a vykonať controlled traffic/data recovery;
+- bad override → opraviť source inventory a policy, potom recreate;
+- stale image → pull exact digest a over provenance;
+- stale container → bounded recreate s data compatibility preflightom;
+- wrong external resource → opraviť mapping po data-ID/environment kontrole;
+- orphan proxy → drain/remove podľa endpoint generation;
+- shallow health → doplniť semantic readiness a external verification.
 
-### Zmena image sa neprejavila
+### Over pôvodný outcome
 
-Over tag mutability, pull policy, local image, digest a recreate. Preferuj immutable digest/reference.
+Potvrď exact project/container/image subjects, production data/config epochs, expected service/network/volume inventory a end-to-end payment transaction. Forbidden staging access a broad ports musia byť absent.
 
-### Service je healthy, ale client ju nedosiahne
+### Posuň control skôr
 
-Over published port, bind address, network path a external synthetic check.
+Pridaj immutable Compose source manifest, explicitný context/project, resolved-model digest a policy, resource-owner inventory, exact image digests, preflight external resources a subject-bound acceptance/cleanup gates.
 
-## 32. Kontrolné otázky
+## 24. CI/deployment flow
 
-1. Čo predstavuje Compose project?
-2. Aký je rozdiel medzi service a containerom?
-3. Kedy použiť `image` a kedy `build`?
-4. Ako sa líši `ports` a `expose`?
-5. Čo `depends_on` rieši a čo nerieši?
-6. Prečo kontrolovať `docker compose config`?
-7. Aké riziká prinášajú multiple files, `include` a `extends`?
-8. Prečo `container_name` komplikuje scaling?
-9. Čo znamená `external: true` pri resource?
-10. Prečo je Compose file privilegovaná executable configuration?
+```text
+validate source syntax
+→ resolve exact model
+→ redact a archive model subject
+→ policy nad ports/mounts/security/images
+→ assert context/project uniqueness
+→ preflight external resources
+→ pull exact images
+→ apply `up`
+→ wait na bounded health/one-shot verdicts
+→ integration/business tests
+→ collect evidence
+→ cleanup iba owned ephemeral resources
+```
+
+Pri failure zachovaj `ps`, logs, inspect, events, resolved model a data identity evidence pred cleanupom.
+
+## 25. Referenčný object katalóg
+
+| Compose koncept | Effective identity | Hlavná failure boundary |
+|---|---|---|
+| Source set | files/includes/overrides/profiles | hidden transitive config |
+| Resolved model | canonical model digest | review fragmentu namiesto reality |
+| Project | name + daemon/context | collision alebo parallel stack |
+| Service | resolved runtime definition | service ≠ container generation |
+| Container | Engine ID/config hash/image digest | stale/mixed instance |
+| Managed volume/network | project-labeled object | destructive cleanup |
+| External resource | explicit external name/owner | wrong environment/compatibility |
+| One-shot service | command + operation ID/result | duplicate/unknown side effect |
+| Orphan | project resource outside model | unsafe removal alebo stale exposure |
+
+## 26. Praktické controls
+
+- pinuj Compose version/features;
+- explicitne definuj Docker context a project name;
+- inventarizuj všetky files/includes/overrides/profiles;
+- vyhodnocuj canonical resolved model;
+- používaj exact image digests v deployment modeli;
+- zakáž production build z mutable runtime-host source-u;
+- policy-checkuj ports, mounts, devices, privileged a socket access;
+- preflightuj external resources a data identity;
+- daj migrations stable ID a external concurrency control;
+- viaž health a tests na container/project generation;
+- používaj unique project names v CI;
+- chráň `down -v`, prune a orphan removal;
+- oddeľ development/debug profiles od production;
+- overuj client path aj forbidden exposure.
+
+## 27. Kontrolné otázky
+
+1. Prečo review top-level Compose file-u nestačí?
+2. Čo tvorí resolved Compose model subject?
+3. Ako project name ovplyvňuje resource identity a cleanup scope?
+4. Ako sa líši service od container generation?
+5. Prečo `up` nie je continuous reconciliation controller?
+6. Čo `depends_on` rieši a čo nerieši?
+7. Prečo one-shot migration potrebuje lock/ledger mimo Compose ordering-u?
+8. Ako `external: true` mení ownership?
+9. Prečo `down -v` a `--remove-orphans` potrebujú inventory?
+10. Aké dôkazy odlíšia wrong context, wrong project, bad override a stale container?
 
 ## Glossary impact
 
-Relevantné pojmy: Docker Compose, Compose Specification, Compose project, Compose service, project name, default network, Compose interpolation, Compose profile, Compose merge, Compose include, Compose extends, external resource, orphan container, one-shot service, resolved Compose model a Compose trust model.
+Relevantné pojmy: Compose source subject, resolved Compose model subject, Compose project generation, Compose resource ownership plan, Compose reconcile operation, Compose container generation, external resource preflight, one-shot operation subject, Compose destructive scope, project collision incident, Compose acceptance subject a resolved-model policy.
 
 ## Oficiálna dokumentácia
 
