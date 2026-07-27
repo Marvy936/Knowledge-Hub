@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **11315**
-- Total words: **580,080**
-- Findings: **24637** (critical 7818, high 8898, medium 3387, low 4534)
+- Audited conceptual sections: **11299**
+- Total words: **580,503**
+- Findings: **24606** (critical 7808, high 8863, medium 3395, low 4540)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -113,7 +113,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 805 | 33 | 41 | 17 | 13 | 1764 | `docs/09-kubernetes/probes.md` |
 | D | 801 | 31 | 48 | 11 | 12 | 2219 | `docs/04-testing-and-quality/security-and-infrastructure-tests.md` |
 | D | 788 | 37 | 34 | 14 | 19 | 2601 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
-| D | 784 | 32 | 49 | 4 | 4 | 1508 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
 | D | 779 | 34 | 40 | 15 | 8 | 1437 | `docs/11-cloud-and-aws/iam.md` |
 | D | 769 | 33 | 38 | 14 | 19 | 2119 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 767 | 33 | 35 | 21 | 11 | 2231 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
@@ -218,6 +217,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 442 | 17 | 17 | 11 | 52 | 4110 | `docs/13-security-and-identity/kerberos.md` |
 | D | 437 | 18 | 15 | 13 | 43 | 3662 | `docs/00-foundations/three-ways.md` |
 | D | 436 | 22 | 11 | 17 | 13 | 1389 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
+| D | 434 | 22 | 14 | 12 | 10 | 1931 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
 | D | 430 | 18 | 16 | 12 | 35 | 2923 | `docs/04-testing-and-quality/test-pyramid.md` |
 | D | 426 | 17 | 20 | 11 | 18 | 2145 | `docs/04-testing-and-quality/shift-left.md` |
 | D | 421 | 15 | 18 | 13 | 47 | 4180 | `docs/13-security-and-identity/openid-connect.md` |
@@ -6767,87 +6767,42 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md`
 
-- **CRITICAL** line 7, `bare-bullet-items` — **1. Kedy vytvoriť role**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konfiguráciu web servera,`, `nasadenie application agentu,`, `hardening Linux hostu,`, `správu používateľov a SSH policy,`.
-- **CRITICAL** line 7, `outline-instead-of-explanation` — **1. Kedy vytvoriť role**: 12 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 51, `bare-bullet-items` — **3. defaults ako public contract**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `majú namespaced names,`, `majú stabilný type,`, `sú dokumentované,`, `neobsahujú secrets,`.
-- **CRITICAL** line 51, `outline-instead-of-explanation` — **3. defaults ako public contract**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 145, `empty-section` — **7. Templates a files**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 151, `bare-bullet-items` — **files/**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reálne secrets,`, `environment-specific private keys,`, `veľké mutable binaries bez artifact lifecycle,`, `generated files, ktoré možno deterministicky vytvoriť.`.
-- **CRITICAL** line 151, `outline-instead-of-explanation` — **files/**: 4 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 162, `bare-bullet-items` — **8. Metadata role**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `platform metadata,`, `author/license metadata,`, `role dependencies,`, `collection search behavior podľa podporovanej syntaxe.`.
-- **CRITICAL** line 162, `outline-instead-of-explanation` — **8. Metadata role**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 182, `empty-section` — **9. Volanie role**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 206, `bare-bullet-items` — **include role**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parsing,`, `tags,`, `conditions,`, `variable availability,`.
-- **CRITICAL** line 206, `outline-instead-of-explanation` — **include role**: 6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 224, `bare-bullet-items` — **10. Role contract**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporované inputs a ich types,`, `defaults,`, `required variables,`, `outputs alebo facts, ktoré role publikuje,`.
-- **CRITICAL** line 224, `outline-instead-of-explanation` — **10. Role contract**: 12 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 243, `bare-bullet-items` — **11. Namespacing**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `facts vytvorené cez set fact ,`, `handler names alebo listen topics,`, `tags,`, `template variables,`.
-- **CRITICAL** line 243, `outline-instead-of-explanation` — **11. Namespacing**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 263, `bare-bullet-items` — **12. Ansible collection**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac roles,`, `custom modules alebo plugins,`, `playbooks,`, `documentation,`.
-- **CRITICAL** line 263, `outline-instead-of-explanation` — **12. Ansible collection**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 316, `bare-bullet-items` — **14. Collection metadata**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespace,`, `collection name,`, `version,`, `authors,`.
-- **CRITICAL** line 316, `outline-instead-of-explanation` — **14. Collection metadata**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 332, `bare-bullet-items` — **15. Collection a role dependencies**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neočakávaný behavior po novom release,`, `transitive dependency zmena,`, `module parameter alebo return-schema zmena,`, `supply-chain compromise,`.
-- **CRITICAL** line 332, `outline-instead-of-explanation` — **15. Collection a role dependencies**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 362, `bare-bullet-items` — **16. Versioning**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `variable names a types,`, `defaults,`, `handler topics,`, `module arguments a return values,`.
-- **CRITICAL** line 362, `outline-instead-of-explanation` — **16. Versioning**: 14 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 403, `bare-bullet-items` — **18. Supply-chain security**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publisher a repository,`, `release history,`, `source integrity,`, `dependencies,`.
-- **CRITICAL** line 403, `outline-instead-of-explanation` — **18. Supply-chain security**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 422, `bare-bullet-items` — **19. Testing role**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `defaults,`, `supported overrides,`, `platform matrix,`, `handlers,`.
-- **CRITICAL** line 422, `outline-instead-of-explanation` — **19. Testing role**: 9 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 447, `bare-bullet-items` — **20. Testing collection**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema a metadata validation,`, `documentation build,`, `ansible-lint ,`, `unit tests pre plugins/modules,`.
-- **CRITICAL** line 447, `outline-instead-of-explanation` — **20. Testing collection**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 481, `bare-bullet-items` — **22. Upgrade workflow**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prečítaj changelog a breaking changes,`, `over supported ansible-core ,`, `zostav nový execution environment,`, `spusti lint a syntax checks,`.
-- **CRITICAL** line 481, `outline-instead-of-explanation` — **22. Upgrade workflow**: 9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **HIGH** line 7, `single-sentence-concept` — **1. Kedy vytvoriť role**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 51, `single-sentence-concept` — **3. defaults ako public contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 83, `single-sentence-concept` — **5. Tasks role**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 122, `single-sentence-concept` — **6. Handlers role**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 147, `single-sentence-concept` — **templates/**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 151, `single-sentence-concept` — **files/**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 184, `list-first-introduction` — **roles:**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 184, `single-sentence-concept` — **roles:**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 196, `list-first-introduction` — **import role**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 196, `single-sentence-concept` — **import role**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 206, `list-first-introduction` — **include role**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 206, `single-sentence-concept` — **include role**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 224, `single-sentence-concept` — **10. Role contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 243, `single-sentence-concept` — **11. Namespacing**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 263, `single-sentence-concept` — **12. Ansible collection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 298, `single-sentence-concept` — **13. Fully Qualified Collection Name**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 362, `single-sentence-concept` — **16. Versioning**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 422, `single-sentence-concept` — **19. Testing role**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 447, `single-sentence-concept` — **20. Testing collection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 463, `single-sentence-concept` — **21. Release workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 481, `single-sentence-concept` — **22. Upgrade workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 497, `single-sentence-concept` — **Jedna obrovská role pre celý host**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 501, `single-sentence-concept` — **Role pre každý dvojriadkový task**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 505, `single-sentence-concept` — **Environment data v vars/main.yml**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 509, `single-sentence-concept` — **Generic variable names**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 513, `single-sentence-concept` — **Mutable Git branch ako production dependency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 517, `single-sentence-concept` — **Neobmedzené collection version ranges**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 521, `single-sentence-concept` — **Role dependencies ako skrytá orchestrácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 525, `single-sentence-concept` — **Collection ako sklad nesúvisiaceho obsahu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 531, `single-sentence-concept` — **Role sa nenašla**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 535, `single-sentence-concept` — **Module alebo plugin sa nenašiel**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 543, `single-sentence-concept` — **Handler z role nereaguje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 547, `single-sentence-concept` — **Upgrade zmenil behavior bez playbook diffu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 551, `single-sentence-concept` — **Tags nefungujú podľa očakávania**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 7, `thin-concept-section` — **1. Kedy vytvoriť role**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 51, `thin-concept-section` — **3. defaults ako public contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 151, `thin-concept-section` — **files/**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 162, `thin-concept-section` — **8. Metadata role**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 206, `thin-concept-section` — **include role**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 224, `thin-concept-section` — **10. Role contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 243, `thin-concept-section` — **11. Namespacing**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 263, `thin-concept-section` — **12. Ansible collection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 316, `thin-concept-section` — **14. Collection metadata**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 332, `thin-concept-section` — **15. Collection a role dependencies**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 362, `thin-concept-section` — **16. Versioning**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 403, `thin-concept-section` — **18. Supply-chain security**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 422, `thin-concept-section` — **19. Testing role**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 447, `thin-concept-section` — **20. Testing collection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 481, `thin-concept-section` — **22. Upgrade workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 52, `bare-bullet-items` — **2. Kedy vzniká role boundary**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `verejnými inputs a defaults;`, `vlastnými tasks, templates alebo handlers;`, `jasnými side effects a privilege požiadavkami;`, `podporovanými platforms;`.
+- **CRITICAL** line 121, `bare-bullet-items` — **5. Namespacing ako isolation contract**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `published facts;`, `registered values s dlhším scope-om;`, `handler alebo listen topics;`, `tags;`.
+- **CRITICAL** line 121, `outline-instead-of-explanation` — **5. Namespacing ako isolation contract**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 191, `bare-bullet-items` — **8. Role dependencies a explicitná composition**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmeniť firewall alebo package repository bez caller awareness;`, `rozšíriť privilege requirements;`, `notify-nuť handlers v nečakanom poradí;`, `zmeniť tag a skip semantics;`.
+- **CRITICAL** line 191, `outline-instead-of-explanation` — **8. Role dependencies a explicitná composition**: 5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 275, `bare-bullet-items` — **11. Supply-chain boundary**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `publisher a source repository;`, `release a maintenance history;`, `artifact provenance/integrity;`, `direct a transitive dependencies;`.
+- **CRITICAL** line 275, `outline-instead-of-explanation` — **11. Supply-chain boundary**: 9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 293, `bare-bullet-items` — **12. Testing role a collection**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `documented defaults a required inputs;`, `supported overrides a invalid combinations;`, `platform matrix;`, `static a dynamic invocation modes;`.
+- **CRITICAL** line 293, `outline-instead-of-explanation` — **12. Testing role a collection**: 9 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 324, `bare-bullet-items` — **13. Release a compatibility policy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `premenovanie alebo type change variable;`, `zmena default portu alebo TLS behavioru;`, `nový required privilege;`, `zmena handler topicu;`.
+- **CRITICAL** line 324, `outline-instead-of-explanation` — **13. Release a compatibility policy**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 448, `bare-bullet-items` — **2. Súťažiace hypotézy**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Local a controller používajú inú collection version.`, `Transitive dependency alebo Python library sa resolve-la odlišne.`, `Execution environment má iný template/filter behavior.`, `FQCN alebo plugin search path načítal iný module.`.
+- **CRITICAL** line 448, `no-prose-concept` — **2. Súťažiace hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 448, `outline-instead-of-explanation` — **2. Súťažiace hypotézy**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 459, `bare-bullet-items` — **3. Diskriminačné observation points**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `execution image a collection artifact digests;`, `resolved dependency/requirements manifest;`, `ansible-core , Python a system-tool versions;`, `FQCN a plugin path output;`.
+- **CRITICAL** line 459, `no-prose-concept` — **3. Diskriminačné observation points**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 459, `outline-instead-of-explanation` — **3. Diskriminačné observation points**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 474, `no-prose-concept` — **5. Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 474, `outline-instead-of-explanation` — **5. Recovery**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 491, `bare-bullet-items` — **20. Referenčné pravidlá**: 10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Role je versionovaný capability contract, nie iba directory.`, `Namespacing znižuje cross-role collisions.`, `Static a dynamic reuse majú odlišné graph semantics.`, `Handler topic môže byť public breaking contract.`.
+- **CRITICAL** line 491, `no-prose-concept` — **20. Referenčné pravidlá**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 491, `outline-instead-of-explanation` — **20. Referenčné pravidlá**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 52, `list-heavy-section` — **2. Kedy vzniká role boundary**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 324, `single-sentence-concept` — **13. Release a compatibility policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 444, `single-sentence-concept` — **1. Zafixuj supply-chain subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 448, `list-first-introduction` — **2. Súťažiace hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 459, `list-first-introduction` — **3. Diskriminačné observation points**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 474, `bare-bullet-items` — **5. Recovery**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `dependency mismatch → rebuildni pinned known-good environment;`, `transitive drift → vytvor resolved lock/manifest;`, `plugin collision → použi FQCN a zúž search path;`, `stale cache → invaliduj ju a over artifact digest.`.
+- **HIGH** line 474, `list-first-introduction` — **5. Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 487, `single-sentence-concept` — **7. Posuň control skôr**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 491, `list-first-introduction` — **20. Referenčné pravidlá**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 324, `thin-concept-section` — **13. Release a compatibility policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 448, `thin-concept-section` — **2. Súťažiace hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 459, `thin-concept-section` — **3. Diskriminačné observation points**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 474, `thin-concept-section` — **5. Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 491, `thin-concept-section` — **20. Referenčné pravidlá**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md`
 
@@ -17766,19 +17721,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3457 | 437 | 0 | 0 | 3894 |
-| `single-sentence-concept` | 0 | 3593 | 0 | 0 | 3593 |
-| `outline-instead-of-explanation` | 3307 | 0 | 0 | 0 | 3307 |
-| `thin-concept-section` | 0 | 2908 | 0 | 0 | 2908 |
-| `term-before-explanation` | 0 | 457 | 2302 | 0 | 2759 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1818 | 1818 |
-| `example-not-explicit` | 0 | 0 | 0 | 1776 | 1776 |
-| `list-first-introduction` | 0 | 1112 | 0 | 0 | 1112 |
-| `short-concept-section` | 0 | 0 | 1085 | 0 | 1085 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 940 | 940 |
-| `empty-section` | 578 | 0 | 0 | 0 | 578 |
-| `no-prose-concept` | 476 | 0 | 0 | 0 | 476 |
-| `list-heavy-section` | 0 | 391 | 0 | 0 | 391 |
+| `bare-bullet-items` | 3451 | 438 | 0 | 0 | 3889 |
+| `single-sentence-concept` | 0 | 3565 | 0 | 0 | 3565 |
+| `outline-instead-of-explanation` | 3301 | 0 | 0 | 0 | 3301 |
+| `thin-concept-section` | 0 | 2898 | 0 | 0 | 2898 |
+| `term-before-explanation` | 0 | 457 | 2305 | 0 | 2762 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1820 | 1820 |
+| `example-not-explicit` | 0 | 0 | 0 | 1779 | 1779 |
+| `list-first-introduction` | 0 | 1113 | 0 | 0 | 1113 |
+| `short-concept-section` | 0 | 0 | 1090 | 0 | 1090 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 941 | 941 |
+| `empty-section` | 576 | 0 | 0 | 0 | 576 |
+| `no-prose-concept` | 480 | 0 | 0 | 0 | 480 |
+| `list-heavy-section` | 0 | 392 | 0 | 0 | 392 |
 
 ## Required remediation pattern
 
