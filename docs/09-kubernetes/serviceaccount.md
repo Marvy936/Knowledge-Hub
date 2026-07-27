@@ -1,164 +1,85 @@
 # ServiceAccount
 
-ServiceAccount je namespaced Kubernetes API objekt poskytujúci non-human identity pre Pods, system components a ďalšie workloads. ServiceAccount sám osebe neudeľuje oprávnenia. Authentication identita vzniká použitím jeho tokenu alebo federovanej identity a authorization rozhodnutie vykonáva RBAC alebo iný nakonfigurovaný authorizer.
+ServiceAccount je namespaced Kubernetes identity anchor pre workload. Nie je to rola ani statický password. Bezpečný model spája konkrétny workload, ServiceAccount objekt, vydaný credential, jeho audience a lifetime, authorization policy, external federation a auditovaný operation outcome.
 
-## 1. Human a workload identity
+Dominantný lifecycle:
 
-Kubernetes rozlišuje najmä:
+```text
+workload identity intent a consumer inventory
+→ ServiceAccount UID a namespace
+→ Pod template, admission a effective identity
+→ bound projected token alebo federated credential request
+→ token audience, object binding a expiry
+→ process-loaded credential a reload behavior
+→ authentication
+→ RBAC alebo external trust-policy authorization
+→ auditovaný API/cloud/secret-manager operation
+→ rotation, revocation, Pod replacement a incident closure
+```
 
-- human users alebo external identities,
-- ServiceAccounts pre workloady a automation,
-- Node identities,
-- bootstrap a control-plane identities.
+Kapitola používa Atlas Payments. Release 4.2.0 beží pod ServiceAccountom `payments-api` v namespace `production`. Workload potrebuje:
 
-ServiceAccount identity má typický tvar:
+- čítať jediný ConfigMap `payments-policy` z Kubernetes API;
+- vymeniť samostatný projected token s audience `vault.prod.example` za krátkodobý database credential;
+- nemať právo listovať Secrets, meniť Deployments ani používať cloud administrátorskú rolu.
+
+## 1. Identity subject musí byť presný
+
+ServiceAccount identity nie je iba meno `payments-api`. Pri diagnostike a acceptance fixuj:
+
+```text
+cluster identity
+namespace
+ServiceAccount name a UID
+Pod UID a admitted serviceAccountName
+token issuer, audience, expiry a object binding
+process-loaded token generation alebo fingerprint
+RoleBinding/ClusterRoleBinding generations
+external federation trust-policy generation
+operation resource, verb a external action
+```
+
+Canonical Kubernetes username má tvar:
 
 ```text
 system:serviceaccount:<namespace>:<name>
 ```
 
-Patrí aj do skupín ako:
+Rovnaké meno v inom namespace je iná identity. Zmazanie a znovuvytvorenie ServiceAccountu s rovnakým menom vytvorí nový object UID a nový lifecycle subject.
+
+## 2. ServiceAccount nie je authorization policy
+
+ServiceAccount pomenúva workload identity. Oprávnenia vznikajú až cez authorizer, typicky RBAC.
 
 ```text
-system:serviceaccounts
-system:serviceaccounts:<namespace>
+ServiceAccount
+→ authentication credential
+→ authenticated username a groups
+→ authorization decision pre konkrétny request
 ```
 
-Tieto identity môžu byť použité v RBAC subjects, audit logs a policy decisions.
-
-## 2. Namespaced object
-
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: payments-api
-  namespace: production
-```
-
-ServiceAccount existuje iba vo svojom namespace. Rovnaké meno v inom namespace predstavuje inú identity.
-
-Každý namespace štandardne dostane ServiceAccount s názvom `default`. To neznamená, že má mať application oprávnenia.
-
-## 3. Priradenie k Podu
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: payments-api
-  namespace: production
-spec:
-  serviceAccountName: payments-api
-  containers:
-    - name: app
-      image: example/payments-api:1
-```
-
-Ak `serviceAccountName` neuvedieš, Pod používa `default` ServiceAccount daného namespace.
-
-ServiceAccount identity je súčasťou Pod runtime contractu. Pri zmene ServiceAccountu sa bežne vytvára nový Pod; identita už bežiaceho procesu sa nemá meniť ad hoc.
-
-## 4. Token projection
-
-Moderný Kubernetes používa krátkodobejšie bound ServiceAccount tokens vytvorené cez TokenRequest API a projected do Podu.
-
-Typická projection obsahuje:
-
-```text
-/var/run/secrets/kubernetes.io/serviceaccount/token
-/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-/var/run/secrets/kubernetes.io/serviceaccount/namespace
-```
-
-Token môže mať:
-
-- audience,
-- expiration,
-- väzbu na Pod alebo iný object,
-- automatickú rotation zo strany kubeletu.
-
-Application musí token z file-u znovu načítať a nesmie predpokladať, že hodnota zostane rovnaká počas celého process lifecycle-u.
-
-## 5. `automountServiceAccountToken`
-
-Token možno vypnúť na ServiceAccount alebo Pod úrovni:
-
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: worker
-automountServiceAccountToken: false
-```
-
-Alebo:
-
-```yaml
-spec:
-  serviceAccountName: worker
-  automountServiceAccountToken: false
-```
-
-Pod-level nastavenie má prednosť. Vypnutie token mountu je vhodné pre workload, ktorý nepotrebuje komunikovať s Kubernetes API ani používať identity integration závislú od projected tokenu.
-
-ServiceAccount však stále zostáva Pod identity v API modeli; iba sa automaticky nemountne štandardný credential.
-
-## 6. TokenRequest
-
-Krátkodobý token možno vyžiadať explicitne:
-
-```bash
-kubectl create token payments-api \
-  --namespace production \
-  --audience https://kubernetes.default.svc
-```
-
-TokenRequest umožňuje definovať audience a duration v podporovanom limite. Je vhodnejší než manuálne vytváranie long-lived `kubernetes.io/service-account-token` Secretov.
-
-Token neukladaj do Git-u, ticketu ani shell history. Po použití ho považuj za credential s rovnakým rizikom ako bearer token.
-
-## 7. Audience
-
-Audience určuje, pre ktorého recipienta je token vydaný.
-
-Príklad:
-
-```yaml
-volumes:
-  - name: identity-token
-    projected:
-      sources:
-        - serviceAccountToken:
-            path: token
-            audience: vault.example.com
-            expirationSeconds: 3600
-```
-
-Token pre external identity provider nemá byť automaticky akceptovaný Kubernetes API serverom a naopak. Audience validation znižuje replay credentialu medzi službami.
-
-Chybná audience typicky vedie k authentication failure aj pri inak platnom podpise a neexpirovanom tokene.
-
-## 8. ServiceAccount a RBAC
-
-ServiceAccount nemá oprávnenia len preto, že existuje. Oprávnenia sa viažu cez RoleBinding alebo ClusterRoleBinding.
+Pre Atlas Payments môže byť Role úzka:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: config-reader
+  name: payments-policy-reader
   namespace: production
 rules:
   - apiGroups: [""]
     resources: ["configmaps"]
-    resourceNames: ["payments-config"]
+    resourceNames: ["payments-policy"]
     verbs: ["get"]
----
+```
+
+RoleBinding viaže túto policy na presnú ServiceAccount identity:
+
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: payments-config-reader
+  name: payments-policy-reader
   namespace: production
 subjects:
   - kind: ServiceAccount
@@ -167,267 +88,445 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: config-reader
+  name: payments-policy-reader
 ```
 
-Least privilege zahŕňa:
+Dôsledok: `401 Unauthorized` a `403 Forbidden` patria do odlišných boundaries. `401` znamená, že authentication credential nebol prijatý. `403` znamená, že identity bola rozpoznaná, ale request nemá povolenie.
 
-- správny namespace,
-- minimálne verbs,
-- minimálne resources/subresources,
-- `resourceNames`, kde je to praktické,
-- oddelenie read a write identity,
-- zákaz zdieľania jedného ServiceAccountu nesúvisiacimi workloadmi.
+## 3. Pod template a admitted identity
 
-## 9. Overenie oprávnení
-
-```bash
-kubectl auth can-i get configmap/payments-config \
-  --namespace production \
-  --as system:serviceaccount:production:payments-api
-```
-
-Ďalšie kontroly:
-
-```bash
-kubectl get rolebinding,clusterrolebinding -A
-kubectl describe serviceaccount payments-api -n production
-kubectl get pod <pod> -o jsonpath='{.spec.serviceAccountName}'
-```
-
-`kubectl auth can-i` overuje authorization pre danú verb/resource kombináciu. Neoveruje, či Pod skutočne má funkčný token, správnu audience alebo network connectivity k API serveru.
-
-## 10. API access z Podu
-
-Application potrebuje:
-
-1. API server endpoint,
-2. CA trust,
-3. bearer token alebo inú autentifikáciu,
-4. správnu audience,
-5. network connectivity,
-6. authorization.
-
-Typický in-cluster endpoint:
-
-```text
-https://kubernetes.default.svc
-```
-
-Official client libraries používajú in-cluster configuration a dokážu pracovať s rotated token file-om. Vlastný HTTP klient musí korektne riešiť TLS, reload tokenu, timeouts, retries a API watch semantics.
-
-## 11. Legacy long-lived token Secrets
-
-Starší model vytváral long-lived token Secret viazaný na ServiceAccount. Moderný odporúčaný model používa TokenRequest a projected bound tokens.
-
-Long-lived tokens zvyšujú:
-
-- replay window,
-- rotation náklady,
-- leakage blast radius,
-- množstvo statických credentials v API a backupoch.
-
-Manuálny long-lived token používaj iba pri opodstatnenom kompatibilitnom use case s explicitnou expiry/rotation/revocation policy.
-
-## 12. Workload identity federation
-
-ServiceAccount môže byť mapovaný na external cloud alebo secret-manager identity.
-
-Typický flow:
-
-```text
-Pod ServiceAccount token
-→ OIDC/federation validation
-→ short-lived external credential
-→ cloud API alebo secret provider
-```
-
-Výhody:
-
-- bez statického cloud access key v Kubernetes Secret-e,
-- krátka platnosť,
-- audience a subject binding,
-- audit podľa workload identity.
-
-Riziká:
-
-- nesprávne široký trust policy,
-- viac ServiceAccounts mapovaných na rovnakú external rolu,
-- token theft počas validity,
-- chýbajúce namespace/subject podmienky,
-- závislosť od issuer discovery a external identity service.
-
-## 13. `imagePullSecrets`
-
-ServiceAccount môže deklarovať defaultné registry Secrets:
+Pod používa ServiceAccount cez:
 
 ```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: payments-api
-imagePullSecrets:
-  - name: private-registry
+spec:
+  serviceAccountName: payments-api
 ```
 
-Pods používajúce ServiceAccount môžu tieto references zdediť podľa admission behavior. Registry credential slúži kubeletu/runtime pri pull-e, nie application API authentication.
+Ak field chýba, Pod používa `default` ServiceAccount namespace-u. To môže byť technicky funkčné, ale zlieva identity, audit ownership a blast radius.
 
-Nemiešaj:
+Effective identity overuj na admitted Pode, nie iba v source manifeste:
 
-- ServiceAccount token,
-- image pull credential,
-- application database credential,
-- cloud workload identity.
+```bash
+kubectl get pod <pod> -n production \
+  -o jsonpath='{.metadata.uid}{"\n"}{.spec.serviceAccountName}{"\n"}'
+```
 
-Každý má odlišný issuer, audience, consumer a rotation model.
+Admission môže Pod mutovať. Identity acceptance preto potrebuje source-to-admitted diff a Pod UID, nie iba Git commit.
 
-## 14. One ServiceAccount per workload boundary
+## 4. Bound projected token lifecycle
 
-Samostatný ServiceAccount je vhodný pre workload s vlastným:
+Moderný Pod typicky dostane krátkodobý ServiceAccount token cez TokenRequest a projected volume.
 
-- RBAC contractom,
-- external identity mappingom,
-- audit ownershipom,
-- image pull policy,
-- lifecycle a incident blast radiusom.
+```text
+ServiceAccount + Pod subject
+→ TokenRequest
+→ signed token s issuerom, audience, expiry a bindingom
+→ kubelet projection do Podu
+→ process token načíta
+→ verifier skontroluje claims a object lifecycle
+```
 
-Nevytváraj automaticky nový ServiceAccount pre každý Pod replica. Identita zvyčajne patrí workloadu, nie konkrétnej ephemeral inštancii.
+Štandardná projection môže byť dostupná pod:
 
-## 15. Default ServiceAccount
+```text
+/var/run/secrets/kubernetes.io/serviceaccount/
+```
 
-Bez explicitného `serviceAccountName` workload používa `default`.
+Credential je bearer token. Kto ho získa počas validity, môže ho použiť v rozsahu jeho audience a authorization policy.
+
+## 5. Audience je recipient boundary
+
+Jeden token nemá byť univerzálny credential pre Kubernetes API, Vault a cloud provider.
+
+Atlas Payments používa oddelené token subjects:
+
+```text
+TK-API-52
+  audience: Kubernetes API
+  purpose: get payments-policy
+
+TK-VLT-52
+  audience: vault.prod.example
+  purpose: exchange za database credential
+```
+
+Custom projection:
+
+```yaml
+volumes:
+  - name: vault-identity
+    projected:
+      sources:
+        - serviceAccountToken:
+            path: token
+            audience: vault.prod.example
+            expirationSeconds: 3600
+```
+
+Platný podpis a neexpirovaný token nestačia. Recipient musí akceptovať issuer, audience, subject a ďalšie trust conditions.
+
+## 6. Object binding a identity continuity
+
+Bound token môže byť viazaný na Pod alebo iný Kubernetes object. To obmedzuje použiteľnosť credentialu po zániku jeho subjectu.
+
+Rozlišuj:
+
+```text
+ServiceAccount logical identity
+Pod UID
+issued token instance
+process-loaded token instance
+external session alebo derived credential
+```
+
+Zánik Podu neznamená, že všetky už vydané external sessions okamžite zmizli. Vault alebo cloud credential má vlastnú expiry, revoke a audit lifecycle.
+
+## 7. Process-loaded credential je samostatný state
+
+Kubelet môže projected token rotovať pred expiry. Application však môže:
+
+- načítať token iba pri štarte;
+- skopírovať ho do environment variable;
+- držať ho v klientskom objekte bez reloadu;
+- po `401` retryovať stále ten istý token;
+- pokračovať cez už vydanú external session.
+
+Preto oddeľuj:
+
+```text
+projected token file generation
+≠ process-loaded token generation
+≠ current external credential generation
+```
+
+Bezpečný klient token z file-u znovu načíta alebo používa knižnicu s podporou rotation. Token sa nekopíruje do image-u, PersistentVolume ani debug outputu.
+
+## 8. `automountServiceAccountToken`
+
+Workload, ktorý nepotrebuje API ani token-based federation, nemá automaticky dostávať API credential.
+
+```yaml
+spec:
+  serviceAccountName: batch-renderer
+  automountServiceAccountToken: false
+```
+
+Pod-level nastavenie má prednosť pred ServiceAccount-level nastavením. Vypnutie automountu nemení Pod identity v API modeli; mení automatic credential delivery.
+
+Dôležitá failure boundary: federation sidecar alebo CSI provider môže potrebovať vlastnú explicitnú token projection aj pri vypnutom štandardnom API token mount-e.
+
+## 9. Workload identity federation
+
+ServiceAccount token môže byť dôkazom identity pre external trust system.
+
+```text
+Pod-bound token
+→ OIDC issuer/JWKS validation
+→ namespace, ServiceAccount, audience a claim policy
+→ krátkodobý external credential
+→ Vault, cloud alebo iný provider operation
+```
+
+Provider trust policy musí obmedziť aspoň:
+
+- issuer;
+- audience;
+- namespace;
+- ServiceAccount name;
+- prípadné cluster alebo environment claims;
+- cieľovú external rolu a allowed actions.
+
+Mapovanie všetkých ServiceAccountov z namespace-u na jednu administrátorskú rolu ruší workload isolation aj audit attribution.
+
+## 10. Identity, registry a application credentials sú odlišné
+
+Nemixuj:
+
+```text
+ServiceAccount API token
+image pull credential
+Vault/cloud federated credential
+database credential
+TLS private key
+```
+
+Každý má vlastný issuer, consumer, audience, lifetime a revocation mechanismus.
+
+`imagePullSecrets` používa kubelet/runtime pri image pull-e. Neudeľuje application procesu Kubernetes API práva a nie je database credential.
+
+## 11. Pod-create permission je identity delegation boundary
+
+Actor nemusí mať priamy `get secrets` alebo impersonation verb, aby získal workload authority. Ak môže vytvoriť Pod s privilegovaným ServiceAccountom, môže spustiť process pod jeho identity a použiť projected credential.
+
+Preto sa ServiceAccount access graph skladá z:
+
+```text
+RBAC nad ServiceAccountmi a bindings
++ create/update Pods, Jobs a controllers
++ admission nad serviceAccountName
++ exec/ephemeral-container práva
++ node a kubelet access
++ token request a impersonation práva
++ external federation trust
+```
+
+ServiceAccount nie je tenant sandbox, ak tenant môže ľubovoľne vybrať ServiceAccount v namespace-e.
+
+## 12. Default ServiceAccount baseline
 
 Bezpečný namespace baseline:
 
-- default ServiceAccount nemá broad RBAC,
-- automatický token mount je vypnutý, ak ho väčšina workloadov nepotrebuje,
-- každý API-using workload má explicitnú identity,
-- admission/policy kontroluje chýbajúci `serviceAccountName`,
-- ServiceAccount names nesú owner/purpose metadata.
+- `default` ServiceAccount nemá application-specific RBAC;
+- token automount je vypnutý, ak ho väčšina workloadov nepotrebuje;
+- každý API-using workload má explicitný ServiceAccount;
+- admission odmieta forbidden identities a chýbajúce ownership metadata;
+- runtime a deployment automation používajú odlišné identities;
+- bindings majú ownera, review a expiry pri dočasnom prístupe.
 
-## 16. Token rotation a process behavior
+## 13. Auditovaný operation outcome
 
-Projected token sa môže vymeniť pred expiry. Application má:
+Identity acceptance nekončí pri `kubectl auth can-i`.
 
-- čítať token z file-u pri requeste alebo ho bezpečne refreshovať,
-- nereplikovať ho do environment variable,
-- nepísať ho do logs,
-- reagovať na `401` opätovným načítaním a nie nekonečným retry starého tokenu,
-- používať bounded timeouty.
-
-Copy tokenu do iného persistentného file-u obíde rotation a zvyšuje leakage window.
-
-## 17. Audit
-
-Audit event môže obsahovať username:
+Pre Atlas request sleduj:
 
 ```text
-system:serviceaccount:production:payments-api
+Pod UID P52
+→ token fingerprint TK-API-52
+→ authenticated username system:serviceaccount:production:payments-api
+→ get /api/v1/namespaces/production/configmaps/payments-policy
+→ RBAC allow
+→ response resourceVersion C52
+→ process načíta policy generation C52
 ```
 
-Pre auditovateľnosť zachovaj:
+Pre Vault:
 
-- jednoznačný ServiceAccount owner,
-- workload labels a namespace,
-- oddelené identities pre deployment automation a runtime,
-- zmenu RoleBindings v Git/evidence,
-- external identity mapping revision,
-- token issuer/audience configuration.
+```text
+P52
+→ TK-VLT-52 audience vault.prod.example
+→ trust policy TP17
+→ derived credential DB08
+→ database session audit
+```
 
-Zdieľaná identity medzi desiatkami aplikácií znemožňuje presné attribution.
+Audit musí spájať identity s konkrétnym operation outcome-om, nie iba s existenciou tokenu.
 
-## 18. Security hranice
+## 14. Worked failure: shared default identity zväčšila blast radius
 
-Actor s právom vytvárať alebo meniť Pods môže často použiť ServiceAccount dostupný v namespace a získať jeho permissions.
+Namespace obsahoval desať workloadov pod `default` ServiceAccountom. Jedna legacy RoleBinding povoľovala čítať všetky ConfigMaps a Secrets.
 
-Preto hodnotiť treba spoločne:
+```text
+shared default identity
+→ nejasný owner
+→ jeden kompromitovaný Pod použije rovnaké permissions
+→ audit ukáže iba spoločný username
+→ nemožno rýchlo oddeliť legitímnych consumerov
+```
 
-- RBAC nad ServiceAccounts,
-- RBAC nad Pods/workload controllers,
-- admission policy pre `serviceAccountName`,
-- token automount,
-- Secret access,
-- `exec` a ephemeral-container permissions,
-- node access,
-- external federation trust.
+Recovery nebola iba odstránenie bindingu. Bolo potrebné vytvoriť per-workload ServiceAccounts, rolloutovať Pody, overiť loaded identities, rotovať odhalené credentials a potvrdiť forbidden access tests.
 
-ServiceAccount nie je tenant sandbox, ak actor môže vytvoriť ľubovoľný Pod s danou identity.
+## 15. Worked failure: audience mismatch
 
-## 19. Troubleshooting
+Payments Pod dostal token s audience `vault.prod.example`, ale použil ho proti Kubernetes API.
 
-### Pod nemá token file
+```text
+podpis validný
+expiry validná
+audience pre iného recipienta
+→ API authentication zlyhá
+```
 
-Over `automountServiceAccountToken` na Pode aj ServiceAccounte, projected volumes, admission mutation a kubelet events.
+Pridanie RBAC oprávnenia by chybu nevyriešilo, pretože request sa nedostal do authorization boundary.
 
-### API vracia `401 Unauthorized`
+## 16. Worked failure: stale process token po rotation
 
-Over token expiry, signature/issuer, audience, CA/TLS, token reload a či request posiela správny bearer token.
+Projected token file sa vymenil, ale application klient držal starý token v memory. Po jeho expiry začal API vracať `401`.
 
-### API vracia `403 Forbidden`
+```text
+kubelet projection TK2
+process stále používa TK1
+TK1 expiruje
+→ 401
+→ retry loop používa TK1
+→ API load rastie
+```
 
-Authentication prešla, authorization zlyhala. Over username v audit/log response, RoleBinding subject namespace/name, verbs, API group, resource a subresource.
+Fix bol token reload pri requeste alebo na `401`, bounded retry a telemetry nad loaded token epoch. Samotný Pod restart bol containment, nie trvalá náprava klienta.
 
-### `kubectl auth can-i` hovorí yes, application stále zlyháva
+## 17. Worked failure: federation trust bol príliš široký
 
-Over actual ServiceAccount Podu, token audience, endpoint, DNS/network, API resource path a request verb.
+External trust policy akceptovala všetky ServiceAccounts z `production` namespace-u pre rolu s write prístupom k payment secrets.
 
-### External cloud federation nefunguje
+Unrelated Job mohol získať rovnakú external rolu. Kubernetes RBAC bolo úzke, ale external authorization boundary bola široká.
 
-Over issuer URL, JWKS/discovery, audience, subject claim, namespace/name condition, external role trust policy a clock skew.
+Recovery vyžadovala zúžiť trust na presný ServiceAccount subject, rotovať derived credentials, skontrolovať provider audit a overiť denied exchange z cudzieho workloadu.
 
-### Image pull zlyhá
+## 18. Causal troubleshooting walkthrough: `can-i=yes`, ale workload po hodinách dostáva `401`
 
-ServiceAccount API token nepomáha registry authentication. Over `imagePullSecrets`, registry host a Node connectivity.
+Symptóm:
 
-## 20. Anti-patterny
+```text
+Pod P52 je Running a Ready
+kubectl auth can-i pre payments-api vracia yes
+prvé hodiny API calls fungovali
+neskôr všetky calls vracajú 401
+restart Podu dočasne pomôže
+```
 
-### Všetky workloady používajú `default`
+### 1. Zafixuj subject a pôvodný outcome
 
-Oprávnenia a audit blast radius sa zlievajú.
+Zaznamenaj bez plaintext tokenu:
 
-### ClusterRoleBinding na širokú ServiceAccount skupinu
+```text
+cluster a API endpoint
+ServiceAccount name/UID
+Pod UID, creation time a admitted serviceAccountName
+automount a projected-volume config
+token issuer, audience, expiry a bezpečný fingerprint
+file mtime/inode a process-loaded fingerprint
+client library/version a reload behavior
+API audit username/result
+RoleBinding generations
+pôvodný operation: get payments-policy generation C52
+```
 
-Môže udeliť cluster-wide práva každému ServiceAccountu v namespace alebo clustri.
+### 2. Konkurenčné hypotézy
 
-### Long-lived token v CI variable bez expiry
+1. process cacheuje expirovaný token;
+2. token má nesprávnu audience;
+3. issuer/JWKS alebo clock validation zlyháva;
+4. Pod nemá správnu projection alebo kubelet ju nerotuje;
+5. request ide na nesprávny API endpoint alebo CA;
+6. authentication prejde a skutočný výsledok je `403`;
+7. network/TLS chyba je application mapovaná na `401`;
+8. admission priradila iný ServiceAccount;
+9. external proxy používa vlastný stale credential.
 
-Vzniká statický cluster credential mimo rotation modelu.
+### 3. Diskriminačné observation points
 
-### Token skopírovaný z projected volume do image alebo persistentného volume
+- porovnaj token-file fingerprint s process-loaded fingerprintom;
+- dekóduj iba necitlivé claims bezpečným nástrojom bez logovania tokenu;
+- porovnaj `aud`, `iss`, expiry a Pod/ServiceAccount binding;
+- skontroluj API audit: je request vôbec autentifikovaný a pod akým username?
+- porovnaj nový request s tokenom z aktuálneho file-u;
+- skontroluj kubelet/projected-volume Events;
+- rozlíš HTTP status, TLS a network error;
+- over presný verb/resource/subresource cez audit a `can-i`.
 
-Obíde väzbu, expiry a rotation.
+### 4. Containment
 
-### ServiceAccount ako synonymum pre RBAC rolu
+- zastav nekonečné retries;
+- nezapisuj token do ticketu, logu ani shell history;
+- odober failing Pod z trafficu, ak identity failure ovplyvňuje request correctness;
+- zachovaj metadata, audit a token fingerprints;
+- nereaktivuj long-lived legacy token ako rýchlu opravu;
+- pri možnom leakage zúž RBAC/trust a rotuj derived credentials.
 
-Identity a permissions sú oddelené objekty a lifecycle.
+### 5. Authoritative recovery
 
-### Application token v environment variable
+Pri stale process token-e:
 
-Zvyšuje leakage cez process inspection, dumps a support output.
+1. oprav klienta tak, aby načítaval rotated token;
+2. pridaj bounded retry po jednom refreshi;
+3. vydaj novú Pod generation s immutable image digestom;
+4. over loaded token epoch;
+5. zruš alebo nechaj expirovať staré derived credentials podľa policy;
+6. odstráň dočasné identity exceptions.
 
-## 21. Kontrolné otázky
+### 6. Over pôvodný a forbidden outcome
 
-1. Čo ServiceAccount poskytuje a čo neposkytuje?
-2. Aký je canonical username ServiceAccount identity?
-3. Ako sa bound projected token líši od legacy long-lived token Secretu?
-4. Načo slúži audience?
-5. Čo robí `automountServiceAccountToken`?
-6. Ako sa ServiceAccount prepája s RBAC?
-7. Aký je rozdiel medzi `401` a `403` pri API access-e?
-8. Prečo je workload identity federation bezpečnejšia než statický cloud key?
-9. Aký escalation path vzniká cez právo vytvárať Pods?
-10. Prečo application musí vedieť znovu načítať rotated token?
+Potvrď:
+
+- P53 používa správny ServiceAccount UID a token audience;
+- API audit ukazuje správny username;
+- `get payments-policy` vráti accepted generation C52 alebo novšiu;
+- Vault exchange vráti credential z trust policy TP17;
+- starý/nesprávny token je odmietnutý;
+- cudzí ServiceAccount nedokáže rovnaký API ani Vault operation;
+- application request cez Payments Service prejde bez identity retry stormu;
+- ďalšia token rotation prebehne bez restartu.
+
+### 7. Posuň control skôr
+
+Pridaj:
+
+- explicitný ServiceAccount v každom Pod template;
+- admission allowlist pre identity selection;
+- per-workload RBAC a federation trust tests;
+- token audience/rotation integration test;
+- loaded credential epoch metric bez secret value;
+- `401`/`403` oddelené telemetry;
+- Pod-create escalation review;
+- short-lived break-glass identity s expiry a auditom.
+
+## 19. Observation matrix
+
+| Boundary | Subject | Kľúčové observations |
+|---|---|---|
+| Intent | workload identity contract | consumers, operations, forbidden actions |
+| Kubernetes identity | ServiceAccount UID | namespace, owner, automount default |
+| Pod binding | Pod UID | admitted serviceAccountName, projected volumes |
+| Credential | token instance | issuer, audience, expiry, object binding, fingerprint |
+| Process | loaded token generation | reload behavior, client cache, request fingerprint |
+| Authentication | request identity | audit username, issuer/audience verdict |
+| Authorization | RBAC request subject | verb, group, resource, namespace, binding generation |
+| Federation | trust-policy generation | subject conditions, derived role, expiry |
+| External access | derived credential/session | provider audit, operation, revocation |
+| Business | request/operation ID | correct policy/data access, forbidden outcome |
+
+## 20. Referenčné príkazy
+
+```bash
+kubectl get serviceaccount payments-api -n production -o yaml
+kubectl get pod <pod> -n production -o yaml
+kubectl auth can-i get configmap/payments-policy \
+  -n production \
+  --as system:serviceaccount:production:payments-api
+kubectl get role,rolebinding -n production -o yaml
+kubectl get clusterrolebinding -o yaml
+kubectl get events -A --sort-by=.metadata.creationTimestamp
+```
+
+Pri token diagnostike pracuj s metadata a bezpečnými fingerprintmi. Plaintext bearer token nevypisuj do dokumentácie, logs ani odpovede.
+
+## 21. Referenčné pravidlá
+
+- ServiceAccount je identity anchor, nie RBAC rola.
+- Namespace a object UID patria do identity subjectu.
+- Pod source manifest nemusí byť admitted identity.
+- Token audience je recipient boundary.
+- Projected token file a process-loaded token sú odlišné states.
+- Token rotation neznamená rotation už vydaného external credentialu.
+- `401` je authentication boundary; `403` authorization boundary.
+- `automountServiceAccountToken: false` vypína automatic credential delivery, nie Pod identity.
+- `imagePullSecrets` nie sú application API credentials.
+- Pod-create a controller-create práva môžu delegovať ServiceAccount authority.
+- External federation trust môže byť širšia než Kubernetes RBAC.
+- Recovery musí overiť legitímny operation aj forbidden access.
+
+## 22. Kontrolné otázky
+
+1. Aký lifecycle spája workload identity intent s auditovaným operation outcome-om?
+2. Prečo ServiceAccount sám neudeľuje permissions?
+3. Ako sa líši ServiceAccount object, Pod UID a token instance?
+4. Prečo audience patrí do token subjectu?
+5. Ako sa líši projected token generation od process-loaded generation?
+6. Čo mení `automountServiceAccountToken`?
+7. Prečo `can-i=yes` nevysvetľuje `401`?
+8. Ako môže Pod-create permission delegovať workload identity?
+9. Čo musí external federation trust policy obmedziť?
+10. Čo musí ServiceAccount acceptance verdict overiť?
 
 ## Glossary impact
 
-Relevantné pojmy: ServiceAccount, workload identity, ServiceAccount username, default ServiceAccount, bound ServiceAccount token, TokenRequest, projected token, token audience, token rotation, `automountServiceAccountToken`, imagePullSecrets, workload identity federation a ServiceAccount impersonation boundary.
+Relevantné pojmy: workload identity lifecycle subject, ServiceAccount object identity, admitted workload identity, bound token subject, token audience boundary, object-bound credential, process-loaded token generation, ServiceAccount authorization subject, federation trust-policy generation, derived credential subject, Pod-create identity delegation boundary, identity operation outcome, workload identity observation matrix a ServiceAccount acceptance verdict.
 
 ## Oficiálna dokumentácia
 
 - [Service Accounts](https://kubernetes.io/docs/concepts/security/service-accounts/)
 - [Configure Service Accounts for Pods](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/)
 - [Managing Service Accounts](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/)
-- [Accessing the Kubernetes API from a Pod](https://kubernetes.io/docs/tasks/run-application/access-api-from-pod/)
+- [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
