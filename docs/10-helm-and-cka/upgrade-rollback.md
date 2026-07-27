@@ -1,543 +1,640 @@
 # Upgrade a rollback
 
-Helm upgrade nie je iba zmena image tagu. Vytvorí novú release revision z konkrétneho chart artifactu, effective values, dependency graphu, capabilities a render behavioru. Následne sa pokúsi zosúladiť live Kubernetes resources s novým rendered manifestom. Rollback vytvorí ďalšiu revision podľa historického release stavu; nevracia automaticky databázu, externé API, persistentné dáta ani side effects hookov.
+Helm upgrade je riadený prechod z jednej release generation do druhej. Nevymieňa iba image tag. Mení kombináciu chart artifactu, dependency graphu, effective values, rendered manifests, hooks, Kubernetes objects a často aj durable alebo external state.
 
-## 1. Release revision model
+Rollback je ďalší release transition. Nie je to návrat času. Vie znovu použiť historický Helm release state, ale automaticky nevracia databázu, queue, CRD storage, external API side effects, DNS, IAM ani obsah PVC.
 
-Helm release má históriu revisions:
+## 1. Dominantný lifecycle
 
-```bash
-helm history payments -n production
-helm status payments -n production
+```text
+change intent a recovery objective
+→ current release subject
+→ target release subject
+→ compatibility a side-effect inventory
+→ effective values a target render
+→ semantic diff a precondition gate
+→ hooks a release mutation
+→ Kubernetes reconciliation
+→ technical a business acceptance
+→ rollback/roll-forward/compensation/restore decision
+→ recovery verification
+→ revision evidence a old-state retirement
 ```
 
-Revision môže mať stav napríklad:
+Upgrade je bezpečný iba vtedy, keď vieš odpovedať:
 
-- `deployed`,
-- `superseded`,
-- `failed`,
-- `pending-install`,
-- `pending-upgrade`,
-- `pending-rollback`,
+```text
+čo sa mení
+kto je authoritative writer
+ktoré side effects sú durable
+ktorý predchádzajúci stav je ešte kompatibilný
+ako sa overí pôvodný business outcome
+```
+
+## 2. Atlas revision subjects
+
+Po úspešnom dokončení predchádzajúceho hook incidentu je current state:
+
+```text
+release: payments-prod
+current revision: 19
+chart artifact: CH57
+dependency lock: D57
+values bundle: V57
+rendered manifest: M57
+image digest: I57
+database schema: S13
+event contract: E1
+```
+
+Target upgrade:
+
+```text
+target revision: 20
+chart artifact: CH58
+dependency lock: D58
+values bundle: V58
+rendered manifest: M58
+image digest: I58
+database schema target: S14
+event contract target: E2
+cluster generation: K136
+```
+
+Release transition subject:
+
+```text
+payments-prod
++ source revision 19
++ target revision 20
++ source/target chart, dependency, values a manifest digests
++ source/target image digests
++ hook operation IDs
++ data/schema/event generations
++ target cluster/context/namespace
++ deployment engine a Helm version
+```
+
+Samotné číslo revision nestačí na recovery rozhodnutie.
+
+## 3. Release revision model
+
+Helm history môže obsahovať stavy ako:
+
+- `deployed`;
+- `superseded`;
+- `failed`;
+- `pending-install`;
+- `pending-upgrade`;
+- `pending-rollback`;
 - `uninstalling`.
+
+```bash
+helm history payments-prod -n production
+helm status payments-prod -n production
+```
 
 Helm revision nie je:
 
-- Git commit,
-- chart version,
-- application version,
-- Deployment revision,
-- databázová schema version.
-
-Pre audit koreluj všetky identity cez annotations, labels a deployment metadata.
-
-## 2. Upgrade inputs
-
-Výsledok upgrade-u závisí od:
-
-- chart artifactu alebo directory contentu,
-- chart version/digest,
-- dependency locku a vendored dependencies,
-- values defaults,
-- predchádzajúcich release values,
-- nových values files a CLI overrides,
-- Kubernetes API capabilities,
-- live `lookup` výsledkov,
-- post-renderera,
-- Helm major/minor behavioru,
-- target clusteru, contextu a namespace-u.
-
-Reprodukovateľný upgrade musí všetky rozhodujúce inputs versionovať alebo zaznamenať.
-
-## 3. Basic upgrade flow
-
-```bash
-helm upgrade payments oci://registry.example.com/charts/payments \
-  --version 1.5.0 \
-  -f values-production.yaml \
-  --namespace production
+```text
+Git commit
+chart version
+application version
+Deployment revision
+database schema generation
+event contract generation
 ```
 
-Zjednodušený flow:
+Koreláciu vytvor cez labels, annotations, artifact digests, operation IDs a deployment evidence.
 
-1. Helm načíta chart a dependencies.
-2. Zostaví effective values.
-3. Validuje values schema.
-4. Renderuje templates.
-5. Vykoná pre-upgrade hooks.
-6. Aplikuje zmeny resources.
-7. Podľa flags čaká na readiness/Jobs.
-8. Vykoná post-upgrade hooks.
-9. Zapíše release revision a status.
+## 4. Upgrade input closure
 
-Failure môže nastať v každej vrstve a každá má iný rollback model.
+Výsledok upgrade-u môže závisieť od:
 
-## 4. Values pri upgrade
+```text
+chart artifact a digest
+dependency lock a packaged dependencies
+default values
+previous release values
+new values files a CLI overrides
+values merge mode
+release name/namespace/revision context
+Capabilities a live lookup
+post-renderer
+Helm version a plugins
+target API/admission state
+```
 
-Najčastejšia chyba je nejasná values stratégia.
+Reprodukovateľný upgrade potrebuje immutable input closure. Príkaz bez zachovaných inputs nie je release evidence.
 
-### Explicitné values files
+## 5. Values transition
 
-Preferovaný release contract:
+### Explicitný values contract
+
+Preferovaný production model:
 
 ```bash
-helm upgrade payments ./chart \
+helm upgrade payments-prod oci://registry.example.com/charts/payments \
+  --version 1.6.0 \
   -f values/common.yaml \
   -f values/production.yaml \
   --namespace production
 ```
 
-Poradie je dôležité; neskorší file prepisuje skorší.
+Effective values bundle `V58` má byť archivovaný bez plaintext secrets a viazaný na source revisions.
 
-### Reuse values
+### `--reuse-values`
 
-```bash
-helm upgrade payments ./chart \
-  --reuse-values \
-  --set image.tag=1.5.0
+Reuse prenáša predchádzajúce release values a pridáva nové overrides. To môže ponechať:
+
+- odstránené legacy keys;
+- staré boolean flags;
+- staré subchart enablement;
+- values, ktoré nový chart už nezdokumentuje;
+- cluster-history-dependent configuration.
+
+### Reset modes
+
+Reset môže naopak odstrániť historické customizations. Presné flags a merge semantics viaž na používanú Helm major/minor verziu.
+
+Pred upgrade vždy porovnaj:
+
+```text
+current stored effective values
+new chart defaults
+explicit target overrides
+resulting target effective values
 ```
 
-`--reuse-values` prenesie predchádzajúce release values a zlúči nové overrides. Riziká:
+## 6. Current, target a live state
 
-- staré keys zostanú aktívne,
-- nové chart defaults sa nemusia aplikovať podľa očakávania,
-- odstránené alebo premenované values vytvoria neviditeľný legacy state,
-- výsledok závisí od cluster release history, nie iba od Git-u.
+Pred zmenou zachovaj tri baseline-y:
 
-Production workflow má preferovať explicitný versionovaný effective configuration contract.
-
-### Reset values
-
-`--reset-values` začne od defaults nového chartu a aplikuje nové overrides. To môže odstrániť historické customizations.
-
-Pred upgrade porovnaj:
-
-```bash
-helm get values payments -n production --all
-helm show values <chart-reference>
+```text
+current Helm release manifest
+current live Kubernetes objects
+proposed target rendered manifest
 ```
 
-## 5. Pre-upgrade evidence
-
-Pred zmenou zachovaj:
+Príkazy:
 
 ```bash
-helm status payments -n production
-helm history payments -n production
-helm get values payments -n production --all > current-values.yaml
-helm get manifest payments -n production > current-manifest.yaml
-helm get hooks payments -n production > current-hooks.yaml
-kubectl get all,cm,secret,pvc -n production -l app.kubernetes.io/instance=payments
+helm get values payments-prod -n production --all
+helm get manifest payments-prod -n production
+helm get hooks payments-prod -n production
+helm status payments-prod -n production
+kubectl get deployment,replicaset,pod,service,endpointslice,pvc -n production
 ```
 
-Ďalej zaznamenaj:
+Rozdiel medzi release manifestom a live objectom môže pochádzať z:
 
-- aktuálny chart artifact digest,
-- image digests,
-- Git revision,
-- databázovú schema version,
-- current SLI/SLO stav,
-- active incidents a capacity,
-- backup status.
+- server-side defaulting;
+- mutating admission;
+- HPA;
+- operatora;
+- GitOps controllera;
+- manual emergency change;
+- external secret/config reload controlleru.
 
-Release history v clustri nie je jediný disaster-recovery source.
+Pred rollbackom urči authoritative writer pre každý relevantný field.
 
-## 6. Render a diff pred upgrade
+## 7. Precondition a recovery gate
 
-Minimálny validation chain:
+Production upgrade nezačína renderom. Začína eligibility rozhodnutím:
+
+```text
+cluster/API health
++ release writer lock
++ capacity a failure-domain headroom
++ current SLO
++ compatible backup/recovery evidence
++ dependency a external-system health
++ target artifact availability
++ rollback/roll-forward eligibility
+```
+
+Ak prebieha incident, backup je neoverený alebo rollback target už nie je kompatibilný, upgrade nemá bezpečný recovery envelope.
+
+## 8. Render a semantic diff
+
+Minimálny chain:
 
 ```bash
 helm dependency build ./chart
 helm lint ./chart -f values-production.yaml
-helm template payments ./chart \
+helm template payments-prod ./chart \
   -f values-production.yaml \
   --namespace production > rendered.yaml
 kubectl apply --dry-run=server -f rendered.yaml
 ```
 
-Ďalej porovnaj:
+Semantic review musí odhaliť zmeny v:
 
-- current release manifest,
-- proposed rendered manifest,
-- live objects,
-- immutable fields,
-- selector changes,
-- PVC/StorageClass zmeny,
-- Service type/port changes,
-- RBAC a security context,
-- hooks a CRDs.
+- resource identity a names;
+- selectors a ownership labels;
+- image digestoch;
+- ConfigMap/Secret references;
+- Service ports a traffic policy;
+- PVC, StorageClass a volume identity;
+- RBAC a security context;
+- hooks a external side effects;
+- CRDs a controller compatibility;
+- requests, limits, probes a rollout budgets.
 
-Textový YAML diff nie je plná semantic analýza. Server defaulting, admission a controller mutations môžu výsledok zmeniť.
+Textový YAML diff sám nepreukazuje admission-resolved ani runtime state.
 
-## 7. Wait, timeout a Jobs
+## 9. Upgrade execution chain
 
-Podľa Helm major verzie sa konkrétne flags a wait strategy môžu líšiť. Všeobecný production contract musí definovať:
-
-- na ktoré resources Helm čaká,
-- čo znamená ready,
-- či čaká na Jobs,
-- operation timeout,
-- application-level post-deploy validation.
-
-Príklad pre podporovaný Helm variant:
-
-```bash
-helm upgrade payments ./chart \
-  -f values-production.yaml \
-  --namespace production \
-  --wait \
-  --wait-for-jobs \
-  --timeout 15m
+```text
+target render M58
+→ pre-upgrade hook operations
+→ API create/update/delete requests
+→ release object/status transition
+→ Kubernetes controllers reconcile
+→ Pods, volumes, network a endpoints realize
+→ post-upgrade hooks/tests
+→ technical acceptance
+→ business acceptance
 ```
 
-Timeout nesmie byť náhodne vysoký. Odvodzuj ho z:
+Každá boundary má vlastný failure model. Ak upgrade zlyhá pred API write-om, recovery je iná než po schema migration, partial rollout-e alebo external event publication.
 
-- rollout strategy,
-- startup probes,
-- image pull času,
-- hook Jobs,
-- migration deadline,
-- storage attach/mount času,
-- capacity a autoscaling latency.
+## 10. Wait a timeout semantics
 
-Helm wait success stále nepreukazuje end-to-end user path ani business correctness.
+Wait contract musí definovať:
 
-## 8. Automatic rollback behavior
+```text
+ktoré resources sa sledujú
+čo znamená ready
+či sa čaká na Jobs
+aký je operation timeout
+aký application-level test nasleduje
+```
 
-Niektoré Helm verzie používajú `--atomic`, novšie command surfaces môžu používať explicitnejší rollback-on-failure model. Pred použitím over dokumentáciu konkrétnej Helm major verzie.
+Helm wait success nepreukazuje:
 
-Automatický rollback môže:
+- správny image digest na každom serving Pode;
+- process-loaded configuration;
+- Service/edge traffic cohort;
+- schema alebo event compatibility;
+- user journey;
+- absence duplicate side effects.
 
-- obnoviť predchádzajúci rendered manifest,
-- vytvoriť rollback revision,
-- odstrániť niektoré nové resources podľa flags,
-- znovu spustiť rollback hooks.
+Timeout je observation deadline. Nie je root cause ani dôkaz, že operácia neprebehla.
+
+## 11. Automatic failure recovery
+
+Moderné Helm command surfaces môžu ponúkať automatic rollback behavior, napríklad version-dependent `--atomic` alebo `--rollback-on-failure` model.
+
+Takáto funkcia môže:
+
+- aplikovať predchádzajúci release manifest;
+- vytvoriť ďalšiu rollback revision;
+- vykonať rollback hooks;
+- odstrániť vybrané newly-created resources podľa flags.
 
 Neobnoví automaticky:
 
-- databázovú schema alebo dáta,
-- messages odoslané do queue,
-- external API side effects,
-- DNS alebo IAM zmeny vytvorené mimo release,
-- objekty vytvorené operatorom,
-- manual drift,
-- CRD schema/data migrácie.
+- database schema/data;
+- queue messages;
+- emitted events;
+- external API transactions;
+- CRD stored objects;
+- PVC content;
+- DNS/IAM/cloud resources mimo release;
+- credentials už načítané consumerom.
 
-Pre stateful upgrade je automatický rollback bezpečný iba pri preukázanej backward compatibility.
+Automatic rollback je bezpečný iba po preukázaní compatibility predchádzajúcej application generation s current durable state-om.
 
-## 9. Manual rollback
-
-```bash
-helm history payments -n production
-helm rollback payments 7 -n production --wait --timeout 15m
-```
-
-Rollback na revision `7` vytvorí novú revision. História sa neprepíše späť.
-
-Pred rollbackom over:
-
-- chart a values obsiahnuté v cieľovej revision,
-- image availability,
-- API compatibility,
-- DB schema compatibility,
-- Secret/certificate validity,
-- hook behavior,
-- či resources alebo CRDs už neboli odstránené,
-- či external dependency stále podporuje starú aplikáciu.
-
-## 10. Rollback nie je time travel
-
-Príklad:
-
-```text
-revision 7: app 1.4 + schema 12
-revision 8: pre-upgrade hook zmení schema na 13
-revision 8: application rollout zlyhá
-rollback: manifests sa vrátia na app 1.4
-schema: zostáva 13
-```
-
-Starý application binary musí vedieť pracovať so schema 13 alebo rollback zlyhá funkčne, hoci Helm status bude `deployed`.
-
-Používaj expand/contract migration:
-
-```text
-expand kompatibilnú schema
-→ rollout novej aplikácie
-→ migrácia/backfill
-→ overenie
-→ odstránenie starej kompatibility v neskoršom release
-```
-
-## 11. Force replacement
-
-Flag typu `--force` môže nahradiť resource delete/recreate stratégiou. Je rizikový pri:
-
-- Services s meniacou sa identity,
-- PVC/PV,
-- StatefulSets,
-- immutable selectors,
-- CRDs,
-- resources s external controller side effects,
-- objects s finalizers.
-
-Nepoužívaj force ako univerzálnu opravu immutable-field failure. Najprv navrhni explicitný migration/decommission flow.
-
-## 12. Cleanup on failure
-
-Cleanup flag môže odstrániť resources vytvorené počas failed upgrade alebo rollbacku. Nevyrieši však:
-
-- modified existing resources,
-- hook side effects,
-- resources bez release ownershipu,
-- operators/external controllers,
-- external cloud resources,
-- storage data.
-
-Cleanup scope musí byť známy pred automatizáciou.
-
-## 13. Hooks pri rollbacku
-
-Rollback môže spustiť:
-
-- `pre-rollback`,
-- bežné resource reconciliation,
-- `post-rollback`.
-
-Hook musí byť:
-
-- idempotentný,
-- bezpečný pri partial previous execution,
-- kompatibilný s aktuálnym aj cieľovým state-om,
-- auditovateľný,
-- časovo ohraničený.
-
-`--no-hooks` môže zmeniť recovery semantics. Použi ho iba vtedy, keď presne vieš, ktoré side effects tým obídeš.
-
-## 14. CRDs a rollback
-
-CRDs v `crds/` majú samostatný lifecycle. Helm ich bežne neupgradeuje ani bezpečne nerollbackuje ako application manifests.
-
-Pri CRD/controller upgrade rieš:
-
-- served/storage API versions,
-- conversion webhook,
-- stored-version migration,
-- controller compatibility,
-- rollback path,
-- custom resource data backup,
-- deletion policy.
-
-Rollback chartu bez CRD compatibility môže odstaviť controller alebo znemožniť čítanie custom resources.
-
-## 15. Stateful workloads
-
-Pred upgrade StatefulSetu analyzuj:
-
-- ordered/parallel rollout,
-- quorum a leader election,
-- version skew replík,
-- PVC retention,
-- storage snapshot/backup,
-- schema/protocol compatibility,
-- partitioned rollout,
-- fencing a failover.
-
-Helm revision nevlastní contents PVC.
-
-## 16. Deployment rollout a Helm status
-
-Helm upgrade a Kubernetes Deployment rollout sú dve vrstvy.
+## 12. Manual rollback subject
 
 ```bash
-helm status payments -n production
-kubectl rollout status deployment/payments -n production
-kubectl get events -n production --sort-by=.metadata.creationTimestamp
+helm history payments-prod -n production
+helm rollback payments-prod 19 -n production --wait --timeout 15m
 ```
 
-Release môže byť failed kvôli timeoutu, hoci rollout neskôr dokončí. Alebo Helm môže command úspešne dokončiť bez plnej business readiness, ak wait contract nie je dostatočný.
-
-## 17. Pending release states
-
-`pending-upgrade` alebo `pending-rollback` môže vzniknúť po:
-
-- prerušení klienta,
-- Helm process crashi,
-- API/network timeout-e,
-- hook Job failure,
-- release storage conflict-e,
-- súbežnej Helm operácii.
-
-Postup:
-
-1. zachovaj release Secret/metadata evidence,
-2. zisti poslednú úspešnú revision,
-3. over live resources a hooks,
-4. zisti, či operácia stále beží,
-5. nepremenuj alebo nemaž release Secrets naslepo,
-6. vykonaj dokumentovaný rollback alebo recovery.
-
-Ručná editácia Helm release storage je posledná možnosť s backupom a presným version-specific postupom.
-
-## 18. Concurrent writers
-
-Helm, GitOps controller, manual `kubectl apply`, operator a HPA môžu meniť rovnaké resources.
-
-Definuj:
-
-- authoritative writer pre každý field,
-- GitOps/Helm integration model,
-- scaling ownership,
-- admission mutation expectations,
-- emergency change workflow,
-- drift detection.
-
-Rollback môže prepísať legitímnu novšiu zmenu iného writera.
-
-## 19. Release history retention
-
-History retention ovplyvňuje:
-
-- dostupné rollback targets,
-- namespace Secret count,
-- forensic evidence,
-- sensitive values/manifests exposure,
-- etcd storage.
-
-Neobmedzená história nie je automaticky správna. Zachovaj externý source chartov, values a deployment evidence aj mimo release storage.
-
-## 20. CI/CD upgrade workflow
-
-Odporúčaný flow:
+Rollback vytvorí novú revision. Cieľový subject musí obsahovať:
 
 ```text
-pin chart/dependencies/images
-→ render všetky environment values
-→ lint/schema/policy/security checks
-→ server-side dry-run v kompatibilnom clustri
-→ staging install/upgrade
-→ Helm tests a application smoke tests
-→ production canary alebo bounded rollout
-→ SLI observation
-→ promotion alebo explicitný rollback/roll-forward
+target historical release revision
+chart/dependency/values/manifest identity
+referenced images a ich availability
+expected hooks
+API/CRD compatibility
+current data/schema/event generation
+current Secrets/certificates/external APIs
 ```
 
-Release artifact má byť rovnaký medzi prostrediami; meniť sa majú iba explicitné environment inputs.
+Historická revision je len kandidát. Nie automaticky validný recovery state.
 
-## 21. Roll-forward vs. rollback
+## 13. Rollback compatibility matrix
 
-Preferuj rollback, keď:
+Pred rollbackom zostav minimálne:
 
-- predchádzajúci stav je stále kompatibilný,
-- side effects sú nulové alebo reverzibilné,
-- image/artifacts sú dostupné,
-- recovery je rýchlejšia a bezpečnejšia než oprava.
-
-Preferuj roll-forward, keď:
-
-- database/schema už nie je backward-compatible,
-- external migration dokončila,
-- rollback by znovu spustil nebezpečné hooks,
-- stará image už nie je bezpečná alebo dostupná,
-- malá oprava obnoví správny desired state s menším blast radiusom.
-
-Rozhodnutie musí byť súčasťou release runbooku, nie improvizácia počas incidentu.
-
-## 22. Post-upgrade validation
-
-Over minimálne:
-
-```bash
-helm status payments -n production
-helm get values payments -n production --all
-kubectl rollout status deployment/payments -n production
-kubectl get pods,endpointslice -n production
-kubectl get events -n production --sort-by=.metadata.creationTimestamp
-helm test payments -n production --logs
+```text
+old app × current schema
+old app × current event backlog
+old app × current external API
+old app × current credential epoch
+old manifests × current Kubernetes APIs
+old controller × current CRD storage version
 ```
 
-Ďalej:
+Verdict môže byť:
 
-- application SLI,
-- error rate/latency,
-- queue lag,
-- DB migration status,
-- resource saturation,
-- security/policy denials,
-- external integration.
+- **eligible** — predchádzajúci stav je kompatibilný;
+- **eligible with compensation** — potrebuje external cleanup alebo data reconciliation;
+- **not eligible** — rollback by poškodil alebo nedokázal spracovať current state;
+- **unknown** — chýba evidence, preto rollback nie je bezpečný default.
 
-## 23. Anti-patterny
+## 14. Roll-forward, compensation a restore
 
-### `--reuse-values` bez auditu
+### Rollback
 
-Staré hodnoty prežijú chart refactor a vytvoria neviditeľný configuration drift.
+Vhodný, keď:
 
-### Automatický rollback považovaný za databázový rollback
+- current durable state je backward-compatible;
+- side effects sú nulové alebo reverzibilné;
+- artifacts a dependencies sú dostupné;
+- návrat je najmenší bezpečný change.
 
-Manifests sa vrátia, durable state nie.
+### Roll-forward
 
-### `--force` na immutable-field problém
+Vhodný, keď:
 
-Delete/recreate môže zmeniť identity a poškodiť stateful workload.
+- schema alebo event contract už nie je backward-compatible;
+- external migration dokončila;
+- malý fix obnoví správny desired state;
+- rollback hooks alebo old application predstavujú väčšie riziko.
 
-### Upgrade bez zachovania current manifestu a values
+### Compensation
 
-Pri incidente chýba porovnávací baseline.
+Použi pri external side effecte, ktorý sa nedá „rollbacknúť“ manifestom:
 
-### Rollback na revision bez kontroly image availability
+```text
+duplicate message
+external registration
+payment authorization
+DNS/IAM change
+```
 
-Starý manifest odkazuje na zmazaný alebo mutable artifact.
+### Restore
 
-### Zvýšenie timeoutu ako univerzálna oprava
+Restore je disaster-recovery operácia nad dátami alebo control plane-om. Nie je synonymum Helm rollbacku a vyžaduje vlastný RPO/RTO, fencing a reconciliation model.
 
-Skryje probe, scheduling, hook alebo capacity problém.
+## 15. Force replacement boundary
 
-### Súbežný Helm a GitOps writer
+Delete/recreate alebo `--force`-like behavior môže zmeniť identity a spustiť external side effects.
 
-Vzniká oscillation a nejasný ownership.
+Rizikové subjects:
 
-## 24. Troubleshooting
+- Service/LB identity;
+- StatefulSet a PVC;
+- immutable selectors;
+- CRDs;
+- resources s finalizers;
+- objects sledované external controllerom;
+- webhook alebo APIService.
 
-### Upgrade zlyhá na immutable field
+Immutable-field failure je požiadavka na explicitný migration/decommission flow, nie signál na univerzálny force.
 
-Identifikuj resource a field. Navrhni migration/recreate flow s explicitným identity a data modelom; nepoužívaj force naslepo.
+## 16. CRD a controller transition
 
-### Release je `pending-upgrade`
+CRD lifecycle nie je automaticky symetrický s Helm release history.
 
-Over release history, Helm process, hooks, Jobs a release Secret. Najprv zachovaj evidence, potom vykonaj version-specific recovery.
+Over:
 
-### Rollback je successful, aplikácia nefunguje
+```text
+served versions
+storage version
+conversion webhook
+stored-version migration
+controller version skew
+custom resource backup
+rollback eligibility
+```
 
-Over database/schema, Secrets, external APIs, PVC state, image availability a rollback hooks.
+Old chart rollback môže nasadiť controller, ktorý current stored objects alebo schema už nevie čítať.
 
-### `--wait` timeoutuje
+## 17. Stateful a data-bearing resources
 
-Zisti konkrétny resource: Pod readiness, PVC, Service/load balancer, Job/hook, scheduling alebo quota. Timeout je symptóm.
+Helm revision nevlastní obsah PVC ani application membership.
 
-### Nové chart defaults sa neaplikovali
+Pred transition analyzuj:
 
-Over `--reuse-values`, predchádzajúce effective values a renamed/deprecated keys.
+- data generation;
+- writer/fencing epoch;
+- quorum a version skew;
+- storage snapshot a restore test;
+- protocol/schema compatibility;
+- ordered/partitioned rollout;
+- retained PVC a rollback semantics.
 
-### Rollback zlyhá na chýbajúcom resource
+Manifest rollback pri stále aktívnom novom writeri môže vytvoriť split-brain alebo stale writer.
 
-Porovnaj release manifests, current live state, resource ownership a Helm version-specific behavior.
+## 18. Pending operation a unknown outcome
 
-## 25. Kontrolné otázky
+`pending-upgrade` alebo `pending-rollback` môže znamenať:
 
-1. Čo tvorí input Helm upgrade-u?
-2. Aký je rozdiel medzi chart version, release revision a Deployment revision?
-3. Aké riziká má `--reuse-values`?
-4. Čo preukazuje `--wait` a čo nepreukazuje?
-5. Prečo rollback nevie automaticky vrátiť databázu?
-6. Kedy je vhodný expand/contract migration model?
-7. Aké riziká má force replacement?
-8. Ako sa riešia CRDs pri rollbacku?
-9. Kedy preferovať roll-forward namiesto rollbacku?
-10. Aké evidence zachováš pred production upgrade-om?
+- klient bol prerušený;
+- API response sa stratila;
+- hook stále beží;
+- release storage write zlyhal;
+- iný writer spustil operáciu;
+- resource mutation prebehla iba čiastočne.
+
+Recovery:
+
+1. zachovaj release storage a hook evidence;
+2. identifikuj source a target revision subjects;
+3. over, či Helm process alebo hook stále beží;
+4. porovnaj release manifest, live objects a external state;
+5. urč completed, partial alebo unknown operations;
+6. až potom vykonaj rollback, roll-forward alebo compensation.
+
+Ručná editácia release Secrets je posledný version-specific recovery krok, nie prvá oprava.
+
+## 19. Concurrent writers
+
+Možní writers:
+
+```text
+Helm CLI/pipeline
+GitOps controller
+kubectl apply/patch
+operator
+HPA/VPA
+external secret/config controller
+```
+
+Definuj authoritative ownership na úrovni fields a lifecycle operations. Inak rollback môže prepísať legitímnu novšiu zmenu alebo GitOps okamžite vráti rollback späť.
+
+## 20. Worked incident — technický rollback, business failure
+
+Atlas Payments prechádza z revision 19 na 20.
+
+Target changes:
+
+```text
+image I57 → I58
+schema S13 → S14 cez expand migration
+outbound event E1 → E2
+new consumer config generation C58
+```
+
+Pre-upgrade migration dokončí S14. Časť nových Podov začne publikovať E2. Rollout sa potom zastaví, pretože C58 neobsahuje required endpoint pre fraud service. Automatic failure recovery obnoví manifests revision 19.
+
+Helm status novej rollback revision je `deployed`, no payment backlog rastie.
+
+### Subject
+
+```text
+source release revision 19
+failed target revision 20
+rollback revision 21
+hook operation schema-expand/20
+current schema S14
+queue contains E1 aj E2
+serving application cohort I57
+```
+
+### Konkurenčné hypotézy
+
+1. rollback manifest sa neaplikoval;
+2. old image I57 nie je dostupný;
+3. Pody revision 19 neprešli readiness;
+4. old app nevie pracovať so schema S14;
+5. old consumer nevie dekódovať E2 backlog;
+6. Service/EndpointSlice stále smeruje na I58 cohortu;
+7. rollback hook znovu spustil side effect;
+8. queue lag pochádza z nezávislého broker incidentu.
+
+### Diskriminačné observation points
+
+```text
+helm history a manifests revisions 19/20/21
+Pod UIDs a image digests
+EndpointSlice targetRef cohort
+schema generation a migration ledger
+queue event-version distribution
+effective consumer config
+application decode errors a broker health
+```
+
+Finding:
+
+```text
+revision 21 manifests a Pody I57 sú current
+EndpointSlice smeruje iba na I57
+schema S14 je backward-compatible
+E2 backlog nie je kompatibilný s I57 consumerom
+broker je healthy
+```
+
+Helm rollback bol technicky úspešný. Recovery state však nebol business-compatible.
+
+### Containment
+
+- zastaviť ďalšie automatic retries/rollbacks;
+- pozastaviť E2 producers;
+- zachovať mixed queue evidence;
+- nevymazávať E2 messages;
+- udržať payment API v degradovanom, ale konzistentnom režime;
+- zablokovať contract schema cleanup.
+
+### Recovery decision
+
+Rollback nie je eligible kvôli E2 backlogu. Zvolený je roll-forward:
+
+1. opraviť missing fraud endpoint v C58;
+2. vytvoriť I58.1 s tolerantným E1/E2 consumerom;
+3. renderovať a server-validate revision 22;
+4. nasadiť bounded cohortu;
+5. drainovať mixed backlog;
+6. overiť idempotency a payment ledger;
+7. rozšíriť rollout;
+8. až potom retirement I57/E1 compatibility.
+
+### Verification
+
+```text
+release revision 22 deployed
+serving image digest I58.1
+schema S14
+queue lag sa vracia na baseline
+E1 aj E2 events sú spracované presne raz
+payment P-884 má jednu ledger transakciu
+forbidden: žiadny E2 decode failure
+forbidden: žiadna duplicate authorization
+```
+
+### Earlier controls
+
+- event expand/contract compatibility;
+- old/new application × old/new event contract matrix;
+- canary s reálnou queue cohortou;
+- automatic rollback eligibility gate;
+- rollout stop pred E2 exposure;
+- business SLI a queue-version telemetry.
+
+## 21. Failure boundaries
+
+### `--reuse-values` zachová legacy behavior
+
+Source chart odstráni key, ale stored release values ho cez compatibility helper stále aktivujú. Target render sa líši od Git-intent.
+
+### Helm timeout, rollout neskôr dokončí
+
+Release je failed, no Kubernetes controller pokračuje. Retry bez kontroly live generation môže vytvoriť ďalší revision transition nad už zmeneným state-om.
+
+### Rollback target odkazuje na odstránený image
+
+Historický manifest existuje, artifact nie. Rollback nie je reprodukovateľný.
+
+### CRD rollback bez storage compatibility
+
+Old controller sa spustí, ale nevie dekódovať current custom resources.
+
+### GitOps vráti rollback
+
+Helm rollback zmení live object, GitOps authoritative desired state ho okamžite znovu nastaví na failed target revision.
+
+## 22. Release transition evidence
+
+Pre každú production zmenu archivuj:
+
+```text
+source a target release subjects
+effective values
+target rendered manifest a digest
+semantic diff
+hooks a operation IDs
+server/admission validation
+current/target image digests
+schema/event/config generations
+technical a business acceptance
+recovery eligibility verdict
+final revision a closure evidence
+```
+
+Release history v clustri nie je jediný disaster-recovery source.
+
+## 23. Kontrolné otázky
+
+1. Čo tvorí immutable source a target release subject?
+2. Prečo rollback vytvára novú revision namiesto návratu histórie?
+3. Aký je rozdiel medzi stored release values a explicitným target values contractom?
+4. Čo Helm wait preukazuje a čo nepreukazuje?
+5. Ako sa určuje rollback eligibility?
+6. Prečo manifest rollback nevracia schema, queue alebo PVC state?
+7. Kedy je bezpečnejší roll-forward?
+8. Prečo pending operation predstavuje unknown outcome?
+9. Ako concurrent writer mení rollback semantics?
+10. Ktoré original a forbidden outcomes musí recovery overiť?
 
 ## Glossary impact
 
-Relevantné pojmy: Helm upgrade, effective release values, release revision, Helm rollback, rollback target, automatic rollback, pending upgrade, pending rollback, release history retention, force replacement, cleanup on failure, upgrade health gate, expand/contract migration, roll-forward a rollback compatibility.
+Relevantné pojmy: Helm release transition subject, source release generation, target release generation, upgrade input closure, recovery eligibility gate, rollback compatibility matrix, technical rollback, business-compatible recovery, pending operation unknown outcome, release compensation, Helm roll-forward a release transition closure.
 
 ## Oficiálna dokumentácia
 
