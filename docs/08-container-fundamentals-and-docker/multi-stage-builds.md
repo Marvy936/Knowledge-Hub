@@ -1,90 +1,347 @@
 # Multi-stage builds
 
-Multi-stage build používa viac `FROM` instructions v jednom Dockerfile. Každý stage má vlastný filesystem a build graph. Výsledný runtime image môže skopírovať iba potrebné artifacts z build alebo test stages a nemusí obsahovať compiler, source code, package manager ani dočasné credentials.
+Multi-stage build používa viac `FROM` instructions a vytvára directed acyclic graph stages. Každý stage má vlastný filesystem a metadata state. Final image vznikne iba z vybraného targetu a z artifacts, ktoré doň boli explicitne prenesené.
 
-## 1. Základný model
+Dominantný model kapitoly je:
+
+```text
+release intent a target/platform inventory
+→ immutable stage inputs
+→ stage DAG
+→ build, test a analysis nodes
+→ artifact identity a lineage
+→ narrow cross-stage transfer
+→ final runtime assembly
+→ target/platform publication
+→ evidence binding
+→ runtime verification, update a recovery
+```
+
+Hodnota multi-stage build-u nie je iba menší image. Hlavný prínos je explicitný artifact-lineage contract medzi toolchainom, testami a production runtime artifactom.
+
+## 1. Atlas stage DAG
+
+Atlas Payments používa tento logical graph:
+
+```text
+source C42
+  ├─ deps
+  │    └─ build
+  │         ├─ unit-test
+  │         ├─ integration-test
+  │         ├─ sbom
+  │         └─ runtime
+  └─ policy-data
+```
+
+Release subject musí určiť:
+
+- source commit,
+- Dockerfile/frontend,
+- base digests per stage,
+- stage names a selected target,
+- dependency a toolchain inputs,
+- expected test/analysis stages,
+- artifact digest prenášaný medzi stages,
+- target platform,
+- final image digest,
+- evidence dokazujúcu, že publikovaný artifact pochádza z testovaného graphu.
+
+Dockerfile môže obsahovať test stage, ktorý sa nikdy nevykonal. Samotná existencia stage-u nie je evidence.
+
+## 2. Stage je build-state boundary
+
+Každý `FROM` vytvorí nový stage:
 
 ```dockerfile
 FROM golang:1.24 AS build
-WORKDIR /src
-COPY . .
-RUN CGO_ENABLED=0 go build -o /out/example ./cmd/example
-
-FROM gcr.io/distroless/static-debian12:nonroot
-COPY --from=build /out/example /usr/local/bin/example
-ENTRYPOINT ["/usr/local/bin/example"]
+FROM gcr.io/distroless/static-debian12:nonroot AS runtime
 ```
 
-Prvý stage obsahuje toolchain. Druhý stage obsahuje iba runtime artifact a metadata.
+Stage má vlastné:
 
-## 2. Stage identity
+- parent image subject,
+- filesystem state,
+- environment a working directory,
+- build args v relevantnom scope,
+- executed instructions,
+- cache graph,
+- artifacts a metadata.
 
-Stage môže byť pomenovaný:
+Pomenované stages sú stabilnejšie než numerické indexy:
 
 ```dockerfile
-FROM node:22 AS dependencies
-FROM node:22 AS test
-FROM nginx:alpine AS runtime
+COPY --from=build /out/payments-api /usr/local/bin/payments-api
 ```
 
-Referencie podľa mena sú stabilnejšie než numerické indexy:
+Ak sa poradie stages zmení, name-based dependency zostáva čitateľná a explicitná.
 
-```dockerfile
-COPY --from=dependencies /app/node_modules /app/node_modules
-```
+## 3. Build a final runtime stage majú odlišnú authority
 
-Premiestnenie stages potom nezmení význam odkazu.
+Build stage môže obsahovať:
 
-## 3. Build stage vs. final stage
-
-### Build stage
-
-Môže obsahovať:
-
-- compiler,
-- SDK,
+- compiler a SDK,
+- source code,
 - headers,
 - package manager,
-- source code,
-- tests,
-- debug tools,
-- temporary cache a secrets.
+- test tools,
+- temporary credentials a caches,
+- debug tooling.
 
-### Final stage
+Final runtime stage má obsahovať iba runtime-required content a metadata:
 
-Má obsahovať iba:
+- executable/application files,
+- required shared libraries,
+- certificates, timezone/NSS data podľa potreby,
+- explicitnú non-root identity,
+- runtime configuration defaults,
+- health helper, ak je opodstatnený.
 
-- runtime executable alebo application files,
-- potrebné shared libraries,
-- CA certificates/timezone data podľa potreby,
-- non-root identity,
-- runtime metadata,
-- healthcheck helper, ak je opodstatnený.
+Táto separácia znižuje:
 
-Menší final image znižuje transfer a attack surface, ale musí zostať operovateľný.
+- artifact size,
+- attack surface,
+- runtime mutation paths,
+- source/toolchain exposure.
 
-## 4. Copy medzi stages
+Nezaručuje však automaticky, že final artifact neobsahuje secret alebo že runtime dependencies sú úplné. To závisí od cross-stage transfer contractu.
 
-```dockerfile
-COPY --from=build /out/example /usr/local/bin/example
-```
+## 4. Narrow artifact transfer
 
-Source path je vyhodnotený od rootu source stage filesystemu.
-
-Môžeš kopírovať aj z external image:
+Správny transfer pomenúva konkrétny output:
 
 ```dockerfile
-COPY --from=busybox:1.37 /bin/busybox /usr/local/bin/busybox
+COPY --from=build \
+  /out/payments-api \
+  /usr/local/bin/payments-api
 ```
 
-External image reference je supply-chain dependency a potrebuje pinning/update policy.
+Rizikový transfer:
 
-## 5. Shared base stage
+```dockerfile
+COPY --from=build / /
+```
+
+môže preniesť:
+
+- toolchain,
+- source,
+- credentials a package config,
+- caches,
+- test artifacts,
+- temporary files,
+- build-only permissions a users.
+
+Narrow transfer potrebuje artifact identity. Nestačí, že path existuje. Release má vedieť, ktorý source, toolchain a stage operation vytvorili bytes kopírované do final stage-u.
+
+## 5. Test stage a graph reachability
+
+Príklad:
+
+```dockerfile
+FROM build AS unit-test
+RUN go test ./...
+
+FROM runtime-base AS runtime
+COPY --from=build /out/payments-api /usr/local/bin/payments-api
+```
+
+`runtime` závisí od `build`, ale nie od `unit-test`. Pri:
+
+```bash
+docker build --target runtime .
+```
+
+builder nemusí vykonať `unit-test`, pretože test stage nie je ancestor final targetu.
+
+To nie je bug buildera. Je to property stage DAG-u.
+
+Existujú dva bezpečné modely:
+
+### Explicitný pipeline evidence model
+
+```text
+build exact unit-test target
+→ uložiť subject-bound test result
+→ build exact runtime target z rovnakého source/input subjectu
+→ policy overí subject väzbu
+```
+
+### Graph-gated artifact model
+
+Final artifact assembly závisí od node-u alebo artifactu, ktorý vznikne až po úspešnom teste. Tento model musí byť navrhnutý tak, aby test marker nebol falošnou náhradou reálneho artifact lineage.
+
+V oboch prípadoch je rozhodujúca väzba medzi tested subjectom a published digestom.
+
+## 6. Target selection je release decision
+
+Konkrétny stage možno buildnúť:
+
+```bash
+docker build --target development -t payments:dev .
+docker build --target runtime -t payments:release .
+```
+
+Targets môžu reprezentovať:
+
+- development image,
+- test executor,
+- debug environment,
+- artifact export,
+- production runtime,
+- platform-specific branch.
+
+### Failure boundary: debug target publikovaný ako production
+
+Pipeline použije default final stage po refaktoringu, no Dockerfile teraz končí stage-om `debug`. Image obsahuje shell, package manager, source a elevated user.
+
+Build aj push uspejú. Failure je v target identity a publication policy.
+
+Control:
+
+```text
+release manifest
+→ required target name
+→ expected final base/user/content invariants
+→ image inspection
+→ publication
+```
+
+Production pipeline nemá odvodzovať target iba z toho, ktorý stage je posledný v súbore.
+
+## 7. Artifact stage a multiple outputs
+
+Minimalistický artifact stage:
+
+```dockerfile
+FROM scratch AS artifact
+COPY --from=build /out/ /out/
+```
+
+môže byť exportovaný:
+
+```bash
+docker buildx build \
+  --target artifact \
+  --output type=local,dest=./dist \
+  .
+```
+
+Jeden graph môže produkovať:
+
+- runtime image,
+- binaries,
+- packages,
+- test report,
+- SBOM,
+- provenance materials.
+
+Každý output má vlastný subject. Binary exportovaný do local directory a binary skopírovaný do final image-u musia byť korelovateľné; rovnaký filename nie je dôkaz rovnakých bytes.
+
+## 8. Secrets neostávajú automaticky v build stage-i
+
+Nesprávny predpoklad:
+
+```text
+secret je iba v build stage
+→ final image je bezpečný
+```
+
+Secret môže prejsť boundary cez:
+
+- broad `COPY --from`,
+- generated config,
+- compiled bundle alebo source map,
+- binary string/resource,
+- cache export,
+- test/log artifact,
+- package manager metadata,
+- provenance pri nesprávnom redaction modeli.
+
+Bezpečnejší model:
+
+```text
+secret mount
+→ bounded command
+→ explicit output inventory
+→ secret scan outputu
+→ narrow COPY
+→ final image scan
+→ credential revocation pri leakage
+```
+
+Multi-stage build zmenšuje transfer surface. Nenahrádza end-to-end secret lifecycle.
+
+## 9. Runtime dependency closure
+
+Minimalistický final stage musí obsahovať všetko, čo process reálne potrebuje.
+
+Pre binary over:
+
+```bash
+file ./payments-api
+ldd ./payments-api
+```
+
+Runtime closure môže zahŕňať:
+
+- dynamic linker,
+- shared libraries,
+- CA certificates,
+- DNS/NSS configuration,
+- timezone/locale data,
+- user/group metadata,
+- writable directories,
+- helper binaries,
+- architecture-specific files.
+
+### Failure boundary: file existuje, process hlási `no such file or directory`
+
+Executable path existuje, ale ELF interpreter alebo shebang interpreter chýba vo final stage-i. Kernel nevie process načítať a surface error vyzerá ako missing file.
+
+Mechanizmus:
+
+```text
+narrow COPY prenesie executable
+→ runtime closure je neúplná
+→ exec loader nevie nájsť interpreter
+→ process nevznikne
+```
+
+Recovery je doplniť deklarovanú runtime dependency alebo vytvoriť skutočne static artifact, nie kopírovať celý build filesystem.
+
+## 10. Distroless a `scratch`
+
+Distroless/minimal image môže odstrániť shell a package manager. `scratch` nemá parent userspace content.
+
+Výhody:
+
+- menší content graph,
+- menší attack surface,
+- menej runtime mutation možností.
+
+Trade-off:
+
+- všetky runtime dependencies musia byť explicitné,
+- interactive debugging nie je default,
+- observability a forensic tooling musí byť externé,
+- certificates, DNS, timezone a user metadata sa ľahko vynechajú.
+
+Operability sa rieši napríklad:
+
+- structured logs/metrics/traces,
+- debug variantom viazaným na rovnaký source,
+- ephemeral debug toolingom,
+- host/platform-level observation,
+- reproducible support workflowom.
+
+Production image nemusí obsahovať permanentný shell iba preto, aby bolo možné incident riešiť.
+
+## 11. Shared base stage a dependency divergence
 
 ```dockerfile
 FROM python:3.13-slim AS base
 WORKDIR /app
-ENV PYTHONDONTWRITEBYTECODE=1
 
 FROM base AS test
 COPY requirements-dev.txt .
@@ -96,75 +353,192 @@ FROM base AS runtime
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY src ./src
-CMD ["python", "-m", "src.app"]
 ```
 
-Shared base znižuje duplicitu, ale neznamená, že test a runtime dependency graph sú automaticky rovnaké. Runtime stage musí používať production lock/requirements contract.
+Shared base znižuje duplicitu. Test a runtime stage však môžu mať odlišné dependency graphs.
 
-## 6. Targeted builds
+Test pass nemusí dokazovať runtime closure, ak:
 
-Konkrétny stage možno buildnúť cez:
+- dev dependency poskytla library chýbajúcu v production requirements,
+- test stage použil iný system package,
+- runtime stage resolveoval inú mutable version,
+- test bežal na build platforme a runtime je iná platforma.
+
+Evidence musí zahŕňať final-stage smoke/integration test, nie iba test v bohatšom build environment-e.
+
+## 12. Multi-platform stage DAG
+
+```dockerfile
+# syntax=docker/dockerfile:1
+FROM --platform=$BUILDPLATFORM golang:1.24 AS build
+ARG TARGETOS TARGETARCH
+RUN GOOS=$TARGETOS GOARCH=$TARGETARCH \
+    go build -o /out/payments-api ./cmd/payments-api
+
+FROM gcr.io/distroless/static-debian12:nonroot AS runtime
+COPY --from=build /out/payments-api /usr/local/bin/payments-api
+```
+
+Rozlišuj:
+
+- `BUILDPLATFORM` — kde beží build toolchain,
+- `TARGETPLATFORM` — platforma final image-u,
+- `TARGETOS`, `TARGETARCH`, variant — parameters výsledného artifactu.
+
+Cross-compilation môže vytvoriť správny target binary bez emulácie. Native dependencies, CGO, generated code alebo tests však môžu vyžadovať target-compatible execution.
+
+### Failure boundary: amd64 test evidence, arm64 untested artifact
+
+Pipeline testuje amd64 target a následne publikuje multi-platform index. Arm64 stage použije odlišný compiler path alebo native dependency a zlyhá až na arm64 node.
+
+Policy musí vyžadovať evidence per expected platform manifest, nie iba pre index tag.
+
+## 13. Stage cache a artifact identity
+
+Každý stage node môže mať cache hit alebo execution. Cache reuse je bezpečné iba vtedy, keď:
+
+- key reprezentuje relevantné inputs,
+- cache source patrí do správneho trust domainu,
+- reused artifact identity je korelovateľná,
+- security/freshness workflow nevyžaduje nový input subject.
+
+Rizikový scenár:
+
+```text
+test stage execution nad source C42
+→ runtime stage reuse starého artifact node-u z C41
+→ final image publish
+```
+
+Správne navrhnutý dependency graph by zmenu relevantného source-u zahrnul do build node key. Ak artifact prichádza z external location alebo undeclared cache pathu, graph môže túto väzbu stratiť.
+
+## 14. Rebase a stage reuse
+
+BuildKit môže pri vhodnom graph-e reuseovať layers alebo vytvoriť nový manifest bez plnej recompilácie.
+
+Rebase alebo base replacement stále mení release subject a vyžaduje:
+
+- nový base digest,
+- final image digest,
+- vulnerability a policy evidence,
+- runtime compatibility test,
+- platform coverage,
+- provenance,
+- rollback/support decision.
+
+„Application binary sa nezmenil“ neznamená, že runtime artifact je ekvivalentný. Userspace libraries, certificates, package inventory a metadata sa mohli zmeniť.
+
+## 15. Causal walkthrough: Dockerfile má test stage, produkcia obsahuje regresiu
+
+### Symptóm
+
+Release `R42` prejde pipeline a je publikovaný. V produkcii sa objaví regresia, ktorú existujúci unit test spoľahlivo zachytáva. Tím tvrdí, že test sa nachádza priamo v Dockerfile-i.
+
+### Competing hypotheses
+
+1. test stage sa nevykonal;
+2. test report patrí inému source commit-u;
+3. runtime target bol zostavený z iného build subjectu;
+4. publikovaný target je `debug` alebo iný stage;
+5. cache vrátila artifact bez relevantnej source dependency;
+6. test bežal iba pre inú platformu;
+7. final image tag smeruje na starý digest;
+8. test bol flaky alebo chybne vyhodnotený.
+
+### Discriminating observation points
+
+Zaznamenaj:
+
+```text
+source commit
+Dockerfile/frontend
+selected test target
+selected release target
+platform
+stage graph
+cache outcomes
+binary/artifact digest
+final image digest
+test report subject
+published/deployed digest
+```
+
+Over pipeline commands:
 
 ```bash
-docker build --target test -t example:test .
+docker buildx build --target unit-test ...
+docker buildx build --target runtime --push ...
 ```
 
-Použitie:
+Preskúmaj stage dependency graph a provenance. Zisti, či `unit-test` je ancestor `runtime` alebo či pipeline vykonala samostatný subject-bound test krok.
 
-- development image,
-- test execution,
-- debugging stage,
-- artifact export,
-- platform-specific branch.
+### Finding
 
-Release pipeline musí explicitne určiť final target a nesmie omylom publikovať debug alebo build stage.
-
-## 7. Test stage
+Dockerfile obsahoval:
 
 ```dockerfile
 FROM build AS unit-test
 RUN go test ./...
+
+FROM runtime-base AS runtime
+COPY --from=build /out/payments-api /usr/local/bin/payments-api
 ```
 
-Test stage môže zlyhaním zastaviť build. Dôležité však je, či je test stage súčasťou dependency graphu final targetu alebo ho pipeline explicitne buildne.
+Pipeline buildovala iba target `runtime`. Stage `unit-test` nebol reachable z final targetu a nikdy sa nevykonal.
 
-Ak final stage nemá dependency na `unit-test`, builder ho nemusí vykonať:
+### Containment a recovery
 
-```bash
-docker build --target unit-test .
-docker build --target runtime .
-```
+1. zastav rollout a vráť traffic na posledný validný digest;
+2. buildni exact test target pre rovnaký source/input/platform subject;
+3. oprav regresiu;
+4. znovu vytvor test a runtime evidence;
+5. viaž test verdict na binary/final digest;
+6. over production-like runtime behavior;
+7. publikuj nový immutable digest.
 
-Pipeline musí mať jasný evidence flow medzi testovaným commitom/artifactom a publikovaným final image-om.
+### Skoršie controls
 
-## 8. Artifact stage
+- expected stage-evidence inventory,
+- explicitný `--target` pre test aj release,
+- deny pri missing test report subjecte,
+- policy nad selected final targetom,
+- provenance dokazujúca stage/artifact lineage,
+- per-platform evidence,
+- test final runtime image-u, nie iba build stage-u.
 
-Minimalistický stage môže slúžiť na export artifacts:
+## 16. Causal walkthrough: final image obsahuje secret
 
-```dockerfile
-FROM scratch AS artifact
-COPY --from=build /out/ /out/
-```
+### Symptóm
 
-BuildKit môže output exportovať do local directory:
+Final runtime image je malý a distroless, ale secret scanner nájde registry token v static web bundle-i.
 
-```bash
-docker buildx build --target artifact --output type=local,dest=./dist .
-```
+### Hypotheses
 
-Takto môže jeden build graph produkovať image aj samostatné binaries, SBOM alebo packages. Každý output potrebuje provenance.
+- secret bol v build arg/environment,
+- secret mount content sa skopíroval,
+- frontend build embedol environment do bundle-u,
+- broad `COPY --from` preniesol config/cache,
+- scanner analyzuje starý digest,
+- secret je vo source map-e alebo generated metadata.
 
-## 9. Dependencies a cache
+### Finding
 
-Dobre navrhnutý multi-stage build oddeľuje:
+Build stage používal secret mount, ale frontend command zapísal token do generated `.env.production`, ktorý bol následne zahrnutý v `/app/dist`. Narrow `COPY --from=build /app/dist ...` bol syntakticky správny, no output inventory bol kompromitovaný.
 
-1. dependency metadata,
-2. dependency download,
-3. source copy,
-4. compile/test,
-5. runtime assembly.
+Recovery:
 
-Príklad:
+1. revoke token,
+2. quarantine affected platform manifests a caches,
+3. odstráň secret z generated output pathu,
+4. rebuildni clean graph,
+5. skenuj stage output aj final image,
+6. audituj použitie tokenu.
+
+Multi-stage boundary fungovala presne podľa deklarovaného transferu; problém bol v nesprávne klasifikovanom artifacte.
+
+## 17. Referenčné stage patterns
+
+### Dependencies → build → runtime
 
 ```dockerfile
 FROM node:22 AS deps
@@ -180,189 +554,60 @@ FROM nginx:alpine AS runtime
 COPY --from=build /app/dist /usr/share/nginx/html
 ```
 
-Source change neinvaliduje dependency stage, pokiaľ sa dependency manifests nezmenia.
-
-## 10. Secrets v multi-stage build-e
-
-Nesprávny predpoklad: „Secret je v build stage, takže sa nemôže dostať do final image-u.“
-
-Riziká:
-
-- secret sa skopíruje s artifact directory,
-- build output ho embedne do binary/bundle,
-- command ho zapíše do logs,
-- cache/export zachová secret file,
-- `COPY --from=build / /` prenesie celý filesystem.
-
-Používaj secret mounts a explicitné narrow `COPY --from` paths. Po build-e skenuj final artifact aj build logs.
-
-## 11. Static a dynamic binaries
-
-Pri kopírovaní binary do minimalistického final stage over:
-
-- architecture,
-- dynamic linker,
-- required shared libraries,
-- CA certificates,
-- DNS resolver behavior,
-- timezone/locale data,
-- user/group files,
-- writable paths.
-
-Diagnostika:
-
-```bash
-file ./example
-ldd ./example
-```
-
-`FROM scratch` funguje iba pre workload s kompletne vyriešenými runtime dependencies.
-
-## 12. Distroless a minimal images
-
-Distroless/minimal runtime môže odstrániť shell a package manager.
-
-Výhody:
-
-- menší attack surface,
-- menší image,
-- menej runtime mutation paths.
-
-Nevýhody:
-
-- zložitejšie interactive debugging,
-- potrebné external observability a ephemeral debug tooling,
-- missing CA/timezone/NSS dependencies sa diagnostikujú ťažšie.
-
-Debugging by nemal vyžadovať permanentný shell v production image. Môže používať debug variant, sidecar/ephemeral container alebo host-level tooling podľa platformy.
-
-## 13. Development target
+### Build → test → runtime evidence
 
 ```dockerfile
-FROM base AS development
+FROM build AS unit-test
+RUN go test ./...
+
+FROM scratch AS artifact
+COPY --from=build /out/payments-api /out/payments-api
+
+FROM runtime-base AS runtime
+COPY --from=artifact /out/payments-api /usr/local/bin/payments-api
+```
+
+Tento graph stále potrebuje pipeline, ktorá vykoná `unit-test` a overí, že report patrí k rovnakému artifact subjectu. `artifact` stage sám test nevynucuje.
+
+### Development target
+
+```dockerfile
+FROM build AS development
 RUN install-debug-tools
 CMD ["development-server"]
 ```
 
-Development stage môže mať:
+Development target má byť oddelený publication policy a nikdy nesmie dostať production reference iba na základe filename/tag konvencie.
 
-- hot reload,
-- debugger,
-- source bind mount contract,
-- test tools.
+## 18. Praktické controls
 
-Nikdy ho nepublikuj pod production tagom. Pipeline policy má overovať final target a image contents.
-
-## 14. Multi-platform build
-
-```dockerfile
-# syntax=docker/dockerfile:1
-FROM --platform=$BUILDPLATFORM golang:1.24 AS build
-ARG TARGETOS TARGETARCH
-RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o /out/example ./cmd/example
-
-FROM alpine:3.21
-COPY --from=build /out/example /usr/local/bin/example
-```
-
-`BUILDPLATFORM` je platforma buildera; `TARGETPLATFORM`/`TARGETOS`/`TARGETARCH` opisujú výsledný image target.
-
-Cross-compilation, emulation a native builders majú odlišné performance a compatibility riziká.
-
-## 15. Rebase a stage reuse
-
-Moderný BuildKit môže pri vhodnom graph-e znovu použiť layers alebo vytvoriť nový manifest bez plného rebuild-u. To však nemení požiadavku overiť:
-
-- nový base digest,
-- runtime compatibility,
-- security scan,
-- smoke/integration test,
-- provenance výsledného image-u.
-
-Rebase nie je iba metadata operácia z pohľadu risku.
-
-## 16. Failure boundaries
-
-### Build stage prejde, final stage zlyhá
-
-Chýba artifact, runtime dependency, permission alebo platform compatibility.
-
-### Test stage prejde, ale nebol viazaný na release
-
-Pipeline mohla publikovať iný graph alebo target.
-
-### Final image beží lokálne, ale nie v production
-
-Rozdiel môže byť v architecture, read-only filesysteme, UID, certificates, network alebo mounted config.
-
-### Cache použije starý artifact
-
-Over stage inputs, copied paths a external cache trust.
-
-## 17. Anti-patterny
-
-### `COPY --from=build / /`
-
-Prenesie toolchain, caches, source a potenciálne secrets.
-
-### Final stage je rovnaký ako build stage
-
-Multi-stage build neprináša isolation ani minimalizáciu.
-
-### Test stage existuje, ale pipeline ho nikdy nebuildne
-
-Falošný pocit quality gate.
-
-### Debug stage publikovaný ako production
-
-Obsahuje zbytočné tools a širšie privileges.
-
-### `scratch` bez kontroly runtime dependencies
-
-Binary zlyhá na dynamic linker, DNS alebo CA certificates.
-
-### Mutable external image v `COPY --from`
-
-Build input sa mení bez zmeny Dockerfile-u.
-
-## 18. Troubleshooting
-
-### `COPY --from` nenájde file
-
-Over source stage name, absolute path, build output a conditional target behavior.
-
-### Runtime hlási `no such file or directory`, hoci binary existuje
-
-Často chýba dynamic linker alebo interpreter uvedený v shebang-u.
-
-### Final image je stále veľký
-
-Over copied directories, base image, duplicate dependencies, package cache a image history.
-
-### Test stage sa nespustil
-
-Over final target dependency graph alebo explicitný `--target test` pipeline krok.
-
-### Multi-platform binary má `exec format error`
-
-Over target architecture, cross-compilation variables, emulation a platform manifest.
+- pomenúvaj stages podľa capability, nie podľa náhodného poradia;
+- explicitne definuj release target;
+- udržuj expected stage/evidence inventory;
+- viaž test report na source, platform, artifact a final digest;
+- používaj narrow `COPY --from` a skenuj prenášané outputy;
+- validuj runtime dependency closure v final stage-i;
+- testuj final image s production-like UID, filesystemom a platformou;
+- oddeľ development/debug publication boundary;
+- pinuj external images používané v `FROM` aj `COPY --from`;
+- pri rebase vytvor nové security a runtime evidence.
 
 ## 19. Kontrolné otázky
 
-1. Čo vytvára každý `FROM` v Dockerfile?
-2. Prečo sú pomenované stages vhodnejšie než číselné indexy?
-3. Ako multi-stage build znižuje final image attack surface?
-4. Prečo secret v build stage stále môže uniknúť?
-5. Kedy sa test stage nemusí automaticky vykonať?
-6. Čo musí obsahovať minimalistický runtime image pre dynamic binary?
-7. Aký je rozdiel medzi development a production targetom?
-8. Ako sa používajú `BUILDPLATFORM` a `TARGETPLATFORM`?
-9. Prečo `FROM scratch` nie je univerzálne riešenie?
-10. Ako dokážeš preukázať, že publikovaný image pochádza z testovaného graphu?
+1. Prečo je multi-stage Dockerfile DAG a nie iba lineárny zoznam stages?
+2. Čo tvorí stage identity?
+3. Prečo existence test stage-u nedokazuje, že test prebehol?
+4. Ako sa viaže test evidence na publikovaný final digest?
+5. Prečo narrow `COPY --from` znižuje, ale neodstraňuje secret risk?
+6. Čo tvorí runtime dependency closure?
+7. Prečo `scratch` binary môže hlásiť `no such file or directory`?
+8. Ako target selection ovplyvňuje production security?
+9. Prečo multi-platform index potrebuje evidence per platform manifest?
+10. Čo treba znovu overiť pri rebase final image-u?
 
 ## Glossary impact
 
-Relevantné pojmy: multi-stage build, build stage, final stage, named stage, build target, test stage, artifact stage, development target, distroless image, scratch image, cross-compilation, `BUILDPLATFORM`, `TARGETPLATFORM` a narrow artifact copy.
+Relevantné pojmy: stage DAG subject, selected build target, expected stage evidence inventory, artifact lineage, cross-stage transfer contract, runtime dependency closure, subject-bound test stage, target publication policy, per-platform stage evidence, final-image runtime test a stage-output secret incident.
 
 ## Oficiálna dokumentácia
 
