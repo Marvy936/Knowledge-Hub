@@ -1,499 +1,500 @@
-# Lambda
+# AWS Lambda
 
-AWS Lambda poskytuje event-driven compute bez potreby spravovať server fleet. Zákazník dodáva function code alebo container image, runtime configuration, permissions a event integration; AWS spravuje provisioning execution environments, placement, host lifecycle a základné škálovanie. Serverless však neznamená bezstavové bez premýšľania, bez limitov ani bez prevádzkovej zodpovednosti.
+AWS Lambda poskytuje event-driven compute bez správy host fleet-u, ale nezrušuje prevádzkovú zodpovednosť. AWS vlastní provisioning hostov, placement execution environments a platform scaling. Zákazník vlastní event contract, release identity, concurrency budget, downstream capacity, idempotenciu, retry a replay pravidlá, secrets, sieť, business state a dôkaz, že jedna prijatá udalosť vytvorila práve povolený výsledok.
 
-## 1. Mentálny model
-
-```text
-event source alebo synchronous caller
-→ invocation contract
-→ Lambda service admission a concurrency
-→ execution environment
-→ function handler
-→ downstream dependencies
-→ result, retry, destination alebo failure path
-```
-
-Rozlišuj:
-
-- **function** — versionovaný code a runtime contract,
-- **execution environment** — izolované runtime prostredie pre jeden alebo viac sequential invocations,
-- **invocation** — jedno spracovanie eventu,
-- **event source mapping** — poller pre podporované queue a stream zdroje,
-- **trigger** — konfigurácia spájajúca event producer s funkciou,
-- **concurrency** — počet súčasne spracovávaných invocations,
-- **version a alias** — immutable deployment revision a pomenovaný traffic pointer.
-
-## 2. Execution environment lifecycle
-
-Štandardná Lambda execution environment používa fázy:
+Dominantný lifecycle:
 
 ```text
-Init → Invoke → freeze/reuse → Invoke ... → Shutdown
+business request alebo event
+→ exact source a delivery generation
+→ invocation admission a concurrency verdict
+→ execution-environment generation
+→ initialization a handler execution
+→ downstream transaction/side effects
+→ acknowledgement alebo nejednoznačný outcome
+→ retry, backlog, destination alebo replay
+→ business reconciliation
+→ release acceptance a retirement starej generation
 ```
 
-Počas `Init` sa spúšťa runtime, extensions a static initialization mimo handlera. Pri ďalšom invocation môže AWS rovnaké prostredie znovu použiť. To zlepšuje latency, ale nie je to garancia.
+Lambda sa preto neposudzuje podľa otázky „beží funkcia?“. Posudzuje sa podľa toho, či exact event prešiel správnou source, version, identity a capacity cestou a či retry alebo failover nevytvoril duplicitný alebo stratený business účinok.
 
-Dôsledky:
+## 1. Exact serverless execution subject
 
-- globálne clients a SDK connections možno reuse-nuť,
-- `/tmp` môže prežiť warm reuse, ale nie je durable storage contract,
-- memory state medzi invocations nesmie byť authoritative,
-- cleanup v shutdown fáze nemusí byť vhodný ako jediná delivery záruka,
-- code musí fungovať aj pri úplne novom prostredí.
+Atlas Payments používa subject `SVL-PAY-42`:
 
-Aktuálna dokumentácia Lambda rozlišuje aj Durable Functions s dlhším workflow lifecycle a checkpointingom. Pri návrhu vždy over, či ide o štandardnú funkciu alebo durable execution model; ich time, state a retry semantics nie sú totožné.
+```text
+account = 100000000042
+Region = eu-central-1
+function = payments-settle
+function ARN = arn:aws:lambda:eu-central-1:100000000042:function:payments-settle
+artifact digest = sha256:lambda-pay-7-16-0
+published version = 84
+production alias = live
+alias generation = ALIAS-PAY-31
+execution role generation = ROLE-LAMBDA-PAY-18
+resource policy generation = RP-LAMBDA-PAY-7
 
-## 3. Cold start a warm start
+source = SQS queue payments-settlement
+queue ARN generation = QUEUE-PAY-22
+event source mapping UUID = esm-pay-44
+mapping generation = ESM-PAY-12
+batch size = 10
+partial batch response = enabled
+visibility timeout = 180 s
+maximum source concurrency = 40
 
-**Cold start** zahŕňa vytvorenie execution environmentu a initialization. Latency ovplyvňuje:
+reserved concurrency = 50
+provisioned concurrency on alias live = 8
+memory = 1 024 MB
+timeout = 90 s
+VPC configuration generation = VPC-LAMBDA-14
+secret generation = SEC-PAY-37
+database/proxy generation = PROXY-10
 
-- runtime,
-- package alebo image size,
-- počet layers/extensions,
-- static initialization,
-- VPC/network initialization a dependency access,
-- memory/CPU allocation,
-- secret/config fetch,
-- container image pull/cache,
-- provisioned concurrency konfigurácia.
+event = settlement S-884
+business idempotency key = settle-S884
+correlation ID = corr-884
 
-**Warm start** reuse-ne už inicializované prostredie, ale aplikácia naň nesmie spoliehať.
+required outcome =
+  provider settlement, ledger transition and outbox publication exactly once
 
-Optimalizácie:
+forbidden outcomes =
+  duplicate provider settlement after retry
+  message deletion before durable business completion
+  whole-batch replay duplicates already successful records
+  concurrency increase exhausts database connections
+  alias rollback is declared complete while old events still execute version 84
+  warm environment memory or /tmp is treated as authoritative state
+```
 
-- presuň reusable clients mimo handler,
-- minimalizuj dependency graph,
-- lazy-loaduj nepoužívané moduly,
-- cache-uj secrets s bezpečným TTL,
-- nepoužívaj blocking initialization bez timeoutu,
-- meraj `Init Duration`, nie iba celkové duration.
+Incident evidence musí viazať event source record ID, mapping UUID a configuration, function version/alias, request ID, execution-environment initialization, attempt number, concurrency state, downstream idempotency key, transaction outcome, queue acknowledgement a final ledger/provider result.
 
-## 4. Function packaging
+## 2. Function, invocation a execution environment nie sú to isté
 
-Lambda podporuje:
+**Function** je configuration a code identity. **Published version** je immutable release snapshot podporovaných properties. **Alias** je pomenovaný pointer na version a môže riadiť weighted exposure. **Invocation** je jedno prijatie payloadu na spracovanie. **Execution environment** je izolované runtime prostredie, ktoré Lambda môže použiť pre viac sequential invocations.
 
-- ZIP deployment package,
-- container image v Amazon ECR podľa podporovaného Lambda image contractu,
-- layers pre shared dependencies.
+Štandardný environment lifecycle:
 
-Container image nemení Lambda na ECS. Stále platí Lambda invocation, concurrency, timeout, filesystem a execution-environment model.
+```text
+create environment
+→ Init runtime, extensions a static code
+→ Invoke handler
+→ freeze
+→ možný warm reuse
+→ ďalší Invoke
+→ Shutdown alebo replacement
+```
 
-Package pipeline má zachovať:
+Warm reuse umožňuje znovu použiť SDK client, connection alebo lokálny cache. Nie je to durability contract. AWS môže environment kedykoľvek nahradiť; `/tmp`, global variable ani in-memory deduplication preto nesmú rozhodovať o business pravde.
 
-- source revision,
-- dependency lock,
-- build platform a architecture,
-- vulnerability scan,
-- artifact digest,
-- function version,
-- deployment alias,
-- rollback target.
+Cold-start latency vzniká pred handlerom. Zahŕňa platform provisioning, runtime a extension initialization, static imports, configuration/secrets fetch, network setup a application initialization. Meranie iba handler duration môže skryť skutočný startup problém.
 
-## 5. Runtime, memory a CPU
-
-Memory configuration ovplyvňuje dostupnú memory aj pridelený CPU výkon. Vyššia memory môže skrátiť duration natoľko, že celkový cost klesne.
-
-Sleduj:
-
-- duration distribution, nie iba average,
-- memory high-water mark,
-- CPU-bound oproti I/O-bound behavior,
-- downstream latency,
-- timeout margin,
-- initialization duration,
-- architecture kompatibilitu `x86_64` a `arm64`.
-
-Lambda nie je vhodná pre workload, ktorý potrebuje neobmedzený runtime, stabilný host identity, privileged host access alebo dlhodobo otvorené local resources bez externalizácie.
-
-## 6. Invocation modely
+## 3. Invocation contract určuje vlastníka retryu
 
 ### Synchronous invocation
 
-Caller čaká na response. Príklady:
+Caller čaká na response. Platforma vráti function error alebo response callerovi a retry typicky vlastní caller, SDK alebo upstream service.
 
-- API Gateway,
-- Application Load Balancer,
-- priamy SDK/API call.
+```text
+caller request
+→ Lambda admission
+→ handler
+→ response alebo error
+→ caller rozhodne retry/abort/reconcile
+```
 
-Caller alebo upstream service typicky vlastní retry policy. Function error sa musí mapovať na správny application response.
+Upstream timeout musí byť dlhší než function timeout plus transport budget. Inak môže caller retryovať, kým prvá invocation stále dokončuje side effect.
 
 ### Asynchronous invocation
 
-Event je prijatý Lambda service a spracovaný neskôr. Lambda má vlastné retry a failure handling semantics podľa konfigurácie.
+Lambda prijme event do service-managed queue a handler spustí neskôr. Platforma riadi retry a event-age policy; on-success/on-failure destination alebo podporovaný DLQ zachytáva výsledok podľa configuration.
 
-Možnosti:
+Prijatie eventu neznamená business completion. Treba oddeliť:
 
-- maximum event age,
-- retry attempts,
-- on-success destination,
-- on-failure destination,
-- dead-letter queue pri podporovanom modeli.
+```text
+producer acknowledgement
+≠ function success
+≠ downstream commit
+≠ destination delivery
+≠ business reconciliation
+```
 
 ### Poll-based event source mapping
 
-Lambda pollery čítajú batches zo zdrojov ako SQS alebo streams a volajú funkciu.
+Pri SQS, Kinesis, DynamoDB Streams, Kafka a ďalších podporovaných sources pollery vytvárajú batches a synchronous invoke voči funkcii. Source semantics, event source mapping a function spolu určujú batching, checkpoint, retry, ordering a backlog.
 
-Konfigurácia môže zahŕňať:
+Nie je správne hovoriť „Lambda retryuje všetko rovnako“. SQS visibility timeout, stream checkpoint, batch splitting, partial batch response a source retention vytvárajú odlišné failure boundaries.
 
-- batch size,
-- batching window,
-- concurrency,
-- starting position,
-- partial batch response,
-- bisect batch pri streamoch,
-- failure destination podľa zdroja,
-- filtering.
+## 4. Delivery je typicky at-least-once
 
-Nie všetky retry semantics patria Lambda. Pri SQS napríklad rozhoduje aj visibility timeout a queue redrive policy.
+Event-driven systém musí očakávať duplicate delivery. Duplicitná invocation môže vzniknúť pri function error-e, timeout-e, strate acknowledgementu, retryi source, replayi operátora alebo race počas recovery.
 
-## 7. Event source mapping a idempotencia
-
-Event-driven delivery je typicky **at-least-once**. Duplicitné processing je očakávateľná situácia, nie iba edge case.
-
-Idempotency model:
+Business idempotency lifecycle:
 
 ```text
-stable event/business key
-→ conditional write alebo deduplication record
-→ side effect
+stable business key
+→ atomic claim alebo unique constraint
+→ authoritative current-state read
+→ side effect s provider idempotency key
+→ database/outbox commit
 → durable completion marker
+→ acknowledgement source-u
 ```
 
-Rizikové side effects:
+Lambda request ID nie je stabilný business key: nový attempt môže mať nový request ID. Deduplication retention musí pokryť source retry, event retention, manuálny replay a DR replay window.
 
-- dvojité platby,
-- duplicitné emaily,
-- opakované provisioning actions,
-- non-idempotent database updates,
-- viacnásobný downstream publish.
+Idempotencia sa nesmie zastaviť pri jednom database insert-e. Ak operation volá payment provider a následne zapisuje ledger, rovnaký key a reconciliation contract musí pokryť obe strany.
 
-Deduplication retention musí pokrývať retry a replay window. Samotný request ID Lambda nemusí byť business idempotency key.
+## 5. Batch je samostatná acknowledgement boundary
 
-## 8. Concurrency
-
-Concurrency predstavuje počet paralelných invocations.
-
-Rozlišuj:
-
-- **account regional concurrency pool**,
-- **reserved concurrency** — rezervuje a zároveň limituje concurrency funkcie,
-- **provisioned concurrency** — predinicializované environments pre nižšiu startup latency,
-- **event-source concurrency controls**,
-- **downstream capacity**.
-
-Reserved concurrency na nule funkciu administratívne zastaví. Príliš vysoká concurrency môže preťažiť database, API alebo NAT path.
-
-Capacity model musí sledovať celý chain:
+Event source mapping môže jednej invocation odovzdať viac records. Pri whole-batch failure sa môžu znovu doručiť aj records, ktoré handler už úspešne spracoval.
 
 ```text
-incoming rate × average duration
-→ function concurrency
-→ connections/requests na dependency
-→ dependency queue, quota a saturation
+batch [A, B, C]
+→ A success
+→ B permanent validation failure
+→ C success
+→ handler vráti whole-batch failure
+→ source retry [A, B, C]
 ```
 
-## 9. Throttling
+Partial batch response dovolí označiť konkrétne failed records. Neodstraňuje idempotenciu, pretože timeout alebo platform failure môže nastať pred vrátením partial response.
 
-Throttling môže vzniknúť pre:
+Pri ordered streams treba navyše chrániť ordering a checkpoint semantics. „Preskočiť chybný record“ môže porušiť business sequence aj keď zníži iterator age.
 
-- exhausted account concurrency,
-- reserved concurrency limit,
-- event source maximum concurrency,
-- burst/ramp behavior,
-- downstream service quota nepriamo cez retry storm.
+## 6. Concurrency je admission control aj blast-radius control
 
-Evidence:
-
-- `Throttles`, `ConcurrentExecutions`, `ProvisionedConcurrencySpilloverInvocations`,
-- upstream errors,
-- event age alebo queue depth,
-- account/service quotas,
-- per-function reserved/provisioned settings.
-
-Zvýšenie concurrency bez ochrany downstreamu môže incident zhoršiť.
-
-## 10. Versions a aliases
-
-Published function version je immutable snapshot podporovaných function properties. Alias smeruje na version a môže podporovať weighted traffic medzi dvoma versions.
-
-Použitie:
-
-- dev/stage/prod alias,
-- canary deployment,
-- stabilný event-source target,
-- rýchly rollback pointera,
-- provisioned concurrency per alias/version.
-
-`$LATEST` je mutable a nie je vhodný ako production release identity bez explicitného procesu.
-
-## 11. Deployment safety
-
-Bezpečný workflow:
-
-1. vytvor immutable artifact,
-2. deploy-ni novú version,
-3. vykonaj configuration a permission validation,
-4. presuň malé percento trafficu cez alias,
-5. sleduj error rate, duration, throttles a business SLI,
-6. pokračuj alebo vráť alias,
-7. zachovaj logs a deployment metadata.
-
-Code rollback nevracia external side effects, schema alebo event replay state.
-
-## 12. Environment variables a configuration
-
-Environment variables sú vhodné pre non-secret runtime configuration. Pri encryption možno použiť KMS-integrated protection, ale plaintext hodnoty sú function configuration dostupná oprávneným principals a runtime procesu.
-
-Secrets patria typicky do:
-
-- AWS Secrets Manager,
-- Systems Manager Parameter Store podľa contractu,
-- short-lived credentials cez execution role.
-
-Configuration change môže spôsobiť vytvorenie nových execution environments. Aplikácia musí zvládať mixed population počas propagation.
-
-## 13. Execution role a resource policies
-
-**Execution role** určuje, čo function code môže robiť.
-
-**Resource-based policy funkcie** určuje, kto alebo ktorá služba môže funkciu invoke-nuť.
-
-Bežné chyby:
-
-- trigger má event konfiguráciu, ale chýba invoke permission,
-- execution role nevie čítať Secret/KMS key,
-- broad wildcard permissions,
-- source ARN/account condition chýba,
-- cross-account caller nemá obe potrebné policy strany,
-- VPC endpoint policy zúži prístup.
-
-## 14. VPC connectivity
-
-Funkcia môže byť pripojená k customer VPC pre access k private resources. Dôležité hranice:
-
-- vyberá subnets a Security Groups,
-- potrebuje dostupné subnet IP addresses,
-- internet access nevznikne iba výberom public subnetu,
-- private internet egress potrebuje route cez NAT alebo vhodný endpoint,
-- AWS service access možno riešiť VPC endpoints,
-- DNS, NACL a return path stále platia.
-
-Pri timeout-e na dependency over:
+Približný concurrency dopyt:
 
 ```text
-function SG egress
-→ subnet route/NACL
-→ NAT alebo endpoint
-→ destination SG/policy
-→ DNS
-→ listener a application
+arrival rate × average processing duration
+≈ required concurrent invocations
 ```
 
-## 15. Networking a database connections
+Tento odhad sa musí previazať s downstreamom:
 
-Serverless scale môže vytvoriť connection storm.
+```text
+Lambda concurrency
+→ počet active DB/proxy connections
+→ provider request rate
+→ NAT/endpoint ports
+→ queue visibility a retry pressure
+```
 
-Mitigácie:
+**Reserved concurrency** rezervuje časť regional poolu pre funkciu a zároveň ju limituje. Hodnota nula funkciu administratívne zastaví. **Provisioned concurrency** pripravuje environments pre konkrétnu version/alias a znižuje startup latency; nie je downstream rate limit. Event-source maximum concurrency obmedzuje poller-side parallelism.
 
-- reuse connection v warm environment,
-- connection pooling/proxy,
-- reserved concurrency,
-- batch processing,
-- backpressure cez queue,
-- timeout a circuit breaker,
-- RDS Proxy pri vhodnom database modeli.
+Zvýšenie limitu z 50 na 500 môže odstrániť `Throttles`, ale zničiť RDS connection budget a vytvoriť dlhší incident. Správny limit je najvyššia concurrency, ktorú celý dependency chain bezpečne absorbuje.
 
-Počet execution environments nie je totožný s bezpečným počtom database connections.
+## 7. Backpressure sa má prejaviť v source, nie v poškodenom downstream-e
 
-## 16. Timeout, retry a cancellation
+Queue alebo stream môže absorbovať dočasný burst. Bezpečný systém sleduje queue depth, age of oldest message alebo iterator age a má definované:
 
-Function timeout musí byť kratší než upstream timeout a ponechať priestor na graceful error handling.
+- maximum tolerované oneskorenie;
+- concurrency ramp;
+- retry budget;
+- downstream quota;
+- event expiration;
+- DLQ/failure destination;
+- controlled replay rate.
 
-Dlhý timeout môže:
+Backlog je často lepší než nekontrolovaný concurrency spike. Ak však event age prekročí business deadline, „event sa neskôr spracoval“ už nemusí byť správny výsledok.
 
-- zvýšiť concurrency,
-- predĺžiť retry feedback loop,
-- držať connections,
-- zvýšiť cost,
-- maskovať pomalú dependency.
+## 8. Timeout je execution boundary, nie cancellation garancia downstreamu
 
-SDK retries potrebujú celkový retry budget. Lambda platform retry plus SDK retry plus downstream retry môže vytvoriť násobný request storm.
+Po Lambda timeout-e handler prestane pokračovať, ale external request mohol byť prijatý alebo commitnutý. To vytvára unknown outcome.
 
-## 17. Destinations, DLQ a replay
+```text
+handler pošle provider request
+→ provider commitne settlement
+→ network response mešká
+→ Lambda timeout
+→ source retry
+```
 
-Failure path musí byť pozorovateľný a reprocessovateľný.
+Pred retryom treba query/reconcile provider a ledger podľa idempotency key. Retry budget musí pokrývať platform retry, SDK retry aj application retry; ich násobenie vytvára retry storm.
 
-Zachovaj:
+Function timeout má byť kratší než source visibility alebo upstream deadline s dostatočnou rezervou na acknowledgement. Dlhší timeout nie je automatická oprava pomalej dependency: zvyšuje concurrent execution time, cost a počet držaných resources.
 
-- original event,
-- failure reason,
-- function version/alias,
-- attempt metadata,
-- correlation ID,
-- business idempotency key,
-- replay authorization a rate limit.
+## 9. Deployment je zmena viacerých generations
 
-DLQ bez alarmu, ownershipu a replay runbooku je iba odkladanie incidentu.
+Bezpečný release subject obsahuje:
 
-## 18. Observability
+```text
+source revision
+→ locked dependency graph
+→ reproducible ZIP alebo image digest
+→ runtime/architecture
+→ function configuration
+→ execution role a resource policy
+→ published version
+→ alias traffic generation
+→ event-source mapping target
+→ observability a rollback target
+```
 
-Minimum:
+`$LATEST` je mutable a nepredstavuje stabilnú production identity. Alias umožní canary alebo rýchly pointer rollback, ale rollback code-u nevracia už vykonané provider calls, queue checkpoints ani schema changes.
 
-- structured logs,
-- `Errors`, `Duration`, `Throttles`, `Invocations`, `ConcurrentExecutions`,
-- iterator age alebo queue age pri event sources,
-- async delivery failures,
-- provisioned concurrency utilization/spillover,
-- traces podľa potreby,
-- business success metric,
-- deployment/version metadata.
+Weighted alias routing je probabilistic exposure. Pri asynchronous/poll sources treba overiť, či konkrétna integration invoke-uje alias/version podľa intended contractu; samotná alias weight nehovorí, ktorá verzia spracovala konkrétny event. Logs a business evidence musia niesť executed version.
 
-CloudWatch Logs group retention nastav explicitne. Infinite retention pre high-volume debug logs zvyšuje cost a data exposure.
+## 10. Configuration propagation vytvára mixed population
 
-## 19. Logging hygiene
+Zmena environment variables, runtime config, layers, extensions, VPC alebo secret-fetch logic môže vytvoriť nové environments, zatiaľ čo staré ešte dokončujú invocations.
 
-Neloggovať:
+Application preto musí tolerovať:
 
-- credentials,
-- access tokens,
-- celé secrets,
-- citlivé event payloads,
-- unredacted authorization headers.
+- dve compatible configuration generations;
+- rotáciu credentials počas existujúcich connections;
+- old a new code pri queue backlogu;
+- schema/event compatibility;
+- postupné environment replacement.
 
-Použi sampling, masking a field-level classification. Lambda event často pochádza z inej služby a môže obsahovať viac citlivých dát, než handler potrebuje.
+Configuration value sa má logovať ako bezpečný generation identifier, nie ako secret.
 
-## 20. Durable state
+## 11. Identity má dve hlavné strany
 
-Authoritative state ukladaj mimo execution environment:
+**Execution role** určuje, čo handler a podporované platform operations môžu robiť. **Function resource-based policy** určuje, kto alebo ktorá AWS služba môže function invoke-nuť.
 
-- DynamoDB,
-- RDS/Aurora,
-- S3,
-- queues/streams,
-- workflow service,
-- external system s definovanou consistency.
+Diagnostický chain pre `AccessDenied`:
 
-`/tmp`, global variable ani reuse-nutá connection nie sú durable state.
+```text
+actual caller alebo execution-role session
+→ identity policy
+→ permissions boundary/SCP/session policy
+→ function alebo downstream resource policy
+→ KMS key policy/grant
+→ VPC endpoint policy
+→ exact resource ARN a condition context
+```
 
-## 21. Error classes
+Trigger configuration bez invoke permission nemusí fungovať. Broad execution role zase nevyrieši chýbajúcu function resource policy.
 
-Rozlišuj:
+## 12. VPC attachment mení dependency path
 
-- **function error** — handler exception alebo explicitný failure,
-- **platform/runtime error** — init, runtime, extension alebo environment failure,
-- **throttle** — invocation nebola prijatá na vykonanie,
-- **timeout** — handler nedokončil v limite,
-- **dependency failure** — downstream timeout/deny/5xx,
-- **delivery failure** — event sa nedostal alebo nebol potvrdený podľa source semantics.
+Lambda pripojená k customer VPC používa selected subnets a Security Groups na prístup k private resources. Public subnet sám nevytvorí internet access; egress vyžaduje routu cez NAT alebo vhodný VPC endpoint.
 
-## 22. Troubleshooting
+```text
+execution environment ENI path
+→ subnet IP capacity
+→ source SG
+→ route/NACL
+→ NAT alebo interface/gateway endpoint
+→ endpoint/resource policy
+→ destination SG/listener
+→ application
+```
 
-### Function timeout
+Subnet IP exhaustion môže blokovať scale-out. NAT alebo endpoint capacity, DNS a TLS zostávajú samostatnými gates. Pri RDS treba navyše riadiť connection count, nie iba packet reachability.
 
-Over:
+## 13. Secrets a external configuration
 
-- REPORT duration a timeout,
-- init duration,
-- downstream latency,
-- DNS/VPC path,
-- SDK retry count,
-- memory/CPU allocation,
-- connection pool,
-- cold oproti warm behavior.
+Secrets patria do Secrets Manager alebo vhodného SecureString modelu, nie do source code-u ani plaintext logs. Fetch pri každej invocation zvyšuje latency, API cost a KMS load. Nekonečný cache zase predlžuje exposure starej alebo revoked credential generation.
 
-### `AccessDenied`
+Bezpečný cache contract definuje TTL, refresh pri authentication failure, fallback, rotation overlap a redaction. Execution environment môže secret cache reuse-nuť, ale authoritative current version zostáva external store a consumer refresh policy.
 
-Over execution role, resource policy, KMS key policy, Secret policy, VPC endpoint policy a skutočný caller ARN.
+## 14. Failure destinations a replay sú prevádzkový systém
 
-### SQS messages sa opakujú
+DLQ alebo on-failure destination je iba storage boundary. Bez ownera, alarmu, retention, classification a replay runbooku sa incident len presunie mimo hlavnej queue.
 
-Over visibility timeout, function duration, batch failure model, partial batch response, DLQ redrive a idempotenciu.
+Replay manifest má obsahovať:
 
-### DynamoDB/Kinesis iterator age rastie
+```text
+source event identity a checksum
+original source/mapping generation
+failed function version
+attempt history a failure class
+business idempotency key
+current authoritative business state
+approved replay version
+rate/concurrency limit
+start/stop criteria
+post-replay reconciliation
+```
 
-Over errors, throttles, shard parallelism, batch size, reserved concurrency a downstream latency.
+Permanent validation alebo authorization failure sa replayom bez opravy nezmení. Replay do novej version môže mať iné semantics; compatibility musí byť explicitná.
+
+## 15. Durable Functions sú odlišný execution contract
+
+Aktuálna Lambda dokumentácia rozlišuje durable functions s checkpointovaným workflow state-om a dlhšími executions. Nejde iba o štandardný handler s dlhším timeoutom. Invocation, wait, retry, checkpoint, idempotency a event-source integration majú vlastné semantics.
+
+Pred použitím treba identifikovať:
+
+- durable execution name/identity;
+- version a code generation;
+- checkpointed step;
+- external side-effect boundary;
+- retry policy per operation;
+- cancellation/termination semantics;
+- retention a query evidence.
+
+Rovnaký execution name môže slúžiť ako deduplication boundary iba podľa konkrétneho API contractu; business idempotency sa tým automaticky nevyrieši.
+
+## 16. Observability musí spojiť platformu s business výsledkom
+
+Minimum pre `SVL-PAY-42`:
+
+- `Invocations`, `Errors`, `Throttles`, `Duration` a initialization evidence;
+- `ConcurrentExecutions`, reserved/provisioned usage a spillover;
+- queue depth, age, receive count a DLQ;
+- event source mapping state, last processing result a iterator age podľa source;
+- structured log s version, mapping, event, attempt, idempotency a correlation identity;
+- downstream latency, error, quota a connection metrics;
+- deployment/alias/configuration changes z CloudTrail;
+- ledger/provider/business completion metric.
+
+`Errors = 0` môže koexistovať s backlogom, swallowed exception alebo nesprávnym business outcome-om. Platform metric nie je business oracle.
+
+## 17. Worked failure: batch retry duplikuje settlement
+
+Po release 7.16.0 sa backlog zvyšuje a provider hlási duplicate settlement attempts.
+
+### Exact symptom a competing hypotheses
+
+1. reserved concurrency throttluje consumer;
+2. provider je pomalý a visibility timeout vyprší;
+3. partial batch response nie je effective na aktuálnej mapping generation;
+4. handler volá provider pred atomic idempotency claimom;
+5. deployment spustil wrong version alebo mapping target.
+
+### Discriminating evidence
+
+CloudWatch ukazuje nízke `Throttles`, ale duration p95 je 85 sekúnd. SQS receive count rastie a niektoré messages sú znovu visible po 60 sekundách, hoci approved visibility timeout mal byť 180 sekúnd. CloudTrail a `GetEventSourceMapping` ukážu, že mapping `ESM-PAY-12` smeruje na alias `live`, no queue bola pri migration znovu vytvorená ako generation `QUEUE-PAY-23` s visibility timeoutom 60 sekúnd.
+
+Structured logs dokazujú:
+
+```text
+attempt 1, version 84
+→ provider settlement accepted
+→ ledger write čaká na lock
+→ message becomes visible
+→ attempt 2 starts concurrently
+→ provider receives same business operation without provider idempotency key
+```
+
+Root cause nie je Lambda throttle. Je to mismatch source generation + nesprávne poradie side effectu a idempotency claimu.
+
+### Containment
+
+- reserved concurrency sa dočasne zníži tak, aby sa zastavil overlap a chránil provider;
+- event source mapping sa pozastaví;
+- queue sa nesmie purge-nuť;
+- provider a ledger evidence sa zachová podľa `settle-S884`;
+- nové settlement requests sa prijímajú do queue, ale nespracúvajú nekontrolovane.
+
+### Authoritative recovery
+
+1. visibility timeout sa nastaví podľa worst-case function timeout a retry margin;
+2. handler najprv vykoná atomic business claim;
+3. provider call používa `settle-S884` ako provider idempotency key;
+4. ledger/outbox completion sa reconciliuje s provider outcome-om;
+5. failed records používajú partial batch response;
+6. replay sa spúšťa v bounded concurrency na version 85;
+7. mapping sa obnoví až po canary batchi.
+
+### Acceptance verdict
+
+Recovery je uzavretá až keď:
+
+- každý source record má jeden authoritative completion marker;
+- provider aj ledger majú jeden settlement pre `S-884`;
+- queue receive count už nevytvára concurrent duplicate processing;
+- valid records v mixed batchi sa zbytočne nereplayujú;
+- backlog sa vyprázdni bez prekročenia downstream budgetu;
+- forbidden test s opakovaným rovnakým eventom nevytvorí druhý side effect;
+- old version 84 a wrong queue generation sú vyradené z production pathu.
+
+Skorší control: deployment gate porovná queue ARN, visibility timeout, mapping UUID/target, function timeout, partial-batch configuration a provider idempotency capability pred presunom aliasu.
+
+## 18. Troubleshooting model
+
+Pri incidente postupuj:
+
+```text
+business symptom
+→ exact event/source/function/version subject
+→ delivery a acknowledgement model
+→ concurrency/backlog timeline
+→ execution-environment a handler evidence
+→ downstream transaction/unknown outcome
+→ competing hypotheses
+→ discriminating source/platform/business observations
+→ evidence-preserving containment
+→ idempotent recovery/replay
+→ original aj forbidden outcome verification
+```
 
 ### Function sa nespúšťa
 
-Over trigger state, event filters, invoke permission, source policy, disabled event source mapping a CloudTrail configuration changes.
+Rozlíš source bez eventu, disabled mapping, filter mismatch, missing invoke permission, zero reserved concurrency, alias/version mismatch a Region/account confusion.
 
-### Náhly nárast costu
+### Function timeoutuje
 
-Over invocation rate, recursive/event loop, retries, duration, logs ingest, provisioned concurrency a downstream calls.
+Rozdeľ Init, handler CPU/memory, DNS/network, secret fetch, connection acquisition, downstream request, SDK retries a lock/transaction wait. Zvýšenie timeoutu bez tejto lokalizácie iba rozšíri blast radius.
 
-## 23. SOA-C03 mapovanie
+### SQS records sa opakujú
 
-- **Domain 1** — metrics, logs, alarms, concurrency, duration, error a remediation.
-- **Domain 2** — async retry, DLQ, idempotencia, multi-AZ managed service behavior a recovery.
-- **Domain 3** — versions, aliases, deployment, event sources, IaC a automation.
-- **Domain 4** — execution role, resource policy, KMS, secrets, code/package security.
-- **Domain 5** — VPC attachment, private endpoints, NAT, DNS a dependency connectivity.
+Over queue generation, visibility timeout, receive count, function duration, whole/partial batch response, source redrive, handler acknowledgement a idempotency.
 
-Praktické drilly:
+### Stream iterator age rastie
 
-- reserved concurrency spôsobí throttling,
-- SQS visibility timeout je kratší než function runtime,
-- function SG nevie dosiahnuť RDS,
-- secret rotation zmení credentials bez client refreshu,
-- alias smeruje na chybnú version,
-- recursive event loop generuje cost spike,
-- event-source filter blokuje validné events.
+Over shard/partition distribution, poison record, batch retry/split, reserved concurrency, downstream latency, ordering a event retention deadline.
 
-## 24. Anti-patterny
+### Cost prudko rastie
 
-### Lambda je automaticky lacnejšia
+Over recursive event loop, retry amplification, duration, provisioned concurrency, high-volume logs, NAT/data transfer a downstream API calls. Cost containment nesmie zničiť evidence ani zahodiť unprocessed events.
 
-Pri vysokej steady load, dlhej duration alebo veľkom provisioned-concurrency poole môže byť iný compute model efektívnejší.
+## 19. Security a cost boundaries
 
-### Bez reserved concurrency na rizikovom consumerovi
+Security:
 
-Jedna funkcia môže vyčerpať regional pool alebo downstream capacity.
+- least-privilege execution role a scoped resource policy;
+- source ARN/account conditions;
+- signed a immutable artifacts;
+- secret redaction a payload minimization;
+- KMS, VPC endpoint a destination policies;
+- code/dependency vulnerability a provenance;
+- controlled replay permissions.
 
-### DLQ bez alarmu a replay procesu
+Cost:
 
-Failure sa iba presunie mimo hlavného dashboardu.
+```text
+invocation count
+× billed duration
+× memory/architecture rate
++ provisioned concurrency
++ logs/traces
++ network/NAT/data transfer
++ downstream service usage
+```
 
-### Secret načítaný pri každom invocation bez cache
+Vyššia memory môže znížiť duration a total cost. Provisioned concurrency rieši latency, nie automaticky economics. Najlacnejšia function configuration je tá, ktorá spĺňa business latency a reliability pri celkovom dependency cost-e.
 
-Zvyšuje latency, API cost a KMS load.
+## 20. Kontrolné otázky
 
-### Všetky chyby riešené retryom
-
-Permanentný validation alebo authorization error sa retryom neopraví.
-
-### Stateful business logika v `/tmp`
-
-Replacement execution environmentu stratí state.
-
-### Production traffic na `$LATEST`
-
-Chýba immutable release identity a kontrolovaný rollback.
-
-## 25. Kontrolné otázky
-
-1. Aký je rozdiel medzi function, invocation a execution environment?
-2. Prečo warm environment nie je durable contract?
-3. Ako sa líši synchronous, asynchronous a event-source-mapping invocation?
-4. Čo reserved concurrency robí?
-5. Prečo môže Lambda preťažiť RDS aj keď sama škáluje správne?
-6. Ako navrhneš idempotentný SQS consumer?
+1. Čo tvorí exact Lambda execution subject?
+2. Prečo execution environment reuse nie je durable-state contract?
+3. Kto vlastní retry pri synchronous, asynchronous a event-source-mapping invocation?
+4. Prečo partial batch response nenahrádza idempotenciu?
+5. Ako reserved concurrency zároveň chráni aj obmedzuje funkciu?
+6. Prečo function timeout nevylučuje committed downstream side effect?
 7. Aký je rozdiel medzi execution role a function resource policy?
-8. Ktoré vrstvy overíš pri VPC timeout-e?
-9. Ako fungujú versions a aliases pri canary deployment-e?
-10. Čo potrebuje bezpečný DLQ replay?
+8. Ako queue visibility timeout súvisí s function timeoutom a duplicate delivery?
+9. Čo musí obsahovať bezpečný replay manifest?
+10. Aký dôkaz odlišuje platform success od business success?
 
 ## Glossary impact
 
-Relevantné pojmy: AWS Lambda, execution environment, cold start, warm start, invocation, event source mapping, reserved concurrency, provisioned concurrency, function version, Lambda alias, asynchronous destination, dead-letter queue, partial batch response, iterator age, execution role, Lambda resource policy a durable function.
+Relevantné pojmy: serverless execution subject, invocation admission verdict, execution-environment generation, delivery generation, acknowledgement boundary, partial-batch acknowledgement, concurrency budget, backlog deadline, unknown side-effect outcome, replay manifest, Lambda version/alias generation a serverless acceptance verdict.
 
 ## Oficiálna dokumentácia
 
 - [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
 - [Execution environment lifecycle](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html)
+- [Lambda invocation methods](https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html)
+- [Retry behavior](https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html)
 - [Event source mappings](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html)
 - [Lambda concurrency](https://docs.aws.amazon.com/lambda/latest/dg/lambda-concurrency.html)
-- [Lambda retry behavior](https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html)
+- [Invoking durable functions](https://docs.aws.amazon.com/lambda/latest/dg/durable-invoking.html)
 - [Lambda VPC networking](https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
