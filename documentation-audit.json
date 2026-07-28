@@ -2915,15 +2915,15 @@
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
       "title": "Internet Gateway a NAT Gateway",
-      "words": 1188,
-      "headings": 35,
-      "sections": 35,
-      "findings": 74,
-      "critical": 24,
-      "high": 35,
-      "medium": 14,
-      "low": 1,
-      "score": 611,
+      "words": 1922,
+      "headings": 39,
+      "sections": 39,
+      "findings": 80,
+      "critical": 27,
+      "high": 33,
+      "medium": 8,
+      "low": 12,
+      "score": 623,
       "grade": "D"
     },
     {
@@ -165305,566 +165305,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "1. Internet Gateway",
+      "section": "Dominantný lifecycle",
       "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "1. Internet Gateway",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route target pre IPv4 a IPv6 internet traffic,`, `internet path pre resources s vhodným public addressingom,`, `managed availability bez customer-managed appliance lifecycle.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "1. Internet Gateway",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "1. Internet Gateway",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EIP`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "3. IPv6 internet path",
-      "line": 32,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "3. IPv6 internet path",
-      "line": 32,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IGW`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "4. Public subnet",
-      "line": 41,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "4. Public subnet",
-      "line": 41,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "4. Public subnet",
-      "line": 41,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nemá public IP,`, `security group blokuje traffic,`, `NACL blokuje traffic,`, `application nepočúva,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "4. Public subnet",
-      "line": 41,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "4. Public subnet",
-      "line": 41,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `NACL`, `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "5. NAT Gateway",
-      "line": 51,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `public NAT Gateway ,`, `private NAT Gateway .`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "5. NAT Gateway",
-      "line": 51,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "6. Public NAT Gateway",
-      "line": 62,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "6. Public NAT Gateway",
-      "line": 62,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "6. Public NAT Gateway",
-      "line": 62,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoríš v public subnet-e,`, `priradíš mu Elastic IP,`, `jeho subnet route table potrebuje path na IGW,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "6. Public NAT Gateway",
-      "line": 62,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "6. Public NAT Gateway",
-      "line": 62,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IGW`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "7. Inbound behavior",
-      "line": 84,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "7. Inbound behavior",
-      "line": 84,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `public load balancer,`, `API Gateway,`, `CloudFront,`, `public EC2/EIP,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "7. Inbound behavior",
-      "line": 84,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "7. Inbound behavior",
-      "line": 84,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `EC2`, `EIP`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "9. Zonal behavior",
-      "line": 103,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vzniká cross-AZ dependency,`, `zonal failure môže odstrániť egress viacerým AZ,`, `cross-AZ data transfer môže zvyšovať cost.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "9. Zonal behavior",
-      "line": 103,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "10. Route-table model",
-      "line": 115,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "11. Security controls",
-      "line": 132,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "11. Security controls",
-      "line": 132,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source resource security groups,`, `subnet NACLs,`, `routes,`, `destination controls,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "11. Security controls",
-      "line": 132,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "11. Security controls",
-      "line": 132,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "12. Ephemeral ports a connection capacity",
-      "line": 146,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "12. Ephemeral ports a connection capacity",
-      "line": 146,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `concurrent connections,`, `destination concentration,`, `connection churn,`, `idle timeouts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "12. Ephemeral ports a connection capacity",
-      "line": 146,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "12. Ephemeral ports a connection capacity",
-      "line": 146,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "12. Ephemeral ports a connection capacity",
-      "line": 146,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "13. NAT Gateway cost",
-      "line": 161,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "13. NAT Gateway cost",
-      "line": 161,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "13. NAT Gateway cost",
-      "line": 161,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hourly NAT Gateway charge,`, `processed bytes,`, `cross-AZ data transfer,`, `internet alebo service data transfer,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "13. NAT Gateway cost",
-      "line": 161,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "13. NAT Gateway cost",
-      "line": 161,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `HA`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "14. VPC endpoints ako alternatíva",
-      "line": 173,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "14. VPC endpoints ako alternatíva",
-      "line": 173,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "14. VPC endpoints ako alternatíva",
-      "line": 173,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `S3/DynamoDB gateway endpoints,`, `interface endpoints cez PrivateLink.`, `bez general internet path,`, `policy boundary,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "14. VPC endpoints ako alternatíva",
-      "line": 173,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "14. VPC endpoints ako alternatíva",
-      "line": 173,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `IP`, `DNS`, `NAT`, `AZ`, `policy`, `availability`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "15. NAT instance",
-      "line": 194,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "15. NAT instance",
-      "line": 194,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patching,`, `scaling,`, `HA/failover,`, `source/destination check,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "15. NAT instance",
-      "line": 194,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "15. NAT instance",
-      "line": 194,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "16. Centralized egress",
-      "line": 210,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "16. Centralized egress",
-      "line": 210,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `symmetric routing,`, `attachment/route-table segmentation,`, `appliance mode,`, `zonal paths,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "16. Centralized egress",
-      "line": 210,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "16. Centralized egress",
-      "line": 210,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `blast radius`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "17. AWS Network Firewall insertion",
-      "line": 227,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "17. AWS Network Firewall insertion",
-      "line": 227,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "17. AWS Network Firewall insertion",
-      "line": 227,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `asymmetric routing,`, `NAT pred/po nesprávnej vrstve,`, `missing gateway route table,`, `AZ mismatch,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "17. AWS Network Firewall insertion",
-      "line": 227,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "17. AWS Network Firewall insertion",
-      "line": 227,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `AZ`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "18. Observability",
-      "line": 239,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "18. Observability",
-      "line": 239,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "18. Observability",
-      "line": 239,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NAT Gateway state,`, `bytes/packets,`, `active connections,`, `connection attempts/errors,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "18. Observability",
-      "line": 239,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "18. Observability",
-      "line": 239,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "20. Bežné chyby",
-      "line": 272,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -165872,8 +165314,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "NAT Gateway je v private subnet-e",
-      "line": 274,
+      "section": "Connected Atlas Payments subject",
+      "line": 21,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -165881,8 +165323,89 @@
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "Private subnet route smeruje na IGW",
-      "line": 278,
+      "section": "2. NAT Gateway má dve nezávislé klasifikácie",
+      "line": 70,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Connectivity type",
+      "line": 72,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Connectivity type",
+      "line": 72,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Connectivity type",
+      "line": 72,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Connectivity type",
+      "line": 72,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `EIP`, `VPC`, `IGW`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Availability mode",
+      "line": 77,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Availability mode",
+      "line": 77,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Availability mode",
+      "line": 77,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `AZ`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "4. NAT nie je inbound load balancer ani firewall",
+      "line": 107,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "6. Connection pooling, retries a idle timeouts",
+      "line": 135,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -165890,8 +165413,512 @@
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "Jediný NAT Gateway pre tri AZ",
-      "line": 282,
+      "section": "6. Connection pooling, retries a idle timeouts",
+      "line": 135,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "6. Connection pooling, retries a idle timeouts",
+      "line": 135,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pooling a keep-alive znižujú nové connection attempts;`, `short-lived connections zvyšujú source-port churn;`, `agresívne retries násobia rovnaký destination pressure;`, `NAT idle timeout môže ukončiť dlho neaktívne connections;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "6. Connection pooling, retries a idle timeouts",
+      "line": 135,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "6. Connection pooling, retries a idle timeouts",
+      "line": 135,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "7. Zonal a regional resilience",
+      "line": 148,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Zonal NAT design",
+      "line": 150,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Regional NAT design",
+      "line": 162,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Regional NAT design",
+      "line": 162,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `overenú AZ auto-provision alebo explicit coverage policy;`, `EIP governance a allowlist awareness;`, `per-AZ observation a capacity evidence;`, `route-table conformance;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Regional NAT design",
+      "line": 162,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Regional NAT design",
+      "line": 162,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EIP`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "8. VPC endpoints a private alternatives",
+      "line": 174,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "8. VPC endpoints a private alternatives",
+      "line": 174,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "8. VPC endpoints a private alternatives",
+      "line": 174,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "9. Stateless NACL a return ports",
+      "line": 186,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "11. Observability contract",
+      "line": 211,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "11. Observability contract",
+      "line": 211,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NAT Gateway state a availability mode;`, `AZ/address coverage;`, `ActiveConnectionCount ;`, `ErrorPortAllocation ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "11. Observability contract",
+      "line": 211,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "11. Observability contract",
+      "line": 211,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "11. Observability contract",
+      "line": 211,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "11. Observability contract",
+      "line": 211,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `EIP`, `DNS`, `TLS`, `availability`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "12. Worked incident — retry-amplified NAT port exhaustion",
+      "line": 229,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Symptóm",
+      "line": 231,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Exact subject",
+      "line": 245,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Competing hypotheses",
+      "line": 259,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Competing hypotheses",
+      "line": 259,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Competing hypotheses",
+      "line": 259,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Competing hypotheses",
+      "line": 259,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Partner PSP rate-limit alebo outage.`, `DNS vracia chybný alebo jediný unhealthy IP.`, `SG/NACL blokuje časť return trafficu.`, `Cross-AZ path alebo NAT-A AZ degradation.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Competing hypotheses",
+      "line": 259,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Competing hypotheses",
+      "line": 259,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PSP`, `DNS`, `IP`, `SG`, `NACL`, `AZ`, `NAT-A`, `NAT`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `HTTP`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Containment",
+      "line": 292,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Containment",
+      "line": 292,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Containment",
+      "line": 292,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Containment",
+      "line": 292,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav ďalší rollout alebo scale-out release-u 4.2.0;`, `obnov pooling a zníž retry concurrency/rate;`, `aktivuj idempotency gate na partner authorization operation;`, `neotváraj broad inbound ani nevymieňaj SG/NACL bez evidence.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Containment",
+      "line": 292,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Containment",
+      "line": 292,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `SG`, `NACL`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Authoritative recovery",
+      "line": 300,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Authoritative recovery",
+      "line": 300,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Authoritative recovery",
+      "line": 300,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Authoritative recovery",
+      "line": 300,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Oprav client connection pool a bounded retry policy.`, `Over one-business-operation-to-one-idempotency-key contract.`, `Vyhodnoť egress architecture:`, `zonal NAT per AZ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Authoritative recovery",
+      "line": 300,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Authoritative recovery",
+      "line": 300,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Authoritative recovery",
+      "line": 300,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `AZ`, `EIP`, `DNS`, `SLI`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Closure verdict",
+      "line": 313,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Closure verdict",
+      "line": 313,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Closure verdict",
+      "line": 313,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ErrorPortAllocation ostáva nulové pri peak test-e;`, `connection churn a retries sú v budgete;`, `request P-884 a opakované samples majú bounded latency;`, `každá AZ má funkčný expected egress path;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Closure verdict",
+      "line": 313,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Closure verdict",
+      "line": 313,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Closure verdict",
+      "line": 313,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `P-884`, `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "13. Ďalšie failure boundaries",
+      "line": 325,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Cross-AZ zonal NAT dependency",
+      "line": 335,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -165900,7 +165927,7 @@
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
       "section": "NACL povoľuje iba destination port 443",
-      "line": 286,
+      "line": 343,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -165908,8 +165935,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "AWS API calls používajú drahý NAT path",
-      "line": 290,
+      "section": "14. Recovery hierarchy",
+      "line": 355,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -165917,57 +165944,84 @@
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "Port exhaustion",
-      "line": 294,
+      "section": "14. Recovery hierarchy",
+      "line": 355,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "NAT Gateway považovaný za firewall",
-      "line": 300,
+      "section": "15. Earlier controls",
+      "line": 369,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "15. Earlier controls",
+      "line": 369,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "NAT ako inbound exposure",
-      "line": 304,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "15. Earlier controls",
+      "line": 369,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "Cross-AZ NAT bez cost/failure analýzy",
-      "line": 308,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "15. Earlier controls",
+      "line": 369,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaný egress architecture a EIP inventory;`, `explicitný NAT availability/connectivity mode;`, `AZ route conformance tests;`, `connection pooling a retry budgets;`.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "Všetok service traffic cez internet/NAT",
-      "line": 312,
+      "section": "15. Earlier controls",
+      "line": 369,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
-      "section": "Cleanup NAT bez route dependency analýzy",
-      "line": 316,
+      "section": "15. Earlier controls",
+      "line": 369,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "15. Earlier controls",
+      "line": 369,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EIP`, `NAT`, `AZ`, `AWS`, `availability`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
+      "section": "Referenčné rozlíšenia",
+      "line": 382,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",

@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10829**
-- Total words: **616,875**
-- Findings: **24127** (critical 7556, high 8236, medium 3220, low 5115)
+- Audited conceptual sections: **10833**
+- Total words: **617,609**
+- Findings: **24133** (critical 7559, high 8234, medium 3214, low 5126)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -153,10 +153,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 631 | 29 | 28 | 12 | 14 | 2911 | `docs/03-git-and-automation/bash-automation.md` |
 | D | 628 | 26 | 27 | 19 | 22 | 2493 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
 | D | 627 | 29 | 29 | 9 | 15 | 1934 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
+| D | 623 | 27 | 33 | 8 | 12 | 1922 | `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md` |
 | D | 622 | 24 | 34 | 13 | 16 | 2297 | `docs/02-networking-and-web/firewalls.md` |
 | D | 617 | 30 | 24 | 11 | 19 | 2130 | `docs/09-kubernetes/logging-metrics-events.md` |
 | D | 612 | 25 | 31 | 10 | 25 | 2328 | `docs/09-kubernetes/statefulset.md` |
-| D | 611 | 24 | 35 | 14 | 1 | 1188 | `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md` |
 | D | 609 | 27 | 29 | 10 | 15 | 2165 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
 | D | 601 | 31 | 20 | 16 | 10 | 1549 | `docs/09-kubernetes/resourcequota-limitrange.md` |
 | D | 599 | 31 | 20 | 12 | 19 | 2239 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
@@ -12479,65 +12479,66 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md`
 
-- **CRITICAL** line 5, `bare-bullet-items` — **1. Internet Gateway**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route target pre IPv4 a IPv6 internet traffic,`, `internet path pre resources s vhodným public addressingom,`, `managed availability bez customer-managed appliance lifecycle.`.
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **1. Internet Gateway**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 41, `bare-bullet-items` — **4. Public subnet**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nemá public IP,`, `security group blokuje traffic,`, `NACL blokuje traffic,`, `application nepočúva,`.
-- **CRITICAL** line 41, `outline-instead-of-explanation` — **4. Public subnet**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 62, `bare-bullet-items` — **6. Public NAT Gateway**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoríš v public subnet-e,`, `priradíš mu Elastic IP,`, `jeho subnet route table potrebuje path na IGW,`.
-- **CRITICAL** line 62, `outline-instead-of-explanation` — **6. Public NAT Gateway**: 4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 84, `bare-bullet-items` — **7. Inbound behavior**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `public load balancer,`, `API Gateway,`, `CloudFront,`, `public EC2/EIP,`.
-- **CRITICAL** line 84, `outline-instead-of-explanation` — **7. Inbound behavior**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 132, `bare-bullet-items` — **11. Security controls**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source resource security groups,`, `subnet NACLs,`, `routes,`, `destination controls,`.
-- **CRITICAL** line 132, `outline-instead-of-explanation` — **11. Security controls**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 146, `bare-bullet-items` — **12. Ephemeral ports a connection capacity**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `concurrent connections,`, `destination concentration,`, `connection churn,`, `idle timeouts,`.
-- **CRITICAL** line 161, `bare-bullet-items` — **13. NAT Gateway cost**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hourly NAT Gateway charge,`, `processed bytes,`, `cross-AZ data transfer,`, `internet alebo service data transfer,`.
-- **CRITICAL** line 161, `outline-instead-of-explanation` — **13. NAT Gateway cost**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 173, `bare-bullet-items` — **14. VPC endpoints ako alternatíva**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `S3/DynamoDB gateway endpoints,`, `interface endpoints cez PrivateLink.`, `bez general internet path,`, `policy boundary,`.
-- **CRITICAL** line 173, `outline-instead-of-explanation` — **14. VPC endpoints ako alternatíva**: 10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 194, `bare-bullet-items` — **15. NAT instance**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patching,`, `scaling,`, `HA/failover,`, `source/destination check,`.
-- **CRITICAL** line 194, `outline-instead-of-explanation` — **15. NAT instance**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 210, `bare-bullet-items` — **16. Centralized egress**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `symmetric routing,`, `attachment/route-table segmentation,`, `appliance mode,`, `zonal paths,`.
-- **CRITICAL** line 210, `outline-instead-of-explanation` — **16. Centralized egress**: 8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 227, `bare-bullet-items` — **17. AWS Network Firewall insertion**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `asymmetric routing,`, `NAT pred/po nesprávnej vrstve,`, `missing gateway route table,`, `AZ mismatch,`.
-- **CRITICAL** line 227, `outline-instead-of-explanation` — **17. AWS Network Firewall insertion**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 239, `bare-bullet-items` — **18. Observability**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NAT Gateway state,`, `bytes/packets,`, `active connections,`, `connection attempts/errors,`.
-- **CRITICAL** line 239, `outline-instead-of-explanation` — **18. Observability**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 272, `empty-section` — **20. Bežné chyby**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 41, `single-sentence-concept` — **4. Public subnet**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 51, `bare-bullet-items` — **5. NAT Gateway**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `public NAT Gateway ,`, `private NAT Gateway .`.
-- **HIGH** line 62, `single-sentence-concept` — **6. Public NAT Gateway**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 103, `bare-bullet-items` — **9. Zonal behavior**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vzniká cross-AZ dependency,`, `zonal failure môže odstrániť egress viacerým AZ,`, `cross-AZ data transfer môže zvyšovať cost.`.
-- **HIGH** line 115, `single-sentence-concept` — **10. Route-table model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 146, `list-heavy-section` — **12. Ephemeral ports a connection capacity**: 6 odrážok a iba 37 slov súvislého vysvetlenia.
-- **HIGH** line 161, `single-sentence-concept` — **13. NAT Gateway cost**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 173, `single-sentence-concept` — **14. VPC endpoints ako alternatíva**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 227, `single-sentence-concept` — **17. AWS Network Firewall insertion**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 239, `single-sentence-concept` — **18. Observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 274, `single-sentence-concept` — **NAT Gateway je v private subnet-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 278, `single-sentence-concept` — **Private subnet route smeruje na IGW**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 282, `single-sentence-concept` — **Jediný NAT Gateway pre tri AZ**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 286, `single-sentence-concept` — **NACL povoľuje iba destination port 443**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 290, `single-sentence-concept` — **AWS API calls používajú drahý NAT path**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 294, `single-sentence-concept` — **Port exhaustion**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 300, `single-sentence-concept` — **NAT Gateway považovaný za firewall**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 304, `single-sentence-concept` — **NAT ako inbound exposure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 308, `single-sentence-concept` — **Cross-AZ NAT bez cost/failure analýzy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 312, `single-sentence-concept` — **Všetok service traffic cez internet/NAT**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 316, `single-sentence-concept` — **Cleanup NAT bez route dependency analýzy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 5, `thin-concept-section` — **1. Internet Gateway**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 32, `thin-concept-section` — **3. IPv6 internet path**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 41, `thin-concept-section` — **4. Public subnet**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 51, `thin-concept-section` — **5. NAT Gateway**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 62, `thin-concept-section` — **6. Public NAT Gateway**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 84, `thin-concept-section` — **7. Inbound behavior**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 132, `thin-concept-section` — **11. Security controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 161, `thin-concept-section` — **13. NAT Gateway cost**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 173, `term-before-explanation` — **14. VPC endpoints ako alternatíva**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `IP`, `DNS`, `NAT`, `AZ`, `policy`, `availability`
-- **HIGH** line 173, `thin-concept-section` — **14. VPC endpoints ako alternatíva**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 194, `thin-concept-section` — **15. NAT instance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 210, `thin-concept-section` — **16. Centralized egress**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 227, `thin-concept-section` — **17. AWS Network Firewall insertion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 239, `thin-concept-section` — **18. Observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 5, `empty-section` — **Dominantný lifecycle**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 70, `empty-section` — **2. NAT Gateway má dve nezávislé klasifikácie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 72, `no-prose-concept` — **Connectivity type**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 135, `outline-instead-of-explanation` — **6. Connection pooling, retries a idle timeouts**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 148, `empty-section` — **7. Zonal a regional resilience**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 162, `bare-bullet-items` — **Regional NAT design**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `overenú AZ auto-provision alebo explicit coverage policy;`, `EIP governance a allowlist awareness;`, `per-AZ observation a capacity evidence;`, `route-table conformance;`.
+- **CRITICAL** line 162, `outline-instead-of-explanation` — **Regional NAT design**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 211, `bare-bullet-items` — **11. Observability contract**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NAT Gateway state a availability mode;`, `AZ/address coverage;`, `ActiveConnectionCount ;`, `ErrorPortAllocation ;`.
+- **CRITICAL** line 211, `outline-instead-of-explanation` — **11. Observability contract**: 11 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 229, `empty-section` — **12. Worked incident — retry-amplified NAT port exhaustion**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 245, `empty-section` — **Exact subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 259, `bare-bullet-items` — **Competing hypotheses**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Partner PSP rate-limit alebo outage.`, `DNS vracia chybný alebo jediný unhealthy IP.`, `SG/NACL blokuje časť return trafficu.`, `Cross-AZ path alebo NAT-A AZ degradation.`.
+- **CRITICAL** line 259, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 259, `outline-instead-of-explanation` — **Competing hypotheses**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 270, `outline-instead-of-explanation` — **Discriminating observations**: 6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 292, `bare-bullet-items` — **Containment**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav ďalší rollout alebo scale-out release-u 4.2.0;`, `obnov pooling a zníž retry concurrency/rate;`, `aktivuj idempotency gate na partner authorization operation;`, `neotváraj broad inbound ani nevymieňaj SG/NACL bez evidence.`.
+- **CRITICAL** line 292, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 292, `outline-instead-of-explanation` — **Containment**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 300, `bare-bullet-items` — **Authoritative recovery**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Oprav client connection pool a bounded retry policy.`, `Over one-business-operation-to-one-idempotency-key contract.`, `Vyhodnoť egress architecture:`, `zonal NAT per AZ;`.
+- **CRITICAL** line 300, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 300, `outline-instead-of-explanation` — **Authoritative recovery**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 313, `bare-bullet-items` — **Closure verdict**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ErrorPortAllocation ostáva nulové pri peak test-e;`, `connection churn a retries sú v budgete;`, `request P-884 a opakované samples majú bounded latency;`, `každá AZ má funkčný expected egress path;`.
+- **CRITICAL** line 313, `outline-instead-of-explanation` — **Closure verdict**: 7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 325, `empty-section` — **13. Ďalšie failure boundaries**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 369, `bare-bullet-items` — **15. Earlier controls**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaný egress architecture a EIP inventory;`, `explicitný NAT availability/connectivity mode;`, `AZ route conformance tests;`, `connection pooling a retry budgets;`.
+- **CRITICAL** line 369, `no-prose-concept` — **15. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 369, `outline-instead-of-explanation` — **15. Earlier controls**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 21, `single-sentence-concept` — **Connected Atlas Payments subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 72, `list-first-introduction` — **Connectivity type**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 135, `bare-bullet-items` — **6. Connection pooling, retries a idle timeouts**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pooling a keep-alive znižujú nové connection attempts;`, `short-lived connections zvyšujú source-port churn;`, `agresívne retries násobia rovnaký destination pressure;`, `NAT idle timeout môže ukončiť dlho neaktívne connections;`.
+- **HIGH** line 135, `single-sentence-concept` — **6. Connection pooling, retries a idle timeouts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 150, `single-sentence-concept` — **Zonal NAT design**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 231, `single-sentence-concept` — **Symptóm**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 259, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 270, `list-first-introduction` — **Discriminating observations**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 270, `single-sentence-concept` — **Discriminating observations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 292, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 300, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 313, `single-sentence-concept` — **Closure verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 335, `single-sentence-concept` — **Cross-AZ zonal NAT dependency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 343, `single-sentence-concept` — **NACL povoľuje iba destination port 443**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 355, `list-first-introduction` — **14. Recovery hierarchy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 355, `single-sentence-concept` — **14. Recovery hierarchy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 369, `list-first-introduction` — **15. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 72, `term-before-explanation` — **Connectivity type**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `EIP`, `VPC`, `IGW`, `identity`
+- **HIGH** line 72, `thin-concept-section` — **Connectivity type**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 135, `thin-concept-section` — **6. Connection pooling, retries a idle timeouts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 162, `thin-concept-section` — **Regional NAT design**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 211, `term-before-explanation` — **11. Observability contract**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `EIP`, `DNS`, `TLS`, `availability`
+- **HIGH** line 211, `thin-concept-section` — **11. Observability contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 259, `term-before-explanation` — **Competing hypotheses**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PSP`, `DNS`, `IP`, `SG`, `NACL`, `AZ`, `NAT-A`, `NAT`
+- **HIGH** line 259, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 270, `term-before-explanation` — **Discriminating observations**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`, `HTTP`, `policy`
+- **HIGH** line 270, `thin-concept-section` — **Discriminating observations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 292, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 300, `term-before-explanation` — **Authoritative recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `AZ`, `EIP`, `DNS`, `SLI`, `policy`
+- **HIGH** line 300, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 313, `thin-concept-section` — **Closure verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 369, `term-before-explanation` — **15. Earlier controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EIP`, `NAT`, `AZ`, `AWS`, `availability`
+- **HIGH** line 369, `thin-concept-section` — **15. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/11-cloud-and-aws/kms-secrets-manager.md`
 
@@ -16851,19 +16852,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3176 | 453 | 0 | 0 | 3629 |
-| `outline-instead-of-explanation` | 3070 | 0 | 0 | 0 | 3070 |
-| `single-sentence-concept` | 0 | 2809 | 0 | 0 | 2809 |
-| `term-before-explanation` | 0 | 575 | 2177 | 0 | 2752 |
-| `thin-concept-section` | 0 | 2655 | 0 | 0 | 2655 |
-| `example-not-explicit` | 0 | 0 | 0 | 2031 | 2031 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2019 | 2019 |
-| `list-first-introduction` | 0 | 1291 | 0 | 0 | 1291 |
+| `bare-bullet-items` | 3171 | 452 | 0 | 0 | 3623 |
+| `outline-instead-of-explanation` | 3068 | 0 | 0 | 0 | 3068 |
+| `single-sentence-concept` | 0 | 2800 | 0 | 0 | 2800 |
+| `term-before-explanation` | 0 | 580 | 2171 | 0 | 2751 |
+| `thin-concept-section` | 0 | 2652 | 0 | 0 | 2652 |
+| `example-not-explicit` | 0 | 0 | 0 | 2035 | 2035 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2026 | 2026 |
+| `list-first-introduction` | 0 | 1298 | 0 | 0 | 1298 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1065 | 1065 |
 | `short-concept-section` | 0 | 0 | 1043 | 0 | 1043 |
-| `no-prose-concept` | 725 | 0 | 0 | 0 | 725 |
-| `empty-section` | 585 | 0 | 0 | 0 | 585 |
-| `list-heavy-section` | 0 | 453 | 0 | 0 | 453 |
+| `no-prose-concept` | 730 | 0 | 0 | 0 | 730 |
+| `empty-section` | 590 | 0 | 0 | 0 | 590 |
+| `list-heavy-section` | 0 | 452 | 0 | 0 | 452 |
 
 ## Required remediation pattern
 
