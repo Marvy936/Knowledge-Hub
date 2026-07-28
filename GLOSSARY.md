@@ -646,6 +646,10 @@ Logical identifier artifactu používaný na komunikáciu release identity alebo
 
 OCI manifest field opisujúci semantic media type artifactu, najmä keď config descriptor neposkytuje dostatočnú type informáciu. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
+## ASG reconciliation subject
+
+Auto Scaling Group desired state, current instance/lifecycle inventory, health sources, scaling activities, suspended processes a launch/termination decisions pre jednu fleet generation. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Assertion Consumer Service — ACS
 
 Service Provider endpoint prijímajúci a validujúci SAML Response pri browser SSO. Pozri [SAML](docs/13-security-and-identity/saml.md).
@@ -969,6 +973,10 @@ Managed cryptographic key service poskytujúca KMS keys, policy/grant authorizat
 ## AWS Lambda
 
 AWS event-driven compute služba, ktorá spúšťa function code v service-managed execution environments a škáluje invocations podľa event a concurrency modelu. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
+
+## AWS network-generation subject
+
+Versionovaný AWS network subject obsahujúci account, Region, VPC CIDRs, subnet/AZ inventory, ENIs, route-table associations, gateway/endpoint attachments, policy generations a DNS/observation contract. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
 ## AWS Organizations
 
@@ -3446,6 +3454,10 @@ Požadovaný stav systému deklarovaný používateľom alebo automatizačným n
 
 Intent deklarovaný v Kubernetes object `spec` alebo odvodený vyšším controllerom, ku ktorému control loops približujú aktuálny stav. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Destination-tuple concentration
+
+Sústredenie veľkého počtu concurrent alebo short-lived connections na rovnaký destination IP, port a protocol, ktoré môže vytvoriť NAT source-port pressure aj pri nízkom bandwidth-e. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
+
 ## Destructive reclaim subject
 
 Exact PVC UID, PV UID, reclaim policy a backend volume identity, nad ktorými môže deletion transition odstrániť authoritative storage asset. Pozri [Volumes, PV, PVC a StorageClass](../docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
@@ -4010,6 +4022,10 @@ Point-in-time block snapshot EBS volume-u používaný na restore, copy, migrati
 
 Persistent block device v jednej Availability Zone, ktorý možno attachnúť k EC2 instance v rovnakej AZ. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
+## EC2 fleet-realization subject
+
+Exact ASG/fleet identity vrátane desired boundaries, launch template version, AMI, instance types, subnets, SG, role, EBS/KMS, bootstrap, health, target and business generations. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## EC2 instance
 
 Konkrétna spustená alebo zastavená virtual machine identity vytvorená z AMI a launch configuration, s vlastným instance ID, network interfaces, storage a lifecycle stavom. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
@@ -4102,6 +4118,10 @@ Runtime defaults vo final image confige, najmä entrypoint, command, environment
 
 Rekonštruovateľná množina root a module inputs po vyhodnotení source-u, precedence, default/null semantics, caller forwarding-u a sensitive markers, viazaná na konkrétny saved plan. Pozri [Variables, locals a outputs](docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md).
 
+## Effective machine generation — EC2
+
+Výsledná machine/application generation vytvorená z AMI, launch template-u, user data, reachable artifacts, retrieved configuration/secrets a runtime service startupu. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Effective mount access verdict
 
 Kernel výsledok nad visible pathom po zohľadnení process UID/GID, user mapping, inode mode/ACL, mount read-only flags a SELinux/AppArmor policy. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
@@ -4138,6 +4158,10 @@ Admitted requests a limits konkrétneho Podu po defaultingu, LimitRange, policy 
 
 Najvyššia rola, ktorú používateľ získa zo všetkých relevantných direct, inherited a shared memberships na danom resource. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
 
+## Effective route-table association
+
+Route table, ktorú subnet skutočne používa po explicitnej asociácii alebo inheritance z main route table; subnet tag alebo diagram ju nenahrádza. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
 ## Effective runtime policy subject
 
 Kernel-enforced state vzniknutý z image defaults, deployment overrides, daemon/orchestrator defaults a node policy vrátane credentials, capabilities, seccomp, LSM, mounts, devices, network a cgroups. Pozri [Container security](docs/08-container-fundamentals-and-docker/container-security.md).
@@ -4157,6 +4181,10 @@ Application-specific EFS entry point vynucujúci root directory a voliteľnú PO
 ## EFS mount target
 
 ENI-based VPC endpoint v konkrétnej Availability Zone, cez ktorý clients pristupujú k EFS filesystemu protokolom NFS. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## Egress AZ coverage
+
+Zoznam source AZ cohorts, ktoré majú accepted NAT/IGW/endpoint path, address identity a failure behavior; logical regional resource alebo healthy jedna AZ nepokrýva automaticky všetky cohorts. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
 
 ## Egress-isolated Pod
 
@@ -4225,6 +4253,10 @@ Versionovaný zoznam Node UIDs a attributes, ktoré podľa aktuálnej DaemonSet 
 ## Embedded Metric Format
 
 Structured log format, z ktorého CloudWatch extrahuje custom metrics a dimensions bez samostatného per-metric API publish callu. Pozri [CloudWatch a CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## Emergency deny lifecycle — AWS network
+
+Coarse subnet alebo central-policy deny s ownerom, scope-om, expiry, management/recovery-access validation, rollbackom a post-incident drift cleanupom. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
 
 ## Emission boundary — telemetry
 
@@ -4333,6 +4365,10 @@ Allow alebo drop rozhodnutie pre exact packet/flow v konkrétnom pre-NAT alebo p
 ## Enforcing mode
 
 Režim SELinux alebo AppArmor policy, v ktorom sa zakázané operácie blokujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
+
+## ENI identity subject
+
+Elastic network interface identity zahŕňajúca ENI ID, private/public addresses, subnet/AZ, Security Groups, attachment, MAC a flow-log observation fields. Instance alebo managed-service lifecycle nemusí byť totožný s ENI lifecycle-om. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
 ## Entitlement
 
@@ -4974,6 +5010,10 @@ Stav, v ktorom všetky očakávané a oprávnené targety dosiahli požadovaný 
 
 Mapovanie DaemonSet fleet policy, placement, runtime, host authority, node capability, rollout, bootstrap a workload outcome boundaries na ich subjects. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
 
+## Fleet recovery closure — EC2
+
+Verdict, že ASG používa approved launch generation, desired/InService/serving capacity je kompatibilná, všetky AZ cohorts prešli health/business tests, bad generation je retired a druhý scale/refresh cyklus nereprodukuje failure. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Flexible Single Master Operations — FSMO
 
 AD DS roles určené pre operácie, ktoré nemajú byť vykonávané súčasne viacerými domain controllers. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
@@ -5058,6 +5098,10 @@ Nová databázová migration opravujúca chybný alebo neúplný aktuálny stav 
 
 Proxy zastupujúci klienta pri komunikácii s externými servermi. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
 
+## Forward/return path contract — AWS
+
+Požiadavka, aby presný flow mal kompatibilnú route, policy a stateful-inspection cestu v oboch smeroch; forward reachability sama connection nepreukazuje. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
 ## Forward secrecy
 
 Vlastnosť key-establishment modelu, pri ktorej neskorší compromise dlhodobého private keyu neumožní dešifrovať predtým zachytené sessions. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
@@ -5069,6 +5113,10 @@ Fully Qualified Collection Name explicitne identifikujúci module, plugin alebo 
 ## Fresh-connection verdict
 
 Dôkaz, že nový lookup a nová connection použili accepted address a dosiahli správny Service alebo external backend; samotný lookup nestačí. Pozri [Cluster DNS](../docs/09-kubernetes/cluster-dns.md).
+
+## Fresh-flow revocation test
+
+Negatívne overenie, že po odstránení allow pathu nový connection attempt zlyhá, oddelene od testu existujúcich long-lived alebo pooled sessions. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
 
 ## Front-channel logout
 
@@ -5481,6 +5529,10 @@ Presná perspective a path handlera, napríklad kubelet HTTP proti Pod IP alebo 
 ## Health remediation budget
 
 Limitovaný restart alebo recovery contract určujúci confidence, backoff, drain, stateful risk, post-action verification a escalation threshold pri unhealthy stave. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
+## Health-source chain — EC2 Auto Scaling
+
+Poradie EC2 system/instance statusu, ASG health, optional ELB/EBS/VPC Lattice/custom checks, target readiness, application health a business request evidence. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
 ## Health start period
 
@@ -6086,6 +6138,10 @@ ConfigMap alebo Secret s `immutable: true`, ktorý nemožno in-place meniť a vy
 
 Model, v ktorom sa existujúce inštancie zásadne neupravujú, ale nahrádzajú novými. Pozri [Immutable vs. Mutable Infrastructure](docs/00-foundations/immutable-vs-mutable-infrastructure.md).
 
+## Immutable launch subject — EC2
+
+Pinned launch template version, AMI/provenance, user-data digest, network/storage/IAM configuration a purchase/placement constraints, ktoré reprodukovateľne vytvárajú jednu instance generation. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Immutable node replacement
 
 Upgrade alebo oprava Node-u vytvorením novej versionovanej instance, validáciou, controlled drainom starého Node-u a následným odstránením starej infraštruktúry. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
@@ -6270,6 +6326,10 @@ IAM container, cez ktorý sa jedna IAM role pripája k EC2 instance a poskytuje 
 
 Riadený Auto Scaling workflow postupne nahrádzajúci fleet instances podľa novej launch template alebo desired configuration pri zachovaní nastavenej healthy capacity. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## Instance-refresh transition subject
+
+Source a target fleet cohorts, exact launch generations, healthy-capacity preferences, warmup, checkpoints, skip-matching, rollback eligibility a business acceptance jedného refreshu. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## instance store — EC2
 
 Host-local ephemeral block storage, ktorého dáta sa môžu stratiť pri stop, termination alebo host failure. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
@@ -6321,6 +6381,10 @@ Container-to-container flow cez spoločnú Docker network a service DNS priamo n
 ## Internal traffic policy — Service
 
 Service policy ovplyvňujúca výber cluster-wide alebo node-local backendov pre traffic prichádzajúci z clusteru. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## Internet-egress subject — AWS
+
+Exact outbound flow identity obsahujúca source ENI/subnet/AZ, selected route, IGW/NAT identity, original a translated tuple, destination/DNS/TLS identity, connection generation a business operation. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
 
 ## Internet Gateway — AWS
 
@@ -6722,6 +6786,10 @@ Artifact z najnovšieho úspešného pipeline na danom ref-e, ktorý môže GitL
 
 Versionovaný EC2 launch contract definujúci AMI, instance type, network, storage, IAM, metadata, user data a ďalšie launch settings. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## Launch-template version closure
+
+Dôkaz, že ASG, refresh a každá target instance používajú explicitne schválenú launch template version; `$Latest` alebo uncontrolled `$Default` closure nespĺňajú. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Layer-aware secret incident
 
 Incident, pri ktorom secret môže byť v layeri, image metadata, context/cache, platform variante, writable layeri alebo mounted storage a vyžaduje clean rebuild aj revocation. Pozri [Images, layers a copy-on-write](docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md).
@@ -6802,6 +6870,10 @@ Schopnosť library dependency meniť parent rendered resources prostredníctvom 
 
 Auto Scaling extension, ktorá pozastaví launch alebo termination transition, aby automation vykonala bootstrap, registration, drain alebo evidence-preservation action. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## Lifecycle-hook operation subject — ASG
+
+Logical launch alebo termination side effect viazaný na instance ID, transition, hook name, operation/idempotency key, heartbeat, timeout, durable result a retry attempts. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Lifecycle meta-argument — Terraform
 
 Built-in Terraform block meniaci plánovanie resource lifecycle cez pravidlá ako `create_before_destroy`, `prevent_destroy`, `ignore_changes`, `replace_triggered_by`, preconditions a postconditions. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -6873,6 +6945,10 @@ Low-Level Build graph representation používaná BuildKitom na opis operations,
 ## Load average
 
 Priemerný počet runnable tasks a určitých tasks v uninterruptible sleep. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
+
+## Load-balancer dual-connection subject
+
+Oddelené identity pre `client → load balancer` a `load balancer → target`, z ktorých každá má vlastné route, SG, NACL, port, health a return-path evidence. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
 
 ## `--load` — Buildx
 
@@ -7478,6 +7554,10 @@ Kerberos flow, pri ktorom client aj service cryptographically overia druhú stra
 
 TLS režim, v ktorom server aj client predkladajú a validujú certificates; poskytuje channel-level mutual authentication, nie automatickú application authorization. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
+## NACL ordered-policy generation
+
+Kompletný inbound/outbound NACL ruleset vrátane rule numbers, CIDRs, protocols, ports, verdictov a subnet associations; first-match semantics znamená, že poradie je súčasťou policy. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
+
 ## Name-reuse collision — Kubernetes
 
 Failure, pri ktorom automation alebo external binding zamení zmazaný a znovu vytvorený object s rovnakým namespace/name, ale odlišným UID. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
@@ -7534,9 +7614,25 @@ Kubernetes resource, ktorého object identity a policy scope zahŕňajú namespa
 
 Princíp kopírovania iba presne potrebných build outputs z build stage do final stage namiesto širokého prenosu celého stage filesystemu. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
+## NAT address generation
+
+Aktuálny súbor private/public NAT addresses a AZ coverage, ktorý určuje source identity pozorovanú destination service-om a musí byť zosúladený s allowlists. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
+
+## NAT availability mode
+
+Vlastnosť rozlišujúca zonal single-AZ a regional multi-AZ NAT Gateway model. Availability mode nehovorí, či connectivity type je public alebo private. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
+
+## NAT connectivity type
+
+Vlastnosť rozlišujúca public NAT Gateway pre internet-routable translation a private NAT Gateway pre private/transit communication use cases. Nie je totožná s availability mode-om. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
+
 ## NAT — Network Address Translation
 
 Mechanizmus meniaci source alebo destination IP adresy a často ports pri prechode packetu. Pozri [NAT](docs/02-networking-and-web/nat.md).
+
+## NAT port-allocation verdict
+
+Evidence založená na `ErrorPortAllocation`, connection counts, destination concentration, application retries/pooling a request timeline, že NAT nedokázal alokovať ďalší translated source port. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
 
 ## NAT port exhaustion — AWS
 
@@ -8198,6 +8294,10 @@ Stav, keď controller dokončí iba časť distribuovanej operácie, napríklad 
 
 Stav, keď Node alebo kubelet stratil spojenie s control plane-om, ale local workload processes pokračujú a môžu sa prekrývať s replacement Pods vytvorenými inde. Pozri [Worker node components](docs/09-kubernetes/worker-node-components.md).
 
+## Partner allowlist boundary
+
+External authorization boundary, pri ktorej partner rozhoduje podľa translated public source IP alebo inej egress identity; zmena NAT/EIP generation môže znefunkčniť technicky zdravý path. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
+
 ## Pass-the-ticket
 
 Attack, pri ktorom útočník použije ukradnutý Kerberos TGT alebo service ticket bez znalosti pôvodného passwordu. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
@@ -8701,6 +8801,10 @@ Proces definície intentu, formalizácie, review, testovania, staged rollout-u, 
 ## Policy obligation
 
 Dodatočná povinnosť v decision result-e, ktorú PEP musí vykonať spolu s accessom, napríklad masking, step-up alebo audit event. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy observation point — AWS network
+
+Presná enforcement/telemetry boundary, na ktorej sú viditeľné konkrétne addresses, ports, direction a pre/post-NAT identity; verdict z iného bodu nemusí patriť rovnakému flow subjectu. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
 
 ## Policy peer — NetworkPolicy
 
@@ -9514,6 +9618,10 @@ Konkrétna syntax a semantics regular expression engine-u, napríklad POSIX ERE,
 
 Service API alebo data endpoint smerujúci request do konkrétneho AWS Regionu; nesprávny Region môže viesť k prázdnemu inventory, iným quotas alebo deploymentu do nesprávnej lokality. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
+## Regional NAT Gateway subject
+
+Logical multi-AZ NAT Gateway generation s AZ coverage, per-AZ addresses/EIPs, auto-provision alebo explicit coverage policy, routes a operational evidence. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
+
 ## Regional resource — AWS
 
 Resource s identity a lifecycle scope-om v konkrétnom AWS Regione, napríklad VPC alebo väčšina managed service deployments. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
@@ -9717,6 +9825,10 @@ Lifecycle rule vyžadujúca replacement resource, keď sa zmení referencovaný 
 ## Replacement feasibility
 
 Dôkaz, že current placement contract zostane splniteľný po Node loss, rollout surge, HPA scale-up alebo Pod replacement-e, nie iba pre už bežiacu cohortu. Pozri [Taints, tolerations, affinity a topology](../docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
+## Replacement-loop subject — ASG
+
+Opakovaný chain `launch → bootstrap/health failure → terminate → replacement`, identifikovaný exact launch generation, target-health reason, grace/warmup a scaling activity evidence. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
 ## Replacement persistence proof
 
@@ -10274,6 +10386,10 @@ Obojstranný parent/listener decision viažuci Route generation na parentRef, al
 
 Full attached-route inventory pre overlapping hostname/path space vrátane controller conflict/precedence verdictov. Pozri [Ingress a Gateway API](../docs/09-kubernetes/ingress-gateway-api.md).
 
+## Route origin — AWS VPC
+
+Pôvod route, napríklad local, static alebo propagated, ktorý ovplyvňuje ownership, priority, change path a recovery evidence. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
 ## Route parent generation
 
 Presná parent Gateway/listener generation, ku ktorej patria Route conditions a effective attachment. Pozri [Ingress a Gateway API](../docs/09-kubernetes/ingress-gateway-api.md).
@@ -10582,6 +10698,10 @@ Explicitné určenie, ktorý controller smie zapisovať live replica count a ako
 
 Sekvencia odstránenia resource-u z nového trafficu, dokončenia alebo odovzdania práce, business commit-u, evidence a až následnej termination. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
+## Scale-out downstream envelope
+
+Maximum fleet concurrency, connections, requests alebo work claims, ktoré downstream database, queue, partner alebo network path bezpečne absorbuje počas scale-out-u. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Scale subresource — Kubernetes
 
 Štandardizované API rozhranie vystavujúce desired a current replica informácie škálovateľného workloadu pre HPA a ďalších clients. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
@@ -10870,6 +10990,10 @@ Immutable index fragment v rámci shardu; nové documents sa sprístupňujú ref
 
 Explicitne zvolený final, test, development, debug alebo artifact stage, ktorý je súčasťou release subjectu a publication policy. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
 
+## Selected route subject — AWS
+
+Pre konkrétnu destination IP úplný súbor matching routes, longest-prefix/priority verdict, route origin a výsledný target ID/stav. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
 ## Selector control boundary — ReplicaSet
 
 Namespace-scoped label selector, ownership a adoption contract určujúci candidate Pod množinu, nad ktorou ReplicaSet počíta a reconcile-uje desired replicas. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
@@ -11098,6 +11222,10 @@ Canonical authenticated identity `system:serviceaccount:<namespace>:<name>` pou�
 
 Prechod z desired replica count cez controller, scheduling, Node provisioning, image/startup/readiness a traffic propagation na Pody, ktoré reálne obsluhujú requests. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
 
+## Serving-capacity realization — ASG
+
+Prechod `desired → launched → running → bootstrapped → healthy/registered → traffic-accepting → business-capable`, ktorý odlišuje fleet count od reálnej kapacity. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
+
 ## Session
 
 Dočasný authenticated context vytvorený po úspešnej authentication a používaný na ďalšie authorization decisions. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
@@ -11121,6 +11249,14 @@ Systems Manager capability poskytujúca IAM-authorized interactive shell alebo p
 ## Severity — log
 
 Klasifikácia operational závažnosti log recordu, napríklad DEBUG, INFO, WARN, ERROR alebo FATAL, ktorá musí odrážať význam pre konkrétnu operáciu. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
+
+## SG effective allow graph
+
+Aditívny súbor applicable inbound/outbound Security Group rules, referenced SG membership, prefix lists a ENI associations, ktorý povoľuje nový flow na konkrétnej direction a porte. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
+
+## SG membership inventory
+
+Aktuálny zoznam ENIs/resources reprezentovaných referencovanou Security Groupou; broad alebo zmenené membership môže rozšíriť access bez zmeny rule textu. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
 
 ## Shadow deployment
 
@@ -11618,6 +11754,10 @@ RollingUpdate hranica, ktorá aktualizuje iba StatefulSet Pody s ordinalom väč
 
 Firewall posudzujúci každý packet podľa explicitných pravidiel bez connection state. Pozri [Firewally](docs/02-networking-and-web/firewalls.md).
 
+## Stateless return-path contract — NACL
+
+Explicitné rules potrebné pre response direction vrátane client ephemeral destination ports, pretože NACL nepozná stav pôvodnej connection. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
+
 ## Static analysis
 
 Analýza source alebo jeho reprezentácie bez vykonania celej aplikácie, napríklad linting, type checking alebo data-flow analysis. Pozri [Static analysis, linting a type checking](docs/04-testing-and-quality/static-analysis-linting-type-checking.md).
@@ -11821,6 +11961,14 @@ SAML element určujúci spôsob, recipienta, request binding a časové podmienk
 ## Subnet
 
 Časť IP address space definovaná prefixom a použitá ako logická routing alebo topology jednotka. Pozri [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md).
+
+## Subnet IP headroom
+
+Voľná použiteľná IP/ENI capacity po zohľadnení reserved addresses, steady state-u, load balancerov, endpoints, Pods, managed services a rollout/failover replacementu. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
+## Subnet placement subject — AWS
+
+Exact subnet identity vrátane VPC, AZ, IPv4/IPv6 prefixes, available IP headroom, route-table association, NACL, endpoint/gateway dependencies a workload cohorts, ktoré do subnetu môžu byť umiestnené. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
 ## `subPath` staleness boundary
 
@@ -12430,6 +12578,10 @@ Correlation workflow, ktorý z trace ID, span ID, service a času vytvorí query
 
 Tempo query language na trace a span search podľa attributes, duration, status a structural conditions. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
+## Tracked connection subject — Security Group
+
+Established flow rozpoznaný SG connection trackingom podľa relevantného tuple/state-u, odlišný od fresh connection attemptu po policy zmene. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
+
 ## Traffic cutover
 
 Riadené presmerovanie nových requestov alebo connections zo starej deployment farby na novú. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
@@ -12469,6 +12621,10 @@ Dependency, ktorú parent chart získava nepriamo cez dependency vlastného subc
 ## Transitive render surface — Helm
 
 Templates, helpers, CRDs, hooks, RBAC, images a values contracts získané nepriamo cez dependencies vlastných subcharts. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## Translated flow subject — AWS NAT
+
+Original source/destination tuple spolu s NAT public/private addressom, translated source portom, destination tuple, connection state a reverse mappingom. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
 
 ## Translog
 
@@ -12930,13 +13086,25 @@ Konkrétny Kubernetes attach intent a status medzi CSI volumeHandle a Node UID, 
 
 StatefulSet šablóny, z ktorých controller vytvára samostatné PVCs pre jednotlivé ordinal replicas. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
 
+## VPC address-to-route lifecycle
+
+Chain `network outcome → VPC/CIDR generation → zonálny subnet a ENI → effective route-table association → selected route → gateway/endpoint target → forward/return path → security a application verification`. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
 ## VPC CNI — EKS
 
 Kubernetes networking plugin integrujúci Pod networking s Amazon VPC ENIs a IP addressingom; jeho IPAM a subnet capacity ovplyvňujú Pod scheduling. Pozri [ECS a EKS](docs/11-cloud-and-aws/ecs-eks.md).
 
+## VPC flow acceptance verdict
+
+Closure, pri ktorom selected route, forward/return path, SG/NACL/firewall rules, DNS, listener/TLS a application/business request preukazujú očakávaný allowed flow aj forbidden paths. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
 ## VPC Flow Logs
 
 AWS telemetry zachytávajúca metadata IP flows pre VPC, subnet alebo ENI scope a podporujúca network path a accept/reject analýzu bez application payloadu. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
+
+## VPC flow-policy subject
+
+Exact communication subject obsahujúci source/destination ENI a subnet identities, original/translated tuple, route, SG sets, NACL generations, connection state, listener/TLS identity a business request. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
 
 ## VPC peering
 
@@ -13201,6 +13369,10 @@ Compute, subnet IP, quota, egress, data a dependency kapacita zostávajúca po s
 ## Zonal egress subject
 
 Per-AZ NAT, endpoint, route a source-subnet contract, ktorého zlyhanie môže odstaviť dependency access aj pri healthy compute a regional service control plane. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## Zonal NAT Gateway subject
+
+NAT Gateway generation s konkrétnou AZ, subnetom, private/public addresses, route dependencies, connection capacity a source-subnet cohorts. Pozri [Internet Gateway a NAT Gateway](docs/11-cloud-and-aws/internet-gateway-nat-gateway.md).
 
 ## Zonal resource — AWS
 
