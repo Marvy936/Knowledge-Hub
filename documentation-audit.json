@@ -2802,16 +2802,16 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "title": "CloudWatch a CloudTrail",
-      "words": 1597,
-      "headings": 48,
-      "sections": 48,
-      "findings": 106,
-      "critical": 40,
-      "high": 47,
-      "medium": 11,
-      "low": 8,
-      "score": 894,
+      "title": "Amazon CloudWatch a AWS CloudTrail",
+      "words": 2686,
+      "headings": 43,
+      "sections": 43,
+      "findings": 90,
+      "critical": 27,
+      "high": 20,
+      "medium": 14,
+      "low": 29,
+      "score": 577,
       "grade": "D"
     },
     {
@@ -157106,35 +157106,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Exact observability a audit subject",
+      "line": 23,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "2. CloudWatch metrics",
-      "line": 19,
+      "section": "2. CloudWatch odpovedá na otázku „ako sa systém správa“",
+      "line": 85,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "2. CloudWatch metrics",
-      "line": 19,
+      "section": "2. CloudWatch odpovedá na otázku „ako sa systém správa“",
+      "line": 85,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespace,`, `metric name,`, `dimensions,`, `timestamp,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metrics pre bounded time-series;`, `Logs pre event records;`, `alarms ako evaluation state machines;`, `dashboards a investigations;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "2. CloudWatch metrics",
-      "line": 19,
+      "section": "2. CloudWatch odpovedá na otázku „ako sa systém správa“",
+      "line": 85,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -157142,8 +157142,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "2. CloudWatch metrics",
-      "line": 19,
+      "section": "2. CloudWatch odpovedá na otázku „ako sa systém správa“",
+      "line": 85,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "2. CloudWatch odpovedá na otázku „ako sa systém správa“",
+      "line": 85,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -157151,89 +157160,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "2. CloudWatch metrics",
-      "line": 19,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`",
-      "score": 4
+      "section": "3. Metric identity je contract, nie label na grafe",
+      "line": 98,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "3. Period, statistic a evaluation",
-      "line": 45,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "3. Metric identity je contract, nie label na grafe",
+      "line": 98,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "3. Period, statistic a evaluation",
-      "line": 45,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "3. Period, statistic a evaluation",
-      "line": 45,
+      "section": "4. Statistic a period menia význam signálu",
+      "line": 115,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `period,`, `statistic,`, `evaluation periods,`, `datapoints to alarm,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo sample znamená;`, `aký cohort pokrýva;`, `aká agregácia je správna;`, `aký delay a cadence sa očakáva;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "3. Period, statistic a evaluation",
-      "line": 45,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "3. Period, statistic a evaluation",
-      "line": 45,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "4. Missing data",
-      "line": 67,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "4. Missing data",
-      "line": 67,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource neposlal metric,`, `resource neexistuje,`, `agent zlyhal,`, `dimension sa zmenila,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "4. Missing data",
-      "line": 67,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "4. Missing data",
-      "line": 67,
+      "section": "4. Statistic a period menia význam signálu",
+      "line": 115,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -157241,170 +157196,107 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "4. Missing data",
-      "line": 67,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `workload`",
-      "score": 4
+      "section": "4. Statistic a period menia význam signálu",
+      "line": 115,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "5. CloudWatch alarms",
-      "line": 80,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "5. CloudWatch alarms",
-      "line": 80,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metric alarms,`, `composite alarms,`, `log-derived alarms podľa aktuálnych capabilities,`, `actions cez SNS, Auto Scaling alebo ďalšie integrácie.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "5. CloudWatch alarms",
-      "line": 80,
+      "section": "5. Missing data je explicitný stav",
+      "line": 136,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "5. CloudWatch alarms",
-      "line": 80,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OK`, `ALARM`, `INSUFFICIENT`, `DATA`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "6. Composite alarms",
-      "line": 97,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "6. Composite alarms",
-      "line": 97,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zníženie alert fatigue,`, `maintenance suppression,`, `korelácia symptom + dependency,`, `multi-signal incident condition.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "6. Composite alarms",
-      "line": 97,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "7. Dashboards",
-      "line": 110,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "7. Dashboards",
-      "line": 110,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business outcome,`, `service SLI,`, `dependency health,`, `resource saturation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "7. Dashboards",
-      "line": 110,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "7. Dashboards",
-      "line": 110,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "8. CloudWatch Logs",
-      "line": 124,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 55 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "8. CloudWatch Logs",
-      "line": 124,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "8. CloudWatch Logs",
-      "line": 124,
+      "section": "5. Missing data je explicitný stav",
+      "line": 136,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `log group,`, `log stream,`, `log event,`, `retention,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workload je idle a nič nepublikuje;`, `agent/exporter zlyhal;`, `resource prestal existovať;`, `dimension/schema sa zmenila;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "8. CloudWatch Logs",
-      "line": 124,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "5. Missing data je explicitný stav",
+      "line": 136,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "9. CloudWatch Logs Insights",
-      "line": 147,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "5. Missing data je explicitný stav",
+      "line": 136,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "9. CloudWatch Logs Insights",
-      "line": 147,
+      "section": "5. Missing data je explicitný stav",
+      "line": 136,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "6. Alarm je state machine",
+      "line": 160,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `filter status codes,`, `parse structured fields,`, `group by service/version,`, `analyze latency percentiles,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metric/query identity;`, `period a statistic;`, `threshold/comparison;`, `evaluation periods;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "9. CloudWatch Logs Insights",
-      "line": 147,
+      "section": "6. Alarm je state machine",
+      "line": 160,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "9. Logs Insights a field indexes",
+      "line": 241,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "9. Logs Insights a field indexes",
+      "line": 241,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "10. Metric filters a Embedded Metric Format",
+      "line": 259,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser/schema change zastaví alebo zmení series;`, `duplicate log delivery môže skresliť count;`, `high-cardinality dimensions zvýšia cost;`, `delayed ingestion oneskorí alarm;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "10. Metric filters a Embedded Metric Format",
+      "line": 259,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -157412,8 +157304,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "9. CloudWatch Logs Insights",
-      "line": 147,
+      "section": "10. Metric filters a Embedded Metric Format",
+      "line": 259,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -157422,70 +157314,16 @@
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
       "section": "10. Metric filters a Embedded Metric Format",
-      "line": 162,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
+      "line": 259,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "10. Metric filters a Embedded Metric Format",
-      "line": 162,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `high-cardinality dimensions,`, `unbounded tenant/request IDs,`, `duplicate metrics,`, `delayed logs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "10. Metric filters a Embedded Metric Format",
-      "line": 162,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "11. CloudWatch agent",
-      "line": 177,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "11. CloudWatch agent",
-      "line": 177,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "11. CloudWatch agent",
-      "line": 177,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS metrics,`, `application/system logs,`, `traces podľa konfigurácie,`, `StatsD alebo collectd inputs podľa supportu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "11. CloudWatch agent",
-      "line": 177,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "11. CloudWatch agent",
-      "line": 177,
+      "section": "11. Agent a collection path",
+      "line": 273,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -157493,89 +157331,98 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "11. CloudWatch agent",
-      "line": 177,
+      "section": "12. Centralizácia a cross-account observability",
+      "line": 292,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "12. Centralizácia a cross-account observability",
+      "line": 292,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account/Region coverage;`, `source enrollment;`, `least-privilege access;`, `naming a tags;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "12. Centralizácia a cross-account observability",
+      "line": 292,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "12. Cross-account observability",
-      "line": 197,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "12. Centralizácia a cross-account observability",
+      "line": 292,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "12. Cross-account observability",
-      "line": 197,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `monitoring account,`, `source-account enrollment,`, `least-privilege read/share,`, `naming a tagging,`.",
-      "score": 12
+      "section": "12. Centralizácia a cross-account observability",
+      "line": 292,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "12. Cross-account observability",
-      "line": 197,
+      "section": "13. CloudTrail odpovedá na otázku „kto vykonal akú AWS operáciu“",
+      "line": 309,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "13. CloudTrail events",
-      "line": 214,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 37 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "13. CloudTrail events",
-      "line": 214,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "13. CloudTrail events",
-      "line": 214,
+      "section": "13. CloudTrail odpovedá na otázku „kto vykonal akú AWS operáciu“",
+      "line": 309,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event time,`, `event source a name,`, `AWS Region,`, `source IP/user agent,`.",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `eventTime ;`, `eventSource a eventName ;`, `Region;`, `userIdentity ;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "13. CloudTrail events",
-      "line": 214,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "13. CloudTrail odpovedá na otázku „kto vykonal akú AWS operáciu“",
+      "line": 309,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "13. CloudTrail events",
-      "line": 214,
-      "severity": "high",
+      "section": "13. CloudTrail odpovedá na otázku „kto vykonal akú AWS operáciu“",
+      "line": 309,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "13. CloudTrail odpovedá na otázku „kto vykonal akú AWS operáciu“",
+      "line": 309,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `IP`, `ID`, `identity`",
-      "score": 7
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ID`",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
       "section": "14. Management, data a network activity events",
-      "line": 231,
+      "line": 327,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -157584,7 +157431,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
       "section": "Management events",
-      "line": 233,
+      "line": 329,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -157593,7 +157440,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
       "section": "Data events",
-      "line": 237,
+      "line": 333,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -157601,377 +157448,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "15. Event history",
-      "line": 247,
+      "section": "15. Event history nie je dlhodobý audit archive",
+      "line": 343,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "15. Event history",
-      "line": 247,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "15. Event history",
-      "line": 247,
+      "section": "15. Event history nie je dlhodobý audit archive",
+      "line": 343,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `organization-wide trail,`, `dlhodobú retention,`, `immutable central log archive,`, `data events,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ongoing trail;`, `organization-wide coverage;`, `data/network activity events;`, `dlhodobú retention;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "15. Event history",
-      "line": 247,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "16. Trails",
-      "line": 259,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "16. Trails",
-      "line": 259,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "16. Trails",
-      "line": 259,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `multi-Region trail,`, `organization trail podľa modelu,`, `management events,`, `selektívne data events,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "16. Trails",
-      "line": 259,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "16. Trails",
-      "line": 259,
+      "section": "15. Event history nie je dlhodobý audit archive",
+      "line": 343,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "17. Organization trail",
-      "line": 275,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "17. Organization trail",
-      "line": 275,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted access/delegated admin podľa modelu,`, `log archive account,`, `bucket/key policies,`, `Region strategy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "17. Organization trail",
-      "line": 275,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "18. CloudTrail Lake a event data stores",
-      "line": 288,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "20. Integrita a ochrana audit logov",
-      "line": 300,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "20. Integrita a ochrana audit logov",
-      "line": 300,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "20. Integrita a ochrana audit logov",
-      "line": 300,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `S3 bucket policy,`, `Object Lock/versioning podľa requirementu,`, `KMS key policy,`, `log-file validation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "20. Integrita a ochrana audit logov",
-      "line": 300,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "20. Integrita a ochrana audit logov",
-      "line": 300,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `KMS`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "22. EventBridge integrácia",
-      "line": 332,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "22. EventBridge integrácia",
-      "line": 332,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alert,`, `automation,`, `ticket,`, `security response,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "22. EventBridge integrácia",
-      "line": 332,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "23. Alarm design",
-      "line": 344,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "23. Alarm design",
-      "line": 344,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "23. Alarm design",
-      "line": 344,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasný symptom alebo risk,`, `ownera,`, `severity,`, `actionable threshold,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "23. Alarm design",
-      "line": 344,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "24. Automated remediation",
-      "line": 360,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "25. Troubleshooting CloudWatch",
-      "line": 376,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Alarm ostáva INSUFFICIENT DATA",
-      "line": 378,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Metric exists, alarm nereaguje",
-      "line": 382,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Logs chýbajú",
-      "line": 386,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Logs cost prudko rastie",
-      "line": 390,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "26. Troubleshooting CloudTrail",
-      "line": 394,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Event nenájdeš",
-      "line": 396,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Trail nedoručuje do S3",
-      "line": 400,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Organization account chýba",
-      "line": 404,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Kto vykonal zmenu nie je jasný",
-      "line": 408,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 412,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 412,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 412,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 412,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `alarm používa chybnú dimension,`, `missing data je nesprávne považované za OK,`, `CloudWatch agent nemá IAM alebo endpoint path,`, `organization trail bucket policy blokuje delivery,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 412,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 412,
+      "section": "15. Event history nie je dlhodobý audit archive",
+      "line": 343,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -157979,8 +157484,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 412,
+      "section": "17. Log-file integrity validation má presný význam",
+      "line": 377,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že selector zachytával required event;`, `že trail bol vždy enabled;`, `že event service field obsahuje všetok business context;`, `že S3 retention/access model je správny;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "17. Log-file integrity validation má presný význam",
+      "line": 377,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "17. Log-file integrity validation má presný význam",
+      "line": 377,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "17. Log-file integrity validation má presný význam",
+      "line": 377,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -157988,8 +157520,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 412,
+      "section": "17. Log-file integrity validation má presný význam",
+      "line": 377,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "18. CloudTrail Lake availability je časovo citlivý design constraint",
+      "line": 389,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "18. CloudTrail Lake availability je časovo citlivý design constraint",
+      "line": 389,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -157997,66 +157547,372 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 412,
+      "section": "20. Automated remediation je kontrolovaný change workflow",
+      "line": 419,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "20. Automated remediation je kontrolovaný change workflow",
+      "line": 419,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact target generation;`, `max concurrency/error budget;`, `deduplication;`, `cooldown;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "20. Automated remediation je kontrolovaný change workflow",
+      "line": 419,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `OK`, `IAM`, `policy`, `resource`",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Všetky metrics na jednom dashboarde",
-      "line": 432,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "20. Automated remediation je kontrolovaný change workflow",
+      "line": 419,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `error budget`",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Infinite log retention bez klasifikácie",
-      "line": 436,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Competing hypotheses",
+      "line": 452,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "CloudTrail Event history ako jediný audit archive",
-      "line": 440,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Alarm na priemernú latency",
-      "line": 444,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "Automatická remediation bez validation",
-      "line": 448,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
-      "section": "CloudTrail vypnutý počas troubleshooting testu",
+      "section": "Competing hypotheses",
       "line": 452,
       "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Competing hypotheses",
+      "line": 452,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Competing hypotheses",
+      "line": 452,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payment authorizations skutočne klesli na nulu;`, `metric publisher alebo log filter zlyhal;`, `dimension/schema sa zmenila;`, `ingestion mešká;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Competing hypotheses",
+      "line": 452,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Discriminating evidence",
+      "line": 461,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Discriminating evidence",
+      "line": 461,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Evidence-preserving containment",
+      "line": 480,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Evidence-preserving containment",
+      "line": 480,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Evidence-preserving containment",
+      "line": 480,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Evidence-preserving containment",
+      "line": 480,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `alarm a execution history sa zachová;`, `healthy task cohort sa prestane zbytočne recyklovať;`, `business success sa overí nezávislým ledger/provider query;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Evidence-preserving containment",
+      "line": 480,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Authoritative recovery",
+      "line": 488,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Authoritative recovery",
+      "line": 488,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Authoritative recovery",
+      "line": 488,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Authoritative recovery",
+      "line": 488,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `publisher aj alarm sa deploynú kompatibilne;`, `samostatný telemetry-freshness alarm sleduje expected emission;`, `business success alarm používa numerator/denominator a správny cohort;`, `remediation vyžaduje symptom + telemetry-validity precondition;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Authoritative recovery",
+      "line": 488,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Authoritative recovery",
+      "line": 488,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Authoritative recovery",
+      "line": 488,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Acceptance verdict",
+      "line": 498,
+      "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Acceptance verdict",
+      "line": 498,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Acceptance verdict",
+      "line": 498,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `approved metric series publikuje v každom period-e;`, `alarm prechádza správne cez OK , ALARM , INSUFFICIENT DATA ;`, `exact business failure vyvolá jeden bounded remediation execution;`, `dashboard rozlišuje release/AZ a neagreguje poškodený cohort;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Acceptance verdict",
+      "line": 498,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Acceptance verdict",
+      "line": 498,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Acceptance verdict",
+      "line": 498,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Acceptance verdict",
+      "line": 498,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OK`, `ALARM`, `INSUFFICIENT`, `DATA`, `AZ`, `SLO`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "22. Troubleshooting CloudWatch",
+      "line": 513,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Logs chýbajú",
+      "line": 523,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "23. Troubleshooting CloudTrail",
+      "line": 531,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Trail nedoručuje do S3",
+      "line": 537,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "Actor nie je jasný",
+      "line": 541,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "24. Security, retention a cost",
+      "line": 549,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "24. Security, retention a cost",
+      "line": 549,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `log group a archive policies;`, `KMS keys;`, `CloudTrail configuration;`, `delete/lifecycle permissions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "24. Security, retention a cost",
+      "line": 549,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "24. Security, retention a cost",
+      "line": 549,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "24. Security, retention a cost",
+      "line": 549,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
+      "section": "24. Security, retention a cost",
+      "line": 549,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",

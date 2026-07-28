@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10763**
-- Total words: **625,955**
-- Findings: **23570** (critical 7309, high 7956, medium 3063, low 5242)
+- Audited conceptual sections: **10758**
+- Total words: **627,044**
+- Findings: **23554** (critical 7296, high 7929, medium 3066, low 5263)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -70,7 +70,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 911 | 44 | 43 | 10 | 13 | 2465 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 898 | 39 | 43 | 18 | 20 | 2345 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | D | 894 | 42 | 43 | 13 | 8 | 2504 | `docs/10-helm-and-cka/chart-dependencies.md` |
-| D | 894 | 40 | 47 | 11 | 8 | 1597 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
 | D | 889 | 41 | 37 | 21 | 24 | 2682 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
 | D | 889 | 42 | 41 | 14 | 12 | 2083 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | D | 888 | 35 | 47 | 16 | 33 | 3254 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
@@ -165,6 +164,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 579 | 24 | 27 | 15 | 18 | 1864 | `docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md` |
 | D | 579 | 23 | 18 | 19 | 72 | 5784 | `docs/13-security-and-identity/secrets-management.md` |
 | D | 578 | 26 | 25 | 5 | 41 | 4386 | `docs/11-cloud-and-aws/s3-ebs-efs.md` |
+| D | 577 | 27 | 20 | 14 | 29 | 2686 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
 | D | 569 | 23 | 17 | 24 | 50 | 3942 | `docs/13-security-and-identity/threat-modeling.md` |
 | D | 566 | 22 | 33 | 6 | 15 | 1920 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 566 | 25 | 25 | 10 | 27 | 2905 | `docs/11-cloud-and-aws/ecs-eks.md` |
@@ -11774,93 +11774,53 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md`
 
-- **CRITICAL** line 19, `bare-bullet-items` — **2. CloudWatch metrics**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespace,`, `metric name,`, `dimensions,`, `timestamp,`.
-- **CRITICAL** line 19, `outline-instead-of-explanation` — **2. CloudWatch metrics**: 14 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 45, `bare-bullet-items` — **3. Period, statistic a evaluation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `period,`, `statistic,`, `evaluation periods,`, `datapoints to alarm,`.
-- **CRITICAL** line 45, `outline-instead-of-explanation` — **3. Period, statistic a evaluation**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 67, `bare-bullet-items` — **4. Missing data**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource neposlal metric,`, `resource neexistuje,`, `agent zlyhal,`, `dimension sa zmenila,`.
-- **CRITICAL** line 67, `outline-instead-of-explanation` — **4. Missing data**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 80, `bare-bullet-items` — **5. CloudWatch alarms**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metric alarms,`, `composite alarms,`, `log-derived alarms podľa aktuálnych capabilities,`, `actions cez SNS, Auto Scaling alebo ďalšie integrácie.`.
-- **CRITICAL** line 80, `outline-instead-of-explanation` — **5. CloudWatch alarms**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 97, `bare-bullet-items` — **6. Composite alarms**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zníženie alert fatigue,`, `maintenance suppression,`, `korelácia symptom + dependency,`, `multi-signal incident condition.`.
-- **CRITICAL** line 97, `outline-instead-of-explanation` — **6. Composite alarms**: 4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 110, `bare-bullet-items` — **7. Dashboards**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business outcome,`, `service SLI,`, `dependency health,`, `resource saturation,`.
-- **CRITICAL** line 110, `outline-instead-of-explanation` — **7. Dashboards**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 124, `bare-bullet-items` — **8. CloudWatch Logs**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `log group,`, `log stream,`, `log event,`, `retention,`.
-- **CRITICAL** line 124, `outline-instead-of-explanation` — **8. CloudWatch Logs**: 13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 147, `bare-bullet-items` — **9. CloudWatch Logs Insights**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `filter status codes,`, `parse structured fields,`, `group by service/version,`, `analyze latency percentiles,`.
-- **CRITICAL** line 147, `outline-instead-of-explanation` — **9. CloudWatch Logs Insights**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 162, `bare-bullet-items` — **10. Metric filters a Embedded Metric Format**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `high-cardinality dimensions,`, `unbounded tenant/request IDs,`, `duplicate metrics,`, `delayed logs,`.
-- **CRITICAL** line 162, `outline-instead-of-explanation` — **10. Metric filters a Embedded Metric Format**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 177, `bare-bullet-items` — **11. CloudWatch agent**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS metrics,`, `application/system logs,`, `traces podľa konfigurácie,`, `StatsD alebo collectd inputs podľa supportu.`.
-- **CRITICAL** line 177, `outline-instead-of-explanation` — **11. CloudWatch agent**: 10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 197, `bare-bullet-items` — **12. Cross-account observability**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `monitoring account,`, `source-account enrollment,`, `least-privilege read/share,`, `naming a tagging,`.
-- **CRITICAL** line 197, `outline-instead-of-explanation` — **12. Cross-account observability**: 8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 214, `bare-bullet-items` — **13. CloudTrail events**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event time,`, `event source a name,`, `AWS Region,`, `source IP/user agent,`.
-- **CRITICAL** line 214, `outline-instead-of-explanation` — **13. CloudTrail events**: 10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 231, `empty-section` — **14. Management, data a network activity events**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 247, `bare-bullet-items` — **15. Event history**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `organization-wide trail,`, `dlhodobú retention,`, `immutable central log archive,`, `data events,`.
-- **CRITICAL** line 247, `outline-instead-of-explanation` — **15. Event history**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 259, `bare-bullet-items` — **16. Trails**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `multi-Region trail,`, `organization trail podľa modelu,`, `management events,`, `selektívne data events,`.
-- **CRITICAL** line 259, `outline-instead-of-explanation` — **16. Trails**: 9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 275, `bare-bullet-items` — **17. Organization trail**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted access/delegated admin podľa modelu,`, `log archive account,`, `bucket/key policies,`, `Region strategy,`.
-- **CRITICAL** line 275, `outline-instead-of-explanation` — **17. Organization trail**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 300, `bare-bullet-items` — **20. Integrita a ochrana audit logov**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `S3 bucket policy,`, `Object Lock/versioning podľa requirementu,`, `KMS key policy,`, `log-file validation,`.
-- **CRITICAL** line 300, `outline-instead-of-explanation` — **20. Integrita a ochrana audit logov**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 332, `bare-bullet-items` — **22. EventBridge integrácia**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alert,`, `automation,`, `ticket,`, `security response,`.
-- **CRITICAL** line 332, `outline-instead-of-explanation` — **22. EventBridge integrácia**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 344, `bare-bullet-items` — **23. Alarm design**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasný symptom alebo risk,`, `ownera,`, `severity,`, `actionable threshold,`.
-- **CRITICAL** line 344, `outline-instead-of-explanation` — **23. Alarm design**: 9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 376, `empty-section` — **25. Troubleshooting CloudWatch**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 394, `empty-section` — **26. Troubleshooting CloudTrail**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 412, `outline-instead-of-explanation` — **27. SOA-C03 mapovanie**: 12 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 45, `single-sentence-concept` — **3. Period, statistic a evaluation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 124, `single-sentence-concept` — **8. CloudWatch Logs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 177, `single-sentence-concept` — **11. CloudWatch agent**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 214, `single-sentence-concept` — **13. CloudTrail events**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 233, `single-sentence-concept` — **Management events**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 237, `single-sentence-concept` — **Data events**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 247, `single-sentence-concept` — **15. Event history**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 259, `single-sentence-concept` — **16. Trails**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 300, `single-sentence-concept` — **20. Integrita a ochrana audit logov**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 344, `single-sentence-concept` — **23. Alarm design**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 360, `single-sentence-concept` — **24. Automated remediation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 378, `single-sentence-concept` — **Alarm ostáva INSUFFICIENT DATA**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 382, `single-sentence-concept` — **Metric exists, alarm nereaguje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 386, `single-sentence-concept` — **Logs chýbajú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 390, `single-sentence-concept` — **Logs cost prudko rastie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 396, `single-sentence-concept` — **Event nenájdeš**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 400, `single-sentence-concept` — **Trail nedoručuje do S3**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 404, `single-sentence-concept` — **Organization account chýba**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 408, `single-sentence-concept` — **Kto vykonal zmenu nie je jasný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 412, `bare-bullet-items` — **27. SOA-C03 mapovanie**: 7 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `alarm používa chybnú dimension,`, `missing data je nesprávne považované za OK,`, `CloudWatch agent nemá IAM alebo endpoint path,`, `organization trail bucket policy blokuje delivery,`.
-- **HIGH** line 412, `list-first-introduction` — **27. SOA-C03 mapovanie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 412, `single-sentence-concept` — **27. SOA-C03 mapovanie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 432, `single-sentence-concept` — **Všetky metrics na jednom dashboarde**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 436, `single-sentence-concept` — **Infinite log retention bez klasifikácie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 440, `single-sentence-concept` — **CloudTrail Event history ako jediný audit archive**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 444, `single-sentence-concept` — **Alarm na priemernú latency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 448, `single-sentence-concept` — **Automatická remediation bez validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 452, `single-sentence-concept` — **CloudTrail vypnutý počas troubleshooting testu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 45, `thin-concept-section` — **3. Period, statistic a evaluation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 80, `term-before-explanation` — **5. CloudWatch alarms**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OK`, `ALARM`, `INSUFFICIENT`, `DATA`
-- **HIGH** line 80, `thin-concept-section` — **5. CloudWatch alarms**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 97, `thin-concept-section` — **6. Composite alarms**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 110, `thin-concept-section` — **7. Dashboards**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 124, `thin-concept-section` — **8. CloudWatch Logs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 177, `thin-concept-section` — **11. CloudWatch agent**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 197, `thin-concept-section` — **12. Cross-account observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 214, `term-before-explanation` — **13. CloudTrail events**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `IP`, `ID`, `identity`
-- **HIGH** line 214, `thin-concept-section` — **13. CloudTrail events**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 247, `thin-concept-section` — **15. Event history**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 259, `thin-concept-section` — **16. Trails**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 275, `thin-concept-section` — **17. Organization trail**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 300, `thin-concept-section` — **20. Integrita a ochrana audit logov**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 332, `thin-concept-section` — **22. EventBridge integrácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 344, `thin-concept-section` — **23. Alarm design**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 412, `term-before-explanation` — **27. SOA-C03 mapovanie**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `OK`, `IAM`, `policy`, `resource`
-- **HIGH** line 412, `thin-concept-section` — **27. SOA-C03 mapovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 85, `bare-bullet-items` — **2. CloudWatch odpovedá na otázku „ako sa systém správa“**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metrics pre bounded time-series;`, `Logs pre event records;`, `alarms ako evaluation state machines;`, `dashboards a investigations;`.
+- **CRITICAL** line 85, `outline-instead-of-explanation` — **2. CloudWatch odpovedá na otázku „ako sa systém správa“**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 115, `bare-bullet-items` — **4. Statistic a period menia význam signálu**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo sample znamená;`, `aký cohort pokrýva;`, `aká agregácia je správna;`, `aký delay a cadence sa očakáva;`.
+- **CRITICAL** line 136, `bare-bullet-items` — **5. Missing data je explicitný stav**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workload je idle a nič nepublikuje;`, `agent/exporter zlyhal;`, `resource prestal existovať;`, `dimension/schema sa zmenila;`.
+- **CRITICAL** line 160, `bare-bullet-items` — **6. Alarm je state machine**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metric/query identity;`, `period a statistic;`, `threshold/comparison;`, `evaluation periods;`.
+- **CRITICAL** line 259, `bare-bullet-items` — **10. Metric filters a Embedded Metric Format**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parser/schema change zastaví alebo zmení series;`, `duplicate log delivery môže skresliť count;`, `high-cardinality dimensions zvýšia cost;`, `delayed ingestion oneskorí alarm;`.
+- **CRITICAL** line 292, `bare-bullet-items` — **12. Centralizácia a cross-account observability**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account/Region coverage;`, `source enrollment;`, `least-privilege access;`, `naming a tags;`.
+- **CRITICAL** line 292, `outline-instead-of-explanation` — **12. Centralizácia a cross-account observability**: 8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 309, `bare-bullet-items` — **13. CloudTrail odpovedá na otázku „kto vykonal akú AWS operáciu“**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `eventTime ;`, `eventSource a eventName ;`, `Region;`, `userIdentity ;`.
+- **CRITICAL** line 327, `empty-section` — **14. Management, data a network activity events**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 343, `bare-bullet-items` — **15. Event history nie je dlhodobý audit archive**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ongoing trail;`, `organization-wide coverage;`, `data/network activity events;`, `dlhodobú retention;`.
+- **CRITICAL** line 377, `bare-bullet-items` — **17. Log-file integrity validation má presný význam**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že selector zachytával required event;`, `že trail bol vždy enabled;`, `že event service field obsahuje všetok business context;`, `že S3 retention/access model je správny;`.
+- **CRITICAL** line 419, `bare-bullet-items` — **20. Automated remediation je kontrolovaný change workflow**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact target generation;`, `max concurrency/error budget;`, `deduplication;`, `cooldown;`.
+- **CRITICAL** line 419, `outline-instead-of-explanation` — **20. Automated remediation je kontrolovaný change workflow**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 452, `bare-bullet-items` — **Competing hypotheses**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payment authorizations skutočne klesli na nulu;`, `metric publisher alebo log filter zlyhal;`, `dimension/schema sa zmenila;`, `ingestion mešká;`.
+- **CRITICAL** line 452, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 452, `outline-instead-of-explanation` — **Competing hypotheses**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 480, `no-prose-concept` — **Evidence-preserving containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 480, `outline-instead-of-explanation` — **Evidence-preserving containment**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 488, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 488, `outline-instead-of-explanation` — **Authoritative recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 498, `bare-bullet-items` — **Acceptance verdict**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `approved metric series publikuje v každom period-e;`, `alarm prechádza správne cez OK , ALARM , INSUFFICIENT DATA ;`, `exact business failure vyvolá jeden bounded remediation execution;`, `dashboard rozlišuje release/AZ a neagreguje poškodený cohort;`.
+- **CRITICAL** line 498, `outline-instead-of-explanation` — **Acceptance verdict**: 8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 513, `empty-section` — **22. Troubleshooting CloudWatch**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 531, `empty-section` — **23. Troubleshooting CloudTrail**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 549, `bare-bullet-items` — **24. Security, retention a cost**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `log group a archive policies;`, `KMS keys;`, `CloudTrail configuration;`, `delete/lifecycle permissions;`.
+- **CRITICAL** line 549, `outline-instead-of-explanation` — **24. Security, retention a cost**: 9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **HIGH** line 23, `single-sentence-concept` — **1. Exact observability a audit subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 136, `list-heavy-section` — **5. Missing data je explicitný stav**: 7 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 309, `list-heavy-section` — **13. CloudTrail odpovedá na otázku „kto vykonal akú AWS operáciu“**: 11 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 329, `single-sentence-concept` — **Management events**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 333, `single-sentence-concept` — **Data events**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 343, `list-heavy-section` — **15. Event history nie je dlhodobý audit archive**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 452, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 480, `bare-bullet-items` — **Evidence-preserving containment**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `alarm a execution history sa zachová;`, `healthy task cohort sa prestane zbytočne recyklovať;`, `business success sa overí nezávislým ledger/provider query;`.
+- **HIGH** line 480, `list-first-introduction` — **Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 488, `bare-bullet-items` — **Authoritative recovery**: 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `publisher aj alarm sa deploynú kompatibilne;`, `samostatný telemetry-freshness alarm sleduje expected emission;`, `business success alarm používa numerator/denominator a správny cohort;`, `remediation vyžaduje symptom + telemetry-validity precondition;`.
+- **HIGH** line 488, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 498, `single-sentence-concept` — **Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 523, `single-sentence-concept` — **Logs chýbajú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 537, `single-sentence-concept` — **Trail nedoručuje do S3**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 541, `single-sentence-concept` — **Actor nie je jasný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 419, `thin-concept-section` — **20. Automated remediation je kontrolovaný change workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 452, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 480, `thin-concept-section` — **Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 488, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 498, `term-before-explanation` — **Acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OK`, `ALARM`, `INSUFFICIENT`, `DATA`, `AZ`, `SLO`
 
 ### `docs/11-cloud-and-aws/cost-management-finops.md`
 
@@ -16324,19 +16284,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3015 | 441 | 0 | 0 | 3456 |
-| `outline-instead-of-explanation` | 2933 | 0 | 0 | 0 | 2933 |
-| `single-sentence-concept` | 0 | 2652 | 0 | 0 | 2652 |
-| `term-before-explanation` | 0 | 577 | 2064 | 0 | 2641 |
-| `thin-concept-section` | 0 | 2531 | 0 | 0 | 2531 |
-| `example-not-explicit` | 0 | 0 | 0 | 2097 | 2097 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2044 | 2044 |
-| `list-first-introduction` | 0 | 1306 | 0 | 0 | 1306 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1101 | 1101 |
-| `short-concept-section` | 0 | 0 | 999 | 0 | 999 |
-| `no-prose-concept` | 750 | 0 | 0 | 0 | 750 |
+| `bare-bullet-items` | 3010 | 442 | 0 | 0 | 3452 |
+| `outline-instead-of-explanation` | 2922 | 0 | 0 | 0 | 2922 |
+| `term-before-explanation` | 0 | 575 | 2063 | 0 | 2638 |
+| `single-sentence-concept` | 0 | 2633 | 0 | 0 | 2633 |
+| `thin-concept-section` | 0 | 2520 | 0 | 0 | 2520 |
+| `example-not-explicit` | 0 | 0 | 0 | 2107 | 2107 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2053 | 2053 |
+| `list-first-introduction` | 0 | 1307 | 0 | 0 | 1307 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1103 | 1103 |
+| `short-concept-section` | 0 | 0 | 1003 | 0 | 1003 |
+| `no-prose-concept` | 753 | 0 | 0 | 0 | 753 |
 | `empty-section` | 611 | 0 | 0 | 0 | 611 |
-| `list-heavy-section` | 0 | 449 | 0 | 0 | 449 |
+| `list-heavy-section` | 0 | 452 | 0 | 0 | 452 |
 
 ## Required remediation pattern
 
