@@ -1,777 +1,649 @@
 # Amazon RDS
 
-Amazon Relational Database Service je managed relational database platforma. AWS spravuje časť infrastructure a database lifecycle-u, ale zákazník stále vlastní schema, queries, indexing, connection behavior, data classification, access, backup requirements, recovery testy a application compatibility.
+Amazon Relational Database Service (RDS) presúva časť database infrastructure a lifecycle responsibility na AWS, ale neodstraňuje database engineering. AWS spravuje host, vybrané storage/replication mechanizmy, backups, maintenance orchestration a failover podľa deployment modelu. Zákazník stále vlastní schema, transaction semantics, queries, indexes, users/privileges, connection pools, retry/idempotency, data classification, compatibility, recovery objectives a business validation.
 
-RDS nie je „databáza bez prevádzky“. Je to presunutá responsibility boundary.
+RDS preto nie je „databáza bez prevádzky“. Je to managed control plane nad stále kritickým stateful data plane-om.
 
-## 1. Mentálny model
+Dominantný lifecycle:
 
 ```text
-application
-→ DNS endpoint
-→ network a TLS
-→ database listener
-→ DB engine
-→ storage a transaction log
+business transaction intent
+→ exact database release a endpoint subject
+→ DNS, network a TLS connection
+→ authentication a database authorization
+→ session a transaction begin
+→ reads/locks/writes/log records
+→ commit alebo rollback outcome
+→ synchronous HA a asynchronous read/DR replication
+→ application acknowledgement
+→ health, failover, scale alebo upgrade transition
+→ backup/PITR/restore realization
+→ data a business reconciliation
+→ old topology/generation retirement
 ```
 
-Riadiaca vrstva zahŕňa:
+Najnebezpečnejší stav nie je vždy jednoznačné `connection failed`. Je ním **unknown commit outcome**: application odošle commit, writer ho durable vykoná, ale connection sa preruší pred potvrdením. Slepý retry potom môže vytvoriť duplicate payment aj keď RDS failover fungoval presne podľa service contractu.
 
-- DB instance alebo DB cluster,
-- engine/version,
-- instance class,
-- storage,
-- subnet group,
-- Security Groups,
-- parameter a option groups,
-- backups a snapshots,
-- maintenance,
-- monitoring a events.
+## 1. Exact database subject
 
-Pri incidente oddeľ:
+Atlas Payments používa database subject `DB-PAY-42`:
 
-- AWS control-plane state,
-- network path,
-- authentication/authorization,
-- database engine state,
-- query/workload behavior,
-- storage/replication,
-- application connection handling.
+```text
+account = 100000000042
+Region = eu-central-1
+engine = PostgreSQL-compatible RDS deployment
+engine generation = PG-16-GEN-7
 
-## 2. Supported engines a service variants
+deployment model = Multi-AZ DB cluster
+cluster = db-pay-prod-17
+writer endpoint = db-pay-prod.cluster-xyz.eu-central-1.rds.amazonaws.com
+reader endpoint = db-pay-prod.cluster-ro-xyz.eu-central-1.rds.amazonaws.com
+writer instance = db-pay-prod-a / AZ-a
+readers = db-pay-prod-b / AZ-b, db-pay-prod-c / AZ-c
 
-RDS podporuje viac relational engines podľa aktuálnej Region/version availability, napríklad:
+DB subnet group generation = DBSUB-12
+DB Security Group generation = SG-DB-14
+parameter group generation = PGPAR-21
+certificate/trust generation = RDS-CA-8
+KMS key generation = KMS-DB-11
+secret generation = SEC-DB-34
+schema generation = SCHEMA-215
 
-- PostgreSQL,
-- MySQL,
-- MariaDB,
-- Oracle,
-- Microsoft SQL Server,
-- Db2,
-- ďalšie engine-specific variants podľa AWS ponuky.
+application fleet = payments-api release 7.15.0
+connection path = application pool → RDS Proxy generation PROXY-9 → writer endpoint
+transaction = payment P-884
+idempotency key = pay-P884
 
-Amazon Aurora je relational managed service kompatibilný s vybranými MySQL/PostgreSQL interfaces, ale má odlišný storage, replication a cluster model. Aurora patrí do samostatnej hlbšej témy, hoci veľa operational princípov je spoločných.
+business outcome =
+  payment authorization and ledger row commit exactly once
 
-RDS Custom poskytuje väčšiu OS/database kontrolu pre vybrané engines, ale posúva viac responsibility späť na zákazníka.
+forbidden outcomes =
+  read-after-write routed to stale replica when consistency is required
+  retry duplicates a committed payment after lost response
+  failover is declared successful only because console says Available
+  backup is accepted without restore and schema/business validation
+  upgrade cutover leaves blue and green writable without authority
+  application uses master user or hard-coded endpoint IP
+```
 
-## 3. DB instance
+Incident evidence musí obsahovať endpoint hostname a resolved IP timeline, actual writer/reader identities, engine/schema/parameter generation, session/transaction ID, application idempotency key, RDS events, connection-pool/proxy state, query/lock evidence, commit acknowledgement a business ledger result.
 
-DB instance je isolated database environment s konkrétnou:
+## 2. Connection path má viac nezávislých gates
 
-- instance class,
-- engine/version,
-- storage configuration,
-- VPC/subnet placement,
-- parameter/option groups,
-- backup/maintenance policy.
+Application request prejde cez:
 
-Instance class ovplyvňuje:
+```text
+endpoint DNS
+→ client route a database subnet path
+→ DB Security Group/NACL
+→ TLS handshake a hostname validation
+→ authentication
+→ database role/privileges
+→ connection/session limits
+→ transaction/query execution
+→ commit/response
+```
 
-- vCPU,
-- memory,
-- network bandwidth,
-- EBS/storage bandwidth,
-- maximum connection a cache behavior nepriamo cez engine.
+Symptómy zužujú failure boundary:
 
-Vertical scaling môže vyžadovať reboot alebo failover podľa modification a deployment modelu.
+- timeout môže byť DNS, route, SG/NACL, failover, connection saturation alebo listener backlog;
+- TLS error dokazuje, že transport sa dostal ďalej, ale trust/protocol contract zlyhal;
+- password/token failure znamená, že network/listener pravdepodobne fungujú;
+- `permission denied` je database authorization, nie Security Group;
+- slow query alebo lock wait nie je automaticky storage/instance shortage.
 
-## 4. DB subnet group
+Administratívny test z bastionu ako master user môže maskovať application role, proxy, secret, endpoint aj network context. Test sa vykonáva s exact production identity a pathom.
 
-DB subnet group je kolekcia subnets, ktoré môže RDS použiť pre database placement.
+## 3. Endpoint je logical identity nad meniacim sa writerom
 
-Production návrh typicky obsahuje subnets vo viacerých Availability Zones.
-
-RDS DB instance nemá patriť do public subnetu iba preto, že application nevie správne routovať private traffic. Preferuj private addressing a explicitnú application/admin access cestu.
-
-Over:
-
-- subnet free IP capacity,
-- route tables,
-- Security Groups,
-- NACLs,
-- DNS resolution,
-- Multi-AZ coverage.
-
-## 5. Endpoint a DNS
-
-Application sa pripája cez RDS endpoint.
-
-Pri failover-e sa endpoint nemení logicky, ale DNS mapping sa presmeruje na nový primary/writer.
+RDS endpoint je DNS name, ktorý service mapuje na current database resource. Pri Multi-AZ failover-e sa logical endpoint zachová, ale DNS mapping sa zmení na nový primary/writer.
 
 Application musí:
 
-- používať DNS name, nie cached IP,
-- mať rozumný DNS TTL/cache behavior,
-- reconnectovať po broken connection,
-- používať bounded retries a backoff,
-- znovu vytvoriť transaction podľa idempotency contractu.
+```text
+používať hostname, nie uloženú IP
+→ rešpektovať primeraný DNS cache/TTL model
+→ detegovať broken existing connections
+→ vytvoriť nové connections
+→ znovu autentizovať
+→ bezpečne rozhodnúť o incomplete transaction
+```
 
-Connection pool môže držať stale connections aj po DNS zmene. Failover test musí overiť pool recovery, nie iba console stav `available`.
+Connection pool môže držať stale sockets aj po DNS zmene. DNS refresh bez pool eviction nepomôže. Opačne, agresívne reconnectovanie všetkých application instances môže po failover-e vytvoriť connection storm a spomaliť recovery.
 
-## 6. Single-AZ
+Writer endpoint sa používa pre writes a consistency-sensitive reads. Reader endpoint rozdeľuje connections medzi readable replicas podľa service semantics; nie je transaction-level guarantee čerstvosti. Application musí explicitne rozhodnúť, ktoré reads tolerujú replication lag.
 
-Single-AZ deployment používa jednu active DB instance v jednej AZ.
+## 4. Deployment model určuje HA a read contract
 
-Vhodné môže byť pre:
+### Single-AZ
 
-- development,
-- noncritical workload,
-- cost-sensitive environment s akceptovaným recovery time.
+Jedna active DB instance v jednej AZ. Je vhodná iba keď workload akceptuje host/AZ/maintenance downtime a recovery z backupu alebo replacementu. Backup nie je okamžitý failover.
 
-Riziká:
+### Multi-AZ DB instance deployment
 
-- host/AZ failure vyžaduje recovery,
-- maintenance môže znamenať downtime,
-- vyšší RTO než Multi-AZ,
-- backup restore nie je okamžitý failover.
+Klasický model používa primary a synchronously maintained standby v inej AZ. Standby je failover resource a typicky neobsluhuje application reads. Pri failure alebo podporovanej maintenance operation RDS presmeruje endpoint na standby.
 
-## 7. Multi-AZ DB instance deployment
+```text
+primary writer
+→ synchronous standby state
+→ failure detection
+→ standby promotion
+→ endpoint DNS change
+→ application reconnect
+```
 
-Klasický Multi-AZ DB instance model má primary a synchronous standby v inej AZ.
+Multi-AZ standby rieši availability, nie read scaling ani cross-Region DR.
 
-Standby:
+### Multi-AZ DB cluster
 
-- poskytuje failover support,
-- neobsluhuje read traffic,
-- je spravovaný RDS.
+Pri podporovaných engines/configurations používa writer a dve readable DB instances v troch AZs. Poskytuje writer a reader endpoint, readable standbys a odlišný failover/performance/cost model než single-standby deployment.
 
-Použitie:
+```text
+writer in AZ-a
++ readable candidates in AZ-b/c
+→ failure detection
+→ eligible reader promotion
+→ writer endpoint remap
+→ remaining cluster topology recovery
+```
 
-- high availability,
-- planned maintenance resilience,
-- host/storage/AZ failure recovery.
+Failover duration závisí aj od database activity, crash recovery a replica state. „Tri instances“ neznamenajú, že application connection pool a transaction retry sú pripravené.
 
-Multi-AZ standby nie je read-scaling solution.
+### Aurora a RDS Custom
 
-Failover môže nastať pri:
+Aurora používa odlišný cluster/storage/replication architecture a nemožno naň mechanicky preniesť všetky RDS DB instance assumptions. RDS Custom vracia zákazníkovi väčšiu OS/database kontrolu a tým aj väčšiu operational responsibility. Táto kapitola používa common RDS principles a vždy vyžaduje engine/deployment-specific dokumentáciu.
 
-- host impairment,
-- network loss,
-- storage failure,
-- maintenance,
-- customer-triggered reboot/failover,
-- configuration modification podľa operation.
+## 5. Read replicas sú asynchronous data products
 
-## 8. Multi-AZ DB cluster deployment
+Read replica prijíma changes zo source asynchrónne. Je vhodná na read scaling, reporting, geografické reads, migration a niektoré DR promotion workflows.
 
-Multi-AZ DB cluster používa writer a dve readable DB instances v troch AZ pri podporovaných engines/configurations.
+```text
+source commit
+→ replication stream/log
+→ network/queue
+→ replica apply
+→ read visibility
+```
 
-Vlastnosti:
+Replica lag znamená, že `SELECT` môže vrátiť starší state. Business tolerance sa líši:
 
-- writer endpoint,
-- reader endpoint,
-- readable standbys,
-- rýchlejší failover target model než klasický single-standby pattern v typických podmienkach,
-- odlišné instance/storage requirements a cost.
+- produktový katalóg môže tolerovať sekundy;
+- stav práve vykonanej platby často nie;
+- reporting môže tolerovať minúty, ale nie chýbajúci audit interval.
 
-Nezamieňaj Multi-AZ DB cluster s Aurora clusterom; ide o odlišné produkty a architecture contracts.
+Read replica nie je automatický synchronous failover writer. Promotion mení topology, endpoint, data authority a často preruší pôvodnú replication relation. DR runbook musí definovať RPO, writer fencing, application cutover a failback/reconciliation.
 
-## 9. Read replicas
+## 6. Multi-AZ, read scaling a DR sú tri osi
 
-Read replica používa asynchronous replication zo source database.
-
-Use cases:
-
-- read scaling,
-- reporting,
-- geograficky bližšie reads,
-- migration,
-- DR primitive pri promotion workflowu.
-
-Read replica nie je automaticky HA standby primary database.
-
-Riziká:
-
-- replication lag,
-- stale reads,
-- replay error,
-- source load,
-- promotion mení topology a recovery contract,
-- application musí vedieť oddeliť read/write endpoints.
-
-Monitoring lag je business consistency requirement, nie iba infrastructure metric.
-
-## 10. Multi-AZ vs read replica
-
-| Vlastnosť | Multi-AZ standby | Read replica |
+| Požiadavka | Typický mechanismus | Čo sám nerieši |
 |---|---|---|
-| Primárny účel | HA/failover | read scaling/DR primitive |
-| Replication | synchronous alebo managed HA model podľa deploymentu | asynchronous |
-| Read traffic | nie pri klasickom standby; áno pri Multi-AZ DB cluster readers | áno |
-| Automatic failover target | áno | typicky nie ako bežný source failover mechanismus |
-| Stale reads | nie pre primary endpoint semantics | možné podľa lag |
+| AZ/high-availability failover | Multi-AZ DB instance alebo Multi-AZ DB cluster | Region loss, logical corruption, account compromise |
+| Read scaling | readable Multi-AZ cluster instances alebo read replicas | write HA semantics a fresh read guarantee |
+| Point-in-time recovery | automated backups + transaction logs | okamžitý in-place rollback |
+| Cross-Region DR | snapshot/backup copy, cross-Region replica alebo engine-specific strategy | application/network/DNS readiness |
+| Low-downtime upgrade | Blue/Green Deployment pri supported model-e | business rollback po green writes |
 
-Správny návrh môže používať obe vrstvy.
+„Máme Multi-AZ“ preto nie je odpoveď na RPO po `DROP TABLE`, ransomware credential misuse alebo Region-wide incident.
 
-## 11. Automated backups
+## 7. Transaction commit a unknown outcome
 
-Automated backups poskytujú point-in-time recovery v rámci configured retention a engine capabilities.
-
-Obsahujú:
-
-- periodic storage snapshots,
-- transaction logs potrebné pre PITR,
-- retention-managed recovery window.
-
-Over:
-
-- retention period,
-- earliest/latest restorable time,
-- backup window,
-- storage impact,
-- encryption,
-- Region/account recovery requirements,
-- deletion behavior.
-
-PITR vytvára novú DB instance/cluster. Neprepíše existujúcu database „na mieste“.
-
-## 12. Manual snapshots
-
-Manual snapshot zostáva, kým ho explicitne neodstrániš podľa policy.
-
-Použitie:
-
-- release checkpoint,
-- long-term retention,
-- migration,
-- cross-Region/account copy,
-- isolated restore test.
-
-Snapshot obsahuje database storage state, nie automaticky všetky surrounding dependencies:
-
-- users/secrets mimo DB,
-- DNS/application config,
-- Security Groups,
-- parameter groups,
-- IAM roles,
-- external object storage,
-- downstream systems.
-
-## 13. Backup consistency
-
-RDS koordinuje engine/storage backup podľa service behavioru, ale application business consistency môže vyžadovať ďalšie kroky.
-
-Príklady:
-
-- coordinated snapshot s external object store,
-- pause alebo checkpoint queue consumers,
-- capture schema migration version,
-- preserve encryption keys a secrets,
-- document application release compatibility.
-
-Database restore sám neobnoví distributed business transaction naprieč ďalšími services.
-
-## 14. Storage
-
-RDS storage options závisia od engine a deployment modelu.
-
-Dimensions:
-
-- allocated storage,
-- storage type,
-- provisioned IOPS,
-- throughput,
-- storage autoscaling,
-- maximum storage threshold.
-
-Storage autoscaling zvyšuje allocated storage pri nedostatku capacity podľa service rules. Nezmenšuje ju automaticky a nevyrieši zlý query/index alebo transaction-log growth model.
-
-Storage full môže zablokovať writes, maintenance alebo replication. Alarmuj s headroomom, nie až pri 100 %.
-
-## 15. Parameter groups
-
-DB parameter group definuje engine configuration.
-
-Parameters môžu byť:
-
-- dynamic,
-- static/pending reboot,
-- engine/version specific.
-
-Zmena custom parameter group nemusí ovplyvniť všetky instances okamžite.
-
-Pred zmenou:
-
-- over parameter scope a units,
-- testuj na rovnakom engine version,
-- zachovaj previous group/version,
-- sleduj `pending-reboot`,
-- vyhodnoť memory/connection dopad.
-
-## 16. Option groups
-
-Option groups povoľujú engine-specific features pre vybrané engines.
-
-Option môže:
-
-- vyžadovať restart,
-- vytvoriť network/security dependency,
-- byť permanentná alebo ťažko odstrániteľná,
-- meniť licensing/cost.
-
-Používaj engine-specific dokumentáciu.
-
-## 17. Maintenance a upgrades
-
-RDS vykonáva service maintenance a umožňuje engine upgrades podľa support policy.
-
-Rozlišuj:
-
-- minor version upgrade,
-- major version upgrade,
-- OS/platform maintenance,
-- certificate rotation,
-- parameter/option changes,
-- instance/storage modification.
-
-Maintenance window je preferovaný čas, nie absolútna garancia, že urgentná security alebo retirement action nikdy nenastane mimo neho.
-
-Pred upgrade-om:
-
-- over extension/plugin compatibility,
-- parameter groups,
-- application drivers,
-- deprecated features,
-- read replicas,
-- backup/snapshot,
-- rollback alebo restore path,
-- downtime/failover behavior.
-
-## 18. Blue/green deployments
-
-RDS Blue/Green Deployments pri podporovaných engines a configurations vytvára synchronizované staging environment pre zmenu a controlled switchover.
-
-Vhodné pre:
-
-- major/minor upgrades,
-- parameter changes,
-- schema/application validation,
-- reduced-downtime cutover.
-
-Nie je to automatická business rollback garancia. Po writes do green environmentu môže návrat na blue vyžadovať data reconciliation.
-
-Over current engine/Region limitations.
-
-## 19. Encryption at rest
-
-RDS encryption používa KMS key pre storage, snapshots, backups a replicas podľa service modelu.
-
-Dôležité:
-
-- encryption sa typicky volí pri creation,
-- encrypted snapshot copy môže použiť iný key,
-- cross-account restore potrebuje snapshot a KMS permissions,
-- key disable/deletion môže znemožniť database access alebo recovery,
-- AWS-managed a customer-managed keys majú odlišný governance model.
-
-KMS key je súčasť recovery dependency graphu.
-
-## 20. Encryption in transit
-
-Používaj TLS a over server certificate.
-
-Application musí mať:
-
-- aktuálny RDS CA bundle/trust,
-- hostname verification,
-- driver podporujúci TLS policy,
-- certificate rotation process.
-
-`sslmode=require` bez identity verification môže byť slabší contract než full certificate/hostname validation podľa drivera.
-
-## 21. Authentication
-
-Možnosti závisia od engine:
-
-- database-native users/passwords,
-- IAM database authentication,
-- Kerberos/Directory integration pri podporovaných use cases,
-- Secrets Manager rotation.
-
-IAM DB auth používa krátkodobý token, ale database authorization stále riadi database account/privileges.
-
-Nepoužívaj master user ako application runtime identity.
-
-## 22. Secrets rotation
-
-Rotation musí koordinovať:
-
-- database credential change,
-- secret version stages,
-- connection-pool refresh,
-- application retry,
-- rollback/failure handling.
-
-Chybná rotation môže vytvoriť split state: database má nové heslo, application číta starú secret version.
-
-Testuj rotation ako workflow, nie iba Lambda success status.
-
-## 23. RDS Proxy a connection pooling
-
-RDS Proxy alebo application pool môže znížiť connection churn a chrániť database pri bursty/serverless clients.
-
-Trade-offy:
-
-- additional cost,
-- transaction/session pinning,
-- authentication integration,
-- failure behavior,
-- observability layer navyše.
-
-Connection proxy nevyrieši pomalé queries ani príliš vysokú concurrent transaction demand bez capacity planningu.
-
-## 24. Connections
-
-Database connection limit závisí od engine, instance memory a configuration.
-
-Monitoruj:
-
-- current connections,
-- active vs idle,
-- connection creation rate,
-- pool size per application instance,
-- transaction duration,
-- lock wait,
-- failover reconnect storm.
-
-Príklad nebezpečného scalingu:
+Relational transaction vytvára atomic engine-level boundary pre zahrnuté database changes. Application-level operation však môže zasahovať aj payment provider, queue, S3 receipt alebo downstream event.
 
 ```text
-100 application instances × pool 100
-= až 10 000 DB connections
+BEGIN
+→ validate idempotency key
+→ write payment/ledger/outbox
+→ COMMIT sent
+→ writer durably commits
+→ acknowledgement returned
 ```
 
-Auto Scaling application môže preťažiť database aj pri nízkej CPU.
-
-## 25. Query performance
-
-Infrastructure scaling nenahrádza database engineering.
-
-Analyzuj:
-
-- slow queries,
-- indexes,
-- execution plans,
-- locks/deadlocks,
-- transaction duration,
-- buffer/cache hit,
-- temp/sort usage,
-- I/O latency,
-- vacuum/maintenance podľa engine,
-- replication lag.
-
-Vertical scale môže dočasne maskovať regresiu.
-
-## 26. Monitoring vrstvy
-
-### CloudWatch metrics
-
-Napríklad:
-
-- CPUUtilization,
-- FreeableMemory,
-- FreeStorageSpace,
-- DatabaseConnections,
-- Read/WriteIOPS,
-- Read/WriteLatency,
-- DiskQueueDepth,
-- ReplicaLag,
-- Network throughput.
-
-### Enhanced Monitoring
-
-Poskytuje OS-level metrics z managed host perspective podľa configured interval a permissions.
-
-### Database performance telemetry
-
-Performance Insights alebo aktuálne database observability capabilities poskytujú query/load dimensions podľa engine/service version.
-
-### Logs
-
-Export engine logs do CloudWatch Logs podľa supportu:
-
-- error,
-- slow query,
-- general/audit,
-- PostgreSQL logs,
-- agent/upgrade logs podľa engine.
-
-### Events
-
-RDS events signalizujú failover, backup, maintenance, restart, storage a configuration zmeny.
-
-## 27. Event subscriptions
-
-Event subscriptions môžu publikovať notifications pre:
-
-- DB instance,
-- cluster,
-- snapshot,
-- parameter/security group,
-- failover/maintenance categories.
-
-Event nie je vždy alarm. Koreluj s metrics, CloudTrail a application impactom.
-
-## 28. High availability test
-
-Kontrolovaný failover test má overiť:
-
-- DNS refresh,
-- connection pool recovery,
-- transaction retry,
-- application health,
-- monitoring/alerting,
-- event delivery,
-- replica/read routing,
-- recovery time.
-
-Failover počas nízkeho trafficu bez application telemetry nepreukazuje production readiness.
-
-## 29. Disaster recovery
-
-Možnosti:
-
-- snapshot copy do iného Regionu/accountu,
-- cross-Region read replica pri podporovanom engine,
-- AWS Backup copy,
-- logical dumps/engine-native backup,
-- pilot-light/warm-standby application environment.
-
-DR potrebuje:
-
-- KMS keys,
-- subnet/security reconstruction,
-- parameter/option groups,
-- secrets,
-- DNS cutover,
-- application config,
-- runbook a restore test.
-
-Multi-AZ nie je cross-Region DR.
-
-## 30. Deletion protection a final snapshot
-
-Deletion protection znižuje riziko accidental delete cez API/console.
-
-Pri delete operation over:
-
-- final snapshot,
-- automated-backup retention,
-- read replicas,
-- cross-Region dependencies,
-- secrets a DNS,
-- compliance retention,
-- KMS key lifecycle.
-
-Deletion protection nie je ochrana pred authorized data corruption alebo `DROP TABLE`.
-
-## 31. Troubleshooting connection timeout
-
-Postup:
+Ak connection zlyhá medzi durable commitom a acknowledgementom, client nevie, či commit prešiel. Bez idempotency/reconciliation:
 
 ```text
-endpoint/port/Region
-→ DNS resolution
-→ client route
-→ DB subnet/route
-→ Security Group source
-→ NACL return path
-→ DB status/listener
-→ TLS/authentication
+timeout
+→ retry whole operation
+→ second provider authorization alebo second ledger insert
+→ duplicate side effect
 ```
 
-Typické príčiny:
+Bezpečný pattern používa unique idempotency constraint, transactional outbox, provider request ID a read/reconcile pred retryom. RDS high availability znižuje infrastructure downtime, ale exactly-once business outcome musí navrhnúť application.
 
-- application SG nie je povolená v DB SG,
-- wrong VPC/peering/TGW route,
-- private endpoint z internetu,
-- NACL blokuje return traffic,
-- DNS cached old address počas failover,
-- DB modifying/rebooting,
-- connection limit/backlog.
+## 8. Connection pools a RDS Proxy
 
-## 32. Troubleshooting authentication failure
+Každá application instance s vlastným veľkým poolom násobí total database connections:
 
-Rozlišuj:
+```text
+12 instances × pool 100 = 1 200 possible connections
+24 instances po scale-out-e × 100 = 2 400
+```
 
-- network connection funguje, ale credentials sú zlé,
-- database user nemá privilege,
-- IAM token expired alebo wrong Region/hostname,
-- TLS requirement,
-- Secrets Manager rotation mismatch,
-- database account locked/expired,
-- proxy auth configuration.
+Database môže mať nízku CPU a zlyhávať na connection memory, process/thread limit, lock contention alebo authentication churn.
 
-Test administratívnym superuserom môže maskovať application privilege problém.
+Application pool musí definovať:
 
-## 33. Troubleshooting high CPU
+- minimum/maximum per instance;
+- connection lifetime a validation;
+- idle timeout;
+- acquisition timeout;
+- failover eviction/reconnect;
+- transaction/session state reset;
+- total fleet budget.
 
-Postup:
+RDS Proxy môže multiplexovať a zdieľať database connections, znížiť connection churn a pomôcť bursty/serverless clients. Pridáva však ďalšiu identity, endpoint, metric, cost a failure boundary. Session/transaction features môžu pin-nuť client k backend connection a znižovať multiplexing. Proxy neopraví slow query ani nekonečnú concurrent transaction demand.
 
-- koreluj DB load a queries,
-- over connection count,
-- slow/expensive plans,
-- locks a retries,
-- maintenance tasks,
-- replica lag,
-- application release,
-- instance class saturation.
+Blue/Green a Proxy interaction má service-specific workflow; topology sa musí overiť pri vytvorení aj switchover-e, nie predpokladať podľa názvu endpointu.
 
-Nezvyšuj instance class skôr, než zachováš query evidence. Scale-up môže zmeniť symptom a stratiť root cause.
+## 9. Authentication a runtime identity
 
-## 34. Troubleshooting high I/O latency
+Možnosti závisia od engine a deploymentu:
 
-Over:
+- database-native user/password;
+- IAM database authentication;
+- Secrets Manager-managed credentials/rotation;
+- directory/Kerberos integrations pri supported use cases.
 
-- storage type/IOPS/throughput,
-- queue depth,
-- read/write mix,
-- large scans,
-- checkpoints/flush,
-- backup window,
-- storage full/headroom,
-- instance EBS/network capacity,
-- burst behavior.
+IAM DB authentication vytvára krátkodobý authentication token, ale database role a grants stále rozhodujú authorization. Application nemá používať master user; runtime identity má iba required schema/actions.
 
-Query plan alebo missing index môže byť primárnou príčinou infrastructure metricu.
+TLS contract obsahuje current RDS CA bundle, hostname verification, driver support a certificate rotation. Nastavenie typu `require encryption` bez server identity validation môže byť slabšie než full trust/hostname verification.
 
-## 35. Troubleshooting replica lag
+## 10. Secret rotation je distributed state transition
 
-Over:
+Credential rotation mení database aj consumers:
 
-- write volume,
-- long transactions,
-- replica compute/storage capacity,
-- network/Region latency,
-- replication errors,
-- read workload na replica,
-- engine-specific apply threads,
-- maintenance/reboot.
+```text
+new database credential prepared
+→ new secret version/stage
+→ application/proxy obtains new value
+→ new connections authenticate
+→ old connections drain
+→ old credential revoked
+→ verification a cleanup
+```
 
-Application musí definovať maximum tolerované stale read. `ReplicaLag=30s` je business problém iba podľa konkrétneho use case.
+Failure môže vytvoriť split state: DB očakáva nové heslo, application číta starú version; alebo oba credentials zostanú platné bez expiry. Rotation Lambda success nepreukazuje, že application pool obnovil connections a starý credential je revoked.
 
-## 36. Troubleshooting failover
+Safe test používa exact application role, new connection, expected SQL privilege a forbidden privilege. Rollback musí rešpektovať, či database credential change už prebehla a ktoré clients držia staré sessions.
 
-Zachovaj:
+## 11. Subnet, Security Group a private access
 
-- RDS events,
-- old/new AZ,
-- DNS resolution timeline,
-- application connection errors,
-- pool/retry behavior,
-- transaction failures,
-- failover duration,
-- replica/standby state.
+DB subnet group poskytuje candidate subnets/AZs pre RDS placement a failover. Production potrebuje free IP headroom vo všetkých relevantných AZs, correct routes, DNS a SG/NACL path.
 
-Po failover-e over business writes a idempotency, nie iba TCP connection.
+Database nemá byť public iba preto, že application/admin connectivity nie je navrhnutá. Bežný contract:
 
-## 37. Troubleshooting storage full
+```text
+application SG
+→ DB SG TCP engine-port
+→ private RDS endpoint
+```
 
-Immediate actions závisia od engine a safety:
+Admin access ide cez controlled bastion, SSM/port-forwarding, VPN alebo iný approved path. Public accessibility, subnet route a SG allow sú samostatné podmienky; flag sám nevytvorí ani neodstráni celý internet path.
 
-- zastaviť nekontrolovaný growth,
-- zvýšiť storage/max threshold,
-- odstrániť bezpečne nepotrebné data/logs podľa engine,
-- optimalizovať retention,
-- obnoviť service headroom.
+## 12. Storage a capacity envelope
 
-Nemaž database files priamo. Managed host/filesystem nie je customer-administered storage.
+RDS storage options sa líšia podľa engine/deployment modelu. Capacity zahŕňa allocated storage, storage type, IOPS, throughput, transaction-log growth a instance storage/network bandwidth.
 
-## 38. Cost model
+Storage autoscaling môže zvýšiť allocated storage do configured maximum. Nezmenšuje storage a neopraví:
 
-Cost drivers:
+- missing index/full table scans;
+- long transactions zadržiavajúce logs/vacuum;
+- runaway audit/temp data;
+- zle nastavenú retention;
+- instance I/O bandwidth limit.
 
-- instance hours,
-- Multi-AZ/reader instances,
-- allocated storage,
-- provisioned IOPS/throughput,
-- backup storage nad included allowance,
-- snapshot copy/data transfer,
-- Enhanced Monitoring/logs,
-- RDS Proxy,
-- licenses,
-- cross-Region replication.
+Alarm musí používať headroom a growth rate. Pri 100 % full môže engine stratiť schopnosť writes, maintenance aj replication. Pri incident-e sa database files na managed hoste nemažú ručne; používa sa engine/service-safe remediation.
 
-Right-sizing musí brať do úvahy failover capacity a peak, nie iba priemernú CPU.
+## 13. Query, lock a memory model
 
-## 39. SOA-C03 mapovanie
+Infrastructure metrics sú následky workloadu. Query lifecycle:
 
-- **Domain 1** — RDS metrics, logs, events, query/performance diagnosis,
-- **Domain 2** — Multi-AZ, backups, PITR, read replicas a DR,
-- **Domain 3** — parameter groups, maintenance, upgrades, blue/green, automated provisioning,
-- **Domain 4** — KMS, TLS, IAM DB auth, Secrets Manager a least privilege,
-- **Domain 5** — subnet groups, Security Groups, DNS endpoints a connectivity.
+```text
+parse/plan
+→ acquire locks/snapshot
+→ read pages/index
+→ compute/sort/temp
+→ write/log/flush
+→ commit
+```
 
-Praktické drilly:
+High CPU môže byť expensive plan, connection storm, vacuum/maintenance alebo retry amplification. High I/O latency môže byť storage cap, large scans, checkpoints alebo cold cache. Low CPU s vysokou latency môže znamenať lock wait alebo external I/O.
 
-- SG blokuje application,
-- failover a stale connection pool,
-- storage autoscaling max threshold,
-- read-replica lag,
-- KMS-denied snapshot restore,
-- secret rotation mismatch,
-- parameter change pending reboot.
+Pred scale-upom zachovaj query text/fingerprint, execution plan, wait events, locks, transaction duration, buffer/cache behavior a release timeline. Vertical scaling môže odstrániť symptom a zároveň zničiť discriminating evidence.
 
-## 40. Anti-patterny
+Read replica lag sa analyzuje cez source write volume, long transactions, apply capacity, network latency, replica read load a engine errors. Metric sa interpretuje cez business stale-read budget.
 
-### Multi-AZ považované za read scaling
+## 14. Parameter a option generation
 
-Klasický standby neobsluhuje reads.
+Parameter group je versionovaný engine configuration input. Parameters môžu byť dynamic alebo vyžadovať reboot. Console association neznamená, že static parameter je runtime effective; sleduj pending-reboot a actual engine value.
 
-### Read replica považovaná za synchronous failover
+Option groups pri vybraných engines aktivujú engine-specific features, ktoré môžu vytvoriť network, restart, licensing alebo irreversible compatibility constraints.
 
-Replication lag a promotion sú odlišné od Multi-AZ HA.
+Safe change:
 
-### Endpoint IP uložená v configuration
+```text
+engine/version-specific parameter intent
+→ units/scope/default comparison
+→ memory/connection/performance model
+→ test on equivalent topology
+→ new group generation
+→ canary/apply/reboot or failover
+→ runtime effective-value verification
+→ query/business validation
+```
 
-Failover mení DNS mapping.
+Ručná zmena shared parameter group môže ovplyvniť viac DB resources. Immutable/new group generation zlepšuje rollback a provenance.
 
-### Master user ako application account
+## 15. Automated backups, snapshots a PITR
 
-Zväčšuje blast radius.
+Automated backups kombinujú snapshots a transaction logs tak, aby umožnili point-in-time recovery v retention window podľa engine/service contractu.
 
-### Backup bez restore testu
+PITR vytvorí nový DB instance/cluster:
 
-RPO/RTO a dependency completeness nie sú overené.
+```text
+select exact restore timestamp
+→ restore base state + logs
+→ create new DB resource
+→ attach parameter/subnet/SG/KMS dependencies
+→ verify schema/data
+→ application reconciliation
+→ controlled DNS/config cutover
+```
 
-### Maximum connection pool na každej auto-scaled instance
+PITR nie je in-place rewind. Existing broken database zostáva samostatný subject, kým ju operator explicitne neodstráni.
 
-Preťaží database pri scale-out-e.
+Manual snapshot je durable restore point s explicitným retention lifecycle-om. Snapshot nezahŕňa automaticky application secrets, DNS, SG, parameter/option groups, IAM roles, external S3 objects, queues ani release compatibility.
 
-### Scale-up namiesto query analýzy
+Backup consistency na business úrovni môže vyžadovať coordinated checkpoint s outbox/queue/external provider state. Database restore sám nevráti distributed transaction do jedného konzistentného momentu.
 
-Maskuje regressions a zvyšuje cost.
+## 16. Restore acceptance
 
-### Multi-AZ považované za DR
+Restore experiment meria viac než `DB available`:
 
-Nepokrýva Region, logical corruption ani account compromise.
+```text
+backup/snapshot selection
+→ KMS and permissions
+→ resource creation
+→ parameter/extension/schema compatibility
+→ network/TLS/secret path
+→ engine recovery
+→ data checksum/count/invariants
+→ read/write canary
+→ application release compatibility
+→ performance warmup
+→ RPO/RTO verdict
+```
 
-## 41. Kontrolné otázky
+Positive test overí payment lookup, idempotent write a outbox processing. Forbidden test overí, že old credential, public path, wrong schema writer alebo stale replica nemôže byť accepted production path.
 
-1. Aký je rozdiel medzi Single-AZ, Multi-AZ DB instance a Multi-AZ DB cluster?
-2. Ako sa líši Multi-AZ standby a read replica?
-3. Ako funguje endpoint počas failover-u?
-4. Čo poskytujú automated backups a PITR?
-5. Prečo snapshot nie je celý application recovery plan?
-6. Aký je rozdiel medzi parameter a option group?
-7. Ktoré layers preveríš pri connection timeout-e?
-8. Ako application pool ovplyvní failover a scaling?
-9. Prečo storage autoscaling nevyrieši query regression?
-10. Čo musí obsahovať cross-Region RDS DR test?
+Restore do isolated environment znižuje riziko, že test consumer odošle reálne emails/payments/events. Egress a credentials musia byť fenced.
+
+## 17. Blue/Green Deployment
+
+RDS Blue/Green Deployment pri supported engines/configurations vytvára synchronized green staging topology pre upgrades alebo configuration changes a poskytuje controlled switchover.
+
+```text
+blue production subject
+→ green topology creation/synchronization
+→ engine/parameter/schema/application validation
+→ switchover preconditions
+→ bounded write pause/cutover
+→ endpoint/resource transition
+→ application reconnect
+→ green business acceptance
+```
+
+Blue/Green znižuje cutover downtime; nie je complete rollback. Po green writes sa blue neaktualizuje automaticky ako authoritative mirror pre arbitrary business changes. Návrat môže vyžadovať data reconciliation alebo nový forward recovery.
+
+Schema migration musí byť kompatibilná s blue/green replication a application mixed-version window. Unsupported DDL, replication lag alebo long-running transaction môže blokovať/oddialiť switchover.
+
+RDS Proxy a smart-driver support existujú v current service model-e, ale exact topology/limitations sa overujú pre engine a deployment. External dependencies, DNS caches a application pools stále potrebujú cutover test.
+
+## 18. Maintenance a engine upgrades
+
+Maintenance môže zahŕňať OS/platform patch, certificate rotation, instance/storage modification, minor alebo major engine upgrade. Maintenance window je scheduling preference, nie garancia, že urgentný service/security event nikdy nevznikne mimo nej.
+
+Upgrade inventory:
+
+- drivers a TLS trust;
+- extensions/plugins/options;
+- parameter families;
+- deprecated behavior;
+- schema/query compatibility;
+- read replicas a replication;
+- backup/restore path;
+- downtime/failover;
+- observability and rollback eligibility.
+
+Major upgrade mení data/engine compatibility. Snapshot restore môže vrátiť starý resource, ale application/data writes po cutover-e môžu znemožniť jednoduchý reverse switch.
+
+## 19. Encryption a key lifecycle
+
+RDS encryption používa KMS pre storage, snapshots, backups a replicas podľa service modelu. KMS key je recovery dependency:
+
+```text
+DB encrypted under key generation K
+→ automated backup/snapshot encrypted
+→ copy/restore requires K or approved destination key
+→ key disabled/deleted
+→ production alebo recovery becomes inaccessible
+```
+
+Customer-managed key zlepšuje governance, cross-account control a audit, ale pridáva policy/grant/rotation/deletion lifecycle. Key deletion schedule musí byť blokovaný recovery-retention a legal requirements.
+
+Encryption at rest nechráni pred authorized SQL corruption alebo overprivileged application. TLS zase chráni transport, nie correctness query.
+
+## 20. Monitoring a evidence
+
+| Vrstva | Evidence | Rozlišuje |
+|---|---|---|
+| Control plane | RDS events, CloudTrail, pending modifications | service transition od application symptomu |
+| DNS/network | endpoint answers, Flow Logs, SG/NACL | failover mapping od path deny |
+| Connection | connections, proxy metrics, auth logs | pool storm od engine query failure |
+| Engine | logs, wait events, locks, plans | CPU/I/O symptom od workload cause |
+| Storage/replication | free space, IOPS/latency, replica lag | capacity od consistency delay |
+| Backup | restorable window, snapshot/KMS/status | backup existence od usable restore |
+| Business | idempotency ledger, payment/outbox state | connection recovery od exactly-once outcome |
+
+Enhanced Monitoring poskytuje OS-level perspective managed hostu podľa configuration. Database performance telemetry/Performance Insights capabilities poskytujú query/load dimensions podľa current engine/service supportu. Žiadna jedna metric neuzatvára transaction incident.
+
+## 21. Connected failure — failover úspešný, payment outcome neznámy
+
+### Symptóm
+
+Po impairment-e writer instance RDS Multi-AZ DB cluster automaticky promovuje reader v AZ-b. RDS event a console ukazujú cluster `available`. Payments API má 90-sekundový spike `connection reset`/timeoutov. Po recovery business reconciliation nájde dve autorizácie pre payment `P-884`, ale iba jeden client request.
+
+### Competing hypotheses
+
+1. Failover trval dlhšie než application timeout.
+2. DNS cache stále ukazovala old writer IP.
+3. Existing pool connections neboli evicted.
+4. RDS Proxy neprepol backend alebo sessions boli pinned.
+5. New writer nebol ready alebo mal replication lag.
+6. Transaction `P-884` rollbackla a retry bol legitímny.
+7. Transaction commitla, ale acknowledgement sa stratilo.
+8. Application retry nepoužil idempotency key/unique constraint.
+9. External payment provider bol volaný mimo database transaction bez reconciliation.
+10. Reader endpoint bol omylom použitý pre write/read-after-write.
+11. Secret/TLS change blokovala nové connections.
+12. Duplicate pochádza z queue redelivery, nie failoveru.
+
+### Discriminating observations
+
+| Observation | Čo rozlišuje |
+|---|---|
+| RDS event, old/new writer a DNS timeline | service failover od stale client state |
+| pool/proxy backend connection IDs | DNS refresh od pinned/stale sessions |
+| database transaction/audit log a unique key | rollback od durable first commit |
+| provider request IDs | database duplicate od external duplicate call |
+| API trace with idempotency key | client retry od queue redelivery |
+| outbox/ledger state | committed transaction od lost acknowledgement |
+| working fresh connection vs old pool socket | writer readiness od pool recovery |
+| connection/CPU/lock metrics | reconnection storm od query bottleneck |
+
+### Finding
+
+Writer durable commitol ledger/outbox pre `P-884`, ale connection sa resetla pred commit acknowledgement. API layer klasifikovala timeout ako „transaction failed“ a retry-la celý workflow bez stable provider idempotency key. Database unique constraint chránila iba interný ledger insert; external provider authorization bol vykonaný pred constraint reconciliation a dostal nový request ID. RDS failover, DNS mapping aj writer promotion fungovali. Correctness failure vznikol v unknown-outcome a retry contracte.
+
+### Evidence-preserving containment
+
+- pozastaviť automatické retries pre affected unknown-outcome cohort;
+- zachovať old/new writer events, DB logs, pool/proxy metrics, API traces a provider IDs;
+- nezvyšovať SG alebo connection limits bez dôkazu;
+- obmedziť reconnect storm cez backoff/jitter a connection budget;
+- identifikovať payment operations bez durable client acknowledgement;
+- nevykonávať manuálny replay pred reconciliation.
+
+### Authoritative recovery
+
+1. Reconciliovať `P-884` proti database ledgeru, outboxu a provideru.
+2. Stornovať/kompenzovať duplicate provider authorization podľa business policy.
+3. Zaviesť end-to-end stable idempotency key do provider requestu aj DB unique constraintu.
+4. Pri timeout-e po commit boundary najprv query-nuť operation status, nie slepo replayovať.
+5. Nastaviť pool validation/connection lifetime a failover-aware eviction.
+6. Zaviesť bounded exponential backoff s jitterom a total retry budgetom.
+7. Spustiť controlled failover test s in-flight transactions a exact telemetry.
+8. Overiť reader/write endpoint separation a forbidden stale-read journey.
+
+### Acceptance verdict
+
+Failover je prijatý až keď:
+
+- writer endpoint a fresh connections prejdú na promoted writer;
+- stale pool sockets sa evictnú bez connection stormu;
+- in-flight transaction s lost acknowledgement skončí jedným reconciled business outcome-om;
+- payment idempotency funguje naprieč DB aj providerom;
+- application obnoví SLO v measured RTO;
+- read-after-write request nepoužije lagging replica;
+- old writer/endpoint IP/master credential zostanú forbidden;
+- failover event, alarm a runbook vytvoria dostatok evidence pre rozhodnutie.
+
+## 22. Troubleshooting podľa boundary
+
+### Connection timeout
+
+```text
+exact endpoint/port/Region
+→ DNS answer a cache
+→ route/subnet/TGW/peering
+→ DB SG source
+→ NACL return
+→ RDS state/failover
+→ connection/proxy saturation
+```
+
+### Authentication/authorization
+
+```text
+TLS trust/hostname
+→ secret version alebo IAM token scope/expiry
+→ database user existence
+→ role/schema/table privileges
+→ proxy auth mapping
+```
+
+### High latency/CPU/I/O
+
+```text
+query fingerprints a release timeline
+→ waits/locks/connections
+→ execution plans/indexes
+→ buffer/temp/checkpoint behavior
+→ storage and instance envelope
+→ business throughput
+```
+
+### Replica lag/stale read
+
+```text
+source commit rate/long transactions
+→ replication transport/apply
+→ replica capacity and read load
+→ endpoint routing
+→ business freshness requirement
+```
+
+### Storage full
+
+```text
+growth source and rate
+→ logs/temp/tables/indexes/transactions
+→ autoscaling max and service state
+→ safe engine cleanup/capacity increase
+→ recurrence retention/query control
+```
+
+### Backup/restore
+
+```text
+exact restore timestamp/snapshot
+→ KMS/permissions
+→ new resource creation
+→ schema/config/network/secret
+→ data invariants
+→ business canary and performance
+→ cutover/fencing
+```
+
+## 23. Cost a architecture trade-off
+
+Cost drivers zahŕňajú DB instances/readers, Multi-AZ topology, storage, IOPS/throughput, backup overage, snapshots/copies, cross-Region replication, RDS Proxy, Enhanced Monitoring/logs a commercial licenses.
+
+Single-AZ šetrí standby/cluster capacity za vyšší outage/recovery risk. Multi-AZ cluster môže zlepšiť readable capacity a failover options, ale pridáva instances a topology complexity. Read replica znižuje read pressure, no pridáva stale-read a promotion lifecycle. Proxy môže znížiť connection churn, ale nie query demand a pridáva cost/pinning.
+
+Right-sizing používa peak a failover capacity, memory/cache/connection behavior a successful transactions per cost, nie iba priemernú CPU.
+
+## 24. Anti-patterny odvodené z lifecycle-u
+
+- **Endpoint IP v configuration** — failover mení DNS mapping.
+- **Console `Available` považované za application recovery** — pool, transaction a business state zostávajú.
+- **Multi-AZ standby považovaný za read scaling** — classical standby reads neobsluhuje.
+- **Read replica považovaná za synchronous writer failover** — lag/promotion menia consistency a authority.
+- **Multi-AZ považované za DR** — nepokrýva Region/logical/account failure.
+- **Retry každého timeoutu ako rollbacku** — commit outcome môže byť unknown.
+- **Idempotency iba v jednej database tabuľke** — external provider side effect zostáva duplicate-prone.
+- **Maximum pool na každej auto-scaled instance** — scale-out vytvorí connection storm.
+- **Master user ako runtime identity** — zväčšuje blast radius.
+- **Rotation Lambda success považovaný za credential closure** — consumers a old credential nemusia byť converged.
+- **Storage autoscaling považované za query fix** — growth/scan/transaction príčina zostáva.
+- **Scale-up pred query evidence** — symptom zmizne a root cause sa stratí.
+- **Snapshot považovaný za application recovery** — dependencies/schema/business consistency chýbajú.
+- **Blue/Green považované za automatický rollback** — green writes vytvoria data divergence.
+- **Backup bez isolated restore testu** — RPO/RTO a usability nie sú overené.
+
+## 25. Kontrolné otázky
+
+1. Ktoré responsibilities AWS preberá v RDS a ktoré zostávajú application/database tímu?
+2. Ako sa líši Single-AZ, Multi-AZ DB instance a Multi-AZ DB cluster?
+3. Prečo read replica nie je automatický HA standby writer?
+4. Ako endpoint/DNS a connection pool spolu ovplyvňujú failover?
+5. Čo je unknown commit outcome?
+6. Prečo idempotency musí pokryť aj external provider side effect?
+7. Kedy RDS Proxy pomáha a kedy session pinning znižuje jeho efekt?
+8. Ako sa rotation credentialu mení na distributed workflow?
+9. Čo storage autoscaling vyrieši a čo nevyrieši?
+10. Prečo backup/PITR vytvára nový resource namiesto in-place rewind?
+11. Čo musí preukázať Blue/Green switchover?
+12. Ako odlíšiš query regression od infrastructure shortage?
+13. Ktoré positive a forbidden tests patria do restore acceptance?
+14. Aký business verdict uzatvára Multi-AZ failover test?
 
 ## Glossary impact
 
-Relevantné pojmy: Amazon RDS, DB instance, DB subnet group, RDS endpoint, Single-AZ, Multi-AZ DB instance deployment, Multi-AZ DB cluster, standby replica, read replica, replication lag, automated backup, point-in-time recovery, DB snapshot, parameter group, option group, storage autoscaling, RDS failover, IAM database authentication, RDS Proxy a Blue/Green Deployment.
+Táto kapitola zavádza alebo spresňuje pojmy: database subject, writer-generation identity, endpoint remap, connection-pool failover, unknown commit outcome, business idempotency boundary, HA replication contract, readable-replica freshness contract, promotion authority, database restore generation, Blue/Green switchover subject, transaction reconciliation a database recovery acceptance verdict.
 
 ## Oficiálna dokumentácia
 
-- [Amazon RDS User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)
+- [What is Amazon RDS?](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)
 - [Multi-AZ deployments](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html)
-- [Multi-AZ DB instance deployments](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html)
+- [Multi-AZ DB cluster deployments](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html)
+- [Failover for Multi-AZ DB instances](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.Failover.html)
+- [Failover for Multi-AZ DB clusters](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts-failover.html)
 - [Read replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html)
-- [Backups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html)
+- [Automated backups and PITR](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html)
+- [Blue/Green Deployments](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html)
+- [Amazon RDS Proxy](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html)
 - [Monitoring Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Monitoring.html)
-- [RDS security](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.html)
+- [Security in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
