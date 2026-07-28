@@ -102,6 +102,10 @@ Time series, ktorá má recent samples a spotrebúva active TSDB memory a metada
 
 Log stream, do ktorého sa aktuálne zapisujú log entries a ktorý drží ingester state a chunk resources. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
+## Actor-session chain — CloudTrail
+
+Rozbalená identity od CloudTrail `userIdentity` cez assumed-role ARN, principal/session issuer, source identity, user agent, source IP a upstream automation alebo human approval až po skutočného iniciátora API operácie. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
 ## Actual state — Kubernetes
 
 Reálny stav clusteru alebo external systému v konkrétnom okamihu, napríklad existujúce Pods, bežiace processes, attached volumes alebo cloud resources; controller ho nemusí okamžite celý pozorovať. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
@@ -125,6 +129,10 @@ Authorization model, v ktorom sa výsledné oprávnenia skladajú ako union vše
 ## Additive NetworkPolicy
 
 Semantika, pri ktorej sa povolený traffic pre Pod skladá ako union pravidiel všetkých matching NetworkPolicies; neexistuje poradie pravidiel ani explicitné deny s vyššou prioritou v štandardnom API. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
+
+## Address-capacity boundary
+
+Limit subnet IPv4/IPv6 addresses, ENIs, prefixes alebo Pod/task allocation modelu, ktorý môže blokovať container scale-out aj pri dostatku CPU a memory. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
 
 ## Address-family publication contract
 
@@ -237,6 +245,10 @@ ClusterRole, ktorej rules controller automaticky skladá z iných ClusterRoles o
 ## Aggregation generation — Kubernetes RBAC
 
 Versionovaná množina ClusterRoles a rules zahrnutých do agregovaného ClusterRole-u; môže zmeniť effective permissions bez zmeny bindingu. Pozri [RBAC](../docs/09-kubernetes/rbac.md).
+
+## Alarm-evaluation generation
+
+Versionovaná kombinácia metric/query identity, periodu, statistic, threshold-u, evaluation periods, datapoints-to-alarm, missing-data behavior, actions a suppression/composite logiky. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
 
 ## ALB listener rule
 
@@ -738,6 +750,10 @@ Authorization model používajúci attributes principalu, resource-u, action a e
 
 Identifier zamýšľaného konzumenta tokenu alebo assertion; musí byť validovaný, aby sa artifact nedal použiť voči inému clientovi alebo resource serveru. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md), [OpenID Connect](docs/13-security-and-identity/openid-connect.md) a [SAML](docs/13-security-and-identity/saml.md).
 
+## Audit-delivery contract — CloudTrail
+
+Trail scope a event selectors spolu s S3 destination, bucket/KMS policies, integrity validation, retention, protection a monitoringom delivery failures, ktoré určujú dostupnosť audit evidence. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
 ## Audit/Event/business-event separation
 
 Rozlíšenie API audit requestu, krátkodobého Kubernetes diagnostického Eventu a durable application business udalosti. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
@@ -869,6 +885,10 @@ Cross-cutting capability prepájajúca identity, device, network, workload a dat
 ## Automation runbook — Systems Manager
 
 Versionovaný YAML alebo JSON workflow obsahujúci sequential Automation actions, parameters, branching, outputs, approvals a AWS resource operations. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
+## Automation side-effect boundary — Systems Manager
+
+Runbook step alebo external operation, po ktorej už jednoduchý reverse API call nemusí obnoviť pôvodný state; vyžaduje explicitný rollback, compensation, restore, immutable replacement alebo manual escalation. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
 ## `automountServiceAccountToken`
 
@@ -1085,6 +1105,10 @@ Skrytý fyzický index patriaci data streamu; writes smerujú do aktuálneho wri
 ## Backing-volume identity
 
 External storage asset identifikovaný napríklad CSI `volumeHandle`, provider volume ID, zone a encryption-key generation, ktorý PV reprezentuje v Kubernetes API. Pozri [Volumes, PV, PVC a StorageClass](../docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
+
+## Backlog deadline
+
+Najneskorší čas, do ktorého musí queued alebo stream event vytvoriť business outcome; queue depth alebo iterator age pod platform retention limitom ešte nemusí spĺňať business SLO. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
 
 ## Backoff
 
@@ -1622,6 +1646,10 @@ Rozdiel medzi aktuálnym demandom alebo využitím a effective capacity po zohľ
 
 Versionovaná identita business demandu, workload unit, compute/data/dependency capacity, failure-domain inventory, scaling policy, metric contract a požadovaného business outcome-u. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
+## Capacity realization — containers
+
+Premena workload desired count-u na skutočne dostupný compute, memory, architecture, ENI/Pod IP, port, storage, AZ a quota capacity contract. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
 ## Capacity Rebalancing — EC2 Auto Scaling
 
 Auto Scaling capability, ktorá môže proaktívne spustiť náhradu Spot Instance pri zvýšenom interruption risku, pričom workload stále potrebuje drain a idempotentný recovery model. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
@@ -2054,6 +2082,10 @@ Kubernetes resource, ktorého identity a API scope nie sú viazané na namespace
 
 Identita clusteru zahŕňajúca API endpoint a CA, cluster/infrastructure identity, control-plane a etcd topológiu, Kubernetes version, node-pool generations, CRI/CNI/CSI, admission/policy a critical add-ons. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
 
+## Cluster-upgrade graph — EKS
+
+Compatibility a transition graph zahŕňajúci EKS control plane, nodes/compute model, VPC CNI/CoreDNS/kube-proxy/CSI a ďalšie add-ons, controllers/operators/CRDs, admission, clients a workloads. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
 ## Cluster-wide symptom
 
 Failure pozorovaný naprieč namespaces, Nodes alebo services, ktorý zvyšuje pravdepodobnosť problému v control plane, shared add-on, network, storage alebo external dependency. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
@@ -2342,6 +2374,10 @@ ResourceQuota limit agregovaných CPU, memory, ephemeral-storage alebo ďalšíc
 
 Hodnota atribútu určená providerom alebo remote API, ktorá nemusí byť známa počas planu a môže sa zobraziť ako `known after apply`. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
+## Concurrency budget — Lambda
+
+Maximálny bezpečný počet concurrent invocations odvodený nielen od Lambda limitov, ale aj od database connections, provider quotas, network/NAT capacity, queue lease a business deadline-u. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
+
 ## Concurrency policy — CronJob
 
 Pravidlo `Allow`, `Forbid` alebo `Replace`, ktoré určuje, ako CronJob reaguje, keď má začať nový scheduled run a predchádzajúci Job ešte beží. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
@@ -2517,6 +2553,10 @@ Maximum Transmission Unit platná na container packet path-e; nesúlad s bridge,
 ## Container network namespace
 
 Linux namespace poskytujúci procesu vlastné interfaces, IPs, routes, sockets, loopback a network-state view. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
+
+## Container orchestration subject
+
+Versionovaná identita image digestu, ECS task/service alebo Kubernetes workload generation, configuration/secrets, scheduler, compute/network/storage capacity, workload identity, traffic cohort a business requestu. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
 
 ## Container port
 
@@ -3298,6 +3338,10 @@ Identita deletion lifecycle-u zahŕňajúca cluster, object UID, deletionTimesta
 
 Serverom nastavený čas označujúci, že object bol prijatý na deletion a čaká na graceful termination alebo finalizer cleanup. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Delivery-generation identity — Lambda
+
+Exact source resource, event-source mapping alebo asynchronous invocation configuration, filter, batching, retry, retention/visibility, destination a target version/alias, ktoré určujú delivery a acknowledgement semantics konkrétneho eventu. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
+
 ## Demand unit
 
 Workload-specific jednotka trafficu, napríklad request, message, transaction, byte, query alebo inference, ktorá reprezentuje reálny demand na systém. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
@@ -3497,6 +3541,10 @@ Počet replík požadovaný v workload spec-e alebo odvodený controllerom, ku k
 ## Desired state
 
 Požadovaný stav systému deklarovaný používateľom alebo automatizačným nástrojom. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
+
+## Desired-state generation — containers
+
+Exact ECS task-definition/service deployment alebo Kubernetes API object/controller generation, ktorú orchestrator reconciliuje do runtime workload population. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
 
 ## Desired state — Kubernetes
 
@@ -3918,6 +3966,10 @@ Identita build programu zahŕňajúca Dockerfile/frontend, immutable inputs, sta
 
 Pattern file filtrujúci content zahrnutý do Docker build contextu; znižuje transfer, cache invalidation a accidental exposure, ale nie je secret manager ani náhrada za odstránenie secrets z repository history. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
+## Document generation — Systems Manager
+
+Exact SSM document name, version, content hash, schema, parameters, platform preconditions a default-version state použitý pri command, session, association alebo Automation execution. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
 ## Document — search
 
 JSON objekt uložený v Elasticsearch/OpenSearch indexe a spracovaný podľa mappingu. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
@@ -3957,6 +4009,10 @@ Metriky software delivery performance sledujúce throughput a instability delive
 ## Downstream capacity envelope
 
 Maximum connections, concurrency, throughput alebo rate, ktoré dependency bezpečne unesie pri replica scale-up/down bez amplification incidentu. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
+
+## Drain completion — containers
+
+Dôkaz, že workload už neprijíma nové traffic alebo queue leases, dokončil alebo odovzdal in-flight work, publikoval durable outcome a môže byť bezpečne zastavený alebo jeho host terminated. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
 
 ## Drain completion — load balancer
 
@@ -4594,6 +4650,10 @@ Model, v ktorom API write uloží desired state okamžite, ale controllers, sche
 
 Kontrola, že pre presný candidate existuje celý očakávaný manifest required testov, scanov, shardov, reports a tool execution statusov. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
 
+## Evidence coverage
+
+Preukázaný set accounts, Regions, resources, event categories, log groups, metrics, cohorts a retention windows, ktoré observability/audit design skutočne zbiera; neprítomný selector alebo source nemožno nahradiť neskorším query. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
 ## Evidence-driven review
 
 Architektúrny review, v ktorom odpovede podporujú aktuálne configuration, telemetry, tests, policies, incidents a ďalšie overiteľné dôkazy. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -4650,9 +4710,17 @@ Príklad alebo pravidlo zapísané vo forme, ktorú možno automaticky spustiť 
 
 Deklarované runtime, inputs, permissions, resources, timeout, retries, outputs, success criteria a cleanup semantics jedného samostatne plánovaného jobu. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
 
+## Execution-delivery verdict — Systems Manager
+
+Dôkaz, či control-plane request bol prijatý, target resolve-nutý, invocation doručená agentovi a plugin/script skutočne začal; je oddelený od exit statusu aj application outcome-u. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
 ## Execution environment — Ansible
 
 Versionovaný runtime image alebo prostredie obsahujúce `ansible-core`, Python dependencies, collections a system tools potrebné na reprodukovateľné vykonanie automation. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
+## Execution-environment generation
+
+Konkrétna Lambda runtime environment population viazaná na function version/configuration, runtime, extensions, architecture, VPC a initialization state; warm reuse nie je durable-state garancia. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
 
 ## Execution path — CKA
 
@@ -5081,6 +5149,10 @@ Stav, v ktorom všetky očakávané a oprávnené targety dosiahli požadovaný 
 ## Fleet observation matrix
 
 Mapovanie DaemonSet fleet policy, placement, runtime, host authority, node capability, rollout, bootstrap a workload outcome boundaries na ich subjects. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
+
+## Fleet-operation subject — Systems Manager
+
+Versionovaná identita caller/session, target fleetu, managed-node enrollmentu, SSM document/runbooku, parameters, role, rate controls, command/patch/configuration generation a application validation. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
 ## Fleet recovery closure — EC2
 
@@ -6498,6 +6570,10 @@ Rekonštruovateľná identita inventory výpočtu zahŕňajúca source konfigur�
 
 File, directory, plugin configuration, script alebo external source, z ktorého Ansible vytvára časť výsledného inventory. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
 
+## Invocation-admission verdict — Lambda
+
+Rozhodnutie Lambda control plane-u, či exact invocation môže byť prijatá vzhľadom na source state, permissions, regional/reserved/event-source concurrency, quotas a target version/configuration. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
+
 ## IP packet
 
 Network-layer jednotka obsahujúca source a destination IP adresu a payload vyššej vrstvy. Pozri [OSI a TCP/IP model](docs/02-networking-and-web/osi-and-tcp-ip-model.md).
@@ -7222,6 +7298,10 @@ Kubernetes control plane, ktorého časť lifecycle-u a availability prevádzkuj
 
 Host, zariadenie alebo API target, na ktorý Ansible aplikuje automation cez connection plugin alebo provider-specific module workflow. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
 
+## Managed-node eligibility
+
+Stav, v ktorom exact machine má podporovaný OS, funkčný SSM Agent, správnu instance/hybrid identity, account/Region registration, time/DNS/TLS a required service/endpoint connectivity pre konkrétnu Systems Manager capability. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
 ## Managed node — Systems Manager
 
 EC2 alebo non-EC2 machine zaregistrovaná v Systems Manager s funkčnou identity, agentom a network connectivity. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
@@ -7358,6 +7438,10 @@ Monitoring celého monitoring a notification reťazca vrátane source signalov, 
 
 Agregovateľný číselný signal v čase používaný napríklad na rate, latency distribution, utilization, saturation alebo SLO measurement. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
 
+## Metric identity contract — CloudWatch
+
+Namespace, metric name, úplný dimension set, account/Region, unit, timestamp/resolution a publication cadence definujúce jednu CloudWatch time series a jej operational význam. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
 ## Metric provenance and freshness — autoscaling
 
 Evidence spájajúca observed value so source-om, query/labels, adapter generation, collection timestampom, aggregation window a tenant/workload subjectom. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
@@ -7417,6 +7501,10 @@ API-visible reprezentácia static Podu, ktorú kubelet vytvorí pre observabilit
 ## Missed-schedule inventory
 
 Zoznam CronJob scheduled timestamps, ktoré neboli vytvorené alebo dokončené, spolu s eligibility, deadline a catch-up rozhodnutím. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
+## Missing-data verdict — CloudWatch
+
+Alarm decision, ako vyhodnotiť absent datapoint (`breaching`, `notBreaching`, `ignore` alebo `missing`) podľa semantics konkrétneho heartbeat, success, error alebo sporadického signálu. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
 
 ## Mixed-version compatibility
 
@@ -8046,6 +8134,14 @@ Schopnosť porozumieť internému stavu systému z jeho externých outputs a sk�
 
 End-to-end dôkaz, že expected source je emitovaný, zozbieraný, potvrdený, queryable, retained, redacted a použiteľný pri alert alebo incident rozhodnutí. Pozri [Logging, metrics a events](docs/09-kubernetes/logging-metrics-events.md).
 
+## Observability acceptance verdict
+
+Closure dôkaz, že approved telemetry a audit sources majú správnu identity, freshness, coverage, retention a actor attribution, alarm rozhoduje nad správnym cohortom a automation obnovuje business outcome bez loopu alebo straty evidence. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
+## Observability evidence subject
+
+Exact account, Region, resource/release/request/time cohort spolu s metric, log, alarm, audit, query a automation generations potrebnými na zodpovedanie konkrétnej operational alebo security otázky. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
 ## Observability gap
 
 Chýbajúci alebo nekvalitný signal, context, correlation, retention alebo query capability, ktorý bráni spoľahlivej diagnostike systému. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
@@ -8174,6 +8270,10 @@ Runtime implementácia OpenTelemetry API, ktorá zabezpečuje sampling, processi
 
 Overenie, že systém je prevádzkovateľný: má monitoring, recovery, backup/restore, capacity, runbooks, access controls a deployment/rollback mechanizmy. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
 
+## Operational acceptance verdict — Systems Manager
+
+Closure dôkaz, že exact approved targets dostali pinned document/configuration cez správnu identity a bounded execution, dosiahli technical aj business postconditions a forbidden tag-expansion, broad-role, stale-compliance a full-fleet mutation paths zostali zablokované. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
 ## Operational Excellence pillar
 
 Well-Architected pillar zameraný na efektívny development, operations insight, safe change a continuous improvement. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -8185,6 +8285,10 @@ Engine-specific RDS configuration object povoľujúci vybrané database features
 ## Option injection
 
 Situácia, keď hodnota začínajúca `-` je príkazom interpretovaná ako option namiesto dátového argumentu. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md).
+
+## Orchestration acceptance verdict
+
+Closure dôkaz, že approved image/workload generation bola správne umiestnená, má capacity, identity, network/storage a target eligibility, spĺňa business outcome a forbidden host-role, wrong-image, IP-exhaustion a unsafe-drain paths zostali kontrolované. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
 
 ## `OrderedReady` — StatefulSet
 
@@ -8374,6 +8478,10 @@ Reference z Route na Gateway, listener alebo iný supported parent, ku ktorému 
 
 Columnar Tempo storage block obsahujúci traces a attributes v Apache Parquet formáte pre efektívnejšie selective querying. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
+## Partial-batch acknowledgement
+
+Event-source-mapping response contract, ktorý označí konkrétne failed records na retry namiesto celého batchu; timeout alebo strata response stále vyžaduje idempotentné spracovanie všetkých records. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
+
 ## Partial batch response — Lambda
 
 Event-source-mapping contract umožňujúci označiť iba konkrétne records v batchi ako neúspešné, aby sa nemuselo retryovať celé spracované batch. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
@@ -8409,6 +8517,10 @@ Executable helper poskytujúci vault password z chráneného zdroja, typicky po 
 ## PAT — Port Address Translation
 
 NAT model, v ktorom viac interných flows zdieľa jednu externú adresu a rozlišuje sa preloženými portmi. Pozri [NAT](docs/02-networking-and-web/nat.md).
+
+## Patch compliance freshness
+
+Patch verdict viazaný na exact node, OS, baseline/policy, repository/snapshot context, scan/install execution a timestamp; starý `COMPLIANT` state nie je dôkaz aktuálneho patch ani application zdravia. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
 ## Patch Manager
 
@@ -8649,6 +8761,10 @@ EC2 placement constraint optimalizujúci cluster latency/throughput, spread fail
 ## Placement observation matrix
 
 Mapa evidence cez Pod generation, scheduler profile, trusted Node labels/taints, population selectors, eligible domains, skew, PVC topology, Events, binding a ready endpoint distribution. Pozri [Taints, tolerations, affinity a topology](../docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
+## Placement verdict — containers
+
+Scheduler decision, že task alebo Pod spĺňa viditeľné resource, attribute, topology, taint/affinity, port, volume a capacity constraints; nepreukazuje process startup, networking, readiness ani business zdravie. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
 
 ## Plaintext
 
@@ -9446,6 +9562,10 @@ Množina time series so samples za definované časové okno, používaná napr�
 
 Model, ktorý povoľuje iba zachovanie alebo zlepšenie predchádzajúceho akceptovaného quality baseline. Pozri [Code coverage a quality gates](docs/04-testing-and-quality/code-coverage-and-quality-gates.md).
 
+## Rate-controlled fleet mutation
+
+Fleet operation rozdelená na bounded canary/waves cez max concurrency, max errors, timeout, stop condition a application assertions tak, aby chybný command alebo selector nezmenil celý fleet naraz. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
+
 ## RBAC privilege escalation
 
 Nepriame získanie širšej kontroly cez permissions ako workload creation, Secret read, exec/proxy, RBAC `bind`/`escalate`, impersonation alebo CSR approval. Pozri [RBAC](docs/09-kubernetes/rbac.md).
@@ -9533,6 +9653,10 @@ Počet replík, ktorých Pody majú aktuálne Ready condition; nevypovedá autom
 ## Real User Monitoring — RUM
 
 Zber performance a error telemetry zo skutočných používateľských klientov a sessions s možnosťou segmentácie podľa zariadenia, browsera, regiónu alebo journey. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
+
+## Realization gap — AWS operations
+
+Rozdiel medzi successful control-plane API requestom zaznamenaným CloudTrailom a neskoršou controller/runtime/application realizáciou desired state-u, ktorú treba overiť service a business telemetry. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
 
 ## Realized savings
 
@@ -9858,6 +9982,10 @@ Well-Architected pillar zameraný na správne a konzistentné fungovanie workloa
 
 OIDC client, ktorý dôveruje validovanému ID Token-u od OpenID Providera a vytvára vlastnú application session. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
+## Remediation execution subject
+
+Exact alarm/event generation, target manifest, automation/runbook version, execution role, deduplication/cooldown, mutation, controller transition, postcondition, rollback a business validation jednej automated remediation. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
+
 ## Remediation hierarchy — Kubernetes
 
 Preferované poradie opráv od úzkeho declarative rollbacku alebo obnovy dependency cez Pod/Node replacement a roll-forward až po disaster recovery. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
@@ -9949,6 +10077,10 @@ Nový Pod object vytvorený controllerom ako náhrada zaniknutého alebo nevyhov
 ## Replay identity — batch
 
 Explicitná identita operátorského alebo recovery replay-u viazaná na pôvodný logical run bez kolízie so scheduled runom. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
+## Replay manifest — Lambda
+
+Schválený súbor source event identity, pôvodnej delivery/function generation, attempt history, failure class, idempotency key, current business state, replay version, rate limitu a post-replay validation. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
 
 ## Replica-set acceptance verdict
 
@@ -10089,6 +10221,10 @@ Controller-generated effective configuration po zlúčení Routes, listeners, re
 ## Resolved runtime configuration — Docker
 
 Skutočná configuration vytvoreného containeru vrátane image, commandu, environmentu, mounts, networks, limits a security options dostupná cez inspection. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
+## Resolved target manifest — Systems Manager
+
+Immutable zoznam concrete managed-node alebo resource identities materializovaný z selectorov v schválenom čase a viazaný hashom na change approval, document a rate-control contract. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
 ## ResolvedRefs condition — Gateway API
 
@@ -10445,6 +10581,10 @@ Dôkaz, že latest Deployment generation je observed, canonical ReplicaSet a Pod
 ## Rollout contract
 
 Versionovaný popis artifactu, configu, targetu, cohort, krokov, metrics, observation windows, promotion/abort policy, recovery actions a ownera progressive rollout-u. Pozri [Progressive delivery](docs/05-ci-cd-and-release/progressive-delivery.md).
+
+## Rollout headroom — containers
+
+Voľná compute, address, storage a target capacity potrebná na súbežné spustenie replacement cohortu, AZ failure reserve a bezpečný drain starej population počas deploymentu. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
 
 ## Rollout progress verdict
 
@@ -11205,6 +11345,14 @@ Rýchle vytváranie a zánik time series, ktoré zaťažuje WAL, index, compacti
 ## Server-side apply — Kubernetes
 
 Deklaratívny API update model, pri ktorom API server merge-uje intent a sleduje field ownership jednotlivých managers. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Serverless acceptance verdict
+
+Closure dôkaz, že exact event prešiel approved source, version, identity a concurrency cestou, vytvoril jeden správny business outcome a duplicate, stale-version, wrong-source a uncontrolled-replay outcomes zostali zablokované. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
+
+## Serverless execution subject
+
+Versionovaná identita Lambda function, artifactu, published version/aliasu, source a event-source-mapping generation, concurrency/configuration/identity, exact eventu, downstream dependencies a business idempotency key použitá na invocation a recovery reasoning. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
 
 ## Service alias ownership
 
@@ -12254,6 +12402,10 @@ Key/value/effect značka na Node-e, ktorá odpudzuje Pody bez matching toleratio
 
 Rozhodnutie, či incoming Pod toleruje všetky relevantné Node taints pre daný effect; toleration sama Node nevyberá. Pozri [Taints, tolerations, affinity a topology](../docs/09-kubernetes/taints-tolerations-affinity-topology.md).
 
+## Target-eligibility cohort — containers
+
+Množina ECS tasks alebo Kubernetes Pods, ktoré patria k approved release generation, sú runtime-ready, registered v správnom service/load-balancer path-e a môžu bezpečne prijímať nové business requests. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
+
 ## Target eligibility set
 
 Množina targets, ktoré sú registered, v enabled AZ scope, v použiteľnom lifecycle state a spĺňajú health/attribute contract pre konkrétnu target group. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
@@ -12301,6 +12453,10 @@ Dynamic scaling policy snažiaca sa udržať zvolenú metric približne na targe
 ## Targeted follow-up drill
 
 Nový drill odvodený z konkrétnej chyby, napríklad pomalého scope narrowing, context omylu, nebezpečného repairu alebo slabej validation.
+
+## Targeting authority boundary — Systems Manager
+
+Security a blast-radius hranica oddeľujúca oprávnenie meniť tags/resource-group membership od oprávnenia spúšťať privileged Run Command, patch alebo Automation nad targets vybranými týmito attributes. Pozri [AWS Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
 
 ## `targetPort` — Service
 
@@ -12373,6 +12529,10 @@ Versionovaný inventár expected sources, collectors, configs a backend paths, k
 ## Telemetry fan-out
 
 Odosielanie rovnakého prijatého signalu do viacerých processing pipelines alebo backendov s odlišnými retention, security alebo analytics účelmi. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
+
+## Telemetry freshness
+
+Dôkaz, že expected signal source publikuje a delivery/query path prijíma dáta v povolenom delay/cadence intervale; oddeľuje chýbajúcu telemetry od nulovej business hodnoty. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
 
 ## Telemetry lifecycle subject
 
@@ -12926,6 +13086,10 @@ Stav, keď controller nevie, či external alebo API mutation neprebehla, prebehl
 
 Failure stav, v ktorom pipeline nedostala spoľahlivý výsledok remote mutation a pred retry musí cez request IDs, provider logs, remote observation a state reconciliation určiť, či operácia neprebehla, prebehla čiastočne alebo uspela bez state commit-u. Pozri [Infrastructure as Code principles](docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md).
 
+## Unknown side-effect outcome
+
+Stav, keď Lambda invocation timeoutne alebo stratí downstream response po tom, čo external service mohla side effect commitnúť; pred retryom vyžaduje idempotency key a authoritative reconciliation. Pozri [AWS Lambda](docs/11-cloud-and-aws/lambda.md).
+
 ## Unknown state-write outcome — Terraform
 
 Failure stav, keď Terraform odoslal successor snapshot, ale pre timeout alebo network partition nevie, či backend write commitol. Pred ďalším writerom treba overiť version history, lineage/serial, lock a remote mutation timeline. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md) a [Remote backend a state locking](docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md).
@@ -13417,6 +13581,10 @@ Počet workloads, ktoré možno bezpečne a výkonovo prevádzkovať na spoločn
 ## Workload federation — Zero Trust
 
 Explicitné prepájanie workload trust domains alebo identity authorities s riadenou výmenou trust bundles a samostatnou authorization policy. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Workload identity chain — containers
+
+End-to-end authorization cesta od ECS task role alebo Kubernetes service account/Pod Identity association cez temporary credentials, IAM/SCP/boundary/resource/KMS policies po exact application API operation; host/node role je samostatná identity. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
 
 ## Workload identity federation
 
