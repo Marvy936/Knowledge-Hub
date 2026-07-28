@@ -1,0 +1,79 @@
+name: One-time final Cloud and AWS ledger update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/one-time-cloud-final-ledger.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-ledger:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Update final ledger and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          branch="${GITHUB_REF_NAME}"
+          max_attempts=3
+
+          for attempt in $(seq 1 "$max_attempts"); do
+            git fetch origin "$branch"
+            git reset --hard "origin/${branch}"
+
+            python - <<'PY'
+          from pathlib import Path
+
+          path = Path("DOCUMENTATION-REVIEW-STATUS.md")
+          text = path.read_text(encoding="utf-8")
+
+          old_status = "| `11-cloud-and-aws` — Cloud and AWS | 24/28 strict revalidation | In progress |"
+          new_status = "| `11-cloud-and-aws` — Cloud and AWS | 28/28 strict revalidation | Ready for user review |"
+
+          old_suffix = "Zostávajú 4 kapitoly a finálny section-level pass. |"
+          new_suffix = "Siedmy a záverečný blok bol kompletne prepísaný: `AWS Certified CloudOps Engineer – Associate (SOA-C03)` používa `CloudOps role capability contract → exact exam-guide generation a domain/task inventory → authoritative knowledge mapping → practical evidence inventory → weighted gap model → targeted study/lab/drill remediation → timed simulation → error provenance a confidence analysis → readiness verdict`; `CloudOps domain review a timed reasoning` používa `exact question/option generation → requested outcome → explicit/implicit constraints → scope/responsibility/failure boundary → required control/data/recovery path → candidate mechanisms → completeness/trade-off evaluation → distractor elimination → provisional answer/confidence → time-budget decision → error closure`; `CloudOps hands-on labs` používajú `learning outcome/failure hypothesis → sandbox/financial guardrails → exact lab generation/resource manifest → architecture paths → baseline/evidence → controlled fault → competing hypotheses/discriminating observations → minimal remediation → technical/security/business validation → cleanup a cost closure`; `CloudOps troubleshooting drills` používajú `user/business symptom → impact/scope/timeline → exact account/Region/release/resource/data/flow subject → volatile evidence → control/data/recovery path map → competing causal hypotheses → discriminating observations → evidence-preserving containment → authoritative recovery → reconvergence → original/forbidden/adjacent/second-operation validation → recurrence control a closure`. Worked failures pokrývajú kandidáta s overall practice score 82 %, ale Domain 4 na 58 % a high-confidence chybným KMS/backup modelom; SOA-C03 private-egress question, kde iba AZ-local NAT Gateway pair spĺňa IPv4, no-public-address, managed a one-AZ-failure constraints; ALB/ASG lab s health-generation mismatchom `/readyz` oproti `/healthz`, diagnostikovaným cez target-health reason, SSM requests a config evidence; a production instance refresh, v ktorom launch template s cross-account encrypted AMI nemal KMS authorization a `min healthy 0 %` zmenilo launch defect na zero-healthy-target outage. Každá záverečná kapitola používa exact readiness/question/lab/incident subject, competing mechanisms alebo hypotheses, discriminating evidence, bounded decision/containment, authoritative remediation a allowed aj forbidden outcome. Finálny section-level consistency gate overil authoritative ordering všetkých 28 kapitol, connected `CAP-PAY-42` terminology, configured-versus-effective a technical-versus-business distinctions, obojsmerný navigation chain `10-helm-and-cka/cka-troubleshooting-drills.md ↔ IaaS/PaaS/SaaS` cez celú sekciu až po `CloudOps troubleshooting drills ↔ 12-observability/monitoring-vs-observability.md`, všetky cloud glossary fragments vrátane nového `glossary/11f-aws-cloudops-readiness-experiment-incident-lifecycles.md`, synchronizovaný generated `GLOSSARY.md`, prázdne audit-failure artifacts a current SOA-C03 facts proti official guide revision 1.1 z 1. júna 2026. Section README teraz zaznamenáva celý end-to-end learning chain a completion gate. Sekcia je pripravená na používateľskú kontrolu, nie automaticky používateľsky schválená ani garancia exam výsledku. |"
+
+          if old_status not in text:
+              raise SystemExit("Expected 24/28 Cloud and AWS ledger status was not found.")
+          if old_suffix not in text:
+              raise SystemExit("Expected final Cloud and AWS ledger suffix was not found.")
+
+          text = text.replace(old_status, new_status, 1)
+          text = text.replace(old_suffix, new_suffix, 1)
+          path.write_text(text, encoding="utf-8", newline="\n")
+          PY
+
+            git rm .github/workflows/one-time-cloud-final-ledger.yml
+            git add DOCUMENTATION-REVIEW-STATUS.md
+            git commit -m "docs(review): complete Cloud and AWS strict revalidation"
+
+            if git push origin "HEAD:${branch}"; then
+              exit 0
+            fi
+
+            echo "::warning::Remote ${branch} changed during ledger update attempt ${attempt}; retrying."
+            if [ "$attempt" -eq "$max_attempts" ]; then
+              echo "::error::Unable to push final ledger update after ${max_attempts} attempts."
+              exit 1
+            fi
+          done
