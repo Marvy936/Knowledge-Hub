@@ -2747,15 +2747,15 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
       "title": "CloudOps domain review a timed reasoning",
-      "words": 1174,
-      "headings": 46,
-      "sections": 46,
-      "findings": 133,
-      "critical": 47,
-      "high": 74,
-      "medium": 8,
-      "low": 4,
-      "score": 1165,
+      "words": 2189,
+      "headings": 49,
+      "sections": 49,
+      "findings": 78,
+      "critical": 21,
+      "high": 32,
+      "medium": 5,
+      "low": 20,
+      "score": 544,
       "grade": "D"
     },
     {
@@ -150986,17 +150986,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "1. Vstupný protokol otázky",
+      "section": "1. Dominantný model: question-to-verdict lifecycle",
       "line": 5,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "2. Constraint words",
-      "line": 18,
+      "section": "3. Intake protocol: najprv outcome, nie služba",
+      "line": 48,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151004,26 +151004,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "2. Constraint words",
-      "line": 18,
+      "section": "3. Intake protocol: najprv outcome, nie služba",
+      "line": 48,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "2. Constraint words",
-      "line": 18,
-      "severity": "critical",
+      "section": "3. Intake protocol: najprv outcome, nie služba",
+      "line": 48,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MOST operationally efficient ,`, `LEAST administrative overhead ,`, `MOST cost-effective ,`, `without downtime ,`.",
-      "score": 12
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Ktoré stavy musia zostať zakázané?`, `Ktorá vrstva je customer-owned a ktorá service-managed?`, `Ktorý qualifier rozhoduje medzi viacerými funkčnými možnosťami?`.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "2. Constraint words",
-      "line": 18,
+      "section": "3. Intake protocol: najprv outcome, nie služba",
+      "line": 48,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -151031,17 +151031,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "2. Constraint words",
-      "line": 18,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MOST`, `LEAST`, `RPO`, `RTO`",
-      "score": 7
+      "section": "3. Intake protocol: najprv outcome, nie služba",
+      "line": 48,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "3. Scope matrix",
-      "line": 37,
+      "section": "3. Intake protocol: najprv outcome, nie služba",
+      "line": 48,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `scope`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "4. Constraint extraction",
+      "line": 61,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151049,8 +151058,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "3. Scope matrix",
-      "line": 37,
+      "section": "4. Constraint extraction",
+      "line": 61,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "4. Constraint extraction",
+      "line": 61,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "4. Constraint extraction",
+      "line": 61,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -151058,8 +151085,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "4. Control plane vs data plane",
-      "line": 52,
+      "section": "4. Constraint extraction",
+      "line": 61,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "4. Constraint extraction",
+      "line": 61,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "4. Constraint extraction",
+      "line": 61,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "5. Scope a subject identity",
+      "line": 78,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151067,17 +151121,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "4. Control plane vs data plane",
-      "line": 52,
+      "section": "5. Scope a subject identity",
+      "line": 78,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "5. Scope a subject identity",
+      "line": 78,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `EBS volume aj EC2 attachment sú zonálne;`, `ACM certificate pre CloudFront potrebuje service-specific Region contr`, `SCP je organization guardrail, nie identity permission grant;`, `Security Group je ENI/resource boundary, NACL subnet boundary.`.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "4. Control plane vs data plane",
-      "line": 52,
+      "section": "5. Scope a subject identity",
+      "line": 78,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -151085,17 +151148,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "4. Control plane vs data plane",
-      "line": 52,
+      "section": "5. Scope a subject identity",
+      "line": 78,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "5. Scope a subject identity",
+      "line": 78,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`, `Control plane`, `policy`, `Data plane`, `workload`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `ID`, `EBS`, `EC2`, `ACM`, `KMS`, `SCP`, `ENI`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "5. Domain 1 reasoning",
-      "line": 67,
+      "section": "6. Control plane, data plane a recovery plane",
+      "line": 100,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -151103,152 +151175,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Monitoring source selection",
-      "line": 69,
+      "section": "7. Complete-path test",
+      "line": 116,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Monitoring source selection",
-      "line": 69,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Monitoring source selection",
-      "line": 69,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Monitoring source selection",
-      "line": 69,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CloudWatch metrics: numeric operational signals.`, `CloudWatch Logs: log ingestion, query, subscription a retention.`, `CloudTrail: AWS API activity/audit.`, `AWS Config: resource configuration history a compliance.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Monitoring source selection",
-      "line": 69,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Monitoring source selection",
-      "line": 69,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `API`, `VPC`, `ALB`, `RDS`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Alarm vs event",
-      "line": 80,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Alarm vs event",
-      "line": 80,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Alarm vs event",
-      "line": 80,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Alarm vyhodnocuje metric/alarm state.`, `EventBridge reaguje na events/patterns a môže spustiť automation.`, `Logs metric filter vytvorí metric z log patternu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Alarm vs event",
-      "line": 80,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
       "section": "Automated remediation",
-      "line": 86,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Performance optimization",
-      "line": 100,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Performance optimization",
-      "line": 100,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Performance optimization",
-      "line": 100,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU,`, `memory,`, `storage throughput/IOPS,`, `network,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Performance optimization",
-      "line": 100,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Performance optimization",
-      "line": 100,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `IOPS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "6. Domain 2 reasoning",
-      "line": 115,
+      "line": 120,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -151256,151 +151193,16 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Availability vs durability",
-      "line": 117,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Availability vs durability",
-      "line": 117,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Availability vs durability",
-      "line": 117,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Availability: služba je teraz použiteľná.`, `Durability: dáta prežijú definovaný failure model.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Availability vs durability",
-      "line": 117,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Availability vs durability",
-      "line": 117,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Durability`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "RPO/RTO selection",
-      "line": 128,
+      "section": "Private AWS-service access",
+      "line": 132,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "RPO/RTO selection",
-      "line": 128,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "RPO/RTO selection",
-      "line": 128,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "RPO/RTO selection",
-      "line": 128,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Nízkemu RPO vyhovuje častejšia alebo continuous replication/log shippi`, `Nízkemu RTO vyhovuje pripravená capacity a automation.`, `Backup-and-restore je lacnejší, ale pomalší.`, `Active-active je rýchly, ale komplexný a drahý.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "RPO/RTO selection",
-      "line": 128,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "RPO/RTO selection",
-      "line": 128,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Scaling",
-      "line": 135,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Scaling",
-      "line": 135,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Scaling",
-      "line": 135,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Scaling",
-      "line": 135,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Scheduled: známy časový pattern.`, `Target tracking: udržiavanie metric targetu.`, `Step scaling: rozdielne kroky podľa severity.`, `Queue depth/backlog: asynchronous workers.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Scaling",
-      "line": 135,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "7. Domain 3 reasoning",
+      "section": "Highly available private IPv4 egress",
       "line": 144,
       "severity": "critical",
       "rule": "empty-section",
@@ -151409,8 +151211,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "IaC lifecycle",
-      "line": 146,
+      "section": "Recoverable database",
+      "line": 156,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151418,44 +151220,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "IaC lifecycle",
-      "line": 146,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "IaC lifecycle",
-      "line": 146,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `template validation,`, `change set,`, `stack update,`, `rollback,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "IaC lifecycle",
-      "line": 146,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Systems Manager selection",
-      "line": 158,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Systems Manager selection",
-      "line": 158,
+      "section": "Recoverable database",
+      "line": 156,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -151463,26 +151229,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Systems Manager selection",
-      "line": 158,
+      "section": "8. Candidate-answer evaluation",
+      "line": 171,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Systems Manager selection",
-      "line": 158,
-      "severity": "critical",
+      "section": "8. Candidate-answer evaluation",
+      "line": 171,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Run Command: spustenie commands bez inbound SSH.`, `Automation: multi-step operational workflow.`, `Patch Manager: patch baselines a patch operations.`, `State Manager: desired instance configuration.`.",
-      "score": 12
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Mechanism: Ako presne vytvorí požadovaný outcome?`, `Scope: Operuje v správnom account/Region/AZ/resource boundary?`, `Completeness: Obsahuje všetky potrebné dependencies?`, `Constraint fidelity: Spĺňa explicitné qualifiers?`.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Systems Manager selection",
-      "line": 158,
+      "section": "8. Candidate-answer evaluation",
+      "line": 171,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -151490,34 +151256,43 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Systems Manager selection",
-      "line": 158,
+      "section": "8. Candidate-answer evaluation",
+      "line": 171,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "8. Candidate-answer evaluation",
+      "line": 171,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "8. Candidate-answer evaluation",
+      "line": 171,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "8. Candidate-answer evaluation",
+      "line": 171,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSH`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `Scope`, `resource`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "AMI a image pipeline",
-      "line": 167,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Failed deployment",
-      "line": 171,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "8. Domain 4 reasoning",
+      "section": "9. Worked question: resilient private egress",
       "line": 185,
       "severity": "critical",
       "rule": "empty-section",
@@ -151526,440 +151301,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "IAM evaluation",
+      "section": "Stem",
       "line": 187,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "IAM evaluation",
-      "line": 187,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "IAM evaluation",
-      "line": 187,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `caller identity,`, `action/resource,`, `explicit deny,`, `identity/resource allow,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "IAM evaluation",
-      "line": 187,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "IAM evaluation",
-      "line": 187,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SCP`, `RCP`, `KMS`, `identity`, `resource`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Encryption service selection",
-      "line": 200,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Encryption service selection",
-      "line": 200,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Encryption service selection",
-      "line": 200,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Encryption service selection",
-      "line": 200,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `KMS: key management a cryptographic authorization.`, `Secrets Manager: secret storage, retrieval a rotation workflow.`, `ACM: managed certificates pre podporované integrations.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Encryption service selection",
-      "line": 200,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Encryption service selection",
-      "line": 200,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `ACM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Compliance evidence",
-      "line": 207,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Compliance evidence",
-      "line": 207,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Compliance evidence",
-      "line": 207,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Compliance evidence",
-      "line": 207,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CloudTrail: API activity.`, `Config: configuration state/history/rules.`, `Security Hub: aggregated security findings/posture.`, `GuardDuty: threat detection.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Compliance evidence",
-      "line": 207,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Compliance evidence",
-      "line": 207,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `posture`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Ransomware defense",
-      "line": 215,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Ransomware defense",
-      "line": 215,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Ransomware defense",
-      "line": 215,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `least privilege,`, `immutable/isolated backups,`, `MFA a protected deletion,`, `cross-account backup/log archive,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Ransomware defense",
-      "line": 215,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Ransomware defense",
-      "line": 215,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "9. Domain 5 reasoning",
-      "line": 227,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Public internet path",
-      "line": 229,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Private outbound path",
-      "line": 238,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Private outbound path",
-      "line": 238,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Security Group vs NACL",
-      "line": 248,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Security Group vs NACL",
-      "line": 248,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Security Group vs NACL",
-      "line": 248,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `SG: stateful, ENI/resource, allow only.`, `NACL: stateless, subnet, ordered allow/deny.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Security Group vs NACL",
-      "line": 248,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Security Group vs NACL",
-      "line": 248,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SG`, `ENI`, `NACL`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "DNS",
-      "line": 253,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "DNS",
-      "line": 253,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "DNS",
-      "line": 253,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `public hosted zone,`, `private hosted zone,`, `Route 53 Resolver inbound/outbound endpoints,`, `health checks a routing policies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "DNS",
-      "line": 253,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "DNS",
-      "line": 253,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Load balancing",
-      "line": 264,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Load balancing",
-      "line": 264,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Load balancing",
-      "line": 264,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ALB: HTTP/HTTPS L7 routing.`, `GWLB: transparent network appliance insertion.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Load balancing",
-      "line": 264,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Load balancing",
-      "line": 264,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALB`, `HTTP`, `HTTPS`, `L7`, `NLB`, `TCP`, `UDP`, `TLS`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "10. Eliminácia distractorov",
-      "line": 270,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "10. Eliminácia distractorov",
-      "line": 270,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "10. Eliminácia distractorov",
-      "line": 270,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používa nesprávny scope,`, `zvyšuje manual operations bez dôvodu,`, `porušuje explicitný security constraint,`, `nepokrýva return path alebo druhú policy boundary,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "10. Eliminácia distractorov",
-      "line": 270,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "10. Eliminácia distractorov",
-      "line": 270,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "10. Eliminácia distractorov",
-      "line": 270,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `DR`, `scope`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "11. Dvojice, ktoré sa často zamieňajú",
-      "line": 283,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "11. Dvojice, ktoré sa často zamieňajú",
-      "line": 283,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -151967,8 +151310,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "11. Dvojice, ktoré sa často zamieňajú",
-      "line": 283,
+      "section": "Options",
+      "line": 193,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "Options",
+      "line": 193,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -151976,8 +151328,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "12. Timed sets",
-      "line": 298,
+      "section": "Outcome a constraints",
+      "line": 205,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -151985,8 +151337,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Set A — 20 otázok / 35 minút",
-      "line": 300,
+      "section": "Path analysis",
+      "line": 215,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "Forbidden validation",
+      "line": 231,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -151994,53 +151355,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Set B — 35 otázok / 65 minút",
-      "line": 304,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Set C — 65 otázok / 130 minút",
-      "line": 308,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Review phase",
-      "line": 312,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Review phase",
-      "line": 312,
+      "section": "Forbidden validation",
+      "line": 231,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Review phase",
-      "line": 312,
+      "section": "Forbidden validation",
+      "line": 231,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `knowledge gap,`, `missed constraint,`, `wrong scope,`, `wrong policy evaluation,`.",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `worker nemá public IPv4;`, `subnet a nepoužíva NAT v b a opačne;`, `neexistuje inbound listener path z internetu na workers.`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Review phase",
-      "line": 312,
+      "section": "Forbidden validation",
+      "line": 231,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -152048,17 +151382,125 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Review phase",
-      "line": 312,
+      "section": "Forbidden validation",
+      "line": 231,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "10. Domain reasoning cez ten istý protocol",
+      "line": 240,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "11. Distractor taxonómia",
+      "line": 262,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "11. Distractor taxonómia",
+      "line": 262,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "11. Distractor taxonómia",
+      "line": 262,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "11. Distractor taxonómia",
+      "line": 262,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "11. Distractor taxonómia",
+      "line": 262,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "11. Distractor taxonómia",
+      "line": 262,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "11. Distractor taxonómia",
+      "line": 262,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`, `scope`, `policy`, `availability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `HA`, `DR`, `RTO`, `scope`, `resource`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "13. Confidence marking",
-      "line": 325,
+      "section": "13. Time-budget state machine",
+      "line": 292,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jasná single-response question: približne 45–75 sekúnd;`, `stredný scenario path: približne 90–150 sekúnd;`, `dlhá multiple-response question: bounded deep pass, potom defer;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "13. Time-budget state machine",
+      "line": 292,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "13. Time-budget state machine",
+      "line": 292,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "13. Time-budget state machine",
+      "line": 292,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "14. Confidence ako evidence",
+      "line": 314,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -152066,35 +151508,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "13. Confidence marking",
-      "line": 325,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "14. Confidence ako evidence",
+      "line": 314,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "13. Confidence marking",
-      "line": 325,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `H — high confidence,`, `M — medium,`, `L — low/guess.`, `wrong + H = chybný mentálny model,`.",
-      "score": 12
+      "section": "14. Confidence ako evidence",
+      "line": 314,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "13. Confidence marking",
-      "line": 325,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "14. Confidence ako evidence",
+      "line": 314,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "14. Question review template",
-      "line": 340,
+      "section": "16. Timed set progression",
+      "line": 352,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -152102,8 +151544,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Hľadanie service keywordu bez čítania outcome-u",
-      "line": 357,
+      "section": "Set C — 65 questions / 130 minút",
+      "line": 362,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "Set C — 65 questions / 130 minút",
+      "line": 362,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unfinished questions;`, `time by question class;`, `wrong + high confidence;`, `domain/task gaps;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "Set C — 65 questions / 130 minút",
+      "line": 362,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "17. Question review record",
+      "line": 376,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "Service keyword matching",
+      "line": 398,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -152111,8 +151589,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Vyberanie najkomplexnejšej architektúry",
-      "line": 361,
+      "section": "Najkomplexnejšia architektúra ako najlepšia",
+      "line": 402,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -152120,8 +151598,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Menenie odpovede bez nového dôvodu",
-      "line": 365,
+      "section": "Lowest cost bez outcome flooru",
+      "line": 406,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -152129,8 +151607,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
-      "section": "Ignorovanie negatívnych požiadaviek",
-      "line": 369,
+      "section": "Review odpovede iba podľa správneho písmena",
+      "line": 410,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "Zmena answer pre pocit neistoty",
+      "line": 414,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "Ignorovanie negative qualifiers",
+      "line": 418,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
+      "section": "Practice bank repetition ako progress",
+      "line": 422,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -152139,7 +151644,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
       "section": "Oficiálne zdroje",
-      "line": 377,
+      "line": 443,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -152148,7 +151653,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
       "section": "Oficiálne zdroje",
-      "line": 377,
+      "line": 443,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -152157,7 +151662,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
       "section": "Oficiálne zdroje",
-      "line": 377,
+      "line": 443,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
@@ -152166,16 +151671,16 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
       "section": "Oficiálne zdroje",
-      "line": 377,
+      "line": 443,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SOA-C03 content outline`, `Domain 1`, `Domain 2`, `Domain 3`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SOA-C03 exam guide`, `Domain 1`, `Domain 2`, `Domain 3`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
       "section": "Oficiálne zdroje",
-      "line": 377,
+      "line": 443,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
