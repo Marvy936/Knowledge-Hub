@@ -2844,16 +2844,16 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "title": "ECS a EKS",
-      "words": 1801,
-      "headings": 48,
-      "sections": 48,
-      "findings": 152,
-      "critical": 50,
-      "high": 60,
-      "medium": 21,
-      "low": 21,
-      "score": 1171,
+      "title": "Amazon ECS a Amazon EKS",
+      "words": 2905,
+      "headings": 46,
+      "sections": 46,
+      "findings": 87,
+      "critical": 25,
+      "high": 25,
+      "medium": 10,
+      "low": 27,
+      "score": 566,
       "grade": "D"
     },
     {
@@ -160418,8 +160418,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "1. Porovnávací mentálny model",
-      "line": 5,
+      "section": "1. Exact container orchestration subject",
+      "line": 23,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "2. ECS a EKS majú odlišný authoritative control plane",
+      "line": 81,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "ECS",
+      "line": 83,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -160427,331 +160445,34 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "2. Amazon ECS základné objekty",
-      "line": 17,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "2. Amazon ECS základné objekty",
-      "line": 17,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "2. Amazon ECS základné objekty",
-      "line": 17,
+      "section": "3. Workload specification je release contract",
+      "line": 115,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "2. Amazon ECS základné objekty",
-      "line": 17,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "2. Amazon ECS základné objekty",
-      "line": 17,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "2. Amazon ECS základné objekty",
-      "line": 17,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "2. Amazon ECS základné objekty",
-      "line": 17,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `ECS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "3. ECS task definition revisions",
-      "line": 29,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "3. ECS task definition revisions",
-      "line": 29,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `task role — permissions application containers,`, `network mode ,`, `requires compatibilities ,`, `runtime platform ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "3. ECS task definition revisions",
-      "line": 29,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "3. ECS task definition revisions",
-      "line": 29,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "3. ECS task definition revisions",
-      "line": 29,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "3. ECS task definition revisions",
-      "line": 29,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "4. ECS service lifecycle",
-      "line": 45,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "4. ECS service lifecycle",
-      "line": 45,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "4. ECS service lifecycle",
-      "line": 45,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `udržiava desired task count,`, `nahrádza stopped tasks,`, `vykonáva rolling alebo blue/green deployment podľa konfigurácie,`, `registruje targets v load balanceri,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "4. ECS service lifecycle",
-      "line": 45,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "4. ECS service lifecycle",
-      "line": 45,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "4. ECS service lifecycle",
-      "line": 45,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `CPU`, `GPU`, `KMS`, `Availability`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "5. ECS capacity providers",
-      "line": 68,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "5. ECS capacity providers",
-      "line": 68,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `AWS Fargate,`, `Fargate Spot,`, `ECS Managed Instances,`, `EC2 Auto Scaling Group capacity provider.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "5. ECS capacity providers",
-      "line": 68,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "5. ECS capacity providers",
-      "line": 68,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "5. ECS capacity providers",
-      "line": 68,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `EC2`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "6. ECS na Fargate",
-      "line": 86,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "6. ECS na Fargate",
-      "line": 86,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `task sizing,`, `image a vulnerabilities,`, `task/execution roles,`, `network a Security Groups,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "6. ECS na Fargate",
-      "line": 86,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "7. ECS na EC2",
-      "line": 102,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "7. ECS na EC2",
-      "line": 102,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AMI a ECS agent,`, `OS patching,`, `instance role,`, `Auto Scaling Group,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "7. ECS na EC2",
-      "line": 102,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "7. ECS na EC2",
-      "line": 102,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "7. ECS na EC2",
-      "line": 102,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "7. ECS na EC2",
-      "line": 102,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `ECS`, `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "8. ECS placement",
-      "line": 117,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "8. ECS placement",
+      "section": "ECS task definition",
       "line": 117,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "8. ECS placement",
+      "section": "ECS task definition",
       "line": 117,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource fit,`, `Availability Zone,`, `attributes,`, `constraints,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image digest a containers;`, `CPU, memory, ports a runtime platform;`, `command/entrypoint;`, `task a execution role;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "8. ECS placement",
+      "section": "ECS task definition",
       "line": 117,
       "severity": "high",
       "rule": "thin-concept-section",
@@ -160760,170 +160481,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "8. ECS placement",
+      "section": "ECS task definition",
       "line": 117,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Availability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "9. ECS networking",
-      "line": 130,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "9. ECS networking",
-      "line": 130,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "9. ECS networking",
-      "line": 130,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `task-level network identity,`, `jednoduchšia integrácia s load balancerom,`, `VPC Flow Logs,`, `service-to-service security boundaries.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "9. ECS networking",
-      "line": 130,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "9. ECS networking",
-      "line": 130,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "10. ECS deployment safety",
-      "line": 150,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "10. ECS deployment safety",
-      "line": 150,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable image digest,`, `health check,`, `startup grace,`, `deregistration delay,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "10. ECS deployment safety",
-      "line": 150,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "10. ECS deployment safety",
-      "line": 150,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SIGTERM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "11. ECS observability",
-      "line": 164,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "11. ECS observability",
-      "line": 164,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "11. ECS observability",
-      "line": 164,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service desired/running/pending count,`, `deployment state a events,`, `task stopped reason,`, `container exit code,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "11. ECS observability",
-      "line": 164,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "11. ECS observability",
-      "line": 164,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `ENI`, `IP`, `ASG`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "12. Amazon EKS mentálny model",
-      "line": 181,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "12. Amazon EKS mentálny model",
-      "line": 181,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC a cluster endpoint access,`, `Kubernetes RBAC/access entries,`, `nodes alebo Fargate profiles podľa modelu,`, `workload manifests,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "12. Amazon EKS mentálny model",
-      "line": 181,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "12. Amazon EKS mentálny model",
-      "line": 181,
+      "section": "4. Scheduler rozhoduje iba v rámci viditeľného contractu",
+      "line": 138,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -160931,44 +160499,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "12. Amazon EKS mentálny model",
-      "line": 181,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "12. Amazon EKS mentálny model",
-      "line": 181,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `RBAC`, `CNI`, `CSI`, `workload`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "13. EKS compute modely",
-      "line": 197,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "13. EKS compute modely",
-      "line": 197,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EKS Auto Mode managed nodes,`, `managed node groups,`, `self-managed nodes,`, `AWS Fargate,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "13. EKS compute modely",
-      "line": 197,
+      "section": "5. Capacity má viac rozmerov než CPU",
+      "line": 156,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -160976,8 +160508,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "13. EKS compute modely",
-      "line": 197,
+      "section": "6. ECS capacity providers",
+      "line": 176,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `AWS Fargate a Fargate Spot;`, `Amazon ECS Managed Instances;`, `EC2 Auto Scaling Group capacity provider.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "6. ECS capacity providers",
+      "line": 176,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -160985,8 +160526,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "13. EKS compute modely",
-      "line": 197,
+      "section": "6. ECS capacity providers",
+      "line": 176,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -160994,71 +160535,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "14. EKS managed node groups",
-      "line": 218,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "14. EKS managed node groups",
-      "line": 218,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `node IAM role,`, `subnets a capacity,`, `instance types,`, `labels/taints,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "14. EKS managed node groups",
-      "line": 218,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "14. EKS managed node groups",
-      "line": 218,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `AMI`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "15. EKS Fargate",
-      "line": 236,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "15. EKS Fargate",
-      "line": 236,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `profile selection,`, `Pod execution role,`, `subnet IP capacity,`, `supported volumes/features,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "15. EKS Fargate",
-      "line": 236,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "15. EKS Fargate",
-      "line": 236,
+      "section": "7. Fargate, Managed Instances a vlastné EC2 menia ownership",
+      "line": 190,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -161066,53 +160544,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "15. EKS Fargate",
-      "line": 236,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "16. EKS networking",
-      "line": 252,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "16. EKS networking",
-      "line": 252,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster API endpoint public/private access,`, `requester-managed ENIs medzi control plane a VPC,`, `Amazon VPC CNI alebo alternatívny kompatibilný model,`, `Pod IP consumption,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "16. EKS networking",
-      "line": 252,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "16. EKS networking",
-      "line": 252,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "16. EKS networking",
-      "line": 252,
+      "section": "7. Fargate, Managed Instances a vlastné EC2 menia ownership",
+      "line": 190,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -161120,98 +160553,161 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "16. EKS networking",
-      "line": 252,
+      "section": "7. Fargate, Managed Instances a vlastné EC2 menia ownership",
+      "line": 190,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "9. ECS task role a execution role sú odlišné identity",
+      "line": 218,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "11. EKS compute modely",
+      "line": 251,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EKS Auto Mode;`, `managed node groups;`, `self-managed nodes;`, `AWS Fargate;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "11. EKS compute modely",
+      "line": 251,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "11. EKS compute modely",
+      "line": 251,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "13. EKS access a workload identity",
+      "line": 287,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 61 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "13. EKS access a workload identity",
+      "line": 287,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster IAM role a service-linked roles;`, `IAM principal pristupujúci ku clusteru;`, `EKS access entry/policy alebo Kubernetes group mapping;`, `Kubernetes RBAC;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "13. EKS access a workload identity",
+      "line": 287,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "13. EKS access a workload identity",
+      "line": 287,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "14. EKS networking je scheduling aj runtime dependency",
+      "line": 303,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "15. EKS storage a topology",
+      "line": 321,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "15. EKS storage a topology",
+      "line": 321,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable identity;`, `quorum/replication awareness;`, `ordered drain;`, `fencing;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "15. EKS storage a topology",
+      "line": 321,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `control plane`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "17. EKS identity",
-      "line": 268,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "17. EKS identity",
-      "line": 268,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "17. EKS identity",
-      "line": 268,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS IAM identity pristupujúcu ku cluster API,`, `EKS access entries/configuration,`, `Kubernetes RBAC authorization,`, `node IAM role,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "17. EKS identity",
-      "line": 268,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "17. EKS identity",
-      "line": 268,
-      "severity": "high",
+      "section": "15. EKS storage a topology",
+      "line": 321,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `API`, `EKS`, `RBAC`, `identity`",
-      "score": 7
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "18. EKS add-ons",
-      "line": 291,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "18. EKS add-ons",
-      "line": 291,
+      "section": "16. Add-ons a controllers rozširujú upgrade graph",
+      "line": 336,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "18. EKS add-ons",
-      "line": 291,
+      "section": "16. Add-ons a controllers rozširujú upgrade graph",
+      "line": 336,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC CNI,`, `CoreDNS,`, `kube-proxy,`, `CSI drivers,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC CNI;`, `CoreDNS;`, `kube-proxy alebo alternate dataplane;`, `CSI drivers;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "18. EKS add-ons",
-      "line": 291,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "16. Add-ons a controllers rozširujú upgrade graph",
+      "line": 336,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "18. EKS add-ons",
-      "line": 291,
+      "section": "16. Add-ons a controllers rozširujú upgrade graph",
+      "line": 336,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `CNI`, `CSI`",
@@ -161219,35 +160715,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "19. EKS upgrades",
-      "line": 304,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "19. EKS upgrades",
-      "line": 304,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kubernetes control plane,`, `managed/self-managed nodes,`, `Fargate platform compatibility,`, `EKS add-ons,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "19. EKS upgrades",
-      "line": 304,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "19. EKS upgrades",
-      "line": 304,
+      "section": "17. EKS upgrade je compatibility program",
+      "line": 351,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -161255,26 +160724,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "19. EKS upgrades",
-      "line": 304,
+      "section": "18. Autoscaling má tri odlišné otázky",
+      "line": 371,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Koľko workload replicas je potrebných?`, `Existuje pre ne schedulable compute/network/storage capacity?`, `Je downstream schopný nový concurrency absorbovať?`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "18. Autoscaling má tri odlišné otázky",
+      "line": 371,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "19. EKS upgrades",
-      "line": 304,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EKS`, `PDB`, `control plane`, `workload`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "20. ECS oproti EKS",
-      "line": 328,
+      "section": "20. Observability podľa orchestration vrstvy",
+      "line": 399,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -161282,8 +160751,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS je vhodný, keď",
-      "line": 330,
+      "section": "ECS evidence",
+      "line": 401,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -161291,8 +160760,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS je vhodný, keď",
-      "line": 330,
+      "section": "ECS evidence",
+      "line": 401,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -161300,26 +160769,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS je vhodný, keď",
-      "line": 330,
+      "section": "ECS evidence",
+      "line": 401,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS je vhodný, keď",
-      "line": 330,
+      "section": "ECS evidence",
+      "line": 401,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chceš AWS-native orchestrator,`, `nepotrebuješ Kubernetes API/ecosystem,`, `preferuješ menší control-plane operations surface,`, `deployment a service model ECS pokrýva requirements.`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service desired/running/pending counts;`, `deployment/task-set generation;`, `service events;`, `task stopped reason a container exit code;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS je vhodný, keď",
-      "line": 330,
+      "section": "ECS evidence",
+      "line": 401,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -161327,26 +160796,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS je vhodný, keď",
-      "line": 330,
+      "section": "ECS evidence",
+      "line": 401,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS-`, `API`, `ECS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ENI`, `IP`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS je vhodný, keď",
-      "line": 337,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS je vhodný, keď",
-      "line": 337,
+      "section": "EKS evidence",
+      "line": 413,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -161354,26 +160814,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS je vhodný, keď",
-      "line": 337,
+      "section": "EKS evidence",
+      "line": 413,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS je vhodný, keď",
-      "line": 337,
+      "section": "EKS evidence",
+      "line": 413,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potrebuješ Kubernetes API a ecosystem,`, `používaš operators, CRDs alebo Kubernetes tooling,`, `potrebuješ portability na úrovni orchestrátora,`, `tím vie prevádzkovať Kubernetes day-2 vrstvy.`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API object generation, ownerReferences a Events;`, `controller conditions;`, `scheduler decisions;`, `Pod status, container states a exit codes;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS je vhodný, keď",
-      "line": 337,
+      "section": "EKS evidence",
+      "line": 413,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -161381,71 +160841,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS je vhodný, keď",
-      "line": 337,
-      "severity": "medium",
+      "section": "EKS evidence",
+      "line": 413,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "EKS evidence",
+      "line": 413,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "21. Security",
-      "line": 346,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "21. Security",
-      "line": 346,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "21. Security",
-      "line": 346,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable image digest,`, `image scanning a signing podľa policy,`, `least-privilege workload identity,`, `read-only filesystem/capabilities podľa runtime,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "21. Security",
-      "line": 346,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `CNI`, `CSI`, `RBAC`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "21. Security",
-      "line": 346,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "22. Cost model",
-      "line": 362,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS",
-      "line": 364,
+      "section": "Competing hypotheses",
+      "line": 431,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -161453,8 +160868,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS",
-      "line": 364,
+      "section": "Competing hypotheses",
+      "line": 431,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -161462,8 +160877,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS",
-      "line": 364,
+      "section": "Competing hypotheses",
+      "line": 431,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -161471,17 +160886,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS",
-      "line": 364,
+      "section": "Competing hypotheses",
+      "line": 431,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Fargate vCPU/memory/storage duration,`, `EC2 capacity a idle headroom,`, `load balancer,`, `logs,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster nemá dostatok CPU alebo memory;`, `image revision 7.17.0 sa nedá pull-nuť;`, `task execution role alebo Pod Identity zlyháva;`, `ALB health check odmieta nový release;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS",
-      "line": 364,
+      "section": "Competing hypotheses",
+      "line": 431,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -161489,224 +160904,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS",
-      "line": 364,
-      "severity": "medium",
+      "section": "Competing hypotheses",
+      "line": 431,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `NAT`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS",
-      "line": 373,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS",
-      "line": 373,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS",
-      "line": 373,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS",
-      "line": 373,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster control plane,`, `nodes/Fargate/Auto Mode resources,`, `add-ons a load balancers,`, `observability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS",
-      "line": 373,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `ALB`, `IP`, `ENI`, `EKS`, `CNI`, `Identity`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS",
-      "line": 373,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "23. Troubleshooting ECS",
-      "line": 385,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "Service tasks zostávajú Pending",
-      "line": 387,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "Task sa okamžite zastaví",
-      "line": 391,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "Deployment sa neukončí",
-      "line": 395,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ImagePull failure",
-      "line": 399,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "24. Troubleshooting EKS",
-      "line": 403,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "Nodes sa nepripoja",
-      "line": 405,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "Pods zostávajú Pending",
-      "line": 409,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "Pods nemajú network",
-      "line": 413,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "kubectl access zlyhá",
-      "line": 417,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "LoadBalancer Service nevznikne",
-      "line": 421,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "25. SOA-C03 mapovanie",
-      "line": 425,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "25. SOA-C03 mapovanie",
-      "line": 425,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "25. SOA-C03 mapovanie",
-      "line": 425,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "25. SOA-C03 mapovanie",
-      "line": 425,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ECS task execution role nevie pull-nuť image,`, `ECS service nemá capacity pre task placement,`, `EKS node group update blokuje PDB,`, `VPC CNI vyčerpá subnet IPs,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "25. SOA-C03 mapovanie",
-      "line": 425,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "25. SOA-C03 mapovanie",
-      "line": 425,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "25. SOA-C03 mapovanie",
-      "line": 425,
+      "section": "Discriminating evidence",
+      "line": 440,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -161714,8 +160922,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "25. SOA-C03 mapovanie",
-      "line": 425,
+      "section": "Discriminating evidence",
+      "line": 440,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -161723,66 +160931,273 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "25. SOA-C03 mapovanie",
-      "line": 425,
+      "section": "Evidence-preserving containment",
+      "line": 454,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Evidence-preserving containment",
+      "line": 454,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECS`, `EKS`, `AZ`, `VPC`, `CNI`, `PDB`, `RBAC`, `IAM`",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Evidence-preserving containment",
+      "line": 454,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Evidence-preserving containment",
+      "line": 454,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastaví sa ďalší neobmedzený workload/node scale-out;`, `healthy old cohort zostáva target-eligible;`, `rollout 7.17.0 sa pozastaví bez mazania pending evidence;`, `batch/noncritical consumers sa dočasne obmedzia;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Evidence-preserving containment",
+      "line": 454,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "ECS task role a execution role zlúčené do broad role",
-      "line": 445,
+      "section": "Evidence-preserving containment",
+      "line": 454,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `SG`, `CNI`, `workload`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Authoritative recovery",
+      "line": 463,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Authoritative recovery",
+      "line": 463,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "EKS považovaný za plne spravovanú aplikáciu",
-      "line": 449,
+      "section": "Authoritative recovery",
+      "line": 463,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Authoritative recovery",
+      "line": 463,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Authoritative recovery",
+      "line": 463,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Authoritative recovery",
+      "line": 463,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Authoritative recovery",
+      "line": 463,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Authoritative recovery",
+      "line": 463,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECS`, `EKS`, `VPC`, `CNI`, `IPAM`, `AZ`, `ENI`, `IP`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Acceptance verdict",
+      "line": 473,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 38 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "Mutable image tag v production",
-      "line": 453,
+      "section": "Acceptance verdict",
+      "line": 473,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `placement je rozdelený cez tri AZs;`, `subnet free-IP headroom spĺňa rollout a failure budget;`, `scale-in/drain nevytvorí dropped ani duplicate payment;`, `old capacity a network generation je bezpečne vyradená.`.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "Host patching cez ručné SSH bez fleet replacementu",
-      "line": 457,
+      "section": "Acceptance verdict",
+      "line": 473,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Acceptance verdict",
+      "line": 473,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Acceptance verdict",
+      "line": 473,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "Acceptance verdict",
+      "line": 473,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "22. ECS troubleshooting walkthrough",
+      "line": 488,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "23. EKS troubleshooting walkthrough",
+      "line": 502,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "24. ECS alebo EKS: rozhodovací model",
+      "line": 520,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "24. ECS alebo EKS: rozhodovací model",
+      "line": 520,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "25. Security a cost boundaries",
+      "line": 535,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 36 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "Jeden subnet/AZ pre celý cluster",
-      "line": 461,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "25. Security a cost boundaries",
+      "line": 535,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable image digest, provenance, scan a signing policy;`, `least-privilege task/Pod identity;`, `oddelené host, execution a workload roles;`, `private registry a controlled egress;`.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
-      "section": "Diagnostika iba cez application logs",
-      "line": 465,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "25. Security a cost boundaries",
+      "line": 535,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "25. Security a cost boundaries",
+      "line": 535,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "25. Security a cost boundaries",
+      "line": 535,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ecs-eks.md",
+      "section": "25. Security a cost boundaries",
+      "line": 535,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`, `workload`",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/elastic-load-balancing.md",

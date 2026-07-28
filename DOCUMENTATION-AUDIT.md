@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10765**
-- Total words: **624,851**
-- Findings: **23635** (critical 7334, high 7991, medium 3074, low 5236)
+- Audited conceptual sections: **10763**
+- Total words: **625,955**
+- Findings: **23570** (critical 7309, high 7956, medium 3063, low 5242)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -41,7 +41,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1318 | 61 | 62 | 22 | 20 | 2668 | `docs/12-observability/prometheus.md` |
 | D | 1255 | 58 | 62 | 20 | 4 | 1517 | `docs/12-observability/golden-signals.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
-| D | 1171 | 50 | 60 | 21 | 21 | 1801 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | D | 1165 | 47 | 74 | 8 | 4 | 1174 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
 | D | 1148 | 57 | 51 | 15 | 11 | 1728 | `docs/12-observability/metrics-logs-traces-events.md` |
 | D | 1123 | 52 | 52 | 21 | 12 | 1692 | `docs/12-observability/instrumentation-telemetry.md` |
@@ -168,6 +167,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 578 | 26 | 25 | 5 | 41 | 4386 | `docs/11-cloud-and-aws/s3-ebs-efs.md` |
 | D | 569 | 23 | 17 | 24 | 50 | 3942 | `docs/13-security-and-identity/threat-modeling.md` |
 | D | 566 | 22 | 33 | 6 | 15 | 1920 | `docs/05-ci-cd-and-release/canary-deployment.md` |
+| D | 566 | 25 | 25 | 10 | 27 | 2905 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | D | 552 | 26 | 23 | 11 | 15 | 2057 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | D | 544 | 23 | 26 | 11 | 23 | 2520 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | D | 542 | 26 | 21 | 2 | 47 | 4101 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
@@ -12059,116 +12059,56 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/11-cloud-and-aws/ecs-eks.md`
 
-- **CRITICAL** line 17, `outline-instead-of-explanation` — **2. Amazon ECS základné objekty**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 29, `bare-bullet-items` — **3. ECS task definition revisions**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `task role — permissions application containers,`, `network mode ,`, `requires compatibilities ,`, `runtime platform ,`.
-- **CRITICAL** line 29, `outline-instead-of-explanation` — **3. ECS task definition revisions**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 45, `bare-bullet-items` — **4. ECS service lifecycle**: 14 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `udržiava desired task count,`, `nahrádza stopped tasks,`, `vykonáva rolling alebo blue/green deployment podľa konfigurácie,`, `registruje targets v load balanceri,`.
-- **CRITICAL** line 45, `outline-instead-of-explanation` — **4. ECS service lifecycle**: 15 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 68, `outline-instead-of-explanation` — **5. ECS capacity providers**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 86, `bare-bullet-items` — **6. ECS na Fargate**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `task sizing,`, `image a vulnerabilities,`, `task/execution roles,`, `network a Security Groups,`.
-- **CRITICAL** line 86, `outline-instead-of-explanation` — **6. ECS na Fargate**: 9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 102, `bare-bullet-items` — **7. ECS na EC2**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AMI a ECS agent,`, `OS patching,`, `instance role,`, `Auto Scaling Group,`.
-- **CRITICAL** line 102, `outline-instead-of-explanation` — **7. ECS na EC2**: 8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 117, `bare-bullet-items` — **8. ECS placement**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource fit,`, `Availability Zone,`, `attributes,`, `constraints,`.
-- **CRITICAL** line 117, `outline-instead-of-explanation` — **8. ECS placement**: 6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 130, `bare-bullet-items` — **9. ECS networking**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `task-level network identity,`, `jednoduchšia integrácia s load balancerom,`, `VPC Flow Logs,`, `service-to-service security boundaries.`.
-- **CRITICAL** line 130, `outline-instead-of-explanation` — **9. ECS networking**: 4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 150, `bare-bullet-items` — **10. ECS deployment safety**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable image digest,`, `health check,`, `startup grace,`, `deregistration delay,`.
-- **CRITICAL** line 150, `outline-instead-of-explanation` — **10. ECS deployment safety**: 7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 164, `bare-bullet-items` — **11. ECS observability**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service desired/running/pending count,`, `deployment state a events,`, `task stopped reason,`, `container exit code,`.
-- **CRITICAL** line 164, `outline-instead-of-explanation` — **11. ECS observability**: 10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 181, `bare-bullet-items` — **12. Amazon EKS mentálny model**: 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC a cluster endpoint access,`, `Kubernetes RBAC/access entries,`, `nodes alebo Fargate profiles podľa modelu,`, `workload manifests,`.
-- **CRITICAL** line 181, `outline-instead-of-explanation` — **12. Amazon EKS mentálny model**: 9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 197, `bare-bullet-items` — **13. EKS compute modely**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EKS Auto Mode managed nodes,`, `managed node groups,`, `self-managed nodes,`, `AWS Fargate,`.
-- **CRITICAL** line 218, `bare-bullet-items` — **14. EKS managed node groups**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `node IAM role,`, `subnets a capacity,`, `instance types,`, `labels/taints,`.
-- **CRITICAL** line 218, `outline-instead-of-explanation` — **14. EKS managed node groups**: 9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 236, `bare-bullet-items` — **15. EKS Fargate**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `profile selection,`, `Pod execution role,`, `subnet IP capacity,`, `supported volumes/features,`.
-- **CRITICAL** line 236, `outline-instead-of-explanation` — **15. EKS Fargate**: 7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 252, `bare-bullet-items` — **16. EKS networking**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster API endpoint public/private access,`, `requester-managed ENIs medzi control plane a VPC,`, `Amazon VPC CNI alebo alternatívny kompatibilný model,`, `Pod IP consumption,`.
-- **CRITICAL** line 252, `outline-instead-of-explanation` — **16. EKS networking**: 9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 268, `bare-bullet-items` — **17. EKS identity**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS IAM identity pristupujúcu ku cluster API,`, `EKS access entries/configuration,`, `Kubernetes RBAC authorization,`, `node IAM role,`.
-- **CRITICAL** line 268, `outline-instead-of-explanation` — **17. EKS identity**: 6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 291, `bare-bullet-items` — **18. EKS add-ons**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC CNI,`, `CoreDNS,`, `kube-proxy,`, `CSI drivers,`.
-- **CRITICAL** line 291, `outline-instead-of-explanation` — **18. EKS add-ons**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 304, `bare-bullet-items` — **19. EKS upgrades**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kubernetes control plane,`, `managed/self-managed nodes,`, `Fargate platform compatibility,`, `EKS add-ons,`.
-- **CRITICAL** line 304, `outline-instead-of-explanation` — **19. EKS upgrades**: 14 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 328, `empty-section` — **20. ECS oproti EKS**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 330, `bare-bullet-items` — **ECS je vhodný, keď**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chceš AWS-native orchestrator,`, `nepotrebuješ Kubernetes API/ecosystem,`, `preferuješ menší control-plane operations surface,`, `deployment a service model ECS pokrýva requirements.`.
-- **CRITICAL** line 330, `no-prose-concept` — **ECS je vhodný, keď**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 330, `outline-instead-of-explanation` — **ECS je vhodný, keď**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 337, `bare-bullet-items` — **EKS je vhodný, keď**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potrebuješ Kubernetes API a ecosystem,`, `používaš operators, CRDs alebo Kubernetes tooling,`, `potrebuješ portability na úrovni orchestrátora,`, `tím vie prevádzkovať Kubernetes day-2 vrstvy.`.
-- **CRITICAL** line 337, `outline-instead-of-explanation` — **EKS je vhodný, keď**: 4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 346, `bare-bullet-items` — **21. Security**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable image digest,`, `image scanning a signing podľa policy,`, `least-privilege workload identity,`, `read-only filesystem/capabilities podľa runtime,`.
-- **CRITICAL** line 346, `outline-instead-of-explanation` — **21. Security**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 362, `empty-section` — **22. Cost model**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 364, `bare-bullet-items` — **ECS**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Fargate vCPU/memory/storage duration,`, `EC2 capacity a idle headroom,`, `load balancer,`, `logs,`.
-- **CRITICAL** line 364, `no-prose-concept` — **ECS**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 364, `outline-instead-of-explanation` — **ECS**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 373, `bare-bullet-items` — **EKS**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster control plane,`, `nodes/Fargate/Auto Mode resources,`, `add-ons a load balancers,`, `observability,`.
-- **CRITICAL** line 373, `outline-instead-of-explanation` — **EKS**: 7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 385, `empty-section` — **23. Troubleshooting ECS**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 403, `empty-section` — **24. Troubleshooting EKS**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 425, `outline-instead-of-explanation` — **25. SOA-C03 mapovanie**: 12 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Porovnávací mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 17, `list-first-introduction` — **2. Amazon ECS základné objekty**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 17, `single-sentence-concept` — **2. Amazon ECS základné objekty**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 45, `single-sentence-concept` — **4. ECS service lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 68, `bare-bullet-items` — **5. ECS capacity providers**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `AWS Fargate,`, `Fargate Spot,`, `ECS Managed Instances,`, `EC2 Auto Scaling Group capacity provider.`.
-- **HIGH** line 117, `single-sentence-concept` — **8. ECS placement**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 130, `single-sentence-concept` — **9. ECS networking**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 164, `single-sentence-concept` — **11. ECS observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 197, `single-sentence-concept` — **13. EKS compute modely**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 268, `single-sentence-concept` — **17. EKS identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 291, `single-sentence-concept` — **18. EKS add-ons**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 330, `list-first-introduction` — **ECS je vhodný, keď**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 337, `list-first-introduction` — **EKS je vhodný, keď**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 337, `single-sentence-concept` — **EKS je vhodný, keď**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 346, `single-sentence-concept` — **21. Security**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 364, `list-first-introduction` — **ECS**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 373, `list-first-introduction` — **EKS**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 373, `single-sentence-concept` — **EKS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 387, `single-sentence-concept` — **Service tasks zostávajú Pending**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 391, `single-sentence-concept` — **Task sa okamžite zastaví**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 395, `single-sentence-concept` — **Deployment sa neukončí**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 399, `single-sentence-concept` — **ImagePull failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 405, `single-sentence-concept` — **Nodes sa nepripoja**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 409, `single-sentence-concept` — **Pods zostávajú Pending**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 413, `single-sentence-concept` — **Pods nemajú network**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 417, `single-sentence-concept` — **kubectl access zlyhá**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 421, `single-sentence-concept` — **LoadBalancer Service nevznikne**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 425, `bare-bullet-items` — **25. SOA-C03 mapovanie**: 6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ECS task execution role nevie pull-nuť image,`, `ECS service nemá capacity pre task placement,`, `EKS node group update blokuje PDB,`, `VPC CNI vyčerpá subnet IPs,`.
-- **HIGH** line 425, `list-first-introduction` — **25. SOA-C03 mapovanie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 425, `single-sentence-concept` — **25. SOA-C03 mapovanie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 445, `single-sentence-concept` — **ECS task role a execution role zlúčené do broad role**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 449, `single-sentence-concept` — **EKS považovaný za plne spravovanú aplikáciu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 453, `single-sentence-concept` — **Mutable image tag v production**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 457, `single-sentence-concept` — **Host patching cez ručné SSH bez fleet replacementu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 461, `single-sentence-concept` — **Jeden subnet/AZ pre celý cluster**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 465, `single-sentence-concept` — **Diagnostika iba cez application logs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 17, `thin-concept-section` — **2. Amazon ECS základné objekty**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 29, `thin-concept-section` — **3. ECS task definition revisions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 45, `term-before-explanation` — **4. ECS service lifecycle**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `CPU`, `GPU`, `KMS`, `Availability`
-- **HIGH** line 45, `thin-concept-section` — **4. ECS service lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 86, `thin-concept-section` — **6. ECS na Fargate**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 117, `thin-concept-section` — **8. ECS placement**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 130, `thin-concept-section` — **9. ECS networking**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 164, `term-before-explanation` — **11. ECS observability**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `ENI`, `IP`, `ASG`
-- **HIGH** line 164, `thin-concept-section` — **11. ECS observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 181, `term-before-explanation` — **12. Amazon EKS mentálny model**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `RBAC`, `CNI`, `CSI`, `workload`
-- **HIGH** line 181, `thin-concept-section` — **12. Amazon EKS mentálny model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 252, `thin-concept-section` — **16. EKS networking**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 268, `term-before-explanation` — **17. EKS identity**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `API`, `EKS`, `RBAC`, `identity`
-- **HIGH** line 268, `thin-concept-section` — **17. EKS identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 291, `thin-concept-section` — **18. EKS add-ons**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 304, `term-before-explanation` — **19. EKS upgrades**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EKS`, `PDB`, `control plane`, `workload`
-- **HIGH** line 304, `thin-concept-section` — **19. EKS upgrades**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 330, `thin-concept-section` — **ECS je vhodný, keď**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 337, `thin-concept-section` — **EKS je vhodný, keď**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 346, `thin-concept-section` — **21. Security**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 364, `thin-concept-section` — **ECS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 373, `thin-concept-section` — **EKS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 425, `term-before-explanation` — **25. SOA-C03 mapovanie**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECS`, `EKS`, `AZ`, `VPC`, `CNI`, `PDB`, `RBAC`, `IAM`
-- **HIGH** line 425, `thin-concept-section` — **25. SOA-C03 mapovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 81, `empty-section` — **2. ECS a EKS majú odlišný authoritative control plane**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 115, `empty-section` — **3. Workload specification je release contract**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 117, `bare-bullet-items` — **ECS task definition**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image digest a containers;`, `CPU, memory, ports a runtime platform;`, `command/entrypoint;`, `task a execution role;`.
+- **CRITICAL** line 117, `outline-instead-of-explanation` — **ECS task definition**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 251, `bare-bullet-items` — **11. EKS compute modely**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EKS Auto Mode;`, `managed node groups;`, `self-managed nodes;`, `AWS Fargate;`.
+- **CRITICAL** line 287, `bare-bullet-items` — **13. EKS access a workload identity**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster IAM role a service-linked roles;`, `IAM principal pristupujúci ku clusteru;`, `EKS access entry/policy alebo Kubernetes group mapping;`, `Kubernetes RBAC;`.
+- **CRITICAL** line 321, `bare-bullet-items` — **15. EKS storage a topology**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable identity;`, `quorum/replication awareness;`, `ordered drain;`, `fencing;`.
+- **CRITICAL** line 336, `bare-bullet-items` — **16. Add-ons a controllers rozširujú upgrade graph**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC CNI;`, `CoreDNS;`, `kube-proxy alebo alternate dataplane;`, `CSI drivers;`.
+- **CRITICAL** line 336, `outline-instead-of-explanation` — **16. Add-ons a controllers rozširujú upgrade graph**: 8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 399, `empty-section` — **20. Observability podľa orchestration vrstvy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 401, `bare-bullet-items` — **ECS evidence**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service desired/running/pending counts;`, `deployment/task-set generation;`, `service events;`, `task stopped reason a container exit code;`.
+- **CRITICAL** line 401, `no-prose-concept` — **ECS evidence**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 401, `outline-instead-of-explanation` — **ECS evidence**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 413, `bare-bullet-items` — **EKS evidence**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API object generation, ownerReferences a Events;`, `controller conditions;`, `scheduler decisions;`, `Pod status, container states a exit codes;`.
+- **CRITICAL** line 413, `outline-instead-of-explanation` — **EKS evidence**: 9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 431, `bare-bullet-items` — **Competing hypotheses**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster nemá dostatok CPU alebo memory;`, `image revision 7.17.0 sa nedá pull-nuť;`, `task execution role alebo Pod Identity zlyháva;`, `ALB health check odmieta nový release;`.
+- **CRITICAL** line 431, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 431, `outline-instead-of-explanation` — **Competing hypotheses**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 454, `no-prose-concept` — **Evidence-preserving containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 454, `outline-instead-of-explanation` — **Evidence-preserving containment**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 463, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 463, `outline-instead-of-explanation` — **Authoritative recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 488, `empty-section` — **22. ECS troubleshooting walkthrough**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 502, `empty-section` — **23. EKS troubleshooting walkthrough**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 535, `bare-bullet-items` — **25. Security a cost boundaries**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable image digest, provenance, scan a signing policy;`, `least-privilege task/Pod identity;`, `oddelené host, execution a workload roles;`, `private registry a controlled egress;`.
+- **HIGH** line 23, `single-sentence-concept` — **1. Exact container orchestration subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 83, `list-first-introduction` — **ECS**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 176, `bare-bullet-items` — **6. ECS capacity providers**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `AWS Fargate a Fargate Spot;`, `Amazon ECS Managed Instances;`, `EC2 Auto Scaling Group capacity provider.`.
+- **HIGH** line 287, `list-heavy-section` — **13. EKS access a workload identity**: 7 odrážok a iba 61 slov súvislého vysvetlenia.
+- **HIGH** line 321, `list-heavy-section` — **15. EKS storage a topology**: 6 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 371, `bare-bullet-items` — **18. Autoscaling má tri odlišné otázky**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Koľko workload replicas je potrebných?`, `Existuje pre ne schedulable compute/network/storage capacity?`, `Je downstream schopný nový concurrency absorbovať?`.
+- **HIGH** line 401, `list-first-introduction` — **ECS evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 413, `list-first-introduction` — **EKS evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 431, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 454, `bare-bullet-items` — **Evidence-preserving containment**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastaví sa ďalší neobmedzený workload/node scale-out;`, `healthy old cohort zostáva target-eligible;`, `rollout 7.17.0 sa pozastaví bez mazania pending evidence;`, `batch/noncritical consumers sa dočasne obmedzia;`.
+- **HIGH** line 454, `list-first-introduction` — **Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 463, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 473, `bare-bullet-items` — **Acceptance verdict**: 4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `placement je rozdelený cez tri AZs;`, `subnet free-IP headroom spĺňa rollout a failure budget;`, `scale-in/drain nevytvorí dropped ani duplicate payment;`, `old capacity a network generation je bezpečne vyradená.`.
+- **HIGH** line 473, `list-heavy-section` — **Acceptance verdict**: 8 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 535, `list-heavy-section` — **25. Security a cost boundaries**: 8 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 117, `thin-concept-section` — **ECS task definition**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 401, `thin-concept-section` — **ECS evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 413, `term-before-explanation` — **EKS evidence**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `CNI`, `CSI`, `RBAC`
+- **HIGH** line 413, `thin-concept-section` — **EKS evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 431, `term-before-explanation` — **Competing hypotheses**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `ALB`, `IP`, `ENI`, `EKS`, `CNI`, `Identity`
+- **HIGH** line 431, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 454, `term-before-explanation` — **Evidence-preserving containment**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `SG`, `CNI`, `workload`
+- **HIGH** line 454, `thin-concept-section` — **Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 463, `term-before-explanation` — **Authoritative recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECS`, `EKS`, `VPC`, `CNI`, `IPAM`, `AZ`, `ENI`, `IP`
+- **HIGH** line 463, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/11-cloud-and-aws/elastic-load-balancing.md`
 
@@ -16384,19 +16324,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3027 | 439 | 0 | 0 | 3466 |
-| `outline-instead-of-explanation` | 2949 | 0 | 0 | 0 | 2949 |
-| `single-sentence-concept` | 0 | 2678 | 0 | 0 | 2678 |
-| `term-before-explanation` | 0 | 579 | 2074 | 0 | 2653 |
-| `thin-concept-section` | 0 | 2543 | 0 | 0 | 2543 |
-| `example-not-explicit` | 0 | 0 | 0 | 2096 | 2096 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2045 | 2045 |
-| `list-first-introduction` | 0 | 1307 | 0 | 0 | 1307 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1095 | 1095 |
-| `short-concept-section` | 0 | 0 | 1000 | 0 | 1000 |
-| `no-prose-concept` | 748 | 0 | 0 | 0 | 748 |
-| `empty-section` | 610 | 0 | 0 | 0 | 610 |
-| `list-heavy-section` | 0 | 445 | 0 | 0 | 445 |
+| `bare-bullet-items` | 3015 | 441 | 0 | 0 | 3456 |
+| `outline-instead-of-explanation` | 2933 | 0 | 0 | 0 | 2933 |
+| `single-sentence-concept` | 0 | 2652 | 0 | 0 | 2652 |
+| `term-before-explanation` | 0 | 577 | 2064 | 0 | 2641 |
+| `thin-concept-section` | 0 | 2531 | 0 | 0 | 2531 |
+| `example-not-explicit` | 0 | 0 | 0 | 2097 | 2097 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2044 | 2044 |
+| `list-first-introduction` | 0 | 1306 | 0 | 0 | 1306 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1101 | 1101 |
+| `short-concept-section` | 0 | 0 | 999 | 0 | 999 |
+| `no-prose-concept` | 750 | 0 | 0 | 0 | 750 |
+| `empty-section` | 611 | 0 | 0 | 0 | 611 |
+| `list-heavy-section` | 0 | 449 | 0 | 0 | 449 |
 
 ## Required remediation pattern
 
