@@ -1,417 +1,580 @@
 # Shared responsibility model
 
-AWS Shared Responsibility Model rozdeľuje security, compliance, availability a operations responsibilities medzi AWS a zákazníka. Základná formulácia je:
+AWS Shared Responsibility Model nie je statický obrázok s dvoma stĺpcami. Je to service-specific control-ownership protocol, ktorý musí určiť:
 
 ```text
-AWS je zodpovedné za security OF the cloud.
-Zákazník je zodpovedný za security IN the cloud.
+required business/security/recovery outcome
+→ konkrétny service a configuration subject
+→ provider, customer a shared control inventory
+→ evidence a observation owner
+→ incident, recovery a support boundary
+→ closure verdict
 ```
 
-Toto pravidlo je iba východisko. Konkrétna responsibility boundary sa mení podľa použitej služby, konfigurácie, integrácie a regulačných požiadaviek.
+Základná formulácia zostáva:
 
-## 1. Security of the cloud
+```text
+AWS zodpovedá za security OF the cloud.
+Zákazník zodpovedá za security IN the cloud.
+```
 
-AWS typicky zodpovedá za:
+Je to východisko, nie kompletný runbook. Responsibility sa mení podľa služby, feature-u, configuration, integration, Regionu, identity a regulačného contractu.
 
-- fyzickú bezpečnosť dátových centier,
-- physical servers, storage a network hardware,
-- host operating system a virtualization layer,
-- základnú AWS global infrastructure,
-- provider service control plane a managed service runtime podľa service contractu,
-- hardware disposal a facility resilience,
-- provider-level compliance controls a audity.
+## 1. Exact responsibility subject
 
-Zákazník nemá prístup k hypervisoru alebo fyzickému dátovému centru a nemôže tieto vrstvy sám patchovať.
+Pre Atlas Payments:
 
-## 2. Security in the cloud
+```text
+capability: CAP-PAY-42
+AWS account: A42
+Region: eu-central-1
+application release: I42/C42/SE10
+compute: managed runtime MR42
+managed database: DB42
+KMS key: K42
+network: VPC42, SG42, endpoints EP42
+backup policy: BP7
+identity: workload role WR42
+business outcome: payment authorization a settlement presne raz
+```
+
+Responsibility verdict bez service/resource/configuration identity je príliš všeobecný. „AWS spravuje databázu“ nehovorí, kto spravuje DB users, schema, KMS policy, network exposure, backup retention, restore test alebo application consistency.
+
+## 2. Dominantný lifecycle kontroly
+
+```text
+control objective
+→ applicability a owner assignment
+→ provider capability a customer configuration
+→ deployment a effective state
+→ evidence emission a retention
+→ control operation a alerting
+→ incident ownership a escalation
+→ remediation/recovery
+→ original aj forbidden outcome verification
+→ periodic revalidation
+```
+
+Každý kritický control potrebuje:
+
+- ownera;
+- authoritative configuration source;
+- effective-state observation;
+- evidence location a retention;
+- failure mode;
+- escalation boundary;
+- recovery procedure;
+- test frequency.
+
+## 3. Security of the cloud
+
+AWS typicky vlastní:
+
+- physical facilities a physical security;
+- hardware, storage devices a physical network;
+- host operating systems a virtualization layer;
+- foundational global infrastructure;
+- provider service control planes a managed runtime podľa service contractu;
+- facility resilience a hardware lifecycle;
+- provider-level audits a certifications.
+
+Zákazník nemôže patchovať AWS hypervisor ani vstupovať do dátového centra. Preto tieto controls overuje cez AWS service commitments, compliance evidence, service health, support a publikovanú dokumentáciu.
+
+### Provider boundary neznamená provider business ownership
+
+AWS môže vymeniť failed host alebo replikovať managed database storage. Nevie však rozhodnúť:
+
+- ktoré transakcie sú business-valid;
+- či zákaznícky IAM role smie mazať dáta;
+- či retention spĺňa Atlas RPO;
+- či rollback binary rozumie novej schema;
+- či payment bol zúčtovaný presne raz.
+
+## 4. Security in the cloud
 
 Zákazník typicky vlastní:
 
-- identity, credentials a authorization,
-- account a organization configuration,
-- data classification a protection,
-- encryption choices a key policy podľa služby,
-- network configuration,
-- workload OS a patching pri IaaS,
-- application code a dependencies,
-- security groups, resource policies a service configuration,
-- logging, monitoring a incident response,
-- backup, recovery a business continuity,
-- compliance použitia služby a spracovania dát.
+- accounts, Organizations a Region governance;
+- identities, credentials, federation a authorization;
+- data classification, retention a legal obligations;
+- resource configuration;
+- VPC, routes, SG, NACL, endpoints a application TLS;
+- workload OS pri IaaS;
+- code, dependencies a supply chain;
+- KMS key policies a encryption choices;
+- logging enablement, centralization, detection a incident response;
+- backup, restore, DR a business continuity;
+- application a business acceptance.
 
-Managed service znižuje rozsah technickej prevádzky, ale neodstraňuje zákaznícku zodpovednosť za data, access a configuration.
+Ak zákazník môže resource alebo policy konfigurovať, typicky vlastní bezpečnosť tejto konfigurácie.
 
-## 3. Responsibility sa mení podľa service modelu
+## 5. Shared control nie je nejasné vlastníctvo
+
+„Shared“ znamená, že provider dodáva capability a zákazník ju musí správne aktivovať, nakonfigurovať a používať.
+
+Príklady:
+
+```text
+AWS poskytne IAM/STS
+→ zákazník definuje principals, trust a permissions
+
+AWS poskytne encryption capability
+→ zákazník zvolí key, policy, context a rotation
+
+AWS poskytne Multi-AZ feature
+→ zákazník ju zvolí, navrhne clients a overí failover
+
+AWS emituje CloudTrail/service logs
+→ zákazník zapne coverage, retention, detection a response
+```
+
+Shared control musí mať explicitné rozhranie. Inak každý tím predpokladá, že druhá strana vykonáva chýbajúcu časť.
+
+## 6. Service-specific responsibility matrix
 
 ### EC2
 
-AWS spravuje:
+AWS:
 
-- physical facility,
-- hardware,
-- host OS,
-- hypervisor.
+- facilities, hardware, host OS, hypervisor;
+- EC2 control plane;
+- physical network a základnú instance isolation.
 
-Zákazník spravuje:
+Atlas:
 
-- guest OS,
-- patches,
-- packages a agents,
-- application,
-- security groups a IAM,
-- EBS/data encryption konfiguráciu,
-- backup a recovery.
+- AMI/image provenance;
+- guest OS, patches a reboot;
+- packages, agents a runtime;
+- application a data;
+- IAM instance role;
+- SG a routes;
+- EBS encryption choice a backup;
+- fleet HA, scale a recovery.
 
-### Managed database
+### Managed relational database
 
-AWS preberá viac vrstiev:
+AWS:
 
-- host a database platform operations podľa služby,
-- patching engine/platformy podľa configured maintenance modelu,
-- infrastructure replacement,
-- built-in replication alebo backup capabilities podľa configuration.
+- host a engine-platform operation podľa služby;
+- infrastructure replacement;
+- service patch mechanism;
+- replication/backup capability podľa configured mode.
 
-Zákazník stále vlastní:
+Atlas:
 
-- database users a permissions,
-- schema a queries,
-- data classification,
-- network exposure,
-- encryption/KMS policy,
-- retention a restore testing,
-- engine parameters, ktoré služba sprístupňuje,
-- application consistency a migration.
+- engine version a maintenance choice podľa exposed controls;
+- users, roles a authentication;
+- schema, queries a migrations;
+- network exposure;
+- KMS/key policy;
+- parameter configuration;
+- retention, point-in-time recovery a restore test;
+- application consistency a failover compatibility.
 
-### Serverless
+### Serverless/managed runtime
 
-AWS spravuje runtime infrastructure a scaling platformu. Zákazník vlastní:
+AWS:
 
-- function code,
-- dependencies,
-- IAM execution role,
-- event sources,
-- input validation,
-- secrets,
-- logging,
-- concurrency a cost controls,
-- business continuity.
+- runtime infrastructure a platform scaling mechanism;
+- host patching a replacement;
+- service control plane.
+
+Atlas:
+
+- code a dependencies;
+- execution role a event-source policy;
+- input validation;
+- concurrency, retries a idempotency;
+- secrets a outbound access;
+- logging, cost a business continuity.
 
 ### SaaS
 
-Provider spravuje celý application stack, ale zákazník stále vlastní tenant identities, sharing, configuration, data governance, integrations, endpoint security a export/recovery plán.
+Provider spravuje application implementation. Atlas stále vlastní:
 
-## 4. Responsibility matrix
+- tenant identities a admins;
+- federation a MFA policy;
+- sharing a data classification;
+- integrations a API credentials;
+- endpoint security;
+- retention/export/deletion;
+- business process a fallback.
 
-Pre každú službu vytvor tabuľku:
+## 7. Control inheritance
 
-| Vrstva | AWS | Zákazník | Shared/poznámka |
-|---|---|---|---|
-| Physical facilities | Owns | — | AWS audit evidence |
-| Host/hypervisor | Owns | — | service-specific |
-| Guest OS | — | Owns pri EC2 | pri PaaS preberá AWS |
-| Network policy | platform | configures | SG/NACL/routes |
-| Identity | IAM service | policies a principals | federácia je shared integration |
-| Data | storage platform | classification a access | durability ≠ backup |
-| Encryption | capability | enable/key policy/use | service-specific defaults |
-| Logging | emits signals | enable, retain, alert | centralizácia je customer scope |
-| Recovery | service features | design, test, execute | business RPO/RTO customer scope |
+Atlas môže zdediť provider controls:
 
-Bez service-specific matrixu vznikajú slepé miesta.
-
-## 5. Control inheritance
-
-Zákazník môže zdediť provider controls, napríklad:
-
-- physical security,
-- facility environmental controls,
-- hardware lifecycle,
-- hypervisor patching,
+- physical security;
+- environmental controls;
+- hardware disposal;
+- hypervisor patching;
 - provider certifications.
 
-Inheritance neznamená automatickú compliance workloadu. Zákazník musí:
+Inheritance lifecycle:
 
-- vybrať eligible službu a Region,
-- nakonfigurovať ju správne,
-- chrániť data a identities,
-- zachovať evidence,
-- vykonať vlastné risk assessment,
-- splniť aplikačné a procesné controls.
+```text
+control requirement
+→ provider control mapping
+→ service/Region eligibility
+→ provider evidence
+→ Atlas configuration a complementary controls
+→ workload evidence
+→ audit verdict
+```
 
-## 6. Compliance
+Provider certification necertifikuje automaticky Atlas workload. Zákazník musí overiť applicability, service scope, Region, configuration, data handling, identities, processes a vlastnú evidence.
 
-AWS certification alebo audit report necertifikuje automaticky zákaznícku aplikáciu.
+## 8. Identity responsibility
 
-Zákazník vlastní:
+AWS poskytuje IAM, STS, Organizations a federation capabilities. Atlas určuje:
 
-- applicability regulácie,
-- data mapping,
-- retention a deletion,
-- access review,
-- separation of duties,
-- incident notification,
-- vendor risk,
-- lawful processing,
-- audit evidence z vlastnej vrstvy.
+- principal identity;
+- authentication source;
+- trust relationship;
+- policy layers;
+- session duration a conditions;
+- credential distribution;
+- revocation;
+- audit a investigation.
 
-Provider dokumentácia a Artifact reports sú vstup do zákazníckeho compliance programu.
+Exact authorization subject:
 
-## 7. Identity boundary
+```text
+principal/session
+→ account/organization boundary
+→ identity policy
+→ resource policy
+→ permission boundary
+→ SCP
+→ session policy
+→ service-specific condition
+→ API action/resource
+```
 
-AWS poskytuje IAM, STS, Organizations a ďalšie identity capabilities. Zákazník rozhoduje:
+`AccessDenied` nie je provider outage. Diagnostika musí vyhodnotiť celý effective policy graph a request context.
 
-- kto je principal,
-- ako sa autentifikuje,
-- aké policies sa aplikujú,
-- kde je trust relationship,
-- ako sa používajú temporary credentials,
-- ako sa ruší access,
-- ako sa auditujú requests.
+## 9. Network responsibility
 
-Credential leak alebo broad role je zákaznícky incident aj vtedy, keď IAM service funguje správne.
+AWS spravuje physical a virtual-network platformu. Atlas spravuje:
 
-## 8. Network boundary
+- VPC/subnet topology;
+- route tables;
+- SG/NACL;
+- IGW/NAT/transit/private endpoints;
+- hybrid routing;
+- DNS;
+- TLS a application authorization.
 
-AWS spravuje physical network a virtual networking platformu. Zákazník spravuje:
+Network incident subject:
 
-- VPC a subnet topology,
-- routes,
-- security groups,
-- NACLs,
-- internet/NAT/transit gateways,
-- private endpoints,
-- DNS a hybrid connectivity,
-- application TLS a authorization.
+```text
+source ENI/IP/identity
+→ route
+→ gateway/endpoint
+→ SG/NACL/service policy
+→ destination
+→ return path
+→ TLS/application auth
+```
 
-„AWS network outage“ nesmie byť prvá hypotéza pred overením route, policy, endpoint a customer changes.
+Provider service health môže byť green a Atlas route alebo SG generation môže blokovať flow.
 
-## 9. Data protection
+## 10. Data a encryption responsibility
 
-AWS môže poskytovať durability, encryption, snapshots a replication features. Zákazník musí určiť:
+AWS môže poskytovať durable storage, snapshots, replication a encryption mechanisms. Atlas určuje:
 
-- authoritative data,
-- klasifikáciu,
-- kto má access,
-- encryption requirements,
-- KMS key ownership,
-- backup schedule,
-- retention a immutability,
-- restore test,
-- RPO/RTO,
+- authoritative data;
+- classification;
+- access;
+- encryption requirement;
+- key owner a policy;
+- backup a retention;
+- immutability/isolation;
+- restore a reconciliation;
+- RPO/RTO;
 - deletion a legal hold.
-
-Service-side replication nie je automaticky zákaznícky backup ani DR.
-
-## 10. Encryption responsibility
 
 Rozlišuj:
 
-- provider encryption of infrastructure,
-- service-side encryption,
-- customer-managed keys,
-- client-side encryption,
-- TLS in transit,
-- key access policy,
-- key rotation a recovery.
+```text
+provider infrastructure encryption
+service-side encryption
+customer-managed key
+client-side encryption
+TLS
+key policy a grant
+rotation
+revocation/deletion recovery
+```
 
-Zapnutá encryption s broad decrypt policy nemusí spĺňať security cieľ. KMS key deletion alebo deny policy môže spôsobiť data unavailability.
+`Encrypted=true` nepreukazuje least-privilege decrypt access. KMS deny alebo scheduled key deletion môže vytvoriť data unavailability pri zdravej storage službe.
 
-## 11. Logging a detection
+## 11. Logging a detection responsibility
 
-AWS poskytuje service logs, CloudTrail events, metrics a security findings podľa služby. Zákazník musí:
-
-- logovanie zapnúť, ak nie je default,
-- centralizovať ho,
-- chrániť pred zmenou,
-- nastaviť retention,
-- monitorovať coverage,
-- vytvoriť detections a alerts,
-- reagovať na findings,
-- testovať incident workflow.
-
-Log capability bez retention a alerting nie je funkčný detection control.
-
-## 12. Availability
-
-AWS zodpovedá za dostupnosť služby podľa publikovaného service designu a SLA. Zákazník zodpovedá za architektúru workloadu:
-
-- Multi-AZ alebo multi-Region placement,
-- health checks a failover,
-- application retry/timeouts,
-- capacity a quotas,
-- data replication,
-- backup a restore,
-- dependency mapping,
-- DR testing.
-
-Použitie single-AZ EC2 instance je zákaznícke architektonické rozhodnutie, nie porušenie providerovej shared responsibility hranice.
-
-## 13. Patching
-
-### Customer-managed OS
-
-Zákazník vlastní inventory, vulnerability assessment, patching, reboot, validation a rollback.
-
-### Managed runtime
-
-AWS patchuje platformu, ale zákazník môže vlastniť:
-
-- maintenance window,
-- engine/runtime version,
-- upgrade deadline,
-- application compatibility,
-- deprecation migration,
-- post-change validation.
-
-„Managed“ neznamená, že version lifecycle možno ignorovať.
-
-## 14. Infrastructure as Code
-
-AWS poskytuje APIs a service behavior. Zákazník vlastní:
-
-- IaC source,
-- review a approval,
-- state protection,
-- policy-as-code,
-- drift detection,
-- deployment credentials,
-- rollback,
-- environment separation.
-
-Misconfiguration nasadená cez Terraform zostáva zákazníckou zodpovednosťou.
-
-## 15. Marketplace a third-party services
-
-Pri third-party produkte vzniká trojstranný model:
+AWS môže emitovať CloudTrail events, service logs, metrics, health events a findings. Atlas musí:
 
 ```text
-AWS infrastructure responsibility
-+ vendor product responsibility
-+ customer configuration/data responsibility
+enable coverage
+→ route/collect
+→ protect integrity
+→ retain
+→ query a correlate
+→ detect a alert
+→ investigate
+→ respond
+→ test coverage
+```
+
+Log capability bez enablement, retention alebo alertingu nie je funkčný control. Absencia eventu môže znamenať, že source log nebol zapnutý alebo bol smerovaný do iného accountu/Regionu.
+
+## 12. Availability a recovery responsibility
+
+AWS zodpovedá za service implementation a publikovaný service contract. Atlas zodpovedá za workload architecture a business continuity:
+
+- Multi-AZ/multi-Region placement;
+- health checks a traffic removal;
+- retry/timeout/idempotency;
+- quotas a failure-mode capacity;
+- data replication;
+- backup/restore;
+- dependency mapping;
+- failover/failback;
+- DR test.
+
+Single-AZ EC2 alebo single-NAT architecture je customer decision. Provider AZ failure môže byť trigger, ale customer architecture určuje business blast radius.
+
+## 13. Patching a version lifecycle
+
+### IaaS
+
+Atlas vlastní inventory, vulnerability assessment, patching, reboot, validation a rollback.
+
+### Managed service
+
+AWS môže patchovať platformu, ale Atlas často vlastní:
+
+- maintenance window;
+- engine/runtime version;
+- deprecation deadline;
+- application compatibility;
+- client/driver support;
+- post-change verification;
+- rollback alebo migration plan.
+
+Managed runtime neodstraňuje version lifecycle.
+
+## 14. Infrastructure as Code a writer ownership
+
+AWS poskytuje API. Atlas vlastní:
+
+- IaC source;
+- review/approval;
+- state a credentials;
+- policy-as-code;
+- drift detection;
+- field ownership;
+- environment boundaries;
+- rollback/recovery.
+
+Misconfiguration nasadená cez Terraform alebo CloudFormation zostáva customer-owned. Automatizácia zväčšuje rýchlosť a konzistenciu správnych aj chybných zmien.
+
+## 15. Third-party responsibility
+
+Marketplace alebo partner service vytvára tri boundaries:
+
+```text
+AWS infrastructure
++ vendor product
++ Atlas configuration/data/integration
 ```
 
 Over:
 
-- support boundary,
-- patch owner,
-- data processing,
-- network path,
-- IAM permissions,
-- backup/export,
-- end-of-life,
+- patch a support ownera;
+- IAM permissions;
+- network path;
+- data processing a residency;
+- backup/export;
+- vulnerability a EOL;
+- billing;
 - incident escalation.
 
-## 16. Managed service neznamená managed outcome
+## 16. Worked incident: „AWS KMS outage“ bez provider root cause
 
-AWS môže spravovať:
+Payment Pods po release I42 nedokážu dešifrovať settlement credential. Application hlási `AccessDeniedException`; KMS service health je green.
 
-- hardware,
-- replication mechanism,
-- service patching,
-- automatic replacement.
-
-Zákazník stále musí spravovať:
-
-- business availability cieľ,
-- správnu konfiguráciu,
-- capacity mode,
-- data consistency,
-- access,
-- restore validity,
-- cost a quotas.
-
-Feature existence nie je dôkaz správneho použitia.
-
-## 17. Support boundary
-
-Pri support case priprav:
-
-- account ID bez credentials,
-- Region,
-- service/resource IDs,
-- UTC timestamps,
-- request IDs,
-- error messages,
-- scope a impact,
-- recent changes,
-- reproduction,
-- customer-side evidence.
-
-Provider support nemôže efektívne diagnostikovať neurčitý opis „AWS nefunguje“.
-
-## 18. Incident ownership
-
-Použi otázky:
-
-1. Zlyháva provider service pre viac zákazníkov/Region?
-2. Zlyháva iba jeden account, VPC alebo resource?
-3. Bola recent customer config/IAM/network zmena?
-4. Je API request odmietnutý alebo data plane nedostupný?
-5. Funguje rovnaká operácia v inom resource/Region/account?
-6. Existuje AWS Health event?
-7. Aký request ID a error code poskytol service?
-
-Incident môže byť shared: provider degradation odhalí zákaznícky single point of failure.
-
-## 19. Anti-patterny
-
-### AWS spravuje security
-
-AWS spravuje iba svoju časť stacku.
-
-### Service je compliant, teda workload je compliant
-
-Chýba zákaznícka konfigurácia, proces a evidence.
-
-### Encryption je zapnutá, teda dáta sú bezpečné
-
-Kľúčová je policy, identity, context a lifecycle.
-
-### Managed database nepotrebuje backup test
-
-Platform backup feature nepreukazuje application recovery.
-
-### Provider outage je príčina každého incidentu
-
-Najprv over customer-controlled layers.
-
-## 20. Troubleshooting responsibility
-
-Príklad managed database connectivity:
+### Exact incident subject
 
 ```text
-application identity/config
-→ DNS
-→ route
-→ security group/NACL
-→ service endpoint
-→ database auth/TLS
-→ engine availability
-→ provider service health
+capability CAP-PAY-42
+workload role WR42 session S-884
+KMS key ARN K42
+key policy generation KP19
+IAM policy generation IP31
+ciphertext encryption context: app=payments, env=prod
+request IDs: RQ1001–RQ1188
+Region: eu-central-1
 ```
 
-Každý krok má iného vlastníka alebo shared boundary. Diagnostika musí postupovať cez evidence, nie cez organizačné predpoklady.
+### Competing hypotheses
 
-## 21. Kontrolné otázky
+1. KMS regional service degradation;
+2. workload používa key v inom Regione;
+3. IAM policy stratila `kms:Decrypt`;
+4. key policy deny alebo chýbajúci principal;
+5. encryption context mismatch;
+6. session/SCP/permission boundary deny;
+7. ciphertext bol vytvorený iným keyom;
+8. workload používa stale credential alebo role session.
 
-1. Čo znamená security of a security in the cloud?
-2. Ako sa responsibility boundary mení medzi EC2 a managed database?
-3. Prečo provider compliance neznamená customer compliance?
-4. Kto vlastní IAM policies a credential lifecycle?
-5. Prečo service replication nie je automaticky backup?
-6. Kto vlastní Multi-AZ workload design?
-7. Ako sa mení patching responsibility pri managed runtime?
-8. Aké riziko vzniká pri Marketplace produkte?
-9. Aké evidence patrí do AWS support case?
-10. Ako rozlíšiš provider a customer incident?
+### Discriminating observations
+
+```text
+request ID/error code/Region
+→ caller identity a session
+→ exact key ARN a state
+→ key policy + IAM + SCP + boundary
+→ encryption context
+→ CloudTrail KMS event
+→ porovnanie healthy/stale Pod cohort
+```
+
+Finding: security hardening change KP19 vyžaduje encryption context `env=production`, ale application stále posiela `env=prod`. KMS správne odmieta decrypt. Root cause je customer-owned policy/application contract mismatch.
+
+### Containment
+
+- zastaviť rollout ďalšej Pod cohorty;
+- zachovať functioning old cohort;
+- zachovať request IDs, CloudTrail a policy diff;
+- nevytvárať broad `kms:*` grant;
+- neotáčať key ani nereencryptovať všetky dáta naslepo.
+
+### Recovery
+
+1. zvoliť canonical encryption-context contract;
+2. opraviť application/config alebo policy kompatibilným spôsobom;
+3. nasadiť bounded cohort;
+4. overiť decrypt s WR42;
+5. overiť, že unrelated principal je odmietnutý;
+6. dokončiť rollout a payment synthetic;
+7. pridať contract test do policy/application pipeline.
+
+### Closure verdict
+
+```text
+current payment cohort dešifruje správny ciphertext
+old/stale context je riadene podporovaný alebo odmietnutý podľa migration planu
+neautorizovaný principal zostáva denied
+CloudTrail coverage a alerts fungujú
+payment authorization a settlement sú green
+```
+
+## 17. Provider incident a customer weakness môžu koexistovať
+
+Provider degradation môže odhaliť customer-owned single point:
+
+```text
+provider AZ/service incident
+→ customer nemá failure-mode capacity alebo failover
+→ business outage je väčší než service blast radius
+```
+
+Root cause a contributing controls musia byť oddelené. Support case môže potvrdiť provider event, ale Atlas post-incident review stále hodnotí vlastnú architecture, detection a recovery.
+
+## 18. Support boundary
+
+Kvalitný AWS support case obsahuje:
+
+- account ID bez credentials;
+- Region;
+- service/resource ARN alebo ID;
+- UTC window;
+- request IDs a error codes;
+- scope a business impact;
+- recent customer changes;
+- reprodukciu;
+- customer-side evidence;
+- porovnanie healthy/affected cohort.
+
+„AWS nefunguje“ nie je diagnostický subject.
+
+## 19. Responsibility RACI a escalation
+
+Pre kritický control eviduj:
+
+| Control | AWS capability | Atlas owner | Evidence | Recovery owner |
+|---|---|---|---|---|
+| KMS platform | KMS service | Cloud security | AWS Health + CloudTrail | shared escalation |
+| Key policy | policy API | Cloud security | versioned policy + test | Atlas |
+| Workload role | IAM/STS | Platform team | policy/session audit | Atlas |
+| DB backup feature | RDS backup | Data platform | recovery points/events | shared |
+| Restore validity | restore workflow | Data/application owners | reconciliation report | Atlas |
+| Physical facility | AWS | vendor-risk owner | AWS compliance evidence | AWS |
+
+Shared responsibility sa operacionalizuje cez konkrétny owner/evidence/recovery mapping.
+
+## 20. Anti-patterny
+
+### AWS spravuje všetku security
+
+AWS spravuje svoju infraštruktúru; customer configuration, identity, data a workload zostávajú zákaznícke.
+
+### AWS certification znamená compliant workload
+
+Provider control inheritance je iba časť zákazníckeho compliance programu.
+
+### Encryption enabled znamená secure data
+
+Policy, principal, context, key lifecycle a recovery rozhodujú o effective ochrane.
+
+### Managed database nepotrebuje restore test
+
+Backup feature nepreukazuje application-consistent recovery.
+
+### Každý incident je provider outage
+
+Najprv treba overiť customer-controlled layers a exact request subject.
+
+### Shared znamená, že owner nie je jasný
+
+Práve shared controls potrebujú najpresnejší interface, evidence a escalation contract.
+
+## 21. Troubleshooting responsibility chain
+
+```text
+business symptom
+→ exact account/Region/resource/request
+→ customer identity/configuration
+→ network a service integration
+→ provider service data/control plane
+→ external dependency
+→ customer business/data outcome
+```
+
+Pre každú hypotézu definuj observation point. Zmena ownership predpokladu nie je technická diagnóza.
+
+## 22. Kontrolné otázky
+
+1. Čo tvorí exact responsibility subject?
+2. Ako sa security of/in the cloud mení podľa služby?
+3. Čo znamená shared control v praxi?
+4. Prečo provider certification necertifikuje workload?
+5. Ktoré časti IAM/KMS contractu vlastní zákazník?
+6. Prečo AWS service health nepreukazuje application outcome?
+7. Ako sa rozdeľuje backup capability a restore validity?
+8. Čo musí obsahovať support case?
+9. Ako oddelíš provider root cause od customer contributing failure?
+10. Ako preukážeš, že remediation nezaviedla broad permission?
 
 ## Glossary impact
 
-Relevantné pojmy: AWS Shared Responsibility Model, security of the cloud, security in the cloud, control inheritance, customer responsibility, provider responsibility, shared control, service responsibility matrix, customer configuration risk, compliance inheritance a support boundary.
+Relevantné pojmy: AWS responsibility subject, provider control, customer control, shared-control interface, control inheritance subject, effective security configuration, responsibility evidence, responsibility RACI, support escalation subject, provider-trigger/customer-amplifier incident, service-specific responsibility matrix a shared-control closure verdict.
 
 ## Oficiálna dokumentácia
 
 - [AWS Shared Responsibility Model](https://docs.aws.amazon.com/whitepapers/latest/aws-risk-and-compliance/shared-responsibility-model.html)
 - [Shared responsibility — Security Pillar](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/shared-responsibility.html)
+- [AWS Security and Compliance](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/security-and-compliance.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
