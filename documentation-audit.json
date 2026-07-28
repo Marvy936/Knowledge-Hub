@@ -3068,16 +3068,16 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "title": "Systems Manager",
-      "words": 1688,
-      "headings": 42,
-      "sections": 42,
-      "findings": 132,
-      "critical": 46,
-      "high": 53,
-      "medium": 19,
-      "low": 14,
-      "score": 1049,
+      "title": "AWS Systems Manager",
+      "words": 3158,
+      "headings": 40,
+      "sections": 40,
+      "findings": 85,
+      "critical": 21,
+      "high": 20,
+      "medium": 13,
+      "low": 31,
+      "score": 501,
       "grade": "D"
     },
     {
@@ -172433,8 +172433,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Exact fleet-operation subject",
+      "line": 24,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172442,44 +172442,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "2. Managed node je realizovaný contract",
+      "line": 89,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -172487,44 +172451,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "3. Default Host Management Configuration mení enrollment model",
+      "line": 109,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `SSM`, `AWS`, `SSH`, `RDP`, `policy`",
-      "score": 7
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 60 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "2. Managed node prerequisites",
-      "line": 27,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "2. Managed node prerequisites",
-      "line": 27,
+      "section": "3. Default Host Management Configuration mení enrollment model",
+      "line": 109,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporovaný a spustený SSM Agent,`, `IAM instance profile alebo hybrid activation identity,`, `network path k potrebným Systems Manager endpoints,`, `správny Region,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact account a Region, kde je configuration enabled;`, `zvolenú service role;`, `SSM Agent compatibility;`, `metadata access a instance identity;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "2. Managed node prerequisites",
-      "line": 27,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "2. Managed node prerequisites",
-      "line": 27,
+      "section": "3. Default Host Management Configuration mení enrollment model",
+      "line": 109,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -172532,251 +172478,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "2. Managed node prerequisites",
-      "line": 27,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSM`, `IAM`, `DNS`, `TLS`, `CPU`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "3. Fleet Manager",
-      "line": 41,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "3. Fleet Manager",
-      "line": 41,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS a node metadata,`, `filesystem/process/user visibility podľa capabilities,`, `remote management,`, `troubleshooting fleet enrollment,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "3. Fleet Manager",
-      "line": 41,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "3. Fleet Manager",
-      "line": 41,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "3. Fleet Manager",
-      "line": 41,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "4. Inventory",
-      "line": 55,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "4. Inventory",
-      "line": 55,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "4. Inventory",
-      "line": 55,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `applications,`, `AWS components,`, `network configuration,`, `files,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "4. Inventory",
-      "line": 55,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "4. Inventory",
-      "line": 55,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "5. Run Command",
-      "line": 68,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "5. Run Command",
-      "line": 68,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `targets cez instance IDs alebo tags,`, `concurrency a error controls,`, `command timeout,`, `output do S3/CloudWatch Logs podľa konfigurácie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "5. Run Command",
-      "line": 68,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "5. Run Command",
-      "line": 68,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "5. Run Command",
-      "line": 68,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "6. Run Command rate controls",
-      "line": 91,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "6. Run Command rate controls",
-      "line": 91,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "6. Run Command rate controls",
-      "line": 91,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `target batches podľa environmentu/AZ,`, `timeout,`, `output retention,`, `post-command validation.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "6. Run Command rate controls",
-      "line": 91,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "6. Run Command rate controls",
-      "line": 91,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "7. Session Manager",
-      "line": 104,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "7. Session Manager",
-      "line": 104,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "7. Session Manager",
-      "line": 104,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IAM-based authorization,`, `žiadne long-lived SSH keys ako základný model,`, `CloudTrail audit API session lifecycle,`, `port forwarding a shell capabilities.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "7. Session Manager",
-      "line": 104,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "7. Session Manager",
-      "line": 104,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "7. Session Manager",
-      "line": 104,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "7. Session Manager",
-      "line": 104,
+      "section": "3. Default Host Management Configuration mení enrollment model",
+      "line": 109,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -172784,80 +172487,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "7. Session Manager",
-      "line": 104,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM-`, `SSH`, `API`, `S3`, `IAM`, `OS`, `KMS`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "8. State Manager",
-      "line": 124,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "8. State Manager",
-      "line": 124,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `agent/config baseline,`, `recurring scripts,`, `security configuration,`, `package state,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "8. State Manager",
-      "line": 124,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "9. Patch Manager",
-      "line": 138,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "9. Patch Manager",
-      "line": 138,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patch baseline,`, `patch group/tag targeting,`, `scan oproti install,`, `maintenance window alebo patch policy schedule,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "9. Patch Manager",
-      "line": 138,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "9. Patch Manager",
-      "line": 138,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "9. Patch Manager",
-      "line": 138,
+      "section": "4. Endpoint path závisí od použitej capability",
+      "line": 126,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -172865,35 +172496,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "9. Patch Manager",
-      "line": 138,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "section": "5. SSM document je versionovaný execution contract",
+      "line": 146,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "10. Patch rollout stratégia",
-      "line": 157,
+      "section": "6. Run Command oddeľuje delivery od script resultu",
+      "line": 166,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `DeliveryTimedOut znamená delivery failure, nie script failure;`, `ExecutionTimedOut znamená, že plugin/script prekročil execution limit;`, `Failed vyžaduje per-plugin exit/output;`.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "11. Maintenance Windows",
-      "line": 171,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patching,`, `commands,`, `Automation,`, `Lambda/Step Functions integrations podľa task type-u.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "11. Maintenance Windows",
-      "line": 171,
+      "section": "6. Run Command oddeľuje delivery od script resultu",
+      "line": 166,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -172901,8 +172523,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "11. Maintenance Windows",
-      "line": 171,
+      "section": "6. Run Command oddeľuje delivery od script resultu",
+      "line": 166,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -172910,170 +172532,170 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "12. Automation runbooks",
-      "line": 184,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "6. Run Command oddeľuje delivery od script resultu",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "12. Automation runbooks",
-      "line": 184,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS API calls,`, `scripts,`, `approvals,`, `branching,`.",
-      "score": 12
+      "section": "6. Run Command oddeľuje delivery od script resultu",
+      "line": 166,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "12. Automation runbooks",
-      "line": 184,
+      "section": "7. Resolved target manifest je bezpečnostná a correctness boundary",
+      "line": 193,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "7. Resolved target manifest je bezpečnostná a correctness boundary",
+      "line": 193,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "9. Output a audit evidence majú vlastný delivery path",
+      "line": 227,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "12. Automation runbooks",
-      "line": 184,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "13. Automation execution role",
-      "line": 200,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 51 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "13. Automation execution role",
-      "line": 200,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "13. Automation execution role",
-      "line": 200,
+      "section": "9. Output a audit evidence majú vlastný delivery path",
+      "line": 227,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `v kontexte initiator permissions,`, `cez explicitný assume role/service role.`, `iam:PassRole ,`, `runbook update permissions,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `destination identity;`, `IAM a bucket/log-group policy;`, `KMS authorization;`, `network access;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "13. Automation execution role",
-      "line": 200,
+      "section": "9. Output a audit evidence majú vlastný delivery path",
+      "line": 227,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "9. Output a audit evidence majú vlastný delivery path",
+      "line": 227,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "9. Output a audit evidence majú vlastný delivery path",
+      "line": 227,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "9. Output a audit evidence majú vlastný delivery path",
+      "line": 227,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "14. Automation rate controls",
-      "line": 218,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "14. Automation rate controls",
-      "line": 218,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `postupná remediation naprieč fleetom,`, `zastavenie po failure prahu,`, `canary wave,`, `account/Region rollout,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "14. Automation rate controls",
-      "line": 218,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "15. Automation rollback",
-      "line": 232,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "15. Automation rollback",
-      "line": 232,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný reverse step,`, `conditional branch,`, `restore zo snapshotu,`, `redeploy previous resource version,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "15. Automation rollback",
-      "line": 232,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "15. Automation rollback",
-      "line": 232,
-      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `KMS`, `identity`, `policy`",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "16. Parameter Store",
+      "section": "10. Session Manager je privileged access workflow",
       "line": 244,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 67 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "16. Parameter Store",
-      "line": 244,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "16. Parameter Store",
+      "section": "10. Session Manager je privileged access workflow",
       "line": 244,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `String ,`, `StringList ,`, `SecureString s KMS.`, `runtime config,`.",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource-scoped StartSession ;`, `approved session documents;`, `controlled OS user/privilege;`, `KMS a log destinations;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "16. Parameter Store",
+      "section": "10. Session Manager je privileged access workflow",
       "line": 244,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "10. Session Manager je privileged access workflow",
+      "line": 244,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "10. Session Manager je privileged access workflow",
+      "line": 244,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "13. Patch Manager oddeľuje scan, approval, install a application validity",
+      "line": 309,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "14. Patch compliance má timestamp a generation",
+      "line": 330,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "14. Patch compliance má timestamp a generation",
+      "line": 330,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `node identity;`, `OS/platform;`, `baseline/policy generation;`, `scan/install operation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "14. Patch compliance má timestamp a generation",
+      "line": 330,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -173081,17 +172703,359 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "16. Parameter Store",
-      "line": 244,
+      "section": "14. Patch compliance má timestamp a generation",
+      "line": 330,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `identity`, `policy`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "18. SecureString a KMS",
-      "line": 275,
+      "section": "15. Immutable a mutable fleet používajú odlišnú patch recovery",
+      "line": 347,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "15. Immutable a mutable fleet používajú odlišnú patch recovery",
+      "line": 347,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "16. Maintenance Window je scheduler, nie business approval",
+      "line": 365,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "16. Maintenance Window je scheduler, nie business approval",
+      "line": 365,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `change approval;`, `load-balancer drain;`, `application quiesce;`, `dependency coordination;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "16. Maintenance Window je scheduler, nie business approval",
+      "line": 365,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "16. Maintenance Window je scheduler, nie business approval",
+      "line": 365,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "17. Automation runbook je explicitná state machine",
+      "line": 378,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "17. Automation runbook je explicitná state machine",
+      "line": 378,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input type a allowed scope;`, `execution identity;`, `timeout/retry;`, `idempotency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "17. Automation runbook je explicitná state machine",
+      "line": 378,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "17. Automation runbook je explicitná state machine",
+      "line": 378,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "17. Automation runbook je explicitná state machine",
+      "line": 378,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "19. Automation success potrebuje external postcondition",
+      "line": 425,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "19. Automation success potrebuje external postcondition",
+      "line": 425,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "20. Parameter Store je configuration contract",
+      "line": 441,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "22. Hybrid a multicloud nodes",
+      "line": 477,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "22. Hybrid a multicloud nodes",
+      "line": 477,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `activation/registration credential lifecycle;`, `cloned machine identity;`, `proxy a TLS inspection;`, `wrong Region;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "22. Hybrid a multicloud nodes",
+      "line": 477,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "22. Hybrid a multicloud nodes",
+      "line": 477,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "22. Hybrid a multicloud nodes",
+      "line": 477,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `OS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Competing hypotheses",
+      "line": 499,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Competing hypotheses",
+      "line": 499,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Competing hypotheses",
+      "line": 499,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Competing hypotheses",
+      "line": 499,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patch package je chybný;`, `patch repository alebo network path zlyháva;`, `SSM Agent doručuje commands oneskorene;`, `maintenance window sa prekrýva s deploymentom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Competing hypotheses",
+      "line": 499,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Competing hypotheses",
+      "line": 499,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSM`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Discriminating evidence",
+      "line": 508,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Evidence-preserving containment",
+      "line": 518,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Evidence-preserving containment",
+      "line": 518,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Evidence-preserving containment",
+      "line": 518,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Evidence-preserving containment",
+      "line": 518,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tag mutation role sa dočasne zablokuje pre PatchRing ;`, `žiadny healthy/unpatched node sa neodstaví;`, `ALB, SSM a node logs sa zachovajú;`, `affected nodes sa rozdelia podľa patch/reboot/application state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Evidence-preserving containment",
+      "line": 518,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Evidence-preserving containment",
+      "line": 518,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Evidence-preserving containment",
+      "line": 518,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALB`, `SSM`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Authoritative recovery",
+      "line": 528,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Authoritative recovery",
+      "line": 528,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Authoritative recovery",
+      "line": 528,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Authoritative recovery",
+      "line": 528,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Authoritative recovery",
+      "line": 528,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `AZ`, `DB`, `ALB`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "Operation acceptance verdict",
+      "line": 541,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -173099,269 +173063,53 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "18. SecureString a KMS",
-      "line": 275,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "18. SecureString a KMS",
-      "line": 275,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Parameter Store permission,`, `kms:Decrypt na relevantný KMS key,`, `key policy/IAM alignment,`, `encryption context a cross-account model podľa use case.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "18. SecureString a KMS",
-      "line": 275,
+      "section": "Operation acceptance verdict",
+      "line": 541,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "18. SecureString a KMS",
-      "line": 275,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `IAM`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "19. Quick Setup",
-      "line": 286,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "19. Quick Setup",
-      "line": 286,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host management baseline,`, `patch policies,`, `inventory,`, `agent/update konfigurácie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "19. Quick Setup",
-      "line": 286,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "20. Change Manager a OpsCenter",
-      "line": 300,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "20. Change Manager a OpsCenter",
-      "line": 300,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `detection,`, `approval,`, `execution,`, `evidence,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "20. Change Manager a OpsCenter",
-      "line": 300,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "21. Hybrid a multicloud nodes",
-      "line": 315,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 39 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "21. Hybrid a multicloud nodes",
-      "line": 315,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "21. Hybrid a multicloud nodes",
-      "line": 315,
-      "severity": "critical",
+      "section": "Operation acceptance verdict",
+      "line": 541,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity lifecycle,`, `activation expiration/limit,`, `network/proxy,`, `duplicate machine identity pri cloning,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "21. Hybrid a multicloud nodes",
-      "line": 315,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "21. Hybrid a multicloud nodes",
-      "line": 315,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "22. Security model",
-      "line": 329,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "detail": "5 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `exact intended four-node manifest zodpovedá approval-u;`, `tag selector s neočakávaným countom operation zastaví;`, `každá AZ má healthy capacity a failure headroom;`, `fresh patch scan/compliance nesie correct baseline a timestamp;`.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "22. Security model",
-      "line": 329,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "22. Security model",
-      "line": 329,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ssm:SendCommand ,`, `ssm:StartSession ,`, `document create/update,`, `Automation execution,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "22. Security model",
-      "line": 329,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "23. Audit a observability",
-      "line": 344,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "23. Audit a observability",
-      "line": 344,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "23. Audit a observability",
-      "line": 344,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CloudTrail API events,`, `command/automation execution IDs,`, `document name a version,`, `caller/session identity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "23. Audit a observability",
-      "line": 344,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "23. Audit a observability",
-      "line": 344,
+      "section": "Operation acceptance verdict",
+      "line": 541,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `ID`, `identity`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "24. Troubleshooting managed node offline",
-      "line": 361,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Operation acceptance verdict",
+      "line": 541,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "24. Troubleshooting managed node offline",
-      "line": 361,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "24. Troubleshooting managed node offline",
-      "line": 361,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `missing instance profile,`, `agent stopped/outdated,`, `private subnet bez required endpoints,`, `proxy/TLS inspection,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "24. Troubleshooting managed node offline",
-      "line": 361,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "24. Troubleshooting managed node offline",
-      "line": 361,
+      "section": "Operation acceptance verdict",
+      "line": 541,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `SSM`, `ALB`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "25. Troubleshooting Run Command",
-      "line": 386,
+      "section": "25. Troubleshooting Run Command a Automation",
+      "line": 575,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -173369,71 +173117,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "Pending alebo Delayed",
-      "line": 388,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "Failed",
-      "line": 392,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "DeliveryTimedOut",
-      "line": 396,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "Čiastočný fleet success",
-      "line": 400,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "26. Troubleshooting Session Manager",
-      "line": 404,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "26. Troubleshooting Session Manager",
-      "line": 404,
+      "section": "27. Troubleshooting patching",
+      "line": 609,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "26. Troubleshooting Session Manager",
-      "line": 404,
+      "section": "27. Troubleshooting patching",
+      "line": 609,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user IAM a session document,`, `node online state,`, `SSM Agent version,`, `plugin/client,`.",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patch nie je applicable;`, `nie je approved v baseline/policy;`, `repository alebo proxy je nedostupný;`, `snapshot/package metadata drift;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "26. Troubleshooting Session Manager",
-      "line": 404,
+      "section": "27. Troubleshooting patching",
+      "line": 609,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -173441,98 +173144,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "26. Troubleshooting Session Manager",
-      "line": 404,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `SSM`, `KMS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
       "section": "27. Troubleshooting patching",
-      "line": 418,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "27. Troubleshooting patching",
-      "line": 418,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "27. Troubleshooting patching",
-      "line": 418,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patch nebol applicable,`, `nebol approved v baseline,`, `repository unreachable,`, `insufficient disk,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "27. Troubleshooting patching",
-      "line": 418,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 433,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 433,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 433,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 433,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `private EC2 node je offline pre chýbajúci endpoint,`, `Run Command role nevie zapisovať output do S3,`, `patch policy zasiahne production bez canary ring-u,`, `Automation role nemá dependent permission,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 433,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 433,
+      "line": 609,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -173540,8 +173153,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 433,
+      "section": "27. Troubleshooting patching",
+      "line": 609,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -173549,75 +173162,39 @@
     },
     {
       "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 433,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 433,
-      "severity": "high",
+      "section": "27. Troubleshooting patching",
+      "line": 609,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `VPC`, `EC2`, `S3`, `KMS`, `policy`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "28. Security a cost boundaries",
+      "line": 627,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "28. Security a cost boundaries",
+      "line": 627,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ssm:SendCommand ;`, `ssm:StartSession ;`, `document create/update/default-version changes;`, `Automation execute/stop;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/systems-manager.md",
+      "section": "28. Security a cost boundaries",
+      "line": 627,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "Run Command ako neobmedzený root shell",
-      "line": 453,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "Patching 100 % fleetu naraz",
-      "line": 457,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "Session Manager bez logs a alerts",
-      "line": 461,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "Parameter Store ako náhrada každého secret managera",
-      "line": 465,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "Automation runbook bez assume role",
-      "line": 469,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/systems-manager.md",
-      "section": "Tags ako target selector bez tag governance",
-      "line": 473,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
