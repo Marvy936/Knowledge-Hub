@@ -1,599 +1,488 @@
 # EC2 a Auto Scaling
 
-Amazon EC2 poskytuje virtuálne compute instances v AWS. EC2 Auto Scaling nad nimi udržiava požadovanú kapacitu, nahrádza nezdravé instances a mení počet instances podľa demandu alebo harmonogramu. Samotná EC2 instance nie je automaticky high availability; odolnosť vzniká až kombináciou immutable launch contractu, viacerých Availability Zones, health checks, load balancingu, stateless alebo externalizovaného state-u a riadeného replacementu.
+Amazon EC2 vytvára konkrétne virtual-machine instances. EC2 Auto Scaling riadi fleet desired capacity, health replacement, scale-out/scale-in a instance refresh. Business capacity však nevzniká pri stave `running` ani pri samotnom zvýšení `desired capacity`. Potrebuje reprodukovateľný launch contract, úspešný bootstrap, správne network/storage/IAM identity, application health, target registration, traffic acceptance a bezpečný replacement alebo drain.
 
-## 1. Mentálny model
+## Dominantný lifecycle
 
 ```text
-AMI + instance type + launch template + network/storage/IAM configuration
-→ EC2 instance
-→ Auto Scaling Group desired capacity
-→ health evaluation
-→ replace / scale out / scale in
+business capacity, availability a release intent
+→ immutable fleet/launch subject
+→ ASG desired capacity a placement policy
+→ EC2 launch, ENI, EBS a role realization
+→ user-data/bootstrap a process generation
+→ EC2/application/target health
+→ warmup a InService serving cohort
+→ scaling, refresh alebo replacement
+→ drain, state handoff a termination
+→ business outcome
+→ recovery, rollback/roll-forward a retirement
 ```
+
+ASG je reconciliation controller pre fleet count a health. Nie je automaticky deployment, database migration ani exactly-once processing systém.
+
+## Connected Atlas Payments subject
+
+Atlas Payments používa:
+
+```text
+ASG: payments-api-prod
+source release: 4.2.0
+expected launch template: LT-PAY version 57
+expected AMI: AMI57
+subnets: SUB-PA, SUB-PB, SUB-PC
+Security Group: SG-PAY-APP
+instance profile: ROLE-PAY-EC2
+load balancer target group: TG-PAY-8080
+business request: P-884
+```
+
+Exact fleet subject musí obsahovať:
+
+```text
+account, Region a ASG identity
+ASG min/desired/max a scaling-process state
+launch template ID a exact version
+AMI ID/digest/provenance a architecture
+instance type/weighted-capacity/purchase option
+subnet/AZ, ENI, SG a route generation
+instance profile/IMDS configuration
+EBS/KMS/block-device generation
+user-data digest a bootstrap operation ID
+instance ID, lifecycle state a health-source verdicts
+target-group registration/health reason
+application/configuration generation
+instance-refresh ID, preferences a checkpoint
+request/transaction ID a business outcome
+```
+
+`$Latest`, mutable bootstrap dependencies alebo ručné instance changes rozbíjajú túto identity closure.
+
+## 1. Launch template je versionovaný fleet contract
+
+Launch template môže definovať:
+
+- AMI a CPU architecture;
+- instance type alebo attributes;
+- subnets/ENI a Security Groups;
+- IAM instance profile a metadata options;
+- user data;
+- EBS volumes, encryption a KMS dependencies;
+- monitoring, tags a placement;
+- capacity a purchase-related settings.
+
+Dôležité rozlíšenie:
+
+```text
+launch template object
+≠ launch template version
+≠ AMI generation
+≠ running instance generation
+```
+
+ASG referencing `$Latest` môže pri budúcom scale-out-e použiť novú neotestovanú version bez explicitného ASG configuration diffu. Production rollout má používať pinned version alebo iný rovnako auditovateľný promotion contract.
+
+Zmena launch template version neaktualizuje existujúce instances. Potrebuje instance refresh, replacement alebo iný rollout.
+
+## 2. AMI a bootstrap tvoria jeden effective machine image
+
+AMI môže obsahovať OS, agents, runtime, application a hardened baseline. User data/cloud-init pridáva launch-time konfiguráciu.
+
+Effective instance generation preto vzniká z:
+
+```text
+AMI content
++ launch template
++ user data
++ reachable repositories/artifacts
++ retrieved configuration/secrets
++ runtime service startup
+```
+
+Golden AMI znižuje startup dependencies. Thin bootstrap zvyšuje flexibilitu, ale pridáva DNS, route, IAM, repository, KMS a secret failure boundaries.
+
+Bootstrap contract potrebuje:
+
+- idempotentné kroky;
+- pinned artifacts/packages;
+- bounded retries a timeouty;
+- structured logs;
+- žiadne plaintext secrets v user data;
+- explicitný completion/failure verdict;
+- application process/configuration generation evidence.
+
+## 3. EC2 lifecycle a data boundaries
+
+EC2 instance môže prechádzať stavmi `pending`, `running`, `stopping`, `stopped`, `shutting-down` a `terminated`.
+
+Operational boundaries:
+
+- reboot zachováva instance identity a typicky attached storage;
+- stop/start môže zmeniť underlying host a auto-assigned public IPv4;
+- terminate ukončí instance a môže odstrániť `DeleteOnTermination` volumes;
+- instance store je host-local ephemeral state;
+- EBS je zonálny block storage a jeho lifecycle sa musí hodnotiť samostatne.
+
+ASG replacement vytvorí nový instance ID, ENI/IP identity a process generation. Workload preto nemá držať jedinú authoritative session, queue claim, secret alebo business state iba lokálne bez replication/handoff modelu.
+
+## 4. IAM role a IMDS sú runtime identity chain
+
+EC2 instance profile poskytuje role credentials cez Instance Metadata Service.
+
+Identity chain:
+
+```text
+launch template instance profile
+→ attached role
+→ IMDSv2 session/token
+→ temporary credential generation
+→ exact AWS API request
+→ IAM authorization a CloudTrail outcome
+```
+
+Baseline:
+
+- vyžadovať IMDSv2;
+- nastaviť hop limit podľa architecture;
+- používať least-privilege role;
+- neukladať long-lived access keys do AMI alebo user data;
+- monitorovať použitie credentials mimo expected instance/workload contextu.
+
+EC2 `running` nepreukazuje, že role bola attached, credentials načítané alebo downstream API request autorizovaný.
+
+## 5. ASG desired capacity a placement
+
+ASG definuje minimum, desired, maximum, launch contract, subnets/AZs, health sources, scaling policies a termination/maintenance behavior.
+
+Capacity chain:
+
+```text
+scaling policy alebo operator nastaví desired
+→ ASG vyberie placement/capacity option
+→ EC2 launch request
+→ subnet IP, quota, instance capacity, IAM/KMS validation
+→ instance pending/running
+→ bootstrap
+→ health a registration
+→ InService
+→ reálna serving capacity
+```
+
+Ak `desired` rastie, ale `InService` nie, failure je v launch, capacity, bootstrap alebo health boundary, nie nevyhnutne v scaling signal-e.
+
+## 6. Health má viac vrstiev
 
 Rozlišuj:
 
-- **EC2 instance** — jeden konkrétny virtual machine lifecycle,
-- **launch template** — versionovaný launch contract,
-- **Auto Scaling Group (ASG)** — controller pre fleet capacity,
-- **scaling policy** — pravidlo meniace desired capacity,
-- **load balancer target group** — traffic a application-health vrstva.
+```text
+EC2 system status
+EC2 instance status
+ASG health verdict
+optional ELB/EBS/VPC Lattice/custom health
+application process health
+target-group readiness
+business request success
+```
 
-ASG pripomína reconciliation controller: porovnáva desired capacity so skutočným stavom a vytvára alebo ukončuje instances. Nevykonáva však application deployment orchestration automaticky bezpečne; potrebuje versionovaný image/bootstrap, health model a rollout stratégiu.
+EC2 health môže potvrdiť funkčnú VM, nie listener, správnu configuration alebo payment behavior.
 
-## 2. EC2 instance lifecycle
+Health-check grace period a default instance warmup musia pokryť realistický startup. Príliš krátke hodnoty vytvoria replacement loop. Príliš dlhé oneskoria detekciu.
 
-Hlavné stavy:
+Deep health check závislý od shared downstream môže fleet-wide failure zmeniť na fleet-wide replacement storm.
+
+## 7. Scaling policy je feedback loop
+
+Scaling signal musí reprezentovať demand alebo bottleneck na jednu serving unit.
+
+Možnosti zahŕňajú target tracking, step, scheduled a predictive scaling. Dôležitejší než názov policy je causal model:
 
 ```text
-pending → running → stopping → stopped → pending/running
-                     ↘ shutting-down → terminated
+metric provenance a window
+→ recommendation
+→ desired capacity
+→ launch latency/warmup
+→ InService/serving capacity
+→ downstream pressure
+→ business SLI
+→ scale-in alebo stabilization
 ```
 
-Dôležité rozdiely:
+CPU nie je univerzálny signal. Workload môže byť limitovaný memory, EBS, network PPS, queue backlog, partner rate limitom alebo database connections.
 
-- **reboot** typicky zachová instance identity, private IP a attached storage,
-- **stop/start** môže presunúť instance na iný host a zmeniť auto-assigned public IPv4,
-- **terminate** ukončí instance a odstráni volumes označené `DeleteOnTermination`,
-- **hibernate** uloží obsah RAM na encrypted root EBS volume pri podporovanej konfigurácii.
+Scale-out môže incident zhoršiť, ak každá instance pridá veľký connection pool, retries alebo downstream concurrency.
 
-Instance store je host-local ephemeral storage. Dáta môžu prežiť reboot, ale nie stop, termination alebo host failure. Durable state preto nepatrí iba na instance store bez replication alebo backup modelu.
+## 8. Instance warmup, draining a lifecycle hooks
 
-## 3. AMI
+Nová instance potrebuje boot, bootstrap, cache fill, target registration a application warmup. Počas scale-in-u môže potrebovať:
 
-Amazon Machine Image definuje boot image a block-device mapping pre nové instances.
+- load-balancer deregistration delay;
+- request/connection drain;
+- queue claim completion;
+- session/state handoff;
+- evidence export;
+- external registry deregistration.
 
-AMI môže obsahovať:
+ASG lifecycle hook vloží instance do wait state-u pre custom action. Hook delivery a automation retry nie sú exactly-once; operation potrebuje idempotency key, heartbeat/timeout a durable result.
 
-- operating system,
-- runtime a agents,
-- hardened baseline,
-- application artifact,
-- launch-time bootstrap prerequisites.
+Hook timeout behavior musí byť explicitný. Fleet nemá zostať nekonečne v `Pending:Wait` alebo `Terminating:Wait`.
 
-Modely:
+## 9. Instance refresh je fleet transition
 
-- **golden AMI** — väčšina software je pripravená pred launchom,
-- **thin AMI + user data** — instance sa konfiguruje pri štarte,
-- **hybrid** — stabilný OS/runtime v image, environment configuration pri launchi.
+Instance refresh mení fleet generation podľa launch contractu. Aktuálny AWS model podporuje rolling replacement a pri podporovanom scenári aj replace-root-volume stratégiu.
 
-Golden image skracuje startup a znižuje runtime dependency na repositories. Príliš hrubý image však zvyšuje build frequency a patching coordination. User-data bootstrap je flexibilný, ale môže zlyhať pre DNS, IAM, repository, secret alebo network problém.
-
-Production image pipeline má obsahovať:
-
-- patching a hardening,
-- vulnerability scan,
-- boot test,
-- application smoke test,
-- immutable AMI ID,
-- promotion medzi environments,
-- retirement a deregistration policy.
-
-## 4. Instance types a families
-
-Instance type určuje kombináciu:
-
-- vCPU,
-- memory,
-- network bandwidth,
-- EBS bandwidth,
-- local storage,
-- acceleratorov,
-- CPU architecture.
-
-Bežné families:
-
-- general purpose,
-- compute optimized,
-- memory optimized,
-- storage optimized,
-- accelerated computing.
-
-Výber podľa priemernej CPU utilization je nedostatočný. Sleduj aj memory, network PPS/bandwidth, EBS throughput/IOPS, queue depth, latency, NUMA/architecture compatibility a burst-credit model.
-
-Graviton/ARM môže znížiť cost/performance, ale vyžaduje kompatibilné binaries, container images a agents.
-
-## 5. Nitro System
-
-Moderné EC2 instances typicky používajú AWS Nitro System, ktorý offloaduje virtualization, network, storage a management funkcie do dedikovaného hardware a minimalizovaného hypervisoru.
-
-Operational dôsledky:
-
-- enhanced networking,
-- vysoký EBS výkon,
-- Nitro Enclaves pri vybraných use cases,
-- iný device naming model pri NVMe,
-- kompatibilita instance features závisí od family a generation.
-
-Nespoliehaj sa na console device name ako jediný guest-OS disk identifier. Over filesystem UUID, NVMe mapping a persistent mount configuration.
-
-## 6. Network identity
-
-EC2 instance používa primary ENI a môže mať ďalšie ENIs.
-
-Identity vrstvy:
-
-- instance ID,
-- private IPv4/IPv6,
-- public IPv4 alebo Elastic IP,
-- DNS names,
-- ENI ID a MAC,
-- IAM role credentials,
-- application identity.
-
-Auto Scaling replacement vytvorí novú instance identity. Workload nesmie vyžadovať ručné povoľovanie každého instance ID alebo lokálne uloženú jedinú kópiu state-u.
-
-Elastic IP je stabilná public IPv4 identity, ale môže vytvoriť single-instance coupling. Pre fleet traffic preferuj load balancer alebo DNS-based service endpoint.
-
-## 7. Instance Metadata Service a IMDSv2
-
-Instance Metadata Service poskytuje instance-local metadata a temporary credentials pre attached IAM role.
-
-IMDSv2 používa session token získaný `PUT` requestom a znižuje riziko niektorých SSRF a open-proxy útokov.
-
-Bezpečný baseline:
-
-- vyžadovať IMDSv2,
-- obmedziť metadata hop limit podľa architecture,
-- nepoužívať metadata credentials mimo instance,
-- monitorovať neobvyklé credential použitie,
-- chrániť application proti SSRF.
-
-IAM role credentials sú dočasné, ale stále citlivé. Kompromitovaný process ich môže použiť do expirácie a podľa role permissions.
-
-## 8. User data a bootstrap
-
-User data sa používa na launch-time inicializáciu, často cez cloud-init.
-
-Príklady:
-
-- registrácia monitoring agentu,
-- načítanie configuration,
-- mount storage,
-- spustenie application service,
-- signalizácia bootstrap completion.
-
-Požiadavky:
-
-- idempotencia,
-- explicitné timeouts a retries,
-- structured logs,
-- bezpečné získanie secrets,
-- failure signal pre ASG/CloudFormation,
-- deterministická package a artifact verzia.
-
-User data nie je vhodné miesto pre plaintext secrets. Je čitateľné cez instance/API permissions a môže sa objaviť v launch templates, IaC state alebo support evidence.
-
-Diagnostika:
-
-```bash
-sudo cloud-init status --long
-sudo journalctl -u cloud-init
-sudo journalctl -u cloud-final
-sudo tail -n 200 /var/log/cloud-init-output.log
-```
-
-Cesty sa môžu líšiť podľa image-u.
-
-## 9. Launch templates
-
-Launch template je versionovaný EC2 launch contract.
-
-Môže definovať:
-
-- AMI,
-- instance type alebo attributes,
-- key pair,
-- Security Groups,
-- IAM instance profile,
-- user data,
-- EBS volumes,
-- metadata options,
-- monitoring,
-- placement a capacity settings,
-- tags.
-
-Používaj launch templates namiesto legacy launch configurations.
-
-Dôležitá hranica:
-
-- `$Latest` sa môže zmeniť bez explicitného deployment rozhodnutia,
-- `$Default` je stabilnejší iba vtedy, ak zmenu default version riadi pipeline,
-- pinned version dáva najpresnejšiu reprodukovateľnosť.
-
-Zmena launch template neaktualizuje existujúce instances automaticky. Potrebný je instance refresh, replacement alebo iný rollout mechanizmus.
-
-## 10. Auto Scaling Group
-
-ASG definuje:
-
-- minimum capacity,
-- desired capacity,
-- maximum capacity,
-- launch template/version,
-- subnets/Availability Zones,
-- health-check sources,
-- scaling policies,
-- termination a maintenance behavior.
-
-Príklad konceptu:
+Refresh subject zahŕňa:
 
 ```text
-min=2
-desired=4
-max=12
-subnets = eu-central-1a + 1b + 1c
+source cohort a launch generation
+target launch template/AMI generation
+minimum/maximum healthy policy
+warmup
+checkpoints a pause durations
+skip-matching semantics
+rollback eligibility
+health a business acceptance
 ```
 
-ASG sa snaží udržať desired capacity. Keď `InService` instance označí ako unhealthy, spustí replacement podľa aktuálneho launch contractu.
+Refresh success nepreukazuje database/schema compatibility ani správny shared state. Checkpoint má hodnotu iba vtedy, ak vyhodnocuje target health, application SLI a forbidden outcomes.
 
-ASG neposkytuje automaticky:
+## 10. Mixed instances, Spot a weighted capacity
 
-- application state replication,
-- database consistency,
-- safe schema migration,
-- session externalization,
-- správny health endpoint,
-- dostatočnú subnet/IP alebo service-quota kapacitu.
+ASG môže používať viac instance types, architectures a On-Demand/Spot mix.
 
-## 11. Health checks
+Potrebné invariants:
 
-Health sources môžu zahŕňať:
+- binaries, AMI a agents podporujú architecture;
+- weighted capacity zodpovedá reálnemu výkonu;
+- application toleruje performance heterogenitu;
+- Spot interruption má drain/retry/handoff model;
+- capacity allocation strategy znižuje dependence na jednu pool/AZ;
+- critical state nemá jedinú kópiu na interruptible instance.
 
-- EC2 system/instance status,
-- Elastic Load Balancing target health,
-- EBS health,
-- VPC Lattice,
-- custom health checks.
+Capacity Rebalancing môže spustiť replacement skôr, ale nezaručuje dokončenie in-flight business operationu.
 
-EC2 health môže potvrdiť, že virtual machine beží, ale nie že application obsluhuje používateľov. ELB health pridáva application/network path.
+## 11. Warm pools a stale generation
 
-Health-check grace period alebo default instance warmup musia pokryť reálny startup. Príliš krátke hodnoty vytvoria replacement loop; príliš dlhé oneskoria detekciu reálneho failure.
+Warm pool skracuje scale-out latency, ale instance môže niesť stale:
 
-Pred replacementom zachovaj evidence, ak incident model vyžaduje forenznú analýzu. Automatické terminate môže odstrániť volatile logs a local state.
+- OS/package generation;
+- application artifact;
+- configuration alebo certificate;
+- security patches;
+- cached credential/session state.
 
-## 12. Scaling policies
+Pred prechodom do service musí instance preukázať, že stále patrí do accepted launch a configuration generation. Warm pool nenahrádza immutable image promotion.
 
-### Target tracking
+## 12. Worked incident — `$Latest` vytvorí replacement loop
 
-Udržiava metric približne na target hodnote, napríklad average CPU alebo request count per target.
+### Symptóm
 
-### Step scaling
-
-Mení capacity podľa veľkosti alarm breach.
-
-### Simple scaling
-
-Legacy jednoduchá zmena s cooldownom; typicky menej pružná než target tracking alebo step scaling.
-
-### Scheduled scaling
-
-Mení min/desired/max podľa známeho harmonogramu.
-
-### Predictive scaling
-
-Vytvára forecast z historického patternu a pripravuje capacity pred očakávaným loadom.
-
-Správny signal má korelovať s bottleneckom a demand per unit. Pri queue workload-e je často lepší backlog per instance než CPU.
-
-## 13. Instance warmup a cooldown
-
-Nová instance nemusí byť okamžite plnohodnotná.
-
-Warmup pokrýva:
-
-- boot,
-- bootstrap,
-- cache fill,
-- registration,
-- health checks,
-- JIT alebo application initialization.
-
-Počas warmup-u scaling engine podľa policy semantics obmedzí vplyv neúplných metrics. Nesprávne warmup nastavenie môže spôsobiť over-scaling alebo oscillation.
-
-Scale-in má byť pomalší a konzervatívnejší než scale-out, ak workload potrebuje connection draining, queue completion alebo state handoff.
-
-## 14. Lifecycle hooks
-
-Lifecycle hook zastaví instance v prechodnom stave, aby automation vykonala custom action.
-
-Typické use cases:
-
-- launch-time registration alebo configuration,
-- security/monitoring validation,
-- graceful drain pri termination,
-- log alebo diagnostic collection,
-- deregistration z externého systému.
-
-Hook čaká na heartbeat alebo completion result. Bez správneho timeout a failure behavioru môže fleet uviaznuť v `Pending:Wait` alebo `Terminating:Wait`.
-
-Hook side effect musí byť idempotentný. Event delivery a automation retry môžu operáciu zopakovať.
-
-## 15. Instance refresh
-
-Instance refresh postupne nahrádza ASG instances podľa novej launch template verzie alebo configuration.
-
-Riadi:
-
-- minimum healthy percentage,
-- instance warmup,
-- checkpoints,
-- skip matching,
-- rollback podľa podporovaného workflowu.
-
-Pred refreshom over:
-
-- AMI availability a permissions,
-- subnet IP capacity,
-- quotas,
-- target-group health,
-- bootstrap dependencies,
-- storage/state externalization,
-- rollback artifact.
-
-Instance refresh nie je databázová ani application migration stratégia. Ak nový build nie je backward-compatible so shared state-om, fleet rollout môže zlyhať aj pri zdravom EC2 replacement mechanizme.
-
-## 16. Mixed instances a purchase options
-
-ASG môže používať viac instance types a kombinovať On-Demand a Spot capacity.
-
-Výhody:
-
-- lepšia capacity availability,
-- nižší cost,
-- menšia závislosť od jednej instance family.
-
-Požiadavky:
-
-- application musí tolerovať odlišný výkon,
-- scaling metric má zohľadniť weighted capacity,
-- architecture musí podporovať CPU architecture,
-- Spot interruption musí byť bezpečná,
-- capacity allocation strategy musí zodpovedať workloadu.
-
-Spot je interruptible capacity. Nepoužívaj ho ako jedinú vrstvu pre stateful alebo nereplikovaný kritický workload.
-
-Capacity Rebalancing môže proaktívne spustiť náhradu Spot instance pri elevated interruption risk, ale workload stále potrebuje drain a idempotentné spracovanie.
-
-## 17. Warm pools
-
-Warm pool drží predinicializované instances mimo aktívnej `InService` capacity, aby skrátil scale-out latency.
-
-Trade-offy:
-
-- nižší startup čas,
-- dodatočný cost,
-- stale software/configuration,
-- lifecycle complexity,
-- security patching a credential freshness.
-
-Warm pool nenahrádza immutable image pipeline. Pred aktiváciou musí byť instance stále validovaná voči aktuálnemu release contractu.
-
-## 18. Placement groups a tenancy
-
-Placement options ovplyvňujú latency, throughput a failure correlation.
-
-- **cluster placement group** — nízka network latency/vysoký throughput, väčšia failure correlation,
-- **spread placement group** — oddelenie malého počtu critical instances,
-- **partition placement group** — partitions pre distributed systems,
-- **Dedicated Hosts/Instances** — tenancy alebo licensing/compliance use cases.
-
-Placement constraint môže znížiť available capacity. Pred deploymentom testuj capacity a fallback strategy.
-
-## 19. Storage a state
-
-EC2 fleet má preferovať externalizovaný state:
-
-- S3 pre objects,
-- EBS pre zonálny block state,
-- EFS pre shared NFS filesystem,
-- RDS/DynamoDB/ElastiCache podľa data modelu,
-- queues/streams pre asynchronous work.
-
-Lokálny disk, in-memory sessions alebo ručne upravená instance bránia bezpečnému replacementu.
-
-## 20. Maintenance a recovery
-
-Mechanizmy môžu zahŕňať:
-
-- stop/start,
-- reboot,
-- instance recovery,
-- ASG replacement,
-- Systems Manager patching,
-- AMI rollout,
-- EC2 maintenance events.
-
-Vo fleet modeli preferuj replacement pred ručnou opravou jednotlivého servera, ak state a bootstrap contract umožňujú reprodukciu.
-
-## 21. Observability
-
-Zbieraj:
-
-- EC2 status checks,
-- CPU, network a disk/EBS metrics,
-- memory/filesystem/process metrics cez agent,
-- ASG desired/in-service/pending/terminating capacity,
-- scaling activities,
-- lifecycle-hook events,
-- target health reason codes,
-- bootstrap logs,
-- CloudTrail configuration changes,
-- Spot interruption/rebalance events.
-
-`CPUUtilization` sama nevysvetľuje memory pressure, EBS saturation, packet drops ani application latency.
-
-## 22. Cost model
-
-Hlavné cost drivers:
-
-- instance runtime a purchase model,
-- operating system/licensing,
-- EBS volumes/snapshots/IOPS/throughput,
-- data transfer,
-- public IPv4,
-- detailed monitoring,
-- load balancer/NAT dependencies,
-- idle warm-pool capacity.
-
-Scale-in bez workload safety môže znížiť účet a zároveň poškodiť službu. Cost optimization musí zachovať availability, recovery a performance requirements.
-
-## 23. Troubleshooting ASG launch failure
-
-Postup:
+Po traffic spike-u:
 
 ```text
-scaling activity reason
-→ launch template version
-→ AMI existence/permissions/architecture
-→ instance type capacity a quota
-→ subnet free IPs
-→ Security Groups a IAM instance profile
-→ KMS/EBS permissions
-→ user data/bootstrap
-→ health registration
+ASG desired capacity rastie 6 → 12
+starých 6 instances ostáva healthy
+nové instances sa launchnú
+EC2 status checks sú green
+ELB target health zlyhá
+ASG ich terminate-ne a znovu vytvára
+serving capacity ostáva 6
 ```
 
-Bežné príčiny:
-
-- invalid alebo nedostupná AMI,
-- unsupported instance type/AMI architecture,
-- insufficient capacity v AZ,
-- EC2 quota,
-- subnet bez voľných IP,
-- chýbajúci `iam:PassRole`,
-- KMS key policy blokuje encrypted volume,
-- launch template odkazuje na zmazaný resource,
-- bootstrap nedokončí health check.
-
-## 24. Troubleshooting replacement loop
-
-Symptóm:
+### Exact subject
 
 ```text
-instance launchne
-→ krátko InService alebo nikdy healthy
-→ ASG ju terminate-ne
-→ opakuje sa
+ASG: payments-api-prod
+ASG launch template reference: LT-PAY:$Latest
+previous healthy instances: LT-PAY:57 / AMI57
+new instances: LT-PAY:58 / AMI58
+source subnets: SUB-PA/B/C
+SG: SG-PAY-APP
+TG: TG-PAY-8080
+health request: private-IP:8080/health
+business request: P-884
 ```
 
-Over:
+### Competing hypotheses
 
-- ELB target health reason,
-- health path/port/protocol,
-- application bind address,
-- Security Groups/NACL,
-- startup duration vs grace/warmup,
-- missing config/secrets,
-- disk full alebo permission issue,
-- lifecycle hook timeout,
-- load balancer AZ/subnet alignment.
+1. EC2 quota alebo AZ capacity blokuje launch.
+2. Subnets nemajú voľné IPs.
+3. AMI architecture nesedí s instance type-mi.
+4. KMS policy blokuje encrypted root volume.
+5. IAM instance profile alebo `PassRole` je chybný.
+6. User data/bootstrap zlyháva.
+7. SG/NACL alebo target port blokuje health check.
+8. Health grace period je príliš krátky.
+9. Application binduje iba `127.0.0.1`.
+10. Target group používa chybný path/protocol.
 
-Neopravuj loop iba predĺžením grace periodu bez identifikácie root cause.
+### Discriminating observations
 
-## 25. Troubleshooting scaling, ktoré nereaguje
+- scaling activities ukazujú úspešný EC2 launch, takže quota/capacity nie sú primárny failure;
+- ENI, EBS a role sú attached;
+- EC2 status checks prejdú;
+- target health reason ukazuje connection failure na private IP:8080;
+- Security Group, NACL a target-group config sú rovnaké pre staré aj nové instances;
+- na affected instance `curl 127.0.0.1:8080/health` funguje, ale `curl <private-ip>:8080/health` nie;
+- AMI58 service config binduje application na `127.0.0.1`, AMI57 na `0.0.0.0`;
+- ASG používa `$Latest`, preto scale-out automaticky prešiel na LT58.
 
-Over:
+Causal chain:
 
-- metric namespace/dimensions,
-- alarm state a missing-data behavior,
-- policy association,
-- min/max hranice,
-- suspended ASG processes,
-- cooldown/warmup,
-- service quotas,
-- scaling activity history,
-- manual desired-capacity override,
-- predictive/scheduled action conflict.
+```text
+image pipeline vytvorí LT58/AMI58
+→ ASG reference `$Latest` sa effective zmení
+→ traffic spike spustí scale-out
+→ nové instances používajú LT58
+→ process beží iba na loopback
+→ EC2 health green, target health fails
+→ ASG replacement loop
+→ desired capacity nerovná sa serving capacity
+```
 
-Ak desired capacity rastie, ale `InService` nie, problém je launch/capacity/health, nie scaling signal.
+### Containment
 
-## 26. Bezpečná remediation hierarchy
+- pinni ASG späť na exact LT57 bez terminácie healthy old cohorty;
+- zastav alebo pause-ni active instance refresh;
+- obmedz retry/replacement churn, ak ohrozuje quotas alebo downstream;
+- zachovaj jednu affected LT58 instance, cloud-init/systemd logs, target reason a image provenance;
+- nezvyšuj iba grace period a neotváraj broad SG bez evidence.
 
-1. Zachovaj scaling activity, target health a bootstrap evidence.
-2. Oprav launch contract alebo dependency.
-3. Over jednu canary instance alebo malý refresh checkpoint.
-4. Sleduj application SLI a fleet health.
-5. Pokračuj v rollout-e.
-6. Odstráň chybnú template version až po zachovaní incident evidence.
+### Authoritative recovery
 
-Ručné SSH úpravy jednej instance nevyriešia fleet desired state.
+1. Oprav AMI/service bind configuration v source image pipeline.
+2. Vytvor novú immutable AMI59 a LT59.
+3. Spusť standalone/canary instance s exact production subnet, SG, role a target registration.
+4. Over private-IP listener, target health, configuration generation a payment request.
+5. Pinni ASG na LT59.
+6. Spusť instance refresh s checkpointmi a business SLI gate-om.
+7. Retire-ni LT58 až po zachovaní incident evidence.
 
-## 27. SOA-C03 mapovanie
+### Closure verdict
 
-Táto kapitola podporuje najmä:
+Recovery je prijatá až keď:
 
-- **Domain 1** — EC2/ASG metrics, alarms, performance a remediation,
-- **Domain 2** — Multi-AZ capacity, health replacement a business continuity,
-- **Domain 3** — launch templates, AMIs, Auto Scaling a automated provisioning,
-- **Domain 4** — instance roles, IMDSv2, patching a encryption,
-- **Domain 5** — subnet placement, Security Groups a load-balancer connectivity.
+- ASG references exact approved LT59;
+- desired, InService a serving capacity sa zhodujú podľa budgetu;
+- každá AZ obsahuje healthy target cohortu;
+- žiadna LT58 instance neprijíma traffic;
+- payment request `P-884` a peak test prejdú bez duplicate outcome-u;
+- forbidden management/inbound flows ostávajú blokované;
+- nový scale-out a druhý refresh/reconcile nevytvoria regression;
+- pipeline test odmietne loopback-only listener pre fleet workload.
 
-Praktické drilly:
+## 13. Ďalšie failure boundaries
 
-- ASG launch failure pre subnet IP exhaustion,
-- unhealthy targets pre chybný port,
-- user-data bootstrap failure,
-- KMS-denied encrypted root volume,
-- scaling policy s chybnou metric dimension,
-- Spot interruption s nefunkčným drainom.
+### Instance ostane `Pending:Wait`
 
-## 28. Anti-patterny
+Lifecycle-hook consumer, permission alebo callback zlyhal. EC2 resource existuje, ale nepatrí do serving capacity. Over hook operation ID, heartbeat, timeout a event delivery.
 
-### Pet server v Auto Scaling Group
+### Launch zlyhá pred vytvorením instance
 
-Ručné zmeny sa stratia pri replacement-e a fleet sa nedá reprodukovať.
+AMI chýba, architecture je unsupported, AZ capacity/quota nestačí, subnet nemá IP, role/KMS/EBS permission je chybná alebo template odkazuje na odstránený resource. Scaling activity reason je prvý discriminating observation.
 
-### `$Latest` bez release kontroly
+### Instance je InService, ale application používa stale config
 
-Nové instances môžu používať neotestovanú launch template verziu.
+Health endpoint je plytký alebo config fetch/reload zlyhal. Over process-loaded generation, nie iba launch template a file presence.
 
-### EC2 health ako jediný application health signal
+### Scale-out preťaží databázu
 
-Running VM môže vracať chyby alebo nemať application listener.
+Každá instance otvorí rovnaký connection pool. Fleet capacity rastie, downstream envelope sa prekročí a latency/retries rastú. Scaling policy potrebuje downstream-aware guardrails.
 
-### CPU ako univerzálny scaling signal
+### Scale-in ukončí in-flight jobs
 
-Workload môže byť limitovaný memory, I/O, queue alebo external dependency.
+Termination policy a lifecycle hook nemajú drain/claim handoff. Business operation musí byť idempotentná a recoverable nezávisle od instance termination.
 
-### Jedna subnet/AZ
+### Spot replacement vytvorí duplicate processing
 
-ASG názov nezaručuje Multi-AZ odolnosť bez viacerých vhodných subnets a capacity.
+Interruption po external side-effect commit-e, ale pred durable acknowledgementom spôsobí retry na novej instance. Potrebný je work-item/operation ledger, nie iba lifecycle hook.
 
-### Long-lived access keys v user data
+### Warm-pool instance obsahuje starý certificate
 
-Secrets sa šíria do launch metadata a audit surfaces.
+Instance prejde rýchlo do service, ale credential generation je revoked alebo incompatible. Activation gate musí overiť loaded epoch.
 
-### Scale-in bez drainu
+## 14. Troubleshooting sequence
 
-Preruší requests, jobs alebo stateful sessions.
+```text
+business symptom a affected cohort
+→ ASG desired/InService/serving counts
+→ scaling activity a process state
+→ exact launch template version a AMI
+→ EC2 launch, subnet IP, quota a capacity
+→ ENI/SG/NACL/route
+→ EBS/KMS a instance profile/IMDS
+→ user-data/cloud-init/systemd/process
+→ health-source reason a target registration
+→ configuration/data/downstream state
+→ fresh business request a forbidden outcome
+```
 
-## 29. Kontrolné otázky
+Ručná SSH oprava jednej instance nie je fleet remediation. Ďalší replacement znovu použije chybný authoritative launch contract.
 
-1. Aký je rozdiel medzi EC2 instance, launch template a Auto Scaling Group?
-2. Ktoré dáta sa stratia pri stop alebo terminate?
-3. Prečo zmena launch template neaktualizuje existujúce instances?
-4. Ako sa líši EC2 health od ELB application health?
-5. Kedy použiť target tracking a kedy queue-based custom metric?
-6. Na čo slúži lifecycle hook?
-7. Ako navrhneš bezpečný instance refresh?
-8. Prečo Spot vyžaduje interruption-tolerant workload?
-9. Ktoré evidence preveríš pri ASG launch failure?
-10. Prečo ručná oprava jednej instance nie je fleet remediation?
+## 15. Recovery hierarchy
+
+```text
+preserve instance/scaling/bootstrap evidence
+→ pin alebo opraviť authoritative launch contract
+→ canary exact target generation
+→ bounded refresh/scale transition
+→ application a business acceptance
+→ retire bad generation
+→ earlier pipeline/control fix
+```
+
+Force termination všetkých instances alebo broad manual mutation zvyšujú blast radius a ničia evidence.
+
+## 16. Earlier controls
+
+- pinned launch template version;
+- immutable AMI provenance a architecture matrix;
+- boot/bootstrap/private-IP listener test;
+- IMDSv2 a least-privilege instance profile;
+- subnet IP, EC2 quota a AZ capacity headroom;
+- target health reason alarms a serving-capacity SLI;
+- realistic grace/warmup budget;
+- instance-refresh canary/checkpoints;
+- scale-out downstream connection budget;
+- termination drain a idempotent work processing;
+- Spot interruption drills;
+- warm-pool generation validation;
+- automatic retirement a rollback artifact retention.
+
+## Referenčné rozlíšenia
+
+| Otázka | Autoritatívna evidence |
+|---|---|
+| Čo ASG chce? | min/desired/max, scaling policies a activities |
+| Čo nové instances používajú? | exact launch template version + AMI |
+| Prečo launch nevznikol? | scaling activity, EC2/KMS/IAM/quota/subnet errors |
+| Prečo VM beží, ale neslúži? | bootstrap, listener, target health a process-loaded config |
+| Je scale-out business capacity? | serving cohort, SLI a downstream envelope |
+| Je refresh bezpečný? | checkpoint/canary, compatibility a rollback eligibility |
+| Je instance možné terminate-nuť? | drain, state/claim handoff a evidence retention |
+
+## Kontrolné otázky
+
+1. Prečo `desired capacity` nie je rovná serving capacity?
+2. Aký je rozdiel medzi launch template objectom a exact version?
+3. Prečo `$Latest` vytvára neviditeľný fleet drift?
+4. Čo EC2 health nepreukazuje o application?
+5. Ktoré boundaries môže user-data/bootstrap zlyhanie zasiahnuť?
+6. Ako warmup ovplyvňuje scaling feedback loop?
+7. Prečo instance refresh nie je database migration strategy?
+8. Ako lifecycle hook súvisí s idempotenciou?
+9. Kedy môže scale-out incident zhoršiť?
+10. Ako overíš fleet recovery po oprave LT59?
 
 ## Glossary impact
 
-Relevantné pojmy: Amazon EC2, EC2 instance, AMI, launch template, instance profile, IMDSv2, instance store, Auto Scaling Group, desired capacity, scaling policy, target tracking, instance warmup, lifecycle hook, instance refresh, mixed instances policy, Spot Instance, Capacity Rebalancing, warm pool, placement group a scaling activity.
+Relevantné pojmy: EC2 fleet-realization subject, immutable launch subject, launch-template version closure, effective machine generation, serving-capacity realization, ASG reconciliation subject, health-source chain, replacement-loop subject, instance-refresh transition, lifecycle-hook operation subject, scale-out downstream envelope a fleet recovery closure.
 
 ## Oficiálna dokumentácia
 
-- [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
-- [Amazon EC2 Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
-- [Health checks for Auto Scaling instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-health-checks.html)
-- [Auto Scaling lifecycle hooks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html)
-- [Instance refresh](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-instance-refresh.html)
-- [IAM roles for Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html)
+- [Amazon EC2 concepts](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
+- [Amazon EC2 Auto Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
+- [Auto Scaling health checks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/health-checks-overview.html)
+- [Lifecycle hooks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html)
+- [Instance refresh](https://docs.aws.amazon.com/autoscaling/ec2/userguide/instance-refresh-overview.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
