@@ -3055,15 +3055,15 @@
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
       "title": "Shared responsibility model",
-      "words": 1328,
-      "headings": 34,
-      "sections": 34,
-      "findings": 106,
-      "critical": 40,
-      "high": 41,
-      "medium": 11,
-      "low": 14,
-      "score": 853,
+      "words": 1916,
+      "headings": 43,
+      "sections": 43,
+      "findings": 116,
+      "critical": 46,
+      "high": 45,
+      "medium": 16,
+      "low": 9,
+      "score": 969,
       "grade": "D"
     },
     {
@@ -176114,8 +176114,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "1. Security of the cloud",
-      "line": 12,
+      "section": "2. Dominantný lifecycle kontroly",
+      "line": 43,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176123,80 +176123,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "1. Security of the cloud",
-      "line": 12,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "1. Security of the cloud",
-      "line": 12,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fyzickú bezpečnosť dátových centier,`, `physical servers, storage a network hardware,`, `host operating system a virtualization layer,`, `základnú AWS global infrastructure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "1. Security of the cloud",
-      "line": 12,
+      "section": "2. Dominantný lifecycle kontroly",
+      "line": 43,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "1. Security of the cloud",
-      "line": 12,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "1. Security of the cloud",
-      "line": 12,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "2. Security in the cloud",
-      "line": 26,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "2. Security in the cloud",
-      "line": 26,
+      "section": "2. Dominantný lifecycle kontroly",
+      "line": 43,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "2. Security in the cloud",
-      "line": 26,
+      "section": "2. Dominantný lifecycle kontroly",
+      "line": 43,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity, credentials a authorization,`, `account a organization configuration,`, `data classification a protection,`, `encryption choices a key policy podľa služby,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera;`, `authoritative configuration source;`, `effective-state observation;`, `evidence location a retention;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "2. Security in the cloud",
-      "line": 26,
+      "section": "2. Dominantný lifecycle kontroly",
+      "line": 43,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -176204,512 +176159,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "2. Security in the cloud",
-      "line": 26,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "2. Security in the cloud",
-      "line": 26,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "2. Security in the cloud",
-      "line": 26,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `identity`, `policy`, `workload`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "3. Responsibility sa mení podľa service modelu",
-      "line": 44,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "EC2",
-      "line": 46,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "EC2",
-      "line": 46,
+      "section": "3. Security of the cloud",
+      "line": 69,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "EC2",
-      "line": 46,
+      "section": "3. Security of the cloud",
+      "line": 69,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `physical facility,`, `hardware,`, `host OS,`, `hypervisor.`.",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `physical facilities a physical security;`, `hardware, storage devices a physical network;`, `host operating systems a virtualization layer;`, `foundational global infrastructure;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "EC2",
-      "line": 46,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "EC2",
-      "line": 46,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `IAM`, `EBS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed database",
-      "line": 65,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed database",
-      "line": 65,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed database",
-      "line": 65,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host a database platform operations podľa služby,`, `patching engine/platformy podľa configured maintenance modelu,`, `infrastructure replacement,`, `built-in replication alebo backup capabilities podľa configuration.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed database",
-      "line": 65,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed database",
-      "line": 65,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed database",
-      "line": 65,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed database",
-      "line": 65,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Serverless",
-      "line": 85,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Serverless",
-      "line": 85,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Serverless",
-      "line": 85,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `function code,`, `dependencies,`, `IAM execution role,`, `event sources,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Serverless",
-      "line": 85,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Serverless",
-      "line": 85,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "SaaS",
-      "line": 99,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "4. Responsibility matrix",
-      "line": 103,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "4. Responsibility matrix",
-      "line": 103,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "4. Responsibility matrix",
-      "line": 103,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "5. Control inheritance",
-      "line": 121,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "5. Control inheritance",
-      "line": 121,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "5. Control inheritance",
-      "line": 121,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `physical security,`, `facility environmental controls,`, `hardware lifecycle,`, `hypervisor patching,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "5. Control inheritance",
-      "line": 121,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "5. Control inheritance",
-      "line": 121,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "6. Compliance",
-      "line": 140,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "6. Compliance",
-      "line": 140,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `applicability regulácie,`, `data mapping,`, `retention a deletion,`, `access review,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "6. Compliance",
-      "line": 140,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "6. Compliance",
-      "line": 140,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "7. Identity boundary",
-      "line": 158,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "7. Identity boundary",
-      "line": 158,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto je principal,`, `ako sa autentifikuje,`, `aké policies sa aplikujú,`, `kde je trust relationship,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "7. Identity boundary",
-      "line": 158,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "8. Network boundary",
-      "line": 172,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "8. Network boundary",
-      "line": 172,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC a subnet topology,`, `routes,`, `security groups,`, `NACLs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "8. Network boundary",
-      "line": 172,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "8. Network boundary",
-      "line": 172,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "8. Network boundary",
-      "line": 172,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `NAT`, `DNS`, `TLS`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "9. Data protection",
-      "line": 187,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "9. Data protection",
-      "line": 187,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative data,`, `klasifikáciu,`, `kto má access,`, `encryption requirements,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "9. Data protection",
-      "line": 187,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "9. Data protection",
-      "line": 187,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `RPO`, `RTO`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "10. Encryption responsibility",
-      "line": 204,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "10. Encryption responsibility",
-      "line": 204,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider encryption of infrastructure,`, `service-side encryption,`, `customer-managed keys,`, `client-side encryption,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "10. Encryption responsibility",
-      "line": 204,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "10. Encryption responsibility",
-      "line": 204,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "11. Logging a detection",
-      "line": 218,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "11. Logging a detection",
-      "line": 218,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logovanie zapnúť, ak nie je default,`, `centralizovať ho,`, `chrániť pred zmenou,`, `nastaviť retention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "11. Logging a detection",
-      "line": 218,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "11. Logging a detection",
-      "line": 218,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "12. Availability",
-      "line": 233,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "12. Availability",
-      "line": 233,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Multi-AZ alebo multi-Region placement,`, `health checks a failover,`, `application retry/timeouts,`, `capacity a quotas,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "12. Availability",
-      "line": 233,
+      "section": "3. Security of the cloud",
+      "line": 69,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -176717,8 +176186,89 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "12. Availability",
-      "line": 233,
+      "section": "Provider boundary neznamená provider business ownership",
+      "line": 83,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Provider boundary neznamená provider business ownership",
+      "line": 83,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Provider boundary neznamená provider business ownership",
+      "line": 83,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré transakcie sú business-valid;`, `či zákaznícky IAM role smie mazať dáta;`, `či retention spĺňa Atlas RPO;`, `či rollback binary rozumie novej schema;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Provider boundary neznamená provider business ownership",
+      "line": 83,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Provider boundary neznamená provider business ownership",
+      "line": 83,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `RPO`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "4. Security in the cloud",
+      "line": 93,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "4. Security in the cloud",
+      "line": 93,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "4. Security in the cloud",
+      "line": 93,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accounts, Organizations a Region governance;`, `identities, credentials, federation a authorization;`, `data classification, retention a legal obligations;`, `resource configuration;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "4. Security in the cloud",
+      "line": 93,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "4. Security in the cloud",
+      "line": 93,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -176726,17 +176276,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "12. Availability",
-      "line": 233,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`",
-      "score": 4
+      "section": "4. Security in the cloud",
+      "line": 93,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "13. Patching",
-      "line": 248,
+      "section": "4. Security in the cloud",
+      "line": 93,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `SG`, `NACL`, `TLS`, `OS`, `KMS`, `DR`, `workload`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "6. Service-specific responsibility matrix",
+      "line": 133,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -176744,8 +176303,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Customer-managed OS",
-      "line": 250,
+      "section": "EC2",
+      "line": 135,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176753,35 +176312,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed runtime",
-      "line": 254,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed runtime",
-      "line": 254,
+      "section": "EC2",
+      "line": 135,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "11 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed runtime",
-      "line": 254,
+      "section": "EC2",
+      "line": 135,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maintenance window,`, `engine/runtime version,`, `upgrade deadline,`, `application compatibility,`.",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `facilities, hardware, host OS, hypervisor;`, `EC2 control plane;`, `physical network a základnú instance isolation.`, `AMI/image provenance;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed runtime",
-      "line": 254,
+      "section": "EC2",
+      "line": 135,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -176789,215 +176339,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "14. Infrastructure as Code",
-      "line": 267,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "14. Infrastructure as Code",
-      "line": 267,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IaC source,`, `review a approval,`, `state protection,`, `policy-as-code,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "14. Infrastructure as Code",
-      "line": 267,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "14. Infrastructure as Code",
-      "line": 267,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "15. Marketplace a third-party services",
-      "line": 282,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "15. Marketplace a third-party services",
-      "line": 282,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "15. Marketplace a third-party services",
-      "line": 282,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `support boundary,`, `patch owner,`, `data processing,`, `network path,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "15. Marketplace a third-party services",
-      "line": 282,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "15. Marketplace a third-party services",
-      "line": 282,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "16. Managed service neznamená managed outcome",
-      "line": 303,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "16. Managed service neznamená managed outcome",
-      "line": 303,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "16. Managed service neznamená managed outcome",
-      "line": 303,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hardware,`, `replication mechanism,`, `service patching,`, `automatic replacement.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "16. Managed service neznamená managed outcome",
-      "line": 303,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "16. Managed service neznamená managed outcome",
-      "line": 303,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "17. Support boundary",
-      "line": 324,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "17. Support boundary",
-      "line": 324,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "17. Support boundary",
-      "line": 324,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account ID bez credentials,`, `Region,`, `service/resource IDs,`, `UTC timestamps,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "17. Support boundary",
-      "line": 324,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "17. Support boundary",
-      "line": 324,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `UTC`, `resource`, `scope`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "18. Incident ownership",
-      "line": 341,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "18. Incident ownership",
-      "line": 341,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "18. Incident ownership",
-      "line": 341,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zlyháva provider service pre viac zákazníkov/Region?`, `Zlyháva iba jeden account, VPC alebo resource?`, `Bola recent customer config/IAM/network zmena?`, `Je API request odmietnutý alebo data plane nedostupný?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "18. Incident ownership",
-      "line": 341,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "18. Incident ownership",
-      "line": 341,
+      "section": "EC2",
+      "line": 135,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -177005,8 +176348,287 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "18. Incident ownership",
-      "line": 341,
+      "section": "EC2",
+      "line": 135,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `EC2`, `AMI`, `IAM`, `SG`, `EBS`, `HA`, `control plane`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Managed relational database",
+      "line": 154,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Managed relational database",
+      "line": 154,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Managed relational database",
+      "line": 154,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `host a engine-platform operation podľa služby;`, `infrastructure replacement;`, `service patch mechanism;`, `replication/backup capability podľa configured mode.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Managed relational database",
+      "line": 154,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Managed relational database",
+      "line": 154,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Managed relational database",
+      "line": 154,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Serverless/managed runtime",
+      "line": 174,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Serverless/managed runtime",
+      "line": 174,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Serverless/managed runtime",
+      "line": 174,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runtime infrastructure a platform scaling mechanism;`, `host patching a replacement;`, `service control plane.`, `code a dependencies;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Serverless/managed runtime",
+      "line": 174,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Serverless/managed runtime",
+      "line": 174,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "SaaS",
+      "line": 191,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "SaaS",
+      "line": 191,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "SaaS",
+      "line": 191,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tenant identities a admins;`, `federation a MFA policy;`, `sharing a data classification;`, `integrations a API credentials;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "SaaS",
+      "line": 191,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "SaaS",
+      "line": 191,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `API`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "7. Control inheritance",
+      "line": 203,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "7. Control inheritance",
+      "line": 203,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `physical security;`, `environmental controls;`, `hardware disposal;`, `hypervisor patching;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "7. Control inheritance",
+      "line": 203,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "8. Identity responsibility",
+      "line": 227,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "8. Identity responsibility",
+      "line": 227,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `principal identity;`, `authentication source;`, `trust relationship;`, `policy layers;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "8. Identity responsibility",
+      "line": 227,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "8. Identity responsibility",
+      "line": 227,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "9. Network responsibility",
+      "line": 256,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "9. Network responsibility",
+      "line": 256,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC/subnet topology;`, `route tables;`, `SG/NACL;`, `IGW/NAT/transit/private endpoints;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "9. Network responsibility",
+      "line": 256,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "9. Network responsibility",
+      "line": 256,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `NACL`, `IGW`, `NAT`, `DNS`, `TLS`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "10. Data a encryption responsibility",
+      "line": 282,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "10. Data a encryption responsibility",
+      "line": 282,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative data;`, `classification;`, `access;`, `encryption requirement;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "10. Data a encryption responsibility",
+      "line": 282,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "10. Data a encryption responsibility",
+      "line": 282,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -177014,17 +176636,161 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "18. Incident ownership",
-      "line": 341,
-      "severity": "high",
+      "section": "10. Data a encryption responsibility",
+      "line": 282,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `IAM`, `API`, `AWS`, `ID`, `resource`, `data plane`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "12. Availability a recovery responsibility",
+      "line": 330,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "12. Availability a recovery responsibility",
+      "line": 330,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Multi-AZ/multi-Region placement;`, `health checks a traffic removal;`, `retry/timeout/idempotency;`, `quotas a failure-mode capacity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "12. Availability a recovery responsibility",
+      "line": 330,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "12. Availability a recovery responsibility",
+      "line": 330,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "12. Availability a recovery responsibility",
+      "line": 330,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "12. Availability a recovery responsibility",
+      "line": 330,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "13. Patching a version lifecycle",
+      "line": 346,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "IaaS",
+      "line": 348,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Managed service",
+      "line": 352,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Managed service",
+      "line": 352,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Managed service",
+      "line": 352,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maintenance window;`, `engine/runtime version;`, `deprecation deadline;`, `application compatibility;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Managed service",
+      "line": 352,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "AWS spravuje security",
-      "line": 357,
+      "section": "14. Infrastructure as Code a writer ownership",
+      "line": 366,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "14. Infrastructure as Code a writer ownership",
+      "line": 366,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IaC source;`, `review/approval;`, `state a credentials;`, `policy-as-code;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "14. Infrastructure as Code a writer ownership",
+      "line": 366,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "14. Infrastructure as Code a writer ownership",
+      "line": 366,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "15. Third-party responsibility",
+      "line": 381,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -177032,8 +176798,233 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Service je compliant, teda workload je compliant",
-      "line": 361,
+      "section": "15. Third-party responsibility",
+      "line": 381,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "15. Third-party responsibility",
+      "line": 381,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patch a support ownera;`, `IAM permissions;`, `network path;`, `data processing a residency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "15. Third-party responsibility",
+      "line": 381,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "15. Third-party responsibility",
+      "line": 381,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `EOL`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Exact incident subject",
+      "line": 406,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `KMS regional service degradation;`, `workload používa key v inom Regione;`, `IAM policy stratila kms:Decrypt ;`, `key policy deny alebo chýbajúci principal;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Competing hypotheses",
+      "line": 419,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `IAM`, `SCP`, `workload`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Discriminating observations",
+      "line": 430,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Containment",
+      "line": 444,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Containment",
+      "line": 444,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Containment",
+      "line": 444,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Containment",
+      "line": 444,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť rollout ďalšej Pod cohorty;`, `zachovať functioning old cohort;`, `zachovať request IDs, CloudTrail a policy diff;`, `nevytvárať broad kms: grant;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Containment",
+      "line": 444,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Containment",
+      "line": 444,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Recovery",
+      "line": 452,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Recovery",
+      "line": 452,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Recovery",
+      "line": 452,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Recovery",
+      "line": 452,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvoliť canonical encryption-context contract;`, `opraviť application/config alebo policy kompatibilným spôsobom;`, `nasadiť bounded cohort;`, `overiť decrypt s WR42;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Recovery",
+      "line": 452,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Recovery",
+      "line": 452,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WR42`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Closure verdict",
+      "line": 462,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "18. Support boundary",
+      "line": 484,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -177041,8 +177032,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Encryption je zapnutá, teda dáta sú bezpečné",
-      "line": 365,
+      "section": "18. Support boundary",
+      "line": 484,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "18. Support boundary",
+      "line": 484,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account ID bez credentials;`, `Region;`, `service/resource ARN alebo ID;`, `UTC window;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "18. Support boundary",
+      "line": 484,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "18. Support boundary",
+      "line": 484,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `ARN`, `UTC`, `resource`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "19. Responsibility RACI a escalation",
+      "line": 501,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -177050,8 +177077,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Managed database nepotrebuje backup test",
-      "line": 369,
+      "section": "19. Responsibility RACI a escalation",
+      "line": 501,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "19. Responsibility RACI a escalation",
+      "line": 501,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "AWS spravuje všetku security",
+      "line": 518,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -177059,11 +177104,56 @@
     },
     {
       "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
-      "section": "Provider outage je príčina každého incidentu",
-      "line": 373,
+      "section": "AWS certification znamená compliant workload",
+      "line": 522,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Encryption enabled znamená secure data",
+      "line": 526,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Managed database nepotrebuje restore test",
+      "line": 530,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Každý incident je provider outage",
+      "line": 534,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "Shared znamená, že owner nie je jasný",
+      "line": 538,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/shared-responsibility-model.md",
+      "section": "21. Troubleshooting responsibility chain",
+      "line": 542,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
