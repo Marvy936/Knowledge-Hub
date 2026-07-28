@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10767**
-- Total words: **630,852**
-- Findings: **23394** (critical 7213, high 7845, medium 3046, low 5290)
+- Audited conceptual sections: **10778**
+- Total words: **631,455**
+- Findings: **23339** (critical 7183, high 7831, medium 3030, low 5295)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -34,7 +34,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1499 | 65 | 79 | 21 | 21 | 2459 | `docs/12-observability/alertmanager.md` |
 | D | 1470 | 71 | 64 | 27 | 18 | 2384 | `docs/12-observability/fluent-bit.md` |
 | D | 1465 | 70 | 64 | 23 | 28 | 2503 | `docs/12-observability/elasticsearch-opensearch.md` |
-| D | 1415 | 65 | 66 | 29 | 12 | 2285 | `docs/11-cloud-and-aws/cost-management-finops.md` |
 | D | 1404 | 61 | 77 | 18 | 8 | 1691 | `docs/12-observability/use-method.md` |
 | D | 1348 | 66 | 61 | 16 | 21 | 2097 | `docs/12-observability/alert-design-alert-fatigue.md` |
 | D | 1336 | 64 | 63 | 21 | 7 | 2104 | `docs/12-observability/cardinality.md` |
@@ -64,6 +63,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 938 | 45 | 40 | 19 | 14 | 2606 | `docs/04-testing-and-quality/flaky-tests-and-test-data.md` |
 | D | 932 | 43 | 40 | 26 | 4 | 1525 | `docs/13-security-and-identity/active-directory.md` |
 | D | 911 | 44 | 43 | 10 | 13 | 2465 | `docs/03-git-and-automation/merge-conflicts.md` |
+| D | 903 | 35 | 52 | 13 | 17 | 2888 | `docs/11-cloud-and-aws/cost-management-finops.md` |
 | D | 898 | 39 | 43 | 18 | 20 | 2345 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | D | 894 | 42 | 43 | 13 | 8 | 2504 | `docs/10-helm-and-cka/chart-dependencies.md` |
 | D | 889 | 41 | 37 | 21 | 24 | 2682 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
@@ -11785,137 +11785,93 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/11-cloud-and-aws/cost-management-finops.md`
 
-- **CRITICAL** line 21, `outline-instead-of-explanation` — **2. Cost, price, value a unit economics**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 33, `bare-bullet-items` — **3. FinOps princípy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `teams ownership usage a costu,`, `centralized enablement a governance,`, `timely accessible data,`, `business-value decisions,`.
-- **CRITICAL** line 33, `outline-instead-of-explanation` — **3. FinOps princípy**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 47, `bare-bullet-items` — **4. Account a organization boundary**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddeliť production/non-production,`, `priradiť ownera,`, `používať budgets a guardrails,`, `analyzovať spend podľa linked accountu,`.
-- **CRITICAL** line 47, `outline-instead-of-explanation` — **4. Account a organization boundary**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 62, `bare-bullet-items` — **5. Cost allocation tags**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Owner ,`, `Team ,`, `Application ,`, `Environment ,`.
-- **CRITICAL** line 62, `outline-instead-of-explanation` — **5. Cost allocation tags**: 13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 85, `bare-bullet-items` — **6. Cost Categories**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business units,`, `applications,`, `environments,`, `cost centers,`.
-- **CRITICAL** line 103, `bare-bullet-items` — **7. Shared cost allocation**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Transit Gateway,`, `centralized NAT/egress,`, `shared Kubernetes clusteri,`, `observability platforme,`.
-- **CRITICAL** line 103, `outline-instead-of-explanation` — **7. Shared cost allocation**: 16 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 129, `bare-bullet-items` — **8. AWS Billing data oproti Cost Explorer**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `filtrovanie a grouping,`, `trend analysis,`, `forecasting,`, `amortized a net amortized views,`.
-- **CRITICAL** line 129, `outline-instead-of-explanation` — **8. AWS Billing data oproti Cost Explorer**: 13 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 154, `bare-bullet-items` — **9. Cost Explorer**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service,`, `linked account,`, `Region,`, `Availability Zone,`.
-- **CRITICAL** line 154, `outline-instead-of-explanation` — **9. Cost Explorer**: 10 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 183, `empty-section` — **10. Unblended, blended a amortized cost**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 203, `bare-bullet-items` — **11. AWS Budgets**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cost,`, `usage,`, `Reserved Instance utilization/coverage,`, `Savings Plans utilization/coverage.`.
-- **CRITICAL** line 223, `bare-bullet-items` — **12. Budget actions**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aplikovať IAM policy,`, `aplikovať SCP,`, `vykonať targeted resource action.`, `neočakávaný production impact,`.
-- **CRITICAL** line 223, `outline-instead-of-explanation` — **12. Budget actions**: 7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 240, `bare-bullet-items` — **13. Cost Anomaly Detection**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `anomaly monitor,`, `monitored scope,`, `alert subscription,`, `threshold,`.
-- **CRITICAL** line 240, `outline-instead-of-explanation` — **13. Cost Anomaly Detection**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 266, `bare-bullet-items` — **14. Cost and Usage data**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS Data Exports,`, `Cost and Usage Report-compatible datasets,`, `billing views,`, `S3 delivery,`.
-- **CRITICAL** line 266, `outline-instead-of-explanation` — **14. Cost and Usage data**: 12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 288, `bare-bullet-items` — **15. Cost Optimization Hub**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rightsizing,`, `idle-resource deletion,`, `Savings Plans,`, `Reserved Instances,`.
-- **CRITICAL** line 288, `outline-instead-of-explanation` — **15. Cost Optimization Hub**: 10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 310, `bare-bullet-items` — **16. Compute Optimizer a rightsizing**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory,`, `network,`, `disk/EBS I/O,`, `burst credits,`.
-- **CRITICAL** line 310, `outline-instead-of-explanation` — **16. Compute Optimizer a rightsizing**: 10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 329, `bare-bullet-items` — **17. Idle a orphaned resources**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unattached EBS volumes,`, `old snapshots/AMIs,`, `idle load balancers,`, `unused Elastic IPs,`.
-- **CRITICAL** line 329, `outline-instead-of-explanation` — **17. Idle a orphaned resources**: 11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 347, `bare-bullet-items` — **18. Scheduling a elasticity**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduled stop/start,`, `environment TTL,`, `scale-to-zero pri podporovaných workloads,`, `ephemeral preview environments,`.
-- **CRITICAL** line 347, `outline-instead-of-explanation` — **18. Scheduling a elasticity**: 13 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 368, `bare-bullet-items` — **19. Savings Plans**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Compute Savings Plans,`, `EC2 Instance Savings Plans,`, `scope a flexibility,`, `utilization,`.
-- **CRITICAL** line 368, `outline-instead-of-explanation` — **19. Savings Plans**: 13 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 393, `bare-bullet-items` — **20. Reserved Instances**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `standard/convertible podľa služby,`, `regional/zonal scope,`, `size flexibility,`, `term/payment,`.
-- **CRITICAL** line 393, `outline-instead-of-explanation` — **20. Reserved Instances**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 408, `bare-bullet-items` — **21. Spot**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `batch,`, `stateless workers,`, `fault-tolerant CI,`, `distributed processing,`.
-- **CRITICAL** line 408, `outline-instead-of-explanation` — **21. Spot**: 11 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 431, `bare-bullet-items` — **22. Storage cost**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `S3 storage classes a lifecycle,`, `incomplete multipart uploads,`, `noncurrent versions,`, `EBS type/size/IOPS/throughput,`.
-- **CRITICAL** line 431, `outline-instead-of-explanation` — **22. Storage cost**: 9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 447, `bare-bullet-items` — **23. Data transfer cost**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `internet egress,`, `cross-AZ traffic,`, `cross-Region traffic,`, `NAT Gateway processing,`.
-- **CRITICAL** line 447, `outline-instead-of-explanation` — **23. Data transfer cost**: 10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 466, `bare-bullet-items` — **24. Observability cost**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `custom metrics,`, `high-cardinality dimensions,`, `log ingestion,`, `retention,`.
-- **CRITICAL** line 466, `outline-instead-of-explanation` — **24. Observability cost**: 15 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 491, `bare-bullet-items` — **25. Kubernetes a container cost allocation**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespace,`, `workload,`, `labels/tags,`, `requested a actual resources,`.
-- **CRITICAL** line 491, `outline-instead-of-explanation` — **25. Kubernetes a container cost allocation**: 9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 507, `bare-bullet-items` — **26. Serverless unit economics**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `invocations,`, `duration,`, `memory/CPU allocation,`, `concurrency,`.
-- **CRITICAL** line 507, `outline-instead-of-explanation` — **26. Serverless unit economics**: 9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 523, `bare-bullet-items` — **27. Database cost**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instance/cluster size,`, `storage a I/O,`, `Multi-AZ/read replicas,`, `backup retention,`.
-- **CRITICAL** line 523, `outline-instead-of-explanation` — **27. Database cost**: 9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 539, `bare-bullet-items` — **28. Tagging a automation guardrails**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required tags pri provisioning,`, `account/OU baseline,`, `expiration tags,`, `untagged-resource reports,`.
-- **CRITICAL** line 539, `outline-instead-of-explanation` — **28. Tagging a automation guardrails**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 554, `empty-section` — **29. Showback a chargeback**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 560, `bare-bullet-items` — **Chargeback**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dôveryhodnú allocation,`, `vysvetlené shared costs,`, `dispute process,`, `stable dimensions,`.
-- **CRITICAL** line 560, `outline-instead-of-explanation` — **Chargeback**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 575, `bare-bullet-items` — **30. Forecasting**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `organic growth,`, `product launches,`, `migrations,`, `commitment purchases/expirations,`.
-- **CRITICAL** line 575, `outline-instead-of-explanation` — **30. Forecasting**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 608, `bare-bullet-items` — **32. Cost incident response**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runaway resource creation,`, `attack alebo credential compromise,`, `logging cardinality explosion,`, `retry loop,`.
-- **CRITICAL** line 608, `outline-instead-of-explanation` — **32. Cost incident response**: 8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 634, `bare-bullet-items` — **33. Cost governance cadence**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `daily: anomaly alerts a critical spend,`, `weekly: engineering optimization backlog,`, `monthly: budget/forecast/showback,`, `quarterly: commitments, architecture a unit economics,`.
-- **CRITICAL** line 634, `outline-instead-of-explanation` — **33. Cost governance cadence**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 646, `bare-bullet-items` — **34. Cost a reliability trade-off**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLO impact,`, `failover capacity,`, `RTO/RPO,`, `supportability,`.
-- **CRITICAL** line 646, `outline-instead-of-explanation` — **34. Cost a reliability trade-off**: 8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 661, `bare-bullet-items` — **35. Cost a sustainability**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyššia utilization,`, `autoscaling,`, `odstránenie idle resources,`, `efektívnejší software,`.
-- **CRITICAL** line 661, `outline-instead-of-explanation` — **35. Cost a sustainability**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 675, `outline-instead-of-explanation` — **36. SOA-C03 mapovanie**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 685, `empty-section` — **37. Troubleshooting costu**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 5, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 21, `single-sentence-concept` — **2. Cost, price, value a unit economics**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 62, `single-sentence-concept` — **5. Cost allocation tags**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 85, `list-heavy-section` — **6. Cost Categories**: 7 odrážok a iba 42 slov súvislého vysvetlenia.
-- **HIGH** line 103, `single-sentence-concept` — **7. Shared cost allocation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 185, `single-sentence-concept` — **Unblended cost**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 189, `single-sentence-concept` — **Blended cost**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 193, `single-sentence-concept` — **Amortized cost**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 203, `list-heavy-section` — **11. AWS Budgets**: 10 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 329, `single-sentence-concept` — **17. Idle a orphaned resources**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 347, `single-sentence-concept` — **18. Scheduling a elasticity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 431, `single-sentence-concept` — **22. Storage cost**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 466, `single-sentence-concept` — **24. Observability cost**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 491, `single-sentence-concept` — **25. Kubernetes a container cost allocation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 523, `single-sentence-concept` — **27. Database cost**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 539, `single-sentence-concept` — **28. Tagging a automation guardrails**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 556, `single-sentence-concept` — **Showback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 592, `list-first-introduction` — **31. Cost optimization workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 592, `single-sentence-concept` — **31. Cost optimization workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 608, `single-sentence-concept` — **32. Cost incident response**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 634, `single-sentence-concept` — **33. Cost governance cadence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 646, `single-sentence-concept` — **34. Cost a reliability trade-off**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 661, `single-sentence-concept` — **35. Cost a sustainability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 675, `list-first-introduction` — **36. SOA-C03 mapovanie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 687, `single-sentence-concept` — **Neočakávaný EC2 spend**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 691, `single-sentence-concept` — **NAT Gateway spike**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 695, `single-sentence-concept` — **CloudWatch cost spike**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 699, `single-sentence-concept` — **S3 cost spike**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 703, `single-sentence-concept` — **Savings Plan nízka utilization**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 707, `single-sentence-concept` — **Cost Explorer a invoice sa nezhodujú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 713, `single-sentence-concept` — **Cost optimization iba po prekročení budgetu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 717, `single-sentence-concept` — **Tags bez enforcementu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 721, `single-sentence-concept` — **Estimated savings ako realized savings**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 725, `single-sentence-concept` — **Rightsizing iba podľa priemerného CPU**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 729, `single-sentence-concept` — **Commitment nákup podľa jedného mesiaca**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 733, `single-sentence-concept` — **Vypnutie observability kvôli costu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 737, `single-sentence-concept` — **Central FinOps tím vlastní všetku optimalizáciu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 741, `single-sentence-concept` — **Budget ako hard spending cap**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 21, `thin-concept-section` — **2. Cost, price, value a unit economics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 33, `thin-concept-section` — **3. FinOps princípy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 47, `thin-concept-section` — **4. Account a organization boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 62, `thin-concept-section` — **5. Cost allocation tags**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 103, `thin-concept-section` — **7. Shared cost allocation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 223, `term-before-explanation` — **12. Budget actions**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `SCP`, `policy`, `scope`
-- **HIGH** line 266, `thin-concept-section` — **14. Cost and Usage data**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 329, `thin-concept-section` — **17. Idle a orphaned resources**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 347, `thin-concept-section` — **18. Scheduling a elasticity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 368, `term-before-explanation` — **19. Savings Plans**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `RI`, `SP`, `scope`
-- **HIGH** line 368, `thin-concept-section` — **19. Savings Plans**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 408, `thin-concept-section` — **21. Spot**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 431, `term-before-explanation` — **22. Storage cost**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `EBS`, `IOPS`, `EFS`
-- **HIGH** line 431, `thin-concept-section` — **22. Storage cost**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 447, `thin-concept-section` — **23. Data transfer cost**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 466, `thin-concept-section` — **24. Observability cost**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 491, `thin-concept-section` — **25. Kubernetes a container cost allocation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 507, `thin-concept-section` — **26. Serverless unit economics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 523, `thin-concept-section` — **27. Database cost**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 539, `thin-concept-section` — **28. Tagging a automation guardrails**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 560, `thin-concept-section` — **Chargeback**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 575, `thin-concept-section` — **30. Forecasting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 608, `thin-concept-section` — **32. Cost incident response**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 634, `thin-concept-section` — **33. Cost governance cadence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 646, `thin-concept-section` — **34. Cost a reliability trade-off**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 661, `thin-concept-section` — **35. Cost a sustainability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 675, `term-before-explanation` — **36. SOA-C03 mapovanie**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`, `NAT`, `CDN`, `AZ`, `reliability`
-- **HIGH** line 675, `thin-concept-section` — **36. SOA-C03 mapovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 85, `empty-section` — **2. Price, usage, cost, value a TCO**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 130, `bare-bullet-items` — **3. Cost data vznikajú cez viac transformácií**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cost metric: unblended, amortized, net amortized alebo iný;`, `date/time zone a billing period;`, `credits, refunds, support a tax scope;`, `estimated versus finalized state;`.
+- **CRITICAL** line 155, `empty-section` — **4. Unblended, blended a amortized views**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 179, `bare-bullet-items` — **Cost allocation tags**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že bol activated pre cost allocation;`, `že sa historické line items retroaktívne doplnia;`, `že všetky service/resource line items nesú resource tag;`, `že value je validná a owned.`.
+- **CRITICAL** line 179, `outline-instead-of-explanation` — **Cost allocation tags**: 4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 207, `bare-bullet-items` — **6. Allocation coverage a unattributed spend**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `untagged/unmapped spend;`, `stale/invalid owners;`, `resources s conflicting tags;`, `line items bez resource identity;`.
+- **CRITICAL** line 230, `bare-bullet-items` — **7. Shared-cost allocation je business model**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podľa measured usage;`, `requests, bytes, vCPU-hours alebo build minutes;`, `direct spend ratio;`, `fixed subscription;`.
+- **CRITICAL** line 252, `empty-section` — **8. Cost Explorer a Data Exports majú odlišné úlohy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 268, `bare-bullet-items` — **AWS Data Exports**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected periods/partitions;`, `duplicate/missing line items;`, `currency a cost metric;`, `account coverage;`.
+- **CRITICAL** line 268, `outline-instead-of-explanation` — **AWS Data Exports**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 317, `bare-bullet-items` — **11. Cost Optimization Hub a recommendations**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact resource/workload identity;`, `peak a seasonal usage;`, `memory/I/O/network, nie iba CPU;`, `SLO a failure headroom;`.
+- **CRITICAL** line 354, `bare-bullet-items` — **13. Commitments optimalizujú stabilný baseline**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `term a payment option;`, `hourly commitment alebo reservation scope;`, `eligible usage;`, `utilization a coverage;`.
+- **CRITICAL** line 383, `empty-section` — **14. Data transfer, storage a observability sú architecture costs**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 409, `empty-section` — **15. Showback a chargeback menia správanie**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 421, `bare-bullet-items` — **16. Forecast spája history s roadmapou**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `growth a seasonality;`, `launches a migrations;`, `environment retirement;`, `commitment expiry/purchase;`.
+- **CRITICAL** line 421, `outline-instead-of-explanation` — **16. Forecast spája history s roadmapou**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 466, `empty-section` — **18. Worked failure: cost spike je retry incident, nie rast produktu**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 468, `bare-bullet-items` — **Signal**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmenšiť RDS;`, `vypnúť debug a časť audit logs;`, `kúpiť väčší Savings Plan na nový „baseline“;`, `zastaviť non-essential reconciliation workers.`.
+- **CRITICAL** line 468, `outline-instead-of-explanation` — **Signal**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 479, `bare-bullet-items` — **Competing hypotheses**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `legitímny traffic growth;`, `price alebo commitment expiry;`, `wrong Cost Category/shared-cost allocation;`, `oversized compute/database;`.
+- **CRITICAL** line 479, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 479, `outline-instead-of-explanation` — **Competing hypotheses**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 505, `bare-bullet-items` — **Containment**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obmedz event-source concurrency a retry rate;`, `pause-ni broken cohorts, nie celý payment workload;`, `obnov authoritative secret/consumer state podľa SEC-PAY-42 ;`, `zachovaj cost, CloudTrail, logs a business evidence;`.
+- **CRITICAL** line 505, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 505, `outline-instead-of-explanation` — **Containment**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 514, `bare-bullet-items` — **Recovery a optimization**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oprav rotation consumer-refresh gate;`, `nastav retry budget, backoff a permanent-auth failure classification;`, `evictni stale connection pools;`, `zníž duplicate debug payload bez straty required fields;`.
+- **CRITICAL** line 514, `no-prose-concept` — **Recovery a optimization**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 514, `outline-instead-of-explanation` — **Recovery a optimization**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 536, `bare-bullet-items` — **Forbidden-outcome verification**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payment success a p99 latency sa nezhoršili;`, `duplicate settlement rate je nulový podľa reconciliation;`, `RDS a failover headroom zostali zachované;`, `audit/security evidence je stále dostupná;`.
+- **CRITICAL** line 536, `no-prose-concept` — **Forbidden-outcome verification**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 536, `outline-instead-of-explanation` — **Forbidden-outcome verification**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 563, `empty-section` — **20. FinOps cadence a accountability**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 587, `empty-section` — **21. Troubleshooting podľa observation pointu**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 613, `no-prose-concept` — **22. SOA-C03 mapovanie**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 613, `outline-instead-of-explanation` — **22. SOA-C03 mapovanie**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 26, `single-sentence-concept` — **1. Exact FinOps subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 87, `single-sentence-concept` — **Price**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 91, `single-sentence-concept` — **Usage**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 95, `single-sentence-concept` — **Cost**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 99, `single-sentence-concept` — **Value**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 130, `list-heavy-section` — **3. Cost data vznikajú cez viac transformácií**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 179, `single-sentence-concept` — **Cost allocation tags**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 207, `list-heavy-section` — **6. Allocation coverage a unattributed spend**: 7 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 230, `list-heavy-section` — **7. Shared-cost allocation je business model**: 12 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 254, `single-sentence-concept` — **Cost Explorer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 317, `list-heavy-section` — **11. Cost Optimization Hub a recommendations**: 8 odrážok a iba 50 slov súvislého vysvetlenia.
+- **HIGH** line 354, `list-heavy-section` — **13. Commitments optimalizujú stabilný baseline**: 8 odrážok a iba 59 slov súvislého vysvetlenia.
+- **HIGH** line 385, `single-sentence-concept` — **Data transfer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 435, `list-first-introduction` — **17. Optimization change má acceptance contract**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 435, `single-sentence-concept` — **17. Optimization change má acceptance contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 479, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 489, `bare-bullet-items` — **Discriminating evidence**: 6 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `8× Lambda invocations a GB-seconds;`, `výrazný nárast NatGateway-Bytes k external providerovi;`, `vysoký CloudWatch Logs ingestion volume;`, `successful payment volume nerástol;`.
+- **HIGH** line 489, `list-heavy-section` — **Discriminating evidence**: 9 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 489, `single-sentence-concept` — **Discriminating evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 505, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 514, `list-first-introduction` — **Recovery a optimization**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 536, `list-first-introduction` — **Forbidden-outcome verification**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 545, `list-first-introduction` — **19. Cost incident response**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 565, `single-sentence-concept` — **Daily**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 569, `single-sentence-concept` — **Weekly**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 573, `single-sentence-concept` — **Monthly**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 577, `single-sentence-concept` — **Quarterly**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 589, `single-sentence-concept` — **Cost Explorer a invoice sa nezhodujú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 593, `single-sentence-concept` — **Tag/Cost Category report je neúplný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 597, `single-sentence-concept` — **NAT Gateway spend rastie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 601, `single-sentence-concept` — **CloudWatch spend rastie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 605, `single-sentence-concept` — **Savings Plan utilization klesne**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 609, `single-sentence-concept` — **Recommendation savings sa neprejavili**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 613, `list-first-introduction` — **22. SOA-C03 mapovanie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 623, `single-sentence-concept` — **Lowest invoice ako success metric**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 627, `single-sentence-concept` — **Budget ako hard cap**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 631, `single-sentence-concept` — **Tag existence ako complete attribution**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 635, `single-sentence-concept` — **Estimated savings reportované ako realized**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 639, `single-sentence-concept` — **Rightsizing podľa average CPU**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 643, `single-sentence-concept` — **Commitment na incidentový month**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 647, `single-sentence-concept` — **Vypnutie logs kvôli costu počas incidentu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 651, `single-sentence-concept` — **Central FinOps tím ako jediný owner**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 179, `thin-concept-section` — **Cost allocation tags**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 268, `thin-concept-section` — **AWS Data Exports**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 317, `term-before-explanation` — **11. Cost Optimization Hub a recommendations**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `SLO`, `workload`, `identity`
+- **HIGH** line 421, `thin-concept-section` — **16. Forecast spája history s roadmapou**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 479, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 505, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 514, `thin-concept-section` — **Recovery a optimization**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 536, `thin-concept-section` — **Forbidden-outcome verification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 613, `term-before-explanation` — **22. SOA-C03 mapovanie**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `CDN`, `AZ`, `reliability`
+- **HIGH** line 613, `thin-concept-section` — **22. SOA-C03 mapovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/11-cloud-and-aws/ec2-auto-scaling.md`
 
@@ -16117,19 +16073,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2963 | 439 | 0 | 0 | 3402 |
-| `outline-instead-of-explanation` | 2869 | 0 | 0 | 0 | 2869 |
-| `term-before-explanation` | 0 | 564 | 2051 | 0 | 2615 |
-| `single-sentence-concept` | 0 | 2595 | 0 | 0 | 2595 |
-| `thin-concept-section` | 0 | 2476 | 0 | 0 | 2476 |
-| `example-not-explicit` | 0 | 0 | 0 | 2125 | 2125 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2056 | 2056 |
-| `list-first-introduction` | 0 | 1311 | 0 | 0 | 1311 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1109 | 1109 |
-| `short-concept-section` | 0 | 0 | 995 | 0 | 995 |
-| `no-prose-concept` | 764 | 0 | 0 | 0 | 764 |
-| `empty-section` | 617 | 0 | 0 | 0 | 617 |
-| `list-heavy-section` | 0 | 460 | 0 | 0 | 460 |
+| `bare-bullet-items` | 2945 | 440 | 0 | 0 | 3385 |
+| `outline-instead-of-explanation` | 2847 | 0 | 0 | 0 | 2847 |
+| `term-before-explanation` | 0 | 562 | 2039 | 0 | 2601 |
+| `single-sentence-concept` | 0 | 2590 | 0 | 0 | 2590 |
+| `thin-concept-section` | 0 | 2460 | 0 | 0 | 2460 |
+| `example-not-explicit` | 0 | 0 | 0 | 2127 | 2127 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2057 | 2057 |
+| `list-first-introduction` | 0 | 1315 | 0 | 0 | 1315 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1111 | 1111 |
+| `short-concept-section` | 0 | 0 | 991 | 0 | 991 |
+| `no-prose-concept` | 769 | 0 | 0 | 0 | 769 |
+| `empty-section` | 622 | 0 | 0 | 0 | 622 |
+| `list-heavy-section` | 0 | 464 | 0 | 0 | 464 |
 
 ## Required remediation pattern
 

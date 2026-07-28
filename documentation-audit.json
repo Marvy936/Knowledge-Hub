@@ -2817,15 +2817,15 @@
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
       "title": "Cost management a FinOps",
-      "words": 2285,
-      "headings": 61,
-      "sections": 61,
-      "findings": 172,
-      "critical": 65,
-      "high": 66,
-      "medium": 29,
-      "low": 12,
-      "score": 1415,
+      "words": 2888,
+      "headings": 72,
+      "sections": 72,
+      "findings": 117,
+      "critical": 35,
+      "high": 52,
+      "medium": 13,
+      "low": 17,
+      "score": 903,
       "grade": "D"
     },
     {
@@ -157466,17 +157466,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "2. Cost, price, value a unit economics",
-      "line": 21,
+      "section": "1. Exact FinOps subject",
+      "line": 26,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -157484,152 +157475,71 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "2. Cost, price, value a unit economics",
-      "line": 21,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "2. Cost, price, value a unit economics",
-      "line": 21,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "2. Cost, price, value a unit economics",
-      "line": 21,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "3. FinOps princípy",
-      "line": 33,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "3. FinOps princípy",
-      "line": 33,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `teams ownership usage a costu,`, `centralized enablement a governance,`, `timely accessible data,`, `business-value decisions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "3. FinOps princípy",
-      "line": 33,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "4. Account a organization boundary",
-      "line": 47,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "4. Account a organization boundary",
-      "line": 47,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddeliť production/non-production,`, `priradiť ownera,`, `používať budgets a guardrails,`, `analyzovať spend podľa linked accountu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "4. Account a organization boundary",
-      "line": 47,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "5. Cost allocation tags",
-      "line": 62,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "5. Cost allocation tags",
-      "line": 62,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "5. Cost allocation tags",
-      "line": 62,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Owner ,`, `Team ,`, `Application ,`, `Environment ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "5. Cost allocation tags",
-      "line": 62,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "5. Cost allocation tags",
-      "line": 62,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "6. Cost Categories",
+      "section": "2. Price, usage, cost, value a TCO",
       "line": 85,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Price",
+      "line": 87,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Usage",
+      "line": 91,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Cost",
+      "line": 95,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Value",
+      "line": 99,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "3. Cost data vznikajú cez viac transformácií",
+      "line": 130,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "6. Cost Categories",
-      "line": 85,
+      "section": "3. Cost data vznikajú cez viac transformácií",
+      "line": 130,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business units,`, `applications,`, `environments,`, `cost centers,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cost metric: unblended, amortized, net amortized alebo iný;`, `date/time zone a billing period;`, `credits, refunds, support a tax scope;`, `estimated versus finalized state;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "6. Cost Categories",
-      "line": 85,
+      "section": "3. Cost data vznikajú cez viac transformácií",
+      "line": 130,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -157637,44 +157547,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "7. Shared cost allocation",
-      "line": 103,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "7. Shared cost allocation",
-      "line": 103,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "7. Shared cost allocation",
-      "line": 103,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Transit Gateway,`, `centralized NAT/egress,`, `shared Kubernetes clusteri,`, `observability platforme,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "7. Shared cost allocation",
-      "line": 103,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "7. Shared cost allocation",
-      "line": 103,
+      "section": "3. Cost data vznikajú cez viac transformácií",
+      "line": 130,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -157682,44 +157556,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "7. Shared cost allocation",
-      "line": 103,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `CI`, `GB`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "8. AWS Billing data oproti Cost Explorer",
-      "line": 129,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "8. AWS Billing data oproti Cost Explorer",
-      "line": 129,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `filtrovanie a grouping,`, `trend analysis,`, `forecasting,`, `amortized a net amortized views,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "8. AWS Billing data oproti Cost Explorer",
-      "line": 129,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "8. AWS Billing data oproti Cost Explorer",
-      "line": 129,
+      "section": "3. Cost data vznikajú cez viac transformácií",
+      "line": 130,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -157727,53 +157565,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "8. AWS Billing data oproti Cost Explorer",
-      "line": 129,
+      "section": "3. Cost data vznikajú cez viac transformácií",
+      "line": 130,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "9. Cost Explorer",
-      "line": 154,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "9. Cost Explorer",
-      "line": 154,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service,`, `linked account,`, `Region,`, `Availability Zone,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "9. Cost Explorer",
-      "line": 154,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "9. Cost Explorer",
-      "line": 154,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "10. Unblended, blended a amortized cost",
-      "line": 183,
+      "section": "4. Unblended, blended a amortized views",
+      "line": 155,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -157781,8 +157583,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Unblended cost",
-      "line": 185,
+      "section": "Cost allocation tags",
+      "line": 179,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -157790,44 +157592,53 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Blended cost",
-      "line": 189,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Cost allocation tags",
+      "line": 179,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Amortized cost",
-      "line": 193,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Cost allocation tags",
+      "line": 179,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že bol activated pre cost allocation;`, `že sa historické line items retroaktívne doplnia;`, `že všetky service/resource line items nesú resource tag;`, `že value je validná a owned.`.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "11. AWS Budgets",
-      "line": 203,
+      "section": "Cost allocation tags",
+      "line": 179,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "6. Allocation coverage a unattributed spend",
+      "line": 207,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "11. AWS Budgets",
-      "line": 203,
+      "section": "6. Allocation coverage a unattributed spend",
+      "line": 207,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cost,`, `usage,`, `Reserved Instance utilization/coverage,`, `Savings Plans utilization/coverage.`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `untagged/unmapped spend;`, `stale/invalid owners;`, `resources s conflicting tags;`, `line items bez resource identity;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "11. AWS Budgets",
-      "line": 203,
+      "section": "6. Allocation coverage a unattributed spend",
+      "line": 207,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -157835,8 +157646,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "11. AWS Budgets",
-      "line": 203,
+      "section": "6. Allocation coverage a unattributed spend",
+      "line": 207,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -157844,8 +157655,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "11. AWS Budgets",
-      "line": 203,
+      "section": "6. Allocation coverage a unattributed spend",
+      "line": 207,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -157853,71 +157664,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "11. AWS Budgets",
-      "line": 203,
+      "section": "6. Allocation coverage a unattributed spend",
+      "line": 207,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "12. Budget actions",
-      "line": 223,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "12. Budget actions",
-      "line": 223,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aplikovať IAM policy,`, `aplikovať SCP,`, `vykonať targeted resource action.`, `neočakávaný production impact,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "12. Budget actions",
-      "line": 223,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "12. Budget actions",
-      "line": 223,
+      "section": "7. Shared-cost allocation je business model",
+      "line": 230,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `SCP`, `policy`, `scope`",
-      "score": 7
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "13. Cost Anomaly Detection",
-      "line": 240,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "13. Cost Anomaly Detection",
-      "line": 240,
+      "section": "7. Shared-cost allocation je business model",
+      "line": 230,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `anomaly monitor,`, `monitored scope,`, `alert subscription,`, `threshold,`.",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podľa measured usage;`, `requests, bytes, vCPU-hours alebo build minutes;`, `direct spend ratio;`, `fixed subscription;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "13. Cost Anomaly Detection",
-      "line": 240,
+      "section": "7. Shared-cost allocation je business model",
+      "line": 230,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -157925,80 +157700,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "13. Cost Anomaly Detection",
-      "line": 240,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "14. Cost and Usage data",
-      "line": 266,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "14. Cost and Usage data",
-      "line": 266,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS Data Exports,`, `Cost and Usage Report-compatible datasets,`, `billing views,`, `S3 delivery,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "14. Cost and Usage data",
-      "line": 266,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "14. Cost and Usage data",
-      "line": 266,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `BI`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "15. Cost Optimization Hub",
-      "line": 288,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "15. Cost Optimization Hub",
-      "line": 288,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rightsizing,`, `idle-resource deletion,`, `Savings Plans,`, `Reserved Instances,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "15. Cost Optimization Hub",
-      "line": 288,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "15. Cost Optimization Hub",
-      "line": 288,
+      "section": "7. Shared-cost allocation je business model",
+      "line": 230,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -158006,8 +157709,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "15. Cost Optimization Hub",
-      "line": 288,
+      "section": "7. Shared-cost allocation je business model",
+      "line": 230,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -158015,566 +157718,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "15. Cost Optimization Hub",
-      "line": 288,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "16. Compute Optimizer a rightsizing",
-      "line": 310,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "16. Compute Optimizer a rightsizing",
-      "line": 310,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory,`, `network,`, `disk/EBS I/O,`, `burst credits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "16. Compute Optimizer a rightsizing",
-      "line": 310,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "16. Compute Optimizer a rightsizing",
-      "line": 310,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EBS`, `SLO`, `HA`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "17. Idle a orphaned resources",
-      "line": 329,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "17. Idle a orphaned resources",
-      "line": 329,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "17. Idle a orphaned resources",
-      "line": 329,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unattached EBS volumes,`, `old snapshots/AMIs,`, `idle load balancers,`, `unused Elastic IPs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "17. Idle a orphaned resources",
-      "line": 329,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "17. Idle a orphaned resources",
-      "line": 329,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EBS`, `NAT`, `RDS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "18. Scheduling a elasticity",
-      "line": 347,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "18. Scheduling a elasticity",
-      "line": 347,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "18. Scheduling a elasticity",
-      "line": 347,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduled stop/start,`, `environment TTL,`, `scale-to-zero pri podporovaných workloads,`, `ephemeral preview environments,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "18. Scheduling a elasticity",
-      "line": 347,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "18. Scheduling a elasticity",
-      "line": 347,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `elasticity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "19. Savings Plans",
-      "line": 368,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "19. Savings Plans",
-      "line": 368,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Compute Savings Plans,`, `EC2 Instance Savings Plans,`, `scope a flexibility,`, `utilization,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "19. Savings Plans",
-      "line": 368,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "19. Savings Plans",
-      "line": 368,
+      "section": "7. Shared-cost allocation je business model",
+      "line": 230,
       "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "19. Savings Plans",
-      "line": 368,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `RI`, `SP`, `scope`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "20. Reserved Instances",
-      "line": 393,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "20. Reserved Instances",
-      "line": 393,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `standard/convertible podľa služby,`, `regional/zonal scope,`, `size flexibility,`, `term/payment,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "20. Reserved Instances",
-      "line": 393,
+      "section": "7. Shared-cost allocation je business model",
+      "line": 230,
       "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "20. Reserved Instances",
-      "line": 393,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "20. Reserved Instances",
-      "line": 393,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "21. Spot",
-      "line": 408,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "21. Spot",
-      "line": 408,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `batch,`, `stateless workers,`, `fault-tolerant CI,`, `distributed processing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "21. Spot",
-      "line": 408,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "21. Spot",
-      "line": 408,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "22. Storage cost",
-      "line": 431,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "22. Storage cost",
-      "line": 431,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "22. Storage cost",
-      "line": 431,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `S3 storage classes a lifecycle,`, `incomplete multipart uploads,`, `noncurrent versions,`, `EBS type/size/IOPS/throughput,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "22. Storage cost",
-      "line": 431,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "22. Storage cost",
-      "line": 431,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `EBS`, `IOPS`, `EFS`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "23. Data transfer cost",
-      "line": 447,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "23. Data transfer cost",
-      "line": 447,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `internet egress,`, `cross-AZ traffic,`, `cross-Region traffic,`, `NAT Gateway processing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "23. Data transfer cost",
-      "line": 447,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "23. Data transfer cost",
-      "line": 447,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `NAT`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "24. Observability cost",
-      "line": 466,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "24. Observability cost",
-      "line": 466,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "24. Observability cost",
-      "line": 466,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `custom metrics,`, `high-cardinality dimensions,`, `log ingestion,`, `retention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "24. Observability cost",
-      "line": 466,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "24. Observability cost",
-      "line": 466,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO-`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "25. Kubernetes a container cost allocation",
-      "line": 491,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "25. Kubernetes a container cost allocation",
-      "line": 491,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "25. Kubernetes a container cost allocation",
-      "line": 491,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespace,`, `workload,`, `labels/tags,`, `requested a actual resources,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "25. Kubernetes a container cost allocation",
-      "line": 491,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "25. Kubernetes a container cost allocation",
-      "line": 491,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "26. Serverless unit economics",
-      "line": 507,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "26. Serverless unit economics",
-      "line": 507,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `invocations,`, `duration,`, `memory/CPU allocation,`, `concurrency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "26. Serverless unit economics",
-      "line": 507,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "26. Serverless unit economics",
-      "line": 507,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "27. Database cost",
-      "line": 523,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "27. Database cost",
-      "line": 523,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "27. Database cost",
-      "line": 523,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instance/cluster size,`, `storage a I/O,`, `Multi-AZ/read replicas,`, `backup retention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "27. Database cost",
-      "line": 523,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "27. Database cost",
-      "line": 523,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "28. Tagging a automation guardrails",
-      "line": 539,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "28. Tagging a automation guardrails",
-      "line": 539,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "28. Tagging a automation guardrails",
-      "line": 539,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required tags pri provisioning,`, `account/OU baseline,`, `expiration tags,`, `untagged-resource reports,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "28. Tagging a automation guardrails",
-      "line": 539,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "28. Tagging a automation guardrails",
-      "line": 539,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OU`, `TTL`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "29. Showback a chargeback",
-      "line": 554,
+      "section": "8. Cost Explorer a Data Exports majú odlišné úlohy",
+      "line": 252,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -158582,8 +157745,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Showback",
-      "line": 556,
+      "section": "Cost Explorer",
+      "line": 254,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158591,26 +157754,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Chargeback",
-      "line": 560,
+      "section": "AWS Data Exports",
+      "line": 268,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Chargeback",
-      "line": 560,
+      "section": "AWS Data Exports",
+      "line": 268,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dôveryhodnú allocation,`, `vysvetlené shared costs,`, `dispute process,`, `stable dimensions,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected periods/partitions;`, `duplicate/missing line items;`, `currency a cost metric;`, `account coverage;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Chargeback",
-      "line": 560,
+      "section": "AWS Data Exports",
+      "line": 268,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -158618,251 +157781,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "30. Forecasting",
-      "line": 575,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "30. Forecasting",
-      "line": 575,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `organic growth,`, `product launches,`, `migrations,`, `commitment purchases/expirations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "30. Forecasting",
-      "line": 575,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "31. Cost optimization workflow",
-      "line": 592,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "31. Cost optimization workflow",
-      "line": 592,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "32. Cost incident response",
-      "line": 608,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "32. Cost incident response",
-      "line": 608,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "32. Cost incident response",
-      "line": 608,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runaway resource creation,`, `attack alebo credential compromise,`, `logging cardinality explosion,`, `retry loop,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "32. Cost incident response",
-      "line": 608,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "32. Cost incident response",
-      "line": 608,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "33. Cost governance cadence",
-      "line": 634,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "33. Cost governance cadence",
-      "line": 634,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "33. Cost governance cadence",
-      "line": 634,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `daily: anomaly alerts a critical spend,`, `weekly: engineering optimization backlog,`, `monthly: budget/forecast/showback,`, `quarterly: commitments, architecture a unit economics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "33. Cost governance cadence",
-      "line": 634,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "34. Cost a reliability trade-off",
-      "line": 646,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "34. Cost a reliability trade-off",
-      "line": 646,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "34. Cost a reliability trade-off",
-      "line": 646,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SLO impact,`, `failover capacity,`, `RTO/RPO,`, `supportability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "34. Cost a reliability trade-off",
-      "line": 646,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "34. Cost a reliability trade-off",
-      "line": 646,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `RTO`, `RPO`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "35. Cost a sustainability",
-      "line": 661,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "35. Cost a sustainability",
-      "line": 661,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "35. Cost a sustainability",
-      "line": 661,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyššia utilization,`, `autoscaling,`, `odstránenie idle resources,`, `efektívnejší software,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "35. Cost a sustainability",
-      "line": 661,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "36. SOA-C03 mapovanie",
-      "line": 675,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "36. SOA-C03 mapovanie",
-      "line": 675,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "36. SOA-C03 mapovanie",
-      "line": 675,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "36. SOA-C03 mapovanie",
-      "line": 675,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "36. SOA-C03 mapovanie",
-      "line": 675,
+      "section": "9. Budgets sú lagged decision controls",
+      "line": 282,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -158870,17 +157790,107 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "36. SOA-C03 mapovanie",
-      "line": 675,
+      "section": "11. Cost Optimization Hub a recommendations",
+      "line": 317,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 50 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "11. Cost Optimization Hub a recommendations",
+      "line": 317,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact resource/workload identity;`, `peak a seasonal usage;`, `memory/I/O/network, nie iba CPU;`, `SLO a failure headroom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "11. Cost Optimization Hub a recommendations",
+      "line": 317,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "11. Cost Optimization Hub a recommendations",
+      "line": 317,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "11. Cost Optimization Hub a recommendations",
+      "line": 317,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "11. Cost Optimization Hub a recommendations",
+      "line": 317,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`, `NAT`, `CDN`, `AZ`, `reliability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `SLO`, `workload`, `identity`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "37. Troubleshooting costu",
-      "line": 685,
+      "section": "12. Rightsizing je performance a reliability experiment",
+      "line": 334,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "13. Commitments optimalizujú stabilný baseline",
+      "line": 354,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 59 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "13. Commitments optimalizujú stabilný baseline",
+      "line": 354,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `term a payment option;`, `hourly commitment alebo reservation scope;`, `eligible usage;`, `utilization a coverage;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "13. Commitments optimalizujú stabilný baseline",
+      "line": 354,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "13. Commitments optimalizujú stabilný baseline",
+      "line": 354,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "14. Data transfer, storage a observability sú architecture costs",
+      "line": 383,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -158888,8 +157898,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Neočakávaný EC2 spend",
-      "line": 687,
+      "section": "Data transfer",
+      "line": 385,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158897,8 +157907,53 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "NAT Gateway spike",
-      "line": 691,
+      "section": "15. Showback a chargeback menia správanie",
+      "line": 409,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "16. Forecast spája history s roadmapou",
+      "line": 421,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "16. Forecast spája history s roadmapou",
+      "line": 421,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `growth a seasonality;`, `launches a migrations;`, `environment retirement;`, `commitment expiry/purchase;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "16. Forecast spája history s roadmapou",
+      "line": 421,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "16. Forecast spája history s roadmapou",
+      "line": 421,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "17. Optimization change má acceptance contract",
+      "line": 435,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158906,8 +157961,116 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "CloudWatch cost spike",
-      "line": 695,
+      "section": "17. Optimization change má acceptance contract",
+      "line": 435,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "18. Worked failure: cost spike je retry incident, nie rast produktu",
+      "line": 466,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Signal",
+      "line": 468,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Signal",
+      "line": 468,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmenšiť RDS;`, `vypnúť debug a časť audit logs;`, `kúpiť väčší Savings Plan na nový „baseline“;`, `zastaviť non-essential reconciliation workers.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Signal",
+      "line": 468,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Signal",
+      "line": 468,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Signal",
+      "line": 468,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RDS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Competing hypotheses",
+      "line": 479,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Competing hypotheses",
+      "line": 479,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Competing hypotheses",
+      "line": 479,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Competing hypotheses",
+      "line": 479,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `legitímny traffic growth;`, `price alebo commitment expiry;`, `wrong Cost Category/shared-cost allocation;`, `oversized compute/database;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Competing hypotheses",
+      "line": 479,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Discriminating evidence",
+      "line": 489,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158915,8 +158078,224 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "S3 cost spike",
-      "line": 699,
+      "section": "Discriminating evidence",
+      "line": 489,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Discriminating evidence",
+      "line": 489,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `8× Lambda invocations a GB-seconds;`, `výrazný nárast NatGateway-Bytes k external providerovi;`, `vysoký CloudWatch Logs ingestion volume;`, `successful payment volume nerástol;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Discriminating evidence",
+      "line": 489,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Discriminating evidence",
+      "line": 489,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Discriminating evidence",
+      "line": 489,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GB-`, `RDS`, `CPU`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Containment",
+      "line": 505,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Containment",
+      "line": 505,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Containment",
+      "line": 505,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Containment",
+      "line": 505,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obmedz event-source concurrency a retry rate;`, `pause-ni broken cohorts, nie celý payment workload;`, `obnov authoritative secret/consumer state podľa SEC-PAY-42 ;`, `zachovaj cost, CloudTrail, logs a business evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Containment",
+      "line": 505,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Containment",
+      "line": 505,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SEC-PAY-42`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Recovery a optimization",
+      "line": 514,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Recovery a optimization",
+      "line": 514,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Recovery a optimization",
+      "line": 514,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Recovery a optimization",
+      "line": 514,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oprav rotation consumer-refresh gate;`, `nastav retry budget, backoff a permanent-auth failure classification;`, `evictni stale connection pools;`, `zníž duplicate debug payload bez straty required fields;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Recovery a optimization",
+      "line": 514,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Forbidden-outcome verification",
+      "line": 536,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Forbidden-outcome verification",
+      "line": 536,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Forbidden-outcome verification",
+      "line": 536,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Forbidden-outcome verification",
+      "line": 536,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payment success a p99 latency sa nezhoršili;`, `duplicate settlement rate je nulový podľa reconciliation;`, `RDS a failover headroom zostali zachované;`, `audit/security evidence je stále dostupná;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Forbidden-outcome verification",
+      "line": 536,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Forbidden-outcome verification",
+      "line": 536,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RDS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "19. Cost incident response",
+      "line": 545,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "20. FinOps cadence a accountability",
+      "line": 563,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Daily",
+      "line": 565,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158924,17 +158303,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Savings Plan nízka utilization",
-      "line": 703,
+      "section": "Weekly",
+      "line": 569,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Monthly",
+      "line": 573,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Quarterly",
+      "line": 577,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "21. Troubleshooting podľa observation pointu",
+      "line": 587,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
       "section": "Cost Explorer a invoice sa nezhodujú",
-      "line": 707,
+      "line": 589,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158942,8 +158348,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Cost optimization iba po prekročení budgetu",
-      "line": 713,
+      "section": "Tag/Cost Category report je neúplný",
+      "line": 593,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158951,8 +158357,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Tags bez enforcementu",
-      "line": 717,
+      "section": "NAT Gateway spend rastie",
+      "line": 597,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158960,8 +158366,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Estimated savings ako realized savings",
-      "line": 721,
+      "section": "CloudWatch spend rastie",
+      "line": 601,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158969,8 +158375,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Rightsizing iba podľa priemerného CPU",
-      "line": 725,
+      "section": "Savings Plan utilization klesne",
+      "line": 605,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158978,8 +158384,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Commitment nákup podľa jedného mesiaca",
-      "line": 729,
+      "section": "Recommendation savings sa neprejavili",
+      "line": 609,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158987,8 +158393,62 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Vypnutie observability kvôli costu",
-      "line": 733,
+      "section": "22. SOA-C03 mapovanie",
+      "line": 613,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "22. SOA-C03 mapovanie",
+      "line": 613,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "22. SOA-C03 mapovanie",
+      "line": 613,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "22. SOA-C03 mapovanie",
+      "line": 613,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "22. SOA-C03 mapovanie",
+      "line": 613,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "22. SOA-C03 mapovanie",
+      "line": 613,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `CDN`, `AZ`, `reliability`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Lowest invoice ako success metric",
+      "line": 623,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -158996,8 +158456,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Central FinOps tím vlastní všetku optimalizáciu",
-      "line": 737,
+      "section": "Budget ako hard cap",
+      "line": 627,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -159005,8 +158465,53 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cost-management-finops.md",
-      "section": "Budget ako hard spending cap",
-      "line": 741,
+      "section": "Tag existence ako complete attribution",
+      "line": 631,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Estimated savings reportované ako realized",
+      "line": 635,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Rightsizing podľa average CPU",
+      "line": 639,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Commitment na incidentový month",
+      "line": 643,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Vypnutie logs kvôli costu počas incidentu",
+      "line": 647,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cost-management-finops.md",
+      "section": "Central FinOps tím ako jediný owner",
+      "line": 651,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
