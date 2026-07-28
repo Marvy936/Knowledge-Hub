@@ -1,442 +1,474 @@
 # IaaS, PaaS a SaaS
 
-IaaS, PaaS a SaaS opisujú, ktorú časť technologického stacku prevádzkuje provider a ktorú zákazník. Nejde o tri presne oddelené produktové kategórie; moderné cloud služby často kombinujú viac vrstiev. Užitočný mentálny model je **ownership a responsibility boundary**, nie marketingový názov služby.
+IaaS, PaaS a SaaS nie sú iba tri marketingové kategórie. Sú to rôzne **responsibility contracts** pre tú istú business capability. Správna otázka nie je „ktorý názov služby znie modernejšie“, ale:
 
-## 1. Celý service stack
+```text
+ktorý outcome potrebujeme
+→ ktoré vrstvy musí niekto prevádzkovať
+→ ktoré vrstvy preberá provider
+→ ktoré zostávajú zákazníkovi
+→ ako sa contract prejaví v identity, data, availability, recovery, evidence a coste
+```
+
+Vyššia abstrakcia odstraňuje časť infraštruktúrneho toil-u, ale neodstraňuje vlastníctvo business dát, identity, konfigurácie, integrácií ani výsledku obnovy.
+
+## 1. Dominantný lifecycle service modelu
+
+```text
+business capability, SLO a constraints
+→ workload/data/integration inventory
+→ požadovaný control a portability level
+→ service-model candidate
+→ provider/customer responsibility matrix
+→ architecture a configuration
+→ deployment a process-loaded state
+→ availability/security/cost evidence
+→ incident a recovery ownership
+→ periodic contract review alebo exit
+```
+
+Service model je správne zvolený až vtedy, keď je pre každý kritický krok známe:
+
+- kto môže meniť desired state;
+- kto patchuje a upgraduje platformu;
+- kto riadi identity a secrets;
+- kto navrhuje HA, backup a DR;
+- kto produkuje a uchováva evidence;
+- kto rozhoduje pri neznámom alebo partial failure;
+- ako sa dá workload alebo dáta exportovať.
+
+## 2. Exact capability subject
+
+V tejto kapitole používame Atlas Payments capability:
+
+```text
+capability: CAP-PAY-42
+business outcome: payment authorization do 700 ms p99
+availability target: 99.95 % mesačne
+RPO settlement dát: 0 pre potvrdené transakcie
+RTO customer-facing API: 30 minút
+source generation: Git commit G42
+application artifact: image digest I42
+configuration generation: C42
+credential epoch: SE10
+primary Region: eu-central-1
+sensitive settlement dependency: on-premises ledger L17
+```
+
+Service-model rozhodnutie sa musí viazať na celý tento subject. Samotné „EC2“, „RDS“ alebo „SaaS“ nie je dostatočná identita výsledku.
+
+## 3. Celý responsibility stack
 
 Zjednodušený stack:
 
 ```text
-business data a business process
-application
-runtime a middleware
-data platform
+business process a legal outcome
+business data a retention
+application behavior
+application configuration a identity
+runtime/middleware/data engine
 operating system
 virtualization/container platform
-compute, storage a network
-physical datacenter
+compute, storage a network primitives
+physical facilities a hardware
 ```
 
-Pri každej službe sa pýtaj:
-
-- kto provisionuje,
-- kto patchuje,
-- kto škáluje,
-- kto zálohuje,
-- kto monitoruje,
-- kto rieši incident,
-- kto riadi identity a data access,
-- aký je exit/portability model.
-
-## 2. On-premises baseline
-
-Pri vlastnej infraštruktúre organizácia typicky vlastní:
-
-- budovu alebo colocation contract,
-- power/cooling,
-- physical network a servers,
-- storage,
-- hypervisor,
-- OS,
-- runtime,
-- application,
-- data,
-- monitoring, backup a disaster recovery.
-
-Outsourcing datacentra alebo hardware supportu môže responsibility rozdeliť, ale organizácia stále koordinuje väčšinu lifecycle-u.
-
-## 3. IaaS
-
-**Infrastructure as a Service** poskytuje virtualizované compute, network a storage primitives.
-
-Provider typicky vlastní:
-
-- physical datacenter,
-- physical servers a network,
-- virtualization/control plane,
-- základnú availability služby podľa contractu.
-
-Zákazník typicky vlastní:
-
-- guest OS alebo machine image,
-- patching OS a packages,
-- firewall/security groups a routing configuration,
-- runtime a application,
-- IAM usage,
-- data, encryption choices a backup,
-- autoscaling a high-availability architecture.
-
-Príklady typu služby:
-
-- virtual machines,
-- block/object storage primitives,
-- virtual networks,
-- load-balancer infrastructure podľa konkrétneho management modelu.
-
-## 4. IaaS výhody
-
-- vysoká kontrola nad OS a runtime,
-- podpora legacy applications,
-- flexibilné network a storage topológie,
-- jednoduchšie mapovanie tradičných serverových architektúr,
-- možnosť vlastných agents, drivers a kernel settings podľa platformy.
-
-## 5. IaaS trade-offy
-
-- OS patching a image lifecycle,
-- capacity a autoscaling,
-- configuration drift,
-- backup a restore,
-- agent/runtime maintenance,
-- väčší operational surface,
-- riziko snowflake servers.
-
-Lift-and-shift na VM nemení automaticky application na cloud-native systém.
-
-## 6. PaaS
-
-**Platform as a Service** poskytuje managed application alebo data runtime. Provider preberá viac vrstiev, napríklad:
-
-- OS a platform patching,
-- runtime control plane,
-- základné deployment a scaling primitives,
-- platform health,
-- časť backup/replication podľa služby.
-
-Zákazník stále vlastní:
-
-- application code alebo schema/configuration,
-- business data,
-- identity a access design,
-- dependency compatibility,
-- workload sizing a cost controls,
-- application observability,
-- backup/restore požiadavky nad rámec platform defaultov,
-- business continuity.
-
-Príklady typu služby:
-
-- managed relational database,
-- managed Kubernetes control plane,
-- application runtime,
-- serverless functions,
-- managed message broker alebo cache.
-
-Managed Kubernetes je PaaS-like platforma, ale zákazník stále vlastní workloads, images, Kubernetes RBAC, network/security policy, data a mnoho add-ons.
-
-## 7. PaaS výhody
-
-- menší undifferentiated operational workload,
-- rýchlejší provisioning,
-- built-in patching a HA capabilities podľa služby,
-- štandardizované deployment paths,
-- menší host-level management surface,
-- jednoduchšie využitie cloud integrations.
-
-## 8. PaaS trade-offy
-
-- platform constraints,
-- provider-specific APIs a configuration,
-- version/support window,
-- maintenance windows,
-- obmedzený host access,
-- migration a data-egress náklady,
-- nejasný backup alebo failover contract,
-- vyššia jednotková cena za časť managed práce.
-
-Managed neznamená, že provider vlastní application correctness alebo data recovery outcome.
-
-## 9. SaaS
-
-**Software as a Service** poskytuje hotovú application službu používateľovi alebo organizácii.
-
-Provider typicky vlastní:
-
-- application code a runtime,
-- platform a infraštruktúru,
-- deployment a patching,
-- service availability podľa contractu,
-- väčšinu interného monitoring-u a operations.
-
-Zákazník typicky vlastní:
-
-- tenant configuration,
-- users, groups a permissions,
-- identity federation,
-- data classification a usage,
-- retention/export policy,
-- client/device security,
-- integration credentials,
-- business process a compliance konfiguráciu.
-
-Príklady typu služby:
-
-- email/collaboration platforma,
-- CRM,
-- issue tracker,
-- source-code hosting,
-- HR alebo finance application.
-
-## 10. SaaS výhody
-
-- najmenší infrastructure/runtime operations scope,
-- rýchle nasadenie,
-- centralizované updates,
-- predvídateľný subscription model podľa contractu,
-- jednoduchý prístup pre používateľov.
-
-## 11. SaaS trade-offy
-
-- minimálna kontrola nad internou implementáciou,
-- tenant a feature limits,
-- provider outage dependency,
-- export/portability a deletion guarantees,
-- data residency,
-- integration a API rate limits,
-- identity alebo configuration mistakes stále zostávajú zákazníckym rizikom.
-
-## 12. Shared responsibility
-
-Každá služba má shared responsibility model. Čím vyššia služba:
+Pri každej vrstve treba rozlíšiť štyri úlohy:
 
 ```text
-IaaS → viac kontroly a viac operations ownershipu
-PaaS → viac managed platformy a viac platform constraints
-SaaS → hotová application, ale tenant/data/identity ownership zostáva
+provisionovanie
+→ bezpečná prevádzka
+→ pozorovanie a incident response
+→ recovery a decommission
 ```
 
-Provider security **of** cloud platformy neznamená zákaznícku security **in** používanej konfigurácii a dátach.
+To, že provider vrstvu prevádzkuje, ešte neznamená, že provider vlastní zákaznícky configuration alebo business acceptance.
 
-## 13. Responsibility matrix
+## 4. IaaS contract
 
-| Vrstva | On-prem | IaaS | PaaS | SaaS |
-|---|---|---|---|---|
-| Physical datacenter | zákazník | provider | provider | provider |
-| Physical compute/network/storage | zákazník | provider | provider | provider |
-| Virtualization/platform control plane | zákazník | provider | provider | provider |
-| Guest OS | zákazník | zákazník | provider | provider |
-| Runtime/middleware | zákazník | zákazník | provider/shared | provider |
-| Application | zákazník | zákazník | zákazník/shared | provider |
-| Configuration | zákazník | zákazník | zákazník | zákazník/shared |
-| Identity a access | zákazník | shared | shared | shared |
-| Business data | zákazník | zákazník | zákazník | zákazník/shared |
-| Business continuity outcome | zákazník | shared | shared | shared |
+Infrastructure as a Service poskytuje compute, network a storage primitives. Provider spravuje fyzické facilities, hardware a virtualization/control plane. Zákazník typicky spravuje guest OS, image lifecycle, packages, runtime, application, data, network policy, identity usage, monitoring, backup a workload HA.
 
-Tabuľka je všeobecný model. Konkrétny contract služby má prednosť.
+Mechanizmus:
 
-## 14. Backup responsibility
+```text
+customer machine/image intent
+→ provider vytvorí virtual resource
+→ customer bootstrapping a OS/runtime configuration
+→ application process
+→ customer health, scale, backup a recovery controls
+```
 
-Najčastejší omyl: „Managed služba je automaticky zálohovaná presne podľa našich potrieb.“
+IaaS je vhodný, keď workload potrebuje OS/kernel control, špecifické agents alebo drivers, legacy runtime, vlastné network appliance behavior alebo presnú host-level observability.
 
-Over:
+Cena tejto kontroly je väčší operational surface:
 
-- či backup existuje,
-- čo obsahuje,
-- retention,
-- RPO/RTO,
-- encryption a account boundary,
-- region/account isolation,
-- point-in-time restore,
-- export/off-provider copy,
-- restore testing,
-- deletion a ransomware scenár.
+- patching a reboot orchestration;
+- AMI/image provenance;
+- configuration drift;
+- capacity a fleet replacement;
+- host telemetry a vulnerability management;
+- backup/restore orchestration;
+- snowflake-server riziko.
 
-Provider durability alebo replication nie je automaticky zákaznícky backup.
+### IaaS failure boundary
 
-## 15. High availability responsibility
+EC2 instance `running` a system-status checks `ok` nepreukazujú:
 
-Managed service môže poskytovať multi-zone capability, ale zákazník musí často:
+- že guest OS je patchnutý;
+- že application načítala C42 a SE10;
+- že data sú konzistentné;
+- že workload prežije stratu AZ;
+- že backup je obnoviteľný;
+- že API spĺňa 700 ms p99.
 
-- zapnúť správny deployment mode,
-- zvoliť regions/zones,
-- nakonfigurovať clients/retries/timeouts,
-- odstrániť single points v application vrstve,
-- testovať failover,
-- navrhnúť data consistency a DR.
+Provider môže mať zdravý virtualization plane a zákaznícky workload môže byť nefunkčný pre chybný OS firewall, expirovaný certificate alebo plný filesystem.
 
-SLA je finančný/service contract, nie automatický architecture design.
+## 5. PaaS contract
 
-## 16. Security responsibility
+Platform as a Service preberá OS a časť runtime alebo data-platform operations. Môže poskytovať managed database, application runtime, serverless compute, managed container control plane, message broker alebo cache.
+
+Mechanizmus:
+
+```text
+customer code/schema/config intent
+→ provider-managed runtime alebo engine
+→ customer identity, network a service configuration
+→ application/data execution
+→ shared platform a business verification
+```
+
+Provider môže spravovať host replacement, platform patching, replication mechanism a control plane. Zákazník stále vlastní:
+
+- application code, schema a dependency compatibility;
+- data classification a access;
+- service configuration a network exposure;
+- IAM roles, resource policies a KMS usage;
+- capacity mode, quotas a cost limits;
+- backup retention, restore test a business RPO/RTO;
+- client retry, timeout a failover behavior;
+- application telemetry a user-path validation.
+
+### PaaS failure boundary
+
+Managed database `available` nepreukazuje:
+
+```text
+správny endpoint a Region
+→ network path
+→ database identity a TLS
+→ správnu schema generation
+→ application-consistent data
+→ tested restore
+→ payment outcome
+```
+
+Managed Kubernetes control plane nepreberá ownership workload images, Kubernetes RBAC, NetworkPolicy, data, add-ons ani application recovery.
+
+## 6. SaaS contract
+
+Software as a Service poskytuje hotovú application capability. Provider spravuje application code, runtime, platform a infraštruktúru. Zákazník spravuje tenant configuration, users, federation, sharing, data governance, integrations, client/device security, retention/export a business proces.
+
+Mechanizmus:
+
+```text
+tenant a identity configuration
+→ provider application service
+→ provider internal runtime/data implementation
+→ customer users/integrations
+→ customer business process a compliance outcome
+```
+
+SaaS minimalizuje infrastructure operations, ale zväčšuje dependence na provider feature, API, tenant, rate-limit, retention a export contracts.
+
+### SaaS failure boundary
+
+Provider status page `operational` nepreukazuje:
+
+- že Atlas tenant federation funguje;
+- že admin permissions sú least privilege;
+- že webhook credential neexpiroval;
+- že retention spĺňa právny contract;
+- že dáta možno exportovať v použiteľnom formáte;
+- že kritický business proces je obnoviteľný po tenant misconfiguration.
+
+## 7. Shared responsibilities sa neposúvajú lineárne
+
+Vyššia abstrakcia zvyčajne presúva viac host/runtime práce na providera, ale nie každá responsibility sa presúva rovnakým smerom.
+
+```text
+IaaS: customer owns guest-to-business stack
+PaaS: provider owns viac runtime/platform vrstiev, customer owns code/data/config
+SaaS: provider owns application implementation, customer owns tenant/data/process
+```
+
+Identity, data governance, business continuity, integration credentials a outcome verification zostávajú shared alebo customer-owned vo všetkých modeloch.
+
+## 8. Responsibility matrix pre CAP-PAY-42
+
+| Capability layer | EC2/IaaS | Managed runtime/database | SaaS replacement |
+|---|---|---|---|
+| Physical hardware | AWS | AWS | provider |
+| Guest OS/runtime patching | Atlas | provider/shared | provider |
+| Application code | Atlas | Atlas | provider |
+| Tenant/service configuration | Atlas | Atlas | Atlas |
+| IAM/federation | Atlas/shared | Atlas/shared | Atlas/shared |
+| Business data governance | Atlas | Atlas | Atlas/shared |
+| Network exposure | Atlas | Atlas/shared | provider + Atlas tenant controls |
+| HA feature mechanism | Atlas architecture | provider mechanism + Atlas configuration | provider service contract |
+| Business RPO/RTO | Atlas | Atlas | Atlas |
+| Restore test | Atlas | Atlas | Atlas/provider podľa export contractu |
+| User-path telemetry | Atlas | Atlas | Atlas synthetic + provider evidence |
+| Exit/portability | Atlas | Atlas | Atlas podľa export/API contractu |
+
+Všeobecná tabuľka nenahrádza service-specific dokumentáciu a commercial contract.
+
+## 9. Worked scenario: nesprávne vyhodnotená managed responsibility
+
+Atlas presúva payment API z VM fleet-u na managed application runtime a ledger databázu na managed relational database. Tím predpokladá:
+
+```text
+managed runtime + managed database
+→ provider vlastní patching, HA a backup
+→ customer už nepotrebuje recovery design
+```
+
+Tri mesiace po migrácii operator omylom zmaže settlement records cez application credential. Platforma a databáza zostávajú healthy.
+
+### Exact incident subject
+
+```text
+capability CAP-PAY-42
+managed DB resource DB42, Region eu-central-1
+backup policy generation BP7
+retention 7 dní
+latest automated recovery point RP92
+application transaction ledger generation L17
+credential epoch SE10
+incident window 2026-07-28T08:10Z–08:17Z
+```
+
+### Competing hypotheses
+
+1. provider storage corruption;
+2. database failover vrátil starú repliku;
+3. application migration odstránila records;
+4. compromised alebo chybný customer credential vykonal delete;
+5. backup policy neobsahuje požadovaný retention alebo point-in-time window;
+6. API číta nesprávny Region alebo database endpoint.
+
+### Discriminating observations
+
+```text
+audit event a principal
+→ SQL/application operation ID
+→ DB endpoint/Region a engine event
+→ backup/recovery-point inventory
+→ transaction ledger a downstream settlement evidence
+→ provider health event
+```
+
+Audit ukáže delete operáciu cez Atlas application role. Provider platforma fungovala podľa contractu. Root cause je customer-owned authorization a application behavior; slabý recovery contract je contributing control failure.
+
+### Containment
+
+- revoke SE10 a zastaviť delete-capable writer;
+- zachovať audit, request IDs a DB logs;
+- zastaviť ďalšie settlement processing;
+- nevykonať restore cez current production DB naslepo;
+- určiť canonical transaction ledger a incident cut-off.
+
+### Recovery
+
+1. vytvoriť isolated point-in-time restore;
+2. porovnať restored records s immutable settlement ledgerom;
+3. doplniť chýbajúce transakcie idempotentnou reconciliation operáciou;
+4. vydať scoped credential SE11;
+5. obnoviť payment processing po read/write a business verification;
+6. predĺžiť retention a pridať cross-account recovery copy podľa RPO/RTO;
+7. testovať restore a reconciliation ako jeden recovery workflow.
+
+### Closure verdict
+
+Incident nie je uzavretý pri stave DB `available`. Musí platiť:
+
+```text
+všetky potvrdené payments majú presne jeden settlement record
+old credential SE10 je odmietnutý
+nový writer používa SE11
+backup/recovery policy spĺňa RPO/RTO
+druhý reconciliation pass je no-op
+```
+
+## 10. Availability a SLA boundary
+
+SLA je service contract a prípadný service credit mechanism. Nie je to hotová workload architecture.
+
+Provider môže ponúknuť Multi-AZ capability, ale zákazník často musí:
+
+- zvoliť správny deployment mode;
+- rozložiť application capacity;
+- nakonfigurovať health checks;
+- navrhnúť clients, retries a timeouts;
+- odstrániť single-AZ dependencies;
+- overiť quotas a recovery capacity;
+- testovať failover a failback.
+
+## 11. Backup, replication a durability
+
+Rozlišuj:
+
+```text
+durability
+replication
+snapshot/recovery point
+backup policy
+isolated immutable copy
+application-consistent restore
+business recovery
+```
+
+Provider durability chráni proti určitej triede media failure. Replication môže replikovať aj customer delete alebo corruption. Backup existuje až s jasným obsahom, retention, isolation a restore contractom. Recovery je preukázaná až business validáciou.
+
+## 12. Observability contract
+
+Každý service model potrebuje inú evidence surface:
 
 ### IaaS
 
-Veľký zákaznícky scope:
-
-- OS hardening,
-- patches,
-- network rules,
-- identities,
-- agents,
-- malware/vulnerability management,
-- application a data.
+- provider instance/system checks;
+- OS/kernel/process telemetry;
+- network a storage evidence;
+- application a business signals.
 
 ### PaaS
 
-Provider preberá host/runtime vrstvu, zákazník rieši:
-
-- service configuration,
-- IAM,
-- network exposure,
-- encryption keys/options,
-- application dependencies,
-- data a secrets.
+- provider service health a engine/platform events;
+- customer configuration/audit;
+- application telemetry;
+- synthetic user path;
+- backup/restore evidence.
 
 ### SaaS
 
-Hlavné zákaznícke riziká:
+- tenant audit a identity logs;
+- provider status/support evidence;
+- API/webhook telemetry;
+- client synthetic;
+- export a retention validation.
 
-- broad sharing,
-- weak federation/MFA,
-- overprivileged admins,
-- unmanaged integrations,
-- retention/data export,
-- compromised endpoints.
+Absencia host metrics pri PaaS alebo SaaS nie je dôkaz absencie problému. Observation contract sa musí prispôsobiť vrstve, ktorú provider sprístupňuje.
 
-## 17. Observability responsibility
+## 13. Cost a total ownership
 
-Provider metrics nepostačujú automaticky na business SLO.
-
-Potrebuješ:
-
-- provider service health,
-- platform/resource metrics,
-- application telemetry,
-- synthetic user-path checks,
-- audit logs,
-- cost a quota signals,
-- external dependency monitoring.
-
-Pri SaaS môže byť observability obmedzená na audit, API, status page a synthetic monitoring.
-
-## 18. Cost model
-
-### IaaS
-
-Platíš za primitives a vlastnú operations kapacitu.
-
-### PaaS
-
-Vyššia service unit cena môže byť vyvážená menším platform toilom a rýchlejšou delivery.
-
-### SaaS
-
-Subscription/per-user/per-feature model presúva väčšinu engineering costu na providera, ale môže rásť s počtom používateľov, dátami a integráciami.
-
-Porovnávaj total cost of ownership:
+Porovnávaj:
 
 ```text
 service bill
-+ engineering/operations čas
++ engineering a operations labor
++ security/compliance controls
 + support
-+ compliance
-+ migration/egress
++ backup/DR
++ migration a data transfer
 + downtime risk
 + opportunity cost
 ```
 
-## 19. Lock-in a portability
+IaaS môže mať nižšiu unit cenu a vyšší toil. PaaS môže mať vyššiu service cenu a nižší platform toil. SaaS môže byť lacný pri malom tenant scope-e a drahý pri per-user, data alebo integration scale.
 
-Lock-in nie je binárny.
+## 14. Portability a exit subject
 
-Typy:
+Portability nie je binárna. Posudzuj:
 
-- API lock-in,
-- data format a volume lock-in,
-- identity/integration lock-in,
-- operational skill lock-in,
-- commercial/contract lock-in,
-- egress a migration-time lock-in.
+- application/source portability;
+- runtime a deployment portability;
+- data format a volume export;
+- identity a policy translation;
+- network assumptions;
+- observability a audit portability;
+- operational runbooks;
+- commercial notice, egress a migration time.
 
-Vyššia abstrakcia často zvyšuje provider-specific value aj migration cost.
+Container image sama negarantuje, že managed database semantics, IAM, KMS, queues alebo provider APIs možno preniesť bez redesignu.
 
-## 20. Výber service modelu
+## 15. Rozhodovací postup
 
-Pýtaj sa:
-
-1. Potrebujeme OS/kernel kontrolu?
-2. Je workload legacy alebo cloud-native?
-3. Aké sú compliance a data residency požiadavky?
-4. Aký je support/upgrade lifecycle?
-5. Aké sú RPO/RTO a portability požiadavky?
-6. Máme tím na prevádzku nižších vrstiev?
-7. Aký je cost pri steady state aj peak-u?
-8. Čo sa stane pri provider outage alebo ukončení služby?
-9. Ako exportujeme dáta a konfiguráciu?
-10. Ktorá vrstva je náš diferenciátor?
-
-## 21. Príklad rozhodnutia
-
-### Interná web aplikácia
-
-Možnosti:
-
-- IaaS VM: maximálna kontrola, viac patching/toil,
-- managed Kubernetes/PaaS: platform flexibility, stále vysoký workload/platform scope,
-- application PaaS: rýchly deployment, menšia infra kontrola,
-- SaaS replacement: žiadny vlastný application runtime, ale proces a integration constraints.
-
-Správna voľba závisí od requirements, nie od toho, ktorý model je „modernejší“.
-
-## 22. Anti-patterny
-
-### Managed znamená bez zodpovednosti
-
-Zákazník stále vlastní configuration, identity, data a business continuity.
-
-### IaaS je vždy lacnejší
-
-Ignoruje operations labor a incident cost.
-
-### SaaS nepotrebuje security review
-
-Tenant permissions, federation a integrations môžu spôsobiť data breach.
-
-### PaaS automaticky poskytuje DR
-
-Replication alebo HA nemusia spĺňať cross-region recovery požiadavky.
-
-### Výber podľa marketingovej kategórie
-
-Konkrétny service contract môže mať inú responsibility boundary.
-
-## 23. Troubleshooting ownership
-
-Pri incidente najprv urč:
+Pre každú capability prejdite:
 
 ```text
-customer-controlled layer?
-provider-managed service layer?
-shared integration boundary?
-external dependency?
+1. outcome/SLO/RPO/RTO
+2. data a compliance constraints
+3. required OS/runtime control
+4. workload variability a capacity
+5. team operations capability
+6. service-specific responsibility matrix
+7. failure a recovery model
+8. observability a support evidence
+9. TCO
+10. exit a portability
 ```
 
-Zachovaj:
+Výber sa môže líšiť po components. Atlas môže používať IaaS pre legacy settlement adapter, PaaS pre API/databázu a SaaS pre customer support bez toho, aby bol celý systém jedným service modelom.
 
-- request/correlation IDs,
-- timestamps v UTC,
-- provider status a support case,
-- customer config diff,
-- application telemetry,
-- network/identity evidence.
+## 16. Troubleshooting podľa responsibility boundary
 
-Escalácia providerovi bez konkrétneho scope-u a evidence predlžuje recovery.
+Pri incidente mapuj exact path:
 
-## 24. Kontrolné otázky
+```text
+customer configuration/identity
+→ customer application/runtime
+→ shared service endpoint/integration
+→ provider-managed platform
+→ provider infrastructure
+→ external dependency
+```
 
-1. Čo IaaS, PaaS a SaaS primárne opisujú?
-2. Ktoré vrstvy typicky vlastní zákazník pri IaaS?
-3. Prečo managed database stále potrebuje zákaznícky backup model?
-4. Ktoré responsibilities zostávajú pri SaaS?
-5. Ako sa líši provider availability od business continuity?
-6. Prečo treba porovnávať TCO a nie iba service bill?
-7. Aké typy lock-inu existujú?
-8. Kedy je OS-level kontrola rozhodujúca?
-9. Ako sa mení observability pri vyššej service abstrakcii?
-10. Ako určíš vlastníka incidentu na shared boundary?
+Pre každú hypotézu priraď observation point a ownera. Provider escalation musí obsahovať Region, resource ID, UTC window, request IDs, impact, reproduction a už overené customer-controlled vrstvy.
+
+## 17. Anti-patterny
+
+### Managed znamená bez zákazníckej zodpovednosti
+
+Managed service odstraňuje časť platform operations, nie identity, data, configuration a outcome ownership.
+
+### IaaS je automaticky najlacnejší
+
+Ignoruje labor, drift, incidenty, spare capacity a recovery engineering.
+
+### SaaS nepotrebuje architecture alebo security review
+
+Tenant federation, sharing, retention, integrations a export môžu byť kritické failure boundaries.
+
+### Platform HA je to isté ako business continuity
+
+Healthy service nemusí obnoviť správne dáta, dependency alebo user journey.
+
+### Service model sa určí iba podľa produktu
+
+Jedna služba môže mať pre rôzne features rozdielne responsibility boundaries. Contract a konkrétna konfigurácia majú prednosť.
+
+## 18. Kontrolné otázky
+
+1. Čo tvorí exact cloud service subject?
+2. Ktoré responsibilities zostávajú zákazníkovi vo všetkých troch modeloch?
+3. Čo preukazuje provider service health a čo nepreukazuje?
+4. Prečo replication nie je automaticky backup?
+5. Ako sa líši IaaS host evidence od PaaS/SaaS evidence?
+6. Kedy OS-level control odôvodňuje IaaS?
+7. Ako sa hodnotí rollback alebo restore pri managed data service?
+8. Prečo SLA nenahrádza Multi-AZ a application design?
+9. Čo musí obsahovať exit/portability subject?
+10. Ako rozlíšiš provider root cause od customer configuration failure?
 
 ## Glossary impact
 
-Relevantné pojmy: cloud service model, IaaS, PaaS, SaaS, shared responsibility, responsibility boundary, managed service, total cost of ownership, provider lock-in, data portability, customer-managed layer, provider-managed layer a service contract.
+Relevantné pojmy: cloud service-model subject, responsibility contract, customer-managed layer, provider-managed layer, shared integration boundary, managed-service outcome boundary, capability acceptance verdict, service health verdict, recovery responsibility, service-model exit subject, portability dimension a total-cost-of-ownership subject.
+
+## Oficiálna dokumentácia
+
+- [What is cloud computing?](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/what-is-cloud-computing.html)
+- [Types of cloud computing](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/types-of-cloud-computing.html)
+- [AWS Shared Responsibility Model](https://docs.aws.amazon.com/whitepapers/latest/aws-risk-and-compliance/shared-responsibility-model.html)
+- [Shared responsibility — Security Pillar](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/shared-responsibility.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
