@@ -3041,15 +3041,15 @@
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
       "title": "Security Groups a Network ACLs",
-      "words": 1299,
+      "words": 1862,
       "headings": 34,
       "sections": 34,
-      "findings": 81,
-      "critical": 26,
-      "high": 40,
-      "medium": 13,
-      "low": 2,
-      "score": 671,
+      "findings": 82,
+      "critical": 28,
+      "high": 33,
+      "medium": 8,
+      "low": 13,
+      "score": 636,
       "grade": "D"
     },
     {
@@ -175871,530 +175871,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "1. Security Group",
+      "section": "Dominantný lifecycle",
       "line": 5,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "1. Security Group",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "1. Security Group",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priraďuje sa k network interface-u alebo podporovanému resource-u,`, `obsahuje inbound a outbound allow rules,`, `nemá explicitné deny rules,`, `je stateful,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "1. Security Group",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "3. Security Group references",
-      "line": 31,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `IPv4/IPv6 CIDR,`, `prefix list,`, `inú Security Group podľa podporovaného same-VPC/cross-connectivity mod`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "3. Security Group references",
-      "line": 31,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "3. Security Group references",
-      "line": 31,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CIDR`, `VPC`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "4. Source a destination identity",
-      "line": 41,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "4. Source a destination identity",
-      "line": 41,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nezávislosť od dynamických private IPs,`, `jasný workload-tier contract,`, `menší CIDR blast radius.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "4. Source a destination identity",
-      "line": 41,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "4. Source a destination identity",
-      "line": 41,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CIDR`, `workload`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "6. Outbound rules",
-      "line": 64,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "6. Outbound rules",
-      "line": 64,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS,`, `package/image repositories,`, `AWS service endpoints,`, `telemetry,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "6. Outbound rules",
-      "line": 64,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "6. Outbound rules",
-      "line": 64,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `AWS`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "7. Rule identity a descriptions",
-      "line": 80,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "7. Rule identity a descriptions",
-      "line": 80,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "7. Rule identity a descriptions",
-      "line": 80,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto rule vlastní,`, `prečo existuje,`, `source ticket/service,`, `expiry pri temporary access,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "7. Rule identity a descriptions",
-      "line": 80,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "8. Security Group quotas",
-      "line": 90,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "8. Security Group quotas",
-      "line": 90,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "8. Security Group quotas",
-      "line": 90,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet SGs na ENI,`, `počet rules na SG,`, `referenced groups/prefix lists,`, `managed service ENIs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "8. Security Group quotas",
-      "line": 90,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "8. Security Group quotas",
-      "line": 90,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ENI`, `SG`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "9. Network ACL",
-      "line": 102,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "9. Network ACL",
-      "line": 102,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "9. Network ACL",
-      "line": 102,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `každý subnet je asociovaný s jedným NACL,`, `jeden NACL môže byť asociovaný s viacerými subnetmi,`, `má inbound a outbound rules,`, `podporuje allow aj deny,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "9. Network ACL",
-      "line": 102,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "9. Network ACL",
-      "line": 102,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "9. Network ACL",
-      "line": 102,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NACL`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "10. Stateless behavior",
-      "line": 116,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `inbound destination service port,`, `outbound return ephemeral ports,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "10. Stateless behavior",
-      "line": 116,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "13. Security Group vs NACL",
-      "line": 148,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "14. Defense in depth",
-      "line": 159,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "14. Defense in depth",
-      "line": 159,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "14. Defense in depth",
-      "line": 159,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SG definuje presný workload communication contract,`, `NACL poskytuje subnet-level guardrail alebo emergency deny,`, `route tables určujú reachability,`, `host/application firewall a authentication chránia vyššie vrstvy.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "14. Defense in depth",
-      "line": 159,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "14. Defense in depth",
-      "line": 159,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "15. Load balancer path",
-      "line": 170,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "15. Load balancer path",
-      "line": 170,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "15. Load balancer path",
-      "line": 170,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LB SG inbound od clientov,`, `LB SG outbound na target port,`, `target SG inbound z LB SG,`, `NACLs na LB a target subnetoch,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "15. Load balancer path",
-      "line": 170,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "15. Load balancer path",
-      "line": 170,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "15. Load balancer path",
-      "line": 170,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LB`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "17. Prefix lists",
-      "line": 196,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "17. Prefix lists",
-      "line": 196,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS-managed service prefixes,`, `customer-managed network groups,`, `zníženie duplicity v SG/routes,`, `central update contract.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "17. Prefix lists",
-      "line": 196,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "17. Prefix lists",
-      "line": 196,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS-`, `SG`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "18. Reachability nie je iba firewall",
-      "line": 209,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "18. Reachability nie je iba firewall",
-      "line": 209,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "18. Reachability nie je iba firewall",
-      "line": 209,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúcu route,`, `DNS,`, `listener/process,`, `OS firewall,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "18. Reachability nie je iba firewall",
-      "line": 209,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "18. Reachability nie je iba firewall",
-      "line": 209,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `OS`, `MTU`, `TLS`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "19. VPC Flow Logs",
-      "line": 223,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "19. VPC Flow Logs",
-      "line": 223,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source/destination address a port,`, `protocol,`, `action ACCEPT / REJECT ,`, `interface ID,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "19. VPC Flow Logs",
-      "line": 223,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "19. VPC Flow Logs",
-      "line": 223,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACCEPT`, `ID`, `AZ`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "20. Reachability Analyzer a Network Access Analyzer",
-      "line": 238,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "20. Reachability Analyzer a Network Access Analyzer",
-      "line": 238,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -176402,17 +175880,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "20. Reachability Analyzer a Network Access Analyzer",
-      "line": 238,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "21. Troubleshooting connection timeout",
-      "line": 245,
+      "section": "Connected Atlas Payments subject",
+      "line": 24,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176420,71 +175889,125 @@
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "22. Troubleshooting Connection refused",
-      "line": 263,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "22. Troubleshooting Connection refused",
-      "line": 263,
+      "section": "1. Security Group je ENI-level stateful allow graph",
+      "line": 56,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "22. Troubleshooting Connection refused",
-      "line": 263,
+      "section": "1. Security Group je ENI-level stateful allow graph",
+      "line": 56,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nič nepočúva na porte,`, `service binduje iba na localhost/inú IP,`, `host firewall rejectuje,`, `load balancer target port je chybný.`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je asociovaná s ENI alebo podporovaným resource-om;`, `má inbound a outbound allow rules;`, `nemá explicitné deny rules;`, `vyhodnocuje všetky applicable allows ako spoločný set;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "22. Troubleshooting Connection refused",
-      "line": 263,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "22. Troubleshooting Connection refused",
-      "line": 263,
+      "section": "1. Security Group je ENI-level stateful allow graph",
+      "line": 56,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "23. Emergency deny",
-      "line": 274,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "1. Security Group je ENI-level stateful allow graph",
+      "line": 56,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "23. Emergency deny",
-      "line": 274,
+      "section": "1. Security Group je ENI-level stateful allow graph",
+      "line": 56,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ENI`, `CIDR`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "2. SG reference je identity contract, nie transit path",
+      "line": 79,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "2. SG reference je identity contract, nie transit path",
+      "line": 79,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ordered rules,`, `stateless return path,`, `široký subnet blast radius,`, `zablokovanie incident-response alebo management trafficu,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dedicated SG pre workload tier;`, `stabilný communication contract;`, `descriptions/rule IDs;`, `source IaC a owner;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "23. Emergency deny",
-      "line": 274,
+      "section": "2. SG reference je identity contract, nie transit path",
+      "line": 79,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "2. SG reference je identity contract, nie transit path",
+      "line": 79,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "3. Security Group stateful neznamená okamžitú revokáciu každého flowu",
+      "line": 98,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "4. Network ACL je subnet-level ordered stateless verdict",
+      "line": 113,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "4. Network ACL je subnet-level ordered stateless verdict",
+      "line": 113,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "4. Network ACL je subnet-level ordered stateless verdict",
+      "line": 113,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má samostatné inbound a outbound rules;`, `podporuje ALLOW aj DENY ;`, `vyhodnocuje rules podľa rastúceho rule number;`, `prvý matching rule rozhodne;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "4. Network ACL je subnet-level ordered stateless verdict",
+      "line": 113,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -176492,17 +176015,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "23. Emergency deny",
-      "line": 274,
+      "section": "4. Network ACL je subnet-level ordered stateless verdict",
+      "line": 113,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "4. Network ACL je subnet-level ordered stateless verdict",
+      "line": 113,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALLOW`, `DENY`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "24. Multi-account governance",
-      "line": 288,
+      "section": "8. SG a NACL majú rozdielny purpose",
+      "line": 189,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "9. Load balancer vytvára dve connection subjects",
+      "line": 202,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176510,26 +176051,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "24. Multi-account governance",
-      "line": 288,
+      "section": "9. Load balancer vytvára dve connection subjects",
+      "line": 202,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "24. Multi-account governance",
-      "line": 288,
+      "section": "9. Load balancer vytvára dve connection subjects",
+      "line": 202,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS Firewall Manager,`, `Organizations policies,`, `Config rules,`, `Security Hub findings,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LB subnet, NACL a SG;`, `listener/protocol/certificate;`, `target-group port a health-check path;`, `target subnet NACL;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "24. Multi-account governance",
-      "line": 288,
+      "section": "9. Load balancer vytvára dve connection subjects",
+      "line": 202,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -176537,17 +176078,125 @@
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "24. Multi-account governance",
-      "line": 288,
-      "severity": "medium",
+      "section": "9. Load balancer vytvára dve connection subjects",
+      "line": 202,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "9. Load balancer vytvára dve connection subjects",
+      "line": 202,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "9. Load balancer vytvára dve connection subjects",
+      "line": 202,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NACL`, `SG`, `ENI`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "10. Egress dependencies a least privilege",
+      "line": 223,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "10. Egress dependencies a least privilege",
+      "line": 223,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS a time;`, `identity/token endpoints;`, `image/package repositories;`, `telemetry;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "10. Egress dependencies a least privilege",
+      "line": 223,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "SG 0.0.0.0/0 na management port",
-      "line": 303,
+      "section": "10. Egress dependencies a least privilege",
+      "line": 223,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `AWS`, `KMS`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "11. Flow Logs a analyzátory",
+      "line": 237,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "11. Flow Logs a analyzátory",
+      "line": 237,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source/destination IP a port;`, `protocol;`, `interface ID;`, `ACCEPT alebo REJECT ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "11. Flow Logs a analyzátory",
+      "line": 237,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "11. Flow Logs a analyzátory",
+      "line": 237,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "11. Flow Logs a analyzátory",
+      "line": 237,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ID`, `ACCEPT`, `REJECT`, `AZ`, `SG`, `NACL`, `TLS`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "12. Worked incident — NACL blokuje return ephemeral ports iba v AZ-c",
+      "line": 257,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Symptóm",
+      "line": 259,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176555,8 +176204,80 @@
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "NACL ako jediný application firewall",
-      "line": 307,
+      "section": "Exact subject",
+      "line": 271,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Competing hypotheses",
+      "line": 283,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Competing hypotheses",
+      "line": 283,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Competing hypotheses",
+      "line": 283,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Competing hypotheses",
+      "line": 283,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SG-PAY-APP outbound rule chýba.`, `Partner blokuje NAT-C EIP.`, `NAT-C port allocation alebo AZ path zlyháva.`, `NACL-PC outbound rule blokuje TCP/443.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Competing hypotheses",
+      "line": 283,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Competing hypotheses",
+      "line": 283,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Competing hypotheses",
+      "line": 283,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SG-PAY-APP`, `NAT-C`, `EIP`, `AZ`, `NACL-PC`, `TCP`, `DNS`, `TLS`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Discriminating observations",
+      "line": 294,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176564,26 +176285,170 @@
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "Zrkadlenie každej SG rule do NACL",
-      "line": 311,
+      "section": "Discriminating observations",
+      "line": 294,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "Shared SG pre nesúvisiace workloady",
+      "section": "Discriminating observations",
+      "line": 294,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Discriminating observations",
+      "line": 294,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Discriminating observations",
+      "line": 294,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Discriminating observations",
+      "line": 294,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Discriminating observations",
+      "line": 294,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SG`, `ID`, `RT-PC`, `NAT-C`, `NAT`, `SYN`, `EIP`, `NACL-PC`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Containment",
+      "line": 315,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Containment",
       "line": 315,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "Dočasná rule bez expiry",
-      "line": 319,
+      "section": "Containment",
+      "line": 315,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Containment",
+      "line": 315,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odober SUB-PC z nového ASG rollout/scale placementu;`, `nepovoľuj ALL 0.0.0.0/0 bez bounded review;`, `zachovaj healthy serving capacity v AZ-a/AZ-b.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Containment",
+      "line": 315,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Containment",
+      "line": 315,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SUB-PC`, `ASG`, `NACL`, `ALL`, `AZ-`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Authoritative recovery",
+      "line": 322,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Authoritative recovery",
+      "line": 322,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Authoritative recovery",
+      "line": 322,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Authoritative recovery",
+      "line": 322,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Authoritative recovery",
+      "line": 322,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Authoritative recovery",
+      "line": 322,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `TCP`, `TLS`, `SUB-PC`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Closure verdict",
+      "line": 331,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -176591,8 +176456,152 @@
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
-      "section": "Diagnostika iba podľa SG",
-      "line": 323,
+      "section": "Closure verdict",
+      "line": 331,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Closure verdict",
+      "line": 331,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fresh HTTPS flows fungujú z každej AZ;`, `NACL ordered ruleset zodpovedá IaC;`, `SG least-access contract ostal nezmenený;`, `unsolicited inbound a forbidden destinations ostávajú blokované;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Closure verdict",
+      "line": 331,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Closure verdict",
+      "line": 331,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTPS`, `AZ`, `NACL`, `SG`, `P-884`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "13. Ďalšie failure boundaries",
+      "line": 342,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Load balancer health funguje, user traffic nie",
+      "line": 356,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "14. Troubleshooting sequence",
+      "line": 368,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "14. Troubleshooting sequence",
+      "line": 368,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "15. Earlier controls",
+      "line": 386,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "15. Earlier controls",
+      "line": 386,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "15. Earlier controls",
+      "line": 386,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "15. Earlier controls",
+      "line": 386,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `purpose-specific SGs a rule descriptions/IDs;`, `no broad management ports from internet;`, `NACL ordered-policy tests vrátane return paths;`, `canary association pred subnet-wide NACL rolloutom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "15. Earlier controls",
+      "line": 386,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "15. Earlier controls",
+      "line": 386,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "15. Earlier controls",
+      "line": 386,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "15. Earlier controls",
+      "line": 386,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NACL`, `SG`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
+      "section": "Referenčné rozlíšenia",
+      "line": 400,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

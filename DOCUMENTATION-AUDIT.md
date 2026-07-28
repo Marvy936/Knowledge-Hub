@@ -6,8 +6,8 @@
 
 - Audited authoritative articles: **257**
 - Audited conceptual sections: **10833**
-- Total words: **617,609**
-- Findings: **24133** (critical 7559, high 8234, medium 3214, low 5126)
+- Total words: **618,172**
+- Findings: **24134** (critical 7561, high 8227, medium 3209, low 5137)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -136,7 +136,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 676 | 32 | 30 | 12 | 11 | 2203 | `docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md` |
 | D | 674 | 32 | 26 | 16 | 18 | 2686 | `docs/04-testing-and-quality/code-coverage-and-quality-gates.md` |
 | D | 674 | 27 | 38 | 10 | 11 | 2077 | `docs/06-gitlab/projects-groups-permissions.md` |
-| D | 671 | 26 | 40 | 13 | 2 | 1299 | `docs/11-cloud-and-aws/security-groups-network-acls.md` |
 | D | 667 | 29 | 35 | 10 | 9 | 1766 | `docs/11-cloud-and-aws/public-private-hybrid-cloud.md` |
 | D | 664 | 26 | 37 | 10 | 26 | 2978 | `docs/09-kubernetes/worker-node-components.md` |
 | D | 663 | 30 | 31 | 14 | 7 | 1625 | `docs/11-cloud-and-aws/regions-availability-zones.md` |
@@ -147,6 +146,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 643 | 26 | 32 | 11 | 28 | 2923 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | D | 642 | 30 | 28 | 12 | 15 | 2582 | `docs/04-testing-and-quality/mocks-stubs-fakes.md` |
 | D | 641 | 28 | 28 | 14 | 25 | 2591 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
+| D | 636 | 28 | 33 | 8 | 13 | 1862 | `docs/11-cloud-and-aws/security-groups-network-acls.md` |
 | D | 635 | 26 | 32 | 14 | 14 | 2164 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | D | 635 | 27 | 33 | 11 | 9 | 2049 | `docs/06-gitlab/container-and-package-registry.md` |
 | D | 633 | 26 | 25 | 21 | 31 | 2970 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
@@ -13371,72 +13371,67 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/11-cloud-and-aws/security-groups-network-acls.md`
 
-- **CRITICAL** line 5, `bare-bullet-items` — **1. Security Group**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priraďuje sa k network interface-u alebo podporovanému resource-u,`, `obsahuje inbound a outbound allow rules,`, `nemá explicitné deny rules,`, `je stateful,`.
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **1. Security Group**: 6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 64, `bare-bullet-items` — **6. Outbound rules**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS,`, `package/image repositories,`, `AWS service endpoints,`, `telemetry,`.
-- **CRITICAL** line 64, `outline-instead-of-explanation` — **6. Outbound rules**: 7 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 80, `bare-bullet-items` — **7. Rule identity a descriptions**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto rule vlastní,`, `prečo existuje,`, `source ticket/service,`, `expiry pri temporary access,`.
-- **CRITICAL** line 80, `outline-instead-of-explanation` — **7. Rule identity a descriptions**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 90, `bare-bullet-items` — **8. Security Group quotas**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet SGs na ENI,`, `počet rules na SG,`, `referenced groups/prefix lists,`, `managed service ENIs,`.
-- **CRITICAL** line 90, `outline-instead-of-explanation` — **8. Security Group quotas**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 102, `bare-bullet-items` — **9. Network ACL**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `každý subnet je asociovaný s jedným NACL,`, `jeden NACL môže byť asociovaný s viacerými subnetmi,`, `má inbound a outbound rules,`, `podporuje allow aj deny,`.
-- **CRITICAL** line 102, `outline-instead-of-explanation` — **9. Network ACL**: 7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 159, `bare-bullet-items` — **14. Defense in depth**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SG definuje presný workload communication contract,`, `NACL poskytuje subnet-level guardrail alebo emergency deny,`, `route tables určujú reachability,`, `host/application firewall a authentication chránia vyššie vrstvy.`.
-- **CRITICAL** line 159, `outline-instead-of-explanation` — **14. Defense in depth**: 4 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 170, `bare-bullet-items` — **15. Load balancer path**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LB SG inbound od clientov,`, `LB SG outbound na target port,`, `target SG inbound z LB SG,`, `NACLs na LB a target subnetoch,`.
-- **CRITICAL** line 170, `outline-instead-of-explanation` — **15. Load balancer path**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 196, `bare-bullet-items` — **17. Prefix lists**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS-managed service prefixes,`, `customer-managed network groups,`, `zníženie duplicity v SG/routes,`, `central update contract.`.
-- **CRITICAL** line 196, `outline-instead-of-explanation` — **17. Prefix lists**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 209, `bare-bullet-items` — **18. Reachability nie je iba firewall**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúcu route,`, `DNS,`, `listener/process,`, `OS firewall,`.
-- **CRITICAL** line 209, `outline-instead-of-explanation` — **18. Reachability nie je iba firewall**: 9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 223, `bare-bullet-items` — **19. VPC Flow Logs**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source/destination address a port,`, `protocol,`, `action ACCEPT / REJECT ,`, `interface ID,`.
-- **CRITICAL** line 223, `outline-instead-of-explanation` — **19. VPC Flow Logs**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 263, `bare-bullet-items` — **22. Troubleshooting Connection refused**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nič nepočúva na porte,`, `service binduje iba na localhost/inú IP,`, `host firewall rejectuje,`, `load balancer target port je chybný.`.
-- **CRITICAL** line 263, `outline-instead-of-explanation` — **22. Troubleshooting Connection refused**: 4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 274, `bare-bullet-items` — **23. Emergency deny**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ordered rules,`, `stateless return path,`, `široký subnet blast radius,`, `zablokovanie incident-response alebo management trafficu,`.
-- **CRITICAL** line 274, `outline-instead-of-explanation` — **23. Emergency deny**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 288, `bare-bullet-items` — **24. Multi-account governance**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS Firewall Manager,`, `Organizations policies,`, `Config rules,`, `Security Hub findings,`.
-- **CRITICAL** line 288, `outline-instead-of-explanation` — **24. Multi-account governance**: 6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `single-sentence-concept` — **1. Security Group**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 31, `bare-bullet-items` — **3. Security Group references**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `IPv4/IPv6 CIDR,`, `prefix list,`, `inú Security Group podľa podporovaného same-VPC/cross-connectivity mod`.
-- **HIGH** line 41, `bare-bullet-items` — **4. Source a destination identity**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nezávislosť od dynamických private IPs,`, `jasný workload-tier contract,`, `menší CIDR blast radius.`.
-- **HIGH** line 41, `single-sentence-concept` — **4. Source a destination identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 80, `single-sentence-concept` — **7. Rule identity a descriptions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 90, `single-sentence-concept` — **8. Security Group quotas**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 102, `single-sentence-concept` — **9. Network ACL**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 116, `bare-bullet-items` — **10. Stateless behavior**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `inbound destination service port,`, `outbound return ephemeral ports,`.
-- **HIGH** line 148, `single-sentence-concept` — **13. Security Group vs NACL**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 159, `single-sentence-concept` — **14. Defense in depth**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 170, `single-sentence-concept` — **15. Load balancer path**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 209, `single-sentence-concept` — **18. Reachability nie je iba firewall**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 238, `list-first-introduction` — **20. Reachability Analyzer a Network Access Analyzer**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 238, `single-sentence-concept` — **20. Reachability Analyzer a Network Access Analyzer**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 245, `single-sentence-concept` — **21. Troubleshooting connection timeout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 263, `single-sentence-concept` — **22. Troubleshooting Connection refused**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 288, `single-sentence-concept` — **24. Multi-account governance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 303, `single-sentence-concept` — **SG 0.0.0.0/0 na management port**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 307, `single-sentence-concept` — **NACL ako jediný application firewall**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 311, `single-sentence-concept` — **Zrkadlenie každej SG rule do NACL**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 315, `single-sentence-concept` — **Shared SG pre nesúvisiace workloady**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 319, `single-sentence-concept` — **Dočasná rule bez expiry**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 323, `single-sentence-concept` — **Diagnostika iba podľa SG**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 5, `thin-concept-section` — **1. Security Group**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 31, `thin-concept-section` — **3. Security Group references**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 41, `thin-concept-section` — **4. Source a destination identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 64, `thin-concept-section` — **6. Outbound rules**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 80, `thin-concept-section` — **7. Rule identity a descriptions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 90, `thin-concept-section` — **8. Security Group quotas**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 102, `thin-concept-section` — **9. Network ACL**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 159, `thin-concept-section` — **14. Defense in depth**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 170, `thin-concept-section` — **15. Load balancer path**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 196, `thin-concept-section` — **17. Prefix lists**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 209, `term-before-explanation` — **18. Reachability nie je iba firewall**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `OS`, `MTU`, `TLS`, `policy`
-- **HIGH** line 209, `thin-concept-section` — **18. Reachability nie je iba firewall**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 223, `thin-concept-section` — **19. VPC Flow Logs**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 238, `thin-concept-section` — **20. Reachability Analyzer a Network Access Analyzer**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 263, `thin-concept-section` — **22. Troubleshooting Connection refused**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 274, `thin-concept-section` — **23. Emergency deny**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 288, `thin-concept-section` — **24. Multi-account governance**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 56, `bare-bullet-items` — **1. Security Group je ENI-level stateful allow graph**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `je asociovaná s ENI alebo podporovaným resource-om;`, `má inbound a outbound allow rules;`, `nemá explicitné deny rules;`, `vyhodnocuje všetky applicable allows ako spoločný set;`.
+- **CRITICAL** line 56, `outline-instead-of-explanation` — **1. Security Group je ENI-level stateful allow graph**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 79, `bare-bullet-items` — **2. SG reference je identity contract, nie transit path**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dedicated SG pre workload tier;`, `stabilný communication contract;`, `descriptions/rule IDs;`, `source IaC a owner;`.
+- **CRITICAL** line 113, `bare-bullet-items` — **4. Network ACL je subnet-level ordered stateless verdict**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `má samostatné inbound a outbound rules;`, `podporuje ALLOW aj DENY ;`, `vyhodnocuje rules podľa rastúceho rule number;`, `prvý matching rule rozhodne;`.
+- **CRITICAL** line 113, `outline-instead-of-explanation` — **4. Network ACL je subnet-level ordered stateless verdict**: 7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 202, `bare-bullet-items` — **9. Load balancer vytvára dve connection subjects**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LB subnet, NACL a SG;`, `listener/protocol/certificate;`, `target-group port a health-check path;`, `target subnet NACL;`.
+- **CRITICAL** line 202, `outline-instead-of-explanation` — **9. Load balancer vytvára dve connection subjects**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 223, `bare-bullet-items` — **10. Egress dependencies a least privilege**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS a time;`, `identity/token endpoints;`, `image/package repositories;`, `telemetry;`.
+- **CRITICAL** line 223, `outline-instead-of-explanation` — **10. Egress dependencies a least privilege**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 237, `bare-bullet-items` — **11. Flow Logs a analyzátory**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source/destination IP a port;`, `protocol;`, `interface ID;`, `ACCEPT alebo REJECT ;`.
+- **CRITICAL** line 237, `outline-instead-of-explanation` — **11. Flow Logs a analyzátory**: 10 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 257, `empty-section` — **12. Worked incident — NACL blokuje return ephemeral ports iba v AZ-c**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 271, `empty-section` — **Exact subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 283, `bare-bullet-items` — **Competing hypotheses**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SG-PAY-APP outbound rule chýba.`, `Partner blokuje NAT-C EIP.`, `NAT-C port allocation alebo AZ path zlyháva.`, `NACL-PC outbound rule blokuje TCP/443.`.
+- **CRITICAL** line 283, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 283, `outline-instead-of-explanation` — **Competing hypotheses**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 294, `outline-instead-of-explanation` — **Discriminating observations**: 6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
+- **CRITICAL** line 315, `bare-bullet-items` — **Containment**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odober SUB-PC z nového ASG rollout/scale placementu;`, `nepovoľuj ALL 0.0.0.0/0 bez bounded review;`, `zachovaj healthy serving capacity v AZ-a/AZ-b.`.
+- **CRITICAL** line 315, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 315, `outline-instead-of-explanation` — **Containment**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 322, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 322, `outline-instead-of-explanation` — **Authoritative recovery**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 331, `bare-bullet-items` — **Closure verdict**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fresh HTTPS flows fungujú z každej AZ;`, `NACL ordered ruleset zodpovedá IaC;`, `SG least-access contract ostal nezmenený;`, `unsolicited inbound a forbidden destinations ostávajú blokované;`.
+- **CRITICAL** line 331, `outline-instead-of-explanation` — **Closure verdict**: 6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 342, `empty-section` — **13. Ďalšie failure boundaries**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 386, `bare-bullet-items` — **15. Earlier controls**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `purpose-specific SGs a rule descriptions/IDs;`, `no broad management ports from internet;`, `NACL ordered-policy tests vrátane return paths;`, `canary association pred subnet-wide NACL rolloutom;`.
+- **CRITICAL** line 386, `no-prose-concept` — **15. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 386, `outline-instead-of-explanation` — **15. Earlier controls**: 11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 5, `list-first-introduction` — **Dominantný lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 24, `single-sentence-concept` — **Connected Atlas Payments subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 79, `list-heavy-section` — **2. SG reference je identity contract, nie transit path**: 6 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 113, `single-sentence-concept` — **4. Network ACL je subnet-level ordered stateless verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 202, `single-sentence-concept` — **9. Load balancer vytvára dve connection subjects**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 259, `single-sentence-concept` — **Symptóm**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 283, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 294, `list-first-introduction` — **Discriminating observations**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 294, `single-sentence-concept` — **Discriminating observations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 315, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 322, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 331, `single-sentence-concept` — **Closure verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 356, `single-sentence-concept` — **Load balancer health funguje, user traffic nie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 368, `list-first-introduction` — **14. Troubleshooting sequence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 368, `single-sentence-concept` — **14. Troubleshooting sequence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 386, `list-first-introduction` — **15. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 400, `single-sentence-concept` — **Referenčné rozlíšenia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 113, `thin-concept-section` — **4. Network ACL je subnet-level ordered stateless verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 202, `term-before-explanation` — **9. Load balancer vytvára dve connection subjects**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NACL`, `SG`, `ENI`, `identity`
+- **HIGH** line 202, `thin-concept-section` — **9. Load balancer vytvára dve connection subjects**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 223, `term-before-explanation` — **10. Egress dependencies a least privilege**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `AWS`, `KMS`, `identity`
+- **HIGH** line 237, `term-before-explanation` — **11. Flow Logs a analyzátory**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `ID`, `ACCEPT`, `REJECT`, `AZ`, `SG`, `NACL`, `TLS`
+- **HIGH** line 283, `term-before-explanation` — **Competing hypotheses**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SG-PAY-APP`, `NAT-C`, `EIP`, `AZ`, `NACL-PC`, `TCP`, `DNS`, `TLS`
+- **HIGH** line 283, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 294, `term-before-explanation` — **Discriminating observations**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SG`, `ID`, `RT-PC`, `NAT-C`, `NAT`, `SYN`, `EIP`, `NACL-PC`
+- **HIGH** line 294, `thin-concept-section` — **Discriminating observations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 315, `term-before-explanation` — **Containment**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SUB-PC`, `ASG`, `NACL`, `ALL`, `AZ-`
+- **HIGH** line 315, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 322, `term-before-explanation` — **Authoritative recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `TCP`, `TLS`, `SUB-PC`, `scope`
+- **HIGH** line 322, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 331, `term-before-explanation` — **Closure verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTPS`, `AZ`, `NACL`, `SG`, `P-884`
+- **HIGH** line 331, `thin-concept-section` — **Closure verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 386, `thin-concept-section` — **15. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/11-cloud-and-aws/shared-responsibility-model.md`
 
@@ -16852,19 +16847,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3171 | 452 | 0 | 0 | 3623 |
-| `outline-instead-of-explanation` | 3068 | 0 | 0 | 0 | 3068 |
-| `single-sentence-concept` | 0 | 2800 | 0 | 0 | 2800 |
-| `term-before-explanation` | 0 | 580 | 2171 | 0 | 2751 |
-| `thin-concept-section` | 0 | 2652 | 0 | 0 | 2652 |
-| `example-not-explicit` | 0 | 0 | 0 | 2035 | 2035 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2026 | 2026 |
-| `list-first-introduction` | 0 | 1298 | 0 | 0 | 1298 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1065 | 1065 |
-| `short-concept-section` | 0 | 0 | 1043 | 0 | 1043 |
-| `no-prose-concept` | 730 | 0 | 0 | 0 | 730 |
-| `empty-section` | 590 | 0 | 0 | 0 | 590 |
-| `list-heavy-section` | 0 | 452 | 0 | 0 | 452 |
+| `bare-bullet-items` | 3168 | 449 | 0 | 0 | 3617 |
+| `outline-instead-of-explanation` | 3066 | 0 | 0 | 0 | 3066 |
+| `single-sentence-concept` | 0 | 2790 | 0 | 0 | 2790 |
+| `term-before-explanation` | 0 | 587 | 2163 | 0 | 2750 |
+| `thin-concept-section` | 0 | 2644 | 0 | 0 | 2644 |
+| `example-not-explicit` | 0 | 0 | 0 | 2040 | 2040 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2031 | 2031 |
+| `list-first-introduction` | 0 | 1304 | 0 | 0 | 1304 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1066 | 1066 |
+| `short-concept-section` | 0 | 0 | 1046 | 0 | 1046 |
+| `no-prose-concept` | 734 | 0 | 0 | 0 | 734 |
+| `empty-section` | 593 | 0 | 0 | 0 | 593 |
+| `list-heavy-section` | 0 | 453 | 0 | 0 | 453 |
 
 ## Required remediation pattern
 
