@@ -6,8 +6,8 @@
 
 - Audited authoritative articles: **257**
 - Audited conceptual sections: **10891**
-- Total words: **620,758**
-- Findings: **24152** (critical 7532, high 8209, medium 3247, low 5164)
+- Total words: **621,339**
+- Findings: **24108** (critical 7514, high 8192, medium 3237, low 5165)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -60,7 +60,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1068 | 46 | 55 | 17 | 21 | 2455 | `docs/09-kubernetes/kubernetes-architecture.md` |
 | D | 1065 | 50 | 53 | 13 | 5 | 2116 | `docs/10-helm-and-cka/cka-troubleshooting-drills.md` |
 | D | 1063 | 48 | 54 | 12 | 22 | 2499 | `docs/09-kubernetes/control-plane-components.md` |
-| D | 1057 | 48 | 52 | 18 | 11 | 1353 | `docs/11-cloud-and-aws/iaas-paas-saas.md` |
 | D | 1049 | 46 | 53 | 19 | 14 | 1688 | `docs/11-cloud-and-aws/systems-manager.md` |
 | D | 1001 | 44 | 54 | 14 | 3 | 1181 | `docs/13-security-and-identity/iam-rbac.md` |
 | D | 982 | 43 | 45 | 21 | 26 | 2919 | `docs/05-ci-cd-and-release/release-management.md` |
@@ -136,6 +135,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 683 | 30 | 29 | 19 | 18 | 2344 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | D | 682 | 32 | 31 | 12 | 13 | 2121 | `docs/09-kubernetes/upgrades.md` |
 | D | 678 | 33 | 28 | 14 | 9 | 2416 | `docs/08-container-fundamentals-and-docker/container-storage.md` |
+| D | 677 | 30 | 35 | 8 | 12 | 1934 | `docs/11-cloud-and-aws/iaas-paas-saas.md` |
 | D | 676 | 32 | 30 | 12 | 11 | 2203 | `docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md` |
 | D | 674 | 32 | 26 | 16 | 18 | 2686 | `docs/04-testing-and-quality/code-coverage-and-quality-gates.md` |
 | D | 674 | 27 | 38 | 10 | 11 | 2077 | `docs/06-gitlab/projects-groups-permissions.md` |
@@ -12263,106 +12263,71 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/11-cloud-and-aws/iaas-paas-saas.md`
 
-- **CRITICAL** line 5, `bare-bullet-items` — **1. Celý service stack**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto provisionuje,`, `kto patchuje,`, `kto škáluje,`, `kto zálohuje,`.
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **1. Celý service stack**: 8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 31, `bare-bullet-items` — **2. On-premises baseline**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `budovu alebo colocation contract,`, `power/cooling,`, `physical network a servers,`, `storage,`.
-- **CRITICAL** line 31, `outline-instead-of-explanation` — **2. On-premises baseline**: 10 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 48, `bare-bullet-items` — **3. IaaS**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `physical datacenter,`, `physical servers a network,`, `virtualization/control plane,`, `základnú availability služby podľa contractu.`.
-- **CRITICAL** line 48, `outline-instead-of-explanation` — **3. IaaS**: 15 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 76, `bare-bullet-items` — **4. IaaS výhody**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoká kontrola nad OS a runtime,`, `podpora legacy applications,`, `flexibilné network a storage topológie,`, `jednoduchšie mapovanie tradičných serverových architektúr,`.
-- **CRITICAL** line 76, `no-prose-concept` — **4. IaaS výhody**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 76, `outline-instead-of-explanation` — **4. IaaS výhody**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 84, `bare-bullet-items` — **5. IaaS trade-offy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS patching a image lifecycle,`, `capacity a autoscaling,`, `configuration drift,`, `backup a restore,`.
-- **CRITICAL** line 84, `outline-instead-of-explanation` — **5. IaaS trade-offy**: 7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 96, `bare-bullet-items` — **6. PaaS**: 18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS a platform patching,`, `runtime control plane,`, `základné deployment a scaling primitives,`, `platform health,`.
-- **CRITICAL** line 127, `bare-bullet-items` — **7. PaaS výhody**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší undifferentiated operational workload,`, `rýchlejší provisioning,`, `built-in patching a HA capabilities podľa služby,`, `štandardizované deployment paths,`.
-- **CRITICAL** line 127, `no-prose-concept` — **7. PaaS výhody**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 127, `outline-instead-of-explanation` — **7. PaaS výhody**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 136, `bare-bullet-items` — **8. PaaS trade-offy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `platform constraints,`, `provider-specific APIs a configuration,`, `version/support window,`, `maintenance windows,`.
-- **CRITICAL** line 136, `outline-instead-of-explanation` — **8. PaaS trade-offy**: 8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 149, `bare-bullet-items` — **9. SaaS**: 18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application code a runtime,`, `platform a infraštruktúru,`, `deployment a patching,`, `service availability podľa contractu,`.
-- **CRITICAL** line 149, `outline-instead-of-explanation` — **9. SaaS**: 18 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 180, `bare-bullet-items` — **10. SaaS výhody**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `najmenší infrastructure/runtime operations scope,`, `rýchle nasadenie,`, `centralizované updates,`, `predvídateľný subscription model podľa contractu,`.
-- **CRITICAL** line 180, `no-prose-concept` — **10. SaaS výhody**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 180, `outline-instead-of-explanation` — **10. SaaS výhody**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 188, `bare-bullet-items` — **11. SaaS trade-offy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálna kontrola nad internou implementáciou,`, `tenant a feature limits,`, `provider outage dependency,`, `export/portability a deletion guarantees,`.
-- **CRITICAL** line 188, `no-prose-concept` — **11. SaaS trade-offy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 188, `outline-instead-of-explanation` — **11. SaaS trade-offy**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 227, `bare-bullet-items` — **14. Backup responsibility**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či backup existuje,`, `čo obsahuje,`, `retention,`, `RPO/RTO,`.
-- **CRITICAL** line 227, `outline-instead-of-explanation` — **14. Backup responsibility**: 10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 246, `bare-bullet-items` — **15. High availability responsibility**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zapnúť správny deployment mode,`, `zvoliť regions/zones,`, `nakonfigurovať clients/retries/timeouts,`, `odstrániť single points v application vrstve,`.
-- **CRITICAL** line 246, `outline-instead-of-explanation` — **15. High availability responsibility**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 259, `empty-section` — **16. Security responsibility**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 261, `bare-bullet-items` — **IaaS**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS hardening,`, `patches,`, `network rules,`, `identities,`.
-- **CRITICAL** line 261, `outline-instead-of-explanation` — **IaaS**: 7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 273, `bare-bullet-items` — **PaaS**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service configuration,`, `IAM,`, `network exposure,`, `encryption keys/options,`.
-- **CRITICAL** line 273, `outline-instead-of-explanation` — **PaaS**: 6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 284, `bare-bullet-items` — **SaaS**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broad sharing,`, `weak federation/MFA,`, `overprivileged admins,`, `unmanaged integrations,`.
-- **CRITICAL** line 284, `outline-instead-of-explanation` — **SaaS**: 6 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
-- **CRITICAL** line 295, `bare-bullet-items` — **17. Observability responsibility**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider service health,`, `platform/resource metrics,`, `application telemetry,`, `synthetic user-path checks,`.
-- **CRITICAL** line 295, `outline-instead-of-explanation` — **17. Observability responsibility**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 311, `empty-section` — **18. Cost model**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 337, `bare-bullet-items` — **19. Lock-in a portability**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API lock-in,`, `data format a volume lock-in,`, `identity/integration lock-in,`, `operational skill lock-in,`.
-- **CRITICAL** line 337, `outline-instead-of-explanation` — **19. Lock-in a portability**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 352, `bare-bullet-items` — **20. Výber service modelu**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potrebujeme OS/kernel kontrolu?`, `Je workload legacy alebo cloud-native?`, `Aké sú compliance a data residency požiadavky?`, `Aký je support/upgrade lifecycle?`.
-- **CRITICAL** line 352, `outline-instead-of-explanation` — **20. Výber service modelu**: 10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 367, `empty-section` — **21. Príklad rozhodnutia**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 369, `bare-bullet-items` — **Interná web aplikácia**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IaaS VM: maximálna kontrola, viac patching/toil,`, `managed Kubernetes/PaaS: platform flexibility, stále vysoký workload/p`, `application PaaS: rýchly deployment, menšia infra kontrola,`.
-- **CRITICAL** line 369, `outline-instead-of-explanation` — **Interná web aplikácia**: 4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 402, `bare-bullet-items` — **23. Troubleshooting ownership**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request/correlation IDs,`, `timestamps v UTC,`, `provider status a support case,`, `customer config diff,`.
-- **CRITICAL** line 402, `outline-instead-of-explanation` — **23. Troubleshooting ownership**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `single-sentence-concept` — **1. Celý service stack**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 31, `single-sentence-concept` — **2. On-premises baseline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 48, `single-sentence-concept` — **3. IaaS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 76, `list-first-introduction` — **4. IaaS výhody**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 84, `list-first-introduction` — **5. IaaS trade-offy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 84, `single-sentence-concept` — **5. IaaS trade-offy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 96, `list-heavy-section` — **6. PaaS**: 18 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 127, `list-first-introduction` — **7. PaaS výhody**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 136, `list-first-introduction` — **8. PaaS trade-offy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 136, `single-sentence-concept` — **8. PaaS trade-offy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 149, `single-sentence-concept` — **9. SaaS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 180, `list-first-introduction` — **10. SaaS výhody**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 188, `list-first-introduction` — **11. SaaS trade-offy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 227, `single-sentence-concept` — **14. Backup responsibility**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 246, `single-sentence-concept` — **15. High availability responsibility**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 261, `single-sentence-concept` — **IaaS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 273, `single-sentence-concept` — **PaaS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 284, `single-sentence-concept` — **SaaS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 313, `single-sentence-concept` — **IaaS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 317, `single-sentence-concept` — **PaaS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 321, `single-sentence-concept` — **SaaS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 352, `single-sentence-concept` — **20. Výber service modelu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 369, `single-sentence-concept` — **Interná web aplikácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 382, `single-sentence-concept` — **Managed znamená bez zodpovednosti**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 386, `single-sentence-concept` — **IaaS je vždy lacnejší**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 390, `single-sentence-concept` — **SaaS nepotrebuje security review**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 394, `single-sentence-concept` — **PaaS automaticky poskytuje DR**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 398, `single-sentence-concept` — **Výber podľa marketingovej kategórie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 402, `single-sentence-concept` — **23. Troubleshooting ownership**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 5, `thin-concept-section` — **1. Celý service stack**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 31, `thin-concept-section` — **2. On-premises baseline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 48, `term-before-explanation` — **3. IaaS**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `IAM`, `control plane`, `availability`
-- **HIGH** line 48, `thin-concept-section` — **3. IaaS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 76, `thin-concept-section` — **4. IaaS výhody**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 84, `thin-concept-section` — **5. IaaS trade-offy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 127, `thin-concept-section` — **7. PaaS výhody**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 136, `thin-concept-section` — **8. PaaS trade-offy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 149, `term-before-explanation` — **9. SaaS**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRM`, `HR`, `availability`, `identity`, `policy`
-- **HIGH** line 149, `thin-concept-section` — **9. SaaS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 180, `thin-concept-section` — **10. SaaS výhody**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 188, `thin-concept-section` — **11. SaaS trade-offy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 227, `thin-concept-section` — **14. Backup responsibility**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 246, `thin-concept-section` — **15. High availability responsibility**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 261, `thin-concept-section` — **IaaS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 273, `thin-concept-section` — **PaaS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 284, `thin-concept-section` — **SaaS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 295, `thin-concept-section` — **17. Observability responsibility**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 337, `thin-concept-section` — **19. Lock-in a portability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 352, `term-before-explanation` — **20. Výber service modelu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `RPO`, `RTO`, `workload`
-- **HIGH** line 352, `thin-concept-section` — **20. Výber service modelu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 369, `thin-concept-section` — **Interná web aplikácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 402, `thin-concept-section` — **23. Troubleshooting ownership**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 15, `bare-bullet-items` — **1. Dominantný lifecycle service modelu**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto môže meniť desired state;`, `kto patchuje a upgraduje platformu;`, `kto riadi identity a secrets;`, `kto navrhuje HA, backup a DR;`.
+- **CRITICAL** line 15, `outline-instead-of-explanation` — **1. Dominantný lifecycle service modelu**: 7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 87, `bare-bullet-items` — **4. IaaS contract**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patching a reboot orchestration;`, `AMI/image provenance;`, `configuration drift;`, `capacity a fleet replacement;`.
+- **CRITICAL** line 113, `bare-bullet-items` — **IaaS failure boundary**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že guest OS je patchnutý;`, `že application načítala C42 a SE10;`, `že data sú konzistentné;`, `že workload prežije stratu AZ;`.
+- **CRITICAL** line 113, `outline-instead-of-explanation` — **IaaS failure boundary**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 126, `bare-bullet-items` — **5. PaaS contract**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application code, schema a dependency compatibility;`, `data classification a access;`, `service configuration a network exposure;`, `IAM roles, resource policies a KMS usage;`.
+- **CRITICAL** line 183, `bare-bullet-items` — **SaaS failure boundary**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že Atlas tenant federation funguje;`, `že admin permissions sú least privilege;`, `že webhook credential neexpiroval;`, `že retention spĺňa právny contract;`.
+- **CRITICAL** line 183, `outline-instead-of-explanation` — **SaaS failure boundary**: 6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 237, `empty-section` — **Exact incident subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 250, `bare-bullet-items` — **Competing hypotheses**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider storage corruption;`, `database failover vrátil starú repliku;`, `application migration odstránila records;`, `compromised alebo chybný customer credential vykonal delete;`.
+- **CRITICAL** line 250, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 250, `outline-instead-of-explanation` — **Competing hypotheses**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 272, `bare-bullet-items` — **Containment**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `revoke SE10 a zastaviť delete-capable writer;`, `zachovať audit, request IDs a DB logs;`, `zastaviť ďalšie settlement processing;`, `nevykonať restore cez current production DB naslepo;`.
+- **CRITICAL** line 272, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 272, `outline-instead-of-explanation` — **Containment**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 280, `bare-bullet-items` — **Recovery**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť isolated point-in-time restore;`, `porovnať restored records s immutable settlement ledgerom;`, `doplniť chýbajúce transakcie idempotentnou reconciliation operáciou;`, `vydať scoped credential SE11;`.
+- **CRITICAL** line 280, `no-prose-concept` — **Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 280, `outline-instead-of-explanation` — **Recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 302, `bare-bullet-items` — **10. Availability a SLA boundary**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvoliť správny deployment mode;`, `rozložiť application capacity;`, `nakonfigurovať health checks;`, `navrhnúť clients, retries a timeouts;`.
+- **CRITICAL** line 302, `outline-instead-of-explanation` — **10. Availability a SLA boundary**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 336, `bare-bullet-items` — **IaaS**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider instance/system checks;`, `OS/kernel/process telemetry;`, `network a storage evidence;`, `application a business signals.`.
+- **CRITICAL** line 336, `no-prose-concept` — **IaaS**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 336, `outline-instead-of-explanation` — **IaaS**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 343, `bare-bullet-items` — **PaaS**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider service health a engine/platform events;`, `customer configuration/audit;`, `application telemetry;`, `synthetic user path;`.
+- **CRITICAL** line 343, `no-prose-concept` — **PaaS**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 343, `outline-instead-of-explanation` — **PaaS**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 351, `bare-bullet-items` — **SaaS**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tenant audit a identity logs;`, `provider status/support evidence;`, `API/webhook telemetry;`, `client synthetic;`.
+- **CRITICAL** line 351, `outline-instead-of-explanation` — **SaaS**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 378, `bare-bullet-items` — **14. Portability a exit subject**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application/source portability;`, `runtime a deployment portability;`, `data format a volume export;`, `identity a policy translation;`.
+- **CRITICAL** line 378, `outline-instead-of-explanation` — **14. Portability a exit subject**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **HIGH** line 15, `list-first-introduction` — **1. Dominantný lifecycle service modelu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 15, `single-sentence-concept` — **1. Dominantný lifecycle service modelu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 60, `single-sentence-concept` — **3. Celý responsibility stack**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 87, `list-heavy-section` — **4. IaaS contract**: 7 odrážok a iba 68 slov súvislého vysvetlenia.
+- **HIGH** line 113, `single-sentence-concept` — **IaaS failure boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 126, `list-heavy-section` — **5. PaaS contract**: 8 odrážok a iba 44 slov súvislého vysvetlenia.
+- **HIGH** line 151, `single-sentence-concept` — **PaaS failure boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 183, `single-sentence-concept` — **SaaS failure boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 206, `single-sentence-concept` — **8. Responsibility matrix pre CAP-PAY-42**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 250, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 259, `list-first-introduction` — **Discriminating observations**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 272, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 280, `list-first-introduction` — **Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 290, `single-sentence-concept` — **Closure verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 332, `single-sentence-concept` — **12. Observability contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 336, `list-first-introduction` — **IaaS**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 343, `list-first-introduction` — **PaaS**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 351, `list-first-introduction` — **SaaS**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 429, `single-sentence-concept` — **Managed znamená bez zákazníckej zodpovednosti**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 433, `single-sentence-concept` — **IaaS je automaticky najlacnejší**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 437, `single-sentence-concept` — **SaaS nepotrebuje architecture alebo security review**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 441, `single-sentence-concept` — **Platform HA je to isté ako business continuity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 15, `term-before-explanation` — **1. Dominantný lifecycle service modelu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `DR`, `identity`, `workload`
+- **HIGH** line 15, `thin-concept-section` — **1. Dominantný lifecycle service modelu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 113, `term-before-explanation` — **IaaS failure boundary**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `C42`, `SE10`, `AZ`, `API`
+- **HIGH** line 126, `term-before-explanation` — **5. PaaS contract**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `KMS`, `RPO`, `RTO`, `resource`
+- **HIGH** line 183, `thin-concept-section` — **SaaS failure boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 250, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 272, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 280, `thin-concept-section` — **Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 302, `thin-concept-section` — **10. Availability a SLA boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 336, `thin-concept-section` — **IaaS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 343, `thin-concept-section` — **PaaS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 351, `thin-concept-section` — **SaaS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 378, `thin-concept-section` — **14. Portability a exit subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/11-cloud-and-aws/iam.md`
 
@@ -16791,19 +16756,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3186 | 447 | 0 | 0 | 3633 |
-| `outline-instead-of-explanation` | 3078 | 0 | 0 | 0 | 3078 |
-| `single-sentence-concept` | 0 | 2846 | 0 | 0 | 2846 |
-| `term-before-explanation` | 0 | 554 | 2201 | 0 | 2755 |
-| `thin-concept-section` | 0 | 2666 | 0 | 0 | 2666 |
-| `example-not-explicit` | 0 | 0 | 0 | 2065 | 2065 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2027 | 2027 |
-| `list-first-introduction` | 0 | 1250 | 0 | 0 | 1250 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1072 | 1072 |
-| `short-concept-section` | 0 | 0 | 1046 | 0 | 1046 |
-| `no-prose-concept` | 694 | 0 | 0 | 0 | 694 |
-| `empty-section` | 574 | 0 | 0 | 0 | 574 |
-| `list-heavy-section` | 0 | 446 | 0 | 0 | 446 |
+| `bare-bullet-items` | 3178 | 447 | 0 | 0 | 3625 |
+| `outline-instead-of-explanation` | 3069 | 0 | 0 | 0 | 3069 |
+| `single-sentence-concept` | 0 | 2836 | 0 | 0 | 2836 |
+| `term-before-explanation` | 0 | 554 | 2190 | 0 | 2744 |
+| `thin-concept-section` | 0 | 2656 | 0 | 0 | 2656 |
+| `example-not-explicit` | 0 | 0 | 0 | 2066 | 2066 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2028 | 2028 |
+| `list-first-introduction` | 0 | 1252 | 0 | 0 | 1252 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1071 | 1071 |
+| `short-concept-section` | 0 | 0 | 1047 | 0 | 1047 |
+| `no-prose-concept` | 695 | 0 | 0 | 0 | 695 |
+| `empty-section` | 572 | 0 | 0 | 0 | 572 |
+| `list-heavy-section` | 0 | 447 | 0 | 0 | 447 |
 
 ## Required remediation pattern
 

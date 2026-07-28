@@ -2887,15 +2887,15 @@
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
       "title": "IaaS, PaaS a SaaS",
-      "words": 1353,
+      "words": 1934,
       "headings": 37,
       "sections": 37,
-      "findings": 129,
-      "critical": 48,
-      "high": 52,
-      "medium": 18,
-      "low": 11,
-      "score": 1057,
+      "findings": 85,
+      "critical": 30,
+      "high": 35,
+      "medium": 8,
+      "low": 12,
+      "score": 677,
       "grade": "D"
     },
     {
@@ -163496,8 +163496,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "1. Celý service stack",
-      "line": 5,
+      "section": "1. Dominantný lifecycle service modelu",
+      "line": 15,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -163505,71 +163505,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "1. Celý service stack",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "1. Celý service stack",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto provisionuje,`, `kto patchuje,`, `kto škáluje,`, `kto zálohuje,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "1. Celý service stack",
-      "line": 5,
+      "section": "1. Dominantný lifecycle service modelu",
+      "line": 15,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "1. Celý service stack",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "2. On-premises baseline",
-      "line": 31,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "2. On-premises baseline",
-      "line": 31,
+      "section": "1. Dominantný lifecycle service modelu",
+      "line": 15,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "2. On-premises baseline",
-      "line": 31,
+      "section": "1. Dominantný lifecycle service modelu",
+      "line": 15,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `budovu alebo colocation contract,`, `power/cooling,`, `physical network a servers,`, `storage,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto môže meniť desired state;`, `kto patchuje a upgraduje platformu;`, `kto riadi identity a secrets;`, `kto navrhuje HA, backup a DR;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "2. On-premises baseline",
-      "line": 31,
+      "section": "1. Dominantný lifecycle service modelu",
+      "line": 15,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -163577,53 +163541,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "2. On-premises baseline",
-      "line": 31,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "3. IaaS",
-      "line": 48,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "3. IaaS",
-      "line": 48,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "3. IaaS",
-      "line": 48,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `physical datacenter,`, `physical servers a network,`, `virtualization/control plane,`, `základnú availability služby podľa contractu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "3. IaaS",
-      "line": 48,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "3. IaaS",
-      "line": 48,
+      "section": "1. Dominantný lifecycle service modelu",
+      "line": 15,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -163631,80 +163550,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "3. IaaS",
-      "line": 48,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "3. IaaS",
-      "line": 48,
+      "section": "1. Dominantný lifecycle service modelu",
+      "line": 15,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `IAM`, `control plane`, `availability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `DR`, `identity`, `workload`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "4. IaaS výhody",
-      "line": 76,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "4. IaaS výhody",
-      "line": 76,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "4. IaaS výhody",
-      "line": 76,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "4. IaaS výhody",
-      "line": 76,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoká kontrola nad OS a runtime,`, `podpora legacy applications,`, `flexibilné network a storage topológie,`, `jednoduchšie mapovanie tradičných serverových architektúr,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "4. IaaS výhody",
-      "line": 76,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "4. IaaS výhody",
-      "line": 76,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "5. IaaS trade-offy",
-      "line": 84,
+      "section": "3. Celý responsibility stack",
+      "line": 60,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -163712,71 +163568,62 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "5. IaaS trade-offy",
-      "line": 84,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "5. IaaS trade-offy",
-      "line": 84,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "5. IaaS trade-offy",
-      "line": 84,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS patching a image lifecycle,`, `capacity a autoscaling,`, `configuration drift,`, `backup a restore,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "5. IaaS trade-offy",
-      "line": 84,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "5. IaaS trade-offy",
-      "line": 84,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "6. PaaS",
-      "line": 96,
+      "section": "4. IaaS contract",
+      "line": 87,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "18 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "detail": "7 odrážok a iba 68 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "6. PaaS",
-      "line": 96,
+      "section": "4. IaaS contract",
+      "line": 87,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS a platform patching,`, `runtime control plane,`, `základné deployment a scaling primitives,`, `platform health,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patching a reboot orchestration;`, `AMI/image provenance;`, `configuration drift;`, `capacity a fleet replacement;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "6. PaaS",
-      "line": 96,
+      "section": "4. IaaS contract",
+      "line": 87,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "IaaS failure boundary",
+      "line": 113,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "IaaS failure boundary",
+      "line": 113,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "IaaS failure boundary",
+      "line": 113,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že guest OS je patchnutý;`, `že application načítala C42 a SE10;`, `že data sú konzistentné;`, `že workload prežije stratu AZ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "IaaS failure boundary",
+      "line": 113,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -163784,8 +163631,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "6. PaaS",
-      "line": 96,
+      "section": "IaaS failure boundary",
+      "line": 113,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -163793,296 +163640,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "6. PaaS",
-      "line": 96,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "6. PaaS",
-      "line": 96,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `control plane`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "7. PaaS výhody",
-      "line": 127,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "7. PaaS výhody",
-      "line": 127,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "7. PaaS výhody",
-      "line": 127,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "7. PaaS výhody",
-      "line": 127,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší undifferentiated operational workload,`, `rýchlejší provisioning,`, `built-in patching a HA capabilities podľa služby,`, `štandardizované deployment paths,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "7. PaaS výhody",
-      "line": 127,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "7. PaaS výhody",
-      "line": 127,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "8. PaaS trade-offy",
-      "line": 136,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "8. PaaS trade-offy",
-      "line": 136,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "8. PaaS trade-offy",
-      "line": 136,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "8. PaaS trade-offy",
-      "line": 136,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `platform constraints,`, `provider-specific APIs a configuration,`, `version/support window,`, `maintenance windows,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "8. PaaS trade-offy",
-      "line": 136,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "9. SaaS",
-      "line": 149,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "9. SaaS",
-      "line": 149,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "18 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "9. SaaS",
-      "line": 149,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application code a runtime,`, `platform a infraštruktúru,`, `deployment a patching,`, `service availability podľa contractu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "9. SaaS",
-      "line": 149,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "9. SaaS",
-      "line": 149,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "9. SaaS",
-      "line": 149,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRM`, `HR`, `availability`, `identity`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "10. SaaS výhody",
-      "line": 180,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "10. SaaS výhody",
-      "line": 180,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "10. SaaS výhody",
-      "line": 180,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "10. SaaS výhody",
-      "line": 180,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `najmenší infrastructure/runtime operations scope,`, `rýchle nasadenie,`, `centralizované updates,`, `predvídateľný subscription model podľa contractu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "10. SaaS výhody",
-      "line": 180,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "10. SaaS výhody",
-      "line": 180,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "11. SaaS trade-offy",
-      "line": 188,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "11. SaaS trade-offy",
-      "line": 188,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "11. SaaS trade-offy",
-      "line": 188,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "11. SaaS trade-offy",
-      "line": 188,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálna kontrola nad internou implementáciou,`, `tenant a feature limits,`, `provider outage dependency,`, `export/portability a deletion guarantees,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "11. SaaS trade-offy",
-      "line": 188,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "11. SaaS trade-offy",
-      "line": 188,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "13. Responsibility matrix",
-      "line": 210,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "13. Responsibility matrix",
-      "line": 210,
+      "section": "IaaS failure boundary",
+      "line": 113,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -164090,8 +163649,53 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "13. Responsibility matrix",
-      "line": 210,
+      "section": "IaaS failure boundary",
+      "line": 113,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `C42`, `SE10`, `AZ`, `API`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "5. PaaS contract",
+      "line": 126,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "5. PaaS contract",
+      "line": 126,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application code, schema a dependency compatibility;`, `data classification a access;`, `service configuration a network exposure;`, `IAM roles, resource policies a KMS usage;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "5. PaaS contract",
+      "line": 126,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "5. PaaS contract",
+      "line": 126,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "5. PaaS contract",
+      "line": 126,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -164099,8 +163703,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "14. Backup responsibility",
-      "line": 227,
+      "section": "5. PaaS contract",
+      "line": 126,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `KMS`, `RPO`, `RTO`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "PaaS failure boundary",
+      "line": 151,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -164108,44 +163721,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "14. Backup responsibility",
-      "line": 227,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "14. Backup responsibility",
-      "line": 227,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či backup existuje,`, `čo obsahuje,`, `retention,`, `RPO/RTO,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "14. Backup responsibility",
-      "line": 227,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "14. Backup responsibility",
-      "line": 227,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "15. High availability responsibility",
-      "line": 246,
+      "section": "SaaS failure boundary",
+      "line": 183,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -164153,26 +163730,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "15. High availability responsibility",
-      "line": 246,
+      "section": "SaaS failure boundary",
+      "line": 183,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "15. High availability responsibility",
-      "line": 246,
+      "section": "SaaS failure boundary",
+      "line": 183,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zapnúť správny deployment mode,`, `zvoliť regions/zones,`, `nakonfigurovať clients/retries/timeouts,`, `odstrániť single points v application vrstve,`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že Atlas tenant federation funguje;`, `že admin permissions sú least privilege;`, `že webhook credential neexpiroval;`, `že retention spĺňa právny contract;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "15. High availability responsibility",
-      "line": 246,
+      "section": "SaaS failure boundary",
+      "line": 183,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -164180,17 +163757,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "15. High availability responsibility",
-      "line": 246,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`",
-      "score": 4
+      "section": "8. Responsibility matrix pre CAP-PAY-42",
+      "line": 206,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "16. Security responsibility",
-      "line": 259,
+      "section": "8. Responsibility matrix pre CAP-PAY-42",
+      "line": 206,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "8. Responsibility matrix pre CAP-PAY-42",
+      "line": 206,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "8. Responsibility matrix pre CAP-PAY-42",
+      "line": 206,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Exact incident subject",
+      "line": 237,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -164198,8 +163802,233 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "IaaS",
-      "line": 261,
+      "section": "Competing hypotheses",
+      "line": 250,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Competing hypotheses",
+      "line": 250,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Competing hypotheses",
+      "line": 250,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Competing hypotheses",
+      "line": 250,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider storage corruption;`, `database failover vrátil starú repliku;`, `application migration odstránila records;`, `compromised alebo chybný customer credential vykonal delete;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Competing hypotheses",
+      "line": 250,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Competing hypotheses",
+      "line": 250,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Discriminating observations",
+      "line": 259,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Containment",
+      "line": 272,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Containment",
+      "line": 272,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Containment",
+      "line": 272,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Containment",
+      "line": 272,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `revoke SE10 a zastaviť delete-capable writer;`, `zachovať audit, request IDs a DB logs;`, `zastaviť ďalšie settlement processing;`, `nevykonať restore cez current production DB naslepo;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Containment",
+      "line": 272,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Containment",
+      "line": 272,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SE10`, `DB`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Recovery",
+      "line": 280,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Recovery",
+      "line": 280,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Recovery",
+      "line": 280,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Recovery",
+      "line": 280,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť isolated point-in-time restore;`, `porovnať restored records s immutable settlement ledgerom;`, `doplniť chýbajúce transakcie idempotentnou reconciliation operáciou;`, `vydať scoped credential SE11;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Recovery",
+      "line": 280,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Recovery",
+      "line": 280,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Recovery",
+      "line": 280,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SE11`, `RPO`, `RTO`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "Closure verdict",
+      "line": 290,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "10. Availability a SLA boundary",
+      "line": 302,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "10. Availability a SLA boundary",
+      "line": 302,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvoliť správny deployment mode;`, `rozložiť application capacity;`, `nakonfigurovať health checks;`, `navrhnúť clients, retries a timeouts;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "10. Availability a SLA boundary",
+      "line": 302,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "10. Availability a SLA boundary",
+      "line": 302,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "12. Observability contract",
+      "line": 332,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -164208,25 +164037,43 @@
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
       "section": "IaaS",
-      "line": 261,
+      "line": 336,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "IaaS",
+      "line": 336,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "IaaS",
+      "line": 336,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
       "section": "IaaS",
-      "line": 261,
+      "line": 336,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS hardening,`, `patches,`, `network rules,`, `identities,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider instance/system checks;`, `OS/kernel/process telemetry;`, `network a storage evidence;`, `application a business signals.`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
       "section": "IaaS",
-      "line": 261,
+      "line": 336,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -164235,7 +164082,7 @@
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
       "section": "IaaS",
-      "line": 261,
+      "line": 336,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
@@ -164244,79 +164091,43 @@
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
       "section": "PaaS",
-      "line": 273,
+      "line": 343,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
+      "section": "PaaS",
+      "line": 343,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
       "section": "PaaS",
-      "line": 273,
+      "line": 343,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
       "section": "PaaS",
-      "line": 273,
+      "line": 343,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service configuration,`, `IAM,`, `network exposure,`, `encryption keys/options,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider service health a engine/platform events;`, `customer configuration/audit;`, `application telemetry;`, `synthetic user path;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
       "section": "PaaS",
-      "line": 273,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "PaaS",
-      "line": 273,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "SaaS",
-      "line": 284,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "SaaS",
-      "line": 284,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "SaaS",
-      "line": 284,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broad sharing,`, `weak federation/MFA,`, `overprivileged admins,`, `unmanaged integrations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "SaaS",
-      "line": 284,
+      "line": 343,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -164325,106 +164136,34 @@
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
       "section": "SaaS",
-      "line": 284,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "17. Observability responsibility",
-      "line": 295,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "17. Observability responsibility",
-      "line": 295,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider service health,`, `platform/resource metrics,`, `application telemetry,`, `synthetic user-path checks,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "17. Observability responsibility",
-      "line": 295,
+      "line": 351,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "17. Observability responsibility",
-      "line": 295,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "18. Cost model",
-      "line": 311,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "IaaS",
-      "line": 313,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "PaaS",
-      "line": 317,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
       "section": "SaaS",
-      "line": 321,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "19. Lock-in a portability",
-      "line": 337,
+      "line": 351,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "19. Lock-in a portability",
-      "line": 337,
+      "section": "SaaS",
+      "line": 351,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API lock-in,`, `data format a volume lock-in,`, `identity/integration lock-in,`, `operational skill lock-in,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tenant audit a identity logs;`, `provider status/support evidence;`, `API/webhook telemetry;`, `client synthetic;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "19. Lock-in a portability",
-      "line": 337,
+      "section": "SaaS",
+      "line": 351,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -164432,8 +164171,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "19. Lock-in a portability",
-      "line": 337,
+      "section": "SaaS",
+      "line": 351,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`",
@@ -164441,35 +164180,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "20. Výber service modelu",
-      "line": 352,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "20. Výber service modelu",
-      "line": 352,
+      "section": "14. Portability a exit subject",
+      "line": 378,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "20. Výber service modelu",
-      "line": 352,
+      "section": "14. Portability a exit subject",
+      "line": 378,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Potrebujeme OS/kernel kontrolu?`, `Je workload legacy alebo cloud-native?`, `Aké sú compliance a data residency požiadavky?`, `Aký je support/upgrade lifecycle?`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application/source portability;`, `runtime a deployment portability;`, `data format a volume export;`, `identity a policy translation;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "20. Výber service modelu",
-      "line": 352,
+      "section": "14. Portability a exit subject",
+      "line": 378,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -164477,8 +164207,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "20. Výber service modelu",
-      "line": 352,
+      "section": "14. Portability a exit subject",
+      "line": 378,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -164486,89 +164216,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "20. Výber service modelu",
-      "line": 352,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "20. Výber service modelu",
-      "line": 352,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `RPO`, `RTO`, `workload`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "21. Príklad rozhodnutia",
-      "line": 367,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "Interná web aplikácia",
-      "line": 369,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "Interná web aplikácia",
-      "line": 369,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "Interná web aplikácia",
-      "line": 369,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IaaS VM: maximálna kontrola, viac patching/toil,`, `managed Kubernetes/PaaS: platform flexibility, stále vysoký workload/p`, `application PaaS: rýchly deployment, menšia infra kontrola,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "Interná web aplikácia",
-      "line": 369,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "Interná web aplikácia",
-      "line": 369,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "Interná web aplikácia",
-      "line": 369,
+      "section": "14. Portability a exit subject",
+      "line": 378,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`, `workload`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "Managed znamená bez zodpovednosti",
-      "line": 382,
+      "section": "Managed znamená bez zákazníckej zodpovednosti",
+      "line": 429,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -164576,8 +164234,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "IaaS je vždy lacnejší",
-      "line": 386,
+      "section": "IaaS je automaticky najlacnejší",
+      "line": 433,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -164585,8 +164243,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "SaaS nepotrebuje security review",
-      "line": 390,
+      "section": "SaaS nepotrebuje architecture alebo security review",
+      "line": 437,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -164594,66 +164252,12 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "PaaS automaticky poskytuje DR",
-      "line": 394,
+      "section": "Platform HA je to isté ako business continuity",
+      "line": 441,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "Výber podľa marketingovej kategórie",
-      "line": 398,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "23. Troubleshooting ownership",
-      "line": 402,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "23. Troubleshooting ownership",
-      "line": 402,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "23. Troubleshooting ownership",
-      "line": 402,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request/correlation IDs,`, `timestamps v UTC,`, `provider status a support case,`, `customer config diff,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "23. Troubleshooting ownership",
-      "line": 402,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
-      "section": "23. Troubleshooting ownership",
-      "line": 402,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTC`, `identity`",
-      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
