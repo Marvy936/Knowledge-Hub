@@ -1,763 +1,673 @@
 # Cost management a FinOps
 
-AWS cost management je súbor capabilities na meranie, alokáciu, plánovanie, kontrolu a optimalizáciu cloud spendu. FinOps je operating model, v ktorom engineering, finance a business spolupracujú na maximalizácii business value cloudu. Cieľom nie je slepo minimalizovať účet; cieľom je robiť rýchle a informované rozhodnutia o cost, performance, reliability, security a growth.
+AWS cost management poskytuje billing, allocation, forecasting, anomaly, recommendation a commitment capabilities. FinOps je operating model, v ktorom engineering, finance a business používajú tieto dáta na rozhodovanie o cloud value.
 
-## 1. Mentálny model
+Cieľom nie je minimalizovať AWS invoice za každú cenu. Cieľom je optimalizovať business outcome pri explicitných performance, reliability, security, recovery a growth constraints.
+
+Dominantný lifecycle:
 
 ```text
-business outcome a unit economics
-→ account/tag/cost-category allocation
-→ cost and usage data
-→ budgets, forecasts a anomaly detection
-→ utilization a optimization opportunities
-→ commitments a pricing model
-→ engineering action
-→ validation úspory a dopadu
+business outcome a unit definition
+→ exact billing, usage a workload subject
+→ metering, pricing a discount generation
+→ account/tag/category attribution
+→ shared-cost allocation
+→ cost, forecast alebo anomaly signal
+→ causal engineering hypothesis
+→ bounded optimization alebo containment
+→ SLO/security/reliability validation
+→ normalized realized value/savings
+→ commitment, forecast a allocation update
 → continuous FinOps cadence
 ```
 
-Cost je technický aj organizačný signal. Bez ownera, allocation modelu a operational contextu zostáva iba účet bez vysvetlenia.
+Recommendation nie je úspora. Budget threshold nie je hard spending cap. Nižší monthly spend nie je success, ak klesol počet úspešných payments, bol odstránený recovery control alebo vznikol vyšší incident risk.
 
-## 2. Cost, price, value a unit economics
+## 1. Exact FinOps subject
 
-Rozlišuj:
-
-- **price** — jednotková cena služby,
-- **cost** — výsledný spend pri konkrétnom usage,
-- **value** — business outcome vytvorený workloadom,
-- **unit cost** — cost na business jednotku, napríklad request, zákazníka, transakciu alebo build,
-- **total cost of ownership** — cloud spend plus engineering, operations, licensing, support, risk a migration cost.
-
-Nižší unit price nemusí znamenať nižší TCO, ak riešenie vyžaduje viac toil, outages alebo custom operations.
-
-## 3. FinOps princípy
-
-Praktický FinOps model používa:
-
-- teams ownership usage a costu,
-- centralized enablement a governance,
-- timely accessible data,
-- business-value decisions,
-- variable cloud cost model,
-- continuous optimization,
-- collaboration engineering/finance/business.
-
-FinOps nie je iba mesačný report finance tímu. Engineering decisions priamo ovplyvňujú spend cez architecture, scaling, retention, data transfer, telemetry, deployment a commitments.
-
-## 4. Account a organization boundary
-
-AWS account je silná cost-allocation boundary.
-
-Multi-account model umožňuje:
-
-- oddeliť production/non-production,
-- priradiť ownera,
-- používať budgets a guardrails,
-- analyzovať spend podľa linked accountu,
-- distribuovať commitments a shared costs,
-- izolovať experiments.
-
-Jeden shared account s nedostatočným taggingom komplikuje chargeback, anomaly ownership aj rightsizing.
-
-## 5. Cost allocation tags
-
-User-defined a AWS-generated cost allocation tags môžu po aktivácii vstupovať do billing/cost datasets.
-
-Tagging contract má obsahovať napríklad:
-
-- `Owner`,
-- `Team`,
-- `Application`,
-- `Environment`,
-- `CostCenter`,
-- `BusinessUnit`,
-- `ManagedBy`,
-- `DataClassification`,
-- `Lifecycle`.
-
-Obmedzenia:
-
-- nie všetky resources podporujú tags rovnako,
-- tags nemusia byť retroaktívne v historických dátach,
-- chýbajúce alebo nekonzistentné hodnoty znižujú allocation coverage,
-- shared resources potrebujú samostatný allocation model.
-
-## 6. Cost Categories
-
-AWS Cost Categories umožňujú mapovať raw billing dimensions do business hierarchie.
-
-Použitie:
-
-- business units,
-- applications,
-- environments,
-- cost centers,
-- shared services,
-- chargeback/showback,
-- exception grouping.
-
-Cost Category rules môžu používať accounts, services, tags a ďalšie billing dimensions podľa aktuálnych capabilities.
-
-Cost Category nie je náhrada kvalitného resource taggingu. Je to business mapping nad dostupnými dátami.
-
-## 7. Shared cost allocation
-
-Shared costs vznikajú napríklad pri:
-
-- Transit Gateway,
-- centralized NAT/egress,
-- shared Kubernetes clusteri,
-- observability platforme,
-- CI runners,
-- security tooling,
-- support plan,
-- enterprise discounts,
-- shared databases alebo caches.
-
-Allocation modely:
-
-- rovnomerne,
-- podľa headcountu,
-- podľa direct spendu,
-- podľa usage metriky,
-- podľa requests/GB/build minutes,
-- fixed subscription,
-- business-agreed hybrid.
-
-Model musí byť transparentný, stabilný a pravidelne prehodnotený.
-
-## 8. AWS Billing data oproti Cost Explorer
-
-Billing/invoice data odpovedá na otázku, čo AWS fakturuje v billing period.
-
-Cost Explorer je analytická vrstva na:
-
-- filtrovanie a grouping,
-- trend analysis,
-- forecasting,
-- amortized a net amortized views,
-- utilization/coverage reports,
-- rightsizing a savings recommendations.
-
-Rozdiely môžu vzniknúť pre:
-
-- credits a refunds,
-- upfront commitments,
-- amortization,
-- data freshness,
-- estimated current-month charges,
-- tax a invoice scope,
-- billing adjustments.
-
-Pri finance reconciliation používaj správny dataset pre správny účel.
-
-## 9. Cost Explorer
-
-Cost Explorer pomáha analyzovať cost a usage podľa dimensions ako:
-
-- service,
-- linked account,
-- Region,
-- Availability Zone,
-- usage type,
-- operation,
-- purchase option,
-- instance type,
-- tags,
-- Cost Categories.
-
-Praktický workflow:
+Atlas Payments používa subject `FIN-PAY-42`:
 
 ```text
-identifikuj čas zmeny
-→ group by service/account/Region
-→ drill down usage type/operation
-→ koreluj deployment alebo incident
-→ identifikuj ownera
-→ navrhni remediation
-→ over nasledujúce obdobie
+payer/management account = 900000000042
+workload account = 100000000042
+workload = CAP-PAY-42
+business owner = Payments Product
+engineering owner = Atlas Payments Team
+finance owner = Cloud Finance
+
+billing period = 2026-07
+cost-data cut-off = 2026-07-28T12:00:00Z
+billing dataset generation = DATA-EXPORT-PAY-19
+pricing/discount generation = PRICE-ORG-11
+allocation-rule generation = ALLOC-PAY-17
+Cost Category generation = CC-APPLICATION-9
+commitment portfolio generation = COMMIT-13
+forecast generation = FCST-2026-Q3-R4
+
+resource dimensions =
+  linked account, service, Region, usage type, operation
+  resource ID/ARN where available
+  Owner, Application, Environment, CostCenter, Lifecycle tags
+  Cost Category Application=AtlasPayments
+
+shared-cost pools =
+  central NAT/egress
+  observability
+  CI runners
+  security services
+  support and platform control plane
+
+business unit = successful settled payment
+quality guardrails = payment success, p99 latency, duplicate rate, RTO/RPO
+
+June baseline =
+  attributed cost $84,000
+  12,000,000 successful payments
+  unit cost $0.0070 per successful payment
+
+July observed =
+  attributed cost $128,000
+  11,500,000 successful payments
+  unit cost approximately $0.0111 per successful payment
+
+forbidden outcomes =
+  invoice total is compared with partial estimated data as if datasets were equal
+  unallocated/shared cost is silently assigned to the wrong product
+  estimated recommendation is reported as realized savings
+  rightsizing removes failover or peak headroom
+  budget action disables production recovery or security controls
+  commitment is purchased against temporary/retrying usage
+  cost reduction is achieved by dropping critical audit or incident evidence
 ```
 
-Cost Explorer data má oneskorenie a môže sa v current billing period upravovať. Nie je vhodný ako real-time metering systém.
+Incident alebo optimization evidence musí viazať time window, dataset/cost metric, account/service/Region/usage type, pricing and discount view, resource/workload owner, allocation rule, deployment/change timeline, business volume, SLO, commitment effect a realized post-change outcome.
 
-## 10. Unblended, blended a amortized cost
+## 2. Price, usage, cost, value a TCO
+
+### Price
+
+Rate za jednotku služby podľa Regionu, purchase option, tieru, commitmentu a commercial terms.
+
+### Usage
+
+Metered quantity, napríklad instance-hours, GB-seconds, requests, bytes, IOPS, log ingestion alebo stored GB-month.
+
+### Cost
+
+Pricing a billing result pre konkrétny usage a period, vrátane discounts, commitments, credits alebo adjustments podľa zvoleného cost metricu.
+
+### Value
+
+Business outcome vytvorený workloadom: úspešné payments, active users, processed orders alebo reduced risk.
+
+### Unit cost
+
+```text
+total attributed workload cost
+÷ valid business outcome units
+```
+
+Atlas June unit cost:
+
+```text
+$84,000 ÷ 12,000,000 successful payments
+= $0.0070 per successful payment
+```
+
+July invoice rastie, ale úspešný volume klesá:
+
+```text
+$128,000 ÷ 11,500,000
+≈ $0.0111 per successful payment
+```
+
+Cost per raw API request by vyzeral lepšie, ak retry loop vytvára milióny neúspešných requests. Unit definition preto musí odrážať business value, nie waste volume.
+
+### Total cost of ownership
+
+TCO zahŕňa cloud spend, engineering, operations, licensing, support, migration, compliance a expected failure risk. Lacnejší unmanaged component môže mať vyšší TCO pre toil a incidents.
+
+## 3. Cost data vznikajú cez viac transformácií
+
+```text
+resource/workload activity
+→ service metering
+→ billing line item and usage type
+→ public/private price and purchase option
+→ Savings Plan/RI/credit/refund/tax treatment
+→ payer/consolidated-billing processing
+→ Cost Explorer/Data Export dataset
+→ tag/Cost Category/shared allocation
+→ report, unit cost and decision
+```
+
+Každá vrstva má vlastnú identity a freshness. Cost Explorer môže zobrazovať estimated current-period data, invoice je billing-period artifact a Data Export môže mať inú refresh cadence. Rozdiel nie je automaticky chyba.
+
+Pri reconciliation vždy zaznamenaj:
+
+- cost metric: unblended, amortized, net amortized alebo iný;
+- date/time zone a billing period;
+- credits, refunds, support a tax scope;
+- estimated versus finalized state;
+- organization/payer scope;
+- allocation generation.
+
+## 4. Unblended, blended a amortized views
 
 ### Unblended cost
 
-Skutočná rate účtovaná konkrétnej line item usage bez rozloženia organization average.
+Zobrazuje konkrétnu rate a line-item cost bez organization average. Je užitočný na detail service/usage analýzu.
 
 ### Blended cost
 
-Pri consolidated billing môže pri niektorých pohľadoch používať priemernú rate naprieč organization.
+V niektorých consolidated billing pohľadoch používa average rate naprieč organization family. Môže byť menej vhodný pre presný product ownership.
 
 ### Amortized cost
 
-Rozkladá upfront a recurring commitment fees cez obdobie benefitu.
+Rozkladá upfront a recurring commitment fees cez obdobie benefitu. Lepšie zobrazuje ekonomický cost stabilného usage než jednorazový cash moment.
 
 ### Net amortized cost
 
-Zohľadňuje ďalšie discounts, credits alebo negotiated pricing podľa dostupných dát.
+Zohľadňuje relevantné private discounts, credits a ďalšie adjustments podľa datasetu.
 
-Pre unit economics a commitment analýzu je amortized pohľad často informatívnejší než cash invoice pohľad.
+Nemiešaj views v jednej trend line. „Cost klesol“ môže byť iba zmena reportovacieho metricu.
 
-## 11. AWS Budgets
+## 5. Account, resource a allocation identity
 
-AWS Budgets môže sledovať:
+AWS account je silná governance a cost boundary. Nie je však vždy product boundary: shared accounts, clusters, NAT, observability a security services potrebujú jemnejšiu attribution.
 
-- cost,
-- usage,
-- Reserved Instance utilization/coverage,
-- Savings Plans utilization/coverage.
+### Cost allocation tags
 
-Budget obsahuje:
+Activated cost allocation tags môžu vstúpiť do billing datasets. Tag existence na resource-e neznamená:
 
-- scope a filters,
-- period,
-- actual a forecast thresholds,
-- notifications,
-- optional actions,
-- subscribers.
+- že bol activated pre cost allocation;
+- že sa historické line items retroaktívne doplnia;
+- že všetky service/resource line items nesú resource tag;
+- že value je validná a owned.
 
-Budget je lagging alebo forecast control, nie hard real-time spending limit. AWS resource usage sa po prekročení budgetu automaticky nezastaví, pokiaľ nie je nakonfigurovaná explicitná action a tá podporuje daný use case.
-
-## 12. Budget actions
-
-Budget action môže podľa podpory napríklad:
-
-- aplikovať IAM policy,
-- aplikovať SCP,
-- vykonať targeted resource action.
-
-Riziká:
-
-- neočakávaný production impact,
-- zablokovanie remediation,
-- zmena počas incidentu,
-- broad scope.
-
-Automatické enforcement actions používaj opatrne, ideálne pre sandbox alebo explicitne bounded resources. Production cost anomaly má často vyvolať triage, nie okamžitý shutdown.
-
-## 13. Cost Anomaly Detection
-
-AWS Cost Anomaly Detection používa modely na identifikovanie neobvyklých spend patterns.
-
-Konfigurácia zahŕňa:
-
-- anomaly monitor,
-- monitored scope,
-- alert subscription,
-- threshold,
-- frequency a recipients.
-
-Anomaly triage:
+Tag contract používa bounded values a lifecycle governance:
 
 ```text
-anomaly time a impact
-→ account/service/Region/usage type
-→ deployment alebo traffic change
-→ pricing/commitment zmena
-→ legitimate growth alebo defect?
-→ owner a remediation
-→ false-positive feedback a threshold review
+Owner
+Application
+Environment
+CostCenter
+BusinessUnit
+ManagedBy
+Lifecycle
+DataClassification
 ```
 
-Anomaly detection nenahrádza budgets ani architecture cost controls. Legitímny, ale drahý growth nemusí byť anomália.
+### Cost Categories
 
-## 14. Cost and Usage data
+Cost Categories mapujú billing dimensions do business hierarchy. Umožňujú zjednotiť accounts, services, tags a exceptions pod application/business labels.
 
-Granulárne billing data možno exportovať na ďalšiu analýzu.
+Rule generation je versionovaný financial model. Zmena pravidla môže preklasifikovať current a podľa capability aj historical views; report musí uviesť použitú generation.
 
-Aktuálny AWS cost-management model používa capabilities ako:
+## 6. Allocation coverage a unattributed spend
 
-- AWS Data Exports,
-- Cost and Usage Report-compatible datasets,
-- billing views,
-- S3 delivery,
-- Athena/BI/FinOps platform processing.
+Allocation coverage:
 
-Dáta môžu obsahovať veľké množstvo line items. Potrebuješ:
+```text
+spoľahlivo priradený in-scope spend
+÷ total in-scope spend
+```
 
-- partitioning,
-- schema/version handling,
-- retention,
-- access control,
-- data quality checks,
-- allocation logic,
-- query cost management.
+100% syntakticky assigned cost nemusí byť 100% pravdivá attribution. Default bucket `Shared` alebo `Unknown` môže skryť veľkú časť rozhodovacieho problému.
 
-## 15. Cost Optimization Hub
+Atlas sleduje:
 
-Cost Optimization Hub agreguje a prioritizuje optimization opportunities naprieč accounts a Regions.
+- untagged/unmapped spend;
+- stale/invalid owners;
+- resources s conflicting tags;
+- line items bez resource identity;
+- shared pool bez allocation driveru;
+- exceptions a expiry;
+- allocation-rule drift.
 
-Môže zahŕňať odporúčania ako:
+Chargeback sa nezavádza, kým allocation nie je dôveryhodná a existuje dispute process.
 
-- rightsizing,
-- idle-resource deletion,
-- Savings Plans,
-- Reserved Instances,
-- storage alebo service-specific optimization podľa podpory.
+## 7. Shared-cost allocation je business model
 
-Výhody:
+Shared NAT, Transit Gateway, Kubernetes nodes, observability alebo CI runners možno rozdeliť:
 
-- deduplication odporúčaní,
-- estimated savings,
-- organization-wide prioritization,
-- commercial-term awareness,
-- jednotný backlog.
+- podľa measured usage;
+- requests, bytes, vCPU-hours alebo build minutes;
+- direct spend ratio;
+- fixed subscription;
+- equal split;
+- hybrid agreed model.
 
-Recommendation nie je change approval. Pred implementáciou over performance, reliability, seasonality, commitments, migration effort a rollback.
+Najlepšia metrika je kauzálne blízka cost driveru. NAT cost podľa headcountu neposkytuje engineering feedback. Shared cluster cost iba podľa actual CPU môže ignorovať requests, ktoré držia reserved capacity.
 
-## 16. Compute Optimizer a rightsizing
+Allocation model musí byť:
 
-Rightsizing vyhodnocuje využitie a odporúča zmenu alebo odstránenie resources.
+- transparentný;
+- reprodukovateľný;
+- versionovaný;
+- stabilný počas report period;
+- pravidelne revalidovaný;
+- oddelený od raw AWS billing truth.
 
-Overuj viac než CPU:
+## 8. Cost Explorer a Data Exports majú odlišné úlohy
 
-- memory,
-- network,
-- disk/EBS I/O,
-- burst credits,
-- p95/p99 alebo peak periods,
-- latency/SLO,
-- seasonality,
-- HA headroom,
-- failover capacity,
-- startup behavior.
+### Cost Explorer
 
-Rightsizing production resource-u bez load testu a canary môže vytvoriť vyšší outage cost než savings.
+Je vhodný na interaktívny drill-down:
 
-## 17. Idle a orphaned resources
+```text
+čas zmeny
+→ service/account/Region
+→ usage type/operation
+→ purchase option/resource/tag/category
+→ owner/change correlation
+```
 
-Bežné zdroje waste:
+Jeho data nie sú real-time telemetry a current period sa môže upravovať.
 
-- unattached EBS volumes,
-- old snapshots/AMIs,
-- idle load balancers,
-- unused Elastic IPs,
-- oversized NAT/data paths,
-- stopped instances s retained storage,
-- abandoned RDS snapshots,
-- stale log groups,
-- orphaned Kubernetes load balancers/disks,
-- forgotten dev environments,
-- duplicate backups.
+### AWS Data Exports
 
-Deletion workflow potrebuje ownera, retention, evidence, dependency check a recovery path.
+Poskytuje pravidelné detailed datasets pre S3/query/BI/FinOps pipeline. Dataset potrebuje schema-version handling, partitions, access control, data-quality tests, retention a query-cost governance.
 
-## 18. Scheduling a elasticity
+Machine report má overiť:
 
-Non-production cost možno znižovať:
+- expected periods/partitions;
+- duplicate/missing line items;
+- currency a cost metric;
+- account coverage;
+- allocation-rule version;
+- late adjustments;
+- reconciliation s authoritative billing view.
 
-- scheduled stop/start,
-- environment TTL,
-- scale-to-zero pri podporovaných workloads,
-- ephemeral preview environments,
-- autoscaling,
-- queue-based scaling,
-- build-runner elasticity.
+## 9. Budgets sú lagged decision controls
 
-Nezabudni na:
+AWS Budgets môže sledovať cost, usage a commitment utilization/coverage podľa scope a periodu. Threshold môže používať actual alebo forecast values a posielať notifications alebo bounded actions.
 
-- data/store cost počas vypnutia,
-- startup latency,
-- patching,
-- scheduled jobs,
-- time zones,
-- shared dependencies.
+Budget nie je univerzálny real-time hard cap:
 
-## 19. Savings Plans
+```text
+usage vznikne
+→ billing data sa spracuje
+→ budget sa prehodnotí
+→ notification/action sa doručí
+→ target vykoná control
+```
 
-Savings Plans poskytujú zľavu výmenou za hodinový spend commitment počas termínu.
+Production action typu broad SCP, IAM deny alebo resource shutdown môže počas incidentu zablokovať recovery. Automatické enforcement je vhodnejšie pre explicitne bounded sandbox/experiment resources s break-glass a validation.
 
-Rozlišuj:
+## 10. Cost Anomaly Detection je triage signal
 
-- Compute Savings Plans,
-- EC2 Instance Savings Plans,
-- scope a flexibility,
-- utilization,
-- coverage,
-- term a payment option.
+Anomaly monitor porovnáva spend pattern v zvolenom scope. Finding odpovedá „toto je neobvyklé“, nie automaticky „toto je waste alebo útok“.
 
-Pred nákupom analyzuj:
+Triage:
 
-- stabilný baseline usage,
-- architecture roadmap,
-- migration/planned shutdown,
-- instance family/Region flexibility,
-- existing RI/SP coverage,
-- seasonality,
-- expected growth.
+```text
+anomaly time, freshness and impact
+→ account/service/Region/usage type
+→ business volume and unit cost
+→ deployment/traffic/security timeline
+→ price/commitment/allocation changes
+→ legitimate growth, model issue or defect?
+→ containment/remediation
+→ feedback and threshold review
+```
 
-Commitment na nestabilný alebo miznúci workload môže vytvoriť unused spend.
+Legitímny launch môže byť drahý a zároveň nie anomalous po stabilizácii. Tichý, pomaly rastúci waste nemusí prekročiť anomaly threshold.
 
-## 20. Reserved Instances
+## 11. Cost Optimization Hub a recommendations
 
-Reserved Instances poskytujú billing discount alebo capacity-related capability podľa konkrétnej služby a typu.
+Cost Optimization Hub agreguje a prioritizuje recommendations naprieč accounts a Regions, vrátane rightsizing, idle resources, Savings Plans, reservations a service-specific opportunities podľa supportu.
 
-Dôležité osi:
+Recommendation obsahuje estimate založený na assumptions a observation window. Pred change-om over:
 
-- standard/convertible podľa služby,
-- regional/zonal scope,
-- size flexibility,
-- term/payment,
-- utilization/coverage,
-- reservation marketplace pri podporovaných EC2 RIs.
+- exact resource/workload identity;
+- peak a seasonal usage;
+- memory/I/O/network, nie iba CPU;
+- SLO a failure headroom;
+- existing commitments;
+- migration/deployment dependencies;
+- reversibility;
+- excluded or future demand.
 
-RDS, ElastiCache, OpenSearch a ďalšie services môžu mať vlastné reservation semantics. Nepredpokladaj, že fungujú rovnako ako EC2.
+Recommendation acceptance je backlog decision. Realized savings vzniká až po implementácii a normalized post-change measurement.
 
-## 21. Spot
+## 12. Rightsizing je performance a reliability experiment
 
-Spot využíva spare capacity za nižšiu cenu s interruption riskom.
+Rightsizing workflow:
 
-Vhodné:
+```text
+usage and saturation history
+→ demand/seasonality model
+→ current and target capacity
+→ failure/failover headroom
+→ change hypothesis
+→ canary/bounded cohort
+→ latency/error/saturation observation
+→ rollback or expand
+→ normalized cost validation
+```
 
-- batch,
-- stateless workers,
-- fault-tolerant CI,
-- distributed processing,
-- flexible containers.
+Average CPU môže skryť memory pressure, EBS throughput, connection limit, burst credits alebo p99 peak. Zmenšenie Multi-AZ database podľa primary average musí stále prežiť failover workload na promoted instance.
 
-Potrebuje:
+Idle resource deletion potrebuje owner, dependency graph, retention, CloudTrail/change evidence a recovery path. `0% CPU` neznamená unused KMS key, standby, DR resource alebo scheduled monthly job.
 
-- interruption handling,
-- checkpointing,
-- diversified capacity,
-- fallback,
-- drain,
-- idempotency.
+## 13. Commitments optimalizujú stabilný baseline
 
-Spot nie je cost optimalizácia pre workload, ktorý nevie prežiť interruption.
+Savings Plans a Reserved Instances vymieňajú flexibility za discount alebo reservation capability podľa product contractu.
 
-## 22. Storage cost
+Commitment subject zahŕňa:
 
-Optimalizuj:
+- term a payment option;
+- hourly commitment alebo reservation scope;
+- eligible usage;
+- utilization a coverage;
+- organization sharing;
+- architecture roadmap;
+- Region/family flexibility;
+- expiry a renewal decision.
 
-- S3 storage classes a lifecycle,
-- incomplete multipart uploads,
-- noncurrent versions,
-- EBS type/size/IOPS/throughput,
-- snapshots,
-- EFS lifecycle tiers,
-- backup retention,
-- log retention,
-- cross-Region replication.
+```text
+stable useful baseline
+→ remove temporary retry/waste usage
+→ normalize seasonality and growth
+→ subtract existing commitments
+→ model architecture changes
+→ buy bounded commitment
+→ monitor utilization and coverage
+```
 
-Najlacnejšia storage class môže mať retrieval fee, minimum duration alebo latency, ktoré nezodpovedajú access patternu.
+Nákup podľa mesiaca s incidentovým retry trafficom uzamkne waste. Vysoká utilization nie je automaticky dobrá, ak commitment udržiava nepotrebnú architecture.
 
-## 23. Data transfer cost
+Spot je odlišný purchase/capacity model s interruption riskom. Úspora je validná iba keď workload podporuje checkpoint, retry/idempotency, diversification, drain a fallback.
 
-Data transfer je častý skrytý driver.
+## 14. Data transfer, storage a observability sú architecture costs
 
-Analyzuj:
+### Data transfer
 
-- internet egress,
-- cross-AZ traffic,
-- cross-Region traffic,
-- NAT Gateway processing,
-- Transit Gateway,
-- replication,
-- CloudFront origin/viewer transfer,
-- observability export,
-- backup copies,
-- Kubernetes topology.
+Cost map potrebuje direction a volume:
 
-Architecture diagram bez data-flow volume a direction neposkytuje cost model.
+```text
+source resource/AZ/Region
+→ path: NAT/TGW/peering/internet/CDN
+→ destination
+→ bytes and processing operations
+→ business request or replication purpose
+```
 
-## 24. Observability cost
+Cross-AZ path, centralized NAT, cross-Region replication alebo telemetry export môže stáť viac než compute service, ktorý traffic vytvára.
 
-Telemetry cost vzniká cez:
+### Storage a backup
 
-- custom metrics,
-- high-cardinality dimensions,
-- log ingestion,
-- retention,
-- queries,
-- traces,
-- cross-account/Region transfer,
-- archive/retrieval.
+Analyzuj storage class, minimum duration/retrieval, versions, snapshots, provisioned IOPS/throughput, lifecycle, retention, replication a restore tests. Cheapest class nemusí byť cheapest recovery path.
 
-Optimalizácia:
+### Observability
 
-- sampling,
-- bounded cardinality,
-- retention tiers,
-- filtering pri source,
-- structured logs,
-- SLO-relevant telemetry,
-- query governance.
+Cost vzniká z log ingestion, retention, queries, custom metrics, high-cardinality dimensions, traces a transfer.
 
-Nevypínaj kritické audit alebo incident evidence bez risk analýzy.
+Optimalizuj pri source cez classification, filtering, bounded cardinality, sampling a retention tiers. Nevypínaj audit, security alebo incident evidence bez explicitnej risk analýzy.
 
-## 25. Kubernetes a container cost allocation
-
-Shared cluster potrebuje allocation podľa:
-
-- namespace,
-- workload,
-- labels/tags,
-- requested a actual resources,
-- node pool,
-- storage,
-- load balancers,
-- network transfer,
-- idle capacity.
-
-Requests ovplyvňujú scheduler a required capacity, preto iba actual CPU nemusí byť férová allocation metrika.
-
-## 26. Serverless unit economics
-
-Pri Lambda a event-driven services sleduj:
-
-- invocations,
-- duration,
-- memory/CPU allocation,
-- concurrency,
-- retries,
-- logs,
-- downstream requests,
-- data transfer,
-- failed alebo duplicate processing.
-
-Vyššia memory môže skrátiť duration a znížiť total cost. Optimalizácia potrebuje benchmark, nie iba znižovanie memory settingu.
-
-## 27. Database cost
-
-Sleduj:
-
-- instance/cluster size,
-- storage a I/O,
-- Multi-AZ/read replicas,
-- backup retention,
-- data transfer,
-- licensing,
-- idle connections,
-- inefficient queries,
-- overprovisioned failover capacity.
-
-Database rightsizing bez query a workload analýzy je rizikový.
-
-## 28. Tagging a automation guardrails
-
-Automatizuj:
-
-- required tags pri provisioning,
-- account/OU baseline,
-- expiration tags,
-- untagged-resource reports,
-- sandbox TTL,
-- budget/anomaly ownership,
-- cost allocation coverage,
-- cleanup workflows.
-
-Guardrail musí mať exception process a nesmie blokovať incident recovery.
-
-## 29. Showback a chargeback
+## 15. Showback a chargeback menia správanie
 
 ### Showback
 
-Zobrazuje tímom ich cost bez finančného preúčtovania.
+Tím vidí attributed cost, unit cost a drivers bez P&L transferu. Je vhodný na učenie a validation allocation modelu.
 
 ### Chargeback
 
-Prenáša cost do interného budgetu alebo P&L ownera.
+Cost sa finančne priradí ownerovi. Vyžaduje stable rules, timely data, shared-cost explanation, exception/dispute process a engineering context.
 
-Pred chargebackom zabezpeč:
+Nespravodlivý chargeback motivuje tag gaming, local optimization a presun costu do shared poolu namiesto zníženia total cost.
 
-- dôveryhodnú allocation,
-- vysvetlené shared costs,
-- dispute process,
-- stable dimensions,
-- timely reports,
-- engineering context.
+## 16. Forecast spája history s roadmapou
 
-Nekvalitný chargeback vytvára spory a gaming namiesto optimalizácie.
+Statistical forecast extrapoluje historical pattern. FinOps forecast pridáva:
 
-## 30. Forecasting
+- growth a seasonality;
+- launches a migrations;
+- environment retirement;
+- commitment expiry/purchase;
+- pricing/commercial change;
+- architecture redesign;
+- one-time recovery alebo project cost.
 
-Forecast používa historické data a predpoklady na odhad budúceho spendu.
+Forecast generation musí uviesť assumptions a confidence. Machine forecast bez product roadmapy predpokladá, že budúcnosť sa podobá minulosti.
 
-Zahrň:
-
-- organic growth,
-- product launches,
-- migrations,
-- commitment purchases/expirations,
-- seasonality,
-- price changes,
-- architectural changes,
-- one-time projects.
-
-Machine-generated forecast bez business roadmapy môže byť presný iba pre stabilný workload.
-
-## 31. Cost optimization workflow
+## 17. Optimization change má acceptance contract
 
 ```text
-opportunity
-→ owner a workload context
-→ technical validation
-→ risk/SLO analysis
-→ implementation plan
-→ canary alebo bounded change
-→ observe performance/reliability
-→ measure realized savings
-→ close alebo rollback
+opportunity/hypothesis
+→ exact owner and subject
+→ baseline window and business volume
+→ expected savings and cost metric
+→ SLO/security/reliability guardrails
+→ implementation and rollback
+→ bounded exposure
+→ outcome observation
+→ normalized realized savings
+→ secondary-cost and toil review
 ```
 
-Estimated savings sa nemajú reportovať ako realized savings bez overenia po zmene.
+Estimated savings sa nemajú započítať do planu ako delivered value, kým change nie je nasadený, stable a measured.
 
-## 32. Cost incident response
+### Realized savings formula
 
-Cost incident môže byť:
-
-- runaway resource creation,
-- attack alebo credential compromise,
-- logging cardinality explosion,
-- retry loop,
-- data-transfer spike,
-- misconfigured autoscaling,
-- abandoned high-cost service,
-- pricing/commitment mismatch.
-
-Postup:
+Jednoduché porovnanie:
 
 ```text
-potvrď spend signal a freshness
-→ identifikuj account/service/Region/usage type
-→ koreluj CloudTrail/deployment/traffic
-→ zastav bezpečne rastúci driver
-→ zachovaj evidence
-→ over business impact
-→ oprav root cause a guardrail
-→ validuj ďalšie billing obdobie
+baseline normalized cost for comparable demand
+- post-change normalized cost
+- migration/change cost
+- new secondary costs
+= realized savings
 ```
 
-## 33. Cost governance cadence
+Pri odlišnom volume používaj unit cost alebo counterfactual model. Pri commitment change oddeľ cash timing od amortized economics.
 
-Príklad:
+## 18. Worked failure: cost spike je retry incident, nie rast produktu
 
-- daily: anomaly alerts a critical spend,
-- weekly: engineering optimization backlog,
-- monthly: budget/forecast/showback,
-- quarterly: commitments, architecture a unit economics,
-- annual/strategic: contract, migration a platform investment.
+### Signal
 
-FinOps cadence má byť naviazaná na delivery a business planning, nie oddelená od engineeringu.
+Júlový attributed spend rastie z $84,000 na $128,000. Finance dashboard ukazuje `Application=AtlasPayments` a forecast prekročenie budgetu. Súčasne successful payments klesli z 12.0 milióna na 11.5 milióna.
 
-## 34. Cost a reliability trade-off
+Management navrhne:
 
-Pri každej úspore vyhodnoť:
+- zmenšiť RDS;
+- vypnúť debug a časť audit logs;
+- kúpiť väčší Savings Plan na nový „baseline“;
+- zastaviť non-essential reconciliation workers.
 
-- SLO impact,
-- failover capacity,
-- RTO/RPO,
-- supportability,
-- security/compliance,
-- engineering toil,
-- growth headroom,
-- reversibility.
+### Competing hypotheses
 
-Odstránenie standby capacity môže znížiť účet a zároveň dramaticky zvýšiť expected outage loss.
+1. legitímny traffic growth;
+2. price alebo commitment expiry;
+3. wrong Cost Category/shared-cost allocation;
+4. oversized compute/database;
+5. data-transfer architecture regression;
+6. retry/authentication loop po secret rotation;
+7. logging cardinality explosion alebo útok.
 
-## 35. Cost a sustainability
+### Discriminating evidence
 
-Spoločné opatrenia:
+Cost Data Export a Cost Explorer drill-down ukážu od času rotation `ROT-14`:
 
-- vyššia utilization,
-- autoscaling,
-- odstránenie idle resources,
-- efektívnejší software,
-- správne instance families,
-- data lifecycle,
-- managed services.
+- 8× Lambda invocations a GB-seconds;
+- výrazný nárast `NatGateway-Bytes` k external providerovi;
+- vysoký CloudWatch Logs ingestion volume;
+- RDS CPU a useful transaction count zostali približne stabilné;
+- successful payment volume nerástol;
+- application logs obsahujú repeated authentication failures;
+- CloudTrail a deployment timeline viažu incident na stale consumer-loaded secret state;
+- Savings Plan expiry ani public price change nenastali;
+- Cost Category pravidlo je správne, ale shared NAT allocation oneskorene ukazuje celý impact.
 
-Sustainability a cost však nie sú identické; Region, hardware a environmental impact môžu mať ďalšie faktory.
+Root cause je failure amplification: stale consumers opakovane načítavajú/volajú provider, SDK a event-source retries násobia attempts a každý attempt generuje NAT processing, Lambda compute a logs.
 
-## 36. SOA-C03 mapovanie
+### Containment
 
-- **Domain 1** — performance/capacity analysis, Cost Explorer, anomaly detection, rightsizing a remediation,
-- **Domain 2** — cost reliability trade-offs, backup/DR capacity a commitments,
-- **Domain 3** — tagging, budgets, automation, lifecycle a cost guardrails,
-- **Domain 4** — billing access, audit, cost-allocation governance a compromise-driven spend,
-- **Domain 5** — data transfer, NAT, CDN, cross-AZ/Region a network cost.
+1. obmedz event-source concurrency a retry rate;
+2. pause-ni broken cohorts, nie celý payment workload;
+3. obnov authoritative secret/consumer state podľa `SEC-PAY-42`;
+4. zachovaj cost, CloudTrail, logs a business evidence;
+5. neodstraň audit logs potrebné na incident closure;
+6. nekupuj commitment na incidentový usage.
 
-SOA-C03 exam guide explicitne zahŕňa cost/TCO analysis a billing management. Kandidát musí rozumieť nielen pricing názvom, ale aj operational trade-offom.
+### Recovery a optimization
 
-## 37. Troubleshooting costu
+- oprav rotation consumer-refresh gate;
+- nastav retry budget, backoff a permanent-auth failure classification;
+- evictni stale connection pools;
+- zníž duplicate debug payload bez straty required fields;
+- optimalizuj egress/endpoints iba po flow validation;
+- obnov settlement backlog s idempotency/reconciliation;
+- prepočítaj forecast a commitment baseline bez incidentového usage.
 
-### Neočakávaný EC2 spend
+### Post-change measurement
 
-Over instance-hours, instance type, Region, purchase option, ASG desired capacity, Spot/On-Demand mix a deployment history.
+Nasledujúci porovnateľný period:
 
-### NAT Gateway spike
+```text
+attributed spend = $96,000
+successful payments = 12,200,000
+unit cost ≈ $0.0079 per successful payment
+```
 
-Over bytes processed, cross-AZ route, private endpoints, download loop a centralized-egress path.
+Observed spend je o $32,000 nižší než incidentový júl. Unit cost klesol približne z $0.0111 na $0.0079. FinOps tím však ešte odpočíta jednorazový remediation cost, normalizuje volume/seasonality a overí late billing adjustments pred označením final realized savings.
 
-### CloudWatch cost spike
+### Forbidden-outcome verification
 
-Over log ingestion, retention, custom metrics, high-cardinality dimensions, queries a agents.
+- payment success a p99 latency sa nezhoršili;
+- duplicate settlement rate je nulový podľa reconciliation;
+- RDS a failover headroom zostali zachované;
+- audit/security evidence je stále dostupná;
+- commitment purchase nepokrýva retry waste;
+- shared-cost allocation ukazuje correct owner a driver.
 
-### S3 cost spike
+## 19. Cost incident response
 
-Over storage growth, requests, retrieval, lifecycle, versions, replication a data transfer.
+```text
+potvrď signal, dataset a freshness
+→ scope account/service/Region/usage type
+→ porovnaj business volume a unit cost
+→ koreluj deployment, CloudTrail, traffic and security
+→ identifikuj fastest-growing causal driver
+→ safely contain spend without destroying evidence/recovery
+→ validate business impact
+→ repair root cause and guardrail
+→ reforecast and measure next complete periods
+```
 
-### Savings Plan nízka utilization
+Cost incident môže byť attack, runaway provisioning, retry loop, logs/cardinality explosion, data-transfer regression, autoscaling defect alebo commitment mismatch.
 
-Over architecture migration, stopped capacity, instance-family/Region flexibility a workload seasonality.
+Hard shutdown môže znížiť spend a zároveň zničiť revenue, evidence alebo recovery. Containment je risk decision.
+
+## 20. FinOps cadence a accountability
+
+### Daily
+
+Anomalies, runaway spend, critical budget/usage signals.
+
+### Weekly
+
+Engineering optimization backlog, stale resources, allocation gaps, current incidents.
+
+### Monthly
+
+Invoice/cost reconciliation, unit economics, showback/chargeback, forecast a realized savings.
+
+### Quarterly
+
+Commitments, architecture trade-offs, major rightsizing, shared allocation a roadmap.
+
+### Strategic
+
+Commercial terms, migrations, platform investment, data/Region strategy a TCO.
+
+Central FinOps tím poskytuje data platformu, standards a facilitation. Workload engineering owner vlastní architecture usage a change validation. Finance vlastní accounting/forecast context. Business owner rozhoduje o value a risk trade-offs.
+
+## 21. Troubleshooting podľa observation pointu
 
 ### Cost Explorer a invoice sa nezhodujú
 
-Over dataset, date range, amortization, credits/refunds, taxes, estimated charges a freshness.
+Over cost metric, payer scope, period, finalized/estimated state, credits/refunds, support/tax, amortization a late adjustments.
 
-## 38. Anti-patterny
+### Tag/Cost Category report je neúplný
 
-### Cost optimization iba po prekročení budgetu
+Over activation date, resource tag support, value validity, rule precedence/generation, untagged line items a shared allocation.
 
-Optimalizácia má byť kontinuálna a začína pri architecture design-e.
+### NAT Gateway spend rastie
 
-### Tags bez enforcementu
+Over bytes by source/destination/AZ, route topology, provider/download loop, cross-AZ central egress a endpoint eligibility.
 
-Allocation coverage sa postupne rozpadne.
+### CloudWatch spend rastie
 
-### Estimated savings ako realized savings
+Over ingestion source, debug level, duplicate collection, high-cardinality metrics, retention, query scan a cross-Region subscriptions.
 
-Ignoruje implementáciu a sekundárne dopady.
+### Savings Plan utilization klesne
 
-### Rightsizing iba podľa priemerného CPU
+Over workload shutdown/migration, architecture/family/Region change, sharing, seasonality a whether original baseline contained waste.
 
-Prehliada peaks, memory, I/O a failure headroom.
+### Recommendation savings sa neprejavili
 
-### Commitment nákup podľa jedného mesiaca
+Over whether change was implemented, metric/view, excluded secondary costs, demand change, commitment interaction, observation window a rollback.
 
-Môže uzamknúť nestabilný spend.
+## 22. SOA-C03 mapovanie
 
-### Vypnutie observability kvôli costu
+- **Domain 1** — performance/capacity analysis, cost signals, anomalies a remediation.
+- **Domain 2** — reliability/recovery cost trade-offs a required standby capacity.
+- **Domain 3** — tagging, budgets, lifecycle, automation a repeatable optimization.
+- **Domain 4** — billing access, audit, security-driven spend a governance.
+- **Domain 5** — NAT, transfer, CDN, cross-AZ/Region a network cost.
 
-Môže zvýšiť outage a security risk.
+## 23. Anti-patterny
 
-### Central FinOps tím vlastní všetku optimalizáciu
+### Lowest invoice ako success metric
 
-Engineering nemá spätnú väzbu ani accountability.
+Môže skrývať nižší business volume alebo odstránené controls.
 
-### Budget ako hard spending cap
+### Budget ako hard cap
 
-AWS Budgets je primárne monitoring/notification/control mechanism, nie univerzálny real-time cap.
+Billing evaluation a action sú lagged a nemusia zastaviť usage bezpečne.
 
-## 39. Kontrolné otázky
+### Tag existence ako complete attribution
 
-1. Aký je rozdiel medzi cost, price, value a unit cost?
-2. Na čo slúžia cost allocation tags a Cost Categories?
-3. Ako sa líši unblended a amortized cost?
-4. Čo AWS Budgets robí a čo negarantuje?
-5. Ako funguje Cost Anomaly Detection?
-6. Na čo slúži Cost Optimization Hub?
-7. Kedy sú Savings Plans alebo RIs rizikové?
-8. Ako identifikuješ data-transfer cost driver?
-9. Ako meriaš realized savings?
-10. Prečo FinOps potrebuje engineering, finance aj business?
+Tag nemusí byť activated, validný, supported ani prítomný na line iteme.
+
+### Estimated savings reportované ako realized
+
+Recommendation nepreukazuje deployment ani secondary impacts.
+
+### Rightsizing podľa average CPU
+
+Ignoruje memory, I/O, peaks, failover a SLO.
+
+### Commitment na incidentový month
+
+Uzamkne retry alebo temporary migration waste.
+
+### Vypnutie logs kvôli costu počas incidentu
+
+Odstráni evidence potrebnú na root cause, security a reconciliation.
+
+### Central FinOps tím ako jediný owner
+
+Engineering nemá feedback ani accountability za usage-generating design.
+
+## 24. Kontrolné otázky
+
+1. Ako sa líši price, usage, cost, value a TCO?
+2. Prečo raw request nie je vždy správna business unit?
+3. Ktoré transformations vedú od meteringu k product unit costu?
+4. Ako sa líši tag, Cost Category a shared allocation?
+5. Prečo AWS Budget nie je real-time spending cap?
+6. Čo Cost Anomaly Detection dokazuje a čo nie?
+7. Ako sa z recommendation stane realized savings?
+8. Prečo rightsizing potrebuje failure headroom?
+9. Ako odstrániš incidentový usage z commitment baseline-u?
+10. Aký acceptance verdict uzavrie cost incident?
 
 ## Glossary impact
 
-Relevantné pojmy: FinOps, cloud financial management, unit cost, unit economics, total cost of ownership, cost allocation tag, Cost Category, shared cost allocation, AWS Cost Explorer, unblended cost, blended cost, amortized cost, AWS Budgets, budget action, AWS Cost Anomaly Detection, AWS Data Exports, Cost and Usage Report, AWS Cost Optimization Hub, rightsizing, AWS Compute Optimizer, idle resource, Savings Plans, Reserved Instance utilization, coverage, showback, chargeback, realized savings, cost incident a cost allocation coverage.
+Relevantné pojmy: FinOps subject, billing-generation identity, cost-data cut-off, unit-definition contract, attributed unit cost, allocation-rule generation, effective allocation coverage, shared-cost driver, cost-view identity, recommendation-to-realization gap, normalized realized savings, commitment baseline, incident usage, cost containment verdict, financial data freshness, cross-pillar optimization guardrail a FinOps closure verdict.
 
 ## Oficiálna dokumentácia
 
@@ -767,7 +677,8 @@ Relevantné pojmy: FinOps, cloud financial management, unit cost, unit economics
 - [AWS Cost Anomaly Detection](https://docs.aws.amazon.com/cost-management/latest/userguide/manage-ad.html)
 - [Cost Optimization Hub](https://docs.aws.amazon.com/cost-management/latest/userguide/cost-optimization-hub.html)
 - [AWS Data Exports](https://docs.aws.amazon.com/cur/latest/userguide/what-is-data-exports.html)
-- [AWS Billing and Cost Management home page](https://docs.aws.amazon.com/cost-management/latest/userguide/view-billing-dashboard.html)
+- [AWS Billing and Cost Management](https://docs.aws.amazon.com/account-billing/)
+- [Cost Optimization Pillar](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
