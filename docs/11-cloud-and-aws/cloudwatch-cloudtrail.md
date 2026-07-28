@@ -1,485 +1,610 @@
-# CloudWatch a CloudTrail
+# Amazon CloudWatch a AWS CloudTrail
 
-Amazon CloudWatch a AWS CloudTrail riešia odlišné prevádzkové otázky. CloudWatch odpovedá najmä na „ako sa systém správa“, zatiaľ čo CloudTrail odpovedá na „kto, kedy a akou API operáciou zmenil alebo použil AWS resources“. Incident response potrebuje obe vrstvy a často aj application logs, configuration history a network evidence.
+Amazon CloudWatch a AWS CloudTrail produkujú odlišné dôkazové vrstvy. CloudWatch opisuje stav a správanie systému cez metrics, logs, alarms, dashboards a queries. CloudTrail zaznamenáva AWS API a account activity: kto, kedy, z akej session, nad akým resource a s akým výsledkom vykonal podporovanú operáciu. Ani jedna služba sama nevysvetlí celý incident.
 
-## 1. Mentálny model
-
-```text
-CloudWatch
-metrics + logs + alarms + dashboards + traces/insights
-→ operational state a behavior
-
-CloudTrail
-API a account activity events
-→ actor, action, resource, time, request context a result
-```
-
-CloudWatch nie je automaticky audit log všetkých zmien. CloudTrail nie je performance monitoring systém.
-
-## 2. CloudWatch metrics
-
-Metric je time-series identifikovaná:
-
-- namespace,
-- metric name,
-- dimensions,
-- timestamp,
-- value,
-- unit,
-- resolution.
-
-Dimensions tvoria identitu time series. Chybná alebo chýbajúca dimension môže vytvoriť inú metric, než alarm očakáva.
-
-Rozlišuj:
-
-- AWS service metrics,
-- custom metrics,
-- high-resolution metrics,
-- metric math,
-- percentile statistics,
-- anomaly detection,
-- Metrics Insights queries.
-
-Average môže skryť tail latency, krátky saturation alebo imbalance medzi instances.
-
-## 3. Period, statistic a evaluation
-
-Alarm výsledok závisí od:
-
-- period,
-- statistic,
-- evaluation periods,
-- datapoints to alarm,
-- threshold/comparison,
-- missing-data behavior,
-- dimensions/query scope.
-
-Príklad:
+Dominantný evidence lifecycle:
 
 ```text
-3 evaluation periods
-2 datapoints to alarm
-period 60 s
+operational, security alebo audit otázka
+→ exact resource/release/request/time subject
+→ signal alebo API event generation
+→ collection a delivery
+→ identity/dimensions/schema
+→ retention, protection a queryability
+→ evaluation alebo investigation
+→ correlation naprieč vrstvami
+→ rozhodnutie a action
+→ outcome validation
+→ evidence closure a recurrence control
 ```
 
-Alarm sa prepne, keď aspoň dva z troch hodnotených datapoints porušia podmienku.
+Telemetry nie je pravda iba preto, že existuje dashboard. Audit event nie je business dôkaz iba preto, že API call skončil `Success`.
 
-## 4. Missing data
+## 1. Exact observability a audit subject
 
-Missing data môže znamenať:
+Atlas Payments používa subject `OBS-PAY-42`:
 
-- resource neposlal metric,
-- resource neexistuje,
-- agent zlyhal,
-- dimension sa zmenila,
-- pipeline má oneskorenie,
-- workload je idle a metric sa nepublikuje.
+```text
+account = 100000000042
+Region = eu-central-1
+business service = payments-api
+release = 7.18.0
+deployment generation = ECS-DEP-75
+load balancer/target group generation = ALB-PAY-19 / TG-PAY-31
+Lambda consumer generation = ALIAS-PAY-32
+database generation = DB-PAY-42
+business request = payment P-944
+correlation ID = corr-944
+incident window = 2026-07-28T10:15:00Z..10:42:00Z
 
-Možnosti ako `breaching`, `notBreaching`, `ignore` alebo `missing` treba voliť podľa významu signálu. Pre heartbeat je missing typicky problém. Pre sporadický error counter nemusí byť.
+CloudWatch metric contract =
+  namespace = Atlas/Payments
+  metric = SuccessfulAuthorizations
+  dimensions = Environment=prod, Service=payments-api, Release=7.18.0
+  period = 60 s
+  statistic = Sum
+  expected cadence = every 60 s
 
-## 5. CloudWatch alarms
+alarm generation = ALARM-PAY-SUCCESS-18
+missing data = breaching
+evaluation = 3 of 5 periods
+action = SNS → Systems Manager Automation ARM-PAY-7
 
-CloudWatch podporuje:
+log contract =
+  log group = /atlas/prod/payments-api
+  schema generation = LOG-PAY-24
+  retention = 90 days
+  indexed fields = correlationId, paymentId, release
+  data-protection policy generation = DPP-PAY-6
 
-- metric alarms,
-- composite alarms,
-- log-derived alarms podľa aktuálnych capabilities,
-- actions cez SNS, Auto Scaling alebo ďalšie integrácie.
+CloudTrail contract =
+  organization multi-Region trail = org-audit-v9
+  S3 archive generation = AUDIT-BKT-11
+  management events = enabled
+  selected data events = governed selectors
+  log-file integrity validation = enabled
+  retention/lifecycle generation = RET-AUDIT-14
 
-Alarm má stavy:
+required outcome =
+  operational symptom is detected with correct cohort and time identity
+  API change is attributable to actual principal/session
+  automation is bounded and validates business recovery
+  evidence remains queryable and protected
 
-- `OK`,
-- `ALARM`,
-- `INSUFFICIENT_DATA`.
+forbidden outcomes =
+  missing telemetry is silently interpreted as healthy
+  wrong dimension alarms on an obsolete time series
+  alarm action loops without checking application outcome
+  Event history is treated as long-term complete audit archive
+  CloudTrail success is treated as proof that desired state was realized
+  sensitive payment payloads are retained unredacted
+```
 
-Alarm action nie je remediation guarantee. SNS delivery, target IAM, downstream automation a idempotencia sú samostatné contracts.
+Evidence musí uvádzať account, Region, resource/release generation, exact metric identity, alarm configuration/history, log schema and ingestion timeline, CloudTrail event ID/request ID, assumed-role session chain, automation execution ID a business result.
 
-## 6. Composite alarms
+## 2. CloudWatch odpovedá na otázku „ako sa systém správa“
 
-Composite alarm kombinuje stavy iných alarmov.
+CloudWatch zahŕňa viac dátových modelov:
 
-Použitie:
+- metrics pre bounded time-series;
+- Logs pre event records;
+- alarms ako evaluation state machines;
+- dashboards a investigations;
+- query mechanisms ako Metrics Insights a Logs Insights;
+- integrácie pre notification a remediation.
 
-- zníženie alert fatigue,
-- maintenance suppression,
-- korelácia symptom + dependency,
-- multi-signal incident condition.
+CloudWatch neobjaví automaticky všetky potrebné signály. AWS service metrics môžu pokrývať infrastructure behavior, ale application memory, queue business age, payment success alebo release identity treba emitovať explicitne.
 
-Nevýhoda: príliš zložitá boolean logika môže skryť root signal a sťažiť troubleshooting.
+## 3. Metric identity je contract, nie label na grafe
 
-## 7. Dashboards
+CloudWatch metric time series identifikuje kombinácia:
 
-Dashboard má podporovať rozhodnutie, nie iba zobrazovať všetky metrics.
+```text
+namespace
++ metric name
++ complete dimension set
++ Region/account context
+```
 
-Vrstvy:
+`Service=payments-api` a `Service=payments` sú dve odlišné series. Pridanie `Release=7.18.0` nevylepší existujúcu metric; vytvorí ďalšiu identitu.
 
-1. business outcome,
-2. service SLI,
-3. dependency health,
-4. resource saturation,
-5. deployment/config changes.
+Dimensions majú byť bounded a operationally meaningful. Request ID, payment ID alebo user ID ako dimension vytvára high-cardinality explosion. Takéto identity patria do logs alebo traces; metric má agregovať rozhodnuteľný cohort.
 
-Dashboard bez alarm ownershipu a runbooku nie je operational control.
+Unit, timestamp, resolution a publication cadence sú súčasťou contractu. Hodnota `0` a missing datapoint nie sú to isté.
 
-## 8. CloudWatch Logs
+## 4. Statistic a period menia význam signálu
 
-CloudWatch Logs používa:
+Alarm alebo graph vyhodnocuje datapoints podľa periodu a statistic:
 
-- log group,
-- log stream,
-- log event,
-- retention,
-- subscription filter,
-- metric filter,
-- Logs Insights query.
+```text
+raw samples
+→ period aggregation
+→ Sum/Average/Min/Max/percentile alebo query
+→ threshold evaluation
+```
 
-Log group je policy a lifecycle boundary pre retention, KMS encryption, access a subscriptions.
+`Average latency` môže skryť poškodený tail alebo jednu AZ. `Sum` error count bez traffic denominatora môže vyzerať horšie počas špičky. Percentile pri malom počte samples má iný význam než pri stabilnom veľkom cohort-e.
 
-Nastav explicitne:
+Signal contract má vysvetliť:
 
-- retention,
-- data classification,
-- masking/redaction,
-- cross-account destination,
-- ingestion rate a cost guardrails,
-- archive/export potrebu.
+- čo sample znamená;
+- aký cohort pokrýva;
+- aká agregácia je správna;
+- aký delay a cadence sa očakáva;
+- ktorý business decision z neho vzniká.
 
-## 9. CloudWatch Logs Insights
+## 5. Missing data je explicitný stav
 
-Logs Insights umožňuje interaktívne query nad log groups.
+Missing datapoint môže znamenať:
 
-Použitie:
+- workload je idle a nič nepublikuje;
+- agent/exporter zlyhal;
+- resource prestal existovať;
+- dimension/schema sa zmenila;
+- network alebo ingestion path zlyhal;
+- query už nevracia series;
+- telemetry pipeline mešká.
 
-- filter status codes,
-- parse structured fields,
-- group by service/version,
-- analyze latency percentiles,
-- correlate request IDs,
-- compare before/after deployment.
+Alarm môže podľa konfigurácie missing data považovať za `breaching`, `notBreaching`, `ignore` alebo `missing`. Správna voľba závisí od semantics.
 
-Query cost a latency závisia od scanned data. Narrow time window, selected fields a structured logs znižujú scan surface.
+Heartbeat alebo expected periodic success metric má missing často považovať za incident telemetry alebo služby. Sporadický error counter bez eventov nemusí publikovať nulu; missing preto nesmie automaticky znamenať error-free.
+
+Najbezpečnejší model často oddeľuje:
+
+```text
+business outcome alarm
++ telemetry freshness alarm
++ dependency/resource alarms
+```
+
+## 6. Alarm je state machine
+
+Metric alarm kombinuje:
+
+- metric/query identity;
+- period a statistic;
+- threshold/comparison;
+- evaluation periods;
+- datapoints to alarm;
+- missing-data behavior;
+- actions;
+- current/history state.
+
+Stavy `OK`, `ALARM` a `INSUFFICIENT_DATA` opisujú evaluation, nie business reality. Alarm môže byť `OK`, lebo sleduje wrong dimension. Môže byť `ALARM`, hoci application je zdravá a publisher zmenil schema.
+
+Composite alarm kombinuje stavy underlying alarms. Pomáha pri suppression a korelácii, ale komplexná boolean logika môže skryť root signal. Underlying alarm identity a runbook musia zostať viditeľné.
+
+Alarm action je ďalší distributed workflow:
+
+```text
+alarm transition
+→ action delivery
+→ target authorization
+→ automation admission
+→ mutation
+→ reconciliation
+→ application validation
+```
+
+Každý krok môže zlyhať alebo sa opakovať.
+
+## 7. Dashboards majú podporovať rozhodnutie
+
+Operational dashboard má vrstvy:
+
+```text
+business outcome
+→ client/service SLI
+→ dependency behavior
+→ resource saturation
+→ release/configuration/audit changes
+```
+
+Dashboard plný CPU, memory a request countov môže byť technicky bohatý a prevádzkovo slabý. Pri payment incidente musí byť viditeľné: authorization success, latency, duplicate rate, queue age, release cohort, dependency errors a recent changes.
+
+Dashboard nie je alerting contract. Screenshot nie je durable incident evidence, pokiaľ neobsahuje query/time/cohort identity.
+
+## 8. CloudWatch Logs sú schema a lifecycle boundary
+
+Log event prechádza:
+
+```text
+application/agent emission
+→ local buffering/stdout
+→ transport
+→ log group a stream
+→ ingestion timestamp
+→ retention/protection
+→ index/query/subscription
+→ incident decision
+```
+
+Log group definuje policy boundary pre retention, KMS, access, data protection, class a subscriptions. Infinite retention zvyšuje cost aj data exposure.
+
+Structured log má niesť stabilné fields, napríklad:
+
+```json
+{
+  "timestamp": "2026-07-28T10:21:14Z",
+  "service": "payments-api",
+  "release": "7.18.0",
+  "correlationId": "corr-944",
+  "paymentId": "P-944",
+  "operation": "authorize",
+  "outcome": "success",
+  "durationMs": 183
+}
+```
+
+Secret, token, authorization header, card data alebo celý incoming payload sa nesmie logovať bez classification a masking contractu.
+
+## 9. Logs Insights a field indexes
+
+Logs Insights umožňuje parse, filter, aggregate a correlate logs v časovom okne. Query cost a latency závisia od scanned volume a log class/capabilities.
+
+Field indexes môžu pri podporovaných queries znížiť scan volume tým, že preskočia events, ktoré indexované field/value neobsahujú. Index nie je úplnosť ani correctness garancia. Query musí stále definovať exact time range, log groups, field schema a expected source coverage.
+
+Praktický investigation chain:
+
+```text
+paymentId/correlationId
+→ application request log
+→ downstream/provider log
+→ task/Lambda release
+→ target/AZ
+→ database transaction
+→ audit change
+```
 
 ## 10. Metric filters a Embedded Metric Format
 
-Metric filter vytvára metric z matching log events. Embedded Metric Format umožňuje aplikácii zapisovať structured logs, z ktorých CloudWatch extrahuje metrics.
+Metric filter vytvára metric z matching log events. Embedded Metric Format umožňuje extrahovať metrics zo structured logs.
 
-Riziká:
+Výhoda je jednoduchšie spojenie contextu a metric emission. Riziká:
 
-- high-cardinality dimensions,
-- unbounded tenant/request IDs,
-- duplicate metrics,
-- delayed logs,
-- parser changes,
-- cost explosion.
+- parser/schema change zastaví alebo zmení series;
+- duplicate log delivery môže skresliť count;
+- high-cardinality dimensions zvýšia cost;
+- delayed ingestion oneskorí alarm;
+- filter môže potichu prestať matchovať.
 
-Metric dimensions musia byť bounded a operationally meaningful.
+Metric extraction pipeline potrebuje test s positive aj forbidden samples a alarm na telemetry freshness.
 
-## 11. CloudWatch agent
+## 11. Agent a collection path
 
-CloudWatch agent môže zbierať:
-
-- OS metrics,
-- application/system logs,
-- traces podľa konfigurácie,
-- StatsD alebo collectd inputs podľa supportu.
+CloudWatch agent môže zbierať guest OS metrics, logs a ďalšie podporované telemetry. EC2 infrastructure metrics automaticky neobsahujú všetky guest údaje, napríklad filesystem alebo memory usage.
 
 Agent potrebuje:
 
-- IAM permissions,
-- network path k endpoints,
-- configuration,
-- service health,
-- disk buffer/headroom,
-- time synchronization.
+```text
+valid configuration
+→ running process
+→ readable source
+→ local disk/buffer headroom
+→ IAM
+→ DNS/network/TLS endpoint path
+→ log/metric destination
+→ ingestion evidence
+```
 
-EC2 basic metrics neobsahujú automaticky všetky guest OS údaje, napríklad memory utilization alebo filesystem usage.
+Missing logs sa nemajú riešiť iba v CloudWatch console. Node-side agent logs a buffer state môžu odlíšiť emission failure od delivery failure.
 
-## 12. Cross-account observability
+## 12. Centralizácia a cross-account observability
 
-Central observability model môže agregovať metrics, logs a traces z viacerých accounts/Regions.
+Monitoring account môže získať visibility do source accounts podľa CloudWatch cross-account modelu. Centralizácia znižuje context switching a umožňuje cross-account views.
 
-Navrhni:
+Stále treba definovať:
 
-- monitoring account,
-- source-account enrollment,
-- least-privilege read/share,
-- naming a tagging,
-- Region coverage,
-- data retention a residency,
-- incident access,
-- cost allocation.
+- account/Region coverage;
+- source enrollment;
+- least-privilege access;
+- naming a tags;
+- retention a data residency;
+- incident break-glass;
+- cost allocation;
+- fallback pri výpadku central plane-u.
 
-Centralizácia nesmie odstrániť local break-glass visibility pri výpadku shared observability vrstvy.
+Central dashboard nesmie byť jediný spôsob, ako overiť local production state.
 
-## 13. CloudTrail events
+## 13. CloudTrail odpovedá na otázku „kto vykonal akú AWS operáciu“
 
-CloudTrail event typicky obsahuje:
+CloudTrail event typicky nesie:
 
-- event time,
-- event source a name,
-- AWS Region,
-- source IP/user agent,
-- user identity,
-- request parameters,
-- response elements,
-- resources,
-- request ID,
-- error code/message.
+- `eventTime`;
+- `eventSource` a `eventName`;
+- Region;
+- `userIdentity`;
+- assumed-role/session issuer context;
+- source IP a user agent;
+- request parameters a response elements podľa eventu;
+- resources;
+- request ID a event ID;
+- error code/message;
+- event category.
 
-Nie každé pole je vždy dostupné a citlivé hodnoty môžu byť redacted.
+Nie každé pole je vždy prítomné a citlivé hodnoty môžu byť redacted. `userIdentity` treba rozbaliť až na session issuer, source identity a automation chain; display name roly sám nemusí identifikovať človeka alebo pipeline.
 
 ## 14. Management, data a network activity events
 
 ### Management events
 
-Control-plane operácie, napríklad vytvorenie role, zmena Security Group alebo stop instance.
+Control-plane operations, napríklad `UpdateService`, `PutMetricAlarm`, zmena Security Group alebo role.
 
 ### Data events
 
-High-volume operations nad konkrétnymi data-plane resources, napríklad S3 object alebo Lambda invoke podľa selectoru.
+High-volume data-plane operations nad vybranými resources, napríklad S3 object access alebo Lambda invoke podľa selectorov a podporovaných typov.
 
 ### Network activity events
 
-Podľa podporovaných služieb zaznamenávajú network activity cez VPC endpoints a súvisiace výsledky.
+Podľa podporovaných services zaznamenávajú vybrané network activity cez VPC endpoints a výsledok authorization/connectivity vrstvy.
 
-Data events nie sú automaticky zahrnuté v každom trail-e a môžu mať významný cost/volume.
+Coverage nie je automatická. Data a network activity events sa vyberajú cez selectors a môžu mať významný volume/cost. Incident runbook musí vedieť, či exact resource/action bola vôbec configured na logging.
 
-## 15. Event history
+## 15. Event history nie je dlhodobý audit archive
 
-CloudTrail Event history poskytuje recent management events per Region pre account, aktuálne typicky za posledných 90 dní.
+CloudTrail Event history poskytuje posledných 90 dní management events pre account v aktuálnom Region context-e. Je vhodný na rýchle lookup.
 
 Nie je náhradou za:
 
-- organization-wide trail,
-- dlhodobú retention,
-- immutable central log archive,
-- data events,
-- custom query/analytics model.
+- ongoing trail;
+- organization-wide coverage;
+- data/network activity events;
+- dlhodobú retention;
+- protected central archive;
+- custom cross-account query model.
 
-## 16. Trails
+Ak incident vyžaduje event spred 120 dní, Event history ho neposkytne.
 
-Trail zabezpečuje ongoing delivery events do S3 a voliteľne CloudWatch Logs/EventBridge integrations.
+## 16. Trail je delivery contract
 
-Production baseline:
+Trail vyberá events a priebežne ich doručuje do S3; môže mať ďalšie integrations podľa configuration.
 
-- multi-Region trail,
-- organization trail podľa modelu,
-- management events,
-- selektívne data events,
-- log-file validation,
-- KMS encryption podľa requirementu,
-- protected central S3 bucket,
-- lifecycle/retention,
-- alerts na zmenu alebo zastavenie loggingu.
+Production baseline typicky obsahuje:
 
-## 17. Organization trail
+```text
+multi-Region alebo organization scope
+→ management-event coverage
+→ governed data/network selectors
+→ central S3 destination
+→ bucket a KMS policy
+→ log-file integrity validation
+→ retention/lifecycle
+→ monitoring zmeny a delivery failure
+```
 
-Organization trail centralizuje coverage member accounts. Potrebuje:
+Organization trail potrebuje trusted access/delegated administration a log archive account. Member workload admin nemá mať jednoduchú možnosť odstrániť central audit evidence.
 
-- trusted access/delegated admin podľa modelu,
-- log archive account,
-- bucket/key policies,
-- Region strategy,
-- protection pred deletion/tampering,
-- onboarding/offboarding validation.
+## 17. Log-file integrity validation má presný význam
 
-Member account admin nesmie byť schopný jednoducho vymazať central evidence.
+CloudTrail môže doručovať digest files pre integrity validation. Zapnutie feature iba produkuje potrebné digest records; validáciu treba reálne vykonať.
 
-## 18. CloudTrail Lake a event data stores
+Integrity validation môže preukázať, že delivered log file nebol po delivery zmenený alebo vymazaný v rámci validovaného chainu. Nezaručuje:
 
-CloudTrail Lake poskytuje event data stores a SQL query model pre audit a investigation. Aktuálna AWS dokumentácia uvádza zmenu dostupnosti: od 31. mája 2026 už služba nie je otvorená novým zákazníkom; existujúci zákazníci ju môžu ďalej používať. Architektúra pre nového zákazníka preto nesmie automaticky predpokladať CloudTrail Lake ako dostupnú voľbu.
+- že selector zachytával required event;
+- že trail bol vždy enabled;
+- že event service field obsahuje všetok business context;
+- že S3 retention/access model je správny;
+- že application outcome zodpovedal API callu.
 
-Alternatívny analytics model môže používať central S3, Glue/Athena, OpenSearch alebo SIEM podľa requirements.
+## 18. CloudTrail Lake availability je časovo citlivý design constraint
 
-## 19. CloudTrail Insights
+AWS dokumentácia uvádza, že CloudTrail Lake od 31. mája 2026 nie je otvorený novým zákazníkom; existujúci zákazníci ho môžu ďalej používať podľa service availability contractu. Nová architektúra preto nesmie predpokladať, že event data store možno pre nový customer/account model vždy založiť.
 
-Insights deteguje nezvyčajnú API call alebo error-rate aktivitu pre podporovaný event model.
+Alternatívny query/archive model môže používať protected S3 trail delivery a služby ako Athena, Glue, OpenSearch alebo SIEM podľa requirements. Presná voľba musí zachovať schema, retention, tamper protection, query performance a cost.
 
-Nie je to všeobecný threat-detection systém. Findings potrebujú kontext, baseline a koreláciu s identity, resource a security telemetry.
+## 19. CloudWatch a CloudTrail sa korelujú cez time a identity
 
-## 20. Integrita a ochrana audit logov
-
-Chráň:
-
-- S3 bucket policy,
-- Object Lock/versioning podľa requirementu,
-- KMS key policy,
-- log-file validation,
-- delete/lifecycle permissions,
-- cross-account delivery role,
-- CloudTrail configuration,
-- root a break-glass events.
-
-Audit admin a workload admin nemajú byť rovnaká neobmedzená rola.
-
-## 21. CloudWatch oproti CloudTrail pri incidente
-
-Príklad: RDS CPU náhle stúplo po zmene Security Group.
+Príklad deployment incidentu:
 
 ```text
 CloudWatch
-→ CPU, connections, latency, errors, alarms
+→ business failures začali 10:21
+→ iba release 7.18.0 a AZ-b cohort
+→ target errors a dependency latency
 
 CloudTrail
-→ kto zmenil SG, kedy, z akej session, request parameters
+→ UpdateService o 10:18
+→ assumed role pipeline-prod
+→ task definition 119
+→ request ID a source session
 
-VPC Flow Logs / DB logs
-→ reálny traffic a query behavior
+ECS/application/database evidence
+→ ktorý task prijal corr-944
+→ aký secret/config/image mal
+→ kde transaction zlyhala
 ```
 
-Žiadna jedna vrstva nevysvetlí celý incident.
+CloudTrail ukáže zmenu desired state. Neoverí, že všetky tasks skutočne spustili novú revision. CloudWatch ukáže symptom. Neidentifikuje automaticky človeka alebo pipeline, ktorá zmenu vykonala.
 
-## 22. EventBridge integrácia
+## 20. Automated remediation je kontrolovaný change workflow
 
-CloudTrail-compatible service events a direct service events možno routovať cez EventBridge na:
-
-- alert,
-- automation,
-- ticket,
-- security response,
-- enrichment pipeline.
-
-Event pattern musí byť presný. Broad pattern môže spustiť remediation loop alebo vysoký cost.
-
-## 23. Alarm design
-
-Dobrý alarm má:
-
-- jasný symptom alebo risk,
-- ownera,
-- severity,
-- actionable threshold,
-- runbook,
-- deduplication/suppression,
-- escalation,
-- recovery condition,
-- test.
-
-Preferuj outcome/signals pred internými low-level metrics, ak low-level signal nie je priamo actionable.
-
-## 24. Automated remediation
-
-Chain:
+Bezpečný chain:
 
 ```text
-metric/event
-→ alarm/EventBridge rule
-→ SNS/Lambda/Systems Manager Automation
-→ scoped IAM role
-→ idempotent action
-→ validation
-→ audit a rollback
+validated symptom
+→ bounded alarm condition
+→ notification/approval podľa risku
+→ scoped automation role
+→ idempotent mutation
+→ controller convergence
+→ technical a business validation
+→ rollback/escalation
+→ audit closure
 ```
 
-Automated restart bez root-cause guardrails môže vytvoriť loop a odstrániť evidence.
+Automation musí mať:
 
-## 25. Troubleshooting CloudWatch
+- exact target generation;
+- max concurrency/error budget;
+- deduplication;
+- cooldown;
+- stop condition;
+- precondition a postcondition;
+- evidence preservation;
+- rollback alebo escalation path.
 
-### Alarm ostáva `INSUFFICIENT_DATA`
+Restart môže odstrániť volatile evidence a dočasne maskovať root cause. Alarm action bez business validation nie je remediation.
 
-Over metric namespace/name/dimensions, period, publication frequency, missing-data behavior a Region.
+## 21. Worked failure: wrong metric identity spustí remediation loop
 
-### Metric exists, alarm nereaguje
+Release 7.18.0 zmení structured telemetry field z `Service=payments-api` na `Service=payments`. Application naďalej úspešne autorizuje platby, ale alarm sleduje starú series.
 
-Over statistic, unit, threshold, evaluation periods, query return a alarm history.
+### Competing hypotheses
+
+1. payment authorizations skutočne klesli na nulu;
+2. metric publisher alebo log filter zlyhal;
+3. dimension/schema sa zmenila;
+4. ingestion mešká;
+5. alarm query sleduje wrong Region/account;
+6. automation action zlyhala a opakuje sa.
+
+### Discriminating evidence
+
+Business ledger a provider success count sú stabilné. Logs pre release 7.18.0 prichádzajú, ale EMF events používajú dimension `Service=payments`. `ListMetrics`/query ukáže novú time series; stará `Service=payments-api` po rollout-e prestala publikovať.
+
+Alarm generation `ALARM-PAY-SUCCESS-18` má missing data `breaching`. Po troch missing periods prejde do `ALARM` a spustí `ARM-PAY-7`, ktorá force-ne ECS deployment. Nové tasks znova emitujú iba novú dimension, takže alarm ostáva v slučke.
+
+CloudTrail korelácia ukáže:
+
+```text
+10:18 UpdateService → release 7.18.0
+10:21 old metric series missing
+10:24 alarm ALARM
+10:24 StartAutomationExecution ARM-PAY-7
+10:25 UpdateService forceNewDeployment
+10:30 repeated automation execution
+```
+
+Až opakované deploymenty znížia healthy capacity a vytvoria reálne payment errors. Root cause nie je prvotný business outage, ale telemetry contract drift + missing-data semantics + remediation bez postcondition.
+
+### Evidence-preserving containment
+
+- alarm action sa disable-ne alebo automation target sa pozastaví;
+- alarm a execution history sa zachová;
+- healthy task cohort sa prestane zbytočne recyklovať;
+- business success sa overí nezávislým ledger/provider query;
+- telemetry gaps sa označia ako observability incident, nie automaticky service failure.
+
+### Authoritative recovery
+
+1. schválená metric identity sa obnoví alebo versionuje ako nový contract;
+2. publisher aj alarm sa deploynú kompatibilne;
+3. samostatný telemetry-freshness alarm sleduje expected emission;
+4. business success alarm používa numerator/denominator a správny cohort;
+5. remediation vyžaduje symptom + telemetry-validity precondition;
+6. automation používa cooldown, execution deduplication a post-action business validation;
+7. alarm sa testuje syntetickým breach, missing a recovery scenárom.
+
+### Acceptance verdict
+
+Incident je uzavretý, keď:
+
+- approved metric series publikuje v každom period-e;
+- alarm prechádza správne cez `OK`, `ALARM`, `INSUFFICIENT_DATA`;
+- missing publisher vyvolá telemetry incident, nie nekonečný service restart;
+- exact business failure vyvolá jeden bounded remediation execution;
+- CloudTrail vie priradiť zmenu alarmu aj automation k session;
+- dashboard rozlišuje release/AZ a neagreguje poškodený cohort;
+- payment authorization SLO je obnovené;
+- forbidden test so zmenenou dimension neaktivuje destructive loop.
+
+Skorší control: observability contract test porovná expected namespace, metric, dimensions, cadence, log schema, alarm query, missing-data semantics a automation postcondition ešte pred promotion release-u.
+
+## 22. Troubleshooting CloudWatch
+
+### Alarm zostáva `INSUFFICIENT_DATA`
+
+Over exact metric identity, Region/account, query result, publication cadence, period, missing-data behavior a resource existence. Nezačínaj zmenou threshold-u.
+
+### Metric existuje, alarm nereaguje
+
+Porovnaj dimension set, statistic, unit, period, datapoints-to-alarm, time alignment a alarm history. Graph môže zobrazovať inú aggregation než alarm.
 
 ### Logs chýbajú
 
-Over agent/runtime logs, IAM, log group/stream, endpoint/network, retention/deletion a application stdout configuration.
+Rozlíš application emission, stdout/file path, agent/runtime, local buffer, IAM, network endpoint, log-group identity, retention/deletion a subscription transformation.
 
-### Logs cost prudko rastie
+### Query nič nenájde
 
-Over ingestion source, debug level, duplicate subscriptions, retention, high-volume payloads a unbounded structured fields.
+Over time zone/window, source log groups, ingestion time, field/schema generation, parsing a index applicability. Absencia query resultu nie je automaticky absencia udalosti.
 
-## 26. Troubleshooting CloudTrail
+## 23. Troubleshooting CloudTrail
 
 ### Event nenájdeš
 
-Over account, Region, event type, time window, management/data selector, global service handling a caller event source.
+Over account, Region, event time, event category, trail/selectors, global-service semantics, exact API event name a caller. Event history obsahuje iba recent management events.
 
 ### Trail nedoručuje do S3
 
-Over trail status, bucket policy, KMS key policy, prefix, Region, CloudTrail service principal a error notifications.
+Over trail status, bucket prefix/policy, KMS key policy, service principal, Region, destination ownership a CloudTrail delivery errors.
 
-### Organization account chýba
+### Actor nie je jasný
 
-Over organization trail status, account membership, delegated admin/trusted access a delivery permissions.
+Analyzuj `userIdentity`, assumed-role ARN, principal ID, session issuer, source identity, user agent, source IP, request ID a upstream automation/audit record.
 
-### Kto vykonal zmenu nie je jasný
+### API success, ale resource je wrong
 
-Analyzuj `userIdentity`, assumed-role ARN, session issuer, source identity, user agent, source IP a request ID.
+CloudTrail dokazuje accepted API operation, nie eventual reconciliation. Pokračuj service events, resource state, controller, runtime a business acceptance.
 
-## 27. SOA-C03 mapovanie
+## 24. Security, retention a cost
 
-- **Domain 1** — hlavná kapitola pre metrics, logs, alarms, dashboards, analysis, remediation a performance.
-- **Domain 2** — monitoring backup/failover health, recovery validation a continuity alarms.
-- **Domain 3** — telemetry provisioning, agent deployment, organization trails a automation.
-- **Domain 4** — audit evidence, tamper protection, encryption, log access a compliance.
-- **Domain 5** — network metrics/logs, DNS/load-balancer telemetry a flow correlation.
+Chráň:
 
-Praktické drilly:
+- log group a archive policies;
+- KMS keys;
+- CloudTrail configuration;
+- delete/lifecycle permissions;
+- root a break-glass events;
+- data-protection/masking policies;
+- query/export roles;
+- subscription destinations;
+- alarm a automation mutation permissions.
 
-- alarm používa chybnú dimension,
-- missing data je nesprávne považované za OK,
-- CloudWatch agent nemá IAM alebo endpoint path,
-- organization trail bucket policy blokuje delivery,
-- data events nie sú zapnuté pre incident resource,
-- log metric filter vytvára high-cardinality cost spike,
-- remediation Lambda vytvorí retry loop.
+Cost drivers:
 
-## 28. Anti-patterny
+```text
+custom metric series a resolution
++ alarms/queries
++ log ingestion a retention
++ Logs Insights scan
++ subscription/export
++ CloudTrail paid copies/data/network events
++ archive/query platform
+```
 
-### Všetky metrics na jednom dashboarde
+Cardinality a debug payload môžu zvýšiť cost rádovo viac než samotný počet services. Cost control nesmie odstrániť required audit coverage alebo skrátiť retention pod incident/compliance window.
 
-Znižuje signal-to-noise a nevedie k rozhodnutiu.
+## 25. Kontrolné otázky
 
-### Infinite log retention bez klasifikácie
-
-Zvyšuje cost a data exposure.
-
-### CloudTrail Event history ako jediný audit archive
-
-Je recent, regionálny a management-event orientovaný.
-
-### Alarm na priemernú latency
-
-Môže skryť poškodený tail alebo jednu AZ.
-
-### Automatická remediation bez validation
-
-Zmena môže zlyhať alebo spôsobiť ďalší incident.
-
-### CloudTrail vypnutý počas troubleshooting testu
-
-Odstráni najdôležitejšiu evidence vrstvu.
-
-## 29. Kontrolné otázky
-
-1. Aký je rozdiel medzi CloudWatch a CloudTrail?
-2. Čo tvorí identitu CloudWatch metric?
-3. Ako funguje missing-data behavior alarmu?
-4. Kedy použiť composite alarm?
-5. Prečo sú high-cardinality dimensions rizikové?
-6. Aký je rozdiel medzi management a data eventom?
-7. Čo Event history poskytuje a čo nie?
-8. Ako chrániš organization trail?
-9. Ako koreluješ performance incident s configuration change?
-10. Čo potrebuje bezpečná automated remediation?
+1. Aký je rozdiel medzi operational telemetry a audit evidence?
+2. Čo tvorí exact CloudWatch metric identity?
+3. Prečo missing datapoint nie je nula?
+4. Ako alarm action vzniká ako samostatný distributed workflow?
+5. Čo má obsahovať rozhodovací dashboard?
+6. Aký je rozdiel medzi CloudTrail management, data a network activity eventom?
+7. Čo Event history poskytuje a čo neposkytuje?
+8. Čo log-file integrity validation dokazuje a čo nie?
+9. Ako koreluješ CloudWatch symptom s CloudTrail change eventom?
+10. Aké gates potrebuje bezpečná automated remediation?
 
 ## Glossary impact
 
-Relevantné pojmy: Amazon CloudWatch, CloudWatch metric, namespace, dimension, period, statistic, CloudWatch alarm, composite alarm, missing data, CloudWatch Logs, log group, log stream, Logs Insights, metric filter, Embedded Metric Format, CloudWatch agent, AWS CloudTrail, management event, data event, network activity event, Event history, trail, organization trail, log-file validation, CloudTrail Insights a event data store.
+Relevantné pojmy: observability evidence subject, metric identity contract, telemetry freshness, alarm evaluation generation, missing-data verdict, evidence coverage, audit-delivery contract, actor-session chain, realization gap, remediation execution subject a observability acceptance verdict.
 
 ## Oficiálna dokumentácia
 
-- [What is Amazon CloudWatch?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
+- [Amazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
 - [CloudWatch metrics concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
 - [CloudWatch alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Alarms.html)
-- [What is CloudWatch Logs?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
-- [What is AWS CloudTrail?](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
-- [CloudTrail concepts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html)
-- [CloudTrail trails](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-trails.html)
+- [Missing data in alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarms-and-missing-data.html)
+- [Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
+- [CloudWatch Logs field indexes](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatchLogs-Field-Indexing.html)
+- [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
+- [CloudTrail events](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-events.html)
 - [CloudTrail Event history](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html)
+- [CloudTrail trails](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-trails.html)
+- [CloudTrail log-file integrity validation](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-file-validation-intro.html)
+- [CloudTrail Lake availability change](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake-service-availability-change.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
