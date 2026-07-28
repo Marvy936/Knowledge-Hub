@@ -906,6 +906,10 @@ Ochranný mechanizmus presadzujúci immutable retention pravidlá backup vaultu 
 
 AWS Cost Management capability na sledovanie cost, usage, commitment utilization alebo coverage voči definovaným thresholds s notifications a voliteľnými actions. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
+## AWS capability subject
+
+Versionovaná identita cloudovej business capability zahŕňajúca account, Region, resources, application artifact, configuration, credential a data generations spolu s požadovaným business outcome-om. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
+
 ## AWS Certified CloudOps Engineer – Associate
 
 Associate-level AWS certifikácia overujúca deployment, management a operations workloads na AWS v oblastiach monitoring/remediation, reliability, automation, security a networking. Pozri [SOA-C03 guide](docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md).
@@ -954,9 +958,17 @@ AWS služba na centrálne riadenie kolekcie účtov cez management account, root
 
 AWS-managed infrastructure umiestnená v zákazníckej alebo colocation lokalite a prepojená s parent AWS Regionom, určená pre hybridné workloady s locality alebo latency požiadavkami. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
+## AWS placement subject
+
+Exact account, Region, AZ ID, subnet, resource, release, data a capacity identity použitá na rozhodovanie o umiestnení a failure-domain recovery. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
 ## AWS Region
 
 Geografická AWS infraštruktúrna oblasť obsahujúca viac Availability Zones a predstavujúca regionálnu service, data-residency a fault-isolation boundary. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## AWS responsibility subject
+
+Konkrétny account, Region, service/resource, feature, configuration, principal, data a requested outcome, ku ktorému sa viaže provider/customer/shared responsibility verdict. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
 ## AWS sandbox account
 
@@ -1838,6 +1850,10 @@ Voliteľný Kubernetes control-plane component spúšťajúci cloud-provider-spe
 
 Klasifikácia určujúca, kde cloud infraštruktúra beží, komu je určená a ako sa prepája a riadi, napríklad public, private alebo hybrid cloud. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
+## Cloud deployment subject
+
+Versionovaná identita umiestnenia capability zahŕňajúca public/private/hybrid domains, accounts, sites, networks, identity, DNS, connectivity, data a management generations. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
 ## Cloud financial management
 
 Disciplína merania, alokácie, plánovania, kontroly a optimalizácie cloud spendu podľa business value a operational trade-offov. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
@@ -1853,6 +1869,10 @@ Identita cloud-controller alebo provider operation zahŕňajúca cluster, contro
 ## Cloud service model
 
 Model opisujúci rozdelenie prevádzkovej a bezpečnostnej zodpovednosti medzi providerom a zákazníkom naprieč infraštruktúrou, platformou, aplikáciou a dátami. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
+
+## Cloud service-model subject
+
+Konkrétny service contract viazaný na business capability, provider/customer responsibility boundary, effective configuration, evidence, recovery a exit model; nie iba označenie IaaS, PaaS alebo SaaS. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
 
 ## CloudFront Functions
 
@@ -2317,6 +2337,10 @@ Situácia, v ktorej privileged komponent vykoná operáciu v prospech nesprávne
 ## Congestion control
 
 Transportný mechanizmus upravujúci množstvo dát in flight podľa odhadovanej kapacity a congestion signálov network pathu. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
+
+## Connected/disconnected behavior
+
+Explicitný contract určujúci, ktoré workload, identity, data a management operations pokračujú, fail-closed alebo sa bufferujú pri strate WAN alebo central cloud control plane-u. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
 ## Connection draining
 
@@ -3277,6 +3301,10 @@ Mechanizmus serializujúci alebo koordinujúci mutations jedného environmentu, 
 ## Deployment marker
 
 Časovo a verziou označená udalosť v observability systéme umožňujúca korelovať zmenu error rate, latency alebo business metrík s konkrétnym deploymentom. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+
+## Deployment-model acceptance verdict
+
+Closure dôkaz, že public/private/hybrid placement spĺňa povolené flows, zakázané flows, data consistency, autonomous behavior, failover/failback a business outcome. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
 ## Deployment pipeline
 
@@ -4678,6 +4706,10 @@ Postup zmenšujúci možné príčiny podľa scope-u: container, Pod, workload, 
 
 Postupné zužovanie incidentu z clusteru, Node-u, workloadu, Podu alebo containeru na konkrétny owner component a failure layer. Pozri [CKA troubleshooting drills](docs/10-helm-and-cka/cka-troubleshooting-drills.md).
 
+## Failure-mode capacity
+
+Kapacita, quota, IP space a compatible resource inventory dostupný po strate definovaného failure domainu, nie iba počas healthy steady state-u. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
 ## Failure policy — admission
 
 Pravidlo určujúce, či evaluation error alebo nedostupná admission dependency request zablokuje alebo prepustí. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
@@ -5758,6 +5790,10 @@ Gateway API Route resource pre HTTP routing cez host, path, header alebo query m
 
 Predalokované veľké memory pages publikované Node-om ako page-size-specific nekompresibilný resource. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
 
+## Hybrid capability subject
+
+Business capability rozdelená medzi cloud a private/edge prostredie s explicitným ownershipom identity, DNS, data, connectivity, telemetry a connected/disconnected behavioru. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
 ## Hybrid cloud
 
 Deployment model integrujúci public-cloud services s on-premises, colocation alebo edge resources cez networking, identity, DNS, data a management contracts. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
@@ -5765,6 +5801,18 @@ Deployment model integrujúci public-cloud services s on-premises, colocation al
 ## Hybrid connectivity
 
 Network boundary prepájajúca cloud a externé prostredie cez VPN, dedicated link, public endpoint alebo private service endpoint s explicitným routing, encryption a redundancy modelom. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
+## Hybrid data generation
+
+Identita authoritative data state-u a jeho replication checkpointu, lag-u, ordering-u, conflict modelu, failover a reconciliation stavu naprieč cloud a private domains. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
+## Hybrid DNS authority
+
+Versionovaný contract určujúci authoritative zones, conditional forwarding, resolver endpoints, split-horizon behavior, TTL, overlapping namespaces a disconnected failure behavior. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
+
+## Hybrid flow subject
+
+Exact network a identity path zahŕňajúci source workload, IP/port, routes, gateway/tunnel/circuit, firewall, destination, return path, TLS a application authorization. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
 ## Hypercare
 
@@ -6942,6 +6990,10 @@ Rotation model, pri ktorom podporovaná managed service integrácia riadi rotati
 
 Služba, pri ktorej provider preberá definovanú časť deploymentu, patchingu, availability alebo operations, pričom zákazníkovi zostáva configuration, identity, data a business outcome podľa konkrétneho contractu. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
 
+## Managed-service outcome boundary
+
+Hranica medzi provider-managed platform health a zákazníckym application, data a business outcome-om; healthy managed service nepreukazuje správnu schema, access, restore ani user journey. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
+
 ## Management account — AWS Organizations
 
 Najvyšší organization account s billing a Organizations administrative capabilities; SCPs neobmedzujú jeho principals a preto má byť bez bežných workloadov a s minimálnym accessom. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
@@ -7225,6 +7277,10 @@ Maximálna veľkosť L3 packetu preneseného interfaceom bez fragmentácie. Pozr
 ## Multi-architecture SBOM
 
 SBOM model, ktorý explicitne rozlišuje OCI image index a jednotlivé platform manifests a ich odlišné component inventories. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## Multi-AZ acceptance verdict
+
+Dôkaz, že surviving Availability Zones majú compute, IP, egress, data, endpoint, quota a deployment capacity a udržia business outcome po strate jednej AZ. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
 ## Multi-AZ architecture — AWS
 
@@ -8106,6 +8162,10 @@ Release status signalizujúci nedokončenú rollback operáciu, typicky prebieha
 
 Release status signalizujúci nedokončenú upgrade operáciu; pred recovery vyžaduje kontrolu hooks, Jobs, client concurrency, live resources a release evidence. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Per-AZ endpoint cohort
+
+Skupina application, load-balancer alebo service endpoints klasifikovaná podľa AZ ID a generation na rozlíšenie regionálneho od zonálneho failure-u. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
 ## Per-host task transition — Ansible
 
 Jedna task operation vyhodnotená a vykonaná pre konkrétny host s vlastnou eligibility, action/module contextom a resultom `ok`, `changed`, `failed`, `unreachable` alebo `skipped`. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
@@ -8133,6 +8193,10 @@ Väzba StatefulSet ordinalu na PVC UID, PV, backend volume, filesystem a data ge
 ## Per-platform evidence inventory
 
 Očakávaná množina manifest, SBOM, provenance, test, runtime a policy verdictov pre každú podporovanú OS/architecture/variant branch a vyšší image index subject. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Per-prefix route contract
+
+Hybridný routing invariant určujúci, ktoré source a destination prefixes musia byť propagované, akceptované a symetricky routované cez primary a recovery paths. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
 ## Per-replica PVC — StatefulSet
 
@@ -8906,6 +8970,10 @@ Deterministicky pripravený stav providera potrebný na overenie konkrétnej con
 
 Effective provider configuration address spolu s caller accountom, regionom, endpointom a workload identity, ktorá určuje, ktorú remote authorization a failure boundary provider API operácia zasiahne. Pozri [Terraform providers, resources a data sources](docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md).
 
+## Provider-trigger/customer-amplifier incident
+
+Incident, pri ktorom provider failure alebo degradation spustí udalosť, ale customer architecture, capacity, configuration alebo recovery weakness zväčší business blast radius. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
 ## Provisioned concurrency — Lambda
 
 Počet predinicializovaných Lambda execution environments pripravených na invocations pre konkrétnu version alebo alias s cieľom znížiť startup latency. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
@@ -9245,6 +9313,10 @@ Maximálna tolerovaná strata dát vyjadrená časom medzi incidentom a posledn�
 ## Recovery Region — AWS
 
 AWS Region pripravený ako cieľ cross-Region disaster recovery vrátane data, capacity, quotas, identity, KMS, networking, artifacts a runbookov. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Recovery-Region subject
+
+Versionovaný inventár account/Region enablementu, services, quotas, capacity, artifacts, identity, KMS, networking, data recovery pointu, telemetry a traffic/failback runbooku. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
 ## Recovery-set binding
 
@@ -9789,6 +9861,18 @@ CloudFront policy pridávajúca alebo upravujúca CORS, security alebo custom re
 ## Responsibility boundary
 
 Presná hranica určujúca, ktoré vrstvy, controls a recovery činnosti vlastní provider, zákazník alebo obaja. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
+
+## Responsibility contract — cloud service
+
+Explicitné rozdelenie provisioning, patching, identity, data, observability, availability, recovery a decommission responsibilities medzi providera, zákazníka a shared integration boundary. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
+
+## Responsibility evidence
+
+Provider a customer dôkazy potrebné na preukázanie effective controlu, napríklad AWS compliance evidence, CloudTrail request, versionovaná policy, configuration test, restore report a business synthetic. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
+## Responsibility RACI — cloud
+
+Service-specific mapping controlu na provider capability, customer ownera, evidence ownera, recovery ownera a escalation boundary. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
 ## REST
 
@@ -10798,6 +10882,10 @@ Plné cluster-local DNS meno Service-u v tvare `<service>.<namespace>.svc.<clust
 
 Derived graph caller/callee relationships a performance characteristics vytvorený zo spans; jeho úplnosť závisí od instrumentation a sampling coverage. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
+## Service health verdict
+
+Provider alebo platformový verdict o stave služby, ktorý musí byť korelovaný s customer configuration, runtime, data a business evidence a sám neuzatvára workload incident. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
+
 ## Service — Kubernetes
 
 Namespaced API contract poskytujúci stabilné meno, virtual address a port model pre dynamickú backend population reprezentovanú EndpointSlices. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
@@ -10809,6 +10897,14 @@ Namespaced API contract poskytujúci stabilné meno, virtual address a port mode
 ## Service-linked role — AWS IAM
 
 IAM role previazaná s konkrétnou AWS službou, ktorej trust a permissions lifecycle je definovaný danou službou. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## Service-model acceptance verdict
+
+Closure podmienka dokazujúca, že zvolený service model spĺňa required availability, security, recovery, observability, cost a portability outcomes pri správnom rozdelení responsibilities. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
+
+## Service-model exit subject
+
+Inventár artifacts, data formats, identities, keys, network assumptions, telemetry, runbookov, commercial constraints a času potrebný na migráciu alebo ukončenie cloudovej služby. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
 
 ## Service port
 
@@ -10922,9 +11018,17 @@ Threshold shares používané na rekonštrukciu Vault unseal materialu v manuál
 
 Rozhodovanie search clusteru, na ktorom node a failure domain-e budú umiestnené primary a replica shard copies. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
+## Shared-control closure verdict
+
+Dôkaz, že provider capability, customer configuration, monitoring, recovery a forbidden-outcome controls spolu dosiahli požadovaný security alebo business outcome. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
 ## Shared control — cloud
 
 Security alebo operations control, pri ktorom provider poskytuje platform capability a zákazník ju musí správne nakonfigurovať, používať, monitorovať alebo integrovať. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
+
+## Shared-control interface
+
+Presné rozhranie, kde provider dodáva capability a zákazník vlastní activation, configuration, identity, monitoring, evidence alebo recovery use; shared neznamená nejasného ownera. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
 ## Shared kernel
 
@@ -12957,6 +13061,10 @@ Ukončený proces, ktorého exit status parent ešte neprevzal cez `wait`. Pozri
 ## Zonal affinity
 
 Preferencia komunikácie a placementu resources v rovnakej Availability Zone pre nižšiu latency alebo transfer cost pri zachovaní cross-zone recovery modelu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## Zonal egress subject
+
+Per-AZ NAT, endpoint, route a source-subnet contract, ktorého zlyhanie môže odstaviť dependency access aj pri healthy compute a regional service control plane. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
 
 ## Zonal resource — AWS
 
