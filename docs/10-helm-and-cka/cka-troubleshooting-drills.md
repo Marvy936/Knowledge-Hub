@@ -1,333 +1,424 @@
 # CKA troubleshooting drills
 
-CKA troubleshooting nie je memorovanie zoznamu príkazov. Je to schopnosť rýchlo zúžiť failure domain, identifikovať owner component, zachovať evidence, vykonať minimálnu opravu a preukázať výsledok. Keďže troubleshooting má podľa aktuálneho CKA curriculum najvyššiu váhu, musí byť samostatnou tréningovou disciplínou.
+CKA troubleshooting drill nie je hádanie príkazu podľa status reasonu. Je to opakovateľný evidence-to-recovery protocol: kandidát musí pomenovať exact incident subject, zúžiť failure domain, rozlíšiť competing hypotheses jedným diskriminačným pozorovaním, vykonať minimálnu autoritatívnu opravu a preukázať pôvodný aj zakázaný outcome.
 
 > Scenáre v tejto kapitole sú originálne tréningové drilly, nie otázky zo skutočnej skúšky.
 
-## 1. Univerzálny troubleshooting model
+## 1. Dominantný drill lifecycle
 
 ```text
-symptóm a scope
-→ správny context/namespace/Node
-→ object spec, status a conditions
-→ Events a logs
-→ owner controller
-→ scheduler alebo kubelet/runtime
-→ CNI/CSI/Service/DNS
-→ control plane a etcd
-→ external dependency
-→ minimálna oprava
-→ validácia a recurrence control
+versionovaný expected state a fault injection
+→ pozorovaný symptóm, scope a timeline
+→ exact cluster/object/process/data/flow subject
+→ volatile evidence preservation
+→ control-path a data-path map
+→ competing hypotheses
+→ discriminating observation point
+→ containment
+→ minimálna authoritative repair
+→ controller/runtime reconvergence
+→ original outcome verification
+→ forbidden a adjacent-cohort verification
+→ recurrence control a scored closure
 ```
 
-Každý drill musí mať:
+Drill musí trénovať diagnózu oddelene od editácie. Kandidát, ktorý náhodou odstráni symptóm bez správneho root cause-u, nemá plný výsledok.
 
-- presný symptóm,
-- root cause,
-- misleading evidence,
-- požadovanú opravu,
-- hard validation,
-- časový limit.
+## 2. Drill subject a expected-state contract
 
-## 2. Failure-domain narrowing
+Každý drill má versionovaný subject:
 
-Najprv urč scope:
+```text
+drill ID a generation
+cluster/context a Kubernetes generation
+namespace alebo Node/host
+primary object UID/generation alebo host component
+owner/controller chain
+related Service/EndpointSlice/PVC/Node identities
+expected configuration a outcome
+injected fault a authoritative source
+misleading evidence
+forbidden changes
+hard validation
+časový budget
+reset/cleanup procedure
+```
+
+Fault injection bez recorded expected state-u nevytvára kvalitný drill. Môže viesť k viacerým validným opravám alebo k prostrediu, ktoré sa po predchádzajúcom pokuse nedá spoľahlivo vyhodnotiť.
+
+## 3. Scope-first failure-domain narrowing
 
 ### Jeden container
 
-Pravdepodobné vrstvy:
+Začni process boundary:
 
 - command/args,
-- config/Secret,
-- application,
-- resources,
-- probe,
-- image/filesystem.
+- process-loaded ConfigMap/Secret,
+- image/filesystem,
+- security context,
+- liveness/startup interaction,
+- cgroup limit a OOM,
+- application exit.
 
 ### Jeden Pod
 
-- scheduling,
-- sandbox/CNI,
-- volume mount,
-- Pod security,
-- init container,
-- node-local runtime.
+Rozšír subject o:
 
-### Jeden workload
+- scheduler binding,
+- kubelet PodWorker,
+- sandbox/CRI,
+- CNI/IPAM,
+- CSI mount,
+- init/sidecar,
+- Node-local runtime alebo host dependency.
 
-- controller spec,
-- selector,
-- rollout strategy,
-- HPA,
-- quota,
-- dependency.
+### Jeden workload alebo revision
+
+Skontroluj:
+
+- controller generation a observedGeneration,
+- selector/ownership,
+- old/new ReplicaSet cohort,
+- rollout budget,
+- admission/quota,
+- HPA alebo field ownership,
+- shared configuration alebo dependency.
 
 ### Jeden Node
 
+Pravdepodobné boundaries:
+
+- Node object/Lease verzus actual host,
 - kubelet,
 - runtime,
 - CNI/CSI node plugin,
+- routes/dataplane,
 - disk/memory/PID pressure,
-- certificate/time/network.
+- certificate/time/API connectivity,
+- host image generation.
 
-### Celý cluster
+### Celý cluster alebo request class
 
-- API server,
+Preskúmaj:
+
+- API write/read/watch path,
 - etcd,
-- admission/webhooks,
+- admission webhook alebo APIService,
 - DNS/Service dataplane,
-- shared identity/network/storage dependency.
+- shared identity,
+- cluster-wide policy alebo quota,
+- shared external dependency.
 
-## 3. Evidence-first pravidlá
+Scope je prvý discriminating observation. Rovnaký `Pending`, `CrashLoopBackOff`, `503` alebo timeout môže mať desiatky príčin.
 
-Pred reštartom alebo zmazaním zachovaj:
+## 4. Evidence preservation pred repair
+
+Pred restartom, delete alebo force zásahom zachovaj podľa subjectu:
 
 ```bash
-kubectl get <object> -o yaml
-kubectl describe <object>
-kubectl get events --sort-by=.metadata.creationTimestamp
-kubectl logs <pod> -c <container>
-kubectl logs <pod> -c <container> --previous
+kubectl get <object> -n <ns> -o yaml
+kubectl describe <object> -n <ns>
+kubectl get events -n <ns> --sort-by=.metadata.creationTimestamp
+kubectl logs <pod> -n <ns> -c <container>
+kubectl logs <pod> -n <ns> -c <container> --previous
 ```
 
-Na Node-e podľa potreby:
+Na Node-e:
 
 ```bash
-journalctl -u kubelet
+journalctl -u kubelet --since '-15 min'
 crictl ps -a
 crictl inspect <container-id>
+ip address
 ip route
 ss -lntup
 df -h
 df -i
 ```
 
-Reštart môže odstrániť predchádzajúce logs, timing a transient failure state.
+Evidence musí byť viazaná na UID, container ID, Node boot/generation a čas. Logs zo replacement Podu nie sú evidence o pôvodnom procese.
 
-## 4. Drill format
+## 5. Competing hypotheses a discriminating observations
 
-Každý drill rieš v štyroch krokoch:
+Kvalitný drill vyžaduje aspoň dve realistické hypotézy. Príklad pre Service `503`:
+
+1. Route/controller nevytvoril platnú backend konfiguráciu;
+2. Service má zero ready endpoints;
+3. `targetPort` nesedí s listenerom;
+4. edge dataplane má stale config iba na časti instances;
+5. NetworkPolicy alebo return path blokuje flow;
+6. application vracia `503` sama.
+
+Diskriminačný postup:
 
 ```text
-1. Diagnose — pomenuj root cause
-2. Repair — urob minimálnu zmenu
-3. Verify — preukáž požadovaný stav
-4. Explain — jednou vetou vysvetli mechanizmus
+response source/header a edge instance
+→ Route/Gateway/Ingress conditions
+→ Service port contract
+→ celý EndpointSlice cohort a targetRef UIDs
+→ direct PodIP:port
+→ ServiceIP:port
+→ DNS/edge path
+→ packet/policy observation podľa scope-u
 ```
 
-Self-grading:
+Jeden test má zmenšiť hypothesis set. Séria náhodných zmien diagnózu ničí.
 
-- 40 % root-cause accuracy,
-- 30 % správna oprava,
-- 20 % validácia,
-- 10 % čas a bezpečnosť.
+## 6. Containment a repair hierarchy
 
-## 5. Drill 1 — CrashLoopBackOff po configuration zmene
+Containment má chrániť funkčný stav a evidence:
+
+- zastav ďalší rollout alebo writer,
+- cordon chybný Node cohort bez okamžitého drainu, ak treba evidence,
+- zachovaj old serving cohort,
+- obmedz traffic na známu zdravú generáciu,
+- nepoužívaj broad policy disable alebo `cluster-admin`,
+- pri storage/etcd nevytváraj druhého writera.
+
+Preferovaná repair hierarchy:
+
+```text
+oprava authoritative source
+→ controller reconciliation
+→ bounded object/Pod/Node replacement
+→ compatible rollback alebo roll-forward
+→ external compensation
+→ restore iba pri preukázanej potrebe
+```
+
+Manual live edit môže byť exam-appropriate podľa zadania, ale musí opraviť správny subject a nesmie porušiť explicitný contract.
+
+## 7. Worked drill: Service endpoints sú green, traffic zlyháva iba z jednej Node cohorty
+
+### Expected state
+
+```text
+drill: CKA-NET-17 generation D17
+context: cluster-a
+namespace: payments
+client Deployment: checkout generation 8
+backend Service: ledger UID S31, ClusterIP 10.96.42.17, port 5432
+EndpointSlice cohort: ES31-a/ES31-b, štyri ready Pod UIDs
+healthy Node generation: NG41
+faulted Node generation: NG42
+expected: checkout → ledger Service TCP/5432 funguje zo všetkých client Podov
+forbidden: zmeniť Service identity, selector alebo vypnúť NetworkPolicy cluster-wide
+```
 
 ### Symptóm
 
-Deployment `api` má všetky Pody v `CrashLoopBackOff`. Nová revision bola nasadená pred piatimi minútami.
+Približne polovica checkout requests timeoutuje. Service má ready endpointy a backend Pods sú Ready.
 
-### Možné evidence
+### Scope
 
-- `kubectl logs --previous` ukazuje invalid database URL,
-- ConfigMap key existuje pod iným názvom,
-- liveness probe iba zrýchľuje restarty.
+Rozdelenie podľa client Pod Node-u ukáže, že všetky failures pochádzajú z Nodes generácie NG42. To odfiltruje globálnu Service, DNS a backend-process hypotézu.
 
-### Úloha
+### Competing hypotheses
 
-Nájdi presný configuration mismatch, oprav Deployment alebo ConfigMap podľa zadania a over stabilné Ready replicas.
+1. NG42 má stale Service dataplane;
+2. CNI route/tunnel chýba iba na NG42;
+3. NetworkPolicy agent nenačítal current policy generation;
+4. conntrack obsahuje stale translation;
+5. backend return path nevie smerovať k NG42 PodCIDR;
+6. application client cache/retry vytvára zdanie Node-specific failure.
 
-### Validácia
+### Evidence a discriminating observations
 
 ```bash
-kubectl rollout status deployment/api -n production
-kubectl get pod -n production -l app=api
+kubectl get pod -n payments -l app=checkout -o wide
+kubectl get service ledger -n payments -o yaml
+kubectl get endpointslice -n payments -l kubernetes.io/service-name=ledger -o yaml
+kubectl get node -L node.kubernetes.io/image-generation
 ```
 
-### Mechanizmus
+Z affected client Podu porovnaj:
 
-Container process končí kvôli invalid runtime configuration; CrashLoopBackOff je retry/backoff symptom, nie root cause.
-
-## 6. Drill 2 — Pod zostáva Pending
-
-### Symptóm
-
-Pod `worker` je `Pending` bez Node assignmentu.
-
-### Variácie root cause
-
-- requests presahujú Node allocatable,
-- required node affinity nemá matching Node,
-- netolerovaný taint,
-- hostPort conflict,
-- unbound immediate PVC,
-- quota/admission rejection parent controlleru.
-
-### Postup
-
-```bash
-kubectl describe pod worker -n batch
-kubectl get nodes --show-labels
-kubectl describe node <node>
-kubectl get pvc -n batch
+```text
+ledger PodIP:5432
+ledger ClusterIP:5432
+ledger DNS:5432
 ```
 
-### Validácia
+Finding:
 
-Pod je Scheduled na feasible Node bez odstránenia požadovaného placement contractu.
+- direct PodIP funguje;
+- ClusterIP timeoutuje iba z NG42;
+- policy verdict je allow;
+- per-Node Service translation state na NG42 chýba pre current Service generation;
+- NG42 node-agent DaemonSet Pod je `Ready`, ale načítal chybný host prerequisite po image update.
 
-## 7. Drill 3 — Service nemá endpoints
+### Containment
 
-### Symptóm
+- cordon NG42 Nodes;
+- nepresúvať stateful backendy ani nemať zbytočný blast radius;
+- presmerovať client replicas na NG41 podľa lab contractu;
+- zachovať node-agent logs a dataplane dump.
 
-Service existuje a DNS funguje, ale connection zlyhá. EndpointSlice je prázdny.
+### Authoritative repair
 
-### Root-cause varianty
+Oprav host image/bootstrap prerequisite pre NG42, vytvor novú immutable Node generation NG43 a spusti capability canary:
 
-- selector mismatch,
-- Pods nie sú Ready,
-- wrong namespace,
-- Service bez selectoru a bez manual EndpointSlice,
-- terminating-only endpoints.
+```text
+PodIP flow
+ServiceIP flow
+DNS flow
+NetworkPolicy allow flow
+NetworkPolicy deny flow
+```
 
-### Diagnostický chain
+Až potom vráť application workloady.
+
+### Closure
+
+Original outcome: checkout requests cez ledger Service fungujú zo všetkých accepted Nodes.
+
+Forbidden outcomes:
+
+- default-deny policy zostáva účinná;
+- Service UID/selector/ClusterIP sa nezmenili;
+- nebol vytvorený broad bypass;
+- old faulty Node generation už neprijíma workload.
+
+Earlier control: Node-generation capability acceptance test, nie iba `Node Ready` a DaemonSet Pod readiness.
+
+## 8. Drill design podľa mechanizmu
+
+Nasledujúce drilly sú fault-injection families. Každý run vyberie jednu exact root cause variantu, pridá misleading evidence a explicitnú validation.
+
+### A. Process, configuration a probes
+
+#### CrashLoopBackOff po config zmene
+
+Varianty:
+
+- wrong ConfigMap/Secret key;
+- malformed process-loaded value;
+- stale env snapshot;
+- command/args regression;
+- liveness urýchľujúca bootstrap failure;
+- cgroup OOM.
+
+Hard validation: correct process-loaded value, stable restart count a Ready endpoint cohort.
+
+#### Probe failure
+
+Varianty:
+
+- chýba startup probe;
+- readiness závisí od nesprávnej external dependency;
+- liveness používa Service path namiesto local health;
+- port/path mismatch;
+- termination/drain race.
+
+Forbidden repair: odstrániť všetky probes bez náhradného acceptance contractu.
+
+### B. Scheduling a controllers
+
+#### Pod Pending bez Node assignmentu
+
+Varianty:
+
+- requests > allocatable;
+- empty hard-constraint intersection;
+- wrong trusted label;
+- netolerovaný taint;
+- hostPort conflict;
+- PVC topology;
+- admission/quota blokuje parent controller ešte pred Pod create.
+
+Hard validation: Pod je Scheduled na feasible Node bez odstránenia požadovaného placement contractu.
+
+#### Deployment rollout stuck
+
+Varianty:
+
+- readiness/startup;
+- surge capacity;
+- quota/admission;
+- image pull;
+- PDB/termination overlap;
+- mutable/immutable selector;
+- HPA alebo iný field writer;
+- application compatibility.
+
+Hard validation: desired updated/ready/available replicas, correct new ReplicaSet cohort a bounded old-cohort scale-down.
+
+#### HPA neškáluje alebo škáluje škodlivo
+
+Varianty:
+
+- metrics API;
+- missing resource requests;
+- stale/unknown metric;
+- maxReplicas;
+- scale write succeeds, Pods ostávajú Pending;
+- retry-amplified causal metric;
+- stabilization policy.
+
+Hard validation: metric provenance a desired-to-serving capacity chain, nie iba HPA desiredReplicas.
+
+### C. Service, DNS a edge
+
+#### Service nemá endpoints
+
+Chain:
 
 ```text
 Service selector
-→ matching Pods
+→ matching Pod UIDs
 → readiness
-→ EndpointSlice
+→ EndpointSlice cohort
 → targetPort
-→ application listen socket
+→ application listener
 ```
 
-### Validácia
+Varianty: selector mismatch, zero Ready Pods, wrong namespace, selectorless Service bez explicitných endpoints, terminating-only cohort.
 
-EndpointSlice obsahuje ready endpointy a test Pod sa pripojí cez Service name.
+#### Service má endpoints, ale flow zlyhá
 
-## 8. Drill 4 — Service má endpoints, traffic stále zlyhá
+Porovnaj PodIP, ServiceIP a DNS. Varianty: targetPort, listener na loopback, policy, per-Node dataplane, MTU/return path, stale connection.
 
-### Root-cause varianty
+#### DNS failure
 
-- `targetPort` nesedí,
-- application počúva iba na `127.0.0.1`,
-- NetworkPolicy blokuje traffic,
-- kube-proxy/alternate dataplane problém,
-- MTU alebo return path,
-- client používa stale connection.
+Varianty: Pod resolver/search/ndots, Corefile, upstream loop, kube-dns Service path, NodeLocal generation, TCP/53 block, negative application cache.
 
-### Test
+Hard validation: cluster-local aj relevantný external FQDN a následný fresh connection.
 
-Porovnaj:
+#### Gateway/Ingress `503`
+
+Chain:
 
 ```text
-client → PodIP:port
-client → ServiceIP:port
-client → ServiceDNS:port
+external DNS/LB
+→ controller/class
+→ accepted/resolved/programmed route
+→ per-instance loaded config
+→ backend reference
+→ Service/EndpointSlice
+→ Pod listener
 ```
 
-Tým oddelíš application, Service dataplane a DNS.
+Hard validation: external request z relevantných edge cohorts, nie iba API conditions.
 
-## 9. Drill 5 — CoreDNS failure
+### D. Storage
 
-### Symptóm
+#### PVC Pending
 
-Väčšina workloadov nevie resolve-nuť cluster-local ani external mená.
+Varianty: chýbajúca StorageClass, provisioner, `WaitForFirstConsumer`, topology, quota, access/volume mode.
 
-### Postup
+Hard validation: PVC Bound, correct PV/backend identity a mounted consumer.
 
-```bash
-kubectl get pod,service -n kube-system -l k8s-app=kube-dns
-kubectl logs -n kube-system -l k8s-app=kube-dns
-kubectl get configmap coredns -n kube-system -o yaml
-kubectl run dns-test --rm -it --restart=Never --image=busybox:1.36 -- nslookup kubernetes.default.svc
-```
+#### Multi-Attach alebo FailedMount
 
-### Root-cause varianty
+Varianty: starý Node/writer stále aktívny, stale VolumeAttachment, CSI node plugin, filesystem, Secret, topology alebo LSM permission.
 
-- Corefile syntax,
-- upstream resolver loop,
-- Service/EndpointSlice chyba,
-- CNI/dataplane,
-- Node-local DNS cache,
-- NetworkPolicy.
+Forbidden repair: force detach/delete pred fencing a backend verification.
 
-### Validácia
+### E. Node a runtime
 
-Cluster-local aj vybraný external hostname sa resolve-nú z Podu.
+#### Node NotReady
 
-## 10. Drill 6 — ImagePullBackOff
-
-### Root-cause varianty
-
-- typo v repository/tag,
-- private registry bez credentials,
-- Secret v inom namespace,
-- nesprávny `imagePullSecrets`,
-- registry TLS/CA,
-- architecture mismatch sa prejaví až po pull-e ako runtime error,
-- rate limit alebo network egress.
-
-### Evidence
-
-```bash
-kubectl describe pod <pod> -n <ns>
-kubectl get secret -n <ns>
-```
-
-### Validácia
-
-Image sa úspešne pullne a container prejde do Running/Ready bez použitia broad credentials.
-
-## 11. Drill 7 — PVC Pending
-
-### Root-cause varianty
-
-- StorageClass neexistuje,
-- default StorageClass nie je nastavená,
-- provisioner/controller nebeží,
-- `WaitForFirstConsumer` čaká na Pod scheduling,
-- topology conflict,
-- quota,
-- unsupported access mode/volume mode.
-
-### Postup
-
-```bash
-kubectl get pvc,pv -A
-kubectl describe pvc <pvc> -n <ns>
-kubectl get storageclass
-kubectl get events -n <ns> --sort-by=.metadata.creationTimestamp
-```
-
-### Validácia
-
-PVC je Bound a consumer Pod má volume mounted.
-
-## 12. Drill 8 — Multi-Attach alebo FailedMount
-
-### Symptóm
-
-Pod je `ContainerCreating`; Events ukazujú attach alebo mount failure.
-
-### Root-cause varianty
-
-- RWO volume stále attached k starému Node-u,
-- stale VolumeAttachment,
-- CSI node plugin chýba,
-- filesystem corruption,
-- wrong secret/credentials,
-- topology mismatch,
-- permission/SELinux issue.
-
-### Bezpečnostná hranica
-
-Force detach/delete môže vytvoriť concurrent writer alebo data corruption. Najprv over workload identity, old Pod/Node a storage backend state.
-
-## 13. Drill 9 — Node NotReady
-
-### Postup
+Evidence:
 
 ```bash
 kubectl describe node <node>
@@ -337,365 +428,191 @@ journalctl -u kubelet
 crictl info
 ```
 
-### Root-cause varianty
+Varianty: kubelet, certifikát, API path, runtime, pressure, clock, CNI initialization.
 
-- kubelet stopped,
-- expired certificate,
-- API connectivity,
-- container runtime down,
-- disk/memory/PID pressure,
-- time skew,
-- CNI initialization.
+Hard validation: Node capability canary a workload acceptance, nie iba `Ready=True`.
 
-### Validácia
+#### ImagePullBackOff
 
-Node je Ready a system Pods/workloads sa obnovia bez odstránenia evidencie alebo dát.
+Varianty: immutable reference typo, auth Secret scope, registry CA, egress/rate limit. Architecture mismatch sa môže prejaviť až po pull-e ako runtime failure.
 
-## 14. Drill 10 — Static Pod control-plane component
+Forbidden repair: broad registry credential alebo mutable fallback tag.
 
-### Symptóm
+#### Resource pressure
 
-API server, scheduler alebo controller-manager na jednom control-plane Node-e nebeží.
+Rozlišuj container limit OOM, Node OOM, kubelet eviction, ephemeral storage/inodes a CPU throttling. `kubectl top` je iba momentka.
 
-### Postup
+### F. Control plane, API a etcd
 
-- skontroluj `/etc/kubernetes/manifests`,
-- YAML syntax a flags,
-- certificate paths,
-- hostPath mounts,
-- container runtime logs,
-- port conflict,
-- etcd connectivity.
+#### Static Pod component
 
-Kubelet sleduje static Pod manifest directory. Chybný manifest môže component odstrániť alebo opakovane reštartovať.
+Over `/etc/kubernetes/manifests`, YAML/flags, cert paths, hostPath, ports, runtime a etcd connectivity. Hard validation musí pokryť component function alebo API capability.
 
-### Validácia
+#### API dostupný, ale request path timeoutuje
 
-Component mirror Pod je Running a príslušný health endpoint/API function funguje.
+Varianty: etcd latency/quorum, webhook, APIService, inflight saturation, DNS/network dependency alebo certifikát. Rozlišuj globálny outage od konkrétneho resource/admission pathu.
 
-## 15. Drill 11 — API server je dostupný, ale requests timeoutujú
+#### etcd snapshot operation
 
-### Root-cause varianty
+Varianty: endpoint, CA/cert/key, tool/version, endpoint health alebo disk. Nemeň data directory. Over snapshot status a recovery-set metadata.
 
-- etcd latency/quorum,
-- admission webhook timeout,
-- aggregated APIService,
-- API server saturation,
-- DNS/network dependency webhooku,
-- certificate issue.
+#### Nedokončený kubeadm/Node upgrade
 
-### Postup
+Over version-skew, package/binary, kubeadm fázu, kubelet config/service, drain/cordon a workload state. Closure zahŕňa supported version a capability acceptance.
 
-```bash
-kubectl get --raw='/readyz?verbose'
-kubectl get apiservices
-kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations
-```
+### G. Identity, policy a object lifecycle
 
-Rozlišuj global API outage od konkrétneho resource/admission pathu.
+#### RBAC `403`
 
-## 16. Drill 12 — RBAC Forbidden
+Skontroluj authenticated subject/groups, Role/ClusterRole, binding scope, API group, resource/subresource a verb. Over povolenú aj zakázanú operáciu.
 
-### Symptóm
+#### NetworkPolicy blokuje DNS
 
-ServiceAccount dostáva `403 Forbidden`.
+Povoľ exact DNS path podľa cluster modelu vrátane UDP/TCP 53 bez otvorenia ostatného egressu.
 
-### Postup
+#### Stuck `Terminating`
 
-```bash
-kubectl auth can-i get pods \
-  --as=system:serviceaccount:team-a:reader \
-  -n team-a
-```
+Varianty: finalizer owner, webhook/APIService, unreachable Node/process, volume detach, preStop/grace alebo namespace finalization.
 
-Skontroluj:
+Forbidden repair: force delete bez overenia process/writer state-u.
 
-- subject namespace/name,
-- Role vs. ClusterRole,
-- RoleBinding namespace,
-- API group,
-- resource/subresource,
-- verb.
+## 9. Fault-injection quality gate
 
-### Validácia
+Dobrý injector:
 
-Požadovaná operácia je povolená a nepožadované writes/secrets access zostávajú zakázané.
+- mení jednu authoritative príčinu;
+- má deterministický apply aj reset;
+- nemení unrelated resources;
+- vytvára realistický, ale nie falošný symptom;
+- zachováva dosť evidence;
+- má explicitnú hard validation;
+- podporuje rotáciu identities a parametrov.
 
-## 17. Drill 13 — Deployment rollout stuck
-
-### Root-cause varianty
-
-- readiness failure,
-- insufficient capacity pre surge,
-- quota,
-- image pull,
-- PDB/termination overlap,
-- immutable selector change,
-- application startup regression.
-
-### Postup
-
-```bash
-kubectl rollout status deployment/<name> -n <ns>
-kubectl describe deployment/<name> -n <ns>
-kubectl get rs,pod -n <ns>
-kubectl get events -n <ns> --sort-by=.metadata.creationTimestamp
-```
-
-### Validácia
-
-Deployment má desired updated/ready/available replicas a stará ReplicaSet je škálovaná podľa strategy.
-
-## 18. Drill 14 — HPA neškáluje
-
-### Root-cause varianty
-
-- metrics API nedostupná,
-- CPU requests chýbajú,
-- target selector/scale subresource problém,
-- HPA max reached,
-- quota alebo scheduler blokuje nové Pody,
-- metric je stale/unknown,
-- stabilization policy.
-
-### Postup
-
-```bash
-kubectl describe hpa <name> -n <ns>
-kubectl get --raw /apis/metrics.k8s.io/v1beta1/nodes
-kubectl get events -n <ns>
-```
-
-### Validácia
-
-HPA má valid metric a workload dosiahne očakávaný replica count, alebo je presne zdokumentovaný capacity limit.
-
-## 19. Drill 15 — NetworkPolicy blokuje DNS
-
-### Symptóm
-
-Po zavedení default-deny egress aplikácia nevie resolve-nuť DNS.
-
-### Root cause
-
-Policy povoľuje application destinations, ale nie DNS traffic k cluster DNS endpointu na UDP/TCP 53 podľa cluster modelu.
-
-### Validácia
-
-DNS funguje, pričom ostatný nepožadovaný egress zostáva blokovaný.
-
-## 20. Drill 16 — Gateway alebo Ingress vracia 503
-
-### Diagnostický chain
+Príklady:
 
 ```text
-external DNS/LB
-→ Gateway/Ingress status
-→ listener/rule/host/path
-→ backend reference
-→ Service
-→ EndpointSlice
-→ Pod readiness/listen port
+selector key drift
+wrong named targetPort
+missing CPU request
+trusted Node label typo
+CoreDNS upstream loop
+static Pod certificate path drift
+NetworkPolicy bez DNS egressu
+Node image bez required CNI host prerequisite
+stale process-loaded Secret epoch
 ```
 
-### Root-cause varianty
+Dve chyby kombinuj až v pokročilých drilloch a musí byť jasné, ktorá je root cause a ktorá contributing control failure.
 
-- Route nie je Accepted,
-- unresolved backend reference,
-- Service port mismatch,
-- zero ready endpoints,
-- controller class mismatch,
-- TLS/host/path mismatch.
+## 10. Scoring a time-boxing
 
-## 21. Drill 17 — etcd snapshot command zlyhá
+Self-grading:
 
-### Root-cause varianty
-
-- wrong endpoint,
-- CA/cert/key paths,
-- certificate identity,
-- endpoint unhealthy,
-- disk full,
-- tool/version mismatch.
-
-### Oprava
-
-Nemeň etcd data directory. Oprav connection/tool invocation a následne validuj snapshot cez `etcdutl snapshot status` podľa podporovanej verzie.
-
-## 22. Drill 18 — Upgrade kubeadm Node-u nedokončený
-
-### Symptóm
-
-Node zostal cordoned alebo kubelet version/service je nekonzistentná.
-
-### Postup
-
-- over control-plane/API version,
-- package/binary version,
-- `kubeadm upgrade` fázu,
-- kubelet config,
-- service logs,
-- drain/uncordon stav,
-- workload health.
-
-### Validácia
-
-Node je Ready na podporovanej verzii a workloady sa bezpečne vrátili.
-
-## 23. Drill 19 — Resource pressure
-
-### Symptóm
-
-Pody sú Evicted alebo OOMKilled, prípadne Node hlási DiskPressure.
-
-### Rozlíš:
-
-- container memory limit OOM,
-- Node-level OOM,
-- kubelet memory eviction,
-- ephemeral-storage eviction,
-- inode exhaustion,
-- CPU throttling.
-
-### Evidence
-
-```bash
-kubectl describe pod <pod>
-kubectl describe node <node>
-kubectl top pod,node
-dmesg | tail
-df -h
-df -i
+```text
+40 % root-cause accuracy
+25 % minimálna správna repair
+20 % original/forbidden validation
+10 % evidence preservation a bezpečnosť
+5 % čas
 ```
-
-`kubectl top` je len momentka a nevysvetľuje historický peak ani kernel OOM decision.
-
-## 24. Drill 20 — Stuck Terminating
-
-### Root-cause varianty
-
-- finalizer,
-- unavailable webhook/APIService,
-- kubelet/Node unreachable,
-- volume detach,
-- preStop/termination grace,
-- namespace finalization.
-
-### Bezpečnostná hranica
-
-Force deletion odstráni API object bez záruky, že process alebo storage writer prestal existovať.
-
-## 25. Fault injection design
-
-Scenár vytváraj jednou presnou chybou:
-
-- zmeň selector key,
-- nastav chybný targetPort,
-- odstráň CPU request,
-- pridaj netolerovaný taint,
-- zmeň kubelet config path,
-- poškod CoreDNS forward target,
-- zmeň static Pod certificate path,
-- vytvor NetworkPolicy bez DNS egressu.
-
-Neskôr kombinuj dve súvisiace chyby, ale vyhni sa náhodnému chaosu bez známého expected state-u.
-
-## 26. Time-boxing drillov
-
-Začni:
-
-- jednoduché: 5 minút,
-- stredné: 8–10 minút,
-- cluster/control-plane: 12–15 minút.
 
 Meraj zvlášť:
 
-- čas na identifikáciu root cause,
-- čas na opravu,
-- čas na validáciu.
+- diagnosis time,
+- repair time,
+- reconvergence time,
+- verification time.
 
-Pomalá diagnóza a pomalá editácia sú odlišné tréningové problémy.
-
-## 27. Drill review template
+Odporúčané budgets:
 
 ```text
-Scenár:
-Symptóm:
-Scope:
+jednoduchý object/process drill: 5 min
+stredný controller/network/storage drill: 8–10 min
+Node/control-plane/etcd drill: 12–15 min
+```
+
+Pomalá diagnóza a pomalá editácia vyžadujú odlišný tréning.
+
+## 11. Drill review template
+
+```text
+Drill ID/generation:
+Expected subject a outcome:
+Symptóm/scope/timeline:
 Prvá hypotéza:
-Dôkazy:
+Competing hypotheses:
+Preserved evidence:
+Discriminating observation:
 Root cause:
-Oprava:
-Validácia:
-Čas diagnose/repair/verify:
+Contributing failure:
+Containment:
+Authoritative repair:
+Original validation:
+Forbidden/adjacent validation:
+Diagnosis/repair/verify time:
 Chybný pokus:
-Čo precvičiť:
+Earlier control:
+Targeted follow-up drill:
 ```
 
 Tento záznam patrí do learning logu, nie do reálneho exam scratchpadu.
 
-## 28. Anti-patterny
+## 12. Anti-patterny
 
-### Okamžitý restart
+### Okamžitý restart alebo delete
 
-Odstráni evidence a môže dočasne skryť root cause.
+Odstráni volatile evidence a môže iba dočasne skryť root cause.
 
-### `kubectl delete pod` pri každom probléme
+### Editovanie viacerých vrstiev naraz
 
-Controller vytvorí rovnaký chybný Pod.
+Nie je možné určiť, ktorá zmena pomohla, a môžeš porušiť ďalší contract.
 
-### Úprava viacerých vrstiev naraz
+### Status reason ako diagnóza
 
-Nie je jasné, ktorá zmena pomohla.
+`Pending`, `CrashLoopBackOff`, `ImagePullBackOff`, `NotReady` alebo `503` sú symptómy, nie mechanizmus.
 
-### `cluster-admin` pri RBAC chybe
+### Broad bypass
 
-Získaš funkčnosť za cenu privilege escalation.
+`cluster-admin`, vypnutie NetworkPolicy, odstránenie affinity alebo force delete často obnovia funkčnosť za cenu neakceptovateľného forbidden outcome-u.
 
-### Force delete pri storage probléme
+### Validácia iba cez object existence
 
-Môže vytvoriť concurrent writer.
+Existujúci object nemusí byť effective, loaded, serving ani business-correct.
 
-### Diagnostika iba cez `kubectl get pods`
+### Memorovanie jedného injectoru
 
-Chýbajú Events, conditions, owner a Node/component evidence.
+Rotuj root causes a misleading evidence; inak trénuješ pattern recall namiesto causal diagnosis.
 
-### Memorovanie root cause podľa symptómu
-
-Rovnaký `Pending` alebo `CrashLoopBackOff` má mnoho príčin.
-
-## 29. Praktický master checklist
+## 13. Master checklist
 
 ```text
-[ ] správny context a namespace
-[ ] presný symptóm a scope
-[ ] object spec/status/conditions
-[ ] Events chronologicky
-[ ] current/previous logs
-[ ] owner controller
-[ ] scheduling a Node conditions
-[ ] kubelet/runtime/CNI/CSI podľa fázy
-[ ] Service/EndpointSlice/DNS/edge chain
-[ ] RBAC/admission/quota/policy
-[ ] requests/limits/OOM/pressure/probes
-[ ] control plane/etcd pri cluster-wide scope
-[ ] minimálna oprava
-[ ] hard validation
-[ ] recurrence alebo explanation
+[ ] správny context, namespace alebo host
+[ ] exact subject UID/generation/process/flow/data identity
+[ ] symptóm, scope, timeline a recent change
+[ ] volatile evidence preserved
+[ ] owner/controller a control/data path
+[ ] aspoň dve competing hypotheses
+[ ] discriminating observation
+[ ] evidence-preserving containment
+[ ] authoritative minimálna repair
+[ ] controller/runtime reconvergence
+[ ] original outcome verified
+[ ] forbidden a adjacent cohort verified
+[ ] earlier control a follow-up drill
 ```
 
-## 30. Kontrolné otázky
+## 14. Kontrolné otázky
 
-1. Ako zúžiš failure domain podľa scope-u?
-2. Ktoré evidence zachováš pred restartom?
-3. Ako odlíšiš Service selector problém od targetPort problému?
-4. Aké sú hlavné príčiny Pending Podu?
-5. Ako rozlíšiš cgroup OOM, eviction a Node OOM?
-6. Prečo force delete predstavuje riziko pri storage?
-7. Ako diagnostikuješ `403 Forbidden` bez broad role?
-8. Ktoré vrstvy overíš pri API timeout-e?
-9. Ako navrhneš fault injection drill s jednoznačným root cause?
-10. Prečo musí self-grading hodnotiť diagnózu oddelene od opravy?
+1. Prečo status reason nie je root cause?
+2. Ako scope zmenšuje hypothesis set?
+3. Čo tvorí exact drill subject?
+4. Ktoré evidence zachováš pred restartom alebo force delete?
+5. Ako navrhneš discriminating observation namiesto náhodnej zmeny?
+6. Kedy je Node `Ready` nedostatočný recovery verdict?
+7. Prečo direct PodIP, ServiceIP a DNS testujú odlišné boundaries?
+8. Ako odlíšiš root cause od contributing evidence-control failure?
+9. Čo je forbidden-outcome validation?
+10. Ako výsledok drill-u prevedieš na targeted follow-up tréning?
 
 ## Praktické drilly
 
@@ -703,7 +620,7 @@ Spustiteľný scenárový index a review template patria do [CKA troubleshooting
 
 ## Glossary impact
 
-Relevantné pojmy: CKA troubleshooting drill, failure-domain narrowing, root-cause accuracy, hard validation, fault injection, previous container logs, Service troubleshooting chain, control-plane drill, repair time, diagnosis time a drill review.
+Relevantné pojmy: CKA troubleshooting subject, expected-state contract, failure-domain narrowing, evidence preservation, competing hypothesis set, discriminating observation, containment, authoritative repair, reconvergence, original outcome, forbidden outcome, adjacent-cohort verification, root-cause accuracy, contributing control failure, fault-injection generation, drill score closure a targeted follow-up drill.
 
 ## Oficiálne zdroje
 
