@@ -3097,15 +3097,15 @@
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
       "title": "Well-Architected Framework",
-      "words": 1792,
-      "headings": 47,
-      "sections": 47,
-      "findings": 139,
-      "critical": 54,
-      "high": 46,
-      "medium": 25,
-      "low": 14,
-      "score": 1119,
+      "words": 2675,
+      "headings": 53,
+      "sections": 53,
+      "findings": 106,
+      "critical": 35,
+      "high": 33,
+      "medium": 20,
+      "low": 18,
+      "score": 784,
       "grade": "D"
     },
     {
@@ -173108,8 +173108,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Exact workload-review subject",
+      "line": 26,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -173117,602 +173117,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "2. Workload boundary",
-      "line": 22,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "2. Workload boundary",
-      "line": 22,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používateľov a business ownera,`, `application a data components,`, `AWS accounts a Regions,`, `external dependencies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "2. Workload boundary",
-      "line": 22,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "2. Workload boundary",
-      "line": 22,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `CD`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "3. Šesť pilierov",
-      "line": 41,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "3. Šesť pilierov",
-      "line": 41,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Operational Excellence`, `Security`, `Reliability`, `Performance Efficiency`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "3. Šesť pilierov",
-      "line": 41,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "3. Šesť pilierov",
-      "line": 41,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "4. Operational Excellence",
-      "line": 54,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "4. Operational Excellence",
-      "line": 54,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "4. Operational Excellence",
-      "line": 54,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `organizácia tímov a ownership,`, `operations as code,`, `malé reverzibilné zmeny,`, `observability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "4. Operational Excellence",
-      "line": 54,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "4. Operational Excellence",
-      "line": 54,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "4. Operational Excellence",
-      "line": 54,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "5. Security",
+      "section": "2. Workload boundary je business capability, nie AWS diagram",
       "line": 80,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "5. Security",
-      "line": 80,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity foundation,`, `traceability,`, `infrastructure protection,`, `data protection,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "5. Security",
-      "line": 80,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "5. Security",
-      "line": 80,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "5. Security",
-      "line": 80,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "5. Security",
-      "line": 80,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "6. Reliability",
-      "line": 108,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "6. Reliability",
-      "line": 108,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `foundations a quotas,`, `workload architecture,`, `change management,`, `failure management,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "6. Reliability",
-      "line": 108,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "6. Reliability",
-      "line": 108,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "6. Reliability",
-      "line": 108,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "6. Reliability",
-      "line": 108,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `AZ`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "7. Performance Efficiency",
-      "line": 135,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "7. Performance Efficiency",
-      "line": 135,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny resource type,`, `compute/storage/database/network selection,`, `serverless a managed services,`, `measurement,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "7. Performance Efficiency",
-      "line": 135,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "7. Performance Efficiency",
-      "line": 135,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "8. Cost Optimization",
-      "line": 161,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "8. Cost Optimization",
-      "line": 161,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `financial management,`, `expenditure awareness,`, `cost-effective resources,`, `supply-demand management,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "8. Cost Optimization",
-      "line": 161,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "8. Cost Optimization",
-      "line": 161,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "9. Sustainability",
-      "line": 185,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "9. Sustainability",
-      "line": 185,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Region a service selection,`, `utilization,`, `demand matching,`, `data lifecycle,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "9. Sustainability",
-      "line": 185,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "9. Sustainability",
-      "line": 185,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "10. Trade-offs medzi piliermi",
-      "line": 210,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "10. Trade-offs medzi piliermi",
-      "line": 210,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "10. Trade-offs medzi piliermi",
-      "line": 210,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "10. Trade-offs medzi piliermi",
-      "line": 210,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "10. Trade-offs medzi piliermi",
-      "line": 210,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "11. AWS Well-Architected Tool",
-      "line": 222,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "11. AWS Well-Architected Tool",
-      "line": 222,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `definovať workload,`, `aplikovať Framework Lens a ďalšie lenses,`, `odpovedať na review questions,`, `identifikovať high-risk a medium-risk issues,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "11. AWS Well-Architected Tool",
-      "line": 222,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "11. AWS Well-Architected Tool",
-      "line": 222,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "12. Lenses",
-      "line": 237,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `AWS Well-Architected Framework Lens,`, `AWS-provided domain lenses,`, `custom lenses podľa organization requirements.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "12. Lenses",
-      "line": 237,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `AWS-`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "13. Review participants",
-      "line": 251,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "13. Review participants",
-      "line": 251,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "13. Review participants",
-      "line": 251,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business owner,`, `solution/application architect,`, `development,`, `platform/cloud operations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "13. Review participants",
-      "line": 251,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "13. Review participants",
-      "line": 251,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SRE`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "14. Evidence-driven review",
-      "line": 267,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "14. Evidence-driven review",
-      "line": 267,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `architecture diagrams,`, `IaC alebo configuration,`, `CloudWatch/observability dashboards,`, `CloudTrail/audit evidence,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "14. Evidence-driven review",
-      "line": 267,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "14. Evidence-driven review",
-      "line": 267,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "15. High-risk a medium-risk issues",
-      "line": 285,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "15. High-risk a medium-risk issues",
-      "line": 285,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pillar a question,`, `affected workload/component,`, `failure scenario,`, `likelihood,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "15. High-risk a medium-risk issues",
-      "line": 285,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "15. High-risk a medium-risk issues",
-      "line": 285,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "15. High-risk a medium-risk issues",
-      "line": 285,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "16. Improvement plan",
-      "line": 305,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "detail": "8 odrážok a iba 40 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "16. Improvement plan",
-      "line": 305,
+      "section": "2. Workload boundary je business capability, nie AWS diagram",
+      "line": 80,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétny problem statement,`, `business/technical impact,`, `ownera,`, `priority,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `retry behavior po unknown transaction outcome;`, `CI/CD permissions a rollback eligibility;`, `external provider idempotency;`, `secret rotation consumer refresh;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "16. Improvement plan",
-      "line": 305,
+      "section": "2. Workload boundary je business capability, nie AWS diagram",
+      "line": 80,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -173720,8 +173144,125 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "16. Improvement plan",
-      "line": 305,
+      "section": "2. Workload boundary je business capability, nie AWS diagram",
+      "line": 80,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "2. Workload boundary je business capability, nie AWS diagram",
+      "line": 80,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `CD`, `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "3. Review subject musí byť versionovaný",
+      "line": 110,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "3. Review subject musí byť versionovaný",
+      "line": 110,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application a schema release;`, `accounts, Regions a topology;`, `IaC/deployment generation;`, `security a recovery policy generations;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "3. Review subject musí byť versionovaný",
+      "line": 110,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "3. Review subject musí byť versionovaný",
+      "line": 110,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "5. Question applicability je explicitný verdict",
+      "line": 152,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `applicable a implemented;`, `applicable a partially implemented;`, `applicable a not implemented;`, `not applicable s rationale a evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "5. Question applicability je explicitný verdict",
+      "line": 152,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "5. Question applicability je explicitný verdict",
+      "line": 152,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Performance Efficiency: spĺňa resource model požiadavky pri reálnom demand-e?",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "7. Cross-pillar trade-off je versionované rozhodnutie",
+      "line": 248,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "7. Cross-pillar trade-off je versionované rozhodnutie",
+      "line": 248,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `context a exact subject;`, `alternatives;`, `expected benefit;`, `affected pillars;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "7. Cross-pillar trade-off je versionované rozhodnutie",
+      "line": 248,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "7. Cross-pillar trade-off je versionované rozhodnutie",
+      "line": 248,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -173729,44 +173270,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "17. Prioritizácia",
-      "line": 325,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "17. Prioritizácia",
-      "line": 325,
+      "section": "8. Risk statement musí byť kauzálny",
+      "line": 276,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "17. Prioritizácia",
-      "line": 325,
+      "section": "8. Risk statement musí byť kauzálny",
+      "line": 276,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business criticality,`, `security/compliance severity,`, `outage/recovery impact,`, `likelihood,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trigger/cause;`, `mechanizmus;`, `affected outcome;`, `likelihood evidence;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "17. Prioritizácia",
-      "line": 325,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "8. Risk statement musí byť kauzálny",
+      "line": 276,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "17. Prioritizácia",
-      "line": 325,
+      "section": "8. Risk statement musí byť kauzálny",
+      "line": 276,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "8. Risk statement musí byť kauzálny",
+      "line": 276,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
@@ -173774,215 +173315,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "18. Milestones",
-      "line": 341,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "18. Milestones",
-      "line": 341,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `po baseline review,`, `pred production launchom,`, `po významnej architecture change,`, `po odstránení improvement items,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "18. Milestones",
-      "line": 341,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "18. Milestones",
-      "line": 341,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "19. Review cadence",
-      "line": 356,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "19. Review cadence",
-      "line": 356,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pri návrhu nového workloadu,`, `pred go-live,`, `periodicky podľa criticality,`, `po veľkej zmene,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "19. Review cadence",
-      "line": 356,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "20. Continuous Well-Architected",
-      "line": 370,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "20. Continuous Well-Architected",
-      "line": 370,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration compliance,`, `backup coverage,`, `encryption,`, `public exposure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "20. Continuous Well-Architected",
-      "line": 370,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "20. Continuous Well-Architected",
-      "line": 370,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "21. Architecture Decision Records",
-      "line": 396,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "21. Architecture Decision Records",
-      "line": 396,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `context,`, `decision,`, `alternatives,`, `consequences,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "21. Architecture Decision Records",
-      "line": 396,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "22. Operational readiness review",
-      "line": 409,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "22. Operational readiness review",
-      "line": 409,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "22. Operational readiness review",
-      "line": 409,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownership a support hours,`, `SLO a alarms,`, `dashboards a logs,`, `deployment/rollback,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "22. Operational readiness review",
-      "line": 409,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "22. Operational readiness review",
-      "line": 409,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "23. Review workloadu s managed services",
-      "line": 427,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "23. Review workloadu s managed services",
-      "line": 427,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration,`, `identity,`, `encryption,`, `network exposure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "23. Review workloadu s managed services",
-      "line": 427,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "23. Review workloadu s managed services",
-      "line": 427,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "24. Review serverless a container workloads",
-      "line": 446,
+      "section": "9. Configured, effective a accepted control",
+      "line": 302,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -173990,107 +173324,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Serverless",
-      "line": 448,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Serverless",
-      "line": 448,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Serverless",
-      "line": 448,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Serverless",
-      "line": 448,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `concurrency a downstream protection,`, `retries/idempotency,`, `event age a DLQ,`, `cold start/performance,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Serverless",
-      "line": 448,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Serverless",
-      "line": 448,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DLQ`, `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Containers",
-      "line": 458,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Containers",
-      "line": 458,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Containers",
-      "line": 458,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Containers",
-      "line": 458,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image supply chain,`, `orchestration/control-plane responsibility,`, `capacity a autoscaling,`, `service discovery/networking,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Containers",
-      "line": 458,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "25. Multi-account a multi-Region review",
-      "line": 469,
+      "section": "Configured",
+      "line": 304,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174098,44 +173333,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "25. Multi-account a multi-Region review",
-      "line": 469,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "25. Multi-account a multi-Region review",
-      "line": 469,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account/OU boundaries,`, `SCPs a delegated administration,`, `centralized logging/security,`, `cross-account access,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "25. Multi-account a multi-Region review",
-      "line": 469,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "25. Multi-account a multi-Region review",
-      "line": 469,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OU`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "26. Cost a Well-Architected",
-      "line": 486,
+      "section": "Effective",
+      "line": 308,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174143,80 +173342,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "26. Cost a Well-Architected",
-      "line": 486,
+      "section": "11. Risk acceptance má expiry a triggers",
+      "line": 346,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "26. Cost a Well-Architected",
-      "line": 486,
+      "section": "11. Risk acceptance má expiry a triggers",
+      "line": 346,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reliability cost of failure,`, `security/compliance controls,`, `operational toil,`, `engineering time,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accountable approvera;`, `rationale a business context;`, `exact residual scenario;`, `temporary compensating controls;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "26. Cost a Well-Architected",
-      "line": 486,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "26. Cost a Well-Architected",
-      "line": 486,
+      "section": "11. Risk acceptance má expiry a triggers",
+      "line": 346,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 501,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 501,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 501,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 501,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 501,
+      "section": "11. Risk acceptance má expiry a triggers",
+      "line": 346,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -174224,8 +173378,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 501,
+      "section": "13. Lenses a custom controls",
+      "line": 377,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "13. Lenses a custom controls",
+      "line": 377,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payment exactly-once boundary;`, `provider idempotency/reconciliation;`, `PCI/data handling;`, `secret rotation loaded-state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "13. Lenses a custom controls",
+      "line": 377,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -174233,17 +173405,62 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 501,
+      "section": "13. Lenses a custom controls",
+      "line": 377,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PCI`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "28. Troubleshooting review procesu",
-      "line": 511,
+      "section": "14. Well-Architected Tool je review system of record, nie scanner",
+      "line": 392,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "14. Well-Architected Tool je review system of record, nie scanner",
+      "line": 392,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či screenshot je aktuálny;`, `či failover vytvorí duplicate payment;`, `či accepted risk má správneho ownera;`, `či restore spĺňa business invariant;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "14. Well-Architected Tool je review system of record, nie scanner",
+      "line": 392,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "14. Well-Architected Tool je review system of record, nie scanner",
+      "line": 392,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "14. Well-Architected Tool je review system of record, nie scanner",
+      "line": 392,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "15. Worked failure: Multi-AZ screenshot falošne uzavrel reliability risk",
+      "line": 406,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -174251,8 +173468,278 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Review nevytvoril zmenu",
-      "line": 517,
+      "section": "Review answer",
+      "line": 408,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Review answer",
+      "line": 408,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `RDS bol Multi-AZ;`, `application používala retry library;`, `AWS Backup jobs boli green;`, `runbook obsahoval „retry request after reconnect“.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Review answer",
+      "line": 408,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Review answer",
+      "line": 408,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RDS`, `AZ`, `AWS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Competing hypotheses o review failure",
+      "line": 434,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Competing hypotheses o review failure",
+      "line": 434,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Competing hypotheses o review failure",
+      "line": 434,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Competing hypotheses o review failure",
+      "line": 434,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production drift odstránil pôvodne funkčný control;`, `evidence bola stale;`, `workload boundary nezahŕňala payment provider;`, `question bola interpretovaná ako „máme Multi-AZ“;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Competing hypotheses o review failure",
+      "line": 434,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Competing hypotheses o review failure",
+      "line": 434,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Discriminating evidence",
+      "line": 443,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Discriminating evidence",
+      "line": 443,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Discriminating evidence",
+      "line": 443,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `review evidence neobsahuje provider transaction alebo idempotency boun`, `architecture diagram končí pri RDS commit-e;`, `failover drill inventory neexistuje;`, `žiadny risk acceptance record neexistuje.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Discriminating evidence",
+      "line": 443,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Discriminating evidence",
+      "line": 443,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Discriminating evidence",
+      "line": 443,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Discriminating evidence",
+      "line": 443,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RDS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Incident containment a recovery",
+      "line": 454,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Incident containment a recovery",
+      "line": 454,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Incident containment a recovery",
+      "line": 454,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Incident containment a recovery",
+      "line": 454,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav blind retries a obmedz settlement consumers;`, `reconcile provider a ledger podľa payment/idempotency identity;`, `refund/void duplicate authorization podľa business runbooku;`, `zachovaj failover, database, provider a application evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Incident containment a recovery",
+      "line": 454,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Incident containment a recovery",
+      "line": 454,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Review-system recovery",
+      "line": 463,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Review-system recovery",
+      "line": 463,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Review-system recovery",
+      "line": 463,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Review-system recovery",
+      "line": 463,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reopen reliability HRI;`, `oprav workload boundary o provider a client retry;`, `nahradiť screenshot evidence failover experimentom;`, `vytvoriť owned improvement item a exact acceptance oracle;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Review-system recovery",
+      "line": 463,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Review-system recovery",
+      "line": 463,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Review-system recovery",
+      "line": 463,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HRI`, `reliability`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Acceptance verdict",
+      "line": 473,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174260,8 +173747,152 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Stále rovnaké high-risk issues",
-      "line": 521,
+      "section": "Acceptance verdict",
+      "line": 473,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Acceptance verdict",
+      "line": 473,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `failover experiment prejde s production-equivalent clientom;`, `provider a ledger obsahujú exactly one business outcome;`, `retry po unknown outcome najprv vykoná reconciliation;`, `forbidden duplicate authorization nevznikne;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Acceptance verdict",
+      "line": 473,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Acceptance verdict",
+      "line": 473,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "16. Continuous Well-Architected",
+      "line": 485,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "16. Continuous Well-Architected",
+      "line": 485,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `new Region/account/provider;`, `major release alebo data migration;`, `changed SLO/RTO/RPO;`, `security incident;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "16. Continuous Well-Architected",
+      "line": 485,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "16. Continuous Well-Architected",
+      "line": 485,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "16. Continuous Well-Architected",
+      "line": 485,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "16. Continuous Well-Architected",
+      "line": 485,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`, `RPO`, `AWS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "17. Operational readiness a review",
+      "line": 514,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "17. Operational readiness a review",
+      "line": 514,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `owner, support model a escalation;`, `SLO/SLI a alarm action paths;`, `capacity, quota a downstream protection;`, `deployment, rollback/roll-forward a schema compatibility;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "17. Operational readiness a review",
+      "line": 514,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "17. Operational readiness a review",
+      "line": 514,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "17. Operational readiness a review",
+      "line": 514,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `SLI`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "18. Troubleshooting review procesu",
+      "line": 530,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Stále sa vracajú rovnaké findings",
+      "line": 536,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174269,8 +173900,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Review scope je príliš malý",
-      "line": 525,
+      "section": "Tool ukazuje low risk, incidenty pokračujú",
+      "line": 540,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174278,17 +173909,80 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Tool ukazuje starý stav",
-      "line": 529,
+      "section": "Review nevytvoril engineering change",
+      "line": 544,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "Pillar teams si odporujú",
+      "line": 548,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 552,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 552,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 552,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 552,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 552,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 552,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `reliability`",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
       "section": "Checklist compliance",
-      "line": 535,
+      "line": 562,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174296,8 +173990,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Review iba pred auditom",
-      "line": 539,
+      "section": "Review iba nad AWS diagramom",
+      "line": 566,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174305,8 +173999,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Všetko označené „not applicable“",
-      "line": 543,
+      "section": "Configured control ako effective control",
+      "line": 570,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174314,8 +174008,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Tool ako scanner",
-      "line": 547,
+      "section": "HRI closed vytvorením ticketu",
+      "line": 574,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174323,8 +174017,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Improvement plan bez ownerov",
-      "line": 551,
+      "section": "Milestone ako current truth",
+      "line": 578,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174332,8 +174026,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Optimalizácia jedného piliera izolovane",
-      "line": 555,
+      "section": "Not applicable namiesto dependency analýzy",
+      "line": 582,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174341,8 +174035,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "Accepted risk bez expirácie",
-      "line": 559,
+      "section": "Accepted risk bez expiry",
+      "line": 586,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174350,8 +174044,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
-      "section": "30. Praktický review template",
-      "line": 563,
+      "section": "Izolovaná optimalizácia jedného piliera",
+      "line": 590,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/well-architected-framework.md",
+      "section": "21. Praktický risk record",
+      "line": 594,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
