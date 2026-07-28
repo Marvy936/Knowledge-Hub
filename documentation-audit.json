@@ -2761,15 +2761,15 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "title": "AWS Certified CloudOps Engineer – Associate (SOA-C03)",
-      "words": 1209,
-      "headings": 40,
-      "sections": 40,
-      "findings": 125,
-      "critical": 55,
-      "high": 53,
-      "medium": 11,
-      "low": 6,
-      "score": 1112,
+      "words": 1984,
+      "headings": 32,
+      "sections": 32,
+      "findings": 92,
+      "critical": 28,
+      "high": 33,
+      "medium": 15,
+      "low": 16,
+      "score": 667,
       "grade": "D"
     },
     {
@@ -152183,26 +152183,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "1. Aktuálny exam contract",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "3. Aktuálny exam contract",
+      "line": 42,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "1. Aktuálny exam contract",
-      "line": 5,
-      "severity": "critical",
+      "section": "3. Aktuálny exam contract",
+      "line": 42,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exam code: SOA-C03 ,`, `level: Associate,`, `duration: 130 minút,`, `format: 65 multiple-choice alebo multiple-response questions,`.",
-      "score": 12
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `exam code SOA-C03 ;`, `associate level;`, `130 minút;`, `65 multiple-choice alebo multiple-response questions;`.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "1. Aktuálny exam contract",
-      "line": 5,
+      "section": "3. Aktuálny exam contract",
+      "line": 42,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -152210,62 +152210,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "1. Aktuálny exam contract",
-      "line": 5,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "1. Aktuálny exam contract",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SOA-C03`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "3. Čo SOA-C03 overuje",
-      "line": 30,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "3. Čo SOA-C03 overuje",
-      "line": 30,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "3. Čo SOA-C03 overuje",
-      "line": 30,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `podporovať a udržiavať AWS workloads podľa Well-Architected princípov,`, `používať AWS Management Console a AWS CLI,`, `implementovať security a compliance controls,`, `monitorovať, logovať a troubleshootovať systémy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "3. Čo SOA-C03 overuje",
-      "line": 30,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "3. Čo SOA-C03 overuje",
-      "line": 30,
+      "section": "3. Aktuálny exam contract",
+      "line": 42,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -152273,647 +152219,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "3. Čo SOA-C03 overuje",
-      "line": 30,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "3. Čo SOA-C03 overuje",
-      "line": 30,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `CLI`, `DNS`, `TCP`, `IP`, `DR`, `availability`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "4. Rozdiel oproti starému SOA-C02",
-      "line": 45,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "4. Rozdiel oproti starému SOA-C02",
-      "line": 45,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "4. Rozdiel oproti starému SOA-C02",
-      "line": 45,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `containers,`, `multi-account architectures,`, `multi-Region operations,`, `automation a Infrastructure as Code,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "4. Rozdiel oproti starému SOA-C02",
-      "line": 45,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "5. Domain 1 — Monitoring, Logging, Analysis, Remediation and Performance Optimization",
-      "line": 59,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 61,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 61,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 61,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 61,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CloudWatch metrics, logs, alarms, dashboards a anomaly detection,`, `CloudTrail, AWS Config a service logs,`, `centralizácia telemetry medzi accounts/Regions,`, `performance analysis,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 61,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 61,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 72,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 72,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 72,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 72,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CloudWatch a CloudTrail,`, `Systems Manager,`, `EC2 a Auto Scaling,`, `ECS a EKS,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 72,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 72,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `ECS`, `EKS`, `SRE`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "6. Domain 2 — Reliability and Business Continuity",
-      "line": 83,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 85,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 85,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 85,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 85,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scalability a elasticity,`, `Multi-AZ a multi-Region resilience,`, `health checks, load balancing a failover,`, `backup policies a restore,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 85,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 85,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `RPO`, `RTO`, `AWS`, `DR`, `scalability`, `elasticity`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 96,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 96,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 96,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 96,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Regions a Availability Zones,`, `Scalability, elasticity a fault tolerance,`, `High availability a disaster recovery,`, `EC2 a Auto Scaling,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 96,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 96,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `S3`, `EBS`, `EFS`, `RDS`, `AWS`, `Availability`, `Scalability`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "7. Domain 3 — Deployment, Provisioning and Automation",
-      "line": 108,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 110,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 110,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 110,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 110,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provisioning a maintenance cloud resources,`, `AMIs a container images,`, `CloudFormation a Infrastructure as Code concepts,`, `Systems Manager automation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 110,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 110,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CLI`, `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 122,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 122,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 122,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Infrastructure as Code section,`, `EC2 a Auto Scaling,`, `ECS a EKS,`, `Lambda,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 122,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 122,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `ECS`, `EKS`, `IAM`, `AWS`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "8. Domain 4 — Security and Compliance",
-      "line": 134,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 136,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 136,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 136,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 136,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IAM policy evaluation,`, `federation, roles a temporary credentials,`, `SCPs a multi-account guardrails,`, `KMS, Secrets Manager a encryption,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 136,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 136,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `KMS`, `policy`, `scope`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 148,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 148,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 148,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 148,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Shared responsibility model,`, `AWS Organizations a accounts,`, `IAM,`, `Security Groups a Network ACLs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 148,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 148,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `IAM`, `KMS`, `Identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "9. Domain 5 — Networking and Content Delivery",
-      "line": 159,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 161,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 161,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 161,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 161,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC, subnet a route-table design,`, `internet/NAT/private endpoint connectivity,`, `Security Groups a NACLs,`, `DNS a Route 53,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 161,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Potrebné schopnosti",
-      "line": 161,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `NAT`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 172,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 172,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 172,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 172,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC, subnets a route tables,`, `Internet Gateway a NAT Gateway,`, `Security Groups a Network ACLs,`, `Elastic Load Balancing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 172,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Hlavné kapitoly repozitára",
-      "line": 172,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `NAT`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "10. In-scope service model",
-      "line": 181,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "10. In-scope service model",
-      "line": 181,
+      "section": "3. Aktuálny exam contract",
+      "line": 42,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -152921,80 +152228,179 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "11. Scenario-question model",
-      "line": 193,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "11. Scenario-question model",
-      "line": 193,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "11. Scenario-question model",
-      "line": 193,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neriešia všetky constraints,`, `vyžadujú neprimeraný manual toil,`, `porušujú least privilege,`, `nemajú HA alebo restore model,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "11. Scenario-question model",
-      "line": 193,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "11. Scenario-question model",
-      "line": 193,
+      "section": "3. Aktuálny exam contract",
+      "line": 42,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SOA-C03`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "12. Multiple-response otázky",
-      "line": 215,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "12. Multiple-response otázky",
-      "line": 215,
+      "section": "5. Capabilities, nie service recognition",
+      "line": 69,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "12. Multiple-response otázky",
-      "line": 215,
+      "section": "5. Capabilities, nie service recognition",
+      "line": 69,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyhodnoť každú možnosť samostatne,`, `nehľadaj iba jednu „najlepšiu“ odpoveď,`, `over, či kombinácia tvorí kompletný path,`, `nevyberaj redundantnú možnosť, ktorá nepridáva požadovanú capability.`.",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikovať požadovaný business alebo operational outcome;`, `určiť scope a responsibility boundary;`, `zostaviť complete control, data alebo recovery path;`, `vybrať managed capability, ktorá spĺňa explicitné constraints;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "12. Multiple-response otázky",
-      "line": 215,
+      "section": "5. Capabilities, nie service recognition",
+      "line": 69,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "5. Capabilities, nie service recognition",
+      "line": 69,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "5. Capabilities, nie service recognition",
+      "line": 69,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "5. Capabilities, nie service recognition",
+      "line": 69,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `resource`, `reliability`, `blast radius`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 1 — Monitoring, remediation a performance",
+      "line": 88,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 1 — Monitoring, remediation a performance",
+      "line": 88,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CloudWatch a CloudTrail;`, `Systems Manager;`, `EC2 a Auto Scaling;`, `Lambda;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 1 — Monitoring, remediation a performance",
+      "line": 88,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 1 — Monitoring, remediation a performance",
+      "line": 88,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 1 — Monitoring, remediation a performance",
+      "line": 88,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `ECS`, `EKS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 2 — Reliability a business continuity",
+      "line": 102,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 2 — Reliability a business continuity",
+      "line": 102,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Scalability, elasticity a fault tolerance;`, `High availability a disaster recovery;`, `Elastic Load Balancing;`, `S3, EBS a EFS;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 2 — Reliability a business continuity",
+      "line": 102,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 2 — Reliability a business continuity",
+      "line": 102,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 2 — Reliability a business continuity",
+      "line": 102,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `EBS`, `EFS`, `RDS`, `AWS`, `Scalability`, `elasticity`, `fault tolerance`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 3 — Deployment, provisioning a automation",
+      "line": 116,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 3 — Deployment, provisioning a automation",
+      "line": 116,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sekcia Infrastructure as Code and Configuration Management;`, `EC2 a Auto Scaling;`, `ECS a EKS;`, `Lambda;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 3 — Deployment, provisioning a automation",
+      "line": 116,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -153002,8 +152408,458 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 3 — Deployment, provisioning a automation",
+      "line": 116,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `ECS`, `EKS`, `AWS`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 4 — Security a compliance",
+      "line": 129,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 4 — Security a compliance",
+      "line": 129,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Shared responsibility model;`, `AWS Organizations a accounts;`, `IAM;`, `Security Groups a Network ACLs;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 4 — Security a compliance",
+      "line": 129,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 4 — Security a compliance",
+      "line": 129,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 4 — Security a compliance",
+      "line": 129,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `IAM`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 5 — Networking a content delivery",
+      "line": 143,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 5 — Networking a content delivery",
+      "line": 143,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC, subnets a route tables;`, `Internet Gateway a NAT Gateway;`, `Security Groups a Network ACLs;`, `Elastic Load Balancing;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 5 — Networking a content delivery",
+      "line": 143,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 5 — Networking a content delivery",
+      "line": 143,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Domain 5 — Networking a content delivery",
+      "line": 143,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "8. Weighted gap model",
+      "line": 172,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "8. Weighted gap model",
+      "line": 172,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "9. Worked readiness failure: vysoké skóre, slabý capability contract",
+      "line": 196,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "9. Worked readiness failure: vysoké skóre, slabý capability contract",
+      "line": 196,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "9. Worked readiness failure: vysoké skóre, slabý capability contract",
+      "line": 196,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "9. Worked readiness failure: vysoké skóre, slabý capability contract",
+      "line": 196,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "9. Worked readiness failure: vysoké skóre, slabý capability contract",
+      "line": 196,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "9. Worked readiness failure: vysoké skóre, slabý capability contract",
+      "line": 196,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `IAM`, `AWS`, `NAT`, `S3`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Competing readiness hypotheses",
+      "line": 213,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Competing readiness hypotheses",
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Competing readiness hypotheses",
+      "line": 213,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H2`, `H3`, `H4`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Remediation",
+      "line": 233,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Remediation",
+      "line": 233,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Remediation",
+      "line": 233,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Remediation",
+      "line": 233,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `znovu prejsť IAM, KMS/Secrets a AWS Backup lifecycle-y;`, `vykonať cross-account KMS a isolated-restore lab;`, `absolvovať príslušné troubleshooting drilly;`, `vytvoriť error cards pre každý high-confidence wrong model;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Remediation",
+      "line": 233,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Remediation",
+      "line": 233,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `KMS`, `AWS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "10. Error provenance",
+      "line": 242,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "10. Error provenance",
+      "line": 242,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `knowledge gap;`, `stale exam-version assumption;`, `missed qualifier alebo negative constraint;`, `wrong scope/account/Region;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "10. Error provenance",
+      "line": 242,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "10. Error provenance",
+      "line": 242,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "10. Error provenance",
+      "line": 242,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`, `scope`, `policy`, `availability`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "11. Readiness state machine",
+      "line": 260,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "11. Readiness state machine",
+      "line": 260,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "11. Readiness state machine",
+      "line": 260,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "11. Readiness state machine",
+      "line": 260,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Knowledge mapped vyžaduje current guide-to-chapter map;`, `Timed vyžaduje full-length simulation;`, `Evidence reviewed vyžaduje error provenance a domain gaps;`, `Ready vyžaduje splnenie acceptance contractu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "11. Readiness state machine",
+      "line": 260,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "11. Readiness state machine",
+      "line": 260,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "12. Readiness acceptance contract",
+      "line": 281,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "12. Readiness acceptance contract",
+      "line": 281,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current exam guide revision a domain weights;`, `viac nezávislých full-length simulations bez time collapse;`, `stabilný celkový výkon bez kritického domain floor gapu;`, `explanation správnych odpovedí aj distractorov;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "12. Readiness acceptance contract",
+      "line": 281,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "12. Readiness acceptance contract",
+      "line": 281,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "12. Readiness acceptance contract",
+      "line": 281,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "12. Readiness acceptance contract",
+      "line": 281,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `CLI`, `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "13. Study a review cadence",
+      "line": 298,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "13. Study a review cadence",
+      "line": 298,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "13. Study a review cadence",
+      "line": 298,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmenené skills;`, `in-scope a out-of-scope services;`, `nové service examples;`, `či staré practice materials nepoužívajú retired assumptions.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "13. Study a review cadence",
+      "line": 298,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "13. Study a review cadence",
+      "line": 298,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "14. Praktický track v repozitári",
-      "line": 239,
+      "line": 321,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -153012,7 +152868,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "14. Praktický track v repozitári",
-      "line": 239,
+      "line": 321,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -153021,7 +152877,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "14. Praktický track v repozitári",
-      "line": 239,
+      "line": 321,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -153030,16 +152886,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "14. Praktický track v repozitári",
-      "line": 239,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CloudOps domain review a timed reasoning`, `CloudOps hands-on labs`, `CloudOps troubleshooting drills`, `Praktické AWS CloudOps laby`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "14. Praktický track v repozitári",
-      "line": 239,
+      "line": 321,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -153048,7 +152895,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "14. Praktický track v repozitári",
-      "line": 239,
+      "line": 321,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`",
@@ -153056,179 +152903,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "15. Študijné fázy",
-      "line": 247,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Fáza A — Foundation",
-      "line": 249,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Fáza B — Core services",
-      "line": 253,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Fáza C — Domain review",
-      "line": 257,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Fáza C — Domain review",
-      "line": 257,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Fáza C — Domain review",
-      "line": 257,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service,`, `control plane,`, `data plane,`, `failure evidence,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Fáza C — Domain review",
-      "line": 257,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Fáza C — Domain review",
-      "line": 257,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `control plane`, `data plane`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Fáza D — Labs a troubleshooting",
-      "line": 268,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Fáza E — Exam simulations",
-      "line": 272,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "16. Readiness criteria",
-      "line": 276,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "16. Readiness criteria",
-      "line": 276,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "16. Readiness criteria",
-      "line": 276,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konzistentne dosahovať cieľové skóre na kvalitných practice sets,`, `dokončiť 130-minútovú simuláciu bez time collapse,`, `vysvetliť, prečo sú distractors nesprávne,`, `prakticky nakonfigurovať core operations paths,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "16. Readiness criteria",
-      "line": 276,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "16. Readiness criteria",
-      "line": 276,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "16. Readiness criteria",
-      "line": 276,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `CLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "17. Review log",
-      "line": 288,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Memorovanie service descriptions",
-      "line": 309,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Iba video kurz bez labov",
-      "line": 313,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "Starý SOA-C02 blueprint ako autorita",
-      "line": 317,
+      "line": 331,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153236,8 +152912,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Ignorovanie cost a automation",
-      "line": 321,
+      "section": "Practice score bez source identity",
+      "line": 335,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153245,8 +152921,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
-      "section": "Učenie odpovedí z dumps",
-      "line": 325,
+      "section": "Overall average bez domain floor",
+      "line": 339,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Correct answer bez explanation",
+      "line": 343,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Iba video kurz bez operational evidence",
+      "line": 347,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
+      "section": "Memorovanie exam dumps",
+      "line": 351,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153255,7 +152958,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "Oficiálne zdroje",
-      "line": 333,
+      "line": 376,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153264,7 +152967,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "Oficiálne zdroje",
-      "line": 333,
+      "line": 376,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -153273,25 +152976,25 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "Oficiálne zdroje",
-      "line": 333,
+      "line": 376,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "Oficiálne zdroje",
-      "line": 333,
+      "line": 376,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS Certified CloudOps Engineer – Associate`, `SOA-C03 exam guide`, `SOA-C03 revisions`, `In-scope AWS services`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS Certified CloudOps Engineer – Associate`, `SOA-C03 exam guide`, `SOA-C03 revisions`, `Comparison of SOA-C02 and SOA-C03`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "Oficiálne zdroje",
-      "line": 333,
+      "line": 376,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -153300,11 +153003,11 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md",
       "section": "Oficiálne zdroje",
-      "line": 333,
-      "severity": "medium",
+      "line": 376,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `SOA-C03`, `scope`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `SOA-C03`, `SOA-C02`, `scope`",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
