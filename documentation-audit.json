@@ -2901,15 +2901,15 @@
     {
       "path": "docs/11-cloud-and-aws/iam.md",
       "title": "IAM",
-      "words": 1437,
-      "headings": 33,
-      "sections": 33,
-      "findings": 97,
-      "critical": 34,
-      "high": 40,
-      "medium": 15,
-      "low": 8,
-      "score": 779,
+      "words": 1468,
+      "headings": 29,
+      "sections": 29,
+      "findings": 60,
+      "critical": 21,
+      "high": 24,
+      "medium": 6,
+      "low": 9,
+      "score": 470,
       "grade": "D"
     },
     {
@@ -164765,8 +164765,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "1. Authentication a authorization",
-      "line": 5,
+      "section": "1. Exact request subject",
+      "line": 21,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -164774,62 +164774,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "1. Authentication a authorization",
-      "line": 5,
+      "section": "2. Authentication, principal a session",
+      "line": 46,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 54 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "1. Authentication a authorization",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "1. Authentication a authorization",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "2. IAM principals",
-      "line": 21,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "2. IAM principals",
-      "line": 21,
+      "section": "2. Authentication, principal a session",
+      "line": 46,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS account root user,`, `IAM user,`, `IAM role session,`, `federovaný user/session,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `root user;`, `IAM user;`, `IAM role session;`, `federated alebo IAM Identity Center session;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "2. IAM principals",
-      "line": 21,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "2. IAM principals",
-      "line": 21,
+      "section": "2. Authentication, principal a session",
+      "line": 46,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -164837,260 +164801,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "2. IAM principals",
-      "line": 21,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "3. Root user",
-      "line": 35,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "3. Root user",
-      "line": 35,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `phishing-resistant MFA,`, `žiadne root access keys,`, `bezpečná custody credentials,`, `alerting na root login a API použitie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "3. Root user",
-      "line": 35,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "3. Root user",
-      "line": 35,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "4. IAM users",
-      "line": 50,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitného ownera,`, `minimálne permissions,`, `rotation a disable proces,`, `credential-last-used monitoring,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "4. IAM users",
-      "line": 50,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "4. IAM users",
-      "line": 50,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "5. IAM roles",
-      "line": 62,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "6. STS a temporary credentials",
-      "line": 73,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "6. STS a temporary credentials",
-      "line": 73,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obmedzená lifetime,`, `session-level audit identity,`, `federation a cross-account access,`, `jednoduchšia rotation než pri static keys,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "6. STS a temporary credentials",
-      "line": 73,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "6. STS a temporary credentials",
-      "line": 73,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "6. STS a temporary credentials",
-      "line": 73,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "7. Identity-based policies",
-      "line": 94,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "7. Identity-based policies",
-      "line": 94,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "7. Identity-based policies",
-      "line": 94,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Effect ,`, `Action alebo NotAction ,`, `Resource alebo NotResource ,`, `Condition ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "7. Identity-based policies",
-      "line": 94,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "7. Identity-based policies",
-      "line": 94,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "8. Resource-based policies",
-      "line": 119,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "8. Resource-based policies",
-      "line": 119,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `S3 bucket policy,`, `KMS key policy,`, `SNS/SQS policy,`, `Secrets Manager resource policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "8. Resource-based policies",
-      "line": 119,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "8. Resource-based policies",
-      "line": 119,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "8. Resource-based policies",
-      "line": 119,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `KMS`, `SNS`, `SQS`, `IAM`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "9. Policy evaluation",
-      "line": 131,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "9. Policy evaluation",
-      "line": 131,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "9. Policy evaluation",
-      "line": 131,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "9. Policy evaluation",
-      "line": 131,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "9. Policy evaluation",
-      "line": 131,
+      "section": "2. Authentication, principal a session",
+      "line": 46,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -165098,107 +164810,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "9. Policy evaluation",
-      "line": 131,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SCP`, `RCP`, `identity`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "11. Session policies",
-      "line": 165,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "11. Session policies",
-      "line": 165,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-session scope,`, `brokered access,`, `temporary task-specific permissions,`, `tenant alebo project context.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "11. Session policies",
-      "line": 165,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "11. Session policies",
-      "line": 165,
+      "section": "2. Authentication, principal a session",
+      "line": 46,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `STS`, `workload`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "12. SCP a RCP",
-      "line": 176,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "12. SCP a RCP",
-      "line": 176,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SCP`, `RCP`, `Service Control Policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "13. Conditions a request context",
-      "line": 185,
+      "section": "5. Policy grant a envelope vrstvy",
+      "line": 101,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "13. Conditions a request context",
-      "line": 185,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `principal ARN alebo organization ID,`, `source VPC/VPC endpoint,`, `source IP,`, `MFA presence,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "13. Conditions a request context",
-      "line": 185,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "13. Conditions a request context",
-      "line": 185,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `ID`, `VPC`, `IP`, `MFA`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "14. Attribute-based access control",
-      "line": 201,
+      "section": "Identity-based policy",
+      "line": 103,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -165206,35 +164837,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "14. Attribute-based access control",
-      "line": 201,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "14. Attribute-based access control",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `governance tag keys/values,`, `kontrolu tag mutation permissions,`, `onboarding a cleanup lifecycle,`, `audit resources bez tags,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "14. Attribute-based access control",
-      "line": 201,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "15. Cross-account role model",
-      "line": 219,
+      "section": "Session policy",
+      "line": 115,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -165242,80 +164846,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "15. Cross-account role model",
-      "line": 219,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "7. Conditions a ABAC",
+      "line": 145,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "15. Cross-account role model",
-      "line": 219,
+      "section": "7. Conditions a ABAC",
+      "line": 145,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source permission na sts:AssumeRole ,`, `target trust policy,`, `external ID pri vhodných third-party prípadoch,`, `session tags/source identity,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `principal/account/organization identity;`, `source IP, VPC alebo VPC endpoint;`, `requested Region;`, `MFA;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "15. Cross-account role model",
-      "line": 219,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "7. Conditions a ABAC",
+      "line": 145,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "15. Cross-account role model",
-      "line": 219,
+      "section": "7. Conditions a ABAC",
+      "line": 145,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `SCP`, `KMS`, `policy`, `identity`, `resource`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `VPC`, `MFA`, `TLS`, `KMS`, `ARN`, `identity`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "16. Service roles a service-linked roles",
-      "line": 240,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "17. iam:PassRole",
-      "line": 249,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "17. iam:PassRole",
-      "line": 249,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presné role ARNs,`, `povolenú destination service cez condition,`, `kto môže meniť trust a permissions danej role,`, `tags/path a deployment ownership.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "17. iam:PassRole",
-      "line": 249,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "18. Access keys a credential chain",
-      "line": 260,
+      "section": "8. Indirect capabilities",
+      "line": 163,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -165323,8 +164891,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "18. Access keys a credential chain",
-      "line": 260,
+      "section": "8. Indirect capabilities",
+      "line": 163,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
@@ -165332,17 +164900,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "18. Access keys a credential chain",
-      "line": 260,
+      "section": "8. Indirect capabilities",
+      "line": 163,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment variables,`, `shared config/credentials files,`, `IAM Identity Center,`, `web identity,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `iam:PassRole + create/update service resource;`, `create Pod/Task/Function s privilegovanou execution role;`, `edit role trust alebo permissions boundary;`, `attach policy alebo create policy version;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "18. Access keys a credential chain",
-      "line": 260,
+      "section": "8. Indirect capabilities",
+      "line": 163,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -165350,80 +164918,71 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "18. Access keys a credential chain",
-      "line": 260,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `ECS`, `EC2`, `Identity`",
-      "score": 7
+      "section": "8. Indirect capabilities",
+      "line": 163,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "19. Federation a IAM Identity Center",
-      "line": 280,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "19. Federation a IAM Identity Center",
-      "line": 280,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `users/groups alebo external IdP federation,`, `permission sets,`, `account assignments,`, `temporary CLI/console sessions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "19. Federation a IAM Identity Center",
-      "line": 280,
+      "section": "8. Indirect capabilities",
+      "line": 163,
       "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `KMS`, `resource`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "19. Federation a IAM Identity Center",
-      "line": 280,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CLI`",
-      "score": 4
+      "section": "9. Connected walkthrough — AccessDenied po úspešnom policy teste",
+      "line": 177,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "20. Least privilege workflow",
-      "line": 294,
+      "section": "Competing hypotheses",
+      "line": 183,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Competing hypotheses",
+      "line": 183,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "20. Least privilege workflow",
-      "line": 294,
+      "section": "Competing hypotheses",
+      "line": 183,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "20. Least privilege workflow",
-      "line": 294,
+      "section": "Competing hypotheses",
+      "line": 183,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj presné API actions a resources,`, `začni úzkym scope-om,`, `používaj conditions,`, `testuj pozitívne aj negatívne paths,`.",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Aplikácia používa inú role/session než sa testuje.`, `Process drží starú STS session.`, `Identity policy chýba alebo má chybný ARN.`, `Permissions boundary alebo session policy action blokuje.`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "20. Least privilege workflow",
-      "line": 294,
+      "section": "Competing hypotheses",
+      "line": 183,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -165431,8 +164990,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "20. Least privilege workflow",
-      "line": 294,
+      "section": "Competing hypotheses",
+      "line": 183,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -165440,53 +164999,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "20. Least privilege workflow",
-      "line": 294,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `scope`",
-      "score": 4
+      "section": "Competing hypotheses",
+      "line": 183,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "21. IAM Access Analyzer",
-      "line": 308,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "21. IAM Access Analyzer",
-      "line": 308,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikovať external access z resource policies,`, `validovať policy syntax a security findings,`, `generovať candidate policies z CloudTrail activity,`, `analyzovať unused access podľa dostupných capabilities.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "21. IAM Access Analyzer",
-      "line": 308,
+      "section": "Competing hypotheses",
+      "line": 183,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `STS`, `ARN`, `SCP`, `RCP`, `KMS`, `VPC`, `Identity`, `policy`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "21. IAM Access Analyzer",
-      "line": 308,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "22. Audit evidence",
-      "line": 319,
+      "section": "Discriminating observations",
+      "line": 196,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -165494,71 +165026,53 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "22. Audit evidence",
-      "line": 319,
+      "section": "Discriminating observations",
+      "line": 196,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Containment",
+      "line": 212,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "22. Audit evidence",
-      "line": 319,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `caller ARN a account ID,`, `assumed-role session name/source identity,`, `request ID a UTC timestamp,`, `CloudTrail event,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "22. Audit evidence",
-      "line": 319,
+      "section": "Containment",
+      "line": 212,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "22. Audit evidence",
-      "line": 319,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `ID`, `UTC`, `SCP`, `RCP`, `identity`, `resource`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "23. Troubleshooting AccessDenied",
-      "line": 332,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "23. Troubleshooting AccessDenied",
-      "line": 332,
+      "section": "Containment",
+      "line": 212,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "23. Troubleshooting AccessDenied",
-      "line": 332,
-      "severity": "critical",
+      "section": "Containment",
+      "line": 212,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `assumed iná role než očakávaná,`, `action používa subresource alebo dependent action,`, `resource ARN má chybný format,`, `KMS key policy nepovoľuje použitie key,`.",
-      "score": 12
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `izolovať affected Pod cohort;`, `chrániť settlement queue pred nekontrolovanými retries;`, `overiť, či legacy credential nebol použitý inde.`.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "23. Troubleshooting AccessDenied",
-      "line": 332,
+      "section": "Containment",
+      "line": 212,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -165566,8 +165080,62 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "23. Troubleshooting AccessDenied",
-      "line": 332,
+      "section": "Containment",
+      "line": 212,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Recovery",
+      "line": 220,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Recovery",
+      "line": 220,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Recovery",
+      "line": 220,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Recovery",
+      "line": 220,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Revoke/deactivate legacy access key.`, `Vytvoriť novú Pod generation s explicitným workload-identity contracto`, `Overiť caller ARN, session tags/source identity a expiry.`, `Vykonať allowed decrypt s presným encryption contextom.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Recovery",
+      "line": 220,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Recovery",
+      "line": 220,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -165575,66 +165143,165 @@
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "23. Troubleshooting AccessDenied",
-      "line": 332,
-      "severity": "high",
+      "section": "Recovery",
+      "line": 220,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `KMS`, `SCP`, `resource`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `workload`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Verification",
+      "line": 230,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Verification",
+      "line": 230,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Verification",
+      "line": 230,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Verification",
+      "line": 230,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `každý accepted Pod používa expected assumed-role session;`, `legacy access key je disabled a neprijíma requests;`, `correct encryption context funguje;`, `wrong tenant/purpose/Region/principal je denied;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "Verification",
+      "line": 230,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "Long-lived access keys pre ľudí",
-      "line": 362,
+      "section": "Verification",
+      "line": 230,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "12. Audit a revocation closure",
+      "line": 269,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "12. Audit a revocation closure",
+      "line": 269,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `caller/session ARN a account ID;`, `credential source, issue time a expiry;`, `action, resource ARN, Region a endpoint;`, `request ID a UTC timestamp;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "12. Audit a revocation closure",
+      "line": 269,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "12. Audit a revocation closure",
+      "line": 269,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "12. Audit a revocation closure",
+      "line": 269,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `ID`, `UTC`, `KMS`, `SCP`, `RCP`, `VPC`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "13. Earlier controls",
+      "line": 285,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/iam.md",
+      "section": "13. Earlier controls",
+      "line": 285,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "Wildcard Action: \" \" , Resource: \" \"",
-      "line": 366,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "13. Earlier controls",
+      "line": 285,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "AdministratorAccess ako troubleshooting oprava",
-      "line": 370,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "13. Earlier controls",
+      "line": 285,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `federation a temporary credentials;`, `explicitný credential-provider contract;`, `short sessions a refresh telemetry;`, `role trust tests;`.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "SCP považovaný za permission grant",
-      "line": 374,
+      "section": "13. Earlier controls",
+      "line": 285,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "Kontrola iba identity policy",
-      "line": 378,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/iam.md",
-      "section": "Role trust s príliš širokým principalom",
-      "line": 382,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "13. Earlier controls",
+      "line": 285,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/internet-gateway-nat-gateway.md",
