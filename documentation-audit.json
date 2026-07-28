@@ -2873,16 +2873,16 @@
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
       "title": "High availability a disaster recovery",
-      "words": 3363,
-      "headings": 46,
-      "sections": 46,
-      "findings": 30,
-      "critical": 0,
-      "high": 0,
-      "medium": 3,
-      "low": 27,
-      "score": 47,
-      "grade": "C"
+      "words": 1277,
+      "headings": 26,
+      "sections": 26,
+      "findings": 57,
+      "critical": 21,
+      "high": 26,
+      "medium": 2,
+      "low": 8,
+      "score": 469,
+      "grade": "D"
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
@@ -163226,260 +163226,143 @@
     },
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "2. Availability ako user outcome",
-      "line": 30,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "1. Exact recovery subject",
+      "line": 21,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "3. High availability",
-      "line": 40,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "2. Availability je user outcome",
+      "line": 43,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "4. HA nie je DR",
-      "line": 46,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "2. Availability je user outcome",
+      "line": 43,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `measurement point;`, `oprávneného clienta;`, `úspešný outcome;`, `latency/error boundary;`.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "5. Disaster a recovery trigger",
-      "line": 52,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "2. Availability je user outcome",
+      "line": 43,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "6. Business Impact Analysis",
-      "line": 58,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "7. Recovery Time Objective",
-      "line": 64,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "9. RTA a RPA",
-      "line": 76,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "10. Backup, replication a DR",
-      "line": 82,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "11. Backup contract",
-      "line": 88,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "12. Application-consistent recovery",
-      "line": 105,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "Backup and restore",
-      "line": 115,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "Pilot light",
-      "line": 121,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "Warm standby",
-      "line": 127,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "14. Recovery Region",
-      "line": 139,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "15. Cross-Region data replication",
-      "line": 145,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "17. Traffic routing a cutover",
-      "line": 157,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "18. Failover decision",
-      "line": 163,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "19. Authoritative state",
-      "line": 169,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "23. KMS a key recovery",
-      "line": 193,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "23. KMS a key recovery",
-      "line": 193,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "26. Runbook a automation",
-      "line": 211,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "27. Recovery validation",
-      "line": 217,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "28. DR testy",
-      "line": 223,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "28. DR testy",
-      "line": 223,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "28. DR testy",
-      "line": 223,
+      "section": "2. Availability je user outcome",
+      "line": 43,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `scope`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "30. Security incident recovery",
-      "line": 241,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "3. High availability lifecycle",
+      "line": 61,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "31. Cost a recovery tiering",
-      "line": 247,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "5. Business Impact Analysis, RTO a RPO",
+      "line": 87,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "33. Troubleshooting recovery",
-      "line": 265,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
+      "section": "Business Impact Analysis",
+      "line": 89,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "33. Troubleshooting recovery",
-      "line": 265,
+      "section": "Business Impact Analysis",
+      "line": 89,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Business Impact Analysis",
+      "line": 89,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kritické capabilities a dependencies;`, `maximum tolerable downtime;`, `tolerovanú data loss;`, `právne a bezpečnostné povinnosti;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Business Impact Analysis",
+      "line": 89,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "RTO",
+      "line": 101,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "RTA a RPA",
+      "line": 120,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "6. Recovery-set contract",
+      "line": 124,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "7. DR stratégie",
+      "line": 144,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "7. DR stratégie",
+      "line": 144,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -163487,12 +163370,372 @@
     },
     {
       "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
-      "section": "33. Troubleshooting recovery",
-      "line": 265,
+      "section": "7. DR stratégie",
+      "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "8. Connected walkthrough — Region je healthy, ale recovery je nepoužiteľná",
+      "line": 155,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Competing hypotheses",
+      "line": 161,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Competing hypotheses",
+      "line": 161,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Competing hypotheses",
+      "line": 161,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Competing hypotheses",
+      "line": 161,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Backup je poškodený.`, `Recovery KMS key alebo policy neumožňuje decrypt.`, `Recovery Region nemá quota/subnet capacity.`, `DNS alebo certificate cutover nie je pripravený.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Competing hypotheses",
+      "line": 161,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Competing hypotheses",
+      "line": 161,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Competing hypotheses",
+      "line": 161,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Competing hypotheses",
+      "line": 161,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `DNS`, `policy`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Discriminating observations",
+      "line": 173,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Discriminating observations",
+      "line": 173,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Containment",
+      "line": 190,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Containment",
+      "line": 190,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Containment",
+      "line": 190,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Containment",
+      "line": 190,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neotvárať production traffic;`, `hard-fence primary writers a revoke kompromitované credentials;`, `zachovať backup/replication/KMS/IAM/CloudTrail evidence;`, `izolovať recovery account od compromised automation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Containment",
+      "line": 190,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Containment",
+      "line": 190,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `TTL`, `recovery point`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `IAM`",
       "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Recovery",
+      "line": 198,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Recovery",
+      "line": 198,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Recovery",
+      "line": 198,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Recovery",
+      "line": 198,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Vybrať canonical recovery point s viazaným ledger/queue manifestom.`, `Obnoviť do izolovaného recovery accountu/Regionu.`, `Reconciliovať external provider, pending operations a exactly-once led`, `Otvárať traffic po bounded cohorts.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Recovery",
+      "line": 198,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Recovery",
+      "line": 198,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Recovery",
+      "line": 198,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTA`, `RPA`, `RTO`, `RPO`, `recovery point`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Verification",
+      "line": 208,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Verification",
+      "line": 208,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Verification",
+      "line": 208,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `payment authorization a settlement fungujú end-to-end;`, `old credentials sú odmietnuté;`, `primary writer je preukázateľne fenced;`, `ledger a queue state sú konzistentné;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Verification",
+      "line": 208,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "Verification",
+      "line": 208,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "10. Recovery testing",
+      "line": 237,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "10. Recovery testing",
+      "line": 237,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `detection a declaration latency;`, `access pri nedostupnom primary identity plane;`, `clean-account/Region provisioning;`, `quota a capacity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "10. Recovery testing",
+      "line": 237,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "10. Recovery testing",
+      "line": 237,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "10. Recovery testing",
+      "line": 237,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `PKI`, `DNS`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "11. Earlier controls",
+      "line": 255,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "11. Earlier controls",
+      "line": 255,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "11. Earlier controls",
+      "line": 255,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "11. Earlier controls",
+      "line": 255,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `versionovaný BIA a dependency map;`, `recovery-set manifest;`, `off-account/off-Region immutable backup;`, `oddelené recovery identities a keys;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "11. Earlier controls",
+      "line": 255,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/high-availability-disaster-recovery.md",
+      "section": "11. Earlier controls",
+      "line": 255,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `BIA`, `DNS`, `RTA`, `RPA`",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/iaas-paas-saas.md",
