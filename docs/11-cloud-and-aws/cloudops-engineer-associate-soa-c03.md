@@ -1,341 +1,386 @@
 # AWS Certified CloudOps Engineer – Associate (SOA-C03)
 
-AWS Certified CloudOps Engineer – Associate je associate-level certifikácia pre deployment, management a operations workloads na AWS. Od 30. septembra 2025 nahradila názov AWS Certified SysOps Administrator – Associate pre novú exam verziu SOA-C03. Certifikačný track v tomto repozitári nenahrádza hlavné AWS kapitoly; mapuje ich na aktuálne exam domains a dopĺňa timed reasoning, hands-on operations a troubleshooting drilly.
+AWS Certified CloudOps Engineer – Associate je associate-level certifikácia pre deployment, management a operations workloads na AWS. Od 30. septembra 2025 používa nový názov a exam code `SOA-C03`; nahradila AWS Certified SysOps Administrator – Associate `SOA-C02`. Certifikačný track v tomto repozitári nie je paralelná sada service definícií. Je to evidence-driven readiness lifecycle, ktorý prepája authoritative exam contract, hlavné Cloud/AWS kapitoly, praktické laby, troubleshooting drilly, timed reasoning a explicitný readiness verdict.
 
-## 1. Aktuálny exam contract
-
-Podľa oficiálnych AWS zdrojov:
-
-- exam code: `SOA-C03`,
-- level: Associate,
-- duration: 130 minút,
-- format: 65 multiple-choice alebo multiple-response questions,
-- intended experience: približne jeden rok deploymentu, managementu a operations AWS workloads,
-- aktuálny exam-guide revision: 1.1, publikovaný 1. júna 2026.
-
-Skúška nie je performance-based hands-on exam ako CKA. Praktické laby v tomto repozitári slúžia na vytvorenie reálneho operations porozumenia, ktoré je potrebné na správne vyhodnotenie scenario questions.
-
-## 2. Exam domains a váhy
-
-| Doména | Váha |
-|---|---:|
-| Monitoring, Logging, Analysis, Remediation, and Performance Optimization | 22 % |
-| Reliability and Business Continuity | 22 % |
-| Deployment, Provisioning, and Automation | 22 % |
-| Security and Compliance | 16 % |
-| Networking and Content Delivery | 18 % |
-
-Tri najväčšie domény majú rovnakú váhu. Príprava nesmie byť redukovaná iba na CloudWatch alebo networking.
-
-## 3. Čo SOA-C03 overuje
-
-Kandidát má vedieť:
-
-- podporovať a udržiavať AWS workloads podľa Well-Architected princípov,
-- používať AWS Management Console a AWS CLI,
-- implementovať security a compliance controls,
-- monitorovať, logovať a troubleshootovať systémy,
-- aplikovať DNS, TCP/IP, routing a firewall concepts,
-- implementovať availability, performance a capacity requirements,
-- vykonávať business continuity a DR procedures,
-- automatizovať provisioning a remediation,
-- analyzovať cost a total cost of ownership,
-- pracovať s multi-account, multi-Region a containerized workloads.
-
-## 4. Rozdiel oproti starému SOA-C02
-
-SOA-C03 rozširuje dôraz najmä na:
-
-- containers,
-- multi-account architectures,
-- multi-Region operations,
-- automation a Infrastructure as Code,
-- moderné monitoring a governance services,
-- ransomware defense a broader security operations,
-- cost, capacity a performance optimization.
-
-Staré SysOps materials sú použiteľné iba po kontrole proti aktuálnemu SOA-C03 guide-u.
-
-## 5. Domain 1 — Monitoring, Logging, Analysis, Remediation and Performance Optimization
-
-### Potrebné schopnosti
-
-- konfigurácia monitoring/logging pre compute, serverless, containers a managed services,
-- CloudWatch metrics, logs, alarms, dashboards a anomaly detection,
-- CloudTrail, AWS Config a service logs,
-- centralizácia telemetry medzi accounts/Regions,
-- performance analysis,
-- automated remediation cez EventBridge, Lambda a Systems Manager,
-- cost/capacity/performance optimization,
-- incident evidence a root-cause narrowing.
-
-### Hlavné kapitoly repozitára
-
-- CloudWatch a CloudTrail,
-- Systems Manager,
-- EC2 a Auto Scaling,
-- ECS a EKS,
-- Lambda,
-- Cost management a FinOps,
-- Observability sekcia,
-- SRE and Operations sekcia.
-
-## 6. Domain 2 — Reliability and Business Continuity
-
-### Potrebné schopnosti
-
-- scalability a elasticity,
-- Multi-AZ a multi-Region resilience,
-- health checks, load balancing a failover,
-- backup policies a restore,
-- RPO/RTO,
-- AWS Backup,
-- storage/database recovery,
-- DR strategy selection a testing.
-
-### Hlavné kapitoly repozitára
-
-- Regions a Availability Zones,
-- Scalability, elasticity a fault tolerance,
-- High availability a disaster recovery,
-- EC2 a Auto Scaling,
-- Elastic Load Balancing,
-- S3, EBS a EFS,
-- RDS,
-- Route 53 a CloudFront,
-- AWS Backup.
-
-## 7. Domain 3 — Deployment, Provisioning and Automation
-
-### Potrebné schopnosti
-
-- provisioning a maintenance cloud resources,
-- AMIs a container images,
-- CloudFormation a Infrastructure as Code concepts,
-- Systems Manager automation,
-- patching a configuration management,
-- deployment failure remediation,
-- scheduled/event-driven operations,
-- repeatable multi-account operations,
-- CLI/API automation.
-
-### Hlavné kapitoly repozitára
-
-- Infrastructure as Code section,
-- EC2 a Auto Scaling,
-- ECS a EKS,
-- Lambda,
-- Systems Manager,
-- IAM,
-- AWS Organizations a accounts.
-
-SOA-C03 môže používať CloudFormation-specific scenarios aj keď hlavný IaC track používa Terraform. Treba rozumieť CloudFormation stack lifecycle, change sets, drift, rollback a StackSets.
-
-## 8. Domain 4 — Security and Compliance
-
-### Potrebné schopnosti
-
-- IAM policy evaluation,
-- federation, roles a temporary credentials,
-- SCPs a multi-account guardrails,
-- KMS, Secrets Manager a encryption,
-- CloudTrail/Config/Security Hub/GuardDuty concepts podľa scope-u,
-- patching a vulnerability response,
-- data protection a ransomware defense,
-- compliance evidence,
-- least privilege a incident containment.
-
-### Hlavné kapitoly repozitára
-
-- Shared responsibility model,
-- AWS Organizations a accounts,
-- IAM,
-- Security Groups a Network ACLs,
-- KMS a Secrets Manager,
-- CloudWatch a CloudTrail,
-- Systems Manager,
-- Security and Identity section.
-
-## 9. Domain 5 — Networking and Content Delivery
-
-### Potrebné schopnosti
-
-- VPC, subnet a route-table design,
-- internet/NAT/private endpoint connectivity,
-- Security Groups a NACLs,
-- DNS a Route 53,
-- load balancers a content delivery,
-- hybrid connectivity,
-- VPC Flow Logs a network troubleshooting,
-- multi-account/multi-Region connectivity.
-
-### Hlavné kapitoly repozitára
-
-- VPC, subnets a route tables,
-- Internet Gateway a NAT Gateway,
-- Security Groups a Network ACLs,
-- Elastic Load Balancing,
-- Route 53 a CloudFront,
-- Public, private a hybrid cloud.
-
-## 10. In-scope service model
-
-Oficiálny guide obsahuje široký zoznam in-scope services. Cieľom nie je memorovať každý názov rovnako hlboko.
-
-Rozdeľ services na:
-
-1. **Core operations** — musíš vedieť configure, monitor, troubleshoot a recover.
-2. **Supporting integration** — musíš vedieť, prečo a kde sa používa.
-3. **Recognition level** — musíš vedieť odlíšiť vhodnú službu od distractorov.
-
-Core set typicky zahŕňa IAM, Organizations, EC2, Auto Scaling, ELB, VPC, Route 53, S3/EBS/EFS, RDS, CloudWatch, CloudTrail, Config, Systems Manager, CloudFormation, Backup, KMS a Secrets Manager. Containers a serverless sú v SOA-C03 relevantné tiež.
-
-## 11. Scenario-question model
-
-Pri každej otázke identifikuj:
+## 1. Dominantný model: od role contractu k readiness verdictu
 
 ```text
-požadovaný outcome
-+ explicitné constraints
-+ failure/operations boundary
-+ managed capability
-+ security/cost/availability trade-off
+CloudOps role capability contract
+→ exact exam-guide generation a domain/task inventory
+→ authoritative knowledge mapping
+→ practical evidence inventory
+→ weighted gap model
+→ targeted study, lab a troubleshooting remediation
+→ timed simulation
+→ error provenance a confidence analysis
+→ readiness verdict
+→ exam alebo ďalší remediation cycle
 ```
 
-Potom eliminuj odpovede, ktoré:
+Cieľom nie je „prejsť všetky videá“ ani dosiahnuť jedno náhodné practice score. Kandidát musí vedieť zmeniť business alebo operational requirement na správny AWS control/data/recovery path, rozlíšiť konkurenčné možnosti a vysvetliť, prečo zvolená odpoveď spĺňa všetky constraints.
 
-- neriešia všetky constraints,
-- vyžadujú neprimeraný manual toil,
-- porušujú least privilege,
-- nemajú HA alebo restore model,
-- používajú nesprávny scope služby,
-- riešia symptom, nie root cause,
-- pridávajú zbytočnú custom infra oproti managed capability.
+## 2. Exact certification subject
 
-## 12. Multiple-response otázky
-
-Pri multiple-response:
-
-- vyhodnoť každú možnosť samostatne,
-- nehľadaj iba jednu „najlepšiu“ odpoveď,
-- over, či kombinácia tvorí kompletný path,
-- dávaj pozor na dependency pairs, napríklad route + gateway alebo alarm + remediation target,
-- nevyberaj redundantnú možnosť, ktorá nepridáva požadovanú capability.
-
-## 13. Časový model
-
-130 minút / 65 otázok je priemer 2 minúty na otázku.
-
-Odporúčaný tréning:
+Readiness evidence musí byť viazaná na konkrétnu exam generation. Pre aktuálny track zapisuj minimálne:
 
 ```text
-pass 1: jasné otázky, približne 60–75 sekúnd
-pass 2: stredne ťažké scenarios
-pass 3: označené otázky a consistency review
+certification: AWS Certified CloudOps Engineer – Associate
+exam code: SOA-C03
+exam-guide revision: 1.1
+publication date: 2026-06-01
+practice source a version:
+simulation date:
+65-question set identity:
+domain distribution:
+time used:
+score a confidence profile:
+linked labs/drills:
 ```
 
-Neinvestuj 5 minút do jednej otázky na začiatku.
+Bez guide version a source identity môže starý SOA-C02 materiál vyzerať ako aktuálny dôkaz, hoci nezahŕňa dnešný scope containers, multi-account/multi-Region operations, širšiu automation, moderné security operations alebo aktuálne in-scope služby.
+
+## 3. Aktuálny exam contract
+
+Podľa oficiálnych AWS zdrojov má aktuálna skúška:
+
+- exam code `SOA-C03`;
+- associate level;
+- 130 minút;
+- 65 multiple-choice alebo multiple-response questions;
+- 50 scored a 15 unscored questions, pričom unscored questions nie sú označené;
+- scaled score od 100 do 1 000 a minimum passing score 720;
+- intended candidate profile približne jeden rok deploymentu, managementu a operations AWS workloads;
+- aktuálny exam-guide revision `1.1`, publikovaný 1. júna 2026.
+
+Skúška nie je performance-based hands-on exam ako CKA. Absencia hands-on terminalu však nemení požadovanú schopnosť: scenario question často nemožno spoľahlivo vyriešiť bez reálneho porozumenia IAM evaluation, route pathu, health lifecycle-u, backup/restore semantics alebo telemetry evidence.
+
+## 4. Domain contract a váhy
+
+| Doména | Váha scored contentu | Hlavný capability outcome |
+|---|---:|---|
+| Monitoring, Logging, Analysis, Remediation, and Performance Optimization | 22 % | získať správny signal, vysvetliť performance/failure a bezpečne remediovať |
+| Reliability and Business Continuity | 22 % | navrhnúť a prevádzkovať availability, scaling, backup, recovery a DR |
+| Deployment, Provisioning, and Automation | 22 % | vytvárať a meniť resources opakovateľne, bezpečne a s rollback/recovery modelom |
+| Security and Compliance | 16 % | vyhodnotiť identity, authorization, protection, audit a incident controls |
+| Networking and Content Delivery | 18 % | realizovať a diagnostikovať packet, DNS, load-balancing a edge path |
+
+Váha nie je iba študijný percentuálny plán. Každá domain question môže zasiahnuť viac vrstiev. Napríklad neúspešný Systems Manager run môže byť súčasne deployment/automation problém, IAM/KMS authorization problém a private-network endpoint problém.
+
+## 5. Capabilities, nie service recognition
+
+SOA-C03 overuje schopnosť:
+
+1. identifikovať požadovaný business alebo operational outcome;
+2. určiť scope a responsibility boundary;
+3. zostaviť complete control, data alebo recovery path;
+4. vybrať managed capability, ktorá spĺňa explicitné constraints;
+5. rozlíšiť configured resource od effective runtime behavior;
+6. diagnostikovať zlyhanie cez evidence, nie cez service keyword;
+7. vyhodnotiť security, reliability, operational-effort a cost trade-off;
+8. zvoliť containment, remediation a validation, ktoré nezväčšia blast radius.
+
+Preto je odpoveď „použiť CloudWatch“ neúplná. Kandidát musí vedieť, či otázka potrebuje metric, Logs Insights query, metric filter, alarm evaluation, EventBridge event, CloudTrail audit, Config state history alebo service-specific log.
+
+## 6. Authoritative knowledge mapping
+
+Hlavná Cloud/AWS sekcia tvorí jeden connected Atlas Payments subject `CAP-PAY-42`. Exam track nad ňou nevytvára nové konkurenčné definície. Mapuje task statements na už vysvetlené lifecycle-y.
+
+### Domain 1 — Monitoring, remediation a performance
+
+Najdôležitejšie zdroje:
+
+- [CloudWatch a CloudTrail](cloudwatch-cloudtrail.md);
+- [Systems Manager](systems-manager.md);
+- [EC2 a Auto Scaling](ec2-auto-scaling.md);
+- [Lambda](lambda.md);
+- [ECS a EKS](ecs-eks.md);
+- [Cost management a FinOps](cost-management-finops.md);
+- sekcia [Observability](../12-observability/README.md).
+
+Kandidát má vedieť prejsť od operational question cez exact signal identity a delivery path po alarm/remediation outcome. Green dashboard bez správnej dimension, retention alebo action pathu nie je evidence.
+
+### Domain 2 — Reliability a business continuity
+
+Najdôležitejšie zdroje:
+
+- [Scalability, elasticity a fault tolerance](scalability-elasticity-fault-tolerance.md);
+- [High availability a disaster recovery](high-availability-disaster-recovery.md);
+- [Elastic Load Balancing](elastic-load-balancing.md);
+- [S3, EBS a EFS](s3-ebs-efs.md);
+- [RDS](rds.md);
+- [Route 53 a CloudFront](route53-cloudfront.md);
+- [AWS Backup](aws-backup.md).
+
+Kandidát musí rozlíšiť availability, durability, replication, historical recovery, RPO, RTO a business reconciliation. Multi-AZ neznamená ochranu pred logical corruption a completed restore job neznamená recoverable service.
+
+### Domain 3 — Deployment, provisioning a automation
+
+Najdôležitejšie zdroje:
+
+- sekcia [Infrastructure as Code and Configuration Management](../07-infrastructure-as-code-and-configuration-management/README.md);
+- [EC2 a Auto Scaling](ec2-auto-scaling.md);
+- [ECS a EKS](ecs-eks.md);
+- [Lambda](lambda.md);
+- [Systems Manager](systems-manager.md);
+- [AWS Organizations a accounts](aws-organizations-accounts.md).
+
+SOA-C03 zahŕňa aj CloudFormation-specific reasoning. Kandidát musí rozumieť stack/change-set/update/rollback/drift/StackSets lifecycle-u aj keď hlavný IaC track používa Terraform.
+
+### Domain 4 — Security a compliance
+
+Najdôležitejšie zdroje:
+
+- [Shared responsibility model](shared-responsibility-model.md);
+- [AWS Organizations a accounts](aws-organizations-accounts.md);
+- [IAM](iam.md);
+- [Security Groups a Network ACLs](security-groups-network-acls.md);
+- [KMS a Secrets Manager](kms-secrets-manager.md);
+- [CloudWatch a CloudTrail](cloudwatch-cloudtrail.md);
+- sekcia [Security and Identity](../13-security-and-identity/README.md).
+
+Kandidát má vedieť rozbaliť effective permission verdict cez identity/resource policies, trust, session, boundaries, SCP/RCP, KMS a endpoint conditions. Pridanie broad allow nie je validná diagnostika.
+
+### Domain 5 — Networking a content delivery
+
+Najdôležitejšie zdroje:
+
+- [VPC, subnets a route tables](vpc-subnets-route-tables.md);
+- [Internet Gateway a NAT Gateway](internet-gateway-nat-gateway.md);
+- [Security Groups a Network ACLs](security-groups-network-acls.md);
+- [Elastic Load Balancing](elastic-load-balancing.md);
+- [Route 53 a CloudFront](route53-cloudfront.md);
+- [Public, private a hybrid cloud](public-private-hybrid-cloud.md).
+
+Kandidát musí zostaviť celý request a return path. Samotná existencia IGW, NAT Gateway alebo Security Group rule nepreukazuje connectivity.
+
+## 7. Practical evidence inventory
+
+Knowledge coverage je iba jedna vrstva readiness. Pre každú domain udržuj evidence inventory:
+
+```text
+authoritative chapters completed
+→ least one bounded hands-on lab
+→ least one fault-injection drill
+→ CLI/API evidence preserved
+→ positive a forbidden outcome verified
+→ timed scenario questions completed
+→ high-confidence wrong answers remediated
+```
+
+Practical evidence má obsahovať exact account/Region, resource generations, fault, observations, remediation, validation a cleanup. Screenshot výslednej zelenej konzoly bez pathu a failure diagnosis nie je plný dôkaz.
+
+## 8. Weighted gap model
+
+Jednoduchý celkový priemer môže skryť nebezpečný domain gap. Readiness model preto sleduje aspoň štyri osi:
+
+- **knowledge accuracy** — správnosť odpovedí podľa domain a task statementu;
+- **reasoning fidelity** — schopnosť pomenovať outcome, constraints, scope a complete path;
+- **operational evidence** — laby a drilly s hard validation;
+- **time stability** — výkon bez time collapse pri 130-minútovej simulácii.
+
+Príklad:
+
+```text
+overall practice score: 82 %
+Domain 1: 88 %
+Domain 2: 86 %
+Domain 3: 84 %
+Domain 4: 58 %
+Domain 5: 87 %
+high-confidence wrong answers: 7
+unfinished questions: 0
+```
+
+Čistý priemer vyzerá priaznivo. Domain 4 však obsahuje high-confidence nesprávne modely o KMS key policy, SCP a cross-account trust. To nie je malá štatistická odchýlka; je to systematický authorization risk, ktorý môže kontaminovať aj deployment, backup a networking questions.
+
+## 9. Worked readiness failure: vysoké skóre, slabý capability contract
+
+Kandidát absolvuje tri 65-question practice sets:
+
+- `Set A`: 80 % za 117 minút;
+- `Set B`: 84 % za 125 minút;
+- `Set C`: 82 % za 119 minút.
+
+Na prvý pohľad vyzerá pripravený. Review odpovedí však ukáže:
+
+1. sedem wrong + high-confidence odpovedí;
+2. pri KMS `AccessDenied` kontroluje iba IAM policy a ignoruje key policy a grant;
+3. completed AWS Backup job považuje za dôkaz application recovery;
+4. pri private-subnet connectivity vyberá NAT Gateway aj pre private S3 traffic, hoci explicitný constraint požaduje bez internet pathu a lowest recurring cost;
+5. správne odpovede v týchto témach vznikli iba tam, kde poznal presnú formuláciu z practice banky;
+6. žiadny zodpovedajúci lab alebo drill ešte nevykonal.
+
+### Competing readiness hypotheses
+
+- **H1 — kandidát je pripravený; chyby sú náhodné:** celkové skóre a stabilný čas to čiastočne podporujú.
+- **H2 — practice source je príliš podobný naučeným otázkam:** správne odpovede bez explanation a opakujúce sa phrasing patterns to podporujú.
+- **H3 — existuje systematický authorization/recovery model gap:** high-confidence wrong odpovede a chýbajúce hands-on evidence to podporujú.
+- **H4 — problém je iba exam anxiety/time:** časový budget túto hypotézu oslabuje.
+
+Diskriminačný test nie je ďalší set z rovnakej banky. Kandidát dostane nový cross-account encrypted-backup incident a musí bez možností:
+
+```text
+identifikovať caller a exact key
+→ rozbaliť IAM/SCP/key-policy/grant path
+→ nájsť clean recovery point
+→ vytvoriť isolated restore
+→ overiť business invariant
+→ vysvetliť forbidden broad-access fix
+```
+
+Test zlyhá v authorization aj recovery kroku. Správny verdict je **not ready**, hoci posledný practice score bol 82 %.
+
+### Remediation
+
+1. znovu prejsť IAM, KMS/Secrets a AWS Backup lifecycle-y;
+2. vykonať cross-account KMS a isolated-restore lab;
+3. absolvovať príslušné troubleshooting drilly;
+4. vytvoriť error cards pre každý high-confidence wrong model;
+5. použiť novú, nezávislú timed simulation;
+6. označiť ready až po stabilnom score, explainability a practical evidence.
+
+## 10. Error provenance
+
+Po každom sete klasifikuj chybu podľa mechanizmu:
+
+- knowledge gap;
+- stale exam-version assumption;
+- missed qualifier alebo negative constraint;
+- wrong scope/account/Region;
+- incomplete control/data/recovery path;
+- policy-evaluation error;
+- availability/backup/DR confusion;
+- service recognition bez outcome reasoning;
+- changed answer without new evidence;
+- time-budget failure;
+- high-confidence wrong mental model.
+
+Posledná kategória má najvyššiu prioritu. Wrong + low confidence je viditeľná medzera. Wrong + high confidence je chybný model, ktorý kandidát aktívne používa aj mimo skúšky.
+
+## 11. Readiness state machine
+
+```text
+Not mapped
+→ Knowledge mapped
+→ Practiced
+→ Timed
+→ Evidence reviewed
+→ Ready
+```
+
+Prechod nie je automatický:
+
+- **Knowledge mapped** vyžaduje current guide-to-chapter map;
+- **Practiced** vyžaduje labs a fault drills, nie iba otázky;
+- **Timed** vyžaduje full-length simulation;
+- **Evidence reviewed** vyžaduje error provenance a domain gaps;
+- **Ready** vyžaduje splnenie acceptance contractu.
+
+Ak sa zmení exam guide, významne sa zmení AWS capability alebo kandidát dlhšie nepraktizuje, readiness sa vracia do skoršieho stavu.
+
+## 12. Readiness acceptance contract
+
+Pred skúškou má kandidát vedieť preukázať:
+
+- current exam guide revision a domain weights;
+- viac nezávislých full-length simulations bez time collapse;
+- stabilný celkový výkon bez kritického domain floor gapu;
+- explanation správnych odpovedí aj distractorov;
+- remediation všetkých recent high-confidence wrong modelov;
+- hands-on evidence pre IAM, networking, compute, observability, automation, backup a recovery;
+- schopnosť pracovať cez AWS CLI/API evidence, nie iba podľa console layoutu;
+- pozitívnu aj negatívnu validation v laboch;
+- cost-safe cleanup discipline;
+- odmietnutie exam dumps a zachovanie exam integrity.
+
+AWS score report je po skúške autoritatívny pass/fail verdict. Practice readiness je interný risk decision, nie predikcia garantujúca výsledok.
+
+## 13. Study a review cadence
+
+Praktický cyklus:
+
+```text
+current guide check
+→ one domain knowledge block
+→ one lab
+→ one troubleshooting drill
+→ 20–35 question timed set
+→ error provenance
+→ targeted remediation
+→ periodic 65-question simulation
+```
+
+Po každej AWS guide revision over:
+
+- zmenené skills;
+- in-scope a out-of-scope services;
+- nové service examples;
+- či existujúce kapitoly a laby stále pokrývajú task statements;
+- či staré practice materials nepoužívajú retired assumptions.
 
 ## 14. Praktický track v repozitári
 
-- [CloudOps domain review a timed reasoning](cloudops-domain-review-timed-reasoning.md)
-- [CloudOps hands-on labs](cloudops-hands-on-labs.md)
-- [CloudOps troubleshooting drills](cloudops-troubleshooting-drills.md)
-- [Praktické AWS CloudOps laby](../../labs/aws-cloudops/README.md)
-- [AWS CloudOps troubleshooting scenáre](../../troubleshooting/aws-cloudops/README.md)
+- [CloudOps domain review a timed reasoning](cloudops-domain-review-timed-reasoning.md) — decision protocol pre question subject, constraints a answer selection;
+- [CloudOps hands-on labs](cloudops-hands-on-labs.md) — cost-safe experiments produkujúce operational evidence;
+- [CloudOps troubleshooting drills](cloudops-troubleshooting-drills.md) — subject-bound diagnosis, containment, recovery a closure;
+- [Praktické AWS CloudOps laby](../../labs/aws-cloudops/README.md) — vykonávacie zadania;
+- [AWS CloudOps troubleshooting scenáre](../../troubleshooting/aws-cloudops/README.md) — fault index.
 
-## 15. Študijné fázy
-
-### Fáza A — Foundation
-
-Dokonči cloud fundamentals, Organizations, IAM a VPC.
-
-### Fáza B — Core services
-
-Dokonči compute, load balancing, storage, database, DNS/CDN, serverless, containers, observability, Systems Manager, KMS/secrets a Backup.
-
-### Fáza C — Domain review
-
-Mapuj každú task statement na:
-
-- service,
-- control plane,
-- data plane,
-- failure evidence,
-- remediation,
-- security/cost trade-off.
-
-### Fáza D — Labs a troubleshooting
-
-Vykonávaj scenáre bez krokového návodu a meraj diagnosis/repair/validation čas.
-
-### Fáza E — Exam simulations
-
-Použi 65-question/130-minute timed sets a analyzuj chyby podľa domain a reasoning failure typu.
-
-## 16. Readiness criteria
-
-Pred skúškou má byť možné:
-
-- konzistentne dosahovať cieľové skóre na kvalitných practice sets,
-- dokončiť 130-minútovú simuláciu bez time collapse,
-- vysvetliť, prečo sú distractors nesprávne,
-- prakticky nakonfigurovať core operations paths,
-- diagnostikovať AccessDenied, no-route, alarm, unhealthy target, failed backup a deployment rollback scenarios,
-- rozlíšiť customer a AWS responsibility,
-- pracovať s CLI bez závislosti na console-only pamäti.
-
-## 17. Review log
-
-```text
-Dátum:
-Zdroj/set:
-Skóre:
-Čas:
-Domain 1:
-Domain 2:
-Domain 3:
-Domain 4:
-Domain 5:
-Chyby znalosti:
-Chyby čítania constraints:
-Chyby service selection:
-Chyby policy/network reasoning:
-Nasledujúce laby/drilly:
-```
-
-## 18. Anti-patterny
-
-### Memorovanie service descriptions
-
-Skúška používa operational scenarios a trade-offs.
-
-### Iba video kurz bez labov
-
-Vytvára recognition bez schopnosti diagnostiky.
+## 15. Anti-patterny
 
 ### Starý SOA-C02 blueprint ako autorita
 
-SOA-C03 má rozšírený scope.
+Service knowledge môže byť užitočná, ale scope a task weighting musia vychádzať z current SOA-C03 guide-u.
 
-### Ignorovanie cost a automation
+### Practice score bez source identity
 
-Sú súčasťou role aj exam guide-u.
+Nie je jasné, či set zodpovedá current blueprintu, či obsahuje leaks alebo či opakuje naučené questions.
 
-### Učenie odpovedí z dumps
+### Overall average bez domain floor
 
-Neoveruje schopnosť a porušuje exam integrity.
+Silné networking skóre môže skryť systematický security alebo recovery gap.
 
-## 19. Glossary impact
+### Correct answer bez explanation
 
-Relevantné pojmy: AWS Certified CloudOps Engineer – Associate, SOA-C03, exam domain, scored content weighting, timed reasoning, scenario-question model, distractor elimination, domain gap map, exam readiness a CloudOps lab.
+Môže ísť o recognition alebo guessing, nie stabilný capability model.
+
+### Iba video kurz bez operational evidence
+
+Vytvára vocabulary familiarity, ale nie schopnosť diagnostikovať path a recovery boundary.
+
+### Memorovanie exam dumps
+
+Porušuje exam integrity a nevytvára prenositeľnú CloudOps schopnosť.
+
+### Readiness ako jednorazový stav
+
+Guide, services aj vlastná praktická zručnosť sa menia. Readiness potrebuje generation a review date.
+
+## 16. Kontrolné otázky
+
+1. Čo tvorí exact SOA-C03 readiness subject?
+2. Prečo overall practice score nestačí?
+3. Ako sa líši knowledge accuracy, reasoning fidelity a operational evidence?
+4. Prečo je wrong + high confidence kritickejšie než wrong + low confidence?
+5. Ako sa current exam guide mapuje na authoritative kapitoly?
+6. Prečo completed lab bez forbidden-outcome testu nie je plný evidence?
+7. Kedy sa readiness state musí vrátiť do skoršej fázy?
+8. Ako rozlíšiš stale SOA-C02 assumption od current SOA-C03 contractu?
+9. Čo musí obsahovať readiness acceptance contract?
+10. Prečo practice readiness negarantuje AWS pass verdict?
+
+## Glossary impact
+
+Relevantné pojmy: SOA-C03 capability contract, exam-guide generation, certification readiness subject, authoritative knowledge mapping, practical evidence inventory, weighted domain gap, domain floor, high-confidence wrong model, error provenance, readiness state machine, readiness acceptance contract a exam-version staleness.
 
 ## Oficiálne zdroje
 
 - [AWS Certified CloudOps Engineer – Associate](https://aws.amazon.com/certification/certified-cloudops-engineer-associate/)
-- [SOA-C03 exam guide](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03.html)
+- [SOA-C03 exam guide](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03.html)
 - [SOA-C03 revisions](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/soa-03-revisions.html)
+- [Comparison of SOA-C02 and SOA-C03](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03-comparison.html)
 - [In-scope AWS services](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/soa-03-in-scope-services.html)
+- [Out-of-scope AWS services](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/soa-03-out-of-scope-services.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
