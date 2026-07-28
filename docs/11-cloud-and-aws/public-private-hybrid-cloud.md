@@ -1,409 +1,443 @@
 # Public, private a hybrid cloud
 
-Cloud deployment model opisuje, **kde a pod čou kontrolou** bežia compute, storage, networking a platform services a ako sa prepájajú s ostatnými prostrediami. Nie je to to isté ako service model IaaS, PaaS alebo SaaS. Public cloud môže poskytovať všetky tri service modely; private cloud môže rovnako poskytovať vlastné IaaS alebo PaaS capabilities.
+Cloud deployment model opisuje, kde capability beží, kto ovláda infraštruktúrny a platformový boundary a ktoré failure, identity, data a connectivity domains musia spolupracovať. Nie je to synonymum service modelu. Public cloud môže poskytovať IaaS, PaaS aj SaaS; private cloud môže poskytovať interné IaaS alebo PaaS capabilities.
 
-## 1. Deployment model a service model
-
-Rozlišuj dve osi:
+Užitočný mentálny model:
 
 ```text
-service model   → ktorú technologickú vrstvu spravuje provider a ktorú zákazník
-                  IaaS / PaaS / SaaS
+business capability a locality constraints
+→ placement a control requirements
+→ deployment-domain inventory
+→ identity/network/DNS/data integration
+→ workload a management-plane realization
+→ failure isolation a autonomous behavior
+→ end-to-end verification
+→ failover, reconciliation alebo exit
+```
 
-deployment model → kde infraštruktúra beží, komu je určená a ako je riadená
-                   public / private / hybrid / multi-cloud
+## 1. Deployment-model subject
+
+Deployment model posudzuj cez exact subject:
+
+```text
+capability: CAP-PAY-42
+public-cloud environment: AWS account A42, eu-central-1
+private environment: on-premises site DC17
+cloud VPC: V42
+on-premises network domain: NET17
+hybrid identity generation: IDF8
+hybrid DNS generation: DNS12
+connectivity generation: DX7 + VPN4 backup
+application release: I42/C42/SE10
+cloud database: DB42
+on-premises ledger: L17
+```
+
+Označenie „hybrid“ samo nepreukazuje, že tieto subjects majú kompatibilný routing, identity, data consistency, observability a recovery contract.
+
+## 2. Service model a deployment model sú dve osi
+
+```text
+service model
+→ ktorú technologickú vrstvu spravuje provider alebo zákazník
+→ IaaS / PaaS / SaaS
+
+deployment model
+→ kde capability beží, komu je infraštruktúra určená a ako sa prepája
+→ public / private / hybrid / multi-cloud / edge
 ```
 
 Príklady:
 
-- EC2 v AWS public cloude je IaaS,
-- RDS v AWS public cloude je managed database/PaaS-like service,
-- interný OpenStack môže byť private-cloud IaaS,
-- SaaS aplikácia môže používať public cloud a súčasne private connectivity k zákazníkom.
+- EC2 v AWS je public-cloud IaaS;
+- RDS je public-cloud managed data platform;
+- interný OpenStack môže byť private-cloud IaaS;
+- SaaS môže používať public-cloud infraštruktúru a private connectivity k zákazníkovi;
+- AWS Outposts môže rozšíriť AWS operating model do zákazníckej lokality, ale lokálny hardware a service-link failure zostávajú samostatné boundaries.
+
+## 3. Public-cloud lifecycle
+
+```text
+account/organization a Region selection
+→ identity a guardrails
+→ VPC/subnet/endpoint placement
+→ service a workload provisioning cez API
+→ provider physical/platform realization
+→ customer configuration a data
+→ operational/business verification
+→ scale, recovery a decommission
+```
+
+Public cloud používa provider-owned fyzickú infraštruktúru a logicky izolované accounts, identities a virtual networks. „Public“ neznamená, že workload musí byť verejne dostupný. Private subnets, private endpoints, resource policies, encryption a workload identity môžu vytvoriť neverejný data path v public-cloud infraštruktúre.
+
+### Public-cloud failure boundary
+
+Healthy provider Region nepreukazuje:
+
+- správny account a Region;
+- správnu VPC route a endpoint policy;
+- správne IAM/session context;
+- dostupnú customer quota alebo IP capacity;
+- správny application release;
+- obnoviteľné dáta;
+- funkčný hybrid dependency path.
+
+## 4. Private-cloud lifecycle
+
+Private cloud je dedicated cloud operating model pre jednu organizáciu, nie iba skupina hypervisorov.
+
+```text
+capacity pool a platform ownership
+→ API/self-service catalog
+→ identity/policy/quotas
+→ standardized image a network/storage contracts
+→ tenant provisioning
+→ platform a workload lifecycle
+→ metering, reliability a recovery
+→ hardware refresh a decommission
+```
+
+Cloud-like characteristics zahŕňajú:
+
+- API a automation;
+- self-service provisioning;
+- štandardizované templates;
+- policy enforcement;
+- metering, showback alebo chargeback;
+- pool-based capacity management;
+- platform service ownera;
+- upgrade a hardware replacement lifecycle.
+
+Bez nich ide skôr o tradičnú virtualizačnú platformu.
+
+### Private-cloud failure boundary
+
+Vlastná fyzická kontrola neposkytuje automaticky:
+
+- aktuálny patch level;
+- redundantnú power/network/storage architektúru;
+- elastickú spare capacity;
+- kvalitnú identity governance;
+- immutable backup;
+- 24/7 incident response;
+- testovaný site recovery.
+
+Private cloud môže byť vhodný pre specialized hardware, disconnected operation, veľmi nízku local latency, regulačné constraints alebo stabilný veľký workload. Výhoda existuje iba pri dostatočnej platformovej a prevádzkovej zrelosti.
+
+## 5. Hybrid-cloud lifecycle
+
+Hybrid cloud spája najmenej dva odlišné operating a failure domains.
+
+```text
+cloud a private capability inventory
+→ authoritative identity, DNS a data ownership
+→ redundant connectivity a routing
+→ security/policy translation
+→ workload a data placement
+→ management/telemetry correlation
+→ connected aj disconnected behavior
+→ failover/failback/reconciliation
+→ business acceptance
+```
+
+Hybrid cloud nie je jeden VPN tunnel. Je to dlhodobý contract pre:
+
+- network connectivity a return path;
+- identity federation a machine credentials;
+- DNS authority a forwarding;
+- data replication, consistency a conflict resolution;
+- deployment a configuration ownership;
+- observability a audit correlation;
+- behavior pri strate WAN alebo cloud control plane;
+- capacity a recovery v každom prostredí.
+
+AWS Prescriptive Guidance organizuje hybrid best practices okolo networking, security, resiliency, capacity planning a infrastructure management. Tieto oblasti tvoria jeden systém, nie päť nezávislých checklistov.
+
+## 6. Connectivity subject
+
+Pre CAP-PAY-42:
+
+```text
+source workload Pod/instance UID
+→ source IP/port a security identity
+→ VPC route table generation
+→ Transit/DX/VPN attachment generation
+→ BGP route a tunnel/circuit state
+→ on-premises firewall generation
+→ destination IP/port
+→ return route
+```
 
-## 2. Public cloud
+Dedicated connectivity môže stabilizovať capacity a routing, ale sama nezaručuje encryption ani redundancy. VPN cez internet môže byť rýchlejšia na provisioning, ale má variabilnejší path a throughput. Production hybrid design často potrebuje viac circuits, lokalít, gateways a dynamické routing controls.
 
-Public cloud poskytuje zdielané provider-managed infrastructure a services viacerým zákazníkom cez logicky izolované účty, tenants, identities a virtual networks.
-
-Typické vlastnosti:
-
-- on-demand provisioning cez API,
-- pay-as-you-go alebo commitment pricing,
-- provider-owned physical facilities a hardware,
-- veľký katalóg managed services,
-- globálna infraštruktúra,
-- elasticita a automatizácia,
-- zákaznícka zodpovednosť za konfiguráciu, identity, data a workload security.
-
-„Public“ neznamená, že workload alebo dáta musia byť verejne dostupné na internete. VPC, private subnets, private endpoints, encryption a identity policies môžu vytvoriť neverejný workload v public-cloud infraštruktúre.
-
-## 3. Multi-tenancy
-
-Provider typicky zdieľa fyzickú infraštruktúru medzi zákazníkmi a používa isolation controls:
-
-- hypervisor alebo hardware isolation,
-- tenant/account identity,
-- virtual networking,
-- encryption,
-- service-level authorization,
-- resource quotas a control-plane boundaries.
-
-Zákazník musí stále overiť:
-
-- service isolation contract,
-- compliance eligibility,
-- data residency,
-- encryption a key ownership,
-- noisy-neighbor a capacity behavior,
-- dedicated-host alebo single-tenant možnosti, ak sú potrebné.
-
-## 4. Private cloud
-
-Private cloud je cloud-like platforma určená jednej organizácii. Môže bežať:
-
-- vo vlastnom dátovom centre,
-- v colocation,
-- na dedicated provider infraštruktúre,
-- ako appliance alebo cloud extension na zákazníckej lokalite.
-
-Private cloud nie je iba virtualizované dátové centrum. Cloud operating model potrebuje:
-
-- self-service provisioning,
-- API a automation,
-- štandardizované resource templates,
-- metering/showback alebo chargeback,
-- policy enforcement,
-- elastic alebo pool-based capacity management,
-- platform lifecycle a service ownership.
-
-Bez týchto vlastností ide skôr o tradičnú virtualizačnú platformu než plnohodnotný cloud model.
-
-## 5. Výhody private cloudu
-
-Môže byť vhodný pri:
-
-- prísnej physical/data-location kontrole,
-- legacy hardware alebo specialized devices,
-- nízkej a predvídateľnej latency k lokálnym systémom,
-- disconnected alebo air-gapped prostredí,
-- regulatorných požiadavkách,
-- stabilnom veľkom workload-e s efektívne využitou vlastnou kapacitou,
-- potrebe vlastného hypervisor/kernel/network stacku.
-
-Výhoda existuje iba vtedy, keď organizácia dokáže infraštruktúru bezpečne financovať, kapacitne plánovať, patchovať a prevádzkovať.
-
-## 6. Náklady private cloudu
-
-Zahrň:
-
-- hardware a refresh cyklus,
-- dátové centrum, napájanie a chladenie,
-- network connectivity,
-- software licencie a support,
-- spare capacity pre failure a growth,
-- platform engineering,
-- security a compliance operations,
-- backup a DR,
-- 24/7 incident response,
-- decommissioning.
-
-Nízky účet za prenájom hardware neznamená nízke TCO.
-
-## 7. Hybrid cloud
-
-Hybrid cloud integruje public-cloud resources so systémami mimo public cloudu, typicky on-premises alebo edge infraštruktúrou.
-
-Integrácia môže zahŕňať:
-
-- networking,
-- identity federation,
-- DNS,
-- data replication alebo transfer,
-- management a observability,
-- security policy,
-- deployment pipeline,
-- backup a disaster recovery.
-
-Hybrid cloud nie je iba VPN tunel. Je to dlhodobý operating model dvoch alebo viacerých rozdielnych failure, identity a lifecycle domains.
-
-## 8. Hybrid connectivity
-
-Bežné možnosti:
-
-### Site-to-site VPN
-
-Encrypted tunnel cez verejný internet.
-
-Trade-offy:
-
-- rýchle nasadenie,
-- závislosť od internet paths,
-- variabilná latency,
-- throughput a tunnel limits,
-- potreba redundantných tunnels a gateways.
-
-### Dedicated connectivity
-
-Napríklad AWS Direct Connect cez partnera alebo colocation.
-
-Trade-offy:
-
-- stabilnejšia kapacita a routing,
-- dlhší provisioning,
-- physical a provider dependencies,
-- dedicated link sám nezaručuje encryption,
-- potreba redundantných lokalít, zariadení a circuits.
-
-### Public service endpoints
-
-On-premises workload komunikuje s public API endpointom cez internet alebo provider edge.
-
-### Private service endpoints
-
-Private connectivity k provider službe bez bežného public-internet routing modelu podľa konkrétnej služby.
-
-## 9. Hybrid identity
-
-Model môže používať:
-
-- federáciu workforce identities,
-- workload identity federation,
-- directory integration,
-- certificate-based machine identity,
-- krátkodobé cloud credentials,
-- centralized alebo delegated authorization.
-
-Anti-pattern je synchronizovať dlhodobé access keys do on-premises systémov bez rotation a scope-u.
-
-## 10. Hybrid DNS
-
-Treba navrhnúť:
-
-- authoritative zones,
-- conditional forwarding,
-- split-horizon records,
-- inbound a outbound resolver endpoints,
-- failure behavior pri strate linky,
-- TTL a caching,
-- overlapping namespaces.
-
-DNS dependency môže znefunkčniť hybrid workload aj vtedy, keď network route a firewall fungujú.
-
-## 11. Hybrid data
-
-Rozlišuj:
-
-- synchronous a asynchronous replication,
-- bulk transfer,
-- event streaming,
-- cache,
-- authoritative data source,
-- conflict resolution,
-- data residency,
-- RPO/RTO,
-- egress cost.
-
-Synchronous cross-environment write môže zvýšiť latency a vytvoriť spoločný failure domain. Asynchronous model potrebuje pracovať so stale data a recovery lagom.
-
-## 12. Hybrid management
-
-Jednotný dashboard neznamená jednotnú control plane.
-
-Potrebné je vedieť:
-
-- kto vlastní source of truth,
-- ktoré policies sú centrálne a ktoré lokálne,
-- ako sa distribuujú updates,
-- ako funguje inventory,
-- ako sa korelujú logs a identities,
-- čo sa stane pri strate cloud alebo WAN connectivity,
-- či lokálne workloady pokračujú autonómne.
-
-## 13. Edge cloud
-
-Edge umiestňuje compute alebo storage bližšie k zariadeniam, používateľom alebo výrobnému procesu.
-
-Dôvody:
-
-- nízka latency,
-- obmedzená alebo prerušovaná WAN konektivita,
-- lokálne spracovanie dát,
-- data sovereignty,
-- vysoký objem raw telemetry.
-
-Edge potrebuje:
-
-- fleet management,
-- offline behavior,
-- secure bootstrap,
-- remote update a rollback,
-- hardware replacement,
-- local observability buffer,
-- conflict a synchronization model.
-
-## 14. Multi-cloud
-
-Multi-cloud používa služby od viacerých cloud providers. Nie je automaticky hybrid cloud, hoci modely sa môžu prekrývať.
-
-Dôvody:
-
-- regulačné alebo zákaznícke požiadavky,
-- best-of-breed service,
-- merger/acquisition,
-- geographic availability,
-- komerčná vyjednávacia pozícia,
-- provider concentration risk.
-
-Náklady:
-
-- viac IAM a network modelov,
-- duplikované platform tooling,
-- skills fragmentation,
-- observability a incident complexity,
-- data egress,
-- slabší leverage managed services pri lowest-common-denominator dizajne.
-
-Multi-cloud nie je automatický DR. Workload musí byť reálne deployovateľný, data musia byť obnoviteľné a failover musí byť testovaný.
-
-## 15. Cloud bursting
-
-Cloud bursting presúva alebo rozširuje workload z private prostredia do public cloudu pri špičke.
-
-Praktické prekážky:
-
-- image/runtime parity,
-- data locality,
-- identity a secrets,
-- network capacity,
-- licensing,
-- autoscaling latency,
-- observability,
-- stateful workloady.
-
-Je vhodnejší pre stateless alebo batch workloady s prenositeľnými vstupmi než pre latency-sensitive stateful systémy.
-
-## 16. Portability
-
-Portability vrstvy:
-
-- source code,
-- container image,
-- infrastructure manifest,
-- data format,
-- identity model,
-- network assumptions,
-- observability,
-- operational runbooks.
-
-Container image sám negarantuje portability. Workload môže závisieť od provider database, IAM, object storage semantics, queue, KMS alebo load-balancer capabilities.
-
-## 17. Deployment model nie je security level
-
-Public cloud nie je automaticky menej bezpečný a private cloud nie je automaticky bezpečnejší.
-
-Security závisí od:
-
-- identity a authorization,
-- network segmentation,
-- patching,
-- encryption,
-- logging a detection,
-- supply chain,
-- backup/recovery,
-- physical controls,
-- operational maturity.
-
-Private platform bez patchingu a monitoringu môže mať vyššie riziko než správne nakonfigurovaná managed služba.
-
-## 18. Výber deployment modelu
+### Unknown network outcome
+
+TCP timeout nepreukazuje, že link je down. Hypotézy zahŕňajú:
+
+- DNS vrátil chybnú alebo stale adresu;
+- source route chýba;
+- BGP propaguje nesprávny prefix;
+- firewall/NACL/SG blokuje flow;
+- destination process nepočúva;
+- return path je asymetrický;
+- MTU alebo fragmentation zlyháva;
+- identity/TLS zlyhá po vytvorení TCP session.
+
+## 7. Hybrid identity
+
+Preferovaný model používa federáciu a krátkodobé credentials:
+
+```text
+workforce/workload identity source
+→ federation/trust policy
+→ short-lived cloud session alebo certificate
+→ service authorization
+→ audit request identity
+```
+
+Dlhodobé access keys synchronizované do on-premises systémov vytvárajú rotation, revocation a exfiltration risk. Identity availability musí mať jasné disconnected behavior: ktoré lokálne operations pokračujú pri strate cloud IdP a ktoré musia fail-closed.
+
+## 8. Hybrid DNS
+
+Exact DNS path:
+
+```text
+application query
+→ local resolver a cache
+→ authoritative/conditional-forwarding decision
+→ inbound/outbound resolver endpoint
+→ cloud alebo private authoritative zone
+→ TTL/negative cache
+→ selected address
+→ connection
+```
+
+Navrhni:
+
+- authoritative zone ownera;
+- split-horizon behavior;
+- conditional forwarding;
+- overlapping namespace policy;
+- resolver endpoint HA;
+- TTL a failover timing;
+- behavior pri strate linky;
+- DNSSEC alebo validation podľa scope-u.
+
+Funkčná route nepreukazuje funkčné DNS. Úspešný lookup nepreukazuje funkčný endpoint.
+
+## 9. Hybrid data
+
+Data contract musí určiť:
+
+```text
+authoritative source
+→ replication/transfer mechanism
+→ ordering a consistency
+→ lag a checkpoint
+→ conflict resolution
+→ consumer compatibility
+→ failover/failback
+→ reconciliation a recovery
+```
+
+Synchronous cross-environment writes znižujú niektoré consistency gaps, ale pridávajú WAN latency a spoločný failure domain. Asynchronous replikácia zlepšuje decoupling, ale vyžaduje explicitný RPO, lag telemetry, idempotenciu a conflict/replay model.
+
+## 10. Management-plane boundary
+
+Jednotný dashboard neznamená jednotný control plane. Urči:
+
+- authoritative inventory;
+- source of truth pre configuration;
+- ownership každého mutable fieldu;
+- policy distribution;
+- agent/update behavior;
+- log a metric transport pri WAN outage;
+- lokálnu autonomy;
+- emergency access;
+- kto môže vykonať recovery pri nedostupnom central control plane.
+
+Hybrid management musí odlíšiť management-plane outage od pokračujúceho workload data plane-u.
+
+## 11. Worked incident: healthy circuits, payment timeouty
+
+Atlas presunie customer-facing API do AWS, ale settlement ledger L17 zostane on-premises. Po network maintenance približne 35 % payments timeoutuje. DX dashboard aj backup VPN sú green.
+
+### Exact incident subject
+
+```text
+capability CAP-PAY-42
+release I42/C42/SE10
+cloud client cohort: instances v AZ ID euc1-az2
+on-premises ledger VIP: 10.44.17.20:5443
+DNS name: ledger.internal
+DX connection: DX7
+backup VPN: VPN4
+cloud route generation: RT42-g19
+on-premises route generation: BGP17-g31
+firewall generation: FW17-g22
+```
+
+### Competing hypotheses
+
+1. ledger process je preťažený;
+2. DNS vracia starú VIP;
+3. DX path nepropaguje cloud subnet prefix pre jednu AZ;
+4. backup VPN má preferovanejšiu asymetrickú route;
+5. firewall generation nepovoľuje nový source CIDR;
+6. MTU zlyháva iba pri väčších TLS records;
+7. application connection pool drží stale sessions.
+
+### Discriminating observations
+
+```text
+scope podľa source AZ/subnet
+→ exact DNS answer
+→ source/destination IP a port
+→ cloud route a propagated prefixes
+→ DX/VPN/BGP path
+→ firewall allow/deny log
+→ SYN/SYN-ACK a TLS handshake
+→ application request/correlation ID
+```
+
+Finding: nový subnet v euc1-az2 bol pridaný do AWS route table, ale on-premises route policy neprijala jeho prefix. Return traffic preto išiel cez backup VPN a bol odmietnutý stateful firewallom. Green circuits nepreukazovali správny per-prefix round trip.
+
+### Containment
+
+- zastaviť rollout do affected subnet cohorty;
+- ponechať healthy AZ capacity;
+- zachovať BGP, firewall a flow-log evidence;
+- nesmerovať všetok traffic naslepo cez jeden link;
+- nepovoľovať broad CIDR iba kvôli rýchlej oprave.
+
+### Recovery
+
+1. opraviť authoritative prefix inventory;
+2. publikovať a akceptovať nový prefix cez redundantné paths;
+3. zosúladiť firewall object s exact source CIDR;
+4. vyčistiť iba affected stale sessions;
+5. overiť TCP, TLS a payment settlement z každej AZ;
+6. simulovať loss DX7 a overiť VPN4 failover/return path;
+7. pridať pre-deployment route-contract test pre nový subnet.
+
+### Closure verdict
+
+```text
+povolený payment flow funguje z každej production AZ
+zakázané source CIDRs zostávajú blokované
+DX aj VPN path majú symetrický return contract
+second reconciliation BGP/firewall configuration je no-op
+payment authorization a settlement sú presne raz
+```
+
+## 12. Edge a disconnected operation
+
+Edge placement dáva compute alebo storage bližšie k users, devices alebo production processu. Potrebuje:
+
+- secure bootstrap a hardware identity;
+- fleet inventory;
+- offline queueing a local decisions;
+- bounded local data retention;
+- update/rollback;
+- local telemetry buffer;
+- conflict resolution po reconnecte;
+- hardware replacement a decommission.
+
+Local Zone, Wavelength alebo Outposts nie sú automaticky samostatný Region alebo DR boundary. Ich parent-Region a service-link dependencies sa musia overiť podľa konkrétnej služby.
+
+## 13. Multi-cloud
+
+Multi-cloud používa viac cloud providers. Môže znížiť concentration risk alebo splniť business/regulatory požiadavku, ale pridáva:
+
+- viac IAM a policy modelov;
+- odlišné network/DNS semantics;
+- duplicate platform tooling;
+- data transfer a consistency complexity;
+- skills fragmentation;
+- slabšiu observability correlation;
+- viac recovery a support boundaries.
+
+Druhý provider nie je DR, kým tam nie je testovaný artifact, data generation, identity, capacity, traffic switch a operating runbook.
+
+## 14. Portability subject
+
+Portability zahŕňa:
+
+```text
+source a artifact
+infrastructure a platform contract
+data format a export
+identity a key model
+network/DNS assumptions
+observability a audit
+deployment/recovery runbooks
+capacity a commercial constraints
+```
+
+Lowest-common-denominator architecture môže odstrániť hodnotu managed služieb bez toho, aby zabezpečila reálnu portable recovery.
+
+## 15. Deployment-model decision
 
 Vyhodnoť:
 
-1. latency a locality,
-2. data residency a regulation,
-3. connectivity a offline requirements,
-4. hardware alebo license dependencies,
-5. workload variability,
-6. platform skills a operations capacity,
-7. TCO a opportunity cost,
-8. RPO/RTO a failure domains,
-9. portability a exit plan,
-10. modernization roadmap.
+1. latency a locality;
+2. data residency a regulation;
+3. connected/disconnected behavior;
+4. hardware a licensing constraints;
+5. workload variability a capacity;
+6. team operations maturity;
+7. identity a data integration;
+8. failure domains a RPO/RTO;
+9. TCO a data transfer;
+10. exit, failback a decommission.
 
-Rozhodnutie môže byť per workload alebo per component, nie iba jedno pre celú organizáciu.
+Rozhodnutie rob per capability alebo component, nie iba raz pre celú organizáciu.
 
-## 19. Troubleshooting hybridného prostredia
+## 16. Anti-patterny
 
-Postup:
+### Private cloud rovná sa virtualizácia
 
-```text
-source workload
-→ local DNS/identity
-→ local routing/firewall
-→ WAN/VPN/dedicated link
-→ cloud edge/gateway
-→ VPC route/security
-→ service endpoint
-→ destination workload
-→ return path
-```
+Bez API, self-service, policy, metering a lifecycle ownershipu chýba cloud operating model.
 
-Zachovaj:
+### Hybrid cloud rovná sa VPN
 
-- timestamps v UTC,
-- source/destination IP a port,
-- route tables,
-- tunnel/BGP state,
-- DNS odpovede,
-- authentication request ID,
-- packet/flow logs,
-- configuration changes,
-- provider status.
+VPN rieši iba časť packet pathu. Identity, DNS, data, management, observability a recovery zostávajú nevyriešené.
 
-## 20. Anti-patterny
+### Public endpoint znamená verejné dáta
 
-### Private cloud = virtualizácia
+Exposure závisí od routing, resource policy, identity, TLS a application authorization.
 
-Bez API, self-service, policy a lifecycle automation nevzniká cloud operating model.
+### Multi-cloud je automatický DR
 
-### Hybrid = jedna VPN
+Bez deployable artifacts, data, identity, capacity a testovaného failoveru je druhý provider iba potenciálna lokalita.
 
-Chýba identity, DNS, data, observability a recovery model.
+### Central dashboard znamená central control
 
-### Multi-cloud = automatická odolnosť
+Dashboard môže byť stale alebo nedostupný; lokálna authority a disconnected behavior musia byť explicitné.
 
-Bez deploy, data a failover capability je druhý provider iba nevyužitá možnosť.
-
-### Public endpoint = verejné dáta
-
-Exposure závisí od routing, authorization a service policy, nie iba od deployment modelu.
-
-### Lowest-common-denominator architecture
-
-Môže odstrániť hodnotu managed služieb a zároveň nezabezpečiť skutočnú portability.
-
-## 21. Kontrolné otázky
+## 17. Kontrolné otázky
 
 1. Aký je rozdiel medzi service a deployment modelom?
-2. Prečo public cloud neznamená verejne dostupný workload?
-3. Kedy je virtualizačná platforma private cloudom?
-4. Ktoré vrstvy musí riešiť hybridný operating model?
-5. Aký je rozdiel medzi VPN a dedicated connectivity?
-6. Prečo synchronous hybrid data model zväčšuje failure domain?
-7. Prečo container image negarantuje cloud portability?
-8. Je private cloud automaticky bezpečnejší?
-9. Prečo multi-cloud nie je automatický DR?
-10. Aký troubleshooting chain použiješ pri hybridnom výpadku?
+2. Čo tvorí exact hybrid-flow subject?
+3. Prečo green circuit nepreukazuje funkčný application round trip?
+4. Ktoré layers musí hybrid operating model zosúladiť?
+5. Ako sa líši synchronous a asynchronous hybrid data contract?
+6. Čo musí fungovať pri disconnected operation?
+7. Prečo private cloud nie je automaticky bezpečnejší?
+8. Kedy je multi-cloud skutočný recovery mechanism?
+9. Čo tvorí portability subject?
+10. Ako uzavrieš hybrid incident bez broad security bypassu?
 
 ## Glossary impact
 
-Relevantné pojmy: cloud deployment model, public cloud, private cloud, hybrid cloud, multi-cloud, edge cloud, cloud bursting, hybrid connectivity, dedicated connectivity, cloud portability, data locality a disconnected operation.
+Relevantné pojmy: cloud deployment subject, public-cloud control boundary, private-cloud operating model, hybrid capability subject, hybrid flow subject, connected/disconnected behavior, authoritative hybrid identity, hybrid DNS authority, hybrid data generation, per-prefix route contract, multi-cloud recovery subject, edge autonomy a deployment-model acceptance verdict.
 
 ## Oficiálna dokumentácia
 
 - [Types of cloud computing](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/types-of-cloud-computing.html)
-- [Hybrid Cloud with AWS](https://docs.aws.amazon.com/whitepapers/latest/hybrid-cloud-with-aws/hybrid-cloud-with-aws.html)
+- [Cloud deployment strategies](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-education-hybrid-multicloud/cloud-deployment-strategies.html)
 - [Hybrid cloud best practices](https://docs.aws.amazon.com/prescriptive-guidance/latest/hybrid-cloud-best-practices/overview.html)
+- [Hybrid Cloud with AWS](https://docs.aws.amazon.com/whitepapers/latest/hybrid-cloud-with-aws/hybrid-cloud-with-aws.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
