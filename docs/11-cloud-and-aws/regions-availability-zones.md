@@ -1,35 +1,97 @@
 # Regions a Availability Zones
 
-AWS global infrastructure je navrhnutá ako hierarchia geografických a fault-isolation boundaries. Základnými jednotkami sú **Region** a **Availability Zone (AZ)**. Správny návrh musí rozlišovať, ktoré resources sú regionálne, zonálne alebo globálne, aký failure domain každá vrstva predstavuje a ako sa medzi nimi prenášajú dáta, traffic a control-plane operácie.
+AWS Region a Availability Zone nie sú iba geografické názvy. Sú to placement, identity a failure-isolation boundaries, ktoré určujú, kde vznikne resource, akú capacity môže použiť, ktoré dependencies môže prežiť a aký recovery path je vôbec možný.
 
-## 1. Region
+Dominantný model:
 
-AWS Region je geografická oblasť, v ktorej AWS prevádzkuje viac Availability Zones.
+```text
+business locality, compliance a recovery intent
+→ Region a account eligibility
+→ zonal/regional/global resource inventory
+→ AZ identity a subnet/capacity placement
+→ data a traffic topology
+→ control-plane a data-plane realization
+→ zonal/regional failure observation
+→ containment a failover
+→ business verification a failback
+```
 
-Region je dôležitý pre:
+## 1. Exact placement subject
 
-- data residency,
-- latency k používateľom a externým systémom,
-- service availability,
-- compliance,
-- pricing,
-- account/Region enablement,
-- DR a business continuity,
-- quota a capacity plánovanie.
+Pre Atlas Payments používame:
 
-Regiony sú navrhnuté ako oddelené failure a administrative domains. Nie všetky služby, features, instance types ani quotas sú dostupné vo všetkých Regionoch.
+```text
+capability: CAP-PAY-42
+account: A42
+primary Region: eu-central-1
+recovery Region: eu-west-1
+production AZ IDs: euc1-az2, euc1-az3, euc1-az1
+subnets: SUB42-a, SUB42-b, SUB42-c
+application release: I42/C42/SE10
+regional load balancer: ALB42
+zonal NAT gateways: NAT42-a/b/c
+managed database: DB42, Multi-AZ generation MZ9
+object backup copy: BC42 in recovery Region
+capacity contract: CAP42
+```
 
-## 2. Availability Zone
+Placement verdict sa musí viazať na Region, AZ ID, resource UID/ARN, subnet, release generation a data generation. Samotné `eu-central-1a` nie je spoľahlivá cross-account physical-zone identita.
 
-Availability Zone je jedna alebo viac oddelených fyzických lokalít v rámci Regionu s nezávislejším power, cooling a networking failure domainom.
+## 2. Region lifecycle
 
-AZs v jednom Regione sú prepojené low-latency, high-throughput a redundant networkingom, ale stále sú navrhnuté tak, aby zlyhanie jednej AZ nemuselo vyradiť ostatné.
+Region je geografický a administratívny scope pre veľkú časť AWS služieb.
 
-Multi-AZ architektúra používa aspoň dve AZ na odstránenie single-AZ failure domainu.
+```text
+Region selection
+→ account enablement a governance
+→ service/feature/quota eligibility
+→ regional network a service resources
+→ zonal placements
+→ regional operations a telemetry
+→ regional recovery alebo exit
+```
 
-## 3. Region code, AZ name a AZ ID
+Region selection ovplyvňuje:
 
-Príklad:
+- data residency a sovereignty;
+- latency k users, partners a on-premises systems;
+- service a feature availability;
+- pricing a data transfer;
+- quotas a capacity;
+- compliance scope;
+- support a operations coverage;
+- recovery Region a failback model.
+
+Najbližší Region nemusí byť správny, ak chýba požadovaná služba, capacity, compliance alebo recovery contract.
+
+## 3. Availability Zone lifecycle
+
+Availability Zone je jedna alebo viac oddelených fyzických lokalít v Regione s nezávislejšími power, cooling a networking failure boundaries.
+
+```text
+regional workload intent
+→ AZ ID a subnet placement
+→ zonal compute/storage/network realization
+→ cross-AZ service a data dependencies
+→ zonal health/capacity observation
+→ failover do surviving AZ
+→ replacement a rebalancing
+```
+
+Multi-AZ znamená viac než „máme viac subnetov“. Každá kritická vrstva musí mať surviving capacity a kompatibilný failover:
+
+- compute;
+- load balancing;
+- data;
+- NAT/egress;
+- endpoints;
+- cache/queue;
+- DNS;
+- observability;
+- deployment a autoscaling;
+- quotas a IP space.
+
+## 4. AZ name a AZ ID
 
 ```text
 Region code: eu-central-1
@@ -37,9 +99,7 @@ AZ name:     eu-central-1a
 AZ ID:       euc1-az2
 ```
 
-AZ name ako `eu-central-1a` nemusí historicky označovať rovnakú fyzickú AZ vo všetkých AWS účtoch. Pri cross-account koordinácii používaj **AZ ID**, ktoré poskytuje konzistentnú identitu fyzickej zóny.
-
-Použitie:
+AZ ID identifikuje rovnakú fyzickú Availability Zone naprieč AWS accounts. AZ name mapping môže byť account-specific, najmä pre staršie accounts a Regions. Cross-account placement, shared subnets a capacity coordination preto používajú AZ ID.
 
 ```bash
 aws ec2 describe-availability-zones \
@@ -47,330 +107,320 @@ aws ec2 describe-availability-zones \
   --query 'AvailabilityZones[].{Name:ZoneName,Id:ZoneId,State:State}'
 ```
 
-## 4. Region selection
+## 5. Resource-scope subject
 
-Vyhodnoť:
+Resource môže byť global, regional alebo zonal. Scope určuje, aká operácia a failure ho môžu ovplyvniť.
 
-1. proximity a latency,
-2. data residency a sovereignty,
-3. service/feature availability,
-4. capacity a instance-family availability,
-5. pricing a data transfer,
-6. compliance programs,
-7. connectivity k on-premises a partners,
-8. recovery Region,
-9. customer requirements,
-10. support a operational coverage.
+### Zonal
 
-Najbližší Region nie je vždy jediný správny. Môže chýbať potrebná služba, capacity alebo compliance scope.
+Typicky:
 
-## 5. Resource scope
+- subnet;
+- EC2 instance;
+- EBS volume;
+- network interface;
+- zonal capacity reservation.
 
-### Global resources
+Zonal resource nemožno automaticky „presunúť“ do inej AZ bez replacementu, snapshotu, reattachment alebo service-specific migration.
 
-Niektoré AWS services alebo ich control planes majú globálny scope. Príklady sa líšia podľa služby a nesmú sa generalizovať bez dokumentácie.
+### Regional
 
-### Regional resources
+Typicky:
 
-Existujú v konkrétnom Regione:
+- VPC;
+- regionálny load balancer contract;
+- veľká časť managed services;
+- regional API endpoint;
+- Region-specific quotas.
 
-- VPC,
-- väčšina managed service deployments,
-- mnohé load balancers,
-- regionálne API endpoints,
-- väčšina quotas.
+Regional resource môže používať zonálne data-plane components. Regionálny názov preto nepreukazuje, že všetky AZ cohorts sú healthy.
 
-### Zonal resources
+### Global alebo multi-Region control
 
-Sú viazané na konkrétnu AZ:
+Niektoré services majú global identity, routing alebo control-plane aspects. Presný scope sa overuje podľa konkrétnej služby; „global“ neznamená, že každý data object alebo operation je automaticky multi-Region resilient.
 
-- subnet,
-- EC2 instance,
-- EBS volume,
-- niektoré network interfaces,
-- zonal capacity reservations.
+## 6. Subnet a placement
 
-Architektúra musí vedieť, ktoré závislosti nemožno transparentne presunúť medzi AZ.
-
-## 6. Subnets a AZ
-
-Subnet je viazaný na jednu Availability Zone.
+Subnet patrí jednej AZ:
 
 ```text
-VPC (regional)
-├─ subnet-a (AZ-a)
-├─ subnet-b (AZ-b)
-└─ subnet-c (AZ-c)
+VPC42 (regional)
+├─ SUB42-a → euc1-az2
+├─ SUB42-b → euc1-az3
+└─ SUB42-c → euc1-az1
 ```
 
-Multi-AZ application tier potrebuje samostatné subnets v každej použitej AZ. Jeden subnet sa nerozprestiera cez viac AZ.
+Application tier je Multi-AZ iba vtedy, keď workload môže reálne vytvoriť a obsluhovať capacity vo viacerých AZ. Potrebné sú kompatibilné routes, security controls, endpoints, IP space, load-balancer targets a data dependencies.
 
-## 7. Multi-AZ návrh
+## 7. Capacity je súčasť availability
 
-Minimálny model:
+Healthy AZ môže mať nedostatočnú capacity pre konkrétny instance type alebo service configuration. Recovery design preto potrebuje:
+
+- viac kompatibilných instance families/sizes;
+- quota headroom;
+- IP-address headroom;
+- capacity reservations alebo warm capacity podľa criticality;
+- diversified Auto Scaling policy;
+- testovanú capacity v recovery AZ/Regione;
+- explicitný degraded-capacity mode.
+
+Availability architektúra bez capacity contractu môže zlyhať presne v momente, keď sa celý workload snaží presunúť do surviving AZ.
+
+## 8. Cross-AZ traffic a zonal affinity
+
+Cross-AZ traffic môže zvyšovať resilience a zároveň priniesť latency, transfer cost a dependence na inter-AZ networking. Zonal affinity môže znížiť latency/cost, ale nesmie odstrániť failover.
+
+Dobrý contract rozlišuje:
 
 ```text
-regional load balancer
-├─ application capacity v AZ-a
-└─ application capacity v AZ-b
-
-regional database service
-├─ primary/active component
-└─ standby alebo replicas v inej AZ podľa service semantics
+preferred same-AZ path
+→ fallback cross-AZ path
+→ data consistency a capacity pri failover
+→ rebalancing po obnove
 ```
 
-Potrebné je overiť:
+Optimalizácia costu cez single-AZ database, NAT alebo cache môže zrušiť celý availability cieľ.
 
-- že každá AZ má dostatočnú capacity,
-- že health checks reálne odstránia nefunkčný endpoint,
-- že state layer podporuje failover,
-- že routing/DNS neblokuje presun,
-- že deployment nevyradí všetky AZ naraz,
-- že quotas a IP space umožnia recovery.
+## 9. Control plane a data plane
 
-## 8. Cell a failure isolation
+Pri AWS incidente rozlišuj:
 
-Niektoré veľké služby používajú cell-based alebo partitioned architectures nad rámec Region/AZ modelu. Zákazník však nesmie predpokladať internú service topology, ak nie je súčasťou verejného service contractu.
+```text
+control-plane operation
+→ create/update/delete/scale/failover request
 
-Vlastný workload môže používať cells:
-
-- každá cell má samostatný compute, data a control scope,
-- zákazníci alebo tenants sa priraďujú do cells,
-- failure jednej cell neovplyvní celý Region,
-- blast radius sa zmenší za cenu vyššej complexity.
-
-## 9. Local Zones
-
-Local Zone približuje vybrané AWS services k veľkým populačným alebo priemyselným centrám.
-
-Použitie:
-
-- latency-sensitive media,
-- gaming,
-- virtual desktop,
-- edge application processing.
-
-Treba overiť:
-
-- dostupné services a instance types,
-- parent Region dependency,
-- routing a data transfer,
-- quota/capacity,
-- resilience model.
-
-Local Zone nie je automaticky samostatný Region ani DR boundary.
-
-## 10. Wavelength Zones
-
-Wavelength integruje vybrané AWS capabilities do telekomunikačnej 5G infraštruktúry pre ultra-low-latency use cases. Je to špecializovaná edge placement možnosť s obmedzeným service katalógom a dependency na carrier ecosystem.
-
-## 11. AWS Outposts
-
-Outposts prináša AWS infrastructure a operating model do zákazníckej lokality.
-
-Dôležité hranice:
-
-- local hardware capacity,
-- service link k parent Regionu,
-- local power/network failure,
-- hardware support a replacement,
-- disconnected behavior podľa služby,
-- data residency a operational responsibility.
-
-Outposts rack v jednom dátovom centre nie je automaticky vysoko dostupný bez redundancie lokality, power, network a capacity.
-
-## 12. Cross-AZ traffic
-
-Cross-AZ communication môže prinášať:
-
-- latency,
-- data transfer cost podľa služby a direction,
-- dependency na inter-AZ networking,
-- väčšiu odolnosť proti zonal failure.
-
-Optimalizácia costu nesmie vytvoriť single-AZ state alebo traffic bottleneck. Posudzuj cost spolu s reliability requirementom.
-
-## 13. Zonal affinity
-
-Niektoré workloady preferujú komunikáciu v rovnakej AZ:
-
-- application a cache,
-- compute a zonal storage,
-- service endpoints,
-- Kubernetes topology-aware routing.
-
-Cieľom je znížiť latency a cross-AZ transfer, ale zachovať failover. Zonal affinity bez cross-zone recovery môže premeniť optimalizáciu na availability riziko.
-
-## 14. AZ capacity
-
-Aj healthy AZ môže mať dočasne obmedzenú kapacitu pre konkrétny instance type alebo service configuration.
-
-Ochrana:
-
-- viac instance families/sizes,
-- capacity reservations pre kritické workloady,
-- diversified Auto Scaling groups,
-- warm capacity,
-- multi-AZ placement,
-- včasný quota request,
-- canary capacity test v recovery Region/AZ.
-
-DR plán, ktorý predpokladá okamžitú neobmedzenú on-demand capacity počas regionálneho incidentu, je slabý.
-
-## 15. Regional service endpoints
-
-SDK/CLI request musí smerovať do správneho Regionu.
-
-Symptómy nesprávneho Regionu:
-
-- resource „neexistuje“,
-- prázdny list,
-- iná quota,
-- iný KMS key alebo Secret,
-- deployment do nesprávnej lokality,
-- vyššia latency.
-
-Over:
-
-```bash
-aws configure get region
-aws sts get-caller-identity
-aws ec2 describe-regions
+data-plane operation
+→ existujúci request, packet, read/write alebo connection
 ```
 
-Identity a Region sú dve odlišné dimenzie requestu.
+Control-plane degradation môže blokovať nový resource, scale alebo failover, zatiaľ čo existujúce resources naďalej obsluhujú traffic. Data-plane failure môže zasiahnuť jednu AZ cohortu pri funkčnom regional API.
 
-## 16. Region enablement
+Observation musí zahŕňať oba smery:
 
-Niektoré Regions môžu vyžadovať explicitné enablement na úrovni accountu. Organizational governance musí definovať:
+- API request IDs, error codes a Region;
+- resource health a status transitions;
+- per-AZ endpoint a target health;
+- packet/data path;
+- application a business telemetry.
 
-- ktoré Regions sú povolené,
-- ako sa blokujú nepovolené deployments,
-- kde sú security logging a detection služby,
-- ako sa rieši opt-in Region identity/STS behavior,
-- či control-plane/global services potrebujú výnimky.
-
-Region deny policy bez dôkladného testovania môže zablokovať global alebo support operácie.
-
-## 17. Data replication medzi AZ a Regionmi
+## 10. Multi-AZ nie je multi-Region
 
 ### Multi-AZ
 
-Typicky optimalizuje availability v jednom Regione a používa low-latency inter-AZ connectivity.
+Optimalizuje availability v jednom Regione. Typicky využíva low-latency inter-AZ networking a service-specific synchronous alebo tightly coordinated replication.
 
-### Cross-Region
+### Multi-Region
 
-Používa sa pre:
+Používa sa pre regional disaster recovery, global proximity, sovereignty alebo isolation. Potrebuje:
 
-- disaster recovery,
-- geographic proximity,
-- sovereignty,
-- global read scale,
-- isolation od regional failure.
+- artifact a configuration replication;
+- data replication a lag contract;
+- identity, key a secret availability;
+- DNS/traffic switch;
+- capacity a quotas;
+- dependency readiness;
+- failover a failback;
+- conflict/reconciliation model.
 
-Cross-Region replikácia býva častejšie asynchronous a potrebuje explicitný conflict, lag, failover a failback model.
+Cross-Region replikácia býva často asynchronous. Green replication status nepreukazuje nulový RPO ani application-consistent recovery.
 
-## 18. Control plane a data plane
+## 11. Edge placement boundaries
 
-Regional service môže mať:
+Local Zones, Wavelength Zones a Outposts riešia špecifické latency, locality alebo hybrid use cases. Pri každom over:
 
-- regionálny control plane,
-- zonálne data-plane resources,
-- globálny identity alebo DNS component.
+- parent Region dependency;
+- service catalog a instance availability;
+- local capacity;
+- network/service-link dependency;
+- data transfer a routing;
+- disconnected behavior;
+- hardware replacement;
+- actual failure-isolation contract.
 
-Pri incidente rozlišuj:
+Local Zone alebo jeden Outposts rack nie je automaticky samostatný DR boundary.
+
+## 12. Worked incident: Multi-AZ na papieri, single-AZ outcome
+
+Atlas deklaruje payment API ako Multi-AZ. ALB42 používa targets v troch AZ a DB42 je Multi-AZ. Po strate euc1-az2 však error rate stúpne na 65 % a nové instances v surviving AZ nevzniknú.
+
+### Exact incident subject
 
 ```text
-nedá sa vytvoriť nový resource?
-existujúce resource-y stále obsluhujú traffic?
-zlyhala jedna AZ alebo celý Region?
-ide o service API, dataplane alebo customer configuration?
+incident: INC-AZ-42
+failed AZ ID: euc1-az2
+healthy AZ IDs: euc1-az3, euc1-az1
+ASG launch template: LT42 generation 14
+subnet IP inventory: SUB42-b 92 % used, SUB42-c 89 % used
+NAT placement: iba NAT42-a v failed AZ
+DB42: writer failover complete
+application target cohort: T42
+quota/capacity contract: CAP42 generation 3
 ```
 
-Control-plane degradation nemusí okamžite zastaviť existujúci data plane, ale môže blokovať scale, failover alebo recovery.
+### Competing hypotheses
 
-## 19. Testing zonal failure
+1. ALB nepremenil target selection;
+2. application capacity v surviving AZ je nedostatočná;
+3. subnet IP space blokuje scale-out;
+4. instance family nemá zonálnu capacity;
+5. jediný NAT gateway v failed AZ zablokoval dependencies;
+6. DB failover endpoint/cache je stale;
+7. rollout policy alebo topology rules nedovoľujú rebalancing.
 
-Testuj:
+### Discriminating observations
 
-- odstránenie capacity jednej AZ,
-- dependency na zonal NAT gateway alebo endpoint,
-- databázový failover,
-- load-balancer health routing,
-- zonal storage attachment,
-- DNS/cache behavior,
-- deployment a autoscaling počas failure,
-- observability a alerting.
+```text
+per-AZ ALB target health
+→ ASG desired/current/activity failures
+→ subnet available IP count
+→ EC2 insufficient-capacity/error code
+→ route table a NAT target per subnet
+→ DB endpoint a connection cohort
+→ application dependency requests
+```
 
-Nevypínaj náhodne produkčnú AZ bez runbooku a blast-radius kontroly.
+Finding:
 
-## 20. Anti-patterny
+- DB failover bol úspešný;
+- ALB odstránil failed targets;
+- surviving subnets nemali IP headroom pre požadovaný fleet;
+- všetky private subnets zároveň smerovali internet egress na NAT42-a vo failed AZ.
 
-### Viac subnetov v jednej AZ považovaných za Multi-AZ
+Root cause je zákaznícky single-AZ egress a capacity design, nie regionálny AWS outage.
+
+### Containment
+
+- zastaviť nonessential deployments;
+- obmedziť workload na healthy existing capacity;
+- znížiť retry amplification;
+- zachovať ASG, route, Flow Log a target-health evidence;
+- nepresúvať traffic do neovereného recovery Regionu.
+
+### Recovery
+
+1. vytvoriť/aktivovať zonálny NAT v surviving AZ a opraviť routes;
+2. uvoľniť alebo rozšíriť subnet IP capacity podľa pre-planned contractu;
+3. použiť kompatibilné diversified instance families;
+4. obnoviť required replica count;
+5. overiť DB connection refresh a dependencies;
+6. vykonať payment synthetic a settlement verification;
+7. po obnove euc1-az2 rebalansovať bez prekročenia capacity a error budgetu.
+
+### Closure verdict
+
+```text
+surviving AZ unesie failure-mode load
+každá AZ má independent egress path
+ASG môže vytvoriť replacement capacity
+payment SLO a settlement outcome sú green
+forbidden single-AZ route sa v policy teste neobjaví
+zonal-failure drill prejde druhýkrát bez manuálneho zásahu
+```
+
+## 13. Regional recovery
+
+Recovery Region musí mať preukázané:
+
+- account/Region enablement;
+- service a feature availability;
+- quotas;
+- deployable artifacts;
+- network a identity;
+- KMS/secrets;
+- data recovery point a restore procedure;
+- observability;
+- capacity canary;
+- traffic switch a failback.
+
+„Terraform je pripravený“ nepreukazuje, že capacity, data a external dependencies sú pripravené.
+
+## 14. Testing failure domains
+
+Bezpečný test postupuje:
+
+```text
+expected normal/failure outcome
+→ exact resources a AZ IDs
+→ bounded fault alebo capacity removal
+→ observe control/data plane
+→ verify surviving capacity a business outcome
+→ restore a rebalancing
+→ verify forbidden dependency
+```
+
+Testy pokrývajú:
+
+- loss jednej AZ capacity;
+- zonal NAT/endpoint dependency;
+- database failover;
+- load-balancer target removal;
+- zonal storage;
+- deployment počas failure;
+- autoscaling a quotas;
+- DNS/cache;
+- telemetry coverage.
+
+## 15. Anti-patterny
+
+### Viac subnetov v jednej AZ je Multi-AZ
 
 Stále ide o jeden physical failure domain.
 
-### AZ letter ako cross-account identita
+### AZ letter je cross-account identita
 
-`1a` nemusí historicky označovať rovnakú fyzickú zónu; používaj AZ ID.
+Pre cross-account physical-zone coordination používaj AZ ID.
 
-### DR Region bez capacity testu
+### Recovery Region bez capacity testu
 
-Pri incidente nemusí byť možné vytvoriť požadovaný fleet.
+Počas regionálneho incidentu nemusí byť potrebná capacity dostupná.
 
-### Cross-AZ cost optimalizácia cez single-AZ databázu
+### Regional service je automaticky odolná voči každej AZ failure
 
-Úspora môže zrušiť availability cieľ.
+Service môže mať zonálne customer resources alebo dependencies, ktoré sú stále single-AZ.
 
-### Region selection iba podľa latency
+### Znižovanie cross-AZ costu bez failure analýzy
 
-Ignoruje compliance, services, price a recovery.
+Cost optimalizácia môže vytvoriť single-AZ data, egress alebo cache bottleneck.
 
-## 21. Troubleshooting
+## 16. Troubleshooting chain
 
-### Resource nie je viditeľný
+```text
+account a Region
+→ resource scope a ARN/UID
+→ AZ ID a subnet
+→ control-plane request
+→ capacity/quota/IP allocation
+→ zonal network/storage/data dependency
+→ per-AZ endpoint health
+→ application process a data generation
+→ user/business outcome
+```
 
-Over account, role a Region.
+Resource „neexistuje“ často znamená wrong account, role alebo Region. Deployment failure iba v jednej AZ vyžaduje porovnať subnet, routes, IP capacity, instance/service capacity a zonal dependencies.
 
-### Podarí sa deploy v AZ-a, nie v AZ-b
+## 17. Kontrolné otázky
 
-Over subnet, route, security, IP capacity, instance type a zonal service availability.
-
-### Multi-AZ aplikácia zlyhá pri výpadku jednej AZ
-
-Hľadaj single-AZ dependencies: NAT, database writer, cache, queue consumer, storage, static IP alebo insufficient capacity.
-
-### Cross-account AZ mapping nesedí
-
-Porovnávaj ZoneId, nie iba ZoneName.
-
-### Recovery Region je pripravený, ale data sú staré
-
-Over replication lag, last successful checkpoint, encryption keys a promotion procedure.
-
-## 22. Kontrolné otázky
-
-1. Aký failure domain predstavuje Region a AZ?
-2. Prečo subnet patrí iba jednej AZ?
-3. Aký je rozdiel medzi AZ name a AZ ID?
-4. Čo znamená Multi-AZ pre application, data a capacity vrstvu?
-5. Prečo Local Zone nie je automaticky DR Region?
-6. Aké trade-offy má cross-AZ traffic?
-7. Ako sa líši Multi-AZ a cross-Region replication?
-8. Prečo treba testovať capacity v recovery lokalite?
-9. Ako rozlíšiš control-plane a data-plane incident?
-10. Ktoré single-AZ dependencies často porušia Multi-AZ návrh?
+1. Čo tvorí exact AWS placement subject?
+2. Prečo je AZ ID dôležitý pri cross-account koordinácii?
+3. Aký je rozdiel medzi zonal, regional a global scope-om?
+4. Čo musí byť Multi-AZ okrem compute vrstvy?
+5. Prečo capacity patrí do availability contractu?
+6. Ako odlíšiš control-plane a data-plane failure?
+7. Aký je rozdiel medzi Multi-AZ a multi-Region recovery?
+8. Prečo Local Zone alebo Outposts nie sú automatický DR boundary?
+9. Ako overíš single-AZ dependency?
+10. Čo musí obsahovať regional recovery acceptance?
 
 ## Glossary impact
 
-Relevantné pojmy: AWS Region, Availability Zone, AZ name, AZ ID, zonal resource, regional resource, global resource, Local Zone, Wavelength Zone, AWS Outposts, Multi-AZ architecture, cross-AZ traffic, zonal affinity, regional endpoint a recovery Region.
+Relevantné pojmy: AWS placement subject, Region generation, Availability Zone identity, AZ ID, zonal resource subject, regional resource subject, global-control boundary, failure-mode capacity, zonal egress subject, Multi-AZ acceptance verdict, recovery-Region subject, per-AZ endpoint cohort a control-plane/data-plane split.
 
 ## Oficiálna dokumentácia
 
 - [AWS Regions and Availability Zones](https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-regions-availability-zones.html)
 - [Availability Zones](https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-availability-zones.html)
 - [AZ IDs](https://docs.aws.amazon.com/global-infrastructure/latest/regions/az-ids.html)
-- [AWS fault isolation boundaries](https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/regions.html)
+- [Regions and Zones — EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
