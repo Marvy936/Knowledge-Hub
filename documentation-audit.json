@@ -2789,15 +2789,15 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
       "title": "CloudOps troubleshooting drills",
-      "words": 1202,
-      "headings": 62,
-      "sections": 62,
-      "findings": 198,
-      "critical": 86,
-      "high": 95,
-      "medium": 17,
-      "low": 0,
-      "score": 1820,
+      "words": 2268,
+      "headings": 46,
+      "sections": 46,
+      "findings": 116,
+      "critical": 26,
+      "high": 59,
+      "medium": 3,
+      "low": 28,
+      "score": 812,
       "grade": "D"
     },
     {
@@ -153290,17 +153290,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "1. Drill protocol",
+      "section": "1. Dominantný model: symptom-to-closure lifecycle",
       "line": 5,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "2. Evidence baseline",
-      "line": 19,
+      "section": "3. Impact a scope pred root cause",
+      "line": 48,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153308,26 +153308,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "2. Evidence baseline",
-      "line": 19,
+      "section": "3. Impact a scope pred root cause",
+      "line": 48,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "2. Evidence baseline",
-      "line": 19,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `UTC timestamp,`, `API request/error ID,`, `CloudTrail event,`, `CloudWatch alarm/log/metric,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "2. Evidence baseline",
-      "line": 19,
+      "section": "3. Impact a scope pred root cause",
+      "line": 48,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -153335,17 +153326,107 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "2. Evidence baseline",
-      "line": 19,
-      "severity": "high",
+      "section": "3. Impact a scope pred root cause",
+      "line": 48,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "3. Impact a scope pred root cause",
+      "line": 48,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "3. Impact a scope pred root cause",
+      "line": 48,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTC`, `API`, `ID`, `JSON`, `SG`, `NACL`, `resource`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "4. Evidence preservation",
+      "line": 60,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "4. Evidence preservation",
+      "line": 60,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "4. Evidence preservation",
+      "line": 60,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `UTC timeline a request/correlation IDs;`, `CloudTrail actor/session/request/error details;`, `target health reasons a load-balancer logs;`, `instance/container/process logs a exit reasons;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "4. Evidence preservation",
+      "line": 60,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "3. Drill 1 — AccessDenied pri cross-account role",
-      "line": 40,
+      "section": "4. Evidence preservation",
+      "line": 60,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "4. Evidence preservation",
+      "line": 60,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "4. Evidence preservation",
+      "line": 60,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTC`, `ECS`, `EKS`, `RDS`, `SG`, `NACL`, `DNS`, `IAM`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "5. Path map",
+      "line": 78,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "API/control path",
+      "line": 82,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -153353,107 +153434,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 42,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 42,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 42,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 42,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source nemá sts:AssumeRole ,`, `target trust policy používa chybný principal,`, `SCP explicitne denyuje action,`, `permissions boundary zúžila role,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 42,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 42,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SCP`, `KMS`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 51,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 51,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 51,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `aws sts get-caller-identity ukazuje target session,`, `povolená action uspeje,`, `zakázaná action zostáva denied.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 51,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 51,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "4. Drill 2 — EC2 v public subnet-e nemá internet",
-      "line": 57,
+      "section": "Request/data path",
+      "line": 94,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -153461,17 +153443,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 59,
+      "section": "Deployment path",
+      "line": 107,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 59,
+      "section": "Recovery path",
+      "line": 119,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Recovery path",
+      "line": 119,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -153479,8 +153470,251 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 59,
+      "section": "6. Competing hypotheses",
+      "line": 133,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "6. Competing hypotheses",
+      "line": 133,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jedna blízko symptómu;`, `jedna v upstream control/deployment path-e;`, `jedna v shared dependency alebo authorization boundary;`, `podľa incidentu jedna provider/capacity alebo stale-generation hypotéz`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "6. Competing hypotheses",
+      "line": 133,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "7. Discriminating observation",
+      "line": 153,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "7. Discriminating observation",
+      "line": 153,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "7. Discriminating observation",
+      "line": 153,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "7. Discriminating observation",
+      "line": 153,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "7. Discriminating observation",
+      "line": 153,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "7. Discriminating observation",
+      "line": 153,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `ASG`, `KMS`, `ACCEPT`, `DNS`, `AWSCURRENT`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "8. Containment pred repair",
+      "line": 167,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "8. Containment pred repair",
+      "line": 167,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stop/cancel rollout, instance refresh alebo automation execution;`, `znížiť traffic na affected generation;`, `izolovať compromised principal alebo account;`, `zastaviť retry/consumer source pri duplicate side effects;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "8. Containment pred repair",
+      "line": 167,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "8. Containment pred repair",
+      "line": 167,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "8. Containment pred repair",
+      "line": 167,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "8. Containment pred repair",
+      "line": 167,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "9. Authoritative remediation",
+      "line": 182,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "9. Authoritative remediation",
+      "line": 182,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "9. Authoritative remediation",
+      "line": 182,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správna launch template/AMI/image generation;`, `fixed IaC a nový bounded apply;`, `replacement z last-known-good artifactu;`, `restore z exact clean recovery manifestu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "9. Authoritative remediation",
+      "line": 182,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "9. Authoritative remediation",
+      "line": 182,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "9. Authoritative remediation",
+      "line": 182,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "9. Authoritative remediation",
+      "line": 182,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "10. Worked composite incident: instance refresh, KMS a zero healthy targets",
+      "line": 195,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Exact subject",
+      "line": 201,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Causal chain",
+      "line": 223,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Competing hypotheses",
+      "line": 238,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Competing hypotheses",
+      "line": 238,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Competing hypotheses",
+      "line": 238,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -153488,17 +153722,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 59,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýba public IPv4/EIP,`, `default route nesmeruje na IGW,`, `IGW nie je attached,`, `SG/NACL blokuje,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 59,
+      "section": "Competing hypotheses",
+      "line": 238,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -153506,35 +153731,170 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 59,
+      "section": "Competing hypotheses",
+      "line": 238,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Competing hypotheses",
+      "line": 238,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Competing hypotheses",
+      "line": 238,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Competing hypotheses",
+      "line": 238,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EIP`, `IGW`, `SG`, `NACL`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `IP`, `ASG`, `ENI`, `H2`, `AZ`, `H3`, `EC2`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 67,
+      "section": "Discriminating observations",
+      "line": 246,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Discriminating observations",
+      "line": 246,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "5. Drill 3 — Private subnet nemá outbound internet",
-      "line": 73,
+      "section": "Discriminating observations",
+      "line": 246,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Discriminating observations",
+      "line": 246,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Discriminating observations",
+      "line": 246,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Discriminating observations",
+      "line": 246,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Discriminating observations",
+      "line": 246,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ASG`, `KMS-`, `EC2`, `H3`, `KMS`, `SG`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Evidence-preserving containment",
+      "line": 257,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Evidence-preserving containment",
+      "line": 257,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 75,
+      "section": "Evidence-preserving containment",
+      "line": 257,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Evidence-preserving containment",
+      "line": 257,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Evidence-preserving containment",
+      "line": 257,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Evidence-preserving containment",
+      "line": 257,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Evidence-preserving containment",
+      "line": 257,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ASG`, `AMI`, `SG`, `KMS`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Authoritative recovery",
+      "line": 268,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153542,8 +153902,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 75,
+      "section": "Authoritative recovery",
+      "line": 268,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -153551,692 +153911,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 75,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 75,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `private route na nesprávny NAT,`, `NAT v private subnet-e,`, `NAT public subnet nemá IGW route,`, `NACL blokuje ephemeral return ports,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 75,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 75,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `IGW`, `NACL`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "6. Drill 4 — ALB má zero healthy targets",
-      "line": 85,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 87,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 87,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 87,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 87,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `wrong target port,`, `target SG nepovoľuje ALB SG,`, `health path vracia non-success,`, `application binduje na localhost,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 87,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 87,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SG`, `ALB`, `NACL`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 96,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 96,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 96,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `target health reason je healthy,`, `request cez ALB uspeje,`, `direct unauthorized path zostáva blokovaný.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 96,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 96,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALB`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "7. Drill 5 — Auto Scaling nevytvára instances",
-      "line": 102,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 104,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 104,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 104,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 104,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `launch template AMI neexistuje v Regione,`, `subnet nemá IP capacity,`, `instance type unavailable,`, `service-linked role/PassRole problem,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 104,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 104,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "8. Drill 6 — CloudWatch alarm zostáva INSUFFICIENT DATA",
-      "line": 116,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 118,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 118,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 118,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 118,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nesprávny namespace/dimensions,`, `metric sa publikuje v inom Regione,`, `period/statistic mismatch,`, `chýbajúce datapoints,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 118,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 127,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "9. Drill 7 — Automated remediation sa nespustí",
-      "line": 131,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 133,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 133,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 133,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 133,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `event pattern nesedí,`, `target role trust,`, `Lambda resource policy,`, `SSM Automation assume role,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 133,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 133,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSM`, `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "10. Drill 8 — CloudTrail neprijíma events do central bucketu",
-      "line": 153,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 155,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 155,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 155,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 155,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bucket policy,`, `KMS key policy,`, `organization trail scope,`, `Region/global-service settings,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 155,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 155,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `policy`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "11. Drill 9 — Systems Manager managed node offline",
-      "line": 166,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 168,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 168,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 168,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 168,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SSM Agent stopped,`, `instance profile missing permissions,`, `DNS/HTTPS egress,`, `chýbajúce interface endpoints v isolated subnet-e,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 168,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 168,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSM`, `DNS`, `HTTPS`, `OS`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Validation",
-      "line": 178,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "12. Drill 10 — EBS volume performance alebo attach failure",
-      "line": 182,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 184,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 184,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 184,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 184,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `volume a instance v odlišných AZ,`, `device/filesystem nie je mounted,`, `IOPS/throughput limit,`, `instance EBS bandwidth,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 184,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 184,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `IOPS`, `EBS`, `KMS`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "13. Drill 11 — RDS connection timeout",
-      "line": 196,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 198,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 198,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 198,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 198,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `wrong endpoint/port,`, `SG reference,`, `public accessibility confusion,`, `route/VPN,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 198,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Path",
-      "line": 198,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SG`, `VPN`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "14. Drill 12 — Backup job failed alebo restore unusable",
-      "line": 220,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 222,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 222,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 222,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 222,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IAM role,`, `KMS permissions,`, `backup vault policy,`, `resource not selected/tagged,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 222,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 222,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `KMS`, `policy`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "15. Drill 13 — Route 53 failover neprepne traffic",
-      "line": 235,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 237,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 237,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 237,
+      "section": "Authoritative recovery",
+      "line": 268,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
@@ -154244,17 +153920,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 237,
-      "severity": "critical",
+      "section": "Authoritative recovery",
+      "line": 268,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `health check sleduje nesprávny endpoint,`, `record routing policy/identifier,`, `TTL/cache,`, `alias evaluation,`.",
-      "score": 12
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `over least-privilege principal a encryption context/constraints;`, `spusti one-instance canary ASG alebo isolated launch test;`, `nastav safe refresh preferences, checkpoint/alarms a abort criteria;`, `až potom opakuj production refresh.`.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 237,
+      "section": "Authoritative recovery",
+      "line": 268,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -154262,17 +153938,260 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 237,
+      "section": "Authoritative recovery",
+      "line": 268,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Authoritative recovery",
+      "line": 268,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Authoritative recovery",
+      "line": 268,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `AMI`, `EBS`, `ASG`, `SSM`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Acceptance verdict",
+      "line": 288,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Acceptance verdict",
+      "line": 288,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Acceptance verdict",
+      "line": 288,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `checkout request cez production DNS/ALB uspeje;`, `minimálne dve healthy targets sú rozložené podľa designu;`, `forbidden direct/public path na instances zostáva blokovaný;`, `druhý controlled replacement prejde bez capacity loss;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Acceptance verdict",
+      "line": 288,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Acceptance verdict",
+      "line": 288,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Acceptance verdict",
+      "line": 288,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Acceptance verdict",
+      "line": 288,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `ALB`, `KMS`, `ASG`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 302,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 302,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 302,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `policy validation pre cross-account encrypted AMI sharing;`, `canary/checkpoint a target-health abort alarm;`, `last-known-good launch-template generation a tested recovery command;`, `business request validation, nie iba EC2 launch success.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 302,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 302,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 302,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "11. Earlier controls odvodené z incidentu",
+      "line": 302,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `ID`, `KMS`, `EC2`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "12. Validation layers",
+      "line": 315,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Original outcome",
+      "line": 317,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Forbidden outcome",
+      "line": 321,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "14. Capability drill matrix",
+      "line": 352,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "14. Capability drill matrix",
+      "line": 352,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "15. Time model",
+      "line": 372,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "15. Time model",
+      "line": 372,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `symptom-to-scope;`, `scope-to-hypotheses;`, `hypotheses-to-root-cause;`, `root-cause-to-containment;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "15. Time model",
+      "line": 372,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "15. Time model",
+      "line": 372,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "15. Time model",
+      "line": 372,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `resource`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "16. Drill 14 — CloudFront vracia 403 alebo stale content",
-      "line": 248,
+      "section": "16. Drill scoring",
+      "line": 393,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "17. Incident review record",
+      "line": 408,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -154280,709 +154199,7 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 250,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 250,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 250,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 250,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `origin access policy/OAC,`, `S3 bucket policy,`, `alternate domain/certificate,`, `cache behavior/path,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 250,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 250,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OAC`, `S3`, `URL`, `WAF`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "17. Drill 15 — Lambda timeout vo VPC",
-      "line": 262,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 264,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 264,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 264,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 264,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `private subnet bez NAT/VPC endpointu,`, `SG outbound,`, `DNS,`, `cold-start/ENI behavior,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 264,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 264,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `VPC`, `SG`, `DNS`, `ENI`, `CPU`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "18. Drill 16 — ECS task PENDING alebo STOPPED",
-      "line": 276,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 278,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 278,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 278,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 278,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image pull/network,`, `task execution role,`, `task role,`, `CPU/memory placement,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 278,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 278,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `KMS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "19. Drill 17 — EKS workload nevie AWS API",
-      "line": 291,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 293,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 293,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 293,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 293,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `node role vs Pod identity/IRSA confusion,`, `OIDC trust condition,`, `ServiceAccount annotation/association,`, `SDK credential chain,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 293,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 293,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IRSA`, `OIDC`, `SDK`, `STS`, `IAM`, `SCP`, `KMS`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "20. Drill 18 — CloudFormation stack v rollback/pending state",
-      "line": 304,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 306,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 306,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 306,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 306,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable property,`, `custom resource timeout,`, `IAM/PassRole,`, `missing dependency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 306,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Varianty",
-      "line": 306,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "21. Drill 19 — NAT cost alebo port exhaustion spike",
-      "line": 318,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Evidence",
-      "line": 320,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Evidence",
-      "line": 320,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Evidence",
-      "line": 320,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Evidence",
-      "line": 320,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NAT CloudWatch metrics,`, `Flow Logs,`, `destination concentration,`, `cross-AZ routing,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Evidence",
-      "line": 320,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Evidence",
-      "line": 320,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `AZ`, `AWS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Remediation možnosti",
-      "line": 329,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Remediation možnosti",
-      "line": 329,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Remediation možnosti",
-      "line": 329,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Remediation možnosti",
-      "line": 329,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection pooling,`, `VPC endpoint,`, `AZ-local NAT,`, `destination distribution,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Remediation možnosti",
-      "line": 329,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Remediation možnosti",
-      "line": 329,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `AZ-`, `NAT`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "22. Drill 20 — Organization-wide deny po SCP zmene",
-      "line": 338,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Bezpečnostný postup",
-      "line": 340,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Bezpečnostný postup",
-      "line": 340,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Bezpečnostný postup",
-      "line": 340,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Bezpečnostný postup",
-      "line": 340,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj attachment point a inheritance,`, `over management-account behavior,`, `použi break-glass/incident role,`, `zachovaj policy version/change event,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Bezpečnostný postup",
-      "line": 340,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Bezpečnostný postup",
-      "line": 340,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OU`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "23. Drill 21 — Region mismatch",
-      "line": 351,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "23. Drill 21 — Region mismatch",
-      "line": 351,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "23. Drill 21 — Region mismatch",
-      "line": 351,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource „neexistuje“,`, `alarm bez dát,`, `AMI ID invalid,`, `certificate unavailable pre service scope,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "23. Drill 21 — Region mismatch",
-      "line": 351,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "23. Drill 21 — Region mismatch",
-      "line": 351,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `ID`, `KMS`, `resource`, `scope`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "24. Drill 22 — Service quota alebo capacity failure",
-      "line": 370,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "24. Drill 22 — Service quota alebo capacity failure",
-      "line": 370,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "24. Drill 22 — Service quota alebo capacity failure",
-      "line": 370,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account quota,`, `regional service quota,`, `zonal capacity shortage,`, `API throttling,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "24. Drill 22 — Service quota alebo capacity failure",
-      "line": 370,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "24. Drill 22 — Service quota alebo capacity failure",
-      "line": 370,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `IP`, `AZ`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "25. Fault injection design",
-      "line": 384,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "25. Fault injection design",
-      "line": 384,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "25. Fault injection design",
-      "line": 384,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstráň route,`, `zmeň SG source,`, `pridaj explicit deny condition,`, `zastav SSM Agent,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "25. Fault injection design",
-      "line": 384,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "25. Fault injection design",
-      "line": 384,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SG`, `SSM`, `KMS`, `VPC`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "26. Time limits",
-      "line": 400,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "26. Time limits",
-      "line": 400,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "26. Time limits",
-      "line": 400,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "26. Time limits",
-      "line": 400,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduchý resource/config drill: 8 minút,`, `multi-layer data path: 12–15 minút,`, `multi-account/backup/control-plane: 15–20 minút,`, `composite incident: 30 minút.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "26. Time limits",
-      "line": 400,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "26. Time limits",
-      "line": 400,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "27. Review template",
-      "line": 409,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "28. Praktická oblasť",
-      "line": 428,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Okamžité pridanie AdministratorAccess",
-      "line": 434,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Otvorenie 0.0.0.0/0 pri network failure",
+      "section": "AdministratorAccess pri AccessDenied",
       "line": 438,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -154991,7 +154208,7 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Restart/replace bez evidence",
+      "section": "0.0.0.0/0 pri network failure",
       "line": 442,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -155000,7 +154217,7 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Restore do production ako prvý test",
+      "section": "Restart/replace pred evidence",
       "line": 446,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -155009,7 +154226,7 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Troubleshooting iba cez console",
+      "section": "Prvá hypotéza ako root cause",
       "line": 450,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -155018,7 +154235,16 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
-      "section": "Oficiálne zdroje",
+      "section": "Console green ako business validation",
+      "line": 454,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Ručný fix bez desired-state opravy",
       "line": 458,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -155027,8 +154253,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Rollback bez compatibility a outcome kontroly",
+      "line": 462,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Restore priamo do production",
+      "line": 466,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Incident closed po symptom recovery",
+      "line": 470,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
       "section": "Oficiálne zdroje",
-      "line": 458,
+      "line": 491,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
+      "section": "Oficiálne zdroje",
+      "line": 491,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -155037,25 +154299,25 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
       "section": "Oficiálne zdroje",
-      "line": 458,
+      "line": 491,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
       "section": "Oficiálne zdroje",
-      "line": 458,
+      "line": 491,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SOA-C03 exam guide`, `AWS troubleshooting resources`, `AWS Systems Manager troubleshooting`, `Amazon VPC troubleshooting`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SOA-C03 exam guide`, `AWS re:Post Knowledge Center`, `Amazon EC2 Auto Scaling troubleshooting`, `Share encrypted AMIs across accounts`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
       "section": "Oficiálne zdroje",
-      "line": 458,
+      "line": 491,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -155064,11 +154326,11 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
       "section": "Oficiálne zdroje",
-      "line": 458,
-      "severity": "medium",
+      "line": 491,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SOA-C03`, `AWS`, `VPC`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SOA-C03`, `AWS`, `EC2`, `VPC`",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/cloudwatch-cloudtrail.md",
