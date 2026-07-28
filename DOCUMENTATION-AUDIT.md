@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10892**
-- Total words: **621,730**
-- Findings: **24081** (critical 7508, high 8186, medium 3226, low 5161)
+- Audited conceptual sections: **10888**
+- Total words: **621,984**
+- Findings: **24081** (critical 7507, high 8187, medium 3225, low 5162)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -138,10 +138,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 676 | 32 | 30 | 12 | 11 | 2203 | `docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md` |
 | D | 674 | 32 | 26 | 16 | 18 | 2686 | `docs/04-testing-and-quality/code-coverage-and-quality-gates.md` |
 | D | 674 | 27 | 38 | 10 | 11 | 2077 | `docs/06-gitlab/projects-groups-permissions.md` |
-| D | 672 | 31 | 30 | 15 | 6 | 1371 | `docs/11-cloud-and-aws/regions-availability-zones.md` |
 | D | 671 | 26 | 40 | 13 | 2 | 1299 | `docs/11-cloud-and-aws/security-groups-network-acls.md` |
 | D | 667 | 29 | 35 | 10 | 9 | 1766 | `docs/11-cloud-and-aws/public-private-hybrid-cloud.md` |
 | D | 664 | 26 | 37 | 10 | 26 | 2978 | `docs/09-kubernetes/worker-node-components.md` |
+| D | 663 | 30 | 31 | 14 | 7 | 1625 | `docs/11-cloud-and-aws/regions-availability-zones.md` |
 | D | 656 | 28 | 35 | 8 | 16 | 1792 | `docs/04-testing-and-quality/smoke-and-regression-tests.md` |
 | D | 655 | 30 | 30 | 11 | 18 | 2326 | `docs/09-kubernetes/service-endpointslice.md` |
 | D | 648 | 29 | 23 | 23 | 18 | 2325 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
@@ -12870,67 +12870,67 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/11-cloud-and-aws/regions-availability-zones.md`
 
-- **CRITICAL** line 5, `bare-bullet-items` — **1. Region**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data residency,`, `latency k používateľom a externým systémom,`, `service availability,`, `compliance,`.
-- **CRITICAL** line 50, `bare-bullet-items` — **4. Region selection**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proximity a latency,`, `data residency a sovereignty,`, `service/feature availability,`, `capacity a instance-family availability,`.
-- **CRITICAL** line 50, `outline-instead-of-explanation` — **4. Region selection**: 10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 67, `empty-section` — **5. Resource scope**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 73, `bare-bullet-items` — **Regional resources**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC,`, `väčšina managed service deployments,`, `mnohé load balancers,`, `regionálne API endpoints,`.
-- **CRITICAL** line 73, `outline-instead-of-explanation` — **Regional resources**: 5 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 83, `bare-bullet-items` — **Zonal resources**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subnet,`, `EC2 instance,`, `EBS volume,`, `niektoré network interfaces,`.
-- **CRITICAL** line 83, `outline-instead-of-explanation` — **Zonal resources**: 5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 108, `bare-bullet-items` — **7. Multi-AZ návrh**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že každá AZ má dostatočnú capacity,`, `že health checks reálne odstránia nefunkčný endpoint,`, `že state layer podporuje failover,`, `že routing/DNS neblokuje presun,`.
-- **CRITICAL** line 108, `outline-instead-of-explanation` — **7. Multi-AZ návrh**: 6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 131, `bare-bullet-items` — **8. Cell a failure isolation**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zákazníci alebo tenants sa priraďujú do cells,`, `failure jednej cell neovplyvní celý Region,`, `blast radius sa zmenší za cenu vyššej complexity.`.
-- **CRITICAL** line 131, `outline-instead-of-explanation` — **8. Cell a failure isolation**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 142, `bare-bullet-items` — **9. Local Zones**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency-sensitive media,`, `gaming,`, `virtual desktop,`, `edge application processing.`.
-- **CRITICAL** line 142, `outline-instead-of-explanation` — **9. Local Zones**: 9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 167, `bare-bullet-items` — **11. AWS Outposts**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local hardware capacity,`, `service link k parent Regionu,`, `local power/network failure,`, `hardware support a replacement,`.
-- **CRITICAL** line 167, `outline-instead-of-explanation` — **11. AWS Outposts**: 6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 182, `bare-bullet-items` — **12. Cross-AZ traffic**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency,`, `data transfer cost podľa služby a direction,`, `dependency na inter-AZ networking,`, `väčšiu odolnosť proti zonal failure.`.
-- **CRITICAL** line 182, `outline-instead-of-explanation` — **12. Cross-AZ traffic**: 4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 193, `bare-bullet-items` — **13. Zonal affinity**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application a cache,`, `compute a zonal storage,`, `service endpoints,`, `Kubernetes topology-aware routing.`.
-- **CRITICAL** line 193, `outline-instead-of-explanation` — **13. Zonal affinity**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 204, `bare-bullet-items` — **14. AZ capacity**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac instance families/sizes,`, `capacity reservations pre kritické workloady,`, `diversified Auto Scaling groups,`, `warm capacity,`.
-- **CRITICAL** line 204, `outline-instead-of-explanation` — **14. AZ capacity**: 7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 220, `bare-bullet-items` — **15. Regional service endpoints**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource „neexistuje“,`, `prázdny list,`, `iná quota,`, `iný KMS key alebo Secret,`.
-- **CRITICAL** line 220, `outline-instead-of-explanation` — **15. Regional service endpoints**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 243, `bare-bullet-items` — **16. Region enablement**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré Regions sú povolené,`, `ako sa blokujú nepovolené deployments,`, `kde sú security logging a detection služby,`, `ako sa rieši opt-in Region identity/STS behavior,`.
-- **CRITICAL** line 243, `outline-instead-of-explanation` — **16. Region enablement**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 255, `empty-section` — **17. Data replication medzi AZ a Regionmi**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 261, `bare-bullet-items` — **Cross-Region**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `disaster recovery,`, `geographic proximity,`, `sovereignty,`, `global read scale,`.
-- **CRITICAL** line 261, `outline-instead-of-explanation` — **Cross-Region**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 292, `bare-bullet-items` — **19. Testing zonal failure**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstránenie capacity jednej AZ,`, `dependency na zonal NAT gateway alebo endpoint,`, `databázový failover,`, `load-balancer health routing,`.
-- **CRITICAL** line 292, `outline-instead-of-explanation` — **19. Testing zonal failure**: 8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-heavy-section` — **1. Region**: 8 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 73, `single-sentence-concept` — **Regional resources**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 83, `single-sentence-concept` — **Zonal resources**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 108, `single-sentence-concept` — **7. Multi-AZ návrh**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 257, `single-sentence-concept` — **Multi-AZ**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 261, `single-sentence-concept` — **Cross-Region**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 273, `bare-bullet-items` — **18. Control plane a data plane**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `regionálny control plane,`, `zonálne data-plane resources,`, `globálny identity alebo DNS component.`.
-- **HIGH** line 273, `single-sentence-concept` — **18. Control plane a data plane**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 292, `single-sentence-concept` — **19. Testing zonal failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 309, `single-sentence-concept` — **Viac subnetov v jednej AZ považovaných za Multi-AZ**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 313, `single-sentence-concept` — **AZ letter ako cross-account identita**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 317, `single-sentence-concept` — **DR Region bez capacity testu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 321, `single-sentence-concept` — **Cross-AZ cost optimalizácia cez single-AZ databázu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 325, `single-sentence-concept` — **Region selection iba podľa latency**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 331, `single-sentence-concept` — **Resource nie je viditeľný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 335, `single-sentence-concept` — **Podarí sa deploy v AZ-a, nie v AZ-b**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 339, `single-sentence-concept` — **Multi-AZ aplikácia zlyhá pri výpadku jednej AZ**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 343, `single-sentence-concept` — **Cross-account AZ mapping nesedí**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 347, `single-sentence-concept` — **Recovery Region je pripravený, ale data sú staré**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 50, `thin-concept-section` — **4. Region selection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 73, `thin-concept-section` — **Regional resources**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 83, `thin-concept-section` — **Zonal resources**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 108, `thin-concept-section` — **7. Multi-AZ návrh**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 142, `thin-concept-section` — **9. Local Zones**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 182, `thin-concept-section` — **12. Cross-AZ traffic**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 220, `thin-concept-section` — **15. Regional service endpoints**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 243, `thin-concept-section` — **16. Region enablement**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 261, `thin-concept-section` — **Cross-Region**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 273, `thin-concept-section` — **18. Control plane a data plane**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 292, `thin-concept-section` — **19. Testing zonal failure**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 40, `bare-bullet-items` — **2. Region lifecycle**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data residency a sovereignty;`, `latency k users, partners a on-premises systems;`, `service a feature availability;`, `pricing a data transfer;`.
+- **CRITICAL** line 40, `outline-instead-of-explanation` — **2. Region lifecycle**: 8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **CRITICAL** line 67, `bare-bullet-items` — **3. Availability Zone lifecycle**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compute;`, `load balancing;`, `data;`, `NAT/egress;`.
+- **CRITICAL** line 114, `bare-bullet-items` — **Zonal**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subnet;`, `EC2 instance;`, `EBS volume;`, `network interface;`.
+- **CRITICAL** line 114, `outline-instead-of-explanation` — **Zonal**: 5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
+- **CRITICAL** line 126, `bare-bullet-items` — **Regional**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC;`, `regionálny load balancer contract;`, `veľká časť managed services;`, `regional API endpoint;`.
+- **CRITICAL** line 126, `outline-instead-of-explanation` — **Regional**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 155, `bare-bullet-items` — **7. Capacity je súčasť availability**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac kompatibilných instance families/sizes;`, `quota headroom;`, `IP-address headroom;`, `capacity reservations alebo warm capacity podľa criticality;`.
+- **CRITICAL** line 184, `bare-bullet-items` — **9. Control plane a data plane**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API request IDs, error codes a Region;`, `resource health a status transitions;`, `per-AZ endpoint a target health;`, `packet/data path;`.
+- **CRITICAL** line 206, `empty-section` — **10. Multi-AZ nie je multi-Region**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 212, `bare-bullet-items` — **Multi-Region**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact a configuration replication;`, `data replication a lag contract;`, `identity, key a secret availability;`, `DNS/traffic switch;`.
+- **CRITICAL** line 212, `outline-instead-of-explanation` — **Multi-Region**: 8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 227, `bare-bullet-items` — **11. Edge placement boundaries**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parent Region dependency;`, `service catalog a instance availability;`, `local capacity;`, `network/service-link dependency;`.
+- **CRITICAL** line 227, `outline-instead-of-explanation` — **11. Edge placement boundaries**: 8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 246, `empty-section` — **Exact incident subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 260, `bare-bullet-items` — **Competing hypotheses**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ALB nepremenil target selection;`, `application capacity v surviving AZ je nedostatočná;`, `subnet IP space blokuje scale-out;`, `instance family nemá zonálnu capacity;`.
+- **CRITICAL** line 260, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 260, `outline-instead-of-explanation` — **Competing hypotheses**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 270, `bare-bullet-items` — **Discriminating observations**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DB failover bol úspešný;`, `ALB odstránil failed targets;`, `surviving subnets nemali IP headroom pre požadovaný fleet;`.
+- **CRITICAL** line 270, `outline-instead-of-explanation` — **Discriminating observations**: 4 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 291, `bare-bullet-items` — **Containment**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť nonessential deployments;`, `obmedziť workload na healthy existing capacity;`, `znížiť retry amplification;`, `zachovať ASG, route, Flow Log a target-health evidence;`.
+- **CRITICAL** line 291, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 291, `outline-instead-of-explanation` — **Containment**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 299, `no-prose-concept` — **Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 299, `outline-instead-of-explanation` — **Recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 309, `empty-section` — **Closure verdict**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 320, `bare-bullet-items` — **13. Regional recovery**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account/Region enablement;`, `service a feature availability;`, `quotas;`, `deployable artifacts;`.
+- **CRITICAL** line 320, `outline-instead-of-explanation` — **13. Regional recovery**: 10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 337, `bare-bullet-items` — **14. Testing failure domains**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `loss jednej AZ capacity;`, `zonal NAT/endpoint dependency;`, `database failover;`, `load-balancer target removal;`.
+- **CRITICAL** line 337, `outline-instead-of-explanation` — **14. Testing failure domains**: 9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **HIGH** line 67, `list-heavy-section` — **3. Availability Zone lifecycle**: 10 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 94, `list-first-introduction` — **4. AZ name a AZ ID**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 114, `single-sentence-concept` — **Zonal**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 155, `list-heavy-section` — **7. Capacity je súčasť availability**: 7 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 260, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 270, `list-first-introduction` — **Discriminating observations**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 270, `single-sentence-concept` — **Discriminating observations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 291, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 299, `bare-bullet-items` — **Recovery**: 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `použiť kompatibilné diversified instance families;`, `obnoviť required replica count;`, `overiť DB connection refresh a dependencies;`, `vykonať payment synthetic a settlement verification;`.
+- **HIGH** line 299, `list-first-introduction` — **Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 320, `single-sentence-concept` — **13. Regional recovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 337, `single-sentence-concept` — **14. Testing failure domains**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 365, `single-sentence-concept` — **Viac subnetov v jednej AZ je Multi-AZ**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 369, `single-sentence-concept` — **AZ letter je cross-account identita**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 373, `single-sentence-concept` — **Recovery Region bez capacity testu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 377, `single-sentence-concept` — **Regional service je automaticky odolná voči každej AZ failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 381, `single-sentence-concept` — **Znižovanie cross-AZ costu bez failure analýzy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 385, `list-first-introduction` — **16. Troubleshooting chain**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 114, `thin-concept-section` — **Zonal**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 126, `thin-concept-section` — **Regional**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 212, `thin-concept-section` — **Multi-Region**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 260, `term-before-explanation` — **Competing hypotheses**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALB`, `AZ`, `IP`, `NAT`, `DB`, `policy`
+- **HIGH** line 260, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 270, `term-before-explanation` — **Discriminating observations**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `ALB`, `IP`, `NAT42-`
+- **HIGH** line 270, `thin-concept-section` — **Discriminating observations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 291, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 299, `term-before-explanation` — **Recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `AZ`, `IP`, `DB`
+- **HIGH** line 299, `thin-concept-section` — **Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 320, `term-before-explanation` — **13. Regional recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `availability`, `identity`, `recovery point`
+- **HIGH** line 320, `thin-concept-section` — **13. Regional recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 337, `thin-concept-section` — **14. Testing failure domains**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/11-cloud-and-aws/route53-cloudfront.md`
 
@@ -16744,19 +16744,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3172 | 447 | 0 | 0 | 3619 |
-| `outline-instead-of-explanation` | 3064 | 0 | 0 | 0 | 3064 |
-| `single-sentence-concept` | 0 | 2826 | 0 | 0 | 2826 |
-| `term-before-explanation` | 0 | 559 | 2181 | 0 | 2740 |
-| `thin-concept-section` | 0 | 2652 | 0 | 0 | 2652 |
-| `example-not-explicit` | 0 | 0 | 0 | 2065 | 2065 |
+| `bare-bullet-items` | 3170 | 447 | 0 | 0 | 3617 |
+| `outline-instead-of-explanation` | 3061 | 0 | 0 | 0 | 3061 |
+| `single-sentence-concept` | 0 | 2818 | 0 | 0 | 2818 |
+| `term-before-explanation` | 0 | 563 | 2180 | 0 | 2743 |
+| `thin-concept-section` | 0 | 2650 | 0 | 0 | 2650 |
+| `example-not-explicit` | 0 | 0 | 0 | 2066 | 2066 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 2028 | 2028 |
-| `list-first-introduction` | 0 | 1256 | 0 | 0 | 1256 |
+| `list-first-introduction` | 0 | 1262 | 0 | 0 | 1262 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1068 | 1068 |
 | `short-concept-section` | 0 | 0 | 1045 | 0 | 1045 |
-| `no-prose-concept` | 698 | 0 | 0 | 0 | 698 |
-| `empty-section` | 574 | 0 | 0 | 0 | 574 |
-| `list-heavy-section` | 0 | 446 | 0 | 0 | 446 |
+| `no-prose-concept` | 701 | 0 | 0 | 0 | 701 |
+| `empty-section` | 575 | 0 | 0 | 0 | 575 |
+| `list-heavy-section` | 0 | 447 | 0 | 0 | 447 |
 
 ## Required remediation pattern
 

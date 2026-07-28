@@ -2985,15 +2985,15 @@
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
       "title": "Regions a Availability Zones",
-      "words": 1371,
-      "headings": 39,
-      "sections": 39,
+      "words": 1625,
+      "headings": 35,
+      "sections": 35,
       "findings": 82,
-      "critical": 31,
-      "high": 30,
-      "medium": 15,
-      "low": 6,
-      "score": 672,
+      "critical": 30,
+      "high": 31,
+      "medium": 14,
+      "low": 7,
+      "score": 663,
       "grade": "D"
     },
     {
@@ -170525,26 +170525,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "1. Region",
-      "line": 5,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "1. Region",
-      "line": 5,
+      "section": "2. Region lifecycle",
+      "line": 40,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data residency,`, `latency k používateľom a externým systémom,`, `service availability,`, `compliance,`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "1. Region",
-      "line": 5,
+      "section": "2. Region lifecycle",
+      "line": 40,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data residency a sovereignty;`, `latency k users, partners a on-premises systems;`, `service a feature availability;`, `pricing a data transfer;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "2. Region lifecycle",
+      "line": 40,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -170552,8 +170552,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "1. Region",
-      "line": 5,
+      "section": "2. Region lifecycle",
+      "line": 40,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -170561,62 +170561,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "1. Region",
-      "line": 5,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "1. Region",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "4. Region selection",
-      "line": 50,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "4. Region selection",
-      "line": 50,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `proximity a latency,`, `data residency a sovereignty,`, `service/feature availability,`, `capacity a instance-family availability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "4. Region selection",
-      "line": 50,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "4. Region selection",
-      "line": 50,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "4. Region selection",
-      "line": 50,
+      "section": "2. Region lifecycle",
+      "line": 40,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
@@ -170624,62 +170570,62 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "5. Resource scope",
+      "section": "3. Availability Zone lifecycle",
       "line": 67,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Regional resources",
-      "line": 73,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 36 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Regional resources",
-      "line": 73,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Regional resources",
-      "line": 73,
+      "section": "3. Availability Zone lifecycle",
+      "line": 67,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC,`, `väčšina managed service deployments,`, `mnohé load balancers,`, `regionálne API endpoints,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compute;`, `load balancing;`, `data;`, `NAT/egress;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Regional resources",
-      "line": 73,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Regional resources",
-      "line": 73,
+      "section": "3. Availability Zone lifecycle",
+      "line": 67,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `API`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Zonal resources",
-      "line": 83,
+      "section": "3. Availability Zone lifecycle",
+      "line": 67,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "3. Availability Zone lifecycle",
+      "line": 67,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `DNS`, `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "4. AZ name a AZ ID",
+      "line": 94,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Zonal",
+      "line": 114,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -170687,26 +170633,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Zonal resources",
-      "line": 83,
+      "section": "Zonal",
+      "line": 114,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Zonal resources",
-      "line": 83,
+      "section": "Zonal",
+      "line": 114,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subnet,`, `EC2 instance,`, `EBS volume,`, `niektoré network interfaces,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subnet;`, `EC2 instance;`, `EBS volume;`, `network interface;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Zonal resources",
-      "line": 83,
+      "section": "Zonal",
+      "line": 114,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -170714,8 +170660,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Zonal resources",
-      "line": 83,
+      "section": "Zonal",
+      "line": 114,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `EBS`",
@@ -170723,71 +170669,62 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "7. Multi-AZ návrh",
-      "line": 108,
+      "section": "Regional",
+      "line": 126,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Regional",
+      "line": 126,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC;`, `regionálny load balancer contract;`, `veľká časť managed services;`, `regional API endpoint;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Regional",
+      "line": 126,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Regional",
+      "line": 126,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "7. Capacity je súčasť availability",
+      "line": 155,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "7. Multi-AZ návrh",
-      "line": 108,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "7. Multi-AZ návrh",
-      "line": 108,
+      "section": "7. Capacity je súčasť availability",
+      "line": 155,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že každá AZ má dostatočnú capacity,`, `že health checks reálne odstránia nefunkčný endpoint,`, `že state layer podporuje failover,`, `že routing/DNS neblokuje presun,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac kompatibilných instance families/sizes;`, `quota headroom;`, `IP-address headroom;`, `capacity reservations alebo warm capacity podľa criticality;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "7. Multi-AZ návrh",
-      "line": 108,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "7. Multi-AZ návrh",
-      "line": 108,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `DNS`, `IP`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "8. Cell a failure isolation",
-      "line": 131,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "8. Cell a failure isolation",
-      "line": 131,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zákazníci alebo tenants sa priraďujú do cells,`, `failure jednej cell neovplyvní celý Region,`, `blast radius sa zmenší za cenu vyššej complexity.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "8. Cell a failure isolation",
-      "line": 131,
+      "section": "7. Capacity je súčasť availability",
+      "line": 155,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -170795,71 +170732,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "8. Cell a failure isolation",
-      "line": 131,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "9. Local Zones",
-      "line": 142,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "9. Local Zones",
-      "line": 142,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency-sensitive media,`, `gaming,`, `virtual desktop,`, `edge application processing.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "9. Local Zones",
-      "line": 142,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "11. AWS Outposts",
-      "line": 167,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "11. AWS Outposts",
-      "line": 167,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local hardware capacity,`, `service link k parent Regionu,`, `local power/network failure,`, `hardware support a replacement,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "11. AWS Outposts",
-      "line": 167,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "11. AWS Outposts",
-      "line": 167,
+      "section": "7. Capacity je súčasť availability",
+      "line": 155,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -170867,53 +170741,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "12. Cross-AZ traffic",
-      "line": 182,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "7. Capacity je súčasť availability",
+      "line": 155,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "12. Cross-AZ traffic",
-      "line": 182,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency,`, `data transfer cost podľa služby a direction,`, `dependency na inter-AZ networking,`, `väčšiu odolnosť proti zonal failure.`.",
-      "score": 12
+      "section": "7. Capacity je súčasť availability",
+      "line": 155,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP-`, `policy`",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "12. Cross-AZ traffic",
-      "line": 182,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "13. Zonal affinity",
-      "line": 193,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "13. Zonal affinity",
-      "line": 193,
+      "section": "9. Control plane a data plane",
+      "line": 184,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application a cache,`, `compute a zonal storage,`, `service endpoints,`, `Kubernetes topology-aware routing.`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API request IDs, error codes a Region;`, `resource health a status transitions;`, `per-AZ endpoint a target health;`, `packet/data path;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "13. Zonal affinity",
-      "line": 193,
+      "section": "9. Control plane a data plane",
+      "line": 184,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -170921,35 +170777,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "14. AZ capacity",
-      "line": 204,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "14. AZ capacity",
-      "line": 204,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac instance families/sizes,`, `capacity reservations pre kritické workloady,`, `diversified Auto Scaling groups,`, `warm capacity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "14. AZ capacity",
-      "line": 204,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "14. AZ capacity",
-      "line": 204,
+      "section": "9. Control plane a data plane",
+      "line": 184,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -170957,89 +170786,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "15. Regional service endpoints",
-      "line": 220,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "15. Regional service endpoints",
-      "line": 220,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource „neexistuje“,`, `prázdny list,`, `iná quota,`, `iný KMS key alebo Secret,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "15. Regional service endpoints",
-      "line": 220,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "15. Regional service endpoints",
-      "line": 220,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "16. Region enablement",
-      "line": 243,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "16. Region enablement",
-      "line": 243,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré Regions sú povolené,`, `ako sa blokujú nepovolené deployments,`, `kde sú security logging a detection služby,`, `ako sa rieši opt-in Region identity/STS behavior,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "16. Region enablement",
-      "line": 243,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "16. Region enablement",
-      "line": 243,
+      "section": "9. Control plane a data plane",
+      "line": 184,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "16. Region enablement",
-      "line": 243,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `STS`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "17. Data replication medzi AZ a Regionmi",
-      "line": 255,
+      "section": "10. Multi-AZ nie je multi-Region",
+      "line": 206,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -171047,44 +170804,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Multi-AZ",
-      "line": 257,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Cross-Region",
-      "line": 261,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Cross-Region",
-      "line": 261,
+      "section": "Multi-Region",
+      "line": 212,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Cross-Region",
-      "line": 261,
+      "section": "Multi-Region",
+      "line": 212,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `disaster recovery,`, `geographic proximity,`, `sovereignty,`, `global read scale,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `artifact a configuration replication;`, `data replication a lag contract;`, `identity, key a secret availability;`, `DNS/traffic switch;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Cross-Region",
-      "line": 261,
+      "section": "Multi-Region",
+      "line": 212,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -171092,71 +170831,98 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "18. Control plane a data plane",
-      "line": 273,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "18. Control plane a data plane",
-      "line": 273,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `regionálny control plane,`, `zonálne data-plane resources,`, `globálny identity alebo DNS component.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "18. Control plane a data plane",
-      "line": 273,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "18. Control plane a data plane",
-      "line": 273,
+      "section": "Multi-Region",
+      "line": 212,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `control plane`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `identity`, `availability`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "19. Testing zonal failure",
-      "line": 292,
+      "section": "11. Edge placement boundaries",
+      "line": 227,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "11. Edge placement boundaries",
+      "line": 227,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parent Region dependency;`, `service catalog a instance availability;`, `local capacity;`, `network/service-link dependency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "11. Edge placement boundaries",
+      "line": 227,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "11. Edge placement boundaries",
+      "line": 227,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Exact incident subject",
+      "line": 246,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Competing hypotheses",
+      "line": 260,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Competing hypotheses",
+      "line": 260,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "19. Testing zonal failure",
-      "line": 292,
+      "section": "Competing hypotheses",
+      "line": 260,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "19. Testing zonal failure",
-      "line": 292,
+      "section": "Competing hypotheses",
+      "line": 260,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstránenie capacity jednej AZ,`, `dependency na zonal NAT gateway alebo endpoint,`, `databázový failover,`, `load-balancer health routing,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ALB nepremenil target selection;`, `application capacity v surviving AZ je nedostatočná;`, `subnet IP space blokuje scale-out;`, `instance family nemá zonálnu capacity;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "19. Testing zonal failure",
-      "line": 292,
+      "section": "Competing hypotheses",
+      "line": 260,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -171164,17 +170930,197 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "19. Testing zonal failure",
-      "line": 292,
+      "section": "Competing hypotheses",
+      "line": 260,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALB`, `AZ`, `IP`, `NAT`, `DB`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DB failover bol úspešný;`, `ALB odstránil failed targets;`, `surviving subnets nemali IP headroom pre požadovaný fleet;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Discriminating observations",
+      "line": 270,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `ALB`, `IP`, `NAT42-`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Containment",
+      "line": 291,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Containment",
+      "line": 291,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Containment",
+      "line": 291,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Containment",
+      "line": 291,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť nonessential deployments;`, `obmedziť workload na healthy existing capacity;`, `znížiť retry amplification;`, `zachovať ASG, route, Flow Log a target-health evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Containment",
+      "line": 291,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Containment",
+      "line": 291,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `DNS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ASG`, `workload`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Viac subnetov v jednej AZ považovaných za Multi-AZ",
+      "section": "Recovery",
+      "line": 299,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Recovery",
+      "line": 299,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Recovery",
+      "line": 299,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Recovery",
+      "line": 299,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `použiť kompatibilné diversified instance families;`, `obnoviť required replica count;`, `overiť DB connection refresh a dependencies;`, `vykonať payment synthetic a settlement verification;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Recovery",
+      "line": 299,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Recovery",
+      "line": 299,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Recovery",
+      "line": 299,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `AZ`, `IP`, `DB`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Closure verdict",
       "line": 309,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "13. Regional recovery",
+      "line": 320,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -171182,8 +171128,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "AZ letter ako cross-account identita",
-      "line": 313,
+      "section": "13. Regional recovery",
+      "line": 320,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "13. Regional recovery",
+      "line": 320,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account/Region enablement;`, `service a feature availability;`, `quotas;`, `deployable artifacts;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "13. Regional recovery",
+      "line": 320,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "13. Regional recovery",
+      "line": 320,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `availability`, `identity`, `recovery point`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "14. Testing failure domains",
+      "line": 337,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -171191,8 +171173,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "DR Region bez capacity testu",
-      "line": 317,
+      "section": "14. Testing failure domains",
+      "line": 337,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "14. Testing failure domains",
+      "line": 337,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `loss jednej AZ capacity;`, `zonal NAT/endpoint dependency;`, `database failover;`, `load-balancer target removal;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "14. Testing failure domains",
+      "line": 337,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "14. Testing failure domains",
+      "line": 337,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `NAT`, `DNS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
+      "section": "Viac subnetov v jednej AZ je Multi-AZ",
+      "line": 365,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -171200,8 +171218,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Cross-AZ cost optimalizácia cez single-AZ databázu",
-      "line": 321,
+      "section": "AZ letter je cross-account identita",
+      "line": 369,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -171209,8 +171227,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Region selection iba podľa latency",
-      "line": 325,
+      "section": "Recovery Region bez capacity testu",
+      "line": 373,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -171218,8 +171236,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Resource nie je viditeľný",
-      "line": 331,
+      "section": "Regional service je automaticky odolná voči každej AZ failure",
+      "line": 377,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -171227,8 +171245,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Podarí sa deploy v AZ-a, nie v AZ-b",
-      "line": 335,
+      "section": "Znižovanie cross-AZ costu bez failure analýzy",
+      "line": 381,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -171236,29 +171254,11 @@
     },
     {
       "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Multi-AZ aplikácia zlyhá pri výpadku jednej AZ",
-      "line": 339,
+      "section": "16. Troubleshooting chain",
+      "line": 385,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Cross-account AZ mapping nesedí",
-      "line": 343,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/regions-availability-zones.md",
-      "section": "Recovery Region je pripravený, ale data sú staré",
-      "line": 347,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
