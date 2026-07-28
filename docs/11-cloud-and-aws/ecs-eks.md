@@ -1,499 +1,595 @@
-# ECS a EKS
+# Amazon ECS a Amazon EKS
 
-Amazon ECS a Amazon EKS riešia orchestráciu kontajnerových workloadov, ale používajú odlišný control-plane model. ECS používa AWS-native task a service API. EKS poskytuje managed Kubernetes control plane a zachováva Kubernetes API, controllers a ecosystem. Výber nie je len otázka syntaxe; mení ownership, portability, operations surface, upgrade model a troubleshooting evidence.
+Amazon ECS a Amazon EKS realizujú desired container workload na compute, network, storage a identity resources. ECS používa AWS-native task/service control plane. EKS poskytuje managed Kubernetes control plane a zachováva Kubernetes API, controllers a ecosystem. Rozdiel nie je „jednoduché verzus pokročilé“. Mení sa authoritative desired state, scheduler evidence, capacity ownership, identity chain, upgrade surface a recovery procedure.
 
-## 1. Porovnávací mentálny model
-
-```text
-ECS:
-task definition → task/service → cluster capacity → ENI/load balancer/logs
-
-EKS:
-Kubernetes manifest → API/controller/scheduler → Pod → node/Fargate → CNI/CSI/Service
-```
-
-ECS abstrahuje väčšiu časť orchestrátora ako AWS service. EKS abstrahuje Kubernetes control plane, ale zákazník stále vlastní podstatnú časť cluster data plane, add-ons, workload policies a upgrade kompatibility.
-
-## 2. Amazon ECS základné objekty
-
-- **cluster** — logická skupina tasks/services a capacity,
-- **task definition** — versionovaný container runtime contract,
-- **task** — jedna bežiaca inštancia task definition,
-- **service** — controller udržiavajúci desired count tasks,
-- **capacity provider** — spôsob poskytnutia compute capacity,
-- **service scheduler** — placement, replacement a deployment,
-- **container instance** — EC2 node registrovaný do ECS clusteru.
-
-Task definition môže definovať image, CPU, memory, ports, environment, secrets, IAM roles, logging, health check a volumes.
-
-## 3. ECS task definition revisions
-
-Task definition revision je immutable deployment contract. Pri zmene vzniká nová revision.
-
-Rozlišuj:
-
-- **task execution role** — permissions ECS agent/Fargate platformy na image pull, logs alebo secret injection,
-- **task role** — permissions application containers,
-- **network mode**,
-- **requires compatibilities**,
-- **runtime platform**,
-- **container definitions**,
-- **ephemeral a persistent storage**.
-
-Príliš široká execution role nerieši chýbajúce application permissions v task role a naopak.
-
-## 4. ECS service lifecycle
-
-ECS service:
-
-- udržiava desired task count,
-- nahrádza stopped tasks,
-- vykonáva rolling alebo blue/green deployment podľa konfigurácie,
-- registruje targets v load balanceri,
-- môže používať service autoscaling,
-- rozdeľuje tasks cez Availability Zones podľa dostupnej capacity a constraints.
-
-Deployment môže zlyhať, aj keď nová task definition je validná, napríklad pre:
-
-- image pull,
-- task role/execution role,
-- subnet IP exhaustion,
-- Security Group,
-- nedostatok CPU/memory/GPU,
-- unsupported platform version,
-- load-balancer health,
-- secrets/KMS,
-- volume attachment.
-
-## 5. ECS capacity providers
-
-Capacity provider určuje, kde tasks bežia. Aktuálna ECS dokumentácia preferuje capacity-provider strategy pred priamym launch-type rozhodovaním.
-
-Možnosti môžu zahŕňať:
-
-- AWS Fargate,
-- Fargate Spot,
-- ECS Managed Instances,
-- EC2 Auto Scaling Group capacity provider.
-
-Strategy používa:
-
-- `base` — minimálny počet tasks na konkrétnom providerovi,
-- `weight` — relatívne rozdelenie zvyšných tasks.
-
-Capacity provider nevyrieši application-level graceful shutdown ani state migration.
-
-## 6. ECS na Fargate
-
-Fargate odstraňuje správu host fleet-u. Zákazník stále vlastní:
-
-- task sizing,
-- image a vulnerabilities,
-- task/execution roles,
-- network a Security Groups,
-- logging,
-- secrets,
-- deployment,
-- application health,
-- cost a quotas.
-
-Každý task v `awsvpc` mode používa ENI/IP contract. Subnet IP capacity preto môže limitovať škálovanie.
-
-## 7. ECS na EC2
-
-Pri EC2 capacity zákazník spravuje alebo spoluspravuje:
-
-- AMI a ECS agent,
-- OS patching,
-- instance role,
-- Auto Scaling Group,
-- capacity headroom,
-- bin packing,
-- drain pri scale-in/maintenance,
-- host security a observability.
-
-Cluster autoscaling musí koordinovať pending tasks s ASG capacity. Instance môže mať voľný CPU, ale task nemusí byť placeable pre memory, port, ENI, architecture alebo attribute constraint.
-
-## 8. ECS placement
-
-Placement rozhoduje podľa:
-
-- resource fit,
-- Availability Zone,
-- attributes,
-- constraints,
-- strategies ako `spread`, `binpack` alebo `random`,
-- capacity-provider availability.
-
-`RESOURCE:MEMORY`, `RESOURCE:CPU`, `RESOURCE:ENI` a port conflicts sú odlišné failure classes.
-
-## 9. ECS networking
-
-`awsvpc` mode poskytuje tasku vlastnú ENI a Security Groups. Výhody:
-
-- task-level network identity,
-- jednoduchšia integrácia s load balancerom,
-- VPC Flow Logs,
-- service-to-service security boundaries.
-
-Diagnostický chain:
+Spoločný orchestration lifecycle:
 
 ```text
-DNS/service discovery
-→ source task SG
-→ route/NACL
-→ destination task/target SG
-→ listener/port
-→ container process
+business release intent
+→ immutable image a workload specification
+→ orchestrator desired-state generation
+→ scheduler placement verdict
+→ compute/network/storage capacity realization
+→ workload identity a configuration injection
+→ container process startup
+→ readiness a service/target eligibility
+→ traffic a business outcome
+→ autoscaling/replacement/update/drain
+→ acceptance, rollback alebo retirement
 ```
 
-## 10. ECS deployment safety
+Orchestrator môže správne udržiavať desired count a application napriek tomu zlyhávať. `RUNNING`, `Ready` alebo `Available` sú iba medzistavy. Closure potrebuje klientsky a business dôkaz.
 
-Rolling deployment používa minimum healthy percent a maximum percent. Bezpečný rollout potrebuje:
+## 1. Exact container orchestration subject
 
-- immutable image digest,
-- health check,
-- startup grace,
-- deregistration delay,
-- graceful SIGTERM handling,
-- circuit breaker/rollback podľa use case,
-- alarms a deployment evidence.
-
-Blue/green deployment môže používať oddelené target groups a traffic shift. Database alebo durable side effects zostávajú mimo rollback scope-u.
-
-## 11. ECS observability
-
-Sleduj:
-
-- service desired/running/pending count,
-- deployment state a events,
-- task stopped reason,
-- container exit code,
-- CPU/memory utilization,
-- target health,
-- image pull a startup latency,
-- ENI/IP capacity,
-- application logs a traces,
-- capacity provider a ASG metrics.
-
-ECS service events často poskytujú presnejší placement alebo deployment dôvod než samotný container log.
-
-## 12. Amazon EKS mentálny model
-
-Amazon EKS spravuje Kubernetes control plane. Zákazník spravidla vlastní:
-
-- VPC a cluster endpoint access,
-- Kubernetes RBAC/access entries,
-- nodes alebo Fargate profiles podľa modelu,
-- CNI, CSI a ďalšie add-ons podľa zvoleného management modelu,
-- workload manifests,
-- namespaces, quotas a policies,
-- upgrades a version skew,
-- logging/metrics,
-- backup a recovery workload resources.
-
-Managed control plane neznamená managed application platform bez day-2 operations.
-
-## 13. EKS compute modely
-
-EKS môže plánovať Pods na kombináciu:
-
-- EKS Auto Mode managed nodes,
-- managed node groups,
-- self-managed nodes,
-- AWS Fargate,
-- Hybrid Nodes podľa use case.
-
-Každý model mení ownership:
-
-| Model | AWS spravuje | Zákazník spravuje |
-|---|---|---|
-| Managed node group | node-group lifecycle integráciu | AMI/version policy, scaling, workload fit |
-| Self-managed nodes | control plane | celý node fleet lifecycle |
-| Fargate | host capacity | Pod sizing, profiles, networking, workload config |
-| Auto Mode | väčšiu časť compute/add-on operácií | workload a policy contract |
-
-Aktuálne capabilities treba overovať podľa Regionu, verzie a feature maturity.
-
-## 14. EKS managed node groups
-
-Managed node group používa EC2 Auto Scaling Group a EKS-integrated lifecycle.
-
-Stále rieš:
-
-- node IAM role,
-- subnets a capacity,
-- instance types,
-- labels/taints,
-- update strategy,
-- PodDisruptionBudgets,
-- drain failures,
-- add-on compatibility,
-- bootstrap a custom AMI contract.
-
-Managed update môže zlyhať pre PDB, unavailable capacity alebo workload, ktorý sa nedá bezpečne evict-nuť.
-
-## 15. EKS Fargate
-
-Fargate profile vyberá Pods podľa namespace a labels. Nie každý Kubernetes workload alebo host-level capability je vhodný pre Fargate.
-
-Over:
-
-- profile selection,
-- Pod execution role,
-- subnet IP capacity,
-- supported volumes/features,
-- DaemonSet requirements,
-- observability agent model,
-- Security Groups a DNS.
-
-Pod `Pending` môže znamenať, že neexistuje matching Fargate profile alebo compute capacity contract.
-
-## 16. EKS networking
-
-Kľúčové vrstvy:
-
-- cluster API endpoint public/private access,
-- requester-managed ENIs medzi control plane a VPC,
-- Amazon VPC CNI alebo alternatívny kompatibilný model,
-- Pod IP consumption,
-- Security Groups,
-- NetworkPolicy implementation,
-- kube-proxy alebo alternate dataplane,
-- CoreDNS,
-- load balancer controller.
-
-Subnet IP exhaustion môže blokovať Pods aj nodes. Pri VPC CNI sleduj IP allocation, prefix delegation a ENI limits podľa instance type-u.
-
-## 17. EKS identity
-
-Rozlišuj:
-
-- AWS IAM identity pristupujúcu ku cluster API,
-- EKS access entries/configuration,
-- Kubernetes RBAC authorization,
-- node IAM role,
-- Pod identity alebo IAM role pre service account podľa modelu,
-- service-linked roles.
-
-AWS `AccessDenied` a Kubernetes `Forbidden` sú odlišné vrstvy.
-
-Diagnostika:
+Atlas Payments používa subject `CTR-PAY-42` pre release 7.17.0:
 
 ```text
-AWS caller identity
-→ cluster endpoint/network
-→ EKS authentication/access entry
-→ Kubernetes user/groups
-→ RBAC role binding
+account = 100000000042
+Region = eu-central-1
+image = 100000000042.dkr.ecr.eu-central-1.amazonaws.com/payments-api
+image digest = sha256:pay-api-7-17-0
+architecture = linux/amd64
+configuration generation = CFG-PAY-52
+secret generation = SEC-PAY-39
+database/proxy generation = PROXY-10
+load-balancer generation = ALB-PAY-18
+business journey = authorize payment P-901
+
+ECS realization =
+  cluster = payments-prod
+  service = payments-api
+  task definition = payments-api:118
+  deployment generation = ECS-DEP-73
+  capacity provider = payments-managed-instances-v4
+  network mode = awsvpc
+  task role = ROLE-ECS-PAY-21
+  task execution role = ROLE-ECS-EXEC-14
+  desired count = 40
+
+EKS realization =
+  cluster = payments-eks-prod
+  Kubernetes version generation = EKS-VER-16
+  namespace = payments
+  Deployment = payments-api
+  ReplicaSet generation = RS-PAY-219
+  Service/Ingress generation = SVC-PAY-31
+  access-entry generation = EKS-ACCESS-12
+  service account = payments-api
+  Pod Identity association = PODID-PAY-9
+  compute generation = NODEPOOL-PAY-17
+  VPC CNI generation = CNI-31
+  desired replicas = 40
+
+required outcome =
+  40 eligible instances across at least three AZs
+  release 7.17.0 serves payment authorization within SLO
+  task/Pod receives only workload permissions
+  scale-out and replacement preserve capacity and connection drain
+
+forbidden outcomes =
+  mutable tag starts a different binary under the same release identity
+  scheduler declares placement success but workload is not target-eligible
+  node/host role leaks to application workload
+  scale-out exhausts subnet IPs and removes healthy headroom
+  EKS control-plane update is treated as full cluster/application upgrade
+  rollback deletes or corrupts durable payment state
 ```
 
-## 18. EKS add-ons
+Incident evidence musí identifikovať image digest, task definition alebo Kubernetes object generation, scheduler verdict, selected capacity, ENI/Pod IP, node/task/Pod identity, startup/readiness, target health, deployment cohort, drain state a business request result.
 
-Critical add-ons zahŕňajú napríklad:
-
-- VPC CNI,
-- CoreDNS,
-- kube-proxy,
-- CSI drivers,
-- load balancer controller,
-- metrics/observability agents.
-
-EKS managed add-on znižuje packaging toil, ale zákazník musí riešiť version compatibility, configuration conflicts, IAM permissions a rollout health.
-
-## 19. EKS upgrades
-
-Upgrade scope:
-
-1. Kubernetes control plane,
-2. managed/self-managed nodes,
-3. Fargate platform compatibility,
-4. EKS add-ons,
-5. controllers/operators/CRDs,
-6. workload APIs,
-7. clients a automation.
-
-Pred upgrade-om:
-
-- skontroluj deprecated APIs,
-- add-on matrix,
-- node version skew,
-- PDB a capacity,
-- admission webhooks,
-- backup/export critical resources,
-- staging/canary cluster alebo node group.
-
-Control-plane rollback nemusí byť dostupný ako jednoduchá operácia. Upgrade plán má preto preferovať compatibility a roll-forward preparedness.
-
-## 20. ECS oproti EKS
-
-### ECS je vhodný, keď
-
-- chceš AWS-native orchestrator,
-- nepotrebuješ Kubernetes API/ecosystem,
-- preferuješ menší control-plane operations surface,
-- deployment a service model ECS pokrýva requirements.
-
-### EKS je vhodný, keď
-
-- potrebuješ Kubernetes API a ecosystem,
-- používaš operators, CRDs alebo Kubernetes tooling,
-- potrebuješ portability na úrovni orchestrátora,
-- tím vie prevádzkovať Kubernetes day-2 vrstvy.
-
-Kubernetes portability nie je automatická application portability; AWS load balancers, IAM, storage a networking môžu zostať provider-specific.
-
-## 21. Security
-
-Spoločné princípy:
-
-- immutable image digest,
-- image scanning a signing podľa policy,
-- least-privilege workload identity,
-- read-only filesystem/capabilities podľa runtime,
-- secret injection bez logovania,
-- private registry/network path,
-- runtime isolation,
-- admission/deployment policy,
-- audit trail.
-
-ECS task role a EKS Pod identity musia byť oddelené od node/host permissions.
-
-## 22. Cost model
+## 2. ECS a EKS majú odlišný authoritative control plane
 
 ### ECS
 
-- Fargate vCPU/memory/storage duration,
-- EC2 capacity a idle headroom,
-- load balancer,
-- logs,
-- data transfer,
-- NAT/endpoints.
+```text
+task definition revision
+→ task alebo service desired state
+→ ECS scheduler
+→ capacity provider
+→ task placement
+→ ENI/volume/logging/identity
+→ service deployment a target registration
+```
+
+Task definition je immutable runtime template. Service je controller, ktorý udržiava desired count a deployment. ECS service events a stopped reasons sú authoritative evidence pre placement a lifecycle pred štartom application logu.
 
 ### EKS
 
-- cluster control plane,
-- nodes/Fargate/Auto Mode resources,
-- add-ons a load balancers,
-- observability,
-- storage,
-- data transfer,
-- operations labor.
+```text
+Kubernetes manifests/API objects
+→ admission
+→ controllers
+→ scheduler
+→ Pod binding
+→ kubelet/container runtime
+→ CNI/CSI
+→ Service/Ingress/controller
+→ workload readiness a rollout
+```
 
-Najlacnejší host model nemusí byť najnižší TCO.
+EKS spravuje Kubernetes control plane. Zákazník stále vlastní workload manifests, namespaces, RBAC/access model, policies, add-on compatibility, compute model podľa voľby, observability, upgrade readiness a application recovery.
 
-## 23. Troubleshooting ECS
+Kubernetes API portability neznamená automatickú portability siete, IAM, storage, load balancerov alebo operations modelu.
 
-### Service tasks zostávajú Pending
+## 3. Workload specification je release contract
 
-Over service events, capacity provider, CPU/memory/ENI/port fit, subnets, quotas a task definition platform.
+### ECS task definition
+
+Revision definuje najmä:
+
+- image digest a containers;
+- CPU, memory, ports a runtime platform;
+- command/entrypoint;
+- task a execution role;
+- environment, secrets a logging;
+- network mode;
+- health checks;
+- ephemeral alebo persistent storage.
+
+Nová revision nemení existujúce tasks. Service deployment musí vytvoriť novú task cohortu a vyradiť starú.
+
+### EKS workload objects
+
+Deployment, StatefulSet, Job alebo iný controller vytvára Pod templates a následné runtime objects. Exact release subject zahŕňa manifest generation, image digest, ConfigMap/Secret generation, ServiceAccount, requests/limits, probes, volumes, topology a policy.
+
+Zmena ConfigMap bez zmeny Pod template nemusí automaticky nahradiť všetky Pods. Mutable external configuration môže preto vytvoriť mixed population bez viditeľnej rollout revision.
+
+## 4. Scheduler rozhoduje iba v rámci viditeľného contractu
+
+Scheduler nevie, že „payments-api potrebuje bezpečne autorizovať platby“, pokiaľ to nie je vyjadrené cez resources, constraints, topology, probes a policies.
+
+ECS placement vyhodnocuje resource fit, attributes, ENI/port requirements, AZ, constraints, strategies a capacity-provider availability.
+
+Kubernetes scheduler vyhodnocuje requests, taints/tolerations, affinity, topology, volumes a ďalšie scheduling constraints. CNI alebo image pull však môže zlyhať až po bindingu Podu na Node.
+
+Preto:
+
+```text
+scheduled/placed
+≠ process started
+≠ ready
+≠ target healthy
+≠ business accepted
+```
+
+## 5. Capacity má viac rozmerov než CPU
+
+Container workload potrebuje súčasne:
+
+```text
+compute
++ memory
++ architecture/accelerator
++ ENI alebo Pod IP
++ ports
++ storage topology
++ AZ placement
++ quota
++ startup headroom
+```
+
+Host môže mať voľný CPU, ale task alebo Pod sa nezmestí pre memory, ENI density, IP exhaustion, incompatible architecture, taint, PVC topology alebo quota.
+
+Capacity planning musí obsahovať replacement a rollout headroom. Fleet dimenzovaný presne na steady-state desired count nemá pri update priestor na start-before-stop.
+
+## 6. ECS capacity providers
+
+Capacity provider spája ECS scheduler s compute modelom. Strategy používa `base` a `weight` na rozdelenie tasks.
+
+Relevantné modely:
+
+- AWS Fargate a Fargate Spot;
+- Amazon ECS Managed Instances;
+- EC2 Auto Scaling Group capacity provider.
+
+Aktuálne ECS Managed Instances poskytujú EC2-based capacity, pri ktorej AWS spravuje významnú časť instance provisioning, scaling, software/OS patching a maintenance lifecycle. Zákazník stále vlastní task sizing, workload compatibility, capacity-provider requirements, service deployment, identity, network, application health a business validation.
+
+Capacity provider nie je application autoscaler. Service desired count a underlying host capacity sú samostatné control loops, ktoré sa musia stretnúť.
+
+## 7. Fargate, Managed Instances a vlastné EC2 menia ownership
+
+| Model | AWS preberá | Zákazník naďalej vlastní |
+|---|---|---|
+| Fargate | host provisioning a host OS lifecycle | task sizing, image, roles, network, storage, deployment, health, cost |
+| ECS Managed Instances | veľkú časť EC2 instance selection, scaling, patching a maintenance | workload requirements, capacity-provider contract, tasks/services a application outcome |
+| ASG capacity provider | ECS/ASG integration podľa konfigurácie | AMI, agent, OS patching, ASG, drain, headroom a host security |
+
+„Managed“ neznamená, že každá task definition sa dá umiestniť. ENI density, architecture, accelerator, volume a Region/AZ support zostávajú reálne constraints.
+
+## 8. ECS service deployment je cohort exchange
+
+Rolling deployment používa desired count, minimum healthy percent a maximum percent na súbežnú old/new population.
+
+```text
+old cohort healthy
+→ new tasks admitted a placed
+→ process startup
+→ container/LB health
+→ new cohort eligible
+→ old tasks deregister a drain
+→ old tasks stop
+```
+
+Deployment circuit breaker alebo alarm-based failure detection môže rollout zastaviť alebo rollbacknúť podľa configuration. Nevracia však external database writes ani provider side effects.
+
+Blue/green model oddeľuje replacement task set a traffic shift. Stále potrebuje immutable image, target-group identity, drain, business canary a rollback eligibility.
+
+## 9. ECS task role a execution role sú odlišné identity
+
+**Task execution role** používa ECS agent alebo Fargate platforma na image pull, log delivery a secret injection podľa feature contractu. **Task role** používa application container na AWS API calls.
+
+```text
+platform startup action
+→ task execution role
+
+application SDK call
+→ task role credentials
+```
+
+Broad execution role nevyrieši chýbajúce application permission. Broad task role zase zbytočne rozširuje blast radius každého compromised containeru.
+
+Na EC2 capacity treba navyše oddeliť container instance role. Application nesmie získavať node/instance credentials ako fallback.
+
+## 10. ECS networking a target eligibility
+
+Pri `awsvpc` mode dostáva task vlastnú ENI/IP a Security Groups. Packet path:
+
+```text
+client/LB
+→ listener/rule/target group
+→ task ENI Security Group
+→ route/NACL
+→ container port/process
+→ response path
+```
+
+Scale-out spotrebúva subnet IPs. Task môže byť `RUNNING`, ale target zostane unhealthy pre wrong port, SG, health path, startup delay alebo application dependency.
+
+Service discovery DNS success len dokazuje name resolution. Neoveruje listener, task identity ani application readiness.
+
+## 11. EKS compute modely
+
+EKS môže používať:
+
+- EKS Auto Mode;
+- managed node groups;
+- self-managed nodes;
+- AWS Fargate;
+- podporované hybrid modely.
+
+EKS Auto Mode automatizuje väčšiu časť compute, networking, storage a load-balancing infrastructure a používa service-managed node lifecycle. Zákazník stále vlastní workload specification, Pod disruption a NodePool policies, application compatibility, identity, data, SLO a acceptance.
+
+Managed node group koordinuje časť EC2 node lifecycle-u, ale tím stále rieši AMI/version policy, instance types, labels/taints, scaling, PDB, capacity a add-on compatibility.
+
+Self-managed nodes dávajú najviac kontroly a najväčšiu host responsibility. Fargate odstraňuje node fleet, ale obmedzuje host-level capabilities a stále spotrebúva subnet IPs.
+
+## 12. EKS control plane nie je celý cluster
+
+Kubernetes request prejde viacerými nezávislými vrstvami:
+
+```text
+AWS caller
+→ EKS endpoint/network
+→ EKS authentication a access entry
+→ Kubernetes user/groups
+→ RBAC/admission
+→ API object persistence
+→ controller reconciliation
+→ scheduler
+→ Node/kubelet/runtime
+→ CNI/CSI
+→ Service/Ingress dataplane
+```
+
+`aws eks` API success neznamená, že Kubernetes authorization prešla. `kubectl Forbidden` nie je VPC Security Group problém. `Deployment Available` zase neoveruje external ALB, DNS ani business journey.
+
+## 13. EKS access a workload identity
+
+Rozlišuj:
+
+- cluster IAM role a service-linked roles;
+- IAM principal pristupujúci ku clusteru;
+- EKS access entry/policy alebo Kubernetes group mapping;
+- Kubernetes RBAC;
+- node IAM role;
+- Pod Identity alebo iný supported workload identity model;
+- service account a application permissions.
+
+EKS access entry rieši human/automation access ku Kubernetes API. Pod Identity rieši AWS permissions workloadu. Nie sú to dve mená pre tú istú vec.
+
+EKS Pod Identity používa association medzi IAM role a Kubernetes service accountom; podľa compute modelu potrebuje supporting agent alebo service-managed integration. Application SDK musí používať supported credential chain. Node role nesmie byť implicitný workload credential source.
+
+## 14. EKS networking je scheduling aj runtime dependency
+
+Pri Amazon VPC CNI Pods typicky spotrebúvajú VPC IP capacity podľa node/ENI/prefix modelu. Chain:
+
+```text
+Pod scheduled
+→ CNI allocates address
+→ network namespace/routes created
+→ Security Group/NetworkPolicy verdicts
+→ CoreDNS/service discovery
+→ Service/load-balancer dataplane
+→ application connection
+```
+
+Subnet free IPs, instance ENI limits, prefix delegation, warm IP/prefix targets a CNI generation ovplyvňujú počet reálne spustiteľných Pods.
+
+NetworkPolicy deklarácia nemá účinok bez dataplane implementation, ktorá ju enforce-uje. Security Groups a Kubernetes NetworkPolicy pozorujú odlišnú identity a vrstvu.
+
+## 15. EKS storage a topology
+
+PersistentVolume claim môže byť bound, ale Pod sa nemusí dať umiestniť do AZ kompatibilnej s volume. CSI controller/node components, IAM, KMS, topology a mount permissions sú samostatné gates.
+
+Stateful workload update navyše potrebuje:
+
+- stable identity;
+- quorum/replication awareness;
+- ordered drain;
+- fencing;
+- backup/recovery;
+- application-consistent validation.
+
+Orchestrator replacement nesmie byť jediným recovery mechanizmom pre corrupted durable state.
+
+## 16. Add-ons a controllers rozširujú upgrade graph
+
+Kritické components môžu zahŕňať:
+
+- VPC CNI;
+- CoreDNS;
+- kube-proxy alebo alternate dataplane;
+- CSI drivers;
+- load balancer controller;
+- metrics/logging/security agents;
+- admission webhooks a operators;
+- CRDs.
+
+Managed add-on znižuje packaging toil, ale configuration conflicts, IAM, compatibility a rollout health zostávajú. Add-on môže byť `ACTIVE`, kým časť Pods na novej Node generation zlyháva.
+
+## 17. EKS upgrade je compatibility program
+
+Upgrade subject:
+
+```text
+current control-plane version
+→ target supported version
+→ deprecated API/CRD inventory
+→ add-on/controller matrix
+→ Node/runtime generations
+→ admission/client compatibility
+→ workload disruption/capacity
+→ staged transition
+→ application/business acceptance
+```
+
+Control plane, nodes, Fargate/Auto Mode infrastructure, add-ons, controllers, CRDs a workloads sa nemenia ako jedna atomická operácia. Simple control-plane rollback nemusí byť k dispozícii; prioritou je compatibility evidence a pripravený roll-forward.
+
+PDB chráni application availability iba ak je správne nastavený a existuje replacement capacity. Príliš prísny PDB môže blokovať safe node drain. Príliš voľný PDB môže povoliť plošný výpadok.
+
+## 18. Autoscaling má tri odlišné otázky
+
+1. Koľko workload replicas je potrebných?
+2. Existuje pre ne schedulable compute/network/storage capacity?
+3. Je downstream schopný nový concurrency absorbovať?
+
+ECS Service Auto Scaling alebo Kubernetes HPA mení desired workload count. Capacity provider, Cluster Autoscaler, Karpenter/Auto Mode alebo node-group scaling realizuje host capacity podľa zvoleného modelu. VPA alebo rightsizing mení resource request model.
+
+Scale-out podľa CPU môže zhoršiť incident, ak bottleneck je database connection, provider quota alebo subnet IP. Business queue age a downstream saturation musia byť súčasťou guardrailov.
+
+## 19. Drain a termination sú correctness boundary
+
+Bezpečný drain:
+
+```text
+mark workload ineligible for new traffic
+→ stop new leases/jobs
+→ complete alebo hand off in-flight work
+→ flush durable state/telemetry
+→ deregistration delay alebo endpoint removal
+→ process termination
+→ host/node termination
+```
+
+SIGTERM alebo Kubernetes termination signal sám negarantuje, že load balancer prestal posielať traffic. ECS task protection, deployment settings, PDB, preStop, termination grace a LB deregistration musia vytvoriť konzistentný časový contract.
+
+Pri queue consumerovi treba oddeliť message lease/visibility od process termination. Node drain počas spracovania môže vytvoriť duplicate delivery.
+
+## 20. Observability podľa orchestration vrstvy
+
+### ECS evidence
+
+- service desired/running/pending counts;
+- deployment/task-set generation;
+- service events;
+- task stopped reason a container exit code;
+- capacity-provider a host capacity;
+- ENI/IP a target health;
+- image pull/startup latency;
+- task role/execution role denies;
+- application/business metrics.
+
+### EKS evidence
+
+- API object generation, ownerReferences a Events;
+- controller conditions;
+- scheduler decisions;
+- Pod status, container states a exit codes;
+- Node conditions a kubelet/runtime;
+- CNI/CSI/add-on logs;
+- EndpointSlice/Service/Ingress/controller state;
+- access/RBAC audit;
+- application/business metrics.
+
+Application logs často neexistujú, keď failure nastal pred process startom. Orchestrator events sú preto first-class evidence, nie doplnok.
+
+## 21. Worked failure: scale-out vyčerpá subnet IPs
+
+Po marketingovej kampani sa desired count zvýši z 24 na 40. ECS service aj EKS Deployment nedosiahnu požadovanú kapacitu.
+
+### Competing hypotheses
+
+1. cluster nemá dostatok CPU alebo memory;
+2. image revision 7.17.0 sa nedá pull-nuť;
+3. task execution role alebo Pod Identity zlyháva;
+4. ALB health check odmieta nový release;
+5. subnet IP alebo ENI capacity blokuje runtime networking;
+6. EKS CNI generation je chybná.
+
+### Discriminating evidence
+
+ECS service events uvádzajú `RESOURCE:ENI`; časť tasks zostáva `PENDING` ešte pred image pullom. EKS scheduler niektoré Pods bindne na Nodes, ale Pod Events následne ukazujú `FailedCreatePodSandBox` a VPC CNI `ipamd` nevie prideliť adresu.
+
+EC2 subnet evidence ukazuje:
+
+```text
+subnet-a free IPv4 = 2
+subnet-b free IPv4 = 1
+subnet-c free IPv4 = 3
+```
+
+CPU na existujúcich ECS instances a EKS Nodes je len 45 %. Pridanie ďalších Nodes bez nového address space-u spotrebuje ďalšie IPs a situáciu zhorší. Root cause je shared VPC address capacity, nie nedostatok CPU.
+
+### Evidence-preserving containment
+
+- zastaví sa ďalší neobmedzený workload/node scale-out;
+- healthy old cohort zostáva target-eligible;
+- rollout 7.17.0 sa pozastaví bez mazania pending evidence;
+- batch/noncritical consumers sa dočasne obmedzia;
+- traffic sa podľa capacity presunie na zdravé AZ cohorts;
+- nevykoná sa broad SG alebo CNI reset bez hypotézy.
+
+### Authoritative recovery
+
+1. vytvorí sa nová subnet/address generation s dostatočným headroomom;
+2. ECS capacity provider a service network configuration dostanú approved subnets;
+3. EKS node/NodePool a VPC CNI IPAM model sa upravia podľa instance density a prefix strategy;
+4. nové canary tasky/Pods sa vytvoria v každej AZ;
+5. overí sa ENI/Pod IP, DNS, target health, workload identity a dependency path;
+6. desired count sa zvyšuje vo vlnách;
+7. old subnet generation sa vyradí až po drain a address-release verification.
+
+### Acceptance verdict
+
+Recovery nie je uzavretá pri `RUNNING=40` alebo `AvailableReplicas=40`. Potrebný je dôkaz, že:
+
+- všetkých 40 workloads má approved image digest a configuration;
+- placement je rozdelený cez tri AZs;
+- subnet free-IP headroom spĺňa rollout a failure budget;
+- každý task/Pod je target-eligible a obslúži exact payment request;
+- workload používa task role alebo Pod Identity, nie host role;
+- scale-in/drain nevytvorí dropped ani duplicate payment;
+- forbidden scale test nedosiahne IP exhaustion skôr než alert/guardrail;
+- old capacity a network generation je bezpečne vyradená.
+
+Skorší control: release capacity gate počíta workload ENI/Pod IP demand, node overhead, rollout surge, AZ-loss reserve a expected autoscaling ceiling pred zmenou desired count-u.
+
+## 22. ECS troubleshooting walkthrough
+
+### Task zostáva `PENDING`
+
+Najprv identifikuj service/deployment/task-definition/capacity-provider generation. Potom rozlíš resource placement, subnet/IP, quota, architecture a capacity-provider state. Image, secret a process logiku rieš až keď task prešiel placementom.
 
 ### Task sa okamžite zastaví
 
-Over stopped reason, essential container exit code, command/entrypoint, secret injection, logs driver a application configuration.
+Použi stopped reason, essential container exit code, platform logs, command/entrypoint, secret injection a health. `CannotPullContainerError` nie je application crash.
 
 ### Deployment sa neukončí
 
-Over target health, deployment minimum/maximum, circuit breaker, old tasks, connection draining a insufficient capacity.
+Porovnaj new/old cohort, target health, deployment limits, circuit-breaker evidence, startup grace, drain a headroom. Desired count bez eligible targets nie je successful rollout.
 
-### ImagePull failure
+## 23. EKS troubleshooting walkthrough
 
-Over ECR permissions v execution role, repository policy, image digest/tag, network/NAT/endpoint a KMS.
+### `kubectl` nefunguje
 
-## 24. Troubleshooting EKS
+Rozlíš DNS/network k EKS endpointu, AWS authentication/access entry a Kubernetes RBAC. `Unauthorized` a `Forbidden` majú odlišné observation points.
 
-### Nodes sa nepripoja
+### Pod zostáva `Pending`
 
-Over node IAM role, bootstrap/user data, cluster endpoint, DNS, Security Groups, route, AMI/version a kubelet logs.
+Najprv scheduler Events: requests, taints, affinity, topology, PVC a compute. Ak je Pod bound, ale nie `Running`, pokračuj kubelet, image pull, CNI, CSI a runtime.
 
-### Pods zostávajú Pending
+### Pod je `Ready`, ale klient zlyháva
 
-Over scheduler Events, requests, taints/affinity, node capacity, Fargate profile, PVC topology a subnet IP capacity.
+Over Service selector, EndpointSlice cohort, target registration, load-balancer controller, SG/NetworkPolicy, port/protocol a application request. Probe path môže byť zelený, kým business path zlyháva.
 
-### Pods nemajú network
+### Node update stojí
 
-Over CNI Pods/logs, IPAM, ENI/IP limits, routes, SG/NACL, NetworkPolicy a DNS.
+Over PDB, unavailable capacity, taints, local/stateful workloads, finalizers, drain timeout, add-on compatibility a replacement Node readiness. Force eviction bez state/availability modelu môže incident zväčšiť.
 
-### `kubectl` access zlyhá
+## 24. ECS alebo EKS: rozhodovací model
 
-Rozlíš network timeout, AWS authentication failure a Kubernetes RBAC `Forbidden`.
+Vyber podľa required control-plane contractu:
 
-### LoadBalancer Service nevznikne
+| Otázka | ECS skôr vyhovuje | EKS skôr vyhovuje |
+|---|---|---|
+| Authoritative API | AWS-native task/service model | Kubernetes API/controllers/CRDs |
+| Operations surface | menší orchestrator surface | širší Kubernetes ecosystem a day-2 ownership |
+| Portability requirement | image/application portability | orchestrator API/tooling portability s AWS integrations |
+| Custom controllers/operators | obmedzenejší model | natívny Kubernetes extension model |
+| Team capability | AWS/ECS operations | Kubernetes platform engineering |
+| Upgrade burden | task/platform/capacity lifecycle | control plane + nodes + add-ons + APIs + workloads |
 
-Over controller, IAM, annotations/spec, subnets/tags, SG, quotas a Events.
+Rozhodnutie sa nemá robiť podľa popularity. Porovnáva sa total operational ownership, reliability requirements, ecosystem need, portability boundary, security model a TCO.
 
-## 25. SOA-C03 mapovanie
+## 25. Security a cost boundaries
 
-- **Domain 1** — ECS/EKS metrics, logs, task/Pod/node health a remediation.
-- **Domain 2** — multi-AZ services, autoscaling, disruption, backup a recovery.
-- **Domain 3** — task definitions, deployments, cluster/node provisioning, IaC a image promotion.
-- **Domain 4** — task/Pod identity, image security, secrets, encryption, audit a policies.
-- **Domain 5** — ENIs, VPC CNI, load balancers, service discovery, Security Groups a hybrid connectivity.
+Security:
 
-Praktické drilly:
+- immutable image digest, provenance, scan a signing policy;
+- least-privilege task/Pod identity;
+- oddelené host, execution a workload roles;
+- private registry a controlled egress;
+- secret redaction a rotation;
+- runtime capabilities/read-only filesystem podľa workloadu;
+- admission/deployment policy;
+- audit trail a break-glass access.
 
-- ECS task execution role nevie pull-nuť image,
-- ECS service nemá capacity pre task placement,
-- EKS node group update blokuje PDB,
-- VPC CNI vyčerpá subnet IPs,
-- Kubernetes RBAC povoľuje menej než EKS access entry očakáva,
-- load balancer controller nemá IAM permissions,
-- Fargate profile nevyberá Pod.
+Cost:
 
-## 26. Anti-patterny
+```text
+workload compute duration
++ idle/surge capacity
++ control plane
++ load balancers
++ storage
++ logs/metrics/traces
++ NAT/data transfer
++ operations labor
+```
 
-### ECS task role a execution role zlúčené do broad role
+Fargate alebo managed capacity môže znížiť host toil a zvýšiť unit compute cenu. Self-managed density môže znížiť infra účet a zvýšiť patching, upgrade a incident cost. Najnižší resource price nie je automaticky najnižší TCO.
 
-Rozširuje blast radius application aj platform operations.
+## 26. Kontrolné otázky
 
-### EKS považovaný za plne spravovanú aplikáciu
-
-AWS spravuje control plane, nie celý cluster a workload lifecycle.
-
-### Mutable image tag v production
-
-Replacement task/Pod môže spustiť iný image pod rovnakou deklaráciou.
-
-### Host patching cez ručné SSH bez fleet replacementu
-
-Vytvára drift a neudržateľnú node population.
-
-### Jeden subnet/AZ pre celý cluster
-
-Orchestrator nevytvorí fault tolerance bez reálnej multi-AZ capacity.
-
-### Diagnostika iba cez application logs
-
-Placement, IAM, CNI, scheduler a service events môžu zlyhať pred štartom aplikácie.
-
-## 27. Kontrolné otázky
-
-1. Aký je rozdiel medzi ECS task definition, task a service?
-2. Prečo ECS odporúča capacity-provider strategy?
-3. Ako sa líši task role od task execution role?
-4. Ktoré resources môžu blokovať ECS task placement?
-5. Čo EKS spravuje a čo zostáva zákazníkovi?
-6. Ako sa líši managed node group, self-managed nodes a Fargate?
-7. Ako odlíšiš EKS authentication od Kubernetes authorization?
-8. Prečo môže subnet IP exhaustion blokovať kontajnery?
-9. Ktoré vrstvy patria do EKS upgrade-u?
-10. Kedy je ECS vhodnejší než EKS?
+1. Aký je spoločný orchestration lifecycle ECS a EKS?
+2. Čo tvorí exact ECS/EKS deployment subject?
+3. Prečo scheduler success nie je application acceptance?
+4. Ako sa líši ECS task role, execution role a container-instance role?
+5. Čo mení Fargate, ECS Managed Instances a ASG capacity provider?
+6. Kde sa odlišuje EKS access entry od Pod Identity?
+7. Prečo môže scale-out zlyhať pri voľnom CPU?
+8. Ktoré vrstvy patria do EKS upgrade graphu?
+9. Ako sa koordinuje process termination, target drain a queue lease?
+10. Aký dôkaz uzatvára container deployment na business úrovni?
 
 ## Glossary impact
 
-Relevantné pojmy: Amazon ECS, ECS cluster, task definition, ECS task, ECS service, task role, task execution role, capacity provider, Fargate, ECS Managed Instances, task placement, Amazon EKS, managed node group, self-managed node, EKS Auto Mode, EKS Fargate profile, EKS access entry, Pod identity, EKS add-on a VPC CNI.
+Relevantné pojmy: container orchestration subject, desired-state generation, placement verdict, capacity realization, target-eligibility cohort, orchestration acceptance verdict, workload identity chain, rollout headroom, address-capacity boundary, drain completion a cluster upgrade graph.
 
 ## Oficiálna dokumentácia
 
 - [Amazon ECS Developer Guide](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html)
-- [ECS clusters](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html)
-- [ECS services](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html)
-- [ECS task definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html)
-- [ECS capacity providers](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html)
+- [Amazon ECS services](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html)
+- [Amazon ECS capacity providers](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html)
+- [Amazon ECS Managed Instances](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ManagedInstances.html)
+- [ECS deployment circuit breaker](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-circuit-breaker.html)
 - [Amazon EKS User Guide](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html)
 - [EKS compute options](https://docs.aws.amazon.com/eks/latest/userguide/eks-compute.html)
-- [EKS managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html)
-- [EKS Fargate](https://docs.aws.amazon.com/eks/latest/userguide/fargate.html)
+- [EKS Auto Mode](https://docs.aws.amazon.com/eks/latest/userguide/automode.html)
+- [EKS access entries](https://docs.aws.amazon.com/eks/latest/userguide/access-entries.html)
+- [EKS Pod Identity](https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html)
+- [EKS cluster upgrades](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
