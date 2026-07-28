@@ -2719,15 +2719,15 @@
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
       "title": "AWS Backup",
-      "words": 2042,
-      "headings": 44,
-      "sections": 44,
-      "findings": 144,
-      "critical": 49,
-      "high": 49,
-      "medium": 20,
-      "low": 26,
-      "score": 1082,
+      "words": 2723,
+      "headings": 51,
+      "sections": 51,
+      "findings": 94,
+      "critical": 25,
+      "high": 34,
+      "medium": 11,
+      "low": 24,
+      "score": 642,
       "grade": "D"
     },
     {
@@ -149582,8 +149582,287 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Exact recovery subject",
+      "line": 24,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "2. Protection, recovery point a recoverability sú rozdielne stavy",
+      "line": 77,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "3. Backup nie je HA ani replication",
+      "line": 107,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "3. Backup nie je HA ani replication",
+      "line": 107,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Tag-based selection failure boundary",
+      "line": 143,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 53 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Tag-based selection failure boundary",
+      "line": 143,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative critical-resource inventory;`, `expected tier a RPO/RTO class;`, `effective assignment;`, `last successful source recovery point;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Tag-based selection failure boundary",
+      "line": 143,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Tag-based selection failure boundary",
+      "line": 143,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Tag-based selection failure boundary",
+      "line": 143,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "5. Schedule a job windows sú capacity contract",
+      "line": 159,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 57 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "5. Schedule a job windows sú capacity contract",
+      "line": 159,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource ARN a generation;`, `scheduled a actual start;`, `completion time;`, `service status message;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "5. Schedule a job windows sú capacity contract",
+      "line": 159,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "5. Schedule a job windows sú capacity contract",
+      "line": 159,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `KMS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "6. Snapshot, continuous backup a application consistency",
+      "line": 176,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Crash consistency a application consistency",
+      "line": 186,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Crash consistency a application consistency",
+      "line": 186,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "8. Vault, encryption a access boundary",
+      "line": 221,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "8. Vault, encryption a access boundary",
+      "line": 221,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "8. Vault, encryption a access boundary",
+      "line": 221,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "9. Cross-account a cross-Region copy",
+      "line": 239,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "10. Vault Lock a logically air-gapped vault",
+      "line": 259,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `min/max retention;`, `legal hold a deletion requirements;`, `test vault a sample restores;`, `KMS key lifetime;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "10. Vault Lock a logically air-gapped vault",
+      "line": 259,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "11. Restore authority a clean-room recovery",
+      "line": 286,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "11. Restore authority a clean-room recovery",
+      "line": 286,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitný incident/rehearsal ID;`, `approved recovery manifest;`, `isolated recovery account/VPC;`, `bounded restore role session;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "11. Restore authority a clean-room recovery",
+      "line": 286,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "11. Restore authority a clean-room recovery",
+      "line": 286,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `VPC`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "13. Restore testing musí testovať recovery contract",
+      "line": 323,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "13. Restore testing musí testovať recovery contract",
+      "line": 323,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact recovery-point a manifest identity;`, `decrypt a mount/connect;`, `database/filesystem/object integrity;`, `schema a artifact compatibility;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "13. Restore testing musí testovať recovery contract",
+      "line": 323,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "13. Restore testing musí testovať recovery contract",
+      "line": 323,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "14. Worked failure: najnovší isolated point je úspešný, ale nie čistý",
+      "line": 340,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Incident timeline",
+      "line": 342,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -149591,953 +149870,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "2. Backup nie je high availability",
-      "line": 21,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "2. Backup nie je high availability",
-      "line": 21,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accidental deletion,`, `logical corruption,`, `ransomware alebo malicious change,`, `chybný deployment alebo migration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "2. Backup nie je high availability",
-      "line": 21,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "2. Backup nie je high availability",
-      "line": 21,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "3. Recovery point",
-      "line": 35,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "3. Recovery point",
-      "line": 35,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source resource a account/Region,`, `creation a completion time,`, `backup type,`, `lifecycle a expiration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "3. Recovery point",
-      "line": 35,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "3. Recovery point",
-      "line": 35,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "4. Backup vault",
-      "line": 53,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "4. Backup vault",
-      "line": 53,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `access policy,`, `KMS encryption,`, `retention a Vault Lock,`, `notifications,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "4. Backup vault",
-      "line": 53,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "4. Backup vault",
-      "line": 53,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `policy`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "5. Backup plan",
-      "line": 68,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "10 odrážok a iba 49 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "5. Backup plan",
-      "line": 68,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schedule,`, `start window,`, `completion window,`, `target vault,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "5. Backup plan",
-      "line": 68,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "5. Backup plan",
-      "line": 68,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "6. Resource assignment",
-      "line": 87,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "6. Resource assignment",
-      "line": 87,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "6. Resource assignment",
-      "line": 87,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitne podľa ARN/resource identity,`, `tag-based selection,`, `organization backup policy,`, `service alebo resource-type selection podľa podporovaných capabilities`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "6. Resource assignment",
-      "line": 87,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "6. Resource assignment",
-      "line": 87,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "6. Resource assignment",
-      "line": 87,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `RPO`, `RTO`, `identity`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "7. Backup policy tiers",
-      "line": 108,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "7. Backup policy tiers",
-      "line": 108,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "8. Snapshot a continuous backup",
-      "line": 120,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Snapshot backup",
-      "line": 122,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Snapshot backup",
-      "line": 122,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Snapshot backup",
-      "line": 122,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `periodické retention body,`, `dlhodobé uchovanie,`, `cross-account alebo cross-Region copy podľa podpory,`, `immutable vault model,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Snapshot backup",
-      "line": 122,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Continuous backup a PITR",
-      "line": 132,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Continuous backup a PITR",
-      "line": 132,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `jemnejší RPO,`, `návrat pred corruption/deletion event,`, `menšia strata dát než pri periodickom snapshote.`, `service-specific maximum retention,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Continuous backup a PITR",
-      "line": 132,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Continuous backup a PITR",
-      "line": 132,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Continuous backup a PITR",
-      "line": 132,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Continuous backup a PITR",
-      "line": 132,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Continuous backup a PITR",
-      "line": 132,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `recovery point`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "9. On-demand backup",
-      "line": 151,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "9. On-demand backup",
-      "line": 151,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pre-change recovery point,`, `emergency preservation,`, `testovanie backup pathu,`, `migration checkpoint.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "9. On-demand backup",
-      "line": 151,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "9. On-demand backup",
-      "line": 151,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery point`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "10. Lifecycle a retention",
-      "line": 164,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "10. Lifecycle a retention",
-      "line": 164,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kedy sa odstráni,`, `ako dlho zostáva dostupný pre restore.`, `detekčný čas incidentu,`, `právne/compliance požiadavky,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "10. Lifecycle a retention",
-      "line": 164,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "10. Lifecycle a retention",
-      "line": 164,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "10. Lifecycle a retention",
-      "line": 164,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "10. Lifecycle a retention",
-      "line": 164,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery point`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "11. Cross-Region copy",
-      "line": 182,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "11. Cross-Region copy",
-      "line": 182,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource-type support,`, `destination vault a KMS policy,`, `destination retention,`, `copy completion time,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "11. Cross-Region copy",
-      "line": 182,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "11. Cross-Region copy",
-      "line": 182,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "11. Cross-Region copy",
-      "line": 182,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "12. Cross-account copy",
-      "line": 198,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "12. Cross-account copy",
-      "line": 198,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `menší blast radius credential compromise,`, `oddelené backup administration,`, `central governance,`, `jednoduchší incident containment.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "12. Cross-account copy",
-      "line": 198,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "12. Cross-account copy",
-      "line": 198,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "12. Cross-account copy",
-      "line": 198,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `KMS`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "13. Vault Lock",
-      "line": 219,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 50 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "13. Vault Lock",
-      "line": 219,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimálnu a maximálnu retention,`, `právne požiadavky,`, `test vault,`, `IAM a break-glass proces,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "13. Vault Lock",
-      "line": 219,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "13. Vault Lock",
-      "line": 219,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "13. Vault Lock",
-      "line": 219,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "14. Logically air-gapped vault",
-      "line": 236,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ransomware resilience,`, `recovery oddelené od production organization blast radiusu,`, `immutable critical backups,`, `controlled external recovery account.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "14. Logically air-gapped vault",
-      "line": 236,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "15. Encryption",
-      "line": 251,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "15. Encryption",
-      "line": 251,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "15. Encryption",
-      "line": 251,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source resource encryption,`, `backup vault KMS key,`, `destination vault KMS key,`, `service-specific snapshot-copy behavior,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "15. Encryption",
-      "line": 251,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "15. Encryption",
-      "line": 251,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "15. Encryption",
-      "line": 251,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "16. IAM a service roles",
-      "line": 273,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "16. IAM a service roles",
-      "line": 273,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvorenie backupu,`, `copy,`, `restore,`, `resource discovery,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "17. Backup jobs",
-      "line": 288,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "17. Backup jobs",
-      "line": 288,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "17 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "17. Backup jobs",
-      "line": 288,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `status message,`, `resource ARN,`, `start/completion time,`, `bytes/resources processed,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "17. Backup jobs",
-      "line": 288,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "17. Backup jobs",
-      "line": 288,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "17. Backup jobs",
-      "line": 288,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "17. Backup jobs",
-      "line": 288,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CREATED`, `PENDING`, `RUNNING`, `COMPLETED`, `FAILED`, `ABORTED`, `EXPIRED`, `ARN`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "18. Copy jobs",
-      "line": 313,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "18. Copy jobs",
-      "line": 313,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a destination vault,`, `source/destination Region/account,`, `encryption,`, `copy completion time,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "18. Copy jobs",
-      "line": 313,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "18. Copy jobs",
-      "line": 313,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "20. Restore testing",
-      "line": 347,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 44 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "20. Restore testing",
-      "line": 347,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resource vznikol,`, `je decryptable a accessible,`, `filesystem/database integrity,`, `application schema,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "20. Restore testing",
-      "line": 347,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "20. Restore testing",
-      "line": 347,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "20. Restore testing",
-      "line": 347,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "21. Application consistency",
-      "line": 364,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "21. Application consistency",
-      "line": 364,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `flush buffers,`, `filesystem freeze,`, `database-native transaction consistency,`, `pre/post scripts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "21. Application consistency",
-      "line": 364,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "22. AWS Backup Audit Manager",
-      "line": 380,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "22. AWS Backup Audit Manager",
-      "line": 380,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `resources zahrnuté v backup plan-e,`, `minimálna frekvencia a retention,`, `encryption,`, `Vault Lock,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "22. AWS Backup Audit Manager",
-      "line": 380,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "22. AWS Backup Audit Manager",
-      "line": 380,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "22. AWS Backup Audit Manager",
-      "line": 380,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `recovery point`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "23. Organizations a backup policies",
-      "line": 396,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "23. Organizations a backup policies",
-      "line": 396,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `policy inheritance a merge semantics,`, `opt-in resources,`, `tag selection,`, `local account permissions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "23. Organizations a backup policies",
-      "line": 396,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "24. Monitoring a events",
-      "line": 412,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "24. Monitoring a events",
-      "line": 412,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "24. Monitoring a events",
-      "line": 412,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AWS Backup job events,`, `EventBridge,`, `CloudWatch metrics/alarms podľa dostupnosti,`, `CloudTrail API audit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "24. Monitoring a events",
-      "line": 412,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "24. Monitoring a events",
-      "line": 412,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "24. Monitoring a events",
-      "line": 412,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `API`, `KMS`, `recovery point`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "25. RPO a RTO measurement",
-      "line": 435,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "RPO evidence",
-      "line": 437,
+      "section": "Symptom po application start-e",
+      "line": 356,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -150545,8 +149879,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "RPO evidence",
-      "line": 437,
+      "section": "Symptom po application start-e",
+      "line": 356,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -150554,8 +149888,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "RPO evidence",
-      "line": 437,
+      "section": "Symptom po application start-e",
+      "line": 356,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -150563,17 +149897,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "RPO evidence",
-      "line": 437,
-      "severity": "critical",
+      "section": "Symptom po application start-e",
+      "line": 356,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamp posledného validného clean recovery pointu,`, `continuous-backup latest restorable time,`, `copy lag,`, `replication/capture delay,`.",
-      "score": 12
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `niektoré receipt objects existujú bez matching ledger rows;`, `reconciliation worker sa pokúša external settlement zopakovať;`, `infrastructure healthchecks sú green;`.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "RPO evidence",
-      "line": 437,
+      "section": "Symptom po application start-e",
+      "line": 356,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -150581,17 +149915,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "RTO evidence",
-      "line": 445,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Symptom po application start-e",
+      "line": 356,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "RTO evidence",
-      "line": 445,
+      "section": "Competing hypotheses",
+      "line": 364,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Competing hypotheses",
+      "line": 364,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -150599,26 +149942,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "RTO evidence",
-      "line": 445,
+      "section": "Competing hypotheses",
+      "line": 364,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "RTO evidence",
-      "line": 445,
+      "section": "Competing hypotheses",
+      "line": 364,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `recovery-point discovery,`, `approval a access,`, `restore job duration,`, `storage initialization,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `restore je incomplete alebo KMS decrypt poškodil dáta;`, `application artifact nie je kompatibilný so schema;`, `S3 alebo EFS copy zaostala;`, `recovery points pochádzajú z nekompatibilných časov;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "RTO evidence",
-      "line": 445,
+      "section": "Competing hypotheses",
+      "line": 364,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -150626,107 +149969,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "RTO evidence",
-      "line": 445,
+      "section": "Competing hypotheses",
+      "line": 364,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `S3`, `EFS`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "26. Ransomware recovery model",
-      "line": 458,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "26. Ransomware recovery model",
-      "line": 458,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "26. Ransomware recovery model",
-      "line": 458,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `least-privilege workload account,`, `central backup administration,`, `cross-account isolation,`, `immutable retention,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "26. Ransomware recovery model",
-      "line": 458,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "26. Ransomware recovery model",
-      "line": 458,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "27. Cost model",
-      "line": 474,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "27. Cost model",
-      "line": 474,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "27. Cost model",
-      "line": 474,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backup storage,`, `warm/cold tier,`, `restore,`, `cross-Region/cross-account transfer a copy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "27. Cost model",
-      "line": 474,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 489,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 489,
+      "section": "Discriminating evidence",
+      "line": 373,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -150734,26 +149987,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 489,
+      "section": "Discriminating evidence",
+      "line": 373,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 489,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `resource chýba v tag-based selection,`, `backup job EXPIRED ,`, `cross-account copy KMS denial,`, `Vault Lock retention konflikt,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 489,
+      "section": "Discriminating evidence",
+      "line": 373,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -150761,8 +150005,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 489,
+      "section": "Discriminating evidence",
+      "line": 373,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -150770,8 +150014,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 489,
+      "section": "Discriminating evidence",
+      "line": 373,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -150779,35 +150023,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 489,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "28. SOA-C03 mapovanie",
-      "line": 489,
-      "severity": "high",
+      "section": "Discriminating evidence",
+      "line": 373,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `DR`, `KMS`, `EXPIRED`, `resource`, `recovery point`",
-      "score": 7
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RDS`, `S3`",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "29. Troubleshooting postup",
-      "line": 508,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "Containment",
+      "line": 384,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "29. Troubleshooting postup",
-      "line": 508,
+      "section": "Containment",
+      "line": 384,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -150815,7 +150050,349 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Backup job COMPLETED ako jediný success criterion",
+      "section": "Containment",
+      "line": 384,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Containment",
+      "line": 384,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `fence-ni corrupted production writers a revoke compromised sessions;`, `zastav settlement consumers a external side effects;`, `nepromuj aktuálny restore target;`, `vytvor approved manifest pre clean boundary 01:40.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Containment",
+      "line": 384,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Containment",
+      "line": 384,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Containment",
+      "line": 384,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Authoritative recovery",
+      "line": 393,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Acceptance verdict",
+      "line": 408,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Acceptance verdict",
+      "line": 408,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Acceptance verdict",
+      "line": 408,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selected points sú preukázateľne clean a manifest-consistent;`, `every restored payment má validný ledger/provider/receipt relationship`, `žiadny already-settled payment sa znovu neodošle;`, `approved application journey funguje v RTO;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Acceptance verdict",
+      "line": 408,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Acceptance verdict",
+      "line": 408,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Acceptance verdict",
+      "line": 408,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Acceptance verdict",
+      "line": 408,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTO`, `KMS`, `IAM`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "15. RPO a RTO sú measured outcomes",
+      "line": 421,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Realized RPO",
+      "line": 423,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Realized RTO",
+      "line": 435,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "16. Monitoring, compliance a audit",
+      "line": 454,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "16. Monitoring, compliance a audit",
+      "line": 454,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source backup jobs;`, `required copy jobs;`, `recovery-point age;`, `effective assignment coverage;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "16. Monitoring, compliance a audit",
+      "line": 454,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "16. Monitoring, compliance a audit",
+      "line": 454,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "16. Monitoring, compliance a audit",
+      "line": 454,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "16. Monitoring, compliance a audit",
+      "line": 454,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "16. Monitoring, compliance a audit",
+      "line": 454,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "17. Troubleshooting chain",
+      "line": 472,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Resource nemá recovery point",
+      "line": 474,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Source backup uspel, isolated copy chýba",
+      "line": 486,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Restore zlyhá",
+      "line": 490,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Restore je green, application zlyhá",
+      "line": 494,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "18. Cost a retention",
+      "line": 498,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 504,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 504,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 504,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 504,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 504,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "19. SOA-C03 mapovanie",
+      "line": 504,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `DR`, `KMS`, `DNS`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "COMPLETED ako recoverability verdict",
+      "line": 514,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Latest recovery point ako automatická voľba",
+      "line": 518,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Independent points bez manifestu",
+      "line": 522,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-backup.md",
+      "section": "Source backup bez required isolated-copy evidence",
       "line": 526,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -150824,7 +150401,7 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Backup v rovnakom account-e bez isolation",
+      "section": "Vault Lock bez rehearsal",
       "line": 530,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -150833,7 +150410,7 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Replication považovaná za backup",
+      "section": "Restore priamo do kompromitovaného production accountu",
       "line": 534,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -150842,35 +150419,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Vault Lock bez rehearsal",
+      "section": "Restore testing iba cez resource status",
       "line": 538,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Cross-Region copy bez recovery capacity",
-      "line": 542,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Restore test bez validation",
-      "line": 546,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/aws-backup.md",
-      "section": "Backup všetkého rovnakým tierom",
-      "line": 550,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
