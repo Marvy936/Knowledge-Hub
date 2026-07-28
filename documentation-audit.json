@@ -2607,29 +2607,29 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "title": "CKA timed labs",
-      "words": 1645,
-      "headings": 59,
-      "sections": 59,
-      "findings": 106,
-      "critical": 42,
-      "high": 53,
-      "medium": 7,
-      "low": 4,
-      "score": 944,
+      "words": 1821,
+      "headings": 39,
+      "sections": 39,
+      "findings": 65,
+      "critical": 23,
+      "high": 30,
+      "medium": 3,
+      "low": 9,
+      "score": 531,
       "grade": "D"
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
       "title": "CKA troubleshooting drills",
-      "words": 1815,
-      "headings": 105,
-      "sections": 105,
-      "findings": 233,
-      "critical": 108,
-      "high": 104,
-      "medium": 20,
-      "low": 1,
-      "score": 2180,
+      "words": 2116,
+      "headings": 64,
+      "sections": 64,
+      "findings": 121,
+      "critical": 50,
+      "high": 53,
+      "medium": 13,
+      "low": 5,
+      "score": 1065,
       "grade": "D"
     },
     {
@@ -143651,35 +143651,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "1. Aktuálny exam model",
-      "line": 7,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "1. Aktuálny exam model",
-      "line": 7,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `online proctored performance-based skúšku,`, `dĺžku 2 hodiny,`, `Kubernetes v1.35,`, `domény:`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "1. Aktuálny exam model",
-      "line": 7,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "1. Aktuálny exam model",
-      "line": 7,
+      "section": "2. Aktuálny exam subject",
+      "line": 36,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -143687,8 +143660,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "1. Aktuálny exam model",
-      "line": 7,
+      "section": "2. Aktuálny exam subject",
+      "line": 36,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -143696,17 +143669,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "1. Aktuálny exam model",
-      "line": 7,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "2. Cieľ timed labs",
-      "line": 24,
+      "section": "Bodovanie",
+      "line": 78,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -143714,26 +143678,26 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "2. Cieľ timed labs",
-      "line": 24,
+      "section": "Bodovanie",
+      "line": 78,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "2. Cieľ timed labs",
-      "line": 24,
+      "section": "Bodovanie",
+      "line": 78,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny cluster context a namespace,`, `čas po prvý validný výsledok,`, `počet chybných alebo deštruktívnych pokusov,`, `schopnosť overiť stav,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject/context správnosť,`, `desired-state správnosť,`, `constraint preservation,`, `convergence,`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "2. Cieľ timed labs",
-      "line": 24,
+      "section": "Bodovanie",
+      "line": 78,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -143741,8 +143705,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "3. Tréningové fázy",
-      "line": 37,
+      "section": "4. Task intake protocol",
+      "line": 99,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "8. Hard validation podľa failure layeru",
+      "line": 177,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -143750,197 +143723,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza A — command fluency",
-      "line": 39,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza A — command fluency",
-      "line": 39,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kubectl create ... --dry-run=client -o yaml ,`, `kubectl run ,`, `kubectl expose ,`, `kubectl set image ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza A — command fluency",
-      "line": 39,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza B — single-domain sprints",
-      "line": 57,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza B — single-domain sprints",
-      "line": 57,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza B — single-domain sprints",
-      "line": 57,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `iba storage,`, `iba networking,`, `iba workloads,`, `iba RBAC/cluster configuration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza B — single-domain sprints",
-      "line": 57,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza B — single-domain sprints",
-      "line": 57,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza C — mixed timed labs",
-      "line": 67,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza C — mixed timed labs",
-      "line": 67,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza C — mixed timed labs",
-      "line": 67,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `45 minút,`, `60 minút,`, `90 minút,`, `plných 120 minút.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Fáza C — mixed timed labs",
-      "line": 67,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "4. Časová stratégia",
-      "line": 82,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "4. Časová stratégia",
-      "line": 82,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "5. Task intake protocol",
-      "line": 102,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "6. Context discipline",
-      "line": 128,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "7. Imperative skeleton, declarative finish",
-      "line": 146,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "7. Imperative skeleton, declarative finish",
-      "line": 146,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "7. Imperative skeleton, declarative finish",
-      "line": 146,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správna základná schema,`, `rýchle vytvorenie,`, `možnosť doplniť probes/resources/affinity,`, `auditovateľný intermediate file.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "7. Imperative skeleton, declarative finish",
-      "line": 146,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "8. Verification-driven execution",
-      "line": 172,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Workload",
-      "line": 176,
+      "section": "Workload/controller",
+      "line": 179,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -143948,80 +143732,35 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Service/networking",
-      "line": 184,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "Service a networking",
+      "line": 187,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "Storage",
-      "line": 191,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "line": 196,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Storage",
+      "line": 196,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "RBAC",
-      "line": 199,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Cluster/node",
       "line": 206,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "9. Documentation strategy",
-      "line": 214,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "9. Documentation strategy",
-      "line": 214,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API field,`, `command syntax,`, `exact example,`, `failure-specific guide.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "9. Documentation strategy",
-      "line": 214,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "9. Documentation strategy",
-      "line": 214,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "10. Shell efficiency",
-      "line": 237,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -144029,71 +143768,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "10. Shell efficiency",
-      "line": 237,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "10. Shell efficiency",
-      "line": 237,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shell history search,`, `set -o vi alebo emacs shortcuts podľa zvyku,`, `heredoc pre krátke manifesty,`, `kubectl explain <resource .<field ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "10. Shell efficiency",
-      "line": 237,
+      "section": "RBAC",
+      "line": 206,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "10. Shell efficiency",
-      "line": 237,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "11. Editing strategy",
-      "line": 257,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "11. Editing strategy",
-      "line": 257,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `search,`, `delete/copy lines,`, `indentation,`, `save/quit,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "11. Editing strategy",
-      "line": 257,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "12. Bodovací model pre vlastné labs",
-      "line": 277,
+      "section": "Node a control plane",
+      "line": 215,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -144101,62 +143786,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "12. Bodovací model pre vlastné labs",
-      "line": 277,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "12. Bodovací model pre vlastné labs",
-      "line": 277,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `body podľa zložitosti,`, `hard validation,`, `partial-credit criteria,`, `časový budget,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "12. Bodovací model pre vlastné labs",
-      "line": 277,
+      "section": "Node a control plane",
+      "line": 215,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "13. Domain-weighted lab blueprint",
-      "line": 299,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "13. Domain-weighted lab blueprint",
-      "line": 299,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `30 bodov troubleshooting,`, `25 bodov cluster architecture/configuration,`, `20 bodov services/networking,`, `15 bodov workloads/scheduling,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "13. Domain-weighted lab blueprint",
-      "line": 299,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "14. 45-minútový sprint",
-      "line": 311,
+      "section": "9. Časový control loop",
+      "line": 227,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -144164,26 +143804,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "14. 45-minútový sprint",
-      "line": 311,
+      "section": "Skip-and-return trigger",
+      "line": 239,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "14. 45-minútový sprint",
-      "line": 311,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Opraviť Deployment readiness a image — 8 b.`, `Vytvoriť Service a overiť EndpointSlice — 6 b.`, `Opraviť Pending PVC — 5 b.`, `Vytvoriť namespaced Role/RoleBinding — 6 b.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "14. 45-minútový sprint",
-      "line": 311,
+      "section": "Skip-and-return trigger",
+      "line": 239,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -144191,89 +143822,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "14. 45-minútový sprint",
-      "line": 311,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PVC`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "15. 90-minútový mixed lab",
-      "line": 324,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "15. 90-minútový mixed lab",
-      "line": 324,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "15. 90-minútový mixed lab",
-      "line": 324,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kubeadm alebo control-plane config inspection,`, `etcd snapshot validation,`, `workload rollout/rollback,`, `HPA alebo resources,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "15. 90-minútový mixed lab",
-      "line": 324,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "15. 90-minútový mixed lab",
-      "line": 324,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPA`, `PV`, `PVC`, `workload`",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "16. Plný 120-minútový lab",
-      "line": 339,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "16. Plný 120-minútový lab",
-      "line": 339,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `15 až 20 úloh,`, `mix 3–12 bodov,`, `3 až 5 troubleshooting scenárov,`, `aspoň jedna multi-step cluster úloha,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "16. Plný 120-minútový lab",
-      "line": 339,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "16. Plný 120-minútový lab",
-      "line": 339,
+      "section": "Skip-and-return trigger",
+      "line": 239,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -144281,17 +143831,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "16. Plný 120-minútový lab",
-      "line": 339,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
+      "section": "Skip-and-return trigger",
+      "line": 239,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "17. Original timed lab set A",
-      "line": 352,
+      "section": "10. Worked lab walkthrough: rollout s nesprávnym contextom ako competing hypothesis",
+      "line": 251,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -144299,35 +143849,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Úloha 3 — Service discovery",
-      "line": 362,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Úloha 7 — Node placement",
-      "line": 378,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Úloha 9 — Control plane",
-      "line": 386,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "18. Original timed lab set B",
-      "line": 394,
+      "section": "Task subject",
+      "line": 257,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -144335,107 +143858,44 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Úloha 1",
-      "line": 396,
+      "section": "Competing hypotheses po tom, čo rollout command nič nemení",
+      "line": 271,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Competing hypotheses po tom, čo rollout command nič nemení",
+      "line": 271,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Úloha 2",
-      "line": 400,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Úloha 3",
-      "line": 404,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Úloha 4",
-      "line": 408,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Úloha 5",
-      "line": 412,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Úloha 6",
-      "line": 416,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Úloha 7",
-      "line": 420,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Úloha 8",
-      "line": 424,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "19. Review po timed lab-e",
-      "line": 428,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "19. Review po timed lab-e",
-      "line": 428,
+      "section": "Competing hypotheses po tom, čo rollout command nič nemení",
+      "line": 271,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "19. Review po timed lab-e",
-      "line": 428,
+      "section": "Competing hypotheses po tom, čo rollout command nič nemení",
+      "line": 271,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `knowledge gap,`, `command syntax,`, `context/namespace,`, `YAML indentation/type,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `príkaz bol vykonaný v nesprávnom context-e;`, `Deployment je v inom namespace;`, `field manager/GitOps vracia image späť;`, `image change bola aplikovaná, ale rollout je blocked;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "19. Review po timed lab-e",
-      "line": 428,
+      "section": "Competing hypotheses po tom, čo rollout command nič nemení",
+      "line": 271,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -144443,8 +143903,278 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "19. Review po timed lab-e",
-      "line": 428,
+      "section": "Competing hypotheses po tom, čo rollout command nič nemení",
+      "line": 271,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Discriminating observations",
+      "line": 279,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Containment a recovery",
+      "line": 289,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Containment a recovery",
+      "line": 289,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Containment a recovery",
+      "line": 289,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Containment a recovery",
+      "line": 289,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ďalej nemeniť storage-b ;`, `prepnúť na workload-a ;`, `overiť exact subject;`, `vygenerovať patch/manifests;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Containment a recovery",
+      "line": 289,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Containment a recovery",
+      "line": 289,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "11. Failure boundaries pri timed labs",
+      "line": 312,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Resource exists, contract neplatí",
+      "line": 318,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Minimálna oprava poruší skrytý constraint",
+      "line": 326,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "Odporúčaná progresia",
+      "line": 348,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "13. Originálny timed lab set A",
+      "line": 359,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "13. Originálny timed lab set A",
+      "line": 359,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "13. Originálny timed lab set A",
+      "line": 359,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "13. Originálny timed lab set A",
+      "line": 359,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "13. Originálny timed lab set A",
+      "line": 359,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "13. Originálny timed lab set A",
+      "line": 359,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "13. Originálny timed lab set A",
+      "line": 359,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `PVC`, `RBAC`, `availability`, `identity`, `Control plane`",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "14. Originálny timed lab set B",
+      "line": 374,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "14. Originálny timed lab set B",
+      "line": 374,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "14. Originálny timed lab set B",
+      "line": 374,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "14. Originálny timed lab set B",
+      "line": 374,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CronJob s presnou schedule, Forbid a history limits.`, `HPA bez vypočítateľnej CPU utilization pre chýbajúce requests.`, `Headless Service + StatefulSet + per-ordinal PVC template.`, `ImagePullBackOff s chybnou immutable image reference.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "14. Originálny timed lab set B",
+      "line": 374,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "14. Originálny timed lab set B",
+      "line": 374,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "14. Originálny timed lab set B",
+      "line": 374,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "14. Originálny timed lab set B",
+      "line": 374,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPA`, `CPU`, `PVC`, `DNS`, `API`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "15. Self-grading a learning loop",
+      "line": 385,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "15. Self-grading a learning loop",
+      "line": 385,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `knowledge gap,`, `command syntax,`, `context/namespace,`, `YAML/type,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "15. Self-grading a learning loop",
+      "line": 385,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
+      "section": "15. Self-grading a learning loop",
+      "line": 385,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`",
@@ -144452,107 +144182,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "20. Metrics progresu",
-      "line": 444,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "20. Metrics progresu",
-      "line": 444,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "20. Metrics progresu",
-      "line": 444,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percento bodov,`, `body za minútu,`, `median task completion,`, `počet skipped-returned tasks,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "20. Metrics progresu",
-      "line": 444,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Tréning iba cez video",
-      "line": 462,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Rovnaký lab stále dokola",
-      "line": 466,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Žiadny timer",
-      "line": 470,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Validácia iba cez kubectl get",
-      "line": 474,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Riešenie všetkých úloh v poradí",
-      "line": 478,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Dlhé hľadanie dokumentácie bez presnej otázky",
-      "line": 482,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
-      "section": "Tréning iba application YAML",
-      "line": 486,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "Praktické laby",
-      "line": 503,
+      "line": 435,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -144561,7 +144192,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "Oficiálne zdroje",
-      "line": 511,
+      "line": 443,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -144570,7 +144201,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "Oficiálne zdroje",
-      "line": 511,
+      "line": 443,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -144579,7 +144210,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "Oficiálne zdroje",
-      "line": 511,
+      "line": 443,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
@@ -144588,7 +144219,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "Oficiálne zdroje",
-      "line": 511,
+      "line": 443,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Certified Kubernetes Administrator`, `CKA Program Changes and Domains`, `Kubernetes Tasks`, `kubectl reference`.",
@@ -144597,7 +144228,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-timed-labs.md",
       "section": "Oficiálne zdroje",
-      "line": 511,
+      "line": 443,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -144605,16 +144236,7 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "1. Univerzálny troubleshooting model",
-      "line": 7,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "1. Univerzálny troubleshooting model",
+      "section": "1. Dominantný drill lifecycle",
       "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -144623,35 +144245,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "1. Univerzálny troubleshooting model",
-      "line": 7,
+      "section": "3. Scope-first failure-domain narrowing",
+      "line": 49,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "1. Univerzálny troubleshooting model",
-      "line": 7,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presný symptóm,`, `root cause,`, `misleading evidence,`, `požadovanú opravu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "1. Univerzálny troubleshooting model",
-      "line": 7,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "2. Failure-domain narrowing",
-      "line": 32,
+      "section": "Jeden container",
+      "line": 51,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -144660,34 +144264,25 @@
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
       "section": "Jeden container",
-      "line": 36,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden container",
-      "line": 36,
+      "line": 51,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
       "section": "Jeden container",
-      "line": 36,
+      "line": 51,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `command/args,`, `config/Secret,`, `application,`, `resources,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `command/args,`, `process-loaded ConfigMap/Secret,`, `image/filesystem,`, `security context,`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
       "section": "Jeden container",
-      "line": 36,
+      "line": 51,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -144695,98 +144290,44 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden Pod",
-      "line": 47,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden Pod",
-      "line": 47,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden Pod",
-      "line": 47,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden Pod",
-      "line": 47,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduling,`, `sandbox/CNI,`, `volume mount,`, `Pod security,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden Pod",
-      "line": 47,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden Pod",
-      "line": 47,
+      "section": "Jeden container",
+      "line": 51,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CNI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden workload",
-      "line": 56,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden workload",
-      "line": 56,
+      "section": "Jeden Pod",
+      "line": 63,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden workload",
-      "line": 56,
+      "section": "Jeden Pod",
+      "line": 63,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden workload",
-      "line": 56,
+      "section": "Jeden Pod",
+      "line": 63,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `controller spec,`, `selector,`, `rollout strategy,`, `HPA,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `scheduler binding,`, `kubelet PodWorker,`, `sandbox/CRI,`, `CNI/IPAM,`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden workload",
-      "line": 56,
+      "section": "Jeden Pod",
+      "line": 63,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -144794,8 +144335,53 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden workload",
-      "line": 56,
+      "section": "Jeden Pod",
+      "line": 63,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRI`, `CNI`, `IPAM`, `CSI`",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Jeden workload alebo revision",
+      "line": 75,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Jeden workload alebo revision",
+      "line": 75,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Jeden workload alebo revision",
+      "line": 75,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `controller generation a observedGeneration,`, `selector/ownership,`, `old/new ReplicaSet cohort,`, `rollout budget,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Jeden workload alebo revision",
+      "line": 75,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Jeden workload alebo revision",
+      "line": 75,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPA`",
@@ -144804,115 +144390,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
       "section": "Jeden Node",
-      "line": 65,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden Node",
-      "line": 65,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden Node",
-      "line": 65,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden Node",
-      "line": 65,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kubelet,`, `runtime,`, `CNI/CSI node plugin,`, `disk/memory/PID pressure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden Node",
-      "line": 65,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Jeden Node",
-      "line": 65,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CNI`, `CSI`, `PID`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Celý cluster",
-      "line": 73,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Celý cluster",
-      "line": 73,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Celý cluster",
-      "line": 73,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Celý cluster",
-      "line": 73,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API server,`, `etcd,`, `admission/webhooks,`, `DNS/Service dataplane,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Celý cluster",
-      "line": 73,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Celý cluster",
-      "line": 73,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "3. Evidence-first pravidlá",
-      "line": 81,
+      "line": 87,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -144920,35 +144398,26 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "4. Drill format",
-      "line": 107,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "4. Drill format",
-      "line": 107,
+      "section": "Jeden Node",
+      "line": 87,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "4. Drill format",
-      "line": 107,
+      "section": "Jeden Node",
+      "line": 87,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `40 % root-cause accuracy,`, `30 % správna oprava,`, `20 % validácia,`, `10 % čas a bezpečnosť.`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Node object/Lease verzus actual host,`, `kubelet,`, `runtime,`, `CNI/CSI node plugin,`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "4. Drill format",
-      "line": 107,
+      "section": "Jeden Node",
+      "line": 87,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -144956,143 +144425,71 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "5. Drill 1 — CrashLoopBackOff po configuration zmene",
-      "line": 125,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Možné evidence",
-      "line": 131,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Možné evidence",
-      "line": 131,
+      "section": "Jeden Node",
+      "line": 87,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Možné evidence",
-      "line": 131,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `kubectl logs --previous ukazuje invalid database URL,`, `ConfigMap key existuje pod iným názvom,`, `liveness probe iba zrýchľuje restarty.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Možné evidence",
-      "line": 131,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Možné evidence",
-      "line": 131,
-      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CNI`, `CSI`, `PID`, `API`",
+      "score": 7
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Úloha",
-      "line": 137,
+      "section": "Celý cluster alebo request class",
+      "line": 100,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Celý cluster alebo request class",
+      "line": 100,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API write/read/watch path,`, `etcd,`, `admission webhook alebo APIService,`, `DNS/Service dataplane,`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Celý cluster alebo request class",
+      "line": 100,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
+      "section": "Celý cluster alebo request class",
+      "line": 100,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "5. Competing hypotheses a discriminating observations",
       "line": 141,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Mechanizmus",
-      "line": 148,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "6. Drill 2 — Pod zostáva Pending",
-      "line": 152,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Symptóm",
-      "line": 154,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Variácie root cause",
-      "line": 158,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Variácie root cause",
-      "line": 158,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Variácie root cause",
-      "line": 158,
-      "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Variácie root cause",
-      "line": 158,
+      "section": "5. Competing hypotheses a discriminating observations",
+      "line": 141,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requests presahujú Node allocatable,`, `required node affinity nemá matching Node,`, `netolerovaný taint,`, `hostPort conflict,`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Route/controller nevytvoril platnú backend konfiguráciu;`, `Service má zero ready endpoints;`, `targetPort nesedí s listenerom;`, `NetworkPolicy alebo return path blokuje flow;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Variácie root cause",
-      "line": 158,
+      "section": "5. Competing hypotheses a discriminating observations",
+      "line": 141,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -145100,89 +144497,80 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Variácie root cause",
-      "line": 158,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PVC`",
-      "score": 4
+      "section": "5. Competing hypotheses a discriminating observations",
+      "line": 141,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
+      "section": "6. Containment a repair hierarchy",
+      "line": 167,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "6. Containment a repair hierarchy",
       "line": 167,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
-      "line": 176,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "7. Drill 3 — Service nemá endpoints",
-      "line": 180,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 186,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 186,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 186,
-      "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 186,
+      "section": "6. Containment a repair hierarchy",
+      "line": 167,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selector mismatch,`, `Pods nie sú Ready,`, `wrong namespace,`, `Service bez selectoru a bez manual EndpointSlice,`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav ďalší rollout alebo writer,`, `zachovaj old serving cohort,`, `obmedz traffic na známu zdravú generáciu,`, `nepoužívaj broad policy disable alebo cluster-admin ,`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 186,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "6. Containment a repair hierarchy",
+      "line": 167,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Diagnostický chain",
-      "line": 194,
+      "section": "6. Containment a repair hierarchy",
+      "line": 167,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "6. Containment a repair hierarchy",
+      "line": 167,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "6. Containment a repair hierarchy",
+      "line": 167,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "7. Worked drill: Service endpoints sú green, traffic zlyháva iba z jednej Node cohorty",
+      "line": 191,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -145190,17 +144578,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
-      "line": 205,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "8. Drill 4 — Service má endpoints, traffic stále zlyhá",
-      "line": 209,
+      "section": "Expected state",
+      "line": 193,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -145208,8 +144587,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 211,
+      "section": "Competing hypotheses",
+      "line": 216,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -145217,8 +144596,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 211,
+      "section": "Competing hypotheses",
+      "line": 216,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -145226,8 +144605,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 211,
+      "section": "Competing hypotheses",
+      "line": 216,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -145235,17 +144614,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 211,
+      "section": "Competing hypotheses",
+      "line": 216,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `targetPort nesedí,`, `application počúva iba na 127.0.0.1 ,`, `NetworkPolicy blokuje traffic,`, `kube-proxy/alternate dataplane problém,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NG42 má stale Service dataplane;`, `CNI route/tunnel chýba iba na NG42;`, `NetworkPolicy agent nenačítal current policy generation;`, `conntrack obsahuje stale translation;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 211,
+      "section": "Competing hypotheses",
+      "line": 216,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -145253,17 +144632,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 211,
+      "section": "Competing hypotheses",
+      "line": 216,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NG42`, `CNI`, `policy`",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Test",
-      "line": 220,
+      "section": "Evidence a discriminating observations",
+      "line": 225,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -145271,35 +144650,53 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "9. Drill 5 — CoreDNS failure",
-      "line": 232,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Symptóm",
-      "line": 234,
+      "section": "Evidence a discriminating observations",
+      "line": 225,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 238,
+      "section": "Evidence a discriminating observations",
+      "line": 225,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 247,
+      "section": "Evidence a discriminating observations",
+      "line": 225,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `direct PodIP funguje;`, `ClusterIP timeoutuje iba z NG42;`, `policy verdict je allow;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Evidence a discriminating observations",
+      "line": 225,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Evidence a discriminating observations",
+      "line": 225,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NG42`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Containment",
+      "line": 250,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -145307,8 +144704,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 247,
+      "section": "Containment",
+      "line": 250,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -145316,26 +144713,26 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 247,
+      "section": "Containment",
+      "line": 250,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 247,
+      "section": "Containment",
+      "line": 250,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Corefile syntax,`, `upstream resolver loop,`, `Service/EndpointSlice chyba,`, `CNI/dataplane,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cordon NG42 Nodes;`, `nepresúvať stateful backendy ani nemať zbytočný blast radius;`, `presmerovať client replicas na NG41 podľa lab contractu;`, `zachovať node-agent logs a dataplane dump.`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 247,
+      "section": "Containment",
+      "line": 250,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -145343,17 +144740,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 247,
+      "section": "Containment",
+      "line": 250,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CNI`, `DNS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NG42`, `NG41`, `blast radius`",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
-      "line": 256,
+      "section": "Authoritative repair",
+      "line": 257,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -145361,233 +144758,53 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "10. Drill 6 — ImagePullBackOff",
-      "line": 260,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 262,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 262,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 262,
+      "section": "Closure",
+      "line": 271,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 262,
+      "section": "Closure",
+      "line": 271,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `typo v repository/tag,`, `private registry bez credentials,`, `Secret v inom namespace,`, `nesprávny imagePullSecrets ,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `default-deny policy zostáva účinná;`, `Service UID/selector/ClusterIP sa nezmenili;`, `nebol vytvorený broad bypass;`, `old faulty Node generation už neprijíma workload.`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 262,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 262,
+      "section": "Closure",
+      "line": 271,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `CA`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Evidence",
-      "line": 272,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "Closure",
+      "line": 271,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
-      "line": 279,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "11. Drill 7 — PVC Pending",
-      "line": 283,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 285,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 285,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 285,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 285,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `StorageClass neexistuje,`, `default StorageClass nie je nastavená,`, `provisioner/controller nebeží,`, `WaitForFirstConsumer čaká na Pod scheduling,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 285,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 295,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
-      "line": 304,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "12. Drill 8 — Multi-Attach alebo FailedMount",
-      "line": 308,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Symptóm",
-      "line": 310,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 314,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 314,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 314,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 314,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `RWO volume stále attached k starému Node-u,`, `stale VolumeAttachment,`, `CSI node plugin chýba,`, `filesystem corruption,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 314,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 314,
+      "section": "Closure",
+      "line": 271,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RWO`, `CSI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UID`, `policy`, `workload`",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "13. Drill 9 — Node NotReady",
-      "line": 328,
+      "section": "A. Process, configuration a probes",
+      "line": 288,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -145595,53 +144812,35 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 330,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 340,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 340,
+      "section": "CrashLoopBackOff po config zmene",
+      "line": 290,
       "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 340,
+      "section": "CrashLoopBackOff po config zmene",
+      "line": 290,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 340,
+      "section": "CrashLoopBackOff po config zmene",
+      "line": 290,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kubelet stopped,`, `expired certificate,`, `API connectivity,`, `container runtime down,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `wrong ConfigMap/Secret key;`, `malformed process-loaded value;`, `stale env snapshot;`, `command/args regression;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 340,
+      "section": "CrashLoopBackOff po config zmene",
+      "line": 290,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -145649,17 +144848,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 340,
+      "section": "CrashLoopBackOff po config zmene",
+      "line": 290,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `PID`, `CNI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
-      "line": 350,
+      "section": "Probe failure",
+      "line": 303,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -145667,8 +144866,35 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "14. Drill 10 — Static Pod control-plane component",
-      "line": 354,
+      "section": "Probe failure",
+      "line": 303,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Probe failure",
+      "line": 303,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýba startup probe;`, `readiness závisí od nesprávnej external dependency;`, `liveness používa Service path namiesto local health;`, `port/path mismatch;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Probe failure",
+      "line": 303,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "B. Scheduling a controllers",
+      "line": 315,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -145676,8 +144902,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Symptóm",
-      "line": 356,
+      "section": "Pod Pending bez Node assignmentu",
+      "line": 317,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -145685,17 +144911,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 360,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 360,
+      "section": "Pod Pending bez Node assignmentu",
+      "line": 317,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
@@ -145703,17 +144920,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 360,
+      "section": "Pod Pending bez Node assignmentu",
+      "line": 317,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skontroluj /etc/kubernetes/manifests ,`, `YAML syntax a flags,`, `certificate paths,`, `hostPath mounts,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requests allocatable;`, `empty hard-constraint intersection;`, `wrong trusted label;`, `netolerovaný taint;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 360,
+      "section": "Pod Pending bez Node assignmentu",
+      "line": 317,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -145721,17 +144938,17 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 360,
+      "section": "Pod Pending bez Node assignmentu",
+      "line": 317,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PVC`",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
-      "line": 372,
+      "section": "Deployment rollout stuck",
+      "line": 331,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -145739,53 +144956,26 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "15. Drill 11 — API server je dostupný, ale requests timeoutujú",
-      "line": 376,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 378,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 378,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 378,
+      "section": "Deployment rollout stuck",
+      "line": 331,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 378,
+      "section": "Deployment rollout stuck",
+      "line": 331,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `etcd latency/quorum,`, `admission webhook timeout,`, `aggregated APIService,`, `API server saturation,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `readiness/startup;`, `surge capacity;`, `quota/admission;`, `image pull;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 378,
+      "section": "Deployment rollout stuck",
+      "line": 331,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -145793,16 +144983,79 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 378,
+      "section": "Deployment rollout stuck",
+      "line": 331,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `DNS`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PDB`, `HPA`",
       "score": 4
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
+      "section": "HPA neškáluje alebo škáluje škodlivo",
+      "line": 346,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "HPA neškáluje alebo škáluje škodlivo",
+      "line": 346,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "HPA neškáluje alebo škáluje škodlivo",
+      "line": 346,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metrics API;`, `missing resource requests;`, `stale/unknown metric;`, `maxReplicas;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "HPA neškáluje alebo škáluje škodlivo",
+      "line": 346,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "HPA neškáluje alebo škáluje škodlivo",
+      "line": 346,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "C. Service, DNS a edge",
+      "line": 360,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Service nemá endpoints",
+      "line": 362,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
+      "section": "Gateway/Ingress 503",
       "line": 387,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -145811,17 +145064,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 387,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "16. Drill 12 — RBAC Forbidden",
-      "line": 397,
+      "section": "D. Storage",
+      "line": 403,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -145829,80 +145073,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Symptóm",
-      "line": 399,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 403,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 403,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 403,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 403,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject namespace/name,`, `Role vs. ClusterRole,`, `RoleBinding namespace,`, `API group,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 403,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 403,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
-      "line": 420,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "17. Drill 13 — Deployment rollout stuck",
-      "line": 424,
+      "section": "E. Node a runtime",
+      "line": 417,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -145910,80 +145082,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 426,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 426,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 426,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 426,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `readiness failure,`, `insufficient capacity pre surge,`, `quota,`, `image pull,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 426,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 426,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PDB`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 436,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
+      "section": "F. Control plane, API a etcd",
       "line": 445,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "18. Drill 14 — HPA neškáluje",
-      "line": 449,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -145991,62 +145091,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 451,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 451,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 451,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 451,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metrics API nedostupná,`, `CPU requests chýbajú,`, `target selector/scale subresource problém,`, `HPA max reached,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 451,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 451,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `CPU`, `HPA`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 461,
+      "section": "G. Identity, policy a object lifecycle",
+      "line": 463,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -146054,7 +145100,7 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
+      "section": "NetworkPolicy blokuje DNS",
       "line": 469,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -146063,25 +145109,7 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "19. Drill 15 — NetworkPolicy blokuje DNS",
-      "line": 473,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Symptóm",
-      "line": 475,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root cause",
+      "section": "9. Fault-injection quality gate",
       "line": 479,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -146090,71 +145118,26 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
-      "line": 483,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "20. Drill 16 — Gateway alebo Ingress vracia 503",
-      "line": 487,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Diagnostický chain",
-      "line": 489,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 501,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 501,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 501,
+      "section": "9. Fault-injection quality gate",
+      "line": 479,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 501,
+      "section": "9. Fault-injection quality gate",
+      "line": 479,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Route nie je Accepted,`, `unresolved backend reference,`, `Service port mismatch,`, `zero ready endpoints,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mení jednu authoritative príčinu;`, `má deterministický apply aj reset;`, `nemení unrelated resources;`, `vytvára realistický, ale nie falošný symptom;`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 501,
+      "section": "9. Fault-injection quality gate",
+      "line": 479,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -146162,350 +145145,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 501,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "21. Drill 17 — etcd snapshot command zlyhá",
-      "line": 510,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 512,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 512,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 512,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 512,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `wrong endpoint,`, `CA/cert/key paths,`, `certificate identity,`, `endpoint unhealthy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 512,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 512,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "22. Drill 18 — Upgrade kubeadm Node-u nedokončený",
-      "line": 525,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Symptóm",
-      "line": 527,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 531,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 531,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 531,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 531,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over control-plane/API version,`, `package/binary version,`, `kubeadm upgrade fázu,`, `kubelet config,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 531,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Postup",
-      "line": 531,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Validácia",
-      "line": 541,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "23. Drill 19 — Resource pressure",
-      "line": 545,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Symptóm",
-      "line": 547,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Rozlíš:",
-      "line": 551,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Rozlíš:",
-      "line": 551,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Rozlíš:",
-      "line": 551,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Rozlíš:",
-      "line": 551,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `container memory limit OOM,`, `Node-level OOM,`, `kubelet memory eviction,`, `ephemeral-storage eviction,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Rozlíš:",
-      "line": 551,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Rozlíš:",
-      "line": 551,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`, `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Evidence",
-      "line": 560,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Evidence",
-      "line": 560,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "24. Drill 20 — Stuck Terminating",
-      "line": 573,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 575,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 575,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 575,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 575,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `finalizer,`, `unavailable webhook/APIService,`, `kubelet/Node unreachable,`, `volume detach,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Root-cause varianty",
-      "line": 575,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Bezpečnostná hranica",
-      "line": 584,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "25. Fault injection design",
-      "line": 588,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "25. Fault injection design",
-      "line": 588,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "25. Fault injection design",
-      "line": 588,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmeň selector key,`, `nastav chybný targetPort,`, `odstráň CPU request,`, `pridaj netolerovaný taint,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "25. Fault injection design",
-      "line": 588,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "25. Fault injection design",
-      "line": 588,
+      "section": "9. Fault-injection quality gate",
+      "line": 479,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -146513,17 +145154,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "25. Fault injection design",
-      "line": 588,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "26. Time-boxing drillov",
-      "line": 603,
+      "section": "10. Scoring a time-boxing",
+      "line": 507,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -146531,26 +145163,26 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "26. Time-boxing drillov",
-      "line": 603,
+      "section": "10. Scoring a time-boxing",
+      "line": 507,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "26. Time-boxing drillov",
-      "line": 603,
+      "section": "10. Scoring a time-boxing",
+      "line": 507,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jednoduché: 5 minút,`, `stredné: 8–10 minút,`, `cluster/control-plane: 12–15 minút.`, `čas na identifikáciu root cause,`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `diagnosis time,`, `repair time,`, `reconvergence time,`, `verification time.`.",
       "score": 12
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "26. Time-boxing drillov",
-      "line": 603,
+      "section": "10. Scoring a time-boxing",
+      "line": 507,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -146558,8 +145190,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "27. Drill review template",
-      "line": 619,
+      "section": "11. Drill review template",
+      "line": 536,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -146567,8 +145199,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "27. Drill review template",
-      "line": 619,
+      "section": "11. Drill review template",
+      "line": 536,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -146576,8 +145208,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Okamžitý restart",
-      "line": 639,
+      "section": "Okamžitý restart alebo delete",
+      "line": 562,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -146585,8 +145217,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "kubectl delete pod pri každom probléme",
-      "line": 643,
+      "section": "Editovanie viacerých vrstiev naraz",
+      "line": 566,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -146594,8 +145226,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Úprava viacerých vrstiev naraz",
-      "line": 647,
+      "section": "Status reason ako diagnóza",
+      "line": 570,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -146603,8 +145235,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "cluster-admin pri RBAC chybe",
-      "line": 651,
+      "section": "Broad bypass",
+      "line": 574,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -146612,8 +145244,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Force delete pri storage probléme",
-      "line": 655,
+      "section": "Validácia iba cez object existence",
+      "line": 578,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -146621,8 +145253,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Diagnostika iba cez kubectl get pods",
-      "line": 659,
+      "section": "Memorovanie jedného injectoru",
+      "line": 582,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -146630,17 +145262,8 @@
     },
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "Memorovanie root cause podľa symptómu",
-      "line": 663,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
-      "section": "29. Praktický master checklist",
-      "line": 667,
+      "section": "13. Master checklist",
+      "line": 586,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -146649,7 +145272,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
       "section": "Praktické drilly",
-      "line": 700,
+      "line": 617,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -146658,7 +145281,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
       "section": "Oficiálne zdroje",
-      "line": 708,
+      "line": 625,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -146667,7 +145290,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
       "section": "Oficiálne zdroje",
-      "line": 708,
+      "line": 625,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -146676,7 +145299,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
       "section": "Oficiálne zdroje",
-      "line": 708,
+      "line": 625,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
@@ -146685,7 +145308,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
       "section": "Oficiálne zdroje",
-      "line": 708,
+      "line": 625,
       "severity": "critical",
       "rule": "bare-bullet-items",
       "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Certified Kubernetes Administrator`, `Troubleshooting Kubernetes`, `Debug Pods`, `Debug Services`.",
@@ -146694,7 +145317,7 @@
     {
       "path": "docs/10-helm-and-cka/cka-troubleshooting-drills.md",
       "section": "Oficiálne zdroje",
-      "line": 708,
+      "line": 625,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",

@@ -126,6 +126,10 @@ Zmena resource alebo module addressy pri zachovaní identity toho istého remote
 
 Versionovaná zmena resource alebo module instance address-y, pri ktorej má existujúci remote binding pokračovať pod novou address-ou bez neplánovaného destroy/create. Typicky sa deklaruje cez `moved` block. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
 
+## Adjacent-cohort verification — CKA
+
+Overenie, že oprava funguje aj na relevantných Nodes, Pods, endpoints alebo failure domains mimo jediného testovaného subjectu.
+
 ## Adjacent-cohort verification — Kubernetes
 
 Overenie, že recovery funguje nielen na pôvodnom affected subjecte, ale aj na susedných Node, zone, release, tenant alebo endpoint cohortách. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
@@ -749,6 +753,10 @@ Recovery vykonaná cez versionovaný source, configuration, policy, nový immuta
 ## Authoritative remediation subject — Kubernetes
 
 Exact object, artifact, Node, data, policy alebo external state generation, ktorú remediation opravuje namiesto maskovania symptómu na inej vrstve. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
+
+## Authoritative repair — CKA
+
+Minimálna zmena na skutočnom source-of-truth alebo owner boundary, po ktorej môže systém znovu skonvergovať.
 
 ## Authoritative run
 
@@ -1738,9 +1746,17 @@ Planning model Version 2.0 používajúci päť pillars a tri cross-cutting capa
 
 Certified Kubernetes Administrator, performance-based Linux Foundation/CNCF certifikácia overujúca praktickú správu a troubleshooting Kubernetes clusterov. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
 
+## CKA exam subject
+
+Versionovaný certification a environment contract obsahujúci exam delivery model, čas, Kubernetes minor version, domain weights, povolené referencie a dátum overenia oficiálnych pravidiel.
+
 ## CKA troubleshooting drill
 
 Časovo ohraničený fault-injection scenár merajúci root-cause accuracy, minimálnu opravu a hard validation Kubernetes failure-u. Pozri [CKA troubleshooting drills](docs/10-helm-and-cka/cka-troubleshooting-drills.md).
+
+## CKA troubleshooting subject
+
+Exact cluster/object/process/data/flow identity, ku ktorej patria symptóm, scope, timeline, owner graph, evidence a expected outcome.
 
 ## Claimant
 
@@ -2110,6 +2126,10 @@ Explicitná tabuľka určujúca, ktoré application, client, event a schema verz
 
 Alternatívny security control použitý na dosiahnutie porovnateľného zníženia risku, keď primárny control nie je možný alebo primeraný. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
+## Competing hypothesis set — CKA
+
+Malý súbor realistických kauzálnych vysvetlení viazaných na rovnaký incident subject.
+
 ## Complain mode
 
 AppArmor režim, v ktorom sa porušenia profilu logujú, ale neblokujú. Pozri [SELinux a AppArmor](docs/01-linux-and-systems/selinux-and-apparmor.md).
@@ -2434,6 +2454,10 @@ Runtime-managed storage object s lifecycle oddeleným od containeru, ktorý vša
 
 Container lifecycle a image/snapshot komponent používaný Docker Engine-om na koordináciu tasks, runtime shims, content a snapshots podľa konkrétnej konfigurácie platformy. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
 
+## Containment — CKA drill
+
+Dočasné obmedzenie blast radiusu a ďalších writerov pri zachovaní evidence a funkčnej healthy cohorty.
+
 ## Containment generation — Kubernetes incident
 
 Versionovaný stav trafficu, rolloutov, Nodes, retries a external reconcilers vytvorený na zastavenie ďalšieho dopadu bez zničenia evidence. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
@@ -2517,6 +2541,10 @@ Strojovo aj manuálne overiteľná evidence, že starý databázový contract u�
 ## Contract test
 
 Test kompatibility producer/consumer rozhrania bez potreby spustiť celý distribuovaný systém. Pozri [Contract a API tests](docs/04-testing-and-quality/contract-and-api-tests.md).
+
+## Contributing control failure — CKA
+
+Sekundárny problém, ktorý zhoršil detekciu, blast radius alebo recovery, ale nebol primárnym root cause-om.
 
 ## Control/data-path map — Kubernetes
 
@@ -2829,6 +2857,10 @@ Počet Podov aktuálne pozorovaných ReplicaSet controllerom ako súčasť jeho 
 ## Current-state detection — Ansible
 
 Mechanizmus, ktorým module alebo workflow zistí aktuálny stav targetu pred rozhodnutím, či je potrebná zmena. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
+
+## Current-state observation — CKA
+
+Minimálna evidence potrebná na odlíšenie initial state-u od zadania pred prvým write operation.
 
 ## Current-state observation contract — Ansible
 
@@ -3478,6 +3510,10 @@ Schopnosť hybridného alebo edge workloadu pokračovať v definovanom režime p
 
 Observation point, ktorého výsledok rozdelí konkurenčné hypotézy s minimálnym rizikom a zmenou systému. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
 
+## Discriminating observation — CKA
+
+Pozorovanie alebo test, ktorý významne odlíši competing hypotheses bez zmeny viacerých vrstiev naraz.
+
 ## Discriminating observation point — Docker
 
 Observation, ktorého výsledok odlišuje aspoň dve konkurenčné causal hypotheses, napríklad cgroup OOM od host OOM alebo wrong socket bind od firewall failure. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
@@ -3750,6 +3786,10 @@ Server hostujúci AD DS directory partitions a poskytujúci LDAP, Kerberos KDC, 
 
 AD DS group scope typicky používaný na priradenie permissions k resources v konkrétnej doméne. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
 
+## Domain-weighted lab blueprint
+
+Rozdelenie taskov a bodov podľa aktuálnych CKA domain weights bez zredukovania cross-domain incidentov na izolované katalógy.
+
 ## Domain-weighted lab — CKA
 
 Timed lab, ktorého bodové rozdelenie zodpovedá aktuálnym oficiálnym CKA curriculum doménam namiesto rovnomerného alebo náhodného mixu tém. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
@@ -3785,6 +3825,10 @@ Opakovaný alebo nerelevantný plan diff spôsobený napríklad provider normali
 ## Drift reconciliation
 
 Riadené rozhodnutie drift revertovať, adoptovať do configuration, zmeniť ownership alebo odstrániť Terraform management s následným overením state a remote výsledku. Pozri [Drift](docs/07-infrastructure-as-code-and-configuration-management/drift.md).
+
+## Drill score closure
+
+Vyhodnotenie root-cause accuracy, minimal repair, validation, evidence safety a času ako oddelených výsledkov.
 
 ## Drop — firewall action
 
@@ -4366,6 +4410,10 @@ Explicitný zoznam required a optional evidence položiek pre konkrétny gate su
 
 Rozhodnutie, v ktorej najskoršej vrstve delivery možno získať dostatočne spoľahlivý dôkaz bez odstránenia relevantnej failure boundary. Pozri [Shift-left](docs/04-testing-and-quality/shift-left.md).
 
+## Evidence preservation — CKA
+
+Zachovanie object YAML, status/conditions, Events, current/previous logs, host/runtime state a časovej identity pred restartom, delete alebo force zásahom.
+
 ## Evidence preservation — Docker incident
 
 Zachovanie inspect dát, logs, events, versions, image digestov, resource a host evidence pred restartom, delete alebo prune operáciou. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
@@ -4405,6 +4453,10 @@ Deklarované runtime, inputs, permissions, resources, timeout, retries, outputs,
 ## Execution environment — Ansible
 
 Versionovaný runtime image alebo prostredie obsahujúce `ansible-core`, Python dependencies, collections a system tools potrebné na reprodukovateľné vykonanie automation. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md).
+
+## Execution path — CKA
+
+Najkratšia bezpečná séria generatorov, editácií, client/server validations a mutations vedúca k požadovanému state-u.
 
 ## Executor — CI/CD
 
@@ -4465,6 +4517,10 @@ Manifest security controls, analyzer jobs, reportov, componentov a platforiem, k
 ## Expected stage evidence inventory
 
 Množina build, test, analysis, target a per-platform verdictov požadovaných pre release; missing evidence nie je pass. Pozri [Multi-stage builds](docs/08-container-fundamentals-and-docker/multi-stage-builds.md).
+
+## Expected-state contract — drill
+
+Versionovaný initial a desired state vrátane fault injectionu, misleading evidence, forbidden changes, hard validation a reset procedúry.
 
 ## Expected target inventory — Ansible
 
@@ -4616,7 +4672,7 @@ Diagnostický dôkaz zachovaný pri zlyhaní testu, napríklad screenshot, trace
 
 ## Failure-domain narrowing
 
-Postupné vylučovanie API, controller, scheduler, Node, runtime, CNI, CSI, Service/DNS, application a external dependency vrstiev pomocou overiteľných hypotéz. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
+Postup zmenšujúci možné príčiny podľa scope-u: container, Pod, workload, Node, request class alebo cluster.
 
 ## Failure-domain narrowing — CKA
 
@@ -4673,6 +4729,10 @@ Kontrolované zavedenie konkrétneho failure condition, napríklad latency, proc
 ## Fault injection — CKA lab
 
 Kontrolované zavedenie jednej alebo viacerých známych porúch do disposable lab prostredia na tréning diagnostiky a recovery. Pozri [CKA troubleshooting drills](docs/10-helm-and-cka/cka-troubleshooting-drills.md).
+
+## Fault-injection generation
+
+Versionovaný mechanizmus vytvárajúci jednu presnú authoritative chybu s deterministickým apply/reset a známym expected state-om.
 
 ## Fault tolerance
 
@@ -4845,6 +4905,10 @@ Explicitne zakázaný autoscaling výsledok, napríklad retry metric vytvárajú
 ## Forbidden-operation verification — RBAC
 
 Aktívny test, že subject po recovery nevie vykonať Secrets, exec, proxy, workload-create, RBAC-management alebo cluster-wide operations mimo schváleného contractu. Pozri [RBAC](../docs/09-kubernetes/rbac.md).
+
+## Forbidden outcome — CKA
+
+Stav, ktorý riešenie nesmie vytvoriť, napríklad zmena identity, broad authorization, vypnutie policy, strata availability alebo druhý storage writer.
 
 ## Forbidden outcome — Docker incident
 
@@ -5252,7 +5316,7 @@ Policy as Code pravidlo blokujúce plan alebo apply bez bežného override pathu
 
 ## Hard validation — CKA
 
-Explicitný command alebo observable criterion dokazujúci, že úloha spĺňa požadovaný stav a constraints, nie iba že resource existuje. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
+Explicitný dôkaz, že resource/controller/runtime/application outcome spĺňa zadanie; object existence alebo jeden green status nestačia.
 
 ## Hardware Security Module — HSM
 
@@ -9126,6 +9190,10 @@ Opakovaný proces observe, compare, act a report, ktorý približuje actual stat
 
 Rekonštruovateľná identita jedného control-loop rozhodnutia zahŕňajúca controller/version/leader, cluster, object UID/generation/resourceVersion, queue attempt, dependents, external bindings, credentials a reconcile ID. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Reconvergence verdict
+
+Dôkaz, že controller, kubelet/runtime, dataplane alebo external system po repair-e dosiahli požadovanú current generation.
+
 ## Recording rule — Prometheus
 
 Pravidelne vyhodnocovaná PromQL expression, ktorej výsledok sa uloží ako nová time series pre opakované alebo drahé výpočty. Pozri [Prometheus](docs/12-observability/prometheus.md).
@@ -10394,6 +10462,10 @@ Reference na semantic-convention schema používanú resource alebo instrumentat
 
 Overenie dát voči deklarovaným typom, required fields a constraints. Neoveruje automaticky všetky business a runtime podmienky. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Score closure
+
+Uzavretie tasku po hard validation, forbidden-outcome checku a zaznamenaní partial-credit alebo penalty evidence.
+
 ## Score plugin — Kubernetes scheduler
 
 Scheduling Framework plugin prideľujúci feasible Nodes relatívne skóre podľa soft preferencií a placement stratégie. Pozri [Scheduling](docs/09-kubernetes/scheduling.md).
@@ -10989,6 +11061,10 @@ Storage contract povoľujúci v danom čase iba jedného active writer-a a vyža
 ## Skip-and-return strategy — CKA
 
 Time-management postup, pri ktorom kandidát preskočí úlohu bez jasnej rýchlej cesty, označí ju a vráti sa po získaní jednoduchších bodov. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
+
+## Skip-and-return trigger
+
+Vopred definovaná podmienka, pri ktorej kandidát zastaví neefektívnu alebo rizikovú úlohu, zachová subject/evidence/next observation a vráti sa neskôr.
 
 ## SLAAC — Stateless Address Autoconfiguration
 
@@ -11702,9 +11778,17 @@ Navrhovaná release revision so všetkými target chart/dependency/values/manife
 
 Dynamic scaling policy snažiaca sa udržať zvolenú metric približne na target hodnote zmenou desired capacity. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## Targeted follow-up drill
+
+Nový drill odvodený z konkrétnej chyby, napríklad pomalého scope narrowing, context omylu, nebezpečného repairu alebo slabej validation.
+
 ## `targetPort` — Service
 
 Port alebo pomenovaný Pod container port, na ktorý Service dataplane smeruje traffic z publikovaného Service `port`. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## Task intake protocol
+
+Krátky pre-mutation záznam contextu, namespace-u, subjectu, desired change, hard constraints, forbidden changes, validation a časového budgetu.
 
 ## Task intake protocol — CKA
 
@@ -11713,6 +11797,10 @@ Krátky parsing úlohy na cluster/context, namespace, resource identity, požado
 ## Task-oriented automation
 
 Automation model skladajúci ordered tasks, conditions a orchestration controls nad targets namiesto univerzálneho persistentného resource graphu. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
+
+## Task subject — CKA
+
+Exact kombinácia cluster contextu, namespace-u alebo hostu, resource/component identity, current generation, požadovanej zmeny, constraints, forbidden changes a validation criterion.
 
 ## TCP connection
 
@@ -11989,6 +12077,10 @@ TCP state držaný po aktívnom close na ochranu pred starými segments a opäto
 ## Timed lab — CKA
 
 Praktický Kubernetes lab vykonávaný s pevným časovým limitom, bodovaním a povinnou validáciou na tréning exam execution schopností. Pozri [CKA timed labs](docs/10-helm-and-cka/cka-timed-labs.md).
+
+## Timed-lab generation
+
+Konkrétna verzia tréningového prostredia, task setu, fault injectors, scoring rules, hard validations a reset procedúr.
 
 ## TLS Secret
 
@@ -12269,6 +12361,10 @@ Stav, keď klient nevie, či Engine mutation neprebehla, zanechala partial objec
 ## Unknown hook outcome
 
 Stav, keď hook side effect mohol commitnúť, ale Helm/Job completion alebo response evidence chýba; ďalší attempt musí najprv pozorovať durable operation state. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
+
+## Unknown operation outcome — CKA
+
+Stav po timeout-e alebo prerušení write operation, keď nie je známe, či API alebo external side effect prebehol; pred retry sa vyžaduje read-back.
 
 ## Unknown-operation outcome — Kubernetes
 
