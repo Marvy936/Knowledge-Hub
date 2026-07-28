@@ -3083,15 +3083,15 @@
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
       "title": "VPC, subnets a route tables",
-      "words": 1252,
-      "headings": 39,
-      "sections": 39,
-      "findings": 82,
-      "critical": 28,
-      "high": 40,
-      "medium": 13,
-      "low": 1,
-      "score": 695,
+      "words": 1905,
+      "headings": 32,
+      "sections": 32,
+      "findings": 70,
+      "critical": 23,
+      "high": 31,
+      "medium": 3,
+      "low": 13,
+      "score": 537,
       "grade": "D"
     },
     {
@@ -178778,16 +178778,7 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "1. Regionálny a zonálny scope",
-      "line": 5,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "1. Regionálny a zonálny scope",
+      "section": "Dominantný lifecycle",
       "line": 5,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -178796,44 +178787,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "1. Regionálny a zonálny scope",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "1. Regionálny a zonálny scope",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC je regional resource.`, `Subnet je viazaný na jednu Availability Zone.`, `Elastic network interface (ENI) je zonálny network object.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "1. Regionálny a zonálny scope",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "1. Regionálny a zonálny scope",
-      "line": 5,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `ENI`, `resource`, `Availability`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "2. CIDR plánovanie",
-      "line": 14,
+      "section": "Connected Atlas Payments subject",
+      "line": 23,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -178841,53 +178796,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "2. CIDR plánovanie",
-      "line": 14,
+      "section": "3. CIDR a IPAM sú dlhodobý compatibility contract",
+      "line": 102,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "2. CIDR plánovanie",
-      "line": 14,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IPv4 CIDR,`, `voliteľný IPv6 CIDR,`, `subnet segmentation,`, `growth headroom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "2. CIDR plánovanie",
-      "line": 14,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "2. CIDR plánovanie",
-      "line": 14,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IPAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "3. Subnet",
-      "line": 28,
+      "section": "3. CIDR a IPAM sú dlhodobý compatibility contract",
+      "line": 102,
       "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `private , ak nemá priamu inbound internet path,`, `isolated , ak nemá ani general outbound internet path.`.",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `existujúce a budúce accounts, Regions a VPCs;`, `on-premises a partner prefixes;`, `VPC peering, Transit Gateway, VPN a Direct Connect;`, `IPv4 aj IPv6;`.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "3. Subnet",
-      "line": 28,
+      "section": "3. CIDR a IPAM sú dlhodobý compatibility contract",
+      "line": 102,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -178895,44 +178823,53 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "3. Subnet",
-      "line": 28,
+      "section": "3. CIDR a IPAM sú dlhodobý compatibility contract",
+      "line": 102,
       "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "3. Subnet",
-      "line": 28,
-      "severity": "medium",
+      "section": "3. CIDR a IPAM sú dlhodobý compatibility contract",
+      "line": 102,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "3. CIDR a IPAM sú dlhodobý compatibility contract",
+      "line": 102,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `VPN`, `EKS`, `RDS`, `ENI`, `IPAM`",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "4. Reserved IP addresses",
-      "line": 40,
+      "section": "4. Subnet capacity je ENI capacity",
+      "line": 116,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "4. Reserved IP addresses",
-      "line": 40,
+      "section": "4. Subnet capacity je ENI capacity",
+      "line": 116,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EC2 instances,`, `load balancer nodes,`, `NAT alebo interface endpoints,`, `EKS Pods pri VPC CNI modeli,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EC2 primary a secondary ENIs;`, `load balancer nodes;`, `NAT a interface endpoints;`, `EKS Pods pri VPC CNI modeli;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "4. Reserved IP addresses",
-      "line": 40,
+      "section": "4. Subnet capacity je ENI capacity",
+      "line": 116,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -178940,8 +178877,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "4. Reserved IP addresses",
-      "line": 40,
+      "section": "4. Subnet capacity je ENI capacity",
+      "line": 116,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "4. Subnet capacity je ENI capacity",
+      "line": 116,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `NAT`, `EKS`, `VPC`, `CNI`, `RDS`",
@@ -178949,26 +178895,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "5. VPC router",
-      "line": 53,
+      "section": "5. Effective route-table association",
+      "line": 140,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "5. VPC router",
-      "line": 53,
+      "section": "5. Effective route-table association",
+      "line": 140,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local ,`, `Internet Gateway,`, `NAT Gateway,`, `Transit Gateway,`.",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `explicitne asociovaný subnet používa zvolenú custom route table;`, `subnet bez explicitnej asociácie používa main route table;`, `zmena shared table môže mať multi-subnet blast radius.`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "5. VPC router",
-      "line": 53,
+      "section": "5. Effective route-table association",
+      "line": 140,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -178976,233 +178922,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "5. VPC router",
-      "line": 53,
+      "section": "5. Effective route-table association",
+      "line": 140,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `blast radius`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "8. Main a custom route table",
-      "line": 97,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Subnet bez explicitnej asociácie používa main route table.`, `Jedna route table môže obsluhovať viac subnetov.`.",
-      "score": 8
+      "section": "9. Peering, Transit Gateway a hybrid routes",
+      "line": 203,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "8. Main a custom route table",
-      "line": 97,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "9. Public subnet path",
-      "line": 107,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "10. Private subnet egress",
-      "line": 120,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "10. Private subnet egress",
-      "line": 120,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "10. Private subnet egress",
-      "line": 120,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `NAT Gateway pre IPv4 outbound,`, `egress-only Internet Gateway pre IPv6 outbound-only model,`, `VPC endpoints pre private service access,`, `proxy/firewall appliance,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "10. Private subnet egress",
-      "line": 120,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "10. Private subnet egress",
-      "line": 120,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPN`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "11. IPv6",
-      "line": 132,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "11. IPv6",
-      "line": 132,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `egress-only Internet Gateway pre outbound-initiated connectivity,`, `route a NACL rules s IPv6 CIDRs,`, `dual-stack DNS a application support.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "11. IPv6",
-      "line": 132,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "11. IPv6",
-      "line": 132,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NACL`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "12. Route propagation",
-      "line": 145,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "12. Route propagation",
-      "line": 145,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré routes sú static a propagated,`, `BGP preference a prefixes,`, `overlap,`, `failover behavior,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "12. Route propagation",
-      "line": 145,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "12. Route propagation",
-      "line": 145,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `BGP`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "13. VPC peering",
-      "line": 159,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "13. VPC peering",
-      "line": 159,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "13. VPC peering",
-      "line": 159,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nie je transitive,`, `CIDRs sa nesmú prekrývať,`, `route tables musia obsahovať paths na oboch stranách,`, `security groups/NACLs a DNS behavior treba nakonfigurovať,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "13. VPC peering",
-      "line": 159,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "13. VPC peering",
-      "line": 159,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "14. Transit Gateway",
-      "line": 171,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "14. Transit Gateway",
-      "line": 171,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `segmentation,`, `propagation/association design,`, `asymmetric-routing kontrolu,`, `appliance mode podľa topológie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "14. Transit Gateway",
-      "line": 171,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "15. VPC endpoints",
-      "line": 186,
+      "section": "11. Worked incident — nový subnet používa main route table",
+      "line": 225,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -179210,8 +178949,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Gateway endpoints",
-      "line": 188,
+      "section": "Symptóm",
+      "line": 227,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -179219,188 +178958,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Interface endpoints",
-      "line": 192,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Interface endpoints",
-      "line": 192,
+      "section": "Exact subject",
+      "line": 241,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Interface endpoints",
-      "line": 192,
+      "section": "Competing hypotheses",
+      "line": 255,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `endpoint security group,`, `subnet/AZ placement,`, `private DNS,`, `endpoint policy,`.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Interface endpoints",
-      "line": 192,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Interface endpoints",
-      "line": 192,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `DNS`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "16. DNS attributes",
-      "line": 205,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "16. DNS attributes",
-      "line": 205,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "16. DNS attributes",
-      "line": 205,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS resolution support,`, `DNS hostnames,`, `DHCP options,`, `Route 53 Resolver,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "16. DNS attributes",
-      "line": 205,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "16. DNS attributes",
-      "line": 205,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DHCP`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "17. Network interfaces",
-      "line": 218,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "17. Network interfaces",
-      "line": 218,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "17. Network interfaces",
-      "line": 218,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `private IP addresses,`, `security groups,`, `MAC address,`, `attachment,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "17. Network interfaces",
-      "line": 218,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "17. Network interfaces",
-      "line": 218,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "20. Network observability",
-      "line": 249,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "20. Network observability",
-      "line": 249,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "20. Network observability",
-      "line": 249,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC Flow Logs,`, `Reachability Analyzer,`, `Network Access Analyzer,`, `CloudTrail pre control-plane zmeny,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "20. Network observability",
-      "line": 249,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "20. Network observability",
-      "line": 249,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `ENI`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "21. Troubleshooting path",
-      "line": 262,
+      "section": "Competing hypotheses",
+      "line": 255,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -179408,17 +178985,53 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "22. Bežné chyby",
-      "line": 280,
+      "section": "Competing hypotheses",
+      "line": 255,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Resource je v „public subnet“, ale nemá internet",
-      "line": 282,
+      "section": "Competing hypotheses",
+      "line": 255,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS odpoveď v AZ-c je chybná.`, `Application SG nemá outbound rule.`, `Custom NACL blokuje return ephemeral ports.`, `NAT-C alebo jeho IGW path je chybný.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Competing hypotheses",
+      "line": 255,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Competing hypotheses",
+      "line": 255,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Competing hypotheses",
+      "line": 255,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `AZ-`, `SG`, `NACL`, `NAT-C`, `IGW`, `SUB-PC`, `ENI`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Discriminating observations",
+      "line": 266,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -179426,25 +179039,178 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Private instance nevie na internet",
-      "line": 286,
+      "section": "Discriminating observations",
+      "line": 266,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "VPC peering funguje iba jedným smerom",
-      "line": 290,
+      "section": "Discriminating observations",
+      "line": 266,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Discriminating observations",
+      "line": 266,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Discriminating observations",
+      "line": 266,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Discriminating observations",
+      "line": 266,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Discriminating observations",
+      "line": 266,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ENI`, `IP`, `IP-`, `DNS`, `ENI-P42C`, `NAT-C`, `SUB-PC`, `RT-MAIN`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Containment",
+      "line": 277,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Containment",
+      "line": 277,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "DNS resolve funguje, TCP nie",
+      "section": "Containment",
+      "line": 277,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Containment",
+      "line": 277,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nesmeruj celý VPC naslepo cez inú default route;`, `zachovaj healthy capacity v AZ-a a AZ-b.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Containment",
+      "line": 277,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Containment",
+      "line": 277,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SUB-PC`, `ASG`, `VPC`, `AZ-`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Authoritative recovery",
+      "line": 284,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Authoritative recovery",
+      "line": 284,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Authoritative recovery",
+      "line": 284,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Authoritative recovery",
+      "line": 284,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Oprav IaC/source-of-truth asociáciu SUB-PC → RT-PC .`, `Aplikuj bounded route-association change.`, `Spusť fresh HTTPS connection z affected subnetu.`, `Vytvor jednu canary instance v AZ-c.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Authoritative recovery",
+      "line": 284,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Authoritative recovery",
+      "line": 284,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Authoritative recovery",
+      "line": 284,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SUB-PC`, `RT-PC`, `NAT-C`, `IGW`, `HTTPS`, `AZ-`, `P-884`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Closure verdict",
       "line": 294,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -179453,8 +179219,53 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Nový subnet používa nesprávne routes",
-      "line": 298,
+      "section": "Closure verdict",
+      "line": 294,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Closure verdict",
+      "line": 294,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `live association zodpovedá IaC;`, `allowed outbound flow funguje z každej AZ;`, `forbidden inbound flow ostáva blokovaný;`, `ASG zone-C cohorta je stabilná bez replacement loopu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Closure verdict",
+      "line": 294,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Closure verdict",
+      "line": 294,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `ASG`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "12. Ďalšie failure boundaries",
+      "line": 305,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "13. Observation a control points",
+      "line": 327,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -179462,57 +179273,138 @@
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "EKS/RDS nevie vytvoriť ENI",
-      "line": 302,
+      "section": "13. Observation a control points",
+      "line": 327,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "13. Observation a control points",
+      "line": 327,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `live subnet a route-table associations;`, `route inventory a route origin;`, `VPC Flow Logs s ENI/subnet/VPC identity;`, `Reachability Analyzer pre configuration path;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "13. Observation a control points",
+      "line": 327,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "13. Observation a control points",
+      "line": 327,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "13. Observation a control points",
+      "line": 327,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `ENI`, `DNS`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "14. Change a recovery controls",
+      "line": 343,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "14. Change a recovery controls",
+      "line": 343,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Jeden obrovský VPC bez segmentation",
-      "line": 308,
+      "section": "14. Change a recovery controls",
+      "line": 343,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "14. Change a recovery controls",
+      "line": 343,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `CIDR a subnet allocation riadi jeden authoritative IPAM/source-of-trut`, `Každý production subnet má explicitnú route-table association.`, `Route-table changes majú blast-radius inventory a reverse-path validat`, `Free-IP SLO zahŕňa rollout a failover headroom.`.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Public/private určené iba názvom",
-      "line": 312,
+      "section": "14. Change a recovery controls",
+      "line": 343,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Default VPC ako production baseline",
-      "line": 316,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "14. Change a recovery controls",
+      "line": 343,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Všetok egress cez jednu AZ bez vedomého trade-offu",
-      "line": 320,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "14. Change a recovery controls",
+      "line": 343,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
-      "section": "Ručná analýza iba podľa diagramu",
-      "line": 324,
+      "section": "14. Change a recovery controls",
+      "line": 343,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "14. Change a recovery controls",
+      "line": 343,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CIDR`, `IPAM`, `AZ`, `IP`, `SLO`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/vpc-subnets-route-tables.md",
+      "section": "Referenčné rozlíšenia",
+      "line": 354,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/well-architected-framework.md",
