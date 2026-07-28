@@ -5,10 +5,10 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10860**
-- Total words: **618,012**
-- Findings: **24147** (critical 7552, high 8236, medium 3234, low 5125)
-- File grades: A 0, B 0, C 2, D 255
+- Audited conceptual sections: **10840**
+- Total words: **616,191**
+- Findings: **24176** (critical 7574, high 8261, medium 3239, low 5102)
+- File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
 
@@ -197,6 +197,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 498 | 20 | 26 | 8 | 17 | 1840 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | D | 497 | 21 | 24 | 10 | 13 | 1995 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | D | 490 | 21 | 25 | 6 | 17 | 1993 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
+| D | 487 | 22 | 25 | 5 | 10 | 1297 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
 | D | 483 | 19 | 26 | 9 | 12 | 2131 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | D | 481 | 14 | 35 | 5 | 18 | 2406 | `docs/09-kubernetes/cni-networkpolicy.md` |
 | D | 476 | 22 | 23 | 6 | 10 | 1925 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
@@ -279,7 +280,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
 | C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
-| C | 40 | 0 | 0 | 0 | 33 | 3118 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
 
 ## Critical and high findings
 
@@ -11144,6 +11144,56 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 489, `term-before-explanation` — **28. SOA-C03 mapovanie**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `DR`, `KMS`, `EXPIRED`, `resource`, `recovery point`
 - **HIGH** line 489, `thin-concept-section` — **28. SOA-C03 mapovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/11-cloud-and-aws/aws-organizations-accounts.md`
+
+- **CRITICAL** line 57, `bare-bullet-items` — **3. Management account**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `phishing-resistant MFA a root credential custody;`, `žiadne bežné deployment pipelines;`, `minimum human accessu;`, `delegovanie service administration do member accounts;`.
+- **CRITICAL** line 90, `empty-section` — **5. Organization policy vrstvy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 112, `bare-bullet-items` — **Effective organization state**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `root policy attachments;`, `všetkých parent/child OU attachments;`, `account-level attachments;`, `policy type a inheritance semantics;`.
+- **CRITICAL** line 112, `outline-instead-of-explanation` — **Effective organization state**: 7 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.
+- **CRITICAL** line 144, `bare-bullet-items` — **7. Delegated administration**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service a supported scope;`, `delegated account ID;`, `role/trust generation;`, `data a resources, ktoré môže meniť;`.
+- **CRITICAL** line 144, `outline-instead-of-explanation` — **7. Delegated administration**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 157, `empty-section` — **8. Connected walkthrough — recovery zablokuje organization guardrail**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 163, `bare-bullet-items` — **Competing hypotheses**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pipeline používa nesprávny account alebo role.`, `Trust policy alebo STS session je chybná.`, `Permissions boundary blokuje action.`, `SCP denyuje recovery Region.`.
+- **CRITICAL** line 163, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 163, `outline-instead-of-explanation` — **Competing hypotheses**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 191, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 191, `outline-instead-of-explanation` — **Containment**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 199, `no-prose-concept` — **Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 199, `outline-instead-of-explanation` — **Recovery**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 208, `bare-bullet-items` — **Verification**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `recovery resources možno vytvoriť iba v schválených Regions;`, `deployment role nemá organization-management capabilities;`, `CloudTrail a security telemetry nemožno vypnúť;`, `management account neobsahuje workload resources;`.
+- **CRITICAL** line 208, `no-prose-concept` — **Verification**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 208, `outline-instead-of-explanation` — **Verification**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 236, `bare-bullet-items` — **10. Quarantine a incident response**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `security telemetry;`, `forensic access;`, `backup/retention;`, `KMS decrypt podľa incident plánu;`.
+- **CRITICAL** line 236, `outline-instead-of-explanation` — **10. Quarantine a incident response**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 266, `bare-bullet-items` — **12. Earlier controls**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `account vending pipeline a baseline conformance;`, `OU/policy version inventory;`, `canary OU;`, `positive a forbidden control suite;`.
+- **CRITICAL** line 266, `no-prose-concept` — **12. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 266, `outline-instead-of-explanation` — **12. Earlier controls**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 57, `list-heavy-section` — **3. Management account**: 6 odrážok a iba 42 slov súvislého vysvetlenia.
+- **HIGH** line 112, `single-sentence-concept` — **Effective organization state**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 163, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 175, `single-sentence-concept` — **Discriminating observations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 191, `bare-bullet-items` — **Containment**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zachovať CloudTrail, OU move a policy-version evidence;`, `obmedziť zmenu na exact recovery account;`, `zmraziť ďalšie account moves/policy rollouty;`.
+- **HIGH** line 191, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 199, `bare-bullet-items` — **Recovery**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Overiť expected SCP/RCP/declarative policy generation.`, `Vykonať positive recovery deployment test.`, `Pokračovať v DR až po account acceptance verdicte.`.
+- **HIGH** line 199, `list-first-introduction` — **Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 208, `list-first-introduction` — **Verification**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 249, `list-first-introduction` — **11. Account closure lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 249, `single-sentence-concept` — **11. Account closure lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 266, `list-first-introduction` — **12. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 112, `term-before-explanation` — **Effective organization state**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OU`, `IAM`, `KMS`, `policy`, `resource`
+- **HIGH** line 112, `thin-concept-section` — **Effective organization state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 144, `thin-concept-section` — **7. Delegated administration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 163, `term-before-explanation` — **Competing hypotheses**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `STS`, `SCP`, `RCP`, `OU`, `policy`, `resource`
+- **HIGH** line 163, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 191, `term-before-explanation` — **Containment**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OU`, `SCP`, `policy`, `workload`
+- **HIGH** line 191, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 199, `term-before-explanation` — **Recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OU`, `SCP`, `RCP`, `KMS`, `DR`, `policy`, `identity`
+- **HIGH** line 199, `thin-concept-section` — **Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 208, `term-before-explanation` — **Verification**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`, `resource`, `policy`, `workload`
+- **HIGH** line 208, `thin-concept-section` — **Verification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 236, `thin-concept-section` — **10. Quarantine a incident response**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 266, `thin-concept-section` — **12. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md`
 
 - **CRITICAL** line 18, `bare-bullet-items` — **2. Constraint words**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MOST operationally efficient ,`, `LEAST administrative overhead ,`, `MOST cost-effective ,`, `without downtime ,`.
@@ -16844,19 +16894,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3186 | 448 | 0 | 0 | 3634 |
-| `outline-instead-of-explanation` | 3075 | 0 | 0 | 0 | 3075 |
-| `single-sentence-concept` | 0 | 2832 | 0 | 0 | 2832 |
-| `term-before-explanation` | 0 | 568 | 2186 | 0 | 2754 |
-| `thin-concept-section` | 0 | 2661 | 0 | 0 | 2661 |
-| `example-not-explicit` | 0 | 0 | 0 | 2041 | 2041 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2020 | 2020 |
-| `list-first-introduction` | 0 | 1277 | 0 | 0 | 1277 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1064 | 1064 |
-| `short-concept-section` | 0 | 0 | 1048 | 0 | 1048 |
-| `no-prose-concept` | 711 | 0 | 0 | 0 | 711 |
-| `empty-section` | 580 | 0 | 0 | 0 | 580 |
-| `list-heavy-section` | 0 | 450 | 0 | 0 | 450 |
+| `bare-bullet-items` | 3193 | 450 | 0 | 0 | 3643 |
+| `outline-instead-of-explanation` | 3083 | 0 | 0 | 0 | 3083 |
+| `single-sentence-concept` | 0 | 2835 | 0 | 0 | 2835 |
+| `term-before-explanation` | 0 | 573 | 2190 | 0 | 2763 |
+| `thin-concept-section` | 0 | 2669 | 0 | 0 | 2669 |
+| `example-not-explicit` | 0 | 0 | 0 | 2021 | 2021 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2019 | 2019 |
+| `list-first-introduction` | 0 | 1283 | 0 | 0 | 1283 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1062 | 1062 |
+| `short-concept-section` | 0 | 0 | 1049 | 0 | 1049 |
+| `no-prose-concept` | 716 | 0 | 0 | 0 | 716 |
+| `empty-section` | 582 | 0 | 0 | 0 | 582 |
+| `list-heavy-section` | 0 | 451 | 0 | 0 | 451 |
 
 ## Required remediation pattern
 
