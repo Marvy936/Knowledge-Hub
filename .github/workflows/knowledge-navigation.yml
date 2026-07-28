@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - docs/cloud-aws-edge-storage-data-strict-pass
     paths:
       - "docs/**/*.md"
       - "ROADMAP.md"
