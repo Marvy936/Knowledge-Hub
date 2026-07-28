@@ -42,6 +42,14 @@ Credential vydaný authorization serverom a určený pre resource server na vyko
 
 Administratívny záznam identity v konkrétnom systéme, ktorý môže mať vlastný lifecycle, credentials, attributes a permissions. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Account acceptance verdict
+
+Dôkaz, že account je v správnej OU, má reconciled baseline, povolené workload/recovery operations fungujú a zakázané Region, audit-disable, public alebo external access paths zlyhávajú. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## Account baseline generation
+
+Versionovaná realizácia identity, logging, security services, network, DNS, KMS, backup, quota, tagging a budget controls v konkrétnom AWS account-e. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## Account vending — AWS
 
 Automatizovaný proces vytvorenia a baseline konfigurácie nového AWS accountu vrátane OU placementu, identity, loggingu, networku, budgets, guardrails a ownership metadata. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
@@ -550,6 +558,10 @@ Backup vytvorený tak, aby zachoval logicky konzistentný application state, nap
 
 Backup generation vytvorená po koordinovanom application checkpoint-e, flushi alebo quiesce a následne overená clean restore testom. Pozri [Volumes, PV, PVC a StorageClass](../docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Application-consistent recovery point
+
+Recovery point, v ktorom databázové checkpointy, logs, queue offsets a external-operation ledger patria k jednej definovanej business transaction boundary. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
 ## application-consistent snapshot
 
 Snapshot vytvorený po koordinovanom flush, quiesce alebo engine-native checkpoint-e tak, aby obnovené dáta reprezentovali validný application transaction state. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
@@ -653,6 +665,10 @@ Observation chain od eligible population a variant assignmentu cez application/r
 ## Assume breach
 
 Zero Trust design assumption, že identity, endpoint, workload alebo interná network path môžu byť kompromitované, a preto treba obmedziť trust paths, sessions a blast radius. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Assumed-role session subject
+
+Konkrétna STS session identifikovaná session ARN, source identity, tags, policies, issue time a expiration; nie abstraktná IAM role. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
 ## AssumeRole — AWS STS
 
@@ -773,6 +789,10 @@ Jediný systém alebo workflow oprávnený meniť konkrétny mutable object aleb
 ## Authorization
 
 Rozhodnutie, či principal smie vykonať konkrétnu action voči konkrétnemu resource-u v danom context-e. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Authorization closure — AWS
+
+Positive a forbidden request tests, CloudTrail evidence a business verification, ktoré dokazujú správny effective permission graph po zmene alebo incidente. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
 ## Authorization closure — Kubernetes
 
@@ -965,6 +985,10 @@ Exact account, Region, AZ ID, subnet, resource, release, data a capacity identit
 ## AWS Region
 
 Geografická AWS infraštruktúrna oblasť obsahujúca viac Availability Zones a predstavujúca regionálnu service, data-residency a fault-isolation boundary. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## AWS request authorization subject
+
+Exact caller account a session ARN, credential source, action, resource ARN, Region/endpoint, request context, applicable policy generations a požadovaný service/business outcome. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
 ## AWS responsibility subject
 
@@ -1402,6 +1426,10 @@ Recovery verdict, pri ktorom technical release state, durable data, event/contra
 
 Proces určujúci kritické business capabilities, dopad výpadku, maximálne tolerované prerušenie, data-loss toleranciu, dependencies a priority obnovy. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
+## Business recovery subject
+
+Exact business capability, primary/recovery account a Region, application/data/trust generations, RTO, RPO, minimálna capacity a forbidden outcomes použité na DR rozhodovanie. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
 ## cache behavior — CloudFront
 
 Ordered distribution rule mapujúca path pattern na origin a definujúca viewer protocol, allowed methods, cache policy, origin request policy, headers a private-content behavior. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
@@ -1502,6 +1530,10 @@ Presná identity jedného canary decisionu tvorená stable a canary release mani
 
 Malá skupina Nodes s novou Kubernetes, OS, runtime alebo add-on verziou použitá na overenie compatibility pred širším rolloutom. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
 
+## Canary OU
+
+Obmedzený Organizations scope používaný na staged policy a baseline validation pred širším attachmentom na production OUs alebo root. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## Canary release
 
 Postupné sprístupnenie novej verzie malej časti trafficu alebo používateľov s porovnávaním technických a business signálov pred širšou promotion. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
@@ -1530,6 +1562,10 @@ Explicitný zoznam kernel, filesystem, network, device, host a API operations, k
 
 Samostatná časť tradičných root oprávnení, napríklad `CAP_NET_BIND_SERVICE`. Pozri [Linux capabilities](docs/01-linux-and-systems/linux-capabilities.md).
 
+## Capacity acceptance verdict
+
+Closure dôkaz, že capacity zmena zvýšila successful business throughput, zachovala downstream budgets, bezpečný scale-in a definovaný failure-domain outcome bez forbidden duplicít alebo straty. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## Capacity cliff
 
 Bod, pri ktorom malé ďalšie zvýšenie demandu spôsobí prudký rast queueing, latency alebo errors, pretože systém vyčerpal effective capacity. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
@@ -1541,6 +1577,10 @@ Rezervovaná nevyužitá kapacita potrebná na absorpciu burstu alebo presun tra
 ## Capacity headroom — observability
 
 Rozdiel medzi aktuálnym demandom alebo využitím a effective capacity po zohľadnení failoveru, limits a unavailable resources. Pozri [USE method](docs/12-observability/use-method.md).
+
+## Capacity lifecycle subject
+
+Versionovaná identita business demandu, workload unit, compute/data/dependency capacity, failure-domain inventory, scaling policy, metric contract a požadovaného business outcome-u. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
 ## Capacity Rebalancing — EC2 Auto Scaling
 
@@ -1797,6 +1837,10 @@ Dôkaz build-u bez reuse relevantnej cache spolu s porovnaním inputs, builder/t
 ## Clean-room recovery
 
 Obnova do izolovaného a kontrolovaného prostredia pred production promotion, aby sa overila integrita a zabránilo opätovnému kompromitovaniu obnovených dát. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Clean trust generation
+
+Po incidente novo vydaná a izolovaná generácia identities, credentials, certificates, keys a policies, ktorá nie je iba replikou potenciálne kompromitovaného primary state-u. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
 ## Cleanup-incomplete verdict
 
@@ -2794,9 +2838,17 @@ Client-side store obsahujúci TGT a service tickets pre aktuálnu Kerberos sessi
 
 Dôkaz, že nový credential je načítaný a funkčný, starý credential bol zrušený u authoritative providera a pokus o jeho použitie zlyhá. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
 
+## Credential revocation verdict — AWS
+
+Dôkaz, že starý access key, STS path alebo workload credential už nemôže úspešne vykonať forbidden request; nie iba fakt, že policy alebo Secret bol zmenený. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
 ## Credential rotation subject
 
 Identita old/new credentialov, provider state-u, Secret objects, consumer Pod generations, overlap window, loaded-state evidence a revocation/cleanup verdictu. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
+## Credential-source identity — AWS
+
+Konkrétny SDK/CLI credential provider a vydaná credential/session generation, ktorú process skutočne použil na podpísanie requestu. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
 ## CRI capability subject
 
@@ -3166,6 +3218,10 @@ Go template action deklarujúca named template pod globálnym menom bez okamžit
 
 Explicitný obmedzený access model počas outage-u identity, posture, policy alebo enforcement dependency, napríklad bounded existing sessions alebo low-risk read-only operations. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
+## Delegated-administration subject
+
+Service-specific organization capability viazaná na delegated account ID, role/trust generation, managed scope, audit a emergency revocation path. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## Delegated administrator — AWS Organizations
 
 Member account zaregistrovaný na centralizovanú správu podporovanej AWS služby naprieč organization, aby sa znížil počet operácií vykonávaných v management account-e. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
@@ -3521,6 +3577,10 @@ Hierarchická štruktúra LDAP directory entries organizovaná podľa Distinguis
 ## Directory partition — AD DS
 
 Replikovaný naming context AD DS, napríklad schema, configuration, domain alebo application partition, s vlastným replication scope-om. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
+
+## Disaster declaration boundary
+
+Podmienky, čas a authority, pri ktorých incident prechádza z lokálneho HA recovery do explicitného DR procesu. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
 ## Disaster recovery — DR
 
@@ -4049,6 +4109,14 @@ Kernel výsledok nad visible pathom po zohľadnení process UID/GID, user mappin
 ## Effective NetworkPolicy generation
 
 Policy program reálne načítaný konkrétnym Node/dataplane enforcement pointom po selector resolution a controller reconciliation; môže zaostávať za API object generation. Pozri [CNI a NetworkPolicy](../docs/09-kubernetes/cni-networkpolicy.md).
+
+## Effective organization policy
+
+Výsledný SCP, RCP alebo declarative configuration stav vypočítaný z root, parent OU, child OU a account attachments podľa semantics daného policy typu. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## Effective permission graph — AWS
+
+Reachable authorization paths od principal/session identity cez trust, identity/resource policies, permissions boundary, session policy, SCP/RCP, conditions a service-specific policies k exact action/resource verdictu. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
 ## Effective process authority — Kubernetes
 
@@ -4674,6 +4742,10 @@ Failure behavior, pri ktorom load balancer za určitých all-target-unhealthy po
 
 Riadený návrat workloadu a authoritative state-u z recovery lokality späť do stabilizovaného primárneho prostredia po failover-e. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
+## Failback authority transfer
+
+Riadený presun authoritative data a writer/traffic ownershipu z recovery prostredia späť do primary prostredia po synchronizácii, compatibility a single-writer verifikácii. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
 ## Failed deployment recovery time
 
 Čas potrebný na obnovenie služby po zlyhaní spôsobenom deploymentom. Pozri [DORA Metrics](docs/00-foundations/dora-metrics.md).
@@ -5209,6 +5281,14 @@ Google SRE monitoring model pozostávajúci zo Latency, Traffic, Errors a Satura
 ## Governance acceptance verdict — Kubernetes namespace
 
 Verdikt, že LimitRange/ResourceQuota policy poskytuje správne admitted resources, fairness, rollout/HPA/recovery headroom, object bounds a business SLO bez neželaných defaultov. Pozri [ResourceQuota a LimitRange](../docs/09-kubernetes/resourcequota-limitrange.md).
+
+## Governance graph
+
+Vzťahy medzi management accountom, OUs, member accounts, delegated administrators, cross-account roles, shared networks, log archives a organization policies, ktoré určujú reálny blast radius. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## Governed account lifecycle subject
+
+Exact AWS account ID, owner, OU path, baseline generation, SCP/RCP/declarative policy set, delegated administration, Regions a allowed/forbidden outcomes od account requestu po closure. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
 
 ## Graceful degradation
 
@@ -6102,6 +6182,10 @@ Policy aplikovaná na nové indexes alebo backing indexes podľa patternu, ktor�
 
 Kubernetes Job s `completionMode: Indexed`, kde každý completion slot dostáva stabilný index pre statické alebo deterministické rozdelenie práce. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
 
+## Indirect IAM capability
+
+Authority vznikajúca kombináciou zdanlivo úzkych permissions, napríklad `iam:PassRole` s vytvorením workloadu alebo edit policy/trust s následným assume-role pathom. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
 ## Indirect workload capability
 
 Autorita získaná cez permission vytvoriť alebo meniť Pod/Deployment/Job, napríklad použitie silnejšej ServiceAccount, mounted Secretu, internal networku alebo runtime fields. Pozri [RBAC](../docs/09-kubernetes/rbac.md).
@@ -6457,6 +6541,10 @@ Search field type určený na exact matching, sorting a aggregations bez full-te
 ## Kill switch
 
 Technický mechanizmus umožňujúci rýchlo zastaviť fault injection, experiment alebo feature exposure pri prekročení bezpečných hraníc. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## KMS authorization boundary
+
+Kombinácia caller permissions, KMS key policy/grants, encryption context, Region/account a request conditions potrebná na cryptographic operation. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
 ## KMS grant
 
@@ -7986,6 +8074,10 @@ Runtime implementácia OpenTelemetry API zabezpečujúca sampling, aggregation, 
 
 OpenTelemetry Protocol používaný na prenos telemetry medzi SDKs, Collectors a podporovanými backends. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
 
+## OU placement generation
+
+Aktuálna poloha accountu v Organizations hierarchy spolu s parent policy inheritance cestou a časom posledného move-u. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## Outdated deployment — GitLab
 
 Deployment zo staršieho pipeline, ktorý sa pokúša prepísať environment po tom, čo už bol nasadený novší pipeline alebo artifact. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
@@ -8225,6 +8317,10 @@ Guardrail určujúci maximálny permissions envelope identity bez samostatného 
 ## Permissions boundary — IAM
 
 IAM policy nastavujúca maximálny permissions envelope, ktorý identity-based policies môžu udeliť konkrétnemu userovi alebo role. Sama permissions neudeľuje. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## Permissions envelope — AWS
+
+Policy vrstva, ktorá access sama neudeľuje, ale obmedzuje maximum candidate grants, napríklad permissions boundary, session policy, SCP alebo RCP. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
 
 ## Permissive mode
 
@@ -8810,6 +8906,10 @@ Maximum času jedného probe pokusu určené `timeoutSeconds`; príliš krátka 
 
 Bežiaca inštancia programu s adresným priestorom, file descriptormi, credentials a ďalším kernel stavom. Pozri [Procesy, thready, PID a signals](docs/01-linux-and-systems/processes-threads-pid-signals.md).
 
+## Process-loaded AWS credential
+
+Credential generation načítaná application procesom, ktorá sa môže líšiť od najnovšieho web-identity tokenu, environmentu alebo metadata credentialu dostupného na hoste. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
 ## Process-loaded configuration
 
 Effective config alebo secret epoch, ktorú application process skutočne načítal a používa, odlíšená od source ConfigMap/Secret objectu alebo mounted bytes. Pozri [Pod](docs/09-kubernetes/pod.md).
@@ -9070,6 +9170,10 @@ QoS class odvodená z effective CPU/memory requests a limits relevantných conta
 
 Automatizovaný alebo kombinovaný rozhodovací bod, ktorý vyhodnotí versionovanú policy nad konkrétnou evidence a povolí, zablokuje alebo eskaluje ďalší krok delivery. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
 
+## Quarantine capability envelope
+
+Explicitná množina forensic, logging, backup, KMS a containment operations, ktoré musia zostať povolené aj pri silnom obmedzení kompromitovaného accountu. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
 ## Quarantine OU — AWS
 
 Organizational unit s prísnymi incident alebo decommission guardrails určená na izoláciu member accountu pri zachovaní potrebného response a evidence accessu. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
@@ -9266,6 +9370,10 @@ Dôkaz, že controller, kubelet/runtime, dataplane alebo external system po repa
 
 Pravidelne vyhodnocovaná PromQL expression, ktorej výsledok sa uloží ako nová time series pre opakované alebo drahé výpočty. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
+## Recovery authority
+
+Explicitný owner a state-generation contract určujúci, kto smie deklarovať disaster, vybrať recovery point, povýšiť writer-a, otvoriť traffic a vykonať failback. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
 ## Recovery closure — etcd
 
 Verdikt po restore, ktorý potvrdzuje etcd/API/controller convergence, external/application consistency, traffic/business outcome, forbidden old-state outcomes a zaznamenané RPO/RTO. Pozri [etcd backup a restore](../docs/09-kubernetes/etcd-backup-restore.md).
@@ -9325,6 +9433,10 @@ Trusted väzba snapshotu na PKI, encryption keys, configs, infra/add-ons, applic
 ## Recovery set — Kubernetes
 
 Súbor artifacts potrebný na obnovu, zahŕňajúci etcd snapshot, PKI, encryption configuration/keys, component config, infrastructure source a application data backups. Pozri [etcd backup a restore](docs/09-kubernetes/etcd-backup-restore.md).
+
+## Recovery-set manifest
+
+Versionovaný inventár data checkpointov, transaction logs, IaC, artifacts, configuration, identities, KMS/PKI, DNS, external integration state, telemetry a runbookov potrebných na obnovu business capability. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
 ## Recovery Time Actual — RTA
 
@@ -9926,6 +10038,10 @@ Opätovné odoslanie transportných dát po detekcii straty alebo nedostatočné
 
 Násobenie pôvodného workloadu, keď client, proxy a služby nezávisle retryujú rovnaké zlyhanie a vytvoria viac pokusov na jednu business operáciu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## Retry amplification loop — cloud capacity
+
+Causal loop, v ktorom downstream saturation zvýši latency a retries, retry-inclusive metric vyžiada ďalší scale-out a nová kapacita ďalej zvyšuje pressure na rovnaký bottleneck. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## Retry-amplified metric
 
 Autoscaling signal, ktorý zahŕňa interné retries alebo duplicate events, takže dependency failure vyzerá ako nový business demand a scale-out incident zosilní. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
@@ -10322,6 +10438,10 @@ Software as a Service: model poskytujúci hotovú application službu, pričom z
 
 Bill of Materials opisujúci software-as-a-service components, services, providers a dependencies v continuously deployed service modeli. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
 
+## Safe capacity
+
+Maximálny throughput alebo concurrency, pri ktorom celý critical path spĺňa latency, reliability, downstream, cost a business-correctness contract; nie iba technický limit jednej compute vrstvy. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## Safe loader — YAML
 
 Parser režim, ktorý načítava základné dátové typy bez povolenia nebezpečnej language-specific object deserializácie. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
@@ -10458,6 +10578,10 @@ YAML node reprezentujúci jednu hodnotu, napríklad string, number, boolean aleb
 
 Explicitné určenie, ktorý controller smie zapisovať live replica count a ako GitOps/HPA bootstrap a runtime desired state spolupracujú bez reconciliation fightu. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
 
+## Scale-in drain contract
+
+Sekvencia odstránenia resource-u z nového trafficu, dokončenia alebo odovzdania práce, business commit-u, evidence a až následnej termination. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+
 ## Scale subresource — Kubernetes
 
 Štandardizované API rozhranie vystavujúce desired a current replica informácie škálovateľného workloadu pre HPA a ďalších clients. Pozri [HPA a autoscaling](docs/09-kubernetes/hpa-autoscaling.md).
@@ -10473,6 +10597,10 @@ Policy meniaca desired capacity Auto Scaling Groupu podľa target tracking, step
 ## Scaling saturation verdict
 
 Stav, keď HPA dosiahlo max/rate/capacity boundary a ďalší demand už nevie premeniť na serving capacity; vyžaduje load shedding, alert alebo remediation. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
+
+## Scaling signal contract
+
+Definícia metric source-u, pracovnej jednotky, dimensions, aggregation windowu, freshness, no-data behavioru a očakávanej reakcie na zmenu kapacity. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
 ## `ScheduleAnyway` — topology spread
 
@@ -12310,6 +12438,10 @@ Riadené presmerovanie nových requestov alebo connections zo starej deployment 
 
 Kopírovanie produkčných requestov do shadow systému bez použitia jeho response na primary request path. Pozri [Shadow deployment](docs/05-ci-cd-and-release/shadow-deployment.md).
 
+## Traffic-reopen verdict — DR
+
+Closure dôkaz, že restored state, single-writer fencing, clean credentials, external integrations, minimum capacity, telemetry a business transaction sú správne pred otvorením production trafficu. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
 ## Traffic-reopen verdict — recovery
 
 Explicitné rozhodnutie otvoriť production traffic až po API, controller, external-resource, application-data, credential a business consistency overení. Pozri [etcd backup a restore](../docs/09-kubernetes/etcd-backup-restore.md).
@@ -13061,6 +13193,10 @@ Ukončený proces, ktorého exit status parent ešte neprevzal cez `wait`. Pozri
 ## Zonal affinity
 
 Preferencia komunikácie a placementu resources v rovnakej Availability Zone pre nižšiu latency alebo transfer cost pri zachovaní cross-zone recovery modelu. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## Zonal capacity headroom
+
+Compute, subnet IP, quota, egress, data a dependency kapacita zostávajúca po strate definovanej Availability Zone a počas replacement alebo rollout surge-u. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
 ## Zonal egress subject
 
