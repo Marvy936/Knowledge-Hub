@@ -2831,15 +2831,15 @@
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
       "title": "EC2 a Auto Scaling",
-      "words": 2247,
-      "headings": 43,
-      "sections": 43,
-      "findings": 127,
-      "critical": 38,
-      "high": 44,
-      "medium": 23,
-      "low": 22,
-      "score": 916,
+      "words": 2141,
+      "headings": 36,
+      "sections": 36,
+      "findings": 90,
+      "critical": 25,
+      "high": 33,
+      "medium": 7,
+      "low": 25,
+      "score": 612,
       "grade": "D"
     },
     {
@@ -159608,7 +159608,7 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "1. Mentálny model",
+      "section": "Dominantný lifecycle",
       "line": 5,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -159617,62 +159617,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "Connected Atlas Payments subject",
+      "line": 23,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "1. Launch template je versionovaný fleet contract",
+      "line": 60,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 48 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "1. Launch template je versionovaný fleet contract",
+      "line": 60,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AMI a CPU architecture;`, `instance type alebo attributes;`, `subnets/ENI a Security Groups;`, `IAM instance profile a metadata options;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "2. EC2 instance lifecycle",
-      "line": 25,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "2. EC2 instance lifecycle",
-      "line": 25,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "2. EC2 instance lifecycle",
-      "line": 25,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "2. EC2 instance lifecycle",
-      "line": 25,
+      "section": "1. Launch template je versionovaný fleet contract",
+      "line": 60,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -159680,62 +159653,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "2. EC2 instance lifecycle",
-      "line": 25,
+      "section": "1. Launch template je versionovaný fleet contract",
+      "line": 60,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "1. Launch template je versionovaný fleet contract",
+      "line": 60,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `RAM`, `EBS`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `CPU`, `ENI`, `IAM`, `EBS`, `KMS`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "3. AMI",
-      "line": 43,
+      "section": "2. AMI a bootstrap tvoria jeden effective machine image",
+      "line": 86,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "15 odrážok a iba 56 slov súvislého vysvetlenia.",
+      "detail": "7 odrážok a iba 44 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "3. AMI",
-      "line": 43,
+      "section": "2. AMI a bootstrap tvoria jeden effective machine image",
+      "line": 86,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `operating system,`, `runtime a agents,`, `hardened baseline,`, `application artifact,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `idempotentné kroky;`, `pinned artifacts/packages;`, `bounded retries a timeouty;`, `structured logs;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "3. AMI",
-      "line": 43,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`, `ID`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "4. Instance types a families",
-      "line": 73,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "4. Instance types a families",
-      "line": 73,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vCPU,`, `memory,`, `network bandwidth,`, `EBS bandwidth,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "4. Instance types a families",
-      "line": 73,
+      "section": "2. AMI a bootstrap tvoria jeden effective machine image",
+      "line": 86,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -159743,8 +159698,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "4. Instance types a families",
-      "line": 73,
+      "section": "2. AMI a bootstrap tvoria jeden effective machine image",
+      "line": 86,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -159752,8 +159707,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "4. Instance types a families",
-      "line": 73,
+      "section": "2. AMI a bootstrap tvoria jeden effective machine image",
+      "line": 86,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -159761,17 +159716,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "5. Nitro System",
-      "line": 97,
-      "severity": "critical",
+      "section": "3. EC2 lifecycle a data boundaries",
+      "line": 113,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `enhanced networking,`, `vysoký EBS výkon,`, `Nitro Enclaves pri vybraných use cases,`, `iný device naming model pri NVMe,`.",
-      "score": 12
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `reboot zachováva instance identity a typicky attached storage;`, `terminate ukončí instance a môže odstrániť DeleteOnTermination volumes`, `instance store je host-local ephemeral state;`.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "5. Nitro System",
-      "line": 97,
+      "section": "3. EC2 lifecycle a data boundaries",
+      "line": 113,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -159779,8 +159734,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "5. Nitro System",
-      "line": 97,
+      "section": "3. EC2 lifecycle a data boundaries",
+      "line": 113,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "3. EC2 lifecycle a data boundaries",
+      "line": 113,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "3. EC2 lifecycle a data boundaries",
+      "line": 113,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EBS`",
@@ -159788,179 +159761,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "6. Network identity",
-      "line": 111,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 55 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "6. Network identity",
-      "line": 111,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instance ID,`, `private IPv4/IPv6,`, `public IPv4 alebo Elastic IP,`, `DNS names,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "6. Network identity",
-      "line": 111,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "6. Network identity",
-      "line": 111,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "6. Network identity",
-      "line": 111,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MAC`, `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "7. Instance Metadata Service a IMDSv2",
-      "line": 129,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyžadovať IMDSv2,`, `obmedziť metadata hop limit podľa architecture,`, `nepoužívať metadata credentials mimo instance,`, `monitorovať neobvyklé credential použitie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "7. Instance Metadata Service a IMDSv2",
-      "line": 129,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "8. User data a bootstrap",
-      "line": 145,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "8. User data a bootstrap",
-      "line": 145,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `registrácia monitoring agentu,`, `načítanie configuration,`, `mount storage,`, `spustenie application service,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "8. User data a bootstrap",
-      "line": 145,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "8. User data a bootstrap",
-      "line": 145,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ASG`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "9. Launch templates",
-      "line": 179,
+      "section": "4. IAM role a IMDS sú runtime identity chain",
+      "line": 127,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "9. Launch templates",
-      "line": 179,
+      "section": "4. IAM role a IMDS sú runtime identity chain",
+      "line": 127,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AMI,`, `instance type alebo attributes,`, `key pair,`, `Security Groups,`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyžadovať IMDSv2;`, `nastaviť hop limit podľa architecture;`, `používať least-privilege role;`, `monitorovať použitie credentials mimo expected instance/workload conte`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "9. Launch templates",
-      "line": 179,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "9. Launch templates",
-      "line": 179,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "9. Launch templates",
-      "line": 179,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "9. Launch templates",
-      "line": 179,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `IAM`, `EBS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "10. Auto Scaling Group",
-      "line": 207,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "10. Auto Scaling Group",
-      "line": 207,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimum capacity,`, `desired capacity,`, `maximum capacity,`, `launch template/version,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "10. Auto Scaling Group",
-      "line": 207,
+      "section": "4. IAM role a IMDS sú runtime identity chain",
+      "line": 127,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -159968,8 +159788,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "10. Auto Scaling Group",
-      "line": 207,
+      "section": "4. IAM role a IMDS sú runtime identity chain",
+      "line": 127,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "7. Scaling policy je feedback loop",
+      "line": 192,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -159977,26 +159806,143 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "10. Auto Scaling Group",
-      "line": 207,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `Availability`",
-      "score": 4
+      "section": "8. Instance warmup, draining a lifecycle hooks",
+      "line": 213,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 57 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "11. Health checks",
-      "line": 240,
+      "section": "8. Instance warmup, draining a lifecycle hooks",
+      "line": 213,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EC2 system/instance status,`, `Elastic Load Balancing target health,`, `EBS health,`, `VPC Lattice,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `load-balancer deregistration delay;`, `request/connection drain;`, `queue claim completion;`, `session/state handoff;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "12. Scaling policies",
-      "line": 256,
+      "section": "8. Instance warmup, draining a lifecycle hooks",
+      "line": 213,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "8. Instance warmup, draining a lifecycle hooks",
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "8. Instance warmup, draining a lifecycle hooks",
+      "line": 213,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "9. Instance refresh je fleet transition",
+      "line": 228,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "10. Mixed instances, Spot a weighted capacity",
+      "line": 247,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "10. Mixed instances, Spot a weighted capacity",
+      "line": 247,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `binaries, AMI a agents podporujú architecture;`, `weighted capacity zodpovedá reálnemu výkonu;`, `application toleruje performance heterogenitu;`, `Spot interruption má drain/retry/handoff model;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "10. Mixed instances, Spot a weighted capacity",
+      "line": 247,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "10. Mixed instances, Spot a weighted capacity",
+      "line": 247,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "10. Mixed instances, Spot a weighted capacity",
+      "line": 247,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "11. Warm pools a stale generation",
+      "line": 262,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "11. Warm pools a stale generation",
+      "line": 262,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OS/package generation;`, `application artifact;`, `configuration alebo certificate;`, `security patches;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "11. Warm pools a stale generation",
+      "line": 262,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "11. Warm pools a stale generation",
+      "line": 262,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "12. Worked incident — $Latest vytvorí replacement loop",
+      "line": 274,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -160004,8 +159950,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "Target tracking",
-      "line": 258,
+      "section": "Symptóm",
+      "line": 276,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -160013,557 +159959,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "Step scaling",
-      "line": 262,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "Simple scaling",
-      "line": 266,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "Scheduled scaling",
-      "line": 270,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "13. Instance warmup a cooldown",
-      "line": 280,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "13. Instance warmup a cooldown",
-      "line": 280,
+      "section": "Exact subject",
+      "line": 290,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `boot,`, `bootstrap,`, `cache fill,`, `registration,`.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "13. Instance warmup a cooldown",
-      "line": 280,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "13. Instance warmup a cooldown",
-      "line": 280,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "14. Lifecycle hooks",
-      "line": 297,
+      "section": "Competing hypotheses",
+      "line": 304,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `launch-time registration alebo configuration,`, `security/monitoring validation,`, `graceful drain pri termination,`, `log alebo diagnostic collection,`.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "14. Lifecycle hooks",
-      "line": 297,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "14. Lifecycle hooks",
-      "line": 297,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "15. Instance refresh",
-      "line": 313,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "15. Instance refresh",
-      "line": 313,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `minimum healthy percentage,`, `instance warmup,`, `checkpoints,`, `skip matching,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "15. Instance refresh",
-      "line": 313,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `IP`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "16. Mixed instances a purchase options",
-      "line": 337,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 49 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "16. Mixed instances a purchase options",
-      "line": 337,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `lepšia capacity availability,`, `nižší cost,`, `menšia závislosť od jednej instance family.`, `application musí tolerovať odlišný výkon,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "16. Mixed instances a purchase options",
-      "line": 337,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "16. Mixed instances a purchase options",
-      "line": 337,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "16. Mixed instances a purchase options",
-      "line": 337,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "17. Warm pools",
-      "line": 359,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "17. Warm pools",
-      "line": 359,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nižší startup čas,`, `dodatočný cost,`, `stale software/configuration,`, `lifecycle complexity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "17. Warm pools",
-      "line": 359,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "17. Warm pools",
-      "line": 359,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "17. Warm pools",
-      "line": 359,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "18. Placement groups a tenancy",
-      "line": 373,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "18. Placement groups a tenancy",
-      "line": 373,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "18. Placement groups a tenancy",
-      "line": 373,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "19. Storage a state",
-      "line": 384,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "19. Storage a state",
-      "line": 384,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "19. Storage a state",
-      "line": 384,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `S3 pre objects,`, `EBS pre zonálny block state,`, `EFS pre shared NFS filesystem,`, `RDS/DynamoDB/ElastiCache podľa data modelu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "19. Storage a state",
-      "line": 384,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "19. Storage a state",
-      "line": 384,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S3`, `EBS`, `EFS`, `NFS`, `RDS`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "20. Maintenance a recovery",
-      "line": 396,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "20. Maintenance a recovery",
-      "line": 396,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "20. Maintenance a recovery",
-      "line": 396,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stop/start,`, `reboot,`, `instance recovery,`, `ASG replacement,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "20. Maintenance a recovery",
-      "line": 396,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "20. Maintenance a recovery",
-      "line": 396,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ASG`, `AMI`, `EC2`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "21. Observability",
-      "line": 410,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "21. Observability",
-      "line": 410,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "21. Observability",
-      "line": 410,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EC2 status checks,`, `CPU, network a disk/EBS metrics,`, `memory/filesystem/process metrics cez agent,`, `ASG desired/in-service/pending/terminating capacity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "21. Observability",
-      "line": 410,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "21. Observability",
-      "line": 410,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `ASG`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "22. Cost model",
-      "line": 427,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "22. Cost model",
-      "line": 427,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instance runtime a purchase model,`, `operating system/licensing,`, `EBS volumes/snapshots/IOPS/throughput,`, `data transfer,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "22. Cost model",
-      "line": 427,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "22. Cost model",
-      "line": 427,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EBS`, `IOPS`, `NAT`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "23. Troubleshooting ASG launch failure",
-      "line": 442,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "23. Troubleshooting ASG launch failure",
-      "line": 442,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "23. Troubleshooting ASG launch failure",
-      "line": 442,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `invalid alebo nedostupná AMI,`, `unsupported instance type/AMI architecture,`, `insufficient capacity v AZ,`, `EC2 quota,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "23. Troubleshooting ASG launch failure",
-      "line": 442,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "23. Troubleshooting ASG launch failure",
-      "line": 442,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `AZ`, `EC2`, `IP`, `KMS`, `policy`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "24. Troubleshooting replacement loop",
-      "line": 470,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "24. Troubleshooting replacement loop",
-      "line": 470,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "24. Troubleshooting replacement loop",
-      "line": 470,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ELB target health reason,`, `health path/port/protocol,`, `application bind address,`, `Security Groups/NACL,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "24. Troubleshooting replacement loop",
-      "line": 470,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "24. Troubleshooting replacement loop",
-      "line": 470,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ELB`, `NACL`, `AZ`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "25. Troubleshooting scaling, ktoré nereaguje",
-      "line": 495,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "25. Troubleshooting scaling, ktoré nereaguje",
-      "line": 495,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "25. Troubleshooting scaling, ktoré nereaguje",
-      "line": 495,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metric namespace/dimensions,`, `alarm state a missing-data behavior,`, `policy association,`, `min/max hranice,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "25. Troubleshooting scaling, ktoré nereaguje",
-      "line": 495,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "25. Troubleshooting scaling, ktoré nereaguje",
-      "line": 495,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ASG`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "26. Bezpečná remediation hierarchy",
-      "line": 512,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "26. Bezpečná remediation hierarchy",
-      "line": 512,
+      "section": "Competing hypotheses",
+      "line": 304,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -160571,26 +159986,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "26. Bezpečná remediation hierarchy",
-      "line": 512,
+      "section": "Competing hypotheses",
+      "line": 304,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "26. Bezpečná remediation hierarchy",
-      "line": 512,
+      "section": "Competing hypotheses",
+      "line": 304,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zachovaj scaling activity, target health a bootstrap evidence.`, `Oprav launch contract alebo dependency.`, `Over jednu canary instance alebo malý refresh checkpoint.`, `Sleduj application SLI a fleet health.`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EC2 quota alebo AZ capacity blokuje launch.`, `Subnets nemajú voľné IPs.`, `AMI architecture nesedí s instance type-mi.`, `KMS policy blokuje encrypted root volume.`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "26. Bezpečná remediation hierarchy",
-      "line": 512,
+      "section": "Competing hypotheses",
+      "line": 304,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -160598,8 +160013,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "26. Bezpečná remediation hierarchy",
-      "line": 512,
+      "section": "Competing hypotheses",
+      "line": 304,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -160607,62 +160022,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "26. Bezpečná remediation hierarchy",
-      "line": 512,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 523,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 523,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 523,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ASG launch failure pre subnet IP exhaustion,`, `unhealthy targets pre chybný port,`, `user-data bootstrap failure,`, `KMS-denied encrypted root volume,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 523,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 523,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 523,
+      "section": "Competing hypotheses",
+      "line": 304,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -160670,8 +160031,71 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 523,
+      "section": "Competing hypotheses",
+      "line": 304,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `AZ`, `AMI`, `KMS`, `IAM`, `SG`, `NACL`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Discriminating observations",
+      "line": 317,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Discriminating observations",
+      "line": 317,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Discriminating observations",
+      "line": 317,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Discriminating observations",
+      "line": 317,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Discriminating observations",
+      "line": 317,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Discriminating observations",
+      "line": 317,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Discriminating observations",
+      "line": 317,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -160679,17 +160103,143 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "27. SOA-C03 mapovanie",
-      "line": 523,
+      "section": "Discriminating observations",
+      "line": 317,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `ASG`, `AZ`, `IP`, `KMS-`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `ENI`, `EBS`, `IP`, `NACL`, `AMI58`, `AMI57`, `ASG`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "Pet server v Auto Scaling Group",
-      "line": 544,
+      "section": "Containment",
+      "line": 341,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Containment",
+      "line": 341,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Containment",
+      "line": 341,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Containment",
+      "line": 341,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Containment",
+      "line": 341,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Containment",
+      "line": 341,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ASG`, `LT57`, `LT58`, `SG`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Authoritative recovery",
+      "line": 349,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Authoritative recovery",
+      "line": 349,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Authoritative recovery",
+      "line": 349,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Authoritative recovery",
+      "line": 349,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Oprav AMI/service bind configuration v source image pipeline.`, `Vytvor novú immutable AMI59 a LT59.`, `Pinni ASG na LT59.`, `Retire-ni LT58 až po zachovaní incident evidence.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Authoritative recovery",
+      "line": 349,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Authoritative recovery",
+      "line": 349,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Authoritative recovery",
+      "line": 349,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Authoritative recovery",
+      "line": 349,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `AMI59`, `LT59`, `SG`, `IP`, `ASG`, `SLI`, `LT58`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Closure verdict",
+      "line": 359,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -160697,8 +160247,80 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "$Latest bez release kontroly",
-      "line": 548,
+      "section": "Closure verdict",
+      "line": 359,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Closure verdict",
+      "line": 359,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ASG references exact approved LT59;`, `každá AZ obsahuje healthy target cohortu;`, `žiadna LT58 instance neprijíma traffic;`, `forbidden management/inbound flows ostávajú blokované;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Closure verdict",
+      "line": 359,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Closure verdict",
+      "line": 359,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Closure verdict",
+      "line": 359,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Closure verdict",
+      "line": 359,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ASG`, `LT59`, `AZ`, `LT58`, `P-884`, `workload`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "13. Ďalšie failure boundaries",
+      "line": 372,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "14. Troubleshooting sequence",
+      "line": 402,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "15. Recovery hierarchy",
+      "line": 420,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -160706,48 +160328,93 @@
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "EC2 health ako jediný application health signal",
-      "line": 552,
+      "section": "15. Recovery hierarchy",
+      "line": 420,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "CPU ako univerzálny scaling signal",
-      "line": 556,
+      "section": "16. Earlier controls",
+      "line": 434,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "16. Earlier controls",
+      "line": 434,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "Jedna subnet/AZ",
-      "line": 560,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "16. Earlier controls",
+      "line": 434,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "Long-lived access keys v user data",
-      "line": 564,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "16. Earlier controls",
+      "line": 434,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pinned launch template version;`, `immutable AMI provenance a architecture matrix;`, `boot/bootstrap/private-IP listener test;`, `IMDSv2 a least-privilege instance profile;`.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
-      "section": "Scale-in bez drainu",
-      "line": 568,
+      "section": "16. Earlier controls",
+      "line": 434,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "16. Earlier controls",
+      "line": 434,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "16. Earlier controls",
+      "line": 434,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "16. Earlier controls",
+      "line": 434,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AMI`, `IP`, `EC2`, `AZ`, `SLI`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/ec2-auto-scaling.md",
+      "section": "Referenčné rozlíšenia",
+      "line": 450,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/ecs-eks.md",
