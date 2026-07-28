@@ -326,6 +326,10 @@ Peer-to-peer cluster communication medzi Alertmanager replicas na replikáciu si
 
 YAML referencia na node označený anchorom. Znižuje duplicitu, ale môže komplikovať tooling a čitateľnosť. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
 
+## Allocation-rule generation
+
+Versionovaná sada tag, account, Cost Category a shared-cost rules použitá na mapovanie billing line items k owners/products. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## Allowed failure
 
 Pipeline stav, pri ktorom zlyhanie jobu zostane viditeľné, ale neblokuje definovaný downstream alebo celkový pipeline result. Musí mať explicitný dôvod a ownership. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
@@ -558,6 +562,10 @@ Mandatory Access Control profil definujúci povolené paths, execute transitions
 
 Host-level Linux Security Module profil obmedzujúci filesystem, capability, network a ďalšie operations container procesu podľa Node a runtime podpory. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
+## Applicability verdict — Well-Architected
+
+Explicitné rozhodnutie, či best practice je implemented, partial, missing, not applicable s evidence alebo unknown pre chýbajúce dôkazy. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## Application acceptance subject — Kubernetes
 
 Spoločná identita clusteru, top-level object UID/generation, dependent resources, Pod image/config/secret generations, eligible endpoints a business verification potrebná na prijatie rollout-u. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
@@ -745,6 +753,10 @@ Signed statement, ktorý viaže subject digest na konkrétny predicate a identit
 ## Attribute-Based Access Control — ABAC
 
 Authorization model používajúci attributes principalu, resource-u, action a environmentu na vytvorenie access decisionu. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## Attributed unit cost
+
+Total spoľahlivo allocated workload cost vydelený validným business outcome volume-om v comparable period a cost view. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## Audience — OAuth/OIDC/SAML
 
@@ -1190,6 +1202,10 @@ Miera, do akej nižší environment zachováva produkčne relevantné protokoly,
 
 Kubernetes QoS class pre Pod bez CPU a memory requests alebo limits podľa platných QoS calculation pravidiel; scheduler nemá deklarovanú potrebu a Pod je pri resource pressure typicky najzraniteľnejší. Pozri [Requests, limits a QoS](docs/09-kubernetes/requests-limits-qos.md).
 
+## Billing-generation identity
+
+Exact billing dataset, period, payer scope, pricing/discount rules, cost metric a finalized/estimated state použitý pri cost reasoning. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## Bind — LDAP
 
 LDAP operation, ktorá nastavuje authentication state connectionu pomocou anonymous, simple alebo SASL mechanismu. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
@@ -1478,6 +1494,10 @@ Kubernetes QoS class pre Pod, ktorý nie je Guaranteed a má aspoň niektorý re
 
 Recovery verdict, pri ktorom technical release state, durable data, event/contracts, external integrations a pôvodný business outcome tvoria vzájomne kompatibilný celok. Technicky úspešný manifest rollback bez spracovateľného backlogu nie je business-compatible recovery. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Business-dirty recovery point
+
+Technicky validný a restore-nuteľný recovery point, ktorý už obsahuje logical corruption, attacker changes alebo business-inconsistent state. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Business idempotency boundary
 
 Stable operation identity a uniqueness/reconciliation contract pokrývajúci database changes aj external side effects, nie iba jeden local table insert. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
@@ -1485,6 +1505,10 @@ Stable operation identity a uniqueness/reconciliation contract pokrývajúci dat
 ## Business Impact Analysis — BIA
 
 Proces určujúci kritické business capabilities, dopad výpadku, maximálne tolerované prerušenie, data-loss toleranciu, dependencies a priority obnovy. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Business-outcome lens
+
+Custom Well-Architected lens, ktorá pridáva domain-specific failure scenarios, evidence a acceptance criteria viazané na business capability. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## Business recovery subject
 
@@ -1690,6 +1714,10 @@ Patologické správanie backtracking regex engine-u, pri ktorom ambiguous nested
 
 Policy obmedzujúca počet, concurrency a downstream load missed scheduled runs spustených po controller alebo control-plane recovery. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
 
+## Causal risk statement
+
+Risk description spájajúci cause, failure mechanism a konkrétny business/technical impact namiesto vágneho control alebo checklist findingu. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## CEL policy
 
 Policy vyjadrená pomocou Common Expression Language, napríklad v Kubernetes ValidatingAdmissionPolicy alebo MutatingAdmissionPolicy. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
@@ -1889,6 +1917,10 @@ Contract, ktorým IngressClass alebo GatewayClass vyberá controller implementat
 ## Clean image rebuild
 
 Nový build z trusted source a kontrolovaných inputs po odstránení kompromitovaného source, secret alebo cache pathu; vytvára nový digest a nové evidence. Pozri [Dockerfile](docs/08-container-fundamentals-and-docker/dockerfile.md).
+
+## Clean recovery candidate
+
+Recovery point alebo manifest set preukázateľne vytvorený pred corruption/compromise boundary a vhodný pre business recovery po zohľadnení RPO a reconciliation. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## Clean restore verdict
 
@@ -2246,6 +2278,10 @@ Zraniteľnosť, pri ktorej neoverený vstup zmení syntax alebo spustí dodatoč
 
 Git object obsahujúci root tree snapshotu, parent commits, author/committer metadata a commit message. Pozri [Git object model](docs/03-git-and-automation/git-object-model.md).
 
+## Commitment baseline — AWS cost
+
+Forecast stabilného useful eligible usage po odstránení incident, retry, migration a temporary waste, používaný pred Savings Plan alebo reservation purchase. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## Compatibility dimension
 
 Jedna z vrstiev, v ktorých sa hodnotí backward compatibility, napríklad source, binary, schema, behavior, operational, security, data alebo performance contract. Version bump musí vychádzať z affected dimensions a consumer evidence, nie iba zo syntaktického diffu. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
@@ -2446,6 +2482,10 @@ Versionovaný approved input configuration pred vytvorením Kubernetes API objec
 
 Presná identity pipeline compilation rozhodnutia tvorená source alebo candidate SHA, pipeline source, root CI revision, resolved include/component versions, resolved configuration digest, expected job inventory a relevantný runner/executor context. Pozri [GitLab CI/CD syntax](docs/06-gitlab/gitlab-ci-cd-syntax.md).
 
+## Configured control
+
+Policy, resource, alarm, redundancy alebo runbook, ktorý existuje v deklarovanom/current state-e, ale ešte nemusí byť preukázane effective. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## Conftest
 
 Nástroj používajúci OPA/Rego na testovanie structured configuration, napríklad YAML, JSON alebo Terraform planov, pred runtime enforcementom. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
@@ -2513,6 +2553,14 @@ Kontrakt definovaný consumerom podľa interactions, ktoré reálne potrebuje, a
 ## Consumer inventory — Terraform module
 
 Evidencia module consumers, používaných versions, environments, owners, provider/Terraform constraints a podporovaných upgrade paths. Umožňuje bezpečné deprecation, security remediation a retirement starého contractu. Pozri [Modules](docs/07-infrastructure-as-code-and-configuration-management/modules.md).
+
+## Consumer-loaded secret state
+
+Secret version a credential generation skutočne načítaná konkrétnym processom, taskom, Lambda environmentom, sidecarom alebo connection poolom. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Consumer refresh gate — secret rotation
+
+Evidence gate vyžadujúci, aby intended consumer cohorts načítali novú secret version, obnovili connections a úspešne autentizovali pred revocation old credentialu. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Container
 
@@ -2677,6 +2725,10 @@ Opakované alebo event-driven prehodnocovanie identity, posture, session a conte
 ## Continuous Well-Architected
 
 Integrácia architektúrnych controls, review questions, operational evidence a improvement backlogu do priebežného delivery a operations lifecycle-u. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## Continuous Well-Architected loop
+
+Priebežné prepájanie architecture decisions, deployment evidence, SLO/security/cost signals, failure drills, findings, improvements, validation a milestones. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## Contract drift
 
@@ -2866,6 +2918,14 @@ Aktivovaný resource tag používaný v AWS billing a cost datasets na grouping,
 
 Business mapping vrstva, ktorá klasifikuje billing line items podľa rules nad accounts, services, tags a ďalšími dimensions. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
+## Cost containment verdict
+
+Rozhodnutie, že bounded action zastavila rastúci spend driver bez neprimeraného business, recovery, security alebo evidence damage. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Cost-data cut-off
+
+Timestamp freshness boundary, po ktorú sú line items a adjustments zahrnuté v konkrétnej cost report alebo incident analysis generácii. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## Cost incident
 
 Neočakávaný alebo nekontrolovaný spend event spôsobený napríklad útokom, retry loopom, autoscalingom, telemetry explóziou alebo chybnou konfiguráciou. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
@@ -2873,6 +2933,10 @@ Neočakávaný alebo nekontrolovaný spend event spôsobený napríklad útokom,
 ## Cost Optimization pillar
 
 Well-Architected pillar zameraný na poskytovanie business value pri efektívnom total cost počas lifecycle-u. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## Cost-view identity
+
+Exact unblended, blended, amortized, net amortized alebo invoice perspective použitá v report-e; zmena view môže zmeniť trend bez zmeny usage. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## Counter — metric
 
@@ -2914,6 +2978,10 @@ Riziko, že credential alebo Secret prečítaný pred RBAC revokáciou zostáva 
 
 Client-side store obsahujúci TGT a service tickets pre aktuálnu Kerberos session. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
+## Credential overlap window
+
+Riadené obdobie, počas ktorého old a new credentials môžu byť súčasne platné, aby sa dokončil mixed-cohort refresh bez outage-u; musí mať bounded duration a revocation verdict. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## Credential revocation verdict
 
 Dôkaz, že nový credential je načítaný a funkčný, starý credential bol zrušený u authoritative providera a pokus o jeho použitie zlyhá. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
@@ -2954,6 +3022,14 @@ Kópia recovery pointu do oddeleného AWS accountu na zníženie credential a ad
 
 Vytváranie binary pre target platform odlišnú od build host platformy pomocou toolchainu a automatic platform arguments ako `TARGETOS` a `TARGETARCH`. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
 
+## Cross-pillar decision — Well-Architected
+
+Versionované architecture rozhodnutie zaznamenávajúce benefit, trade-offs, guardrails a validation naprieč reliability, security, performance, operations, cost a sustainability outcomes. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## Cross-pillar optimization guardrail
+
+SLO, security, recovery, performance alebo capacity condition, ktorá musí zostať splnená počas cost optimization change-u. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## Cross-Region backup copy
 
 Kópia recovery pointu do iného AWS Regionu pre regionálnu isolation a disaster-recovery model. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
@@ -2985,6 +3061,10 @@ Zneprístupnenie encrypted dát bezpečným zničením všetkých key copies pot
 ## Cryptographic agility
 
 Schopnosť inventarizovať a kontrolovane meniť cryptographic algorithms, protocols, parameters, certificates a key mechanisms bez neplánovaného prepisu celého systému. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
+
+## Cryptographic authorization verdict — KMS
+
+Effective allow alebo deny výsledok z caller/session identity, IAM/SCP/boundary/session policies, key policy, grant constraints, key state, encryption context, endpoint policy a service calling pathu. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Cryptographic BOM — CBOM
 
@@ -3726,6 +3806,10 @@ Jednoznačný hierarchický názov LDAP entry, napríklad `uid=alice,ou=People,d
 
 CI cache uložená v shared backend-e, typicky object storage, aby ju mohli používať viaceré alebo autoscaled runners. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
 
+## Distributed recovery consistency
+
+Požiadavka, aby independently captured database, object, file, queue a external-system states tvorili logicky kompatibilný business checkpoint. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Distributed trace
 
 Model celej cesty requestu alebo operácie cez viac services a dependencies, zložený z navzájom prepojených spans. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
@@ -4202,6 +4286,14 @@ Výsledná množina permissions po vyhodnotení direct a inherited assignments, 
 
 Výsledná množina capabilities subjectu nad konkrétnym resource-om po vyhodnotení všetkých direct, inherited, shared, tokenových, custom-role a resource-policy access paths. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
 
+## Effective allocation coverage
+
+Podiel in-scope spendu priradený správnemu ownerovi cez dôveryhodné a validné dimensions, nie iba syntakticky vložený do default bucketu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## Effective backup coverage
+
+Dôkaz, že authoritative critical-resource inventory je skutočne vybraný current plan/assignmentom, má fresh source recovery point, required isolated copy a restore-test coverage. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Effective branch policy — GitLab
 
 Capability-specific výsledok všetkých project a inherited group branch rules, ktoré matchujú konkrétny branch alebo pattern. Nesmie sa odhadovať iba podľa jednej viditeľnej rule. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
@@ -4213,6 +4305,10 @@ Množina Linux capabilities aktuálne používaná kernelom pri privilege checks
 ## Effective capacity
 
 Kapacita skutočne dostupná workloadu po zohľadnení quotas, reservations, failures, topology, limits a maintenance, nie iba nominálny súčet resources. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
+## Effective control
+
+Control otestovaný alebo pozorovaný proti intended threat/failure a preukázane vytvárajúci required technical a business outcome. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## Effective firewall verdict — container
 
@@ -4410,6 +4506,10 @@ Cryptographic ochrana dát uložených v persistentných médiách, databázach,
 
 Vault cryptographic boundary chrániaca storage data; sealed Vault nemá v memory kľúče potrebné na ich decryption. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
+## Encryption-context binding
+
+Cryptographic väzba ciphertext operation na exact non-secret key-value context, ktorý musí byť zhodný pri decrypt a môže byť použitý v KMS policy/grant conditions. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## Encryption context — KMS
 
 Non-secret key-value context kryptograficky viazaný na podporovanú KMS encrypt/decrypt operation a použiteľný v policy conditions a audite. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
@@ -4505,6 +4605,10 @@ Stabilný identifier SAML Identity Providera alebo Service Providera používan�
 ## Envelope encryption
 
 Model, v ktorom data key šifruje application data a dlhodobejší KMS key šifruje samotný data key. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Envelope-encryption subject
+
+Exact payload/ciphertext, plaintext a encrypted data-key identity, protecting KMS key/material, encryption context a caller/service path potrebné na encrypt/decrypt reasoning. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Environment drift
 
@@ -4654,6 +4758,10 @@ Kontrola, že pre presný candidate existuje celý očakávaný manifest require
 
 Preukázaný set accounts, Regions, resources, event categories, log groups, metrics, cohorts a retention windows, ktoré observability/audit design skutočne zbiera; neprítomný selector alebo source nemožno nahradiť neskorším query. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
 
+## Evidence cut-off — architecture review
+
+Časová hranica určujúca, ktoré configuration, telemetry, test, incident, cost a policy evidence patria do konkrétnej review generation. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## Evidence-driven review
 
 Architektúrny review, v ktorom odpovede podporujú aktuálne configuration, telemetry, tests, policies, incidents a ďalšie overiteľné dôkazy. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -4754,6 +4862,10 @@ Backward-compatible database alebo API migration pattern, ktorý najprv pridá n
 
 Vopred validovaná množina paths a named contexts, ktoré musia alebo nesmú byť dostupné builderu. Pozri [Build context a layer cache](docs/08-container-fundamentals-and-docker/build-context-layer-cache.md).
 
+## Expected evidence inventory — review
+
+Vopred definované observation sources, owners, freshness limits a allowed/forbidden outcomes potrebné na zodpovedanie review questions. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## Expected evidence inventory — Terraform
 
 Vopred definovaná množina testov, reportov, planov, policy verdictov, cleanup výsledkov a runtime overení požadovaných pre konkrétnu risk class. Chýbajúca položka znamená incomplete evidence, nie pass. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
@@ -4809,6 +4921,10 @@ Entita randomizovaná do variantu experimentu, napríklad používateľ, tenant,
 ## Experiment validity
 
 Vlastnosť experimentu, pri ktorej baseline, target, fault, workload a observation zodpovedajú deklarovanému contractu natoľko, aby výsledok mohol potvrdiť alebo vyvrátiť hypotézu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Expiring risk acceptance
+
+Explicitné prijatie residual risku accountable ownerom s rationale, compensating controls, expiry a re-review triggers. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## Explicit deny — IAM
 
@@ -5114,9 +5230,21 @@ Contract medzi object deletion a controllerom určujúci exact external/dependen
 
 Qualified metadata string blokujúci finálne odstránenie objectu, kým zodpovedný controller nedokončí cleanup a finalizer neodstráni. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Financial data freshness
+
+Informácia o delay, estimated/finalized state a late adjustments cost datasetu potrebná pred budget, anomaly alebo incident decisionom. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## FinOps
 
 Operating model spájajúci engineering, finance a business pri rozhodovaní o cloud value, cost, usage a trade-offoch. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## FinOps closure verdict
+
+Dôkaz, že cost driver bol kauzálne identifikovaný, change bezpečne nasadený, business/SLO guardrails zachované a normalized realized value potvrdená v complete data periods. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
+## FinOps subject
+
+Versionovaná identita payer/workloadu, billing period/dataset, pricing, allocation, commitments, business unit, owners, SLO guardrails a expected value outcome. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## Firing alert
 
@@ -6338,6 +6466,10 @@ Dependency declaration mechanism prenášajúci vybrané exported alebo mapped c
 
 Prioritizovaný súbor konkrétnych remediation položiek s ownerom, target state-om a validation criteria po workload review. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
+## Improvement validation — Well-Architected
+
+Subject-bound test a evidence, ktoré preukazujú, že implemented improvement odstránil failure mechanism bez vytvorenia forbidden outcomes. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## in-toto
 
 Framework a metadata model pre zaznamenanie a overenie supply-chain steps, materials, products a autorizovaných functionaries. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
@@ -6349,6 +6481,10 @@ Supply-chain attestation structure obsahujúca subject digest, predicate type a 
 ## Incident closure verdict — Docker
 
 Verdict potvrdzujúci, že authoritative recovery je nasadená, pôvodný business outcome funguje, forbidden outcomes sú absent, adjacent scope bol overený a skorší preventive control má ownera. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
+## Incident usage — FinOps
+
+Metered compute, request, transfer, storage alebo telemetry volume vytvorený failure amplification, attackom alebo remediation a nevhodný ako normal commitment alebo forecast baseline. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## `include` — Helm
 
@@ -6602,6 +6738,10 @@ IPv6 adresa z `fe80::/10` platná v lokálnom linkovom scope. Pozri [IPv4, IPv6 
 
 Bod API storage, CRD conversion, schema, data alebo external-state transitionu, po ktorom stará generácia už nemusí byť bezpečná rollback target. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
 
+## Isolated-copy acceptance
+
+Dôkaz, že required cross-account/Region alebo locked-vault copy job dokončil intended destination recovery point s correct key, retention a restore access. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Isolated subnet — AWS
 
 Subnet bez všeobecného inbound internet pathu aj bez general outbound internet pathu; môže používať iba explicitné private connectivity targets. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
@@ -6722,6 +6862,10 @@ Privilegovaná časť systému, v ktorej kernel spravuje procesy, memory, device
 
 Signing model používajúci dlhodobejší private key a distribuovaný public key alebo certificate ako trust anchor. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
+## Key dependency manifest — KMS
+
+Versionovaný inventory encrypted resources, ciphertext/data-key histories, grants, aliases, cross-account consumers, backups a recovery paths potrebný pred disable alebo deletion KMS key-u. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## Key Encryption Key — KEK
 
 Cryptographic key používaný na wrap alebo encryption iných keys, najmä Data Encryption Keys v envelope-encryption architektúre. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
@@ -6730,9 +6874,17 @@ Cryptographic key používaný na wrap alebo encryption iných keys, najmä Data
 
 Centralizovaná služba poskytujúca kontrolovaný key lifecycle, authorization, audit a cryptographic operations; nechráni automaticky application plaintext ani nesprávne decrypt permissions. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
+## Key-material generation — KMS
+
+Konkrétna cryptographic-material generation používaná KMS key-om po creation alebo rotation, pričom logical key ID môže zostať nezmenené. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## Key policy — KMS
 
 Resource policy priamo pripojená ku KMS key, ktorá je fundamentálnou súčasťou autorizácie management a cryptographic operations. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Key retirement verdict
+
+Rozhodnutie, že nový encrypt path je active, všetky retained ciphertext/backups majú tested decrypt path, grants/consumers sú inventoried a old KMS key možno bezpečne disable-nuť alebo delete-nuť. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Key version number — KVNO
 
@@ -6765,6 +6917,10 @@ Programaticky vytvorený permission objekt umožňujúci grantee principalovi ko
 ## KMS key
 
 Logical AWS KMS resource reprezentujúci cryptographic key, jeho metadata, policy, state, aliases a key-material lifecycle. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## KMS logical key identity
+
+Dlhodobá KMS key identity viazaná na key ID/ARN, policy, state, usage, origin, aliases a grants; môže prežiť viac key-material rotations. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Known Exploited Vulnerabilities — KEV
 
@@ -7202,6 +7358,10 @@ Jedna business alebo caller-visible operácia bez ohľadu na počet interných r
 
 Ľudsky alebo procesne významná verzia, napríklad `2.8.1`, ktorá komunikuje release alebo compatibility význam, ale sama nemusí identifikovať konkrétne bytes bez väzby na digest. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
 
+## Logically air-gapped restore access
+
+Controlled temporary path, cez ktorý recovery account môže restore-nuť recovery points z logically air-gapped vaultu po required authorization/approval. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Logically air-gapped vault — AWS Backup
 
 Špeciálny backup vault s dodatočnou logical isolation a Vault Lock compliance ochranou pre ransomware a recovery use cases. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
@@ -7474,6 +7634,10 @@ Jemnozrnná isolation a traffic policy medzi workloadmi alebo resource groups, k
 
 Minimalizovaná VM s rýchlejším startupom a menším overheadom pri zachovaní virtualized-kernel boundary. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
+## Milestone generation — Well-Architected
+
+Immutable snapshot konkrétnej review/risk/evidence state generácie používaný na porovnanie progressu, nie ako perpetual current-state proof. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## Milestone — Well-Architected
 
 Snapshot stavu workload review-u v konkrétnom čase používaný na meranie zmeny risku a improvement progressu. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -7645,6 +7809,10 @@ Nekonvergentný stav, pri ktorom dva individuálne idempotentné controllers aut
 ## Multi-loop ownership
 
 Rozdelenie autoritatívnych fields a signals medzi HPA, VPA, Node autoscaler, GitOps a workload controller tak, aby loops nebojovali alebo neoscilovali. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
+
+## Multi-party recovery approval
+
+Workflow vyžadujúci súhlas viacerých independent trusted approvers pred high-impact restore-access operáciou nad logically air-gapped vaultom. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## Multi-platform build
 
@@ -8049,6 +8217,10 @@ Jednorazová hodnota viažuca ID Token na konkrétny authentication request a po
 ## Nondeterministic template — Helm
 
 Template používajúci live lookup, čas, random generation alebo iný mutable input, takže rovnaký chart a values nemusia vytvoriť rovnaký manifest. Pozri [Template functions a pipelines](docs/10-helm-and-cka/template-functions-pipelines.md).
+
+## Normalized realized savings
+
+Post-change cost reduction očistená o business volume, seasonality, pricing/commitments, migration cost a secondary impacts. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## Normalized route
 
@@ -9346,6 +9518,14 @@ Environment s obmedzenou deployment identitou, approval alebo policy pravidlami 
 
 GitLab environment s obmedzeným allowed-to-deploy alebo approval modelom pre citlivé runtime targety, napríklad production. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
 
+## Protected-resource generation — AWS Backup
+
+Exact source resource ARN/configuration/data generation, ktorá má byť vybraná effective backup assignmentom a zachytená konkrétnym jobom. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Protected-value subject — AWS
+
+Versionovaná identita business value alebo credentialu, KMS key/materialu, secret version/stage, target credentialu, consumer-loaded state-u a required business outcome-u použitá pri encryption a secret lifecycle reasoning. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## Protected variable — GitLab
 
 CI/CD variable sprístupnená iba pipeline contextom na protected refs podľa GitLab trust pravidiel; stále vyžaduje bezpečný runner a pipeline kód. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
@@ -9658,6 +9838,14 @@ Zber performance a error telemetry zo skutočných používateľských klientov 
 
 Rozdiel medzi successful control-plane API requestom zaznamenaným CloudTrailom a neskoršou controller/runtime/application realizáciou desired state-u, ktorú treba overiť service a business telemetry. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
 
+## Realized RPO — AWS recovery
+
+Skutočná data-loss exposure odvodená od incident/corruption boundary, selected clean recovery generation, capture/copy gaps a unreconciled external side effects. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Realized RTO — AWS recovery
+
+End-to-end interval od detection/decision cez access, restore, initialization, dependencies, validation, reconciliation a cutover po business acceptance. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Realized savings
 
 Úspora reálne overená po implementácii optimization change-u, nie iba estimated recommendation. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
@@ -9677,6 +9865,10 @@ Komponent telemetry pipeline, ktorý prijíma signals cez OTLP, scrape, logs ale
 ## Reclaim policy — Kubernetes storage
 
 PV lifecycle pravidlo `Delete` alebo `Retain` určujúce, čo sa má stať s PV a podľa drivera backing storage po uvoľnení claimu; nie je náhradou backup policy. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
+
+## Recommendation-to-realization gap
+
+Rozdiel medzi estimated savings recommendation a skutočne implemented, stable a normalized measured financial outcome. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
 ## Reconciliation
 
@@ -9706,6 +9898,10 @@ Dôkaz, že controller, kubelet/runtime, dataplane alebo external system po repa
 
 Pravidelne vyhodnocovaná PromQL expression, ktorej výsledok sa uloží ako nová time series pre opakované alebo drahé výpočty. Pozri [Prometheus](docs/12-observability/prometheus.md).
 
+## Recovery acceptance verdict — AWS
+
+Closure dôkaz, že selected recovery generation je clean a consistent, application/business invariants fungujú v RTO/RPO, old writers sú fenced a forbidden exposure/duplicate outcomes nevznikajú. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Recovery authority
 
 Explicitný owner a state-generation contract určujúci, kto smie deklarovať disaster, vybrať recovery point, povýšiť writer-a, otvoriť traffic a vykonať failback. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
@@ -9726,9 +9922,17 @@ Aktuálny dôkaz, že konkrétny predchádzajúci release možno bezpečne použ
 
 Pre-change alebo incident-time rozhodnutie, či konkrétny rollback, roll-forward, compensation alebo restore candidate je kompatibilný s current artifacts, APIs, data, events, credentials a external systems. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Recovery fencing
+
+Mechanizmus, ktorý zabráni corrupted alebo old production writers spracúvať nové writes/side effects počas restore, reconciliation a traffic cutoveru. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Recovery keys — Vault
 
 Quorum material používaný pri vybraných privileged Vault operations v auto-unseal modeli; nenahrádza stratený auto-unseal key. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## Recovery manifest — AWS
+
+Immutable mapping exact database restore time/log markerov, object versions/checksums, filesystem points, artifact/schema, keys/secrets, IaC a reconciliation cursoru do jednej recoverable generation. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## Recovery observation
 
@@ -9749,6 +9953,10 @@ Skutočný vek alebo bod obnovených dát dosiahnutý pri recovery teste alebo i
 ## Recovery point — AWS Backup
 
 Backup reprezentujúci obsah resource-u v konkrétnom čase spolu s lifecycle, encryption a recovery metadata. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Recovery-point generation
+
+Konkrétny service-specific captured state s recovery-point ARN, source identity, timestamps, vault, encryption, retention a restore metadata. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## Recovery Point Objective — RPO
 
@@ -9773,6 +9981,10 @@ Súbor artifacts potrebný na obnovu, zahŕňajúci etcd snapshot, PKI, encrypti
 ## Recovery-set manifest
 
 Versionovaný inventár data checkpointov, transaction logs, IaC, artifacts, configuration, identities, KMS/PKI, DNS, external integration state, telemetry a runbookov potrebných na obnovu business capability. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Recovery subject — AWS Backup
+
+Versionovaná identita workload data, RPO/RTO, backup plan/assignment, recovery points, copy/vault/key lineage, recovery manifest, restore target a business validation. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## Recovery Time Actual — RTA
 
@@ -10370,6 +10582,14 @@ Opakovaný crash a automatický restart containeru podľa restart policy alebo e
 
 Séria koordinovaných alebo opakovaných container restartov vyvolaná chybnou liveness/startup probe alebo spoločnou dependency failure, ktorá môže incident ďalej zhoršiť. Pozri [Probes](docs/09-kubernetes/probes.md).
 
+## Restore authority
+
+Time-bound principal, role a approval scope oprávnený vybrať recovery manifest, vytvoriť resources s protected data a rozhodnúť o validation/promotion. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Restore generation — AWS
+
+Nový resource topology vytvorený z exact recovery pointu a restore metadata s vlastnou network, identity, encryption, schema a initialization state identity. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
 ## Restore rehearsal
 
 Pravidelný test obnovy reálneho backup artifactu v izolovanom prostredí vrátane merania RTO a application consistency validation. Pozri [etcd backup a restore](docs/09-kubernetes/etcd-backup-restore.md).
@@ -10377,6 +10597,10 @@ Pravidelný test obnovy reálneho backup artifactu v izolovanom prostredí vrát
 ## Restore testing — AWS Backup
 
 Policy-driven pravidelné obnovenie recovery pointu do test targetu s následnou technical a application validation. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
+
+## Restore-validation contract
+
+Explicitné technical, data, schema, business, performance, isolation a cleanup checks, ktoré musia prejsť po restore-testing alebo incident restore jobe. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
 
 ## Restored etcd cluster identity
 
@@ -10438,6 +10662,10 @@ Proxy zastupujúci serverové služby voči klientom a vykonávajúci napríklad
 
 Dočasný dynamic environment vytvorený pre branch alebo merge request na overenie zmeny pred merge, s vlastným URL a cleanup lifecycle. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
 
+## Review-staleness trigger
+
+Zmena release-u, topology, provider, SLO/RTO/RPO, incident, test failure alebo risk expiry, ktorá invaliduje affected Well-Architected answers a vyžaduje re-review. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
 ## Revision high-water mark
 
 Najvyššia pre-incident etcd revision, ktorú mohli controllers/clients pozorovať; používa sa pri návrhu bezpečného restore revision bump-u. Pozri [etcd backup a restore](../docs/09-kubernetes/etcd-backup-restore.md).
@@ -10477,6 +10705,14 @@ Access model meniaci allow, deny, step-up, session lifetime alebo povolené acti
 ## Risk-based deployment
 
 Rollout policy, ktorá mení exposure, observation window, human boundary alebo recovery mechanizmus podľa business criticality, blast radiusu a compatibility rizika konkrétnej zmeny. Pozri [Continuous Deployment](docs/05-ci-cd-and-release/continuous-deployment.md).
+
+## Risk-closure lifecycle
+
+Flow od evidence-backed failure scenario a risk decisionu cez owned improvement change, validation a residual-risk verdict po milestone a re-review. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## Risk closure verdict — Well-Architected
+
+Dôkaz, že improvement bol nasadený, intended failure scenario bol otestovaný, forbidden outcomes nevznikli a residual risk je odstránený alebo explicitne accepted. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## Role-Based Access Control — RBAC
 
@@ -10617,6 +10853,10 @@ Container/runtime model bez host-root daemon identity, typicky cez user namespac
 ## Rootless Docker
 
 Docker daemon a containers spustené bez host root identity s user-namespace a userspace mechanizmami, znižujúce niektoré host privilege riziká za cenu feature a networking obmedzení. Pozri [Docker architecture](docs/08-container-fundamentals-and-docker/docker-architecture.md).
+
+## Rotation split-brain — secret lifecycle
+
+Failure stav, v ktorom secret-store labels, target-valid credentials a consumer-loaded generations ukazujú na odlišné values alebo principals. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Route
 
@@ -11130,6 +11370,10 @@ Namespaced API objekt pre citlivé bytes alebo strings, ktorého base64 reprezen
 
 Proces creation, storage, authorization, distribution, use, rotation, revocation a destruction secretu. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
+## Secret lifecycle subject
+
+Exact secret ARN, metadata/KMS generation, version IDs, staging labels, rotation workflow, target credential principals, consumer cohorts a loaded-state evidence. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
 ## Secret lifecycle subject — Ansible Vault
 
 Riadená identita secretu zahŕňajúca logical secret ID, target system, environment, owner, consumer inventory, secret epoch, encrypted artifact, vault domain, decryption identity, runtime destinations, rotation deadline a revocation status. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
@@ -11137,6 +11381,10 @@ Riadená identita secretu zahŕňajúca logical secret ID, target system, enviro
 ## Secret push protection — GitLab
 
 Pre-receive alebo push-time kontrola, ktorá deteguje podporované secret patterns pred prijatím commitu a môže push zablokovať. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
+
+## Secret recovery acceptance verdict
+
+Closure dôkaz, že current labels, target credentials, consumer-loaded state, privileges, replicas a business authentication journey sú zosúladené a retired credentials zlyhávajú. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Secret replication — Secrets Manager
 
@@ -11562,6 +11810,10 @@ Security alebo operations control, pri ktorom provider poskytuje platform capabi
 
 Presné rozhranie, kde provider dodáva capability a zákazník vlastní activation, configuration, identity, monitoring, evidence alebo recovery use; shared neznamená nejasného ownera. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
+## Shared-cost driver
+
+Measured alebo business-agreed usage dimension, napríklad bytes, requests, vCPU-hours alebo build minutes, použitá na rozdelenie shared platform costu. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## Shared-file namespace
 
 EFS file/directory identity zdieľaná concurrent NFS clients s POSIX ownership, permission, locking a publication semantics. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
@@ -11921,6 +12173,10 @@ Incident, pri ktorom secret prejde cez generated artifact, `COPY --from`, cache 
 ## Staging area
 
 Používateľský názov pre Git index ako pripravovaný snapshot ďalšieho commitu. Pozri [Working tree, staging area a repository](docs/03-git-and-automation/working-tree-staging-repository.md).
+
+## Staging-label transition — Secrets Manager
+
+Riadený presun labelov ako `AWSPENDING`, `AWSCURRENT` a `AWSPREVIOUS` medzi immutable secret versions; nepreukazuje sám target ani consumer state. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Stale approval — GitLab
 
@@ -12401,6 +12657,10 @@ Key/value/effect značka na Node-e, ktorá odpudzuje Pody bez matching toleratio
 ## Taint-repulsion verdict
 
 Rozhodnutie, či incoming Pod toleruje všetky relevantné Node taints pre daný effect; toleration sama Node nevyberá. Pozri [Taints, tolerations, affinity a topology](../docs/09-kubernetes/taints-tolerations-affinity-topology.md).
+
+## Target credential generation
+
+Credential value a principal state, ktoré target database, provider alebo service aktuálne akceptuje; nemusí sa zhodovať so secret version označenou `AWSCURRENT`. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
 ## Target-eligibility cohort — containers
 
@@ -13042,6 +13302,10 @@ Stav, keď policy query nevytvorí result; consumer musí explicitne určiť, č
 
 Cloud cost prepočítaný na business jednotku, napríklad request, transakciu, build alebo aktívneho používateľa. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
 
+## Unit-definition contract — FinOps
+
+Explicitná definícia validnej business jednotky, napríklad successful settled payment, ktorá zabraňuje zlepšeniu unit costu cez počítanie retry alebo failed worku ako value. Pozri [Cost management a FinOps](docs/11-cloud-and-aws/cost-management-finops.md).
+
 ## Unit test
 
 Rýchly test malej izolovanej jednotky správania s úzkym diagnostickým scope-om. Pozri [Unit, integration a component tests](docs/04-testing-and-quality/unit-integration-component-tests.md).
@@ -13617,6 +13881,10 @@ Identita workloadu a VM/container boundary zahŕňajúca release/image, kernel, 
 ## Workload-plane abort criterion
 
 Vopred definovaná Pod sandbox, network, storage, DNS, policy, telemetry alebo business podmienka, ktorá zastaví upgrade aj pri green control plane. Pozri [Upgrades](docs/09-kubernetes/upgrades.md).
+
+## Workload-review subject — Well-Architected
+
+Versionovaná identita business workloadu, release/topology, owners, constraints, lens/review generation, evidence window a expected outcomes hodnotená Well-Architected reviewom. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
 ## Workspace lifecycle
 
