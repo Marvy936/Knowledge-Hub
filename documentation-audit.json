@@ -2929,15 +2929,15 @@
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
       "title": "KMS a Secrets Manager",
-      "words": 1986,
-      "headings": 53,
-      "sections": 53,
-      "findings": 135,
-      "critical": 46,
-      "high": 56,
+      "words": 2760,
+      "headings": 51,
+      "sections": 51,
+      "findings": 105,
+      "critical": 31,
+      "high": 33,
       "medium": 20,
-      "low": 13,
-      "score": 1078,
+      "low": 21,
+      "score": 738,
       "grade": "D"
     },
     {
@@ -164297,8 +164297,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Exact protected-value subject",
+      "line": 22,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -164306,98 +164306,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `HSM`, `resource`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "2. KMS key types",
-      "line": 28,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "2. KMS key types",
-      "line": 28,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "2. KMS key types",
-      "line": 28,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `symmetric encryption keys,`, `asymmetric encryption keys,`, `asymmetric signing keys,`, `HMAC keys,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "2. KMS key types",
-      "line": 28,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "2. KMS key types",
-      "line": 28,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HMAC`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "3. AWS owned, AWS managed a customer managed keys",
-      "line": 42,
+      "section": "2. Štyri identity, ktoré sa nesmú zameniť",
+      "line": 74,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -164405,8 +164315,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Customer managed keys",
-      "line": 52,
+      "section": "Failure boundary: key rotation nie je re-encryption",
+      "line": 123,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -164414,26 +164324,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Customer managed keys",
-      "line": 52,
+      "section": "Failure boundary: key rotation nie je re-encryption",
+      "line": 123,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Customer managed keys",
-      "line": 52,
+      "section": "Failure boundary: key rotation nie je re-encryption",
+      "line": 123,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `key policy,`, `aliases,`, `enable/disable,`, `rotation configuration,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nemení key ID ani ARN;`, `nemení aliases a policy;`, `neprešifruje existujúce payloady;`, `nerotuje data keys uložené pri payloads;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Customer managed keys",
-      "line": 52,
+      "section": "Failure boundary: key rotation nie je re-encryption",
+      "line": 123,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -164441,71 +164351,71 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Customer managed keys",
-      "line": 52,
+      "section": "Failure boundary: key rotation nie je re-encryption",
+      "line": 123,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `ARN`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "4. Envelope encryption",
-      "line": 65,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "4. Envelope encryption",
-      "line": 65,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "4. Envelope encryption",
-      "line": 65,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľké dáta sa šifrujú lokálne efektívnym symmetric algoritmom,`, `master KMS key neopúšťa KMS boundary,`, `access možno auditovať a centrálne zablokovať,`, `jeden KMS key môže chrániť veľa data keys.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "4. Envelope encryption",
-      "line": 65,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "5. Key policy",
-      "line": 90,
+      "section": "Grants",
+      "line": 165,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 55 slov súvislého vysvetlenia.",
+      "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "5. Key policy",
-      "line": 90,
+      "section": "Grants",
+      "line": 165,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `key administrators,`, `key users,`, `service integrations,`, `cross-account principals,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact grantee principal;`, `povolené operations;`, `retiring principal;`, `encryption-context constraints;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "5. Key policy",
-      "line": 90,
+      "section": "Grants",
+      "line": 165,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Grants",
+      "line": 165,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "5. Encryption context je integrity a authorization input",
+      "line": 180,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `väzbu ciphertextu na tenant alebo resource identity;`, `key-policy a grant conditions;`, `audit correlation;`, `ochranu proti presunu ciphertextu do nesprávneho contextu.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "5. Encryption context je integrity a authorization input",
+      "line": 180,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "5. Encryption context je integrity a authorization input",
+      "line": 180,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -164513,116 +164423,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "6. IAM policies a KMS",
-      "line": 107,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "6. IAM policies a KMS",
-      "line": 107,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skutočný principal/session,`, `key ARN a Region,`, `key policy,`, `IAM policy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "6. IAM policies a KMS",
-      "line": 107,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "6. IAM policies a KMS",
-      "line": 107,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `SCP`, `RCP`, `VPC`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "7. KMS grants",
-      "line": 123,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "7. KMS grants",
-      "line": 123,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kms:CreateGrant ,`, `broad grantee principal,`, `chýbajúce constraints,`, `stale grants po resource deletion.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "7. KMS grants",
-      "line": 123,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "8. Encryption context",
-      "line": 138,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `integrity binding,`, `policy conditions,`, `audit context,`, `oddelenie tenants/resources.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "8. Encryption context",
-      "line": 138,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "8. Encryption context",
-      "line": 138,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "8. Encryption context",
-      "line": 138,
+      "section": "5. Encryption context je integrity a authorization input",
+      "line": 180,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `identity`, `policy`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "9. KMS aliases",
-      "line": 151,
+      "section": "6. Key types, ownership a rotation",
+      "line": 203,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `stable application reference,`, `controlled key replacement,`, `environment naming.`.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "9. KMS aliases",
-      "line": 151,
+      "section": "6. Key types, ownership a rotation",
+      "line": 203,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -164630,35 +164450,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "10. Key rotation",
-      "line": 163,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "10. Key rotation",
-      "line": 163,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `on-demand rotation podľa aktuálnych capabilities,`, `vytvorenie nového key a re-encryption migration,`, `imported/external key material rotation,`, `application credential rotation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "10. Key rotation",
-      "line": 163,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "10. Key rotation",
-      "line": 163,
+      "section": "6. Key types, ownership a rotation",
+      "line": 203,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -164666,8 +164459,71 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "10. Key rotation",
-      "line": 163,
+      "section": "6. Key types, ownership a rotation",
+      "line": 203,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Manual rotation",
+      "line": 219,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Manual rotation",
+      "line": 219,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Manual rotation",
+      "line": 219,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nere-encryptuje existujúce ciphertexty;`, `nemení key ID uložený v service metadata;`, `neoveruje, že consumers majú access na nový key;`, `neumožňuje vypnúť starý key bez dependency inventory.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Manual rotation",
+      "line": 219,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Manual rotation",
+      "line": 219,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Manual rotation",
+      "line": 219,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "7. Disable a deletion sú recovery decisions",
+      "line": 228,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -164675,764 +164531,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "11. Disable a deletion",
-      "line": 175,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "11. Disable a deletion",
-      "line": 175,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj encrypted resources,`, `analyzuj CloudTrail use,`, `over grants a aliases,`, `testuj recovery,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "11. Disable a deletion",
-      "line": 175,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "12. Multi-Region keys",
-      "line": 190,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `client-side encryption/decryption v rôznych Regions,`, `applications vyžadujúce rovnaký key identity/material contract.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "12. Multi-Region keys",
-      "line": 190,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "12. Multi-Region keys",
-      "line": 190,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "13. KMS service integration",
-      "line": 201,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "13. KMS service integration",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service volá KMS v mene principalu,`, `service používa grant,`, `service-linked role,`, `resource policy a encryption context,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "13. KMS service integration",
-      "line": 201,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "13. KMS service integration",
-      "line": 201,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "14. KMS observability",
-      "line": 213,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "14. KMS observability",
-      "line": 213,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "14. KMS observability",
-      "line": 213,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CloudTrail KMS API calls,`, `AccessDenied , disabled/pending deletion,`, `key policy/grant changes,`, `unusual decrypt volume,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "14. KMS observability",
-      "line": 213,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "14. KMS observability",
-      "line": 213,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `API`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "15. Secrets Manager secret model",
-      "line": 228,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "15. Secrets Manager secret model",
-      "line": 228,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ARN a name,`, `metadata/tags,`, `KMS key association,`, `versions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "15. Secrets Manager secret model",
-      "line": 228,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "15. Secrets Manager secret model",
-      "line": 228,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "15. Secrets Manager secret model",
-      "line": 228,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `KMS`, `resource`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "16. Secret versions a staging labels",
-      "line": 245,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `AWSCURRENT ,`, `AWSPREVIOUS ,`, `AWSPENDING počas rotation.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "16. Secret versions a staging labels",
-      "line": 245,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "16. Secret versions a staging labels",
-      "line": 245,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWSPREVIOUS`, `AWSPENDING`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "17. Retrieval",
-      "line": 259,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "17. Retrieval",
-      "line": 259,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `secretsmanager:GetSecretValue ,`, `KMS decrypt permission podľa key modelu,`, `network path alebo VPC endpoint,`, `resource policy/cross-account alignment,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "17. Retrieval",
-      "line": 259,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "17. Retrieval",
-      "line": 259,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "17. Retrieval",
-      "line": 259,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `VPC`, `resource`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "18. Rotation",
-      "line": 273,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `managed rotation,`, `managed external secret rotation,`, `Lambda-based rotation.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "18. Rotation",
-      "line": 273,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "19. Single-user a alternating-users rotation",
-      "line": 294,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "20. Rotation schedule",
-      "line": 306,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "21. Secret resource policy",
-      "line": 314,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "21. Secret resource policy",
-      "line": 314,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétny principal,`, `organization/account conditions,`, `KMS key cross-account policy,`, `identity-based allow v caller account-e,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "21. Secret resource policy",
-      "line": 314,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "21. Secret resource policy",
-      "line": 314,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "22. Secret replication",
-      "line": 329,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "22. Secret replication",
-      "line": 329,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-Region KMS key,`, `replication status,`, `rotation source-of-truth,`, `application failover config,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "22. Secret replication",
-      "line": 329,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "22. Secret replication",
-      "line": 329,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `resource`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "23. Deletion a recovery window",
-      "line": 345,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "23. Deletion a recovery window",
-      "line": 345,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over consumers cez CloudTrail a inventory,`, `disable rotation/integrations podľa workflowu,`, `test application replacement,`, `zachovaj recovery window,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "23. Deletion a recovery window",
-      "line": 345,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "24. Secrets Manager oproti Parameter Store",
-      "line": 357,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Secrets Manager",
-      "line": 359,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Secrets Manager",
-      "line": 359,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Secrets Manager",
-      "line": 359,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Secrets Manager",
-      "line": 359,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `natívny secret lifecycle,`, `versions/staging labels,`, `automatic rotation,`, `managed database integrations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Secrets Manager",
-      "line": 359,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Parameter Store",
-      "line": 367,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Parameter Store",
-      "line": 367,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Parameter Store",
-      "line": 367,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Parameter Store",
-      "line": 367,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration hierarchy,`, `String/StringList/SecureString,`, `jednoduchšie config a secret use cases,`, `Systems Manager integration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Parameter Store",
-      "line": 367,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "25. Application design",
-      "line": 377,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "25. Application design",
-      "line": 377,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používať workload identity, nie bootstrap access keys,`, `načítať secret cez SDK/provider,`, `cache-ovať s bezpečným TTL,`, `refresh-nuť po authentication failure kontrolovaným spôsobom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "25. Application design",
-      "line": 377,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "25. Application design",
-      "line": 377,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "25. Application design",
-      "line": 377,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`, `TTL`, `workload`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "26. Troubleshooting KMS AccessDenied",
-      "line": 392,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "27. Troubleshooting encrypted AWS resource",
-      "line": 411,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "27. Troubleshooting encrypted AWS resource",
-      "line": 411,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "27. Troubleshooting encrypted AWS resource",
-      "line": 411,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `key disabled,`, `service grant chýba,`, `key policy neumožňuje service/caller,`, `cross-account snapshot/resource používa iný key,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "27. Troubleshooting encrypted AWS resource",
-      "line": 411,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "27. Troubleshooting encrypted AWS resource",
-      "line": 411,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "28. Troubleshooting secret retrieval",
-      "line": 425,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "AccessDeniedException",
-      "line": 427,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Timeout",
-      "line": 431,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Aplikácia používa staré credentials",
-      "line": 435,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Rotation Failed",
-      "line": 439,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "29. Rotation incident workflow",
-      "line": 447,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "29. Rotation incident workflow",
-      "line": 447,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "29. Rotation incident workflow",
-      "line": 447,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "29. Rotation incident workflow",
-      "line": 447,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav automatické retries, ak preťažujú target,`, `zachovaj secret versions/staging labels a rotation logs,`, `identifikuj credentials platné v target service,`, `over consumers a cache,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "29. Rotation incident workflow",
-      "line": 447,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "29. Rotation incident workflow",
-      "line": 447,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "29. Rotation incident workflow",
-      "line": 447,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWSCURRENT`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "30. SOA-C03 mapovanie",
-      "line": 460,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "30. SOA-C03 mapovanie",
-      "line": 460,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "30. SOA-C03 mapovanie",
-      "line": 460,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "30. SOA-C03 mapovanie",
-      "line": 460,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `encrypted EBS launch zlyhá pre KMS key policy,`, `Secrets Manager retrieval blokuje endpoint policy,`, `rotation Lambda nevie dosiahnuť private RDS,`, `application cache drží staré credentials,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "30. SOA-C03 mapovanie",
-      "line": 460,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "30. SOA-C03 mapovanie",
-      "line": 460,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "30. SOA-C03 mapovanie",
-      "line": 460,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "30. SOA-C03 mapovanie",
-      "line": 460,
+      "section": "8. Secrets Manager lifecycle",
+      "line": 247,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -165440,17 +164540,449 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "30. SOA-C03 mapovanie",
-      "line": 460,
+      "section": "9. Single-user a alternating-users rotation",
+      "line": 279,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Alternating users",
+      "line": 285,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "10. Staging labels nie sú target truth",
+      "line": 291,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "10. Staging labels nie sú target truth",
+      "line": 291,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či target service túto credential value akceptuje;`, `či value má správne privileges;`, `či všetky consumers načítali túto version;`, `či existujúce pooled sessions používajú staré credentials;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "10. Staging labels nie sú target truth",
+      "line": 291,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "10. Staging labels nie sú target truth",
+      "line": 291,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "10. Staging labels nie sú target truth",
+      "line": 291,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "11. Runtime retrieval, caching a connection pools",
+      "line": 303,
       "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 50 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "11. Runtime retrieval, caching a connection pools",
+      "line": 303,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximum TTL;`, `refresh jitter;`, `refresh pri authentication failure;`, `single-flight ochranu pred refresh stormom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "11. Runtime retrieval, caching a connection pools",
+      "line": 303,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "11. Runtime retrieval, caching a connection pools",
+      "line": 303,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `EBS`, `RDS`, `AWS-`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "12. Cross-account a multi-Region secret model",
+      "line": 334,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replica target database usera;`, `application failover;`, `DNS/traffic cutover;`, `rovnakú key policy v každom Regione;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "12. Cross-account a multi-Region secret model",
+      "line": 334,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "12. Cross-account a multi-Region secret model",
+      "line": 334,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "12. Cross-account a multi-Region secret model",
+      "line": 334,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "12. Cross-account a multi-Region secret model",
+      "line": 334,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "13. Worked failure: rotation split-brain medzi store, targetom a consumers",
+      "line": 348,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Symptom",
+      "line": 356,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Symptom",
+      "line": 356,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nové ECS tasks spracúvajú payments;`, `staršie tasks vracajú provider authentication failures;`, `Lambda warm environments zlyhávajú iba pri niektorých shards;`, `Secrets Manager ukazuje rotation Succeeded ;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Symptom",
+      "line": 356,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Symptom",
+      "line": 356,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Symptom",
+      "line": 356,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Symptom",
+      "line": 356,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Competing hypotheses",
+      "line": 369,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Competing hypotheses",
+      "line": 369,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Competing hypotheses",
+      "line": 369,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Competing hypotheses",
+      "line": 369,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `v43 má nesprávnu value;`, `KMS alebo secret resource policy odmieta retrieval;`, `iba časť consumers drží stale v42 ;`, `target privileges atlas-pay-b nie sú ekvivalentné;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Competing hypotheses",
+      "line": 369,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "KMS key admin má automaticky decrypt všetkých dát",
-      "line": 480,
+      "section": "Competing hypotheses",
+      "line": 369,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `resource`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Discriminating evidence",
+      "line": 378,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Discriminating evidence",
+      "line": 378,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Discriminating evidence",
+      "line": 378,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Discriminating evidence",
+      "line": 378,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Discriminating evidence",
+      "line": 378,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `AZ`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Containment",
+      "line": 389,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Containment",
+      "line": 389,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Containment",
+      "line": 389,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Containment",
+      "line": 389,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastav automatic rotation retries a manual label changes;`, `udrž atlas-pay-b ako jedinú authoritative write credential;`, `nastav AWSCURRENT na v43 ;`, `izoluj consumers, ktoré nevedia preukázať loaded version.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Containment",
+      "line": 389,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Containment",
+      "line": 389,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Containment",
+      "line": 389,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Containment",
+      "line": 389,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWSCURRENT`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `redeploy/recycle stale ECS a Lambda cohorts bounded waves;`, `over provider privileges a forbidden admin operations;`, `reconcile payment attempts podľa idempotency keys;`, `drain backlog pri controlled concurrency;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECS`, `workload`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Acceptance verdict",
+      "line": 409,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -165458,7 +164990,205 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Broad kms: na",
+      "section": "Acceptance verdict",
+      "line": 409,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Acceptance verdict",
+      "line": 409,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact approved consumers načítali v43 ;`, `target prijíma atlas-pay-b a odmieta retired atlas-pay-a ;`, `allowed payment journey funguje;`, `forbidden admin/decrypt paths zlyhávajú;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Acceptance verdict",
+      "line": 409,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Acceptance verdict",
+      "line": 409,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "14. Troubleshooting podľa observation pointu",
+      "line": 421,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "KMS AccessDenied",
+      "line": 423,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Application používa staré credentials",
+      "line": 447,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Rotation zlyhá",
+      "line": 451,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "15. Security a operational controls",
+      "line": 455,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "15. Security a operational controls",
+      "line": 455,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "15. Security a operational controls",
+      "line": 455,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "15. Security a operational controls",
+      "line": 455,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workload identity namiesto static bootstrap keys;`, `separate key administrators, key users a secret operators;`, `scoped kms:CreateGrant , kms:Decrypt , GetSecretValue a PutResourcePol`, `block-public-policy validation pre secrets;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "15. Security a operational controls",
+      "line": 455,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "15. Security a operational controls",
+      "line": 455,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "15. Security a operational controls",
+      "line": 455,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "15. Security a operational controls",
+      "line": 455,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "17. SOA-C03 mapovanie",
+      "line": 474,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "17. SOA-C03 mapovanie",
+      "line": 474,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "17. SOA-C03 mapovanie",
+      "line": 474,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "17. SOA-C03 mapovanie",
+      "line": 474,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "17. SOA-C03 mapovanie",
+      "line": 474,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "17. SOA-C03 mapovanie",
+      "line": 474,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `availability`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Key rotation považovaná za re-encryption",
       "line": 484,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -165467,16 +165197,7 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Key deletion ako cleanup",
-      "line": 488,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Secret v environment variable bez rotation modelu",
+      "section": "AWSCURRENT ako dôkaz úspešnej rotation",
       "line": 492,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -165485,7 +165206,7 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Secret načítaný pri každom requeste",
+      "section": "Old credential revoke-nutá podľa času",
       "line": 496,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -165494,7 +165215,7 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Rotation zapnutá bez testu consumers",
+      "section": "Secret načítaný pri každom requeste",
       "line": 500,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -165503,8 +165224,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
-      "section": "Citlivé dáta v secret name/tag alebo encryption context",
+      "section": "Secret uložený navždy v environment variable",
       "line": 504,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/kms-secrets-manager.md",
+      "section": "Key deletion ako cleanup",
+      "line": 508,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10756**
-- Total words: **628,514**
-- Findings: **23507** (critical 7271, high 7896, medium 3060, low 5280)
+- Audited conceptual sections: **10754**
+- Total words: **629,288**
+- Findings: **23477** (critical 7256, high 7873, medium 3060, low 5288)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -51,7 +51,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1106 | 52 | 49 | 20 | 20 | 2492 | `docs/04-testing-and-quality/contract-and-api-tests.md` |
 | D | 1089 | 48 | 45 | 29 | 43 | 3495 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
 | D | 1082 | 49 | 49 | 20 | 26 | 2042 | `docs/11-cloud-and-aws/aws-backup.md` |
-| D | 1078 | 46 | 56 | 20 | 13 | 1986 | `docs/11-cloud-and-aws/kms-secrets-manager.md` |
 | D | 1068 | 46 | 55 | 17 | 21 | 2455 | `docs/09-kubernetes/kubernetes-architecture.md` |
 | D | 1065 | 50 | 53 | 13 | 5 | 2116 | `docs/10-helm-and-cka/cka-troubleshooting-drills.md` |
 | D | 1063 | 48 | 54 | 12 | 22 | 2499 | `docs/09-kubernetes/control-plane-components.md` |
@@ -102,6 +101,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 754 | 30 | 39 | 16 | 27 | 2895 | `docs/02-networking-and-web/dns.md` |
 | D | 745 | 35 | 32 | 12 | 23 | 2655 | `docs/09-kubernetes/job-cronjob.md` |
 | D | 742 | 33 | 34 | 15 | 20 | 2501 | `docs/08-container-fundamentals-and-docker/container-security.md` |
+| D | 738 | 31 | 33 | 20 | 21 | 2760 | `docs/11-cloud-and-aws/kms-secrets-manager.md` |
 | D | 737 | 37 | 25 | 17 | 24 | 2046 | `docs/08-container-fundamentals-and-docker/docker-architecture.md` |
 | D | 733 | 31 | 40 | 7 | 20 | 2322 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
 | D | 732 | 34 | 35 | 8 | 20 | 2365 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
@@ -12339,108 +12339,70 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/11-cloud-and-aws/kms-secrets-manager.md`
 
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **1. Mentálny model**: 6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 28, `bare-bullet-items` — **2. KMS key types**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `symmetric encryption keys,`, `asymmetric encryption keys,`, `asymmetric signing keys,`, `HMAC keys,`.
-- **CRITICAL** line 28, `outline-instead-of-explanation` — **2. KMS key types**: 7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 42, `empty-section` — **3. AWS owned, AWS managed a customer managed keys**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 52, `bare-bullet-items` — **Customer managed keys**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `key policy,`, `aliases,`, `enable/disable,`, `rotation configuration,`.
-- **CRITICAL** line 52, `outline-instead-of-explanation` — **Customer managed keys**: 6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 65, `bare-bullet-items` — **4. Envelope encryption**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľké dáta sa šifrujú lokálne efektívnym symmetric algoritmom,`, `master KMS key neopúšťa KMS boundary,`, `access možno auditovať a centrálne zablokovať,`, `jeden KMS key môže chrániť veľa data keys.`.
-- **CRITICAL** line 65, `outline-instead-of-explanation` — **4. Envelope encryption**: 4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 90, `bare-bullet-items` — **5. Key policy**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `key administrators,`, `key users,`, `service integrations,`, `cross-account principals,`.
-- **CRITICAL** line 107, `bare-bullet-items` — **6. IAM policies a KMS**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `skutočný principal/session,`, `key ARN a Region,`, `key policy,`, `IAM policy,`.
-- **CRITICAL** line 107, `outline-instead-of-explanation` — **6. IAM policies a KMS**: 9 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 123, `bare-bullet-items` — **7. KMS grants**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kms:CreateGrant ,`, `broad grantee principal,`, `chýbajúce constraints,`, `stale grants po resource deletion.`.
-- **CRITICAL** line 123, `outline-instead-of-explanation` — **7. KMS grants**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 138, `bare-bullet-items` — **8. Encryption context**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `integrity binding,`, `policy conditions,`, `audit context,`, `oddelenie tenants/resources.`.
-- **CRITICAL** line 163, `bare-bullet-items` — **10. Key rotation**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `on-demand rotation podľa aktuálnych capabilities,`, `vytvorenie nového key a re-encryption migration,`, `imported/external key material rotation,`, `application credential rotation.`.
-- **CRITICAL** line 163, `outline-instead-of-explanation` — **10. Key rotation**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 175, `bare-bullet-items` — **11. Disable a deletion**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj encrypted resources,`, `analyzuj CloudTrail use,`, `over grants a aliases,`, `testuj recovery,`.
-- **CRITICAL** line 175, `outline-instead-of-explanation` — **11. Disable a deletion**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 201, `bare-bullet-items` — **13. KMS service integration**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service volá KMS v mene principalu,`, `service používa grant,`, `service-linked role,`, `resource policy a encryption context,`.
-- **CRITICAL** line 201, `outline-instead-of-explanation` — **13. KMS service integration**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 213, `bare-bullet-items` — **14. KMS observability**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CloudTrail KMS API calls,`, `AccessDenied , disabled/pending deletion,`, `key policy/grant changes,`, `unusual decrypt volume,`.
-- **CRITICAL** line 213, `outline-instead-of-explanation` — **14. KMS observability**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 228, `bare-bullet-items` — **15. Secrets Manager secret model**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ARN a name,`, `metadata/tags,`, `KMS key association,`, `versions,`.
-- **CRITICAL** line 259, `bare-bullet-items` — **17. Retrieval**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `secretsmanager:GetSecretValue ,`, `KMS decrypt permission podľa key modelu,`, `network path alebo VPC endpoint,`, `resource policy/cross-account alignment,`.
-- **CRITICAL** line 259, `outline-instead-of-explanation` — **17. Retrieval**: 5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 294, `empty-section` — **19. Single-user a alternating-users rotation**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 314, `bare-bullet-items` — **21. Secret resource policy**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétny principal,`, `organization/account conditions,`, `KMS key cross-account policy,`, `identity-based allow v caller account-e,`.
-- **CRITICAL** line 314, `outline-instead-of-explanation` — **21. Secret resource policy**: 6 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 329, `bare-bullet-items` — **22. Secret replication**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-Region KMS key,`, `replication status,`, `rotation source-of-truth,`, `application failover config,`.
-- **CRITICAL** line 329, `outline-instead-of-explanation` — **22. Secret replication**: 7 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 345, `bare-bullet-items` — **23. Deletion a recovery window**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `over consumers cez CloudTrail a inventory,`, `disable rotation/integrations podľa workflowu,`, `test application replacement,`, `zachovaj recovery window,`.
-- **CRITICAL** line 345, `outline-instead-of-explanation` — **23. Deletion a recovery window**: 5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **CRITICAL** line 357, `empty-section` — **24. Secrets Manager oproti Parameter Store**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 359, `bare-bullet-items` — **Secrets Manager**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `natívny secret lifecycle,`, `versions/staging labels,`, `automatic rotation,`, `managed database integrations,`.
-- **CRITICAL** line 359, `no-prose-concept` — **Secrets Manager**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 359, `outline-instead-of-explanation` — **Secrets Manager**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 367, `bare-bullet-items` — **Parameter Store**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration hierarchy,`, `String/StringList/SecureString,`, `jednoduchšie config a secret use cases,`, `Systems Manager integration,`.
-- **CRITICAL** line 367, `outline-instead-of-explanation` — **Parameter Store**: 5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 377, `bare-bullet-items` — **25. Application design**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `používať workload identity, nie bootstrap access keys,`, `načítať secret cez SDK/provider,`, `cache-ovať s bezpečným TTL,`, `refresh-nuť po authentication failure kontrolovaným spôsobom,`.
-- **CRITICAL** line 377, `outline-instead-of-explanation` — **25. Application design**: 8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 411, `bare-bullet-items` — **27. Troubleshooting encrypted AWS resource**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `key disabled,`, `service grant chýba,`, `key policy neumožňuje service/caller,`, `cross-account snapshot/resource používa iný key,`.
-- **CRITICAL** line 411, `outline-instead-of-explanation` — **27. Troubleshooting encrypted AWS resource**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 425, `empty-section` — **28. Troubleshooting secret retrieval**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 447, `bare-bullet-items` — **29. Rotation incident workflow**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav automatické retries, ak preťažujú target,`, `zachovaj secret versions/staging labels a rotation logs,`, `identifikuj credentials platné v target service,`, `over consumers a cache,`.
-- **CRITICAL** line 447, `outline-instead-of-explanation` — **29. Rotation incident workflow**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 460, `outline-instead-of-explanation` — **30. SOA-C03 mapovanie**: 12 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 5, `single-sentence-concept` — **1. Mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 28, `single-sentence-concept` — **2. KMS key types**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 52, `single-sentence-concept` — **Customer managed keys**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 65, `single-sentence-concept` — **4. Envelope encryption**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 90, `list-heavy-section` — **5. Key policy**: 6 odrážok a iba 55 slov súvislého vysvetlenia.
-- **HIGH** line 151, `bare-bullet-items` — **9. KMS aliases**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `stable application reference,`, `controlled key replacement,`, `environment naming.`.
-- **HIGH** line 190, `bare-bullet-items` — **12. Multi-Region keys**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `client-side encryption/decryption v rôznych Regions,`, `applications vyžadujúce rovnaký key identity/material contract.`.
-- **HIGH** line 213, `single-sentence-concept` — **14. KMS observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 228, `list-heavy-section` — **15. Secrets Manager secret model**: 8 odrážok a iba 37 slov súvislého vysvetlenia.
-- **HIGH** line 245, `bare-bullet-items` — **16. Secret versions a staging labels**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `AWSCURRENT ,`, `AWSPREVIOUS ,`, `AWSPENDING počas rotation.`.
-- **HIGH** line 273, `bare-bullet-items` — **18. Rotation**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `managed rotation,`, `managed external secret rotation,`, `Lambda-based rotation.`.
-- **HIGH** line 359, `list-first-introduction` — **Secrets Manager**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 367, `list-first-introduction` — **Parameter Store**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 367, `single-sentence-concept` — **Parameter Store**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 392, `single-sentence-concept` — **26. Troubleshooting KMS AccessDenied**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 411, `single-sentence-concept` — **27. Troubleshooting encrypted AWS resource**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 427, `single-sentence-concept` — **AccessDeniedException**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 431, `single-sentence-concept` — **Timeout**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 435, `single-sentence-concept` — **Aplikácia používa staré credentials**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 439, `single-sentence-concept` — **Rotation Failed**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 447, `list-first-introduction` — **29. Rotation incident workflow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 447, `single-sentence-concept` — **29. Rotation incident workflow**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 460, `bare-bullet-items` — **30. SOA-C03 mapovanie**: 7 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `encrypted EBS launch zlyhá pre KMS key policy,`, `Secrets Manager retrieval blokuje endpoint policy,`, `rotation Lambda nevie dosiahnuť private RDS,`, `application cache drží staré credentials,`.
-- **HIGH** line 460, `list-first-introduction` — **30. SOA-C03 mapovanie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 460, `single-sentence-concept` — **30. SOA-C03 mapovanie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 480, `single-sentence-concept` — **KMS key admin má automaticky decrypt všetkých dát**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 484, `single-sentence-concept` — **Broad kms: na**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 488, `single-sentence-concept` — **Key deletion ako cleanup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 492, `single-sentence-concept` — **Secret v environment variable bez rotation modelu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 496, `single-sentence-concept` — **Secret načítaný pri každom requeste**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 500, `single-sentence-concept` — **Rotation zapnutá bez testu consumers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 504, `single-sentence-concept` — **Citlivé dáta v secret name/tag alebo encryption context**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 5, `term-before-explanation` — **1. Mentálny model**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `HSM`, `resource`, `policy`
-- **HIGH** line 5, `thin-concept-section` — **1. Mentálny model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 28, `thin-concept-section` — **2. KMS key types**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 52, `thin-concept-section` — **Customer managed keys**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 65, `thin-concept-section` — **4. Envelope encryption**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 107, `term-before-explanation` — **6. IAM policies a KMS**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `SCP`, `RCP`, `VPC`
-- **HIGH** line 151, `thin-concept-section` — **9. KMS aliases**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 175, `thin-concept-section` — **11. Disable a deletion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 201, `thin-concept-section` — **13. KMS service integration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 213, `thin-concept-section` — **14. KMS observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 228, `term-before-explanation` — **15. Secrets Manager secret model**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `KMS`, `resource`, `policy`
-- **HIGH** line 259, `term-before-explanation` — **17. Retrieval**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `VPC`, `resource`, `policy`
-- **HIGH** line 314, `thin-concept-section` — **21. Secret resource policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 329, `thin-concept-section` — **22. Secret replication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 345, `thin-concept-section` — **23. Deletion a recovery window**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 359, `thin-concept-section` — **Secrets Manager**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 367, `thin-concept-section` — **Parameter Store**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 377, `term-before-explanation` — **25. Application design**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`, `TTL`, `workload`, `identity`
-- **HIGH** line 377, `thin-concept-section` — **25. Application design**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 411, `thin-concept-section` — **27. Troubleshooting encrypted AWS resource**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 447, `thin-concept-section` — **29. Rotation incident workflow**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 460, `term-before-explanation` — **30. SOA-C03 mapovanie**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `EBS`, `RDS`, `AWS-`, `policy`
-- **HIGH** line 460, `thin-concept-section` — **30. SOA-C03 mapovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 74, `empty-section` — **2. Štyri identity, ktoré sa nesmú zameniť**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 123, `bare-bullet-items` — **Failure boundary: key rotation nie je re-encryption**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nemení key ID ani ARN;`, `nemení aliases a policy;`, `neprešifruje existujúce payloady;`, `nerotuje data keys uložené pri payloads;`.
+- **CRITICAL** line 123, `outline-instead-of-explanation` — **Failure boundary: key rotation nie je re-encryption**: 5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
+- **CRITICAL** line 165, `bare-bullet-items` — **Grants**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact grantee principal;`, `povolené operations;`, `retiring principal;`, `encryption-context constraints;`.
+- **CRITICAL** line 180, `bare-bullet-items` — **5. Encryption context je integrity a authorization input**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `väzbu ciphertextu na tenant alebo resource identity;`, `key-policy a grant conditions;`, `audit correlation;`, `ochranu proti presunu ciphertextu do nesprávneho contextu.`.
+- **CRITICAL** line 219, `bare-bullet-items` — **Manual rotation**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nere-encryptuje existujúce ciphertexty;`, `nemení key ID uložený v service metadata;`, `neoveruje, že consumers majú access na nový key;`, `neumožňuje vypnúť starý key bez dependency inventory.`.
+- **CRITICAL** line 219, `outline-instead-of-explanation` — **Manual rotation**: 4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 279, `empty-section` — **9. Single-user a alternating-users rotation**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 291, `bare-bullet-items` — **10. Staging labels nie sú target truth**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či target service túto credential value akceptuje;`, `či value má správne privileges;`, `či všetky consumers načítali túto version;`, `či existujúce pooled sessions používajú staré credentials;`.
+- **CRITICAL** line 291, `outline-instead-of-explanation` — **10. Staging labels nie sú target truth**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 303, `bare-bullet-items` — **11. Runtime retrieval, caching a connection pools**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximum TTL;`, `refresh jitter;`, `refresh pri authentication failure;`, `single-flight ochranu pred refresh stormom;`.
+- **CRITICAL** line 334, `bare-bullet-items` — **12. Cross-account a multi-Region secret model**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replica target database usera;`, `application failover;`, `DNS/traffic cutover;`, `rovnakú key policy v každom Regione;`.
+- **CRITICAL** line 348, `empty-section` — **13. Worked failure: rotation split-brain medzi store, targetom a consumers**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 356, `bare-bullet-items` — **Symptom**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nové ECS tasks spracúvajú payments;`, `staršie tasks vracajú provider authentication failures;`, `Lambda warm environments zlyhávajú iba pri niektorých shards;`, `Secrets Manager ukazuje rotation Succeeded ;`.
+- **CRITICAL** line 356, `outline-instead-of-explanation` — **Symptom**: 6 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 369, `bare-bullet-items` — **Competing hypotheses**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `v43 má nesprávnu value;`, `KMS alebo secret resource policy odmieta retrieval;`, `iba časť consumers drží stale v42 ;`, `target privileges atlas-pay-b nie sú ekvivalentné;`.
+- **CRITICAL** line 369, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 369, `outline-instead-of-explanation` — **Competing hypotheses**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 378, `outline-instead-of-explanation` — **Discriminating evidence**: 6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 389, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 389, `outline-instead-of-explanation` — **Containment**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 399, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 399, `outline-instead-of-explanation` — **Authoritative recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 409, `bare-bullet-items` — **Acceptance verdict**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact approved consumers načítali v43 ;`, `target prijíma atlas-pay-b a odmieta retired atlas-pay-a ;`, `allowed payment journey funguje;`, `forbidden admin/decrypt paths zlyhávajú;`.
+- **CRITICAL** line 409, `outline-instead-of-explanation` — **Acceptance verdict**: 7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 421, `empty-section` — **14. Troubleshooting podľa observation pointu**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 455, `bare-bullet-items` — **15. Security a operational controls**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workload identity namiesto static bootstrap keys;`, `separate key administrators, key users a secret operators;`, `scoped kms:CreateGrant , kms:Decrypt , GetSecretValue a PutResourcePol`, `block-public-policy validation pre secrets;`.
+- **CRITICAL** line 455, `no-prose-concept` — **15. Security a operational controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 455, `outline-instead-of-explanation` — **15. Security a operational controls**: 10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 474, `no-prose-concept` — **17. SOA-C03 mapovanie**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 474, `outline-instead-of-explanation` — **17. SOA-C03 mapovanie**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 22, `single-sentence-concept` — **1. Exact protected-value subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 123, `single-sentence-concept` — **Failure boundary: key rotation nie je re-encryption**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 165, `list-heavy-section` — **Grants**: 6 odrážok a iba 43 slov súvislého vysvetlenia.
+- **HIGH** line 203, `single-sentence-concept` — **6. Key types, ownership a rotation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 219, `single-sentence-concept` — **Manual rotation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 303, `list-heavy-section` — **11. Runtime retrieval, caching a connection pools**: 8 odrážok a iba 50 slov súvislého vysvetlenia.
+- **HIGH** line 369, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 378, `list-first-introduction` — **Discriminating evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 389, `bare-bullet-items` — **Containment**: 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastav automatic rotation retries a manual label changes;`, `udrž atlas-pay-b ako jedinú authoritative write credential;`, `nastav AWSCURRENT na v43 ;`, `izoluj consumers, ktoré nevedia preukázať loaded version.`.
+- **HIGH** line 389, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 399, `bare-bullet-items` — **Authoritative recovery**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `redeploy/recycle stale ECS a Lambda cohorts bounded waves;`, `over provider privileges a forbidden admin operations;`, `reconcile payment attempts podľa idempotency keys;`, `drain backlog pri controlled concurrency;`.
+- **HIGH** line 399, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 409, `single-sentence-concept` — **Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 423, `list-first-introduction` — **KMS AccessDenied**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 447, `single-sentence-concept` — **Application používa staré credentials**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 451, `single-sentence-concept` — **Rotation zlyhá**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 455, `list-first-introduction` — **15. Security a operational controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 474, `list-first-introduction` — **17. SOA-C03 mapovanie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 484, `single-sentence-concept` — **Key rotation považovaná za re-encryption**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 492, `single-sentence-concept` — **AWSCURRENT ako dôkaz úspešnej rotation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 496, `single-sentence-concept` — **Old credential revoke-nutá podľa času**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 500, `single-sentence-concept` — **Secret načítaný pri každom requeste**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 504, `single-sentence-concept` — **Secret uložený navždy v environment variable**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 508, `single-sentence-concept` — **Key deletion ako cleanup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 123, `thin-concept-section` — **Failure boundary: key rotation nie je re-encryption**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 203, `thin-concept-section` — **6. Key types, ownership a rotation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 219, `thin-concept-section` — **Manual rotation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 369, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 389, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 399, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 409, `thin-concept-section` — **Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 455, `thin-concept-section` — **15. Security a operational controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 474, `thin-concept-section` — **17. SOA-C03 mapovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/11-cloud-and-aws/lambda.md`
 
@@ -16226,17 +16188,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2999 | 442 | 0 | 0 | 3441 |
-| `outline-instead-of-explanation` | 2906 | 0 | 0 | 0 | 2906 |
-| `term-before-explanation` | 0 | 573 | 2057 | 0 | 2630 |
-| `single-sentence-concept` | 0 | 2611 | 0 | 0 | 2611 |
-| `thin-concept-section` | 0 | 2506 | 0 | 0 | 2506 |
-| `example-not-explicit` | 0 | 0 | 0 | 2113 | 2113 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2060 | 2060 |
-| `list-first-introduction` | 0 | 1307 | 0 | 0 | 1307 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1107 | 1107 |
-| `short-concept-section` | 0 | 0 | 1003 | 0 | 1003 |
-| `no-prose-concept` | 755 | 0 | 0 | 0 | 755 |
+| `bare-bullet-items` | 2989 | 439 | 0 | 0 | 3428 |
+| `outline-instead-of-explanation` | 2897 | 0 | 0 | 0 | 2897 |
+| `term-before-explanation` | 0 | 567 | 2061 | 0 | 2628 |
+| `single-sentence-concept` | 0 | 2603 | 0 | 0 | 2603 |
+| `thin-concept-section` | 0 | 2498 | 0 | 0 | 2498 |
+| `example-not-explicit` | 0 | 0 | 0 | 2118 | 2118 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2062 | 2062 |
+| `list-first-introduction` | 0 | 1309 | 0 | 0 | 1309 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1108 | 1108 |
+| `short-concept-section` | 0 | 0 | 999 | 0 | 999 |
+| `no-prose-concept` | 759 | 0 | 0 | 0 | 759 |
 | `empty-section` | 611 | 0 | 0 | 0 | 611 |
 | `list-heavy-section` | 0 | 457 | 0 | 0 | 457 |
 
