@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10891**
-- Total words: **621,339**
-- Findings: **24108** (critical 7514, high 8192, medium 3237, low 5165)
+- Audited conceptual sections: **10892**
+- Total words: **621,730**
+- Findings: **24081** (critical 7508, high 8186, medium 3226, low 5161)
 - File grades: A 0, B 0, C 4, D 253
 
 ## Interpretation
@@ -90,7 +90,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 854 | 37 | 41 | 15 | 28 | 2950 | `docs/09-kubernetes/deployment.md` |
 | D | 853 | 40 | 41 | 11 | 14 | 1328 | `docs/11-cloud-and-aws/shared-responsibility-model.md` |
 | D | 851 | 36 | 36 | 25 | 33 | 3084 | `docs/09-kubernetes/pod.md` |
-| D | 836 | 35 | 41 | 21 | 13 | 1375 | `docs/11-cloud-and-aws/public-private-hybrid-cloud.md` |
 | D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 834 | 35 | 42 | 16 | 17 | 3114 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 831 | 37 | 38 | 17 | 22 | 2511 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
@@ -141,6 +140,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 674 | 27 | 38 | 10 | 11 | 2077 | `docs/06-gitlab/projects-groups-permissions.md` |
 | D | 672 | 31 | 30 | 15 | 6 | 1371 | `docs/11-cloud-and-aws/regions-availability-zones.md` |
 | D | 671 | 26 | 40 | 13 | 2 | 1299 | `docs/11-cloud-and-aws/security-groups-network-acls.md` |
+| D | 667 | 29 | 35 | 10 | 9 | 1766 | `docs/11-cloud-and-aws/public-private-hybrid-cloud.md` |
 | D | 664 | 26 | 37 | 10 | 26 | 2978 | `docs/09-kubernetes/worker-node-components.md` |
 | D | 656 | 28 | 35 | 8 | 16 | 1792 | `docs/04-testing-and-quality/smoke-and-regression-tests.md` |
 | D | 655 | 30 | 30 | 11 | 18 | 2326 | `docs/09-kubernetes/service-endpointslice.md` |
@@ -12663,82 +12663,70 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/11-cloud-and-aws/public-private-hybrid-cloud.md`
 
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **1. Deployment model a service model**: 4 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
-- **CRITICAL** line 24, `bare-bullet-items` — **2. Public cloud**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `on-demand provisioning cez API,`, `pay-as-you-go alebo commitment pricing,`, `provider-owned physical facilities a hardware,`, `veľký katalóg managed services,`.
-- **CRITICAL** line 40, `bare-bullet-items` — **3. Multi-tenancy**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypervisor alebo hardware isolation,`, `tenant/account identity,`, `virtual networking,`, `encryption,`.
-- **CRITICAL** line 40, `outline-instead-of-explanation` — **3. Multi-tenancy**: 12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 60, `bare-bullet-items` — **4. Private cloud**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vo vlastnom dátovom centre,`, `v colocation,`, `na dedicated provider infraštruktúre,`, `ako appliance alebo cloud extension na zákazníckej lokalite.`.
-- **CRITICAL** line 81, `bare-bullet-items` — **5. Výhody private cloudu**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prísnej physical/data-location kontrole,`, `legacy hardware alebo specialized devices,`, `nízkej a predvídateľnej latency k lokálnym systémom,`, `disconnected alebo air-gapped prostredí,`.
-- **CRITICAL** line 81, `outline-instead-of-explanation` — **5. Výhody private cloudu**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 95, `bare-bullet-items` — **6. Náklady private cloudu**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hardware a refresh cyklus,`, `dátové centrum, napájanie a chladenie,`, `network connectivity,`, `software licencie a support,`.
-- **CRITICAL** line 95, `outline-instead-of-explanation` — **6. Náklady private cloudu**: 10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 112, `bare-bullet-items` — **7. Hybrid cloud**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `networking,`, `identity federation,`, `DNS,`, `data replication alebo transfer,`.
-- **CRITICAL** line 133, `bare-bullet-items` — **Site-to-site VPN**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rýchle nasadenie,`, `závislosť od internet paths,`, `variabilná latency,`, `throughput a tunnel limits,`.
-- **CRITICAL** line 133, `outline-instead-of-explanation` — **Site-to-site VPN**: 5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 145, `bare-bullet-items` — **Dedicated connectivity**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilnejšia kapacita a routing,`, `dlhší provisioning,`, `physical a provider dependencies,`, `dedicated link sám nezaručuje encryption,`.
-- **CRITICAL** line 145, `outline-instead-of-explanation` — **Dedicated connectivity**: 5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 165, `bare-bullet-items` — **9. Hybrid identity**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `federáciu workforce identities,`, `workload identity federation,`, `directory integration,`, `certificate-based machine identity,`.
-- **CRITICAL** line 165, `outline-instead-of-explanation` — **9. Hybrid identity**: 6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 178, `bare-bullet-items` — **10. Hybrid DNS**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative zones,`, `conditional forwarding,`, `split-horizon records,`, `inbound a outbound resolver endpoints,`.
-- **CRITICAL** line 178, `outline-instead-of-explanation` — **10. Hybrid DNS**: 7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 192, `bare-bullet-items` — **11. Hybrid data**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `synchronous a asynchronous replication,`, `bulk transfer,`, `event streaming,`, `cache,`.
-- **CRITICAL** line 192, `outline-instead-of-explanation` — **11. Hybrid data**: 9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 208, `bare-bullet-items` — **12. Hybrid management**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto vlastní source of truth,`, `ktoré policies sú centrálne a ktoré lokálne,`, `ako sa distribuujú updates,`, `ako funguje inventory,`.
-- **CRITICAL** line 208, `outline-instead-of-explanation` — **12. Hybrid management**: 7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 222, `bare-bullet-items` — **13. Edge cloud**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nízka latency,`, `obmedzená alebo prerušovaná WAN konektivita,`, `lokálne spracovanie dát,`, `data sovereignty,`.
-- **CRITICAL** line 222, `outline-instead-of-explanation` — **13. Edge cloud**: 12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 244, `bare-bullet-items` — **14. Multi-cloud**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `regulačné alebo zákaznícke požiadavky,`, `best-of-breed service,`, `merger/acquisition,`, `geographic availability,`.
-- **CRITICAL** line 268, `bare-bullet-items` — **15. Cloud bursting**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image/runtime parity,`, `data locality,`, `identity a secrets,`, `network capacity,`.
-- **CRITICAL** line 268, `outline-instead-of-explanation` — **15. Cloud bursting**: 8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 285, `bare-bullet-items` — **16. Portability**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source code,`, `container image,`, `infrastructure manifest,`, `data format,`.
-- **CRITICAL** line 285, `outline-instead-of-explanation` — **16. Portability**: 8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 300, `bare-bullet-items` — **17. Deployment model nie je security level**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity a authorization,`, `network segmentation,`, `patching,`, `encryption,`.
-- **CRITICAL** line 300, `outline-instead-of-explanation` — **17. Deployment model nie je security level**: 9 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 318, `bare-bullet-items` — **18. Výber deployment modelu**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency a locality,`, `data residency a regulation,`, `connectivity a offline requirements,`, `hardware alebo license dependencies,`.
-- **CRITICAL** line 318, `outline-instead-of-explanation` — **18. Výber deployment modelu**: 10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 335, `bare-bullet-items` — **19. Troubleshooting hybridného prostredia**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamps v UTC,`, `source/destination IP a port,`, `route tables,`, `tunnel/BGP state,`.
-- **CRITICAL** line 335, `outline-instead-of-explanation` — **19. Troubleshooting hybridného prostredia**: 9 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `bare-bullet-items` — **1. Deployment model a service model**: 2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `EC2 v AWS public cloude je IaaS,`, `interný OpenStack môže byť private-cloud IaaS,`.
-- **HIGH** line 5, `single-sentence-concept` — **1. Deployment model a service model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 24, `list-heavy-section` — **2. Public cloud**: 7 odrážok a iba 49 slov súvislého vysvetlenia.
-- **HIGH** line 40, `single-sentence-concept` — **3. Multi-tenancy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 60, `list-heavy-section` — **4. Private cloud**: 11 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 81, `single-sentence-concept` — **5. Výhody private cloudu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 95, `single-sentence-concept` — **6. Náklady private cloudu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 112, `list-heavy-section` — **7. Hybrid cloud**: 8 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 129, `single-sentence-concept` — **8. Hybrid connectivity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 133, `single-sentence-concept` — **Site-to-site VPN**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 145, `single-sentence-concept` — **Dedicated connectivity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 157, `single-sentence-concept` — **Public service endpoints**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 161, `single-sentence-concept` — **Private service endpoints**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 165, `single-sentence-concept` — **9. Hybrid identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 178, `single-sentence-concept` — **10. Hybrid DNS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 208, `single-sentence-concept` — **12. Hybrid management**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 222, `single-sentence-concept` — **13. Edge cloud**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 244, `list-heavy-section` — **14. Multi-cloud**: 12 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 318, `single-sentence-concept` — **18. Výber deployment modelu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 335, `single-sentence-concept` — **19. Troubleshooting hybridného prostredia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 365, `single-sentence-concept` — **Private cloud = virtualizácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 369, `single-sentence-concept` — **Hybrid = jedna VPN**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 373, `single-sentence-concept` — **Multi-cloud = automatická odolnosť**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 377, `single-sentence-concept` — **Public endpoint = verejné dáta**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 381, `single-sentence-concept` — **Lowest-common-denominator architecture**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 5, `thin-concept-section` — **1. Deployment model a service model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 40, `thin-concept-section` — **3. Multi-tenancy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 60, `term-before-explanation` — **4. Private cloud**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`, `policy`, `enforcement`
-- **HIGH** line 81, `thin-concept-section` — **5. Výhody private cloudu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 95, `thin-concept-section` — **6. Náklady private cloudu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 133, `thin-concept-section` — **Site-to-site VPN**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 145, `thin-concept-section` — **Dedicated connectivity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 165, `thin-concept-section` — **9. Hybrid identity**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 178, `thin-concept-section` — **10. Hybrid DNS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 192, `thin-concept-section` — **11. Hybrid data**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 208, `thin-concept-section` — **12. Hybrid management**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 222, `thin-concept-section` — **13. Edge cloud**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 285, `thin-concept-section` — **16. Portability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 318, `thin-concept-section` — **18. Výber deployment modelu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 335, `term-before-explanation` — **19. Troubleshooting hybridného prostredia**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTC`, `IP`, `BGP`, `DNS`, `ID`
-- **HIGH** line 335, `thin-concept-section` — **19. Troubleshooting hybridného prostredia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 38, `outline-instead-of-explanation` — **2. Service model a deployment model sú dve osi**: 5 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
+- **CRITICAL** line 73, `bare-bullet-items` — **Public-cloud failure boundary**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny account a Region;`, `správnu VPC route a endpoint policy;`, `správne IAM/session context;`, `dostupnú customer quota alebo IP capacity;`.
+- **CRITICAL** line 73, `outline-instead-of-explanation` — **Public-cloud failure boundary**: 7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 85, `bare-bullet-items` — **4. Private-cloud lifecycle**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API a automation;`, `self-service provisioning;`, `štandardizované templates;`, `policy enforcement;`.
+- **CRITICAL** line 85, `outline-instead-of-explanation` — **4. Private-cloud lifecycle**: 8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 113, `bare-bullet-items` — **Private-cloud failure boundary**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktuálny patch level;`, `redundantnú power/network/storage architektúru;`, `elastickú spare capacity;`, `kvalitnú identity governance;`.
+- **CRITICAL** line 113, `outline-instead-of-explanation` — **Private-cloud failure boundary**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 127, `bare-bullet-items` — **5. Hybrid-cloud lifecycle**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network connectivity a return path;`, `identity federation a machine credentials;`, `DNS authority a forwarding;`, `data replication, consistency a conflict resolution;`.
+- **CRITICAL** line 173, `bare-bullet-items` — **Unknown network outcome**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS vrátil chybnú alebo stale adresu;`, `source route chýba;`, `BGP propaguje nesprávny prefix;`, `firewall/NACL/SG blokuje flow;`.
+- **CRITICAL** line 173, `outline-instead-of-explanation` — **Unknown network outcome**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 200, `bare-bullet-items` — **8. Hybrid DNS**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative zone ownera;`, `split-horizon behavior;`, `conditional forwarding;`, `overlapping namespace policy;`.
+- **CRITICAL** line 200, `outline-instead-of-explanation` — **8. Hybrid DNS**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 245, `bare-bullet-items` — **10. Management-plane boundary**: 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative inventory;`, `source of truth pre configuration;`, `ownership každého mutable fieldu;`, `policy distribution;`.
+- **CRITICAL** line 245, `outline-instead-of-explanation` — **10. Management-plane boundary**: 9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 265, `empty-section` — **Exact incident subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 280, `bare-bullet-items` — **Competing hypotheses**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ledger process je preťažený;`, `DNS vracia starú VIP;`, `backup VPN má preferovanejšiu asymetrickú route;`, `firewall generation nepovoľuje nový source CIDR;`.
+- **CRITICAL** line 280, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 280, `outline-instead-of-explanation` — **Competing hypotheses**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 305, `bare-bullet-items` — **Containment**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť rollout do affected subnet cohorty;`, `ponechať healthy AZ capacity;`, `zachovať BGP, firewall a flow-log evidence;`, `nesmerovať všetok traffic naslepo cez jeden link;`.
+- **CRITICAL** line 305, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 305, `outline-instead-of-explanation` — **Containment**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 313, `bare-bullet-items` — **Recovery**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opraviť authoritative prefix inventory;`, `publikovať a akceptovať nový prefix cez redundantné paths;`, `zosúladiť firewall object s exact source CIDR;`, `vyčistiť iba affected stale sessions;`.
+- **CRITICAL** line 313, `no-prose-concept` — **Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 313, `outline-instead-of-explanation` — **Recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 323, `empty-section` — **Closure verdict**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 333, `bare-bullet-items` — **12. Edge a disconnected operation**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `secure bootstrap a hardware identity;`, `fleet inventory;`, `offline queueing a local decisions;`, `bounded local data retention;`.
+- **CRITICAL** line 348, `bare-bullet-items` — **13. Multi-cloud**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac IAM a policy modelov;`, `odlišné network/DNS semantics;`, `duplicate platform tooling;`, `data transfer a consistency complexity;`.
+- **CRITICAL** line 379, `bare-bullet-items` — **15. Deployment-model decision**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency a locality;`, `data residency a regulation;`, `connected/disconnected behavior;`, `hardware a licensing constraints;`.
+- **CRITICAL** line 379, `outline-instead-of-explanation` — **15. Deployment-model decision**: 10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **HIGH** line 18, `single-sentence-concept` — **1. Deployment-model subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 38, `bare-bullet-items` — **2. Service model a deployment model sú dve osi**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `EC2 v AWS je public-cloud IaaS;`, `RDS je public-cloud managed data platform;`, `interný OpenStack môže byť private-cloud IaaS;`.
+- **HIGH** line 38, `list-first-introduction` — **2. Service model a deployment model sú dve osi**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 38, `single-sentence-concept` — **2. Service model a deployment model sú dve osi**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 73, `single-sentence-concept` — **Public-cloud failure boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 127, `list-heavy-section` — **5. Hybrid-cloud lifecycle**: 8 odrážok a iba 47 slov súvislého vysvetlenia.
+- **HIGH** line 173, `single-sentence-concept` — **Unknown network outcome**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 280, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 305, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 313, `list-first-introduction` — **Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 333, `list-heavy-section` — **12. Edge a disconnected operation**: 8 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 348, `list-heavy-section` — **13. Multi-cloud**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 362, `single-sentence-concept` — **14. Portability subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 379, `single-sentence-concept` — **15. Deployment-model decision**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 398, `single-sentence-concept` — **Private cloud rovná sa virtualizácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 406, `single-sentence-concept` — **Public endpoint znamená verejné dáta**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 410, `single-sentence-concept` — **Multi-cloud je automatický DR**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 414, `single-sentence-concept` — **Central dashboard znamená central control**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 38, `thin-concept-section` — **2. Service model a deployment model sú dve osi**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 73, `term-before-explanation` — **Public-cloud failure boundary**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `IAM`, `IP`, `policy`
+- **HIGH** line 73, `thin-concept-section` — **Public-cloud failure boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 85, `thin-concept-section` — **4. Private-cloud lifecycle**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 127, `term-before-explanation` — **5. Hybrid-cloud lifecycle**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `WAN`, `identity`, `control plane`
+- **HIGH** line 173, `term-before-explanation` — **Unknown network outcome**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `BGP`, `NACL`, `SG`, `MTU`, `TLS`, `identity`
+- **HIGH** line 173, `thin-concept-section` — **Unknown network outcome**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 200, `term-before-explanation` — **8. Hybrid DNS**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `TTL`, `DNSSEC`, `policy`, `scope`
+- **HIGH** line 200, `thin-concept-section` — **8. Hybrid DNS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 245, `thin-concept-section` — **10. Management-plane boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 280, `term-before-explanation` — **Competing hypotheses**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `VIP`, `DX`, `AZ`, `VPN`, `CIDR`, `MTU`, `TLS`
+- **HIGH** line 280, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 305, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 313, `term-before-explanation` — **Recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CIDR`, `TCP`, `TLS`, `AZ`, `DX7`, `VPN4`
+- **HIGH** line 313, `thin-concept-section` — **Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 379, `term-before-explanation` — **15. Deployment-model decision**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `TCO`, `workload`, `identity`
+- **HIGH** line 379, `thin-concept-section` — **15. Deployment-model decision**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/11-cloud-and-aws/rds.md`
 
@@ -16756,19 +16744,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3178 | 447 | 0 | 0 | 3625 |
-| `outline-instead-of-explanation` | 3069 | 0 | 0 | 0 | 3069 |
-| `single-sentence-concept` | 0 | 2836 | 0 | 0 | 2836 |
-| `term-before-explanation` | 0 | 554 | 2190 | 0 | 2744 |
-| `thin-concept-section` | 0 | 2656 | 0 | 0 | 2656 |
-| `example-not-explicit` | 0 | 0 | 0 | 2066 | 2066 |
+| `bare-bullet-items` | 3172 | 447 | 0 | 0 | 3619 |
+| `outline-instead-of-explanation` | 3064 | 0 | 0 | 0 | 3064 |
+| `single-sentence-concept` | 0 | 2826 | 0 | 0 | 2826 |
+| `term-before-explanation` | 0 | 559 | 2181 | 0 | 2740 |
+| `thin-concept-section` | 0 | 2652 | 0 | 0 | 2652 |
+| `example-not-explicit` | 0 | 0 | 0 | 2065 | 2065 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 2028 | 2028 |
-| `list-first-introduction` | 0 | 1252 | 0 | 0 | 1252 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1071 | 1071 |
-| `short-concept-section` | 0 | 0 | 1047 | 0 | 1047 |
-| `no-prose-concept` | 695 | 0 | 0 | 0 | 695 |
-| `empty-section` | 572 | 0 | 0 | 0 | 572 |
-| `list-heavy-section` | 0 | 447 | 0 | 0 | 447 |
+| `list-first-introduction` | 0 | 1256 | 0 | 0 | 1256 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1068 | 1068 |
+| `short-concept-section` | 0 | 0 | 1045 | 0 | 1045 |
+| `no-prose-concept` | 698 | 0 | 0 | 0 | 698 |
+| `empty-section` | 574 | 0 | 0 | 0 | 574 |
+| `list-heavy-section` | 0 | 446 | 0 | 0 | 446 |
 
 ## Required remediation pattern
 

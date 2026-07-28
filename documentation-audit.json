@@ -2957,15 +2957,15 @@
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
       "title": "Public, private a hybrid cloud",
-      "words": 1375,
-      "headings": 32,
-      "sections": 32,
-      "findings": 110,
-      "critical": 35,
-      "high": 41,
-      "medium": 21,
-      "low": 13,
-      "score": 836,
+      "words": 1766,
+      "headings": 33,
+      "sections": 33,
+      "findings": 83,
+      "critical": 29,
+      "high": 35,
+      "medium": 10,
+      "low": 9,
+      "score": 667,
       "grade": "D"
     },
     {
@@ -168077,8 +168077,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "1. Deployment model a service model",
-      "line": 5,
+      "section": "1. Deployment-model subject",
+      "line": 18,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -168086,26 +168086,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "1. Deployment model a service model",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "1. Deployment model a service model",
-      "line": 5,
+      "section": "2. Service model a deployment model sú dve osi",
+      "line": 38,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `EC2 v AWS public cloude je IaaS,`, `interný OpenStack môže byť private-cloud IaaS,`.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "1. Deployment model a service model",
-      "line": 5,
+      "section": "2. Service model a deployment model sú dve osi",
+      "line": 38,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "2. Service model a deployment model sú dve osi",
+      "line": 38,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "2. Service model a deployment model sú dve osi",
+      "line": 38,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `EC2 v AWS je public-cloud IaaS;`, `RDS je public-cloud managed data platform;`, `interný OpenStack môže byť private-cloud IaaS;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "2. Service model a deployment model sú dve osi",
+      "line": 38,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -168113,8 +168131,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "1. Deployment model a service model",
-      "line": 5,
+      "section": "2. Service model a deployment model sú dve osi",
+      "line": 38,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "2. Service model a deployment model sú dve osi",
+      "line": 38,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `AWS`, `RDS`",
@@ -168122,53 +168149,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "2. Public cloud",
-      "line": 24,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 49 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "2. Public cloud",
-      "line": 24,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `on-demand provisioning cez API,`, `pay-as-you-go alebo commitment pricing,`, `provider-owned physical facilities a hardware,`, `veľký katalóg managed services,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "2. Public cloud",
-      "line": 24,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "2. Public cloud",
-      "line": 24,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "2. Public cloud",
-      "line": 24,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "3. Multi-tenancy",
-      "line": 40,
+      "section": "Public-cloud failure boundary",
+      "line": 73,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -168176,26 +168158,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "3. Multi-tenancy",
-      "line": 40,
+      "section": "Public-cloud failure boundary",
+      "line": 73,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "3. Multi-tenancy",
-      "line": 40,
+      "section": "Public-cloud failure boundary",
+      "line": 73,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hypervisor alebo hardware isolation,`, `tenant/account identity,`, `virtual networking,`, `encryption,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny account a Region;`, `správnu VPC route a endpoint policy;`, `správne IAM/session context;`, `dostupnú customer quota alebo IP capacity;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "3. Multi-tenancy",
-      "line": 40,
+      "section": "Public-cloud failure boundary",
+      "line": 73,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -168203,35 +168185,80 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "3. Multi-tenancy",
-      "line": 40,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "4. Private cloud",
-      "line": 60,
+      "section": "Public-cloud failure boundary",
+      "line": 73,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 35 slov súvislého vysvetlenia.",
-      "score": 8
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `IAM`, `IP`, `policy`",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "4. Private cloud",
-      "line": 60,
+      "section": "4. Private-cloud lifecycle",
+      "line": 85,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vo vlastnom dátovom centre,`, `v colocation,`, `na dedicated provider infraštruktúre,`, `ako appliance alebo cloud extension na zákazníckej lokalite.`.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "4. Private cloud",
-      "line": 60,
+      "section": "4. Private-cloud lifecycle",
+      "line": 85,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API a automation;`, `self-service provisioning;`, `štandardizované templates;`, `policy enforcement;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "4. Private-cloud lifecycle",
+      "line": 85,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "4. Private-cloud lifecycle",
+      "line": 85,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "4. Private-cloud lifecycle",
+      "line": 85,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `policy`, `enforcement`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Private-cloud failure boundary",
+      "line": 113,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Private-cloud failure boundary",
+      "line": 113,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `aktuálny patch level;`, `redundantnú power/network/storage architektúru;`, `elastickú spare capacity;`, `kvalitnú identity governance;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Private-cloud failure boundary",
+      "line": 113,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -168239,8 +168266,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "4. Private cloud",
-      "line": 60,
+      "section": "Private-cloud failure boundary",
+      "line": 113,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -168248,593 +168275,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "4. Private cloud",
-      "line": 60,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "4. Private cloud",
-      "line": 60,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "4. Private cloud",
-      "line": 60,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `resource`, `policy`, `enforcement`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "5. Výhody private cloudu",
-      "line": 81,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "5. Výhody private cloudu",
-      "line": 81,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "5. Výhody private cloudu",
-      "line": 81,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `prísnej physical/data-location kontrole,`, `legacy hardware alebo specialized devices,`, `nízkej a predvídateľnej latency k lokálnym systémom,`, `disconnected alebo air-gapped prostredí,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "5. Výhody private cloudu",
-      "line": 81,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "5. Výhody private cloudu",
-      "line": 81,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "5. Výhody private cloudu",
-      "line": 81,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "6. Náklady private cloudu",
-      "line": 95,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "6. Náklady private cloudu",
-      "line": 95,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "6. Náklady private cloudu",
-      "line": 95,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hardware a refresh cyklus,`, `dátové centrum, napájanie a chladenie,`, `network connectivity,`, `software licencie a support,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "6. Náklady private cloudu",
-      "line": 95,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "6. Náklady private cloudu",
-      "line": 95,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "7. Hybrid cloud",
-      "line": 112,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "7. Hybrid cloud",
-      "line": 112,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `networking,`, `identity federation,`, `DNS,`, `data replication alebo transfer,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "7. Hybrid cloud",
-      "line": 112,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "7. Hybrid cloud",
-      "line": 112,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "7. Hybrid cloud",
-      "line": 112,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "8. Hybrid connectivity",
-      "line": 129,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Site-to-site VPN",
-      "line": 133,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Site-to-site VPN",
-      "line": 133,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Site-to-site VPN",
-      "line": 133,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rýchle nasadenie,`, `závislosť od internet paths,`, `variabilná latency,`, `throughput a tunnel limits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Site-to-site VPN",
-      "line": 133,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Dedicated connectivity",
-      "line": 145,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Dedicated connectivity",
-      "line": 145,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Dedicated connectivity",
-      "line": 145,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stabilnejšia kapacita a routing,`, `dlhší provisioning,`, `physical a provider dependencies,`, `dedicated link sám nezaručuje encryption,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Dedicated connectivity",
-      "line": 145,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Public service endpoints",
-      "line": 157,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Private service endpoints",
-      "line": 161,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "9. Hybrid identity",
-      "line": 165,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "9. Hybrid identity",
-      "line": 165,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "9. Hybrid identity",
-      "line": 165,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `federáciu workforce identities,`, `workload identity federation,`, `directory integration,`, `certificate-based machine identity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "9. Hybrid identity",
-      "line": 165,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "9. Hybrid identity",
-      "line": 165,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "10. Hybrid DNS",
-      "line": 178,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "10. Hybrid DNS",
-      "line": 178,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "10. Hybrid DNS",
-      "line": 178,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative zones,`, `conditional forwarding,`, `split-horizon records,`, `inbound a outbound resolver endpoints,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "10. Hybrid DNS",
-      "line": 178,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "10. Hybrid DNS",
-      "line": 178,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "11. Hybrid data",
-      "line": 192,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "11. Hybrid data",
-      "line": 192,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `synchronous a asynchronous replication,`, `bulk transfer,`, `event streaming,`, `cache,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "11. Hybrid data",
-      "line": 192,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "11. Hybrid data",
-      "line": 192,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "12. Hybrid management",
-      "line": 208,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "12. Hybrid management",
-      "line": 208,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "12. Hybrid management",
-      "line": 208,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto vlastní source of truth,`, `ktoré policies sú centrálne a ktoré lokálne,`, `ako sa distribuujú updates,`, `ako funguje inventory,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "12. Hybrid management",
-      "line": 208,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "12. Hybrid management",
-      "line": 208,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "12. Hybrid management",
-      "line": 208,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAN`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "13. Edge cloud",
-      "line": 222,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "13. Edge cloud",
-      "line": 222,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "13. Edge cloud",
-      "line": 222,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nízka latency,`, `obmedzená alebo prerušovaná WAN konektivita,`, `lokálne spracovanie dát,`, `data sovereignty,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "13. Edge cloud",
-      "line": 222,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "13. Edge cloud",
-      "line": 222,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAN`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "14. Multi-cloud",
-      "line": 244,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "14. Multi-cloud",
-      "line": 244,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `regulačné alebo zákaznícke požiadavky,`, `best-of-breed service,`, `merger/acquisition,`, `geographic availability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "14. Multi-cloud",
-      "line": 244,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "14. Multi-cloud",
-      "line": 244,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "14. Multi-cloud",
-      "line": 244,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "14. Multi-cloud",
-      "line": 244,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "15. Cloud bursting",
-      "line": 268,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "15. Cloud bursting",
-      "line": 268,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `image/runtime parity,`, `data locality,`, `identity a secrets,`, `network capacity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "15. Cloud bursting",
-      "line": 268,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "15. Cloud bursting",
-      "line": 268,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "15. Cloud bursting",
-      "line": 268,
+      "section": "Private-cloud failure boundary",
+      "line": 113,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -168842,26 +168284,80 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "16. Portability",
-      "line": 285,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "5. Hybrid-cloud lifecycle",
+      "line": 127,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "16. Portability",
-      "line": 285,
+      "section": "5. Hybrid-cloud lifecycle",
+      "line": 127,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source code,`, `container image,`, `infrastructure manifest,`, `data format,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network connectivity a return path;`, `identity federation a machine credentials;`, `DNS authority a forwarding;`, `data replication, consistency a conflict resolution;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "16. Portability",
-      "line": 285,
+      "section": "5. Hybrid-cloud lifecycle",
+      "line": 127,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "5. Hybrid-cloud lifecycle",
+      "line": 127,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "5. Hybrid-cloud lifecycle",
+      "line": 127,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `WAN`, `identity`, `control plane`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Unknown network outcome",
+      "line": 173,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Unknown network outcome",
+      "line": 173,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Unknown network outcome",
+      "line": 173,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS vrátil chybnú alebo stale adresu;`, `source route chýba;`, `BGP propaguje nesprávny prefix;`, `firewall/NACL/SG blokuje flow;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Unknown network outcome",
+      "line": 173,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -168869,35 +168365,305 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "16. Portability",
-      "line": 285,
+      "section": "Unknown network outcome",
+      "line": 173,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `BGP`, `NACL`, `SG`, `MTU`, `TLS`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "8. Hybrid DNS",
+      "line": 200,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "8. Hybrid DNS",
+      "line": 200,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative zone ownera;`, `split-horizon behavior;`, `conditional forwarding;`, `overlapping namespace policy;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "8. Hybrid DNS",
+      "line": 200,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "8. Hybrid DNS",
+      "line": 200,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `TTL`, `DNSSEC`, `policy`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "10. Management-plane boundary",
+      "line": 245,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "10. Management-plane boundary",
+      "line": 245,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authoritative inventory;`, `source of truth pre configuration;`, `ownership každého mutable fieldu;`, `policy distribution;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "10. Management-plane boundary",
+      "line": 245,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "10. Management-plane boundary",
+      "line": 245,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "10. Management-plane boundary",
+      "line": 245,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAN`, `policy`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "17. Deployment model nie je security level",
-      "line": 300,
+      "section": "Exact incident subject",
+      "line": 265,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Competing hypotheses",
+      "line": 280,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Competing hypotheses",
+      "line": 280,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Competing hypotheses",
+      "line": 280,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "17. Deployment model nie je security level",
-      "line": 300,
+      "section": "Competing hypotheses",
+      "line": 280,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity a authorization,`, `network segmentation,`, `patching,`, `encryption,`.",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ledger process je preťažený;`, `DNS vracia starú VIP;`, `backup VPN má preferovanejšiu asymetrickú route;`, `firewall generation nepovoľuje nový source CIDR;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "17. Deployment model nie je security level",
-      "line": 300,
+      "section": "Competing hypotheses",
+      "line": 280,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Competing hypotheses",
+      "line": 280,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `VIP`, `DX`, `AZ`, `VPN`, `CIDR`, `MTU`, `TLS`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Containment",
+      "line": 305,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Containment",
+      "line": 305,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Containment",
+      "line": 305,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Containment",
+      "line": 305,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť rollout do affected subnet cohorty;`, `ponechať healthy AZ capacity;`, `zachovať BGP, firewall a flow-log evidence;`, `nesmerovať všetok traffic naslepo cez jeden link;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Containment",
+      "line": 305,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Containment",
+      "line": 305,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `BGP`, `CIDR`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Recovery",
+      "line": 313,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Recovery",
+      "line": 313,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Recovery",
+      "line": 313,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Recovery",
+      "line": 313,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `opraviť authoritative prefix inventory;`, `publikovať a akceptovať nový prefix cez redundantné paths;`, `zosúladiť firewall object s exact source CIDR;`, `vyčistiť iba affected stale sessions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Recovery",
+      "line": 313,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Recovery",
+      "line": 313,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Recovery",
+      "line": 313,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CIDR`, `TCP`, `TLS`, `AZ`, `DX7`, `VPN4`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "Closure verdict",
+      "line": 323,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "12. Edge a disconnected operation",
+      "line": 333,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "12. Edge a disconnected operation",
+      "line": 333,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `secure bootstrap a hardware identity;`, `fleet inventory;`, `offline queueing a local decisions;`, `bounded local data retention;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "12. Edge a disconnected operation",
+      "line": 333,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -168905,17 +168671,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "17. Deployment model nie je security level",
-      "line": 300,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "17. Deployment model nie je security level",
-      "line": 300,
+      "section": "12. Edge a disconnected operation",
+      "line": 333,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
@@ -168923,8 +168680,53 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "18. Výber deployment modelu",
-      "line": 318,
+      "section": "13. Multi-cloud",
+      "line": 348,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "13. Multi-cloud",
+      "line": 348,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac IAM a policy modelov;`, `odlišné network/DNS semantics;`, `duplicate platform tooling;`, `data transfer a consistency complexity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "13. Multi-cloud",
+      "line": 348,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "13. Multi-cloud",
+      "line": 348,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "13. Multi-cloud",
+      "line": 348,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `DNS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "14. Portability subject",
+      "line": 362,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -168932,26 +168734,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "18. Výber deployment modelu",
-      "line": 318,
+      "section": "15. Deployment-model decision",
+      "line": 379,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
+      "section": "15. Deployment-model decision",
+      "line": 379,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "18. Výber deployment modelu",
-      "line": 318,
+      "section": "15. Deployment-model decision",
+      "line": 379,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency a locality,`, `data residency a regulation,`, `connectivity a offline requirements,`, `hardware alebo license dependencies,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency a locality;`, `data residency a regulation;`, `connected/disconnected behavior;`, `hardware a licensing constraints;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "18. Výber deployment modelu",
-      "line": 318,
+      "section": "15. Deployment-model decision",
+      "line": 379,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -168959,8 +168770,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "18. Výber deployment modelu",
-      "line": 318,
+      "section": "15. Deployment-model decision",
+      "line": 379,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -168968,62 +168779,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "18. Výber deployment modelu",
-      "line": 318,
-      "severity": "medium",
+      "section": "15. Deployment-model decision",
+      "line": 379,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCO`, `RPO`, `RTO`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "19. Troubleshooting hybridného prostredia",
-      "line": 335,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "19. Troubleshooting hybridného prostredia",
-      "line": 335,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "19. Troubleshooting hybridného prostredia",
-      "line": 335,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamps v UTC,`, `source/destination IP a port,`, `route tables,`, `tunnel/BGP state,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "19. Troubleshooting hybridného prostredia",
-      "line": 335,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RPO`, `RTO`, `TCO`, `workload`, `identity`",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "19. Troubleshooting hybridného prostredia",
-      "line": 335,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTC`, `IP`, `BGP`, `DNS`, `ID`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Private cloud = virtualizácia",
-      "line": 365,
+      "section": "Private cloud rovná sa virtualizácia",
+      "line": 398,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -169031,8 +168797,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Hybrid = jedna VPN",
-      "line": 369,
+      "section": "Public endpoint znamená verejné dáta",
+      "line": 406,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -169040,8 +168806,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Multi-cloud = automatická odolnosť",
-      "line": 373,
+      "section": "Multi-cloud je automatický DR",
+      "line": 410,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -169049,17 +168815,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Public endpoint = verejné dáta",
-      "line": 377,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
-      "section": "Lowest-common-denominator architecture",
-      "line": 381,
+      "section": "Central dashboard znamená central control",
+      "line": 414,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
