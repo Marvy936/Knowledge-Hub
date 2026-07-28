@@ -1,615 +1,641 @@
 # Well-Architected Framework
 
-AWS Well-Architected Framework poskytuje konzistentný spôsob hodnotenia workloadu voči cloudovým best practices. Nie je to certifikát, jednorazový audit ani checklist garantujúci bezpečnosť. Je to opakovateľný review a improvement proces, ktorý prepája business požiadavky, architektúrne rozhodnutia, operational evidence, riziká a konkrétne nápravné kroky.
+AWS Well-Architected Framework je opakovateľný architecture-risk review model. Nie je to certifikát, automatic scanner ani checklist, ktorý zmení configured AWS services na preukázane bezpečný a spoľahlivý workload.
 
-## 1. Mentálny model
+Review vytvára hodnotu iba vtedy, keď prepojí business outcome, exact workload generation, aktuálne evidence, konkrétny failure scenario, risk decision, vykonateľnú improvement zmenu a následné overenie.
+
+Dominantný lifecycle:
 
 ```text
 business outcome a constraints
-→ workload boundary
-→ architecture a operational evidence
-→ pillar questions a best practices
-→ risks a trade-offs
-→ prioritized improvement plan
-→ implementation
-→ validation
-→ milestone
-→ ďalší review
+→ exact workload a review subject
+→ current evidence inventory a cut-off
+→ question a best-practice applicability
+→ evidence-backed answer
+→ failure scenario, likelihood a impact
+→ risk/trade-off decision
+→ owned improvement item alebo expiring acceptance
+→ bounded implementation
+→ technical a business validation
+→ residual-risk verdict a milestone
+→ continuous re-review pri zmene
 ```
 
-Dôležitá otázka nie je „Používame AWS službu X?“, ale „Spĺňa workload požadované reliability, security, performance, operations, cost a sustainability outcomes a vieme to preukázať?“
+Zaškrtnutá odpoveď bez evidence nie je control. Implementovaná zmena bez validation nie je closed risk. Milestone je historický snapshot, nie dôkaz dnešného production state-u.
 
-## 2. Workload boundary
+## 1. Exact workload-review subject
 
-Workload je súbor komponentov, ľudí, procesov a technológií, ktoré spoločne poskytujú business value.
+Atlas Payments používa subject `WA-PAY-42`:
 
-Boundary má zahŕňať:
+```text
+workload = CAP-PAY-42
+business outcome = authorize, settle and ledger payments exactly once
+business owner = Payments Product
+technical owner = Atlas Payments Team
+criticality = tier 1
+users = EU payment clients and internal reconciliation operators
 
-- používateľov a business ownera,
-- application a data components,
-- AWS accounts a Regions,
-- external dependencies,
-- identity a security boundaries,
-- CI/CD a operational tooling,
-- backup a recovery,
-- observability,
-- support a on-call model,
-- compliance a cost ownership.
+review generation = WA-PAY-2026-07-R3
+review date = 2026-07-28
+evidence cut-off = 2026-07-28T12:00:00Z
+framework/lens generation = AWS Framework Lens + PAYMENTS-CUSTOM-4
+previous milestone = WA-PAY-2026-06-M2
 
-Ak sa review obmedzí iba na diagram AWS resources, ignoruje významnú časť reálneho workloadu.
+production accounts = 100000000042 and shared security/logging accounts
+primary Region = eu-central-1
+recovery Region = eu-west-1
+application release = payments-api 7.18.0
+Lambda settlement release = 5.4.0
+database subject = DB-PAY-42 / schema SCHEMA-215
+recovery subject = REC-PAY-42
+security subject = SEC-PAY-42
 
-## 3. Šesť pilierov
+SLO = 99.95% successful payment API
+p99 latency objective = 750 ms
+RTO = 2 hours
+ledger RPO = 15 minutes
 
-AWS Well-Architected Framework používa šesť pilierov:
+review evidence inventory =
+  architecture and data-flow diagrams generation ARCH-31
+  IaC commit and deployed-state evidence INFRA-64
+  CloudWatch SLI dashboard generation OBS-19
+  CloudTrail and security evidence window EVID-42
+  failover drill FD-12
+  restore test RT-PAY-6
+  load test PERF-18
+  cost/unit-economics report FIN-PAY-42
+  incident and postmortem inventory INC-2026-Q3
 
-1. Operational Excellence
-2. Security
-3. Reliability
-4. Performance Efficiency
-5. Cost Optimization
-6. Sustainability
+forbidden outcomes =
+  configured service is accepted as effective control without test evidence
+  stale diagram or previous milestone is treated as current production truth
+  review excludes external payment provider, CI/CD, people or recovery process
+  risk is marked closed when only a ticket or resource exists
+  cost optimization removes reliability/security control without explicit decision
+  accepted risk has no owner, expiry or re-review trigger
+```
 
-Piliere sa navzájom ovplyvňujú. Zmena zameraná na jeden môže zlepšiť alebo zhoršiť iný.
+Každý finding musí viazať exact question a best practice na workload generation, evidence timestamp, affected component, failure scenario, existing controls, owner, decision, validation a residual risk.
 
-## 4. Operational Excellence
+## 2. Workload boundary je business capability, nie AWS diagram
 
-Operational Excellence je schopnosť efektívne podporovať development a prevádzku, získavať insight do systému a priebežne zlepšovať procesy a postupy.
+Workload boundary obsahuje všetko, čo musí spolu fungovať, aby business outcome vznikol:
 
-Témy:
+```text
+users a channels
+→ DNS/edge/API
+→ application and event processing
+→ databases, objects and queues
+→ external payment provider
+→ identity, keys and secrets
+→ deployment and artifact supply chain
+→ observability and incident response
+→ backup, reconciliation and recovery
+→ teams, on-call, finance and compliance
+```
 
-- organizácia tímov a ownership,
-- operations as code,
-- malé reverzibilné zmeny,
-- observability,
-- incident response,
-- runbooks a playbooks,
-- operational readiness,
-- learning from failures,
-- continuous improvement.
+Ak review obsahuje iba production VPC a RDS diagram, ignoruje:
 
-Dôkazy:
+- retry behavior po unknown transaction outcome;
+- CI/CD permissions a rollback eligibility;
+- external provider idempotency;
+- secret rotation consumer refresh;
+- restore approval a reconciliation;
+- support hours, escalation a decision authority;
+- shared observability alebo egress blast radius;
+- unit economics a commitment constraints.
 
-- definovaní owners,
-- deployment a rollback proces,
-- telemetry a alarms,
-- on-call a escalation,
-- postmortems,
-- change metrics,
-- testované runbooks.
+Boundary sa zapisuje explicitne. „Managed by another team“ znamená dependency s contractom a ownerom, nie automatické `not applicable`.
 
-## 5. Security
+## 3. Review subject musí byť versionovaný
 
-Security chráni dáta, systémy a assets pri zachovaní business schopnosti.
+Architektúra sa mení. Review answer bez generation identity môže opisovať iný workload než ten, ktorý beží.
 
-Témy:
+Review subject zahŕňa:
 
-- identity foundation,
-- traceability,
-- infrastructure protection,
-- data protection,
-- threat detection,
-- vulnerability management,
-- incident response,
-- application security.
+- application a schema release;
+- accounts, Regions a topology;
+- IaC/deployment generation;
+- security a recovery policy generations;
+- current traffic/capacity profile;
+- evidence window;
+- open incidents a accepted risks;
+- applied lens versions.
 
-Dôkazy:
+Keď sa po review zmení retry policy, target-group routing, KMS key, RTO alebo account boundary, affected answers sú stale aj keď milestone stále existuje.
 
-- federated access a MFA,
-- least privilege,
-- CloudTrail a security logs,
-- encryption a key governance,
-- network segmentation,
-- patching,
-- security findings a response,
-- tested containment.
+## 4. Evidence inventory predchádza odpovediam
 
-Security sa nemá „vymeniť“ za nižší cost alebo rýchlejší release bez explicitného risk acceptance procesu.
+Pred question walkthroughom tím zhromaždí expected evidence inventory:
 
-## 6. Reliability
-
-Reliability je schopnosť workloadu vykonávať požadovanú funkciu správne a konzistentne v očakávanom čase.
-
-Témy:
-
-- foundations a quotas,
-- workload architecture,
-- change management,
-- failure management,
-- backup a recovery,
-- capacity a scaling,
-- dependency isolation.
-
-Dôkazy:
-
-- SLO a capacity model,
-- Multi-AZ/Region decisions,
-- health checks,
-- retry/timeout/circuit-breaker policy,
-- tested failover,
-- restore tests,
-- quota monitoring,
-- dependency failure drills.
-
-Redundancy bez testovaného failoveru nie je preukázaná reliability.
-
-## 7. Performance Efficiency
-
-Performance Efficiency je efektívne používanie compute resources na splnenie system requirements a udržanie efektivity pri zmene demandu a technológií.
-
-Témy:
-
-- správny resource type,
-- compute/storage/database/network selection,
-- serverless a managed services,
-- measurement,
-- scaling,
-- performance trade-offs,
-- review nových capabilities.
-
-Dôkazy:
-
-- load tests,
-- latency/throughput/error metriky,
-- saturation,
-- rightsizing,
-- architecture benchmark,
-- performance budget,
-- capacity forecast.
-
-Najdrahší resource nemusí byť najvýkonnejší pre konkrétny workload pattern.
-
-## 8. Cost Optimization
-
-Cost Optimization je schopnosť poskytovať business value pri najnižšom rozumnom total cost počas lifecycle-u.
-
-Témy:
-
-- financial management,
-- expenditure awareness,
-- cost-effective resources,
-- supply-demand management,
-- optimization over time.
-
-Dôkazy:
-
-- cost allocation,
-- budgets a anomaly detection,
-- unit economics,
-- utilization,
-- commitment coverage/utilization,
-- lifecycle a deletion controls,
-- optimization backlog.
-
-Najnižší mesačný účet nie je cieľ, ak zvyšuje outage risk, toil alebo time-to-market viac než ušetrená suma.
-
-## 9. Sustainability
-
-Sustainability sa zameriava na minimalizovanie environmentálneho dopadu cloud workloads.
-
-Témy:
-
-- Region a service selection,
-- utilization,
-- demand matching,
-- data lifecycle,
-- software efficiency,
-- hardware a accelerator selection,
-- process a culture.
-
-Praktické opatrenia sa často prekrývajú s cost a performance optimalizáciou:
-
-- odstránenie idle resources,
-- autoscaling,
-- efektívnejší code,
-- managed services,
-- data retention podľa potreby,
-- novšie efektívnejšie instance families.
-
-Sustainability však nie je iba synonymum pre cost reduction.
-
-## 10. Trade-offs medzi piliermi
+```text
+question/best practice
+→ required observation point
+→ authoritative source
+→ owner
+→ freshness limit
+→ expected allowed and forbidden result
+```
 
 Príklady:
 
-- viac redundantnej capacity zvyšuje reliability, ale aj cost,
-- dlhšia retention zlepšuje recovery/compliance, ale zvyšuje storage cost a data exposure,
-- aggressive caching znižuje latency a origin cost, ale môže zhoršiť consistency,
-- centralizácia znižuje duplication, ale môže zväčšiť shared blast radius,
-- strict security control môže znížiť usability, ale odstránenie kontroly môže vytvoriť kritické riziko.
+| Review claim | Slabý dôkaz | Silnejší dôkaz |
+|---|---|---|
+| Failover funguje | Multi-AZ enabled screenshot | timed failover drill s production client/retry behavior a business reconciliation |
+| Backups sú pripravené | backup jobs completed | clean restore generation + application invariants + measured RTO |
+| Least privilege je zavedené | policy JSON | effective caller tests, denied forbidden actions, CloudTrail a access review |
+| Autoscaling chráni service | scaling policy exists | load/failure test, downstream saturation a recovery evidence |
+| Cost je optimalizovaný | recommendation accepted | bounded change, SLO guardrails a realized unit-cost result |
 
-Review má trade-off explicitne zaznamenať vrátane ownera a akceptácie rizika.
+Evidence má timestamp, scope a subject. Live console screenshot bez resource ARN, Region, policy generation a test outcome je slabý audit artifact.
 
-## 11. AWS Well-Architected Tool
+## 5. Question applicability je explicitný verdict
 
-AWS Well-Architected Tool pomáha:
+Well-Architected question alebo best practice môže byť:
 
-- definovať workload,
-- aplikovať Framework Lens a ďalšie lenses,
-- odpovedať na review questions,
-- identifikovať high-risk a medium-risk issues,
-- vytvoriť improvement plan,
-- ukladať milestones,
-- generovať reports,
-- zdieľať workload review podľa access modelu.
+- applicable a implemented;
+- applicable a partially implemented;
+- applicable a not implemented;
+- not applicable s rationale a evidence;
+- unknown, pretože evidence chýba.
 
-Tool nenahrádza technické overenie. Odpoveď bez evidence môže vytvoriť falošne pozitívny výsledok.
+`Not applicable` nesmie znamenať „nevieme“ alebo „vlastní to vendor“. External dependency môže zmeniť implementation, ale failure impact zostáva súčasťou workloadu.
 
-## 12. Lenses
+Unknown answer je často bezpečnejší než optimistic yes. Vytvára evidence-gathering action namiesto falošne closed risku.
 
-Lens je sada questions, best practices a improvement guidance pre konkrétny domain alebo technology scope.
+## 6. Šesť pilierov sú pohľady na ten istý outcome
 
-Typy:
+Framework používa šesť pilierov. Nemajú sa riešiť ako šesť nezávislých checklistov. Každý skúma inú časť rovnakého workload lifecycle-u.
 
-- AWS Well-Architected Framework Lens,
-- AWS-provided domain lenses,
-- custom lenses podľa organization requirements.
+### Operational Excellence: vieme systém bezpečne meniť a prevádzkovať?
 
-Lens môže pokrývať napríklad serverless, SaaS, machine learning, financial services alebo organization-specific controls podľa aktuálnej ponuky.
+Atlas overuje:
 
-Custom lens nemá kopírovať všetky interné policies bez prioritizácie. Má spájať konkrétne questions s evidence a remediation.
+```text
+owner a operating model
+→ change/release mechanism
+→ observability a decision signals
+→ runbook/playbook
+→ incident learning
+→ improvement closure
+```
 
-## 13. Review participants
+Evidence zahŕňa deployment/rollback históriu, on-call, runbook executions, alarm tests, postmortems, toil a change-failure metrics.
 
-Kvalitný review potrebuje viac perspektív:
+Configured alarm bez ownera a tested action pathu nie je operational control. Runbook, ktorý sa pri poslednom incidente nepoužil alebo odkazuje na retired topology, je stale evidence.
 
-- business owner,
-- solution/application architect,
-- development,
-- platform/cloud operations,
-- security,
-- SRE/on-call,
-- data owner,
-- finance/FinOps,
-- compliance podľa potreby.
+### Security: kto môže čo vykonať a ako odhalíme zneužitie?
 
-Review vykonaný iba jedným administrátorom môže prehliadnuť business, application alebo operational dependencies.
+Security pohľad sleduje identity foundation, traceability, infrastructure/data protection, vulnerability management, detection a response.
 
-## 14. Evidence-driven review
+End-to-end otázka:
 
-Ku každej významnej odpovedi zachovaj dôkaz:
+```text
+human/workload identity
+→ effective authorization
+→ protected resource/data action
+→ telemetry and detection
+→ containment
+→ credential/key/data recovery
+```
 
-- architecture diagrams,
-- IaC alebo configuration,
-- CloudWatch/observability dashboards,
-- CloudTrail/audit evidence,
-- policy definitions,
-- deployment history,
-- restore/failover test,
-- incident/postmortem,
-- cost report,
-- capacity/load test,
-- ownership a runbooks.
+Evidence musí obsahovať allowed aj forbidden tests. Encryption enabled bez key-policy, deletion, rotation a recovery modelu je incomplete answer.
 
-Evidence musí mať timestamp a scope. Starý diagram nie je dôkaz aktuálneho production stavu.
+### Reliability: čo sa stane pri failure a ako obnovíme business outcome?
 
-## 15. High-risk a medium-risk issues
+Reliability spája quotas, capacity, dependencies, change, failure management, backup a recovery.
 
-Risk issue reprezentuje odchýlku od best practices s relevantným dopadom.
+```text
+failure assumption
+→ detection
+→ containment/isolation
+→ failover/retry/recovery behavior
+→ data and external-side-effect reconciliation
+→ SLO/RTO/RPO outcome
+```
 
-Pri triage zaznamenaj:
+Multi-AZ, queue alebo backup existence sú mechanisms. Reliability answer potrebuje test konkrétneho failure scenario vrátane client, transaction a business semantics.
 
-- pillar a question,
-- affected workload/component,
-- failure scenario,
-- likelihood,
-- impact,
-- existing controls,
-- ownera,
-- remediation,
-- target date,
-- validation,
-- accepted residual risk.
+### Performance Efficiency: spĺňa resource model požiadavky pri reálnom demand-e?
 
-Počet high-risk issues nie je vhodný ako vanity metric bez kontextu. Dôležitá je ich závažnosť, vek a reálne odstránenie.
+Review skúma resource/service selection, load profile, scaling, saturation, latency distribution a technology evolution.
 
-## 16. Improvement plan
+Average CPU nie je performance model. Atlas používa p50/p95/p99, queue age, database connections/locks, downstream latency, scaling delay a failure headroom.
 
-Improvement plan má premeniť review na vykonateľný backlog.
+Performance test musí používať representative request mix, data size, cache state a failure cohort. Benchmark jedného isolated componentu nepreukazuje end-to-end payment latency.
 
-Každá položka potrebuje:
+### Cost Optimization: poskytuje workload value pri rozumnom total cost?
 
-- konkrétny problem statement,
-- business/technical impact,
-- ownera,
-- priority,
-- dependencies,
-- estimated effort/cost,
-- target state,
-- validation criteria,
-- rollback alebo safe-change model.
+Cost pillar spája attribution, unit economics, demand/capacity, commitments, waste a optimization cadence.
 
-Vágne položky typu „zlepšiť monitoring“ nie sú dostatočné. Lepšie:
+```text
+business volume and outcome
+→ allocated cost
+→ unit cost and cost drivers
+→ optimization hypothesis
+→ reliability/security/performance trade-off
+→ realized savings
+```
 
-> Definovať SLO pre checkout, pridať latency/error-rate dashboard, burn-rate alarmy a on-call runbook; overiť fault injection testom.
+Najnižší účet nie je success, ak znižuje payment success rate, predlžuje recovery alebo zvyšuje toil a incident loss.
 
-## 17. Prioritizácia
+### Sustainability: koľko resources spotrebujeme na užitočný outcome?
 
-Použi kombináciu:
+Sustainability hodnotí demand matching, utilization, software/data efficiency, Region/service/hardware voľbu a lifecycle.
 
-- business criticality,
-- security/compliance severity,
-- outage/recovery impact,
-- likelihood,
-- blast radius,
-- effort,
-- reversibility,
-- dependency order,
-- quick wins oproti structural changes.
+Odstránenie idle capacity môže zlepšiť cost aj sustainability, ale nesmie odstrániť required failover headroom. Environmental a financial outcomes sa prekrývajú, nie sú totožné.
 
-High-risk issue nemusí byť vždy prvý, ak jeho oprava závisí od identity, networking alebo ownership foundation.
+## 7. Cross-pillar trade-off je versionované rozhodnutie
 
-## 18. Milestones
+Architecture change sa hodnotí proti všetkým relevantným outcomes.
 
-Milestone zachytáva stav workloadu v určitom čase.
+Príklad: zníženie RDS a application standby capacity:
 
-Vytvor milestone:
+```text
+nižší monthly spend
++ vyššia utilization
+- menšia failover headroom
+- vyššie recovery saturation risk
+- možno dlhší RTO
+```
 
-- po baseline review,
-- pred production launchom,
-- po významnej architecture change,
-- po odstránení improvement items,
-- po major incident alebo DR test,
-- pred/po migration.
+Decision record obsahuje:
 
-Milestone umožňuje merať zmenu rizika a rozhodnutí. Nemá byť iba administratívny snapshot bez porovnania.
+- context a exact subject;
+- alternatives;
+- expected benefit;
+- affected pillars;
+- failure scenario;
+- guardrails a abort criteria;
+- owner a approver;
+- validation;
+- residual risk a review date.
 
-## 19. Review cadence
+Trade-off nemusí mať „dokonalé“ riešenie. Musí byť vedomý, overiteľný a vlastnený.
 
-Review vykonávaj:
+## 8. Risk statement musí byť kauzálny
 
-- pri návrhu nového workloadu,
-- pred go-live,
-- periodicky podľa criticality,
-- po veľkej zmene,
-- po incidente,
-- pri novom compliance alebo business requirement,
-- pri významnom raste cost/demandu.
+Vágne findingy ako „zlepšiť monitoring“ alebo „nemáme DR“ sa ťažko prioritizujú.
 
-Annual review môže byť príliš zriedkavý pre rýchlo sa meniaci workload. Časť controls je vhodné automaticky priebežne overovať.
+Lepší risk statement:
 
-## 20. Continuous Well-Architected
+```text
+Pretože payments-api po database connection loss retryuje provider authorization
+bez reconciliation podľa business idempotency key,
+môže RDS failover po durable commit a stratenom acknowledgement-e
+vytvoriť duplicate settlement s finančným a compliance dopadom.
+```
 
-Framework možno integrovať do delivery lifecycle-u:
+Risk record obsahuje:
+
+- trigger/cause;
+- mechanizmus;
+- affected outcome;
+- likelihood evidence;
+- impact a blast radius;
+- current preventive/detective/recovery controls;
+- evidence gaps;
+- decision a owner.
+
+Počet HRI/MRI nie je quality metric. Jeden otvorený duplicate-payment risk môže byť dôležitejší než desiatky low-impact findings.
+
+## 9. Configured, effective a accepted control
+
+### Configured
+
+Resource, policy, alarm alebo runbook existuje.
+
+### Effective
+
+Control bol pozorovaný alebo otestovaný proti intended failure/threat a vytvoril required outcome.
+
+### Accepted
+
+Business/technical authority explicitne prijala residual risk po pochopení failure scenario, duration a alternatives.
+
+```text
+configured backup plan
+≠ effective recovery
+≠ accepted residual data-loss risk
+```
+
+Review answer má označiť, ktorú úroveň evidence preukazuje.
+
+## 10. Improvement item je bounded change contract
+
+Každá remediation položka potrebuje:
+
+```text
+problem/risk
+→ exact target state
+→ owner a dependency
+→ implementation plan
+→ safety/rollback model
+→ acceptance oracle
+→ forbidden outcomes
+→ evidence location
+→ target date
+```
+
+Príklad:
+
+> Zaviesť provider idempotency key viazaný na payment ID, transactional outbox a reconciliation pred retryom; vykonať RDS failover test medzi durable commitom a acknowledgementom; preukázať jeden ledger/provider outcome a nulový duplicate settlement.
+
+„Implementovať idempotenciu“ bez exact boundary a testu nie je closeable item.
+
+## 11. Risk acceptance má expiry a triggers
+
+Accepted risk obsahuje:
+
+- accountable approvera;
+- rationale a business context;
+- exact residual scenario;
+- temporary compensating controls;
+- expiry date;
+- re-review triggers;
+- budget alebo dependency potrebnú na remediation.
+
+Trigger môže byť traffic growth, nový Region, incident, provider contract change, compliance deadline alebo removal compensating control.
+
+Acceptance bez expiry sa stáva neviditeľným permanentným designom.
+
+## 12. Milestone je immutable comparison point
+
+Milestone zachytáva review state v určitom čase. Používa sa na porovnanie:
+
+```text
+previous risk/evidence generation
+→ implemented changes
+→ current validated outcomes
+→ new/stale risks
+```
+
+Milestone sa vytvára po baseline review, pred launchom, po významnej architecture change, DR/failure drill, major incidente alebo uzavretí dôležitého improvement bloku.
+
+Milestone sám neaktualizuje evidence. Report z júna nemôže preukazovať júlový release bez explicitnej revalidation.
+
+## 13. Lenses a custom controls
+
+Lens je sada questions, best practices a improvement guidance pre domain alebo technology scope. AWS Framework Lens sa môže kombinovať s AWS-provided a organization custom lenses.
+
+Atlas custom lens pridáva otázky pre:
+
+- payment exactly-once boundary;
+- provider idempotency/reconciliation;
+- PCI/data handling;
+- secret rotation loaded-state;
+- restore business invariants;
+- unit cost per successful payment.
+
+Custom lens nemá kopírovať každú internú policy. Každá otázka musí viesť k failure scenario, evidence a decision.
+
+## 14. Well-Architected Tool je review system of record, nie scanner
+
+AWS Well-Architected Tool podporuje workload definitions, lenses, answers, risk issues, improvement plans, milestones, reports a sharing.
+
+Tool nevie automaticky rozhodnúť:
+
+- či screenshot je aktuálny;
+- či failover vytvorí duplicate payment;
+- či accepted risk má správneho ownera;
+- či restore spĺňa business invariant;
+- či optimization trade-off je prijateľný.
+
+Odpoveď je taká kvalitná, ako evidence a reasoning, ktoré tím vložil.
+
+## 15. Worked failure: Multi-AZ screenshot falošne uzavrel reliability risk
+
+### Review answer
+
+Review `WA-PAY-2026-06-R2` odpovedal pozitívne na failure-management a recovery practices, pretože:
+
+- RDS bol Multi-AZ;
+- application používala retry library;
+- AWS Backup jobs boli green;
+- runbook obsahoval „retry request after reconnect“.
+
+Finding bol označený closed. Evidence tvorili console screenshots a architecture diagram. Neexistoval failover test v transaction commit boundary ani provider reconciliation test.
+
+### Production incident
+
+Po RDS failover-e payment `P-884` prešiel týmto lifecycle-om:
+
+```text
+provider authorization succeeded
+→ database transaction and outbox committed
+→ connection dropped before application acknowledgement
+→ client/runtime classified result as failure
+→ whole operation retried
+→ provider received second authorization
+```
+
+RDS endpoint sa správne presmeroval a database bola available. Infrastructure control fungoval, ale business reliability zlyhala.
+
+### Competing hypotheses o review failure
+
+1. production drift odstránil pôvodne funkčný control;
+2. evidence bola stale;
+3. workload boundary nezahŕňala payment provider;
+4. question bola interpretovaná ako „máme Multi-AZ“;
+5. retry control nebol otestovaný pri unknown commit outcome;
+6. risk bol vedome accepted, ale acceptance sa stratila.
+
+### Discriminating evidence
+
+- review evidence neobsahuje provider transaction alebo idempotency boundary;
+- architecture diagram končí pri RDS commit-e;
+- failover drill inventory neexistuje;
+- retry configuration bola rovnaká už počas review, takže nejde o neskorší drift;
+- ticket „add idempotency“ bol open bez ownera a nebol linked k risku;
+- žiadny risk acceptance record neexistuje.
+
+Root cause je evidence-free control inference. Tím zamenil infrastructure redundancy za end-to-end reliability a existence retry library za bezpečný retry contract.
+
+### Incident containment a recovery
+
+- zastav blind retries a obmedz settlement consumers;
+- reconcile provider a ledger podľa payment/idempotency identity;
+- refund/void duplicate authorization podľa business runbooku;
+- zachovaj failover, database, provider a application evidence;
+- implementuj provider idempotency key a transactional reconciliation;
+- otestuj failure medzi durable commitom a acknowledgementom.
+
+### Review-system recovery
+
+1. reopen reliability HRI;
+2. oprav workload boundary o provider a client retry;
+3. nahradiť screenshot evidence failover experimentom;
+4. vytvoriť owned improvement item a exact acceptance oracle;
+5. rozšíriť custom lens o unknown-outcome scenario;
+6. vytvoriť nový milestone až po validated fix-e;
+7. skontrolovať podobné optimistic answers v backup, secret rotation a alarms.
+
+### Acceptance verdict
+
+Risk možno uzavrieť až keď:
+
+- failover experiment prejde s production-equivalent clientom;
+- provider a ledger obsahujú exactly one business outcome;
+- retry po unknown outcome najprv vykoná reconciliation;
+- forbidden duplicate authorization nevznikne;
+- alarm/runbook vedú k správnej action;
+- evidence je linked k exact release/review generation;
+- residual provider failure risk má ownera a recovery procedure.
+
+## 16. Continuous Well-Architected
+
+Review sa integruje do delivery a operations:
 
 ```text
 architecture decision
-→ IaC/policy validation
-→ deployment checks
-→ observability a SLO
-→ cost/security findings
-→ periodic review
-→ improvement backlog
+→ review-impact declaration
+→ IaC/policy/static controls
+→ deployment evidence
+→ SLO/security/cost signals
+→ failure and recovery drills
+→ findings and improvement backlog
+→ validated closure
+→ milestone/re-review
 ```
 
-Automatizovať možno napríklad:
+Automatizovať možno evidence collection pre encryption, public exposure, backup coverage, policy drift, cost anomalies, SLO alebo stale resources. Human review zostáva potrebný pre business boundaries, trade-offs, risk acceptance a outcome validation.
 
-- configuration compliance,
-- backup coverage,
-- encryption,
-- public exposure,
-- cost anomalies,
-- SLO health,
-- stale resources.
+Re-review triggers:
 
-Nie všetky questions sa dajú spoľahlivo vyriešiť automatickým scannerom. Ownership, business trade-offs a recovery readiness potrebujú ľudské posúdenie.
+- new Region/account/provider;
+- major release alebo data migration;
+- changed SLO/RTO/RPO;
+- security incident;
+- failover/restore test failure;
+- material cost or demand change;
+- expired accepted risk;
+- significant AWS capability or support change.
 
-## 21. Architecture Decision Records
+## 17. Operational readiness a review
 
-ADR zachytáva:
+Pred launchom alebo major cutoverom review overuje:
 
-- context,
-- decision,
-- alternatives,
-- consequences,
-- trade-offs,
-- review date.
+- owner, support model a escalation;
+- SLO/SLI a alarm action paths;
+- capacity, quota a downstream protection;
+- deployment, rollback/roll-forward a schema compatibility;
+- identity, secrets, encryption and audit;
+- backup, failover, restore and reconciliation;
+- dependencies and failure contracts;
+- cost/unit-economic guardrails;
+- runbooks a completed drills.
 
-Well-Architected review identifikuje risk; ADR vysvetľuje, prečo bol konkrétny trade-off prijatý. Accepted risk bez ADR alebo ownera sa ľahko stane neviditeľným permanentným dlhom.
+Operational readiness je decision gate pre konkrétnu release generation. Well-Architected je širší a priebežný risk-improvement system.
 
-## 22. Operational readiness review
+## 18. Troubleshooting review procesu
 
-Pred go-live over:
+### Odpoveď nemá evidence
 
-- ownership a support hours,
-- SLO a alarms,
-- dashboards a logs,
-- deployment/rollback,
-- capacity a quotas,
-- backups a restore,
-- security controls,
-- dependencies,
-- on-call/runbooks,
-- cost guardrails,
-- failure drills.
+Zmeň verdict na unknown/partial a vytvor evidence action. Neakceptuj verbal assurance.
 
-Well-Architected review je širší než production checklist, ale operational readiness z neho môže priamo čerpať.
+### Stále sa vracajú rovnaké findings
 
-## 23. Review workloadu s managed services
+Over root dependency, owner authority, funding, backlog priority, acceptance a či validation skutočne testuje failure mechanism.
 
-Managed service posúva responsibility boundary, ale neodstraňuje customer decisions.
+### Tool ukazuje low risk, incidenty pokračujú
 
-Stále treba posúdiť:
+Over workload boundary, stale milestone, optimistic answers, missing custom scenarios a whether configured controls were mistaken for effective controls.
 
-- configuration,
-- identity,
-- encryption,
-- network exposure,
-- capacity/quotas,
-- backup/restore,
-- version lifecycle,
-- observability,
-- cost,
-- service limits a regional availability.
+### Review nevytvoril engineering change
 
-„AWS to spravuje“ nie je odpoveď na customer-owned configuration risk.
+Over ownerov, target dates, dependency order, integration do delivery backlogu a leadership risk decision.
 
-## 24. Review serverless a container workloads
+### Pillar teams si odporujú
 
-### Serverless
+Vytvor cross-pillar decision record s shared business outcome a measurable guardrails; neoptimalizuj metrics každého tímu izolovane.
 
-- concurrency a downstream protection,
-- retries/idempotency,
-- event age a DLQ,
-- cold start/performance,
-- cost per invocation,
-- IAM per function,
-- observability.
+## 19. SOA-C03 mapovanie
 
-### Containers
+- **Domain 1** — operational evidence, observability, performance a remediation.
+- **Domain 2** — reliability, failure management, backup a business continuity.
+- **Domain 3** — operations as code, safe change, automation a improvement execution.
+- **Domain 4** — security controls, audit, compliance a incident readiness.
+- **Domain 5** — network, DNS, edge, dependency a failure-isolation trade-offs.
 
-- image supply chain,
-- orchestration/control-plane responsibility,
-- capacity a autoscaling,
-- service discovery/networking,
-- secrets,
-- deployment/rollback,
-- node/runtime lifecycle,
-- cluster cost allocation.
-
-## 25. Multi-account a multi-Region review
-
-Over:
-
-- account/OU boundaries,
-- SCPs a delegated administration,
-- centralized logging/security,
-- cross-account access,
-- network topology,
-- Region guardrails,
-- data residency,
-- backup/recovery accounts,
-- failover ownership,
-- cost allocation.
-
-Viac accounts alebo Regions automaticky nezaručuje isolation ani recovery.
-
-## 26. Cost a Well-Architected
-
-Cost pillar sa má hodnotiť spolu s:
-
-- reliability cost of failure,
-- security/compliance controls,
-- operational toil,
-- engineering time,
-- licensing,
-- data transfer,
-- commitments,
-- sustainability/utilization.
-
-Odporúčanie „vypnúť redundancy“ môže byť finančne nesprávne, ak zvýši očakávaný outage loss.
-
-## 27. SOA-C03 mapovanie
-
-- **Domain 1** — operational insight, metrics/logs, remediation a performance reviews,
-- **Domain 2** — reliability, backup, failure management a business continuity,
-- **Domain 3** — operations as code, repeatable deployment, change a automation,
-- **Domain 4** — security controls, evidence, compliance a incident readiness,
-- **Domain 5** — networking, DNS, connectivity, edge a failure isolation.
-
-SOA-C03 kandidát má vedieť vybrať riešenie nielen podľa service feature, ale aj podľa operational, reliability, security a cost trade-offov.
-
-## 28. Troubleshooting review procesu
-
-### Odpovede bez evidence
-
-Požiadaj o live configuration, metric, test alebo policy. Neakceptuj iba predpoklad.
-
-### Review nevytvoril zmenu
-
-Over ownerov, priority, budget a integration do delivery backlogu.
-
-### Stále rovnaké high-risk issues
-
-Over structural dependency, risk acceptance, leadership ownership a reálnu validation opráv.
-
-### Review scope je príliš malý
-
-Doplň external dependencies, people/process, CI/CD, data, identity a recovery.
-
-### Tool ukazuje starý stav
-
-Vytvor nový review/milestone a porovnaj s aktuálnou architektúrou.
-
-## 29. Anti-patterny
+## 20. Anti-patterny
 
 ### Checklist compliance
 
-Zaškrtáva odpovede bez dôkazu a bez pochopenia risku.
+Zaškrtne mechanismus bez failure scenario a outcome evidence.
 
-### Review iba pred auditom
+### Review iba nad AWS diagramom
 
-Nevstupuje do engineering lifecycle-u.
+Vynechá users, providers, delivery, people, data a recovery process.
 
-### Všetko označené „not applicable“
+### Configured control ako effective control
 
-Maskuje chýbajúce ownership alebo nedostatočný scope.
+Resource existence nenahrádza test.
 
-### Tool ako scanner
+### HRI closed vytvorením ticketu
 
-AWS WA Tool neobjaví všetky configuration problems automaticky.
+Risk zostáva otvorený, kým change neprejde validation.
 
-### Improvement plan bez ownerov
+### Milestone ako current truth
 
-Riziká ostanú otvorené.
+Historical snapshot môže byť stale po ďalšom release.
 
-### Optimalizácia jedného piliera izolovane
+### `Not applicable` namiesto dependency analýzy
 
-Môže poškodiť iný pillar alebo business outcome.
+External alebo shared ownership neodstraňuje workload impact.
 
-### Accepted risk bez expirácie
+### Accepted risk bez expiry
 
-Dočasná výnimka sa zmení na permanentný neviditeľný stav.
+Dočasná výnimka sa zmení na permanentný neviditeľný state.
 
-## 30. Praktický review template
+### Izolovaná optimalizácia jedného piliera
+
+Local metric improvement môže poškodiť business outcome alebo iný pillar.
+
+## 21. Praktický risk record
 
 ```text
-Workload:
-Business owner:
-Technical owner:
-Criticality:
-Users a outcome:
-Accounts/Regions:
-Data classification:
-SLO/RTO/RPO:
-Top dependencies:
-Top failure modes:
-
-Pillar finding:
-Evidence:
-Risk:
-Impact:
-Likelihood:
-Existing controls:
+Workload/review generation:
+Business outcome:
+Question/best practice:
+Applicability verdict:
+Evidence and timestamp:
+Failure scenario:
+Cause/mechanism:
+Likelihood evidence:
+Business/technical impact:
+Existing controls and effectiveness:
 Decision:
-Owner:
+Improvement item:
+Owner/approver:
 Target date:
-Validation:
+Validation and forbidden outcomes:
 Residual risk:
+Acceptance expiry/re-review trigger:
 Milestone:
 ```
 
-## 31. Kontrolné otázky
+## 22. Kontrolné otázky
 
-1. Čo je workload boundary?
-2. Ktorých šesť pilierov Framework používa?
-3. Prečo review musí byť evidence-driven?
-4. Aký je rozdiel medzi findingom, improvement itemom a accepted riskom?
-5. Na čo slúži milestone?
-6. Ako sa používajú lenses?
-7. Prečo Well-Architected Tool nie je automatický scanner?
-8. Ako sa review integruje do delivery lifecycle-u?
-9. Ako sa prioritizujú high-risk issues?
-10. Prečo sa piliere nemajú optimalizovať izolovane?
+1. Prečo workload boundary nie je iba AWS resource diagram?
+2. Čo musí obsahovať exact review subject?
+3. Ako sa líši configured a effective control?
+4. Kedy je answer `unknown` správnejší než `yes`?
+5. Ako vytvoríš kauzálny risk statement?
+6. Čo potrebuje closeable improvement item?
+7. Prečo milestone nie je current-state evidence?
+8. Ako sa zaznamenáva cross-pillar trade-off?
+9. Prečo Well-Architected Tool nie je scanner?
+10. Aký acceptance verdict uzavrie reliability risk?
 
 ## Glossary impact
 
-Relevantné pojmy: AWS Well-Architected Framework, workload boundary, Operational Excellence pillar, Security pillar, Reliability pillar, Performance Efficiency pillar, Cost Optimization pillar, Sustainability pillar, AWS Well-Architected Tool, lens, custom lens, high-risk issue, improvement plan, milestone, evidence-driven review, continuous Well-Architected, architecture decision record a operational readiness review.
+Relevantné pojmy: workload-review subject, evidence cut-off, expected evidence inventory, applicability verdict, configured control, effective control, risk-closure lifecycle, causal risk statement, cross-pillar decision, expiring risk acceptance, improvement validation, milestone generation, review-staleness trigger, business-outcome lens, risk closure verdict a continuous Well-Architected loop.
 
 ## Oficiálna dokumentácia
 
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
-- [AWS Well-Architected Tool](https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html)
 - [The pillars of the framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html)
+- [AWS Well-Architected Tool](https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html)
 - [Using lenses](https://docs.aws.amazon.com/wellarchitected/latest/userguide/lenses.html)
 - [Milestones](https://docs.aws.amazon.com/wellarchitected/latest/userguide/milestones.html)
 - [Implement and track improvements](https://docs.aws.amazon.com/wellarchitected/latest/userguide/implement-and-track-improvements.html)
