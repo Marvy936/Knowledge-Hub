@@ -30,6 +30,10 @@ PV/PVC contract opisujúci podporovaný spôsob mount accessu, napríklad ReadWr
 
 Konkrétna cesta, cez ktorú subject získal capability nad resource-om, napríklad direct membership, parent-group inheritance, group sharing, custom role, protected-resource rule alebo token scope. Pozri [Projects, groups a permissions](docs/06-gitlab/projects-groups-permissions.md).
 
+## Access-point identity enforcement
+
+EFS behavior, pri ktorom access point obmedzí root path a nahradí client operation UID/GID configured POSIX identity, pričom filesystem policy, SG a file permissions zostávajú samostatnými gates. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Access review
 
 Pravidelné alebo event-driven overenie, či principal stále potrebuje pridelené permissions, či ich scope a duration zostávajú primerané a či access možno odstrániť. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
@@ -566,6 +570,10 @@ Recovery point, v ktorom databázové checkpointy, logs, queue offsets a externa
 
 Snapshot vytvorený po koordinovanom flush, quiesce alebo engine-native checkpoint-e tak, aby obnovené dáta reprezentovali validný application transaction state. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
+## Application-consistent snapshot set
+
+EBS snapshot alebo coordinated multi-volume snapshots viazané na application checkpoint/LSN po quiesce/flush procedure, nie iba crash-consistent block capture. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Application data generation — Kubernetes storage
 
 Application-level identita mounted dát, napríklad tenant, schema, checkpoint, replication epoch a backup lineage; nie je odvodená iba z PVC alebo PV phase. Pozri [Volumes, PV, PVC a StorageClass](../docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
@@ -1050,6 +1058,10 @@ Riadený presun state lineage a snapshots z jedného backendu do druhého so zas
 
 Tempo component, ktorý plánuje maintenance jobs ako compaction, retention alebo redaction a prideľuje ich backend workers. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
+## Backend target connection
+
+Nová load-balancer-to-target connection vyhodnocovaná podľa target portu, source identity, SG/NACL, backend TLS/listener a application readiness, nezávisle od viewer connection. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
 ## Backend worker — Tempo
 
 Tempo component vykonávajúci maintenance jobs pridelené backend schedulerom nad object-storage blocks. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
@@ -1142,6 +1154,10 @@ Token použiteľný každým držiteľom bez ďalšieho proof-of-possession; jeh
 
 Default hook cleanup behavior, pri ktorom Helm pred spustením nového hook resource-u odstráni predchádzajúci resource s rovnakou identity. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
+## Behavior-routing verdict
+
+Prvá matching CloudFront cache behavior, ktorá pre normalized viewer path určí origin, methods, viewer policy, cache key, origin request policy a edge-function chain. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## Behavioral equivalence — environment
 
 Miera, do akej nižší environment zachováva produkčne relevantné protokoly, konfiguráciu, topology, limits a security behavior aj bez úplnej veľkostnej parity. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
@@ -1190,6 +1206,10 @@ Nemenný Git object obsahujúci bytes jedného súboru bez filename a path metad
 
 Component, ktorý konzumuje trace records z durable queue, skladá ich do Parquet blocks a zapisuje do object storage. Pozri [Jaeger a Tempo](docs/12-observability/jaeger-tempo.md).
 
+## Block commit boundary
+
+Application/filesystem/database moment, po ktorom required writes a metadata boli flushnuté alebo checkpointnuté na EBS tak, aby recovery semantics boli explicitné. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Block device
 
 Kernelové zariadenie poskytujúce blokovo adresovaný storage. Pozri [Storage, mounty a filesystems](docs/01-linux-and-systems/storage-mounts-and-filesystems.md).
@@ -1209,6 +1229,10 @@ Deployment stratégia s dvoma oddelenými produkčne relevantnými targetmi, kde
 ## Blue/Green Deployment — RDS
 
 RDS workflow pre vytvorenie synchronizovaného staging environmentu a riadený switchover pri podporovaných engine a configuration zmenách. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
+## Blue/Green switchover subject
+
+Versionovaný blue a green RDS topology, replication state, engine/schema/parameter delta, cutover preconditions, application/proxy endpoints a post-write rollback eligibility. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
 
 ## Bootstrap capability gate
 
@@ -1430,6 +1454,10 @@ Kubernetes QoS class pre Pod, ktorý nie je Guaranteed a má aspoň niektorý re
 
 Recovery verdict, pri ktorom technical release state, durable data, event/contracts, external integrations a pôvodný business outcome tvoria vzájomne kompatibilný celok. Technicky úspešný manifest rollback bez spracovateľného backlogu nie je business-compatible recovery. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Business idempotency boundary
+
+Stable operation identity a uniqueness/reconciliation contract pokrývajúci database changes aj external side effects, nie iba jeden local table insert. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
+
 ## Business Impact Analysis — BIA
 
 Proces určujúci kritické business capabilities, dopad výpadku, maximálne tolerované prerušenie, data-loss toleranciu, dependencies a priority obnovy. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
@@ -1473,6 +1501,10 @@ Identifikátor cache odvodený zo všetkých významných vstupov, napríklad OS
 ## cache key — CloudFront
 
 Kombinácia pathu a vybraných query strings, headers, cookies alebo compression variantu, podľa ktorej CloudFront rozhoduje, či requests zdieľajú cached response. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Cache-key identity
+
+Path a selected query/header/cookie/compression inputs, podľa ktorých CloudFront rozhodne, či dve viewer requests môžu bezpečne zdieľať jednu cached representation. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Cache mount — Dockerfile
 
@@ -2950,6 +2982,10 @@ Minimálna evidence potrebná na odlíšenie initial state-u od zadania pred prv
 
 Definícia target identity, relevantných owned fields, freshness a normalization pravidiel, podľa ktorých module alebo workflow rozpozná no-op, required delta, partial state alebo unknown outcome. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## Current-version semantics
+
+S3 behavior, pri ktorom request bez version ID pracuje s current version alebo delete markerom daného key, nie automaticky s business-authoritative historickou version. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Customer managed key — KMS
 
 KMS key v zákazníckom account-e, ktorého policy, aliases, rotation, enablement, grants a deletion lifecycle spravuje zákazník. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
@@ -3129,6 +3165,18 @@ Elasticsearch lifecycle mechanizmus na retention a správu backing indexes data 
 ## Data stream — search
 
 Logical abstraction nad rolling backing indexes optimalizovaná pre timestamped a prevažne append-only data ako logs, events a metrics. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
+
+## Database recovery acceptance verdict
+
+Closure dôkaz, že writer/connection topology, transaction outcome, data invariants, idempotency, performance a forbidden stale-reader/old-writer/master/public paths sú po failover alebo restore správne. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
+
+## Database restore generation
+
+Nový RDS instance/cluster vytvorený zo snapshotu alebo PITR s exact restore time, KMS, parameter, network, secret, schema a application compatibility identity. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
+
+## Database subject
+
+Versionovaná identita RDS deploymentu, endpointu, writer/reader topology, engine/schema/parameter/TLS/secret/KMS generations, application pool/proxy pathu a business transactionu. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
 
 ## Dataclass — Python
 
@@ -3666,6 +3714,10 @@ Publikovanie NS records v parent DNS zone, ktorým sa authoritative zodpovednos�
 
 Distribuovaný hierarchický systém mapujúci mená na resource records. Pozri [DNS](docs/02-networking-and-web/dns.md).
 
+## DNS failover realization
+
+End-to-end transition `health detection → authoritative Route 53 verdict → resolver/client cache expiry → reconnect → secondary capacity/data/business acceptance`. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## DNS lookup lifecycle subject
 
 Úplný subject spájajúci exact query, Pod resolver generation, search expansion, DNS path, server/cache generation, answer, selected address, fresh connection a business request. Pozri [Cluster DNS](../docs/09-kubernetes/cluster-dns.md).
@@ -3906,6 +3958,10 @@ Metriky software delivery performance sledujúce throughput a instability delive
 
 Maximum connections, concurrency, throughput alebo rate, ktoré dependency bezpečne unesie pri replica scale-up/down bez amplification incidentu. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
 
+## Drain completion — load balancer
+
+Dôkaz, že target už neprijíma nové requests, dokončil alebo odovzdal in-flight work, uzavrel business acknowledgement a môže byť bezpečne deregistrovaný a terminated. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
 ## Drift
 
 Rozdiel medzi deklarovaným a skutočným stavom systému. Pozri [Desired State and Reconciliation](docs/00-foundations/desired-state-and-reconciliation.md).
@@ -4065,6 +4121,14 @@ Compute a storage platforma umiestnená bližšie k používateľom, zariadeniam
 ## Edge cohort subject
 
 Množina active edge instances alebo load-balancer targets, ktoré musia používať rovnakú accepted route a certificate generation. Pozri [Ingress a Gateway API](../docs/09-kubernetes/ingress-gateway-api.md).
+
+## Edge-delivery acceptance verdict
+
+Closure dôkaz, že approved DNS/distribution/behavior/cache/origin generations poskytujú správnu a izolovanú representation, origin authorization a recovery behavior pri zachovaných forbidden tenant/public/stale/wrong-origin paths. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Edge-delivery subject
+
+Versionovaná identita Route 53 aliasu, CloudFront distribution/certificate, ordered behavior, cache/origin policies, edge code, origin a exact viewer/business requestu. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Edge retry subject
 
@@ -4329,6 +4393,10 @@ EndpointSlice condition signalizujúci, či je backend vhodný pre bežný Servi
 ## Endpoint-readiness propagation
 
 Asynchrónny chain z readiness attemptu cez container/Pod conditions a EndpointSlice conditions po Service alebo external load-balancer traffic eligibility. Pozri [Probes](../docs/09-kubernetes/probes.md).
+
+## Endpoint remap — RDS
+
+Failover transition, pri ktorom logical RDS endpoint zostáva rovnaký, ale DNS mapping začne smerovať na promoted primary/writer; clients musia obnoviť DNS a connections. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
 
 ## Endpoint replacement proof
 
@@ -4989,6 +5057,10 @@ Alert instance, ktorej condition zostala aktívna podľa požadovaných time sem
 ## First-attempt pass rate
 
 Podiel testov, ktoré prejdú na prvý pokus bez retry. Je citlivejším signálom flakiness než finálna pass rate po opakovaniach. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
+
+## First-match routing verdict — ALB
+
+Výsledok ordered listener-rule evaluation, pri ktorom prvá matching rule určí action; broad higher-priority rule môže shadowovať presnejšiu canary rule. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
 ## Flag debt
 
@@ -6950,6 +7022,14 @@ Priemerný počet runnable tasks a určitých tasks v uninterruptible sleep. Poz
 
 Oddelené identity pre `client → load balancer` a `load balancer → target`, z ktorých každá má vlastné route, SG, NACL, port, health a return-path evidence. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
 
+## Load-balancer fail-open
+
+Availability behavior, pri ktorom ELB môže pri all-unhealthy alebo inom service-defined nedostatku healthy targets routovať aj na unhealthy/all registered targets namiesto úplného blackhole. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
+## Load-balancing acceptance verdict
+
+Closure dôkaz, že exact request matchuje approved listener/rule generation, používa eligible zonálny target cohort, dokončí business outcome a forbidden host/path/direct-target/fail-open/drain outcomes zostanú kontrolované. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
 ## `--load` — Buildx
 
 Build exporter skratka importujúca vhodný build output do local Docker image store-u, typicky pre single-platform local workflow. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
@@ -7318,6 +7398,10 @@ Snapshot stavu workload review-u v konkrétnom čase používaný na meranie zme
 
 Najmenšia zmena outcome metriky, ktorú má experiment pri zvolenej sample size a power spoľahlivo detegovať. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
 
+## Minimum-TTL override
+
+CloudFront behavior, pri ktorom positive cache-policy minimum TTL vynúti caching aspoň na tento čas aj pri origin directives `no-cache`, `no-store` alebo `private`. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## MINOR version
 
 Druhá časť SemVer verzie, ktorá sa zvyšuje pri backward-compatible pridaní capability do deklarovaného public API. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
@@ -7397,6 +7481,10 @@ Repository obsahujúci viac služieb, knižníc alebo projektov so spoločným o
 ## Mount
 
 Pripojenie filesystemu alebo iného mountable objektu do spoločného filesystem stromu. Pozri [Storage, mounty a filesystems](docs/01-linux-and-systems/storage-mounts-and-filesystems.md).
+
+## Mount authorization chain
+
+End-to-end EFS path `DNS → mount target → route/SG/NACL → NFS/TLS → IAM/filesystem policy → access point → POSIX permission → operation`. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
 ## Mount generation — Kubernetes storage
 
@@ -7906,6 +7994,10 @@ Počet DaemonSet Podov bežiacich na Nodes, ktoré podľa aktuálneho DaemonSet 
 
 National Vulnerability Database; enrichment source pre CVE records, scoring a product mappings, ktorý nie je authoritative inventory konkrétneho environmentu ani jediný prioritization source. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
 
+## OAC origin authorization
+
+CloudFront-to-S3 REST origin contract, v ktorom Origin Access Control podpisuje SigV4 request a bucket/KMS policy povoľuje exact distribution/service path bez public bucket accessu. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
 ## OAuth 2.0
 
 Authorization framework na delegovaný alebo workload access k protected APIs pomocou obmedzených tokens. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
@@ -7925,6 +8017,10 @@ ResourceQuota limit počtu API objektov konkrétneho typu, napríklad Pods, Jobs
 ## Object-first troubleshooting
 
 Diagnostický prístup začínajúci exact Kubernetes objectom, jeho spec/status, conditions, ownerReferences, Events a controller state-om. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
+
+## Object-generation identity
+
+S3 object identity viazaná minimálne na bucket, key, version ID, checksum, encryption a retention metadata; key bez version ID môže označovať meniacu sa current version. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
 ## Object ID — Git
 
@@ -8121,6 +8217,10 @@ CloudFront mechanismus na SigV4-signed private access k podporovanému S3 origin
 ## origin group — CloudFront
 
 CloudFront primary/secondary origin pair s definovanými failover status codes pre podporovaný origin-failover workflow. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Origin-request-only input
+
+Header, cookie alebo query value forwardovaná CloudFront originu cez origin request policy, ale nezahrnutá v cache key; nesmie meniť cacheable representation bez ďalšieho bezpečného contractu. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## origin request policy — CloudFront
 
@@ -9102,6 +9202,10 @@ Immutable artifact, ktorého identity, evidence, configuration compatibility a r
 
 Span attribute vybraný na indexovanie, metrics generation alebo ďalšie zrýchlené query spracovanie, čím získava samostatný cardinality a cost dopad. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
+## Promotion authority — database
+
+Riadené rozhodnutie, ktorá replica/Region/topology sa stáva jediným accepted writerom po failover/DR, vrátane fencing, endpoint cutover a failback reconciliation. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
+
 ## Promotion evidence
 
 Súbor výsledkov a metadata viazaných na konkrétny artifact alebo release manifest digest, ktoré odôvodňujú jeho postup do ďalšieho environmentu. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
@@ -9389,6 +9493,10 @@ Container security setting zakazujúci zápis do image root filesystemu a vyžad
 ## read replica — RDS
 
 Asynchronously replicated readable database copy používaná na read scaling, reporting, migration alebo promotion-based recovery. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
+## Readable-replica freshness contract
+
+Maximum tolerovaný replication lag a explicitný set business reads, ktoré smú používať reader endpoint/replica bez porušenia read-after-write alebo decision correctness. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
 
 ## Readiness
 
@@ -9858,6 +9966,10 @@ Kubernetes workload controller udržiavajúci požadovaný počet matching zamen
 
 Identita ReplicaSet control-loop rozhodnutia zahŕňajúca ReplicaSet UID/generation, desired replicas, selector, template hash, matching Pod UID inventory, ownerReferences, lifecycle classes a higher-level owner. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
 
+## Replication acceptance — S3
+
+Dôkaz, že exact eligible object version bola úspešne prenesená do intended destination podľa replication rule, IAM/KMS a status contractu; source PUT success ho nenahrádza. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Replication generation — registry
 
 Versionovaný stav synchronizácie replica/mirror určujúci prijaté manifests, blobs, tags, deletes a referrers. Pozri [Registries](docs/08-container-fundamentals-and-docker/registries.md).
@@ -9869,6 +9981,10 @@ Versionovaný stav synchronizácie replica/mirror určujúci prijaté manifests,
 ## Report artifact — GitLab
 
 Machine-readable job artifact v podporovanej schéme, ktorý GitLab interpretuje pre test, coverage, code-quality, dotenv, SBOM alebo security výsledky. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
+## Representation isolation
+
+Požiadavka, aby viewer requests s rozdielnou tenant/user/language alebo inou content-changing identity nemohli zdieľať nesprávnu cached response. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Reproducible build
 
@@ -9977,6 +10093,10 @@ Skutočná configuration vytvoreného containeru vrátane image, commandu, envir
 ## ResolvedRefs condition — Gateway API
 
 Route status condition indikujúca, či controller úspešne vyriešil backend, Secret a ďalšie references vrátane cross-namespace permission. Pozri [Ingress a Gateway API](docs/09-kubernetes/ingress-gateway-api.md).
+
+## Resolver-cache cohort
+
+Množina clients alebo recursive resolvers, ktoré počas TTL/application cache lifetime používajú rovnakú DNS answer generation a preto nemusia prejsť na nový target súčasne. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## Resolver forwarding loop
 
@@ -11294,6 +11414,10 @@ Security alebo operations control, pri ktorom provider poskytuje platform capabi
 
 Presné rozhranie, kde provider dodáva capability a zákazník vlastní activation, configuration, identity, monitoring, evidence alebo recovery use; shared neznamená nejasného ownera. Pozri [Shared responsibility model](docs/11-cloud-and-aws/shared-responsibility-model.md).
 
+## Shared-file namespace
+
+EFS file/directory identity zdieľaná concurrent NFS clients s POSIX ownership, permission, locking a publication semantics. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Shared kernel
 
 Model, v ktorom host a container processes používajú rovnaký kernel pri odlišných namespace views a limits. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
@@ -11834,6 +11958,14 @@ Mapa evidence cez data identity, claim, StorageClass, PV, backend asset, schedul
 
 ResourceQuota limit agregovaných PVC requests, počtu claims alebo StorageClass-specific storage consumption v namespace. Pozri [ResourceQuota a LimitRange](docs/09-kubernetes/resourcequota-limitrange.md).
 
+## Storage recovery acceptance verdict
+
+Service-specific restore dôkaz viažuci správnu S3 version, EBS checkpoint/full-performance alebo EFS namespace/permissions k application a business outcome-u vrátane forbidden data identity/access paths. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
+## Storage subject
+
+Versionovaná identita business data, authoritative ownera, S3 object/version, EBS volume/snapshot/checkpoint alebo EFS filesystem/access-point generation, encryption, retention a recovery objective-u. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Storage troubleshooting chain
 
 Diagnostické poradie PVC → StorageClass/provisioner → PV binding → scheduling topology → VolumeAttachment → CSI node mount → application I/O. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
@@ -12122,6 +12254,10 @@ Key/value/effect značka na Node-e, ktorá odpudzuje Pody bez matching toleratio
 
 Rozhodnutie, či incoming Pod toleruje všetky relevantné Node taints pre daný effect; toleration sama Node nevyberá. Pozri [Taints, tolerations, affinity a topology](../docs/09-kubernetes/taints-tolerations-affinity-topology.md).
 
+## Target eligibility set
+
+Množina targets, ktoré sú registered, v enabled AZ scope, v použiteľnom lifecycle state a spĺňajú health/attribute contract pre konkrétnu target group. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
 ## target group — ELB
 
 Backend registration, protocol, port, health-check a traffic-lifecycle contract medzi load balancerom a jednou alebo viacerými targets. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
@@ -12129,6 +12265,10 @@ Backend registration, protocol, port, health-check a traffic-lifecycle contract 
 ## target health — ELB
 
 Per-target-group stav vyjadrujúci, či registrovaný target prešiel health checks a je vhodný na routing trafficu. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
+
+## Target health oracle
+
+Konkrétny protocol, port, path, matcher, timeout, interval a threshold contract odpovedajúci, či target môže bezpečne prijať nový traffic; nie všeobecný business-health dôkaz. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
 ## Target manifest — Ansible
 
@@ -12450,6 +12590,10 @@ Prúd timestampovaných samples identifikovaný metric name a úplným label set
 
 Čas od vzniku alebo odoslania zmeny po prvý relevantný, diagnostikovateľný a akčný výsledok pipeline. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
 
+## Time-to-full-performance
+
+Recovery interval od incident decisionu po restored storage/application schopnú spĺňať production latency a throughput, nie iba po resource state `available`. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## `TIME-WAIT`
 
 TCP state držaný po aktívnom close na ochranu pred starými segments a opätovným použitím rovnakého tuple. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
@@ -12585,6 +12729,10 @@ Established flow rozpoznaný SG connection trackingom podľa relevantného tuple
 ## Traffic cutover
 
 Riadené presmerovanie nových requestov alebo connections zo starej deployment farby na novú. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
+
+## Traffic-distribution subject
+
+Versionovaná identita load balancera, listenera, TLS policy, ordered rule, target-group cohortu, target health/drain attributes, zonálneho placementu a business requestu použitá na ELB rozhodovanie. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
 ## Traffic mirroring
 
@@ -12745,6 +12893,10 @@ AD DS group scope, ktorý môže obsahovať principals z viacerých domains vo f
 ## Unknown batch outcome
 
 Stav, keď worker nevie, či external side effect neprebehol, prebehol čiastočne alebo uspel bez result commit-u; pred retry vyžaduje lookup podľa stable operation identity. Pozri [Job a CronJob](docs/09-kubernetes/job-cronjob.md).
+
+## Unknown commit outcome
+
+Stav, keď database mohla transaction durable commitnúť, ale application nedostala acknowledgement pre connection failure; vyžaduje idempotency a reconciliation pred retryom. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
 
 ## Unknown Docker operation outcome
 
@@ -12978,6 +13130,10 @@ Vyhradená záverečná časť timed labu, počas ktorej sa všetky úlohy znovu
 
 Overenie, či systém alebo artifact zodpovedá explicitnej špecifikácii, kontraktu alebo pravidlu. Pozri [Verification vs. validation](docs/04-testing-and-quality/verification-vs-validation.md).
 
+## Version-bound manifest
+
+Immutable manifest generation, ktorá referencuje exact S3 object keys, version IDs a checksums a tým vytvára konzistentnejší multi-object publication contract. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Version-level telemetry
 
 Metrics, logs a traces označené konkrétnou application alebo artifact verziou, ktoré umožňujú porovnať old a new behavior počas rollout-u. Pozri [Rolling update](docs/05-ci-cd-and-release/rolling-update.md).
@@ -13009,6 +13165,10 @@ Dvojica prepojených virtual Ethernet interfaces spájajúca container namespace
 ## VEX
 
 Vulnerability Exploitability eXchange statement vyjadrujúci affected, not affected, fixed alebo under-investigation status vulnerability voči konkrétnemu productu. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## Viewer connection — ELB
+
+Client-to-load-balancer connection s vlastným DNS, source, listener, Security Group, TLS a request contractom; pri ALB je oddelená od backend target connection. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
 ## Virtual environment — Python
 
@@ -13062,6 +13222,10 @@ Plugin alebo built-in implementation určujúca storage backend a mount semantic
 
 Proces načítania alebo zápisu všetkých blocks volume-u vytvoreného zo snapshotu alebo copy pred dosiahnutím plného stabilného výkonu. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
 
+## Volume initialization readiness
+
+Stav restored EBS volume-u, pri ktorom required snapshot blocks sú dostupné s predvídateľným performance contractom cez default initialization, Fast Snapshot Restore, provisioned initialization rate alebo completed pre-read. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
+
 ## Volume initialization subject
 
 Identita empty/new volume initialization alebo schema migration zahŕňajúca data ID, generation, writer lock, migration ledger a postcondition verdict. Pozri [Volumes a bind mounts](docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md).
@@ -13105,6 +13269,10 @@ AWS telemetry zachytávajúca metadata IP flows pre VPC, subnet alebo ENI scope 
 ## VPC flow-policy subject
 
 Exact communication subject obsahujúci source/destination ENI a subnet identities, original/translated tuple, route, SG sets, NACL generations, connection state, listener/TLS identity a business request. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
+
+## VPC-origin path
+
+Private CloudFront-to-supported-ALB/NLB/EC2 origin connection realizovaná cez CloudFront VPC origin configuration, subnet/SG a service-supported regional lifecycle. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
 
 ## VPC peering
 
@@ -13169,6 +13337,10 @@ Invocation v už existujúcom Lambda execution environment, ktorý môže reuse-
 ## WebSocket
 
 Protokol poskytujúci dlhodobý full-duplex message channel po HTTP upgrade alebo ekvivalentnom transportnom mechanizme. Pozri [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md).
+
+## Weighted-exposure evidence
+
+Request-level dôkaz viazaný na matched rule, target group, target/release identity a stickiness/connection cohort, ktorý overuje reálne canary exposure namiesto samotnej configured weight. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
 ## weighted forwarding — ALB
 
@@ -13301,6 +13473,10 @@ Publication contract, pri ktorom už vydaná logical version alebo candidate ide
 ## Writer epoch — container storage
 
 Monotónna alebo fencing-aware generation authoritative writer-a použitá na odmietnutie stale processu/node-u. Pozri [Container storage](docs/08-container-fundamentals-and-docker/container-storage.md).
+
+## Writer-generation identity
+
+Exact current RDS writer resource, AZ, endpoint mapping, engine/schema/parameter generation a failover timeline, ktoré určujú write authority. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
 
 ## `X-Forwarded-For`
 

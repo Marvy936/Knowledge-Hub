@@ -1,862 +1,702 @@
 # Route 53 a CloudFront
 
-Amazon Route 53 poskytuje authoritative DNS, domain registration, health checks a DNS-based traffic steering. Amazon CloudFront poskytuje global edge delivery a caching pred origins. Spolu často tvoria verejný vstup aplikácie:
+Amazon Route 53 rozhoduje, ktoré DNS odpovede dostane resolver pre konkrétne meno, typ a routing/health state. Amazon CloudFront po DNS resolution ukončí viewer connection na global edge dataplane-e, vyberie cache behavior, vytvorí cache key a pri cache miss-e vytvorí origin request. DNS steering a CDN caching sú preto dva odlišné decision systems:
 
 ```text
-user DNS query
-→ Route 53 alias
-→ CloudFront edge
-→ cache behavior
-→ origin request
-→ ALB / S3 / API / custom origin
+DNS query subject
+→ authoritative Route 53 verdict
+→ resolver/client cache
+→ CloudFront viewer endpoint
+→ viewer TLS a request normalization
+→ ordered cache-behavior verdict
+→ cache-key identity
+→ cache hit alebo origin request
+→ origin authorization a response
+→ cache/response publication
+→ application business outcome
 ```
 
-DNS, CDN a origin sú samostatné failure domains. Chyba v jednej vrstve sa nemá diagnostikovať zmenami vo všetkých troch naraz.
+Route 53 nepresúva otvorené connections a CloudFront cache nie je iba performance layer. TTL, cache key, minimum TTL, origin request policy, error caching a deployment propagation priamo ovplyvňujú correctness, privacy, availability a recovery.
 
-## 1. Route 53 capability model
+## 1. Exact edge-delivery subject
 
-Route 53 zahŕňa:
-
-- domain registration,
-- public hosted zones,
-- private hosted zones,
-- authoritative DNS records,
-- routing policies,
-- health checks,
-- Route 53 Resolver pre hybrid DNS,
-- DNSSEC capabilities podľa public/private use case.
-
-Route 53 nie je general-purpose load balancer na úrovni jednotlivých TCP connections. DNS resolver cache a TTL znamenajú, že zmena odpovede nemusí okamžite presunúť všetkých clients.
-
-## 2. Hosted zones
-
-Hosted zone je container pre DNS records konkrétneho namespace-u.
-
-### Public hosted zone
-
-Authoritative records dostupné cez verejný DNS.
-
-### Private hosted zone
-
-Records dostupné pre asociované VPCs podľa Route 53 Resolver a association modelu.
-
-Hosted zone a registered domain nie sú to isté. Domain registrar deleguje namespace cez NS records na authoritative name servers hosted zone-u.
-
-## 3. DNS delegation
-
-Pre domain `example.com` registrar parent zóne publikuje NS records Route 53 hosted zone-u.
-
-Pri subdomain delegation:
+Atlas Payments používa edge subject `EDGE-PAY-42`:
 
 ```text
-parent: example.com
-child:  dev.example.com
+public namespace = example.com
+hosted zone = HZ-EXAMPLE-17
+delegation generation = DNS-NS-8
+record = pay.example.com A/AAAA alias
+record generation = DNS-REC-31
+
+CloudFront distribution = D-PAY-17
+alternate domain = pay.example.com
+distribution generation = CF-44
+viewer certificate generation = CERT-CF-12
+viewer TLS policy generation = TLS-CF-8
+
+ordered behaviors =
+  /assets/*
+    → S3 origin atlas-pay-assets-prod
+    → OAC generation OAC-7
+    → cache policy ASSET-CACHE-19
+
+  /api/payments/*
+    → ALB origin alb-pay-public-17
+    → cache policy API-NOCACHE-9
+    → origin request policy API-ORIGIN-14
+
+  default
+    → portal origin
+    → cache policy PORTAL-CACHE-21
+
+payment status request =
+  GET /api/payments/P-884
+  Host = pay.example.com
+  Authorization = Bearer <tenant token>
+  X-Tenant-ID = tenant-a
+
+business outcome =
+  tenant-a receives only its own payment P-884 representation
+
+forbidden outcomes =
+  tenant-b receives a cached tenant-a response
+  stale DNS or cache state is declared recovered without client verification
+  private S3 origin becomes public to fix CloudFront 403
+  API request is routed to static origin alebo cached despite no-cache contract
+  origin failover accepts writes against unsynchronized secondary
+  invalid DNSSEC/delegation change creates SERVFAIL
 ```
 
-parent zone musí obsahovať NS records child zone-u.
+Incident identity musí zachovať queried name/type, resolver context, authoritative answer, TTL, distribution/config ETag/generation, edge request ID/POP, matched behavior, cache key inputs, `X-Cache`/`Age`, origin identity, CloudFront/origin status, tenant/auth subject a business object ID.
 
-Častý incident:
+## 2. DNS resolution je cached authority chain
 
-- nová hosted zone existuje,
-- records sú správne,
-- registrar stále deleguje na staré name servers.
+Public DNS query pre `pay.example.com` prechádza približne:
 
-Vždy over chain:
-
-```bash
-dig +trace example.com
-dig NS example.com
-dig A app.example.com
+```text
+client stub resolver
+→ recursive resolver cache
+→ root delegation
+→ TLD delegation
+→ example.com authoritative Route 53 name servers
+→ record/routing/health verdict
+→ cached response according to TTL
 ```
 
-## 4. Record types
+Hosted zone je authoritative record container; domain registration a parent delegation sú samostatné. Nová hosted zone môže obsahovať správne records a byť úplne neviditeľná, ak registrar/parent stále deleguje na staré name servers.
 
-Bežné records:
+Subdomain delegation potrebuje NS records v parent zone. Pri incidente sa porovná parent delegation, hosted-zone assigned NS set, DNSSEC DS chain a queried record. Query iba na jeden chosen authoritative server môže maskovať delegation alebo propagation problém.
 
-- `A` — IPv4,
-- `AAAA` — IPv6,
-- `CNAME` — alias na iný DNS name mimo zone apex obmedzení,
-- `MX` — mail exchange,
-- `TXT` — verification/policy text,
-- `NS` — delegation,
-- `SOA` — zone authority metadata,
-- `CAA` — povolené certificate authorities,
-- `SRV` — service location,
-- Route 53 **alias** record pre podporované AWS resources.
+## 3. Record identity a alias
 
-## 5. Alias vs CNAME
+Bežné records zahŕňajú `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `NS`, `SOA`, `CAA` a `SRV`. Route 53 alias je AWS-specific record, ktorý môže smerovať zone apex aj subdomain na podporované AWS resources, napríklad CloudFront alebo ELB.
 
-Route 53 alias je AWS-specific extension.
+Alias nie je general CNAME syntax. Target type a health integration sú service-specific. Alias na CloudFront distribution vyžaduje:
 
-Výhody aliasu:
+```text
+alternate domain name in distribution
++ matching viewer certificate
++ distribution deployed
++ Route 53 alias A and optionally AAAA
+```
 
-- môže byť použitý na zone apex,
-- smeruje na podporované AWS resources, napríklad CloudFront alebo load balancer,
-- môže použiť `EvaluateTargetHealth` pri podporovanom targete,
-- Route 53 vracia výslednú hodnotu namiesto bežného CNAME chainu.
+CloudFront alias target nepodporuje `EvaluateTargetHealth` rovnakým spôsobom ako niektoré regional AWS alias targets. Multi-distribution DNS failover preto potrebuje explicitný supported health-check/control design; nemožno predpokladať health propagation iba z alias checkboxu.
 
-CNAME nemožno štandardne použiť na zone apex, pretože apex musí zároveň obsahovať SOA/NS records.
+CNAME sa štandardne nepoužíva na zone apex, pretože apex musí obsahovať SOA/NS. Hard-coded resolved CloudFront alebo ELB IP obchádza DNS service identity a je nesprávny recovery contract.
 
-Alias nie je univerzálny pointer na ľubovoľný hostname; target types sú definované Route 53.
+## 4. TTL je migration a recovery parameter
 
-## 6. TTL
+TTL určuje, ako dlho recursive resolver/client môže používať response. Nízky TTL znižuje maximum intended cache duration pre nové queries, ale:
 
-TTL určuje, ako dlho resolver cache-uje record response.
+- nezruší existing TCP/TLS/HTTP connections;
+- neovláda všetky application DNS caches;
+- nepomôže resolveru, ktorý už cache-uje starú odpoveď s pôvodným vysokým TTL;
+- zvyšuje authoritative query volume.
 
-Nízky TTL:
+Pred plánovaným cutover-om sa TTL zníži skôr než starý TTL interval uplynie. Po cutover-e sa sledujú authoritative answers, multiple recursive resolvers, actual client connections a origin/business traffic. „Route 53 record je updated“ je control-plane state, nie client migration verdict.
 
-- rýchlejšia zmena/failover pre nové queries,
-- viac DNS queries,
-- stále nezruší existujúce TCP/TLS connections,
-- recursive resolver môže mať vlastné behavior hranice.
+Negative responses majú vlastný caching behavior odvodený aj zo SOA settings. Po oprave chýbajúceho recordu môže časť clients stále dostávať cached `NXDOMAIN`.
 
-Vysoký TTL:
-
-- nižší query volume,
-- pomalšia propagation zmeny.
-
-Pred plánovanou migráciou zníž TTL s dostatočným predstihom. Zníženie v momente cutover-u nepomôže resolverom, ktoré už cache-ujú starú hodnotu s pôvodným TTL.
-
-## 7. Routing policies
+## 5. Routing policy je DNS-answer algorithm
 
 ### Simple
 
-Jedna alebo viac hodnôt bez advanced steeringu.
+Vracia configured value/values bez health-aware advanced steeringu.
 
 ### Weighted
 
-Rozdeľuje DNS odpovede podľa relatívnych weights.
+Vyberá record podľa relatívnych weights. Je vhodný pre DNS-level migration alebo active-active distribution, ale nie je presné request percentage:
 
-Použitie:
+```text
+resolver receives one answer
+→ caches it
+→ many clients/requests reuse same answer
+```
 
-- canary traffic,
-- migration,
-- postupný shift,
-- active-active distribution.
-
-Weight nie je presný request-level percentuálny load balancer. DNS caching a client concentration môžu vytvoriť odchýlku.
+Malý počet veľkých resolvers môže výrazne skresliť traffic distribution. Weighted DNS canary potrebuje request-level observability na targets, nie iba record weights.
 
 ### Latency
 
-Vyberá AWS Region/resource, ktorý má podľa Route 53 measurements najnižšiu latency pre resolver/client path.
-
-Nie je to real-time application latency ani guarantee najrýchlejšej odpovede.
+Vyberá AWS Region/resource podľa Route 53 latency measurements pre query source model. Nejde o real-time application p95 ani záruku najrýchlejšieho business response.
 
 ### Failover
 
-Primary/secondary active-passive routing podľa health.
+Primary/secondary routing podľa health. Reálny RTO zahŕňa health detection, authoritative verdict, resolver/client TTL, reconnect a secondary data/capacity readiness.
 
-### Geolocation
+### Geolocation, geoproximity a IP-based
 
-Routing podľa geografickej location DNS query source modelu.
-
-### Geoproximity
-
-Routing podľa proximity k resources a optional bias.
+Routujú podľa geographic alebo configured source cohort modelu. Potrebujú default/fallback handling a test z relevantných client networks. Geo routing nie je security boundary; source/VPN/resolver location môže ovplyvniť result.
 
 ### Multivalue answer
 
-Vracia viac healthy records, typicky do ôsmich podľa aktuálneho service contractu.
+Vracia viac healthy records v service limits a poskytuje jednoduchú DNS distribution. Nie je connection-aware load balancer a nedrží target/session state.
 
-Nie je náhradou ELB; poskytuje DNS-level distribution a health filtering.
+## 6. Route 53 health je samostatný oracle
 
-### IP-based
-
-Routing podľa configured client CIDR collections.
-
-## 8. Route 53 health checks
-
-Health check môže sledovať:
-
-- endpoint cez HTTP/HTTPS/TCP,
-- CloudWatch alarm,
-- calculated health z ďalších checks.
-
-Dôležité:
-
-- health checker musí vedieť endpoint dosiahnuť,
-- Host header/path/port musia sedieť,
-- firewall musí povoliť health-check source ranges podľa modelu,
-- checking record name cez rovnaký failover record môže vytvoriť recursive alebo nepredvídateľný design,
-- health check nie je application transaction test automaticky.
-
-Pre alias na AWS resource môže `EvaluateTargetHealth` použiť health targetu podľa podporovanej integrácie.
-
-## 9. DNS failover semantics
-
-Active-passive failover:
+Route 53 health check môže sledovať public HTTP/HTTPS/TCP endpoint, CloudWatch alarm alebo calculated combination. Check musí mať presný hostname, port, path a expected response.
 
 ```text
-primary healthy → Route 53 vracia primary
-primary unhealthy → Route 53 vracia secondary
+health checker request
+→ public reachability/firewall
+→ TLS/Host/path
+→ endpoint result
+→ threshold calculation
+→ record health verdict
 ```
 
-Skutočný recovery time zahŕňa:
+Health check na rovnaký failover hostname môže po DNS presmerovaní testovať secondary namiesto pôvodného primary a vytvoriť recursive/ambiguous result. Preferuj direct health endpoint identity alebo CloudWatch/ARC control, ktorý jednoznačne reprezentuje exact Region/resource.
 
-- health detection interval/threshold,
-- DNS authoritative update,
-- resolver/client TTL cache,
-- connection retry,
-- secondary capacity/readiness,
-- state/data failover.
+Health checker success nie je business transaction. Secondary môže vracať `200` a mať stale database, read-only state alebo nedostatočnú capacity. DNS failover sa prijíma až po business a forbidden tests.
 
-DNS failover nemôže opraviť databázový split-brain alebo nepripravenú secondary application.
+## 7. Active-active a active-passive failure model
 
-## 10. Private DNS
+Active-active odpovede obsahujú healthy records z viacerých active resources. Application/data musia tolerovať concurrent writes alebo používať single-writer authority.
 
-Private hosted zone môže poskytovať internal names pre VPCs.
+Active-passive:
 
-Over:
+```text
+primary health fails
+→ Route 53 stops returning primary for new uncached queries
+→ secondary answer returned
+→ clients resolve/reconnect
+→ secondary handles business request
+```
 
-- VPC DNS support/hostnames settings,
-- zone-VPC association,
-- account/Region association authorization pri cross-account modeli,
-- overlapping private zones,
-- resolver rules a forwarding,
-- split-horizon behavior.
+Po recovery sa nesmie automaticky prepnúť write authority späť iba preto, že health endpoint je green. Failback potrebuje data reconciliation, capacity preflight a controlled TTL/traffic shift.
 
-Rovnaký name môže mať inú public a private odpoveď. Troubleshooting musí vykonať query z reálneho client network contextu.
+DNS failover neodstraňuje cached primary answer ani long-lived connection. Client retry musí poznať idempotency a unknown outcome rovnako ako RDS/ELB failure.
 
-## 11. Route 53 Resolver
+## 8. Private hosted zones a split-horizon
 
-VPC používa Route 53 Resolver pre recursive DNS.
+Private hosted zone answers sú dostupné z associated VPCs cez Route 53 Resolver. Rovnaké meno môže mať public aj private odpoveď.
 
-Hybrid DNS používa:
+Effective private DNS závisí od:
 
-- inbound Resolver endpoints — on-premises clients sa pýtajú AWS private zones,
-- outbound Resolver endpoints — VPC queries sa forwardujú do on-premises DNS,
-- Resolver rules — domains a target DNS servers,
-- rule sharing cez AWS RAM podľa governance modelu.
+- VPC DNS support/hostnames settings;
+- exact hosted-zone/VPC association;
+- cross-account association authorization;
+- overlapping private zone specificity;
+- Resolver forwarding rules;
+- endpoint private DNS;
+- client network context.
 
-Endpointy používajú ENIs v subnets. Potrebujú:
+Troubleshooting query sa vykonáva z affected client VPC/host/container. Laptop query cez public resolver nepreukazuje internal answer. Overlapping private zones môžu zmeniť, ktorá zone je authoritative pre suffix; Route 53 neforwarduje automaticky chýbajúci record do public DNS, ak matching private zone existuje.
 
-- viac AZ pre HA,
-- Security Groups,
-- route/connectivity,
-- capacity/QPS monitoring,
-- redundant on-premises DNS targets.
+## 9. Route 53 Resolver a hybrid DNS
 
-Forwarding loop môže vzniknúť, keď AWS forwarduje domain on-premises a on-premises ho pošle späť do AWS.
+Inbound Resolver endpoint umožňuje on-premises clients query-nuť AWS private namespaces. Outbound endpoint forwarduje selected domains z VPC do external DNS podľa Resolver rules.
 
-## 12. DNSSEC
+```text
+VPC query for corp.internal
+→ outbound Resolver rule
+→ outbound endpoint ENIs
+→ hybrid route/SG/NACL
+→ on-prem DNS targets
+→ response
+```
 
-DNSSEC chráni authenticity/integrity DNS odpovedí pomocou signatures a chain of trust.
+Endpoints potrebujú multiple AZs, subnet IP capacity, SGs, routes, target redundancy a QPS monitoring. Shared rules cez AWS RAM potrebujú ownership/versioning.
 
-Operational requirements:
+Forwarding loop vznikne, ak AWS forwarduje suffix on-prem a on-prem ho bez authoritative answeru pošle späť do AWS. Symptóm môže byť timeout alebo `SERVFAIL`; packet/DNS query logs a rule chain rozlišujú loop od missing recordu.
 
-- key-signing key a KMS dependency podľa service modelu,
-- DS record v parent zone/registrar,
-- rotation a monitoring,
-- bezpečný disable proces.
+## 10. DNSSEC je integrity chain, nie encryption
 
-Chybný DS record môže spôsobiť `SERVFAIL` validujúcim resolverom aj keď records vyzerajú správne pri non-validating teste.
+DNSSEC podpisuje DNS data a vytvára chain of trust cez DS record v parent zone. Operational subject zahŕňa signing state, KSK/KMS dependency, DS generation, rotation a emergency disable procedure.
 
-DNSSEC nezašifruje DNS query ani nezabezpečí application TLS.
+Chybný alebo stale DS record spôsobí validating resolverom `SERVFAIL`, aj keď non-validating resolver alebo direct authoritative query ukazuje správny record. DNSSEC nechráni confidentiality query ani application TLS; rieši authenticity/integrity DNS response.
 
-## 13. CloudFront mentálny model
+Safe enablement:
 
-CloudFront distribution obsahuje:
+```text
+zone signing prepared
+→ KSK/KMS verified
+→ DNSKEY/RRSIG observation
+→ DS published at parent
+→ validating resolver tests
+→ monitoring/rotation
+```
 
-- viewer-facing domain a TLS configuration,
-- origins,
-- origin groups,
-- default cache behavior,
-- additional ordered cache behaviors,
-- cache policy,
-- origin request policy,
-- response headers policy,
-- logging, security a edge-compute integrations.
+Disable sa vykonáva v správnom poradí, aby parent neočakával signatures, ktoré už zone neposkytuje.
 
-Request flow:
+## 11. CloudFront distribution je global request program
+
+Distribution obsahuje viewer aliases/certificate, origins/origin groups, ordered cache behaviors, cache/origin-request/response-header policies, edge code, logging a security integrations.
 
 ```text
 viewer request
-→ nearest/selected edge
-→ cache key lookup
-→ cache hit: response
-→ cache miss: origin request
-→ cache response podľa policy
+→ edge POP and viewer TLS
+→ URI normalization
+→ first matching cache behavior
+→ cache key construction
+→ cache lookup
+→ hit: cached response
+→ miss: origin request policy + origin connection
+→ response/cacheability/TTL
+→ viewer response
 ```
 
-## 14. Origins
+Distribution deployment do global edge network nie je okamžitý single-object update. Config status `Deployed` dokazuje propagation completion podľa service control plane, nie correctness všetkých behaviors/origins/client cohorts.
 
-Origin môže byť napríklad:
+## 12. Viewer TLS a alternate domains
 
-- S3 bucket origin,
-- Application Load Balancer,
-- API endpoint,
-- EC2/custom HTTP server,
-- MediaStore/MediaPackage alebo ďalší supported service,
-- VPC origin pri podporovanom private-resource modeli.
+CloudFront viewer certificate pre custom domain sa spravuje v required ACM control Region, typicky `us-east-1`. Certificate pre regional ALB v `eu-central-1` nie je automaticky použiteľný na CloudFront.
 
-Origin contract obsahuje:
+Viewer handshake závisí od:
 
-- origin domain,
-- protocol policy,
-- origin path,
-- custom headers,
-- connection attempts/timeouts,
-- Origin Shield,
-- origin access control pri S3.
+- requested SNI/Host;
+- alternate domain configuration;
+- certificate SAN/status/chain;
+- security policy;
+- client protocol/cipher support;
+- Route 53 alias.
 
-Origin domain nemá smerovať späť na rovnakú CloudFront distribution, inak môže vzniknúť loop.
+Viewer TLS success nepreukazuje origin TLS. Edge môže akceptovať client connection a následne vrátiť `502` pre origin hostname/certificate/protocol mismatch.
 
-## 15. Cache behaviors
+## 13. Ordered cache behaviors sú routing rules
 
-Distribution má jeden default cache behavior a môže mať ďalšie path-pattern behaviors.
-
-Príklad:
+Distribution má default behavior a optional path-pattern behaviors. Prvá matching behavior podľa precedence vyberie origin a policy set.
 
 ```text
-/static/* → S3 origin, long TTL
-/api/*    → ALB origin, caching disabled/minimal
-*         → default application origin
+/assets/*            → private S3 origin, long immutable caching
+/api/payments/*      → ALB origin, caching disabled
+*                    → portal origin
 ```
 
-Behavior určuje:
+Wrong precedence alebo broad pattern môže poslať API path do static S3 origin, použiť signed-content requirement na public asset alebo zapnúť caching pre authenticated response. Behavior test musí zahŕňať exact path, method, headers a query.
 
-- path pattern,
-- origin,
-- allowed/cached methods,
-- viewer protocol policy,
-- cache policy,
-- origin request policy,
-- response headers policy,
-- signed URL/cookie requirement,
-- edge function associations.
+Allowed methods a cached methods sú odlišné. CloudFront môže forwardovať write methods k custom originu, ale caching sa typicky týka safe read methods podľa behavior configuration. Origin failover má method/status limitations; nie je general write transaction failover.
 
-Additional behaviors sa vyhodnocujú podľa precedence. Chybný path pattern môže poslať API request do static originu.
+## 14. Cache key je representation a isolation identity
 
-## 16. Cache key
+Cache key určuje, ktoré viewer requests zdieľajú jednu cached response. Základom je path a podľa cache policy môže obsahovať selected query strings, headers, cookies a compression variant.
 
-Cache key určuje, ktoré viewer requests zdieľajú cached object.
+```text
+request A and request B
+→ same cache key
+→ same cached object representation
+```
 
-Môže obsahovať:
+Príliš široký key vytvára veľa variants, nízky hit ratio a origin load. Príliš úzky key môže zmiešať language, tenant, authorization alebo personalization a spôsobiť data leakage.
 
-- path,
-- query strings,
-- selected headers,
-- cookies,
-- compression variant.
+Ak origin response závisí od hodnoty, táto hodnota musí byť:
 
-Príliš široký cache key:
+1. súčasť bezpečného cache key;
+2. alebo behavior musí caching vypnúť;
+3. alebo origin musí vrátiť representation, ktorá je bezpečne spoločná pre všetkých requests s rovnakým key.
 
-- nízky cache hit ratio,
-- veľa origin requests,
-- vyšší cost/latency.
+Cache key nie je iba performance tuning. Je to data-isolation boundary.
 
-Príliš úzky cache key:
+## 15. Cache policy a origin request policy
 
-- nesprávne zdieľanie personalized alebo language/device response,
-- data leakage medzi users.
+Cache policy určuje cache-key inputs, TTL bounds a compression. Values zahrnuté v cache key sa automaticky posielajú originu.
 
-Do cache key pridávaj iba hodnoty, ktoré reálne menia response representation.
+Origin request policy môže poslať ďalšie headers, cookies a query strings originu bez ich zahrnutia do cache key.
 
-## 17. Cache policy vs origin request policy
+```text
+X-Tenant-ID forwarded to origin
+but not in cache key
++ origin response depends on X-Tenant-ID
++ response cacheable
+→ first tenant response can be reused for another tenant
+```
 
-### Cache policy
+AWS dokumentácia explicitne upozorňuje, že `Authorization` forwardovaný mimo cache key sa nesmie používať na access-control rozhodnutie cached contentu; buď ho zahrň do key podľa bezpečného designu, alebo caching vypni.
 
-Určuje:
+Forwardovanie viewer `Host` headera môže zmeniť origin virtual-host routing a TLS certificate requirement. Origin request policy je preto correctness/security config, nie iba „čo backend potrebuje vidieť“.
 
-- cache key values,
-- minimum/default/maximum TTL,
-- compression settings.
+## 16. TTL, origin directives a minimum-TTL hranica
 
-Values zahrnuté v cache key sa zároveň posielajú originu.
+CloudFront freshness rozhodnutie kombinuje cache-policy minimum/default/maximum TTL, origin `Cache-Control`/`Expires` a error caching.
 
-### Origin request policy
+Kritická hranica: ak cache policy nastaví minimum TTL väčší než nula, CloudFront môže cache-ovať response minimálne tento čas aj keď origin posiela `Cache-Control: no-cache`, `no-store` alebo `private`.
 
-Posiela originu ďalšie headers, cookies alebo query strings, ktoré nemajú byť súčasťou cache key.
+```text
+origin believes response is private/no-store
++ CloudFront minimum TTL = 60
+→ shared edge may retain response for at least 60 seconds
+```
 
-Príklad:
+Pre authenticated dynamic API behavior používaj managed/custom caching-disabled policy s minimum/default/maximum TTL `0` a over actual response headers/cache status. Origin header sám nie je bezpečnostná poistka proti nesprávnemu minimum TTL.
 
-- `Authorization` alebo viewer metadata môže byť potrebná originu,
-- ale caching authenticated content musí mať explicitný bezpečnostný design.
+Error responses môžu byť cached podľa status/configuration. Po origin fix-e môže edge stále servovať stale `403/404/5xx`, kým error TTL neuplynie alebo sa vykoná cielená invalidation.
 
-Nesprávne preposlanie `Host` headera môže poškodiť origin virtual-host routing alebo TLS.
+## 17. Immutable assets a invalidation
 
-## 18. TTL a origin headers
-
-CloudFront caching ovplyvňujú:
-
-- cache policy TTL,
-- origin `Cache-Control`,
-- origin `Expires`,
-- minimum/maximum TTL,
-- error caching TTL.
-
-Pri mutable assetoch používaj versioned filenames:
+Static asset publication používa content-addressed/versioned keys:
 
 ```text
 app.7f23a1.js
+styles.a91c2e.css
+manifest generation M-44
 ```
 
-Namiesto častých invalidations rovnakého key. Versioned names zlepšujú rollback a immutable caching.
+Dlhý TTL je bezpečný, pretože nový release vytvorí nové keys. Rollback zmení manifest/reference, nie obsah existujúceho immutable key.
 
-## 19. Invalidations
+Invalidation odstráni matching objects z edge caches pred expiry. Je vhodná pre urgentný mutable-content/security fix, ale:
 
-Invalidation odstráni matching objects z edge caches pred TTL expiration.
+- propaguje sa určitý čas;
+- wildcard môže vytvoriť veľký miss/origin spike;
+- neopraví origin object ani browser/downstream cache;
+- pri bežnom release je horšia než immutable naming.
 
-Použitie:
+Acceptance overí nový key/manifest, cache hit po warmup a old-generation rollback path.
 
-- urgentný security fix,
-- chybný mutable content,
-- migration.
+## 18. Origins a origin connection
 
-Riziká:
+Origin môže byť S3 REST origin, ALB/API/custom HTTP origin, podporovaný AWS service, origin group alebo VPC origin.
 
-- cost po free allowance,
-- propagation time,
-- wildcard blast radius,
-- origin load spike po cache missoch.
+Origin contract obsahuje:
 
-Invalidation neopraví chybný origin object ani browser/downstream cache automaticky.
+- exact origin domain a path;
+- protocol policy a TLS hostname;
+- connection attempts/timeouts;
+- custom headers;
+- Origin Shield;
+- OAC alebo VPC-origin access;
+- response/cache contract;
+- capacity a health.
 
-## 20. S3 origin access
+Origin domain nesmie smerovať späť na tú istú distribution, inak vznikne loop. Forwarded Host musí byť compatible s origin listener a certificate.
 
-Pre private S3 origin používaj Origin Access Control — OAC — podľa aktuálneho odporúčaného modelu.
+CloudFront VPC origins môžu pripojiť distribution k supported private ALB/NLB/EC2 origins cez private connection a odstrániť general public origin exposure. Majú service/Region/feature limitations a odlišné deployment/SG requirements; migration vyžaduje explicitný origin identity a rollback plan.
 
-OAC umožňuje CloudFront podpisovať origin requests cez SigV4 a bucket policy povoľuje konkrétnu distribution/service principal path.
+## 19. Private S3 origin cez OAC
 
-Odlišuj:
-
-- S3 REST endpoint origin — podporuje private origin access,
-- S3 static website endpoint — custom origin, verejný website behavior a odlišný TLS/access model.
-
-Neotváraj bucket public iba preto, že CloudFront dostáva `403`. Over OAC, bucket policy, KMS a object key.
-
-## 21. Origin Shield
-
-Origin Shield pridáva regionálnu caching vrstvu pred originom.
-
-Výhody:
-
-- menej duplicate origin fetches z viacerých edge locations,
-- lepšia cache consolidation,
-- ochrana originu pri miss bursts.
-
-Trade-offy:
-
-- additional request/transfer cost,
-- výber Shield Regionu,
-- nie je náhrada origin HA.
-
-## 22. Origin groups a failover
-
-Origin group definuje primary a secondary origin a failover criteria podľa supported HTTP status codes.
-
-Vhodné pre:
-
-- static/content origin failover,
-- read-only recovery,
-- degraded fallback.
-
-Limit:
-
-- failover nemusí fungovať pre všetky HTTP methods,
-- writes a state consistency potrebujú application-specific design,
-- cached errors/objects môžu ovplyvniť observation,
-- secondary musí mať synchronizované content a permissions.
-
-## 23. Viewer TLS
-
-CloudFront môže používať:
-
-- default CloudFront certificate pre distribution hostname,
-- ACM certificate pre alternate domain names.
-
-Pre CloudFront viewer certificate sa ACM certificate spravuje v required control Region podľa služby, typicky `us-east-1`.
-
-Over:
-
-- alternate domain names/SAN,
-- Route 53 alias,
-- certificate Region/status,
-- TLS security policy,
-- SNI/client compatibility,
-- DNS validation records.
-
-Certificate v `eu-central-1` vhodný pre ALB nie je automaticky použiteľný pre CloudFront.
-
-## 24. Origin TLS
-
-Pri HTTPS custom origin CloudFront overuje origin certificate a hostname podľa origin domain/configuration.
-
-`502` môže vzniknúť pre:
-
-- expired origin certificate,
-- hostname mismatch,
-- incomplete chain,
-- unsupported protocol/cipher,
-- origin reset/timeout.
-
-Viewer TLS môže byť healthy, aj keď edge-to-origin TLS zlyháva.
-
-## 25. AWS WAF a Shield
-
-CloudFront možno integrovať s AWS WAF pre Layer 7 rules:
-
-- managed rule groups,
-- IP sets,
-- rate-based rules,
-- bot/application protections podľa configuration.
-
-AWS Shield Standard poskytuje baseline DDoS protection pre supported services; Shield Advanced pridáva ďalšie capabilities a cost/support model.
-
-WAF rule môže blokovať legitímny traffic. Zachovaj sampled requests/logs a používaj count mode alebo staged rollout pri nových rules.
-
-## 26. Signed URLs a signed cookies
-
-Používajú sa na private content distribution.
-
-- signed URL — jednotlivý resource/request,
-- signed cookie — skupina resources/pathov.
-
-Trust model môže používať key groups/public keys.
-
-Nespoliehaj sa iba na obscurity URL. Definuj expiry, path/IP constraints podľa use case a key rotation.
-
-## 27. CloudFront Functions a Lambda@Edge
-
-### CloudFront Functions
-
-Lightweight JavaScript na viewer request/response events s veľmi nízkou latency a obmedzeným runtime modelom.
-
-Use cases:
-
-- redirects,
-- URL normalization,
-- header manipulation,
-- jednoduché authorization/routing decisions.
-
-### Lambda@Edge
-
-Rozšírenejší runtime na viewer/origin events podľa supported Regions/runtime restrictions.
-
-Use cases:
-
-- complex request transformation,
-- dynamic origin selection,
-- advanced authentication/customization.
-
-Edge code zväčšuje deployment a debugging surface. Versioning, replication time, logs Region a rollback musia byť explicitné.
-
-## 28. Response headers policy
-
-Môže pridávať alebo riadiť:
-
-- CORS headers,
-- security headers,
-- custom headers,
-- header removal podľa supported configuration.
-
-Security headers nepomôžu, ak nesprávny cache key zdieľa private content.
-
-## 29. CloudFront logging a metrics
-
-Observability môže obsahovať:
-
-- standard access logs,
-- real-time logs,
-- CloudWatch distribution metrics,
-- origin logs,
-- WAF logs,
-- CloudTrail configuration changes,
-- cache statistics.
-
-Sleduj:
-
-- requests/bytes,
-- total/4xx/5xx error rate,
-- cache hit rate,
-- origin latency,
-- status code distribution,
-- edge location a result type,
-- invalidation/deployment changes.
-
-CloudFront access log delivery nie je vždy instantné. Pre incident koreluj edge request IDs a origin request IDs.
-
-## 30. Cache status a headers
-
-Relevantné response headers môžu zahŕňať:
-
-- `X-Cache`,
-- `Age`,
-- `Via`,
-- `X-Amz-Cf-Pop`,
-- `X-Amz-Cf-Id`.
-
-Príklad:
-
-```bash
-curl -I https://cdn.example.com/static/app.js
-```
-
-Prvý request môže byť miss, ďalší hit. Výsledok závisí od cache key, edge location a TTL.
-
-## 31. Route 53 + CloudFront integration
-
-Bežný pattern:
+Origin Access Control (OAC) umožňuje CloudFront podpisovať S3 REST origin requests cez SigV4. Bucket policy povoľuje CloudFront service principal pre konkrétnu distribution/source ARN podľa contractu.
 
 ```text
-Route 53 A/AAAA alias
+viewer request
 → CloudFront distribution
-→ S3/ALB origins
+→ OAC-signed S3 request
+→ bucket policy + KMS
+→ object version
 ```
 
-Alias na CloudFront potrebuje:
+S3 static website endpoint je custom/public website origin s odlišným access/TLS modelom a OAC sa naň nepoužíva ako na S3 REST origin.
 
-- alternate domain name v distribution,
-- matching certificate,
-- distribution deployed,
-- správny hosted zone record.
+CloudFront `403` sa neopravuje otvorením bucketu public. Rozlišuje sa behavior/origin mapping, OAC attachment/signing, bucket policy, object key/case/version, KMS permission a WAF/signed-content controls.
 
-DNS môže ukazovať na distribution, ale CloudFront vráti `403`, ak requested Host nie je configured alternate domain alebo origin access zlyhá.
+## 20. Origin Shield, request collapsing a origin capacity
 
-## 32. Route 53 troubleshooting
+Origin Shield pridáva regional caching layer a môže konsolidovať misses z viacerých edge locations. Znižuje duplicate origin fetches, ale pridáva request/transfer cost a nie je origin HA.
+
+CloudFront môže collapse-nuť simultaneous requests s rovnakým cache key, kým čaká na prvú origin response. To chráni origin pred thundering herd, ale mení concurrency observability. CachingDisabled a private/no-store behavior pri minimum TTL `0` majú odlišné request-collapsing semantics podľa origin/service modelu; critical API sa testuje actual trafficom.
+
+Origin capacity musí zvládnuť cold cache po deployment, invalidation alebo staging distribution. CloudFront continuous deployment staging a primary distributions nezdieľajú cache, takže canary môže mať vyšší origin miss rate než warmed production.
+
+## 21. Origin groups a failover
+
+Origin group vyberá primary a secondary origin pri configured failure statusoch a supported methods.
+
+```text
+cache miss
+→ primary origin attempt
+→ configured failover status
+→ secondary origin request
+→ response/cache decision
+```
+
+Je vhodný pre static/read-only content a controlled degraded fallback. Pri writes alebo personalized state môže secondary byť stale, read-only alebo bez idempotency. CloudFront origin failover nie je distributed database failover.
+
+Cached response/error môže skryť current origin health. Failover test musí force-núť miss alebo použiť unique key a overiť origin identity/data generation.
+
+## 22. WAF, Shield a edge code
+
+AWS WAF môže aplikovať managed rules, IP sets, rate-based rules a ďalšie Layer 7 controls. Rule rollout používa count/sampled-request/log evidence pred broad block. WAF `403` je edge security verdict, nie origin access failure.
+
+Shield poskytuje DDoS capabilities podľa Standard/Advanced service modelu. Neopravuje application authorization ani cache-key isolation.
+
+CloudFront Functions a Lambda@Edge môžu normalizovať URI, meniť headers, autentizovať alebo vyberať origin podľa event modelu. Edge code je globally deployed software generation s vlastnými logs, runtime restrictions, replication time a rollbackom. Transformácia pred cache-key evaluation môže zmeniť, ktoré requests sa považujú za rovnaké; ordering treba explicitne dokumentovať a testovať.
+
+## 23. Signed URLs/cookies a response headers
+
+Signed URLs/cookies obmedzujú access k private contentu podľa key group/public key, expiry a optional path/IP constraints. URL secrecy sama nie je authorization.
+
+Response headers policy môže pridávať CORS/security/custom headers. Security headers neopravia nesprávne cached private body. CORS allow nie je backend authorization a browser enforcement nechráni non-browser clients.
+
+Key rotation potrebuje overlap a revocation plan. Expired signature failure sa rozlišuje od OAC, WAF a origin `403` cez logs/request identity.
+
+## 24. Continuous deployment a configuration rollout
+
+CloudFront continuous deployment môže smerovať časť trafficu na staging distribution podľa weight alebo header-based contractu. Primary a staging majú oddelené caches.
+
+Safe rollout:
+
+```text
+immutable policy/function/origin generations
+→ staging distribution
+→ synthetic positive/forbidden tests
+→ header-based internal cohort
+→ small weighted viewer cohort
+→ cache-hit/miss, origin, privacy a error evidence
+→ promote configuration
+→ global deployment completion
+→ old generation retention/rollback
+```
+
+Config references ako cache policy, origin request policy alebo edge function sa môžu meniť mimo distribution documentu. Exact acceptance subject preto obsahuje všetky referenced resource IDs/generations, nie iba distribution ETag.
+
+DNS cutover na novú distribution nastane až po certificate, aliases, origins, logging a behavior tests. Staging cache je cold, takže origin-load alarm thresholds sa interpretujú podľa rollout phase.
+
+## 25. Observability a correlation
+
+| Observation | Rozlišuje |
+|---|---|
+| `dig +trace`, authoritative NS/DS | delegation/DNSSEC od record contentu |
+| authoritative vs recursive/client answer + TTL | control-plane update od cache cohortu |
+| CloudFront request ID, POP, `X-Cache`, `Age` | edge/cache state od origin state |
+| matched behavior/cache-policy IDs | intended path od effective routing/config |
+| cache-key inputs | correct variant od cross-tenant collision |
+| CloudFront/WAF logs | viewer/security/cache result |
+| origin logs + forwarded headers | cache hit od origin request and identity |
+| S3/OAC/KMS evidence | edge success od private-origin authorization |
+| CloudTrail/config deployment | who/when changed DNS/distribution/policies |
+| payment/tenant audit | fast response od correct authorized representation |
+
+Standard logs nemusia byť immediate; real-time logs majú cost a sampling/configuration. Incident koreluje CloudFront `X-Amz-Cf-Id`, origin request ID, application trace a tenant/payment subject.
+
+`X-Cache: Hit from cloudfront` dokazuje cache reuse na konkrétnej edge path, nie correctness. `Miss` neznamená failure; po cold deployment je expected.
+
+## 26. Connected failure — tenant header forwarded, ale nie izolovaný v cache key
+
+### Symptóm
+
+Po CloudFront configuration rollout-e tenant-b otvorí `GET /api/payments/P-884` a na krátky čas dostane response patriacu tenant-a. Origin application logs ukazujú správnu authorization pre tenant-a a žiadny request tenant-b v danom okamihu. CloudFront response má `X-Cache: Hit from cloudfront` a `Age: 18`.
+
+### Competing hypotheses
+
+1. Application authorization v ALB/origin-e zamenila tenantov.
+2. Payment ID je globálne collision-prone.
+3. Route 53 poslala tenant-b na inú distribution/generation.
+4. Wrong cache behavior matchol API path.
+5. `X-Tenant-ID` alebo Authorization nie sú forwardované originu.
+6. Header je forwardovaný, ale chýba v cache key.
+7. Origin poslal `private/no-store`, ale minimum TTL ho prebil.
+8. Edge function odstránila/normalizovala tenant identity.
+9. Stale object pochádza zo S3 static originu pre wrong behavior.
+10. Browser/service-worker cache, nie CloudFront, vrátil response.
+11. Cache invalidation/propagation mixuje old a new policy generations.
+
+### Discriminating observations
+
+| Observation | Čo rozlišuje |
+|---|---|
+| CloudFront request ID, POP, `X-Cache`, `Age` | shared edge hit od browser/origin response |
+| matched behavior and policy IDs | wrong route/policy generation |
+| cache-policy header/query/cookie allowlist | tenant key collision od forwarding failure |
+| origin-request policy and origin logs | header forwarded/not forwarded |
+| origin response `Cache-Control` + policy min TTL | origin intent od CloudFront enforced cacheability |
+| tenant-a prior request with same path | cache population source |
+| edge-function versions and transformed request | policy issue od code normalization |
+| Route 53/distribution alias timeline | wrong distribution cohort |
+| payment audit | representation leak od duplicate DB transaction |
+
+### Finding
+
+Rollout zamenil `API-NOCACHE-9` za cache policy s minimum TTL `60`. `X-Tenant-ID` a `Authorization` sa naďalej forwardovali originu cez origin request policy, ale neboli v cache key. Prvý tenant-a GET vytvoril cache entry iba podľa pathu. Origin poslal `Cache-Control: private, no-store`, no minimum TTL väčší než nula v CloudFront policy vynútil cache retention. Tenant-b request mal rovnaký cache key a dostal tenant-a response bez nového origin authorization callu.
+
+### Evidence-preserving containment
+
+- okamžite deaktivovať affected behavior caching cez novú scoped configuration, nie otvárať origin;
+- zachovať policy IDs, distribution ETags, edge logs, request IDs, WAF/origin logs a sample leaked responses;
+- vykonať cielenú invalidation affected API paths po oprave policy;
+- obmedziť API behavior na safe methods/pathy a monitorovať cache hits, ktoré majú byť nulové;
+- spustiť privacy incident process a identifikovať affected tenant/request cohort podľa logs;
+- nerotovať všetky backend secrets ako náhradu za cache-policy root cause, ak evidence neukazuje compromise.
+
+### Authoritative recovery
+
+1. Obnoviť caching-disabled policy s minimum/default/maximum TTL `0` pre authenticated API.
+2. Odstrániť unnecessary cacheable methods a overiť ordered behavior precedence.
+3. Zachovať required auth/tenant headers v origin request policy.
+4. Ak sa vybrané authenticated GETs majú cache-ovať, navrhnúť explicitný identity-aware key alebo private per-user mechanism; default je no shared caching.
+5. Nasadiť cez staging distribution/header cohort.
+6. Testovať tenant-a/tenant-b s rovnakým pathom a rozdielnou identity.
+7. Overiť `X-Cache`, origin request count, body/headers a application audit.
+8. Promote-nuť až po positive a forbidden tests; potom invalidate-nuť stale affected variants.
+9. Pridať policy-as-code gate: authenticated origin headers mimo cache key + positive min TTL je forbidden combination.
+
+### Acceptance verdict
+
+Edge recovery je prijatá až keď:
+
+- Route 53 alias smeruje na approved deployed distribution generation;
+- `/api/payments/*` matchuje exact non-caching behavior;
+- tenant-a a tenant-b requests vždy vykonajú independent origin authorization alebo bezpečne odlišný cache key;
+- origin `private/no-store` nie je prebitý positive minimum TTL;
+- S3 assets zostávajú private cez OAC a fungujú s immutable caching;
+- payment P-884 representation je tenant-isolated;
+- wrong tenant, wrong behavior, public bucket a stale error paths zostávajú forbidden;
+- deployment gate zachytí rovnakú policy kombináciu pred production.
+
+## 27. Troubleshooting podľa boundary
 
 ### `NXDOMAIN`
 
-Over:
-
-- record existuje v správnej hosted zone,
-- delegation NS,
-- exact name/type,
-- private vs public context,
-- negative caching TTL.
+```text
+exact name/type/case
+→ parent delegation NS
+→ correct public/private hosted zone
+→ record existence
+→ negative cache TTL
+```
 
 ### `SERVFAIL`
 
-Over:
-
-- DNSSEC chain/DS,
-- authoritative server availability,
-- forwarding loop,
-- resolver validation.
-
-### Stará IP/target
-
-Over:
-
-- authoritative response,
-- recursive resolver cache,
-- client/application DNS cache,
-- TTL pred zmenou,
-- split-horizon zone.
-
-### Failover neprepne
-
-Over:
-
-- health check status,
-- record association,
-- `EvaluateTargetHealth`,
-- TTL/cache,
-- secondary health/capacity,
-- calculated check dependencies.
-
-## 33. CloudFront `403`
-
-Možné príčiny:
-
-- S3 bucket policy/OAC,
-- object neexistuje a S3 access model maskuje 404 ako 403,
-- alternate domain/CNAME mismatch,
-- WAF block,
-- signed URL/cookie invalid,
-- geo restriction,
-- origin custom authorization,
-- KMS permission.
-
-Postup:
-
 ```text
-viewer response headers/request ID
-→ WAF/logs
-→ behavior/origin mapping
-→ direct controlled origin test
-→ OAC/bucket/KMS policy
-→ object key/case
+DNSSEC DS/DNSKEY/RRSIG chain
+→ authoritative availability
+→ Resolver forwarding loop
+→ validating vs non-validating resolver comparison
 ```
 
-## 34. CloudFront `404`
+### Stale DNS target
 
-Over:
+```text
+authoritative response
+→ recursive resolver cache/TTL
+→ client/JVM/application cache
+→ existing connections
+→ actual target traffic
+```
 
-- requested path,
-- origin path prefix,
-- behavior mapping,
-- S3 object key case,
-- default root object,
-- application route,
-- cached error response.
+### CloudFront `403`
 
-Invalidation môže byť potrebná až po oprave origin content alebo behavioru.
+```text
+request ID and WAF result
+→ alternate domain/signed content/geo policy
+→ matched behavior/origin
+→ OAC/VPC-origin authorization
+→ S3 bucket/KMS/object key
+→ origin custom auth
+```
 
-## 35. CloudFront `502`
+### `404`
 
-Over:
+```text
+normalized path
+→ behavior precedence
+→ origin path
+→ S3 key case/default root
+→ application route
+→ cached error TTL
+```
 
-- origin DNS,
-- origin TLS certificate/hostname/chain,
-- origin protocol policy,
-- Security Groups/NACL,
-- origin listening port,
-- Lambda@Edge failure,
-- malformed origin response.
+### `502`
 
-## 36. CloudFront `503/504`
+```text
+origin DNS
+→ origin protocol/TLS hostname/chain
+→ SG/NACL/VPC-origin path
+→ listener/port
+→ edge function/origin response format
+```
 
-### 503
+### `503/504`
 
-- origin overload/unavailable,
-- edge compute quota/error,
-- capacity alebo custom origin failure.
+```text
+edge/function capacity
+→ origin availability/capacity
+→ response timeout
+→ application dependency latency
+→ cached error and retry behavior
+```
 
-### 504
+### Privacy/cache correctness
 
-- origin response timeout,
-- network path drop,
-- long application request,
-- dependency latency.
+```text
+matched behavior
+→ cache policy and min TTL
+→ exact cache-key inputs
+→ origin request policy
+→ origin response variation/cache headers
+→ `X-Cache`/Age/logs
+→ cross-identity forbidden test
+```
 
-CloudFront timeout zvýš až po pochopení application latency a client expectation. Dlhší timeout môže iba predĺžiť resource occupancy.
+## 28. Cost a architecture trade-off
 
-## 37. Cache poisoning a privacy risks
+Route 53 cost môže zahŕňať hosted zones, queries podľa routing type, health checks, domains a Resolver endpoints/queries. CloudFront cost môže zahŕňať viewer transfer, requests, invalidations, logs, Origin Shield, edge compute, WAF/Shield a origin data/request cost.
 
-Nesprávny cache key môže zdieľať response medzi users.
+Vyšší cache hit ratio často znižuje origin cost a latency, ale hit ratio nikdy nemá prednosť pred representation correctness a tenant isolation. Všetky headers/cookies/query strings v key znižujú hit ratio; žiadne identity inputs pri personalized content vytvára leak. Optimálny key obsahuje presne values, ktoré bezpečne menia representation.
 
-Rizikové inputs:
+VPC origin znižuje public exposure, ale pridáva deployment/Region/feature dependencies. Origin Shield chráni origin misses, ale pridáva cost a regional shield selection. Low DNS TTL zrýchľuje response na change, ale zvyšuje query volume a nepresúva sessions.
 
-- `Authorization`,
-- session cookies,
-- tenant headers,
-- language/device headers,
-- query parameters ovplyvňujúce obsah.
+## 29. Anti-patterny odvodené z decision systems
 
-Pre authenticated dynamic content často caching vypni alebo navrhni presný identity-aware key bez ukladania citlivých responses na shared edge.
+- **Hosted zone považovaná za delegation** — records existujú, ale parent ich nepoužíva.
+- **DNS failover považovaný za okamžitý** — TTL, caches a connections predlžujú transition.
+- **Weighted DNS považované za request percentage** — resolver concentration skresľuje traffic.
+- **Health check na failover hostname** — môže testovať už presmerovaný endpoint.
+- **CloudFront alias `EvaluateTargetHealth` predpokladaný bez service supportu** — health design je neúplný.
+- **Distribution `Deployed` považované za correctness** — origin/policy/cache behavior nemusí byť správny.
+- **Authenticated header forwardovaný mimo cache key pri cacheable response** — origin auth sa pri hit-e nevykoná.
+- **Origin `no-store` považované za absolútne pri positive minimum TTL** — CloudFront policy môže response cache-ovať.
+- **Všetky viewer values v cache key** — origin overload a nízky hit ratio.
+- **Žiadne varying values v key** — wrong representation/data leakage.
+- **Public S3 bucket kvôli CloudFront `403`** — OAC/policy/KMS root cause sa maskuje exposure-m.
+- **Invalidation ako bežný asset release** — mutable naming zhoršuje cache a rollback lifecycle.
+- **Origin failover považovaný za write HA** — secondary data/authority môže byť nekompatibilná.
+- **Response headers policy považovaná za privacy control body** — nesprávny cache key zostáva.
+- **Edge function change bez version/request-order tests** — transformácia mení routing/cache identity.
 
-Origin request headers, ktoré nie sú v cache key, nesmú meniť response content, ak sa response cache-uje.
+## 30. Kontrolné otázky
 
-## 38. Deployment a propagation
-
-CloudFront distribution change sa propaguje do global edge network a nie je okamžitá.
-
-Deployment workflow:
-
-- validate configuration,
-- staged/test distribution alebo continuous deployment capability podľa use case,
-- monitor status `InProgress`/`Deployed`,
-- test alternate domain a origins,
-- verify logs/metrics,
-- rollback previous configuration.
-
-DNS cutover na distribution urob až po deployment a certificate/origin validation.
-
-## 39. Cost model
-
-### Route 53
-
-- hosted zones,
-- DNS queries podľa routing type,
-- health checks,
-- Resolver endpoints a queries,
-- domains.
-
-### CloudFront
-
-- data transfer to viewers,
-- HTTP/HTTPS requests,
-- invalidations nad allowance,
-- real-time logs,
-- Origin Shield,
-- edge functions,
-- WAF/Shield,
-- origin data transfer/request cost.
-
-Vyšší cache hit ratio typicky znižuje origin load a latency, ale nesmie narušiť correctness alebo privacy.
-
-## 40. SOA-C03 mapovanie
-
-- **Domain 1** — DNS/CloudFront metrics, access logs, cache hit/error analysis,
-- **Domain 2** — Route 53 health failover, CloudFront origin failover a global recovery,
-- **Domain 3** — DNS/distribution provisioning, cache policies, invalidation a deployment automation,
-- **Domain 4** — DNSSEC, TLS, OAC, signed content, WAF a logging security,
-- **Domain 5** — hosted zones, routing policies, Resolver, CDN/origin networking a troubleshooting.
-
-Praktické drilly:
-
-- Route 53 wrong delegation,
-- private hosted zone neasociovaná s VPC,
-- failover health check sleduje nesprávny hostname,
-- CloudFront OAC bucket policy `403`,
-- cache key zdieľa tenant response,
-- origin TLS `502`,
-- path behavior posiela request na nesprávny origin,
-- stale cached error po oprave originu.
-
-## 41. Anti-patterny
-
-### DNS failover považovaný za okamžitý
-
-TTL, resolver cache a connections predlžujú recovery.
-
-### Weighted routing považované za presné request percentá
-
-DNS caching skresľuje distribution.
-
-### Health check na rovnaký failover hostname
-
-Môže testovať už presmerovaný endpoint a vytvoriť nejasný result.
-
-### Public S3 bucket kvôli CloudFront
-
-OAC umožňuje private origin access.
-
-### Všetky headers/cookies/query strings v cache key
-
-Znižuje hit ratio a zvyšuje cost.
-
-### Authenticated content cache-ované bez identity contractu
-
-Hrozí data leakage.
-
-### Invalidation ako bežný release mechanizmus
-
-Preferuj immutable versioned asset names.
-
-### CloudFront považovaný za origin HA
-
-Origin a state stále potrebujú resilience.
-
-## 42. Kontrolné otázky
-
-1. Aký je rozdiel medzi hosted zone, domain registration a recordom?
-2. Kedy použiť Route 53 alias namiesto CNAME?
-3. Ako TTL ovplyvňuje failover?
-4. Ako sa líši weighted, latency a failover routing?
-5. Čo je Route 53 Resolver inbound a outbound endpoint?
-6. Čo určuje CloudFront cache behavior?
-7. Ako sa líši cache policy a origin request policy?
-8. Prečo je cache key security boundary?
-9. Ako funguje OAC pre S3 origin?
-10. Ktoré vrstvy preveríš pri CloudFront `502`?
+1. Aký je rozdiel medzi domain registration, hosted zone, delegation a recordom?
+2. Prečo Route 53 weighted policy nie je presný request-level load balancer?
+3. Čo všetko tvorí DNS failover RTO?
+4. Prečo health check nemá používať nejednoznačný failover hostname?
+5. Ako sa private hosted zone a Resolver rule podieľajú na effective answeri?
+6. Prečo chybný DNSSEC DS môže vytvoriť `SERVFAIL`?
+7. Ako CloudFront vyberá cache behavior?
+8. Čo je cache key a prečo je security boundary?
+9. Ako sa líši cache policy a origin request policy?
+10. Prečo minimum TTL môže prebiť origin `no-store/private`?
+11. Ako OAC chráni private S3 origin?
+12. Kedy je VPC origin vhodný a aké dependencies pridáva?
+13. Prečo primary a staging distribution nemajú rovnaký cache state?
+14. Aké positive a forbidden tests uzatvárajú authenticated CloudFront behavior?
 
 ## Glossary impact
 
-Relevantné pojmy: Amazon Route 53, hosted zone, DNS delegation, alias record, routing policy, weighted routing, latency routing, failover routing, Route 53 health check, Route 53 Resolver, inbound Resolver endpoint, outbound Resolver endpoint, DNSSEC, Amazon CloudFront, distribution, edge location, origin, cache behavior, cache policy, origin request policy, response headers policy, cache key, cache hit ratio, invalidation, Origin Access Control, Origin Shield, origin group, signed URL, signed cookie, CloudFront Functions a Lambda@Edge.
+Táto kapitola zavádza alebo spresňuje pojmy: DNS-answer subject, delegation generation, resolver-cache cohort, DNS failover realization, edge-delivery subject, behavior-routing verdict, cache-key identity, representation isolation, origin-request-only input, minimum-TTL override, cache publication generation, OAC origin authorization, VPC-origin path, edge configuration generation a edge-delivery acceptance verdict.
 
 ## Oficiálna dokumentácia
 
-- [Amazon Route 53 Developer Guide](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html)
-- [Route 53 concepts](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-concepts.html)
+- [Amazon Route 53 concepts](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-concepts.html)
 - [Choosing a routing policy](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html)
-- [Route 53 health checks](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
+- [Configuring DNS failover](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-configuring.html)
 - [Route 53 Resolver](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html)
-- [Amazon CloudFront Developer Guide](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
-- [Cache policies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html)
+- [Routing traffic to CloudFront](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html)
+- [Amazon CloudFront introduction](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
+- [Understand the cache key](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-the-cache-key.html)
+- [Cache policies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cache-key-understand-cache-policy.html)
 - [Origin request policies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html)
-- [Restricting access to S3 origins](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html)
+- [Restrict access to S3 origins with OAC](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html)
+- [Restrict access with VPC origins](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-vpc-origins.html)
+- [CloudFront continuous deployment](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-continuous-deployment.html)
+- [CloudFront origin failover](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
