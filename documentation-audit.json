@@ -2942,16 +2942,16 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "title": "Lambda",
-      "words": 1871,
-      "headings": 43,
-      "sections": 43,
-      "findings": 118,
-      "critical": 37,
-      "high": 48,
-      "medium": 16,
-      "low": 17,
-      "score": 899,
+      "title": "AWS Lambda",
+      "words": 2572,
+      "headings": 35,
+      "sections": 35,
+      "findings": 69,
+      "critical": 16,
+      "high": 21,
+      "medium": 8,
+      "low": 24,
+      "score": 418,
       "grade": "D"
     },
     {
@@ -166241,8 +166241,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Exact serverless execution subject",
+      "line": 22,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -166250,35 +166250,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "2. Function, invocation a execution environment nie sú to isté",
+      "line": 73,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -166286,17 +166259,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "2. Execution environment lifecycle",
-      "line": 27,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `globálne clients a SDK connections možno reuse-nuť,`, `memory state medzi invocations nesmie byť authoritative,`, `code musí fungovať aj pri úplne novom prostredí.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "2. Execution environment lifecycle",
-      "line": 27,
+      "section": "2. Function, invocation a execution environment nie sú to isté",
+      "line": 73,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -166304,161 +166268,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "3. Cold start a warm start",
-      "line": 47,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "3. Cold start a warm start",
-      "line": 47,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `runtime,`, `package alebo image size,`, `počet layers/extensions,`, `static initialization,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "3. Cold start a warm start",
-      "line": 47,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "3. Cold start a warm start",
-      "line": 47,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "3. Cold start a warm start",
-      "line": 47,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `CPU`, `TTL`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "4. Function packaging",
-      "line": 72,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "4. Function packaging",
-      "line": 72,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ZIP deployment package,`, `layers pre shared dependencies.`, `source revision,`, `dependency lock,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "4. Function packaging",
-      "line": 72,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "4. Function packaging",
-      "line": 72,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "4. Function packaging",
-      "line": 72,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "4. Function packaging",
-      "line": 72,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ZIP`, `ECR`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "5. Runtime, memory a CPU",
+      "section": "3. Invocation contract určuje vlastníka retryu",
       "line": 93,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "5. Runtime, memory a CPU",
-      "line": 93,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `duration distribution, nie iba average,`, `memory high-water mark,`, `CPU-bound oproti I/O-bound behavior,`, `downstream latency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "5. Runtime, memory a CPU",
-      "line": 93,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "5. Runtime, memory a CPU",
-      "line": 93,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "5. Runtime, memory a CPU",
-      "line": 93,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "5. Runtime, memory a CPU",
-      "line": 93,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU-`, `O-`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "6. Invocation modely",
-      "line": 109,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -166466,368 +166277,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Synchronous invocation",
-      "line": 111,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `API Gateway,`, `Application Load Balancer,`, `priamy SDK/API call.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Synchronous invocation",
-      "line": 111,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Synchronous invocation",
-      "line": 111,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `SDK`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Asynchronous invocation",
-      "line": 121,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Asynchronous invocation",
-      "line": 121,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximum event age,`, `retry attempts,`, `on-success destination,`, `on-failure destination,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Asynchronous invocation",
-      "line": 121,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "Poll-based event source mapping",
+      "line": 123,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
       "section": "Poll-based event source mapping",
-      "line": 133,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Poll-based event source mapping",
-      "line": 133,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `batch size,`, `batching window,`, `concurrency,`, `starting position,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Poll-based event source mapping",
-      "line": 133,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "7. Event source mapping a idempotencia",
-      "line": 150,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dvojité platby,`, `duplicitné emaily,`, `opakované provisioning actions,`, `non-idempotent database updates,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "7. Event source mapping a idempotencia",
-      "line": 150,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "7. Event source mapping a idempotencia",
-      "line": 150,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "8. Concurrency",
-      "line": 173,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "8. Concurrency",
-      "line": 173,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `account regional concurrency pool ,`, `event-source concurrency controls ,`, `downstream capacity .`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "8. Concurrency",
-      "line": 173,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "8. Concurrency",
-      "line": 173,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "9. Throttling",
-      "line": 196,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "9. Throttling",
-      "line": 196,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "9. Throttling",
-      "line": 196,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exhausted account concurrency,`, `reserved concurrency limit,`, `event source maximum concurrency,`, `burst/ramp behavior,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "9. Throttling",
-      "line": 196,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "9. Throttling",
-      "line": 196,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "10. Versions a aliases",
-      "line": 216,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dev/stage/prod alias,`, `canary deployment,`, `stabilný event-source target,`, `rýchly rollback pointera,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "10. Versions a aliases",
-      "line": 216,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "10. Versions a aliases",
-      "line": 216,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "11. Deployment safety",
-      "line": 230,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "11. Deployment safety",
-      "line": 230,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "11. Deployment safety",
-      "line": 230,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvor immutable artifact,`, `deploy-ni novú version,`, `vykonaj configuration a permission validation,`, `presuň malé percento trafficu cez alias,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "11. Deployment safety",
-      "line": 230,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "11. Deployment safety",
-      "line": 230,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "12. Environment variables a configuration",
-      "line": 244,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `AWS Secrets Manager,`, `Systems Manager Parameter Store podľa contractu,`, `short-lived credentials cez execution role.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "12. Environment variables a configuration",
-      "line": 244,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AWS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "13. Execution role a resource policies",
-      "line": 256,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "13. Execution role a resource policies",
-      "line": 256,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trigger má event konfiguráciu, ale chýba invoke permission,`, `execution role nevie čítať Secret/KMS key,`, `broad wildcard permissions,`, `source ARN/account condition chýba,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "13. Execution role a resource policies",
-      "line": 256,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "13. Execution role a resource policies",
-      "line": 256,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "13. Execution role a resource policies",
-      "line": 256,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `ARN`, `VPC`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "14. VPC connectivity",
-      "line": 271,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "14. VPC connectivity",
-      "line": 271,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "14. VPC connectivity",
-      "line": 271,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyberá subnets a Security Groups,`, `potrebuje dostupné subnet IP addresses,`, `internet access nevznikne iba výberom public subnetu,`, `AWS service access možno riešiť VPC endpoints,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "14. VPC connectivity",
-      "line": 271,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "14. VPC connectivity",
-      "line": 271,
+      "line": 123,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -166835,134 +166295,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "14. VPC connectivity",
-      "line": 271,
+      "section": "4. Delivery je typicky at-least-once",
+      "line": 129,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "6. Concurrency je admission control aj blast-radius control",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "7. Backpressure sa má prejaviť v source, nie v poškodenom downstream-e",
+      "line": 189,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `NAT`, `AWS`, `DNS`, `NACL`",
-      "score": 7
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "15. Networking a database connections",
-      "line": 293,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "15. Networking a database connections",
-      "line": 293,
+      "section": "7. Backpressure sa má prejaviť v source, nie v poškodenom downstream-e",
+      "line": 189,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reuse connection v warm environment,`, `connection pooling/proxy,`, `reserved concurrency,`, `batch processing,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximum tolerované oneskorenie;`, `concurrency ramp;`, `retry budget;`, `downstream quota;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "15. Networking a database connections",
-      "line": 293,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "15. Networking a database connections",
-      "line": 293,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RDS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "16. Timeout, retry a cancellation",
-      "line": 309,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zvýšiť concurrency,`, `predĺžiť retry feedback loop,`, `držať connections,`, `zvýšiť cost,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "16. Timeout, retry a cancellation",
-      "line": 309,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "17. Destinations, DLQ a replay",
-      "line": 323,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "17. Destinations, DLQ a replay",
-      "line": 323,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `original event,`, `failure reason,`, `function version/alias,`, `attempt metadata,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "17. Destinations, DLQ a replay",
-      "line": 323,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "17. Destinations, DLQ a replay",
-      "line": 323,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "18. Observability",
-      "line": 339,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "18. Observability",
-      "line": 339,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `structured logs,`, `Errors , Duration , Throttles , Invocations , ConcurrentExecutions ,`, `iterator age alebo queue age pri event sources,`, `async delivery failures,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "18. Observability",
-      "line": 339,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "18. Observability",
-      "line": 339,
+      "section": "7. Backpressure sa má prejaviť v source, nie v poškodenom downstream-e",
+      "line": 189,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -166970,134 +166340,161 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "19. Logging hygiene",
-      "line": 354,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "19. Logging hygiene",
-      "line": 354,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credentials,`, `access tokens,`, `celé secrets,`, `citlivé event payloads,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "19. Logging hygiene",
-      "line": 354,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "20. Durable state",
-      "line": 366,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "20. Durable state",
-      "line": 366,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "20. Durable state",
-      "line": 366,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DynamoDB,`, `RDS/Aurora,`, `S3,`, `queues/streams,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "20. Durable state",
-      "line": 366,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "20. Durable state",
-      "line": 366,
+      "section": "7. Backpressure sa má prejaviť v source, nie v poškodenom downstream-e",
+      "line": 189,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RDS`, `S3`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DLQ`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "21. Error classes",
-      "line": 379,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "8. Timeout je execution boundary, nie cancellation garancia downstreamu",
+      "line": 203,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "21. Error classes",
-      "line": 379,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "8. Timeout je execution boundary, nie cancellation garancia downstreamu",
+      "line": 203,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "21. Error classes",
-      "line": 379,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "9. Deployment je zmena viacerých generations",
+      "line": 219,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Function timeout",
-      "line": 392,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "9. Deployment je zmena viacerých generations",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Function timeout",
-      "line": 392,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Function timeout",
-      "line": 392,
+      "section": "10. Configuration propagation vytvára mixed population",
+      "line": 240,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `REPORT duration a timeout,`, `init duration,`, `downstream latency,`, `DNS/VPC path,`.",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dve compatible configuration generations;`, `rotáciu credentials počas existujúcich connections;`, `old a new code pri queue backlogu;`, `schema/event compatibility;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Function timeout",
-      "line": 392,
+      "section": "10. Configuration propagation vytvára mixed population",
+      "line": 240,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "10. Configuration propagation vytvára mixed population",
+      "line": 240,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "12. VPC attachment mení dependency path",
+      "line": 272,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "13. Secrets a external configuration",
+      "line": 289,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "13. Secrets a external configuration",
+      "line": 289,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "15. Durable Functions sú odlišný execution contract",
+      "line": 316,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 55 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "15. Durable Functions sú odlišný execution contract",
+      "line": 316,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `durable execution name/identity;`, `version a code generation;`, `checkpointed step;`, `external side-effect boundary;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "15. Durable Functions sú odlišný execution contract",
+      "line": 316,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "15. Durable Functions sú odlišný execution contract",
+      "line": 316,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "16. Observability musí spojiť platformu s business výsledkom",
+      "line": 332,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "16. Observability musí spojiť platformu s business výsledkom",
+      "line": 332,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Invocations , Errors , Throttles , Duration a initialization evidence;`, `ConcurrentExecutions , reserved/provisioned usage a spillover;`, `queue depth, age, receive count a DLQ;`, `downstream latency, error, quota a connection metrics;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "16. Observability musí spojiť platformu s business výsledkom",
+      "line": 332,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -167105,17 +166502,215 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Function timeout",
-      "line": 392,
-      "severity": "high",
+      "section": "16. Observability musí spojiť platformu s business výsledkom",
+      "line": 332,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "16. Observability musí spojiť platformu s business výsledkom",
+      "line": 332,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "16. Observability musí spojiť platformu s business výsledkom",
+      "line": 332,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `REPORT`, `DNS`, `VPC`, `SDK`, `CPU`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DLQ`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "17. Worked failure: batch retry duplikuje settlement",
+      "line": 347,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Exact symptom a competing hypotheses",
+      "line": 351,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Exact symptom a competing hypotheses",
+      "line": 351,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Exact symptom a competing hypotheses",
+      "line": 351,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Exact symptom a competing hypotheses",
+      "line": 351,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reserved concurrency throttluje consumer;`, `provider je pomalý a visibility timeout vyprší;`, `handler volá provider pred atomic idempotency claimom;`, `deployment spustil wrong version alebo mapping target.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Exact symptom a competing hypotheses",
+      "line": 351,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "AccessDenied",
-      "line": 405,
+      "section": "Discriminating evidence",
+      "line": 359,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Containment",
+      "line": 376,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Containment",
+      "line": 376,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Containment",
+      "line": 376,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Containment",
+      "line": 376,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `event source mapping sa pozastaví;`, `queue sa nesmie purge-nuť;`, `provider a ledger evidence sa zachová podľa settle-S884 ;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Containment",
+      "line": 376,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Containment",
+      "line": 376,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S884`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Authoritative recovery",
+      "line": 384,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Authoritative recovery",
+      "line": 384,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Authoritative recovery",
+      "line": 384,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Authoritative recovery",
+      "line": 384,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `handler najprv vykoná atomic business claim;`, `provider call používa settle-S884 ako provider idempotency key;`, `ledger/outbox completion sa reconciliuje s provider outcome-om;`, `failed records používajú partial batch response;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Authoritative recovery",
+      "line": 384,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Authoritative recovery",
+      "line": 384,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Authoritative recovery",
+      "line": 384,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S884`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Acceptance verdict",
+      "line": 394,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -167123,17 +166718,71 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "SQS messages sa opakujú",
-      "line": 409,
+      "section": "Acceptance verdict",
+      "line": 394,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Acceptance verdict",
+      "line": 394,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `každý source record má jeden authoritative completion marker;`, `provider aj ledger majú jeden settlement pre S-884 ;`, `queue receive count už nevytvára concurrent duplicate processing;`, `valid records v mixed batchi sa zbytočne nereplayujú;`.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "DynamoDB/Kinesis iterator age rastie",
-      "line": 413,
+      "section": "Acceptance verdict",
+      "line": 394,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Acceptance verdict",
+      "line": 394,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Acceptance verdict",
+      "line": 394,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Acceptance verdict",
+      "line": 394,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "Acceptance verdict",
+      "line": 394,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `S-884`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/lambda.md",
+      "section": "18. Troubleshooting model",
+      "line": 408,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -167142,7 +166791,7 @@
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
       "section": "Function sa nespúšťa",
-      "line": 417,
+      "line": 426,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -167150,8 +166799,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Náhly nárast costu",
-      "line": 421,
+      "section": "SQS records sa opakujú",
+      "line": 434,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -167159,8 +166808,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "23. SOA-C03 mapovanie",
-      "line": 425,
+      "section": "Stream iterator age rastie",
+      "line": 438,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -167168,53 +166817,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "23. SOA-C03 mapovanie",
-      "line": 425,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "23. SOA-C03 mapovanie",
-      "line": 425,
+      "section": "19. Security a cost boundaries",
+      "line": 446,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "23. SOA-C03 mapovanie",
-      "line": 425,
-      "severity": "high",
+      "section": "19. Security a cost boundaries",
+      "line": 446,
+      "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `reserved concurrency spôsobí throttling,`, `SQS visibility timeout je kratší než function runtime,`, `function SG nevie dosiahnuť RDS,`, `secret rotation zmení credentials bez client refreshu,`.",
-      "score": 8
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `least-privilege execution role a scoped resource policy;`, `source ARN/account conditions;`, `signed a immutable artifacts;`, `secret redaction a payload minimization;`.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "23. SOA-C03 mapovanie",
-      "line": 425,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "19. Security a cost boundaries",
+      "line": 446,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "23. SOA-C03 mapovanie",
-      "line": 425,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "23. SOA-C03 mapovanie",
-      "line": 425,
+      "section": "19. Security a cost boundaries",
+      "line": 446,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -167222,84 +166853,12 @@
     },
     {
       "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "23. SOA-C03 mapovanie",
-      "line": 425,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "23. SOA-C03 mapovanie",
-      "line": 425,
+      "section": "19. Security a cost boundaries",
+      "line": 446,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DLQ`, `AZ`, `KMS`, `VPC`, `NAT`, `DNS`, `SQS`, `SG`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `KMS`, `VPC`, `resource`, `policy`",
       "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Lambda je automaticky lacnejšia",
-      "line": 445,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Bez reserved concurrency na rizikovom consumerovi",
-      "line": 449,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "DLQ bez alarmu a replay procesu",
-      "line": 453,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Secret načítaný pri každom invocation bez cache",
-      "line": 457,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Všetky chyby riešené retryom",
-      "line": 461,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Stateful business logika v /tmp",
-      "line": 465,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/lambda.md",
-      "section": "Production traffic na $LATEST",
-      "line": 469,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/public-private-hybrid-cloud.md",
