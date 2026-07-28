@@ -3027,16 +3027,16 @@
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
       "title": "Scalability, elasticity a fault tolerance",
-      "words": 3841,
-      "headings": 41,
-      "sections": 41,
-      "findings": 25,
-      "critical": 0,
-      "high": 0,
-      "medium": 2,
-      "low": 23,
-      "score": 36,
-      "grade": "C"
+      "words": 1367,
+      "headings": 24,
+      "sections": 24,
+      "findings": 54,
+      "critical": 18,
+      "high": 19,
+      "medium": 7,
+      "low": 10,
+      "score": 405,
+      "grade": "D"
     },
     {
       "path": "docs/11-cloud-and-aws/security-groups-network-acls.md",
@@ -175160,17 +175160,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "1. Mentálny model",
-      "line": 13,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "2. Scalability",
-      "line": 29,
+      "section": "2. Capacity je celý critical path",
+      "line": 39,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -175178,188 +175169,71 @@
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "2. Scalability",
-      "line": 29,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "3. Scalability",
+      "line": 55,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "3. Kapacitný model a bottleneck",
-      "line": 35,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "Horizontal scaling",
+      "line": 63,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "5. Horizontal scaling",
-      "line": 56,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "Horizontal scaling",
+      "line": 63,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "5. Horizontal scaling",
-      "line": 56,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
+      "section": "Horizontal scaling",
+      "line": 63,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic alebo work možno bezpečne rozdeliť;`, `state ownership je explicitný;`, `operations sú idempotentné alebo deduplikované;`, `downstream má headroom;`.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "6. Diagonal scaling",
-      "line": 73,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "Horizontal scaling",
+      "line": 63,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "8. Elasticity",
-      "line": 85,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "Metric contract",
+      "line": 96,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "10. Target tracking, step a scheduled scaling",
-      "line": 115,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
+      "section": "Metric contract",
+      "line": 96,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presnú pracovnú jednotku;`, `measurement point;`, `dimensions a tenant scope;`, `aggregation window;`.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "11. Reactive a predictive scaling",
-      "line": 123,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "14. Cooldown a stabilization",
-      "line": 154,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "14. Cooldown a stabilization",
-      "line": 154,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "15. Stateless a stateful scaling",
-      "line": 160,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "15. Stateless a stateful scaling",
-      "line": 160,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "15. Stateless a stateful scaling",
-      "line": 160,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "16. Queue-based load leveling",
-      "line": 178,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "17. Backpressure",
-      "line": 190,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "18. Load balancing",
-      "line": 196,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "20. Redundancy a nezávislé failure domains",
-      "line": 210,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "20. Redundancy a nezávislé failure domains",
-      "line": 210,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "24. Bulkhead isolation",
-      "line": 255,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "27. Quotas a reálna capacity",
-      "line": 278,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "32. Troubleshooting scalability a elasticity",
-      "line": 319,
+      "section": "Metric contract",
+      "line": 96,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -175367,8 +175241,17 @@
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "32. Troubleshooting scalability a elasticity",
-      "line": 319,
+      "section": "Metric contract",
+      "line": 96,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Metric contract",
+      "line": 96,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -175376,11 +175259,389 @@
     },
     {
       "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
-      "section": "32. Troubleshooting scalability a elasticity",
-      "line": 319,
+      "section": "Metric contract",
+      "line": 96,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `policy`, `availability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Desired capacity nie je serving capacity",
+      "line": 109,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Desired capacity nie je serving capacity",
+      "line": 109,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "5. Fault tolerance",
+      "line": 123,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 51 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "5. Fault tolerance",
+      "line": 123,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `redundantnú kapacitu v nezávislých failure domains;`, `health checks viazané na schopnosť bezpečne obslúžiť traffic;`, `load balancing a bounded failover;`, `stateless processing alebo replikovaný/fenced state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "6. Connected walkthrough — autoscaling zhoršuje incident",
+      "line": 139,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Competing hypotheses",
+      "line": 145,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Competing hypotheses",
+      "line": 145,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Competing hypotheses",
+      "line": 145,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Competing hypotheses",
+      "line": 145,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Fleet scale-out je príliš pomalý.`, `ALB nerozdeľuje traffic rovnomerne.`, `Nové instances nie sú skutočne ready.`, `Scaling metric zahŕňa retry amplification.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Competing hypotheses",
+      "line": 145,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Competing hypotheses",
+      "line": 145,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALB`, `AZ`, `IP`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Discriminating observations",
+      "line": 156,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Discriminating observations",
+      "line": 156,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Containment",
+      "line": 182,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Containment",
+      "line": 182,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Containment",
+      "line": 182,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Containment",
+      "line": 182,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť ďalší nekontrolovaný scale-out na bezpečnom maxime;`, `obmedziť retries a zapnúť bounded backpressure;`, `chrániť database connection budget;`, `zachovať per-instance, ALB a DB evidence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Containment",
+      "line": 182,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Containment",
+      "line": 182,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALB`, `DB`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Recovery",
+      "line": 191,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Recovery",
+      "line": 191,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Recovery",
+      "line": 191,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Recovery",
+      "line": 191,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zaviesť shared/proxy connection envelope a per-instance limit.`, `Opraviť retry budget a jitter.`, `Overiť database headroom pri maximálnej serving cohort.`, `Vykonať staged rollout scaling policy SP-20 .`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Recovery",
+      "line": 191,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Recovery",
+      "line": 191,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Recovery",
+      "line": 191,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SP-20`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Verification",
+      "line": 200,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Verification",
+      "line": 200,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Verification",
+      "line": 200,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `p99 je pod 800 ms;`, `successful payment throughput rastie s ready capacity;`, `DB connections zostávajú v rozpočte;`, `retry ratio je bounded;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Verification",
+      "line": 200,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "Verification",
+      "line": 200,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`, `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "8. Failure-domain a capacity model",
+      "line": 228,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "8. Failure-domain a capacity model",
+      "line": 228,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "8. Failure-domain a capacity model",
+      "line": 228,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "9. Testing a earlier controls",
+      "line": 241,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "9. Testing a earlier controls",
+      "line": 241,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "18 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "9. Testing a earlier controls",
+      "line": 241,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `load test cez celý critical path;`, `burst a sustained-demand scenár;`, `provisioning a readiness latency;`, `metric loss/no-data behavior;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "9. Testing a earlier controls",
+      "line": 241,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "9. Testing a earlier controls",
+      "line": 241,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "9. Testing a earlier controls",
+      "line": 241,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "9. Testing a earlier controls",
+      "line": 241,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md",
+      "section": "9. Testing a earlier controls",
+      "line": 241,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IP`, `AZ`, `freshness`",
       "score": 4
     },
     {

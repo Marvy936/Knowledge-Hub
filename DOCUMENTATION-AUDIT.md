@@ -5,10 +5,10 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10897**
-- Total words: **622,572**
-- Findings: **24091** (critical 7513, high 8191, medium 3230, low 5157)
-- File grades: A 0, B 0, C 4, D 253
+- Audited conceptual sections: **10880**
+- Total words: **620,098**
+- Findings: **24120** (critical 7531, high 8210, medium 3235, low 5144)
+- File grades: A 0, B 0, C 3, D 254
 
 ## Interpretation
 
@@ -223,6 +223,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 412 | 22 | 15 | 4 | 11 | 1874 | `docs/09-kubernetes/probes.md` |
 | D | 409 | 16 | 17 | 10 | 39 | 2814 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | D | 408 | 5 | 39 | 9 | 5 | 2246 | `docs/03-git-and-automation/reset-revert-restore.md` |
+| D | 405 | 18 | 19 | 7 | 10 | 1367 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
 | D | 403 | 15 | 24 | 6 | 13 | 2160 | `docs/02-networking-and-web/nat.md` |
 | D | 403 | 16 | 23 | 3 | 16 | 1920 | `docs/09-kubernetes/taints-tolerations-affinity-topology.md` |
 | D | 378 | 13 | 13 | 13 | 56 | 3919 | `docs/13-security-and-identity/saml.md` |
@@ -279,7 +280,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 66 | 0 | 3 | 1 | 31 | 4514 | `docs/13-security-and-identity/policy-as-code.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 3363 | `docs/11-cloud-and-aws/high-availability-disaster-recovery.md` |
 | C | 40 | 0 | 0 | 0 | 33 | 3118 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
-| C | 36 | 0 | 0 | 2 | 23 | 3841 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
 
 ## Critical and high findings
 
@@ -13257,6 +13257,46 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 698, `term-before-explanation` — **37. SOA-C03 mapovanie**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EBS`, `EFS`, `AZ`, `KMS`, `S3`, `SSE-KMS`, `SG`, `policy`
 - **HIGH** line 698, `thin-concept-section` — **37. SOA-C03 mapovanie**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md`
+
+- **CRITICAL** line 63, `bare-bullet-items` — **Horizontal scaling**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic alebo work možno bezpečne rozdeliť;`, `state ownership je explicitný;`, `operations sú idempotentné alebo deduplikované;`, `downstream má headroom;`.
+- **CRITICAL** line 63, `outline-instead-of-explanation` — **Horizontal scaling**: 6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 96, `bare-bullet-items` — **Metric contract**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `presnú pracovnú jednotku;`, `measurement point;`, `dimensions a tenant scope;`, `aggregation window;`.
+- **CRITICAL** line 123, `bare-bullet-items` — **5. Fault tolerance**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `redundantnú kapacitu v nezávislých failure domains;`, `health checks viazané na schopnosť bezpečne obslúžiť traffic;`, `load balancing a bounded failover;`, `stateless processing alebo replikovaný/fenced state;`.
+- **CRITICAL** line 139, `empty-section` — **6. Connected walkthrough — autoscaling zhoršuje incident**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 145, `bare-bullet-items` — **Competing hypotheses**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Fleet scale-out je príliš pomalý.`, `ALB nerozdeľuje traffic rovnomerne.`, `Nové instances nie sú skutočne ready.`, `Scaling metric zahŕňa retry amplification.`.
+- **CRITICAL** line 145, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 145, `outline-instead-of-explanation` — **Competing hypotheses**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 182, `bare-bullet-items` — **Containment**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastaviť ďalší nekontrolovaný scale-out na bezpečnom maxime;`, `obmedziť retries a zapnúť bounded backpressure;`, `chrániť database connection budget;`, `zachovať per-instance, ALB a DB evidence;`.
+- **CRITICAL** line 182, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 182, `outline-instead-of-explanation` — **Containment**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 191, `bare-bullet-items` — **Recovery**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Zaviesť shared/proxy connection envelope a per-instance limit.`, `Opraviť retry budget a jitter.`, `Overiť database headroom pri maximálnej serving cohort.`, `Vykonať staged rollout scaling policy SP-20 .`.
+- **CRITICAL** line 191, `no-prose-concept` — **Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 191, `outline-instead-of-explanation` — **Recovery**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 200, `bare-bullet-items` — **Verification**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `p99 je pod 800 ms;`, `successful payment throughput rastie s ready capacity;`, `DB connections zostávajú v rozpočte;`, `retry ratio je bounded;`.
+- **CRITICAL** line 200, `outline-instead-of-explanation` — **Verification**: 7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 241, `bare-bullet-items` — **9. Testing a earlier controls**: 18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `load test cez celý critical path;`, `burst a sustained-demand scenár;`, `provisioning a readiness latency;`, `metric loss/no-data behavior;`.
+- **CRITICAL** line 241, `outline-instead-of-explanation` — **9. Testing a earlier controls**: 18 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
+- **HIGH** line 55, `single-sentence-concept` — **3. Scalability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 63, `single-sentence-concept` — **Horizontal scaling**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 96, `list-heavy-section` — **Metric contract**: 6 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 109, `list-first-introduction` — **Desired capacity nie je serving capacity**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 109, `single-sentence-concept` — **Desired capacity nie je serving capacity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 123, `list-heavy-section` — **5. Fault tolerance**: 7 odrážok a iba 51 slov súvislého vysvetlenia.
+- **HIGH** line 145, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 156, `single-sentence-concept` — **Discriminating observations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 182, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 191, `list-first-introduction` — **Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 200, `single-sentence-concept` — **Verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 228, `single-sentence-concept` — **8. Failure-domain a capacity model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 241, `single-sentence-concept` — **9. Testing a earlier controls**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 63, `thin-concept-section` — **Horizontal scaling**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 145, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 182, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 191, `thin-concept-section` — **Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 200, `thin-concept-section` — **Verification**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 241, `thin-concept-section` — **9. Testing a earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/11-cloud-and-aws/security-groups-network-acls.md`
 
 - **CRITICAL** line 5, `bare-bullet-items` — **1. Security Group**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `priraďuje sa k network interface-u alebo podporovanému resource-u,`, `obsahuje inbound a outbound allow rules,`, `nemá explicitné deny rules,`, `je stateful,`.
@@ -16754,19 +16794,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3171 | 447 | 0 | 0 | 3618 |
-| `outline-instead-of-explanation` | 3061 | 0 | 0 | 0 | 3061 |
-| `single-sentence-concept` | 0 | 2817 | 0 | 0 | 2817 |
-| `term-before-explanation` | 0 | 564 | 2181 | 0 | 2745 |
-| `thin-concept-section` | 0 | 2647 | 0 | 0 | 2647 |
-| `example-not-explicit` | 0 | 0 | 0 | 2066 | 2066 |
+| `bare-bullet-items` | 3179 | 447 | 0 | 0 | 3626 |
+| `outline-instead-of-explanation` | 3067 | 0 | 0 | 0 | 3067 |
+| `single-sentence-concept` | 0 | 2824 | 0 | 0 | 2824 |
+| `term-before-explanation` | 0 | 564 | 2186 | 0 | 2750 |
+| `thin-concept-section` | 0 | 2653 | 0 | 0 | 2653 |
+| `example-not-explicit` | 0 | 0 | 0 | 2056 | 2056 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 2023 | 2023 |
-| `list-first-introduction` | 0 | 1268 | 0 | 0 | 1268 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1068 | 1068 |
+| `list-first-introduction` | 0 | 1272 | 0 | 0 | 1272 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1065 | 1065 |
 | `short-concept-section` | 0 | 0 | 1049 | 0 | 1049 |
-| `no-prose-concept` | 704 | 0 | 0 | 0 | 704 |
-| `empty-section` | 577 | 0 | 0 | 0 | 577 |
-| `list-heavy-section` | 0 | 448 | 0 | 0 | 448 |
+| `no-prose-concept` | 707 | 0 | 0 | 0 | 707 |
+| `empty-section` | 578 | 0 | 0 | 0 | 578 |
+| `list-heavy-section` | 0 | 450 | 0 | 0 | 450 |
 
 ## Required remediation pattern
 
