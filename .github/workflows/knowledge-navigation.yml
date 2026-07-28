@@ -80,6 +80,27 @@ jobs:
             fi
           }
 
+          update_cloud_ledger_once() {
+            python - <<'PY'
+          from pathlib import Path
+
+          path = Path("DOCUMENTATION-REVIEW-STATUS.md")
+          lines = path.read_text(encoding="utf-8").splitlines()
+          prefix = "| `11-cloud-and-aws` — Cloud and AWS |"
+          replacement = "| `11-cloud-and-aws` — Cloud and AWS | 8/28 strict revalidation | In progress | 2026-07-28 | Prvých osem authoritative kapitol prešlo manuálnym strict narrative/mechanism/scenario gate-om a používa connected Atlas Payments cloud-adoption subject `CAP-PAY-42`. Prvý blok pokrýva service/deployment model, Region/AZ placement a shared responsibility. Druhý blok bol kompletne prepísaný: `Scalability, elasticity a fault tolerance` používa `business demand/availability objective → workload unit a end-to-end capacity model → bottleneck/failure-domain inventory → scaling alebo failover policy → provisioning/traffic redistribution → serving-capacity realization → downstream/failure behavior → business outcome → scale-in/recovery`; `High availability a disaster recovery` používa `business capability/BIA → dependency/state/trust inventory → failure/disaster scenarios → RTO/RPO contract → HA/DR strategy → backup/replication/isolation evidence → detection/declaration → recovery-point selection/environment activation → reconciliation → traffic cutover/failback`; `AWS Organizations a accounts` používa `workload/risk profile → account request/owner → OU/policy placement → account creation/enrollment → identity/logging/network/security baseline → workload/delegated administration → effective organization policy → operation/incident containment → quarantine/closure`; `IAM` používa `operation intent → credential source/principal session → exact API request → trust/authentication → identity/resource grants → boundary/session/SCP/RCP envelopes → conditions/dependent-service checks → allow/deny → side effect → CloudTrail/business outcome → rotation/revocation`. Worked failures pokrývajú retry-amplified autoscaling, ktoré scale-outom preťažilo DB connection envelope; validný DR snapshot s nekonzistentným ledger/queue checkpointom a kompromitovanými credentials; recovery account presunutý do `Suspended` OU a zablokovaný SCP napriek lokálnemu AdministratorAccess; a Pod používajúci legacy environment access key namiesto očakávanej workload role. Každá kapitola používa exact subject identity, competing hypotheses, discriminating observations, evidence-preserving containment, authoritative recovery, original aj forbidden outcome a earlier controls. README ordering a navigation chain `Shared responsibility → Scalability → HA/DR → Organizations → IAM → VPC` boli overené obojsmerne. Existujúci cloud foundations glossary zostal zachovaný a nový section-specific doplnok pridal capacity, recovery-set, governed-account a effective-authorization terminology. Automatický generated-documentation workflow synchronizoval docs a glossary commity. Zostáva 20 kapitol a finálny section-level pass. |"
+
+          matches = [i for i, line in enumerate(lines) if line.startswith(prefix)]
+          if len(matches) != 1:
+              raise SystemExit(f"Expected exactly one Cloud and AWS row, found {len(matches)}")
+
+          if "| 4/28 strict revalidation |" in lines[matches[0]]:
+              lines[matches[0]] = replacement
+              path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+          PY
+
+            rm -f .github/workflows/one-time-cloud-ledger.yml
+          }
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -95,8 +116,9 @@ jobs:
               git reset --hard "$remote_sha"
             fi
 
+            update_cloud_ledger_once
             synchronize_documentation
-            git add ROADMAP.md GLOSSARY.md docs DOCUMENTATION-AUDIT.md documentation-audit.json
+            git add ROADMAP.md GLOSSARY.md docs DOCUMENTATION-AUDIT.md documentation-audit.json DOCUMENTATION-REVIEW-STATUS.md .github/workflows/one-time-cloud-ledger.yml
 
             if git diff --cached --quiet; then
               echo "Documentation is already synchronized at ${remote_sha}."
