@@ -2775,15 +2775,15 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
       "title": "CloudOps hands-on labs",
-      "words": 960,
-      "headings": 55,
-      "sections": 55,
-      "findings": 174,
-      "critical": 86,
-      "high": 70,
-      "medium": 18,
-      "low": 0,
-      "score": 1633,
+      "words": 2006,
+      "headings": 47,
+      "sections": 47,
+      "findings": 86,
+      "critical": 25,
+      "high": 38,
+      "medium": 8,
+      "low": 15,
+      "score": 648,
       "grade": "D"
     },
     {
@@ -152516,44 +152516,62 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "1. Bezpečnostný model labov",
+      "section": "1. Dominantný model: evidence-producing lab lifecycle",
       "line": 5,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "1. Bezpečnostný model labov",
-      "line": 5,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "1. Bezpečnostný model labov",
-      "line": 5,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `budget a billing alarm,`, `explicitný Region,`, `MFA/federated access,`, `žiadne production dáta,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "1. Bezpečnostný model labov",
-      "line": 5,
+      "section": "3. Sandbox a financial safety boundary",
+      "line": 50,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "1. Bezpečnostný model labov",
-      "line": 5,
+      "section": "3. Sandbox a financial safety boundary",
+      "line": 50,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 9 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `federated alebo temporary access s MFA;`, `budget a billing notifications;`, `žiadne permanentné broad access keys;`, `žiadne production secrets, snapshots alebo customer datasets;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "3. Sandbox a financial safety boundary",
+      "line": 50,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "3. Sandbox a financial safety boundary",
+      "line": 50,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "3. Sandbox a financial safety boundary",
+      "line": 50,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "3. Sandbox a financial safety boundary",
+      "line": 50,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MFA`",
@@ -152561,17 +152579,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "2. Vykonávací protokol",
-      "line": 20,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "3. Lab domains",
-      "line": 35,
+      "section": "4. Preflight: cost a blast-radius estimate",
+      "line": 66,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -152579,26 +152588,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "3. Lab domains",
-      "line": 35,
+      "section": "4. Preflight: cost a blast-radius estimate",
+      "line": 66,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "3. Lab domains",
-      "line": 35,
-      "severity": "critical",
+      "section": "4. Preflight: cost a blast-radius estimate",
+      "line": 66,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `monitoring/remediation/performance — 22 %,`, `reliability/business continuity — 22 %,`, `deployment/provisioning/automation — 22 %,`, `security/compliance — 16 %,`.",
-      "score": 12
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Ktoré resources vytvárajú per-request, per-GB alebo cross-AZ/Region co`, `Môže autoscaling, retry alebo log loop nekontrolovane rásť?`, `Existuje recovery cesta bez broad administrator escalation?`.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "3. Lab domains",
-      "line": 35,
+      "section": "4. Preflight: cost a blast-radius estimate",
+      "line": 66,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -152606,26 +152615,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "3. Lab domains",
-      "line": 35,
-      "severity": "medium",
+      "section": "4. Preflight: cost a blast-radius estimate",
+      "line": 66,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "4. Preflight: cost a blast-radius estimate",
+      "line": 66,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "4. Preflight: cost a blast-radius estimate",
+      "line": 66,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "4. Preflight: cost a blast-radius estimate",
+      "line": 66,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GB`, `AZ`, `KMS`, `identity`, `policy`",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "4. Lab 1 — IAM a cross-account operations",
-      "line": 45,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 47,
+      "section": "5. Architecture a evidence plan",
+      "line": 79,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -152633,17 +152660,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 51,
+      "section": "Control plane",
+      "line": 83,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 51,
+      "section": "Data plane",
+      "line": 93,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Recovery a validation plane",
+      "line": 103,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -152651,26 +152687,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 51,
+      "section": "6. Baseline contract",
+      "line": 117,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 51,
+      "section": "6. Baseline contract",
+      "line": 117,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `federated alebo temporary source identity,`, `target trust policy,`, `least-privilege permissions,`, `session duration,`.",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact caller/account/Region;`, `expected resources a generations existujú;`, `control-plane operations fungujú;`, `data-plane request prejde;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 51,
+      "section": "6. Baseline contract",
+      "line": 117,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -152678,557 +152714,89 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 51,
+      "section": "6. Baseline contract",
+      "line": 117,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "7. Fault injection contract",
+      "line": 132,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "7. Fault injection contract",
+      "line": 132,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zmeniť target-group health path na neexistujúcu cestu;`, `odstrániť jednu explicitnú route;`, `zúžiť Security Group source na nesprávnu SG;`, `zastaviť SSM Agent;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "7. Fault injection contract",
+      "line": 132,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 60,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
+      "section": "7. Fault injection contract",
+      "line": 132,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 60,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "7. Fault injection contract",
+      "line": 132,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 60,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 60,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chybný trust principal,`, `missing source sts:AssumeRole ,`, `explicit deny v SCP/boundary,`, `KMS key policy mismatch.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 60,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 60,
+      "section": "7. Fault injection contract",
+      "line": 132,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SCP`, `KMS`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSM`, `KMS`, `policy`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Validácia",
-      "line": 67,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "5. Lab 2 — Multi-AZ VPC egress",
-      "line": 75,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 77,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 81,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 81,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 81,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 81,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `VPC a dva public/private subnet pairs,`, `AZ-local NAT Gateways,`, `explicitné route tables,`, `Flow Logs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 81,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 81,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VPC`, `AZ-`, `NAT`, `SSH`, `RDP`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 90,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 90,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 90,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 90,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `private route na NAT v nesprávnej AZ,`, `chýbajúca IGW route,`, `custom NACL bez return ports,`, `DNS disabled.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 90,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 90,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `AZ`, `IGW`, `NACL`, `DNS`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Validácia",
-      "line": 97,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Validácia",
-      "line": 97,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Validácia",
-      "line": 97,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Validácia",
-      "line": 97,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `outbound HTTPS z oboch private subnetov,`, `Flow Logs a NAT metrics,`, `source public IP podľa AZ-local NAT,`, `cleanup EIPs/NAT Gateways.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Validácia",
-      "line": 97,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Validácia",
-      "line": 97,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTPS`, `NAT`, `IP`, `AZ-`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "6. Lab 3 — Load balancer a Auto Scaling",
-      "line": 104,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 106,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 110,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 110,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 110,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 110,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `launch template,`, `Auto Scaling group,`, `ALB a target group,`, `health checks,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 110,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 110,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALB`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 120,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 120,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 120,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 120,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chybný target port,`, `health endpoint failure,`, `user-data failure,`, `subnet capacity issue,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 120,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Hard validation",
-      "line": 128,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Hard validation",
-      "line": 128,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Hard validation",
-      "line": 128,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Hard validation",
-      "line": 128,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `healthy targets v dvoch AZ,`, `replacement nefunkčnej instance,`, `scale-out a scale-in,`, `request success počas replacementu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Hard validation",
-      "line": 128,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Hard validation",
-      "line": 128,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "7. Lab 4 — CloudWatch, EventBridge a automated remediation",
-      "line": 135,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 137,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Príklad",
-      "line": 141,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 152,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 152,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 152,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 152,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `least-privilege execution role,`, `idempotentný runbook,`, `failure/timeout path,`, `audit cez CloudTrail,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 152,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "8. Lab 5 — Central logging a audit",
+      "section": "8. Diagnosis discipline",
       "line": 160,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 162,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 166,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 166,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 166,
-      "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 166,
+      "section": "8. Diagnosis discipline",
+      "line": 160,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `organization alebo multi-account trail podľa dostupného sandboxu,`, `encrypted storage,`, `restrictive bucket/KMS policies,`, `retention a lifecycle,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `potvrď timeline a affected cohort;`, `zachovaj volatile evidence;`, `pomenuj aspoň dve plausible hypotheses;`, `vyber observation, ktorý ich odlíši;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 166,
+      "section": "8. Diagnosis discipline",
+      "line": 160,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -153236,26 +152804,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 166,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 175,
+      "section": "9. Worked composite lab: ALB/Auto Scaling health-generation mismatch",
+      "line": 173,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 175,
+      "section": "Exact subject",
+      "line": 179,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Architecture",
+      "line": 196,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -153263,8 +152831,80 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 175,
+      "section": "Baseline",
+      "line": 218,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Baseline",
+      "line": 218,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Baseline",
+      "line": 218,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dva healthy targets v dvoch AZ;`, `repeated HTTPS requests cez ALB vracajú release 2.4.0 ;`, `direct internet access na instances neexistuje;`, `Session Manager funguje bez inbound management portu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Baseline",
+      "line": 218,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Baseline",
+      "line": 218,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Baseline",
+      "line": 218,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `HTTPS`, `ALB`, `ASG`",
+      "score": 7
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Competing hypotheses",
+      "line": 245,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Competing hypotheses",
+      "line": 245,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Competing hypotheses",
+      "line": 245,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -153272,17 +152912,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 175,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bucket policy deny,`, `KMS key policy mismatch,`, `trail disabled,`, `wrong Region scope.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 175,
+      "section": "Competing hypotheses",
+      "line": 245,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -153290,26 +152921,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 175,
-      "severity": "medium",
+      "section": "Competing hypotheses",
+      "line": 245,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Competing hypotheses",
+      "line": 245,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `policy`, `scope`",
-      "score": 4
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `H1`, `H2`, `SG`, `ALB`, `H3`, `HTTP`, `H4`, `DNS`",
+      "score": 7
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "9. Lab 6 — Backup a restore",
-      "line": 182,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 184,
+      "section": "Discriminating evidence",
+      "line": 252,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153317,17 +152948,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Varianty",
-      "line": 188,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Varianty",
-      "line": 188,
+      "section": "Discriminating evidence",
+      "line": 252,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -153335,26 +152957,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Varianty",
-      "line": 188,
+      "section": "Discriminating evidence",
+      "line": 252,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Varianty",
-      "line": 188,
+      "section": "Discriminating evidence",
+      "line": 252,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EBS snapshot a instance recovery,`, `RDS snapshot/PITR,`, `S3 versioning a restore,`, `AWS Backup plan a cross-account copy.`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SSM curl http://localhost:8080/readyz vráti 200 ;`, `SSM curl http://localhost:8080/healthz vráti 404 ;`, `Security Group a Flow Logs neukazujú reject;`, `listener rule ukazuje očakávaný target-group ARN;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Varianty",
-      "line": 188,
+      "section": "Discriminating evidence",
+      "line": 252,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -153362,80 +152984,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Varianty",
-      "line": 188,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EBS`, `RDS`, `PITR`, `S3`, `AWS`",
-      "score": 7
+      "section": "Discriminating evidence",
+      "line": 252,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Povinné",
-      "line": 195,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Povinné",
-      "line": 195,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Povinné",
-      "line": 195,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Povinné",
-      "line": 195,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backup policy,`, `retention,`, `encryption,`, `deletion protection podľa scenára,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Povinné",
-      "line": 195,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Povinné",
-      "line": 195,
+      "section": "Discriminating evidence",
+      "line": 252,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RTA`, `RPA`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSM`, `ARN`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "10. Lab 7 — Systems Manager operations",
-      "line": 205,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 207,
+      "section": "Hard validation",
+      "line": 267,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153443,26 +153011,26 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 207,
+      "section": "Hard validation",
+      "line": 267,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 207,
+      "section": "Hard validation",
+      "line": 267,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Session Manager,`, `Run Command,`, `Inventory,`, `Patch Manager,`.",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oba targets sa vrátia do healthy ;`, `client requests vracajú 2.4.0 ;`, `replacement instance prejde bootstrap aj readiness;`, `CloudWatch alarm sa vráti do očakávaného stavu;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 207,
+      "section": "Hard validation",
+      "line": 267,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -153470,71 +153038,35 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 219,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
+      "section": "Hard validation",
+      "line": 267,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 219,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "section": "Hard validation",
+      "line": 267,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 219,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 219,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúca instance profile permission,`, `unavailable SSM endpoint/internet path,`, `stopped agent,`, `wrong patch baseline/tag target.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 219,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Fault injection",
-      "line": 219,
+      "section": "Hard validation",
+      "line": 267,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSM`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CIDR`, `ASG`",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "11. Lab 8 — CloudFormation lifecycle",
-      "line": 226,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 228,
+      "section": "Cleanup a cost closure",
+      "line": 285,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153542,62 +153074,53 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 232,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 232,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 232,
+      "section": "Cleanup a cost closure",
+      "line": 285,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 232,
+      "section": "Cleanup a cost closure",
+      "line": 285,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parameterized template,`, `change set review,`, `outputs,`, `stack policy alebo termination protection podľa scenára,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `žiadny running/stopped EC2 subject s LabId ;`, `žiadny load balancer alebo target group;`, `žiadne unattached EBS volumes, EIPs alebo ENIs;`, `žiadne recurring alarms/subscriptions;`.",
       "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 232,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Požiadavky",
-      "line": 232,
+      "section": "Cleanup a cost closure",
+      "line": 285,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Rozšírenie",
-      "line": 242,
+      "section": "Cleanup a cost closure",
+      "line": 285,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Cleanup a cost closure",
+      "line": 285,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EC2`, `EBS`",
+      "score": 4
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "10. Technical, security a business validation",
+      "line": 296,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153605,17 +153128,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "12. Lab 9 — Storage performance a cost",
-      "line": 246,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 248,
+      "section": "Technical",
+      "line": 300,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153623,44 +153137,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 248,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 248,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EBS volume type/IOPS/throughput,`, `filesystem growth,`, `EFS mount targets v AZs,`, `S3 lifecycle/versioning,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 248,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 248,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IOPS`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "13. Lab 10 — RDS operations",
-      "line": 261,
+      "section": "13. Timed lab progression",
+      "line": 350,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -153668,8 +153146,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 263,
+      "section": "Domain lab — 60 až 90 minút",
+      "line": 356,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153677,53 +153155,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 263,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 263,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subnet group,`, `Security Groups,`, `automated backups/PITR,`, `Enhanced Monitoring alebo Performance Insights podľa dostupnosti,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 263,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 263,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PITR`, `AZ`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "14. Lab 11 — Route 53 a content delivery",
-      "line": 277,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 279,
+      "section": "14. Lab scoring",
+      "line": 378,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -153731,44 +153164,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 279,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 279,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alias na ALB,`, `weighted alebo failover routing,`, `private hosted zone,`, `Resolver endpoints,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 279,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Outcome",
-      "line": 279,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALB`, `TTL`, `SG`, `scope`, `policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "15. Lab 12 — Containers a serverless operations",
-      "line": 299,
+      "section": "15. Lab review record",
+      "line": 393,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -153776,233 +153173,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant A — ECS/EKS",
-      "line": 301,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant A — ECS/EKS",
-      "line": 301,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant A — ECS/EKS",
-      "line": 301,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant A — ECS/EKS",
-      "line": 301,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment,`, `IAM role separation,`, `logs/metrics,`, `image pull,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant A — ECS/EKS",
-      "line": 301,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant A — ECS/EKS",
-      "line": 301,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant B — Lambda",
-      "line": 310,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant B — Lambda",
-      "line": 310,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant B — Lambda",
-      "line": 310,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant B — Lambda",
-      "line": 310,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `execution role,`, `environment/secrets,`, `timeout/memory,`, `concurrency/throttling,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant B — Lambda",
-      "line": 310,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Variant B — Lambda",
-      "line": 310,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DLQ`, `VPC`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "16. Timed lab sets",
-      "line": 320,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set A — 60 minút",
-      "line": 322,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set A — 60 minút",
-      "line": 322,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set A — 60 minút",
-      "line": 322,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set A — 60 minút",
-      "line": 322,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `IAM access,`, `VPC route failure,`, `CloudWatch alarm/remediation,`, `cleanup.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set A — 60 minút",
-      "line": 322,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set A — 60 minút",
-      "line": 322,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`, `VPC`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set B — 90 minút",
-      "line": 329,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set B — 90 minút",
-      "line": 329,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set B — 90 minút",
-      "line": 329,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set B — 90 minút",
-      "line": 329,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ALB/Auto Scaling,`, `Systems Manager,`, `backup restore,`, `security validation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set B — 90 minút",
-      "line": 329,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set B — 90 minút",
-      "line": 329,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ALB`",
-      "score": 4
-    },
-    {
-      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "Set C — 150 minút",
-      "line": 336,
+      "section": "Tutorial completion ako lab success",
+      "line": 425,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -154010,8 +153182,8 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "17. Scoring",
-      "line": 340,
+      "section": "Fault pred baseline-om",
+      "line": 429,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -154019,17 +153191,44 @@
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "18. Review template",
-      "line": 353,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "AdministratorAccess ako training convenience",
+      "line": 433,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
-      "section": "19. Praktická oblasť",
-      "line": 372,
+      "section": "Screenshot-only evidence",
+      "line": 437,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Reset namiesto diagnosis",
+      "line": 441,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Positive test bez forbidden pathu",
+      "line": 445,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Budget ako jediný cost guardrail",
+      "line": 453,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -154038,7 +153237,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
       "section": "Oficiálne zdroje",
-      "line": 380,
+      "line": 474,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -154047,7 +153246,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
       "section": "Oficiálne zdroje",
-      "line": 380,
+      "line": 474,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -154056,16 +153255,25 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
       "section": "Oficiálne zdroje",
-      "line": 380,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `SOA-C03 exam guide`, `AWS Builder Labs`, `AWS Well-Architected Labs`.",
-      "score": 8
+      "line": 474,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
     },
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
       "section": "Oficiálne zdroje",
-      "line": 380,
+      "line": 474,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SOA-C03 exam guide`, `AWS Skill Builder`, `AWS Well-Architected Labs`, `AWS Budgets`.",
+      "score": 12
+    },
+    {
+      "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
+      "section": "Oficiálne zdroje",
+      "line": 474,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -154074,7 +153282,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-hands-on-labs.md",
       "section": "Oficiálne zdroje",
-      "line": 380,
+      "line": 474,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SOA-C03`, `AWS`",
