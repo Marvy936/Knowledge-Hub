@@ -1,8 +1,59 @@
 # Cloud and AWS
 
-Táto sekcia vysvetľuje cloud computing od service a deployment modelov cez AWS global infrastructure, governance, identity, networking, compute, storage, databázy, serverless, containers, observability, operations, security, backup a FinOps. Záver sekcie tvorí prípravný track pre AWS Certified CloudOps Engineer – Associate (SOA-C03).
+Táto sekcia vysvetľuje cloud computing od service a deployment modelov cez AWS global infrastructure, governance, identity, networking, compute, storage, databázy, serverless, containers, observability, operations, security, backup a FinOps. Záver sekcie tvorí prípravný track pre AWS Certified CloudOps Engineer – Associate (`SOA-C03`).
 
-Cieľom nie je memorovať názvy služieb. Každá kapitola vysvetľuje responsibility boundary, control plane, data plane, failure domains, security model, cost drivers, operational evidence a troubleshooting path.
+Cieľom nie je memorovať názvy služieb. Každá kapitola vysvetľuje responsibility boundary, exact subject identity, control/data/recovery path, failure domains, security model, cost drivers, operational evidence, recovery a business acceptance.
+
+## Section-wide mentálny model
+
+Všetkých 28 authoritative kapitol používa connected Atlas Payments cloud-adoption subject `CAP-PAY-42` a tvorí jeden learning chain:
+
+```text
+business capability a service/deployment responsibility
+→ Region/AZ/account placement a shared-responsibility contract
+→ scalability, availability, recovery a governance foundation
+→ principal/request authorization
+→ address, route, egress a packet-filter realization
+→ compute fleet, load-balancer a target eligibility
+→ object/block/file a database state lifecycle
+→ DNS, edge, cache a origin isolation
+→ event-driven/serverless a container workload realization
+→ operational telemetry, audit a fleet automation
+→ cryptographic key, secret, credential a consumer-loaded state
+→ protected recovery generation, clean restore a business reconciliation
+→ architecture-risk closure a cross-pillar trade-off
+→ attributed cost, unit value a realized optimization
+→ current SOA-C03 capability contract
+→ question-decision reasoning
+→ evidence-producing lab experiment
+→ subject-bound incident closure
+```
+
+Sekcia opakovane oddeľuje stavy, ktoré bývajú nesprávne považované za ekvivalentné:
+
+```text
+configured resource ≠ effective runtime capability
+service health ≠ business correctness
+replication ≠ historical clean recovery
+backup completion ≠ recoverable business generation
+IAM allow ≠ complete authorization verdict
+resource creation ≠ workload readiness
+metric existence ≠ correct evidence identity
+estimated saving ≠ normalized realized value
+practice score ≠ certification readiness
+symptom removal ≠ incident closure
+```
+
+Každý významný worked scenario preto končí allowed outcome, forbidden outcome, recovery alebo bounded-change validation a earlier controlom.
+
+## Ako sekciu používať
+
+1. Čítaj kapitoly v authoritative poradí; neskoršie modely predpokladajú identity, network, state a recovery boundaries z predchádzajúcich kapitol.
+2. Pri service kapitole sleduj exact resource/request/data generation, nie iba názov capability.
+3. Pri incidente najprv zachovaj subject a evidence, až potom vykonaj containment alebo repair.
+4. Po recovery over business invariant a zakázané paths, nie iba AWS status.
+5. SOA-C03 track používaj až po core kapitolách; mapuje current exam guide na už vysvetlené modely a nevytvára paralelný skrátený syllabus.
+6. Hands-on a troubleshooting zadania vykonávaj v izolovanom cost-safe sandboxe s explicitným cleanup contractom.
 
 ## Predpoklady
 
@@ -99,12 +150,29 @@ Po dokončení tejto sekcie pokračuje lineárna dokumentácia sekciou [Observab
 
 ### SOA-C03 readiness
 
+- viazať prípravu na current SOA-C03 exam-guide generation,
 - mapovať vedomosti na domény s váhami 22/22/22/16/18,
-- riešiť scenario questions podľa outcome, constraints, scope a trade-offov,
+- riešiť scenario questions podľa outcome, constraints, scope a complete pathu,
 - vykonať 65-question/130-minute simuláciu bez time collapse,
-- prakticky vykonávať cost-safe AWS laby s cleanupom,
+- prakticky vykonávať cost-safe AWS laby s evidence a cleanupom,
 - diagnostikovať IAM, networking, compute, storage, backup, observability a automation failures,
-- vysvetliť, prečo sú distractors nesprávne, nie iba označiť správnu odpoveď.
+- vysvetliť, prečo sú distractors nesprávne, nie iba označiť správnu odpoveď,
+- uzavrieť practical incident až po original, forbidden, adjacent a second-operation validation.
+
+## Section-level completion gate
+
+Sekcia je pripravená na používateľskú kontrolu až keď:
+
+- všetkých 28 authoritative kapitol prešlo manuálnym strict narrative/mechanism/scenario gate-om;
+- connected `CAP-PAY-42` subject zostáva terminologicky konzistentný;
+- kapitoly rozlišujú exact subject generations, configured/effective state a technical/business verdict;
+- každý komplexný failure cluster obsahuje competing hypotheses, discriminating evidence, containment, authoritative recovery a outcome validation;
+- glossary fragments a generated `GLOSSARY.md` sú synchronizované;
+- navigation chain je obojsmerný od predchádzajúcej Helm/CKA sekcie až po nasledujúcu Observability sekciu;
+- SOA-C03 current facts sú overené proti oficiálnemu AWS exam guide-u;
+- generated navigation, glossary a learning-depth audit prejdú bez reportovaného failure-u.
+
+`Ready for user review` znamená ukončenú internú strict revalidation, nie automatické používateľské schválenie alebo garanciu exam výsledku.
 
 ## Stav
 
