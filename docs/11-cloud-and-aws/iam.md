@@ -1,411 +1,323 @@
 # IAM
 
-AWS Identity and Access Management (IAM) riadi, kto alebo čo môže poslať konkrétny AWS API request na konkrétny resource a za akých podmienok. IAM nie je iba zoznam používateľov a permissions. Je to policy-evaluation systém založený na principal identity, request contexte, explicitných grants, permissions envelopes a explicit deny pravidlách.
+AWS Identity and Access Management (IAM) rozhoduje, či konkrétny authenticated request môže vykonať konkrétnu action nad konkrétnym resource-om v konkrétnom request contexte. IAM preto nie je zoznam users a policies, ale viacvrstvový authorization graph s implicit deny, explicit grants, permissions envelopes, trust boundaries a explicit deny pravidlami.
 
-## 1. Authentication a authorization
-
-- **Authentication** určuje identitu principalu.
-- **Authorization** vyhodnocuje, či autentifikovaný request môže vykonať požadovanú action nad resource-om.
-
-Typický request obsahuje:
+Dominantný lifecycle:
 
 ```text
-principal
-+ action
-+ resource
-+ request context
-+ applicable policies
-→ allow alebo deny
+human/workload operation intent
+→ credential source a principal/session identity
+→ exact AWS API request
+→ trust a authentication
+→ identity/resource policy grants
+→ permissions boundary/session/SCP/RCP envelopes
+→ conditions, tags a dependent-service checks
+→ allow/deny verdict
+→ service-side effect
+→ CloudTrail a business outcome
+→ credential/policy rotation, revocation a revalidation
 ```
 
-## 2. IAM principals
+## 1. Exact request subject
 
-AWS request môže vykonať napríklad:
-
-- AWS account root user,
-- IAM user,
-- IAM role session,
-- federovaný user/session,
-- AWS service principal,
-- workload používajúci temporary credentials,
-- principal z iného AWS accountu.
-
-Principal identity nie je to isté ako permission. Role môže existovať bez možnosti vykonať relevantnú action a resource policy môže povoľovať iba presne určený principal.
-
-## 3. Root user
-
-Root user má zvláštnu account-level identitu a nesmie byť bežným operations účtom.
-
-Minimálny model:
-
-- phishing-resistant MFA,
-- žiadne root access keys,
-- bezpečná custody credentials,
-- alerting na root login a API použitie,
-- dokumentovaný break-glass proces,
-- pravidelný test recovery kontaktov.
-
-Niektoré account-level operácie vyžadujú root usera; to nie je dôvod používať ho denne.
-
-## 4. IAM users
-
-IAM user je dlhodobejšia identity v jednom account-e. Pre workforce access sa preferuje federation a temporary role sessions.
-
-IAM users zostávajú relevantné najmä pre legacy alebo výnimočné machine integrations, keď nie je dostupný vhodnejší role-based model. V takom prípade potrebujú:
-
-- explicitného ownera,
-- minimálne permissions,
-- rotation a disable proces,
-- credential-last-used monitoring,
-- zákaz zdieľania credentials.
-
-## 5. IAM roles
-
-IAM role nemá vlastné permanentné credentials. Principal ju prevezme cez AWS Security Token Service (STS) a dostane temporary session credentials.
-
-Role má dve odlišné policy vrstvy:
-
-1. **Trust policy** — kto alebo čo môže role assume-nuť.
-2. **Permissions policies** — čo smie vzniknutá role session robiť.
-
-Trust bez permissions nevytvorí useful access. Permissions bez trustu nemožno použiť.
-
-## 6. STS a temporary credentials
-
-STS vydáva dočasné credentials:
+Atlas Payments používa IAM incident subject `IAM-PAY-42`:
 
 ```text
-access key ID
-+ secret access key
-+ session token
-+ expiration
+caller account = 100000000042
+caller session ARN = arn:aws:sts::100000000042:assumed-role/payments-settlement/POD-7F2
+credential source = EKS workload identity / STS session STS-991
+session expiry = 2026-07-28T12:00Z
+action = kms:Decrypt
+resource = arn:aws:kms:eu-central-1:100000000042:key/key-pay-42
+request Region/endpoint = eu-central-1
+identity policy generation = IP-18
+trust policy generation = TP-12
+permissions boundary = PB-WORKLOAD-6
+session policy = SP-7
+SCP/RCP generation = SCP-PROD-9 / RCP-DATA-4
+KMS key policy generation = KP-22
+encryption context = service=payments, purpose=settlement
+business outcome = decrypt settlement credential and commit exactly once
+forbidden outcomes = decrypt by another workload/tenant/Region or stale session
 ```
 
-Výhody:
+`AccessDenied` bez caller ARN, action, resource ARN, Region, timestamp a request ID nie je dostatočne definovaný incident.
 
-- obmedzená lifetime,
-- session-level audit identity,
-- federation a cross-account access,
-- jednoduchšia rotation než pri static keys,
-- možnosť session policies, tags a MFA conditions.
+## 2. Authentication, principal a session
 
-Dočasné credentials sa stále môžu zneužiť počas ich platnosti. Potrebujú least privilege, krátku session duration a detekciu anomálií.
+Authentication určuje identitu requestu. Authorization určuje, či request môže prejsť.
 
-## 7. Identity-based policies
+Relevantní principals:
 
-Identity policy je pripojená k userovi, group alebo role a typicky obsahuje:
+- root user;
+- IAM user;
+- IAM role session;
+- federated alebo IAM Identity Center session;
+- AWS service principal;
+- workload používajúci STS credentials;
+- cross-account principal.
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": ["s3:GetObject"],
-      "Resource": "arn:aws:s3:::example-bucket/reports/*"
-    }
-  ]
-}
-```
+Role sama neposiela request. Request posiela konkrétna assumed-role session s vlastným ARN, session name, tags, source identity, policies a expiry.
 
-Kľúčové prvky:
-
-- `Effect`,
-- `Action` alebo `NotAction`,
-- `Resource` alebo `NotResource`,
-- `Condition`,
-- pri resource policies aj `Principal`.
-
-## 8. Resource-based policies
-
-Resource policy je uložená pri resource-e, napríklad:
-
-- S3 bucket policy,
-- KMS key policy,
-- SNS/SQS policy,
-- Secrets Manager resource policy,
-- IAM role trust policy.
-
-Resource policy je kritická pre cross-account access. Samotná identity policy v source account-e zvyčajne nestačí; target resource/account musí cross-account principal tiež dôveryhodne povoliť.
-
-## 9. Policy evaluation
-
-Základný model:
-
-```text
-implicit deny
-→ hľadaj applicable explicit deny
-→ hľadaj required explicit allow
-→ vyhodnoť permissions envelopes a request conditions
-→ allow alebo deny
-```
-
-Pravidlá:
-
-- všetko je implicitne denied, kým neexistuje applicable allow,
-- explicit deny prevažuje nad allow,
-- identity a resource policies môžu v určitých same-account scenároch tvoriť union grants,
-- permissions boundary, session policy, SCP alebo RCP môžu zúžiť effective permissions,
-- cross-account request musí prejsť policy evaluation v source aj target boundary podľa konkrétneho modelu.
-
-Poradie textu policy statements neurčuje prioritu.
-
-## 10. Permissions boundaries
-
-Permissions boundary je maximum, ktoré identity-based policies môžu userovi alebo role udeliť.
-
-```text
-identity policy allow
-∩ permissions boundary allow
-= effective identity permissions
-```
-
-Boundary sama access neudeľuje. Je vhodná pre delegated IAM administration, ale zle navrhnutý resource-policy alebo pass-role model môže stále vytvoriť privilege escalation.
-
-## 11. Session policies
-
-Session policy zúži permissions konkrétnej role alebo federated session. Nemôže rozšíriť permissions nad role identity policy a ostatné applicable guardrails.
-
-Použitie:
-
-- per-session scope,
-- brokered access,
-- temporary task-specific permissions,
-- tenant alebo project context.
-
-## 12. SCP a RCP
-
-V AWS Organizations:
-
-- **Service Control Policy (SCP)** obmedzuje maximálne permissions principals v member accounts.
-- **Resource Control Policy (RCP)** obmedzuje maximálne permissions nad podporovanými resources.
-
-Tieto policies nie sú grants. Request stále potrebuje allow z IAM/resource policy vrstvy.
-
-## 13. Conditions a request context
-
-Conditions môžu používať napríklad:
-
-- principal ARN alebo organization ID,
-- source VPC/VPC endpoint,
-- source IP,
-- MFA presence,
-- requested Region,
-- resource tags a principal tags,
-- encryption context,
-- transport security,
-- token audience alebo source account.
-
-Pri `IfExists`, negated operators a multivalue set operators treba analyzovať missing-key semantics. Chybná condition môže ticho otvoriť alebo zablokovať širší scope.
-
-## 14. Attribute-based access control
-
-ABAC používa attributes, typicky tags, na dynamické permissions:
-
-```text
-principal tag Project=A
-resource tag Project=A
-→ povoliť project-scoped action
-```
-
-ABAC znižuje počet statických policies, ale vyžaduje:
-
-- governance tag keys/values,
-- kontrolu tag mutation permissions,
-- onboarding a cleanup lifecycle,
-- audit resources bez tags,
-- ochranu privileged tags.
-
-## 15. Cross-account role model
-
-Preferovaný model:
-
-```text
-human/workload identity v account A
-→ sts:AssumeRole
-→ target role v account B
-→ temporary session
-→ resource access
-```
-
-Over:
-
-- source permission na `sts:AssumeRole`,
-- target trust policy,
-- external ID pri vhodných third-party prípadoch,
-- session tags/source identity,
-- permissions boundary a SCP,
-- target resource policy/KMS key policy.
-
-## 16. Service roles a service-linked roles
-
-AWS service môže potrebovať role na vykonávanie actions v customer account-e.
-
-- **Service role** spravuje zákazník alebo deployment workflow.
-- **Service-linked role** je previazaná s konkrétnou AWS službou a má service-defined trust/lifecycle model.
-
-Pred deletion over dependencies; odstránenie role môže rozbiť service reconciliation.
-
-## 17. `iam:PassRole`
-
-`iam:PassRole` umožní principalu odovzdať role AWS službe. Je to častá privilege-escalation cesta.
-
-Bezpečný contract obmedzuje:
-
-- presné role ARNs,
-- povolenú destination service cez condition,
-- kto môže meniť trust a permissions danej role,
-- tags/path a deployment ownership.
-
-## 18. Access keys a credential chain
-
-AWS SDK/CLI môže hľadať credentials v rôznych zdrojoch:
-
-- environment variables,
-- shared config/credentials files,
-- IAM Identity Center,
-- web identity,
-- ECS task role,
-- EC2 instance profile,
-- explicitný credential provider.
-
-Pri incidente najprv zisti skutočne použitú identitu:
+Pri každom incidente najprv over skutočného callera:
 
 ```bash
 aws sts get-caller-identity
 ```
 
-Nehádaj podľa lokálneho profile name.
+Profile name, Pod service account alebo pipeline job name nie sú dôkaz použitej AWS identity.
 
-## 19. Federation a IAM Identity Center
-
-Workforce access má typicky používať central identity provider a federované role sessions.
-
-IAM Identity Center môže poskytovať:
-
-- users/groups alebo external IdP federation,
-- permission sets,
-- account assignments,
-- temporary CLI/console sessions,
-- central lifecycle a audit.
-
-Federation nevylučuje AWS-side least privilege. Permission set sa stále mapuje na IAM role/policies v target accounts.
-
-## 20. Least privilege workflow
-
-Praktický postup:
-
-1. identifikuj presné API actions a resources,
-2. začni úzkym scope-om,
-3. používaj conditions,
-4. testuj pozitívne aj negatívne paths,
-5. sleduj CloudTrail a AccessDenied context,
-6. odstráň unused permissions,
-7. reviduj pri zmene workloadu.
-
-AWS managed policy je vhodná na bootstrap alebo štandardný job function, ale nemusí byť vhodná ako finálny production least-privilege contract.
-
-## 21. IAM Access Analyzer
-
-Access Analyzer pomáha napríklad:
-
-- identifikovať external access z resource policies,
-- validovať policy syntax a security findings,
-- generovať candidate policies z CloudTrail activity,
-- analyzovať unused access podľa dostupných capabilities.
-
-Finding nie je automaticky incident. Potrebuje business ownership a intended-access kontext.
-
-## 22. Audit evidence
-
-Zachovaj:
-
-- caller ARN a account ID,
-- assumed-role session name/source identity,
-- request ID a UTC timestamp,
-- CloudTrail event,
-- identity/resource policy versions,
-- SCP/RCP/boundary/session policy,
-- relevantné tags a request context,
-- credential source a expiration.
-
-## 23. Troubleshooting `AccessDenied`
-
-Postup:
+## 3. Credential lifecycle
 
 ```text
-správny account/Region/endpoint?
-→ skutočný caller identity?
-→ presná action/resource ARN?
-→ explicit deny?
-→ identity/resource allow?
-→ boundary/session/SCP/RCP?
-→ KMS alebo dependent-service permission?
-→ trust/pass-role/cross-account boundary?
-→ condition keys a tags?
+identity alebo workload binding
+→ STS/token exchange
+→ temporary credential issuance
+→ SDK credential-provider selection
+→ process-loaded credential
+→ signed request
+→ expiry/refresh
+→ revocation alebo replacement
 ```
 
-Bežné príčiny:
+Projected alebo refreshed credential na disku nepreukazuje, že ho application process načítal. Rovnako zmena trust alebo permissions policy nemusí ukončiť už vydanú session; treba poznať session lifetime a revocation model.
 
-- assumed iná role než očakávaná,
-- action používa subresource alebo dependent action,
-- resource ARN má chybný format,
-- KMS key policy nepovoľuje použitie key,
-- SCP explicitne denyuje Region/service,
-- permissions boundary zúžila role,
-- trust policy nepovoľuje principal/session tags,
-- eventual propagation po policy zmene,
-- service vykonáva action cez inú role.
+Pre workforce access preferuj federation/IAM Identity Center a temporary sessions. Long-lived access keys potrebujú výnimočný owner, rotation, last-used monitoring a explicitný retirement plán.
 
-## 24. Anti-patterny
+## 4. Role má trust aj permissions contract
 
-### Long-lived access keys pre ľudí
+```text
+source principal permission na sts:AssumeRole
++ target role trust policy
++ STS request conditions
+→ role session
+→ role permissions a applicable envelopes
+```
 
-Zvyšujú credential leakage a rotation risk.
+Trust policy odpovedá, kto smie role assume-nuť. Permissions policies odpovedajú, čo smie vzniknutá session robiť. Jedna vrstva bez druhej nevytvorí použiteľný access.
 
-### Wildcard `Action: "*"`, `Resource: "*"`
+Pri third-party cross-account role môže byť potrebný external ID. Pri workforce/workload federation sleduj audience, issuer, subject, session tags a source identity.
 
-Rozširuje blast radius a komplikuje audit.
+## 5. Policy grant a envelope vrstvy
 
-### `AdministratorAccess` ako troubleshooting oprava
+### Identity-based policy
 
-Maskuje root cause a vytvára trvalú privilege escalation.
+Policy pripojená k userovi, group alebo role poskytuje candidate grants pre actions/resources/conditions.
 
-### SCP považovaný za permission grant
+### Resource-based policy
 
-SCP iba zúži maximum.
+Policy pri resource-e môže povoľovať same-account alebo cross-account principals. Príklady: S3 bucket policy, KMS key policy, queue/topic policy, Secrets Manager resource policy a role trust policy.
 
-### Kontrola iba identity policy
+### Permissions boundary
 
-Access môže blokovať resource policy, key policy, boundary, session policy alebo organization guardrail.
+Boundary je maximum permissions, ktoré môže identity policy udeliť IAM userovi alebo role. Sama access neudeľuje.
 
-### Role trust s príliš širokým principalom
+### Session policy
 
-Môže umožniť neplánované cross-account prevzatie role.
+Session policy zúži konkrétnu STS session.
 
-## 25. Kontrolné otázky
+### SCP a RCP
 
-1. Aký je rozdiel medzi authentication a authorization?
-2. Ako sa líši trust policy od permissions policy role?
-3. Prečo explicit deny prevažuje nad allow?
-4. Čo permissions boundary robí a čo nerobí?
-5. Ako funguje cross-account AssumeRole?
-6. Prečo je `iam:PassRole` citlivá permission?
-7. Kedy použiť ABAC a aké má riziká?
-8. Ako zistíš skutočnú CLI identitu?
-9. Ktoré vrstvy preveríš pri `AccessDenied`?
-10. Prečo federation sama nezaručuje least privilege?
+SCP obmedzuje maximum pre principals v member accounts. RCP obmedzuje maximum accessu k podporovaným resources v member accounts. Ani jedna policy nie je grant.
+
+### Explicit deny
+
+Applicable explicit deny prevažuje nad allow. Poradie statements v JSON dokumente prioritu neurčuje.
+
+## 6. Request evaluation model
+
+Zjednodušený model:
+
+```text
+authenticated principal/session
+→ exact action/resource/request context
+→ identity a resource policy candidate grants
+→ trust/cross-account requirements
+→ permissions boundary a session policy
+→ SCP/RCP
+→ service-specific policy, napríklad KMS key policy
+→ applicable explicit denies
+→ allow alebo deny
+```
+
+Detaily sa líšia podľa principal type, same-account/cross-account modelu a resource policy semantics. Diagnostika preto nesmie používať univerzálne „policies sa sčítajú“.
+
+## 7. Conditions a ABAC
+
+Conditions môžu používať:
+
+- principal/account/organization identity;
+- source IP, VPC alebo VPC endpoint;
+- requested Region;
+- MFA;
+- principal, resource alebo request tags;
+- TLS;
+- KMS encryption context;
+- token issuer/audience/subject;
+- source account/ARN.
+
+Missing-key semantics, `IfExists`, negated operators a multivalue operators môžu zmeniť verdict. Každá security condition potrebuje positive aj forbidden test.
+
+ABAC prepája governed principal tags a resource tags. Ak principal smie meniť privileged tag, môže meniť aj svoje effective permissions. Tag mutation je preto súčasť authorization graphu.
+
+## 8. Indirect capabilities
+
+Úzka-looking permission môže vytvoriť širšiu authority:
+
+- `iam:PassRole` + create/update service resource;
+- create Pod/Task/Function s privilegovanou execution role;
+- edit role trust alebo permissions boundary;
+- attach policy alebo create policy version;
+- update Lambda code alebo CI pipeline;
+- read Secrets a následne používať external credential;
+- KMS decrypt nad broad encryption contextom.
+
+Least privilege sa preto hodnotí podľa reachable capability, nie iba podľa jedného policy statementu.
+
+## 9. Connected walkthrough — `AccessDenied` po úspešnom policy teste
+
+### Symptom
+
+Payments Pod po rotácii KMS policy dostáva `AccessDenied` pri `kms:Decrypt`. IAM simulator pre expected role ukazuje allow a iné Pody v rovnakom namespace fungujú.
+
+### Competing hypotheses
+
+1. Aplikácia používa inú role/session než sa testuje.
+2. Process drží starú STS session.
+3. Identity policy chýba alebo má chybný ARN.
+4. Permissions boundary alebo session policy action blokuje.
+5. SCP/RCP denyuje Region alebo resource.
+6. KMS key policy nepovoľuje session/account path.
+7. Encryption context condition sa nezhoduje.
+8. Workload identity trust subject/audience sa zmenil.
+9. Request smeruje na iný key alebo Region.
+10. Explicit deny vzniká cez tag alebo VPC endpoint condition.
+
+### Discriminating observations
+
+| Observation | Čo rozlišuje |
+|---|---|
+| actual `GetCallerIdentity` z affected processu | expected role od reálnej session |
+| credential issue/expiry a process start time | current policy od stale loaded session |
+| CloudTrail event request ID, key ARN a encryption context | broad `AccessDenied` od exact KMS requestu |
+| identity policy/boundary/session/SCP/RCP versions | grant failure od envelope deny |
+| KMS key policy a grant inventory | IAM allow od KMS-specific authorization |
+| working versus failing Pod cohort | global policy od process/session generation |
+| STS assume-role/web-identity event | decrypt failure od credential issuance/trust failure |
+
+### Finding
+
+Affected Pod bol vytvorený pred workload-identity migráciou a SDK credential chain uprednostnila staré environment access keys pred web-identity credentials. `GetCallerIdentity` ukázalo legacy IAM usera. Simulator testoval novú role, teda iný principal. KMS key policy správne odmietla legacy usera.
+
+### Containment
+
+- nezvyšovať permissions novej role ani nepridávať wildcard do key policy;
+- zablokovať ďalšie použitie legacy key a zachovať CloudTrail evidence;
+- izolovať affected Pod cohort;
+- chrániť settlement queue pred nekontrolovanými retries;
+- overiť, či legacy credential nebol použitý inde.
+
+### Recovery
+
+1. Odstrániť static environment credentials zo source Secretu a Pod template-u.
+2. Revoke/deactivate legacy access key.
+3. Vytvoriť novú Pod generation s explicitným workload-identity contractom.
+4. Overiť caller ARN, session tags/source identity a expiry.
+5. Vykonať allowed decrypt s presným encryption contextom.
+6. Vykonať forbidden decrypt z cudzej role, tenant contextu a nepovoleného Regionu.
+7. Reconciliovať pending settlement operations presne raz.
+
+### Verification
+
+- každý accepted Pod používa expected assumed-role session;
+- legacy access key je disabled a neprijíma requests;
+- correct encryption context funguje;
+- wrong tenant/purpose/Region/principal je denied;
+- CloudTrail obsahuje source identity a request correlation;
+- payment settlement prejde exactly once;
+- žiadna wildcard permission nebola pridaná.
+
+## 10. `iam:PassRole` a service execution
+
+`iam:PassRole` umožní principalu odovzdať role AWS službe. Bezpečný contract obmedzuje:
+
+```text
+caller
++ exact role ARN/path/tags
++ destination service
++ resource/workload scope
++ kto môže meniť passed role
+```
+
+Troubleshooting musí odlíšiť caller permission na `PassRole`, trust role voči service principalu a následné runtime permissions service session.
+
+## 11. Cross-account access
+
+Cross-account operation typicky potrebuje:
+
+```text
+source principal permission
+→ target trust alebo resource policy
+→ STS session alebo direct resource request
+→ SCP/RCP a permissions envelopes
+→ target service/KMS policy
+→ business operation
+```
+
+Allow v source account-e nestačí, ak target boundary request neprijíma. Naopak broad target resource policy môže vytvoriť external access aj pri úzkych source policies.
+
+## 12. Audit a revocation closure
+
+Pre významný incident zachovaj:
+
+- caller/session ARN a account ID;
+- credential source, issue time a expiry;
+- action, resource ARN, Region a endpoint;
+- request ID a UTC timestamp;
+- CloudTrail event;
+- identity/resource/trust/KMS policies;
+- boundary/session/SCP/RCP versions;
+- tags, VPC/source context a encryption context;
+- application operation ID a business result.
+
+Revocation je uzavretá až keď forbidden credential alebo path preukázateľne zlyhá. Edit policy dokumentu nie je sám o sebe revocation verdict.
+
+## 13. Earlier controls
+
+- federation a temporary credentials;
+- explicitný credential-provider contract;
+- short sessions a refresh telemetry;
+- role trust tests;
+- positive aj forbidden authorization tests;
+- policy-as-code validation;
+- permissions-boundary a pass-role governance;
+- Access Analyzer a unused-access review;
+- CloudTrail correlation/source identity;
+- credential inventory a automatic disable;
+- periodic reachable-capability review.
+
+## 14. Kontrolné otázky
+
+1. Ktorý exact principal/session poslal request?
+2. Odkiaľ process načítal credentials?
+3. Aká je exact action, resource ARN, Region a request context?
+4. Ktorá policy je grant a ktorá iba envelope?
+5. Existuje applicable explicit deny?
+6. Je potrebná resource alebo KMS key policy?
+7. Je request same-account alebo cross-account?
+8. Vytvára `PassRole`, tag mutation alebo workload creation indirect escalation?
+9. Ako sa preukáže revocation starej session/credentialu?
+10. Aký allowed a forbidden business outcome uzatvára zmenu?
 
 ## Glossary impact
 
-Relevantné pojmy: IAM principal, IAM user, IAM role, role trust policy, identity-based policy, resource-based policy, explicit deny, implicit deny, permissions boundary, session policy, STS session, temporary credentials, AssumeRole, cross-account role, ABAC, IAM Identity Center, service-linked role, `iam:PassRole` a IAM Access Analyzer.
+Relevantné pojmy: AWS request authorization subject, credential-source identity, process-loaded AWS credential, assumed-role session subject, effective permission graph, permissions envelope, KMS authorization boundary, indirect IAM capability, authorization closure, credential revocation verdict, positive authorization test a forbidden authorization test.
 
 ## Oficiálna dokumentácia
 
-- [How IAM works](https://docs.aws.amazon.com/IAM/latest/UserGuide/intro-structure.html)
-- [Policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html)
-- [IAM JSON policy reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html)
-- [IAM best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+- [IAM policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html)
+- [Cross-account policy evaluation](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic-cross-account.html)
+- [Request context](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic_policy-eval-reqcontext.html)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
