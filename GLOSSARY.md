@@ -1762,6 +1762,10 @@ Obnovený a reconciliovaný state všetkých relevantných stores a external eff
 
 Recovery-point objective vyhodnotený nad celým consistency groupom a business invariants, nie iba timestampom jedného datastore-u. Pozri [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md).
 
+## Business continuity mode
+
+Explicitný dočasný operating contract, ktorý počas disruption zachová iba prioritné capabilities alebo bounded degraded outcomes a určuje user semantics, capacity, maximum duration, reconciliation a exit criteria. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
+
 ## Business-dirty recovery point
 
 Technicky validný a restore-nuteľný recovery point, ktorý už obsahuje logical corruption, attacker changes alebo business-inconsistent state. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
@@ -2122,13 +2126,33 @@ Task result signal `changed: true`, ktorým module alebo custom `changed_when` o
 
 Dlhodobý chronologický záznam významných zmien produktu alebo komponentu naprieč releases. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
 
+## Chaos abort criterion
+
+Merateľná podmienka, ktorá zastaví ďalšie fault injection alebo traffic expansion a aktivuje recovery či incident declaration, keď experiment prekračuje approved reliability, data, security alebo blast-radius boundary. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
+
+## Chaos acceptance verdict
+
+Dôkaz, že exact experiment subject, hypothesis, cohorts, effective fault, safety boundary, business steady state, recovery, reconciliation a repeat experiment tvoria scoped reliability claim bez prekročenia forbidden outcomes. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
+
 ## Chaos engineering
 
 Disciplína formulovania a vykonávania kontrolovaných experimentov, ktoré overujú schopnosť systému zachovať prijateľné správanie pri poruchách a neistote. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## Chaos evidence scope
+
+Najširší reliability claim, ktorý môže experiment podporiť podľa skutočne testovaného business subjectu, faultu, cohortu, environmentu, generation, observation a recovery boundary. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
+
+## Chaos experiment subject
+
+Exact business capability, service/environment/release generation, control a experimental cohorts, fault target, steady-state hypothesis, blast radius, safety state machine a evidence window analyzovaného experimentu. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
+
 ## Chaos testing
 
 Praktická forma riadeného fault experimentu overujúca konkrétnu steady-state hypotézu v definovanom scope s bezpečnostnými kontrolami. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Chaos variable
+
+Realistická turbulentná podmienka alebo event zavedený do experimentu, napríklad process loss, network latency, replica lag, dependency timeout, quota exhaustion, traffic spike alebo control-plane failure. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
 
 ## Chargeback — FinOps
 
@@ -2854,6 +2878,10 @@ Coverage metrika sledujúca, či jednotlivé boolean podmienky nadobudli relevan
 
 Štruktúrovaný status signál s typom, boolean-like stavom, reason, message a transition time, ktorý opisuje aktuálne významný aspekt resource state-u. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
 
+## Conditional blocker
+
+Readiness finding, ktorý možno pred launchom uzavrieť iba technicky vynútenou podmienkou odstraňujúcou exposure, napríklad disabled feature alebo nulový production traffic do nepripraveného Regionu; všeobecné risk acknowledgement nestačí. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
 ## Confidence evidence — question review
 
 Confidence označená pri answer selection pred známym výsledkom a používaná na rozlíšenie stable capability, guessing, knowledge gapu a high-confidence wrong modelu. Pozri [CloudOps domain review a timed reasoning](docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md).
@@ -3189,6 +3217,10 @@ Test kompatibility producer/consumer rozhrania bez potreby spustiť celý distri
 ## Contributing control failure — CKA
 
 Sekundárny problém, ktorý zhoršil detekciu, blast radius alebo recovery, ale nebol primárnym root cause-om.
+
+## Control cohort — chaos
+
+Porovnávacia population, ktorá počas experimentu nepodlieha intended faultu a pomáha odlíšiť experiment effect od bežného trafficu, deploymentu alebo dependency driftu. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
 
 ## Control/data-path map — Kubernetes
 
@@ -4350,6 +4382,10 @@ Hierarchická štruktúra LDAP directory entries organizovaná podľa Distinguis
 
 Replikovaný naming context AD DS, napríklad schema, configuration, domain alebo application partition, s vlastným replication scope-om. Pozri [Active Directory](docs/13-security-and-identity/active-directory.md).
 
+## Disaster declaration
+
+Explicitný state transition, ktorým authorized owner klasifikuje disruption ako disaster-recovery scenario a aktivuje recovery authority, plan, communication, fencing, alternate environment a objective measurement. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
+
 ## Disaster declaration boundary
 
 Podmienky, čas a authority, pri ktorých incident prechádza z lokálneho HA recovery do explicitného DR procesu. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
@@ -4361,6 +4397,10 @@ People, process a technology capability obnoviť business službu a jej dáta po
 ## Disaster recovery — Kubernetes
 
 Koordinovaný proces obnovy control-plane state-u, PKI, encryption keys, external infrastructure a application dát po strate authoritative cluster state-u. Pozri [etcd backup a restore](docs/09-kubernetes/etcd-backup-restore.md).
+
+## Disaster-recovery subject
+
+Exact business capability, disruption scenario, primary/recovery locations, consistency group, strategy, RPO/RTO, release/data/identity/network generations, external dependencies, authority a validation scope analyzovanej recovery. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
 
 ## Disconnected operation
 
@@ -4706,6 +4746,14 @@ Metriky software delivery performance sledujúce throughput a instability delive
 
 Maximum connections, concurrency, throughput alebo rate, ktoré dependency bezpečne unesie pri replica scale-up/down bez amplification incidentu. Pozri [HPA a autoscaling](../docs/09-kubernetes/hpa-autoscaling.md).
 
+## DR acceptance verdict
+
+Dôkaz, že scenario-specific recovery graph, standby generations, identities, keys, network, external dependencies, fencing, capacity, data recovery, business validation, reconciliation, RPO/RTO a failback prešli current-generation exercise-om. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
+
+## DR exercise
+
+Controlled tabletop, component, parallel, partial-traffic alebo full-disruption rehearsal, ktoré meria declaration, activation, recovered point, business recovery, reconciliation a second-responder reproducibility. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
+
 ## Drain completion — containers
 
 Dôkaz, že workload už neprijíma nové traffic alebo queue leases, dokončil alebo odovzdal in-flight work, publikoval durable outcome a môže byť bezpečne zastavený alebo jeho host terminated. Pozri [Amazon ECS a Amazon EKS](docs/11-cloud-and-aws/ecs-eks.md).
@@ -4941,6 +4989,10 @@ Kapacita skutočne dostupná workloadu po zohľadnení quotas, reservations, fai
 ## Effective control
 
 Control otestovaný alebo pozorovaný proti intended threat/failure a preukázane vytvárajúci required technical a business outcome. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## Effective fault
+
+Overený runtime stav, že intended chaos variable bola aplikovaná na exact target, v schválenej intensity a duration, bez neznámeho partial injection outcome-u. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
 
 ## Effective firewall verdict — container
 
@@ -5482,6 +5534,10 @@ Prehľad source, build, artifact, host a runtime observation methods a component
 
 Časová hranica určujúca, ktoré configuration, telemetry, test, incident, cost a policy evidence patria do konkrétnej review generation. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
+## Evidence cutoff — readiness
+
+Timestamp a generation boundary určujúca, ktoré architecture, policy, runtime, exercise a ownership dôkazy boli zahrnuté do readiness verdictu. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
 ## Evidence-driven review
 
 Architektúrny review, v ktorom odpovede podporujú aktuálne configuration, telemetry, tests, policies, incidents a ďalšie overiteľné dôkazy. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
@@ -5670,9 +5726,17 @@ Očakávaná množina alebo invariant targetov pred runom, napríklad stable hos
 
 Explicitný popis hypotézy, steady state, faultu, scope, blast radiusu, trvania, abort criteria, recovery, ownershipu a dôkazov chaos experimentu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
 
+## Experiment-induced incident
+
+Stav, keď chaos experiment prekročí controlled safety boundary, vytvorí nebounded user/business impact alebo nemá bounded recovery a authority sa prepne na incident management. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
+
 ## Experiment integrity
 
 Platnosť assignment, exposure, measurement a population boundaries potrebná pred interpretáciou experimentálneho effect estimate-u. Porušenie môže zmeniť experiment na invalidný aj pri priaznivom primary outcome. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
+
+## Experiment safety state machine
+
+Versionovaný lifecycle `Draft → Reviewed → Armed → BaselineVerified → Injecting → Observing → Recovering → Reconciling → verdict → Closed`, ktorého transitions majú preconditions, owners, abort path a audit evidence. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
 
 ## Experiment unit
 
@@ -5681,6 +5745,10 @@ Entita randomizovaná do variantu experimentu, napríklad používateľ, tenant,
 ## Experiment validity
 
 Vlastnosť experimentu, pri ktorej baseline, target, fault, workload a observation zodpovedajú deklarovanému contractu natoľko, aby výsledok mohol potvrdiť alebo vyvrátiť hypotézu. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Experimental cohort — chaos
+
+Bounded population, environment alebo resource scope, na ktorý sa aplikuje experiment fault a ktorého user/business behavior sa porovnáva s control cohortom. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
 
 ## Expiring risk acceptance
 
@@ -5813,6 +5881,10 @@ Riadený návrat workloadu a authoritative state-u z recovery lokality späť do
 ## Failback authority transfer
 
 Riadený presun authoritative data a writer/traffic ownershipu z recovery prostredia späť do primary prostredia po synchronizácii, compatibility a single-writer verifikácii. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Failback generation
+
+Exact data, writer, routing, identity, application a dependency state použitý na controlled návrat alebo rebalancing z recovery environmentu späť do obnoveného primary environmentu. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
 
 ## Failed deployment recovery time
 
@@ -6614,6 +6686,10 @@ Event vytvorený changed taskom cez `notify`, ktorý zaradí pomenovaný handler
 
 Prechod vyvolaný taskom reportujúcim `changed`, pri ktorom notification aktivuje handler, napríklad restart alebo reload služby. Je súčasťou convergence a môže zlyhať alebo sa nevykonať samostatne od pôvodného tasku. Pozri [Ansible architecture](docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md) a [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
+## Handover capability
+
+Preukázaná schopnosť receiving tímu prevádzkovať, meniť, diagnostikovať a obnovovať service s potrebnými objectives, accessom, telemetry, runbooks, contacts a decision authority; nie iba prijatie dokumentácie. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
 ## Hard-constraint intersection
 
 Prienik resource, affinity, taint, topology, storage, port, device a ďalších hard placement podmienok; ak je prázdny, Pod je unschedulable. Pozri [Scheduling](../docs/09-kubernetes/scheduling.md).
@@ -7134,6 +7210,10 @@ Virtualization vrstva poskytujúca virtual hardware a isolation pre virtual mach
 
 Mapovanie konkurenčných causal hypotheses na observation points a výsledky, ktoré jednotlivé hypotézy podporia alebo vyvrátia. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
+## Hypothesis verdict — chaos
+
+Rozhodnutie `supported`, `falsified`, `inconclusive`, `aborted safely` alebo `experiment-induced incident` odvodené z effective faultu, steady state-u, recovery a evidence quality. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
+
 ## IaaS
 
 Infrastructure as a Service: cloud model poskytujúci virtualizované compute, storage a networking primitives, pričom zákazník typicky vlastní guest OS, runtime, application a data lifecycle. Pozri [IaaS, PaaS a SaaS](docs/11-cloud-and-aws/iaas-paas-saas.md).
@@ -7589,6 +7669,10 @@ Container, ktorý musí úspešne dokončiť prípravnú úlohu pred spustením 
 ## Init side-effect boundary
 
 Hranica určujúca, či init container vykonáva iba bezpečnú local prípravu alebo durable/shared external side effect vyžadujúci singleton, idempotency a recovery protocol. Pozri [Pod](docs/09-kubernetes/pod.md).
+
+## Injection identity
+
+Short-lived least-privilege principal oprávnený aplikovať iba schválený chaos fault na exact target, environment, scope a duration s auditom, kill switchom a automatic expiry. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
 
 ## Inode
 
@@ -8181,6 +8265,10 @@ DNS routing policy vyberajúca resource v AWS lokalite, ktorá má podľa Route 
 ## Latest successful artifact — GitLab
 
 Artifact z najnovšieho úspešného pipeline na danom ref-e, ktorý môže GitLab podľa nastavenia uchovávať nezávisle od bežnej expiration policy. Pozri [Artifacts a cache](docs/06-gitlab/artifacts-and-cache.md).
+
+## Launch readiness
+
+Evidence-backed stav, že konkrétny business rollout má pripravené cohorty, capacity, telemetry, support, stakeholder communication, entry/abort criteria a recovery pre plánovaný launch. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
 
 ## launch template — EC2
 
@@ -9798,6 +9886,14 @@ Runtime implementácia OpenTelemetry API, ktorá zabezpečuje sampling, processi
 
 Exact application/release, SDK/agent, semantic schema, resource precedence, propagation, sampling, Collector distribution/config/topology, exporter, backend a evidence cut-off. Pozri [OpenTelemetry](docs/12-observability/opentelemetry.md).
 
+## Operating model — readiness
+
+Explicitné rozdelenie service ownershipu, support hours, on-call/escalation, change authority, dependency contracts, objectives, recovery responsibilities, lifecycle a retirement obligations. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
+## Operational acceptance
+
+State transition po bounded launchi a day-2 observation, pri ktorom current service generation spĺňa production objectives, ownership, support, telemetry, recovery a residual-risk contract. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
 ## Operational acceptance testing
 
 Overenie, že systém je prevádzkovateľný: má monitoring, recovery, backup/restore, capacity, runbooks, access controls a deployment/rollback mechanizmy. Pozri [End-to-end a acceptance tests](docs/04-testing-and-quality/end-to-end-and-acceptance-tests.md).
@@ -9817,6 +9913,14 @@ Incident, request, alert, maintenance alebo process condition vytvárajúca opak
 ## Operational Excellence pillar
 
 Well-Architected pillar zameraný na efektívny development, operations insight, safe change a continuous improvement. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
+
+## Operational-readiness acceptance verdict
+
+Dôkaz, že exact service/change generation má current architecture, effective reliability/security/capacity/recovery controls, tested ownership a day-2 paths, uzavreté blockers, bounded exceptions a staged production acceptance. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
+## Operational-readiness subject
+
+Exact service alebo capability, change type, release/config/infrastructure generation, environment/Region/cohort, operating model, objectives, evidence cutoff, launch window a decision authority analyzovanej readiness review. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
 
 ## option group — RDS
 
@@ -10285,6 +10389,10 @@ Namespace poskytujúci samostatné process ID číslovanie a process tree. Pozri
 ## PIDs controller
 
 Cgroup controller obmedzujúci počet procesov alebo threadov cez `pids.max`. Pozri [cgroups](docs/01-linux-and-systems/cgroups.md).
+
+## Pilot light
+
+DR strategy, pri ktorej critical data a minimálne control components existujú v recovery environment-e, zatiaľ čo väčšina compute, capacity a traffic paths sa aktivuje až počas disaster recovery. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
 
 ## Pilot light — DR
 
@@ -10954,6 +11062,10 @@ Explicitná Elasticsearch alebo OpenSearch product/version a deployment generati
 
 Testovacie dáta odvodené z produkcie, ktoré vyžadujú data minimization, anonymizáciu, access control a retention policy. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
 
+## Production Readiness Review — PRR
+
+Structured analysis a improvement process, ktorý pred launchom alebo ownership transition overuje production design, objectives, capacity, observability, incident response, security, recovery, support a day-2 operability konkrétneho service subjectu. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
 ## Production validation
 
 Overenie technického, funkčného a business výsledku zmeny v skutočnom produkčnom kontexte po deploymente alebo počas kontrolovaného rollout-u. Pozri [Shift-right](docs/04-testing-and-quality/shift-right.md).
@@ -11109,6 +11221,10 @@ Runtime nastavenie providera, napríklad region, endpoint alebo authentication c
 ## Provider–consumer contract — CI/CD
 
 Versionovaný behaviorálny contract medzi providerom reusable capability a consumerom. Definuje input/output schema, resolved graph semantics, permissions, artifact a evidence identity, failure propagation, compatibility, support a migration lifecycle. Pozri [Reusable a parallel pipelines](docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md).
+
+## Provider DR contract
+
+Versionovaný recovery dependency contract pre external providera vrátane alternate Region endpoints, credentials, egress allowlists, callbacks, quotas, support contacts, consistency semantics a validation canary. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
 
 ## Provider interpretation drift
 
@@ -11378,6 +11494,10 @@ Managed database proxy a connection-pooling vrstva pre podporované RDS/Aurora e
 
 Proces decryption dát a ich opätovnej encryption novým DEKom, algoritmom alebo cryptographic contextom; mení samotný ciphertext a je náročnejší než rewrap. Pozri [Encryption at rest a in transit](docs/13-security-and-identity/encryption-at-rest-and-in-transit.md).
 
+## Re-readiness trigger
+
+Architecture, dependency, Region, traffic, security, recovery, ownership, incident alebo lifecycle change, ktorý zneplatňuje časť existujúceho readiness evidence a vyžaduje proportional review novej generation. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
 ## Reachability Analyzer — AWS
 
 VPC configuration-analysis tool modelujúci network path medzi source a destination a identifikujúci blocking component. Pozri [Security Groups a Network ACLs](docs/11-cloud-and-aws/security-groups-network-acls.md).
@@ -11414,13 +11534,29 @@ Stav, v ktorom má workload prijímať traffic alebo prácu; process môže byť
 
 Podmienky pre interný ready verdict zahŕňajúce current guide, stable simulations, domain floor, explainability, remediation high-confidence errors, practical evidence a time stability. Pozri [AWS Certified CloudOps Engineer – Associate](docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md).
 
+## Readiness blocker
+
+Finding, bez ktorého closure nie je možné bezpečne prejsť do intended production scope-u, pretože chýba required business invariant, security/data control, operational ownership alebo recovery capability. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
 ## Readiness boundary
 
 Prechod medzi existenciou resource a jeho spôsobilosťou vstúpiť do ďalšieho automation kroku, potvrdený condition-based observation ako bootstrap completion, stable management identity a funkčný connection path. Pozri [Terraform vs. Ansible](docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md).
 
+## Readiness dimension
+
+Jedna analyzovaná oblasť production operability, napríklad architecture/dependencies, service levels, capacity, observability, incident/on-call, data/recovery, security, release alebo lifecycle operations. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
 ## Readiness eligibility verdict
 
 Rozhodnutie, či konkrétny Pod/container generation smie prijímať novú prácu; propaguje sa cez Pod conditions a EndpointSlice, ale nie je business SLO. Pozri [Probes](../docs/09-kubernetes/probes.md).
+
+## Readiness evidence inventory
+
+Versionovaný zoznam dôkazov viazaných na readiness requirements, subjects, authorities, generations, timestamps, expirations, limitations a reviewer verdicts. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
+## Readiness exception
+
+Exact, approved, monitored a expiring residual-risk contract pre konkrétny readiness gap, ktorý uvádza scope, justification, compensating controls, ownera, launch limitation, exit criteria a revocation trigger. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
 
 ## Readiness gate
 
@@ -11437,6 +11573,10 @@ Custom Pod condition contract zahŕňajúci Pod UID, gate type, owning controlle
 ## Readiness probe
 
 Kubelet test určujúci, či má Pod prijímať nový traffic; failure nereštartuje container, ale mení readiness a backend eligibility. Pozri [Probes](docs/09-kubernetes/probes.md).
+
+## Readiness state machine
+
+Lifecycle `Proposed → Scoping → EvidenceCollection → Review → Blocked/Conditional → ReadyForBoundedLaunch → Launching → OperatingUnderObservation → OperationallyAccepted → ReReviewRequired/Retired`. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
 
 ## Readiness state machine — SOA-C03
 
@@ -11548,7 +11688,7 @@ Closure dôkaz, že selected recovery generation je clean a consistent, applicat
 
 ## Recovery authority
 
-Explicitný owner a state-generation contract určujúci, kto smie deklarovať disaster, vybrať recovery point, povýšiť writer-a, otvoriť traffic a vykonať failback. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+Principal alebo role oprávnená deklarovať disaster, aktivovať alternate environment, fence-núť writers, meniť recovery routing a prijať recovery/failback verdict podľa explicitného decision contractu. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
 
 ## Recovery candidate
 
@@ -11578,9 +11718,17 @@ Aktuálny dôkaz, že konkrétny predchádzajúci release možno bezpečne použ
 
 Pre-change alebo incident-time rozhodnutie, či konkrétny rollback, roll-forward, compensation alebo restore candidate je kompatibilný s current artifacts, APIs, data, events, credentials a external systems. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
 
+## Recovery environment generation
+
+Exact infrastructure, application, configuration, identity, key, data, network, DNS, provider a observability state pripravený alebo aktivovaný pre disaster recovery. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
+
 ## Recovery fencing
 
 Mechanismus zabraňujúci starému a novému writerovi nekontrolovane mutovať rovnaký business subject počas restore, replay, merge alebo cutoveru. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
+
+## Recovery graph
+
+Directed dependency model celej business recovery capability od routing, identity a runtime cez data/broker/provider paths po telemetry, support a reconciliation, pričom každý node/edge má ownera, mechanismus a validation oracle. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
 
 ## Recovery headroom
 
@@ -11650,6 +11798,10 @@ Súbor artifacts potrebný na obnovu, zahŕňajúci etcd snapshot, PKI, encrypti
 
 Versionovaný inventár data checkpointov, transaction logs, IaC, artifacts, configuration, identities, KMS/PKI, DNS, external integration state, telemetry a runbookov potrebných na obnovu business capability. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
 
+## Recovery strategy tier
+
+Zvolený contingency model, napríklad backup/restore, pilot light, warm standby, active-passive alebo active-active, odvodený z BIA, failure scenarios, RPO/RTO, complexity a costu. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
+
 ## Recovery subject — AWS Backup
 
 Versionovaná identita workload data, RPO/RTO, backup plan/assignment, recovery points, copy/vault/key lineage, recovery manifest, restore target a business validation. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
@@ -11665,6 +11817,10 @@ Celkový prijateľný recovery interval pre exact capability pred prekročením 
 ## Recovery Time Objective — RTO
 
 Cieľový maximálny čas na obnovenie definovanej business capability po incidente vrátane detekcie, rozhodnutia, data recovery, startupu, validácie a traffic cutoveru. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Recovery traffic cutover
+
+Versionovaný transition klientského alebo internal trafficu na validated recovery generation s routing identity, cache/connection behaviorom, ramp stages, guardrails, abortom a read-backom. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
 
 ## Recreate deployment
 
@@ -11757,6 +11913,10 @@ Logical multi-AZ NAT Gateway generation s AZ coverage, per-AZ addresses/EIPs, au
 ## Regional resource — AWS
 
 Resource s identity a lifecycle scope-om v konkrétnom AWS Regione, napríklad VPC alebo väčšina managed service deployments. Pozri [Regions a Availability Zones](docs/11-cloud-and-aws/regions-availability-zones.md).
+
+## Regional writer fencing
+
+Mechanizmus, ktorý pred promotion alternate Regionu odníme alebo epoch-bound obmedzí write authority old primary systému a zabráni split brainu a divergentným writes. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
 
 ## Registered variable — Ansible
 
@@ -11854,6 +12014,10 @@ Hranica, na ktorej Helm mení viac Kubernetes objektov a hooks bez garancie jedn
 
 Kurátorovaná komunikácia konkrétneho release pre používateľov, administrátorov, integrátorov alebo support, zahŕňajúca dopad, breaking changes, migráciu a known issues. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
 
+## Release readiness
+
+Evidence-backed stav, že exact software/configuration artifact má complete build, test, policy, compatibility, deployment a recovery evidence pre zamýšľanú release transition. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
 ## Release record
 
 Auditovateľný záznam spájajúci release version, artifacts, source, config, migrations, evidence, approvals, rollout a výsledok. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
@@ -11905,6 +12069,10 @@ Exact alarm/event generation, target manifest, automation/runbook version, execu
 ## Remediation hierarchy — Kubernetes
 
 Preferované poradie opráv od úzkeho declarative rollbacku alebo obnovy dependency cez Pod/Node replacement a roll-forward až po disaster recovery. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
+
+## Remediation repeat experiment
+
+Opakovaný chaos experiment po production-effective change, ktorý skúša pôvodný failure mechanismus a často alternate cohort alebo second cycle, aby preukázal recurrence closure. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
 
 ## Remediation subject
 
@@ -14382,6 +14550,10 @@ Merateľné používateľské alebo prevádzkové správanie, ktoré má systém
 
 Rezerva effective capacity nad očakávaným normal demandom určená na forecast uncertainty, krátke bursty a control latency. Pozri [Capacity planning](docs/14-sre-and-operations/capacity-planning.md).
 
+## Steady-state hypothesis
+
+Falsifikovateľné tvrdenie, že definovaný user/business outcome, invariant alebo recovery boundary zostane zachovaný pre exact cohort počas a po realistickom turbulentnom evente. Pozri [Chaos engineering](../docs/14-sre-and-operations/chaos-engineering.md).
+
 ## Step-up authentication
 
 Vyžiadanie silnejšieho alebo čerstvejšieho authentication eventu pri sensitive action, vyššom risku alebo zmene contextu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
@@ -15994,6 +16166,10 @@ Write-Ahead Log uchovávajúci nedávne ingested samples a metadata pre recovery
 
 Pool predinicializovaných EC2 instances mimo aktívnej `InService` capacity používaný na skrátenie scale-out startup latency. Pozri [EC2 a Auto Scaling](docs/11-cloud-and-aws/ec2-auto-scaling.md).
 
+## Warm standby
+
+DR strategy, pri ktorej zmenšená priebežne aktualizovaná service generation existuje v recovery environment-e, ale pred plným použitím potrebuje scale-up, dependency activation, validation a traffic cutover. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
+
 ## Warm standby — blue-green
 
 Pôvodná deployment farba ponechaná po cutover-e v pripravenom a priebežne health-checkovanom stave pre rýchly routing rollback. Pozri [Blue-green deployment](docs/05-ci-cd-and-release/blue-green-deployment.md).
@@ -16065,6 +16241,10 @@ Job model, v ktorom viac worker Podov odoberá položky z external queue a compl
 ## Work queue — Kubernetes controller
 
 Fronta reconciliation keys s deduplication, retry a rate-limiting behavior používaná controller workers na bounded spracovanie zmien. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
+
+## Work recovery
+
+Fáza po technickom obnovení service, v ktorej sa drainuje backlog, reconciliujú post-point alebo unknown operations, obnovuje batch/support práca, odstraňujú temporary overrides a uzatvára customer/business impact. Pozri [Disaster recovery](../docs/14-sre-and-operations/disaster-recovery.md).
 
 ## Work Recovery Time
 
