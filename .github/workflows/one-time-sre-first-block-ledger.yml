@@ -2,9 +2,8 @@ name: One-time SRE first block ledger update
 
 on:
   push:
-    branches: [main]
-    paths:
-      - .github/workflows/one-time-sre-first-block-ledger.yml
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -12,32 +11,33 @@ permissions:
 
 jobs:
   update-ledger:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64]
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Record active section and review status
+      - name: Record first SRE block
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
+          set -euo pipefail
 
-          readme = Path("README.md")
-          text = readme.read_text(encoding="utf-8")
-          old = "14. [Security and Identity](docs/13-security-and-identity/README.md)\n\nPlánované hlavné domény:\n\n- SRE and Operations,\n- Databases and Distributed Systems,\n- GitOps and Platform Engineering."
-          new = "14. [Security and Identity](docs/13-security-and-identity/README.md)\n15. [SRE and Operations](docs/14-sre-and-operations/README.md)\n\nPlánované hlavné domény:\n\n- Databases and Distributed Systems,\n- GitOps and Platform Engineering."
-          if old in text:
-              text = text.replace(old, new, 1)
-          elif new not in text:
-              raise SystemExit("README active/planned section block not found")
-          readme.write_text(text, encoding="utf-8", newline="\n")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          branch="${GITHUB_REF_NAME}"
+
+          for attempt in 1 2 3; do
+            git fetch origin "$branch"
+            git reset --hard "origin/$branch"
+
+            python - <<'PY'
+          from pathlib import Path
 
           ledger = Path("DOCUMENTATION-REVIEW-STATUS.md")
           text = ledger.read_text(encoding="utf-8")
           prefix = "| `14-sre-and-operations` — SRE and Operations |"
+
           if prefix not in text:
               marker = "\n## Section-level completion criteria"
               if marker not in text:
@@ -46,12 +46,21 @@ jobs:
                   "| `14-sre-and-operations` — SRE and Operations | 4/15 authoritative drafting | In progress | 2026-07-29 | "
                   "Sekcia bola založená ako net-new authoritative doména podľa roadmapy. Prvý blok používa connected Atlas Payments incident `SRE-PAY-52`: broker partition vytvorila outbox backlog, zatiaľ čo `atlas-settlement-api` naďalej atomicky commitovalo payment a outbox rows a vracalo HTTP `202`; opakovaný privileged runbook následne spustil cleanup podľa `created_at`, ktorý odstránil `4 182` ešte nepublikovaných commands. `Reliability, availability a durability` používa `business capability a user expectation → exact reliability subject a conditions → required function/success boundary → availability/correctness/latency/durability properties → failure opportunities a measurement population → effective behavior → impact/recovery → allowed/forbidden/residual-risk validation` a oddeľuje front-door availability, end-to-end reliability, acknowledged-intent durability a business reconstructability. `SLI, SLO a SLA` používa `user journey → exact measurement subject → eligible population → good/bad classification a observation point → SLI → target/window → SLO verdict → operational consequence → external commitment/remedy`; zavádza samostatné acceptance, completion a durability indicators, pričom completion SLO `99.9 %` pri `5 000 000` events poskytuje budget `5 000` bad outcomes. `Error budgets` používa `versionovaný SLO/population → budget generation → consumption → burn rate/forecast → policy threshold → release/incident/reliability decision → bounded action → SLI recovery/recurrence evidence`; incident spotreboval `83.64 %` completion budgetu a policy oddeľuje discretionary changes od security/recovery/remediation. `Toil` používa `operational demand → exact human workflow/touch points → frequency/duration/queue/risk evidence → toil classification → root demand → eliminate/redesign/automate/self-service/accept → guarded implementation → residual work → recurrence validation`; rovnaký backlog runbook sa za 28 dní vykonal `11×`, spotreboval `418 minút` privileged human touch time a bol causal amplifier incidentu. Recovery zachováva audit/WAL/CDC evidence, používa isolated PITR, provider-ledger reconciliation a idempotentný bounded replay; redesign zavádza backpressure, unpublished-row invariant, safe retention, reconciliation a odstránenie broad manual cleanup pathu. Section README uvádza prvé štyri authoritative kapitoly a zostávajúcich 11 tém ako plánované pokračovanie. Navigation chain `13-security-and-identity/zero-trust.md → Reliability/availability/durability → SLI/SLO/SLA → Error budgets → Toil → ROADMAP` a prvé štyri roadmap checkboxy sú synchronizované. Nový `glossary/14a-sre-reliability-slo-error-budget-toil-lifecycles.md` pridal reliability/durability, service-level measurement, budget/burn-rate a toil-demand terminology; generated `GLOSSARY.md` je synchronizovaný a audit-failure artifacts zostali prázdne. Current primary facts boli overené proti Google SRE Book/Workbook: SLI je kvantitatívne service-level meranie, SLO je target nad SLI, error budget je `1 - SLO`, multi-window burn-rate policy riadi reakciu a toil je manual/repetitive/automatable/tactical/non-enduring/scale-linked operational work; Google 50 % operational-work cap je uvedený iba ako organizačný príklad, nie univerzálna norma. Zostáva 11 kapitol a finálny section-level pass. |"
               text = text.replace(marker, "\n" + row + marker, 1)
-          ledger.write_text(text, encoding="utf-8", newline="\n")
+              ledger.write_text(text, encoding="utf-8", newline="\n")
           PY
 
-          rm .github/workflows/one-time-sre-first-block-ledger.yml
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md DOCUMENTATION-REVIEW-STATUS.md .github/workflows/one-time-sre-first-block-ledger.yml
-          git commit -m "docs(review): record first SRE and Operations authoritative block"
-          git push
+            rm -f .github/workflows/one-time-sre-first-block-ledger.yml
+            git add DOCUMENTATION-REVIEW-STATUS.md .github/workflows/one-time-sre-first-block-ledger.yml
+
+            if git diff --cached --quiet; then
+              exit 0
+            fi
+
+            git commit -m "docs(review): record first SRE and Operations authoritative block"
+            if git push origin "HEAD:$branch"; then
+              exit 0
+            fi
+          done
+
+          echo "Failed to publish SRE ledger update after retries." >&2
+          exit 1
