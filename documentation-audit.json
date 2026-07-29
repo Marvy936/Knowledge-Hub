@@ -3809,6 +3809,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "title": "Indexy, locks a migrácie",
+      "words": 2095,
+      "headings": 42,
+      "sections": 42,
+      "findings": 111,
+      "critical": 40,
+      "high": 38,
+      "medium": 14,
+      "low": 19,
+      "score": 857,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md",
       "title": "Relational vs. non-relational databases",
       "words": 2035,
@@ -211922,6 +211936,1005 @@
       "path": "docs/14-sre-and-operations/toil.md",
       "section": "Automation bez ownera",
       "line": 432,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "1. Exact index/lock/migration subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "1. Exact index/lock/migration subject",
+      "line": 18,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "1. Exact index/lock/migration subject",
+      "line": 18,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database, cluster, schema a table identity;`, `engine/version a topology generation;`, `row count, table/index size a growth;`, `query predicates, joins, ordering a limit;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "1. Exact index/lock/migration subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "1. Exact index/lock/migration subject",
+      "line": 18,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "1. Exact index/lock/migration subject",
+      "line": 18,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "2. Čo index robí",
+      "line": 48,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "2. Čo index robí",
+      "line": 48,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `query vracia veľkú časť table;`, `statistics odhadujú nízku selectivity;`, `predicate nezodpovedá index expression/order;`, `type cast alebo function bráni použitiu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "2. Čo index robí",
+      "line": 48,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "2. Čo index robí",
+      "line": 48,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "2. Čo index robí",
+      "line": 48,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "3. B-tree a ďalšie index families",
+      "line": 72,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "B-tree",
+      "line": 74,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Spatial alebo generalized indexes",
+      "line": 93,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "4. Multicolumn index",
+      "line": 103,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "4. Multicolumn index",
+      "line": 103,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `equality predicates;`, `range predicate;`, `ordering;`, `selectivity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "4. Multicolumn index",
+      "line": 103,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "4. Multicolumn index",
+      "line": 103,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "6. Index cost",
+      "line": 150,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "6. Index cost",
+      "line": 150,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `storage;`, `memory/cache pressure;`, `write amplification;`, `WAL/redo volume;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "6. Index cost",
+      "line": 150,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "6. Index cost",
+      "line": 150,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "6. Index cost",
+      "line": 150,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "8. Locks",
+      "line": 181,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "8. Locks",
+      "line": 181,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `granted vs. waiting lock;`, `row-level vs. table/schema lock;`, `lock holder vs. root blocker;`, `wait duration vs. transaction age;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "8. Locks",
+      "line": 181,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "8. Locks",
+      "line": 181,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "8. Locks",
+      "line": 181,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "10. DDL locks",
+      "line": 231,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "10. DDL locks",
+      "line": 231,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required lock mode;`, `či lock acquisition čaká za starými transactions;`, `či statement blokuje reads alebo writes;`, `či rewrituje table;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "10. DDL locks",
+      "line": 231,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "10. DDL locks",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "10. DDL locks",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "10. DDL locks",
+      "line": 231,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "10. DDL locks",
+      "line": 231,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "11. Concurrent/online index build",
+      "line": 249,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 54 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "11. Concurrent/online index build",
+      "line": 249,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instant;`, `zero load;`, `zero lock;`, `automatic retry;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "11. Concurrent/online index build",
+      "line": 249,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "11. Concurrent/online index build",
+      "line": 249,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Expand",
+      "line": 268,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Expand",
+      "line": 268,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Expand",
+      "line": 268,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Expand",
+      "line": 268,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `pridať backward-compatible schema;`, `vytvoriť nové nullable columns/tables/indexes;`, `nasadiť tolerant readers;`, `začať bounded dual-read/dual-write iba s explicitným ownerom.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Expand",
+      "line": 268,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Backfill",
+      "line": 275,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Backfill",
+      "line": 275,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Backfill",
+      "line": 275,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Backfill",
+      "line": 275,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable ordering a cursor;`, `bounded batch size;`, `resumability;`, `current-row/version predicate;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Backfill",
+      "line": 275,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Backfill",
+      "line": 275,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Switch",
+      "line": 284,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Switch",
+      "line": 284,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Switch",
+      "line": 284,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Switch",
+      "line": 284,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `shadow compare alebo read switch;`, `current application generations používajú nový model;`, `constraint validation;`, `reconciliation.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Switch",
+      "line": 284,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Contract",
+      "line": 291,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Contract",
+      "line": 291,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Contract",
+      "line": 291,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Contract",
+      "line": 291,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstrániť old writers/readers;`, `enforce-nuť final constraints;`, `dropnúť obsolete columns/indexes;`, `retire migration code a compatibility path.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Contract",
+      "line": 291,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "13. Backfill correctness",
+      "line": 309,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "13. Backfill correctness",
+      "line": 309,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "13. Backfill correctness",
+      "line": 309,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `conditional update na old version/state;`, `immutable source fields;`, `change capture a catch-up;`, `per-row version;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "13. Backfill correctness",
+      "line": 309,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "14. Constraint validation",
+      "line": 333,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "14. Constraint validation",
+      "line": 333,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zabrániť novým invalid writes;`, `backfillnúť historical rows;`, `overiť complete cohort;`, `validovať authoritative constraint;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "14. Constraint validation",
+      "line": 333,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "14. Constraint validation",
+      "line": 333,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "15. Migration observability",
+      "line": 345,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "15. Migration observability",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "15. Migration observability",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `rows remaining a verified rate;`, `batch latency a errors;`, `lock waits a blocker age;`, `active/idle-in-transaction sessions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "15. Migration observability",
+      "line": 345,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "15. Migration observability",
+      "line": 345,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "16. Worked incident DB-PAY-56",
+      "line": 364,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection pool sa naplnil waiters;`, `timeout retries zvýšili write load;`, `WAL generation vzrástla 6.4×;`, `async standby lag dosiahol 94 sekúnd;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "16. Worked incident DB-PAY-56",
+      "line": 364,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Root causes",
+      "line": 401,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Root causes",
+      "line": 401,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Root causes",
+      "line": 401,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Root causes",
+      "line": 401,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `DDL lock mode nebol súčasťou execution gate-u;`, `index acceptance kontrolovala existence, nie valid/effective state;`, `duplicate cleanup a uniqueness proof nepredchádzali constraint activat`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Root causes",
+      "line": 401,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Root causes",
+      "line": 401,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DDL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 409,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 409,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 409,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU alebo storage saturation;`, `query-plan regression;`, `lock queue;`, `connection pool starvation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 409,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "17. Competing hypotheses a discriminating evidence",
+      "line": 409,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `WAL`, `DDL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 437,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 437,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "19. Authoritative remediation",
+      "line": 452,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "19. Authoritative remediation",
+      "line": 452,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "19. Authoritative remediation",
+      "line": 452,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "19. Authoritative remediation",
+      "line": 452,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoriť supporting partial index bezpečným online/concurrent postupom`, `overiť index validity a planner use;`, `používať conditional idempotent updates;`, `inventory a odstrániť historical duplicates cez exact manifest;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "19. Authoritative remediation",
+      "line": 452,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "19. Authoritative remediation",
+      "line": 452,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "19. Authoritative remediation",
+      "line": 452,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "19. Authoritative remediation",
+      "line": 452,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`, `OLTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "20. Index/lock/migration acceptance verdict",
+      "line": 465,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "20. Index/lock/migration acceptance verdict",
+      "line": 465,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "20. Index/lock/migration acceptance verdict",
+      "line": 465,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact query/schema subject a data scale sú známe;`, `intended index zodpovedá predicates, ordering a distribution;`, `estimate-vs-actual plan je overený;`, `read benefit prevyšuje write/storage/maintenance cost;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "20. Index/lock/migration acceptance verdict",
+      "line": 465,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "20. Index/lock/migration acceptance verdict",
+      "line": 465,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "20. Index/lock/migration acceptance verdict",
+      "line": 465,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "20. Index/lock/migration acceptance verdict",
+      "line": 465,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "21. Troubleshooting flow",
+      "line": 483,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Index na každý filter",
+      "line": 501,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Index existuje, teda sa používa",
+      "line": 505,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Online DDL znamená bez rizika",
+      "line": 509,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Backfill jedným UPDATE",
+      "line": 513,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Batch progress = correctness",
+      "line": 517,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "DDL v peak-u, lebo statement je krátky",
+      "line": 521,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
+      "section": "Killni blocker",
+      "line": 525,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
