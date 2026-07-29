@@ -634,6 +634,10 @@ Pomenovaná hodnota použitá na parametrizáciu playbooku, role, inventory, tas
 
 Mechanizmus šifrovania Ansible variables alebo files pre ochranu citlivého obsahu at rest; nechráni automaticky plaintext počas executionu, logs ani výslednú konfiguráciu na targete. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
+## Anti-entropy
+
+Background replica reconciliation, ktorá porovnáva state alebo summaries a opravuje divergence. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
+
 ## Anycast
 
 Routing model, v ktorom viac lokalít oznamuje rovnakú IP adresu a routing privedie klienta k topologicky preferovanému endpointu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
@@ -746,9 +750,17 @@ Application-level identita mounted dát, napríklad tenant, schema, checkpoint, 
 
 Layer 7 Elastic Load Balancing variant pre HTTP/HTTPS traffic s listener rules, host/path routing, target groups a application health checks. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
+## Application split brain
+
+Concurrent application execution viacerých actorov, hoci underlying consensus cluster uznáva iba jedného leadera; typicky vzniká chýbajúcim fencingom. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
 ## Application version — Helm
 
 Version aplikácie deklarovaná chart metadata fieldom `appVersion`; je informačná a nie je automaticky chart version, image tag ani release revision. Pozri [Helm chart, template, values a release](docs/10-helm-and-cka/helm-chart-template-values-release.md).
+
+## Applied index
+
+Najvyšší committed log position už vykonaný lokálnou state machine; môže krátko zaostávať za commit indexom. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
 
 ## Apply test — Terraform
 
@@ -914,6 +926,10 @@ Delivery semantics, pri ktorej message môže byť redelivered, kým broker nedo
 
 Delivery semantics, pri ktorej message nemusí byť retryovaná a môže sa stratiť, ale system sa zámerne vyhýba redelivery. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
 
+## Atomic consistency — CAP
+
+Single-copy property používaná v CAP formalizácii, pri ktorej operation vyzerá, že nastala atomicky medzi invocation a response a neskoršie non-overlapping operations rešpektujú jej dokončenie. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
+
 ## Atomic publication — GitLab registry
 
 Publication protocol `upload immutable content → over digesty → vytvor manifest alebo package version → read-back completeness → atomicky publikuj release reference`, s idempotency a reconciliation pri unknown outcome. Pozri [Container a package registry](docs/06-gitlab/container-and-package-registry.md).
@@ -953,6 +969,10 @@ Trvanie jedného technical attemptu, ktoré nesmie byť zamieňané s end-to-end
 ## Attempt rate
 
 Počet technických pokusov o vykonanie operácie za čas vrátane retries; môže byť vyšší než počet logical operations. Pozri [RED method](docs/12-observability/red-method.md).
+
+## Attempt timeout
+
+Maximálna duration jedného physical dependency attemptu; jeho prekročenie nemusí znamenať, že effect nenastal. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
 
 ## Attempts-per-operation distribution
 
@@ -1630,6 +1650,10 @@ Jeden obmedzený, rekonštruovateľný krok control loopu, napríklad ensure fin
 
 Explicitne povolené použitie starej generation počas definovaného času a scenára, s forbidden values/operations a authority fallbackom. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
 
+## Bounded staleness
+
+Read contract povoľujúci starší state iba v explicitnej časovej, revision, sequence alebo business-generation hranici. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
+
 ## Bounded telemetry failure
 
 Failure contract, pri ktorom telemetry export, buffering alebo backend outage nespôsobí nekontrolované blokovanie business threadu ani vyčerpanie application resources. Pozri [Instrumentation a telemetry](docs/12-observability/instrumentation-telemetry.md).
@@ -1673,6 +1697,14 @@ Oddelený, časovo obmedzený a auditovaný policy path pre emergency access pri
 ## Break-glass secret
 
 Silno chránený emergency credential dostupný cez auditovaný a obmedzený recovery postup, po ktorého použití nasleduje kontrola a typicky rotation. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
+
+## Breaker scope
+
+Failure-domain key breaker state-u, napríklad provider, Region, shard, tenant alebo operation type. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
+
+## Breaker signal
+
+Observation použitý na transition breaker state-u, napríklad timeout, connect failure, `5xx`, latency, saturation, throttling alebo unknown-outcome rate. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
 
 ## Broadcast domain
 
@@ -2046,6 +2078,18 @@ Posúdenie answer option podľa mechanizmu, scope-u, completeness, constraint fi
 
 Jediný authoritative page pre konkrétny user-facing symptom, ku ktorému cause signals slúžia ako investigation evidence namiesto duplicate paging paths. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
 
+## CAP acceptance verdict
+
+Dôkaz, že per-operation partition behavior, quorum/minority semantics, stale-read limits, acknowledgement, conflict handling, heal reconciliation a second-partition tests chránia required business invariant. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
+
+## CAP availability
+
+Liveness property, podľa ktorej každý request prijatý non-failed node-om nakoniec dostane response; nejde o percentuálne SLO. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
+
+## CAP subject
+
+Exact replicated data, operations, clients, topology, partition scenario, consistency definition, availability contract a business invariant analyzované CAP rozhodnutím. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
+
 ## Capability-based security
 
 Model, v ktorom držanie konkrétnej obmedzenej capability alebo reference oprávňuje principal vykonať presne definovanú operáciu bez broad ambient authority. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
@@ -2177,6 +2221,10 @@ Sekundárny configuration alebo automation factor, ktorý nezaložil primary def
 ## Causal CloudOps hypothesis
 
 Falsifiable tvrdenie `cause → mechanism → predicted observations`, ktoré vysvetľuje exact incident subject a možno ho odlíšiť od konkurujúcich hypotéz. Pozri [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md).
+
+## Causal consistency
+
+Model, v ktorom všetci observers vidia kauzálne závislé operations v správnom poradí, hoci concurrent unrelated operations nemusia mať jeden global order. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
 
 ## Causal graph — RCA
 
@@ -2396,7 +2444,19 @@ Výstup encryption operácie, ktorý bez príslušného cryptographic keyu nemá
 
 ## Circuit breaker
 
-Resilience pattern, ktorý po prekročení failure prahu dočasne zastaví calls na zlyhávajúcu dependency a neskôr vykoná kontrolované test requests. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+State machine, ktorá po evidence pretrvávajúceho dependency failure-u dočasne odmieta nové calls a neskôr povoľuje bounded recovery probes. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
+
+## Circuit Closed state
+
+Breaker state, v ktorom requests prechádzajú a rolling observations rozhodujú o prípadnom otvorení. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
+
+## Circuit Half-Open state
+
+Recovery state povoľujúci malý počet probes na overenie, či dependency unesie návrat trafficu. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
+
+## Circuit Open state
+
+Breaker state, v ktorom requests failnú alebo použijú truthful degraded path bez dependency callu. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
 
 ## CISA Zero Trust Maturity Model
 
@@ -2846,6 +2906,10 @@ Schopnosť rýchlo a presne používať kubectl, shell, editor a cluster adminis
 
 Zraniteľnosť, pri ktorej neoverený vstup zmení syntax alebo spustí dodatočný príkaz. Pozri [Bash automation](docs/03-git-and-automation/bash-automation.md) a [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## Commit index
+
+Najvyšší log position, o ktorom cluster rozhodol, že je committed podľa consensus protocolu. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
 ## Commit object
 
 Git object obsahujúci root tree snapshotu, parent commits, author/committer metadata a commit message. Pozri [Git object model](docs/03-git-and-automation/git-object-model.md).
@@ -3098,6 +3162,10 @@ Presná identity pipeline compilation rozhodnutia tvorená source alebo candidat
 
 Policy, resource, alarm, redundancy alebo runbook, ktorý existuje v deklarovanom/current state-e, ale ešte nemusí byť preukázane effective. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
+## Conflict resolution
+
+Domain-specific policy pre concurrent/divergent updates, napríklad deterministic merge, CRDT, last-write-wins, rejection alebo manual resolution. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
+
 ## Conftest
 
 Nástroj používajúci OPA/Rego na testovanie structured configuration, napríklad YAML, JSON alebo Terraform planov, pred runtime enforcementom. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
@@ -3146,17 +3214,49 @@ State table sledujúca network flows pre stateful firewall a NAT rozhodnutia. Po
 
 Kernel connection-tracking state používaný firewallom a NAT-om; jeho vyčerpanie môže blokovať nové connections pri stále funkčných existujúcich flows. Pozri [Container networking](docs/08-container-fundamentals-and-docker/container-networking.md).
 
+## Consensus
+
+Protocol, ktorým distributed participants vytvoria jednu usporiadanú committed history rozhodnutí napriek failures v podporovanom modeli. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
+## Consensus acceptance verdict
+
+Dôkaz, že membership, quorum, terms, commit/apply, reads, leases, fencing, reconfiguration, external outcomes a second-election tests zabraňujú stale alebo dual authority. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
+## Consensus proposal
+
+Candidate log entry pred rozhodnutím, či ju quorum commitne. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
+## Consensus subject
+
+Exact coordination invariant, members, failure domains, quorum, terms, log, read/write paths, leases, fencing a external mutation scope chránený consensus návrhom. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
+## Consensus term
+
+Monotonically increasing election epoch, ktorá oddeľuje leadership generations a pomáha odmietnuť stale leaders/messages. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
 ## Consent — OAuth
 
 User-facing authorization interaction zobrazujúca clienta a požadovaný access; nenahrádza server-side policy. Pozri [OAuth 2.0](docs/13-security-and-identity/oauth-2.md).
+
+## Consistency acceptance verdict
+
+Dôkaz, že exact operation histories, real-time/program/causal orders, replicas, sessions, conflicts, caches, failover a external side effects spĺňajú pomenovaný consistency model. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
 
 ## Consistency group — backup
 
 Versionovaný zoznam datastore, event, evidence, configuration, identity a external-ledger subjects, ktoré musia byť obnovené alebo reconciliované ako jeden business-valid state. Pozri [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md).
 
+## Consistency subject
+
+Exact objects, operations, clients/sessions, transaction scope, replica/cache paths, ordering requirements, failure scenarios a external effects analyzované consistency modelom. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
+
 ## Consistent hashing
 
 Hashing model minimalizujúci množstvo remapovaných keys pri pridaní alebo odstránení backendu. Pozri [Load balancing](docs/02-networking-and-web/load-balancing.md).
+
+## Consistent prefix
+
+Property, pri ktorej client môže pozorovať iba prefix ordered history a nie neskorší event bez jeho required predecessors. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
 
 ## Consolidated billing — AWS
 
@@ -4245,6 +4345,10 @@ Workload-specific jednotka trafficu, napríklad request, message, transaction, b
 ## Dependency alias — Helm
 
 Local identity dependency chartu umožňujúca použiť rovnaký chart viackrát s oddelenými values a resource-name contracts. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## Dependency bulkhead
+
+Oddelený capacity pool pre dependency alebo workload, ktorý bráni tomu, aby jeho waits/retries vyčerpali resources ostatných paths. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
 
 ## Dependency condition — Helm
 
@@ -5414,6 +5518,10 @@ Schopnosť systému dynamicky pridávať alebo odoberať kapacitu podľa demandu
 
 Distribuovaný search, analytics a document-store systém založený na Apache Lucene. Pozri [Elasticsearch alebo OpenSearch](docs/12-observability/elasticsearch-opensearch.md).
 
+## Election timeout
+
+Časová failure-detector hranica, po ktorej follower bez heartbeat-u začne election; nie je dôkazom leader crashu. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
 ## Eligible approver — GitLab
 
 Používateľ, ktorého membership, role a approval-rule context oprávňujú poskytnúť approval započítaný pre konkrétny merge request. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
@@ -5489,6 +5597,10 @@ Cryptographic algorithm a associated key semantics používané pre Kerberos lon
 ## End-to-end alert acceptance
 
 Dôkaz, že controlled signal vytvorí intended alert state, jednu správne routovanú external notification, acknowledgement a resolved closure bez forbidden muting alebo duplicate incidentu. Pozri [Alert design a alert fatigue](docs/12-observability/alert-design-alert-fatigue.md).
+
+## End-to-end deadline
+
+Najneskorší čas, po ktorom caller už result nepotrebuje alebo ho nemôže bezpečne použiť; downstream stages musia dostať remaining budget. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
 
 ## End-to-end test
 
@@ -5790,6 +5902,10 @@ Agregovaný Kubernetes Event reprezentujúci opakovaný rovnaký reason/message 
 
 Lambda resource s pollermi, ktoré čítajú batches z podporovaných queue alebo stream sources a invoke-ujú function podľa batching, concurrency a retry konfigurácie. Pozri [Lambda](docs/11-cloud-and-aws/lambda.md).
 
+## Eventual consistency
+
+Convergence property, podľa ktorej replicas bez nových updates a pri funkčnej komunikácii nakoniec dosiahnu rovnaký state; sama neurčuje časový bound ani session guarantees. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
+
 ## Eventual consistency — Kubernetes
 
 Model, v ktorom API write uloží desired state okamžite, ale controllers, scheduler, kubelet a external systems ho realizujú asynchrónne a stav sa zhoduje až po čase. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
@@ -6049,6 +6165,10 @@ Authorization verdict viazaný na exact principal, action, resource, data scope,
 ## Exploitability status
 
 Machine-readable tvrdenie o tom, či a prečo je konkrétna vulnerability relevantná pre konkrétny artifact alebo product context. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## Exponential backoff
+
+Retry schedule s rastúcimi intervalmi medzi attempts, ktorý znižuje pressure na recovering dependency. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
 
 ## Exporter contract — BuildKit
 
@@ -6316,7 +6436,7 @@ Authority term alebo generation, ktorá odlišuje aktuálneho oprávneného writ
 
 ## Fencing token
 
-Monotónna alebo unikátna lease identity overovaná pred každou environment mutation, ktorá zabráni starému deployment ownerovi pokračovať po strate alebo expirácii locku. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
+Monotonically increasing authority epoch, ktorý destination porovná s posledným accepted tokenom a odmietne stale writera. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
 
 ## Field — Grafana
 
@@ -7069,6 +7189,10 @@ Pod UID, container ID/restart generation, probe configuration, kubelet/Node, att
 ## Healthcheck subject
 
 Identita probe zahŕňajúca container/image generation, command, runtime user/env/PATH, target namespace/endpoint, timing, redaction a health history. Pozri [Environment variables a health checks](docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md).
+
+## Hedged request
+
+Dodatočný concurrent attempt spustený pre zníženie tail latency; bezpečný iba pri idempotentnom/deduplicated a capacity-bounded worku. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
 
 ## Helm
 
@@ -8662,9 +8786,25 @@ Textový LDAP Data Interchange Format používaný na reprezentovanie entries a 
 
 Controller nasadený vo viacerých instances, ktoré cez Lease koordinujú aktívneho leadera; stále musí tolerovať retries a nie je exactly-once systémom. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Leader election
+
+Protocol na výber dočasného coordinatora alebo writera; sám osebe negarantuje safe external side effects po strate leadership. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
+## Leader key
+
+Consensus-backed identity leadership generation, ktorú možno použiť na transactional guard, observation a resignation. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
+## Leader lease
+
+Časovo obmedzené coordination ownership viazané na authoritative renew/expiry semantics. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
 ## Leading indicator — capacity
 
 Signal, ktorý upozorňuje na blížiaci sa failure pred viditeľným user impactom, napríklad queue growth, throttling alebo saturation. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
+## Learner member
+
+Non-voting member dobiehajúci replicated state pred safe promotion na voting member. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
 
 ## Lease — Kubernetes
 
@@ -8737,6 +8877,10 @@ Podiel vykonaných source riadkov počas testov. Vysoká hodnota sama osebe nedo
 ## Lineage — Terraform state
 
 Jedinečný identifikátor histórie state-u používaný na rozlíšenie nezávisle vzniknutých states a ochranu pred prepísaním nesúvisiaceho snapshotu. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## Linearizability
+
+Single-object consistency model, v ktorom každá operation vyzerá, že nastala atomicky medzi invocation a response a rešpektuje real-time order non-overlapping operations. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
 
 ## List/watch pattern — Kubernetes
 
@@ -9094,6 +9238,10 @@ Vopred definovaný časový interval, počas ktorého je povolená plánovaná �
 
 Prvá časť SemVer verzie, ktorá sa zvyšuje pri nekompatibilnej zmene deklarovaného public API alebo compatibility contractu. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
 
+## Majority quorum
+
+Najmenšia majority voting members potrebná na election a commit, typicky `floor(N/2)+1`. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
 ## Managed control plane
 
 Kubernetes control plane, ktorého časť lifecycle-u a availability prevádzkuje provider, zatiaľ čo zákazník zostáva zodpovedný za workload, identity, policy, data a značnú časť cluster configuration. Pozri [Kubernetes architecture](docs/09-kubernetes/kubernetes-architecture.md).
@@ -9342,6 +9490,10 @@ Immutable snapshot konkrétnej review/risk/evidence state generácie používan�
 
 Snapshot stavu workload review-u v konkrétnom čase používaný na meranie zmeny risku a improvement progressu. Pozri [Well-Architected Framework](docs/11-cloud-and-aws/well-architected-framework.md).
 
+## Minimum acceptable generation
+
+Najnižšia revision alebo business generation, ktorú musí read vrátiť, aby ju caller mohol bezpečne použiť. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
+
 ## Minimum detectable effect
 
 Najmenšia zmena outcome metriky, ktorú má experiment pri zvolenej sample size a power spoľahlivo detegovať. Pozri [A/B testing](docs/05-ci-cd-and-release/a-b-testing.md).
@@ -9350,6 +9502,10 @@ Najmenšia zmena outcome metriky, ktorú má experiment pri zvolenej sample size
 
 Súbežné vytváranie veľkého množstva idle connections po scale-out-e, restart-e alebo failover-e v dôsledku vysokého minimum pool size bez jitter/admission budgetu. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
 
+## Minimum observed revision
+
+Version token prenášaný session/clientom, ktorý vyžaduje, aby ďalšie reads nevrátili starší state. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
+
 ## Minimum-TTL override
 
 CloudFront behavior, pri ktorom positive cache-policy minimum TTL vynúti caching aspoň na tento čas aj pri origin directives `no-cache`, `no-store` alebo `private`. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
@@ -9357,6 +9513,10 @@ CloudFront behavior, pri ktorom positive cache-policy minimum TTL vynúti cachin
 ## MINOR version
 
 Druhá časť SemVer verzie, ktorá sa zvyšuje pri backward-compatible pridaní capability do deklarovaného public API. Pozri [Semantic Versioning](docs/05-ci-cd-and-release/semantic-versioning.md).
+
+## Minority side
+
+Partition cohort bez majority quorum, ktorá nemôže bezpečne commitovať nové consensus decisions a musí odmietnuť, čakať alebo používať explicitne slabší local contract. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
 
 ## Mirror delivery contract
 
@@ -9453,6 +9613,14 @@ Application buildovaná a deployovaná ako jeden významný artifact alebo runti
 ## Monorepo
 
 Repository obsahujúci viac služieb, knižníc alebo projektov so spoločným object graphom a možnosťou atomických cross-project zmien. Pozri [Monorepo vs. multirepo](docs/03-git-and-automation/monorepo-vs-multirepo.md).
+
+## Monotonic reads
+
+Session guarantee zakazujúca, aby client po pozorovaní novšej version neskôr videl staršiu version. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
+
+## Monotonic writes
+
+Session guarantee, podľa ktorej writes jedného clienta nadobúdajú účinok v jeho program order. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
 
 ## Mount
 
@@ -9837,6 +10005,10 @@ Namespace s vlastnými interfaces, addresses, routes, sockets a firewall state. 
 ## Network observation matrix
 
 Mapa identity a evidence cez Pod sandbox, IPAM, route/tunnel, Service translation, policy selection, enforcement, connection a application boundaries. Pozri [CNI a NetworkPolicy](../docs/09-kubernetes/cni-networkpolicy.md).
+
+## Network partition
+
+Stav, v ktorom sa distributed participants nemôžu spoľahlivo navzájom dorozumieť, hoci niektoré nodes a links môžu zostať funkčné. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
 
 ## NetworkPolicy
 
@@ -10302,6 +10474,10 @@ Exact application/release, SDK/agent, semantic schema, resource precedence, prop
 
 Explicitné rozdelenie service ownershipu, support hours, on-call/escalation, change authority, dependency contracts, objectives, recovery responsibilities, lifecycle a retirement obligations. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
 
+## Operation history
+
+Usporiadaný záznam invocation a response events reads, writes a transactions používaný na overenie, či execution spĺňa consistency model. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
+
 ## Operational acceptance
 
 State transition po bounded launchi a day-2 observation, pri ktorom current service generation spĺňa production objectives, ownership, support, telemetry, recovery a residual-risk contract. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
@@ -10510,6 +10686,10 @@ Group a authorization-data snapshot vložený AD KDC infraštruktúrou do Kerber
 
 Microsoft Privilege Attribute Certificate prenášajúci authorization-related identity a group information v Kerberos ticketoch pre Windows authorization scenarios. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
+## PACELC question
+
+Doplnková design otázka: počas partition-u consistency vs. availability; mimo partition-u latency vs. consistency. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
+
 ## Package manager
 
 Nástroj na inštaláciu, upgrade a odstránenie balíkov vrátane dependencies a lokálnej evidencie. Pozri [Package management](docs/01-linux-and-systems/package-management.md).
@@ -10614,9 +10794,21 @@ Index obsahujúci iba rows spĺňajúce definovaný predicate, vhodný pre bound
 
 Rozhodnutie, či Search result reprezentuje complete intended population alebo bol obmedzený ACL, limitom, referralom, controlom, timeoutom či stale replica state-om. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
 
+## Partition-heal reconciliation
+
+Proces po obnovení connectivity, ktorý porovná committed histories, local attempts, caches, sessions, retries a external effects a obnoví authoritative business outcome. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
+
 ## Partition key
 
 Hodnota určujúca partition/routing a tým ordering scope, load distribution a hot-partition risk. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
+
+## Partition-local progress
+
+Availability-preserving local operation počas partition-u, ktorá potrebuje explicitný conflict, merge a heal-time reconciliation model. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
+
+## Partition refusal
+
+Consistency-preserving outcome, pri ktorom operation bez required quorum alebo current authority nedostane success acknowledgement. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
 
 ## Partitioned log
 
@@ -10725,6 +10917,10 @@ CPU, memory, storage, network a operational cost jedného DaemonSet Podu vynáso
 ## Per-Node placement subject
 
 Väzba DaemonSet UID/generation, Node UID, Pod UID, admitted placement spec a current revision pre jeden eligible Node. Pozri [DaemonSet](docs/09-kubernetes/daemonset.md).
+
+## Per-operation partition contract
+
+Explicitné rozhodnutie, či konkrétna read alebo write operation počas partition-u odmietne, čaká, používa stale/local state alebo prijme mergeable local progress. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
 
 ## Per-ordinal storage identity
 
@@ -11930,6 +12126,14 @@ Rozdiel medzi completed service rate a new arrival rate pre konkrétnu queue pop
 
 Transportný protokol nad UDP implementujúci reliable streams, congestion control, loss recovery a TLS 1.3 integráciu. Pozri [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md).
 
+## Quorum-safe reconfiguration
+
+Sequential membership change, ktorý zachováva available majority a overí synchronizáciu nového membera pred ďalšou zmenou. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
+## Quorum side
+
+Partition cohort obsahujúci dostatočný počet voting members na vytvorenie majority a commitovanie consensus decisions. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
+
 ## Quota accounting subject
 
 ResourceQuota UID/generation, current `hard`/`used`, exact admitted request delta, scope a allow/reject decision v jednom admission time window. Pozri [ResourceQuota a LimitRange](../docs/09-kubernetes/resourcequota-limitrange.md).
@@ -12026,9 +12230,17 @@ Policy zakazujúca zápis do image-derived rootfs a povoľujúca iba explicitné
 
 Container security setting zakazujúci zápis do image root filesystemu a vyžadujúci explicitné writable mounts pre temp, cache alebo application state. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
 
+## Read repair
+
+Mechanizmus, ktorý pri read-e porovná replicas a opraví stale copy podľa authoritative/conflict policy. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
+
 ## read replica — RDS
 
 Asynchronously replicated readable database copy používaná na read scaling, reporting, migration alebo promotion-based recovery. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
+
+## Read-your-writes
+
+Session guarantee, podľa ktorej client po vlastnom úspešnom write uvidí tento write alebo novší state. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
 
 ## Readable-replica freshness contract
 
@@ -12293,6 +12505,10 @@ Bod v čase, ku ktorému musia byť dáta po disruption obnovené; reprezentuje 
 ## Recovery Point Objective — RPO
 
 Maximálna tolerovaná strata dát vyjadrená časom medzi incidentom a posledným použiteľným recovery pointom. Pozri [High availability a disaster recovery](docs/11-cloud-and-aws/high-availability-disaster-recovery.md).
+
+## Recovery probe
+
+Bounded representative request povolený v Half-Open state-e na overenie dependency recovery bez vypustenia celého backlogu. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
 
 ## Recovery Region — AWS
 
@@ -12598,6 +12814,10 @@ Exact business capability, user/cohort, required function, stated conditions, en
 
 OIDC client, ktorý dôveruje validovanému ID Token-u od OpenID Providera a vytvára vlastnú application session. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
 
+## Remaining deadline budget
+
+Čas zostávajúci z pôvodného end-to-end deadline-u po odpočítaní už spotrebovaného processingu a queueing-u. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
+
 ## Remediation execution subject
 
 Exact alarm/event generation, target manifest, automation/runbook version, execution role, deduplication/cooldown, mutation, controller transition, postcondition, rollback a business validation jednej automated remediation. Pozri [Amazon CloudWatch a AWS CloudTrail](docs/11-cloud-and-aws/cloudwatch-cloudtrail.md).
@@ -12738,6 +12958,10 @@ Kubernetes workload controller udržiavajúci požadovaný počet matching zamen
 
 Identita ReplicaSet control-loop rozhodnutia zahŕňajúca ReplicaSet UID/generation, desired replicas, selector, template hash, matching Pod UID inventory, ownerReferences, lifecycle classes a higher-level owner. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
 
+## Replicated log
+
+Ordered sequence consensus proposals replikovaná members a applied deterministic state machines. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
 ## Replication acceptance — S3
 
 Dôkaz, že exact eligible object version bola úspešne prenesená do intended destination podľa replication rule, IAM/KMS a status contractu; source PUT success ho nenahrádza. Pozri [S3, EBS a EFS](docs/11-cloud-and-aws/s3-ebs-efs.md).
@@ -12825,6 +13049,10 @@ Human operational work, ktorý zostáva po reduction iniciatíve pre novel excep
 ## Resilience engineering
 
 Disciplína navrhovania a zlepšovania schopnosti sociotechnického systému predvídať, absorbovať, zotaviť sa a učiť sa z porúch a variability. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
+
+## Resilience subject
+
+Exact logical operation, physical attempts, dependency/failure domain, deadline, retry/circuit policies, queues, pools, identities a business outcome analyzované resilience návrhom. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
 
 ## Resolved alert
 
@@ -13132,15 +13360,35 @@ Autoscaling signal, ktorý zahŕňa interné retries alebo duplicate events, tak
 
 ## Retry budget
 
-Explicitný limit množstva alebo času retry pokusov, ktorý zabraňuje nekonečným retries a zosilneniu downstream incidentu. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
+Aggregate limit retry attempts pre service/dependency/cohort v časovom intervale, ktorý chráni capacity nad rámec per-request limitu. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
+
+## Retry eligibility
+
+Explicitný verdict, či failure class, remaining deadline, idempotency, capacity a business semantics povoľujú ďalší attempt. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
+
+## Retry jitter
+
+Randomizácia retry delay-u, ktorá zabraňuje synchronized waves medzi mnohými clients. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
 
 ## Retry loop — Ansible
 
 Opakovanie rovnakého tasku podľa `until`, `retries` a `delay`, určené pre bounded transient conditions, nie pre iteráciu business items. Pozri [Handlers, loops a conditionals](docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md).
 
+## Retry multiplication
+
+Násobenie physical attempts pri nested retry policies, napríklad `3 × 2 × 3 = 18` attempts pre jeden logical request. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
+
+## Retry owner
+
+Jediná primary vrstva zodpovedná za retries konkrétnej dependency boundary, aby sa attempts nenásobili medzi SDK, gateway, service, mesh a driver. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
+
 ## Retry queue — Fluent Bit
 
 Queue chunks čakajúcich na opakovaný output flush po retryable failure. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
+## Retry/timeout/circuit-breaker acceptance verdict
+
+Dôkaz, že deadline propagation, failure classification, stable identity, retry ownership/budgets, breaker scope/signals, bulkheads, unknown reconciliation a recovery tests nevytvárajú storm ani duplicate effect. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
 
 ## Retry topic
 
@@ -14266,9 +14514,17 @@ Exporter queue absorbujúca krátkodobý downstream výpadok alebo throttling pr
 
 Rozdelenie právomocí tak, aby citlivú zmenu nevytvorila, neschválila a nenasadila bez nezávislej kontroly jediná identita; môže byť implementované automatizovanými policy a approvals. Pozri [Continuous Delivery](docs/05-ci-cd-and-release/continuous-delivery.md).
 
+## Sequential consistency
+
+Model s jedným globálnym orderom rešpektujúcim program order každého clienta, ale nie nutne real-time order medzi clients. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
+
 ## Serial — Terraform state
 
 Monotónne rastúce číslo snapshotu v jednej state lineage používané na rozpoznanie novšej verzie a ochranu pred stale overwrite. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
+
+## Serializability
+
+Transaction property, pri ktorej outcome concurrent transactions zodpovedá nejakému serial orderu, ktorý nemusí rešpektovať wall-clock order. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
 
 ## Serialization boundary — Helm
 
@@ -15022,9 +15278,17 @@ Riadený presun labelov ako `AWSPENDING`, `AWSCURRENT` a `AWSPREVIOUS` medzi imm
 
 Approval, ktorý bol udelený pre starší source SHA, target context, candidate alebo policy revision a už neposkytuje dôkaz pre aktuálny merge subject. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
 
+## Stale-authority read
+
+Read zo starej replica/cache generation použitý na authorization, routing, dedupe alebo external side effect, hoci operation vyžaduje current authority. Pozri [CAP theorem](../docs/15-databases-and-distributed-systems/cap-theorem.md).
+
 ## Stale backfill overwrite
 
 Failure, pri ktorom backfill vypočíta value zo starého snapshotu a neskôr prepíše novší live state bez version/current-state predicate-u. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
+
+## Stale leader
+
+Process, ktorý stratil current consensus leadership alebo lease, ale stále sa pokúša vykonávať work. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
 
 ## Staleness — cache
 
@@ -15281,6 +15545,10 @@ Label matcher expression, ktorá vyberie Loki log streamy pred line filteringom 
 ## Stress test
 
 Performance test nad plánovanou kapacitou zameraný na failure mode, ochranné mechanizmy a recovery. Pozri [Performance, load a stress tests](docs/04-testing-and-quality/performance-load-stress-tests.md).
+
+## Strict serializability
+
+Kombinácia serializability a real-time orderu, takže neskôr začatá transaction musí byť usporiadaná po už dokončenej transaction. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
 
 ## STRIDE
 
@@ -16434,6 +16702,10 @@ Failure stav, keď Terraform odoslal successor snapshot, ale pre timeout alebo n
 
 Stav, keď caller po timeout-e alebo strate response nevie, či callee operation neprijala, commitla alebo dokončila external effect. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
 
+## Unknown timeout outcome
+
+Timeout state, pri ktorom caller nevie, či request nebol spracovaný, commitol alebo vykonal external effect. Pozri [Retry, timeout a circuit breaker](../docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md).
+
 ## Unknown value — Terraform
 
 Typovo známa, ale konkrétne neurčená hodnota počas planu, ktorú Terraform získa až pri apply alebo neskoršom provider read-e. Pozri [Expressions a dependency graph](docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md).
@@ -16786,6 +17058,10 @@ Konkrétny Kubernetes attach intent a status medzi CSI volumeHandle a Node UID, 
 
 StatefulSet šablóny, z ktorých controller vytvára samostatné PVCs pre jednotlivé ordinal replicas. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
 
+## Voting member
+
+Consensus cluster member, ktorého vote sa počíta do quorum a ktorý participuje na commit decisions. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
 ## VPC address-to-route lifecycle
 
 Chain `network outcome → VPC/CIDR generation → zonálny subnet a ENI → effective route-table association → selected route → gateway/endpoint target → forward/return path → security a application verification`. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
@@ -17077,6 +17353,10 @@ Mechanizmus, ktorý preukázateľne zabráni old alebo stale primary-u prijíma�
 ## Writer-generation identity
 
 Exact current RDS writer resource, AZ, endpoint mapping, engine/schema/parameter generation a failover timeline, ktoré určujú write authority. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
+
+## Writes-follow-reads
+
+Session guarantee, podľa ktorej client write nasleduje po state-e, ktorý client predtým čítal, a zachováva causal dependency. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
 
 ## Wrong-subject negative test
 
