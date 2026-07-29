@@ -1,8 +1,8 @@
 # Databases and Distributed Systems
 
-Táto sekcia vysvetľuje, ako navrhovať, prevádzkovať a diagnostikovať stateful systémy podľa explicitných business invariantov, transaction boundaries, consistency semantics a failure modelov. Začína výberom databázového modelu, pokračuje transactions, indexes, locks, migrations, replication a recovery a neskôr rozširuje model na distributed communication, caching, consensus, retries, rate limiting, idempotency a backpressure.
+Táto sekcia vysvetľuje, ako navrhovať, prevádzkovať a diagnostikovať stateful systémy podľa explicitných business invariantov, transaction boundaries, consistency semantics a failure modelov. Začína výberom databázového modelu, pokračuje transactions, indexes, locks, migrations, replication a recovery a následne rozširuje model na connection admission, product-specific semantics, architecture boundaries, distributed communication, caching, consensus, retries, rate limiting, idempotency a backpressure.
 
-Databáza tu nie je iba persistence API. Je to systém, ktorý rozhoduje o authoritative state-e, visibility, concurrency, durability, recovery a dôkazoch potrebných na rozlíšenie committed, aborted, stale, duplicated, lost alebo unknown outcomes.
+Databáza tu nie je iba persistence API. Je to systém, ktorý rozhoduje o authoritative state-e, visibility, concurrency, durability, recovery a dôkazoch potrebných na rozlíšenie committed, aborted, stale, duplicated, lost alebo unknown outcomes. Distributed architecture zároveň určuje, kde tieto rozhodnutia vznikajú, kto ich vlastní a ako sa obnovujú po partial failure-i.
 
 ## Predpoklady
 
@@ -25,17 +25,17 @@ Odporúča sa najprv dokončiť:
 2. [Transactions a ACID](transactions-and-acid.md)
 3. [Indexy, locks a migrations](indexes-locks-and-migrations.md)
 4. [Replication a high availability](replication-and-high-availability.md)
+5. [Backups a point-in-time recovery](backups-and-point-in-time-recovery.md)
+6. [Connection pooling](connection-pooling.md)
+7. [PostgreSQL, MySQL a Redis](postgresql-mysql-and-redis.md)
+8. [Monolith, modular monolith a microservices](monolith-modular-monolith-and-microservices.md)
 
-Aktuálny authoritative stav sekcie je **4/18 · In progress**.
+Aktuálny authoritative stav sekcie je **8/18 · In progress**.
 
 ## Plánované pokračovanie
 
 Authoritative poradie bude pokračovať bez zmeny roadmapy:
 
-5. Backups a point-in-time recovery
-6. Connection pooling
-7. PostgreSQL, MySQL a Redis
-8. Monolith, modular monolith a microservices
 9. Synchronous vs. asynchronous communication
 10. Message queues a event-driven architecture
 11. Service discovery a API gateway
@@ -47,7 +47,7 @@ Authoritative poradie bude pokračovať bez zmeny roadmapy:
 17. Rate limiting
 18. Idempotency a backpressure
 
-## Connected learning scenario
+## Connected learning scenarios
 
 ### `DB-PAY-56` — authority, transaction, migration a failover consistency
 
@@ -80,8 +80,6 @@ Súčasne bežal backfill bez supporting partial indexu. Batch transactions trva
 
 O `10:14 UTC` AZ network failure oddelila primary od časti application/control plane-u. Failover o `10:19 UTC` promoted standby bez exact acknowledged-position verdictu. Old primary nebola effective fence-nutá a prijímala časť writes ďalších `93 s`.
 
-Incident vytvára chain:
-
 ```text
 business invariant a authority
 → nevhodne rozdelený authoritative state
@@ -103,7 +101,7 @@ Potvrdené dôsledky:
 - document projection zobrazovala `accepted` state bez executable authoritative intentu;
 - provider ledger bol potrebný na odlíšenie `never-sent`, `sent-unknown` a `completed` cohorts.
 
-### Causal boundaries
+Causal boundaries:
 
 - **Trigger:** AZ network failure počas migration loadu.
 - **Data-model root cause:** jeden settlement invariant bol rozdelený medzi dve independently committed authoritative stores.
@@ -127,6 +125,96 @@ fence all writers
 → safe indexed migration
 → lag/position-aware promotion and writer epochs
 → second-operation, second-batch and second-failover validation
+```
+
+### `DB-PAY-57` — recovery, pooling, product roles a architecture boundaries
+
+Release `payments 8.1` rozdelil modular settlement flow na samostatné runtime services:
+
+```text
+settlement-api
+→ merchant-policy-service / MySQL
+→ idempotency-service / Redis
+→ ledger-service / PostgreSQL
+→ provider-execution-service
+→ projection-service
+```
+
+Po end-of-month scale-out-e bežalo `96` settlement Podov. Každý mal application pool `40` a `minimumIdle 20`, teda teoreticky `3 840` connections a `1 920` immediate idle/warmup attempts proti PostgreSQL application envelope-u približne `585` connections.
+
+O `11:38 UTC` network flap spustil reconnect storm:
+
+```text
+server connections: 587
+active queries: 164
+idle connections: 271
+idle in transaction: 83
+pool checkout p99: 8.7 s
+connect attempts: 12 400/min
+```
+
+Emergency change aktivovala PgBouncer transaction pooling so 120 server connections. Application však nastavovala `app.tenant_id` pri physical session initialization a používala temporary table `pending_settlement_batch`. Ďalšia transaction nemusela dostať rovnakú server session.
+
+Od `11:46:12 UTC` vznikali missing/stale policy contexts a retry amplification. Incident vyžadoval:
+
+- policy verification pre `214` operations;
+- provider routing verification pre `31` operations;
+- reconciliation `19` sent-unknown operations;
+- classification `68` missing Redis dedupe keys po failover/restart window;
+- provider evidence pre `7` duplicate attempts;
+- nulové potvrdené duplicate settlements až po provider-idempotency reconciliation.
+
+Tím chcel PostgreSQL obnoviť na `11:46:11 UTC`, no recovery chain mal gap:
+
+```text
+base backup: 00:00 UTC — success
+last continuous WAL: 11:40:59 UTC
+missing WAL: 11:41:00–11:56:59 UTC
+next available WAL: 11:57:00 UTC
+requested target: 11:46:11 UTC — unreachable
+```
+
+MySQL policy store mal vlastný binlog coordinate, Redis vlastný AOF/replication state a provider external ledger. Neexistoval versionovaný cross-store checkpoint.
+
+Connected chain:
+
+```text
+premature service extraction
+→ distributed settlement invariant a recovery ownership
+→ fleet-wide pool multiplication
+→ reconnect storm
+→ incompatible transaction pooling
+→ session tenant/temp-state failure
+→ stale/missing policy generation
+→ Redis cache authority inversion
+→ provider retry/unknown outcomes
+→ replicated logical corruption
+→ incomplete WAL chain
+→ isolated restore + cross-product reconciliation
+```
+
+Causal boundaries:
+
+- **Trigger:** network flap počas scale-out-u.
+- **Pooling root cause:** per-Pod pools neboli odvodené z fleet-wide database envelope-u a transaction pooling nezodpovedalo session-state contractu.
+- **Product-role root cause:** Redis cache/dedupe absence rozhodovala o authoritative retry namiesto PostgreSQL/provider evidence.
+- **Recovery root cause:** backup control overoval job/upload activity, nie durable WAL continuity, target reachability a restore.
+- **Architecture root cause:** service extraction rozdelila invariant, product roles a operational/recovery ownership skôr než boli boundaries a contracts pripravené.
+- **Amplifiers:** high minimum idle, synchronized reconnect, retries bez shared budgetu, async replication, chýbajúca policy-generation identity a green front-door dashboards.
+
+Authoritative redesign:
+
+```text
+modular settlement command core
+→ atomic PostgreSQL settlement + idempotency + outbox
+→ exact MySQL merchant-policy generation stored with decision
+→ durable event
+→ independent provider-execution service
+→ rebuildable projection service
+→ Redis iba cache/admission/dedupe accelerator
+→ fleet-wide connection + retry budget
+→ WAL/binlog/provider cross-store recovery manifest
+→ second-burst, second-client, restore and partial-failure validation
 ```
 
 ## Cieľ zvládnutia prvého bloku
@@ -178,26 +266,76 @@ fence all writers
 - zahrnúť DNS/proxy/pool convergence do RTO;
 - reconciliovať failover unknown outcomes a overiť failback.
 
+## Cieľ zvládnutia druhého bloku
+
+### Backups a point-in-time recovery
+
+- definovať protected subject, consistency group a acknowledgement boundary;
+- rozlíšiť logical/physical backup, snapshot, replication a archive;
+- vysvetliť PostgreSQL base backup + WAL a MySQL full backup + binary-log PITR;
+- overovať log continuity, source identity, checksums, keys a retention;
+- vybrať clean recovery point a exact target/timeline;
+- vykonať isolated restore a engine/schema/data/application/business validation;
+- spracovať post-point divergence a cross-store reconciliation;
+- preukázať alternate-target a second-responder restore.
+
+### Connection pooling
+
+- definovať fleet/pooler/database pooling subject;
+- odvodiť total connection demand z replicas, min/max pools a workload classes;
+- rozlíšiť application pool, shared pooler a server thread/execution pool;
+- rozlíšiť session, transaction a statement pooling;
+- odhaliť session-state, temporary-table, prepared-statement a advisory-lock incompatibility;
+- merať pool queue, checkout wait, active/idle/idle-in-transaction a database waits;
+- navrhnúť bounded timeouts, admission, reset/discard a admin reserve;
+- overiť reconnect storm, failover a second-client state-isolation scenarios.
+
+### PostgreSQL, MySQL a Redis
+
+- priradiť product role podľa authority, invariantov, queries, latency, durability a recovery;
+- vysvetliť PostgreSQL MVCC/WAL/constraints a MySQL InnoDB/redo/binlog/GTID boundaries;
+- modelovať Redis data structures, MULTI/EXEC/WATCH, TTL/eviction, RDB/AOF a async replication;
+- rozlíšiť relational transaction od Redis command/transaction modelu;
+- neinterpretovať cache miss ako business absence;
+- mapovať acknowledgement na product-specific durability/failover semantics;
+- navrhnúť cross-product stable identity a reconciliation;
+- overiť cache loss, replica failover, restore a second-operation outcome.
+
+### Monolith, modular monolith a microservices
+
+- definovať source/build/deploy/process/data/transaction/ownership boundaries;
+- rozlíšiť monolith od modular monolithu a microservices;
+- odvodiť module/service boundary z capability, invariantov a data authority;
+- rozpoznať distributed monolith a shared-database coupling;
+- navrhnúť local transaction alebo durable cross-service workflow;
+- započítať connection/retry/telemetry/platform multiplication;
+- preukázať independent compatibility, scale a failure isolation;
+- používať modularize-first, strangler alebo branch-by-abstraction migration;
+- porovnať intended architecture benefit s effective operational costom.
+
 ## Dominantný model sekcie
 
 ```text
-business capability a stateful operation
-→ exact authoritative data/distributed subject
-→ invariant, consistency a availability objectives
-→ data/transaction/communication topology
-→ concurrency, replication a failure mechanisms
+business capability a stateful/distributed operation
+→ exact authoritative data a architecture subject
+→ invariant, consistency, durability a availability objectives
+→ data/transaction/service/communication topology
+→ concurrency, pooling, replication a failure mechanisms
 → observed current generation and effective state
-→ bounded write/read/recovery decision
+→ bounded write/read/recovery/architecture decision
 → business outcome and reconciliation
-→ migration/failover/second-operation closure
+→ migration/failover/restore/second-operation closure
 ```
 
 Každá komplexná kapitola musí rozlišovať:
 
-- authoritative, derived a cached state;
+- authoritative, derived, cached a ephemeral state;
 - logical operation od physical attemptu;
 - transaction commit od client acknowledgementu;
-- received, durable, applied a visible replica state;
+- received, durable, applied a visible replica/log state;
+- connection count od useful execution concurrency;
+- database product od product role;
+- module/service boundary od repository alebo Pod countu;
 - technical data presence od business correctness;
 - trigger, root cause a causal amplifier;
 - containment, reconciliation a authoritative recovery;
@@ -212,10 +350,10 @@ Každá komplexná kapitola musí rozlišovať:
 | Transactions a ACID | Learning | L2 |
 | Indexy, locks a migrations | Learning | L2 |
 | Replication a high availability | Learning | L2 |
-| Backups a point-in-time recovery | Not Started | L0 |
-| Connection pooling | Not Started | L0 |
-| PostgreSQL, MySQL a Redis | Not Started | L0 |
-| Monolith, modular monolith a microservices | Not Started | L0 |
+| Backups a point-in-time recovery | Learning | L2 |
+| Connection pooling | Learning | L2 |
+| PostgreSQL, MySQL a Redis | Learning | L2 |
+| Monolith, modular monolith a microservices | Learning | L2 |
 | Synchronous vs. asynchronous communication | Not Started | L0 |
 | Message queues a event-driven architecture | Not Started | L0 |
 | Service discovery a API gateway | Not Started | L0 |
