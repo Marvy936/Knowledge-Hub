@@ -545,3 +545,11 @@ Relevantné pojmy: RCA subject, proximate mechanismus, technical root cause, sys
 - [Google SRE Workbook — Postmortem Culture: Learning from Failure](https://sre.google/workbook/postmortem-culture/)
 - [Google SRE — Effective Troubleshooting](https://sre.google/sre-book/effective-troubleshooting/)
 - [NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations](https://csrc.nist.gov/pubs/sp/800/61/r3/final)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Runbooks a playbooks](runbooks-and-playbooks.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Blameless postmortems →](blameless-postmortems.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **269**
 - Audited conceptual sections: **10842**
-- Total words: **631,514**
+- Total words: **631,564**
 - Findings: **22704** (critical 6770, high 7759, medium 2870, low 5305)
 - File grades: A 0, B 0, C 0, D 269
 
@@ -30,7 +30,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 1118 | 52 | 54 | 17 | 13 | 2422 | `docs/09-kubernetes/desired-state-reconciliation-loops.md` |
 | D | 1106 | 52 | 49 | 20 | 20 | 2492 | `docs/04-testing-and-quality/contract-and-api-tests.md` |
 | D | 1089 | 48 | 45 | 29 | 43 | 3495 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
-| D | 1082 | 49 | 54 | 15 | 15 | 2035 | `docs/14-sre-and-operations/blameless-postmortems.md` |
+| D | 1082 | 49 | 54 | 15 | 15 | 2048 | `docs/14-sre-and-operations/blameless-postmortems.md` |
 | D | 1068 | 46 | 55 | 17 | 21 | 2455 | `docs/09-kubernetes/kubernetes-architecture.md` |
 | D | 1065 | 50 | 53 | 13 | 5 | 2116 | `docs/10-helm-and-cka/cka-troubleshooting-drills.md` |
 | D | 1063 | 48 | 54 | 12 | 22 | 2499 | `docs/09-kubernetes/control-plane-components.md` |
@@ -50,7 +50,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 889 | 41 | 37 | 21 | 24 | 2682 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
 | D | 889 | 42 | 41 | 14 | 12 | 2083 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | D | 888 | 35 | 47 | 16 | 33 | 3254 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
-| D | 870 | 34 | 52 | 9 | 15 | 2182 | `docs/14-sre-and-operations/backup-and-restore.md` |
+| D | 870 | 34 | 52 | 9 | 15 | 2194 | `docs/14-sre-and-operations/backup-and-restore.md` |
 | D | 868 | 41 | 41 | 11 | 13 | 2134 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
 | D | 866 | 41 | 40 | 13 | 11 | 3009 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | D | 866 | 43 | 38 | 13 | 8 | 1872 | `docs/06-gitlab/protected-branches-and-environments.md` |
@@ -71,14 +71,14 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 801 | 31 | 48 | 11 | 12 | 2219 | `docs/04-testing-and-quality/security-and-infrastructure-tests.md` |
 | D | 795 | 35 | 38 | 13 | 25 | 2399 | `docs/09-kubernetes/daemonset.md` |
 | D | 788 | 37 | 34 | 14 | 19 | 2601 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
-| D | 787 | 32 | 46 | 8 | 10 | 1670 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
+| D | 787 | 32 | 46 | 8 | 10 | 1672 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
 | D | 785 | 35 | 36 | 16 | 21 | 2346 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | D | 784 | 37 | 37 | 10 | 16 | 2402 | `docs/09-kubernetes/cluster-dns.md` |
 | D | 784 | 35 | 33 | 20 | 18 | 2675 | `docs/11-cloud-and-aws/well-architected-framework.md` |
 | D | 774 | 35 | 33 | 17 | 27 | 2700 | `docs/09-kubernetes/configmap-secret.md` |
 | D | 769 | 33 | 38 | 14 | 19 | 2119 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 767 | 33 | 35 | 21 | 11 | 2231 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
-| D | 760 | 31 | 44 | 8 | 12 | 2298 | `docs/14-sre-and-operations/rpo-and-rto.md` |
+| D | 760 | 31 | 44 | 8 | 12 | 2309 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | D | 757 | 31 | 36 | 20 | 23 | 2552 | `docs/09-kubernetes/replicaset.md` |
 | D | 756 | 31 | 43 | 9 | 10 | 2339 | `docs/02-networking-and-web/load-balancing.md` |
 | D | 754 | 30 | 39 | 16 | 27 | 2895 | `docs/02-networking-and-web/dns.md` |
@@ -154,7 +154,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 609 | 27 | 29 | 10 | 15 | 2165 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
 | D | 605 | 22 | 30 | 19 | 26 | 2325 | `docs/13-security-and-identity/threat-modeling.md` |
 | D | 601 | 31 | 20 | 16 | 10 | 1549 | `docs/09-kubernetes/resourcequota-limitrange.md` |
-| D | 600 | 22 | 35 | 10 | 16 | 2057 | `docs/14-sre-and-operations/root-cause-analysis.md` |
+| D | 600 | 22 | 35 | 10 | 16 | 2069 | `docs/14-sre-and-operations/root-cause-analysis.md` |
 | D | 599 | 31 | 20 | 12 | 19 | 2239 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
 | D | 598 | 28 | 29 | 5 | 16 | 1823 | `docs/09-kubernetes/cluster-installation-lifecycle.md` |
 | D | 596 | 23 | 32 | 11 | 20 | 2371 | `docs/12-observability/instrumentation-telemetry.md` |

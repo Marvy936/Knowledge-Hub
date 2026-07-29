@@ -518,5 +518,5 @@ Relevantné pojmy: runbook, playbook, runbook subject, trigger eligibility, safe
 
 **Navigácia**
 
-[← Predchádzajúca: On-call a escalation](on-call-and-escalation.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: On-call a escalation](on-call-and-escalation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Root cause analysis →](root-cause-analysis.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

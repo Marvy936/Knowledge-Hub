@@ -321,10 +321,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Incident management](docs/14-sre-and-operations/incident-management.md)
 - [x] [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md)
 - [x] [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md)
-- [ ] Root cause analysis
-- [ ] Blameless postmortems
-- [ ] Backup a restore
-- [ ] RPO a RTO
+- [x] [Root cause analysis](docs/14-sre-and-operations/root-cause-analysis.md)
+- [x] [Blameless postmortems](docs/14-sre-and-operations/blameless-postmortems.md)
+- [x] [Backup a restore](docs/14-sre-and-operations/backup-and-restore.md)
+- [x] [RPO a RTO](docs/14-sre-and-operations/rpo-and-rto.md)
 - [ ] Disaster recovery
 - [ ] Chaos engineering
 - [ ] Operational readiness

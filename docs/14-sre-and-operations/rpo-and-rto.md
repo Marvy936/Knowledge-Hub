@@ -628,3 +628,11 @@ Relevantné pojmy: recovery-objective subject, Recovery Point Objective, Recover
 - [NIST CSRC Glossary — Recovery Time Objective](https://csrc.nist.gov/glossary/term/Recovery_Time_Objective)
 - [NIST SP 800-34 Rev. 1 — Contingency Planning Guide for Federal Information Systems](https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final)
 - [Google SRE — Emergency Response](https://sre.google/sre-book/emergency-response/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Backup a restore](backup-and-restore.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

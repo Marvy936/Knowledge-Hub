@@ -643,3 +643,11 @@ Relevantné pojmy: protected backup subject, consistency group, acknowledgement 
 - [CISA — StopRansomware Guide](https://www.cisa.gov/stopransomware/ransomware-guide)
 - [Google SRE — Data Integrity: What You Read Is What You Wrote](https://sre.google/sre-book/data-integrity/)
 - [Google SRE — Emergency Response](https://sre.google/sre-book/emergency-response/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Blameless postmortems](blameless-postmortems.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: RPO a RTO →](rpo-and-rto.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

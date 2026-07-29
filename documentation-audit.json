@@ -3601,7 +3601,7 @@
     {
       "path": "docs/14-sre-and-operations/backup-and-restore.md",
       "title": "Backup a restore",
-      "words": 2182,
+      "words": 2194,
       "headings": 68,
       "sections": 68,
       "findings": 110,
@@ -3615,7 +3615,7 @@
     {
       "path": "docs/14-sre-and-operations/blameless-postmortems.md",
       "title": "Blameless postmortems",
-      "words": 2035,
+      "words": 2048,
       "headings": 47,
       "sections": 47,
       "findings": 133,
@@ -3699,7 +3699,7 @@
     {
       "path": "docs/14-sre-and-operations/root-cause-analysis.md",
       "title": "Root cause analysis",
-      "words": 2057,
+      "words": 2069,
       "headings": 44,
       "sections": 44,
       "findings": 83,
@@ -3713,7 +3713,7 @@
     {
       "path": "docs/14-sre-and-operations/rpo-and-rto.md",
       "title": "RPO a RTO",
-      "words": 2298,
+      "words": 2309,
       "headings": 44,
       "sections": 44,
       "findings": 95,
@@ -3727,7 +3727,7 @@
     {
       "path": "docs/14-sre-and-operations/runbooks-and-playbooks.md",
       "title": "Runbooks a playbooks",
-      "words": 1670,
+      "words": 1672,
       "headings": 46,
       "sections": 46,
       "findings": 96,

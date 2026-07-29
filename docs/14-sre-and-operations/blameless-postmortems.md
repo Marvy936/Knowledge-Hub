@@ -556,3 +556,11 @@ Relevantné pojmy: postmortem subject, blameless analysis contract, system accou
 - [Google SRE Workbook — Postmortem Culture: Learning from Failure](https://sre.google/workbook/postmortem-culture/)
 - [Google SRE — Incident Management Guide](https://sre.google/resources/practices-and-processes/incident-management-guide/)
 - [NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations](https://csrc.nist.gov/pubs/sp/800/61/r3/final)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Root cause analysis](root-cause-analysis.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Backup a restore →](backup-and-restore.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
