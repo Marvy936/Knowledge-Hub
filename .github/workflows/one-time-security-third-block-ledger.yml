@@ -1,0 +1,57 @@
+name: One-time Security third block ledger update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/one-time-security-third-block-ledger.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-ledger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update review ledger
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path("DOCUMENTATION-REVIEW-STATUS.md")
+          text = path.read_text(encoding="utf-8")
+          lines = text.splitlines()
+
+          old_suffix = "Zostáva 11 kapitol a finálny section-level pass."
+          third_block = """Tretí authoritative blok bol kompletne prepísaný okolo connected federation/secret/cryptographic incidentu `SEC-PAY-49`: `OpenID Connect` používa `login/step-up intent → exact issuer/client/redirect contract → state/nonce/PKCE transaction → OP authentication a code exchange → ID Token cryptographic/semantic validation → issuer+subject identity mapping → authoritative claims mapping → local session → resource authorization → logout/revocation/second-session validation`; `SAML` používa `federation contract a metadata trust → AuthnRequest/pending transaction → IdP authentication/attributes → signed Response/Assertion → browser binding/ACS → secure XML a signed-node validation → issuer/audience/destination/recipient/time/replay → NameID/attribute mapping → local session/resource authorization → logout/key rollover/revocation`; `Secrets management` používa `business purpose/target trust → exact secret subject/owner/consumers → generation/import → authoritative storage → bootstrap identity/authorization → distribution → consumer-loaded generation → renewal/rotation/target mutation → revocation copies/descendants → audit/recovery/destruction`; `Encryption at rest a in transit` používa `asset/threat model → exact protection subject a rest/transit/use state → required properties → algorithm/protocol/format generation → key purpose/owner/scope/boundary → authorized crypto operation → ciphertext/channel publication → consumer validation/plaintext boundary → rotation/rekey/rewrap/revocation → restore/forbidden-old-path validation`. Worked failure pokrýva static RSA private key `FED-SIGN-07`, ktorý bol znovu použitý pre staging aj production a zároveň pre OIDC JWT aj SAML XML signatures. Staging debug principal nemal direct `get secrets`, ale cez `create Pod + use idp-runtime ServiceAccount + mount Secret + exec` získal plaintext key. Kubernetes etcd KMS v2 encryption a TLS fungovali správne, no chránili storage a transport, nie authorized Pod projection a runtime plaintext. Production OIDC RP validovalo state, nonce, PKCE, signature, audience a expiry, ale nie exact issuer; následne linkovalo účet podľa emailu a mapovalo group claim priamo na admin role. Production SAML SP dôverovalo certificate thumbprintu bez exact metadata entity bindingu, povoľovalo unsolicited response, malo vypnuté Destination/Recipient checks pre proxy mismatch a mapovalo `Role` attribute priamo. Root cause je shared exportable key a key-centric federation trust bez issuer/entity/purpose boundary; indirect workload access, reused client/entity configuration, email linking a direct entitlement claims sú amplifiers. Recovery vytvára oddelené non-exportable keys pre staging/prod a OIDC/SAML, exact issuer/entity metadata binding, `issuer+sub` alebo entity+NameID identity, claims-authority allowlist, indirect Kubernetes privilege controls, verifier/signer loaded-generation evidence, coordinated rollover, removal old trust, revocation sessions/descendants, business reconciliation a second-rotation/second-login forbidden-path tests. Navigation chain `OAuth 2.0 → OpenID Connect → SAML → Secrets management → Encryption at rest a in transit → Vulnerability a patch management` bol zachovaný obojsmerne. Nový `glossary/13g-security-federation-secret-cryptographic-trust-lifecycles.md` pridal OIDC issuer/identity/session, SAML metadata/signed-node/assertion, secret capability/loaded-generation/revocation a cryptographic plaintext/key-purpose/verifier-trust terminology; generated `GLOSSARY.md` je synchronizovaný a audit-failure artifacts sú prázdne. Aktuálne official facts boli overené: OpenID Connect Core/Discovery používajú approved second errata a exact issuer binding; Kubernetes Secrets sú base64 reprezentované a defaultne bez at-rest encryption, pričom KMS v2 je stable/recommended provider boundary; Vault Transit podporuje versionované non-exportable cryptographic operations a rewrap; NIST FIPS 203/204/205 štandardizujú ML-KEM, ML-DSA a SLH-DSA. Zostáva 7 kapitol a finálny section-level pass."""
+
+          updated = False
+          for index, line in enumerate(lines):
+              if line.startswith("| `13-security-and-identity`"):
+                  if "| 8/19 strict revalidation |" not in line:
+                      raise SystemExit("Expected 8/19 Security and Identity ledger state")
+                  if old_suffix not in line:
+                      raise SystemExit("Expected second-block suffix not found")
+                  line = line.replace("| 8/19 strict revalidation |", "| 12/19 strict revalidation |", 1)
+                  line = line.replace(old_suffix, third_block, 1)
+                  lines[index] = line
+                  updated = True
+                  break
+
+          if not updated:
+              raise SystemExit("Security and Identity ledger row not found")
+
+          path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+      - name: Commit ledger and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add DOCUMENTATION-REVIEW-STATUS.md
+          git rm .github/workflows/one-time-security-third-block-ledger.yml
+          git commit -m "docs(review): record third Security and Identity strict revalidation block"
+          git push
