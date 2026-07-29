@@ -3641,6 +3641,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "title": "Chaos engineering",
+      "words": 1956,
+      "headings": 48,
+      "sections": 48,
+      "findings": 126,
+      "critical": 48,
+      "high": 56,
+      "medium": 11,
+      "low": 11,
+      "score": 1060,
+      "grade": "D"
+    },
+    {
       "path": "docs/14-sre-and-operations/disaster-recovery.md",
       "title": "Disaster recovery",
       "words": 2263,
@@ -201381,6 +201395,1140 @@
       "path": "docs/14-sre-and-operations/capacity-planning.md",
       "section": "Viac retries zvyšuje reliability",
       "line": 421,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "1. Experiment, test a incident",
+      "line": 20,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "2. Exact chaos subject",
+      "line": 49,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "2. Exact chaos subject",
+      "line": 49,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "2. Exact chaos subject",
+      "line": 49,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business capability a user journey;`, `service, environment a Region;`, `architecture/release/config generation;`, `control a experimental cohorts;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "2. Exact chaos subject",
+      "line": 49,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "2. Exact chaos subject",
+      "line": 49,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "2. Exact chaos subject",
+      "line": 49,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `blast radius`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "3. Reliability question a hypothesis",
+      "line": 87,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "3. Reliability question a hypothesis",
+      "line": 87,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "3. Reliability question a hypothesis",
+      "line": 87,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `systém by mal prežiť ;`, `Kubernetes prescheduluje Pody ;`, `DR funguje ;`, `retry policy je správna .`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "3. Reliability question a hypothesis",
+      "line": 87,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "3. Reliability question a hypothesis",
+      "line": 87,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "4. Steady state",
+      "line": 118,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "15 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "4. Steady state",
+      "line": 118,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `successful business completion ratio;`, `correctness a duplicate/loss rate;`, `latency distribution;`, `queue age a drain behavior;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "4. Steady state",
+      "line": 118,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "4. Steady state",
+      "line": 118,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "4. Steady state",
+      "line": 118,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "4. Steady state",
+      "line": 118,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `HTTP`, `durability`, `resource`, `recovery time`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "5. Realistické events",
+      "line": 145,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Compute a process",
+      "line": 149,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Compute a process",
+      "line": 149,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Compute a process",
+      "line": 149,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Compute a process",
+      "line": 149,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process crash;`, `node loss;`, `CPU throttling;`, `memory pressure alebo OOM;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Compute a process",
+      "line": 149,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Compute a process",
+      "line": 149,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `OOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Network",
+      "line": 158,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Network",
+      "line": 158,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Network",
+      "line": 158,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Network",
+      "line": 158,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency, packet loss a reordering;`, `DNS failure alebo stale cache;`, `asymmetric routing;`, `dependency connection refusal;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Network",
+      "line": 158,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Network",
+      "line": 158,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `AZ`, `MTU`, `TLS`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Data a state",
+      "line": 167,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Data a state",
+      "line": 167,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Data a state",
+      "line": 167,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Data a state",
+      "line": 167,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replica lag;`, `unavailable leader;`, `disk/full I/O latency;`, `stale cache;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Data a state",
+      "line": 167,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Dependencies a control planes",
+      "line": 176,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Dependencies a control planes",
+      "line": 176,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Dependencies a control planes",
+      "line": 176,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Dependencies a control planes",
+      "line": 176,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider timeout/429;`, `identity issuer unavailable;`, `KMS/secret access denied;`, `registry/artifact unavailable;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Dependencies a control planes",
+      "line": 176,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Dependencies a control planes",
+      "line": 176,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `identity`, `control plane`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Non-failure turbulence",
+      "line": 186,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Non-failure turbulence",
+      "line": 186,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Non-failure turbulence",
+      "line": 186,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `traffic spike;`, `autoscaling event;`, `deployment alebo config rollout;`, `certificate/key rotation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Non-failure turbulence",
+      "line": 186,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "6. Preconditions",
+      "line": 197,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "6. Preconditions",
+      "line": 197,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "6. Preconditions",
+      "line": 197,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current service owner a on-call coverage;`, `no active relevant incident;`, `experiment environment a release generation;`, `steady-state baseline;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "6. Preconditions",
+      "line": 197,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "6. Preconditions",
+      "line": 197,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "6. Preconditions",
+      "line": 197,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "6. Preconditions",
+      "line": 197,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "7. Blast radius",
+      "line": 218,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "7. Blast radius",
+      "line": 218,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `users/tenants;`, `operations/events;`, `Region/AZ/node/pod count;`, `dependency scope;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "7. Blast radius",
+      "line": 218,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "7. Blast radius",
+      "line": 218,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "8. Safety state machine",
+      "line": 244,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "8. Safety state machine",
+      "line": 244,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "8. Safety state machine",
+      "line": 244,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ownera;`, `timestamp;`, `preconditions;`, `expected state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "8. Safety state machine",
+      "line": 244,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "8. Safety state machine",
+      "line": 244,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "9. Abort criteria",
+      "line": 277,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "9. Abort criteria",
+      "line": 277,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `completion fast-burn prekročí 14× počas 5 minút;`, `affected population presiahne 2 000 operations;`, `duplicate provider settlement 0;`, `sent-unknown cohort 20;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "9. Abort criteria",
+      "line": 277,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "9. Abort criteria",
+      "line": 277,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DB`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "10. Injection identity a control",
+      "line": 295,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "10. Injection identity a control",
+      "line": 295,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact target manifest;`, `least-privilege identity;`, `short-lived authorization;`, `environment/Region restrictions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "10. Injection identity a control",
+      "line": 295,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "10. Injection identity a control",
+      "line": 295,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "10. Injection identity a control",
+      "line": 295,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "11. Observation počas experimentu",
+      "line": 313,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Injection evidence",
+      "line": 317,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Injection evidence",
+      "line": 317,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Injection evidence",
+      "line": 317,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Injection evidence",
+      "line": 317,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `fault bol applied na intended target;`, `effective duration a intensity;`, `partial failures injection toolu;`, `cleanup state.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Injection evidence",
+      "line": 317,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "System behavior",
+      "line": 324,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "System behavior",
+      "line": 324,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "System behavior",
+      "line": 324,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "System behavior",
+      "line": 324,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `control vs experimental cohort;`, `business SLI;`, `component path;`, `retries, queues a saturation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "System behavior",
+      "line": 324,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "System behavior",
+      "line": 324,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Human/operational behavior",
+      "line": 333,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Human/operational behavior",
+      "line": 333,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Human/operational behavior",
+      "line": 333,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Human/operational behavior",
+      "line": 333,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `page delivery a qualified response;`, `runbook eligibility;`, `declaration a escalation;`, `communication;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Human/operational behavior",
+      "line": 333,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "12. Recovery je súčasť experimentu",
+      "line": 345,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "12. Recovery je súčasť experimentu",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "12. Recovery je súčasť experimentu",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `recovery latency;`, `overshoot/oscillation;`, `retry storm po obnove;`, `stale connections/caches;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "12. Recovery je súčasť experimentu",
+      "line": 345,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "13. Experiment verdict",
+      "line": 371,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Hypothesis supported",
+      "line": 375,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Inconclusive",
+      "line": 383,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "15. Worked false-confidence experiment pred SRE-PAY-55",
+      "line": 416,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "15. Worked false-confidence experiment pred SRE-PAY-55",
+      "line": 416,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `strata Region/control plane-u;`, `standby identity a KMS path;`, `provider egress allowlist a callback routing;`, `broker checkpoint/fencing;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "15. Worked false-confidence experiment pred SRE-PAY-55",
+      "line": 416,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "15. Worked false-confidence experiment pred SRE-PAY-55",
+      "line": 416,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `DNS`, `SLI`, `RTO`, `control plane`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "16. Post-remediation experiment CH-PAY-55-2",
+      "line": 445,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "16. Post-remediation experiment CH-PAY-55-2",
+      "line": 445,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DR-PAY-55-v4 current;`, `KMS decrypt canary prešiel;`, `provider recovery allowlist a callbacks verified;`, `broker checkpoint generation current;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "16. Post-remediation experiment CH-PAY-55-2",
+      "line": 445,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "16. Post-remediation experiment CH-PAY-55-2",
+      "line": 445,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DR-PAY-55-`, `KMS`, `IC`, `TTL`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "17. Chaos acceptance verdict",
+      "line": 496,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "17. Chaos acceptance verdict",
+      "line": 496,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "15 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "17. Chaos acceptance verdict",
+      "line": 496,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "14 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact business/reliability question je definovaná;`, `subject, generations, cohorts a fault target sú immutable;`, `steady state používa user/business outcome a guardrails;`, `hypothesis je falsifikovateľná;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "17. Chaos acceptance verdict",
+      "line": 496,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "17. Chaos acceptance verdict",
+      "line": 496,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "17. Chaos acceptance verdict",
+      "line": 496,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "17. Chaos acceptance verdict",
+      "line": 496,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "17. Chaos acceptance verdict",
+      "line": 496,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`, `blast radius`, `identity`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "18. Troubleshooting experimentu",
+      "line": 516,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "19. Earlier controls",
+      "line": 534,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "19. Earlier controls",
+      "line": 534,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "19. Earlier controls",
+      "line": 534,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "19. Earlier controls",
+      "line": 534,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reliability risk register;`, `experiment templates a review;`, `steady-state business SLI;`, `bounded fault catalog;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "19. Earlier controls",
+      "line": 534,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "19. Earlier controls",
+      "line": 534,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `reliability`, `identity`, `policy`, `scope`, `enforcement`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Chaos monkey ako stratégia",
+      "line": 552,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Experiment prešiel, lebo app nepadla",
+      "line": 556,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Pod kill dokazuje regional DR",
+      "line": 560,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Production za každú cenu",
+      "line": 564,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Abort = stop injection",
+      "line": 568,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Experiment skončil po obnovení metric",
+      "line": 572,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Finding bez repeat experimentu",
+      "line": 576,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/chaos-engineering.md",
+      "section": "Tool output je verdict",
+      "line": 580,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
