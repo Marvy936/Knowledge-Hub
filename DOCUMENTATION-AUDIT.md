@@ -6,8 +6,8 @@
 
 - Audited authoritative articles: **298**
 - Audited conceptual sections: **12110**
-- Total words: **695,946**
-- Findings: **25551** (critical 7658, high 8823, medium 3235, low 5835)
+- Total words: **700,097**
+- Findings: **25453** (critical 7627, high 8773, medium 3206, low 5847)
 - File grades: A 0, B 0, C 0, D 298
 
 ## Interpretation
@@ -176,8 +176,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 599 | 31 | 20 | 12 | 19 | 2239 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
 | D | 598 | 28 | 29 | 5 | 16 | 1823 | `docs/09-kubernetes/cluster-installation-lifecycle.md` |
 | D | 596 | 23 | 32 | 11 | 20 | 2371 | `docs/12-observability/instrumentation-telemetry.md` |
-| D | 591 | 21 | 31 | 15 | 27 | 3161 | `docs/16-gitops-and-platform-engineering/internal-developer-platform.md` |
-| D | 588 | 19 | 36 | 13 | 26 | 3356 | `docs/16-gitops-and-platform-engineering/gitops-secrets.md` |
 | D | 585 | 25 | 26 | 13 | 26 | 2460 | `docs/04-testing-and-quality/chaos-testing.md` |
 | D | 585 | 24 | 25 | 15 | 31 | 2237 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
 | D | 585 | 28 | 25 | 12 | 7 | 1853 | `docs/10-helm-and-cka/hooks.md` |
@@ -208,7 +206,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 537 | 24 | 26 | 7 | 13 | 2296 | `docs/12-observability/red-method.md` |
 | D | 534 | 25 | 23 | 10 | 13 | 2307 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
 | D | 531 | 23 | 30 | 3 | 9 | 1821 | `docs/10-helm-and-cka/cka-timed-labs.md` |
-| D | 531 | 18 | 33 | 10 | 12 | 2821 | `docs/16-gitops-and-platform-engineering/application-promotion.md` |
 | D | 529 | 22 | 20 | 16 | 32 | 3180 | `docs/03-git-and-automation/git-object-model.md` |
 | D | 528 | 20 | 30 | 7 | 20 | 2482 | `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md` |
 | D | 526 | 26 | 17 | 12 | 25 | 2170 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
@@ -267,6 +264,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 422 | 13 | 24 | 10 | 29 | 1992 | `docs/13-security-and-identity/vulnerability-and-patch-management.md` |
 | D | 420 | 20 | 15 | 4 | 39 | 3549 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
 | D | 418 | 16 | 21 | 8 | 24 | 2572 | `docs/11-cloud-and-aws/lambda.md` |
+| D | 418 | 13 | 28 | 7 | 10 | 3410 | `docs/16-gitops-and-platform-engineering/application-promotion.md` |
 | D | 412 | 22 | 15 | 4 | 11 | 1874 | `docs/09-kubernetes/probes.md` |
 | D | 409 | 16 | 17 | 10 | 39 | 2814 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | D | 409 | 15 | 25 | 4 | 12 | 2011 | `docs/12-observability/metrics-logs-traces-events.md` |
@@ -285,10 +283,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 346 | 12 | 20 | 5 | 19 | 1920 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | D | 337 | 11 | 16 | 6 | 44 | 3364 | `docs/01-linux-and-systems/linux-capabilities.md` |
 | D | 328 | 15 | 15 | 4 | 11 | 1835 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
+| D | 322 | 13 | 16 | 0 | 30 | 4637 | `docs/16-gitops-and-platform-engineering/internal-developer-platform.md` |
 | D | 301 | 10 | 10 | 17 | 31 | 2685 | `docs/00-foundations/ownership-mindset.md` |
 | D | 287 | 10 | 12 | 7 | 35 | 3103 | `docs/01-linux-and-systems/namespaces.md` |
 | D | 283 | 13 | 12 | 4 | 13 | 1700 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
-| D | 258 | 9 | 13 | 5 | 25 | 3439 | `docs/16-gitops-and-platform-engineering/flux.md` |
+| D | 270 | 10 | 12 | 3 | 36 | 4529 | `docs/16-gitops-and-platform-engineering/gitops-secrets.md` |
 | D | 255 | 8 | 12 | 8 | 28 | 3317 | `docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md` |
 | D | 250 | 8 | 10 | 10 | 30 | 2246 | `docs/00-foundations/toil-and-technical-debt.md` |
 | D | 236 | 6 | 11 | 10 | 33 | 2767 | `docs/01-linux-and-systems/ssh.md` |
@@ -317,6 +316,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 133 | 5 | 3 | 4 | 26 | 2820 | `docs/00-foundations/devops.md` |
 | D | 108 | 3 | 2 | 7 | 22 | 2403 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
+| D | 103 | 0 | 7 | 4 | 26 | 4352 | `docs/16-gitops-and-platform-engineering/flux.md` |
 | D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
@@ -17239,57 +17239,47 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/16-gitops-and-platform-engineering/application-promotion.md`
 
-- **CRITICAL** line 106, `bare-bullet-items` — **5. Candidate identity a evidence bundle**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `build provenance a artifact signature;`, `SBOM a vulnerability decision;`, `unit, integration, contract, component a E2E results;`, `migration compatibility a rollback eligibility;`.
-- **CRITICAL** line 169, `bare-bullet-items` — **7. Pull request ako promotion transaction**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `digest a provenance identity;`, `environment-specific rendered delta;`, `resource, policy, route a secret-reference changes;`, `migration a compatibility implications;`.
-- **CRITICAL** line 195, `bare-bullet-items` — **8. Stale promotion race**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `expected source environment commit;`, `expected candidate digest;`, `expected target environment base commit;`, `expected policy/evidence versions;`.
-- **CRITICAL** line 195, `outline-instead-of-explanation` — **8. Stale promotion race**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 224, `bare-bullet-items` — **Invariant release contract**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema/event compatibility version;`, `required API capabilities;`, `route-policy minimum;`, `secret key names a formats;`.
-- **CRITICAL** line 224, `outline-instead-of-explanation` — **Invariant release contract**: 6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 235, `bare-bullet-items` — **Environment-owned configuration**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replicas a resource sizing;`, `regional endpoints;`, `tenant IDs;`, `exposure percentage;`.
-- **CRITICAL** line 235, `outline-instead-of-explanation` — **Environment-owned configuration**: 6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 246, `bare-bullet-items` — **Runtime-owned state**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `controller status;`, `HPA current replicas;`, `dynamic leases;`, `queue offsets;`.
-- **CRITICAL** line 246, `outline-instead-of-explanation` — **Runtime-owned state**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
-- **CRITICAL** line 277, `bare-bullet-items` — **11. Database a stateful compatibility**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či migration je online, blocking alebo destructive;`, `či rollback old artifactu zostáva compatible;`, `či background jobs alebo event consumers zaostávajú;`, `či regiony/rings používajú mixed versions;`.
-- **CRITICAL** line 277, `outline-instead-of-explanation` — **11. Database a stateful compatibility**: 6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 333, `bare-bullet-items` — **13. Promotion graph a concurrency**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `predecessor evidence requirements;`, `parallel branches;`, `merge/join podmienky;`, `environment-specific blockers;`.
-- **CRITICAL** line 433, `bare-bullet-items` — **17. Rollback, roll-forward a supersession**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application artifact;`, `configuration;`, `route/exposure;`, `feature flags;`.
-- **CRITICAL** line 467, `bare-bullet-items` — **19. Connected incident GITOPS-PAY-62**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LaunchPad zmenil route substitution z 1850 na 1849 ;`, `staging evidence E-778 zostala viazaná na pay910a/1850 ;`, `merge automation rebase-la PR bez re-renderu a revalidácie;`, `production commit preto neidentifikoval skutočný effective configurati`.
-- **CRITICAL** line 467, `outline-instead-of-explanation` — **19. Connected incident GITOPS-PAY-62**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 538, `outline-instead-of-explanation` — **20. Promotion acceptance verdict**: 16 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 559, `empty-section` — **21. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 236, `bare-bullet-items` — **Invariant release contract**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema/event compatibility version;`, `required API capabilities;`, `route-policy minimum;`, `secret key names a formats;`.
+- **CRITICAL** line 236, `outline-instead-of-explanation` — **Invariant release contract**: 6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 247, `bare-bullet-items` — **Environment-owned configuration**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replicas a resource sizing;`, `regional endpoints;`, `tenant IDs;`, `exposure percentage;`.
+- **CRITICAL** line 247, `outline-instead-of-explanation` — **Environment-owned configuration**: 6 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 258, `bare-bullet-items` — **Runtime-owned state**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `controller status;`, `HPA current replicas;`, `dynamic leases;`, `queue offsets;`.
+- **CRITICAL** line 258, `outline-instead-of-explanation` — **Runtime-owned state**: 5 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 289, `bare-bullet-items` — **11. Database a stateful compatibility**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či migration je online, blocking alebo destructive;`, `či rollback old artifactu zostáva compatible;`, `či background jobs alebo event consumers zaostávajú;`, `či regiony/rings používajú mixed versions;`.
+- **CRITICAL** line 289, `outline-instead-of-explanation` — **11. Database a stateful compatibility**: 6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 345, `bare-bullet-items` — **13. Promotion graph a concurrency**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `predecessor evidence requirements;`, `parallel branches;`, `merge/join podmienky;`, `environment-specific blockers;`.
+- **CRITICAL** line 445, `bare-bullet-items` — **17. Rollback, roll-forward a supersession**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application artifact;`, `configuration;`, `route/exposure;`, `feature flags;`.
+- **CRITICAL** line 479, `bare-bullet-items` — **19. Connected incident GITOPS-PAY-62**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LaunchPad zmenil route substitution z 1850 na 1849 ;`, `staging evidence E-778 zostala viazaná na pay910a/1850 ;`, `merge automation rebase-la PR bez re-renderu a revalidácie;`, `production commit preto neidentifikoval skutočný effective configurati`.
+- **CRITICAL** line 479, `outline-instead-of-explanation` — **19. Connected incident GITOPS-PAY-62**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 575, `empty-section` — **21. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
 - **HIGH** line 24, `single-sentence-concept` — **2. Deploy, promote, release a expose**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 28, `single-sentence-concept` — **Build**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 63, `list-heavy-section` — **3. Exact promotion subject**: 11 odrážok a iba 40 slov súvislého vysvetlenia.
 - **HIGH** line 63, `single-sentence-concept` — **3. Exact promotion subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 137, `single-sentence-concept` — **6. Environment authority model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 141, `list-first-introduction` — **Environment directories na jednej branch**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 150, `list-first-introduction` — **Environment branches**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 169, `list-heavy-section` — **7. Pull request ako promotion transaction**: 7 odrážok a iba 49 slov súvislého vysvetlenia.
-- **HIGH** line 195, `single-sentence-concept` — **8. Stale promotion race**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 224, `single-sentence-concept` — **Invariant release contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 235, `single-sentence-concept` — **Environment-owned configuration**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 303, `single-sentence-concept` — **12. Promotion cez automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 307, `single-sentence-concept` — **Candidate discovery automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 311, `single-sentence-concept` — **Proposal automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 315, `single-sentence-concept` — **Approval automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 319, `single-sentence-concept` — **Merge automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 323, `single-sentence-concept` — **Reconciliation automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 333, `list-heavy-section` — **13. Promotion graph a concurrency**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 433, `list-heavy-section` — **17. Rollback, roll-forward a supersession**: 8 odrážok a iba 61 slov súvislého vysvetlenia.
-- **HIGH** line 467, `single-sentence-concept` — **19. Connected incident GITOPS-PAY-62**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 519, `list-first-introduction` — **Redesign**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 538, `bare-bullet-items` — **20. Promotion acceptance verdict**: 11 z 16 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `candidate je immutable a jednoznačne identifikovaný;`, `ten istý artifact prechádza environmentmi bez uncontrolled rebuild-u;`, `artifact invariants a environment-owned configuration sú oddelené;`, `evidence je subject-bound, target-relevant, fresh a policy-versioned;`.
-- **HIGH** line 538, `single-sentence-concept` — **20. Promotion acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 583, `single-sentence-concept` — **Tag 9.1 je promotion subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 591, `single-sentence-concept` — **Staging bolo zelené, approval zostáva platný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 599, `single-sentence-concept` — **Dve production PR sa nejako merge-nú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 141, `single-sentence-concept` — **6. Environment authority model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 145, `list-first-introduction` — **Environment directories na jednej branch**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 154, `list-first-introduction` — **Environment branches**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 236, `single-sentence-concept` — **Invariant release contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 247, `single-sentence-concept` — **Environment-owned configuration**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 315, `single-sentence-concept` — **12. Promotion cez automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 319, `single-sentence-concept` — **Candidate discovery automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 323, `single-sentence-concept` — **Proposal automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 327, `single-sentence-concept` — **Approval automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 331, `single-sentence-concept` — **Merge automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 335, `single-sentence-concept` — **Reconciliation automation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 345, `list-heavy-section` — **13. Promotion graph a concurrency**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 445, `list-heavy-section` — **17. Rollback, roll-forward a supersession**: 8 odrážok a iba 61 slov súvislého vysvetlenia.
+- **HIGH** line 479, `single-sentence-concept` — **19. Connected incident GITOPS-PAY-62**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 531, `list-first-introduction` — **Redesign**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 550, `bare-bullet-items` — **20. Promotion acceptance verdict**: 11 z 16 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `candidate je immutable a jednoznačne identifikovaný;`, `ten istý artifact prechádza environmentmi bez uncontrolled rebuild-u;`, `artifact invariants a environment-owned configuration sú oddelené;`, `evidence je subject-bound, target-relevant, fresh a policy-versioned;`.
+- **HIGH** line 599, `single-sentence-concept` — **Tag 9.1 je promotion subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 607, `single-sentence-concept` — **Staging bolo zelené, approval zostáva platný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 615, `single-sentence-concept` — **Dve production PR sa nejako merge-nú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 63, `term-before-explanation` — **3. Exact promotion subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `API`, `identity`, `resource`, `scope`, `freshness`, `workload`
-- **HIGH** line 195, `thin-concept-section` — **8. Stale promotion race**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 224, `thin-concept-section` — **Invariant release contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 235, `thin-concept-section` — **Environment-owned configuration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 246, `thin-concept-section` — **Runtime-owned state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 467, `thin-concept-section` — **19. Connected incident GITOPS-PAY-62**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 538, `thin-concept-section` — **20. Promotion acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 236, `thin-concept-section` — **Invariant release contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 247, `thin-concept-section` — **Environment-owned configuration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 258, `thin-concept-section` — **Runtime-owned state**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 479, `thin-concept-section` — **19. Connected incident GITOPS-PAY-62**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/16-gitops-and-platform-engineering/argo-cd.md`
 
@@ -17371,31 +17361,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 518, `term-before-explanation` — **19. Argo CD acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`, `policy`, `identity`, `resource`
 - **HIGH** line 518, `thin-concept-section` — **19. Argo CD acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
-### `docs/16-gitops-and-platform-engineering/flux.md`
-
-- **CRITICAL** line 73, `outline-instead-of-explanation` — **3. Exact Flux subject**: 10 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 90, `bare-bullet-items` — **4. Source resolution a artifact lifecycle**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `path použitá downstream Kustomization existuje;`, `decryption key je dostupný;`, `manifests sú syntakticky alebo schema-valid;`, `target API povoľuje apply;`.
-- **CRITICAL** line 226, `bare-bullet-items` — **8. Inventory a garbage collection**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source path sa omylom vyrenderuje na prázdny set;`, `resource bol presunutý medzi Kustomizations bez ownership handoffu;`, `dve Kustomizations riadia rovnaký object;`, `namespace alebo CRD sa odstráni skôr než dependents;`.
-- **CRITICAL** line 271, `bare-bullet-items` — **10. Health assessment**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact container digest vo všetkých running Pods;`, `loaded configuration alebo secret generation v process memory;`, `network route cez všetky intermediaries;`, `database schema compatibility;`.
-- **CRITICAL** line 404, `bare-bullet-items` — **15. Multi-tenancy a impersonation**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `namespace segmentation a Kubernetes RBAC;`, `spec.serviceAccountName na Kustomizations a HelmReleases;`, `zákaz cross-namespace source references;`, `zákaz remote Kustomize bases;`.
-- **CRITICAL** line 454, `outline-instead-of-explanation` — **18. Connected incident GITOPS-PAY-62**: 13 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 529, `empty-section` — **Redesign**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 546, `outline-instead-of-explanation` — **19. Flux acceptance verdict**: 15 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 566, `empty-section` — **20. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 73, `single-sentence-concept` — **3. Exact Flux subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 90, `list-heavy-section` — **4. Source resolution a artifact lifecycle**: 7 odrážok a iba 45 slov súvislého vysvetlenia.
-- **HIGH** line 226, `list-heavy-section` — **8. Inventory a garbage collection**: 6 odrážok a iba 57 slov súvislého vysvetlenia.
-- **HIGH** line 271, `list-heavy-section` — **10. Health assessment**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 404, `list-heavy-section` — **15. Multi-tenancy a impersonation**: 8 odrážok a iba 65 slov súvislého vysvetlenia.
-- **HIGH** line 546, `single-sentence-concept` — **19. Flux acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 587, `single-sentence-concept` — **GitRepository Ready znamená deployment ready**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 73, `term-before-explanation` — **3. Exact Flux subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `UID`, `URL`, `identity`, `control plane`, `policy`, `workload`
-- **HIGH** line 73, `thin-concept-section` — **3. Exact Flux subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 454, `term-before-explanation` — **18. Connected incident GITOPS-PAY-62**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SOPS`, `PR`, `identity`, `blast radius`
-- **HIGH** line 546, `term-before-explanation` — **19. Flux acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`, `KMS`, `scope`, `policy`, `workload`
-- **HIGH** line 546, `thin-concept-section` — **19. Flux acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-
 ### `docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md`
 
 - **CRITICAL** line 23, `bare-bullet-items` — **2. Exact desired-state subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository identity a trust boundary;`, `path, branch/tag/ref a resolved commit SHA;`, `environment, cluster, namespace a application identity;`, `manifest, Helm chart, Kustomize overlay alebo generator generation;`.
@@ -17442,116 +17407,60 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/16-gitops-and-platform-engineering/gitops-secrets.md`
 
-- **CRITICAL** line 24, `outline-instead-of-explanation` — **2. Exact secret subject**: 11 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 61, `bare-bullet-items` — **4. Prečo base64 nie je ochrana**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local clones a developer backups;`, `pull request diffs a email notifications;`, `CI workspaces, caches a artifacts;`, `search indexov;`.
-- **CRITICAL** line 86, `empty-section` — **5. Dva hlavné GitOps modely**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 88, `outline-instead-of-explanation` — **Encrypted secret value v Git-e**: 8 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 114, `bare-bullet-items` — **External secret reference v Git-e**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider môže centralizovať generation, rotation, audit a revocation;`, `short-lived credentials a leases sú prirodzenejšie.`, `provider availability a IAM sú runtime dependencies;`, `broad SecretStore môže umožniť tenantovi načítať cudzie secrets;`.
-- **CRITICAL** line 193, `bare-bullet-items` — **8. Flux SOPS decryption**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `wrong KMS key alebo encryption context;`, `workload identity trust policy nepovoľuje service account;`, `KMS outage/throttling;`, `encrypted regex nechala citlivý field plaintext;`.
-- **CRITICAL** line 298, `empty-section` — **11. ExternalSecret refresh policies**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 314, `bare-bullet-items` — **12. Target creation a deletion semantics**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstráni sa target pri delete ExternalSecretu?`, `smie iný controller meniť rovnaké keys?`, `čo sa stane, ak provider property zmizne?`, `má stale target zostať dostupný alebo sa odstrániť?`.
-- **CRITICAL** line 343, `bare-bullet-items` — **14. Workload identity a secret-zero problem**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `issuer a audience validation;`, `trust policy bez wildcardov;`, `provider resource restrictions;`, `token/credential TTL;`.
-- **CRITICAL** line 368, `bare-bullet-items` — **15. Kubernetes Secret boundary**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API authorization a RBAC;`, `admission a namespace isolation;`, `etcd encryption at rest;`, `control-plane backups;`.
-- **CRITICAL** line 445, `bare-bullet-items` — **19. Logging, diff a observability**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `secret logical ID a version/generation;`, `ciphertext digest;`, `provider object ARN/path hash;`, `controller operation ID;`.
-- **CRITICAL** line 472, `bare-bullet-items` — **20. Multi-tenancy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cross-namespace reference na shared decryption Secret;`, `ClusterSecretStore s broad provider role;`, `tenant môže zvoliť arbitrary remote key path;`, `controller používa cluster-wide KMS decrypt;`.
-- **CRITICAL** line 472, `outline-instead-of-explanation` — **20. Multi-tenancy**: 7 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 501, `bare-bullet-items` — **Encrypted-in-Git**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Git history;`, `decryption key/KMS availability;`, `controller manifests a identity trust;`, `target cluster bootstrap;`.
-- **CRITICAL** line 501, `outline-instead-of-explanation` — **Encrypted-in-Git**: 5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 511, `bare-bullet-items` — **External provider**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider backup/version retention;`, `IAM a workload identity restore;`, `SecretStore/ExternalSecret desired state;`, `target Secret reconstruction;`.
-- **CRITICAL** line 511, `outline-instead-of-explanation` — **External provider**: 5 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.
-- **CRITICAL** line 587, `outline-instead-of-explanation` — **23. GitOps secret acceptance verdict**: 16 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 608, `empty-section` — **24. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 24, `single-sentence-concept` — **2. Exact secret subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 61, `list-heavy-section` — **4. Prečo base64 nie je ochrana**: 6 odrážok a iba 51 slov súvislého vysvetlenia.
-- **HIGH** line 114, `list-heavy-section` — **External secret reference v Git-e**: 8 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 172, `single-sentence-concept` — **7. SOPS key ownership a rotation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 193, `list-heavy-section` — **8. Flux SOPS decryption**: 8 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 232, `bare-bullet-items` — **9. Sealed Secrets model**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `private key je cluster recovery-critical asset;`, `loss private key-u môže znemožniť decryption existing manifests;`, `certificate renewal neznamená automatickú re-encryption všetkých manif`, `target Secret rotation stále potrebuje workload reload.`.
-- **HIGH** line 232, `list-heavy-section` — **9. Sealed Secrets model**: 6 odrážok a iba 63 slov súvislého vysvetlenia.
-- **HIGH** line 314, `list-heavy-section` — **12. Target creation a deletion semantics**: 6 odrážok a iba 51 slov súvislého vysvetlenia.
-- **HIGH** line 343, `list-heavy-section` — **14. Workload identity a secret-zero problem**: 6 odrážok a iba 59 slov súvislého vysvetlenia.
-- **HIGH** line 368, `list-heavy-section` — **15. Kubernetes Secret boundary**: 8 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 383, `single-sentence-concept` — **16. Workload consumption a reload**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 445, `list-heavy-section` — **19. Logging, diff a observability**: 15 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 472, `single-sentence-concept` — **20. Multi-tenancy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 497, `single-sentence-concept` — **21. Backup, restore a disaster recovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 501, `single-sentence-concept` — **Encrypted-in-Git**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 511, `single-sentence-concept` — **External provider**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 527, `bare-bullet-items` — **22. Connected incident GITOPS-PAY-62**: 5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ciphertext bol zašifrovaný pre shared age recipient;`, `production Secret obsahoval pv-42 ;`, `running Pods používali environment variable snapshot pv-42 ;`, `provider revokoval pv-42 pred consumer convergence;`.
-- **HIGH** line 527, `list-heavy-section` — **22. Connected incident GITOPS-PAY-62**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 569, `list-first-introduction` — **Redesign**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 587, `bare-bullet-items` — **23. GitOps secret acceptance verdict**: 8 z 16 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `secret authority, scope, schema a lifecycle sú explicitné;`, `Git neobsahuje plaintext ani base64-only sensitive value;`, `SOPS/Sealed Secrets/provider keys a recipients sú environment/tenant s`, `decryption/retrieval používa short-lived workload identity a least pri`.
-- **HIGH** line 587, `single-sentence-concept` — **23. GitOps secret acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 628, `single-sentence-concept` — **Secret je v private Git-e, takže je bezpečný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 632, `single-sentence-concept` — **Base64 je dostatočné**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 640, `single-sentence-concept` — **Shared decryption key zjednoduší operations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 648, `single-sentence-concept` — **Secret sa zmenil, application ho používa**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 24, `term-before-explanation` — **2. Exact secret subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `ID`, `KMS`, `CSI`, `SDK`, `workload`, `scope`, `identity`
-- **HIGH** line 24, `thin-concept-section` — **2. Exact secret subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 88, `term-before-explanation` — **Encrypted secret value v Git-e**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `KMS`, `identity`, `scope`
-- **HIGH** line 88, `thin-concept-section` — **Encrypted secret value v Git-e**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 445, `term-before-explanation` — **19. Logging, diff a observability**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ARN`, `KMS`, `API`, `workload`
-- **HIGH** line 472, `thin-concept-section` — **20. Multi-tenancy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 501, `thin-concept-section` — **Encrypted-in-Git**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 511, `thin-concept-section` — **External provider**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 587, `term-before-explanation` — **23. GitOps secret acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SOPS`, `RBAC`, `KMS`, `scope`, `workload`, `identity`
-- **HIGH** line 587, `thin-concept-section` — **23. GitOps secret acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 69, `bare-bullet-items` — **4. Prečo base64 nie je ochrana**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local clones a developer backups;`, `pull request diffs a email notifications;`, `CI workspaces, caches a artifacts;`, `search indexov;`.
+- **CRITICAL** line 134, `bare-bullet-items` — **External secret reference v Git-e**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider môže centralizovať generation, rotation, audit a revocation;`, `short-lived credentials a leases sú prirodzenejšie.`, `provider availability a IAM sú runtime dependencies;`, `broad SecretStore môže umožniť tenantovi načítať cudzie secrets;`.
+- **CRITICAL** line 217, `bare-bullet-items` — **8. Flux SOPS decryption**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `wrong KMS key alebo encryption context;`, `workload identity trust policy nepovoľuje service account;`, `KMS outage/throttling;`, `encrypted regex nechala citlivý field plaintext;`.
+- **CRITICAL** line 346, `bare-bullet-items` — **12. Target creation a deletion semantics**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstráni sa target pri delete ExternalSecretu?`, `smie iný controller meniť rovnaké keys?`, `čo sa stane, ak provider property zmizne?`, `má stale target zostať dostupný alebo sa odstrániť?`.
+- **CRITICAL** line 379, `bare-bullet-items` — **14. Workload identity a secret-zero problem**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `issuer a audience validation;`, `trust policy bez wildcardov;`, `provider resource restrictions;`, `token/credential TTL;`.
+- **CRITICAL** line 408, `bare-bullet-items` — **15. Kubernetes Secret boundary**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `API authorization a RBAC;`, `admission a namespace isolation;`, `etcd encryption at rest;`, `control-plane backups;`.
+- **CRITICAL** line 489, `bare-bullet-items` — **19. Logging, diff a observability**: 15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `secret logical ID a version/generation;`, `ciphertext digest;`, `provider object ARN/path hash;`, `controller operation ID;`.
+- **CRITICAL** line 520, `bare-bullet-items` — **20. Multi-tenancy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cross-namespace reference na shared decryption Secret;`, `ClusterSecretStore s broad provider role;`, `tenant môže zvoliť arbitrary remote key path;`, `controller používa cluster-wide KMS decrypt;`.
+- **CRITICAL** line 557, `bare-bullet-items` — **Encrypted-in-Git**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Git history;`, `decryption key/KMS availability;`, `controller manifests a identity trust;`, `target cluster bootstrap;`.
+- **CRITICAL** line 571, `bare-bullet-items` — **External provider**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider backup/version retention;`, `IAM a workload identity restore;`, `SecretStore/ExternalSecret desired state;`, `target Secret reconstruction;`.
+- **HIGH** line 196, `single-sentence-concept` — **7. SOPS key ownership a rotation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 260, `bare-bullet-items` — **9. Sealed Secrets model**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `private key je cluster recovery-critical asset;`, `loss private key-u môže znemožniť decryption existing manifests;`, `certificate renewal neznamená automatickú re-encryption všetkých manif`, `target Secret rotation stále potrebuje workload reload.`.
+- **HIGH** line 260, `list-heavy-section` — **9. Sealed Secrets model**: 6 odrážok a iba 63 slov súvislého vysvetlenia.
+- **HIGH** line 427, `single-sentence-concept` — **16. Workload consumption a reload**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 591, `bare-bullet-items` — **22. Connected incident GITOPS-PAY-62**: 5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `ciphertext bol zašifrovaný pre shared age recipient;`, `production Secret obsahoval pv-42 ;`, `running Pods používali environment variable snapshot pv-42 ;`, `provider revokoval pv-42 pred consumer convergence;`.
+- **HIGH** line 591, `list-heavy-section` — **22. Connected incident GITOPS-PAY-62**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 655, `bare-bullet-items` — **23. GitOps secret acceptance verdict**: 8 z 16 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `secret authority, scope, schema a lifecycle sú explicitné;`, `Git neobsahuje plaintext ani base64-only sensitive value;`, `SOPS/Sealed Secrets/provider keys a recipients sú environment/tenant s`, `decryption/retrieval používa short-lived workload identity a least pri`.
+- **HIGH** line 655, `list-heavy-section` — **23. GitOps secret acceptance verdict**: 16 odrážok a iba 64 slov súvislého vysvetlenia.
+- **HIGH** line 704, `single-sentence-concept` — **Secret je v private Git-e, takže je bezpečný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 708, `single-sentence-concept` — **Base64 je dostatočné**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 716, `single-sentence-concept` — **Shared decryption key zjednoduší operations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 724, `single-sentence-concept` — **Secret sa zmenil, application ho používa**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/16-gitops-and-platform-engineering/internal-developer-platform.md`
 
-- **CRITICAL** line 24, `empty-section` — **2. Platform engineering, IDP a developer portal**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 30, `bare-bullet-items` — **Internal Developer Platform**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service/application provisioning;`, `repository a pipeline bootstrap;`, `environment a infrastructure provisioning;`, `deployment a promotion workflows;`.
-- **CRITICAL** line 30, `outline-instead-of-explanation` — **Internal Developer Platform**: 8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 59, `bare-bullet-items` — **3. Problém, ktorý IDP rieši**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoká cognitive load;`, `inconsistent implementations;`, `security controls aplikované neskoro alebo nerovnomerne;`, `ticket queues pre rutinné provisioning úlohy;`.
-- **CRITICAL** line 91, `bare-bullet-items` — **4. Exact platform request subject**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requester identity a team ownership;`, `business/system/domain context;`, `requested capability a version;`, `service name a globally unique identity;`.
-- **CRITICAL** line 112, `bare-bullet-items` — **5. Capability contract**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo platforma garantuje;`, `ktoré decisions sú fixed defaults;`, `ktoré choices môže consumer meniť;`, `ktoré constraints sú policy;`.
-- **CRITICAL** line 236, `bare-bullet-items` — **9. Idempotency a identity reservation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dve repositories s podobnými názvami;`, `duplicate catalog entities;`, `overlapping namespaces;`, `druhé cloud resources s novými IDs;`.
-- **CRITICAL** line 299, `bare-bullet-items` — **Managed contract**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input schema a validation;`, `version identity;`, `output inventory;`, `secret-safe rendering;`.
-- **CRITICAL** line 299, `outline-instead-of-explanation` — **Managed contract**: 9 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 317, `bare-bullet-items` — **12. Software catalog a ownership metadata**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý tím vlastní service;`, `ktoré APIs implementuje a konzumuje;`, `ktoré runtime resources mu patria;`, `kde je source, documentation a dashboards;`.
-- **CRITICAL** line 360, `bare-bullet-items` — **14. Self-service nie je unrestricted privilege**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster-admin pre každého developera;`, `arbitrary Terraform execution;`, `možnosť zvoliť ľubovoľnú IAM role;`, `direct production mutation;`.
-- **CRITICAL** line 360, `outline-instead-of-explanation` — **14. Self-service nie je unrestricted privilege**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 471, `bare-bullet-items` — **18. Platform observability**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request rate, latency a rejection reasons;`, `queue depth a oldest operation age;`, `per-step success/failure/retry;`, `downstream API latency a throttling;`.
-- **CRITICAL** line 471, `outline-instead-of-explanation` — **18. Platform observability**: 13 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
-- **CRITICAL** line 504, `bare-bullet-items` — **20. Lifecycle: update, migrate a deprecate**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `announced replacement;`, `affected consumer inventory;`, `migration tooling;`, `deadlines a exceptions;`.
-- **CRITICAL** line 534, `bare-bullet-items` — **21. Multi-tenancy**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity a group membership;`, `API authorization;`, `namespace/account/project boundaries;`, `Git repository permissions;`.
-- **CRITICAL** line 553, `bare-bullet-items` — **22. Security threat model**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compromised developer account požiada o privilege escalation;`, `malicious template input vykoná command alebo path injection;`, `plugin získa broad third-party token;`, `workflow logs secret;`.
-- **CRITICAL** line 553, `outline-instead-of-explanation` — **22. Security threat model**: 10 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 594, `bare-bullet-items` — **24. Connected incident GITOPS-PAY-62**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoril repository;`, `zapísal catalog entity;`, `vytvoril shared cluster ConfigMap launchpad-runtime ;`, `otvoril promotion PR;`.
-- **CRITICAL** line 664, `outline-instead-of-explanation` — **25. IDP acceptance verdict**: 18 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **CRITICAL** line 687, `empty-section` — **26. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 30, `single-sentence-concept` — **Internal Developer Platform**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 59, `list-heavy-section` — **3. Problém, ktorý IDP rieši**: 8 odrážok a iba 58 slov súvislého vysvetlenia.
-- **HIGH** line 91, `list-heavy-section` — **4. Exact platform request subject**: 14 odrážok a iba 37 slov súvislého vysvetlenia.
-- **HIGH** line 112, `list-heavy-section` — **5. Capability contract**: 9 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 181, `single-sentence-concept` — **7. Control plane, orchestration a execution planes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 189, `single-sentence-concept` — **Platform control plane**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 193, `single-sentence-concept` — **Execution planes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 289, `list-first-introduction` — **Fire-and-forget template**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 289, `single-sentence-concept` — **Fire-and-forget template**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 419, `single-sentence-concept` — **16. Partial failure a compensation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 431, `single-sentence-concept` — **Retry forward**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 435, `single-sentence-concept` — **Compensate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 445, `single-sentence-concept` — **17. Verification vrstvy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 449, `single-sentence-concept` — **Provisioning verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 453, `single-sentence-concept` — **Integration verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 457, `single-sentence-concept` — **Developer-functional verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 461, `single-sentence-concept` — **Operational verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 504, `list-heavy-section` — **20. Lifecycle: update, migrate a deprecate**: 7 odrážok a iba 47 slov súvislého vysvetlenia.
-- **HIGH** line 534, `list-heavy-section` — **21. Multi-tenancy**: 10 odrážok a iba 48 slov súvislého vysvetlenia.
-- **HIGH** line 572, `single-sentence-concept` — **23. Backstage ako portal framework**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 576, `single-sentence-concept` — **Software Catalog**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 580, `single-sentence-concept` — **Software Templates**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 584, `single-sentence-concept` — **TechDocs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 646, `list-first-introduction` — **Redesign**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 664, `single-sentence-concept` — **25. IDP acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 727, `single-sentence-concept` — **Retry spustí workflow od začiatku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 731, `single-sentence-concept` — **Platform vytvára resources, lifecycle je hotový**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 30, `thin-concept-section` — **Internal Developer Platform**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 91, `term-before-explanation` — **4. Exact platform request subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `identity`, `availability`, `policy`
-- **HIGH** line 664, `term-before-explanation` — **25. IDP acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `UI`, `SLO`, `control plane`, `resource`, `policy`
-- **HIGH** line 664, `thin-concept-section` — **25. IDP acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 38, `bare-bullet-items` — **Internal Developer Platform**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service/application provisioning;`, `repository a pipeline bootstrap;`, `environment a infrastructure provisioning;`, `deployment a promotion workflows;`.
+- **CRITICAL** line 71, `bare-bullet-items` — **3. Problém, ktorý IDP rieši**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vysoká cognitive load;`, `inconsistent implementations;`, `security controls aplikované neskoro alebo nerovnomerne;`, `ticket queues pre rutinné provisioning úlohy;`.
+- **CRITICAL** line 107, `bare-bullet-items` — **4. Exact platform request subject**: 14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `requester identity a team ownership;`, `business/system/domain context;`, `requested capability a version;`, `service name a globally unique identity;`.
+- **CRITICAL** line 132, `bare-bullet-items` — **5. Capability contract**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo platforma garantuje;`, `ktoré decisions sú fixed defaults;`, `ktoré choices môže consumer meniť;`, `ktoré constraints sú policy;`.
+- **CRITICAL** line 264, `bare-bullet-items` — **9. Idempotency a identity reservation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dve repositories s podobnými názvami;`, `duplicate catalog entities;`, `overlapping namespaces;`, `druhé cloud resources s novými IDs;`.
+- **CRITICAL** line 331, `bare-bullet-items` — **Managed contract**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `input schema a validation;`, `version identity;`, `output inventory;`, `secret-safe rendering;`.
+- **CRITICAL** line 353, `bare-bullet-items` — **12. Software catalog a ownership metadata**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý tím vlastní service;`, `ktoré APIs implementuje a konzumuje;`, `ktoré runtime resources mu patria;`, `kde je source, documentation a dashboards;`.
+- **CRITICAL** line 400, `bare-bullet-items` — **14. Self-service nie je unrestricted privilege**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cluster-admin pre každého developera;`, `arbitrary Terraform execution;`, `možnosť zvoliť ľubovoľnú IAM role;`, `direct production mutation;`.
+- **CRITICAL** line 523, `bare-bullet-items` — **18. Platform observability**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request rate, latency a rejection reasons;`, `queue depth a oldest operation age;`, `per-step success/failure/retry;`, `downstream API latency a throttling;`.
+- **CRITICAL** line 560, `bare-bullet-items` — **20. Lifecycle: update, migrate a deprecate**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `announced replacement;`, `affected consumer inventory;`, `migration tooling;`, `deadlines a exceptions;`.
+- **CRITICAL** line 594, `bare-bullet-items` — **21. Multi-tenancy**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identity a group membership;`, `API authorization;`, `namespace/account/project boundaries;`, `Git repository permissions;`.
+- **CRITICAL** line 617, `bare-bullet-items` — **22. Security threat model**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compromised developer account požiada o privilege escalation;`, `malicious template input vykoná command alebo path injection;`, `plugin získa broad third-party token;`, `workflow logs secret;`.
+- **CRITICAL** line 666, `bare-bullet-items` — **24. Connected incident GITOPS-PAY-62**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvoril repository;`, `zapísal catalog entity;`, `vytvoril shared cluster ConfigMap launchpad-runtime ;`, `otvoril promotion PR;`.
+- **HIGH** line 38, `list-heavy-section` — **Internal Developer Platform**: 8 odrážok a iba 65 slov súvislého vysvetlenia.
+- **HIGH** line 217, `single-sentence-concept` — **Platform control plane**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 221, `single-sentence-concept` — **Execution planes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 321, `list-first-introduction` — **Fire-and-forget template**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 321, `single-sentence-concept` — **Fire-and-forget template**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 479, `single-sentence-concept` — **Retry forward**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 483, `single-sentence-concept` — **Compensate**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 501, `single-sentence-concept` — **Provisioning verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 505, `single-sentence-concept` — **Integration verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 509, `single-sentence-concept` — **Developer-functional verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 513, `single-sentence-concept` — **Operational verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 648, `single-sentence-concept` — **Software Catalog**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 652, `single-sentence-concept` — **Software Templates**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 656, `single-sentence-concept` — **TechDocs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 815, `single-sentence-concept` — **Retry spustí workflow od začiatku**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 819, `single-sentence-concept` — **Platform vytvára resources, lifecycle je hotový**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/16-gitops-and-platform-engineering/pull-based-deployment.md`
 
@@ -17700,23 +17609,33 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 464, `term-before-explanation` — **16. Reconciliation acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPA`, `resource`, `identity`, `scope`
 - **HIGH** line 464, `thin-concept-section` — **16. Reconciliation acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/16-gitops-and-platform-engineering/flux.md`
+
+- **HIGH** line 98, `list-heavy-section` — **4. Source resolution a artifact lifecycle**: 7 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 234, `list-heavy-section` — **8. Inventory a garbage collection**: 6 odrážok a iba 57 slov súvislého vysvetlenia.
+- **HIGH** line 279, `list-heavy-section` — **10. Health assessment**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 412, `list-heavy-section` — **15. Multi-tenancy a impersonation**: 8 odrážok a iba 65 slov súvislého vysvetlenia.
+- **HIGH** line 562, `list-heavy-section` — **19. Flux acceptance verdict**: 15 odrážok a iba 69 slov súvislého vysvetlenia.
+- **HIGH** line 611, `single-sentence-concept` — **GitRepository Ready znamená deployment ready**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 98, `term-before-explanation` — **4. Source resolution a artifact lifecycle**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KMS`, `API`, `RBAC`, `availability`, `identity`, `workload`, `policy`
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 3030 | 510 | 0 | 0 | 3540 |
-| `single-sentence-concept` | 0 | 3105 | 0 | 0 | 3105 |
-| `outline-instead-of-explanation` | 2958 | 0 | 0 | 0 | 2958 |
-| `term-before-explanation` | 0 | 624 | 2158 | 0 | 2782 |
-| `thin-concept-section` | 0 | 2494 | 0 | 0 | 2494 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2339 | 2339 |
-| `example-not-explicit` | 0 | 0 | 0 | 2315 | 2315 |
-| `list-first-introduction` | 0 | 1534 | 0 | 0 | 1534 |
+| `bare-bullet-items` | 3023 | 510 | 0 | 0 | 3533 |
+| `single-sentence-concept` | 0 | 3089 | 0 | 0 | 3089 |
+| `outline-instead-of-explanation` | 2941 | 0 | 0 | 0 | 2941 |
+| `term-before-explanation` | 0 | 616 | 2140 | 0 | 2756 |
+| `thin-concept-section` | 0 | 2482 | 0 | 0 | 2482 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2340 | 2340 |
+| `example-not-explicit` | 0 | 0 | 0 | 2326 | 2326 |
+| `list-first-introduction` | 0 | 1530 | 0 | 0 | 1530 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1181 | 1181 |
-| `short-concept-section` | 0 | 0 | 1077 | 0 | 1077 |
+| `short-concept-section` | 0 | 0 | 1066 | 0 | 1066 |
 | `no-prose-concept` | 877 | 0 | 0 | 0 | 877 |
-| `empty-section` | 793 | 0 | 0 | 0 | 793 |
-| `list-heavy-section` | 0 | 556 | 0 | 0 | 556 |
+| `empty-section` | 786 | 0 | 0 | 0 | 786 |
+| `list-heavy-section` | 0 | 546 | 0 | 0 | 546 |
 
 ## Required remediation pattern
 

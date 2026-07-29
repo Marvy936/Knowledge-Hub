@@ -105,6 +105,10 @@ Build once neznamená, že configuration musí byť identická. Environmenty pri
 
 ## 5. Candidate identity a evidence bundle
 
+Evidence bundle je rozhodovací input, nie archív ľubovoľných zelených výsledkov. Každý dôkaz musí niesť subject identity, execution context, čas a policy version, aby promotion engine vedel rozhodnúť, či je stále použiteľný pre konkrétny target.
+
+Jednotlivé evidence classes pokrývajú rozdielne failure boundaries. Ich prítomnosť sama nestačí; promotion policy musí vysvetliť, ktorý risk uzatvárajú a ktoré target-specific riziká zostávajú otvorené.
+
 Candidate evidence nie je iba zelená pipeline. Potrebuje identity binding:
 
 ```text
@@ -122,15 +126,15 @@ Evidence bez subject bindingu môže byť stale alebo patriť inému artifactu. 
 
 Evidence bundle môže obsahovať:
 
-- build provenance a artifact signature;
-- SBOM a vulnerability decision;
-- unit, integration, contract, component a E2E results;
-- migration compatibility a rollback eligibility;
-- staging reconciliation revision a exact running digests;
-- load/capacity evidence pri relevantnej configuration;
-- operational readiness a monitoring coverage;
-- business canary result;
-- unresolved exceptions, expiry a ownera.
+- **Build provenance a artifact signature** — viažu digest na source, builder a build inputs a umožňujú overiť, že candidate nebol po vytvorení nahradený inými bytes.
+- **SBOM a vulnerability decision** — identifikujú component inventory a dokumentujú, ktoré findings sú blokujúce, remediované alebo prijaté s ownerom a expiry.
+- **Unit, integration, contract, component a E2E results** — pokrývajú rozdielne failure boundaries od lokálnej logiky po inter-service a user journey behavior; výsledok musí odkazovať na exact candidate.
+- **Migration compatibility a rollback eligibility** — dokazujú, či mixed versions, schema transitions a data state dovolia bezpečný rollout alebo návrat application vrstvy.
+- **Staging reconciliation revision a exact running digests** — preukazujú, že testované staging Pods skutočne vykonávali candidate digest a konfiguráciu uvedenú v evidence bundle.
+- **Load a capacity evidence** — platí iba pre testovanú configuration, dependency limits a traffic model; bez nich sa nedá preniesť na odlišný production scale.
+- **Operational readiness a monitoring coverage** — dokazujú, že release má version-aware telemetry, alerting, runbook a recovery path potrebné počas rollout-u.
+- **Business canary result** — overuje konkrétny customer alebo settlement outcome nad identifikovaným cohortom, nie iba technickú dostupnosť endpointu.
+- **Unresolved exceptions** — musia uvádzať residual risk, ownera, scope a expiry, aby temporary waiver neprežila zmenu candidate-u alebo targetu bez nového rozhodnutia.
 
 Nie každý environment potrebuje zopakovať každý test. Promotion policy rozhoduje, ktorý dôkaz je reusable a ktorý musí byť znovu získaný v target-specific context-e.
 
@@ -168,6 +172,10 @@ Layout nie je sám o sebe promotion control. Authority vzniká kombináciou prot
 
 ## 7. Pull request ako promotion transaction
 
+Promotion PR funguje iba vtedy, keď review zobrazuje effective change, nie syntaktický rozdiel jedného values file-u. Reviewer musí vedieť prepojiť candidate identity s target base state-om, transitive dependencies a recovery consequence.
+
+Nasledujúce dimensions tvoria jeden review subject. Ak sa niektorá z nich po approval-e zmení, final merge už nie je tou istou autorizovanou transaction a musí sa znovu vyrenderovať a vyhodnotiť.
+
 Promotion PR môže fungovať ako decision boundary:
 
 ```text
@@ -182,17 +190,21 @@ current production desired generation
 
 PR musí ukázať viac než zmenu `tag: 9.0 → 9.1`. Review potrebuje:
 
-- digest a provenance identity;
-- environment-specific rendered delta;
-- resource, policy, route a secret-reference changes;
-- migration a compatibility implications;
-- exposure/rollback plan;
-- evidence freshness;
-- current target base revision.
+- **Digest a provenance identity** — dokazujú, ktoré immutable bytes PR povoľuje a z ktorého trusted build chainu vznikli.
+- **Environment-specific rendered delta** — ukazuje final objects a values po overlays, defaults a generators, takže reviewer neposudzuje iba incomplete source fragment.
+- **Resource, policy, route a secret-reference changes** — odhaľujú behavior a privilege zmeny, ktoré sa nemusia prejaviť v application image digest-e.
+- **Migration a compatibility implications** — vysvetľujú mixed-version, schema, event a rollback constraints, ktoré určujú bezpečné ordering a recovery.
+- **Exposure a rollback plan** — definuje cohort, transition gates a per-layer recovery, nie iba príkaz na zmenu image späť.
+- **Evidence freshness** — potvrdzuje, že testy, scans a staging verdict stále patria current candidate-u, dependency graphu a policy version.
+- **Current target base revision** — vytvára compare-and-swap precondition, aby PR neprebil concurrent production change alebo sa nerebase-ol na netestovanú combination.
 
 PR approval je optimistic decision nad base state-om. Ak target branch alebo candidate evidence pokročia, approval môže byť stale. Merge queue alebo revalidation musí znovu overiť policy nad final merge commitom.
 
 ## 8. Stale promotion race
+
+Stale race vzniká preto, že evidence, proposal a merge sú oddelené časom a mutable state-om. Approval je platný iba dovtedy, kým zostáva nezmenený celý subject, ktorý reviewer videl; automatický rebase preto nie je neutrálna technická operácia.
+
+Promotion service musí pred authoritative transitionom vykonať compare-and-swap-like kontrolu. Každá precondition chráni inú časť identity continuity a jej porušenie musí proposal vrátiť do validation, nie ho ticho preniesť na nový base.
 
 Typický race:
 
@@ -206,12 +218,12 @@ T5 merge vyrenderuje A + časť B
 
 Promotion musí používať compare-and-swap-like preconditions:
 
-- expected source environment commit;
-- expected candidate digest;
-- expected target environment base commit;
-- expected policy/evidence versions;
-- no unreviewed transitive dependency change;
-- re-render final merge result.
+- **Expected source environment commit** — viaže evidence na staging desired state, z ktorého bol candidate skutočne nasadený a testovaný.
+- **Expected candidate digest** — zabraňuje, aby mutable tag, shared base alebo image automation po approval-e nahradili testované bytes.
+- **Expected target base commit** — deteguje concurrent production mutation a zabraňuje lost update-u alebo neoverenej kombinácii dvoch proposals.
+- **Expected policy a evidence versions** — invalidujú approval, keď sa zmení decision logic, scanner database, exception alebo test result.
+- **No unreviewed transitive dependency change** — chráni chart, policy, schema, route a secret-reference graph, ktorý môže meniť behavior aj bez zmeny image digestu.
+- **Final-merge re-render** — vypočíta exact manifests a policy verdict po merge resolution, čím potvrdí, že authoritative commit stále zodpovedá reviewed proposal-u.
 
 Ak precondition neplatí, promotion sa má znovu vyhodnotiť, nie automaticky „rebase and merge“.
 
@@ -536,6 +548,10 @@ candidate release manifest R-910a
 Promotion service už nesmie označiť operation completed pri vytvorení alebo merge PR-u. Completion znamená target-specific acceptance alebo explicitný failed/unknown state.
 
 ## 20. Promotion acceptance verdict
+
+Promotion acceptance spája decision-plane a runtime-plane evidence. Nestačí, že proposal prešiel policy alebo že GitOps controller nasadil nejakú revision; musí ísť o tú istú immutable candidate generation, ktorú autorizoval fresh target-specific decision.
+
+Podmienky nižšie preto overujú identity continuity, concurrency safety, stateful compatibility a recovery. Ich spoločným výsledkom je, že neskorý retry, rebase, superseded proposal alebo rollback nemôžu vytvoriť inú effective release bez nového authoritative rozhodnutia.
 
 Application promotion design je prijatý, keď:
 
