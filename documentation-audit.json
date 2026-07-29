@@ -3251,15 +3251,15 @@
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
       "title": "Metrics, logs, traces a events",
-      "words": 1728,
-      "headings": 43,
-      "sections": 43,
-      "findings": 134,
-      "critical": 57,
-      "high": 51,
-      "medium": 15,
-      "low": 11,
-      "score": 1148,
+      "words": 2011,
+      "headings": 38,
+      "sections": 38,
+      "findings": 56,
+      "critical": 15,
+      "high": 25,
+      "medium": 4,
+      "low": 12,
+      "score": 409,
       "grade": "D"
     },
     {
@@ -186743,16 +186743,7 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný lifecycle",
       "line": 5,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -186761,35 +186752,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "2. Signal a telemetry record",
-      "line": 21,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "2. Signal a telemetry record",
-      "line": 21,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamp alebo časový interval,`, `resource identity,`, `service a environment,`, `operation alebo event name,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "2. Signal a telemetry record",
-      "line": 21,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "2. Signal a telemetry record",
-      "line": 21,
+      "section": "5. Distributed traces: causal path jednej operácie",
+      "line": 129,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -186797,539 +186761,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "2. Signal a telemetry record",
-      "line": 21,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Vlastnosti metrics",
-      "line": 52,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Vlastnosti metrics",
-      "line": 52,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Vlastnosti metrics",
-      "line": 52,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Vlastnosti metrics",
-      "line": 52,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `efektívne agregovanie veľkého množstva operácií,`, `time-series query a trend analysis,`, `vhodné na alerting a capacity planning,`, `bounded label set je kritický,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Vlastnosti metrics",
-      "line": 52,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Bežné metric semantics",
-      "line": 60,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Counter",
-      "line": 62,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Counter",
-      "line": 62,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet requestov,`, `počet errors,`, `spracované bytes,`, `počet retries.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Counter",
-      "line": 62,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Gauge",
-      "line": 75,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Gauge",
-      "line": 75,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue depth,`, `aktuálny počet connections,`, `memory usage,`, `desired replicas.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Gauge",
-      "line": 75,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Histogram alebo distribution",
-      "line": 88,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Histogram alebo distribution",
-      "line": 88,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request duration,`, `response size,`, `queue wait time,`, `batch size.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Histogram alebo distribution",
-      "line": 88,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Metric identity a cardinality",
-      "line": 101,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Metric identity a cardinality",
-      "line": 101,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user ID,`, `request ID,`, `trace ID,`, `full URL s náhodným path segmentom,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Metric identity a cardinality",
-      "line": 101,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Metric identity a cardinality",
-      "line": 101,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Metric identity a cardinality",
-      "line": 101,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URL`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Temporality a aggregation",
-      "line": 116,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Temporality a aggregation",
-      "line": 116,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Temporality a aggregation",
-      "line": 116,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto drží aggregation state,`, `čo sa stane pri reštarte,`, `ako sa riešia duplicate alebo out-of-order samples,`, `či backend očakáva cumulative alebo delta data,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Temporality a aggregation",
-      "line": 116,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "4. Logs",
-      "line": 128,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "4. Logs",
-      "line": 128,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "4. Logs",
-      "line": 128,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Prečo konkrétna operácia zlyhala?`, `Aký exception alebo error code vznikol?`, `Aké rozhodnutie application vykonala?`, `Ktorá configuration alebo dependency bola použitá?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "4. Logs",
-      "line": 128,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Structured logs",
-      "line": 140,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Structured logs",
-      "line": 140,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Structured logs",
-      "line": 140,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `query podľa fields bez parsovania voľného textu,`, `stabilnejší alerting a dashboards,`, `jednoduchšia correlation,`, `kontrolovanejšia redaction,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Structured logs",
-      "line": 140,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Severity",
-      "line": 171,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Severity",
-      "line": 171,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Severity",
-      "line": 171,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DEBUG`, `INFO`, `WARN`, `FATAL`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Log volume a sampling",
-      "line": 183,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Log volume a sampling",
-      "line": 183,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `log level per environment,`, `duplicate stack traces,`, `request/response body logging,`, `retry loops,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Log volume a sampling",
-      "line": 183,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "5. Distributed traces",
-      "line": 198,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "5. Distributed traces",
-      "line": 198,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace ID,`, `span ID,`, `parent span ID alebo links,`, `operation name,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "5. Distributed traces",
-      "line": 198,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "5. Distributed traces",
-      "line": 198,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `resource`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Typické otázky",
-      "line": 216,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Typické otázky",
-      "line": 216,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Typické otázky",
-      "line": 216,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Typické otázky",
-      "line": 216,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktorá dependency vytvorila latency?`, `Kde request zlyhal?`, `Aký fan-out alebo retry pattern vznikol?`, `Ktorá service volala ktorú?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Typické otázky",
-      "line": 216,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Parent-child a links",
-      "line": 225,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Parent-child a links",
-      "line": 225,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden producer event spustí viac consumers,`, `jeden batch obsahuje viac pôvodných messages,`, `operation nemá jednoduchého jediného parenta,`, `processing nastane výrazne neskôr.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Parent-child a links",
-      "line": 225,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Sampling",
-      "line": 238,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Sampling",
-      "line": 238,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `probabilistic sampling,`, `rule-based sampling,`, `always keep errors alebo high-latency traces.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Sampling",
-      "line": 238,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Sampling",
-      "line": 238,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "6. Events",
-      "line": 254,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "16 odrážok a iba 43 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "6. Events",
-      "line": 254,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment začal alebo skončil,`, `autoscaling zmenil desired capacity,`, `leader election prebehla,`, `certificate sa obnovil,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "6. Events",
-      "line": 254,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "6. Events",
-      "line": 254,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "6. Events",
-      "line": 254,
+      "section": "5. Distributed traces: causal path jednej operácie",
+      "line": 129,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -187337,143 +186770,26 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "6. Events",
-      "line": 254,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "7. Span events oproti samostatným events",
-      "line": 282,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "7. Span events oproti samostatným events",
-      "line": 282,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "7. Span events oproti samostatným events",
-      "line": 282,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exception,`, `cache miss,`, `retry attempt,`, `lock acquisition,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "7. Span events oproti samostatným events",
-      "line": 282,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "7. Span events oproti samostatným events",
-      "line": 282,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "8. Audit records",
-      "line": 301,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "8. Audit records",
-      "line": 301,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "8. Audit records",
-      "line": 301,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "14 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto,`, `kedy,`, `odkiaľ,`, `voči čomu,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "8. Audit records",
-      "line": 301,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "8. Audit records",
-      "line": 301,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "8. Audit records",
-      "line": 301,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "8. Audit records",
-      "line": 301,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "9. Profiles",
-      "line": 325,
+      "section": "6. Events: významná zmena v čase",
+      "line": 153,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "detail": "7 odrážok a iba 65 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "9. Profiles",
-      "line": 325,
+      "section": "6. Events: významná zmena v čase",
+      "line": 153,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU samples,`, `memory allocations,`, `lock contention,`, `goroutine/thread state,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deployment alebo rollback;`, `configuration generation transition;`, `scaling alebo failover;`, `feature-flag change;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "9. Profiles",
-      "line": 325,
+      "section": "6. Events: významná zmena v čase",
+      "line": 153,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -187481,17 +186797,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "10. Porovnanie signals",
-      "line": 342,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "10. Porovnanie signals",
-      "line": 342,
+      "section": "6. Events: významná zmena v čase",
+      "line": 153,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -187499,44 +186806,44 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "11. Correlation",
-      "line": 353,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "6. Events: významná zmena v čase",
+      "line": 153,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "11. Correlation",
-      "line": 353,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service.name ,`, `environment,`, `service version alebo deployment revision,`, `Region, zone, cluster, namespace,`.",
-      "score": 12
+      "section": "7. Audit records: actor, request a control-plane action",
+      "line": 169,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "11. Correlation",
-      "line": 353,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "8. Profiles: code-level resource attribution",
+      "line": 177,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "11. Correlation",
-      "line": 353,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `workload`, `resource`, `identity`",
-      "score": 7
+      "section": "8. Profiles: code-level resource attribution",
+      "line": 177,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "12. Derived signals",
-      "line": 384,
+      "section": "10. Derived signals a source-of-truth contract",
+      "line": 200,
       "severity": "high",
       "rule": "list-heavy-section",
       "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
@@ -187544,17 +186851,17 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "12. Derived signals",
-      "line": 384,
+      "section": "10. Derived signals a source-of-truth contract",
+      "line": 200,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metrics z logs,`, `metrics z spans,`, `service graph z traces,`, `events z audit records,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `autoritatívny source occurrence;`, `sampling a filtering;`, `duplicate a late-data behavior;`, `derivation version;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "12. Derived signals",
-      "line": 384,
+      "section": "10. Derived signals a source-of-truth contract",
+      "line": 200,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -187562,8 +186869,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "12. Derived signals",
-      "line": 384,
+      "section": "10. Derived signals a source-of-truth contract",
+      "line": 200,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -187571,8 +186878,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "13. Signal selection podľa otázky",
-      "line": 399,
+      "section": "12. Worked failure: sampled trace metric predstiera recovery",
+      "line": 237,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -187580,8 +186887,17 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Je služba dostupná?“",
-      "line": 401,
+      "section": "Exact subject",
+      "line": 239,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/metrics-logs-traces-events.md",
+      "section": "Competing hypotheses",
+      "line": 257,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -187589,8 +186905,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Je služba dostupná?“",
-      "line": 401,
+      "section": "Competing hypotheses",
+      "line": 257,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -187598,26 +186914,26 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Je služba dostupná?“",
-      "line": 401,
+      "section": "Competing hypotheses",
+      "line": 257,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Je služba dostupná?“",
-      "line": 401,
+      "section": "Competing hypotheses",
+      "line": 257,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `black-box success/latency metric,`, `request rate/error rate,`, `SLO burn,`, `dependency health.`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application counter duplicitne počíta retries;`, `trace-derived query používa nesprávny denominator;`, `tail sampler zahadzuje fast failures;`, `traces strácajú status na provider span-e;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Je služba dostupná?“",
-      "line": 401,
+      "section": "Competing hypotheses",
+      "line": 257,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -187625,26 +186941,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Je služba dostupná?“",
-      "line": 401,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo je request pomalý?“",
-      "line": 408,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo je request pomalý?“",
-      "line": 408,
+      "section": "Discriminating evidence",
+      "line": 266,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -187652,8 +186950,71 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo je request pomalý?“",
-      "line": 408,
+      "section": "Discriminating evidence",
+      "line": 266,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/metrics-logs-traces-events.md",
+      "section": "Discriminating evidence",
+      "line": 266,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/metrics-logs-traces-events.md",
+      "section": "Discriminating evidence",
+      "line": 266,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/metrics-logs-traces-events.md",
+      "section": "Discriminating evidence",
+      "line": 266,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/metrics-logs-traces-events.md",
+      "section": "Discriminating evidence",
+      "line": 266,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/metrics-logs-traces-events.md",
+      "section": "Containment",
+      "line": 289,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/metrics-logs-traces-events.md",
+      "section": "Containment",
+      "line": 289,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/metrics-logs-traces-events.md",
+      "section": "Containment",
+      "line": 289,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -187661,17 +187022,17 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo je request pomalý?“",
-      "line": 408,
+      "section": "Containment",
+      "line": 289,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `latency histogram,`, `distributed trace,`, `downstream spans,`, `correlated logs,`.",
+      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `odstrániť trace-derived ratio z paging a SLO verdictu;`, `označiť panel ako sampled diagnostic signal;`, `nevypnúť sampling plošne počas incidentu bez capacity analýzy;`, `používať unsampled logical-operation counters pre aktuálny impact.`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo je request pomalý?“",
-      "line": 408,
+      "section": "Containment",
+      "line": 289,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -187679,17 +187040,17 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo je request pomalý?“",
-      "line": 408,
+      "section": "Containment",
+      "line": 289,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `policy`",
       "score": 4
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Kto zmenil konfiguráciu?“",
-      "line": 416,
+      "section": "Recovery",
+      "line": 297,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -187697,8 +187058,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Kto zmenil konfiguráciu?“",
-      "line": 416,
+      "section": "Recovery",
+      "line": 297,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -187706,26 +187067,26 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Kto zmenil konfiguráciu?“",
-      "line": 416,
+      "section": "Recovery",
+      "line": 297,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Kto zmenil konfiguráciu?“",
-      "line": 416,
-      "severity": "critical",
+      "section": "Recovery",
+      "line": 297,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `audit record,`, `deployment event,`, `Git/IaC revision,`, `controller reconciliation log.`.",
-      "score": 12
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pridať bounded error.type a structured event;`, `overiť tail policy keep reason a trace completeness;`, `porovnať trace-derived diagnostic ratio s authoritative counterom;`, `versionovať derivation query a dashboard.`.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Kto zmenil konfiguráciu?“",
-      "line": 416,
+      "section": "Recovery",
+      "line": 297,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -187733,8 +187094,17 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo rastie memory?“",
-      "line": 423,
+      "section": "Recovery",
+      "line": 297,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/metrics-logs-traces-events.md",
+      "section": "Acceptance verdict",
+      "line": 306,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -187742,8 +187112,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo rastie memory?“",
-      "line": 423,
+      "section": "Acceptance verdict",
+      "line": 306,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -187751,26 +187121,26 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo rastie memory?“",
-      "line": 423,
+      "section": "Acceptance verdict",
+      "line": 306,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo rastie memory?“",
-      "line": 423,
-      "severity": "critical",
+      "section": "Acceptance verdict",
+      "line": 306,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `memory metrics,`, `allocation/heap profile,`, `GC metrics,`, `deployment correlation,`.",
-      "score": 12
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `logical-operation counter a business reconciliation sú zhodné;`, `fast aj slow failures majú správny span status;`, `forbidden duplicate counting retries ako logical failures nevzniká;`, `no-data alebo collector drop stav nevytvára false-green panel.`.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo rastie memory?“",
-      "line": 423,
+      "section": "Acceptance verdict",
+      "line": 306,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -187778,17 +187148,17 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "„Prečo rastie memory?“",
-      "line": 423,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GC`, `workload`",
-      "score": 4
+      "section": "Acceptance verdict",
+      "line": 306,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "14. Signal quality",
-      "line": 431,
+      "section": "13. Troubleshooting chýbajúceho alebo sporného signalu",
+      "line": 315,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187796,98 +187166,17 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "14. Signal quality",
-      "line": 431,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "14. Signal quality",
-      "line": 431,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `correctness,`, `completeness,`, `freshness,`, `context,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "14. Signal quality",
-      "line": 431,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "14. Signal quality",
-      "line": 431,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `reliability`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "15. Troubleshooting chýbajúceho signalu",
-      "line": 450,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "15. Troubleshooting chýbajúceho signalu",
-      "line": 450,
+      "section": "13. Troubleshooting chýbajúceho alebo sporného signalu",
+      "line": 315,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "15. Troubleshooting chýbajúceho signalu",
-      "line": 450,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "15. Troubleshooting chýbajúceho signalu",
-      "line": 450,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sample timestamp,`, `trace/request ID,`, `producer logs,`, `collector self-telemetry,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "15. Troubleshooting chýbajúceho signalu",
-      "line": 450,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "15. Troubleshooting chýbajúceho signalu",
-      "line": 450,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
       "section": "Všetko ako log",
-      "line": 477,
+      "line": 334,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187896,7 +187185,7 @@
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
       "section": "Všetko ako metric",
-      "line": 481,
+      "line": 338,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187905,7 +187194,7 @@
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
       "section": "Trace ID ako metric label",
-      "line": 485,
+      "line": 342,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187913,8 +187202,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Average latency bez distribution",
-      "line": 489,
+      "section": "Sampled trace metric ako úplný SLO denominator",
+      "line": 346,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187922,8 +187211,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Events bez stabilnej schema",
-      "line": 493,
+      "section": "Average latency",
+      "line": 350,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187931,8 +187220,8 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Audit a application logs v rovnakom blast radiuse",
-      "line": 497,
+      "section": "Event bez identity a schema",
+      "line": 354,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -187940,8 +187229,17 @@
     },
     {
       "path": "docs/12-observability/metrics-logs-traces-events.md",
-      "section": "Correlation iba podľa timestampu",
-      "line": 501,
+      "section": "Audit a application diagnostics v rovnakom blast radiuse",
+      "line": 358,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/metrics-logs-traces-events.md",
+      "section": "Resource identity zamenená za process instance",
+      "line": 362,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
