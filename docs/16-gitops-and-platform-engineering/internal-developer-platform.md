@@ -866,5 +866,5 @@ Relevantné pojmy: platform engineering, Internal Developer Platform, internal d
 
 **Navigácia**
 
-[← Predchádzajúca: GitOps secrets](gitops-secrets.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: GitOps secrets](gitops-secrets.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Platform as a Product →](platform-as-a-product.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

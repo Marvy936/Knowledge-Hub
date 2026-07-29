@@ -27,17 +27,17 @@ Odporúča sa najprv dokončiť:
 6. [Application promotion](application-promotion.md)
 7. [GitOps secrets](gitops-secrets.md)
 8. [Internal Developer Platform](internal-developer-platform.md)
+9. [Platform as a Product](platform-as-a-product.md)
+10. [Golden paths a paved road](golden-paths-and-paved-road.md)
+11. [Self-service](self-service.md)
+12. [Developer experience](developer-experience.md)
 
-Aktuálny authoritative stav sekcie je **8/15 · In progress**.
+Aktuálny authoritative stav sekcie je **12/15 · In progress**.
 
 ## Plánované pokračovanie
 
 Authoritative poradie bude pokračovať bez zmeny roadmapy:
 
-9. Platform as a Product
-10. Golden paths a paved road
-11. Self-service
-12. Developer experience
 13. Service catalog
 14. Guardrails
 15. Multi-tenancy
@@ -303,6 +303,78 @@ freeze promotion, image automation a LaunchPad direct writer
 → test stale proposal, lost response, controller restart, second rotation a second promotion
 ```
 
+### `GITOPS-PAY-63` — output-driven platform mandate, detached golden path, false self-service a misleading DevEx verdict
+
+Atlas po technickom redizajne spustil `Regulated Service v4` ako povinný platform product pre nové payment services. LaunchPad cez Backstage vytváral repository, pipeline, environment Git, catalog entity, namespace, database request, workload identity, dashboards a runbook. Executive outcome znel „production-ready service do 60 minút bez ticketu“, no platform tím definoval success ako terminal status scaffolder tasku.
+
+Intended journey:
+
+```text
+observed regulated-team job
+→ supported golden-path contract
+→ eligible self-service request
+→ durable orchestration repository/identity/network/database/GitOps/observability
+→ first usable environment
+→ first production business canary
+→ second change a incident drill
+→ retained managed adoption a product feedback
+```
+
+Skutočný path a measurement graph:
+
+```text
+Backstage template tag regulated-service-v4
++ custom actions image latest
++ Terraform module main
++ copied pipeline fragments
++ manual private-network ticket
++ no managed upgrade channel
++ portal success po repository/PR outputs
++ survey iba successful task cohortu
+```
+
+Šesťtýždňové evidence:
+
+```text
+platform requests:                       64
+portal tasks marked Succeeded:           61  (95%)
+requests with first usable environment:  39  (61%)
+first production business outcome:       27  (42%)
+requests requiring manual ticket:        28  (44%)
+template forks alebo detached copies:    19  (30%)
+manual platform bypasses:                 8  (13%)
+median portal task duration:              9 min
+median time-to-first-production:          3.8 dňa
+```
+
+Request `LP-8841` pre `settlement-repair-api` bol v portali `Succeeded` po 7 minútach. Database ostala `WaitingCapacity`, private endpoint nebol súčasťou pathu a workload identity nemala provider-reconciliation permission. Retry vytvoril druhý environment PR, tím otvoril tri tickety a fork-ol generated pipeline. Prvý production reconciliation prišiel po 19 hodinách; `8 412` settlements zostalo v manual queue a `73` prekročilo interný 24-hodinový resolution objective.
+
+Causal boundaries:
+
+- **Platform-as-a-Product root cause** — roadmap a success oracle optimalizovali technical output a mandatory adoption, nie segment-specific job, usable outcome, support toil a business effect.
+- **Golden-path root cause** — organizácia zamenila copied scaffolding template za managed lifecycle; chýbali immutable dependency graph, extension points, upgrade channel a explicitný detach state.
+- **Self-service root cause** — user-initiated task nemal complete preflight, durable operation, child identities, waiting/unknown semantics ani usable-outcome verification.
+- **Developer-experience root cause** — dashboard meral iba successful portal cohort a lokálnu task latency; vylúčil waiting, failures, abandonment, manual intervention, trust, cognitive load a time-to-production.
+- **Amplifiers** — forced rollout pred capability parity, mutable actions/modules, absent consumer-version inventory, generic survey, bot activity v delivery metrics a support mimo operation timeline-u.
+
+Authoritative redesign:
+
+```text
+regulated user segment + observed settlement-repair journey
+→ falsifikovateľná product value hypothesis
+→ versioned capability/golden-path contract RSP-4.1
+→ pinned actions/modules + managed components + explicit extensions
+→ eligibility, quota, network a permission preflight
+→ durable semantic operation s child IDs a truthful waiting/partial states
+→ first usable environment verification
+→ first production settlement canary
+→ second change, incident a upgrade tests
+→ mixed-method DevEx evidence pre success/failure/abandonment cohorts
+→ staged adoption, feedback closure a capability-parity gate
+```
+
+Recovery najprv zastaví mandatory migration, klasifikuje 64 consumers na managed, extensible, exception alebo detached state, opraví `LP-8841` cez jednu durable operation a až potom rozšíri pilot podľa end-to-end outcome-u. Portal a catalog status sa odvodia z effective capability generation, nie z historického template tasku.
+
 ## Cieľ zvládnutia aktívnych blokov
 
 ### Git ako source of truth
@@ -390,14 +462,54 @@ freeze promotion, image automation a LaunchPad direct writer
 - rozlíšiť accepted request, provisioning, partial/unknown state a usable capability;
 - overiť compensation, developer-functional outcome, decommission, second request a tenant isolation.
 
+### Platform as a Product
+
+- definovať exact platform-product subject, internal user segment a job-to-be-done;
+- vytvoriť falsifikovateľnú value hypothesis a product outcome tree;
+- odlíšiť project output, technical service a dlhodobo spravovaný platform product;
+- navrhnúť complete capability contract, adoption funnel a feedback closure;
+- merať first usable, first production a retained managed outcome namiesto portal activity;
+- vysvetliť funding, cost, ownership, roadmap authority a lifecycle;
+- overiť capability parity, second cohort, second change a retirement behavior.
+
+### Golden paths a paved road
+
+- rozlíšiť golden path, paved road, template a guardrail;
+- definovať exact path generation, dependency graph a output inventory;
+- klasifikovať invariants, defaults, explicit choices a extension points;
+- odlíšiť bootstrap copy od managed componentu a upgrade channelu;
+- navrhnúť supported extension, time-bounded exception a detached ownership;
+- testovať composition, negative cases, second user, second change a migration;
+- overiť supply-chain, effective compliance a path acceptance bez golden cage.
+
+### Self-service
+
+- rozlíšiť self-service, automation a delegated privileged execution;
+- definovať exact semantic request, eligibility, preflight a subject-bound plan;
+- navrhnúť durable state machine pre waiting, partial, unknown a compensation;
+- vysvetliť idempotency, child-operation identity a authoritative read-back;
+- navrhnúť least-privilege delegation, quota, fairness a backpressure;
+- odlíšiť accepted request, resource existence, usable capability a business outcome;
+- overiť retry, cancel, update, delete, controller restart a abuse behavior.
+
+### Developer experience
+
+- odlíšiť developer experience, productivity, satisfaction a activity;
+- definovať exact cohort, journey, platform generation a outcome subject;
+- vysvetliť feedback loops, cognitive load, flow a friction taxonomy;
+- mapovať journey naprieč tools, handoffs, waiting, operations a support;
+- kombinovať system telemetry, survey, interview a observation bez selection bias;
+- používať counterbalanced speed, quality, experience, reliability a business metrics;
+- overiť causal hypothesis, privacy, feedback closure, second cohort a operational experience.
+
 ## Dominantný model sekcie
 
 ```text
 business alebo platform capability intent
 → exact desired-state, release, secret, platform-product alebo tenant subject
 → declarative versioned authority a ownership boundaries
-→ validated change, promotion alebo self-service request
-→ source artifact, controller resolution, policy a durable operation
+→ validated change, product hypothesis, golden path, promotion alebo self-service request
+→ source artifact, controller resolution, policy, durable operation a experience feedback
 → desired-vs-observed comparison alebo bounded orchestration
 → reconciliation, provisioning, materialization a consumer transition
 → effective runtime, developer a business outcome
@@ -432,8 +544,14 @@ Každá komplexná kapitola musí rozlišovať:
 - platform capability od central-ticket service;
 - platform API authority od UI projection;
 - scaffolding output od managed lifecycle contractu;
+- platform project/service output od platform product a user outcome;
+- forced request count od usable, retained adoption;
+- golden path od bootstrap template a golden cage;
+- managed component od detached copy a explicitného extension/exception state-u;
 - paved path od mandatory lock-in;
 - self-service request od unrestricted privilege;
+- accepted request od durable operation, usable capability a business outcome;
+- activity metric od developer experience, productivity a counterbalanced outcome;
 - shared platform od tenant isolation boundary;
 - configured object od valid/effective runtime mechanismu;
 - trigger, root cause a causal amplifier;
@@ -452,10 +570,10 @@ Každá komplexná kapitola musí rozlišovať:
 | Application promotion | Learning | L2 |
 | GitOps secrets | Learning | L2 |
 | Internal Developer Platform | Learning | L2 |
-| Platform as a Product | Not Started | L0 |
-| Golden paths a paved road | Not Started | L0 |
-| Self-service | Not Started | L0 |
-| Developer experience | Not Started | L0 |
+| Platform as a Product | Learning | L2 |
+| Golden paths a paved road | Learning | L2 |
+| Self-service | Learning | L2 |
+| Developer experience | Learning | L2 |
 | Service catalog | Not Started | L0 |
 | Guardrails | Not Started | L0 |
 | Multi-tenancy | Not Started | L0 |

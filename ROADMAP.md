@@ -362,10 +362,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Application promotion](docs/16-gitops-and-platform-engineering/application-promotion.md)
 - [x] [GitOps secrets](docs/16-gitops-and-platform-engineering/gitops-secrets.md)
 - [x] [Internal Developer Platform](docs/16-gitops-and-platform-engineering/internal-developer-platform.md)
-- [ ] Platform as a Product
-- [ ] Golden paths a paved road
-- [ ] Self-service
-- [ ] Developer experience
+- [x] [Platform as a Product](docs/16-gitops-and-platform-engineering/platform-as-a-product.md)
+- [x] [Golden paths a paved road](docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md)
+- [x] [Self-service](docs/16-gitops-and-platform-engineering/self-service.md)
+- [x] [Developer experience](docs/16-gitops-and-platform-engineering/developer-experience.md)
 - [ ] Service catalog
 - [ ] Guardrails
 - [ ] Multi-tenancy
