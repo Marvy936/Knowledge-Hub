@@ -555,3 +555,11 @@ Relevantné pojmy: connection-pooling subject, application connection pool, serv
 - [MySQL 8.4 Reference Manual — Connection Management](https://dev.mysql.com/doc/refman/8.4/en/connection-management.html)
 - [MySQL 8.4 FAQ — Thread Pool vs. client-side connection pool](https://dev.mysql.com/doc/refman/8.4/en/faqs-thread-pool.html)
 - [Redis Documentation — Client handling](https://redis.io/docs/latest/develop/reference/clients/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Backups a point-in-time recovery](backups-and-point-in-time-recovery.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: PostgreSQL, MySQL a Redis →](postgresql-mysql-and-redis.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

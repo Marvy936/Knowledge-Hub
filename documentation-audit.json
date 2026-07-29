@@ -3811,7 +3811,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
       "title": "Backups a point-in-time recovery",
-      "words": 2142,
+      "words": 2155,
       "headings": 30,
       "sections": 30,
       "findings": 88,
@@ -3825,7 +3825,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
       "title": "Connection pooling",
-      "words": 2209,
+      "words": 2224,
       "headings": 36,
       "sections": 36,
       "findings": 90,
@@ -3853,7 +3853,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md",
       "title": "Monolith, modular monolith a microservices",
-      "words": 2404,
+      "words": 2416,
       "headings": 56,
       "sections": 56,
       "findings": 163,
@@ -3867,7 +3867,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md",
       "title": "PostgreSQL, MySQL a Redis",
-      "words": 2203,
+      "words": 2217,
       "headings": 42,
       "sections": 42,
       "findings": 105,
@@ -3895,7 +3895,7 @@
     {
       "path": "docs/15-databases-and-distributed-systems/replication-and-high-availability.md",
       "title": "Replication a high availability",
-      "words": 2135,
+      "words": 2138,
       "headings": 37,
       "sections": 37,
       "findings": 112,

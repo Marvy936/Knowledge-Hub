@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **280**
 - Audited conceptual sections: **11317**
-- Total words: **655,006**
+- Total words: **655,063**
 - Findings: **23940** (critical 7190, high 8231, medium 3005, low 5514)
 - File grades: A 0, B 0, C 0, D 280
 
@@ -25,7 +25,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 |---|---:|---:|---:|---:|---:|---:|---|
 | D | 2248 | 102 | 115 | 28 | 30 | 3457 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | D | 1674 | 74 | 79 | 31 | 39 | 3893 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
-| D | 1355 | 65 | 64 | 15 | 19 | 2404 | `docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md` |
+| D | 1355 | 65 | 64 | 15 | 19 | 2416 | `docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md` |
 | D | 1303 | 56 | 73 | 11 | 20 | 2058 | `docs/14-sre-and-operations/operational-readiness.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 1141 | 46 | 66 | 14 | 19 | 2062 | `docs/13-security-and-identity/least-privilege.md` |
@@ -65,7 +65,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | D | 834 | 35 | 42 | 16 | 17 | 3114 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | D | 831 | 37 | 38 | 17 | 22 | 2511 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
-| D | 824 | 39 | 38 | 11 | 17 | 2203 | `docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md` |
+| D | 824 | 39 | 38 | 11 | 17 | 2217 | `docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md` |
 | D | 823 | 39 | 37 | 11 | 19 | 2114 | `docs/12-observability/alertmanager.md` |
 | D | 819 | 31 | 51 | 10 | 10 | 2417 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | D | 814 | 38 | 42 | 7 | 7 | 2148 | `docs/10-helm-and-cka/upgrade-rollback.md` |
@@ -81,7 +81,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 785 | 35 | 36 | 16 | 21 | 2346 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | D | 784 | 37 | 37 | 10 | 16 | 2402 | `docs/09-kubernetes/cluster-dns.md` |
 | D | 784 | 35 | 33 | 20 | 18 | 2675 | `docs/11-cloud-and-aws/well-architected-framework.md` |
-| D | 782 | 37 | 30 | 17 | 28 | 2135 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
+| D | 782 | 37 | 30 | 17 | 28 | 2138 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
 | D | 774 | 35 | 33 | 17 | 27 | 2700 | `docs/09-kubernetes/configmap-secret.md` |
 | D | 769 | 33 | 38 | 14 | 19 | 2119 | `docs/04-testing-and-quality/performance-load-stress-tests.md` |
 | D | 767 | 33 | 35 | 21 | 11 | 2231 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
@@ -153,7 +153,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 623 | 30 | 25 | 14 | 9 | 1816 | `docs/12-observability/opentelemetry.md` |
 | D | 622 | 24 | 34 | 13 | 16 | 2297 | `docs/02-networking-and-web/firewalls.md` |
 | D | 622 | 26 | 35 | 6 | 11 | 1711 | `docs/14-sre-and-operations/incident-management.md` |
-| D | 618 | 24 | 31 | 14 | 21 | 2209 | `docs/15-databases-and-distributed-systems/connection-pooling.md` |
+| D | 618 | 24 | 31 | 14 | 21 | 2224 | `docs/15-databases-and-distributed-systems/connection-pooling.md` |
 | D | 617 | 30 | 24 | 11 | 19 | 2130 | `docs/09-kubernetes/logging-metrics-events.md` |
 | D | 612 | 25 | 31 | 10 | 25 | 2328 | `docs/09-kubernetes/statefulset.md` |
 | D | 612 | 25 | 33 | 7 | 25 | 2141 | `docs/11-cloud-and-aws/ec2-auto-scaling.md` |
@@ -182,7 +182,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 557 | 23 | 30 | 8 | 11 | 1834 | `docs/14-sre-and-operations/toil.md` |
 | D | 552 | 26 | 23 | 11 | 15 | 2057 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | D | 546 | 25 | 27 | 6 | 9 | 1862 | `docs/12-observability/grafana.md` |
-| D | 546 | 21 | 25 | 16 | 26 | 2142 | `docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md` |
+| D | 546 | 21 | 25 | 16 | 26 | 2155 | `docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md` |
 | D | 544 | 23 | 26 | 11 | 23 | 2520 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | D | 544 | 21 | 32 | 5 | 20 | 2189 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
 | D | 542 | 26 | 21 | 2 | 47 | 4101 | `docs/11-cloud-and-aws/route53-cloudfront.md` |

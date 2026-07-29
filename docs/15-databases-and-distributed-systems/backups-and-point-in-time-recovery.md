@@ -463,3 +463,11 @@ Relevantné pojmy: database recovery subject, protected consistency group, logic
 - [PostgreSQL Documentation — Continuous Archiving and Point-in-Time Recovery](https://www.postgresql.org/docs/current/continuous-archiving.html)
 - [MySQL 8.4 Reference Manual — Backup and Recovery](https://dev.mysql.com/doc/refman/8.4/en/backup-and-recovery.html)
 - [MySQL 8.4 Reference Manual — Point-in-Time Recovery](https://dev.mysql.com/doc/refman/8.4/en/point-in-time-recovery.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Replication a high availability](replication-and-high-availability.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Connection pooling →](connection-pooling.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

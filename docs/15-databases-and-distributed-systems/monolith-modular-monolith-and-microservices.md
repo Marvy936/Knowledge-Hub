@@ -703,3 +703,11 @@ Relevantné pojmy: architecture subject, monolith, modular monolith, microservic
 - [Martin Fowler — Monolith First](https://martinfowler.com/bliki/MonolithFirst.html)
 - [AWS Prescriptive Guidance — Decomposing monoliths into microservices](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-decomposing-monoliths/welcome.html)
 - [Microsoft Azure Architecture Center — Microservices architecture style](https://learn.microsoft.com/azure/architecture/guide/architecture-styles/microservices)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: PostgreSQL, MySQL a Redis](postgresql-mysql-and-redis.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

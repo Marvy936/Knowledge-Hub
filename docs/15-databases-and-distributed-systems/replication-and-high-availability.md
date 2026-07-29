@@ -545,5 +545,5 @@ Relevantné pojmy: replication subject, physical replication, logical replicatio
 
 **Navigácia**
 
-[← Predchádzajúca: Indexy, locks a migrations](indexes-locks-and-migrations.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Indexy, locks a migrations](indexes-locks-and-migrations.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Backups a point-in-time recovery →](backups-and-point-in-time-recovery.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -560,3 +560,11 @@ Relevantné pojmy: product-role subject, PostgreSQL authority role, InnoDB trans
 - [Redis Documentation — Transactions](https://redis.io/docs/latest/develop/using-commands/transactions/)
 - [Redis Documentation — Persistence](https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/)
 - [Redis Documentation — Replication](https://redis.io/docs/latest/operate/oss_and_stack/management/replication/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Connection pooling](connection-pooling.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Monolith, modular monolith a microservices →](monolith-modular-monolith-and-microservices.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

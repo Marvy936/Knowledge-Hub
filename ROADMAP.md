@@ -337,10 +337,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Transactions a ACID](docs/15-databases-and-distributed-systems/transactions-and-acid.md)
 - [x] [Indexy, locks a migrations](docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md)
 - [x] [Replication a high availability](docs/15-databases-and-distributed-systems/replication-and-high-availability.md)
-- [ ] Backups a point-in-time recovery
-- [ ] Connection pooling
-- [ ] PostgreSQL, MySQL a Redis
-- [ ] Monolith, modular monolith a microservices
+- [x] [Backups a point-in-time recovery](docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md)
+- [x] [Connection pooling](docs/15-databases-and-distributed-systems/connection-pooling.md)
+- [x] [PostgreSQL, MySQL a Redis](docs/15-databases-and-distributed-systems/postgresql-mysql-and-redis.md)
+- [x] [Monolith, modular monolith a microservices](docs/15-databases-and-distributed-systems/monolith-modular-monolith-and-microservices.md)
 - [ ] Synchronous vs. asynchronous communication
 - [ ] Message queues a event-driven architecture
 - [ ] Service discovery a API gateway
