@@ -3321,15 +3321,15 @@
     {
       "path": "docs/12-observability/use-method.md",
       "title": "USE method",
-      "words": 1691,
-      "headings": 56,
-      "sections": 56,
-      "findings": 164,
-      "critical": 61,
-      "high": 77,
-      "medium": 18,
+      "words": 1919,
+      "headings": 37,
+      "sections": 37,
+      "findings": 89,
+      "critical": 22,
+      "high": 47,
+      "medium": 12,
       "low": 8,
-      "score": 1404,
+      "score": 688,
       "grade": "D"
     },
     {
@@ -191603,287 +191603,35 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný lifecycle",
       "line": 7,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "2. Resource",
-      "line": 19,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "2. Resource",
-      "line": 19,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU execution capacity,`, `memory capacity,`, `disk alebo block-device I/O,`, `network interface a link,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "2. Resource",
-      "line": 19,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "2. Resource",
-      "line": 19,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "2. Resource",
-      "line": 19,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `API`, `IP`, `GPU`, `NAT`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "3. Utilization",
-      "line": 43,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "3. Utilization",
-      "line": 43,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "3. Utilization",
-      "line": 43,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percento času CPU vykonáva prácu,`, `disk busy time,`, `network throughput voči link capacity,`, `memory used voči usable capacity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "3. Utilization",
-      "line": 43,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "3. Utilization",
-      "line": 43,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `GPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Time-based a capacity-based utilization",
-      "line": 57,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Time-based a capacity-based utilization",
-      "line": 57,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `percento času resource pracoval,`, `percento obsadenej kapacity,`, `throughput voči maximálnemu výkonu,`, `concurrency voči limitu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Time-based a capacity-based utilization",
-      "line": 57,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Time-based a capacity-based utilization",
-      "line": 57,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Average utilization",
-      "line": 68,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Average utilization",
-      "line": 68,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Average utilization",
-      "line": 68,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `hot core,`, `hot disk,`, `jednu preťaženú AZ,`, `jeden shard,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Average utilization",
-      "line": 68,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Average utilization",
-      "line": 68,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Vysoká utilization nie je automaticky chyba",
-      "line": 82,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Vysoká utilization nie je automaticky chyba",
-      "line": 82,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Vysoká utilization nie je automaticky chyba",
-      "line": 82,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU-`, `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "4. Saturation",
-      "line": 94,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "4. Saturation",
-      "line": 94,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue length,`, `wait time,`, `run queue,`, `blocked tasks,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "4. Saturation",
-      "line": 94,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "4. Saturation",
-      "line": 94,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Hidden queues",
-      "line": 123,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "5. Errors",
-      "line": 140,
+      "section": "3. Resource inventory pred metrics inventory",
+      "line": 52,
       "severity": "high",
       "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "detail": "8 odrážok a iba 50 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "5. Errors",
-      "line": 140,
+      "section": "3. Resource inventory pred metrics inventory",
+      "line": 52,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ECC alebo hardware errors,`, `disk I/O errors,`, `filesystem errors,`, `packet errors/drops,`.",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical owner a runtime owner;`, `effective capacity a spôsob jej zmeny;`, `utilization, saturation a error observations;`, `resolution a aggregation boundary;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "5. Errors",
-      "line": 140,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "5. Errors",
-      "line": 140,
+      "section": "3. Resource inventory pred metrics inventory",
+      "line": 52,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -191891,890 +191639,8 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "5. Errors",
-      "line": 140,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ECC`, `GPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "6. USE checklist",
-      "line": 163,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "6. USE checklist",
-      "line": 163,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 62 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "6. USE checklist",
-      "line": 163,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vytvor resource inventory,`, `pre každý resource nájdi utilization signal,`, `nájdi saturation signal,`, `nájdi error signal,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "6. USE checklist",
-      "line": 163,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "7. CPU",
-      "line": 186,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 188,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 188,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 188,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 188,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-core busy time,`, `user/system/steal/irq categories,`, `container CPU usage,`, `quota consumption.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 188,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 188,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 195,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 195,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 195,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 195,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `run queue,`, `scheduler wait,`, `CPU throttling,`, `runnable threads,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 195,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 195,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 203,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 203,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 203,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `hardware machine-check events,`, `thermal throttling,`, `CPU quota rejections alebo throttled periods podľa platformy.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 203,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 203,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "8. Memory",
-      "line": 213,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "8. Memory",
-      "line": 213,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "8. Memory",
-      "line": 213,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application resident set,`, `page cache,`, `reclaimable memory,`, `working set,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "8. Memory",
-      "line": 213,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 228,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 228,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 228,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 228,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reclaim pressure,`, `major page faults,`, `swap in/out,`, `allocation stalls,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 228,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 228,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PSI`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 238,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 238,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 238,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OOM kill,`, `allocation failure,`, `cgroup limit breach,`, `ECC error.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 238,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 238,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`, `ECC`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "9. Storage a block I/O",
-      "line": 247,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 249,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 249,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 249,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 249,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `device busy time,`, `IOPS,`, `throughput,`, `provisioned performance consumption.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 249,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 249,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IOPS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 256,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 256,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 256,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 256,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue depth,`, `await/service time,`, `throttling,`, `burst balance depletion,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 256,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 265,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 265,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 265,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read/write failures,`, `timeouts,`, `resets,`, `filesystem corruption,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 265,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "10. Network",
-      "line": 275,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 277,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 277,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 277,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 277,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bytes/bits per second voči link alebo service capacity,`, `packets per second,`, `connection count,`, `flow/table capacity.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Utilization",
-      "line": 277,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 284,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 284,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 284,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 284,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interface queue,`, `packet drops,`, `retransmissions,`, `buffer pressure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 284,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Saturation",
-      "line": 284,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 293,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 293,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 293,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 293,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CRC/interface errors,`, `dropped packets,`, `failed connections,`, `reset rate,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 293,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Errors",
-      "line": 293,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRC`, `DNS`, `MTU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "11. Filesystem",
-      "line": 304,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "11. Filesystem",
-      "line": 304,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "11. Filesystem",
-      "line": 304,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bytes capacity,`, `inodes,`, `file descriptors,`, `mount availability,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "11. Filesystem",
-      "line": 304,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "11. Filesystem",
-      "line": 304,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "12. Pools a software resources",
-      "line": 326,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Thread pool",
-      "line": 330,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Thread pool",
-      "line": 330,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Thread pool",
-      "line": 330,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `utilization: active workers / max workers,`, `saturation: queue a task wait,`, `errors: rejection, timeout, worker crash.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Thread pool",
-      "line": 330,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Database connection pool",
-      "line": 336,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Database connection pool",
-      "line": 336,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Database connection pool",
-      "line": 336,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `utilization: active connections / max,`, `saturation: waiters a acquire latency,`, `errors: acquire timeout, broken connection.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Database connection pool",
-      "line": 336,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Queue worker pool",
-      "line": 342,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Queue worker pool",
-      "line": 342,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Queue worker pool",
-      "line": 342,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `utilization: busy workers,`, `saturation: backlog a oldest item age,`, `errors: failed/dead-letter items.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "Queue worker pool",
-      "line": 342,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "API quota",
-      "line": 348,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "API quota",
-      "line": 348,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "API quota",
-      "line": 348,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `utilization: requests alebo capacity units voči quota,`, `saturation: throttling/backoff queue,`, `errors: quota exceeded alebo rate-limit response.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "API quota",
-      "line": 348,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "13. Kubernetes a containers",
-      "line": 354,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "13. Kubernetes a containers",
-      "line": 354,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "14 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "13. Kubernetes a containers",
-      "line": 354,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 14 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Node CPU a memory,`, `Pod/container CPU quota a memory limit,`, `ephemeral storage,`, `PID limits,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "13. Kubernetes a containers",
-      "line": 354,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "13. Kubernetes a containers",
-      "line": 354,
+      "section": "3. Resource inventory pred metrics inventory",
+      "line": 52,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -192782,71 +191648,26 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "13. Kubernetes a containers",
-      "line": 354,
-      "severity": "high",
+      "section": "3. Resource inventory pred metrics inventory",
+      "line": 52,
+      "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `PID`, `CNI`, `IP`, `IOPS`, `API`",
-      "score": 7
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`, `scope`",
+      "score": 4
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "14. Cloud resources",
-      "line": 378,
+      "section": "4. Enforcement boundary a effective capacity",
+      "line": 82,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "14. Cloud resources",
-      "line": 378,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `EBS IOPS/throughput a queue,`, `RDS connections/storage/IO,`, `Lambda concurrency,`, `NAT ports/connections,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "14. Cloud resources",
-      "line": 378,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "14. Cloud resources",
-      "line": 378,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "14. Cloud resources",
-      "line": 378,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `EBS`, `IOPS`, `RDS`, `IO`, `NAT`, `IP`, `API`, `KMS`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "15. USE a pressure metrics",
-      "line": 397,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `memory used je vysoká,`, `ale bez reclaim stall nie je user impact,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "15. USE a pressure metrics",
-      "line": 397,
+      "section": "4. Enforcement boundary a effective capacity",
+      "line": 82,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -192854,8 +191675,71 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "15. USE a pressure metrics",
-      "line": 397,
+      "section": "4. Enforcement boundary a effective capacity",
+      "line": 82,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "5. Utilization",
+      "line": 106,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `časová: percento času CPU alebo device vykonával prácu;`, `kapacitná: active connections / effective pool limit;`, `throughputová: bytes/s alebo IOPS voči podporovanej hranici;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "5. Utilization",
+      "line": 106,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Aggregation risk",
+      "line": 121,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Aggregation risk",
+      "line": 121,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Aggregation risk",
+      "line": 121,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `jeden hot core alebo serialized worker;`, `jeden task s nesprávnym configom;`, `jeden shard alebo AZ;`, `burst kratší než query window;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Aggregation risk",
+      "line": 121,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Aggregation risk",
+      "line": 121,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -192863,44 +191747,53 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "16. USE a time windows",
-      "line": 411,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "16. USE a time windows",
-      "line": 411,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `high-resolution interval počas incidentu,`, `max alebo quantiles per resource,`, `per-core/per-device breakdown,`, `workload/deployment correlation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "16. USE a time windows",
-      "line": 411,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "16. USE a time windows",
-      "line": 411,
+      "section": "Aggregation risk",
+      "line": 121,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`, `workload`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
       "score": 4
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "17. USE a capacity planning",
-      "line": 425,
+      "section": "6. Saturation",
+      "line": 134,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "6. Saturation",
+      "line": 134,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `queue length alebo oldest-item age;`, `wait time alebo acquire latency;`, `runnable, blocked alebo throttled tasks;`, `connection waiters;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "6. Saturation",
+      "line": 134,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "6. Saturation",
+      "line": 134,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Hidden queues",
+      "line": 163,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -192908,62 +191801,44 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "17. USE a capacity planning",
-      "line": 425,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "7. Errors",
+      "line": 180,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 48 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "17. USE a capacity planning",
-      "line": 425,
+      "section": "7. Errors",
+      "line": 180,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `workload growth,`, `traffic shape,`, `seasonality,`, `failover capacity,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `OOM kill alebo allocation failure;`, `connection acquire timeout;`, `rejected task alebo request;`, `quota exceeded a throttling;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "17. USE a capacity planning",
-      "line": 425,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "7. Errors",
+      "line": 180,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "17. USE a capacity planning",
-      "line": 425,
+      "section": "7. Errors",
+      "line": 180,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`, `ECC`",
       "score": 4
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "19. Resource inventory template",
-      "line": 458,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "19. Resource inventory template",
-      "line": 458,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/use-method.md",
-      "section": "20. Troubleshooting príklady",
-      "line": 477,
+      "section": "8. Typické resource classes",
+      "line": 197,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -192971,8 +191846,8 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "Latency rastie pri CPU 45 %",
-      "line": 479,
+      "section": "CPU",
+      "line": 199,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -192980,26 +191855,26 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "Latency rastie pri CPU 45 %",
-      "line": 479,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "CPU",
+      "line": 199,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "Latency rastie pri CPU 45 %",
-      "line": 479,
-      "severity": "critical",
+      "section": "CPU",
+      "line": 199,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-core utilization,`, `throttling,`, `run queue,`, `serialized worker,`.",
-      "score": 12
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `utilization: per-core busy time a container CPU use;`, `saturation: run queue, scheduler wait, throttled time;`, `errors: machine-check alebo quota/throttling events.`.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "Latency rastie pri CPU 45 %",
-      "line": 479,
+      "section": "CPU",
+      "line": 199,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -193007,8 +191882,89 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "Disk throughput je nízky, latency vysoká",
-      "line": 494,
+      "section": "Memory",
+      "line": 207,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Memory",
+      "line": 207,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `utilization: working set voči cgroup alebo system capacity;`, `saturation: reclaim, swap, major faults, allocation stalls, pressure;`, `errors: OOM kill alebo failed allocation.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Memory",
+      "line": 207,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Memory",
+      "line": 207,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Storage a filesystem",
+      "line": 215,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Storage a filesystem",
+      "line": 215,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Storage a filesystem",
+      "line": 215,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `utilization: IOPS, throughput, busy time, used bytes/inodes;`, `saturation: queue depth, await, throttling, burst-credit depletion;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Storage a filesystem",
+      "line": 215,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Storage a filesystem",
+      "line": 215,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IOPS`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Network",
+      "line": 221,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -193016,17 +191972,386 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "Network bandwidth je nízky, requests zlyhávajú",
-      "line": 502,
+      "section": "Network",
+      "line": 221,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Network",
+      "line": 221,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `utilization: bandwidth, packets/s, active flows;`, `errors: drops, resets, DNS/TLS failures alebo route/MTU errors.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Network",
+      "line": 221,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Network",
+      "line": 221,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `NAT`, `DNS`, `TLS`, `MTU`",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Software pools a quotas",
+      "line": 229,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Software pools a quotas",
+      "line": 229,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Software pools a quotas",
+      "line": 229,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `utilization: active workers/connections/tokens voči limitu;`, `saturation: waiters, queue age, acquire latency, throttling;`, `errors: rejection, timeout, exhausted retry alebo quota response.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Software pools a quotas",
+      "line": 229,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "9. USE v incident workflowe",
+      "line": 237,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "10. Worked failure: nízke CPU, ale saturovaný provider pool",
+      "line": 252,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Competing hypotheses",
+      "line": 258,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Competing hypotheses",
+      "line": 258,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Competing hypotheses",
+      "line": 258,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Competing hypotheses",
+      "line": 258,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `provider latency vzrástla pre všetky cohorts;`, `task CPU alebo memory je saturovaná;`, `NAT alebo network path stráca connections;`, `provider-side quota throttluje account;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Competing hypotheses",
+      "line": 258,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Competing hypotheses",
+      "line": 258,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`, `NAT`, `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Resource inventory a observations",
+      "line": 268,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Containment",
+      "line": 300,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Containment",
+      "line": 300,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Containment",
+      "line": 300,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Containment",
+      "line": 300,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastaviť ďalší rollout a concurrency increase;`, `obmedziť immediate retries a worker concurrency;`, `chrániť healthy standard-merchant cohort.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Containment",
+      "line": 300,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Authoritative recovery",
+      "line": 308,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Authoritative recovery",
+      "line": 308,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Authoritative recovery",
+      "line": 308,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Authoritative recovery",
+      "line": 308,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `nastaviť pool/concurrency podľa provider capacity contractu;`, `zaviesť bounded exponential backoff a retry budget;`, `rozšíriť rollout po AZ cohorts;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Authoritative recovery",
+      "line": 308,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Authoritative recovery",
+      "line": 308,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Authoritative recovery",
+      "line": 308,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Acceptance verdict",
+      "line": 317,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Acceptance verdict",
+      "line": 317,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Acceptance verdict",
+      "line": 317,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `enterprise final-settlement success a latency SLI sa obnovia;`, `pool waiters a acquire latency zostanú pod guardrailom;`, `attempt amplification sa vráti k baseline;`, `nevzniknú duplicate provider authorizations;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Acceptance verdict",
+      "line": 317,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Acceptance verdict",
+      "line": 317,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "Acceptance verdict",
+      "line": 317,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "11. Capacity planning a failover",
+      "line": 329,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "11. Capacity planning a failover",
+      "line": 329,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `growth a seasonality;`, `traffic burst shape;`, `loss jednej AZ alebo pool membera;`, `deployment surge;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "11. Capacity planning a failover",
+      "line": 329,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "11. Capacity planning a failover",
+      "line": 329,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AZ`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "12. Resource inventory template",
+      "line": 344,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "12. Resource inventory template",
+      "line": 344,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/use-method.md",
+      "section": "13. Troubleshooting chýbajúceho USE dôkazu",
+      "line": 369,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/12-observability/use-method.md",
       "section": "Začať dostupnými grafmi",
-      "line": 508,
+      "line": 387,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -193034,8 +192359,8 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "Utilization ako jediný signal",
-      "line": 512,
+      "section": "Utilization ako health verdict",
+      "line": 391,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -193043,8 +192368,8 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "Agregovať všetky resources",
-      "line": 516,
+      "section": "Nominálna capacity ako denominator",
+      "line": 395,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -193052,8 +192377,8 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "CPU load average interpretovaný izolovane",
-      "line": 520,
+      "section": "Service-wide average",
+      "line": 399,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -193061,8 +192386,8 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "Memory free ako hlavný signal",
-      "line": 524,
+      "section": "Zvýšenie capacity bez demand kontroly",
+      "line": 403,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -193070,8 +192395,8 @@
     },
     {
       "path": "docs/12-observability/use-method.md",
-      "section": "Cloud service považovaná za neobmedzenú",
-      "line": 528,
+      "section": "Cloud alebo managed service ako neobmedzený resource",
+      "line": 407,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
