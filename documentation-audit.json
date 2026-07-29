@@ -3809,6 +3809,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "title": "Backups a point-in-time recovery",
+      "words": 2142,
+      "headings": 30,
+      "sections": 30,
+      "findings": 88,
+      "critical": 21,
+      "high": 25,
+      "medium": 16,
+      "low": 26,
+      "score": 546,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
       "title": "Indexy, locks a migrations",
       "words": 2104,
@@ -211950,6 +211964,798 @@
       "path": "docs/14-sre-and-operations/toil.md",
       "section": "Automation bez ownera",
       "line": 432,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "1. Exact database recovery subject",
+      "line": 19,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "1. Exact database recovery subject",
+      "line": 19,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `engine, major version a exact cluster/server identity;`, `databases, schemas, tablespaces a external large-object dependencies;`, `authoritative business facts a consistency group;`, `transaction/commit a client acknowledgement boundary;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "1. Exact database recovery subject",
+      "line": 19,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "1. Exact database recovery subject",
+      "line": 19,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "1. Exact database recovery subject",
+      "line": 19,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "1. Exact database recovery subject",
+      "line": 19,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`, `LSN`, `GTID`, `RPO`, `RTO`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "2. Backup, snapshot, replication a archive nie sú synonymá",
+      "line": 58,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "3. Logical a physical backup",
+      "line": 71,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Logical backup",
+      "line": 73,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Logical backup",
+      "line": 73,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Logical backup",
+      "line": 73,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selected object recovery;`, `migration medzi kompatibilnými generations;`, `audit alebo portable export;`, `menšie datasets;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Logical backup",
+      "line": 73,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Logical backup",
+      "line": 73,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Logical backup",
+      "line": 73,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Logical backup",
+      "line": 73,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Physical backup",
+      "line": 92,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 38 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Physical backup",
+      "line": 92,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `engine a major-version compatibility;`, `tablespace paths a storage layout;`, `checkpoint/backup start a stop positions;`, `WAL alebo redo dependencies;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Physical backup",
+      "line": 92,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Physical backup",
+      "line": 92,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Physical backup",
+      "line": 92,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "4. PostgreSQL PITR mechanismus",
+      "line": 105,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 48 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "4. PostgreSQL PITR mechanismus",
+      "line": 105,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "4. PostgreSQL PITR mechanismus",
+      "line": 105,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "4. PostgreSQL PITR mechanismus",
+      "line": 105,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "4. PostgreSQL PITR mechanismus",
+      "line": 105,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSN`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "5. MySQL point-in-time recovery",
+      "line": 134,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "5. MySQL point-in-time recovery",
+      "line": 134,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source/server UUID a binlog generation;`, `binlog file a position alebo GTID set;`, `row/statement/mixed logging implications;`, `encrypted-log key path;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "5. MySQL point-in-time recovery",
+      "line": 134,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "5. MySQL point-in-time recovery",
+      "line": 134,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "5. MySQL point-in-time recovery",
+      "line": 134,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UUID`, `GTID`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "6. Clean point a recovery target",
+      "line": 160,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 42 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "6. Clean point a recovery target",
+      "line": 160,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamp;`, `named restore point;`, `PostgreSQL LSN alebo transaction boundary;`, `MySQL binlog event position alebo GTID set;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "6. Clean point a recovery target",
+      "line": 160,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "6. Clean point a recovery target",
+      "line": 160,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "6. Clean point a recovery target",
+      "line": 160,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LSN`, `GTID`, `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "7. Continuity a retention",
+      "line": 188,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 37 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "7. Continuity a retention",
+      "line": 188,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sequence continuity, nie iba počet uploadov;`, `object existence aj readability;`, `checksum a expected size;`, `source cluster/server identity;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "7. Continuity a retention",
+      "line": 188,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "7. Continuity a retention",
+      "line": 188,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "7. Continuity a retention",
+      "line": 188,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "7. Continuity a retention",
+      "line": 188,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "7. Continuity a retention",
+      "line": 188,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GTID`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "8. Cross-store consistency group",
+      "line": 216,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 55 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "8. Cross-store consistency group",
+      "line": 216,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý store je authority pre ktorý fact;`, `durable ordering alebo event ID medzi stores;`, `whether derived store možno rebuildnúť;`, `provider/external ledger availability;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "8. Cross-store consistency group",
+      "line": 216,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "8. Cross-store consistency group",
+      "line": 216,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "9. Encryption, identity a isolation",
+      "line": 242,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "9. Encryption, identity a isolation",
+      "line": 242,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backup encryption key;`, `key version a wrapping lineage;`, `restore principal a network path;`, `separated production/backup administration;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "9. Encryption, identity a isolation",
+      "line": 242,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "10. Restore je samostatná generácia",
+      "line": 258,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "10. Restore je samostatná generácia",
+      "line": 258,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "10. Restore je samostatná generácia",
+      "line": 258,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Infrastructure: storage, permissions, network, keys.`, `Engine: startup, recovery completion, checksums, system catalogs.`, `Schema: expected migrations, constraints, extensions.`, `Data: counts, referential integrity, sampled/complete invariants.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "10. Restore je samostatná generácia",
+      "line": 258,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "10. Restore je samostatná generácia",
+      "line": 258,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "10. Restore je samostatná generácia",
+      "line": 258,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "11. Connected incident DB-PAY-57",
+      "line": 283,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MySQL merchant-policy store mal vlastný binlog coordinate;`, `provider ledger obsahoval external attempts;`, `neexistoval versionovaný cross-store consistency checkpoint.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Causal boundaries",
+      "line": 327,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Causal boundaries",
+      "line": 327,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Causal boundaries",
+      "line": 327,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Causal boundaries",
+      "line": 327,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Causal boundaries",
+      "line": 327,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Causal boundaries",
+      "line": 327,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Causal boundaries",
+      "line": 327,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PITR`, `WAL`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "12. Evidence-preserving containment",
+      "line": 335,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "13. Authoritative recovery",
+      "line": 353,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "13. Authoritative recovery",
+      "line": 353,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `application/business invariant validation;`, `exact manifest operations medzi 11:41:00 a containmentom;`, `outbox, API, MySQL binlog a provider-ledger correlation;`, `classification never-committed , committed-never-sent , sent-unknown ,`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "13. Authoritative recovery",
+      "line": 353,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "13. Authoritative recovery",
+      "line": 353,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "13. Authoritative recovery",
+      "line": 353,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "13. Authoritative recovery",
+      "line": 353,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "13. Authoritative recovery",
+      "line": 353,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTC`, `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "14. Backup/PITR acceptance verdict",
+      "line": 370,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "14. Backup/PITR acceptance verdict",
+      "line": 370,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "14. Backup/PITR acceptance verdict",
+      "line": 370,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact protected subject a consistency group sú explicitné;`, `logical/physical/base backup semantics sú vhodné;`, `capture je transaction/engine-consistent;`, `WAL/binlog/change-log sequence je complete, čitateľná a správne identi`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "14. Backup/PITR acceptance verdict",
+      "line": 370,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "14. Backup/PITR acceptance verdict",
+      "line": 370,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "14. Backup/PITR acceptance verdict",
+      "line": 370,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "14. Backup/PITR acceptance verdict",
+      "line": 370,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "14. Backup/PITR acceptance verdict",
+      "line": 370,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`, `recovery time`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "15. Troubleshooting recovery failure-u",
+      "line": 389,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Backup job je zelený",
+      "line": 409,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Replica je backup",
+      "line": 413,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Najnovší snapshot je najlepší",
+      "line": 417,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "PITR = vybrať timestamp",
+      "line": 421,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "pg dump + WAL",
+      "line": 425,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Obnovíme všetky stores na rovnaký čas",
+      "line": 429,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Restore skončil pri engine start-e",
+      "line": 433,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md",
+      "section": "Kľúč obnovíme počas incidentu",
+      "line": 437,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

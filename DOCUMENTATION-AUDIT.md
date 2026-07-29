@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **276**
-- Audited conceptual sections: **11153**
-- Total words: **646,048**
-- Findings: **23494** (critical 7041, high 8073, medium 2949, low 5431)
-- File grades: A 0, B 0, C 0, D 276
+- Audited authoritative articles: **277**
+- Audited conceptual sections: **11183**
+- Total words: **648,190**
+- Findings: **23582** (critical 7062, high 8098, medium 2965, low 5457)
+- File grades: A 0, B 0, C 0, D 277
 
 ## Interpretation
 
@@ -179,6 +179,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 557 | 23 | 30 | 8 | 11 | 1834 | `docs/14-sre-and-operations/toil.md` |
 | D | 552 | 26 | 23 | 11 | 15 | 2057 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | D | 546 | 25 | 27 | 6 | 9 | 1862 | `docs/12-observability/grafana.md` |
+| D | 546 | 21 | 25 | 16 | 26 | 2142 | `docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md` |
 | D | 544 | 23 | 26 | 11 | 23 | 2520 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | D | 544 | 21 | 32 | 5 | 20 | 2189 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
 | D | 542 | 26 | 21 | 2 | 47 | 4101 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
@@ -15985,6 +15986,55 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 356, `thin-concept-section` — **15. Toil reduction acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 391, `thin-concept-section` — **17. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md`
+
+- **CRITICAL** line 19, `bare-bullet-items` — **1. Exact database recovery subject**: 12 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `engine, major version a exact cluster/server identity;`, `databases, schemas, tablespaces a external large-object dependencies;`, `authoritative business facts a consistency group;`, `transaction/commit a client acknowledgement boundary;`.
+- **CRITICAL** line 19, `outline-instead-of-explanation` — **1. Exact database recovery subject**: 13 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
+- **CRITICAL** line 71, `empty-section` — **3. Logical a physical backup**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 73, `bare-bullet-items` — **Logical backup**: 9 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `selected object recovery;`, `migration medzi kompatibilnými generations;`, `audit alebo portable export;`, `menšie datasets;`.
+- **CRITICAL** line 73, `outline-instead-of-explanation` — **Logical backup**: 11 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
+- **CRITICAL** line 92, `bare-bullet-items` — **Physical backup**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `engine a major-version compatibility;`, `tablespace paths a storage layout;`, `checkpoint/backup start a stop positions;`, `WAL alebo redo dependencies;`.
+- **CRITICAL** line 134, `bare-bullet-items` — **5. MySQL point-in-time recovery**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source/server UUID a binlog generation;`, `binlog file a position alebo GTID set;`, `row/statement/mixed logging implications;`, `encrypted-log key path;`.
+- **CRITICAL** line 160, `bare-bullet-items` — **6. Clean point a recovery target**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `timestamp;`, `named restore point;`, `PostgreSQL LSN alebo transaction boundary;`, `MySQL binlog event position alebo GTID set;`.
+- **CRITICAL** line 188, `bare-bullet-items` — **7. Continuity a retention**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `sequence continuity, nie iba počet uploadov;`, `object existence aj readability;`, `checksum a expected size;`, `source cluster/server identity;`.
+- **CRITICAL** line 216, `bare-bullet-items` — **8. Cross-store consistency group**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý store je authority pre ktorý fact;`, `durable ordering alebo event ID medzi stores;`, `whether derived store možno rebuildnúť;`, `provider/external ledger availability;`.
+- **CRITICAL** line 242, `bare-bullet-items` — **9. Encryption, identity a isolation**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `backup encryption key;`, `key version a wrapping lineage;`, `restore principal a network path;`, `separated production/backup administration;`.
+- **CRITICAL** line 242, `outline-instead-of-explanation` — **9. Encryption, identity a isolation**: 9 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 258, `bare-bullet-items` — **10. Restore je samostatná generácia**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Infrastructure: storage, permissions, network, keys.`, `Engine: startup, recovery completion, checksums, system catalogs.`, `Schema: expected migrations, constraints, extensions.`, `Data: counts, referential integrity, sampled/complete invariants.`.
+- **CRITICAL** line 258, `outline-instead-of-explanation` — **10. Restore je samostatná generácia**: 8 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
+- **CRITICAL** line 283, `bare-bullet-items` — **11. Connected incident DB-PAY-57**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `MySQL merchant-policy store mal vlastný binlog coordinate;`, `provider ledger obsahoval external attempts;`, `neexistoval versionovaný cross-store consistency checkpoint.`.
+- **CRITICAL** line 327, `no-prose-concept` — **Causal boundaries**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 327, `outline-instead-of-explanation` — **Causal boundaries**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 353, `outline-instead-of-explanation` — **13. Authoritative recovery**: 10 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
+- **CRITICAL** line 370, `bare-bullet-items` — **14. Backup/PITR acceptance verdict**: 13 z 14 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact protected subject a consistency group sú explicitné;`, `logical/physical/base backup semantics sú vhodné;`, `capture je transaction/engine-consistent;`, `WAL/binlog/change-log sequence je complete, čitateľná a správne identi`.
+- **CRITICAL** line 370, `outline-instead-of-explanation` — **14. Backup/PITR acceptance verdict**: 14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 389, `empty-section` — **15. Troubleshooting recovery failure-u**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 73, `single-sentence-concept` — **Logical backup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 92, `list-heavy-section` — **Physical backup**: 6 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 105, `list-heavy-section` — **4. PostgreSQL PITR mechanismus**: 8 odrážok a iba 48 slov súvislého vysvetlenia.
+- **HIGH** line 134, `list-heavy-section` — **5. MySQL point-in-time recovery**: 8 odrážok a iba 42 slov súvislého vysvetlenia.
+- **HIGH** line 160, `list-heavy-section` — **6. Clean point a recovery target**: 6 odrážok a iba 42 slov súvislého vysvetlenia.
+- **HIGH** line 188, `list-heavy-section` — **7. Continuity a retention**: 10 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 216, `list-heavy-section` — **8. Cross-store consistency group**: 7 odrážok a iba 55 slov súvislého vysvetlenia.
+- **HIGH** line 258, `single-sentence-concept` — **10. Restore je samostatná generácia**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 327, `list-first-introduction` — **Causal boundaries**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 335, `single-sentence-concept` — **12. Evidence-preserving containment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 353, `bare-bullet-items` — **13. Authoritative recovery**: 7 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `application/business invariant validation;`, `exact manifest operations medzi 11:41:00 a containmentom;`, `outbox, API, MySQL binlog a provider-ledger correlation;`, `classification never-committed , committed-never-sent , sent-unknown ,`.
+- **HIGH** line 370, `single-sentence-concept` — **14. Backup/PITR acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 409, `single-sentence-concept` — **Backup job je zelený**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 413, `single-sentence-concept` — **Replica je backup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 417, `single-sentence-concept` — **Najnovší snapshot je najlepší**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 421, `single-sentence-concept` — **PITR = vybrať timestamp**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 425, `single-sentence-concept` — **pg dump + WAL**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 429, `single-sentence-concept` — **Obnovíme všetky stores na rovnaký čas**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 433, `single-sentence-concept` — **Restore skončil pri engine start-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 437, `single-sentence-concept` — **Kľúč obnovíme počas incidentu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 19, `term-before-explanation` — **1. Exact database recovery subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`, `LSN`, `GTID`, `RPO`, `RTO`, `identity`
+- **HIGH** line 73, `thin-concept-section` — **Logical backup**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 258, `thin-concept-section` — **10. Restore je samostatná generácia**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 327, `thin-concept-section` — **Causal boundaries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 370, `thin-concept-section` — **14. Backup/PITR acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md`
 
 - **CRITICAL** line 18, `bare-bullet-items` — **1. Exact index/lock/migration subject**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database, cluster, schema a table identity;`, `engine/version a topology generation;`, `row count, table/index size a growth;`, `query predicates, joins, ordering a limit;`.
@@ -16249,19 +16299,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2746 | 480 | 0 | 0 | 3226 |
-| `single-sentence-concept` | 0 | 2739 | 0 | 0 | 2739 |
-| `outline-instead-of-explanation` | 2728 | 0 | 0 | 0 | 2728 |
-| `term-before-explanation` | 0 | 593 | 1980 | 0 | 2573 |
-| `thin-concept-section` | 0 | 2312 | 0 | 0 | 2312 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2176 | 2176 |
-| `example-not-explicit` | 0 | 0 | 0 | 2160 | 2160 |
-| `list-first-introduction` | 0 | 1468 | 0 | 0 | 1468 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1095 | 1095 |
-| `short-concept-section` | 0 | 0 | 969 | 0 | 969 |
-| `no-prose-concept` | 852 | 0 | 0 | 0 | 852 |
-| `empty-section` | 715 | 0 | 0 | 0 | 715 |
-| `list-heavy-section` | 0 | 481 | 0 | 0 | 481 |
+| `bare-bullet-items` | 2757 | 481 | 0 | 0 | 3238 |
+| `single-sentence-concept` | 0 | 2751 | 0 | 0 | 2751 |
+| `outline-instead-of-explanation` | 2735 | 0 | 0 | 0 | 2735 |
+| `term-before-explanation` | 0 | 594 | 1989 | 0 | 2583 |
+| `thin-concept-section` | 0 | 2316 | 0 | 0 | 2316 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2185 | 2185 |
+| `example-not-explicit` | 0 | 0 | 0 | 2169 | 2169 |
+| `list-first-introduction` | 0 | 1469 | 0 | 0 | 1469 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1103 | 1103 |
+| `short-concept-section` | 0 | 0 | 976 | 0 | 976 |
+| `no-prose-concept` | 853 | 0 | 0 | 0 | 853 |
+| `empty-section` | 717 | 0 | 0 | 0 | 717 |
+| `list-heavy-section` | 0 | 487 | 0 | 0 | 487 |
 
 ## Required remediation pattern
 
