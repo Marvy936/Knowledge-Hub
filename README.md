@@ -61,10 +61,10 @@ Aktívne sekcie:
 13. [Observability](docs/12-observability/README.md)
 14. [Security and Identity](docs/13-security-and-identity/README.md)
 15. [SRE and Operations](docs/14-sre-and-operations/README.md)
+16. [Databases and Distributed Systems](docs/15-databases-and-distributed-systems/README.md)
 
 Plánované hlavné domény:
 
-- Databases and Distributed Systems,
 - GitOps and Platform Engineering.
 
 Budúce identity, ML, LLM a agentické oblasti sú predbežne rozpracované v [FUTURE-IDENTITY-AI-ROADMAP.md](FUTURE-IDENTITY-AI-ROADMAP.md).
