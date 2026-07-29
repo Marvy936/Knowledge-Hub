@@ -1,0 +1,79 @@
+name: One-time third Observability ledger update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/one-time-observability-third-ledger.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-ledger:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Update Observability ledger and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          branch="${GITHUB_REF_NAME}"
+          max_attempts=3
+
+          for attempt in $(seq 1 "$max_attempts"); do
+            git fetch origin "$branch"
+            git reset --hard "origin/${branch}"
+
+            python - <<'PY'
+          from pathlib import Path
+
+          path = Path("DOCUMENTATION-REVIEW-STATUS.md")
+          text = path.read_text(encoding="utf-8")
+
+          old_status = "| `12-observability` — Observability | 8/16 strict revalidation | In progress |"
+          new_status = "| `12-observability` — Observability | 12/16 strict revalidation | In progress |"
+
+          old_suffix = "Zostáva 8 kapitol a finálny section-level pass. |"
+          new_suffix = "Tretí authoritative blok bol kompletne prepísaný okolo connected Atlas Payments evidence subjectu `OBS-PAY-45`: `Grafana` používa `business/operational otázka → exact organization/folder/dashboard/panel/data-source/query subject → backend request a raw response → data frame → expressions/transformations → reducer/unit/mappings/overrides → rendered panel alebo Explore → viewer/alert consumer → operational decision → backend/user/forbidden validation`; `Loki` používa `system occurrence → collector record → tenant/timestamp/bounded labels/metadata/body → distributor validation a limits → ingester/WAL/chunk generation → TSDB index a object-store publication → recent alebo historical read path → LogQL query/rule → evidence-quality a retention verdict`; `Elasticsearch alebo OpenSearch` používa `event → collector/client record → explicit product/version a data-stream subject → template/mapping/ingest generation → bulk routing na primary shard → per-item indexing verdict → acknowledgement/replica/durability → refresh/search visibility → Lucene segments → rollover/lifecycle/snapshot → query a recovery verdict`; `Fluent Bit` používa `source file/socket a inode → input read/offset state → parser/multiline/timestamp → tag/filter/redaction/routing → chunk → memory/filesystem buffering → scheduler/retry/backpressure → output request → backend per-batch/per-item acknowledgement alebo unknown outcome → checkpoint/chunk release → backend read-back`. Worked failures pokrývajú Prometheus ratio `0.074`, ktoré malo znamenať `7.4 %`, ale Grafana unit pre rozsah `0–100` ho zobrazila ako `0.074 %` a UI hotfix provisioning znovu prepísal; Loki s deklarovanou 30-dňovou retention, kde nezávislá object-store lifecycle generation mazala chunks po siedmich dňoch pri stále existujúcich index references; OpenSearch bulk request s HTTP `200`, ale per-item `400 mapper_parsing_exception` po zmene `provider.response` z `keyword` na object, pričom request-level checkpoint ticho stratil rejected failure logs; a Fluent Bit počas 18-minútového Loki outage, kde output-dependent liveness a ephemeral Tail DB/filesystem buffer vytvorili restart loop, reread duplicates a nenávratný loss rotated logs. Každá kapitola používa exact visualization/log/search/delivery subject, competing hypotheses, discriminating evidence, evidence-preserving containment, authoritative recovery a original aj forbidden outcome. Navigation chain `Alertmanager → Grafana → Loki → Elasticsearch/OpenSearch → Fluent Bit → Jaeger a Tempo` bol zachovaný. Nový `glossary/12c-observability-visualization-log-search-delivery-lifecycles.md` pridal query-to-render, stream/chunk/retention, data-stream/mapping/bulk a source-offset-buffer-acknowledgement terminology; generated `GLOSSARY.md` je synchronizovaný a audit-failure artifacts sú prázdne. Aktuálne official facts boli overené: Grafana legacy Alerting Provisioning HTTP API je deprecated v prospech App Platform APIs; Loki TSDB/v13 je current recommended storage schema a Simple Scalable Deployment smeruje k odstráneniu v Loki 4.0; Fluent Bit YAML je štandardný format od 3.2 a classic mode je plánovaný na deprecation na konci 2026; Elasticsearch Data Stream Lifecycle/ILM a OpenSearch ISM zostávajú samostatné product-specific lifecycle contracts. Zostávajú 4 kapitoly a finálny section-level pass. |"
+
+          if old_status not in text:
+              raise SystemExit("Expected 8/16 Observability ledger status was not found.")
+          if old_suffix not in text:
+              raise SystemExit("Expected second Observability ledger suffix was not found.")
+
+          text = text.replace(old_status, new_status, 1)
+          text = text.replace(old_suffix, new_suffix, 1)
+          path.write_text(text, encoding="utf-8", newline="\n")
+          PY
+
+            git rm .github/workflows/one-time-observability-third-ledger.yml
+            git add DOCUMENTATION-REVIEW-STATUS.md
+            git commit -m "docs(review): record third Observability strict revalidation block"
+
+            if git push origin "HEAD:${branch}"; then
+              exit 0
+            fi
+
+            echo "::warning::Remote ${branch} changed during ledger update attempt ${attempt}; retrying."
+            if [ "$attempt" -eq "$max_attempts" ]; then
+              echo "::error::Unable to push Observability ledger update after ${max_attempts} attempts."
+              exit 1
+            fi
+          done
