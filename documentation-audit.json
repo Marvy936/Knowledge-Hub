@@ -3125,15 +3125,15 @@
     {
       "path": "docs/12-observability/alertmanager.md",
       "title": "Alertmanager",
-      "words": 2459,
-      "headings": 58,
-      "sections": 58,
-      "findings": 186,
-      "critical": 65,
-      "high": 79,
-      "medium": 21,
-      "low": 21,
-      "score": 1499,
+      "words": 2114,
+      "headings": 51,
+      "sections": 51,
+      "findings": 106,
+      "critical": 39,
+      "high": 37,
+      "medium": 11,
+      "low": 19,
+      "score": 823,
       "grade": "D"
     },
     {
@@ -172721,17 +172721,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Dominantný lifecycle",
+      "line": 12,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -172739,35 +172730,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `alert je stav monitoring condition,`, `notification je správa odoslaná konkrétnemu receiveru podľa policy.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "1. Mentálny model",
-      "line": 5,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "2. Rozdelenie zodpovedností",
-      "line": 28,
+      "section": "3. Rozdelenie zodpovedností",
+      "line": 61,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -172776,7 +172740,7 @@
     {
       "path": "docs/12-observability/alertmanager.md",
       "section": "Prometheus",
-      "line": 30,
+      "line": 63,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -172785,7 +172749,7 @@
     {
       "path": "docs/12-observability/alertmanager.md",
       "section": "Prometheus",
-      "line": 30,
+      "line": 63,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -172794,7 +172758,7 @@
     {
       "path": "docs/12-observability/alertmanager.md",
       "section": "Prometheus",
-      "line": 30,
+      "line": 63,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -172803,16 +172767,16 @@
     {
       "path": "docs/12-observability/alertmanager.md",
       "section": "Prometheus",
-      "line": 30,
+      "line": 63,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyhodnocuje PromQL,`, `vytvára alert labels a annotations,`, `posiela firing a resolved alerts Alertmanageru.`.",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vyhodnocuje PromQL;`, `drží for a keep firing for state;`, `vytvára alert labels a annotations;`, `posiela firing a resolved updates Alertmanagerom.`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
       "section": "Prometheus",
-      "line": 30,
+      "line": 63,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -172821,7 +172785,7 @@
     {
       "path": "docs/12-observability/alertmanager.md",
       "section": "Alertmanager",
-      "line": 37,
+      "line": 70,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -172830,7 +172794,7 @@
     {
       "path": "docs/12-observability/alertmanager.md",
       "section": "Alertmanager",
-      "line": 37,
+      "line": 70,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -172839,7 +172803,7 @@
     {
       "path": "docs/12-observability/alertmanager.md",
       "section": "Alertmanager",
-      "line": 37,
+      "line": 70,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -172848,16 +172812,16 @@
     {
       "path": "docs/12-observability/alertmanager.md",
       "section": "Alertmanager",
-      "line": 37,
+      "line": 70,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `deduplikuje alerts,`, `zoskupuje súvisiace alerts,`, `routuje podľa labels,`, `aplikuje silences a inhibition,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuje a deduplikuje alerts;`, `aplikuje route tree;`, `zoskupuje alerts;`, `riadi notification timing;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
       "section": "Alertmanager",
-      "line": 37,
+      "line": 70,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -172865,17 +172829,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "Receiver",
-      "line": 47,
-      "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Receiver",
-      "line": 47,
+      "section": "Receiver a external workflow",
+      "line": 80,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -172883,17 +172838,17 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "Receiver",
-      "line": 47,
+      "section": "Receiver a external workflow",
+      "line": 80,
       "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `doručuje page, ticket, email alebo chat message,`, `môže mať vlastný deduplication, retry a escalation model,`, `musí byť monitorovaný samostatne.`.",
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prijíma page, webhook, chat, email alebo ticket event;`, `musí potvrdiť delivery a byť monitorovaný samostatne.`.",
       "score": 8
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "Receiver",
-      "line": 47,
+      "section": "Receiver a external workflow",
+      "line": 80,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -172901,134 +172856,26 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "3. Alert data model",
-      "line": 53,
+      "section": "4. Alert identity",
+      "line": 88,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 51 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "3. Alert data model",
-      "line": 53,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 3 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "3. Alert data model",
-      "line": 53,
+      "section": "4. Alert identity",
+      "line": 88,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `labels,`, `annotations,`, `startsAt ,`, `endsAt ,`.",
+      "detail": "11 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alertname ;`, `service a operation;`, `environment;`, `region/cluster podľa incident boundary;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "3. Alert data model",
-      "line": 53,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "3. Alert data model",
-      "line": 53,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Labels",
-      "line": 64,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Labels",
-      "line": 64,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Labels",
-      "line": 64,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alertname ,`, `service ,`, `cluster ,`, `namespace ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Labels",
-      "line": 64,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Annotations",
-      "line": 86,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Annotations",
-      "line": 86,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `summary,`, `description,`, `runbook URL,`, `dashboard URL,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Annotations",
-      "line": 86,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Annotations",
-      "line": 86,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "4. Alert fingerprint a deduplication",
-      "line": 99,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prišli z dvoch Prometheus HA replicas,`, `annotations majú odlišné hodnoty,`, `prišli opakovane počas firing stavu.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "4. Alert fingerprint a deduplication",
-      "line": 99,
+      "section": "4. Alert identity",
+      "line": 88,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -173036,8 +172883,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "4. Alert fingerprint a deduplication",
-      "line": 99,
+      "section": "4. Alert identity",
+      "line": 88,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -173045,8 +172892,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "4. Alert fingerprint a deduplication",
-      "line": 99,
+      "section": "4. Alert identity",
+      "line": 88,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -173054,71 +172901,26 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "5. Routing tree",
-      "line": 113,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "5. Routing tree",
-      "line": 113,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "5. Routing tree",
-      "line": 113,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `musí existovať,`, `definuje default receiver,`, `nesmie mať matchers,`, `poskytuje zdedené grouping a timing defaults.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "5. Routing tree",
-      "line": 113,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "6. Route matching",
-      "line": 157,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "6. Route matching",
-      "line": 157,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `equality,`, `inequality,`, `regular expression,`, `negative regular expression.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "6. Route matching",
-      "line": 157,
+      "section": "4. Alert identity",
+      "line": 88,
       "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
       "score": 4
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "6. Route matching",
-      "line": 157,
+      "section": "5. HA producer fan-out a deduplication",
+      "line": 112,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exactly-once delivery;`, `výber „správnej“ source sample;`, `globálny consensus o business incidente;`, `ochranu pred odlišnými labels medzi replicas.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "5. HA producer fan-out a deduplication",
+      "line": 112,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -173126,71 +172928,62 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "group by",
-      "line": 194,
+      "section": "5. HA producer fan-out a deduplication",
+      "line": 112,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "6. Route-tree generation",
+      "line": 134,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `[cluster, alertname] ,`, `[service, alertname] ,`, `[team, environment, alertname] .`.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "group by",
-      "line": 194,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Grouping trade-off",
-      "line": 206,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Grouping trade-off",
-      "line": 206,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Grouping trade-off",
-      "line": 206,
+      "section": "6. Route-tree generation",
+      "line": 134,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mnoho pages,`, `alert storm,`, `opakovaný rovnaký context.`, `unrelated services v jednej notification,`.",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `broad route zachytí alert pred špecifickou route;`, `missing owner label skončí v nesprávnom default receiveri;`, `regex matchuje širšiu population;`, `continue: true pošle neplánované duplicity;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "Grouping trade-off",
-      "line": 206,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Grouping trade-off",
-      "line": 206,
+      "section": "6. Route-tree generation",
+      "line": 134,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/12-observability/alertmanager.md",
+      "section": "6. Route-tree generation",
+      "line": 134,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "6. Route-tree generation",
+      "line": 134,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
       "section": "8. Notification timing",
-      "line": 223,
+      "line": 179,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -173198,26 +172991,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "group wait",
-      "line": 225,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prísť ďalším súvisiacim alerts,`, `doraziť inhibiting parent alertu,`, `vytvoriť kompaktnejšiu notification.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "group wait",
-      "line": 225,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
       "section": "group interval",
-      "line": 237,
+      "line": 185,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -173225,8 +173000,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "repeat interval",
-      "line": 241,
+      "section": "9. Silence, mute interval a inhibition",
+      "line": 195,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -173234,53 +173009,35 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "repeat interval",
-      "line": 241,
+      "section": "10. Receiver a template generation",
+      "line": 233,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "detail": "12 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "repeat interval",
-      "line": 241,
+      "section": "10. Receiver a template generation",
+      "line": 233,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `on-call escalation,`, `expected incident duration,`, `receiver deduplication,`, `shift handover,`.",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user/business impact;`, `service, operation, environment a region;`, `group scope a firing count;`, `start a duration;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "repeat interval",
-      "line": 241,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "10. Receiver a template generation",
+      "line": 233,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "9. Notification log",
-      "line": 253,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `či už bola group odoslaná,`, `ktorému receiveru,`, `s akým alert setom,`, `či treba poslať update alebo repeat.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "9. Notification log",
-      "line": 253,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "9. Notification log",
-      "line": 253,
+      "section": "10. Receiver a template generation",
+      "line": 233,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -173288,512 +173045,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "10. Receivers",
-      "line": 266,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "11 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "10. Receivers",
-      "line": 266,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `email,`, `generic webhook,`, `PagerDuty,`, `Opsgenie,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "10. Receivers",
-      "line": 266,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "10. Receivers",
-      "line": 266,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "10. Receivers",
-      "line": 266,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "10. Receivers",
-      "line": 266,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `SMTP`, `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "11. Notification retries",
-      "line": 289,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 44 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "11. Notification retries",
-      "line": 289,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dočasný network failure,`, `receiver throttling,`, `permanent invalid request,`, `authentication failure,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "11. Notification retries",
-      "line": 289,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "11. Notification retries",
-      "line": 289,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "11. Notification retries",
-      "line": 289,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "12. Silences",
-      "line": 307,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "12. Silences",
-      "line": 307,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `matchers,`, `start a end time,`, `creator,`, `comment alebo ticket/change reference.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "12. Silences",
-      "line": 307,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "12. Silences",
-      "line": 307,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Silence governance",
-      "line": 326,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Silence governance",
-      "line": 326,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Silence governance",
-      "line": 326,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bounded duration,`, `ownera,`, `dôvod,`, `change/incident ID,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Silence governance",
-      "line": 326,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Silence governance",
-      "line": 326,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "13. Mute time intervals",
-      "line": 339,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `non-production warnings mimo pracovných hodín,`, `známe pravidelné maintenance windows,`, `business-hours routing.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "13. Mute time intervals",
-      "line": 339,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "13. Mute time intervals",
-      "line": 339,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "14. Inhibition",
-      "line": 353,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "14. Inhibition",
-      "line": 353,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `source matchers,`, `target matchers,`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "14. Inhibition",
-      "line": 353,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Inhibition riziká",
-      "line": 383,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Inhibition riziká",
-      "line": 383,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Inhibition riziká",
-      "line": 383,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Inhibition riziká",
-      "line": 383,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chýbajúci equal scope mutuje alerts z iného clusteru,`, `parent alert nie je spoľahlivý,`, `source a target labels nie sú konzistentné,`, `broad source matcher vytvára príliš veľké muting pole.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Inhibition riziká",
-      "line": 383,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Inhibition riziká",
-      "line": 383,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "15. Silence oproti inhibition",
-      "line": 392,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "16. Resolved notifications",
-      "line": 403,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "16. Resolved notifications",
-      "line": 403,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident closure signal,`, `ticket/on-call state update,`, `meranie duration,`, `automatizovaný recovery workflow.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "16. Resolved notifications",
-      "line": 403,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "17. Templates",
-      "line": 422,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "17. Templates",
-      "line": 422,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "17. Templates",
-      "line": 422,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stručný user impact,`, `service/environment/region,`, `firing count a group context,`, `začiatok a duration,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "17. Templates",
-      "line": 422,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Template safety",
-      "line": 436,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Template safety",
-      "line": 436,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Template safety",
-      "line": 436,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Template safety",
-      "line": 436,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `nepredpokladaj, že label vždy existuje,`, `správne escape-ni receiver syntax,`, `nedávaj secrets do outputu,`, `obmedz payload size,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Template safety",
-      "line": 436,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "18. Configuration validation",
-      "line": 447,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "18. Configuration validation",
-      "line": 447,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `YAML syntax,`, `matcher syntax,`, `receiver references,`, `template files,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "18. Configuration validation",
-      "line": 447,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "18. Configuration validation",
-      "line": 447,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "18. Configuration validation",
-      "line": 447,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `YAML`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "19. Routing testovanie",
-      "line": 468,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "19. Routing testovanie",
-      "line": 468,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "19. Routing testovanie",
-      "line": 468,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `matched route,`, `inherited group/timing,`, `receiver,`, `continue behavior,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "19. Routing testovanie",
-      "line": 468,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "20. High availability",
-      "line": 500,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `každá instance prijíma a spracúva alerts,`, `silences a notification state sa replikuje medzi peers,`, `receiver notifications sa koordinujú na zníženie duplicít,`, `peers majú nezávislé process a storage lifecycle.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "20. High availability",
-      "line": 500,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "20. High availability",
-      "line": 500,
+      "section": "10. Receiver a template generation",
+      "line": 233,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -173801,224 +173054,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "HA nie je exactly once",
-      "line": 513,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "HA nie je exactly once",
-      "line": 513,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network partition,`, `peer restart-e,`, `state convergence,`, `receiver timeout-e,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "HA nie je exactly once",
-      "line": 513,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "21. Cluster networking",
-      "line": 527,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "21. Cluster networking",
-      "line": 527,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "21. Cluster networking",
-      "line": 527,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `advertise address,`, `peer list/discovery,`, `TCP/UDP cluster ports podľa verzie a konfigurácie,`, `NetworkPolicy/firewall,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "21. Cluster networking",
-      "line": 527,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "21. Cluster networking",
-      "line": 527,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TCP`, `UDP`, `DNS`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "22. Persistent state",
-      "line": 542,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "22. Persistent state",
-      "line": 542,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `strate silences,`, `opakovaným notifications,`, `strate deduplication history.`, `či je silence persistence kritická,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "22. Persistent state",
-      "line": 542,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "22. Persistent state",
-      "line": 542,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "22. Persistent state",
-      "line": 542,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "23. Multi-tenant a ownership model",
-      "line": 561,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "23. Multi-tenant a ownership model",
-      "line": 561,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povinný team alebo owner label,`, `severity taxonomy,`, `environment taxonomy,`, `receiver ownership,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "23. Multi-tenant a ownership model",
-      "line": 561,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "23. Multi-tenant a ownership model",
-      "line": 561,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "24. Severity model",
-      "line": 579,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "24. Severity model",
-      "line": 579,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "24. Severity model",
-      "line": 579,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "25. Notification content",
-      "line": 592,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "25. Notification content",
-      "line": 592,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "25. Notification content",
-      "line": 592,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čo je poškodené,`, `koho sa to týka,`, `aký je scope,`, `odkedy,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "25. Notification content",
-      "line": 592,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "25. Notification content",
-      "line": 592,
+      "section": "10. Receiver a template generation",
+      "line": 233,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
@@ -174026,44 +173063,35 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "26. Self-monitoring",
-      "line": 619,
+      "section": "11. Delivery, retries a unknown outcome",
+      "line": 257,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "26. Self-monitoring",
-      "line": 619,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "26. Self-monitoring",
-      "line": 619,
+      "section": "11. Delivery, retries a unknown outcome",
+      "line": 257,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet prijatých alerts,`, `active alerts,`, `notification attempts a failures,`, `notification latency,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `acknowledged receiver success;`, `permanent validation/auth failure;`, `transient network/throttling failure;`, `timeout s neznámym receiver outcome-om;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "26. Self-monitoring",
-      "line": 619,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "11. Delivery, retries a unknown outcome",
+      "line": 257,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "26. Self-monitoring",
-      "line": 619,
+      "section": "11. Delivery, retries a unknown outcome",
+      "line": 257,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -174071,26 +173099,116 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "26. Self-monitoring",
-      "line": 619,
+      "section": "11. Delivery, retries a unknown outcome",
+      "line": 257,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "12. Resolved lifecycle",
+      "line": 281,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "12. Resolved lifecycle",
+      "line": 281,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `flapping rule;`, `label-set change;`, `no-data interpretovanom ako recovery;`, `producer replica divergence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "12. Resolved lifecycle",
+      "line": 281,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "27. Troubleshooting alert sa nezobrazil v Alertmanageri",
-      "line": 647,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "section": "12. Resolved lifecycle",
+      "line": 281,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "27. Troubleshooting alert sa nezobrazil v Alertmanageri",
-      "line": 647,
+      "section": "13. High availability a state",
+      "line": 296,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `silences;`, `notification log a dedup history;`, `loaded config a templates;`, `peer membership.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "13. High availability a state",
+      "line": 296,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "14. Worked failure: staging maintenance inhibuje production page",
+      "line": 311,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Target alert",
+      "line": 317,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Súbežný source alert",
+      "line": 329,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Effective inhibition generation AM-CFG-77",
+      "line": 339,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Competing hypotheses",
+      "line": 351,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Competing hypotheses",
+      "line": 351,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -174098,26 +173216,26 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "27. Troubleshooting alert sa nezobrazil v Alertmanageri",
-      "line": 647,
+      "section": "Competing hypotheses",
+      "line": 351,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "27. Troubleshooting alert sa nezobrazil v Alertmanageri",
-      "line": 647,
+      "section": "Competing hypotheses",
+      "line": 351,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Prometheus Rules UI,`, `Prometheus Alerts UI,`, `rule evaluation metrics/logs,`, `Alertmanager target status v Prometheus,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Prometheus alert neposlal Alertmanageru;`, `alert ešte čaká v group wait ;`, `route skončila vo fallback receiveri;`, `active silence target matchuje;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "27. Troubleshooting alert sa nezobrazil v Alertmanageri",
-      "line": 647,
+      "section": "Competing hypotheses",
+      "line": 351,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -174125,17 +173243,17 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "27. Troubleshooting alert sa nezobrazil v Alertmanageri",
-      "line": 647,
+      "section": "Competing hypotheses",
+      "line": 351,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
       "score": 4
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "28. Troubleshooting alert je firing, ale notification neprišla",
-      "line": 668,
+      "section": "Discriminating evidence",
+      "line": 362,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -174143,35 +173261,44 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "29. Troubleshooting duplicate notifications",
-      "line": 686,
+      "section": "Containment",
+      "line": 391,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Containment",
+      "line": 391,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "29. Troubleshooting duplicate notifications",
-      "line": 686,
+      "section": "Containment",
+      "line": 391,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "29. Troubleshooting duplicate notifications",
-      "line": 686,
-      "severity": "critical",
+      "section": "Containment",
+      "line": 391,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replica label je súčasťou alert identity,`, `Prometheus neposiela konzistentné labels,`, `viac nezávislých Alertmanager clusters,`, `HA mesh partition,`.",
-      "score": 12
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `odstrániť alebo dočasne zúžiť chybnú inhibition generation;`, `manuálne deklarovať production incident a kontaktovať on-call;`, `nevypnúť všetku inhibition globálne bez kontroly alert stormu;`.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "29. Troubleshooting duplicate notifications",
-      "line": 686,
+      "section": "Containment",
+      "line": 391,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -174179,8 +173306,62 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "29. Troubleshooting duplicate notifications",
-      "line": 686,
+      "section": "Containment",
+      "line": 391,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pridať environment a region do equal scope-u;`, `vytvoriť fixture pairs pre same/different environment a region;`, `validovať config a runtime reload;`, `poslať controlled production canary alert;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -174188,17 +173369,26 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "29. Troubleshooting duplicate notifications",
-      "line": 686,
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Authoritative recovery",
+      "line": 399,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
       "score": 4
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "30. Troubleshooting alert storm",
-      "line": 701,
+      "section": "Alertmanager acceptance verdict",
+      "line": 410,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174206,26 +173396,26 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "30. Troubleshooting alert storm",
-      "line": 701,
+      "section": "Alertmanager acceptance verdict",
+      "line": 410,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "30. Troubleshooting alert storm",
-      "line": 701,
+      "section": "Alertmanager acceptance verdict",
+      "line": 410,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `identifikuj dominantný alertname a label dimension,`, `odlíš reálny široký incident od cardinality chyby,`, `over parent alert a inhibition,`, `over grouping,`.",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `production target nie je inhibovaný staging source alertom;`, `exact page smeruje na payments receiver;`, `fallback route zachytí missing-owner fixture;`, `canary vytvorí jedno external incident bez duplicate stormu;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "30. Troubleshooting alert storm",
-      "line": 701,
+      "section": "Alertmanager acceptance verdict",
+      "line": 410,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -174233,8 +173423,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "30. Troubleshooting alert storm",
-      "line": 701,
+      "section": "Alertmanager acceptance verdict",
+      "line": 410,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -174242,8 +173432,17 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "31. Troubleshooting silence nefunguje",
-      "line": 715,
+      "section": "Alertmanager acceptance verdict",
+      "line": 410,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "15. End-to-end notification canary",
+      "line": 423,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174251,26 +173450,26 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "31. Troubleshooting silence nefunguje",
-      "line": 715,
+      "section": "16. Self-monitoring",
+      "line": 441,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "detail": "10 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "31. Troubleshooting silence nefunguje",
-      "line": 715,
+      "section": "16. Self-monitoring",
+      "line": 441,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active time range a time zone,`, `equality/regex matcher,`, `všetky required matchers,`, `skutočné alert labels,`.",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `received a active alerts;`, `notification attempts, failures a latency;`, `receiver response codes a throttling;`, `group count a notification volume;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "31. Troubleshooting silence nefunguje",
-      "line": 715,
+      "section": "16. Self-monitoring",
+      "line": 441,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -174278,44 +173477,125 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "31. Troubleshooting silence nefunguje",
-      "line": 715,
+      "section": "16. Self-monitoring",
+      "line": 441,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "16. Self-monitoring",
+      "line": 441,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "17. Troubleshooting paths",
+      "line": 458,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Alert nie je v Alertmanageri",
+      "line": 460,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Alert je firing, notification neprišla",
+      "line": 471,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Duplicate notifications",
+      "line": 485,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Duplicate notifications",
+      "line": 485,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Duplicate notifications",
+      "line": 485,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `replica label v alert identity;`, `inconsistent producer labels;`, `viac nezávislých Alertmanager clusters;`, `peer partition alebo cold state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Duplicate notifications",
+      "line": 485,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Duplicate notifications",
+      "line": 485,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UTF-8`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "32. Troubleshooting inhibition nefunguje",
-      "line": 729,
+      "section": "18. Configuration a policy tests",
+      "line": 502,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "32. Troubleshooting inhibition nefunguje",
-      "line": 729,
+      "section": "18. Configuration a policy tests",
+      "line": 502,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "32. Troubleshooting inhibition nefunguje",
-      "line": 729,
+      "section": "18. Configuration a policy tests",
+      "line": 502,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source alert je firing,`, `source a target matchers,`, `equal labels existujú a majú rovnaké hodnoty,`, `labels nie sú prázdne alebo chýbajúce nečakaným spôsobom,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact route a inherited timing;`, `missing owner/default fallback;`, `continue behavior;`, `same/different inhibition scope;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "32. Troubleshooting inhibition nefunguje",
-      "line": 729,
+      "section": "18. Configuration a policy tests",
+      "line": 502,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -174323,8 +173603,17 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "Alertmanager vyhodnocuje alerts",
-      "line": 744,
+      "section": "18. Configuration a policy tests",
+      "line": 502,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/alertmanager.md",
+      "section": "Alertmanager ako rule evaluator",
+      "line": 523,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174332,8 +173621,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "Dynamický error text v labeli",
-      "line": 748,
+      "section": "Dynamický text v labels",
+      "line": 527,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174341,8 +173630,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "Route bez default owner pathu",
-      "line": 752,
+      "section": "Inhibition bez environment/region scope-u",
+      "line": 531,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174350,17 +173639,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "Silence bez expiry alebo commentu",
-      "line": 756,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/alertmanager.md",
-      "section": "Inhibition bez scope labels",
-      "line": 760,
+      "section": "Silence bez ownera a expiry",
+      "line": 535,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174369,7 +173649,7 @@
     {
       "path": "docs/12-observability/alertmanager.md",
       "section": "Jeden Alertmanager za load balancerom ako HA",
-      "line": 764,
+      "line": 539,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174377,8 +173657,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "Page pre každý instance threshold",
-      "line": 768,
+      "section": "Receiver 2xx ako incident acceptance",
+      "line": 543,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174386,8 +173666,8 @@
     },
     {
       "path": "docs/12-observability/alertmanager.md",
-      "section": "Notification bez runbooku a user impactu",
-      "line": 772,
+      "section": "Page bez user impactu a safe first action",
+      "line": 547,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
