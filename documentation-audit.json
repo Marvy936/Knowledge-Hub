@@ -3573,15 +3573,15 @@
     {
       "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
       "title": "Vulnerability a patch management",
-      "words": 4060,
-      "headings": 53,
-      "sections": 53,
-      "findings": 112,
-      "critical": 22,
-      "high": 14,
-      "medium": 19,
-      "low": 57,
-      "score": 525,
+      "words": 1992,
+      "headings": 27,
+      "sections": 27,
+      "findings": 76,
+      "critical": 13,
+      "high": 24,
+      "medium": 10,
+      "low": 29,
+      "score": 422,
       "grade": "D"
     },
     {
@@ -195545,17 +195545,35 @@
     },
     {
       "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "1. Základné pojmy a ich vzťahy",
-      "line": 19,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
+      "section": "1. Exact remediation subject",
+      "line": 21,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 58 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "2. Vulnerability management oproti patch managementu",
-      "line": 31,
+      "section": "1. Exact remediation subject",
+      "line": 21,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service, ownera, environment a tenant scope;`, `host alebo node-pool generation;`, `installed package build a vendor release;`, `running process, loaded library alebo kernel generation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "1. Exact remediation subject",
+      "line": 21,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "1. Exact remediation subject",
+      "line": 21,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -195563,7 +195581,25 @@
     },
     {
       "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "3. Preventive maintenance model",
+      "section": "1. Exact remediation subject",
+      "line": 21,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "1. Exact remediation subject",
+      "line": 21,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "2. Weakness, vulnerability, exposure a compromise",
       "line": 39,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -195572,926 +195608,8 @@
     },
     {
       "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "4. Asset inventory ako prerequisite",
-      "line": 47,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "4. Asset inventory ako prerequisite",
-      "line": 47,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "4. Asset inventory ako prerequisite",
-      "line": 47,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "5. Business a security context assetu",
-      "line": 57,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "5. Business a security context assetu",
-      "line": 57,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business service a owner;`, `environment a tenant scope;`, `data classification;`, `privileges a trust position;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "5. Business a security context assetu",
-      "line": 57,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "5. Business a security context assetu",
-      "line": 57,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "5. Business a security context assetu",
-      "line": 57,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "5. Business a security context assetu",
-      "line": 57,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "6. Software inventory",
-      "line": 75,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "6. Software inventory",
-      "line": 75,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "7. CVE, CNA a vulnerability records",
-      "line": 83,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "7. CVE, CNA a vulnerability records",
-      "line": 83,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "8. Component identity a matching",
-      "line": 93,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 54 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "8. Component identity a matching",
-      "line": 93,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upstream version sa líši od distro package revision;`, `shaded JAR mení package metadata;`, `fork zachová pôvodný name;`, `vendored source nemá package record;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "8. Component identity a matching",
-      "line": 93,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "8. Component identity a matching",
-      "line": 93,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "8. Component identity a matching",
-      "line": 93,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "8. Component identity a matching",
-      "line": 93,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JAR`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "9. Vendor backports",
-      "line": 110,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "10. Finding sources",
-      "line": 118,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 47 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "10. Finding sources",
-      "line": 118,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `network scan vidí reachable behavior;`, `authenticated scan vidí installed state;`, `SCA vidí dependency graph;`, `image scanner vidí immutable filesystem;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "10. Finding sources",
-      "line": 118,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "13. Software Composition Analysis",
-      "line": 150,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "13. Software Composition Analysis",
-      "line": 150,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "15. Kubernetes vulnerability context",
-      "line": 178,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "15. Kubernetes vulnerability context",
-      "line": 178,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "16. Managed cloud services",
-      "line": 186,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "17. Firmware a network devices",
-      "line": 194,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "17. Firmware a network devices",
-      "line": 194,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "18. False positives",
-      "line": 202,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 45 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "18. False positives",
-      "line": 202,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact asset/artifact identity;`, `installed version a vendor advisory;`, `affected feature state;`, `scanner plugin a logic;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "18. False positives",
-      "line": 202,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "18. False positives",
-      "line": 202,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "19. False negatives",
-      "line": 217,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "19. False negatives",
-      "line": 217,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "21. CVSS v4.0",
-      "line": 246,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "21. CVSS v4.0",
-      "line": 246,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "22. EPSS",
-      "line": 256,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "22. EPSS",
-      "line": 256,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "23. CISA KEV",
-      "line": 266,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 49 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "23. CISA KEV",
-      "line": 266,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `overiť component/version;`, `mapovať exposed assets;`, `aplikovať vendor action;`, `hľadať indicators compromise;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "24. Exploit maturity a threat intelligence",
-      "line": 281,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "24. Exploit maturity a threat intelligence",
-      "line": 281,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "25. Exposure",
-      "line": 289,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 39 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "25. Exposure",
-      "line": 289,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `internet-facing, partner, internal alebo local-only;`, `pre-auth alebo post-auth;`, `required privileges;`, `network segmentation;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "25. Exposure",
-      "line": 289,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "25. Exposure",
-      "line": 289,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "26. Reachability",
-      "line": 307,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "26. Reachability",
-      "line": 307,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "27. Asset criticality a blast radius",
-      "line": 315,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 42 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "27. Asset criticality a blast radius",
-      "line": 315,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `confidentiality classification;`, `integrity business operations;`, `availability SLO;`, `privilege a control-plane authority;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "27. Asset criticality a blast radius",
-      "line": 315,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "27. Asset criticality a blast radius",
-      "line": 315,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "27. Asset criticality a blast radius",
-      "line": 315,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "27. Asset criticality a blast radius",
-      "line": 315,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "29. Patch provenance",
-      "line": 352,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "30. Routine patching",
-      "line": 360,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 41 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "30. Routine patching",
-      "line": 360,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingestne vendor updates;`, `overí applicability a provenance;`, `testuje representative systems;`, `deployne canary ring;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "30. Routine patching",
-      "line": 360,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "31. Emergency patching",
-      "line": 377,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "31. Emergency patching",
-      "line": 377,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `incident commander alebo decision ownera;`, `exact affected scope;`, `vendor fix/mitigation validation;`, `rapid canary;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "31. Emergency patching",
-      "line": 377,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "31. Emergency patching",
-      "line": 377,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "31. Emergency patching",
-      "line": 377,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "33. Compatibility testing",
-      "line": 410,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "33. Compatibility testing",
-      "line": 410,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `installation a reboot;`, `service startup;`, `critical user journeys;`, `integrations a protocols;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "33. Compatibility testing",
-      "line": 410,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "33. Compatibility testing",
-      "line": 410,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "33. Compatibility testing",
-      "line": 410,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "35. Immutable infrastructure",
-      "line": 443,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "36. Rollback a roll-forward",
-      "line": 451,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "36. Rollback a roll-forward",
-      "line": 451,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `severity operational regression;`, `exploitation threat;`, `data/schema compatibility;`, `time to new fix;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "36. Rollback a roll-forward",
-      "line": 451,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "36. Rollback a roll-forward",
-      "line": 451,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "37. Virtual patching",
-      "line": 466,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "38. Configuration mitigation",
-      "line": 474,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "38. Configuration mitigation",
-      "line": 474,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `configuration je active na všetkých assets;`, `vulnerable path je naozaj blocked;`, `alternate paths neexistujú;`, `change prežije restart/redeploy;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "38. Configuration mitigation",
-      "line": 474,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "38. Configuration mitigation",
-      "line": 474,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "39. End-of-life assets",
-      "line": 488,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 36 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "39. End-of-life assets",
-      "line": 488,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `upgrade alebo replace;`, `isolate a reduce privileges;`, `remove internet access;`, `virtual patch;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "39. End-of-life assets",
-      "line": 488,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "39. End-of-life assets",
-      "line": 488,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "40. Vulnerability exception",
-      "line": 503,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "40. Vulnerability exception",
-      "line": 503,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact asset/component/finding scope;`, `affected version/digest;`, `business dôvod;`, `risk analysis;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "40. Vulnerability exception",
-      "line": 503,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "41. Vulnerability debt",
-      "line": 521,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "41. Vulnerability debt",
-      "line": 521,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "42. CI/CD integration",
-      "line": 529,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 42 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "42. CI/CD integration",
-      "line": 529,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `new vs existing finding;`, `reachable runtime component;`, `KEV a exploit evidence;`, `environment;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "42. CI/CD integration",
-      "line": 529,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "42. CI/CD integration",
-      "line": 529,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "42. CI/CD integration",
-      "line": 529,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KEV`, `SBOM`, `availability`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "43. Patch a vulnerability observability",
-      "line": 545,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "43. Patch a vulnerability observability",
-      "line": 545,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "44. Verification",
-      "line": 553,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "44. Verification",
-      "line": 553,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `installed a running version;`, `image digest rollout completion;`, `process restart/reboot timestamp;`, `scanner re-test;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "44. Verification",
-      "line": 553,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "44. Verification",
-      "line": 553,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "44. Verification",
-      "line": 553,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "45. Reopen a recurrence",
-      "line": 570,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "48. Kompletný príklad",
-      "line": 613,
+      "section": "3. Inventory ako prerequisite",
+      "line": 56,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -196499,44 +195617,26 @@
     },
     {
       "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "48. Kompletný príklad",
-      "line": 613,
+      "section": "3. Inventory ako prerequisite",
+      "line": 56,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "48. Kompletný príklad",
-      "line": 613,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "3. Inventory ako prerequisite",
+      "line": 56,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
     },
     {
       "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "48. Kompletný príklad",
-      "line": 613,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "48. Kompletný príklad",
-      "line": 613,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "49. Troubleshooting programu",
-      "line": 628,
+      "section": "3. Inventory ako prerequisite",
+      "line": 56,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -196544,12 +195644,588 @@
     },
     {
       "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
-      "section": "50. Časté anti-patterny",
-      "line": 649,
+      "section": "3. Inventory ako prerequisite",
+      "line": 56,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "3. Inventory ako prerequisite",
+      "line": 56,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "3. Inventory ako prerequisite",
+      "line": 56,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "4. Advisory a component matching",
+      "line": 80,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "5. Severity, threat a business risk",
+      "line": 88,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "6. Finding lifecycle",
+      "line": 109,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "7. Patch provenance a treatment choices",
+      "line": 126,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "7. Patch provenance a treatment choices",
+      "line": 126,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `patch alebo security update;`, `rebuild immutable artifactu;`, `upgrade na supported release line;`, `configuration mitigation alebo feature disable;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "7. Patch provenance a treatment choices",
+      "line": 126,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "7. Patch provenance a treatment choices",
+      "line": 126,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "8. Deployment rings a runtime activation",
+      "line": 142,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "10. Worked incident SEC-PAY-50",
+      "line": 186,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Competing hypotheses",
+      "line": 194,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Competing hypotheses",
+      "line": 194,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Competing hypotheses",
+      "line": 194,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Competing hypotheses",
+      "line": 194,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Competing hypotheses",
+      "line": 194,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Discriminating evidence",
+      "line": 201,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Discriminating evidence",
+      "line": 201,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Discriminating evidence",
+      "line": 201,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Discriminating evidence",
+      "line": 201,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Discriminating evidence",
+      "line": 201,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "11. Evidence-preserving containment",
+      "line": 213,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "11. Evidence-preserving containment",
+      "line": 213,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "11. Evidence-preserving containment",
+      "line": 213,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "11. Evidence-preserving containment",
+      "line": 213,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "11. Evidence-preserving containment",
+      "line": 213,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "11. Evidence-preserving containment",
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "11. Evidence-preserving containment",
+      "line": 213,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "11. Evidence-preserving containment",
+      "line": 213,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "12. Authoritative recovery",
+      "line": 225,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "12. Authoritative recovery",
+      "line": 225,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "12. Authoritative recovery",
+      "line": 225,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "12. Authoritative recovery",
+      "line": 225,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "12. Authoritative recovery",
+      "line": 225,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "12. Authoritative recovery",
+      "line": 225,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "13. Acceptance verdict",
+      "line": 240,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "13. Acceptance verdict",
+      "line": 240,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "13. Acceptance verdict",
+      "line": 240,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 10 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `fixed builder digest neobsahuje affected helper version;`, `clean independent rebuild vytvorí expected semantic artifact;`, `žiadny running ani rollback workload nepoužíva sha256:pay7240 ;`, `release credentials z exposure intervalu sú revoked;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "13. Acceptance verdict",
+      "line": 240,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "13. Acceptance verdict",
+      "line": 240,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "13. Acceptance verdict",
+      "line": 240,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "13. Acceptance verdict",
+      "line": 240,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`, `workload`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "14. Exceptions, debt a metrics",
+      "line": 255,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "9 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "14. Exceptions, debt a metrics",
+      "line": 255,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory a authenticated-assessment coverage podľa asset class;`, `exposure window po risk tieroch;`, `time to triage, remediate a verify v percentiloch;`, `KEV a active-exploitation closure;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "14. Exceptions, debt a metrics",
+      "line": 255,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "14. Exceptions, debt a metrics",
+      "line": 255,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "14. Exceptions, debt a metrics",
+      "line": 255,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "14. Exceptions, debt a metrics",
+      "line": 255,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "14. Exceptions, debt a metrics",
+      "line": 255,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KEV`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "15. Earlier controls",
+      "line": 273,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "15. Earlier controls",
+      "line": 273,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "15. Earlier controls",
+      "line": 273,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "15. Earlier controls",
+      "line": 273,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable inventory source, builder, artifact a runtime identities;`, `builder-image a toolchain SBOM vedľa application SBOM;`, `source, artifact a binary-analysis coverage matrix;`, `pinned build environments a ephemeral runners;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "15. Earlier controls",
+      "line": 273,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "15. Earlier controls",
+      "line": 273,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "15. Earlier controls",
+      "line": 273,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "15. Earlier controls",
+      "line": 273,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "15. Earlier controls",
+      "line": 273,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "CVSS-only SLA",
+      "line": 289,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Source scan reprezentuje celý release",
+      "line": 293,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Installed znamená fixed",
+      "line": 297,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Patch bez compromise hunt-u",
+      "line": 301,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Green job znamená verified runtime",
+      "line": 305,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/vulnerability-and-patch-management.md",
+      "section": "Permanentná suppression",
+      "line": 309,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/zero-trust.md",
