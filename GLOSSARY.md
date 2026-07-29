@@ -766,6 +766,10 @@ Application-level identita mounted dát, napríklad tenant, schema, checkpoint, 
 
 Layer 7 Elastic Load Balancing variant pre HTTP/HTTPS traffic s listener rules, host/path routing, target groups a application health checks. Pozri [Elastic Load Balancing](docs/11-cloud-and-aws/elastic-load-balancing.md).
 
+## Application promotion
+
+Riadený authority transition, ktorým presne identifikovaný immutable release candidate po target-relevant evidence a policy decisione vstupuje do desired state-u ďalšieho environmentu. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
+
 ## Application split brain
 
 Concurrent application execution viacerých actorov, hoci underlying consensus cluster uznáva iba jedného leadera; typicky vzniká chýbajúcim fencingom. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
@@ -853,6 +857,10 @@ Versionovaný a identifikovateľný výstup pipeline určený na ďalšie overen
 ## Artifact digest
 
 Content-derived immutable identifikátor artifactu, napríklad SHA-256 digest container image, používaný na presnú väzbu medzi buildom, evidence, promotion a deploymentom. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
+
+## Artifact invariant
+
+Release property, ktorá musí zostať viazaná na candidate naprieč environmentmi, napríklad image digest, required schema/event capability alebo secret key format. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
 
 ## Artifact lineage — multi-stage build
 
@@ -1846,6 +1854,10 @@ Princíp vytvoriť pre konkrétny candidate jeden immutable artifact a ten istý
 
 Delivery princíp, pri ktorom sa source zostaví raz do immutable artifactu a rovnaký digest sa overuje a promotionuje cez všetky environments. Pozri [Trigger, artifact a cache](docs/05-ci-cd-and-release/trigger-artifact-cache.md).
 
+## Build-once promotion
+
+Model, v ktorom sa rovnaký immutable artifact overuje a povoľuje v postupných environmentoch bez uncontrolled environment-specific rebuild-u. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
+
 ## Build platform
 
 Systém vykonávajúci build definitions, získavajúci inputs a vytvárajúci artifacts a provenance; predstavuje kritickú supply-chain trust boundary. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
@@ -2130,6 +2142,10 @@ Postupné sprístupnenie novej verzie malej časti trafficu alebo používateľo
 
 Bod oddeľujúci prácu, ktorú možno bezpečne zastaviť, od už commitnutých, external alebo iba compensatable/reconcileable effects. Pozri [Synchronous vs. asynchronous communication](../docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md).
 
+## Candidate evidence bundle
+
+Subject-bound collection provenance, test, scan, compatibility, staging, operational a business evidence použitého pri environment eligibility decisione. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
+
 ## Candidate integration state
 
 Presný výsledný source tree, ktorý by po integrácii vznikol, typicky reprezentovaný synthetic merge alebo merge-queue SHA a overovaný proti aktuálnemu targetu. Pozri [Continuous Integration](docs/05-ci-cd-and-release/continuous-integration.md).
@@ -2165,6 +2181,10 @@ Render generation, ktorej output závisí od explicitného Kubernetes/API capabi
 ## Capability confidentiality
 
 Confidentiality property citlivej capability, pri ktorej principal nesmie secret alebo key iba čítať, ale ani neobmedzene používať signing, decryption, impersonation či export operation. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Capability contract
+
+Machine- a human-readable definícia platformovej služby určujúca allowed request, defaults, policy, generated resources, observable success, support, update, migration a deletion semantics. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
 
 ## Capability drop — container
 
@@ -2273,6 +2293,10 @@ Exact producer, release, tenant, signal/backend, identity model, dimensions, act
 ## Cardinality — telemetry
 
 Počet unikátnych kombinácií labels alebo attributes; vysoká alebo neobmedzená cardinality môže výrazne zvýšiť memory, storage, query cost a destabilizovať telemetry pipeline. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
+
+## Catalog projection
+
+Developer-facing index a relation model odvodený z catalog declarations a authoritative runtime/platform evidence, ktorý nesmie byť zamenený za live alebo desired-state authority. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
 
 ## Catastrophic backtracking
 
@@ -2825,6 +2849,10 @@ Cluster-scoped RBAC binding udeľujúci ClusterRole permissions subjects naprie�
 ## ClusterRoleBinding — Kubernetes
 
 Kubernetes RBAC objekt, ktorý priraďuje ClusterRole principals na úrovni celého clusteru. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
+
+## ClusterSecretStore
+
+Cluster-scoped External Secrets provider configuration zdieľateľná naprieč namespaces; vyžaduje silnejší provider-path a consumer authorization contract pre väčší blast radius. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
 
 ## Cmdlet
 
@@ -4318,6 +4346,10 @@ Konfigurácia opisujúca požadovaný výsledný stav, nie sekvenciu krokov. Poz
 
 Policy opisujúca požadovaný decision alebo invariant bez imperatívneho control flow-u, typicky nad structured inputom a data. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Decryption identity
+
+Controller alebo workload principal oprávnený použiť KMS key, age private key alebo equivalent mechanismus na vznik plaintextu z encrypted desired payloadu. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
 ## Decryption identity — Ansible Vault
 
 Workload alebo používateľská identita oprávnená získať konkrétny vault password alebo secret domain a dešifrovať ho iba v definovanom protected runtime scope. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
@@ -4709,6 +4741,10 @@ Dôkaz, že fixný chart, dependency graph, values, release context, capabilitie
 ## Deterministic serialization
 
 Serializácia, pri ktorej rovnaký logický vstup vytvára stabilný byte alebo textový výstup podľa definovaných pravidiel. Pozri [YAML, JSON a regular expressions](docs/03-git-and-automation/yaml-json-regular-expressions.md).
+
+## Developer-functional verification
+
+Dôkaz, že platform owner output nielen vytvorila, ale application team ho môže reálne použiť, napríklad autentizovať sa, deploynuť sample alebo pripojiť k managed capability. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
 
 ## Development target — Dockerfile
 
@@ -5298,6 +5334,10 @@ Acknowledged business command alebo state, ktorý zostáva bezpečne vykonateľn
 
 Autoritatívny persistentný záznam hook operácií podľa operation ID, source/target state-u, checksumu a výsledku, ktorý umožňuje rozlíšiť complete, partial, failed a unknown outcome aj po odstránení Job resource-u. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
 
+## Durable platform operation
+
+Persistovaný distributed workflow record s operation ID, semantic subjectom, step state-om, downstream resource IDs, attempts, partial outcomes a recovery verdictom. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
 ## Duration distribution
 
 Rozdelenie trvania operácií používané v RED na sledovanie typical aj tail latency bez redukcie na jediný priemer. Pozri [RED method](docs/12-observability/red-method.md).
@@ -5678,6 +5718,10 @@ Proces, pri ktorom každá sieťová vrstva pridá svoje metadata okolo payloadu
 
 Súbor, ktorého celý obsah je zašifrovaný Ansible Vaultom a musí byť dešifrovaný pri načítaní alebo použití. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
+## Encrypted-in-Git secret
+
+Model, v ktorom repository versionuje ciphertext a decryption metadata, zatiaľ čo autorizovaný GitOps controller vytvára plaintext až na target reconciliation boundary. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
 ## Encrypted variable — Ansible Vault
 
 Jednotlivá YAML hodnota uložená ako `!vault` encrypted block v inak čitateľnom súbore. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
@@ -5841,6 +5885,10 @@ Kanonické mapovanie GitLab environment name a tieru na skutočný cloud account
 ## Environment injection — Kubernetes
 
 Odovzdanie ConfigMap alebo Secret hodnoty do environmentu pri vytvorení container procesu; neskoršia zmena source objektu environment bežiaceho procesu nezmení. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
+
+## Environment-owned configuration
+
+Desired-state fields legitímne vlastnené konkrétnym environmentom, napríklad capacity, regional endpoint, exposure alebo target secret reference, ktoré nie sú samotným application artifactom. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
 
 ## Environment parity — deployment
 
@@ -6158,6 +6206,10 @@ Konkrétna Lambda runtime environment population viazaná na function version/co
 
 Najkratšia bezpečná séria generatorov, editácií, client/server validations a mutations vedúca k požadovanému state-u.
 
+## Execution plane — IDP
+
+Git, CI, IaC, cloud, Kubernetes, GitOps, secret a observability systems, v ktorých platform control plane vykonáva alebo deleguje konkrétne mutations. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
 ## Executor — CI/CD
 
 Mechanizmus použitý runnerom na vykonanie jobu, napríklad host shell, container, virtual machine alebo Kubernetes pod. Pozri [Pipeline, stage, job a runner](docs/05-ci-cd-and-release/pipeline-stage-job-runner.md).
@@ -6241,6 +6293,10 @@ Versionovaný inventory endpoints, ktoré majú po service discovery a target re
 ## Expected target inventory — Ansible
 
 Očakávaná množina alebo invariant targetov pred runom, napríklad stable host IDs, count bounds, AZ/ring coverage, forbidden overlaps, allowed lifecycle states a maximum cache age. Porovnáva sa s resolved, attempted a verified host inventory. Pozri [Inventory](docs/07-infrastructure-as-code-and-configuration-management/inventory.md).
+
+## Experience plane — IDP
+
+Portal, CLI, documentation a status interfaces, cez ktoré developer objavuje capability, zadáva request a pozoruje operation bez preberania authority underlying systems. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
 
 ## Experiment contract
 
@@ -6362,6 +6418,10 @@ Systém mimo Kubernetes API, ktorý vydáva alebo uchováva citlivé hodnoty a s
 
 Secret-management systém, z ktorého job explicitne načíta citlivú hodnotu po overení federovanej alebo inej scoped identity. Pozri [Variables a secrets](docs/06-gitlab/variables-and-secrets.md).
 
+## External secret reference
+
+Git-managed declaration provider objectu, property a voliteľnej version policy, podľa ktorej controller alebo workload získava secret z external authority. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
 ## External side-effect commit — Helm
 
 Bod, v ktorom hook durable zmení databázu, queue, external API alebo inú autoritatívnu vrstvu bez ohľadu na to, či Helm následne zaznamená successful hook alebo release status. Pozri [Hooks](docs/10-helm-and-cka/hooks.md).
@@ -6373,6 +6433,10 @@ Post-restore porovnanie restored Kubernetes objects s cloud disks, load balancer
 ## ExternalName Service
 
 Kubernetes Service type poskytujúci DNS alias na external name bez bežného ClusterIP proxy a selector-based EndpointSlices. Pozri [Service a EndpointSlice](docs/09-kubernetes/service-endpointslice.md).
+
+## ExternalSecret
+
+Custom Resource deklarujúci external provider reference, refresh behavior, transformáciu a target Kubernetes Secret materialization. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
 
 ## Fact cache — Ansible
 
@@ -6758,6 +6822,34 @@ Dôkaz, že exact sources, offsets, routes, buffers a outputs prežijú fault/re
 
 Exact Node/source, DaemonSet/config, input, inode, Tail DB, parser, tag, filter order, buffer, output, credential a acknowledgement identity analyzovanej pipeline. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
 
+## Flux acceptance verdict
+
+Dôkaz, že exact source artifact, downstream render/apply identity, field ownership, inventory/prune, health, workload a business generations vytvárajú reproducible, tenant-bounded a recoverable reconciliation bez hidden inputs. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
+
+## Flux dependency
+
+Reference z Kustomization alebo HelmRelease na iný Flux reconciliation subject, ktorá blokuje dependent, kým dependency nesplní definovaný readiness contract. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
+
+## Flux impersonation
+
+Použitie explicitného tenant service accountu controllerom pri target mutation, aby Kubernetes authorization obmedzila scope Kustomization alebo HelmRelease namiesto broad controller identity. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
+
+## Flux inventory
+
+Controller-maintained identity set resources aplikovaných konkrétnou Kustomization, používaný na ownership correlation a garbage collection. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
+
+## Flux Kustomization
+
+Custom Resource opisujúci sourceRef, path, interval, dependencies, decryption, substitutions, apply identity, prune a health reconciliation pipeline; nie je totožný so súborom `kustomization.yaml`. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
+
+## Flux subject
+
+Exact Flux installation, source object/revision/artifact, Kustomization alebo HelmRelease generation, render/decryption inputs, service account, target, inventory, health a business acceptance scope. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
+
+## Flux suspension
+
+Control-plane stav, ktorý dočasne zastaví reconciliation konkrétneho Flux objectu; nie je rollbackom a nemení desired ani live generation. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
+
 ## Folder permission — Grafana
 
 Prístupové pravidlo pre dashboardy a folders; samo osebe nemusí obmedziť možnosť queryovať underlying data source. Pozri [Grafana](docs/12-observability/grafana.md).
@@ -7029,6 +7121,18 @@ Static Application Security Testing integrované do GitLab CI/CD na detekciu pot
 ## GitOps deployment correlation — GitLab
 
 Väzba medzi source pipeline, release manifestom, desired-state repository commitom, controller reconciliation ID, runtime targetom a effective digestom. Odlišuje úspešný configuration request od dokončeného deploymentu. Pozri [Environments, deployments a releases](docs/06-gitlab/environments-deployments-releases.md).
+
+## GitOps secret acceptance verdict
+
+Dôkaz, že secret authority, encrypted/reference desired state, decryption identity, materialization, consumer reload, rotation, revocation, tenancy a recovery tvoria bezpečný lifecycle bez plaintext Git-u alebo stale loaded credentialu. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
+## GitOps secret subject
+
+Exact secret purpose, authority, tenant/environment/workload scope, encrypted payload alebo provider reference, decryption/retrieval identity, target, consumer load behavior, rotation a revocation contract. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
+## GitOps Toolkit
+
+Súbor composable Kubernetes APIs a controllerov Fluxu, ktoré oddeľujú source acquisition, manifest reconciliation, Helm release management, notifications a image automation. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
 
 ## Global Catalog
 
@@ -7477,6 +7581,10 @@ Stav, keď Helm command timeoutol alebo zlyhal, ale časť API requests, hooks, 
 ## Helm upgrade
 
 Operácia vytvárajúca novú release revision z chartu, dependencies, effective values a render contextu a aplikujúca výsledný manifest do clusteru. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
+## HelmRelease — Flux
+
+Custom Resource opisujúci desired Helm release, chart artifact, values, service-account identity, install/upgrade/test/remediation a release-history lifecycle. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
 
 ## Helper call graph — Helm
 
@@ -7958,6 +8066,10 @@ SAML entita autentizujúca principal-a a vydávajúca signed assertions. Pozri [
 
 Proces porovnávajúci authoritative identity/entitlement desired state s downstream accounts, groups, roles, sessions a local access paths a pridávajúci aj odstraňujúci delta. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
+## Identity reservation — IDP
+
+Skorá atomic alebo unique reservation service/repository/namespace/DNS identity, ktorá serializuje concurrent requests a chráni downstream provisioning pred duplicate creation. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
 ## Identity, Service, routing a DNS acceptance verdict
 
 Záverečný verdict príslušnej kapitoly, ktorý overuje current object/generation subjects, effective runtime/dataplane state, pôvodný business outcome a relevantné forbidden outcomes. Pozri [ServiceAccount](../docs/09-kubernetes/serviceaccount.md), [Service a EndpointSlice](../docs/09-kubernetes/service-endpointslice.md), [Ingress a Gateway API](../docs/09-kubernetes/ingress-gateway-api.md) a [Cluster DNS](../docs/09-kubernetes/cluster-dns.md).
@@ -7966,6 +8078,10 @@ Záverečný verdict príslušnej kapitoly, ktorý overuje current object/genera
 
 Korelácia human alebo upstream principalu, jeho session a authorization s vytvorenou workload identity a downstream actions tejto workload identity. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
 
+## IDP acceptance verdict
+
+Dôkaz, že exact request, capability contract, durable/idempotent operation, authoritative writers, tenant guardrails, downstream reconciliation, developer-functional outcome, lifecycle a second-request recovery tvoria pravdivú usable platform capability. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
 ## `ignore_changes` — Terraform
 
 Lifecycle rule, ktorá pri update plánovaní ignoruje zmeny vybraných atribútov. Musí mať explicitný external owner a monitoring, pretože potláča Terraform remediation, nie existenciu driftu. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
@@ -7973,6 +8089,10 @@ Lifecycle rule, ktorá pri update plánovaní ignoruje zmeny vybraných atribút
 ## Ignore rule — GitOps
 
 Versionovaná exception z diff oracle-u viazaná na exact resource/field/writera, dôvod, ownera, expiry a negative test. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
+
+## Image automation writer — Flux
+
+Automatizovaná identity, ktorá podľa registry observation a ImagePolicy mení označené Git fields a vytvára nový desired-state commit. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
 
 ## Image-config contract test
 
@@ -8402,6 +8522,14 @@ Testovanie, ktoré overuje komunikáciu a side effects medzi objektmi alebo komp
 
 PrivateLink-based VPC endpoint vytvárajúci ENIs s private IPs v zvolených subnetoch a voliteľným private DNS modelom. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
 
+## Internal Developer Platform
+
+Productized system capabilities, APIs, workflows, controllers, policies, metadata a support model, ktorý poskytuje developerom bounded self-service od requestu po usable runtime outcome. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
+## Internal developer portal
+
+Experience a aggregation layer pre discovery, catalog, documentation, templates a operations; môže byť súčasťou IDP, ale sama nepredstavuje celý platform control plane. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
 ## Internal direct path
 
 Container-to-container flow cez spoločnú Docker network a service DNS priamo na container port bez host publication boundary. Pozri [Docker networks a port publishing](docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md).
@@ -8826,6 +8954,10 @@ Maximálny podporovaný rozdiel verzií medzi API servers, kubelets, controller-
 
 Pod-level mount alebo device source deklarovaný v `spec.volumes`, ktorého backing môže byť ephemeral, projected alebo persistent. Pozri [Volumes, PV, PVC a StorageClass](docs/09-kubernetes/volumes-pv-pvc-storageclass.md).
 
+## Kustomize controller — Flux
+
+Flux controller, ktorý fetchne source artifact, voliteľne vykoná SOPS decryption, Kustomize build, validation, server-side apply, inventory, prune a health assessment. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
+
 ## KVNO overlap generation
 
 Bounded interval, počas ktorého service cohorta dokáže decryptovať tickets vydané old aj new Kerberos key versionou počas koordinovanej rotation. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
@@ -9170,6 +9302,10 @@ Instrumentation, agent, SDK alebo Collector configuration skutočne používaná
 
 Runtime limit, ktorý component skutočne používa, napríklad per-process connection-pool maximum; môže sa líšiť od desired alebo deklarovanej konfigurácie. Pozri [USE method](docs/12-observability/use-method.md).
 
+## Loaded secret generation
+
+Secret version, ktorú running application process skutočne načítal a používa, odlišná od current provider version alebo Kubernetes Secret resourceVersion. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
 ## Loaded-state telemetry
 
 Telemetry field alebo inventory preukazujúce effective configuration, secret, feature alebo release generation načítanú runtime cohortou namiesto iba desired-state deklarácie. Pozri [Monitoring vs. observability](docs/12-observability/monitoring-vs-observability.md).
@@ -9505,6 +9641,10 @@ Experimentálna alebo kontrolná skupina zostavená tak, aby bola porovnateľná
 ## Matcher — Alertmanager
 
 Podmienka nad alert labels používaná v route, silence alebo inhibition pravidle. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Materialized secret state
+
+Plaintext secret bytes vytvorené po decryption alebo provider fetchi v Kubernetes Secret-e, volume alebo inom runtime delivery mechanism-e. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
 
 ## Matrix pipeline
 
@@ -10389,6 +10529,10 @@ Node taint effect zabraňujúci scheduleru umiestniť nový Pod bez matching tol
 ## Notification — Alertmanager
 
 Receiver-specific správa vytvorená z jednej alert group podľa routing, timing, muting a template pravidiel. Pozri [Alertmanager](docs/12-observability/alertmanager.md).
+
+## Notification controller — Flux
+
+Flux controller pre webhook receivers, events a outbound notifications; webhook urýchľuje observation, ale nenahrádza periodic reconciliation. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
 
 ## Notification-decision path
 
@@ -11346,17 +11490,45 @@ Uložený Terraform plan viazaný na configuration, variables, provider/module s
 
 Native Terraform test run používajúci `command = plan` na overenie plan-time contractu bez vytvorenia reálnej infraštruktúry. Pozri [Terraform testing a policy](docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md).
 
+## Platform API
+
+Authoritative interface alebo declarative resource model, ktorým clients vyjadrujú high-level platform intent a control plane ho transformuje na bounded downstream operations. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
+## Platform authority graph
+
+Explicitné mapovanie platform metadata, Git desired state-u, IaC/provider state-u, GitOps reconciliation, secret authority a runtime statusu na ich authoritative systems a writers. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
 ## Platform branch subject — BuildKit
 
 Identita jednej target-platform vetvy build graphu zahŕňajúca selected node, native/emulated/cross-compile mode, base manifest, platform cache, output manifest a test evidence. Pozri [BuildKit a Buildx](docs/08-container-fundamentals-and-docker/buildkit-buildx.md).
+
+## Platform capability
+
+Versionovaný internal product contract, napríklad managed runtime, database alebo delivery flow, s definovanými inputs, outputs, guarantees, constraints, ownershipom, supportom a lifecycle-om. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
 
 ## Platform compatibility contract — container
 
 Požiadavky na kernel/runtime features, CPU, libc, devices, filesystem, seccomp/LSM, storage a network potrebné na spustenie workloadu. Pozri [Containers vs. virtual machines](docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md).
 
+## Platform compensation
+
+Per-step bounded recovery action pre partial distributed platform operation, vykonaná iba pri explicitnej eligibility a preconditions, nie generický destructive rollback. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
+## Platform control plane
+
+Vrstva, ktorá validuje intent, udržiava durable operation state, vyhodnocuje policy, orchestruje downstream systems a koreluje resources a outcomes. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
 ## Platform decommission subject
 
 Cluster/Node/infra/data/credential inventory a verified cleanup transition, ktorý uzatvára traffic, resources, identities, backups, audit a external infrastructure. Pozri [Cluster installation a lifecycle](../docs/09-kubernetes/cluster-installation-lifecycle.md).
+
+## Platform engineering
+
+Disciplína navrhovania, budovania a prevádzkovania shared internal platform capabilities ako products pre bezpečnejšie a jednoduchšie software delivery a operations. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
+## Platform idempotency
+
+End-to-end property, že retry rovnakého semantic platform requestu read-backne a obnoví ten istý intended resource graph namiesto vytvorenia duplicates alebo conflicting side effects. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
 
 ## Platform manifest — OCI
 
@@ -11369,6 +11541,10 @@ Nesúlad medzi target OS/architecture a vybraným image manifestom alebo executa
 ## Platform ownership matrix — Kubernetes
 
 Explicitné rozdelenie zodpovednosti za control plane, etcd, Nodes, add-ons, upgrades, identity, application data, recovery a incident support medzi provider/platform/application owners. Pozri [Cluster installation a lifecycle](../docs/09-kubernetes/cluster-installation-lifecycle.md).
+
+## Platform request subject
+
+Exact requester/team, capability/version, service identity, environment, data/operations tier, requested inputs, quota, policy bundle, idempotency key a expected outputs jednej platform operation. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
 
 ## Playbook — operations
 
@@ -11697,6 +11873,10 @@ Persistentný state Tail inputu uchovávajúci file identity a read offset na re
 ## Position-state durability — Fluent Bit
 
 Schopnosť Tail DB a source offset/inode state-u prežiť definovaný container, Pod alebo Node restart boundary. Pozri [Fluent Bit](docs/12-observability/fluent-bit.md).
+
+## Post-build substitution — Flux
+
+Render input aplikovaný po source acquisition počas Kustomization build-u z inline values alebo ConfigMap/Secret references; external mutable reference môže vytvoriť hidden desired-state writera. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
 
 ## Post-import plan — Terraform
 
@@ -12050,9 +12230,17 @@ Immutable artifact, ktorého identity, evidence, configuration compatibility a r
 
 Span attribute vybraný na indexovanie, metrics generation alebo ďalšie zrýchlené query spracovanie, čím získava samostatný cardinality a cost dopad. Pozri [Cardinality](docs/12-observability/cardinality.md).
 
+## Promotion acceptance verdict
+
+Dôkaz identity continuity od immutable candidate-u cez fresh evidence, final-merge validation, authoritative target transition, controller resolution, runtime generation a business acceptance. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
+
 ## Promotion authority — database
 
 Riadené rozhodnutie, ktorá replica/Region/topology sa stáva jediným accepted writerom po failover/DR, vrátane fencing, endpoint cutover a failback reconciliation. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
+
+## Promotion compare-and-swap
+
+Precondition, že source evidence revision, candidate digest a target base commit stále zodpovedajú proposal-u pred authoritative merge transitionom. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
 
 ## Promotion eligibility
 
@@ -12062,13 +12250,25 @@ Verdict, že konkrétna replica má compatible generation, required data positio
 
 Súbor výsledkov a metadata viazaných na konkrétny artifact alebo release manifest digest, ktoré odôvodňujú jeho postup do ďalšieho environmentu. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
 
+## Promotion freshness
+
+Platnosť evidence a approvalu vzhľadom na unchanged candidate, transitive dependencies, source environment result, target base state, policy version a časové obmedzenia. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
+
+## Promotion ledger
+
+Durable operation a evidence record prepájajúci candidate, approvals, Git transition, GitOps reconciliation, runtime generation, exposure a business verdict bez preberania desired-state authority od Git-u. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
+
 ## Promotion preservation verdict
 
 Dôkaz, že registry promotion alebo replication zachovala exact artifact digest aj všetky required signatures, provenance, SBOM a ďalšie related artifacts a že destination read-back sedí. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md) a [SBOM](docs/13-security-and-identity/sbom.md).
 
+## Promotion proposal
+
+Versionovaný návrh exact environment desired-state delta, často pull request, obsahujúci candidate identity, target base revision, rendered change, evidence a recovery plan. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
+
 ## Promotion subject
 
-Kompletný deployment tuple hodnotený pred promotion, typicky release manifest, rendered configuration, infrastructure revision, target environment a relevantný shared-state snapshot. Pozri [Environment a promotion](docs/05-ci-cd-and-release/environment-and-promotion.md).
+Exact candidate artifact/dependency/configuration contract, source a target environment revisions, evidence snapshot, approval/policy version, authoritative Git transition a target acceptance scope. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
 
 ## Promotion transition — GitOps
 
@@ -12533,6 +12733,10 @@ Versionovaný zoznam dôkazov viazaných na readiness requirements, subjects, au
 ## Readiness exception
 
 Exact, approved, monitored a expiring residual-risk contract pre konkrétny readiness gap, ktorý uvádza scope, justification, compensating controls, ownera, launch limitation, exit criteria a revocation trigger. Pozri [Operational readiness](../docs/14-sre-and-operations/operational-readiness.md).
+
+## Readiness expression — Flux
+
+CEL expression spresňujúci, či dependency alebo custom resource dosiahli required generation-aware readiness; chybný expression môže vytvoriť false-ready alebo permanentne blocked stav. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
 
 ## Readiness gate
 
@@ -13001,6 +13205,10 @@ Pravidlo určujúce frekvenciu a časovanie releases, napríklad on-demand, fixe
 ## Release candidate
 
 Immutable artifact považovaný za potenciálny final release, ktorý musí byť testovaný a promotionovaný bez rebuildu pod rovnakou release identity. Pozri [Release management](docs/05-ci-cd-and-release/release-management.md).
+
+## Release candidate identity
+
+Immutable coordinates source commit-u, build provenance, artifact digestov, chart/package versions a compatibility metadata, ku ktorým sa viaže promotion evidence. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
 
 ## Release compensation — Helm
 
@@ -14326,6 +14534,10 @@ Konkrétny artifact alebo system, ktorý SBOM opisuje, preferovane identifikovan
 
 Analýza third-party dependencies, transitívneho graphu, licencií a známych vulnerabilities. Pozri [Security a infrastructure tests](docs/04-testing-and-quality/security-and-infrastructure-tests.md).
 
+## Scaffolding template
+
+Versionovaný input schema a action workflow, ktorý vytvára initial software/resource structure; generated copy po creation typicky diverguje, pokiaľ ďalší lifecycle neudržiava managed contract. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
 ## Scalability
 
 Schopnosť systému zvýšiť alebo znížiť spracovateľskú kapacitu bez neprimeraného zhoršenia výkonu, spoľahlivosti alebo nákladov. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
@@ -14486,6 +14698,10 @@ Minimalistický Dockerfile stage `FROM scratch` bez base filesystemu, vhodný ib
 
 Riadený životný cyklus softvéru od potreby po vyradenie. Pozri [Software Development Life Cycle](docs/00-foundations/sdlc.md).
 
+## SealedSecret
+
+Kubernetes Custom Resource obsahujúci ciphertext zašifrovaný pre public key Sealed Secrets controllera a voliteľne viazaný na target namespace/name. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
 ## Search base — LDAP
 
 Distinguished Name určujúci východiskový entry pre LDAP Search operation. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
@@ -14566,9 +14782,21 @@ Dôkaz, že intended identity môže získať alebo použiť correct secret gene
 
 Inventory priamych aj nepriamych paths k Secret plaintextu cez API verbs, Pod/Job creation, workload edits, exec/debug, node access, backups a external caches. Pozri [ConfigMap a Secret](docs/09-kubernetes/configmap-secret.md).
 
+## Secret authority
+
+System alebo provider, ktorý vytvára secret value, prideľuje jej version/generation, určuje active/revoked state a riadi rotation alebo lease lifecycle. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
 ## Secret classification
 
 Dokumentovaný contract secretu zahŕňajúci ownera, účel, consumers, lifetime, rotation, revocation, delivery a compromise impact. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## Secret consumer convergence
+
+Dôkaz, že všetky required workload instances používajú new secret generation pred revocation old generation. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
+## Secret desired state
+
+Git-managed encrypted payload alebo external-secret reference, schema, target a lifecycle policy bez tvrdenia, že rovnakú generation už používa workload. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
 
 ## Secret encryption at rest
 
@@ -14594,6 +14822,10 @@ Exact purpose, target, credential type, secret/key ID a generation, source, owne
 
 Riadená identita secretu zahŕňajúca logical secret ID, target system, environment, owner, consumer inventory, secret epoch, encrypted artifact, vault domain, decryption identity, runtime destinations, rotation deadline a revocation status. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
 
+## Secret overlap rotation
+
+Rotation state machine, v ktorom sú stará aj nová credential generation dočasne validné, kým sa nová materializuje, všetci consumers na ňu prejdú a až potom sa stará revokuje. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
 ## Secret push protection — GitLab
 
 Pre-receive alebo push-time kontrola, ktorá deteguje podporované secret patterns pred prijatím commitu a môže push zablokovať. Pozri [Security scanning](docs/06-gitlab/security-scanning.md).
@@ -14601,6 +14833,10 @@ Pre-receive alebo push-time kontrola, ktorá deteguje podporované secret patter
 ## Secret recovery acceptance verdict
 
 Closure dôkaz, že current labels, target credentials, consumer-loaded state, privileges, replicas a business authentication journey sú zosúladené a retired credentials zlyhávajú. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
+
+## Secret refresh policy
+
+Consistency contract určujúci, či sa external value materializuje periodicky, iba pri desired object change-i alebo iba pri prvotnom vytvorení. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
 
 ## Secret replication — Secrets Manager
 
@@ -14634,9 +14870,17 @@ Immutable secret value revision identifikovaná version ID a voliteľnými stagi
 
 Prvotný trust anchor alebo credential potrebný na získanie ďalších secrets. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
 
+## Secret-zero problem
+
+Potreba bezpečne bootstrapnúť prvú identity alebo credential, ktorou controller získa access ku KMS alebo secret provideru; workload identity znižuje závislosť od static bootstrap keys. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
 ## Secrets engine — Vault
 
 Vault component mountnutý na path, ktorý ukladá, generuje alebo cryptographically spracúva citlivé dáta. Pozri [Secrets management](docs/13-security-and-identity/secrets-management.md).
+
+## SecretStore
+
+Namespaced External Secrets provider/authentication configuration, ktorej Kubernetes a provider IAM scope majú obmedziť secret access konkrétneho tenant boundary. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
 
 ## Secure Access Service Edge — SASE
 
@@ -14762,6 +15006,10 @@ Hodnotenie lab úloh cez explicitné validation commands, partial-credit criteri
 
 Automated reconciliation live driftu späť na desired state bez potreby novej source revision, ak diff a policy označia field ako Git-owned a mutation ako safe. Pozri [Reconciliation a drift detection](../docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md).
 
+## Self-service boundary
+
+Authorization, schema, quota a policy envelope, v ktorom autentizovaný tenant môže bez central ticketu spustiť vopred approved platform action bez unrestricted underlying privilege. Pozri [Internal Developer Platform](../docs/16-gitops-and-platform-engineering/internal-developer-platform.md).
+
 ## SELinux options — Kubernetes
 
 SecurityContext fields nastavujúce SELinux label identity container procesu a volumes podľa host policy, runtime a storage podpory. Pozri [SecurityContext a Pod Security](docs/09-kubernetes/securitycontext-pod-security.md).
@@ -14861,6 +15109,10 @@ Nameraný počet open a active database server connections, ktorý workload bezp
 ## Server-side apply — Kubernetes
 
 Deklaratívny API update model, pri ktorom API server merge-uje intent a sleduje field ownership jednotlivých managers. Pozri [API a object model](docs/09-kubernetes/api-object-model.md).
+
+## Server-side apply policy — Flux
+
+Per-resource policy určujúca, ako Flux server-side apply koordinuje desired fields s inými field managers, napríklad Override, Merge, IfNotPresent alebo Ignore. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
 
 ## Server-side discovery
 
@@ -15434,6 +15686,22 @@ Analýza application dependencies a package metadata na identifikáciu známych 
 
 Súbor ľudí, identities, source repositories, dependencies, build systems, tools, registries, release procesov a deployment controls, ktoré môžu ovplyvniť výsledný software artifact. Pozri [Supply-chain security](docs/13-security-and-identity/supply-chain-security.md).
 
+## SOPS data key
+
+Náhodný symmetric key použitý na encryption secret values v jednom SOPS documente a následne envelope-encrypted pre configured KMS alebo age recipients. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
+## SOPS recipient
+
+KMS key, age public identity alebo iný master-key coordinate autorizovaný otvoriť encrypted SOPS data key pre konkrétny document. Pozri [GitOps secrets](../docs/16-gitops-and-platform-engineering/gitops-secrets.md).
+
+## Source artifact — Flux
+
+Packaged in-cluster content vytvorený source-controllerom z exact resolved remote revision a identifikovaný revision/digestom pre downstream reconciliation. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
+
+## Source controller — Flux
+
+Flux controller, ktorý autentizuje remote Git/OCI/Helm/bucket source, resolve-ne revision, vytvorí content artifact a publikuje jeho revision, digest a readiness downstream consumerom. Pozri [Flux](../docs/16-gitops-and-platform-engineering/flux.md).
+
 ## Source/destination check — AWS
 
 EC2 network-interface kontrola vyžadujúca, aby instance bola source alebo destination trafficu; network appliance alebo NAT instance ju môže potrebovať vypnúť. Pozri [VPC, subnets a route tables](docs/11-cloud-and-aws/vpc-subnets-route-tables.md).
@@ -15621,6 +15889,10 @@ Failure, pri ktorom backfill vypočíta value zo starého snapshotu a neskôr pr
 ## Stale leader
 
 Process, ktorý stratil current consensus leadership alebo lease, ale stále sa pokúša vykonávať work. Pozri [Leader election a consensus](../docs/15-databases-and-distributed-systems/leader-election-and-consensus.md).
+
+## Stale promotion
+
+Proposal alebo approval, ktorého subject, dependencies, evidence alebo target base sa po rozhodnutí zmenili, takže už neautorizuje final effective generation. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
 
 ## Staleness — cache
 
@@ -16013,6 +16285,10 @@ Oddelený shell execution context, ktorého zmeny premenných a working director
 ## Successful latency
 
 Latency operácií, ktoré splnili success contract, sledovaná oddelene od rýchlych alebo pomalých failures. Pozri [Golden Signals](docs/12-observability/golden-signals.md).
+
+## Superseded promotion
+
+Pending alebo partially processed candidate, ktorý bol explicitne nahradený novším proposalom a už nesmie neskorým merge-om prepísať target desired state. Pozri [Application promotion](../docs/16-gitops-and-platform-engineering/application-promotion.md).
 
 ## Supersession — release
 
