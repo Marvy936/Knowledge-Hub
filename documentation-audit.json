@@ -3865,6 +3865,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "title": "Consistency models",
+      "words": 1675,
+      "headings": 49,
+      "sections": 49,
+      "findings": 89,
+      "critical": 31,
+      "high": 41,
+      "medium": 7,
+      "low": 10,
+      "score": 732,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
       "title": "Indexy, locks a migrations",
       "words": 2104,
@@ -215046,6 +215060,807 @@
       "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
       "section": "Readiness otvorí celý pool",
       "line": 528,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "2. Consistency model vs. database isolation",
+      "line": 24,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Transaction isolation",
+      "line": 28,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Transaction isolation",
+      "line": 28,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Transaction isolation",
+      "line": 28,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read committed;`, `repeatable read;`, `snapshot isolation;`, `serializable;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Transaction isolation",
+      "line": 28,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Distributed consistency",
+      "line": 38,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Distributed consistency",
+      "line": 38,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `linearizable;`, `sequential;`, `causal;`, `eventual;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Distributed consistency",
+      "line": 38,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "3. Exact consistency subject",
+      "line": 52,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "3. Exact consistency subject",
+      "line": 52,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "3. Exact consistency subject",
+      "line": 52,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `objects alebo key range;`, `single operation vs. transaction;`, `participating clients/sessions;`, `primary/replica/cache path;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "3. Exact consistency subject",
+      "line": 52,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "4. Linearizability",
+      "line": 82,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "4. Linearizability",
+      "line": 82,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `current leader/ownership;`, `lock a lease state;`, `idempotency create-if-absent;`, `account balance invariant;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "4. Linearizability",
+      "line": 82,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "4. Linearizability",
+      "line": 82,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "5. Sequential consistency",
+      "line": 103,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "6. Serializability a strict serializability",
+      "line": 111,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "7. Causal consistency",
+      "line": 129,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "8. Eventual consistency",
+      "line": 146,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "8. Eventual consistency",
+      "line": 146,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximálnu staleness;`, `monotonic reads;`, `read-your-writes;`, `conflict winnera;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "8. Eventual consistency",
+      "line": 146,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "9. Bounded staleness",
+      "line": 163,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "9. Bounded staleness",
+      "line": 163,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "9. Bounded staleness",
+      "line": 163,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `časová age;`, `revision/sequence lag;`, `počet versions;`, `event backlog age;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "9. Bounded staleness",
+      "line": 163,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "10. Session guarantees",
+      "line": 179,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Read-your-writes",
+      "line": 183,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Monotonic reads",
+      "line": 187,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Monotonic writes",
+      "line": 191,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "12. Stale reads a side effects",
+      "line": 215,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "13. Replica, cache a projection consistency",
+      "line": 229,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "13. Replica, cache a projection consistency",
+      "line": 229,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "13. Replica, cache a projection consistency",
+      "line": 229,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `async replica;`, `out-of-order events;`, `skipped consumer offset;`, `stale cache;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "13. Replica, cache a projection consistency",
+      "line": 229,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "14. Version a evidence tokens",
+      "line": 253,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "14. Version a evidence tokens",
+      "line": 253,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "14. Version a evidence tokens",
+      "line": 253,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `datastore revision;`, `commit sequence;`, `event offset;`, `policy generation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "14. Version a evidence tokens",
+      "line": 253,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "14. Version a evidence tokens",
+      "line": 253,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "15. Read repair a anti-entropy",
+      "line": 275,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "15. Read repair a anti-entropy",
+      "line": 275,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "15. Read repair a anti-entropy",
+      "line": 275,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `read repair;`, `hinted handoff;`, `anti-entropy/Merkle comparison;`, `background reconciliation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "15. Read repair a anti-entropy",
+      "line": 275,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "15. Read repair a anti-entropy",
+      "line": 275,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRDT`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "16. Conflict resolution",
+      "line": 289,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Last-write-wins",
+      "line": 293,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Application merge",
+      "line": 297,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Reject/manual resolution",
+      "line": 301,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "17. Connected incident DB-PAY-59",
+      "line": 309,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 36 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "17. Connected incident DB-PAY-59",
+      "line": 309,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `neukladala observed revision pri route decision-e;`, `nepřenášala minimum acceptable generation;`, `označovala local read ako strong v internom wrapperi;`, `používala stale route na provider side effect.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "17. Connected incident DB-PAY-59",
+      "line": 309,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "17. Connected incident DB-PAY-59",
+      "line": 309,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "17. Connected incident DB-PAY-59",
+      "line": 309,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "17. Connected incident DB-PAY-59",
+      "line": 309,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `P1`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "18. Consistency root cause",
+      "line": 345,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "18. Consistency root cause",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "18. Consistency root cause",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route generation nebola persisted na všetkých decisions;`, `client session neniesla minimum observed revision;`, `projection/cache freshness nebola business signal;`, `endpoint failover zmenil read source;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "18. Consistency root cause",
+      "line": 345,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "18. Consistency root cause",
+      "line": 345,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "18. Consistency root cause",
+      "line": 345,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "19. Evidence-preserving containment",
+      "line": 359,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "20. Authoritative redesign",
+      "line": 372,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Provider route",
+      "line": 374,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Merchant status/dashboard",
+      "line": 383,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Session guarantees",
+      "line": 393,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Event projections",
+      "line": 403,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Event projections",
+      "line": 403,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Event projections",
+      "line": 403,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Event projections",
+      "line": 403,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `partition key drží per-operation order;`, `projection tracks source offset;`, `missing prefix blokuje current verdict;`, `cache key obsahuje immutable generation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Event projections",
+      "line": 403,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "21. Consistency acceptance verdict",
+      "line": 411,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "21. Consistency acceptance verdict",
+      "line": 411,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "21. Consistency acceptance verdict",
+      "line": 411,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 13 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `real-time, program a causal order requirements sú uvedené;`, `database isolation a distributed consistency sú rozlíšené;`, `acknowledgement a visibility boundary sú explicitné;`, `stale reads majú age/revision/generation bound a allowed-use contract;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "21. Consistency acceptance verdict",
+      "line": 411,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "21. Consistency acceptance verdict",
+      "line": 411,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "21. Consistency acceptance verdict",
+      "line": 411,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "21. Consistency acceptance verdict",
+      "line": 411,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "21. Consistency acceptance verdict",
+      "line": 411,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`, `policy`, `freshness`",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "22. Troubleshooting flow",
+      "line": 429,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Strong consistency",
+      "line": 448,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Eventual consistency znamená niekoľko sekúnd",
+      "line": 452,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Serializable = linearizable",
+      "line": 456,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Replica read je iba performance optimization",
+      "line": 460,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Sticky session garantuje read-your-writes",
+      "line": 464,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Timestamp vyrieši causality",
+      "line": 468,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
+      "section": "Convergence opraví external effects",
+      "line": 472,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
