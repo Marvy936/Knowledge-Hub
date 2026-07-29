@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **294**
+- Audited authoritative articles: **295**
 - Audited conceptual sections: **11905**
-- Total words: **683,169**
+- Total words: **683,181**
 - Findings: **25238** (critical 7591, high 8710, medium 3192, low 5745)
-- File grades: A 0, B 0, C 0, D 294
+- File grades: A 1, B 0, C 0, D 294
 
 ## Interpretation
 
@@ -317,6 +317,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
+| A | 0 | 0 | 0 | 0 | 0 | 12 | `docs/review-trigger-first-gitops.md` |
 
 ## Critical and high findings
 
