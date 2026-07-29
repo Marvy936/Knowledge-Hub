@@ -497,3 +497,11 @@ Relevantné pojmy: consistency subject, operation history, linearizability, sequ
 - [etcd API guarantees](https://etcd.io/docs/v3.7/learning/api_guarantees/)
 - [etcd API — linearizable a serializable reads](https://etcd.io/docs/v3.6/learning/api/)
 - [Jepsen — Consistency Models](https://jepsen.io/consistency/models)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: CAP theorem](cap-theorem.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Leader election a consensus →](leader-election-and-consensus.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

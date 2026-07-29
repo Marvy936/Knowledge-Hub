@@ -583,3 +583,11 @@ Relevantné pojmy: resilience subject, end-to-end deadline, remaining deadline b
 - [gRPC — Retry](https://grpc.io/docs/guides/retry/)
 - [Azure Architecture Center — Circuit Breaker pattern](https://learn.microsoft.com/azure/architecture/patterns/circuit-breaker)
 - [Azure Architecture Center — Transient fault handling](https://learn.microsoft.com/azure/architecture/best-practices/transient-faults)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Leader election a consensus](leader-election-and-consensus.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

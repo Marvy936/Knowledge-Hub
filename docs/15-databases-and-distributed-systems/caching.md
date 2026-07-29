@@ -519,5 +519,5 @@ Relevantné pojmy: cache subject, cache authority boundary, cache key, variant d
 
 **Navigácia**
 
-[← Predchádzajúca: Service discovery a API gateway](service-discovery-and-api-gateway.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Service discovery a API gateway](service-discovery-and-api-gateway.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CAP theorem →](cap-theorem.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

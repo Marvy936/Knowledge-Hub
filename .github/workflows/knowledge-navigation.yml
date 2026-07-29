@@ -67,20 +67,13 @@ jobs:
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
 
-      - name: Integrate fourth database block
+      - name: Synchronize and commit generated documentation
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         shell: bash
         run: |
           set -euo pipefail
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          branch="${GITHUB_REF_NAME}"
-          max_attempts=3
-
-          integrate() {
-            "$PYTHON_BIN" scripts/integrate_fourth_database_block.py
+          synchronize_documentation() {
             "$PYTHON_BIN" scripts/update_glossary.py --write
             "$PYTHON_BIN" scripts/update_navigation.py --write
 
@@ -102,36 +95,42 @@ jobs:
 
               "$PYTHON_BIN" -c "import json; from pathlib import Path; log=Path('/tmp/documentation-audit.log').read_text(encoding='utf-8', errors='replace'); Path('documentation-audit.json').write_text(json.dumps({'error': 'audit execution failed', 'log': log}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')"
             fi
-
-            original_ref="HEAD"
-            while git show "${original_ref}:.github/workflows/knowledge-navigation.yml" | grep -q "Integrate fourth database block"; do
-              original_ref="${original_ref}^"
-            done
-            git show "${original_ref}:.github/workflows/knowledge-navigation.yml" > .github/workflows/knowledge-navigation.yml
-
-            rm -f docs/.review-trigger-fourth-database-block.md
-            rm -f scripts/integrate_fourth_database_block.py
-
-            git add ROADMAP.md GLOSSARY.md docs DOCUMENTATION-AUDIT.md documentation-audit.json DOCUMENTATION-REVIEW-STATUS.md .github/workflows/knowledge-navigation.yml scripts
           }
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          branch="${GITHUB_REF_NAME}"
+          max_attempts=3
 
           for attempt in $(seq 1 "$max_attempts"); do
             git fetch origin "$branch"
-            git reset --hard "origin/${branch}"
-            integrate
+            remote_sha="$(git rev-parse "origin/${branch}")"
+
+            if [ "$(git rev-parse HEAD)" != "$remote_sha" ]; then
+              echo "Remote ${branch} advanced; regenerating from ${remote_sha}."
+              git reset --hard "$remote_sha"
+            fi
+
+            synchronize_documentation
+            git add ROADMAP.md GLOSSARY.md docs DOCUMENTATION-AUDIT.md documentation-audit.json
 
             if git diff --cached --quiet; then
-              echo "Fourth database block is already integrated."
+              echo "Documentation is already synchronized at ${remote_sha}."
               exit 0
             fi
 
-            git commit -m "docs(review): record fourth Databases and Distributed Systems block"
+            git commit -m "docs: synchronize generated documentation"
+
             if git push origin "HEAD:${branch}"; then
+              echo "Synchronized documentation pushed successfully."
               exit 0
             fi
+
+            echo "::warning::Remote ${branch} changed during synchronization attempt ${attempt}; retrying from the latest remote state."
 
             if [ "$attempt" -eq "$max_attempts" ]; then
-              echo "::error::Unable to push fourth database block integration."
+              echo "::error::Unable to push synchronized documentation after ${max_attempts} attempts."
               exit 1
             fi
           done

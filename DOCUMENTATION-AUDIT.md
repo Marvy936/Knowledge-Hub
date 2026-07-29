@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **288**
+- Audited authoritative articles: **289**
 - Audited conceptual sections: **11642**
-- Total words: **669,846**
+- Total words: **669,909**
 - Findings: **24637** (critical 7421, high 8483, medium 3107, low 5626)
-- File grades: A 0, B 0, C 0, D 288
+- File grades: A 1, B 0, C 0, D 288
 
 ## Interpretation
 
@@ -42,7 +42,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 980 | 40 | 51 | 17 | 36 | 3261 | `docs/02-networking-and-web/dhcp.md` |
 | D | 973 | 47 | 44 | 16 | 10 | 2239 | `docs/09-kubernetes/api-object-model.md` |
 | D | 970 | 43 | 38 | 32 | 24 | 3838 | `docs/01-linux-and-systems/performance-and-troubleshooting.md` |
-| D | 970 | 45 | 47 | 13 | 10 | 1997 | `docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md` |
+| D | 970 | 45 | 47 | 13 | 10 | 2009 | `docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md` |
 | D | 969 | 46 | 45 | 16 | 9 | 1916 | `docs/11-cloud-and-aws/shared-responsibility-model.md` |
 | D | 960 | 44 | 42 | 20 | 19 | 2638 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
 | D | 945 | 37 | 46 | 25 | 39 | 3521 | `docs/02-networking-and-web/http.md` |
@@ -100,7 +100,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 735 | 30 | 41 | 10 | 11 | 1652 | `docs/14-sre-and-operations/on-call-and-escalation.md` |
 | D | 733 | 31 | 40 | 7 | 20 | 2322 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
 | D | 732 | 34 | 35 | 8 | 20 | 2365 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
-| D | 732 | 31 | 41 | 7 | 10 | 1675 | `docs/15-databases-and-distributed-systems/consistency-models.md` |
+| D | 732 | 31 | 41 | 7 | 10 | 1688 | `docs/15-databases-and-distributed-systems/consistency-models.md` |
 | D | 730 | 31 | 32 | 19 | 26 | 2530 | `docs/03-git-and-automation/branching-strategies.md` |
 | D | 729 | 38 | 24 | 16 | 18 | 2000 | `docs/08-container-fundamentals-and-docker/build-context-layer-cache.md` |
 | D | 728 | 30 | 40 | 10 | 14 | 2359 | `docs/06-gitlab/security-scanning.md` |
@@ -147,7 +147,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 636 | 28 | 33 | 8 | 13 | 1862 | `docs/11-cloud-and-aws/security-groups-network-acls.md` |
 | D | 635 | 26 | 32 | 14 | 14 | 2164 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | D | 635 | 27 | 33 | 11 | 9 | 2049 | `docs/06-gitlab/container-and-package-registry.md` |
-| D | 635 | 30 | 28 | 10 | 13 | 1755 | `docs/15-databases-and-distributed-systems/leader-election-and-consensus.md` |
+| D | 635 | 30 | 28 | 10 | 13 | 1769 | `docs/15-databases-and-distributed-systems/leader-election-and-consensus.md` |
 | D | 633 | 26 | 25 | 21 | 31 | 2970 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
 | D | 633 | 28 | 30 | 10 | 17 | 2037 | `docs/12-observability/fluent-bit.md` |
 | D | 631 | 29 | 28 | 12 | 14 | 2911 | `docs/03-git-and-automation/bash-automation.md` |
@@ -185,7 +185,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 566 | 22 | 33 | 6 | 15 | 1920 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 566 | 25 | 25 | 10 | 27 | 2905 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | D | 557 | 23 | 30 | 8 | 11 | 1834 | `docs/14-sre-and-operations/toil.md` |
-| D | 554 | 22 | 26 | 16 | 17 | 1967 | `docs/15-databases-and-distributed-systems/caching.md` |
+| D | 554 | 22 | 26 | 16 | 17 | 1968 | `docs/15-databases-and-distributed-systems/caching.md` |
 | D | 552 | 26 | 23 | 11 | 15 | 2057 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | D | 546 | 25 | 27 | 6 | 9 | 1862 | `docs/12-observability/grafana.md` |
 | D | 546 | 21 | 25 | 16 | 26 | 2155 | `docs/15-databases-and-distributed-systems/backups-and-point-in-time-recovery.md` |
@@ -208,7 +208,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 524 | 21 | 30 | 6 | 10 | 1755 | `docs/06-gitlab/artifacts-and-cache.md` |
 | D | 523 | 23 | 24 | 11 | 14 | 1961 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | D | 520 | 20 | 32 | 4 | 14 | 2434 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
-| D | 517 | 20 | 29 | 9 | 13 | 1744 | `docs/15-databases-and-distributed-systems/cap-theorem.md` |
+| D | 517 | 20 | 29 | 9 | 13 | 1754 | `docs/15-databases-and-distributed-systems/cap-theorem.md` |
 | D | 516 | 18 | 29 | 10 | 27 | 2205 | `docs/13-security-and-identity/policy-as-code.md` |
 | D | 514 | 22 | 26 | 7 | 12 | 1687 | `docs/12-observability/jaeger-tempo.md` |
 | D | 513 | 20 | 24 | 12 | 29 | 1972 | `docs/13-security-and-identity/image-signing.md` |
@@ -311,6 +311,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
+| A | 0 | 0 | 0 | 0 | 0 | 13 | `docs/.review-trigger-fourth-database-block.md` |
 
 ## Critical and high findings
 

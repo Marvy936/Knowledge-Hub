@@ -475,3 +475,11 @@ Relevantné pojmy: consensus subject, leader election, consensus, voting member,
 - [etcd Failure modes](https://etcd.io/docs/v3.8/op-guide/failures/)
 - [etcd Runtime reconfiguration](https://etcd.io/docs/v3.6/op-guide/runtime-configuration/)
 - [etcd Election API reference](https://etcd.io/docs/v3.6/dev-guide/api_concurrency_reference_v3/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Consistency models](consistency-models.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Retry, timeout a circuit breaker →](retry-timeout-and-circuit-breaker.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

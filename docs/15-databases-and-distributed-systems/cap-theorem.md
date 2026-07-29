@@ -440,3 +440,11 @@ Relevantné pojmy: CAP subject, atomic consistency — CAP, CAP availability, ne
 - [Gilbert a Lynch — Brewer's Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services](https://groups.csail.mit.edu/tds/reflist.html)
 - [etcd API guarantees](https://etcd.io/docs/v3.7/learning/api_guarantees/)
 - [etcd Failure modes](https://etcd.io/docs/v3.8/op-guide/failures/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Caching](caching.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Consistency models →](consistency-models.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

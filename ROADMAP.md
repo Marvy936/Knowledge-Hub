@@ -345,10 +345,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Message queues a event-driven architecture](docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md)
 - [x] [Service discovery a API gateway](docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md)
 - [x] [Caching](docs/15-databases-and-distributed-systems/caching.md)
-- [ ] CAP theorem
-- [ ] Consistency models
-- [ ] Leader election a consensus
-- [ ] Retry, timeout a circuit breaker
+- [x] [CAP theorem](docs/15-databases-and-distributed-systems/cap-theorem.md)
+- [x] [Consistency models](docs/15-databases-and-distributed-systems/consistency-models.md)
+- [x] [Leader election a consensus](docs/15-databases-and-distributed-systems/leader-election-and-consensus.md)
+- [x] [Retry, timeout a circuit breaker](docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md)
 - [ ] Rate limiting
 - [ ] Idempotency a backpressure
 
