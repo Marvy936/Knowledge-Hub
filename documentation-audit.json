@@ -3433,15 +3433,15 @@
     {
       "path": "docs/13-security-and-identity/ldap.md",
       "title": "LDAP",
-      "words": 1491,
-      "headings": 45,
-      "sections": 45,
-      "findings": 102,
-      "critical": 38,
-      "high": 45,
-      "medium": 15,
-      "low": 4,
-      "score": 863,
+      "words": 2073,
+      "headings": 42,
+      "sections": 42,
+      "findings": 92,
+      "critical": 29,
+      "high": 30,
+      "medium": 13,
+      "low": 20,
+      "score": 663,
       "grade": "D"
     },
     {
@@ -188129,7 +188129,7 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný lifecycle",
       "line": 5,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -188138,7 +188138,7 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný lifecycle",
       "line": 5,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -188147,17 +188147,8 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "3. DN a RDN",
-      "line": 37,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "Distinguished Name",
-      "line": 39,
+      "section": "2. Exact LDAP subject",
+      "line": 31,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -188165,89 +188156,35 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "4. Entries, object classes a attributes",
-      "line": 57,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
+      "section": "3. DIT, DN, RDN a stable identity",
+      "line": 62,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "4. Entries, object classes a attributes",
-      "line": 57,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `attribute syntax,`, `matching rules,`, `single/multi-valued semantics,`, `object class inheritance,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "4. Entries, object classes a attributes",
-      "line": 57,
+      "section": "4. Entry, schema, object classes a attributes",
+      "line": 76,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "5. LDAP operations",
-      "line": 85,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 35 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "5. LDAP operations",
-      "line": 85,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "5. LDAP operations",
-      "line": 85,
+      "section": "4. Entry, schema, object classes a attributes",
+      "line": 76,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Bind,`, `Unbind,`, `Search,`, `Compare,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable identity attribute;`, `authoritative status/eligibility attributes;`, `single alebo multi-valued semantics;`, `case/matching rules;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "5. LDAP operations",
-      "line": 85,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "5. LDAP operations",
-      "line": 85,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DN`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "6. Bind",
-      "line": 102,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `anonymous bind,`, `simple bind s DN a passwordom,`, `SASL mechanisms,`, `certificate-based SASL EXTERNAL podľa implementácie.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "6. Bind",
-      "line": 102,
+      "section": "4. Entry, schema, object classes a attributes",
+      "line": 76,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -188255,8 +188192,17 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "6. Bind",
-      "line": 102,
+      "section": "4. Entry, schema, object classes a attributes",
+      "line": 76,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "4. Entry, schema, object classes a attributes",
+      "line": 76,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -188264,26 +188210,80 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "6. Bind",
-      "line": 102,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DN`, `SASL`, `EXTERNAL`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "7. StartTLS a LDAPS",
-      "line": 117,
+      "section": "5. Connection a TLS boundary",
+      "line": 101,
       "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transport unavailable;`, `TLS negotiation failure;`, `certificate trust/identity failure;`, `LDAP protocol result;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "StartTLS",
-      "line": 119,
+      "section": "5. Connection a TLS boundary",
+      "line": 101,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "5. Connection a TLS boundary",
+      "line": 101,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "6. Bind nastavuje connection authentication state",
+      "line": 125,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že end user je application-eligible;`, `že service account smie čítať každý attribute;`, `že group result bude aktuálny;`, `že application smie povoliť konkrétnu resource action.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "6. Bind nastavuje connection authentication state",
+      "line": 125,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "6. Bind nastavuje connection authentication state",
+      "line": 125,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "6. Bind nastavuje connection authentication state",
+      "line": 125,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "6. Bind nastavuje connection authentication state",
+      "line": 125,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "7. Search request je presný query contract",
+      "line": 146,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -188291,26 +188291,26 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "LDAPS",
-      "line": 123,
+      "section": "7. Search request je presný query contract",
+      "line": 146,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "LDAPS",
-      "line": 123,
+      "section": "7. Search request je presný query contract",
+      "line": 146,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted CA,`, `hostname/SAN verification,`, `protocol/cipher policy,`, `certificate expiration,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `objekt neexistuje pod zvoleným base/scope;`, `filter nesedí;`, `ACL entry skryla;`, `referral nebola nasledovaná;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "LDAPS",
-      "line": 123,
+      "section": "7. Search request je presný query contract",
+      "line": 146,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -188318,161 +188318,35 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "LDAPS",
-      "line": 123,
+      "section": "7. Search request je presný query contract",
+      "line": 146,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`, `SAN`, `policy`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `scope`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "8. Search request",
-      "line": 140,
+      "section": "8. Filters a LDAP injection",
+      "line": 177,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 36 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "8. Search request",
-      "line": 140,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "8. Search request",
-      "line": 140,
+      "section": "8. Filters a LDAP injection",
+      "line": 177,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `base DN,`, `scope,`, `filter,`, `requested attributes,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LDAP filter builder alebo správne RFC escaping;`, `samostatné DN escaping;`, `allowlist identity syntax;`, `fixed base a scope;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "8. Search request",
-      "line": 140,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "8. Search request",
-      "line": 140,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DN`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "10. Attributes a projection",
-      "line": 174,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "10. Attributes a projection",
-      "line": 174,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zbytočný network a server load,`, `exposure sensitive attributes,`, `väčšie responses,`, `nejasný application contract.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "10. Attributes a projection",
-      "line": 174,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "11. Controls a extensions",
-      "line": 187,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "11. Controls a extensions",
-      "line": 187,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `paged results,`, `server-side sorting,`, `assertion controls,`, `synchronization controls podľa implementation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "11. Controls a extensions",
-      "line": 187,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "12. Referrals",
-      "line": 200,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "12. Referrals",
-      "line": 200,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credentials forwarding,`, `trust iný server/CA,`, `loops,`, `partial results,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "12. Referrals",
-      "line": 200,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "12. Referrals",
-      "line": 200,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CA`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "13. Access control",
-      "line": 214,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto smie čítať entry/attribute,`, `kto smie meniť konkrétny attribute,`, `kto smie vytvárať alebo mazať entries,`, `kto smie meniť DN,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "13. Access control",
-      "line": 214,
+      "section": "8. Filters a LDAP injection",
+      "line": 177,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -188480,8 +188354,8 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "13. Access control",
-      "line": 214,
+      "section": "8. Filters a LDAP injection",
+      "line": 177,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -188489,53 +188363,242 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "13. Access control",
-      "line": 214,
-      "severity": "medium",
+      "section": "8. Filters a LDAP injection",
+      "line": 177,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DN`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LDAP`, `RFC`, `DN`, `scope`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "9. Projection a attribute confidentiality",
+      "line": 201,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `password hashes;`, `recovery attributes;`, `unrelated HR fields;`, `write/delete permissions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "9. Projection a attribute confidentiality",
+      "line": 201,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "14. Authentication cez LDAP v aplikáciách",
-      "line": 228,
+      "section": "9. Projection a attribute confidentiality",
+      "line": 201,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HR`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "11. Controls, paging a referrals",
+      "line": 232,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 53 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "Direct user bind",
-      "line": 232,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "Direct user bind",
-      "line": 232,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "Direct user bind",
+      "section": "11. Controls, paging a referrals",
       "line": 232,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `directory overí password.`, `application spracúva user password,`, `treba nájsť správny DN,`, `lockout/error leakage,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted endpoints a CAs;`, `credential forwarding;`, `tenant/naming-context boundary;`, `loops a hop limit;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "Direct user bind",
+      "section": "11. Controls, paging a referrals",
       "line": 232,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "11. Controls, paging a referrals",
+      "line": 232,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "12. Replica identity a consistency",
+      "line": 247,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "12. Replica identity a consistency",
+      "line": 247,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preferred site/replica;`, `read-after-write requirement;`, `failover freshness tolerance;`, `operational metadata použitú na freshness verdict;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "12. Replica identity a consistency",
+      "line": 247,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "12. Replica identity a consistency",
+      "line": 247,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "12. Replica identity a consistency",
+      "line": 247,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "13. Group resolution a application mapping",
+      "line": 271,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "14. Authentication patterns",
+      "line": 286,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "16. Indexes, limits a availability",
+      "line": 317,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "16. Indexes, limits a availability",
+      "line": 317,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `search latency a scanned entries;`, `size/time/admin limits;`, `active connections a worker saturation;`, `TLS handshake failures;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "16. Indexes, limits a availability",
+      "line": 317,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "16. Indexes, limits a availability",
+      "line": 317,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "16. Indexes, limits a availability",
+      "line": 317,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "17. Worked failure: Bind green, privilege state stale",
+      "line": 334,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Exact query subject",
+      "line": 340,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Competing hypotheses",
+      "line": 355,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Competing hypotheses",
+      "line": 355,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Competing hypotheses",
+      "line": 355,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Competing hypotheses",
+      "line": 355,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application cache drží pre-removal result;`, `service Bind principal nemá právo vidieť removal;`, `query používa wrong group DN alebo base;`, `nested group udeľuje access inou cestou;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Competing hypotheses",
+      "line": 355,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -188543,8 +188606,80 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "Direct user bind",
-      "line": 232,
+      "section": "Competing hypotheses",
+      "line": 355,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DN`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Discriminating evidence",
+      "line": 365,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Evidence-preserving containment",
+      "line": 390,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Evidence-preserving containment",
+      "line": 390,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Evidence-preserving containment",
+      "line": 390,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Evidence-preserving containment",
+      "line": 390,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastaviť privileged token issuance z affected group resultu;`, `revoke-nuť sessions/tokens už vydané zo stale resultu;`, `nevypínať TLS verification ani nepoužiť directory superuser account;`, `nepredĺžiť cache ako „stabilizačný“ fix.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Evidence-preserving containment",
+      "line": 390,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Evidence-preserving containment",
+      "line": 390,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Evidence-preserving containment",
+      "line": 390,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
@@ -188552,35 +188687,35 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "15. Group membership",
-      "line": 259,
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Authoritative recovery",
+      "line": 399,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "15. Group membership",
-      "line": 259,
+      "section": "Authoritative recovery",
+      "line": 399,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "15. Group membership",
-      "line": 259,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `group entry obsahuje member DNs,`, `user entry obsahuje group references,`, `nested groups,`, `dynamic groups podľa server capability.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "15. Group membership",
-      "line": 259,
+      "section": "Authoritative recovery",
+      "line": 399,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -188588,8 +188723,8 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "15. Group membership",
-      "line": 259,
+      "section": "Authoritative recovery",
+      "line": 399,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -188597,224 +188732,35 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "15. Group membership",
-      "line": 259,
-      "severity": "medium",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Authoritative recovery",
+      "line": 399,
+      "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DN`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "16. Indexes",
-      "line": 278,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "16. Indexes",
-      "line": 278,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `equality filters,`, `substring/presence queries,`, `sort,`, `dataset size,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "16. Indexes",
-      "line": 278,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AD`, `LDAP`, `JIT`, `freshness`",
       "score": 7
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "17. Replication",
-      "line": 292,
+      "section": "Acceptance verdict",
+      "line": 409,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "17. Replication",
-      "line": 292,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LDAP request success na jednom serveri,`, `convergence do ďalších replicas,`, `conflict resolution,`, `read-after-write expectations,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "17. Replication",
-      "line": 292,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "18. Password storage a policies",
-      "line": 306,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "18. Password storage a policies",
-      "line": 306,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `modern password hashing podľa platformy,`, `write-only password change path,`, `password policy,`, `lockout/rate limiting,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "18. Password storage a policies",
-      "line": 306,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "18. Password storage a policies",
-      "line": 306,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "19. Service account pre LDAP integration",
-      "line": 322,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "19. Service account pre LDAP integration",
-      "line": 322,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "19. Service account pre LDAP integration",
-      "line": 322,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bind,`, `search base iba v potrebnom subtree,`, `read allowlist attributes,`, `žiadne write/delete,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "19. Service account pre LDAP integration",
-      "line": 322,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "20. High availability",
-      "line": 336,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "20. High availability",
-      "line": 336,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac LDAP endpoints,`, `DNS SRV discovery,`, `load balancer podľa server semantics,`, `health checks,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "20. High availability",
-      "line": 336,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "20. High availability",
-      "line": 336,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `SRV`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "21. Observability",
-      "line": 349,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "21. Observability",
-      "line": 349,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "21. Observability",
-      "line": 349,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection rate/errors,`, `Bind success/failure a lockouts,`, `search rate/latency,`, `filter/base/scope classes bez sensitive values,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "21. Observability",
-      "line": 349,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "21. Observability",
-      "line": 349,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "22. Troubleshooting connection a TLS",
-      "line": 366,
+      "section": "Acceptance verdict",
+      "line": 409,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -188822,53 +188768,17 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "23. Troubleshooting Bind",
-      "line": 381,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "23. Troubleshooting Bind",
-      "line": 381,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "24. Troubleshooting Search",
-      "line": 396,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "25. LDAP injection",
-      "line": 412,
+      "section": "Acceptance verdict",
+      "line": 409,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "25. LDAP injection",
-      "line": 412,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parameterized/builder API,`, `správne escaping pre filter a DN osobitne,`, `allowlist syntax,`, `minimal service account,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "25. LDAP injection",
-      "line": 412,
+      "section": "Acceptance verdict",
+      "line": 409,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -188876,98 +188786,8 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "25. LDAP injection",
-      "line": 412,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "26. LDAP oproti AD DS",
-      "line": 427,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "26. LDAP oproti AD DS",
-      "line": 427,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "26. LDAP oproti AD DS",
-      "line": 427,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `LDAP je protocol.`, `OpenLDAP je LDAP directory software.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "26. LDAP oproti AD DS",
-      "line": 427,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "26. LDAP oproti AD DS",
-      "line": 427,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AD`, `DS`, `DNS`, `Policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "27. LDAP oproti OIDC",
-      "line": 435,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "27. LDAP oproti OIDC",
-      "line": 435,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "27. LDAP oproti OIDC",
-      "line": 435,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `directory queries a binds,`, `persistent connection/client-server protocol,`, `často internal network integration,`, `aplikácia môže spracúvať password.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "27. LDAP oproti OIDC",
-      "line": 435,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "27. LDAP oproti OIDC",
-      "line": 435,
+      "section": "Acceptance verdict",
+      "line": 409,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -188975,17 +188795,116 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "27. LDAP oproti OIDC",
-      "line": 435,
+      "section": "Acceptance verdict",
+      "line": 409,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "18. Troubleshooting flow",
+      "line": 419,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Connection a TLS",
+      "line": 421,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Bind",
+      "line": 432,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "Search",
+      "line": 444,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "19. Earlier controls",
+      "line": 458,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "19. Earlier controls",
+      "line": 458,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "19. Earlier controls",
+      "line": 458,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "19. Earlier controls",
+      "line": 458,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-replica synthetic membership canary;`, `convergence SLO pre privileged negative changes;`, `schema-tested query builders a injection fixtures;`, `certificate-expiry a hostname-verification canary;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "19. Earlier controls",
+      "line": 458,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "19. Earlier controls",
+      "line": 458,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/ldap.md",
+      "section": "19. Earlier controls",
+      "line": 458,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LDAP`, `SLO`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "Simple Bind bez TLS",
-      "line": 455,
+      "section": "Bind success = application access",
+      "line": 472,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -188993,8 +188912,8 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "cn ako unique login bez contractu",
-      "line": 459,
+      "section": "Load balancer skryje replica identity",
+      "line": 476,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -189002,8 +188921,8 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "Service account s read accessom na celé directory",
-      "line": 463,
+      "section": "0 entries = user neexistuje",
+      "line": 480,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -189011,8 +188930,8 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "Neescaped filter",
-      "line": 467,
+      "section": "Service account číta celý directory",
+      "line": 484,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -189020,8 +188939,8 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "Predpoklad okamžitej replication",
-      "line": 471,
+      "section": "Simple Bind bez overeného TLS",
+      "line": 488,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -189029,17 +188948,8 @@
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",
-      "section": "LDAP groups priamo ako application permissions bez mapping vrstvy",
-      "line": 475,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/ldap.md",
-      "section": "Certificate verification vypnuté",
-      "line": 479,
+      "section": "LDAP group priamo ako permanentná application role",
+      "line": 492,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10537**
-- Total words: **636,078**
-- Findings: **21660** (critical 6364, high 7109, medium 2783, low 5404)
+- Audited conceptual sections: **10534**
+- Total words: **636,660**
+- Findings: **21650** (critical 6355, high 7094, medium 2781, low 5420)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -53,7 +53,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 866 | 41 | 40 | 13 | 11 | 3009 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | D | 866 | 43 | 38 | 13 | 8 | 1872 | `docs/06-gitlab/protected-branches-and-environments.md` |
 | D | 863 | 38 | 45 | 10 | 16 | 1882 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
-| D | 863 | 38 | 45 | 15 | 4 | 1491 | `docs/13-security-and-identity/ldap.md` |
 | D | 854 | 37 | 41 | 15 | 28 | 2950 | `docs/09-kubernetes/deployment.md` |
 | D | 851 | 36 | 36 | 25 | 33 | 3084 | `docs/09-kubernetes/pod.md` |
 | D | 835 | 34 | 38 | 25 | 21 | 3361 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
@@ -116,6 +115,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 667 | 29 | 35 | 10 | 9 | 1766 | `docs/11-cloud-and-aws/public-private-hybrid-cloud.md` |
 | D | 664 | 26 | 37 | 10 | 26 | 2978 | `docs/09-kubernetes/worker-node-components.md` |
 | D | 663 | 30 | 31 | 14 | 7 | 1625 | `docs/11-cloud-and-aws/regions-availability-zones.md` |
+| D | 663 | 29 | 30 | 13 | 20 | 2073 | `docs/13-security-and-identity/ldap.md` |
 | D | 657 | 32 | 28 | 8 | 15 | 1850 | `docs/12-observability/loki.md` |
 | D | 656 | 28 | 35 | 8 | 16 | 1792 | `docs/04-testing-and-quality/smoke-and-regression-tests.md` |
 | D | 655 | 30 | 30 | 11 | 18 | 2326 | `docs/09-kubernetes/service-endpointslice.md` |
@@ -14029,89 +14029,65 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/ldap.md`
 
-- **CRITICAL** line 37, `empty-section` — **3. DN a RDN**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 57, `bare-bullet-items` — **4. Entries, object classes a attributes**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `attribute syntax,`, `matching rules,`, `single/multi-valued semantics,`, `object class inheritance,`.
-- **CRITICAL** line 57, `outline-instead-of-explanation` — **4. Entries, object classes a attributes**: 5 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 85, `bare-bullet-items` — **5. LDAP operations**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Bind,`, `Unbind,`, `Search,`, `Compare,`.
-- **CRITICAL** line 85, `outline-instead-of-explanation` — **5. LDAP operations**: 10 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 102, `bare-bullet-items` — **6. Bind**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `anonymous bind,`, `simple bind s DN a passwordom,`, `SASL mechanisms,`, `certificate-based SASL EXTERNAL podľa implementácie.`.
-- **CRITICAL** line 117, `empty-section` — **7. StartTLS a LDAPS**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 123, `bare-bullet-items` — **LDAPS**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted CA,`, `hostname/SAN verification,`, `protocol/cipher policy,`, `certificate expiration,`.
-- **CRITICAL** line 123, `outline-instead-of-explanation` — **LDAPS**: 6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 140, `bare-bullet-items` — **8. Search request**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `base DN,`, `scope,`, `filter,`, `requested attributes,`.
-- **CRITICAL** line 140, `outline-instead-of-explanation` — **8. Search request**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 174, `bare-bullet-items` — **10. Attributes a projection**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zbytočný network a server load,`, `exposure sensitive attributes,`, `väčšie responses,`, `nejasný application contract.`.
-- **CRITICAL** line 174, `outline-instead-of-explanation` — **10. Attributes a projection**: 4 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 187, `bare-bullet-items` — **11. Controls a extensions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `paged results,`, `server-side sorting,`, `assertion controls,`, `synchronization controls podľa implementation.`.
-- **CRITICAL** line 187, `outline-instead-of-explanation` — **11. Controls a extensions**: 4 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 200, `bare-bullet-items` — **12. Referrals**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credentials forwarding,`, `trust iný server/CA,`, `loops,`, `partial results,`.
-- **CRITICAL** line 200, `outline-instead-of-explanation` — **12. Referrals**: 5 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 214, `bare-bullet-items` — **13. Access control**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto smie čítať entry/attribute,`, `kto smie meniť konkrétny attribute,`, `kto smie vytvárať alebo mazať entries,`, `kto smie meniť DN,`.
-- **CRITICAL** line 232, `bare-bullet-items` — **Direct user bind**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `directory overí password.`, `application spracúva user password,`, `treba nájsť správny DN,`, `lockout/error leakage,`.
-- **CRITICAL** line 232, `outline-instead-of-explanation` — **Direct user bind**: 5 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 259, `bare-bullet-items` — **15. Group membership**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `group entry obsahuje member DNs,`, `user entry obsahuje group references,`, `nested groups,`, `dynamic groups podľa server capability.`.
-- **CRITICAL** line 259, `outline-instead-of-explanation` — **15. Group membership**: 9 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.
-- **CRITICAL** line 278, `bare-bullet-items` — **16. Indexes**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `equality filters,`, `substring/presence queries,`, `sort,`, `dataset size,`.
-- **CRITICAL** line 278, `outline-instead-of-explanation` — **16. Indexes**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 292, `bare-bullet-items` — **17. Replication**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LDAP request success na jednom serveri,`, `convergence do ďalších replicas,`, `conflict resolution,`, `read-after-write expectations,`.
-- **CRITICAL** line 292, `outline-instead-of-explanation` — **17. Replication**: 5 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 306, `bare-bullet-items` — **18. Password storage a policies**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `modern password hashing podľa platformy,`, `write-only password change path,`, `password policy,`, `lockout/rate limiting,`.
-- **CRITICAL** line 306, `outline-instead-of-explanation` — **18. Password storage a policies**: 7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 322, `bare-bullet-items` — **19. Service account pre LDAP integration**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bind,`, `search base iba v potrebnom subtree,`, `read allowlist attributes,`, `žiadne write/delete,`.
-- **CRITICAL** line 322, `outline-instead-of-explanation` — **19. Service account pre LDAP integration**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 336, `bare-bullet-items` — **20. High availability**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `viac LDAP endpoints,`, `DNS SRV discovery,`, `load balancer podľa server semantics,`, `health checks,`.
-- **CRITICAL** line 336, `outline-instead-of-explanation` — **20. High availability**: 6 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 349, `bare-bullet-items` — **21. Observability**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `connection rate/errors,`, `Bind success/failure a lockouts,`, `search rate/latency,`, `filter/base/scope classes bez sensitive values,`.
-- **CRITICAL** line 349, `outline-instead-of-explanation` — **21. Observability**: 12 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 412, `bare-bullet-items` — **25. LDAP injection**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `parameterized/builder API,`, `správne escaping pre filter a DN osobitne,`, `allowlist syntax,`, `minimal service account,`.
-- **CRITICAL** line 412, `outline-instead-of-explanation` — **25. LDAP injection**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 435, `bare-bullet-items` — **27. LDAP oproti OIDC**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `directory queries a binds,`, `persistent connection/client-server protocol,`, `často internal network integration,`, `aplikácia môže spracúvať password.`.
-- **CRITICAL** line 435, `outline-instead-of-explanation` — **27. LDAP oproti OIDC**: 8 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 5, `single-sentence-concept` — **1. Mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 39, `single-sentence-concept` — **Distinguished Name**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 85, `single-sentence-concept` — **5. LDAP operations**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 119, `single-sentence-concept` — **StartTLS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 140, `single-sentence-concept` — **8. Search request**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 228, `single-sentence-concept` — **14. Authentication cez LDAP v aplikáciách**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 232, `single-sentence-concept` — **Direct user bind**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 259, `single-sentence-concept` — **15. Group membership**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 322, `single-sentence-concept` — **19. Service account pre LDAP integration**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 349, `single-sentence-concept` — **21. Observability**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 366, `list-first-introduction` — **22. Troubleshooting connection a TLS**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 381, `list-first-introduction` — **23. Troubleshooting Bind**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 381, `single-sentence-concept` — **23. Troubleshooting Bind**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 396, `list-first-introduction` — **24. Troubleshooting Search**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 427, `bare-bullet-items` — **26. LDAP oproti AD DS**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `LDAP je protocol.`, `OpenLDAP je LDAP directory software.`.
-- **HIGH** line 427, `list-first-introduction` — **26. LDAP oproti AD DS**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 427, `single-sentence-concept` — **26. LDAP oproti AD DS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 435, `single-sentence-concept` — **27. LDAP oproti OIDC**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 455, `single-sentence-concept` — **Simple Bind bez TLS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 459, `single-sentence-concept` — **cn ako unique login bez contractu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 463, `single-sentence-concept` — **Service account s read accessom na celé directory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 467, `single-sentence-concept` — **Neescaped filter**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 471, `single-sentence-concept` — **Predpoklad okamžitej replication**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 475, `single-sentence-concept` — **LDAP groups priamo ako application permissions bez mapping vrstvy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 479, `single-sentence-concept` — **Certificate verification vypnuté**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 57, `thin-concept-section` — **4. Entries, object classes a attributes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 85, `thin-concept-section` — **5. LDAP operations**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 123, `thin-concept-section` — **LDAPS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 140, `thin-concept-section` — **8. Search request**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 174, `thin-concept-section` — **10. Attributes a projection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 187, `thin-concept-section` — **11. Controls a extensions**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 200, `thin-concept-section` — **12. Referrals**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 232, `thin-concept-section` — **Direct user bind**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 259, `thin-concept-section` — **15. Group membership**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 278, `thin-concept-section` — **16. Indexes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 292, `thin-concept-section` — **17. Replication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 306, `thin-concept-section` — **18. Password storage a policies**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 322, `thin-concept-section` — **19. Service account pre LDAP integration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 336, `thin-concept-section` — **20. High availability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 349, `thin-concept-section` — **21. Observability**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 412, `thin-concept-section` — **25. LDAP injection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 427, `term-before-explanation` — **26. LDAP oproti AD DS**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AD`, `DS`, `DNS`, `Policy`
-- **HIGH** line 427, `thin-concept-section` — **26. LDAP oproti AD DS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 435, `thin-concept-section` — **27. LDAP oproti OIDC**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 76, `bare-bullet-items` — **4. Entry, schema, object classes a attributes**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable identity attribute;`, `authoritative status/eligibility attributes;`, `single alebo multi-valued semantics;`, `case/matching rules;`.
+- **CRITICAL** line 101, `bare-bullet-items` — **5. Connection a TLS boundary**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `transport unavailable;`, `TLS negotiation failure;`, `certificate trust/identity failure;`, `LDAP protocol result;`.
+- **CRITICAL** line 125, `bare-bullet-items` — **6. Bind nastavuje connection authentication state**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `že end user je application-eligible;`, `že service account smie čítať každý attribute;`, `že group result bude aktuálny;`, `že application smie povoliť konkrétnu resource action.`.
+- **CRITICAL** line 146, `bare-bullet-items` — **7. Search request je presný query contract**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `objekt neexistuje pod zvoleným base/scope;`, `filter nesedí;`, `ACL entry skryla;`, `referral nebola nasledovaná;`.
+- **CRITICAL** line 146, `outline-instead-of-explanation` — **7. Search request je presný query contract**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 177, `bare-bullet-items` — **8. Filters a LDAP injection**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LDAP filter builder alebo správne RFC escaping;`, `samostatné DN escaping;`, `allowlist identity syntax;`, `fixed base a scope;`.
+- **CRITICAL** line 201, `bare-bullet-items` — **9. Projection a attribute confidentiality**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `password hashes;`, `recovery attributes;`, `unrelated HR fields;`, `write/delete permissions;`.
+- **CRITICAL** line 232, `bare-bullet-items` — **11. Controls, paging a referrals**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted endpoints a CAs;`, `credential forwarding;`, `tenant/naming-context boundary;`, `loops a hop limit;`.
+- **CRITICAL** line 247, `bare-bullet-items` — **12. Replica identity a consistency**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `preferred site/replica;`, `read-after-write requirement;`, `failover freshness tolerance;`, `operational metadata použitú na freshness verdict;`.
+- **CRITICAL** line 286, `empty-section` — **14. Authentication patterns**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 317, `bare-bullet-items` — **16. Indexes, limits a availability**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `search latency a scanned entries;`, `size/time/admin limits;`, `active connections a worker saturation;`, `TLS handshake failures;`.
+- **CRITICAL** line 334, `empty-section` — **17. Worked failure: Bind green, privilege state stale**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 340, `empty-section` — **Exact query subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 355, `bare-bullet-items` — **Competing hypotheses**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application cache drží pre-removal result;`, `service Bind principal nemá právo vidieť removal;`, `query používa wrong group DN alebo base;`, `nested group udeľuje access inou cestou;`.
+- **CRITICAL** line 355, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 355, `outline-instead-of-explanation` — **Competing hypotheses**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 390, `no-prose-concept` — **Evidence-preserving containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 390, `outline-instead-of-explanation` — **Evidence-preserving containment**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 399, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 399, `outline-instead-of-explanation` — **Authoritative recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 409, `no-prose-concept` — **Acceptance verdict**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 409, `outline-instead-of-explanation` — **Acceptance verdict**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 419, `empty-section` — **18. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 421, `empty-section` — **Connection a TLS**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 432, `empty-section` — **Bind**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 444, `empty-section` — **Search**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 458, `bare-bullet-items` — **19. Earlier controls**: 8 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-replica synthetic membership canary;`, `convergence SLO pre privileged negative changes;`, `schema-tested query builders a injection fixtures;`, `certificate-expiry a hostname-verification canary;`.
+- **CRITICAL** line 458, `no-prose-concept` — **19. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 458, `outline-instead-of-explanation` — **19. Earlier controls**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 5, `list-first-introduction` — **1. Dominantný lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 5, `single-sentence-concept` — **1. Dominantný lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 31, `single-sentence-concept` — **2. Exact LDAP subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 76, `list-heavy-section` — **4. Entry, schema, object classes a attributes**: 7 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 146, `single-sentence-concept` — **7. Search request je presný query contract**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 177, `list-heavy-section` — **8. Filters a LDAP injection**: 7 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 232, `list-heavy-section` — **11. Controls, paging a referrals**: 6 odrážok a iba 53 slov súvislého vysvetlenia.
+- **HIGH** line 247, `list-heavy-section` — **12. Replica identity a consistency**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 317, `list-heavy-section` — **16. Indexes, limits a availability**: 8 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 355, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 365, `list-first-introduction` — **Discriminating evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 390, `bare-bullet-items` — **Evidence-preserving containment**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastaviť privileged token issuance z affected group resultu;`, `revoke-nuť sessions/tokens už vydané zo stale resultu;`, `nevypínať TLS verification ani nepoužiť directory superuser account;`, `nepredĺžiť cache ako „stabilizačný“ fix.`.
+- **HIGH** line 390, `list-first-introduction` — **Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 399, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 409, `list-first-introduction` — **Acceptance verdict**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 458, `list-first-introduction` — **19. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 472, `single-sentence-concept` — **Bind success = application access**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 476, `single-sentence-concept` — **Load balancer skryje replica identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 480, `single-sentence-concept` — **0 entries = user neexistuje**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 484, `single-sentence-concept` — **Service account číta celý directory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 488, `single-sentence-concept` — **Simple Bind bez overeného TLS**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 492, `single-sentence-concept` — **LDAP group priamo ako permanentná application role**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 146, `thin-concept-section` — **7. Search request je presný query contract**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 177, `term-before-explanation` — **8. Filters a LDAP injection**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LDAP`, `RFC`, `DN`, `scope`
+- **HIGH** line 355, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 390, `thin-concept-section` — **Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 399, `term-before-explanation` — **Authoritative recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AD`, `LDAP`, `JIT`, `freshness`
+- **HIGH** line 399, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 409, `thin-concept-section` — **Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 458, `thin-concept-section` — **19. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/least-privilege.md`
 
@@ -14532,19 +14508,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2510 | 438 | 0 | 0 | 2948 |
-| `outline-instead-of-explanation` | 2452 | 0 | 0 | 0 | 2452 |
-| `term-before-explanation` | 0 | 547 | 1837 | 0 | 2384 |
-| `single-sentence-concept` | 0 | 2301 | 0 | 0 | 2301 |
-| `example-not-explicit` | 0 | 0 | 0 | 2201 | 2201 |
-| `thin-concept-section` | 0 | 2058 | 0 | 0 | 2058 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2052 | 2052 |
-| `list-first-introduction` | 0 | 1291 | 0 | 0 | 1291 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1151 | 1151 |
-| `short-concept-section` | 0 | 0 | 946 | 0 | 946 |
-| `no-prose-concept` | 742 | 0 | 0 | 0 | 742 |
-| `empty-section` | 660 | 0 | 0 | 0 | 660 |
-| `list-heavy-section` | 0 | 474 | 0 | 0 | 474 |
+| `bare-bullet-items` | 2502 | 438 | 0 | 0 | 2940 |
+| `outline-instead-of-explanation` | 2441 | 0 | 0 | 0 | 2441 |
+| `term-before-explanation` | 0 | 548 | 1833 | 0 | 2381 |
+| `single-sentence-concept` | 0 | 2290 | 0 | 0 | 2290 |
+| `example-not-explicit` | 0 | 0 | 0 | 2206 | 2206 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2061 | 2061 |
+| `thin-concept-section` | 0 | 2046 | 0 | 0 | 2046 |
+| `list-first-introduction` | 0 | 1293 | 0 | 0 | 1293 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1153 | 1153 |
+| `short-concept-section` | 0 | 0 | 948 | 0 | 948 |
+| `no-prose-concept` | 747 | 0 | 0 | 0 | 747 |
+| `empty-section` | 665 | 0 | 0 | 0 | 665 |
+| `list-heavy-section` | 0 | 479 | 0 | 0 | 479 |
 
 ## Required remediation pattern
 
