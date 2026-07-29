@@ -23,6 +23,8 @@ Odporúča sa najprv dokončiť:
 3. [Error budgets](error-budgets.md)
 4. [Toil](toil.md)
 
+Aktuálny authoritative stav sekcie je **4/15 · In progress**.
+
 ## Plánované pokračovanie
 
 Po prvom bloku bude authoritative poradie pokračovať bez zmeny roadmapy:
