@@ -1,796 +1,571 @@
 # Alertmanager
 
-Alertmanager prijíma alerts z Prometheus serverov alebo kompatibilných clients, deduplikuje ich, zoskupuje, aplikuje routing, inhibition a silences a následne odosiela notifications do definovaných receivers. Nevyhodnocuje PromQL conditions a nerozhoduje, či monitoring condition vznikla; to je úloha Prometheus alerting rules alebo iného alert producer-a.
-
-## 1. Mentálny model
+Alertmanager prijíma firing a resolved alerts od Prometheus serverov alebo kompatibilných producers a rozhoduje, **či, kedy, kam a v akej forme** vznikne notification. Nevyhodnocuje PromQL a nevytvára pôvodnú monitoring condition. Jeho contract začína existujúcim alert state-om a pokračuje cez alert identity, routing, grouping, timing, muting, receiver delivery a external incident outcome.
 
 ```text
-Prometheus alerting rule
-→ pending/firing alert
-→ alert labels a annotations
-→ odoslanie všetkým Alertmanager replicas
-→ fingerprint a deduplication
-→ routing tree
-→ grouping a timing
-→ silence/inhibition
-→ receiver integration
-→ notification template
-→ external on-call/chat/email systém
+alert firing
+≠ notification bola rozhodnutá
+≠ receiver ju prijal
+≠ človek alebo automation ju spracovali
 ```
 
-Alert a notification nie sú to isté:
+## 1. Dominantný lifecycle
 
-- alert je stav monitoring condition,
-- notification je správa odoslaná konkrétnemu receiveru podľa policy.
+```text
+Prometheus alert-rule generation
+→ inactive/pending/firing/resolved alert state
+→ exact alert label identity a annotations
+→ fan-out všetkým Alertmanager replicas
+→ receive a HA peer-state convergence
+→ route-tree traversal
+→ group identity a timing
+→ silence/mute-interval/inhibition verdict
+→ receiver a template generation
+→ notification attempt/retry
+→ receiver acknowledgement alebo unknown outcome
+→ external incident/escalation state
+→ repeat/update/resolved lifecycle
+→ end-to-end delivery, forbidden-route a recovery validation
+```
 
-Jeden alert môže vytvoriť viac notifications v čase alebo nemusí vytvoriť žiadnu, ak je muted.
+Alertmanager success sa nemeria iba process readiness. Kritická otázka je, či exact alert subject vytvoril správny operational outcome bez nebezpečného muting scope-u alebo duplicate stormu.
 
-## 2. Rozdelenie zodpovedností
+## 2. Exact alert-notification subject
+
+Pre Atlas Payments používame:
+
+```text
+notification subject: AM-PAY-44
+observability subject: OBS-PAY-44
+Prometheus alert: SettlementProviderPoolSaturated
+rule generation: PAY-RULES-44
+alert identity labels:
+  alertname="SettlementProviderPoolSaturated"
+  service="payments"
+  operation="final-settlement"
+  environment="production"
+  region="eu-central-1"
+  severity="page"
+  team="payments"
+Alertmanager cluster: am-prod-global-3
+configuration generation: AM-CFG-77
+expected route: payments-production-pager
+expected group: service + operation + environment + region + alertname
+expected receiver: pager-primary
+external incident key: payments/final-settlement/eu-central-1
+window: 2026-07-29T08:18Z–08:40Z
+```
+
+Notification subject zahŕňa rule generation, complete labels, Alertmanager config, group, receiver a external incident key. Rovnaký `alertname` s odlišným environmentom alebo regionom nie je ten istý incident subject.
+
+## 3. Rozdelenie zodpovedností
 
 ### Prometheus
 
-- vyhodnocuje PromQL,
-- spravuje `for` a `keep_firing_for` semantics podľa rule konfigurácie,
-- vytvára alert labels a annotations,
-- posiela firing a resolved alerts Alertmanageru.
+- vyhodnocuje PromQL;
+- drží `for` a `keep_firing_for` state;
+- vytvára alert labels a annotations;
+- posiela firing a resolved updates Alertmanagerom.
 
 ### Alertmanager
 
-- deduplikuje alerts,
-- zoskupuje súvisiace alerts,
-- routuje podľa labels,
-- aplikuje silences a inhibition,
-- riadi notification timing,
-- renderuje templates,
-- odosiela receiverom.
+- identifikuje a deduplikuje alerts;
+- aplikuje route tree;
+- zoskupuje alerts;
+- riadi notification timing;
+- aplikuje silences, mute intervals a inhibition;
+- renderuje templates;
+- volá receiver integrations.
 
-### Receiver
+### Receiver a external workflow
 
-- doručuje page, ticket, email alebo chat message,
-- môže mať vlastný deduplication, retry a escalation model,
-- musí byť monitorovaný samostatne.
+- prijíma page, webhook, chat, email alebo ticket event;
+- môže mať vlastný incident key, deduplication, retry a escalation;
+- musí potvrdiť delivery a byť monitorovaný samostatne.
 
-## 3. Alert data model
+Alertmanager notification success nepreukazuje acknowledgement človekom. Receiver HTTP `2xx` nemusí preukazovať správne incident routing alebo escalation.
 
-Alert typicky obsahuje:
+## 4. Alert identity
 
-- labels,
-- annotations,
-- `startsAt`,
-- `endsAt`,
-- generator URL,
-- fingerprint odvodený z label setu.
+Alertmanager identity je odvodená z complete label setu. Labels preto musia byť stabilné, bounded a semanticky konzistentné.
 
-### Labels
+Vhodné identity/routing labels:
 
-Labels určujú alert identity, grouping, routing, silences a inhibition.
+- `alertname`;
+- service a operation;
+- environment;
+- region/cluster podľa incident boundary;
+- severity;
+- team/owner;
+- bounded tenant alebo priority class, iba ak mení routing.
 
-Príklady:
+Annotations nesú dynamický ľudský context:
 
-- `alertname`,
-- `service`,
-- `cluster`,
-- `namespace`,
-- `severity`,
-- `team`,
-- `environment`,
-- `region`.
+- summary a user impact;
+- current value a threshold;
+- dashboard/query/runbook URL;
+- troubleshooting hint;
+- deployment alebo incident link.
 
-Labels musia byť:
+Aktuálna hodnota, exception text alebo timestamp v labeli mení fingerprint pri každom evaluation cykle. Dôsledkom je strata deduplication, nové groups, notification storm a nefunkčný resolved lifecycle.
 
-- stabilné,
-- bounded,
-- konzistentné medzi rules,
-- vhodné pre ownership a routing.
+## 5. HA producer fan-out a deduplication
 
-### Annotations
+Viac Prometheus replicas môže vytvoriť rovnaký logical alert. Alertmanager ich deduplikuje iba vtedy, keď majú kompatibilnú alert identity.
 
-Annotations poskytujú ľudský context:
+Prometheus má posielať alerts **všetkým Alertmanager replicas priamo**, nie cez load balancer, ktorý vyberie iba jednu. Každá Alertmanager instance alert prijme a spracuje; peer mesh koordinuje notification state a silences.
 
-- summary,
-- description,
-- runbook URL,
-- dashboard URL,
-- current value,
-- troubleshooting hints.
+Deduplication znamená:
 
-Dynamický text patrí primárne do annotations, nie do labels. Ak sa aktuálna hodnota alebo error message vloží do labelu, alert identity sa môže meniť pri každom evaluation cykle.
+```text
+rovnaká alert identity
+→ receiver nedostane jednu notification za každú Prometheus repliku
+```
 
-## 4. Alert fingerprint a deduplication
+Neznamená:
 
-Alertmanager identifikuje alert podľa label setu.
+- exactly-once delivery;
+- výber „správnej“ source sample;
+- globálny consensus o business incidente;
+- ochranu pred odlišnými labels medzi replicas.
 
-Dve alerts s rovnakými labels sa považujú za rovnakú alert identity aj keď:
+Replica-specific label, ktorý zostane v alert identity, vytvorí dva logical alerts a dve notifications.
 
-- prišli z dvoch Prometheus HA replicas,
-- annotations majú odlišné hodnoty,
-- prišli opakovane počas firing stavu.
+## 6. Route-tree generation
 
-Pre HA Prometheus model je kritické, aby replica-specific label nebol súčasťou alert identity, ktorú má Alertmanager deduplikovať. To možno riešiť cez Prometheus alert relabeling alebo konzistentný external-label model.
-
-Deduplication neznamená, že Alertmanager vyberie „správny“ source sample. Znamená iba, že neposiela duplicity tej istej alert identity receiveru.
-
-## 5. Routing tree
-
-Alertmanager používa hierarchický route tree.
-
-Root route:
-
-- musí existovať,
-- definuje default receiver,
-- nesmie mať matchers,
-- poskytuje zdedené grouping a timing defaults.
-
-Child routes môžu matchovať labels a prepisovať:
-
-- receiver,
-- `group_by`,
-- `group_wait`,
-- `group_interval`,
-- `repeat_interval`,
-- active alebo mute time intervals,
-- ďalšie child routes.
-
-Príklad:
+Route tree rozhoduje receiver, grouping a timing. Root route poskytuje default safety path. Child routes sa vyhodnocujú v poradí a môžu dediť alebo prepísať policy.
 
 ```yaml
 route:
-  receiver: default-email
-  group_by: [cluster, alertname]
+  receiver: platform-fallback
+  group_by: [service, environment, region, alertname]
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 4h
-
   routes:
-    - receiver: platform-pager
+    - receiver: payments-production-pager
       matchers:
-        - team="platform"
+        - team="payments"
+        - environment="production"
         - severity="page"
-      group_by: [cluster, service, alertname]
-
-    - receiver: security-pager
-      matchers:
-        - team="security"
-      continue: true
+      group_by: [service, operation, region, alertname]
 ```
 
-## 6. Route matching
+Policy risks:
 
-Route matching používa label matchers:
+- broad route zachytí alert pred špecifickou route;
+- missing owner label skončí v nesprávnom default receiveri;
+- regex matchuje širšiu population;
+- `continue: true` pošle neplánované duplicity;
+- child route prepíše timing alebo grouping bez zámeru;
+- route existuje v source YAML, ale runtime používa starú config generation.
 
-- equality,
-- inequality,
-- regular expression,
-- negative regular expression.
+Routing sa testuje complete fixture label setom, nie iba alertname alebo vizuálnym čítaním YAML.
 
-Route sa vyhodnocuje zhora nadol.
+## 7. Grouping a incident identity
 
-Pri zhode s child route sa spracovanie sibling routes štandardne zastaví, pokiaľ nie je nastavené `continue: true`.
-
-Riziká:
-
-- broad route zachytí alerts pred špecifickou route,
-- chýbajúci ownership label pošle alert default receiveru,
-- regex matchuje viac hodnôt než sa očakávalo,
-- `continue: true` vytvorí duplicitné notifications,
-- child route nezdedí očakávané timing po explicitnom prepísaní.
-
-Routing tree testuj s konkrétnymi label sets, nie iba vizuálnou kontrolou YAML.
-
-## 7. Grouping
-
-Grouping spája alerts podobnej povahy do jednej notification.
-
-Príklad incidentu:
+Grouping spája alerts, ktoré pravdepodobne patria k jednej operational reakcii.
 
 ```text
-200 Pod alerts
-→ group_by: [cluster, alertname]
-→ jedna notification s 200 alerts
+24 task-level symptoms
+→ group podľa service + operation + region + alertname
+→ jedna incident notification s bounded scope-om
 ```
 
-Grouping znižuje notification storm, ale príliš broad group môže zmiešať odlišné incidents.
+Príliš jemná group identity vytvorí page storm. Príliš broad grouping spojí odlišné incidents, owners alebo Regions.
 
-### `group_by`
-
-Labels určujúce group identity.
-
-Príklady:
-
-- `[cluster, alertname]`,
-- `[service, alertname]`,
-- `[team, environment, alertname]`.
-
-`group_by: ['...']` znamená agregovanie bez klasického obmedzeného group label setu a treba ho používať opatrne, pretože prakticky vypína zoskupovanie do väčších skupín.
-
-### Grouping trade-off
-
-Príliš jemné grouping:
-
-- mnoho pages,
-- alert storm,
-- opakovaný rovnaký context.
-
-Príliš hrubé grouping:
-
-- unrelated services v jednej notification,
-- nejasný owner,
-- veľká správa,
-- pomalé pochopenie scope-u.
-
-Group podľa incident ownership a spoločnej root-cause pravdepodobnosti.
+Group labels majú reprezentovať spoločný incident boundary. Instance/Pod labels patria do alert detailu, ak každá instance nepotrebuje samostatnú reakciu.
 
 ## 8. Notification timing
 
 ### `group_wait`
 
-Čas čakania pred prvou notification novej group.
-
-Umožní:
-
-- prísť ďalším súvisiacim alerts,
-- doraziť inhibiting parent alertu,
-- vytvoriť kompaktnejšiu notification.
-
-Príliš dlhý `group_wait` odkladá page. Príliš krátky zvyšuje množstvo partial notifications.
+Odklad pred prvou notification novej group. Umožní prísť súvisiacim alerts alebo inhibiting parentu. Príliš dlhá hodnota odloží kritickú page.
 
 ### `group_interval`
 
-Minimálny interval pred odoslaním aktualizácie existujúcej group po pridaní alebo resolved stave alerts.
+Minimálny interval pred ďalšou notification po relevantnej zmene existujúcej group.
 
 ### `repeat_interval`
 
-Interval opakovania notification, ak alert group zostáva firing a od poslednej úspešnej notification neprišla relevantná zmena.
+Opakovanie pri stále firing group. Musí korešpondovať s on-call escalation, handover a expected incident duration.
 
-Repeat interval zosúlaď s:
+Timing nie je iba noise tuning. Je súčasťou detection-to-human latency. Fast-burn outage nesmie čakať na grouping interval navrhnutý pre pomalé warning alerts.
 
-- on-call escalation,
-- expected incident duration,
-- receiver deduplication,
-- shift handover,
-- maintenance modelom.
+## 9. Silence, mute interval a inhibition
 
-## 9. Notification log
+Všetky tri mechanizmy mutujú notification decision, nie pôvodný Prometheus alert state.
 
-Alertmanager udržiava notification state potrebný na deduplication a timing.
+### Silence
 
-Tento stav pomáha rozhodnúť:
+Manuálna alebo API-created bounded matcher policy. Potrebuje ownera, dôvod, expiry a change/incident reference.
 
-- či už bola group odoslaná,
-- ktorému receiveru,
-- s akým alert setom,
-- či treba poslať update alebo repeat.
+### Mute time interval
 
-Pri HA clustri sa notification log replikuje medzi peers pomocou cluster communication. Je eventually consistent, preto môžu pri partition alebo cold start-e vzniknúť obmedzené duplicate notifications. HA cieľom je dostupnosť notification pipeline, nie exactly-once delivery.
+Kalendárová policy, napríklad non-production warnings mimo pracovných hodín. Time zone a daylight-saving behavior sa musia explicitne testovať.
 
-## 10. Receivers
+### Inhibition
 
-Receiver je pomenovaná kolekcia jednej alebo viacerých notification integrations.
-
-Typy môžu zahŕňať:
-
-- email,
-- generic webhook,
-- PagerDuty,
-- Opsgenie,
-- Slack,
-- Microsoft Teams cez podporovaný integration model,
-- ďalšie on-call alebo chat služby podľa aktuálnej verzie.
-
-Receiver konfigurácia obsahuje citlivé údaje:
-
-- API tokens,
-- webhook URLs,
-- SMTP credentials,
-- TLS konfiguráciu.
-
-Secrets nesmú byť commitnuté priamo v otvorenom configuration repository. Použi secret injection, permissions a rotation model vhodný pre runtime.
-
-## 11. Notification retries
-
-Alertmanager retryuje notification delivery podľa receiver a error semantics.
-
-Rozlišuj:
-
-- dočasný network failure,
-- receiver throttling,
-- permanent invalid request,
-- authentication failure,
-- template rendering failure,
-- DNS/TLS problém,
-- proxy failure.
-
-Alertmanager nie je ticketing system ani nekonečný durable queue. Dlhodobý receiver outage môže viesť k oneskoreniu alebo strate očakávanej operational reakcie podľa konkrétneho failure a retry lifecycle-u.
-
-Monitoruj úspešnosť notification attempts a receiver-side ingestion.
-
-## 12. Silences
-
-Silence dočasne mutuje notifications pre alerts, ktoré matchujú všetky silence matchers.
-
-Silence typicky obsahuje:
-
-- matchers,
-- start a end time,
-- creator,
-- comment alebo ticket/change reference.
-
-Použitie:
-
-- plánovaná údržba,
-- známy incident so samostatnou koordináciou,
-- dočasná mitigation počas opravy alertu.
-
-Silence neodstraňuje alert a nemení Prometheus rule state. Alert zostáva firing a viditeľný ako silenced.
-
-### Silence governance
-
-Vyžaduj:
-
-- bounded duration,
-- ownera,
-- dôvod,
-- change/incident ID,
-- čo najpresnejšie matchers,
-- review dlhých silences.
-
-Broad silence ako `severity=page` môže skryť nesúvisiace incidents.
-
-## 13. Mute time intervals
-
-Mute timing môže pravidelne mutovať notifications podľa kalendára alebo time intervals.
-
-Príklady:
-
-- non-production warnings mimo pracovných hodín,
-- známe pravidelné maintenance windows,
-- business-hours routing.
-
-Root route nemá byť mutovaná spôsobom, ktorý odstráni default safety path. Time zone a daylight-saving behavior explicitne over.
-
-Kalendárové muting pravidlo nesmie maskovať kritický 24/7 production alert bez business rozhodnutia.
-
-## 14. Inhibition
-
-Inhibition mutuje target alerts, keď je firing source alert s matching scope labels.
-
-Príklad:
+Automatická dependency policy:
 
 ```text
-source: ClusterDown
-→ inhibit: InstanceDown, PodUnavailable, ScrapeFailed
-→ iba parent incident page
+source alert firing
++ target alert firing
++ source/target/equal match
+→ target notification muted
 ```
-
-Inhibition rule obsahuje:
-
-- source matchers,
-- target matchers,
-- `equal` labels, ktoré musia byť zhodné medzi source a target alertom.
 
 Príklad:
 
 ```yaml
 inhibit_rules:
   - source_matchers:
-      - alertname="ClusterDown"
+      - alertname="RegionUnavailable"
     target_matchers:
-      - severity=~"warning|page"
+      - severity="page"
     equal:
-      - cluster
+      - environment
+      - region
 ```
 
-### Inhibition riziká
+`equal` labels definujú muting scope. Ak chýbajú, source alert môže inhibovať unrelated target v inom Regione, environment-e alebo tenant-e.
 
-- chýbajúci `equal` scope mutuje alerts z iného clusteru,
-- parent alert nie je spoľahlivý,
-- source a target labels nie sú konzistentné,
-- broad source matcher vytvára príliš veľké muting pole.
+## 10. Receiver a template generation
 
-Inhibition nesmie nahradiť root-cause-quality alert design.
+Receiver je pomenovaná notification integration alebo ich kolekcia. Obsahuje secrets, TLS/auth a receiver-specific delivery contract.
 
-## 15. Silence oproti inhibition
+Template má renderovať:
 
-| Silence | Inhibition |
-|---|---|
-| manuálna alebo API-created mute policy | automatická závislosť medzi firing alerts |
-| bounded časom | aktívna, kým source alert firing |
-| používa matchers | používa source, target a equal matchers |
-| maintenance alebo incident coordination | parent-child failure suppression |
+- user/business impact;
+- service, operation, environment a region;
+- group scope a firing count;
+- start a duration;
+- dashboard, trace/log a runbook links;
+- ownera a prvý safe action;
+- stable external incident key.
 
-Obe mutujú notifications, nie alert state.
+Template sa testuje pre:
 
-## 16. Resolved notifications
+- empty/one/many alert group;
+- firing a resolved path;
+- missing optional label;
+- payload limits a escaping;
+- secret leakage.
 
-Receiver môže byť nakonfigurovaný na odosielanie resolved notifications.
+Správny route verdict s template errorom nevytvorí usable notification.
 
-Výhody:
+## 11. Delivery, retries a unknown outcome
 
-- incident closure signal,
-- ticket/on-call state update,
-- meranie duration,
-- automatizovaný recovery workflow.
+Notification attempt môže skončiť:
 
-Riziká:
+- acknowledged receiver success;
+- permanent validation/auth failure;
+- transient network/throttling failure;
+- timeout s neznámym receiver outcome-om;
+- template/render failure;
+- external receiver success bez správnej escalation.
 
-- flapping vytvára firing/resolved spam,
-- niektoré receivers majú vlastný incident lifecycle,
-- zlá alert identity môže otvoriť a zatvoriť nesprávne incident records.
+Alertmanager koordinuje delivery a retry podľa integration semantics, ale nie je nekonečný durable ticketing queue. Receiver outage a timeout potrebujú monitoring.
 
-Resolved notification má obsahovať rovnakú stabilnú identity a relevantný recovery context.
+Unknown outcome je dôležitý:
 
-## 17. Templates
+```text
+Alertmanager odošle request
+→ receiver incident možno vytvorí
+→ response sa stratí
+→ retry môže vytvoriť duplicate incident
+```
 
-Notification templates používajú Go templating na vytvorenie title, body, links a receiver-specific payloadu.
+External incident key a receiver idempotency majú zodpovedať stable Alertmanager group identity.
 
-Template má poskytovať:
+## 12. Resolved lifecycle
 
-- stručný user impact,
-- service/environment/region,
-- firing count a group context,
-- začiatok a duration,
-- dashboard a runbook link,
-- generator/query link,
-- incident alebo ownership metadata.
+Resolved notification môže zatvoriť alebo aktualizovať external incident. Potrebuje rovnakú stable identity ako firing notification.
 
-### Template safety
+False resolve môže vzniknúť pri:
 
-- nepredpokladaj, že label vždy existuje,
-- správne escape-ni receiver syntax,
-- nedávaj secrets do outputu,
-- obmedz payload size,
-- testuj empty, one-alert a many-alert group,
-- testuj firing aj resolved path.
+- flapping rule;
+- label-set change;
+- no-data interpretovanom ako recovery;
+- producer replica divergence;
+- incorrect group identity;
+- rule generation migration bez overlapu.
 
-Template failure môže zablokovať notification, aj keď routing bol správny.
+Incident closure má overiť business recovery, nie iba prijatie resolved payloadu.
 
-## 18. Configuration validation
+## 13. High availability a state
 
-Alertmanager configuration validuj pred reloadom.
+Alertmanager HA používa peer-to-peer mesh. Replikuje silences a notification state, aby znížil duplicate notifications a zachoval availability.
 
-Príklad:
+HA nie je exactly-once. Pri partition, restart-e, cold state, receiver timeout-e alebo convergence môžu vzniknúť duplicity.
+
+Persistent/runtime state zahŕňa:
+
+- silences;
+- notification log a dedup history;
+- loaded config a templates;
+- peer membership.
+
+Git/IaC configuration nenahrádza runtime silences. Load-balancer health nepreukazuje funkčný peer mesh ani receiver path.
+
+## 14. Worked failure: staging maintenance inhibuje production page
+
+### Symptóm
+
+Prometheus alert `SettlementProviderPoolSaturated` je `firing` počas 14 minút. Alert je viditeľný aj v Alertmanager UI, ale payments on-call nedostal page. Alertmanager process, peer mesh a pager receiver synthetics sú green.
+
+### Target alert
+
+```text
+alertname="SettlementProviderPoolSaturated"
+service="payments"
+operation="final-settlement"
+environment="production"
+region="eu-central-1"
+severity="page"
+team="payments"
+```
+
+### Súbežný source alert
+
+```text
+alertname="ProviderMaintenance"
+service="payments"
+environment="staging"
+region="eu-west-1"
+severity="info"
+```
+
+### Effective inhibition generation `AM-CFG-77`
+
+```yaml
+inhibit_rules:
+  - source_matchers:
+      - alertname="ProviderMaintenance"
+    target_matchers:
+      - severity="page"
+    equal:
+      - service
+```
+
+### Competing hypotheses
+
+1. Prometheus alert neposlal Alertmanageru;
+2. alert ešte čaká v `group_wait`;
+3. route skončila vo fallback receiveri;
+4. active silence target matchuje;
+5. mute time interval je aktívny;
+6. inhibition source target mutuje;
+7. template alebo pager API zlyhali;
+8. receiver vytvoril incident, ale escalation zlyhala.
+
+### Discriminating evidence
+
+```text
+Prometheus:
+  alert firing, AM targets healthy
+Alertmanager:
+  target alert received
+  matched payments-production-pager route
+  no matching silence
+  no active mute interval
+  inhibition verdict = true
+Receiver:
+  žiadny notification attempt pre target group
+```
+
+Alertmanager fungoval podľa effective policy. Policy však definovala unsafe scope. Rovnaké `service="payments"` stačilo na to, aby staging maintenance v inom Regione inhibovala production page.
+
+Mechanizmus:
+
+```text
+staging source alert firing
+→ target production alert má rovnaký service label
+→ inhibition equal kontroluje iba service
+→ environment a region nie sú scope gates
+→ target notification je muted
+→ pager receiver nikdy nie je volaný
+→ production incident zostane bez page
+```
+
+### Containment
+
+- odstrániť alebo dočasne zúžiť chybnú inhibition generation;
+- zachovať source/target labels, inhibition status, loaded config a timestamps;
+- manuálne deklarovať production incident a kontaktovať on-call;
+- nevypnúť všetku inhibition globálne bez kontroly alert stormu;
+- overiť ďalšie target alerts ovplyvnené rovnakou source alert identity.
+
+### Authoritative recovery
+
+1. pridať `environment` a `region` do `equal` scope-u;
+2. oddeliť maintenance source taxonomy od production dependency parent alerts;
+3. vytvoriť fixture pairs pre same/different environment a region;
+4. validovať config a runtime reload;
+5. poslať controlled production canary alert;
+6. overiť notification attempt, receiver acknowledgement a external incident key;
+7. poslať matching staging target a potvrdiť, že intended inhibition stále funguje;
+8. overiť resolved notification a druhý reload.
+
+### Alertmanager acceptance verdict
+
+Recovery je prijatá, keď:
+
+- production target nie je inhibovaný staging source alertom;
+- same-region production parent správne inhibuje iba intended child symptoms;
+- exact page smeruje na payments receiver;
+- fallback route zachytí missing-owner fixture;
+- canary vytvorí jedno external incident bez duplicate stormu;
+- resolved path aktualizuje ten istý incident;
+- peer restart a producer fan-out zachovajú delivery;
+- forbidden receiver a broad silence paths zostanú neaktívne.
+
+## 15. End-to-end notification canary
+
+Kritická notification platforma potrebuje viac než `/ready`:
+
+```text
+known Prometheus test series
+→ alert pending/firing
+→ send všetkým Alertmanager replicas
+→ expected route/group/timing
+→ no unintended silence/inhibition
+→ test receiver
+→ receiver acknowledgement
+→ external incident/escalation confirmation
+→ resolved closure
+```
+
+Canary má používať separátny bezpečný receiver alebo controlled incident key, ale rovnakú policy class ako production page.
+
+## 16. Self-monitoring
+
+Sleduj:
+
+- received a active alerts;
+- notification attempts, failures a latency;
+- receiver response codes a throttling;
+- group count a notification volume;
+- silences a inhibition decisions;
+- config reload status;
+- peer membership/convergence;
+- state persistence;
+- template errors;
+- end-to-end canary success.
+
+Alertmanager môže byť healthy a zároveň nepoužiteľný pre jeden route alebo inhibition subject. Self-monitoring potrebuje policy-level fixtures a canaries.
+
+## 17. Troubleshooting paths
+
+### Alert nie je v Alertmanageri
+
+```text
+rule existuje a expression vracia series?
+→ pending/firing a `for` state
+→ rule evaluation error
+→ Alertmanager target discovery
+→ network/TLS/auth
+→ Alertmanager receive/API evidence
+```
+
+### Alert je firing, notification neprišla
+
+```text
+complete labels a fingerprint
+→ route traversal
+→ group timing
+→ silence
+→ mute interval
+→ inhibition source/equal scope
+→ receiver/template
+→ delivery attempt
+→ receiver-side incident/escalation
+```
+
+### Duplicate notifications
+
+Over:
+
+- replica label v alert identity;
+- inconsistent producer labels;
+- viac nezávislých Alertmanager clusters;
+- peer partition alebo cold state;
+- `continue: true`;
+- meniace sa group labels;
+- receiver timeout/unknown outcome;
+- external incident key.
+
+### Alert storm
+
+Najprv odlíš reálny široký incident od identity/cardinality chyby. Potom over grouping, parent alert, inhibition a receiver rate limits. Broad silence bez ownera a expiry iba vytvorí nový blind spot.
+
+## 18. Configuration a policy tests
 
 ```bash
 amtool check-config alertmanager.yml
 ```
 
-Validácia má byť súčasťou CI spolu s:
+Syntax validation doplň o fixture tests pre:
 
-- YAML syntax,
-- matcher syntax,
-- receiver references,
-- template files,
-- secret placeholders,
-- policy tests pre sample alerts.
+- exact route a inherited timing;
+- missing owner/default fallback;
+- `continue` behavior;
+- same/different inhibition scope;
+- silence matcher;
+- firing/resolved template;
+- receiver incident key;
+- HA producer fan-out.
 
-Alertmanager podporuje runtime reload cez `SIGHUP` alebo `POST /-/reload`. Neplatná nová konfigurácia sa nemá aplikovať; reload failure musí byť monitorovaný.
+Source YAML acceptance nestačí. Po reload-e treba overiť loaded generation a runtime decision.
 
-## 19. Routing testovanie
+## 19. Anti-patterny
 
-Vytvor fixture alerts:
+### Alertmanager ako rule evaluator
 
-```json
-{
-  "labels": {
-    "alertname": "ServiceHighErrorRate",
-    "service": "orders",
-    "team": "payments",
-    "severity": "page",
-    "environment": "production",
-    "cluster": "prod-eu-1"
-  },
-  "annotations": {
-    "summary": "Orders error rate is high"
-  }
-}
-```
+Zakrýva boundary medzi monitoring condition a notification policy.
 
-Pre každý fixture over:
+### Dynamický text v labels
 
-- matched route,
-- inherited group/timing,
-- receiver,
-- `continue` behavior,
-- inhibition,
-- silence matching,
-- rendered template.
+Mení identity, groups a deduplication pri každom evaluation cykle.
 
-Configuration review bez test fixtures je náchylný na neviditeľné route-order chyby.
+### Inhibition bez environment/region scope-u
 
-## 20. High availability
+Parent z jednej failure domain môže mutovať unrelated production incident.
 
-Alertmanager podporuje HA cluster cez peer-to-peer mesh.
+### Silence bez ownera a expiry
 
-HA model:
-
-- každá instance prijíma a spracúva alerts,
-- silences a notification state sa replikuje medzi peers,
-- receiver notifications sa koordinujú na zníženie duplicít,
-- peers majú nezávislé process a storage lifecycle.
-
-Prometheus má byť nakonfigurovaný tak, aby posielal alerts všetkým Alertmanager instances priamo. Medzi Prometheus a Alertmanager replicas sa nemá použiť load balancer ako jediný endpoint, pretože jedna replika by mohla alerts neprijať a cluster coordination nie je náhrada client fan-outu.
-
-### HA nie je exactly once
-
-Pri:
-
-- network partition,
-- peer restart-e,
-- state convergence,
-- receiver timeout-e,
-- split-brain situácii
-
-môžu vzniknúť duplicate notifications.
-
-Receiver integration a on-call workflow majú zvládnuť idempotent alebo deduplicovateľný incident key.
-
-## 21. Cluster networking
-
-Over:
-
-- advertise address,
-- peer list/discovery,
-- TCP/UDP cluster ports podľa verzie a konfigurácie,
-- NetworkPolicy/firewall,
-- DNS stability,
-- cross-zone latency,
-- instance identity,
-- persistent storage pre silences podľa deployment modelu.
-
-Load balancer health nepreukazuje funkčný peer mesh.
-
-## 22. Persistent state
-
-Alertmanager local storage obsahuje silence a notification-log state.
-
-Pri ephemeral disk alebo úplnom cluster restart-e môže dôjsť k:
-
-- strate silences,
-- opakovaným notifications,
-- strate deduplication history.
-
-Rozhodni:
-
-- či je silence persistence kritická,
-- ako sa backupuje alebo rekonštruuje configuration,
-- ako sa obnovuje cluster po strate state-u,
-- či external automation vytvára silences znovu.
-
-Configuration v Git/IaC nenahrádza runtime silences.
-
-## 23. Multi-tenant a ownership model
-
-Alertmanager routing často zdieľa viac tímov.
-
-Potrebné contracts:
-
-- povinný `team` alebo `owner` label,
-- severity taxonomy,
-- environment taxonomy,
-- receiver ownership,
-- default fallback receiver,
-- route review proces,
-- silence permissions,
-- template standards,
-- rate/alert count limits podľa platformy.
-
-Missing ownership label nemá ticho zahodiť alert. Default route má smerovať na platform triage alebo jasne monitorovanú fallback queue.
-
-## 24. Severity model
-
-Príklad:
-
-- `page` — okamžitá ľudská reakcia je potrebná,
-- `ticket` — musí byť spracované v pracovnom workflowe,
-- `warning` — diagnostický alebo pre-incident signal bez okamžitého page,
-- `info` — zmena alebo kontext, typicky nie pager.
-
-Severity sa nemá odvíjať iba od technického threshold-u. Má vyjadrovať urgency a požadovanú reakciu.
-
-Alert bez action nemá byť page.
-
-## 25. Notification content
-
-Dobrá page odpovedá:
-
-- čo je poškodené,
-- koho sa to týka,
-- aký je scope,
-- odkedy,
-- aký je user impact,
-- kto je owner,
-- čo má responder urobiť ako prvé,
-- kde sú dashboard, logs, traces a runbook.
-
-Zlá notification:
-
-```text
-CPU > 80 %
-```
-
-Lepšia:
-
-```text
-Orders API prekračuje latency SLO v prod-eu-1;
-error-budget burn 14x počas 10 minút;
-12/18 instances má connection-pool saturation.
-```
-
-## 26. Self-monitoring
-
-Sleduj:
-
-- počet prijatých alerts,
-- active alerts,
-- notification attempts a failures,
-- notification latency,
-- receiver errors,
-- silences count,
-- inhibition/mute behavior,
-- config reload success,
-- cluster peers a health,
-- state persistence,
-- process CPU/memory,
-- alert limits alebo dropped alerts, ak sú nakonfigurované.
-
-Critical notification path potrebuje synthetic test:
-
-```text
-known test alert
-→ Alertmanager route
-→ test receiver
-→ potvrdené doručenie
-```
-
-Samotný `/ready` endpoint nepreukazuje funkčný PagerDuty alebo webhook path.
-
-## 27. Troubleshooting alert sa nezobrazil v Alertmanageri
-
-```text
-Prometheus rule existuje?
-→ expression vracia series?
-→ alert pending alebo firing?
-→ `for` ešte neuplynulo?
-→ rule evaluation error?
-→ Prometheus Alertmanager discovery/config?
-→ network/TLS/auth?
-→ Alertmanager API prijalo alert?
-```
-
-Over:
-
-- Prometheus Rules UI,
-- Prometheus Alerts UI,
-- rule evaluation metrics/logs,
-- Alertmanager target status v Prometheus,
-- Alertmanager active alerts.
-
-## 28. Troubleshooting alert je firing, ale notification neprišla
-
-```text
-alert labels a fingerprint
-→ matched route
-→ group_wait/group_interval
-→ active silence?
-→ inhibition source?
-→ mute time interval?
-→ receiver configuration
-→ template render
-→ network/DNS/TLS/auth
-→ receiver API response
-→ receiver-side dedup/escalation
-```
-
-Zachovaj exact label set. Routing sa nedá spoľahlivo diagnostikovať iba podľa alertname.
-
-## 29. Troubleshooting duplicate notifications
-
-Možnosti:
-
-- replica label je súčasťou alert identity,
-- Prometheus neposiela konzistentné labels,
-- viac nezávislých Alertmanager clusters,
-- HA mesh partition,
-- receiver incident key nezodpovedá group identity,
-- `continue: true` routuje do viacerých integrations,
-- notification retry po nejasnom receiver timeout-e,
-- group labels sa menia.
-
-Najprv porovnaj fingerprints a complete labels medzi duplikátmi.
-
-## 30. Troubleshooting alert storm
-
-Postup:
-
-1. identifikuj dominantný `alertname` a label dimension,
-2. odlíš reálny široký incident od cardinality chyby,
-3. over parent alert a inhibition,
-4. over grouping,
-5. dočasne použi presný bounded silence iba pri koordinovanom incidente,
-6. oprav rule, labels alebo dependency alert model,
-7. over receiver rate limits a Alertmanager health.
-
-Nerob broad silence bez incident ownera a expiry.
-
-## 31. Troubleshooting silence nefunguje
-
-Over:
-
-- active time range a time zone,
-- equality/regex matcher,
-- všetky required matchers,
-- skutočné alert labels,
-- Unicode/UTF-8 matcher parsing podľa verzie,
-- replika/cluster state convergence,
-- či notification už nebola odoslaná pred silence creation.
-
-Silence sa aplikuje na budúce notification decisions; nevráti už odoslanú page.
-
-## 32. Troubleshooting inhibition nefunguje
-
-Over:
-
-- source alert je firing,
-- source a target matchers,
-- `equal` labels existujú a majú rovnaké hodnoty,
-- labels nie sú prázdne alebo chýbajúce nečakaným spôsobom,
-- source a target nie sú ten istý alert podľa pravidiel,
-- route alebo receiver očakávanie.
-
-Testuj s konkrétnou dvojicou source/target alerts.
-
-## 33. Anti-patterny
-
-### Alertmanager vyhodnocuje alerts
-
-Alertmanager notification pipeline nezačne existenciu PromQL condition; tú vytvára rule evaluator.
-
-### Dynamický error text v labeli
-
-Mení alert identity a rozbíja deduplication.
-
-### Route bez default owner pathu
-
-Alerts s chýbajúcimi labels sa stratia v nesprávnom receiveri.
-
-### Silence bez expiry alebo commentu
-
-Vzniká trvalý blind spot bez accountability.
-
-### Inhibition bez scope labels
-
-Parent incident môže mutovať nesúvisiace services alebo clusters.
+Vytvorí dlhodobý blind spot bez accountability.
 
 ### Jeden Alertmanager za load balancerom ako HA
 
-Prometheus neposiela všetkým replicas a cluster failure môže stratiť alert delivery.
+Prometheus neposiela všetkým replicas a jedna instance nemusí alert prijať.
 
-### Page pre každý instance threshold
+### Receiver `2xx` ako incident acceptance
 
-Vytvára alert storm namiesto service-level incident signal-u.
+Nepreukazuje správne deduplication, escalation ani human acknowledgement.
 
-### Notification bez runbooku a user impactu
+### Page bez user impactu a safe first action
 
-Responder musí znovu objavovať základný context.
+Responder musí znovu rekonštruovať základný incident context.
 
-## 34. Kontrolné otázky
+## 20. Kontrolné otázky
 
-1. Aký je rozdiel medzi alertom a notification?
-2. Ktoré dáta patria do labels a ktoré do annotations?
-3. Ako Alertmanager deduplikuje HA Prometheus alerts?
-4. Ako funguje route tree a `continue`?
-5. Čo robia `group_wait`, `group_interval` a `repeat_interval`?
-6. Aký je rozdiel medzi silence a inhibition?
-7. Prečo `equal` labels rozhodujú o bezpečnosti inhibition?
-8. Prečo Prometheus posiela alerts všetkým Alertmanager replicas?
+1. Aký je rozdiel medzi alert state-om a notification outcome-om?
+2. Čo tvorí exact alert-notification subject?
+3. Prečo labels a annotations majú rozdielne úlohy?
+4. Prečo Prometheus posiela alerts všetkým Alertmanager replicas?
+5. Ako route order a `continue` menia receiver verdict?
+6. Ako group identity súvisí s incident boundary?
+7. Aký je rozdiel medzi silence, mute intervalom a inhibition?
+8. Prečo `equal` labels definujú bezpečnosť inhibition?
 9. Prečo HA negarantuje exactly-once notification?
-10. Ako diagnostikuješ firing alert bez notification?
-11. Ako navrhneš severity a ownership labels?
-12. Ako overíš end-to-end notification path?
+10. Ako unknown receiver outcome vytvorí duplicate incident?
+11. Ako overíš firing aj resolved notification path?
+12. Čo musí testovať policy fixture okrem syntaxe YAML?
 
 ## Glossary impact
 
-Relevantné pojmy: Alertmanager, alert fingerprint, alert identity, notification, receiver, route tree, matcher, grouping, group_wait, group_interval, repeat_interval, silence, mute time interval, inhibition, source alert, target alert, equal labels, notification log, resolved notification, notification template, Alertmanager HA, peer mesh, fallback receiver a alert storm.
+Relevantné pojmy: alert-notification subject, alert-identity generation, notification-decision path, route-policy generation, group-identity contract, notification timing contract, inhibition-scope contract, receiver-delivery subject, unknown notification outcome, external incident key, notification-path canary a Alertmanager acceptance verdict.
 
 ## Primárne zdroje
 
