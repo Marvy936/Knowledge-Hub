@@ -114,6 +114,10 @@ Distribuovaná Microsoft directory a identity platforma poskytujúca domains, fo
 
 Architektúra, v ktorej primárny component spracúva workload a standby component prevezme úlohu po failover-e; zjednodušuje write ownership za cenu standby driftu a failover latency. Pozri [Scalability, elasticity a fault tolerance](docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md).
 
+## Active policy generation
+
+Exact immutable policy artifact a supporting-data revisions skutočne načítané konkrétnym evaluatorom alebo enforcement cohortom. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Active replica subject
 
 Versionovaný inventory ReplicaSetom vlastnených Pod UIDs, ich lifecycle classification, readiness, availability a template equivalence pre konkrétnu ReplicaSet UID/generation. Pozri [ReplicaSet](docs/09-kubernetes/replicaset.md).
@@ -3042,6 +3046,10 @@ Root path build contextu, voči ktorému sa vyhodnocujú local source paths v `C
 
 Prechod CPU z vykonávania jedného threadu na iný. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
 
+## Continuous access verdict
+
+Priebežný alebo event-driven výsledok, či existujúca session alebo communication path stále spĺňa identity, posture, entitlement, resource, policy a incident podmienky. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Continuous backup — AWS Backup
 
 Backup model, ktorý pri podporovaných resources priebežne zachytáva zmeny a umožňuje point-in-time recovery v retention window. Pozri [AWS Backup](docs/11-cloud-and-aws/aws-backup.md).
@@ -3822,6 +3830,10 @@ Explicitný obmedzený access model počas outage-u identity, posture, policy al
 
 Auditovateľný chain od original human alebo workload actora cez session/token, impersonation alebo delegated workload identity až po downstream action a target. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Delegated-actor continuity
+
+Zachovanie väzby medzi human initiatorom, delegujúcou service a executing workloadom cez downstream authorization, operation result a audit. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Delegated-administration subject
 
 Service-specific organization capability viazaná na delegated account ID, role/trust generation, managed scope, audit a emergency revocation path. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
@@ -4173,6 +4185,10 @@ Režim zobrazujúci content rozdiel pri podporovaných modules; output môže ob
 ## Differential policy testing
 
 Vyhodnotenie rovnakého corpus-u inputs cez starú a novú policy revision s kontrolou semantic decision rozdielov. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Digest-bound quarantine
+
+Policy state viazaný na exact artifact digest, ktorý blokuje promotion, deployment alebo ďalšie použitie bez potreby meniť historical artifact alebo signature. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## Digest pinning
 
@@ -5090,6 +5106,10 @@ Vrstva, na ktorej sa reálne presadzuje resource limit alebo quota, napríklad c
 
 Dôkaz, že authorization decision je presadený na každej skutočnej API, data-plane, delegated alebo alternate ceste ku chránenému side effectu. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Enforcement-path inventory
+
+Versionovaný zoznam všetkých direct, proxy, controller, automation, recovery a legacy paths, ktorými možno vykonať action nad protected resource-om, vrátane príslušných PEPs. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Enforcement-point verdict — Kubernetes networking
 
 Allow alebo drop rozhodnutie pre exact packet/flow v konkrétnom pre-NAT alebo post-NAT observation pointe dataplane-u. Pozri [CNI a NetworkPolicy](../docs/09-kubernetes/cni-networkpolicy.md).
@@ -5501,6 +5521,10 @@ Explicitné prijatie residual risku accountable ownerom s rationale, compensatin
 ## Explicit deny — IAM
 
 Policy statement s `Effect: Deny`, ktorý pre applicable request prevažuje nad explicitnými allows v ostatných vyhodnocovaných policy vrstvách. Pozri [IAM](docs/11-cloud-and-aws/iam.md).
+
+## Explicit resource decision
+
+Authorization verdict viazaný na exact principal, action, resource, data scope, environment a current context namiesto implicitnej dôvery podľa network location alebo predchádzajúceho loginu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Exploitability status
 
@@ -7046,6 +7070,10 @@ Versionovaný stav určujúci, či identity stále spĺňa organizational a risk
 
 Auditovaný výsledok konkrétnej API alebo external operácie vykonanej workload identity, nie iba dôkaz, že credential existoval. Pozri [ServiceAccount](../docs/09-kubernetes/serviceaccount.md).
 
+## Identity-posture generation
+
+Matching human, device alebo workload identity state spolu s časovo označenou posture a assurance evidence použitou pri konkrétnom access decisione. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Identity proofing
 
 Proces zhromažďovania a overovania evidence, ktorým sa digitálna identita spoľahlivo priraďuje reálnej osobe alebo entite. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
@@ -7105,6 +7133,10 @@ Image configuration fields ako default command, entrypoint, environment, user, w
 ## Image signing
 
 Cryptographic binding container image digestu na signing key alebo identity, ktorý consumer vyhodnocuje podľa verification policy. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
+## Image-signing subject
+
+Exact OCI image index alebo platform manifest digest, product/environment scope, signer purpose, evidence requirements, registry path, policy revision a runtime/rollback cohort analyzovaného podpisu. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## ImagePullSecret
 
@@ -7338,6 +7370,10 @@ Filesystem objekt obsahujúci metadata a odkazy na dátové bloky. Pozri [Filesy
 
 Stav, keď filesystem nemôže vytvárať ďalšie files napriek voľnej byte capacity, čo môže narušiť image pull, logs, snapshots alebo container writes. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
 
+## Input/data generation pair — policy
+
+Matching request-input schema/generation a supporting-data revision, nad ktorými policy engine vytvoril decision. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## InResponseTo — SAML
 
 Identifier viažuci SAML Response alebo SubjectConfirmationData na konkrétny AuthnRequest. Pozri [SAML](docs/13-security-and-identity/saml.md).
@@ -7405,6 +7441,10 @@ Test reálnej spolupráce komponentov alebo systému s technickou dependency, na
 ## Integrity — security
 
 Ochrana accuracy, completeness a správnosti dát, konfigurácie a processingu pred neautorizovanou alebo nesprávnou zmenou. Pozri [CIA triáda](docs/13-security-and-identity/cia-triad.md).
+
+## Intent-to-enforcement lifecycle
+
+Policy chain od human intentu cez exact decision subject, executable rules, immutable artifact, loaded generation, evaluation a enforcement po audit, revocation a bypass validation. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Interaction-based testing
 
@@ -8766,6 +8806,10 @@ Jeden build workflow produkujúci platform-specific manifests a typicky spoločn
 
 OCI index a graph poskytujúci manifests pre viac OS/architecture/variant kombinácií. Pozri [OCI image a runtime standards](docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md).
 
+## Multi-platform signing contract
+
+Explicitné pravidlo určujúce, či release authority podpisuje OCI index, jednotlivé platform manifests alebo obe vrstvy a aké per-platform provenance/SBOM evidence sú povinné. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## Multi-Region key — KMS
 
 Súvisiace KMS key resources v rôznych Regions zdieľajúce key material a key ID properties, ale s oddelenými policies, grants a lifecycle. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
@@ -9698,6 +9742,10 @@ Grafana nástroj na zobrazenie raw data, query requests, statistics, transformat
 
 StatefulSet policy umožňujúca vytváranie alebo odstraňovanie Podov bez čakania na ordered readiness predchádzajúceho ordinalu. Pozri [StatefulSet](docs/09-kubernetes/statefulset.md).
 
+## Parallel trust path
+
+Alternatívna cesta k resource-u, ktorá používa slabšiu identity, policy, session alebo enforcement boundary než intended primary Zero Trust path. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Parameter Store
 
 Systems Manager configuration store pre hierarchické String, StringList a KMS-protected SecureString parameters. Pozri [Systems Manager](docs/11-cloud-and-aws/systems-manager.md).
@@ -9801,6 +9849,10 @@ Release status signalizujúci nedokončenú rollback operáciu, typicky prebieha
 ## Pending upgrade — Helm
 
 Release status signalizujúci nedokončenú upgrade operáciu; pred recovery vyžaduje kontrolu hooks, Jobs, client concurrency, live resources a release evidence. Pozri [Upgrade a rollback](docs/10-helm-and-cka/upgrade-rollback.md).
+
+## PEP coverage verdict
+
+Dôkaz, že každá relevantná operation a resource path je zachytená zamýšľaným Policy Enforcement Pointom alebo equivalentným controlom bez hidden exemption či fail-open bypassu. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Per-AZ endpoint cohort
 
@@ -10158,6 +10210,10 @@ Obnova podporovaného resource-u do konkrétneho času z continuous backup recov
 
 Obnova novej RDS database do vybraného času v automated-backup recovery windowe pomocou snapshots a retained transaction logs. Pozri [RDS](docs/11-cloud-and-aws/rds.md).
 
+## Policy acceptance verdict
+
+Dôkaz, že intended policy, input/data contract, active revision, structured decision, enforcement, cache, exception, audit a alternate-path behavior vytvárajú správne allowed aj forbidden outcomes. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Policy Administration Point — PAP
 
 Komponent alebo proces, ktorý vytvára, mení a publikuje authorization policies. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
@@ -10213,6 +10269,10 @@ Komponent vyhodnocujúci authorization request voči policies a contextu a vraca
 ## Policy Decision Point — Policy as Code
 
 Komponent vyhodnocujúci policy nad inputom a supporting data a vracajúci structured decision. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy decision subject
+
+Exact operation, caller/delegation, resource, environment, policy/data revisions, evaluator, PEP, cache, decision a enforcement outcome analyzovaného Policy as Code verdictu. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Policy-decision verdict
 
@@ -10282,6 +10342,10 @@ Presná enforcement/telemetry boundary, na ktorej sú viditeľné konkrétne add
 
 Source alebo destination množina vyjadrená cez Pod selector, namespace selector, ich kombináciu alebo `ipBlock`. Pozri [CNI a NetworkPolicy](docs/09-kubernetes/cni-networkpolicy.md).
 
+## Policy realization chain
+
+Runtime väzba `published policy artifact → loaded evaluator generation → exact request input → decision → PEP action → observed resource outcome`. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
 ## Policy Report — Kyverno
 
 Kubernetes custom resource obsahujúci current evaluation results matching resources pre Kyverno policies; nejde o kompletný historical admission log. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
@@ -10289,6 +10353,10 @@ Kubernetes custom resource obsahujúci current evaluation results matching resou
 ## Policy revision
 
 Immutable alebo jednoznačne versionovaná identita konkrétneho policy setu použitá pri decisione, rolloute a audite. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy revocation closure
+
+Dôkaz, že retired alebo malicious policy/data generation, cached decisions, exceptions a bypass paths už nedokážu vytvoriť accepted operation. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Policy revocation generation — Kubernetes networking
 
@@ -10353,6 +10421,10 @@ Observation obdobie po dosiahnutí plnej expozície, ktoré sleduje oneskorené,
 ## Post-relabel sample set
 
 Exact množina samples a labels, ktorá zostane po target-label application a metric relabelingu a môže byť ingestovaná do local TSDB. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
+## Posture-triggered revocation
+
+Mechanizmus, ktorým zmena device alebo workload posture zneplatní alebo obmedzí existujúce sessions, credentials alebo ďalšie high-impact operations v bounded čase. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## PowerShell provider
 
@@ -10829,6 +10901,10 @@ QoS class odvodená z effective CPU/memory requests a limits relevantných conta
 ## Quality gate
 
 Automatizovaný alebo kombinovaný rozhodovací bod, ktorý vyhodnotí versionovanú policy nad konkrétnou evidence a povolí, zablokuje alebo eskaluje ďalší krok delivery. Pozri [Quality gates a approvals](docs/05-ci-cd-and-release/quality-gates-and-approvals.md).
+
+## Quarantine-aware decision cache
+
+Policy cache, ktorej key a invalidation zahŕňajú exact resource/artifact identity, policy/data revision a current quarantine alebo revocation generation. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
 ## Quarantine capability envelope
 
@@ -11701,6 +11777,10 @@ Application alebo runtime-level DNS cache s vlastnými TTL, negative-cache a add
 ## Resource acceptance verdict
 
 Verdikt, že admitted requests/limits, scheduler reservation, cgroup realization, runtime throttling/OOM/eviction, autoscaling a application SLO zodpovedajú reviewed contractu. Pozri [Requests, limits a QoS](../docs/09-kubernetes/requests-limits-qos.md).
+
+## Resource-access lifecycle
+
+Zero Trust chain od protected business operation cez identities, posture, exact resource decision, bounded path a enforcement po continuous verification, revocation, recovery a bypass validation. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Resource address — Terraform
 
@@ -12674,6 +12754,14 @@ Druhý automation run nad už nakonfigurovaným targetom používaný na overeni
 
 Subject-bound výsledok druhého complete runu po úspešnom convergence, ktorý porovná expected/resolved/verified hosts, unintended changes, handler transitions, external side effects a runtime invariants. Pozri [Ansible idempotencia](docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md).
 
+## Second-decision validation
+
+Opakovaný policy test po rollout-e, rollbacku, cache invalidation alebo revocation, ktorý dokazuje, že rovnaký allowed input zostáva správny a old/forbidden input sa nevrátil. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Second-operation validation — Zero Trust
+
+Opakovanie protected business operation s fresh identities a generations spolu s negative testom starej session, posture, policy, artifactu a direct pathu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Second-operation verification — CloudOps
 
 Zopakovanie controller alebo business operácie po oprave, napríklad ďalší replacement, retry, deployment, copy alebo refresh, aby sa preukázala stabilita mimo prvého manual testu. Pozri [CloudOps troubleshooting drills](docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md).
@@ -13290,9 +13378,17 @@ Klasifikácia telemetry ako complete/authoritative, partial, stale, sampled, mis
 
 Exact producer, operation, measurement boundary, release, instrumentation/schema generation, resource identity, coverage, pipeline a retention/query cut-off konkrétneho signalu. Pozri [Metrics, logs, traces a events](docs/12-observability/metrics-logs-traces-events.md).
 
+## Signature acceptance verdict
+
+Dôkaz, že exact OCI subject, signature, trust/time evidence, signer authorization, attestations, promotion, active policy a resolved runtime digest vytvárajú intended release a odmietajú wrong-subject, unsigned-platform a quarantined paths. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## Signature discovery
 
 Proces nájdenia signatures a attestations súvisiacich s artifact digestom cez OCI Referrers alebo ecosystem-specific fallback convention. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
+## Signature-to-runtime chain
+
+Väzba od signed OCI subjectu cez registry promotion, policy decision a stored workload object po platform manifest digest skutočne načítaný runtime-om. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## signed cookie — CloudFront
 
@@ -13313,6 +13409,10 @@ Policy bundle s cryptographic integrity a publisher-authenticity evidence overov
 ## signed URL — CloudFront
 
 Časovo alebo policy obmedzená CloudFront URL podpísaná trusted keyom pre access ku konkrétnemu private resource-u. Pozri [Route 53 a CloudFront](docs/11-cloud-and-aws/route53-cloudfront.md).
+
+## Signer authorization generation
+
+Versionovaný contract spájajúci trusted root/issuer s exact signer identity, repository, workflow, ref, environment, purpose, subject a required evidence. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## Signing identity policy
 
@@ -13929,6 +14029,10 @@ OCI descriptor viažuci artifact manifest na iný manifest digest, ktorý predst
 ## Subject-preserving reproduction — Docker
 
 Kontrolovaný experiment, ktorý zachová relevantný image/platform digest, runtime configuration, kernel/runtime class, data clone a flow/load condition a mení iba jednu hypothesis variable. Pozri [Docker troubleshooting](docs/08-container-fundamentals-and-docker/docker-troubleshooting.md).
+
+## Subject-to-runtime trust lifecycle
+
+Image-signing chain od release intentu a immutable OCI subjectu cez signing authority, trust evidence, semantic policy a promotion po runtime digest, quarantine a second-release validation. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## SubjectAccessReview
 
@@ -14754,6 +14858,10 @@ Miesto, kde sa mení úroveň dôvery, identity authority, administrative contro
 
 SPIFFE administrative a security boundary určujúca namespace workload identities a trust bundle pre ich verification. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
+## Trust-recovery generation
+
+Matching authoritative identity, posture, policy, trust-root, PEP configuration a resource/runtime state obnovené po security incidente. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Trusted-attribute contract
 
 Pravidlo určujúce authoritative source, schema, writer permissions, freshness, normalization a failure behavior attribute-u používaného pri ABAC alebo role eligibility. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
@@ -15101,6 +15209,10 @@ Dependency chart uložený priamo v parent `charts/` directory ako archive alebo
 ## Vendored component
 
 External code alebo binary skopírovaný priamo do repository alebo artifactu namiesto štandardnej package-manager dependency. Pozri [SBOM](docs/13-security-and-identity/sbom.md).
+
+## Verification-bundle generation
+
+Exact signature, certificate, chain, transparency/timestamp evidence, trusted-root generation a signed subject používané pri jednej historical alebo offline verification. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
 
 ## Verification bundle — Sigstore
 
@@ -15494,6 +15606,10 @@ Monotónna alebo fencing-aware generation authoritative writer-a použitá na od
 
 Exact current RDS writer resource, AZ, endpoint mapping, engine/schema/parameter generation a failover timeline, ktoré určujú write authority. Pozri [Amazon RDS](docs/11-cloud-and-aws/rds.md).
 
+## Wrong-subject negative test
+
+Test dokazujúci, že validná signature alebo attestation na inom digest-e, platform manifeste, producte alebo environment-e nemôže autorizovať target artifact. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
 ## `X-Forwarded-For`
 
 De facto HTTP header prenášajúci client IP cez proxy chain. Je dôveryhodný iba pri kontrolovanom chain-e a správnom prepisovaní. Pozri [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md).
@@ -15522,6 +15638,14 @@ Automatic telemetry generation bez zmeny application source, typicky cez agent, 
 
 Súbor security princípov odstraňujúcich implicitnú dôveru podľa location alebo ownership a vyžadujúcich explicitné resource-specific access decisions. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
+## Zero Trust acceptance verdict
+
+Dôkaz, že resource inventory, human/device/workload identities, explicit decisions, bounded sessions, complete PEP coverage, continuous revocation, degraded mode a recovery vytvárajú správny allowed, forbidden a bypass outcome. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Zero Trust access subject
+
+Exact protected operation, human/workload/device identity chain, credential and posture generations, action/resource/data scope, policy/PE/PA/PEP state, created session/path, audit a revocation descendants. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
 ## Zero Trust Architecture — ZTA
 
 Enterprise architecture implementujúca Zero Trust princípy cez identity, policy, enforcement, resource protection, telemetry a lifecycle controls. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
@@ -15545,6 +15669,10 @@ Capability domain v CISA maturity model-e: Identity, Devices, Networks, Applicat
 ## Zero Trust Policy Enforcement Point
 
 NIST logical component presadzujúci access decision a sprostredkujúci alebo ukončujúci communication path medzi subjectom a resource-om. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+
+## Zero Trust revocation closure
+
+Dôkaz, že disabled identity, stale posture, retired policy, compromised issuer, old session, direct path a quarantined resource už nedokážu vytvoriť accepted access. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
 ## Zombie process
 
