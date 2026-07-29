@@ -1,8 +1,8 @@
 # Databases and Distributed Systems
 
-Táto sekcia vysvetľuje, ako navrhovať, prevádzkovať a diagnostikovať stateful systémy podľa explicitných business invariantov, transaction boundaries, consistency semantics a failure modelov. Začína výberom databázového modelu, pokračuje transactions, indexes, locks, migrations, replication a recovery a následne rozširuje model na connection admission, product-specific semantics, architecture boundaries, distributed communication, caching, consensus, retries, rate limiting, idempotency a backpressure.
+Táto sekcia vysvetľuje, ako navrhovať, prevádzkovať a diagnostikovať stateful a distributed systémy podľa explicitných business invariantov, transaction boundaries, consistency semantics, communication contracts a failure modelov. Začína výberom databázového modelu, pokračuje transactions, indexes, locks, migrations, replication a recovery a následne rozširuje model na service boundaries, synchronous/asynchronous communication, messaging, discovery, API routing, caching, CAP, consistency, consensus, retries, rate limiting, idempotency a backpressure.
 
-Databáza tu nie je iba persistence API. Je to systém, ktorý rozhoduje o authoritative state-e, visibility, concurrency, durability, recovery a dôkazoch potrebných na rozlíšenie committed, aborted, stale, duplicated, lost alebo unknown outcomes. Distributed architecture zároveň určuje, kde tieto rozhodnutia vznikajú, kto ich vlastní a ako sa obnovujú po partial failure-i.
+Databáza, broker, gateway ani cache tu nie sú iba infrastructure APIs. Každý z nich rozhoduje o authoritative alebo derived state-e, visibility, ordering, concurrency, durability, routing, recovery a dôkazoch potrebných na rozlíšenie committed, accepted, delivered, stale, duplicated, lost alebo unknown outcomes.
 
 ## Predpoklady
 
@@ -29,17 +29,17 @@ Odporúča sa najprv dokončiť:
 6. [Connection pooling](connection-pooling.md)
 7. [PostgreSQL, MySQL a Redis](postgresql-mysql-and-redis.md)
 8. [Monolith, modular monolith a microservices](monolith-modular-monolith-and-microservices.md)
+9. [Synchronous vs. asynchronous communication](synchronous-vs-asynchronous-communication.md)
+10. [Message queues a event-driven architecture](message-queues-and-event-driven-architecture.md)
+11. [Service discovery a API gateway](service-discovery-and-api-gateway.md)
+12. [Caching](caching.md)
 
-Aktuálny authoritative stav sekcie je **8/18 · In progress**.
+Aktuálny authoritative stav sekcie je **12/18 · In progress**.
 
 ## Plánované pokračovanie
 
 Authoritative poradie bude pokračovať bez zmeny roadmapy:
 
-9. Synchronous vs. asynchronous communication
-10. Message queues a event-driven architecture
-11. Service discovery a API gateway
-12. Caching
 13. CAP theorem
 14. Consistency models
 15. Leader election a consensus
@@ -82,7 +82,7 @@ O `10:14 UTC` AZ network failure oddelila primary od časti application/control 
 
 ```text
 business invariant a authority
-→ nevhodne rozdelený authoritative state
+→ rozdelený authoritative state
 → autocommit split settlement/outbox
 → incomplete acknowledged intents
 → unindexed backfill a long transactions
@@ -108,28 +108,13 @@ Causal boundaries:
 - **Transaction root cause:** settlement a outbox nevznikali v jednej database transaction.
 - **Migration root cause:** current-scale backfill nemal supporting access path, bounded transaction duration ani DDL lock gate.
 - **HA root cause:** promotion eligibility nebola viazaná na acknowledged business position a effective old-writer fencing.
-- **Amplifiers:** retry load, invalid index existence-only check, stale read projection, async lag a pomalá client convergence.
+- **Amplifiers:** retry load, invalid index existence-only check, stale projection, async lag a pomalá client convergence.
 
-Recovery používa:
-
-```text
-fence all writers
-→ preserve transaction/WAL/timeline/migration evidence
-→ establish one authoritative PostgreSQL history
-→ classify exact operation cohorts
-→ query provider idempotency ledger
-→ replay iba never-sent exact manifest
-→ reconcile sent-unknown/completed outcomes
-→ atomic settlement + outbox transaction
-→ rebuild document projection from durable stream
-→ safe indexed migration
-→ lag/position-aware promotion and writer epochs
-→ second-operation, second-batch and second-failover validation
-```
+Recovery používa jednu authoritative PostgreSQL history, exact operation cohorts, provider-ledger reconciliation, atomic settlement + outbox transaction, rebuild document projection z durable streamu, safe indexed migration, lag/position-aware promotion, writer epochs a second-operation/batch/failover validation.
 
 ### `DB-PAY-57` — recovery, pooling, product roles a architecture boundaries
 
-Release `payments 8.1` rozdelil modular settlement flow na samostatné runtime services:
+Atlas Payments release `payments 8.1` rozdelil settlement flow medzi viac services a troch data products:
 
 ```text
 settlement-api
@@ -140,81 +125,108 @@ settlement-api
 → projection-service
 ```
 
-Po end-of-month scale-out-e bežalo `96` settlement Podov. Každý mal application pool `40` a `minimumIdle 20`, teda teoreticky `3 840` connections a `1 920` immediate idle/warmup attempts proti PostgreSQL application envelope-u približne `585` connections.
+Fleet 96 Podov používal pool max 40, teda teoreticky `3 840` PostgreSQL clients proti približne 585 application slots. Network flap a reconnect storm dosiahli `12 400 attempts/min`. Emergency PgBouncer transaction pooling znížil server sessions, ale aplikácia používala session-local tenant context, temporary tables a session assumptions, ktoré transaction pooling negarantuje.
 
-O `11:38 UTC` network flap spustil reconnect storm:
-
-```text
-server connections: 587
-active queries: 164
-idle connections: 271
-idle in transaction: 83
-pool checkout p99: 8.7 s
-connect attempts: 12 400/min
-```
-
-Emergency change aktivovala PgBouncer transaction pooling so 120 server connections. Application však nastavovala `app.tenant_id` pri physical session initialization a používala temporary table `pending_settlement_batch`. Ďalšia transaction nemusela dostať rovnakú server session.
-
-Od `11:46:12 UTC` vznikali missing/stale policy contexts a retry amplification. Incident vyžadoval:
-
-- policy verification pre `214` operations;
-- provider routing verification pre `31` operations;
-- reconciliation `19` sent-unknown operations;
-- classification `68` missing Redis dedupe keys po failover/restart window;
-- provider evidence pre `7` duplicate attempts;
-- nulové potvrdené duplicate settlements až po provider-idempotency reconciliation.
-
-Tím chcel PostgreSQL obnoviť na `11:46:11 UTC`, no recovery chain mal gap:
+Incorrect operations bolo potrebné obnoviť k targetu `11:46:11 UTC`, ale PostgreSQL WAL archive mal medzeru:
 
 ```text
-base backup: 00:00 UTC — success
 last continuous WAL: 11:40:59 UTC
-missing WAL: 11:41:00–11:56:59 UTC
-next available WAL: 11:57:00 UTC
-requested target: 11:46:11 UTC — unreachable
+missing interval:     11:41:00–11:56:59 UTC
+next segment:         11:57:00 UTC
+requested target:     11:46:11 UTC
 ```
 
-MySQL policy store mal vlastný binlog coordinate, Redis vlastný AOF/replication state a provider external ledger. Neexistoval versionovaný cross-store checkpoint.
-
-Connected chain:
+PostgreSQL, MySQL, Redis a provider nemali spoločný atomic recovery point. Restore preto použil starší clean point a rekonštrukciu post-point operations z outbox, binlogs, API evidence a provider ledgeru.
 
 ```text
 premature service extraction
-→ distributed settlement invariant a recovery ownership
-→ fleet-wide pool multiplication
-→ reconnect storm
-→ incompatible transaction pooling
-→ session tenant/temp-state failure
-→ stale/missing policy generation
-→ Redis cache authority inversion
-→ provider retry/unknown outcomes
-→ replicated logical corruption
-→ incomplete WAL chain
-→ isolated restore + cross-product reconciliation
+→ synchronous distributed chain
+→ fleet connection multiplication
+→ emergency transaction pooling
+→ session-state leakage/missing context
+→ stale policy a cache authority inversion
+→ provider unknown outcomes
+→ no common recovery point
+→ evidence-backed reconstruction
 ```
+
+Redesign používa:
+
+- modular settlement command core s atomic PostgreSQL settlement + idempotency + outbox transition;
+- MySQL ako authority pre versioned merchant policy;
+- Redis iba ako rebuildable cache/admission/dedupe accelerator;
+- provider execution a projections ako separate services s vlastným scale/failure modelom;
+- fleet-wide connection budget a transaction-pooling-compatible application contract;
+- tested WAL/binlog archive continuity a cross-store recovery checkpoint.
+
+### `DB-PAY-58` — communication, messaging, routing a cache coherence
+
+Release `payments 8.2` migroval provider execution z legacy synchronous request pathu na durable asynchronous flow.
+
+Intended v8.2 path:
+
+```text
+merchant request
+→ API gateway
+→ settlement command core
+→ PostgreSQL transaction: settlement + outbox
+→ HTTP 202 + operation_id
+→ Kafka settlement.commands.v3
+→ provider worker
+→ provider
+→ durable final result
+```
+
+Legacy v8.1 path stále čakal na provider response. Gateway a Kubernetes Service používali broad route/selector a miešali oba contracts:
+
+```text
+legacy Pods: app=settlement-api, version=8.1
+new Pods:    app=settlement-api, version=8.2
+Service:     selector app=settlement-api
+```
+
+Provider p95 latency stúpla z `420 ms` na `2.4 s`, kým public deadline zostal `900 ms`. Počas 31 minút:
+
+- `18 420` requests prišlo do gatewaya;
+- `31 %` trafficu skončilo na legacy synchronous cohort-e;
+- `2 906` calls timeoutlo a clients vytvorili `4 118` retry attempts;
+- `206` logical attempts zasiahlo dve contract generations;
+- `43` duplicate provider attempts vyžadovalo reconciliation.
+
+Async producer používal durable outbox, idempotent producer a `acks=all`, ale consumers mali auto-commit offsets pred provider effectom. Po OOM killoch:
+
+- `611` records malo committed offsets bez durable resultu;
+- `84` operations nemalo provider attempt ani final state;
+- retry path použil iný partition key a `19` histories malo zmenené ordering;
+- broad replay nebol safe bez provider evidence.
+
+Merchant policy cache používala mutable key `policy:{merchant_id}` bez generation. Invalidation consumer zdieľal unsafe auto-commit pattern a offset commitol pred effective delete-om:
+
+- `1 206` settlements použilo stale policy počas 17 minút;
+- `74` operations smerovalo na starý provider route;
+- cache hit ratio zostal `97.8 %`;
+- Redis dedupe miss bol nesprávne interpretovaný ako authoritative operation absence.
 
 Causal boundaries:
 
-- **Trigger:** network flap počas scale-out-u.
-- **Pooling root cause:** per-Pod pools neboli odvodené z fleet-wide database envelope-u a transaction pooling nezodpovedalo session-state contractu.
-- **Product-role root cause:** Redis cache/dedupe absence rozhodovala o authoritative retry namiesto PostgreSQL/provider evidence.
-- **Recovery root cause:** backup control overoval job/upload activity, nie durable WAL continuity, target reachability a restore.
-- **Architecture root cause:** service extraction rozdelila invariant, product roles a operational/recovery ownership skôr než boli boundaries a contracts pripravené.
-- **Amplifiers:** high minimum idle, synchronized reconnect, retries bez shared budgetu, async replication, chýbajúca policy-generation identity a green front-door dashboards.
+- **Communication root cause:** mixed immediate-result contract pod jedným endpointom a jedným client retry modelom.
+- **Messaging root cause:** consumer offset postupoval pred durable provider/business outcome-om.
+- **Discovery/gateway root cause:** Service a route nemali contract-generation eligibility; discovery publikovala správny inventory podľa nesprávne širokého selectoru.
+- **Cache root cause:** unversioned mutable entry závislá iba od invalidation eventu acknowledged pred effective mutation.
+- **Cache authority inversion:** absence evictable Redis keyu rozhodovala o authoritative retry.
 
 Authoritative redesign:
 
 ```text
-modular settlement command core
-→ atomic PostgreSQL settlement + idempotency + outbox
-→ exact MySQL merchant-policy generation stored with decision
-→ durable event
-→ independent provider-execution service
-→ rebuildable projection service
-→ Redis iba cache/admission/dedupe accelerator
-→ fleet-wide connection + retry budget
-→ WAL/binlog/provider cross-store recovery manifest
-→ second-burst, second-client, restore and partial-failure validation
+POST /v2/settlements
+→ exact async-v2 gateway route
+→ settlement-command-v2 Service/endpoints only
+→ atomic settlement + outbox commit
+→ 202 + stable operation/status resource
+→ manual consumer acknowledgement after durable provider result
+→ versioned policy cache generation
+→ authority lookup on cache miss/error
+→ final completion and reconciliation evidence
 ```
 
 ## Cieľ zvládnutia prvého bloku
@@ -223,120 +235,134 @@ modular settlement command core
 
 - definovať exact database-selection subject;
 - identifikovať authoritative facts, aggregates, relationships a invarianty;
-- rozlíšiť relational, key-value, document, wide-column, graph, search a analytical models;
-- odlíšiť normalization od denormalized derived projection;
+- rozlíšiť relational a hlavné non-relational models;
+- odlíšiť normalized authority od denormalized projection;
 - navrhovať query-first aj invariant-first;
-- posúdiť transaction, consistency, partition a hot-key requirements;
-- rozlíšiť polyglot persistence od dual authority;
-- overiť model cez migration, recovery a second-operation outcomes.
+- rozlíšiť polyglot persistence od dual authority.
 
 ### Transactions a ACID
 
 - definovať transaction subject, read/write set a acknowledgement boundary;
-- vysvetliť atomicity, consistency, isolation a durability;
-- rozlíšiť dirty/non-repeatable/phantom reads, lost update a write skew;
-- chápať MVCC, pessimistic a optimistic concurrency;
+- vysvetliť ACID, MVCC, isolation anomalies a concurrency controls;
 - diagnostikovať waits, blockers, deadlocks a serialization failures;
 - rozlíšiť committed, aborted a unknown outcomes;
-- používať stable idempotency a transactional outbox pre external workflows;
+- používať stable idempotency a transactional outbox;
 - overiť skutočnú ORM/autocommit runtime boundary.
 
 ### Indexy, locks a migrations
 
 - definovať exact query/index/migration subject a scale;
 - vysvetliť planner, selectivity a access paths;
-- navrhovať B-tree, multicolumn, partial, unique a specialized indexes podľa operators a distribution;
-- merať read benefit proti write/storage/WAL costu;
+- navrhovať multicolumn, partial, unique a specialized indexes;
 - vytvoriť lock graph a nájsť root blocker;
-- poznať DDL a concurrent/online-build caveats;
-- používať expand–backfill–switch–contract protocol;
-- navrhnúť resumable, idempotent a conflict-safe backfill;
-- overiť valid/effective index a constraint state.
+- používať expand–backfill–switch–contract;
+- navrhnúť resumable, idempotent a conflict-safe backfill.
 
 ### Replication a high availability
 
-- definovať replication topology, commit policy a recovery objectives;
-- rozlíšiť physical a logical replication;
-- rozlíšiť sent, receive, flush, replay a visible positions;
-- mapovať synchronous/asynchronous semantics na business RPO a latency;
-- diagnostikovať generation, transfer a apply lag;
-- navrhovať bounded-staleness read routing;
-- definovať promotion eligibility a recovery authority;
-- používať writer fencing, epochs a split-brain prevention;
-- zahrnúť DNS/proxy/pool convergence do RTO;
+- rozlíšiť physical/logical a synchronous/asynchronous replication;
+- rozlíšiť receive, flush, replay a visible positions;
+- mapovať commit acknowledgement na business RPO;
+- diagnostikovať replication lag;
+- definovať promotion eligibility, writer fencing a client convergence;
 - reconciliovať failover unknown outcomes a overiť failback.
 
 ## Cieľ zvládnutia druhého bloku
 
 ### Backups a point-in-time recovery
 
-- definovať protected subject, consistency group a acknowledgement boundary;
-- rozlíšiť logical/physical backup, snapshot, replication a archive;
-- vysvetliť PostgreSQL base backup + WAL a MySQL full backup + binary-log PITR;
-- overovať log continuity, source identity, checksums, keys a retention;
-- vybrať clean recovery point a exact target/timeline;
-- vykonať isolated restore a engine/schema/data/application/business validation;
-- spracovať post-point divergence a cross-store reconciliation;
-- preukázať alternate-target a second-responder restore.
+- definovať protected consistency group a clean recovery point;
+- rozlíšiť logical/physical backup, replication a archive;
+- vysvetliť base backup + WAL/binlog PITR;
+- overiť archive continuity, keys, isolated restore a timelines;
+- rekonštruovať post-point operations a business outcome.
 
 ### Connection pooling
 
-- definovať fleet/pooler/database pooling subject;
-- odvodiť total connection demand z replicas, min/max pools a workload classes;
-- rozlíšiť application pool, shared pooler a server thread/execution pool;
-- rozlíšiť session, transaction a statement pooling;
-- odhaliť session-state, temporary-table, prepared-statement a advisory-lock incompatibility;
-- merať pool queue, checkout wait, active/idle/idle-in-transaction a database waits;
-- navrhnúť bounded timeouts, admission, reset/discard a admin reserve;
-- overiť reconnect storm, failover a second-client state-isolation scenarios.
+- odvodiť fleet-wide demand a database connection envelope;
+- rozlíšiť application, session, transaction a statement pooling;
+- overiť session-state/prepared/temp-object compatibility;
+- navrhnúť queues, timeouts, admin reserve a reconnect budget;
+- diagnostikovať pool wait oddelene od query latency.
 
 ### PostgreSQL, MySQL a Redis
 
-- priradiť product role podľa authority, invariantov, queries, latency, durability a recovery;
-- vysvetliť PostgreSQL MVCC/WAL/constraints a MySQL InnoDB/redo/binlog/GTID boundaries;
-- modelovať Redis data structures, MULTI/EXEC/WATCH, TTL/eviction, RDB/AOF a async replication;
-- rozlíšiť relational transaction od Redis command/transaction modelu;
-- neinterpretovať cache miss ako business absence;
-- mapovať acknowledgement na product-specific durability/failover semantics;
-- navrhnúť cross-product stable identity a reconciliation;
-- overiť cache loss, replica failover, restore a second-operation outcome.
+- pomenovať product-specific authority/derived role;
+- rozlišovať WAL, binlog, RDB/AOF a replication semantics;
+- odlíšiť relational transaction od Redis command transaction;
+- zabrániť cache authority inversion;
+- korelovať cross-product versions a recovery evidence.
 
 ### Monolith, modular monolith a microservices
 
-- definovať source/build/deploy/process/data/transaction/ownership boundaries;
-- rozlíšiť monolith od modular monolithu a microservices;
-- odvodiť module/service boundary z capability, invariantov a data authority;
-- rozpoznať distributed monolith a shared-database coupling;
-- navrhnúť local transaction alebo durable cross-service workflow;
-- započítať connection/retry/telemetry/platform multiplication;
-- preukázať independent compatibility, scale a failure isolation;
-- používať modularize-first, strangler alebo branch-by-abstraction migration;
-- porovnať intended architecture benefit s effective operational costom.
+- odvodiť architecture z capability/invariant/change boundaries;
+- rozlíšiť module, service, deployment, data a failure boundary;
+- identifikovať distributed monolith a hidden shared-database coupling;
+- nahradiť local transaction explicitným workflowom iba tam, kde to benefit obháji;
+- testovať extraction, dual-run, retirement a second-change/failure outcome.
+
+## Cieľ zvládnutia tretieho bloku
+
+### Synchronous vs. asynchronous communication
+
+- oddeliť wait semantics od transportu;
+- definovať immediate a final outcome;
+- navrhnúť deadline propagation, cancellation a unknown-outcome contract;
+- rozlíšiť command, event a query;
+- vytvoriť durable acceptance a status/result visibility;
+- overiť retries, delayed completion a second attempt.
+
+### Message queues a event-driven architecture
+
+- definovať producer/broker/consumer acknowledgement boundaries;
+- rozlíšiť queue, partitioned log a integration event;
+- používať transactional outbox a stable event identity;
+- scope-ovať at-most/at-least/exactly-once claims;
+- navrhnúť partitioning, ordering, consumer ownership a in-flight limits;
+- overiť retry, DLQ, replay a external-effect reconciliation.
+
+### Service discovery a API gateway
+
+- odlíšiť logical service a endpoint identity;
+- analyzovať DNS, Service, EndpointSlice a dataplane generations;
+- overiť route match/precedence a effective resolved route graph;
+- viazať backend eligibility na contract generation a capability readiness;
+- zahrnúť connection drain a gateway retry do correctness modelu.
+
+### Caching
+
+- definovať cache authority boundary, key a variant dimensions;
+- odlíšiť TTL, freshness, validation, eviction a absence;
+- navrhnúť version-aware fill a invalidation;
+- zabrániť stampede, hot-key a negative-cache failure-om;
+- inventarizovať multi-level caches a safe fallback;
+- overiť delayed invalidation, failover, eviction a second read.
 
 ## Dominantný model sekcie
 
 ```text
 business capability a stateful/distributed operation
-→ exact authoritative data a architecture subject
-→ invariant, consistency, durability a availability objectives
-→ data/transaction/service/communication topology
-→ concurrency, pooling, replication a failure mechanisms
+→ exact authoritative, communication alebo derived subject
+→ invariant, consistency, availability a latency objectives
+→ data/transaction/service/message/route/cache topology
+→ concurrency, replication, delivery, routing a coherence mechanisms
 → observed current generation and effective state
-→ bounded write/read/recovery/architecture decision
+→ bounded write/read/route/retry/recovery decision
 → business outcome and reconciliation
-→ migration/failover/restore/second-operation closure
+→ migration/failover/replay/second-operation closure
 ```
 
 Každá komplexná kapitola musí rozlišovať:
 
-- authoritative, derived, cached a ephemeral state;
+- authoritative, derived a cached state;
 - logical operation od physical attemptu;
+- immediate acceptance od final completion;
 - transaction commit od client acknowledgementu;
-- received, durable, applied a visible replica/log state;
-- connection count od useful execution concurrency;
-- database product od product role;
-- module/service boundary od repository alebo Pod countu;
-- technical data presence od business correctness;
+- producer/broker/consumer acknowledgement boundaries;
+- received, durable, applied a visible state;
+- declared route/selector od effective selected backendu;
+- cache hit/miss od freshness a business existence;
+- technical availability od business correctness;
 - trigger, root cause a causal amplifier;
 - containment, reconciliation a authoritative recovery;
 - configured object od valid/effective runtime mechanismu;
@@ -354,10 +380,10 @@ Každá komplexná kapitola musí rozlišovať:
 | Connection pooling | Learning | L2 |
 | PostgreSQL, MySQL a Redis | Learning | L2 |
 | Monolith, modular monolith a microservices | Learning | L2 |
-| Synchronous vs. asynchronous communication | Not Started | L0 |
-| Message queues a event-driven architecture | Not Started | L0 |
-| Service discovery a API gateway | Not Started | L0 |
-| Caching | Not Started | L0 |
+| Synchronous vs. asynchronous communication | Learning | L2 |
+| Message queues a event-driven architecture | Learning | L2 |
+| Service discovery a API gateway | Learning | L2 |
+| Caching | Learning | L2 |
 | CAP theorem | Not Started | L0 |
 | Consistency models | Not Started | L0 |
 | Leader election a consensus | Not Started | L0 |
