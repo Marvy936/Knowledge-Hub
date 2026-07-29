@@ -1,0 +1,65 @@
+name: One-time Observability final ledger update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/one-time-observability-final-ledger.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-ledger:
+    runs-on: [self-hosted, Linux, X64]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update Observability review status
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("DOCUMENTATION-REVIEW-STATUS.md")
+          text = path.read_text(encoding="utf-8")
+
+          old_status = "| `12-observability` — Observability | 12/16 strict revalidation | In progress | 2026-07-29 |"
+          new_status = "| `12-observability` — Observability | 16/16 strict revalidation | Ready for user review | 2026-07-29 |"
+          if old_status not in text:
+              raise SystemExit("Expected Observability 12/16 status row not found")
+          text = text.replace(old_status, new_status, 1)
+
+          old_suffix = "Zostávajú 4 kapitoly a finálny section-level pass. |"
+          final_note = (
+              "Štvrtý a záverečný authoritative blok bol kompletne prepísaný okolo connected Atlas Payments evidence subjectu `OBS-PAY-46`: "
+              "`Jaeger a Tempo` používajú `business/operational operation → exact trace subject a expected span graph → propagation → span generation → sampling → Collector/export → backend ingest acknowledgement → recent state → durable historical storage → lookup/search → evidence-completeness verdict`; "
+              "`OpenTelemetry` používa `business/operational question a signal requirement → exact telemetry/schema subject → API alebo zero-code instrumentation → SDK policy → resource/scope/context identity → OTLP → Collector receiver a ordered processors → sampling/filtering/redaction → exporter queue/acknowledgement → backend read-back → coverage/correctness/cost/privacy verdict`; "
+              "`Alert design a alert fatigue` používa `user/business outcome a urgency → exact signal population → action contract → condition/windows → pending/firing/resolved → stable identity → grouping/inhibition/silence/routing → external incident → acknowledgement/action → recovery → alert-quality review`; "
+              "`Cardinality` používa `operational question → dimension inventory → bounded/unbounded classification → combination estimate → budget/forbidden dimensions → producer generation → backend identity multiplication → cost/capacity impact → containment → authoritative schema migration → historical identity retirement`. "
+              "Worked failures pokrývajú Tempo 3.0 trace, ktorá bola acknowledged v Kafka a dostupná cez live-store, ale block-builder lag prekročil dvojhodinové replay window a historical Parquet block nikdy nevznikol; štyri healthy OTel gateway replicas, ktoré cez round-robin rozdelili spans medzi stateful tail samplery a znížili observed error traces z authoritative 6.9 % na 0.7 %; jeden settlement incident vytvárajúci 43 pages cez duplicate Prometheus/Grafana/cloud engines a per-task identities pri dlhodobo nízkom actionable rate; a `merchant_id` promoted súčasne do Prometheus histogram labels, Loki streams, Tempo metrics-generator dimensions a alert identities, čo zvýšilo active series na 5.4 milióna, streams na 2.1 milióna a alert instances na 12 400. "
+              "Každá záverečná kapitola používa exact trace/OTel/alert/cardinality subject, competing hypotheses, discriminating evidence, evidence-preserving containment, authoritative recovery a original aj forbidden outcome. "
+              "Finálny section-level consistency gate overil authoritative ordering všetkých 16 kapitol, connected `OBS-PAY-43` až `OBS-PAY-46` terminology, configured-versus-loaded, emitted-versus-accepted-versus-durable-versus-queryable a technical-versus-business distinctions, obojsmerný navigation chain `11-cloud-and-aws/cloudops-troubleshooting-drills.md ↔ Monitoring vs. observability` cez celú sekciu až po `Cardinality ↔ 13-security-and-identity/cia-triad.md`, všetky štyri section glossary fragments vrátane `glossary/12d-observability-trace-otel-alert-cardinality-lifecycles.md`, synchronizovaný generated `GLOSSARY.md`, prázdne audit-failure artifacts a current official facts pre Jaeger 2.20, Tempo 3.0, OpenTelemetry signal/component stability a Prometheus alerting practices. "
+              "Section README teraz zaznamenáva celý evidence-to-action learning chain a completion gate. Sekcia je pripravená na používateľskú kontrolu, nie automaticky používateľsky schválená. |"
+          )
+          if old_suffix not in text:
+              raise SystemExit("Expected Observability unfinished suffix not found")
+          text = text.replace(old_suffix, final_note, 1)
+          path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Commit ledger and remove workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/one-time-observability-final-ledger.yml
+          git add DOCUMENTATION-REVIEW-STATUS.md
+          git commit -m "docs(review): complete Observability strict revalidation"
+          git push origin HEAD:main
