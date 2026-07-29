@@ -3837,6 +3837,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "title": "CAP theorem",
+      "words": 1744,
+      "headings": 31,
+      "sections": 31,
+      "findings": 71,
+      "critical": 20,
+      "high": 29,
+      "medium": 9,
+      "low": 13,
+      "score": 517,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/connection-pooling.md",
       "title": "Connection pooling",
       "words": 2224,
@@ -213583,6 +213597,645 @@
       "path": "docs/15-databases-and-distributed-systems/caching.md",
       "section": "no-cache znamená neukladať",
       "line": 487,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "1. Dominantný model",
+      "line": 13,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "1. Dominantný model",
+      "line": 13,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "2. Formálna intuition",
+      "line": 30,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "2. Formálna intuition",
+      "line": 30,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "2. Formálna intuition",
+      "line": 30,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "3. Čo znamená consistency v CAP",
+      "line": 40,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "3. Čo znamená consistency v CAP",
+      "line": 40,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema constraints;`, `referential integrity;`, `serializable multi-row transaction;`, `causal consistency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "3. Čo znamená consistency v CAP",
+      "line": 40,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "3. Čo znamená consistency v CAP",
+      "line": 40,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "5. Partition tolerance nie je voliteľný checkbox",
+      "line": 79,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "5. Partition tolerance nie je voliteľný checkbox",
+      "line": 79,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `packet loss;`, `asymmetric reachability;`, `routing blackhole;`, `overloaded linku;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "5. Partition tolerance nie je voliteľný checkbox",
+      "line": 79,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "5. Partition tolerance nie je voliteľný checkbox",
+      "line": 79,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "5. Partition tolerance nie je voliteľný checkbox",
+      "line": 79,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "7. Decision je per operation, nie iba per product",
+      "line": 111,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "7. Decision je per operation, nie iba per product",
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "8. Quorum a majority side",
+      "line": 126,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "8. Quorum a majority side",
+      "line": 126,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `čítať z local cache;`, `použiť serializable/member-local read;`, `držať staré connection;`, `ignorovať revision;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "8. Quorum a majority side",
+      "line": 126,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "9. Consistency-preserving partition behavior",
+      "line": 150,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "9. Consistency-preserving partition behavior",
+      "line": 150,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "9. Consistency-preserving partition behavior",
+      "line": 150,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 4 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `žiadne divergentné committed histories pre daný invariant.`, `caller potrebuje truthful degraded behavior;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "9. Consistency-preserving partition behavior",
+      "line": 150,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "9. Consistency-preserving partition behavior",
+      "line": 150,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "9. Consistency-preserving partition behavior",
+      "line": 150,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CAP-`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "10. Availability-preserving partition behavior",
+      "line": 172,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "10. Availability-preserving partition behavior",
+      "line": 172,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "10. Availability-preserving partition behavior",
+      "line": 172,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `commutative operations;`, `last-writer policy s akceptovanou stratou;`, `CRDT alebo explicitný merge;`, `append-only local log;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "10. Availability-preserving partition behavior",
+      "line": 172,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "10. Availability-preserving partition behavior",
+      "line": 172,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRDT`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "11. Stale reads sú contract, nie náhoda",
+      "line": 194,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "11. Stale reads sú contract, nie náhoda",
+      "line": 194,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "11. Stale reads sú contract, nie náhoda",
+      "line": 194,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `maximálnu age alebo revision gap;`, `source replica/generation;`, `session guarantees;`, `whether read môže autorizovať write alebo external effect;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "11. Stale reads sú contract, nie náhoda",
+      "line": 194,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "11. Stale reads sú contract, nie náhoda",
+      "line": 194,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `API`, `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "12. Partition-heal nie je automatická correctness",
+      "line": 213,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "12. Partition-heal nie je automatická correctness",
+      "line": 213,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "12. Partition-heal nie je automatická correctness",
+      "line": 213,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `committed majority history;`, `uncommitted minority attempts;`, `local accepted writes;`, `external effects vykonané mimo consensus;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "12. Partition-heal nie je automatická correctness",
+      "line": 213,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "14. Connected incident DB-PAY-59",
+      "line": 247,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 49 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "14. Connected incident DB-PAY-59",
+      "line": 247,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachoval quorum;`, `commitol generation 912 ;`, `linearizable reads vracali current route P2 .`, `nemohla commitovať nový route state;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "14. Connected incident DB-PAY-59",
+      "line": 247,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "14. Connected incident DB-PAY-59",
+      "line": 247,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "14. Connected incident DB-PAY-59",
+      "line": 247,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `P2`, `TTL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "16. Dôsledky DB-PAY-59",
+      "line": 299,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "16. Dôsledky DB-PAY-59",
+      "line": 299,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `1 384 operations skončilo ako sent-unknown pre timeout;`, `27 duplicate physical provider attempts vyžadovalo reconciliation;`, `provider idempotency zabránila duplicate financial settlement effectom`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "16. Dôsledky DB-PAY-59",
+      "line": 299,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "16. Dôsledky DB-PAY-59",
+      "line": 299,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "16. Dôsledky DB-PAY-59",
+      "line": 299,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "16. Dôsledky DB-PAY-59",
+      "line": 299,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `P1`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "17. Evidence-preserving containment",
+      "line": 312,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "17. Evidence-preserving containment",
+      "line": 312,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "18. Authoritative redesign",
+      "line": 327,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "18. Authoritative redesign",
+      "line": 327,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "18. Authoritative redesign",
+      "line": 327,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `route decision obsahuje exact generation;`, `settlement row persistuje used route generation;`, `minimum acceptable generation sa prenáša requestom;`, `local cache key je versionovaný;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "18. Authoritative redesign",
+      "line": 327,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "19. CAP acceptance verdict",
+      "line": 355,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "19. CAP acceptance verdict",
+      "line": 355,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "13 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "19. CAP acceptance verdict",
+      "line": 355,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact replicated subject a invariant sú explicitné;`, `partition scenarios a observation limits sú pomenované;`, `consistency znamená konkrétny model, nie všeobecnú „správnosť“;`, `availability znamená konkrétny response/liveness contract;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "19. CAP acceptance verdict",
+      "line": 355,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "19. CAP acceptance verdict",
+      "line": 355,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "19. CAP acceptance verdict",
+      "line": 355,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "19. CAP acceptance verdict",
+      "line": 355,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "19. CAP acceptance verdict",
+      "line": 355,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `freshness`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "20. Troubleshooting flow",
+      "line": 373,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "CAP znamená vyber si dve",
+      "line": 391,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "Partition tolerance vypneme",
+      "line": 395,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "CP systém je vždy unavailable",
+      "line": 399,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "Quorum vyriešilo application correctness",
+      "line": 407,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "Stale read je bezpečný, lebo ide iba o read",
+      "line": 411,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/cap-theorem.md",
+      "section": "Po heal-e je incident ukončený",
+      "line": 415,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
