@@ -3335,15 +3335,15 @@
     {
       "path": "docs/13-security-and-identity/active-directory.md",
       "title": "Active Directory",
-      "words": 1525,
-      "headings": 40,
-      "sections": 40,
-      "findings": 113,
-      "critical": 43,
-      "high": 40,
-      "medium": 26,
-      "low": 4,
-      "score": 932,
+      "words": 2111,
+      "headings": 37,
+      "sections": 37,
+      "findings": 79,
+      "critical": 20,
+      "high": 28,
+      "medium": 5,
+      "low": 26,
+      "score": 510,
       "grade": "D"
     },
     {
@@ -183026,7 +183026,7 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný lifecycle",
       "line": 7,
       "severity": "high",
       "rule": "single-sentence-concept",
@@ -183035,7 +183035,7 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný lifecycle",
       "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -183044,278 +183044,17 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "2. Directory objects",
-      "line": 23,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "2. Directory objects",
-      "line": 23,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `users,`, `groups,`, `computers,`, `managed service accounts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "2. Directory objects",
-      "line": 23,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "2. Directory objects",
-      "line": 23,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "3. Forest",
-      "line": 41,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema,`, `configuration partition,`, `global catalog,`, `forest-wide trusts,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "3. Forest",
-      "line": 41,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "4. Domain",
-      "line": 55,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "4. Domain",
-      "line": 55,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vlastným DNS name,`, `users, groups, computers a policies,`, `domain-wide replication,`, `domain SID namespace,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "4. Domain",
-      "line": 55,
+      "section": "2. Exact AD DS subject",
+      "line": 32,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "4. Domain",
-      "line": 55,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `SID`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "5. Organizational Units",
-      "line": 67,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `delegation administration,`, `aplikáciu Group Policy,`, `organizáciu objects.`.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "5. Organizational Units",
-      "line": 67,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "5. Organizational Units",
-      "line": 67,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `Policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "6. Domain controllers",
-      "line": 79,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "6. Domain controllers",
-      "line": 79,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LDAP,`, `Kerberos KDC,`, `authentication,`, `replication,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "6. Domain controllers",
-      "line": 79,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "6. Domain controllers",
-      "line": 79,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "6. Domain controllers",
-      "line": 79,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LDAP`, `KDC`, `SYSVOL`, `DNS`, `Policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "7. Directory partitions",
-      "line": 94,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "7. Directory partitions",
-      "line": 94,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema partition,`, `configuration partition,`, `domain partition,`, `application partitions podľa use case-u.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "7. Directory partitions",
-      "line": 94,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "8. DNS dependency",
-      "line": 107,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "8. DNS dependency",
-      "line": 107,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `domain controllers,`, `Kerberos services,`, `Global Catalog,`, `site-appropriate services.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "8. DNS dependency",
-      "line": 107,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "9. Sites a subnets",
-      "line": 131,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client affinity k blízkemu DC,`, `replication topology,`, `service location,`, `riadenie cross-site trafficu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "9. Sites a subnets",
-      "line": 131,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "10. FSMO roles",
-      "line": 144,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 38 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "10. FSMO roles",
-      "line": 144,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Schema Master,`, `Domain Naming Master.`, `RID Master,`, `PDC Emulator,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "10. FSMO roles",
-      "line": 144,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "10. FSMO roles",
-      "line": 144,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "10. FSMO roles",
-      "line": 144,
+      "section": "3. Forest, domain a OU riešia odlišné boundaries",
+      "line": 65,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -183323,116 +183062,17 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "10. FSMO roles",
-      "line": 144,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RID`, `Policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "11. Replication",
-      "line": 168,
+      "section": "4. Objects, schema a identifiers",
+      "line": 79,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `distinguished name opisuje aktuálnu pozíciu objectu;`, `SID sa používa vo Windows authorization;`, `attribute replication metadata identifikuje verziu a origin change-u.`.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "11. Replication",
-      "line": 168,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "11. Replication",
-      "line": 168,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS,`, `network connectivity,`, `authentication/authorization,`, `directory database,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "11. Replication",
-      "line": 168,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "11. Replication",
-      "line": 168,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `DFSR`, `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "12. Conflict a convergence",
-      "line": 191,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "12. Conflict a convergence",
-      "line": 191,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kde change vznikol?`, `Replikoval sa do všetkých partnerov?`, `Je object tombstoned/deleted?`, `Existuje lingering object?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "12. Conflict a convergence",
-      "line": 191,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "12. Conflict a convergence",
-      "line": 191,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AD`, `SYSVOL`, `DNS`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "13. Authentication",
-      "line": 205,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "13. Authentication",
-      "line": 205,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny DNS,`, `synchronizovaný čas,`, `service principal names,`, `funkčný KDC/DC,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "13. Authentication",
-      "line": 205,
+      "section": "4. Objects, schema a identifiers",
+      "line": 79,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -183440,260 +183080,8 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "13. Authentication",
-      "line": 205,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `KDC`, `DC`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "14. Security identifiers a access tokens",
-      "line": 219,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user SID,`, `group SIDs,`, `privileges,`, `integrity/context fields.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "14. Security identifiers a access tokens",
-      "line": 219,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "15. Groups",
-      "line": 234,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `domain local,`, `global,`, `universal.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "15. Groups",
-      "line": 234,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "16. Group Policy",
-      "line": 256,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "16. Group Policy",
-      "line": 256,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `site/domain/OU linkov,`, `inheritance a enforced/block inheritance,`, `security filtering,`, `WMI filters,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "16. Group Policy",
-      "line": 256,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "16. Group Policy",
-      "line": 256,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OU`, `WMI`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "17. Schema",
-      "line": 272,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "17. Schema",
-      "line": 272,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compatibility review,`, `unique OIDs,`, `test forest,`, `backup/recovery plán,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "17. Schema",
-      "line": 272,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "18. Trusts",
-      "line": 286,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "18. Trusts",
-      "line": 286,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direction,`, `transitivity,`, `scope,`, `selective authentication,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "18. Trusts",
-      "line": 286,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "18. Trusts",
-      "line": 286,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SID`, `scope`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "19. Service accounts",
-      "line": 301,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "19. Service accounts",
-      "line": 301,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "19. Service accounts",
-      "line": 301,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `group Managed Service Accounts,`, `managed identities v cloud scenároch,`, `oddelené service principals,`, `automatickú password/key rotation.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "19. Service accounts",
-      "line": 301,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "19. Service accounts",
-      "line": 301,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SPN`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "20. Tiering a privileged administration",
-      "line": 319,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "20. Tiering a privileged administration",
-      "line": 319,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `separate admin accounts,`, `privileged access workstations,`, `deny logon na nižších tiers,`, `JIT/JEA/PAM podľa prostredia,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "20. Tiering a privileged administration",
-      "line": 319,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "20. Tiering a privileged administration",
-      "line": 319,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `JEA`, `PAM`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "21. Backup a recovery",
-      "line": 334,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "21. Backup a recovery",
-      "line": 334,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `System State backups relevantných DCs,`, `forest recovery plán,`, `DSRM credentials,`, `authoritative/non-authoritative restore znalosti,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "21. Backup a recovery",
-      "line": 334,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "21. Backup a recovery",
-      "line": 334,
+      "section": "4. Objects, schema a identifiers",
+      "line": 79,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -183701,116 +183089,215 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "21. Backup a recovery",
-      "line": 334,
+      "section": "4. Objects, schema a identifiers",
+      "line": 79,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "4. Objects, schema a identifiers",
+      "line": 79,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "4. Objects, schema a identifiers",
+      "line": 79,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DSRM`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GUID`, `SID`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "22. Monitoring",
-      "line": 349,
+      "section": "5. Domain controller a directory partitions",
+      "line": 93,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "6. DNS, sites, subnets a DC locator",
+      "line": 111,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 67 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "22. Monitoring",
-      "line": 349,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "22. Monitoring",
-      "line": 349,
+      "section": "6. DNS, sites, subnets a DC locator",
+      "line": 111,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DC availability,`, `DNS a SRV records,`, `replication failures/latency,`, `SYSVOL/NETLOGON shares,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client IP, DNS servers a timestamp;`, `výsledok site determination;`, `queried SRV records;`, `selected DC/KDC/GC;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "22. Monitoring",
-      "line": 349,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "6. DNS, sites, subnets a DC locator",
+      "line": 111,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "22. Monitoring",
-      "line": 349,
+      "section": "6. DNS, sites, subnets a DC locator",
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "7. Replication je causal state transition",
+      "line": 137,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "7. Replication je causal state transition",
+      "line": 137,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `originating write success;`, `outbound replication eligibility;`, `inbound apply na required DCs;`, `Global Catalog alebo SYSVOL convergence;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "7. Replication je causal state transition",
+      "line": 137,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "7. Replication je causal state transition",
+      "line": 137,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "7. Replication je causal state transition",
+      "line": 137,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "9. FSMO roles",
+      "line": 180,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "9. FSMO roles",
+      "line": 180,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "11. Groups a effective Windows access",
+      "line": 206,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "13. Trusts a service identities",
+      "line": 239,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "13. Trusts a service identities",
+      "line": 239,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "14. Privileged administration a recovery boundary",
+      "line": 245,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "14. Privileged administration a recovery boundary",
+      "line": 245,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `separate privileged accounts a workstations;`, `minimal standing membership;`, `JIT/JEA/PAM podľa platformy;`, `monitoring privileged group a delegation changes;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "14. Privileged administration a recovery boundary",
+      "line": 245,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "14. Privileged administration a recovery boundary",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "14. Privileged administration a recovery boundary",
+      "line": 245,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DC`, `DNS`, `SRV`, `SYSVOL`, `NETLOGON`, `LDAP`, `availability`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `JEA`, `PAM`, `DSRM`, `delegation`",
       "score": 7
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "23. Troubleshooting domain logon",
-      "line": 366,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "23. Troubleshooting domain logon",
-      "line": 366,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "24. Troubleshooting replication",
-      "line": 383,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "24. Troubleshooting replication",
-      "line": 383,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "25. Troubleshooting Group Policy",
-      "line": 398,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "25. Troubleshooting Group Policy",
-      "line": 398,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "26. AD DS oproti Entra ID a Entra Domain Services",
-      "line": 412,
+      "section": "15. Worked failure: fresh session z neconverged directory state-u",
+      "line": 261,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -183818,8 +183305,17 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "AD DS",
-      "line": 414,
+      "section": "Exact subject",
+      "line": 267,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Competing hypotheses",
+      "line": 281,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -183827,8 +183323,8 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "AD DS",
-      "line": 414,
+      "section": "Competing hypotheses",
+      "line": 281,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -183836,26 +183332,26 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "AD DS",
-      "line": 414,
+      "section": "Competing hypotheses",
+      "line": 281,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "AD DS",
-      "line": 414,
+      "section": "Competing hypotheses",
+      "line": 281,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `domain controllers,`, `LDAP/Kerberos/NTLM,`, `Group Policy,`, `forests/domains/OUs,`.",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stará Windows logon session prežila membership removal;`, `LDAP application cache neexpirovala;`, `removal sa zapísal na nesprávny group object;`, `replication medzi DCs neconvergovala;`.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "AD DS",
-      "line": 414,
+      "section": "Competing hypotheses",
+      "line": 281,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -183863,17 +183359,26 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "AD DS",
-      "line": 414,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LDAP`, `NTLM`, `Policy`",
-      "score": 4
+      "section": "Competing hypotheses",
+      "line": 281,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra ID",
-      "line": 422,
+      "section": "Competing hypotheses",
+      "line": 281,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LDAP`, `DC`, `resource`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Evidence-preserving containment",
+      "line": 322,
       "severity": "critical",
       "rule": "no-prose-concept",
       "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
@@ -183881,8 +183386,8 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra ID",
-      "line": 422,
+      "section": "Evidence-preserving containment",
+      "line": 322,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -183890,26 +183395,17 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra ID",
-      "line": 422,
+      "section": "Evidence-preserving containment",
+      "line": 322,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra ID",
-      "line": 422,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cloud IAM,`, `modern federation/token protocols,`, `cloud apps/resources,`, `tenant model.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra ID",
-      "line": 422,
+      "section": "Evidence-preserving containment",
+      "line": 322,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -183917,17 +183413,278 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra ID",
-      "line": 422,
+      "section": "Evidence-preserving containment",
+      "line": 322,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Evidence-preserving containment",
+      "line": 322,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Evidence-preserving containment",
+      "line": 322,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `DC`, `KDC`, `LDAP`, `identity`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Authoritative recovery",
+      "line": 331,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Authoritative recovery",
+      "line": 331,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Authoritative recovery",
+      "line": 331,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Authoritative recovery",
+      "line": 331,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `obnoviť intended BTS-FRA replication schedule a network/RPC path;`, `vytvoriť správny subnet-to-site mapping pre 10.48.24.0/24 ;`, `potvrdiť odstránenie nested, direct aj sIDHistory access paths;`, `zneplatniť application/OAuth sessions odvodené zo stale state-u;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Authoritative recovery",
+      "line": 331,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Authoritative recovery",
+      "line": 331,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Authoritative recovery",
+      "line": 331,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Authoritative recovery",
+      "line": 331,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Authoritative recovery",
+      "line": 331,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `BTS-FRA`, `RPC`, `DC`, `GC`, `SID`, `PAC`, `JIT`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Acceptance verdict",
+      "line": 342,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Acceptance verdict",
+      "line": 342,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Acceptance verdict",
+      "line": 342,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Acceptance verdict",
+      "line": 342,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Acceptance verdict",
+      "line": 342,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Acceptance verdict",
+      "line": 342,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DC`, `LDAP`, `JIT`, `UI`, `API`, `KDC`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "16. Troubleshooting flow",
+      "line": 355,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Domain logon",
+      "line": 357,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Replication",
+      "line": 369,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "Group Policy",
+      "line": 382,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "17. Earlier controls",
+      "line": 394,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "17. Earlier controls",
+      "line": 394,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "17. Earlier controls",
+      "line": 394,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "17. Earlier controls",
+      "line": 394,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "17. Earlier controls",
+      "line": 394,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "17. Earlier controls",
+      "line": 394,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "17. Earlier controls",
+      "line": 394,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/active-directory.md",
+      "section": "17. Earlier controls",
+      "line": 394,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `IAM`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `DSRM`",
       "score": 4
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra Domain Services",
-      "line": 429,
+      "section": "Jeden green DC reprezentuje celú doménu",
+      "line": 407,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183935,53 +183692,8 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra Domain Services",
-      "line": 429,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra Domain Services",
-      "line": 429,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra Domain Services",
-      "line": 429,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `integrácia/synchronizácia s Entra ID,`, `bez customer managementu domain controllers,`, `odlišné operational constraints než plné AD DS.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra Domain Services",
-      "line": 429,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Microsoft Entra Domain Services",
-      "line": 429,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LDAP`, `NTLM`, `ID`, `AD`, `DS`, `Policy`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Jeden domain controller",
-      "line": 440,
+      "section": "Group removal = okamžitá revocation",
+      "line": 411,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183989,8 +183701,8 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Public DNS na domain clients",
-      "line": 444,
+      "section": "OU ako isolation boundary",
+      "line": 415,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183998,8 +183710,8 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Domain Admin na bežný workstation",
-      "line": 448,
+      "section": "Ručný write na všetky DCs",
+      "line": 419,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -184007,8 +183719,8 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "OU ako security isolation boundary",
-      "line": 452,
+      "section": "Snapshot ako jediný recovery model",
+      "line": 423,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -184016,26 +183728,8 @@
     },
     {
       "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Snapshot ako jediný backup",
-      "line": 456,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "NTLM ignorované",
-      "line": 460,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/active-directory.md",
-      "section": "Schema extension bez lifecycle plánu",
-      "line": 464,
+      "section": "NTLM fallback ako úspech",
+      "line": 427,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",

@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10540**
-- Total words: **635,492**
-- Findings: **21694** (critical 6387, high 7121, medium 2804, low 5382)
+- Audited conceptual sections: **10537**
+- Total words: **636,078**
+- Findings: **21660** (critical 6364, high 7109, medium 2783, low 5404)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -41,7 +41,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 960 | 44 | 42 | 20 | 19 | 2638 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
 | D | 945 | 37 | 46 | 25 | 39 | 3521 | `docs/02-networking-and-web/http.md` |
 | D | 938 | 45 | 40 | 19 | 14 | 2606 | `docs/04-testing-and-quality/flaky-tests-and-test-data.md` |
-| D | 932 | 43 | 40 | 26 | 4 | 1525 | `docs/13-security-and-identity/active-directory.md` |
 | D | 911 | 44 | 43 | 10 | 13 | 2465 | `docs/03-git-and-automation/merge-conflicts.md` |
 | D | 903 | 35 | 52 | 13 | 17 | 2888 | `docs/11-cloud-and-aws/cost-management-finops.md` |
 | D | 903 | 44 | 39 | 15 | 10 | 1813 | `docs/12-observability/golden-signals.md` |
@@ -182,6 +181,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 523 | 23 | 24 | 11 | 14 | 1961 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | D | 520 | 20 | 32 | 4 | 14 | 2434 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
 | D | 514 | 22 | 26 | 7 | 12 | 1687 | `docs/12-observability/jaeger-tempo.md` |
+| D | 510 | 20 | 28 | 5 | 26 | 2111 | `docs/13-security-and-identity/active-directory.md` |
 | D | 509 | 14 | 27 | 20 | 45 | 3416 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | D | 506 | 26 | 19 | 8 | 14 | 1855 | `docs/09-kubernetes/securitycontext-pod-security.md` |
 | D | 504 | 18 | 31 | 6 | 21 | 2365 | `docs/03-git-and-automation/merge-and-rebase.md` |
@@ -13707,89 +13707,54 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/active-directory.md`
 
-- **CRITICAL** line 23, `bare-bullet-items` — **2. Directory objects**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `users,`, `groups,`, `computers,`, `managed service accounts,`.
-- **CRITICAL** line 23, `outline-instead-of-explanation` — **2. Directory objects**: 9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 41, `bare-bullet-items` — **3. Forest**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema,`, `configuration partition,`, `global catalog,`, `forest-wide trusts,`.
-- **CRITICAL** line 55, `bare-bullet-items` — **4. Domain**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vlastným DNS name,`, `users, groups, computers a policies,`, `domain-wide replication,`, `domain SID namespace,`.
-- **CRITICAL** line 55, `outline-instead-of-explanation` — **4. Domain**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 79, `bare-bullet-items` — **6. Domain controllers**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `LDAP,`, `Kerberos KDC,`, `authentication,`, `replication,`.
-- **CRITICAL** line 79, `outline-instead-of-explanation` — **6. Domain controllers**: 6 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.
-- **CRITICAL** line 94, `bare-bullet-items` — **7. Directory partitions**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema partition,`, `configuration partition,`, `domain partition,`, `application partitions podľa use case-u.`.
-- **CRITICAL** line 94, `outline-instead-of-explanation` — **7. Directory partitions**: 4 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 107, `bare-bullet-items` — **8. DNS dependency**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `domain controllers,`, `Kerberos services,`, `Global Catalog,`, `site-appropriate services.`.
-- **CRITICAL** line 107, `outline-instead-of-explanation` — **8. DNS dependency**: 4 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 131, `bare-bullet-items` — **9. Sites a subnets**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client affinity k blízkemu DC,`, `replication topology,`, `service location,`, `riadenie cross-site trafficu.`.
-- **CRITICAL** line 144, `bare-bullet-items` — **10. FSMO roles**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Schema Master,`, `Domain Naming Master.`, `RID Master,`, `PDC Emulator,`.
-- **CRITICAL** line 168, `bare-bullet-items` — **11. Replication**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DNS,`, `network connectivity,`, `authentication/authorization,`, `directory database,`.
-- **CRITICAL** line 168, `outline-instead-of-explanation` — **11. Replication**: 13 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 191, `bare-bullet-items` — **12. Conflict a convergence**: 4 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kde change vznikol?`, `Replikoval sa do všetkých partnerov?`, `Je object tombstoned/deleted?`, `Existuje lingering object?`.
-- **CRITICAL** line 191, `outline-instead-of-explanation` — **12. Conflict a convergence**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 205, `bare-bullet-items` — **13. Authentication**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `správny DNS,`, `synchronizovaný čas,`, `service principal names,`, `funkčný KDC/DC,`.
-- **CRITICAL** line 205, `outline-instead-of-explanation` — **13. Authentication**: 5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 219, `bare-bullet-items` — **14. Security identifiers a access tokens**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user SID,`, `group SIDs,`, `privileges,`, `integrity/context fields.`.
-- **CRITICAL** line 256, `bare-bullet-items` — **16. Group Policy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `site/domain/OU linkov,`, `inheritance a enforced/block inheritance,`, `security filtering,`, `WMI filters,`.
-- **CRITICAL** line 256, `outline-instead-of-explanation` — **16. Group Policy**: 7 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 272, `bare-bullet-items` — **17. Schema**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `compatibility review,`, `unique OIDs,`, `test forest,`, `backup/recovery plán,`.
-- **CRITICAL** line 272, `outline-instead-of-explanation` — **17. Schema**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 286, `bare-bullet-items` — **18. Trusts**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `direction,`, `transitivity,`, `scope,`, `selective authentication,`.
-- **CRITICAL** line 286, `outline-instead-of-explanation` — **18. Trusts**: 6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
-- **CRITICAL** line 301, `bare-bullet-items` — **19. Service accounts**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `group Managed Service Accounts,`, `managed identities v cloud scenároch,`, `oddelené service principals,`, `automatickú password/key rotation.`.
-- **CRITICAL** line 301, `outline-instead-of-explanation` — **19. Service accounts**: 10 odrážok je podopretých iba 7 slovami súvislého vysvetlenia.
-- **CRITICAL** line 319, `bare-bullet-items` — **20. Tiering a privileged administration**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `separate admin accounts,`, `privileged access workstations,`, `deny logon na nižších tiers,`, `JIT/JEA/PAM podľa prostredia,`.
-- **CRITICAL** line 319, `outline-instead-of-explanation` — **20. Tiering a privileged administration**: 6 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 334, `bare-bullet-items` — **21. Backup a recovery**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `System State backups relevantných DCs,`, `forest recovery plán,`, `DSRM credentials,`, `authoritative/non-authoritative restore znalosti,`.
-- **CRITICAL** line 334, `outline-instead-of-explanation` — **21. Backup a recovery**: 6 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
-- **CRITICAL** line 349, `bare-bullet-items` — **22. Monitoring**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `DC availability,`, `DNS a SRV records,`, `replication failures/latency,`, `SYSVOL/NETLOGON shares,`.
-- **CRITICAL** line 349, `outline-instead-of-explanation` — **22. Monitoring**: 12 odrážok je podopretých iba 1 slovami súvislého vysvetlenia.
-- **CRITICAL** line 412, `empty-section` — **26. AD DS oproti Entra ID a Entra Domain Services**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 414, `bare-bullet-items` — **AD DS**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `domain controllers,`, `LDAP/Kerberos/NTLM,`, `Group Policy,`, `forests/domains/OUs,`.
-- **CRITICAL** line 414, `no-prose-concept` — **AD DS**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 414, `outline-instead-of-explanation` — **AD DS**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 422, `bare-bullet-items` — **Microsoft Entra ID**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `cloud IAM,`, `modern federation/token protocols,`, `cloud apps/resources,`, `tenant model.`.
-- **CRITICAL** line 422, `no-prose-concept` — **Microsoft Entra ID**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 422, `outline-instead-of-explanation` — **Microsoft Entra ID**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 429, `bare-bullet-items` — **Microsoft Entra Domain Services**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `integrácia/synchronizácia s Entra ID,`, `bez customer managementu domain controllers,`, `odlišné operational constraints než plné AD DS.`.
-- **CRITICAL** line 429, `outline-instead-of-explanation` — **Microsoft Entra Domain Services**: 4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
-- **HIGH** line 7, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 7, `single-sentence-concept` — **1. Mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 67, `bare-bullet-items` — **5. Organizational Units**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `delegation administration,`, `aplikáciu Group Policy,`, `organizáciu objects.`.
-- **HIGH** line 144, `list-heavy-section` — **10. FSMO roles**: 9 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 168, `single-sentence-concept` — **11. Replication**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 234, `bare-bullet-items` — **15. Groups**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `domain local,`, `global,`, `universal.`.
-- **HIGH** line 301, `single-sentence-concept` — **19. Service accounts**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 349, `single-sentence-concept` — **22. Monitoring**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 366, `list-first-introduction` — **23. Troubleshooting domain logon**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 366, `single-sentence-concept` — **23. Troubleshooting domain logon**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 383, `list-first-introduction` — **24. Troubleshooting replication**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 383, `single-sentence-concept` — **24. Troubleshooting replication**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 398, `list-first-introduction` — **25. Troubleshooting Group Policy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 398, `single-sentence-concept` — **25. Troubleshooting Group Policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 414, `list-first-introduction` — **AD DS**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 422, `list-first-introduction` — **Microsoft Entra ID**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 429, `list-first-introduction` — **Microsoft Entra Domain Services**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 429, `single-sentence-concept` — **Microsoft Entra Domain Services**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 440, `single-sentence-concept` — **Jeden domain controller**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 444, `single-sentence-concept` — **Public DNS na domain clients**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 448, `single-sentence-concept` — **Domain Admin na bežný workstation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 452, `single-sentence-concept` — **OU ako security isolation boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 456, `single-sentence-concept` — **Snapshot ako jediný backup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 460, `single-sentence-concept` — **NTLM ignorované**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 464, `single-sentence-concept` — **Schema extension bez lifecycle plánu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 55, `thin-concept-section` — **4. Domain**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 79, `term-before-explanation` — **6. Domain controllers**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LDAP`, `KDC`, `SYSVOL`, `DNS`, `Policy`
-- **HIGH** line 168, `thin-concept-section` — **11. Replication**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 191, `thin-concept-section` — **12. Conflict a convergence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 256, `thin-concept-section` — **16. Group Policy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 272, `thin-concept-section` — **17. Schema**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 286, `thin-concept-section` — **18. Trusts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 301, `thin-concept-section` — **19. Service accounts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 319, `thin-concept-section` — **20. Tiering a privileged administration**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 349, `term-before-explanation` — **22. Monitoring**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DC`, `DNS`, `SRV`, `SYSVOL`, `NETLOGON`, `LDAP`, `availability`
-- **HIGH** line 349, `thin-concept-section` — **22. Monitoring**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 414, `thin-concept-section` — **AD DS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 422, `thin-concept-section` — **Microsoft Entra ID**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 429, `term-before-explanation` — **Microsoft Entra Domain Services**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LDAP`, `NTLM`, `ID`, `AD`, `DS`, `Policy`
-- **HIGH** line 429, `thin-concept-section` — **Microsoft Entra Domain Services**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 111, `bare-bullet-items` — **6. DNS, sites, subnets a DC locator**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client IP, DNS servers a timestamp;`, `výsledok site determination;`, `queried SRV records;`, `selected DC/KDC/GC;`.
+- **CRITICAL** line 137, `bare-bullet-items` — **7. Replication je causal state transition**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `originating write success;`, `outbound replication eligibility;`, `inbound apply na required DCs;`, `Global Catalog alebo SYSVOL convergence;`.
+- **CRITICAL** line 245, `bare-bullet-items` — **14. Privileged administration a recovery boundary**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `separate privileged accounts a workstations;`, `minimal standing membership;`, `JIT/JEA/PAM podľa platformy;`, `monitoring privileged group a delegation changes;`.
+- **CRITICAL** line 245, `outline-instead-of-explanation` — **14. Privileged administration a recovery boundary**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 261, `empty-section` — **15. Worked failure: fresh session z neconverged directory state-u**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 267, `empty-section` — **Exact subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 281, `bare-bullet-items` — **Competing hypotheses**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stará Windows logon session prežila membership removal;`, `LDAP application cache neexpirovala;`, `removal sa zapísal na nesprávny group object;`, `replication medzi DCs neconvergovala;`.
+- **CRITICAL** line 281, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 281, `outline-instead-of-explanation` — **Competing hypotheses**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 322, `no-prose-concept` — **Evidence-preserving containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 322, `outline-instead-of-explanation` — **Evidence-preserving containment**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 331, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 331, `outline-instead-of-explanation` — **Authoritative recovery**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 342, `outline-instead-of-explanation` — **Acceptance verdict**: 8 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 355, `empty-section` — **16. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 357, `empty-section` — **Domain logon**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 369, `empty-section` — **Replication**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 382, `empty-section` — **Group Policy**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 394, `no-prose-concept` — **17. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 394, `outline-instead-of-explanation` — **17. Earlier controls**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 7, `single-sentence-concept` — **1. Dominantný lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 32, `single-sentence-concept` — **2. Exact AD DS subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 79, `bare-bullet-items` — **4. Objects, schema a identifiers**: 3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `distinguished name opisuje aktuálnu pozíciu objectu;`, `SID sa používa vo Windows authorization;`, `attribute replication metadata identifikuje verziu a origin change-u.`.
+- **HIGH** line 111, `list-heavy-section` — **6. DNS, sites, subnets a DC locator**: 6 odrážok a iba 67 slov súvislého vysvetlenia.
+- **HIGH** line 137, `list-heavy-section` — **7. Replication je causal state transition**: 6 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 281, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 322, `list-first-introduction` — **Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 331, `bare-bullet-items` — **Authoritative recovery**: 4 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `obnoviť intended BTS-FRA replication schedule a network/RPC path;`, `vytvoriť správny subnet-to-site mapping pre 10.48.24.0/24 ;`, `potvrdiť odstránenie nested, direct aj sIDHistory access paths;`, `zneplatniť application/OAuth sessions odvodené zo stale state-u;`.
+- **HIGH** line 331, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 342, `single-sentence-concept` — **Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 394, `list-first-introduction` — **17. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 407, `single-sentence-concept` — **Jeden green DC reprezentuje celú doménu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 411, `single-sentence-concept` — **Group removal = okamžitá revocation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 415, `single-sentence-concept` — **OU ako isolation boundary**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 419, `single-sentence-concept` — **Ručný write na všetky DCs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 423, `single-sentence-concept` — **Snapshot ako jediný recovery model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 427, `single-sentence-concept` — **NTLM fallback ako úspech**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 245, `term-before-explanation` — **14. Privileged administration a recovery boundary**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JIT`, `JEA`, `PAM`, `DSRM`, `delegation`
+- **HIGH** line 281, `term-before-explanation` — **Competing hypotheses**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `LDAP`, `DC`, `resource`, `policy`
+- **HIGH** line 281, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 322, `term-before-explanation` — **Evidence-preserving containment**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DNS`, `DC`, `KDC`, `LDAP`, `identity`, `policy`
+- **HIGH** line 322, `thin-concept-section` — **Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 331, `term-before-explanation` — **Authoritative recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `BTS-FRA`, `RPC`, `DC`, `GC`, `SID`, `PAC`, `JIT`
+- **HIGH** line 331, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 342, `term-before-explanation` — **Acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DC`, `LDAP`, `JIT`, `UI`, `API`, `KDC`, `resource`
+- **HIGH** line 342, `thin-concept-section` — **Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 394, `thin-concept-section` — **17. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/authentication-authorization-auditing.md`
 
@@ -14567,19 +14532,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2528 | 438 | 0 | 0 | 2966 |
-| `outline-instead-of-explanation` | 2464 | 0 | 0 | 0 | 2464 |
-| `term-before-explanation` | 0 | 545 | 1849 | 0 | 2394 |
-| `single-sentence-concept` | 0 | 2307 | 0 | 0 | 2307 |
-| `example-not-explicit` | 0 | 0 | 0 | 2190 | 2190 |
-| `thin-concept-section` | 0 | 2065 | 0 | 0 | 2065 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2045 | 2045 |
-| `list-first-introduction` | 0 | 1293 | 0 | 0 | 1293 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1147 | 1147 |
-| `short-concept-section` | 0 | 0 | 955 | 0 | 955 |
-| `no-prose-concept` | 740 | 0 | 0 | 0 | 740 |
-| `empty-section` | 655 | 0 | 0 | 0 | 655 |
-| `list-heavy-section` | 0 | 473 | 0 | 0 | 473 |
+| `bare-bullet-items` | 2510 | 438 | 0 | 0 | 2948 |
+| `outline-instead-of-explanation` | 2452 | 0 | 0 | 0 | 2452 |
+| `term-before-explanation` | 0 | 547 | 1837 | 0 | 2384 |
+| `single-sentence-concept` | 0 | 2301 | 0 | 0 | 2301 |
+| `example-not-explicit` | 0 | 0 | 0 | 2201 | 2201 |
+| `thin-concept-section` | 0 | 2058 | 0 | 0 | 2058 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2052 | 2052 |
+| `list-first-introduction` | 0 | 1291 | 0 | 0 | 1291 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1151 | 1151 |
+| `short-concept-section` | 0 | 0 | 946 | 0 | 946 |
+| `no-prose-concept` | 742 | 0 | 0 | 0 | 742 |
+| `empty-section` | 660 | 0 | 0 | 0 | 660 |
+| `list-heavy-section` | 0 | 474 | 0 | 0 | 474 |
 
 ## Required remediation pattern
 
