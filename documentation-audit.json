@@ -3545,15 +3545,15 @@
     {
       "path": "docs/13-security-and-identity/supply-chain-security.md",
       "title": "Supply-chain security",
-      "words": 4119,
-      "headings": 47,
-      "sections": 47,
-      "findings": 64,
-      "critical": 4,
-      "high": 5,
-      "medium": 8,
-      "low": 47,
-      "score": 173,
+      "words": 2310,
+      "headings": 34,
+      "sections": 34,
+      "findings": 95,
+      "critical": 20,
+      "high": 32,
+      "medium": 9,
+      "low": 34,
+      "score": 567,
       "grade": "D"
     },
     {
@@ -193943,530 +193943,17 @@
     },
     {
       "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "1. Tri otázky supply-chain dôvery",
-      "line": 18,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "1. Tri otázky supply-chain dôvery",
-      "line": 18,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "1. Tri otázky supply-chain dôvery",
-      "line": 18,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "1. Tri otázky supply-chain dôvery",
-      "line": 18,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "1. Tri otázky supply-chain dôvery",
-      "line": 18,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "3. Producer, distributor a consumer",
-      "line": 46,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "4. Chránené assets a authority",
-      "line": 56,
+      "section": "1. Tri otázky dôvery",
+      "line": 22,
       "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "9 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "4. Chránené assets a authority",
-      "line": 56,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository history, protected branches a release revisions;`, `branch protection, CODEOWNERS a approval rules;`, `dependency manifests, lockfiles a registry configuration;`, `build definitions, reusable workflows a actions;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "4. Chránené assets a authority",
-      "line": 56,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "4. Chránené assets a authority",
-      "line": 56,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "4. Chránené assets a authority",
-      "line": 56,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CODEOWNERS`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "5. Threat classes podľa supply-chain stage",
-      "line": 72,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "6. Source revision oproti named reference",
-      "line": 88,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "6. Source revision oproti named reference",
-      "line": 88,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "10. Dependency resolution je executable policy",
-      "line": 132,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "13. Version pinning a digest pinning",
-      "line": 174,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "13. Version pinning a digest pinning",
-      "line": 174,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "14. Dependency update automation",
-      "line": 184,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 37 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "14. Dependency update automation",
-      "line": 184,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `oddeliť dependencies podľa risku;`, `zachovať changelog, diff a provenance evidence;`, `spustiť tests a policy checks;`, `používať cooldown pre neočakávané upstream releases podľa risku;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "14. Dependency update automation",
-      "line": 184,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "14. Dependency update automation",
-      "line": 184,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "14. Dependency update automation",
-      "line": 184,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "14. Dependency update automation",
-      "line": 184,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "15. Third-party CI actions a reusable workflows",
-      "line": 199,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "16. Workflow injection",
-      "line": 209,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "18. Hosted a self-hosted runners",
-      "line": 225,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "18. Hosted a self-hosted runners",
-      "line": 225,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "19. Build isolation",
-      "line": 235,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "19. Build isolation",
-      "line": 235,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "19. Build isolation",
-      "line": 235,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "21. Hermetic build",
-      "line": 255,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "22. Reproducible build",
-      "line": 265,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "22. Reproducible build",
-      "line": 265,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "23. Build cache poisoning",
-      "line": 275,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "23. Build cache poisoning",
-      "line": 275,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "25. Artifact identity a build-once-promote-many",
-      "line": 291,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "25. Artifact identity a build-once-promote-many",
-      "line": 291,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "27. SLSA Build Track",
-      "line": 318,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "27. SLSA Build Track",
-      "line": 318,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "28. SLSA Source Track",
-      "line": 332,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "28. SLSA Source Track",
-      "line": 332,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "30. Signature, attestation, provenance a SBOM",
-      "line": 362,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "30. Signature, attestation, provenance a SBOM",
-      "line": 362,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "30. Signature, attestation, provenance a SBOM",
-      "line": 362,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "30. Signature, attestation, provenance a SBOM",
-      "line": 362,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "30. Signature, attestation, provenance a SBOM",
-      "line": 362,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VEX`, `identity`, `attestation`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "32. TUF update security",
-      "line": 382,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "32. TUF update security",
-      "line": 382,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "33. Artifact promotion a environment policy",
-      "line": 397,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "33. Artifact promotion a environment policy",
-      "line": 397,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "35. Runtime inventory a continuous re-evaluation",
-      "line": 413,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "36. Open-source supplier assessment",
-      "line": 421,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "37. Vendor a supplier due diligence",
-      "line": 429,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "37. Vendor a supplier due diligence",
-      "line": 429,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "38. Infrastructure a configuration supply chain",
-      "line": 437,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "39. AI a model supply chain",
-      "line": 445,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "42. Kompletný production flow",
-      "line": 480,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "42. Kompletný production flow",
-      "line": 480,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "42. Kompletný production flow",
-      "line": 480,
+      "section": "1. Tri otázky dôvery",
+      "line": 22,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -194474,8 +193961,8 @@
     },
     {
       "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "42. Kompletný production flow",
-      "line": 480,
+      "section": "1. Tri otázky dôvery",
+      "line": 22,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -194483,26 +193970,62 @@
     },
     {
       "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "42. Kompletný production flow",
-      "line": 480,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
+      "section": "1. Tri otázky dôvery",
+      "line": 22,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`",
+      "score": 4
     },
     {
       "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "42. Kompletný production flow",
-      "line": 480,
+      "section": "3. Exact release subject",
+      "line": 67,
       "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OCI`, `SLSA`, `SBOM`, `policy`",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "3. Exact release subject",
+      "line": 67,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "3. Exact release subject",
+      "line": 67,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository identity a commit SHA;`, `branch/source-policy generation a approvals;`, `build definition a reusable workflow revisions;`, `resolved dependency a action digests;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "3. Exact release subject",
+      "line": 67,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
       "score": 7
     },
     {
       "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "44. Časté anti-patterny",
-      "line": 516,
+      "section": "3. Exact release subject",
+      "line": 67,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "3. Exact release subject",
+      "line": 67,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -194510,12 +194033,768 @@
     },
     {
       "path": "docs/13-security-and-identity/supply-chain-security.md",
-      "section": "44. Časté anti-patterny",
-      "line": 516,
+      "section": "3. Exact release subject",
+      "line": 67,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "3. Exact release subject",
+      "line": 67,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SHA`, `OCI`, `SBOM`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "4. Authorities a trust boundaries",
+      "line": 85,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "4. Authorities a trust boundaries",
+      "line": 85,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source change a review authority;`, `branch-rule a repository administration;`, `dependency namespace a package-publish authority;`, `workflow a reusable-action authority;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "4. Authorities a trust boundaries",
+      "line": 85,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "4. Authorities a trust boundaries",
+      "line": 85,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "4. Authorities a trust boundaries",
+      "line": 85,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "5. Source controls",
+      "line": 101,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "5. Source controls",
+      "line": 101,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "6. Dependency resolution",
+      "line": 111,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 52 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "6. Dependency resolution",
+      "line": 111,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `integrity-checked lockfiles;`, `scoped alebo reserved namespaces;`, `explicit private/public registry mapping;`, `dependency source allowlist;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "6. Dependency resolution",
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "6. Dependency resolution",
+      "line": 111,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "7. CI actions a workflow code",
+      "line": 139,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "8. Runner a builder isolation",
+      "line": 149,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `process alebo cron persistence;`, `modified compiler a helper;`, `poisoned workspace alebo host directory;`, `stolen credentials;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "8. Runner a builder isolation",
+      "line": 149,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "8. Runner a builder isolation",
+      "line": 149,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "9. Hermeticity, reproducibility a cache",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "11. Provenance a SLSA",
+      "line": 194,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `subject digest;`, `builder identity;`, `build type;`, `source repository a revision;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "11. Provenance a SLSA",
+      "line": 194,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "11. Provenance a SLSA",
+      "line": 194,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "11. Provenance a SLSA",
+      "line": 194,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "12. in-toto, attestations a evidence semantics",
+      "line": 221,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 46 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "12. in-toto, attestations a evidence semantics",
+      "line": 221,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `attestation — authenticated statement;`, `provenance — build/source process claim;`, `SBOM — composition claim;`, `VEX — vulnerability-status claim;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "12. in-toto, attestations a evidence semantics",
+      "line": 221,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "12. in-toto, attestations a evidence semantics",
+      "line": 221,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "12. in-toto, attestations a evidence semantics",
+      "line": 221,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "12. in-toto, attestations a evidence semantics",
+      "line": 221,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `VEX`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "13. Registry a update distribution",
+      "line": 238,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 55 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "13. Registry a update distribution",
+      "line": 238,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `digest addressing;`, `release tag immutability;`, `scoped short-lived publish credentials;`, `deletion a overwrite protection;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "16. Worked incident SEC-PAY-50",
+      "line": 291,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release signature pre sha256:pay7240 ;`, `provenance s matching subject digestom;`, `SBOM pripojenú k digestu;`, `green promotion a admission result.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "16. Worked incident SEC-PAY-50",
+      "line": 291,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Prečo green controls nestačili",
+      "line": 304,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Prečo green controls nestačili",
+      "line": 304,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Prečo green controls nestačili",
+      "line": 304,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `signature preukázala, že release credential podpísal malicious digest;`, `provenance vytvoril tenant-controlled job na compromised runneri;`, `provenance policy nekontrolovala builder isolation ani builder image;`, `SBOM vznikla zo source lockfile-u pred final packagingom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Prečo green controls nestačili",
+      "line": 304,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Prečo green controls nestačili",
+      "line": 304,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Prečo green controls nestačili",
+      "line": 304,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "17. Competing hypotheses a evidence",
+      "line": 315,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "17. Competing hypotheses a evidence",
+      "line": 315,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "17. Competing hypotheses a evidence",
+      "line": 315,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 12 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `source history a approvals zodpovedali a81f2e9 ;`, `lockfile a dependency mirror digests sedeli;`, `clean rebuild na fresh builderi injected JAR nevytvoril;`, `runner process audit ukázal helper child shell;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "17. Competing hypotheses a evidence",
+      "line": 315,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "17. Competing hypotheses a evidence",
+      "line": 315,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "17. Competing hypotheses a evidence",
+      "line": 315,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "17. Competing hypotheses a evidence",
+      "line": 315,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JAR`, `SBOM`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 335,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 335,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 335,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 335,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 335,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 335,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "18. Evidence-preserving containment",
+      "line": 335,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "19. Authoritative recovery",
+      "line": 345,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "19. Authoritative recovery",
+      "line": 345,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "19. Authoritative recovery",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "19. Authoritative recovery",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obnoviť source a workflow z trusted revision;`, `vytvoriť pinned fixed builder image;`, `prejsť na fresh ephemeral isolated runner;`, `oddeliť provenance/signing service od tenant steps;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "19. Authoritative recovery",
+      "line": 345,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "19. Authoritative recovery",
+      "line": 345,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "19. Authoritative recovery",
+      "line": 345,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "19. Authoritative recovery",
+      "line": 345,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "19. Authoritative recovery",
+      "line": 345,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "20. Acceptance verdict",
+      "line": 362,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "20. Acceptance verdict",
+      "line": 362,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "20. Acceptance verdict",
+      "line": 362,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `builder je pinned, fixed, fresh a izolovaný;`, `untrusted metadata nemôžu ovplyvniť command graph;`, `provenance vydáva approved platform identity mimo tenant steps;`, `promotion zachová všetky required referrers;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "20. Acceptance verdict",
+      "line": 362,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "20. Acceptance verdict",
+      "line": 362,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "20. Acceptance verdict",
+      "line": 362,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "20. Acceptance verdict",
+      "line": 362,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "21. Supplier a open-source governance",
+      "line": 378,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "21. Supplier a open-source governance",
+      "line": 378,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "22. Earlier controls",
+      "line": 386,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "22. Earlier controls",
+      "line": 386,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "22. Earlier controls",
+      "line": 386,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "22. Earlier controls",
+      "line": 386,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source a build tracks hodnotené oddelene;`, `ephemeral isolated runners a adversarial isolation tests;`, `untrusted/protected cache separation;`, `build-once-promote-many;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "22. Earlier controls",
+      "line": 386,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "22. Earlier controls",
+      "line": 386,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "22. Earlier controls",
+      "line": 386,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "22. Earlier controls",
+      "line": 386,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Scan source, trust binary",
+      "line": 403,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Pin tag, nie revision alebo digest",
+      "line": 407,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Untrusted code so signing permission",
+      "line": 411,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Persistent shared runner",
+      "line": 415,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Provenance existence gate",
+      "line": 419,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Build twice",
+      "line": 423,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/supply-chain-security.md",
+      "section": "Signature ako bezpečnostná známka",
+      "line": 427,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/threat-modeling.md",
