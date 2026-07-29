@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10562**
-- Total words: **633,749**
-- Findings: **21824** (critical 6466, high 7198, medium 2824, low 5336)
+- Audited conceptual sections: **10554**
+- Total words: **633,598**
+- Findings: **21763** (critical 6435, high 7173, medium 2812, low 5343)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -26,7 +26,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 2248 | 102 | 115 | 28 | 30 | 3457 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | D | 1986 | 86 | 109 | 26 | 10 | 1922 | `docs/13-security-and-identity/cia-triad.md` |
 | D | 1674 | 74 | 79 | 31 | 39 | 3893 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
-| D | 1336 | 64 | 63 | 21 | 7 | 2104 | `docs/12-observability/cardinality.md` |
 | D | 1222 | 50 | 70 | 17 | 10 | 3376 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | D | 1118 | 52 | 54 | 17 | 13 | 2422 | `docs/09-kubernetes/desired-state-reconciliation-loops.md` |
 | D | 1106 | 52 | 49 | 20 | 20 | 2492 | `docs/04-testing-and-quality/contract-and-api-tests.md` |
@@ -82,6 +81,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 757 | 31 | 36 | 20 | 23 | 2552 | `docs/09-kubernetes/replicaset.md` |
 | D | 756 | 31 | 43 | 9 | 10 | 2339 | `docs/02-networking-and-web/load-balancing.md` |
 | D | 754 | 30 | 39 | 16 | 27 | 2895 | `docs/02-networking-and-web/dns.md` |
+| D | 747 | 33 | 38 | 9 | 14 | 1953 | `docs/12-observability/cardinality.md` |
 | D | 745 | 35 | 32 | 12 | 23 | 2655 | `docs/09-kubernetes/job-cronjob.md` |
 | D | 742 | 33 | 34 | 15 | 20 | 2501 | `docs/08-container-fundamentals-and-docker/container-security.md` |
 | D | 738 | 31 | 33 | 20 | 21 | 2760 | `docs/11-cloud-and-aws/kms-secrets-manager.md` |
@@ -12862,133 +12862,77 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/12-observability/cardinality.md`
 
-- **CRITICAL** line 18, `empty-section` — **2. Cardinality oproti volume**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 30, `bare-bullet-items` — **Cardinality**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet Prometheus time series,`, `počet Loki log streams,`, `počet unikátnych values v indexed OpenSearch field-e,`, `počet span attribute values používaných pri search indexe.`.
-- **CRITICAL** line 30, `outline-instead-of-explanation` — **Cardinality**: 4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 71, `empty-section` — **4. Bounded a unbounded dimensions**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 73, `bare-bullet-items` — **Bounded**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment,`, `Region,`, `HTTP method,`, `status class,`.
-- **CRITICAL** line 73, `outline-instead-of-explanation` — **Bounded**: 7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **CRITICAL** line 87, `bare-bullet-items` — **Unbounded alebo effectively unbounded**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request ID,`, `trace ID,`, `user ID,`, `order ID,`.
-- **CRITICAL** line 87, `outline-instead-of-explanation` — **Unbounded alebo effectively unbounded**: 11 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.
-- **CRITICAL** line 107, `bare-bullet-items` — **5. Cardinality budget**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené dimensions,`, `očakávaný počet hodnôt,`, `max series/streams/documents per service alebo tenant,`, `growth trend,`.
-- **CRITICAL** line 107, `outline-instead-of-explanation` — **5. Cardinality budget**: 8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
-- **CRITICAL** line 132, `bare-bullet-items` — **6. Prometheus cardinality**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `head memory,`, `WAL a disk,`, `compaction,`, `remote write,`.
-- **CRITICAL** line 132, `outline-instead-of-explanation` — **6. Prometheus cardinality**: 7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 152, `bare-bullet-items` — **Rizikové labels**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user id ,`, `request id ,`, `trace id ,`, `raw path ,`.
-- **CRITICAL** line 152, `no-prose-concept` — **Rizikové labels**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 152, `outline-instead-of-explanation` — **Rizikové labels**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 162, `bare-bullet-items` — **Series churn**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ephemeral Pods s instance labels,`, `batch jobs s unique run ID,`, `autoscaling workload,`, `dynamic route labels.`.
-- **CRITICAL** line 162, `outline-instead-of-explanation` — **Series churn**: 4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
-- **CRITICAL** line 175, `bare-bullet-items` — **7. Histograms a cardinality**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bucket pre každý boundary,`, `sum ,`, `count .`, `obmedz labels,`.
-- **CRITICAL** line 175, `outline-instead-of-explanation` — **7. Histograms a cardinality**: 8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 213, `bare-bullet-items` — **9. Relabeling a metric filtering**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dropnúť nepotrebné metrics,`, `odstrániť labels,`, `normalizovať values,`, `obmedziť vysokú cardinality pred storage.`.
-- **CRITICAL** line 213, `outline-instead-of-explanation` — **9. Relabeling a metric filtering**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
-- **CRITICAL** line 231, `bare-bullet-items` — **10. Loki cardinality**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľa active streams,`, `malé a zle využité chunks,`, `vyšší index overhead,`, `vyššiu memory potrebu ingesterov,`.
-- **CRITICAL** line 260, `bare-bullet-items` — **11. Loki stream churn**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod name oproti workload identity,`, `container restart,`, `dynamic annotations,`, `filename,`.
-- **CRITICAL** line 260, `outline-instead-of-explanation` — **11. Loki stream churn**: 6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 275, `bare-bullet-items` — **12. Elasticsearch a OpenSearch cardinality**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `index size,`, `global ordinals,`, `aggregation memory,`, `query latency,`.
-- **CRITICAL** line 299, `bare-bullet-items` — **Indexed oproti stored**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `indexovať pre search,`, `ukladať v source ,`, `použiť pre aggregations podľa mappingu,`, `vypnúť alebo obmedziť podľa potreby.`.
-- **CRITICAL** line 299, `outline-instead-of-explanation` — **Indexed oproti stored**: 4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **CRITICAL** line 310, `bare-bullet-items` — **13. Mapping explosion**: 16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `arbitrary JSON keys,`, `tenant-defined metadata,`, `dynamic labels uložené ako object fields,`, `flattened business payload,`.
-- **CRITICAL** line 310, `outline-instead-of-explanation` — **13. Mapping explosion**: 16 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 339, `bare-bullet-items` — **14. Trace cardinality**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw URL,`, `SQL statement,`, `user ID,`, `request ID,`.
-- **CRITICAL** line 363, `bare-bullet-items` — **15. Trace-derived metrics**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service,`, `span kind,`, `status,`, `normalized operation,`.
-- **CRITICAL** line 363, `outline-instead-of-explanation` — **15. Trace-derived metrics**: 10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 385, `bare-bullet-items` — **16. OpenTelemetry attribute limits**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet attributes,`, `value length,`, `počet events,`, `počet links,`.
-- **CRITICAL** line 385, `outline-instead-of-explanation` — **16. OpenTelemetry attribute limits**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 412, `bare-bullet-items` — **18. Kubernetes cardinality**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod names,`, `Pod UIDs,`, `ReplicaSet hashes,`, `container IDs,`.
-- **CRITICAL** line 412, `outline-instead-of-explanation` — **18. Kubernetes cardinality**: 13 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 437, `bare-bullet-items` — **19. Multi-tenancy**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `series/stream limits,`, `ingestion rate limits,`, `label count/value limits,`, `query concurrency,`.
-- **CRITICAL** line 437, `outline-instead-of-explanation` — **19. Multi-tenancy**: 8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.
-- **CRITICAL** line 454, `bare-bullet-items` — **20. Cost model**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingestion pricing,`, `active-series pricing,`, `index storage,`, `memory,`.
-- **CRITICAL** line 454, `outline-instead-of-explanation` — **20. Cost model**: 9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
-- **CRITICAL** line 472, `bare-bullet-items` — **21. Detection**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active series/streams,`, `new series/streams rate,`, `series churn,`, `top metrics podľa series count,`.
-- **CRITICAL** line 472, `outline-instead-of-explanation` — **21. Detection**: 12 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 491, `bare-bullet-items` — **22. Prometheus investigation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktoré metric names majú najviac series?`, `Ktoré labels majú najviac distinct values?`, `Ktorý job/tenant/service rastie?`, `Je problém active count alebo churn?`.
-- **CRITICAL** line 491, `outline-instead-of-explanation` — **22. Prometheus investigation**: 7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.
-- **CRITICAL** line 505, `bare-bullet-items` — **23. Loki investigation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `top labels a values,`, `active streams per tenant,`, `streams per service,`, `chunk utilization,`.
-- **CRITICAL** line 505, `outline-instead-of-explanation` — **23. Loki investigation**: 7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 519, `bare-bullet-items` — **24. Search-index investigation**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `index mappings,`, `field count,`, `top high-cardinality keyword fields,`, `global ordinals,`.
-- **CRITICAL** line 519, `outline-instead-of-explanation` — **24. Search-index investigation**: 8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.
-- **CRITICAL** line 534, `bare-bullet-items` — **25. Prevention v CI/CD**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema diff,`, `label/attribute allowlist,`, `representative load test,`, `estimated series/stream count,`.
-- **CRITICAL** line 534, `outline-instead-of-explanation` — **25. Prevention v CI/CD**: 8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.
-- **CRITICAL** line 558, `bare-bullet-items` — **26. Runtime enforcement**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SDK views,`, `Collector filter/transform processors,`, `Prometheus relabeling,`, `Loki label allowlists a limits,`.
-- **CRITICAL** line 558, `outline-instead-of-explanation` — **26. Runtime enforcement**: 8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
-- **CRITICAL** line 573, `bare-bullet-items` — **27. Remediation**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav ďalší rast,`, `identifikuj producer a dimension,`, `dropni alebo normalize-nuť problematickú hodnotu,`, `chráň platformu limitmi,`.
-- **CRITICAL** line 573, `outline-instead-of-explanation` — **27. Remediation**: 9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.
-- **CRITICAL** line 625, `bare-bullet-items` — **30. Aggregation**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `status code → status class,`, `raw endpoint → route template,`, `instance → service/workload,`, `exact customer → customer tier,`.
-- **CRITICAL** line 625, `outline-instead-of-explanation` — **30. Aggregation**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 640, `bare-bullet-items` — **31. Retention tiers**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-instance metrics: 7 dní,`, `service aggregates: 13 mesiacov,`, `detailed logs: 14 dní,`, `audit logs: podľa compliance,`.
-- **CRITICAL** line 640, `outline-instead-of-explanation` — **31. Retention tiers**: 6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 655, `bare-bullet-items` — **32. Privacy a security**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data classification,`, `minimization,`, `hashing/tokenization podľa threat modelu,`, `access control,`.
-- **CRITICAL** line 655, `outline-instead-of-explanation` — **32. Privacy a security**: 8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
-- **CRITICAL** line 672, `bare-bullet-items` — **33. Cardinality a alerting**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alert storm,`, `Alertmanager memory/routing load,`, `stovky notifications,`, `silences sa ťažko matchujú.`.
-- **CRITICAL** line 672, `outline-instead-of-explanation` — **33. Cardinality a alerting**: 4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
-- **CRITICAL** line 691, `bare-bullet-items` — **34. Cardinality a dashboards**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tisíce variable options,`, `query storm,`, `browser overload,`, `backend fan-out.`.
-- **CRITICAL** line 691, `outline-instead-of-explanation` — **34. Cardinality a dashboards**: 10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
-- **HIGH** line 5, `list-first-introduction` — **1. Mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 20, `bare-bullet-items` — **Volume**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `100 000 log lines za sekundu,`, `10 000 spans za sekundu,`, `1 milión metric samples za minútu.`.
-- **HIGH** line 20, `single-sentence-concept` — **Volume**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 73, `single-sentence-concept` — **Bounded**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 107, `single-sentence-concept` — **5. Cardinality budget**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 132, `single-sentence-concept` — **6. Prometheus cardinality**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 152, `list-first-introduction` — **Rizikové labels**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 175, `single-sentence-concept` — **7. Histograms a cardinality**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 193, `bare-bullet-items` — **8. Recording rules**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `znížiť agregáciou,`, `zachovať pre critical dimensions,`, `alebo zvýšiť vytvorením ďalších series.`.
-- **HIGH** line 213, `single-sentence-concept` — **9. Relabeling a metric filtering**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 231, `list-heavy-section` — **10. Loki cardinality**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 246, `single-sentence-concept` — **Príklad**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 275, `list-heavy-section` — **12. Elasticsearch a OpenSearch cardinality**: 12 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 299, `single-sentence-concept` — **Indexed oproti stored**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 310, `single-sentence-concept` — **13. Mapping explosion**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 339, `list-heavy-section` — **14. Trace cardinality**: 12 odrážok a iba 42 slov súvislého vysvetlenia.
-- **HIGH** line 399, `bare-bullet-items` — **17. Resource attributes a cardinality**: 2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `service.name je stabilná logical identity,`, `service.instance.id je unikátna instance identity.`.
-- **HIGH** line 472, `single-sentence-concept` — **21. Detection**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 491, `single-sentence-concept` — **22. Prometheus investigation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 505, `single-sentence-concept` — **23. Loki investigation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 519, `single-sentence-concept` — **24. Search-index investigation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 534, `single-sentence-concept` — **25. Prevention v CI/CD**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 573, `single-sentence-concept` — **27. Remediation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 589, `single-sentence-concept` — **28. Normalization**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 691, `single-sentence-concept` — **34. Cardinality a dashboards**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 713, `single-sentence-concept` — **Unique ID ako metric label**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 717, `single-sentence-concept` — **Všetky Kubernetes labels automaticky exportované**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 721, `single-sentence-concept` — **Hashovanie ako cardinality fix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 725, `single-sentence-concept` — **High-cardinality field indexovaný „pre istotu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 729, `single-sentence-concept` — **Riešenie iba kratšou retention**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 733, `single-sentence-concept` — **Drop bez dependency analýzy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 737, `single-sentence-concept` — **Global limit bez tenant attribution**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 20, `thin-concept-section` — **Volume**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 73, `thin-concept-section` — **Bounded**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 87, `term-before-explanation` — **Unbounded alebo effectively unbounded**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URL`, `SQL`, `UID`
-- **HIGH** line 107, `thin-concept-section` — **5. Cardinality budget**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 132, `thin-concept-section` — **6. Prometheus cardinality**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 152, `thin-concept-section` — **Rizikové labels**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 162, `thin-concept-section` — **Series churn**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 175, `thin-concept-section` — **7. Histograms a cardinality**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 193, `thin-concept-section` — **8. Recording rules**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 213, `thin-concept-section` — **9. Relabeling a metric filtering**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 260, `thin-concept-section` — **11. Loki stream churn**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 275, `term-before-explanation` — **12. Elasticsearch a OpenSearch cardinality**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `IP`, `URL`, `UUID`
-- **HIGH** line 299, `thin-concept-section` — **Indexed oproti stored**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 310, `thin-concept-section` — **13. Mapping explosion**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 363, `thin-concept-section` — **15. Trace-derived metrics**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 385, `thin-concept-section` — **16. OpenTelemetry attribute limits**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 412, `thin-concept-section` — **18. Kubernetes cardinality**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 437, `thin-concept-section` — **19. Multi-tenancy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 454, `thin-concept-section` — **20. Cost model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 472, `thin-concept-section` — **21. Detection**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 491, `thin-concept-section` — **22. Prometheus investigation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 505, `thin-concept-section` — **23. Loki investigation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 519, `thin-concept-section` — **24. Search-index investigation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 534, `thin-concept-section` — **25. Prevention v CI/CD**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 558, `thin-concept-section` — **26. Runtime enforcement**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 573, `thin-concept-section` — **27. Remediation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 625, `thin-concept-section` — **30. Aggregation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 640, `thin-concept-section` — **31. Retention tiers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 655, `thin-concept-section` — **32. Privacy a security**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 672, `thin-concept-section` — **33. Cardinality a alerting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 691, `thin-concept-section` — **34. Cardinality a dashboards**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 58, `empty-section` — **3. Volume, cardinality a churn**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 107, `empty-section` — **5. Bounded a unbounded dimensions**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 109, `bare-bullet-items` — **Bounded**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment;`, `Region;`, `service;`, `normalized route/operation;`.
+- **CRITICAL** line 109, `outline-instead-of-explanation` — **Bounded**: 8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 122, `bare-bullet-items` — **Unbounded alebo effectively unbounded**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request, trace, session, order alebo merchant ID;`, `raw URL;`, `timestamp;`, `full SQL statement;`.
+- **CRITICAL** line 137, `bare-bullet-items` — **6. Cardinality budget**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed dimensions;`, `expected distinct values a growth;`, `active identities a churn limit;`, `per-service/per-tenant quota;`.
+- **CRITICAL** line 137, `outline-instead-of-explanation` — **6. Cardinality budget**: 9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 165, `bare-bullet-items` — **7. Prometheus identity multiplication**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `head memory;`, `WAL a replay;`, `disk/compaction;`, `remote-write bandwidth a backlog;`.
+- **CRITICAL** line 194, `bare-bullet-items` — **8. Loki streams**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľa active streams;`, `malé neefektívne chunks;`, `ingester memory a stream-limit pressure;`, `index/object-store operations;`.
+- **CRITICAL** line 214, `bare-bullet-items` — **9. Elasticsearch/OpenSearch fields a mappings**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `index size;`, `term dictionaries/global ordinals;`, `aggregation memory;`, `heap a query latency;`.
+- **CRITICAL** line 237, `bare-bullet-items` — **10. Traces a derived metrics**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `indexed/promoted attributes;`, `raw span names;`, `attribute search cez dlhú retention;`, `metrics-generator dimensions;`.
+- **CRITICAL** line 263, `bare-bullet-items` — **12. Multi-tenancy a cost attribution**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `series/stream/field count;`, `ingestion rate;`, `new-identity rate;`, `label count/value limits;`.
+- **CRITICAL** line 263, `outline-instead-of-explanation` — **12. Multi-tenancy a cost attribution**: 7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 277, `bare-bullet-items` — **13. Detection a evidence**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active series/streams;`, `new identities rate a churn;`, `top metrics/labels/fields podľa distinct count;`, `histogram bucket multiplication;`.
+- **CRITICAL** line 277, `outline-instead-of-explanation` — **13. Detection a evidence**: 11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.
+- **CRITICAL** line 295, `empty-section` — **14. Worked failure: jeden merchant id , štyri platformové incidenty**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 297, `empty-section` — **Subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 345, `bare-bullet-items` — **Competing hypotheses**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `legitímny traffic spike;`, `duplicate scrape targets;`, `retry amplification;`, `histogram bucket expansion;`.
+- **CRITICAL** line 345, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 345, `outline-instead-of-explanation` — **Competing hypotheses**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 382, `no-prose-concept` — **Containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 382, `outline-instead-of-explanation` — **Containment**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 392, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 392, `outline-instead-of-explanation` — **Authoritative recovery**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 403, `bare-bullet-items` — **Acceptance verdict**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active series/streams a generated metrics sú pod budgetom;`, `churn a backlog sa vrátia k baseline;`, `SLO, saturation a alert inputs zostanú kompletné;`, `alert vytvorí service/Region incident, nie per-merchant storm;`.
+- **CRITICAL** line 403, `outline-instead-of-explanation` — **Acceptance verdict**: 8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 460, `bare-bullet-items` — **17. Prevention v delivery pipeline**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SDK metric views;`, `Collector processors;`, `Prometheus relabeling a limits;`, `Loki label allowlists/tenant limits;`.
+- **CRITICAL** line 460, `outline-instead-of-explanation` — **17. Prevention v delivery pipeline**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 489, `empty-section` — **18. Troubleshooting model**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 491, `empty-section` — **Prometheus**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 503, `empty-section` — **Loki**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 514, `empty-section` — **Search backend**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 525, `empty-section` — **Tracing/derived metrics**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 5, `list-first-introduction` — **1. Dominantný mentálny model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 5, `single-sentence-concept` — **1. Dominantný mentálny model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 60, `single-sentence-concept` — **Volume**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 64, `single-sentence-concept` — **Cardinality**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 109, `single-sentence-concept` — **Bounded**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 122, `list-heavy-section` — **Unbounded alebo effectively unbounded**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 137, `single-sentence-concept` — **6. Cardinality budget**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 165, `list-heavy-section` — **7. Prometheus identity multiplication**: 6 odrážok a iba 60 slov súvislého vysvetlenia.
+- **HIGH** line 214, `list-heavy-section` — **9. Elasticsearch/OpenSearch fields a mappings**: 11 odrážok a iba 47 slov súvislého vysvetlenia.
+- **HIGH** line 311, `single-sentence-concept` — **Change**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 324, `list-first-introduction` — **Symptómy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 324, `single-sentence-concept` — **Symptómy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 345, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 356, `list-first-introduction` — **Discriminating evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 356, `single-sentence-concept` — **Discriminating evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 382, `bare-bullet-items` — **Containment**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastaviť rollout instrumentation generation;`, `zachovať schema/config diff a top-dimension evidence;`, `ponechať business SLI a service/Region/merchant-tier dimensions;`, `chrániť backends tenant limitmi a query concurrency;`.
+- **HIGH** line 382, `list-first-introduction` — **Containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 392, `bare-bullet-items` — **Authoritative recovery**: 5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zaviesť merchant tier ako bounded operational dimension;`, `ponechať merchant id iba v approved exact-search fields;`, `canary-nuť jednu service/tenant cohortu;`, `overiť active count, churn, backlog a query latency;`.
+- **HIGH** line 392, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 403, `single-sentence-concept` — **Acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 416, `list-first-introduction` — **15. Containment a remediation lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 460, `single-sentence-concept` — **17. Prevention v delivery pipeline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 537, `single-sentence-concept` — **Unique ID ako metric alebo stream label**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 541, `single-sentence-concept` — **Hashovanie ako fix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 545, `single-sentence-concept` — **Kratšia retention ako jediná remediation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 549, `single-sentence-concept` — **Broad drop bez dependency inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 553, `single-sentence-concept` — **Všetky Kubernetes labels automaticky**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 557, `single-sentence-concept` — **High-cardinality field „pre istotu“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 109, `thin-concept-section` — **Bounded**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 122, `term-before-explanation` — **Unbounded alebo effectively unbounded**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URL`, `SQL`, `UID`, `JSON`
+- **HIGH** line 137, `thin-concept-section` — **6. Cardinality budget**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 263, `thin-concept-section` — **12. Multi-tenancy a cost attribution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 277, `thin-concept-section` — **13. Detection a evidence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 345, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 382, `thin-concept-section` — **Containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 392, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 403, `thin-concept-section` — **Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 460, `thin-concept-section` — **17. Prevention v delivery pipeline**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/12-observability/elasticsearch-opensearch.md`
 
@@ -14723,18 +14667,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2575 | 442 | 0 | 0 | 3017 |
-| `outline-instead-of-explanation` | 2504 | 0 | 0 | 0 | 2504 |
-| `term-before-explanation` | 0 | 533 | 1874 | 0 | 2407 |
-| `single-sentence-concept` | 0 | 2343 | 0 | 0 | 2343 |
-| `example-not-explicit` | 0 | 0 | 0 | 2176 | 2176 |
-| `thin-concept-section` | 0 | 2126 | 0 | 0 | 2126 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2022 | 2022 |
-| `list-first-introduction` | 0 | 1289 | 0 | 0 | 1289 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1138 | 1138 |
-| `short-concept-section` | 0 | 0 | 950 | 0 | 950 |
-| `no-prose-concept` | 745 | 0 | 0 | 0 | 745 |
-| `empty-section` | 642 | 0 | 0 | 0 | 642 |
+| `bare-bullet-items` | 2555 | 441 | 0 | 0 | 2996 |
+| `outline-instead-of-explanation` | 2484 | 0 | 0 | 0 | 2484 |
+| `term-before-explanation` | 0 | 532 | 1866 | 0 | 2398 |
+| `single-sentence-concept` | 0 | 2335 | 0 | 0 | 2335 |
+| `example-not-explicit` | 0 | 0 | 0 | 2178 | 2178 |
+| `thin-concept-section` | 0 | 2106 | 0 | 0 | 2106 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2025 | 2025 |
+| `list-first-introduction` | 0 | 1294 | 0 | 0 | 1294 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1140 | 1140 |
+| `short-concept-section` | 0 | 0 | 946 | 0 | 946 |
+| `no-prose-concept` | 747 | 0 | 0 | 0 | 747 |
+| `empty-section` | 649 | 0 | 0 | 0 | 649 |
 | `list-heavy-section` | 0 | 465 | 0 | 0 | 465 |
 
 ## Required remediation pattern

@@ -3139,15 +3139,15 @@
     {
       "path": "docs/12-observability/cardinality.md",
       "title": "Cardinality",
-      "words": 2104,
-      "headings": 53,
-      "sections": 53,
-      "findings": 155,
-      "critical": 64,
-      "high": 63,
-      "medium": 21,
-      "low": 7,
-      "score": 1336,
+      "words": 1953,
+      "headings": 45,
+      "sections": 45,
+      "findings": 94,
+      "critical": 33,
+      "high": 38,
+      "medium": 9,
+      "low": 14,
+      "score": 747,
       "grade": "D"
     },
     {
@@ -172955,7 +172955,16 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "1. Mentálny model",
+      "section": "1. Dominantný mentálny model",
+      "line": 5,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "1. Dominantný mentálny model",
       "line": 5,
       "severity": "high",
       "rule": "list-first-introduction",
@@ -172964,8 +172973,8 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "2. Cardinality oproti volume",
-      "line": 18,
+      "section": "3. Volume, cardinality a churn",
+      "line": 58,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -172974,7 +172983,7 @@
     {
       "path": "docs/12-observability/cardinality.md",
       "section": "Volume",
-      "line": 20,
+      "line": 60,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -172982,62 +172991,17 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "Volume",
-      "line": 20,
+      "section": "Cardinality",
+      "line": 64,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `100 000 log lines za sekundu,`, `10 000 spans za sekundu,`, `1 milión metric samples za minútu.`.",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
       "score": 8
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "Volume",
-      "line": 20,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Cardinality",
-      "line": 30,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Cardinality",
-      "line": 30,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet Prometheus time series,`, `počet Loki log streams,`, `počet unikátnych values v indexed OpenSearch field-e,`, `počet span attribute values používaných pri search indexe.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Cardinality",
-      "line": 30,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Cardinality",
-      "line": 30,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "4. Bounded a unbounded dimensions",
-      "line": 71,
+      "section": "5. Bounded a unbounded dimensions",
+      "line": 107,
       "severity": "critical",
       "rule": "empty-section",
       "detail": "Sekcia nemá vysvetľovací obsah.",
@@ -173046,7 +173010,7 @@
     {
       "path": "docs/12-observability/cardinality.md",
       "section": "Bounded",
-      "line": 73,
+      "line": 109,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -173055,25 +173019,25 @@
     {
       "path": "docs/12-observability/cardinality.md",
       "section": "Bounded",
-      "line": 73,
+      "line": 109,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
+      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
       "section": "Bounded",
-      "line": 73,
+      "line": 109,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment,`, `Region,`, `HTTP method,`, `status class,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment;`, `Region;`, `service;`, `normalized route/operation;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
       "section": "Bounded",
-      "line": 73,
+      "line": 109,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -173082,7 +173046,7 @@
     {
       "path": "docs/12-observability/cardinality.md",
       "section": "Bounded",
-      "line": 73,
+      "line": 109,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
@@ -173091,25 +173055,25 @@
     {
       "path": "docs/12-observability/cardinality.md",
       "section": "Unbounded alebo effectively unbounded",
-      "line": 87,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 30 slovami súvislého vysvetlenia.",
-      "score": 12
+      "line": 122,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/cardinality.md",
       "section": "Unbounded alebo effectively unbounded",
-      "line": 87,
+      "line": 122,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request ID,`, `trace ID,`, `user ID,`, `order ID,`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request, trace, session, order alebo merchant ID;`, `raw URL;`, `timestamp;`, `full SQL statement;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
       "section": "Unbounded alebo effectively unbounded",
-      "line": 87,
+      "line": 122,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -173118,16 +173082,16 @@
     {
       "path": "docs/12-observability/cardinality.md",
       "section": "Unbounded alebo effectively unbounded",
-      "line": 87,
+      "line": 122,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URL`, `SQL`, `UID`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URL`, `SQL`, `UID`, `JSON`",
       "score": 7
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "5. Cardinality budget",
-      "line": 107,
+      "section": "6. Cardinality budget",
+      "line": 137,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -173135,26 +173099,26 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "5. Cardinality budget",
-      "line": 107,
+      "section": "6. Cardinality budget",
+      "line": 137,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "detail": "9 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "5. Cardinality budget",
-      "line": 107,
+      "section": "6. Cardinality budget",
+      "line": 137,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `povolené dimensions,`, `očakávaný počet hodnôt,`, `max series/streams/documents per service alebo tenant,`, `growth trend,`.",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `allowed dimensions;`, `expected distinct values a growth;`, `active identities a churn limit;`, `per-service/per-tenant quota;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "5. Cardinality budget",
-      "line": 107,
+      "section": "6. Cardinality budget",
+      "line": 137,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -173162,8 +173126,8 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "5. Cardinality budget",
-      "line": 107,
+      "section": "6. Cardinality budget",
+      "line": 137,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `enforcement`",
@@ -173171,35 +173135,161 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "6. Prometheus cardinality",
-      "line": 132,
+      "section": "7. Prometheus identity multiplication",
+      "line": 165,
       "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 60 slov súvislého vysvetlenia.",
       "score": 8
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "6. Prometheus cardinality",
-      "line": 132,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "6. Prometheus cardinality",
-      "line": 132,
+      "section": "7. Prometheus identity multiplication",
+      "line": 165,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `head memory,`, `WAL a disk,`, `compaction,`, `remote write,`.",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `head memory;`, `WAL a replay;`, `disk/compaction;`, `remote-write bandwidth a backlog;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "6. Prometheus cardinality",
-      "line": 132,
+      "section": "7. Prometheus identity multiplication",
+      "line": 165,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "7. Prometheus identity multiplication",
+      "line": 165,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "8. Loki streams",
+      "line": 194,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľa active streams;`, `malé neefektívne chunks;`, `ingester memory a stream-limit pressure;`, `index/object-store operations;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "8. Loki streams",
+      "line": 194,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "8. Loki streams",
+      "line": 194,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "9. Elasticsearch/OpenSearch fields a mappings",
+      "line": 214,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "9. Elasticsearch/OpenSearch fields a mappings",
+      "line": 214,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `index size;`, `term dictionaries/global ordinals;`, `aggregation memory;`, `heap a query latency;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "9. Elasticsearch/OpenSearch fields a mappings",
+      "line": 214,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "9. Elasticsearch/OpenSearch fields a mappings",
+      "line": 214,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "9. Elasticsearch/OpenSearch fields a mappings",
+      "line": 214,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "10. Traces a derived metrics",
+      "line": 237,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `indexed/promoted attributes;`, `raw span names;`, `attribute search cez dlhú retention;`, `metrics-generator dimensions;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "10. Traces a derived metrics",
+      "line": 237,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "10. Traces a derived metrics",
+      "line": 237,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "12. Multi-tenancy a cost attribution",
+      "line": 263,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "12. Multi-tenancy a cost attribution",
+      "line": 263,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `series/stream/field count;`, `ingestion rate;`, `new-identity rate;`, `label count/value limits;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "12. Multi-tenancy a cost attribution",
+      "line": 263,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -173207,26 +173297,89 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "6. Prometheus cardinality",
-      "line": 132,
+      "section": "12. Multi-tenancy a cost attribution",
+      "line": 263,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `WAL`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
       "score": 4
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "Rizikové labels",
-      "line": 152,
+      "section": "13. Detection a evidence",
+      "line": 277,
       "severity": "critical",
-      "rule": "no-prose-concept",
-      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "Rizikové labels",
-      "line": 152,
+      "section": "13. Detection a evidence",
+      "line": 277,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active series/streams;`, `new identities rate a churn;`, `top metrics/labels/fields podľa distinct count;`, `histogram bucket multiplication;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "13. Detection a evidence",
+      "line": 277,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "13. Detection a evidence",
+      "line": 277,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "14. Worked failure: jeden merchant id , štyri platformové incidenty",
+      "line": 295,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Subject",
+      "line": 297,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Change",
+      "line": 311,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Symptómy",
+      "line": 324,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Symptómy",
+      "line": 324,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -173234,8 +173387,89 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "Rizikové labels",
-      "line": 152,
+      "section": "Competing hypotheses",
+      "line": 345,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Competing hypotheses",
+      "line": 345,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Competing hypotheses",
+      "line": 345,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Competing hypotheses",
+      "line": 345,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `legitímny traffic spike;`, `duplicate scrape targets;`, `retry amplification;`, `histogram bucket expansion;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Competing hypotheses",
+      "line": 345,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Discriminating evidence",
+      "line": 356,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Discriminating evidence",
+      "line": 356,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Containment",
+      "line": 382,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Containment",
+      "line": 382,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Containment",
+      "line": 382,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
@@ -173243,98 +173477,17 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "Rizikové labels",
-      "line": 152,
-      "severity": "critical",
+      "section": "Containment",
+      "line": 382,
+      "severity": "high",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user id ,`, `request id ,`, `trace id ,`, `raw path ,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Rizikové labels",
-      "line": 152,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Rizikové labels",
-      "line": 152,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Series churn",
-      "line": 162,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Series churn",
-      "line": 162,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ephemeral Pods s instance labels,`, `batch jobs s unique run ID,`, `autoscaling workload,`, `dynamic route labels.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Series churn",
-      "line": 162,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Series churn",
-      "line": 162,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "7. Histograms a cardinality",
-      "line": 175,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastaviť rollout instrumentation generation;`, `zachovať schema/config diff a top-dimension evidence;`, `ponechať business SLI a service/Region/merchant-tier dimensions;`, `chrániť backends tenant limitmi a query concurrency;`.",
       "score": 8
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "7. Histograms a cardinality",
-      "line": 175,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "7. Histograms a cardinality",
-      "line": 175,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `bucket pre každý boundary,`, `sum ,`, `count .`, `obmedz labels,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "7. Histograms a cardinality",
-      "line": 175,
+      "section": "Containment",
+      "line": 382,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -173342,8 +173495,8 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "7. Histograms a cardinality",
-      "line": 175,
+      "section": "Containment",
+      "line": 382,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -173351,17 +173504,53 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "8. Recording rules",
-      "line": 193,
+      "section": "Containment",
+      "line": 382,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Authoritative recovery",
+      "line": 392,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Authoritative recovery",
+      "line": 392,
       "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `znížiť agregáciou,`, `zachovať pre critical dimensions,`, `alebo zvýšiť vytvorením ďalších series.`.",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
       "score": 8
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "8. Recording rules",
-      "line": 193,
+      "section": "Authoritative recovery",
+      "line": 392,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Authoritative recovery",
+      "line": 392,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zaviesť merchant tier ako bounded operational dimension;`, `ponechať merchant id iba v approved exact-search fields;`, `canary-nuť jednu service/tenant cohortu;`, `overiť active count, churn, backlog a query latency;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Authoritative recovery",
+      "line": 392,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -173369,8 +173558,35 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "9. Relabeling a metric filtering",
-      "line": 213,
+      "section": "Authoritative recovery",
+      "line": 392,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Authoritative recovery",
+      "line": 392,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Authoritative recovery",
+      "line": 392,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`, `CI`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Acceptance verdict",
+      "line": 403,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -173378,8 +173594,80 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "9. Relabeling a metric filtering",
-      "line": 213,
+      "section": "Acceptance verdict",
+      "line": 403,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Acceptance verdict",
+      "line": 403,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active series/streams a generated metrics sú pod budgetom;`, `churn a backlog sa vrátia k baseline;`, `SLO, saturation a alert inputs zostanú kompletné;`, `alert vytvorí service/Region incident, nie per-merchant storm;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Acceptance verdict",
+      "line": 403,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Acceptance verdict",
+      "line": 403,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Acceptance verdict",
+      "line": 403,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "Acceptance verdict",
+      "line": 403,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`, `ID`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "15. Containment a remediation lifecycle",
+      "line": 416,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "17. Prevention v delivery pipeline",
+      "line": 460,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/cardinality.md",
+      "section": "17. Prevention v delivery pipeline",
+      "line": 460,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
       "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
@@ -173387,17 +173675,17 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "9. Relabeling a metric filtering",
-      "line": 213,
+      "section": "17. Prevention v delivery pipeline",
+      "line": 460,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `dropnúť nepotrebné metrics,`, `odstrániť labels,`, `normalizovať values,`, `obmedziť vysokú cardinality pred storage.`.",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SDK metric views;`, `Collector processors;`, `Prometheus relabeling a limits;`, `Loki label allowlists/tenant limits;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "9. Relabeling a metric filtering",
-      "line": 213,
+      "section": "17. Prevention v delivery pipeline",
+      "line": 460,
       "severity": "high",
       "rule": "thin-concept-section",
       "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
@@ -173405,521 +173693,62 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "9. Relabeling a metric filtering",
-      "line": 213,
+      "section": "17. Prevention v delivery pipeline",
+      "line": 460,
       "severity": "medium",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`, `policy`",
       "score": 4
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "10. Loki cardinality",
-      "line": 231,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "10. Loki cardinality",
-      "line": 231,
+      "section": "18. Troubleshooting model",
+      "line": 489,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `veľa active streams,`, `malé a zle využité chunks,`, `vyšší index overhead,`, `vyššiu memory potrebu ingesterov,`.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "10. Loki cardinality",
-      "line": 231,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "10. Loki cardinality",
-      "line": 231,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Príklad",
-      "line": 246,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "11. Loki stream churn",
-      "line": 260,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "11. Loki stream churn",
-      "line": 260,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod name oproti workload identity,`, `container restart,`, `dynamic annotations,`, `filename,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "11. Loki stream churn",
-      "line": 260,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "11. Loki stream churn",
-      "line": 260,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`, `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "12. Elasticsearch a OpenSearch cardinality",
-      "line": 275,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 40 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "12. Elasticsearch a OpenSearch cardinality",
-      "line": 275,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `index size,`, `global ordinals,`, `aggregation memory,`, `query latency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "12. Elasticsearch a OpenSearch cardinality",
-      "line": 275,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "12. Elasticsearch a OpenSearch cardinality",
-      "line": 275,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "12. Elasticsearch a OpenSearch cardinality",
-      "line": 275,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `IP`, `URL`, `UUID`",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Indexed oproti stored",
-      "line": 299,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Indexed oproti stored",
-      "line": 299,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Indexed oproti stored",
-      "line": 299,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `indexovať pre search,`, `ukladať v source ,`, `použiť pre aggregations podľa mappingu,`, `vypnúť alebo obmedziť podľa potreby.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Indexed oproti stored",
-      "line": 299,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "13. Mapping explosion",
-      "line": 310,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "13. Mapping explosion",
-      "line": 310,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "13. Mapping explosion",
-      "line": 310,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `arbitrary JSON keys,`, `tenant-defined metadata,`, `dynamic labels uložené ako object fields,`, `flattened business payload,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "13. Mapping explosion",
-      "line": 310,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "13. Mapping explosion",
-      "line": 310,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "13. Mapping explosion",
-      "line": 310,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `JSON`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "14. Trace cardinality",
-      "line": 339,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "12 odrážok a iba 42 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "14. Trace cardinality",
-      "line": 339,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `raw URL,`, `SQL statement,`, `user ID,`, `request ID,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "14. Trace cardinality",
-      "line": 339,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "14. Trace cardinality",
-      "line": 339,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "14. Trace cardinality",
-      "line": 339,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`, `SQL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "15. Trace-derived metrics",
-      "line": 363,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "15. Trace-derived metrics",
-      "line": 363,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service,`, `span kind,`, `status,`, `normalized operation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "15. Trace-derived metrics",
-      "line": 363,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "15. Trace-derived metrics",
-      "line": 363,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "16. OpenTelemetry attribute limits",
-      "line": 385,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "16. OpenTelemetry attribute limits",
-      "line": 385,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `počet attributes,`, `value length,`, `počet events,`, `počet links,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "16. OpenTelemetry attribute limits",
-      "line": 385,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "17. Resource attributes a cardinality",
-      "line": 399,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 2 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `service.name je stabilná logical identity,`, `service.instance.id je unikátna instance identity.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "17. Resource attributes a cardinality",
-      "line": 399,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "18. Kubernetes cardinality",
-      "line": 412,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "18. Kubernetes cardinality",
-      "line": 412,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Pod names,`, `Pod UIDs,`, `ReplicaSet hashes,`, `container IDs,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "18. Kubernetes cardinality",
-      "line": 412,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "19. Multi-tenancy",
-      "line": 437,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "19. Multi-tenancy",
-      "line": 437,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `series/stream limits,`, `ingestion rate limits,`, `label count/value limits,`, `query concurrency,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "19. Multi-tenancy",
-      "line": 437,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "20. Cost model",
-      "line": 454,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "20. Cost model",
-      "line": 454,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ingestion pricing,`, `active-series pricing,`, `index storage,`, `memory,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "20. Cost model",
-      "line": 454,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "21. Detection",
-      "line": 472,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "21. Detection",
-      "line": 472,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "21. Detection",
-      "line": 472,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `active series/streams,`, `new series/streams rate,`, `series churn,`, `top metrics podľa series count,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "21. Detection",
-      "line": 472,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "22. Prometheus investigation",
-      "line": 491,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "22. Prometheus investigation",
+      "section": "Prometheus",
       "line": 491,
       "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "22. Prometheus investigation",
-      "line": 491,
+      "section": "Loki",
+      "line": 503,
       "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktoré metric names majú najviac series?`, `Ktoré labels majú najviac distinct values?`, `Ktorý job/tenant/service rastie?`, `Je problém active count alebo churn?`.",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
       "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "22. Prometheus investigation",
-      "line": 491,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "section": "Search backend",
+      "line": 514,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "22. Prometheus investigation",
-      "line": 491,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "Tracing/derived metrics",
+      "line": 525,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "23. Loki investigation",
-      "line": 505,
+      "section": "Unique ID ako metric alebo stream label",
+      "line": 537,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -173927,35 +173756,8 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "23. Loki investigation",
-      "line": 505,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "23. Loki investigation",
-      "line": 505,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `top labels a values,`, `active streams per tenant,`, `streams per service,`, `chunk utilization,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "23. Loki investigation",
-      "line": 505,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "24. Search-index investigation",
-      "line": 519,
+      "section": "Hashovanie ako fix",
+      "line": 541,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -173963,35 +173765,8 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "24. Search-index investigation",
-      "line": 519,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "24. Search-index investigation",
-      "line": 519,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `index mappings,`, `field count,`, `top high-cardinality keyword fields,`, `global ordinals,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "24. Search-index investigation",
-      "line": 519,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "25. Prevention v CI/CD",
-      "line": 534,
+      "section": "Kratšia retention ako jediná remediation",
+      "line": 545,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -173999,80 +173774,8 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "25. Prevention v CI/CD",
-      "line": 534,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "25. Prevention v CI/CD",
-      "line": 534,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `schema diff,`, `label/attribute allowlist,`, `representative load test,`, `estimated series/stream count,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "25. Prevention v CI/CD",
-      "line": 534,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "25. Prevention v CI/CD",
-      "line": 534,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "26. Runtime enforcement",
-      "line": 558,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "26. Runtime enforcement",
-      "line": 558,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `SDK views,`, `Collector filter/transform processors,`, `Prometheus relabeling,`, `Loki label allowlists a limits,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "26. Runtime enforcement",
-      "line": 558,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "26. Runtime enforcement",
-      "line": 558,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "27. Remediation",
-      "line": 573,
+      "section": "Broad drop bez dependency inventory",
+      "line": 549,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174080,44 +173783,8 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "27. Remediation",
-      "line": 573,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "27. Remediation",
-      "line": 573,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zastav ďalší rast,`, `identifikuj producer a dimension,`, `dropni alebo normalize-nuť problematickú hodnotu,`, `chráň platformu limitmi,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "27. Remediation",
-      "line": 573,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "27. Remediation",
-      "line": 573,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "28. Normalization",
-      "line": 589,
+      "section": "Všetky Kubernetes labels automaticky",
+      "line": 553,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -174125,224 +173792,8 @@
     },
     {
       "path": "docs/12-observability/cardinality.md",
-      "section": "30. Aggregation",
-      "line": 625,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "30. Aggregation",
-      "line": 625,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `status code → status class,`, `raw endpoint → route template,`, `instance → service/workload,`, `exact customer → customer tier,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "30. Aggregation",
-      "line": 625,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "30. Aggregation",
-      "line": 625,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `workload`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "31. Retention tiers",
-      "line": 640,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "31. Retention tiers",
-      "line": 640,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `per-instance metrics: 7 dní,`, `service aggregates: 13 mesiacov,`, `detailed logs: 14 dní,`, `audit logs: podľa compliance,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "31. Retention tiers",
-      "line": 640,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "31. Retention tiers",
-      "line": 640,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "32. Privacy a security",
-      "line": 655,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "32. Privacy a security",
-      "line": 655,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `data classification,`, `minimization,`, `hashing/tokenization podľa threat modelu,`, `access control,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "32. Privacy a security",
-      "line": 655,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "33. Cardinality a alerting",
-      "line": 672,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "33. Cardinality a alerting",
-      "line": 672,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `alert storm,`, `Alertmanager memory/routing load,`, `stovky notifications,`, `silences sa ťažko matchujú.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "33. Cardinality a alerting",
-      "line": 672,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "34. Cardinality a dashboards",
-      "line": 691,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "34. Cardinality a dashboards",
-      "line": 691,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "34. Cardinality a dashboards",
-      "line": 691,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tisíce variable options,`, `query storm,`, `browser overload,`, `backend fan-out.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "34. Cardinality a dashboards",
-      "line": 691,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Unique ID ako metric label",
-      "line": 713,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Všetky Kubernetes labels automaticky exportované",
-      "line": 717,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Hashovanie ako cardinality fix",
-      "line": 721,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "High-cardinality field indexovaný „pre istotu“",
-      "line": 725,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Riešenie iba kratšou retention",
-      "line": 729,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Drop bez dependency analýzy",
-      "line": 733,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/cardinality.md",
-      "section": "Global limit bez tenant attribution",
-      "line": 737,
+      "section": "High-cardinality field „pre istotu“",
+      "line": 557,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
