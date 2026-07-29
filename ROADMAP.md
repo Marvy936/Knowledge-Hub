@@ -349,8 +349,8 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Consistency models](docs/15-databases-and-distributed-systems/consistency-models.md)
 - [x] [Leader election a consensus](docs/15-databases-and-distributed-systems/leader-election-and-consensus.md)
 - [x] [Retry, timeout a circuit breaker](docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md)
-- [ ] Rate limiting
-- [ ] Idempotency a backpressure
+- [x] [Rate limiting](docs/15-databases-and-distributed-systems/rate-limiting.md)
+- [x] [Idempotency a backpressure](docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md)
 
 ### GitOps and Platform Engineering
 

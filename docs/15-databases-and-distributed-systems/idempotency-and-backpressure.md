@@ -840,3 +840,11 @@ Relevantné pojmy: idempotency subject, business idempotency, idempotency key sc
 - [Reactive Streams Specification for the JVM](https://github.com/reactive-streams/reactive-streams-jvm)
 - [Apache Kafka 4.1 — KafkaConsumer](https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html)
 - [gRPC — Flow Control](https://grpc.io/docs/guides/flow-control/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Rate limiting](rate-limiting.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

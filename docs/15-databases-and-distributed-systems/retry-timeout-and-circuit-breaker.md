@@ -589,5 +589,5 @@ Relevantné pojmy: resilience subject, end-to-end deadline, remaining deadline b
 
 **Navigácia**
 
-[← Predchádzajúca: Leader election a consensus](leader-election-and-consensus.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Leader election a consensus](leader-election-and-consensus.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Rate limiting →](rate-limiting.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

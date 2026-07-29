@@ -592,3 +592,11 @@ Relevantné pojmy: rate-limiting subject, admission control, quota, concurrency 
 - [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110.html)
 - [IETF HTTPAPI — RateLimit header fields for HTTP, draft-11](https://datatracker.ietf.org/doc/draft-ietf-httpapi-ratelimit-headers/)
 - [gRPC — Status Codes](https://grpc.io/docs/guides/status-codes/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Retry, timeout a circuit breaker](retry-timeout-and-circuit-breaker.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Idempotency a backpressure →](idempotency-and-backpressure.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

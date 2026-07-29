@@ -37,15 +37,14 @@ Odporúča sa najprv dokončiť:
 14. [Consistency models](consistency-models.md)
 15. [Leader election a consensus](leader-election-and-consensus.md)
 16. [Retry, timeout a circuit breaker](retry-timeout-and-circuit-breaker.md)
+17. [Rate limiting](rate-limiting.md)
+18. [Idempotency a backpressure](idempotency-and-backpressure.md)
 
-Aktuálny authoritative stav sekcie je **16/18 · In progress**.
+Aktuálny authoritative stav sekcie je **18/18 · Ready for user review**.
 
-## Plánované pokračovanie
+## Completion state
 
-Authoritative poradie bude pokračovať bez zmeny roadmapy:
-
-17. Rate limiting
-18. Idempotency a backpressure
+Všetkých 18 authoritative kapitol je vytvorených. Sekcia prešla finálnym section-level consistency gate-om a je pripravená na používateľskú kontrolu; nie je tým automaticky používateľsky schválená, Accepted, Verified ani Stable.
 
 ## Connected learning scenarios
 
@@ -307,6 +306,84 @@ provider execution
 
 Partition heal a recovery porovnávajú consensus revision/term, loaded route generations, leader epochs, logical operation/attempt trees a provider ledger. Replicas converging na majority history nie je closure, kým external attempts a unknown outcomes nie sú reconciled.
 
+### `DB-PAY-60` — fair admission, stable operation identity a bounded flow
+
+Release `payments 8.4` otvoril partnerom bulk replay po 47-minútovom provider outage-i. Gateway fleet mal `80` Podov a každý Pod vlastný token bucket:
+
+```text
+sustained per Pod:       450 requests/s
+burst per Pod:           900 requests
+fleet sustained:         36 000 requests/s
+fleet immediate burst:   72 000 requests
+```
+
+Safe downstream envelope providera P2 bol približne `6 500 attempts/s` a `1 200` in-flight attempts. Limiter počítal raw HTTP attempts, nemal global/provider/tenant hierarchy a nerozlišoval expensive create od status alebo reconciliation requestu.
+
+Počas 14 minút:
+
+- partner replay dosiahol `21 600 requests/s` pri približne `3 200 requests/s` normal trafficu;
+- gateway prijala `6.9 milióna` requests;
+- jeden partner spotreboval `71 %` admitted create capacity;
+- `429` responses nemali `Retry-After` a SDK retryovala po fixných `100 ms`;
+- HTTP-attempt amplification dosiahla `2.4×`;
+- oldest provider command dosiahol age `54 minút`.
+
+Idempotency registry bola mimo authoritative settlement transaction:
+
+```text
+SELECT key
+→ generate new operation_id
+→ commit settlement + outbox
+→ autocommit key mapping
+```
+
+Key nemal semantic payload fingerprint, cleanup ho mazal `20 minút` po `first_seen` aj pri non-terminal operation a provider key sa odvodzoval z internal `operation_id`.
+
+Dôsledky:
+
+- `12 480` duplicate submissions použilo rovnaké business operation IDs;
+- `1 906` retries prišlo po registry expiry;
+- `143` concurrent duplicate pairs prešlo check-before-insert race-om;
+- vzniklo `83` duplicate authoritative operations;
+- provider potvrdil `31` duplicate effects;
+- `29` effects bolo automaticky reversed a `2` vyžadovali manuálnu remediation.
+
+Provider fleet mal `48` worker Podov, každý s async limitom `2 000`, teda theoretical fleet in-flight `96 000`. Kafka consumer polloval do prakticky unbounded executor queue a partitions pause-ol až pri heap utilization nad `85 %`; po rebalance sa pause state neobnovil.
+
+```text
+Kafka backlog:              2.7 milióna commands
+oldest command:             54 minút
+queued executor tasks:      približne 348 000
+worker OOM kills:           17
+provider-pool wait p99:     11.2 s
+safe provider in-flight:    1 200
+```
+
+Causal boundaries:
+
+- **Rate-limiting root cause:** process-local request counter bez fleet, tenant, operation-cost a downstream-provider envelope-u.
+- **Idempotency root cause:** claim nebol atomic s authoritative operation, nemal semantic fingerprint a expiroval pred terminal/reconciliation lifecycle-om.
+- **Backpressure root cause:** API admission, consumer polling a executor submission neboli riadené downstream completion credits; buffers a in-flight concurrency boli rádovo väčšie než safe envelope.
+- **Amplifiers:** autoscale, fixed-delay client retry, shared create/status budget, short key retention, provider key podľa attempt-derived operation ID, rebalance pause loss a immediate retry flow.
+
+Authoritative redesign:
+
+```text
+global/provider/tenant/operation-class admission
+→ provider P2 rate 5 800/s + hard in-flight 1 200
+→ reserved status/cancellation/reconciliation capacity
+→ atomic PostgreSQL idempotency claim + settlement + outbox
+→ semantic fingerprint a stable business/provider identity
+→ durable status/result reuse for duplicate requests
+→ bounded consumer credits, poll a executor queues
+→ pause/resume re-derived after rebalance
+→ backlog-age-driven admission and delayed retry
+→ provider lookup/reconciliation before unknown retry
+→ bounded drain and second-overload validation
+```
+
+Final recovery vytvorila operation-equivalence groups podľa tenant, business operation ID a semantic payloadu, porovnala ich s provider ledgerom, zastavila duplicate attempts, vykonala reversals a drainovala oldest safe work pod hard provider credits. Pokles queue depth nebol považovaný za closure bez final business reconciliation.
+
 ## Cieľ zvládnutia prvého bloku
 
 ### Relational vs. non-relational databases
@@ -451,6 +528,27 @@ Partition heal a recovery porovnávajú consensus revision/term, loaded route ge
 - navrhovať breaker scope/signals a bounded Half-Open probes;
 - overiť retry storm, lost response, recovery a duplicate-effect forbidden outcome.
 
+## Cieľ zvládnutia piateho bloku
+
+### Rate limiting
+
+- definovať exact admission subject, key, units, cost, scope a generation;
+- rozlíšiť rate, quota, concurrency, burst a downstream capacity envelope;
+- vysvetliť fixed/sliding windows, token/leaky bucket a distributed counters;
+- odvodiť hierarchical global/provider/tenant/operation-class fairness;
+- vytvoriť truthful `429`, `Retry-After`, priority a recovery-reserve contract;
+- overiť autoscale, one-tenant flood, burst, counter failure a retry storm.
+
+### Idempotency a backpressure
+
+- definovať key scope, semantic fingerprint a atomic claim;
+- modelovať accepted, processing, completed, failed-final a reconciliation-required states;
+- zachovať stable operation identity cez outbox, broker, consumer a provider;
+- odvodiť retention z retry, backlog, replay a reconciliation window-u;
+- inventarizovať a hard-boundovať queues, buffers, pools a in-flight work;
+- prenášať downstream credits cez poll/pause/executor/admission boundaries;
+- overiť concurrent duplicate, lost response, rebalance, sustained overload a bounded drain.
+
 ## Dominantný model sekcie
 
 ```text
@@ -458,9 +556,9 @@ business capability a stateful/distributed operation
 → exact authoritative, communication alebo derived subject
 → invariant, consistency, availability a latency objectives
 → data/transaction/service/message/route/cache topology
-→ concurrency, replication, partition, consistency, consensus, delivery, routing, cache a resilience mechanisms
+→ concurrency, replication, partition, consistency, consensus, delivery, routing, cache, resilience, admission, idempotency a backpressure mechanisms
 → observed current generation and effective state
-→ bounded write/read/partition/leadership/route/retry/recovery decision
+→ bounded write/read/partition/leadership/route/retry/admission/flow/recovery decision
 → business outcome and reconciliation
 → migration/failover/replay/second-operation closure
 ```
@@ -479,11 +577,48 @@ Každá komplexná kapitola musí rozlišovať:
 - consensus leader od process-local leadership a fenced mutation;
 - deadline/timeout od failure a unknown outcome;
 - logical operation od nested physical retry tree a aggregate budget;
+- configured local limit od effective fleet/global admission;
+- rate/quota policy od current downstream backpressure;
+- idempotency key od semantic operation equivalence;
+- queue depth od queue age, deadlines a drain capacity;
+- accepted durable work od completed/reconciled business effect;
 - technical availability od business correctness;
 - trigger, root cause a causal amplifier;
 - containment, reconciliation a authoritative recovery;
 - configured object od valid/effective runtime mechanismu;
 - first success od concurrent, second-operation a second-failure validation.
+
+## Finálny section-level consistency gate
+
+Sekcia prešla finálnym gate-om nad celým authoritative poradím:
+
+```text
+data model a authority
+→ transaction a physical access/concurrency
+→ replication, backup a recovery
+→ connection/product/architecture boundaries
+→ synchronous/asynchronous communication
+→ durable messaging, routing a cache coherence
+→ partition a consistency model
+→ consensus, leadership a resilience
+→ fair admission, idempotency a bounded flow
+→ business reconciliation a lifecycle closure
+```
+
+Overené bolo:
+
+- presné poradie všetkých 18 kapitol podľa `ROADMAP.md`;
+- päť connected incidentov `DB-PAY-56` až `DB-PAY-60` s oddelenými trigger, root-cause a amplifier boundaries;
+- jednotná operation identity od client intentu cez transaction/outbox/message/provider až po final result;
+- rozlíšenie authoritative, derived a cached state-u;
+- rozlíšenie commit, acknowledgement, delivery, apply, visibility a completion boundaries;
+- prepojenie consistency, availability, leadership, retries, rate limits, idempotency a backpressure s business invariantom;
+- recovery cez reconciliation, fencing, replay/restore, bounded drain a second-operation/second-failure tests;
+- glossary fragments `15a`–`15e`, generated `GLOSSARY.md`, roadmap a navigation chain;
+- prázdne `DOCUMENTATION-AUDIT.md` a `documentation-audit.json` failure artifacts po finálnej synchronizácii;
+- current primary-source semantics pre PostgreSQL, MySQL, Redis, Kafka, RabbitMQ, etcd, Kubernetes, HTTP, gRPC a Reactive Streams.
+
+Stav **Ready for user review** znamená dokončené authoritative drafting a repository-level consistency gate. Neznamená automatické používateľské schválenie, produkčnú certifikáciu ani stav Verified alebo Stable.
 
 ## Stav
 
@@ -505,7 +640,7 @@ Každá komplexná kapitola musí rozlišovať:
 | Consistency models | Learning | L2 |
 | Leader election a consensus | Learning | L2 |
 | Retry, timeout a circuit breaker | Learning | L2 |
-| Rate limiting | Not Started | L0 |
-| Idempotency a backpressure | Not Started | L0 |
+| Rate limiting | Learning | L2 |
+| Idempotency a backpressure | Learning | L2 |
 
-Sekcia zostáva **In progress**. Stav **Ready for user review** možno použiť až po vytvorení všetkých 18 authoritative kapitol, overení navigation chainu, glossary, audit artifacts a finálnom section-level consistency passe.
+Sekcia je **18/18 · Ready for user review**. Všetky authoritative kapitoly, connected scenarios, navigation, glossary a audit gates sú dokončené; stav neznamená automatické používateľské schválenie.
