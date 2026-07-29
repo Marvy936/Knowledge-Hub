@@ -3419,15 +3419,15 @@
     {
       "path": "docs/13-security-and-identity/kerberos.md",
       "title": "Kerberos",
-      "words": 4110,
-      "headings": 50,
-      "sections": 50,
-      "findings": 97,
-      "critical": 17,
-      "high": 17,
-      "medium": 11,
-      "low": 52,
-      "score": 442,
+      "words": 2217,
+      "headings": 44,
+      "sections": 44,
+      "findings": 89,
+      "critical": 25,
+      "high": 41,
+      "medium": 5,
+      "low": 18,
+      "score": 660,
       "grade": "D"
     },
     {
@@ -187256,818 +187256,8 @@
     },
     {
       "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "1. Prečo Kerberos existuje",
-      "line": 18,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "2. Realm",
-      "line": 26,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "2. Realm",
-      "line": 26,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "4. Service Principal Name",
-      "line": 52,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "5. KDC",
-      "line": 65,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "5. KDC",
-      "line": 65,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "6. Long-term keys",
-      "line": 77,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "7. Ticket anatomy",
-      "line": 85,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 51 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "7. Ticket anatomy",
-      "line": 85,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client principal;`, `server/service principal;`, `client-service session key;`, `validity interval;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "7. Ticket anatomy",
-      "line": 85,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "9. Service ticket",
-      "line": 109,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "9. Service ticket",
-      "line": 109,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "11. Pre-authentication",
-      "line": 138,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "14. Authenticator",
-      "line": 183,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "15. Session keys",
-      "line": 191,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `client/TGS session key pre TGS exchanges;`, `client/service session key pre application security context;`, `optional negotiated subkeys pre konkrétny application exchange.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "15. Session keys",
-      "line": 191,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "15. Session keys",
-      "line": 191,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "15. Session keys",
-      "line": 191,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TGS`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "16. Credential cache",
-      "line": 203,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "17. Keytab",
-      "line": 219,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "8 odrážok a iba 48 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "17. Keytab",
-      "line": 219,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `restrictive owner/mode;`, `no Git, image layer, ticket alebo chat storage;`, `secure automated distribution;`, `minimal principals;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "17. Keytab",
-      "line": 219,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "17. Keytab",
-      "line": 219,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "18. KVNO",
-      "line": 236,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "18. KVNO",
-      "line": 236,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "19. Encryption types",
-      "line": 250,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `enctypes dostupné pre principal long-term keys;`, `enctype ticket encryption;`, `enctype session keyu;`, `application/GSS protection support;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "19. Encryption types",
-      "line": 250,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "19. Encryption types",
-      "line": 250,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "19. Encryption types",
-      "line": 250,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `GSS`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "20. String-to-key a password strength",
-      "line": 264,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "21. Time synchronization",
-      "line": 272,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Clock skew too great ;`, `ticket je not yet valid alebo expired ;`, `iba časť hosts zlyháva;`, `intermittent failures po VM suspend/resume;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "21. Time synchronization",
-      "line": 272,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "21. Time synchronization",
-      "line": 272,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "21. Time synchronization",
-      "line": 272,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `VM`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "22. DNS a service discovery",
-      "line": 286,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "7 odrážok a iba 69 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "22. DNS a service discovery",
-      "line": 286,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user-visible hostname;`, `resolved canonical name;`, `requested service principal v klist /trace;`, `registered SPN;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "22. DNS a service discovery",
-      "line": 286,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "22. DNS a service discovery",
-      "line": 286,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "23. Ticket lifetime",
-      "line": 304,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "24. Ticket flags",
-      "line": 312,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "24. Ticket flags",
-      "line": 312,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pre-authenticated — client použil pre-authentication;`, `proxiable alebo proxy-related semantics podľa implementation;`, `delegation-related flags;`, `invalid/postdated podľa specialized use cases.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "24. Ticket flags",
-      "line": 312,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "24. Ticket flags",
-      "line": 312,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "24. Ticket flags",
-      "line": 312,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "24. Ticket flags",
-      "line": 312,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`, `delegation`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "25. Renewal",
-      "line": 326,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "26. Delegation",
-      "line": 334,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 63 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "26. Delegation",
-      "line": 334,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credential forwarding alebo theft;`, `broad transitive authority;`, `compromised front-end impersonuje users downstream;`, `confused deputy;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "26. Delegation",
-      "line": 334,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "28. Cross-realm trust",
-      "line": 359,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "28. Cross-realm trust",
-      "line": 359,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "30. Kerberos v Active Directory",
-      "line": 380,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "31. Privilege Attribute Certificate",
-      "line": 388,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "32. Kerberos a LDAP",
-      "line": 396,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "32. Kerberos a LDAP",
-      "line": 396,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `RBAC`, `policy`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "34. GSS-API",
-      "line": 416,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mutual authentication;`, `integrity protection ( wrap /MIC semantics);`, `confidentiality;`, `replay a sequence detection;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "34. GSS-API",
-      "line": 416,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "34. GSS-API",
-      "line": 416,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "34. GSS-API",
-      "line": 416,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "34. GSS-API",
-      "line": 416,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MIC`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "37. Observability",
-      "line": 448,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "37. Observability",
-      "line": 448,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AS request rate a pre-auth failures;`, `unknown client principals;`, `TGS request rate a unknown service principals;`, `requested SPNs a enctypes;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "37. Observability",
-      "line": 448,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "37. Observability",
-      "line": 448,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "37. Observability",
-      "line": 448,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "37. Observability",
-      "line": 448,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "37. Observability",
-      "line": 448,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`, `TGS`, `KVNO`, `NTLM`, `delegation`, `availability`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "38. Client-side troubleshooting",
-      "line": 468,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "38. Client-side troubleshooting",
-      "line": 468,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "39. Service-side troubleshooting",
-      "line": 482,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "39. Service-side troubleshooting",
-      "line": 482,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý SPN client žiada;`, `ktorý account/key SPN vlastní;`, `ktoré principals/KVNO/enctypes obsahuje keytab;`, `pod akou OS identity process beží;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "39. Service-side troubleshooting",
-      "line": 482,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "39. Service-side troubleshooting",
-      "line": 482,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "39. Service-side troubleshooting",
-      "line": 482,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KVNO`, `OS`, `GSS`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "40. Failure-domain troubleshooting flow",
-      "line": 497,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "41. Common errors vysvetlené",
-      "line": 514,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "42. Attacks",
-      "line": 530,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "43. Controls",
-      "line": 548,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "43. Controls",
-      "line": 548,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "43. Controls",
-      "line": 548,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required pre-authentication a strong modern authentication;`, `long random/managed service-account credentials;`, `AES enctypes a removal legacy algorithms;`, `protected KDC/domain-controller administration;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "43. Controls",
-      "line": 548,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "43. Controls",
-      "line": 548,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "43. Controls",
-      "line": 548,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AES`, `SPN`, `AD`, `NTLM`, `delegation`, `resource`",
-      "score": 7
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "45. KDC alebo domain compromise",
-      "line": 583,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "45. KDC alebo domain compromise",
-      "line": 583,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `isolation affected domain controllers/KDCs;`, `preservation security logs a directory state;`, `rotation high-value realm keys podľa platform-specific staged procedur`, `reset privileged/user/service credentials;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "45. KDC alebo domain compromise",
-      "line": 583,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "45. KDC alebo domain compromise",
-      "line": 583,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "45. KDC alebo domain compromise",
-      "line": 583,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "45. KDC alebo domain compromise",
-      "line": 583,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `delegation`",
-      "score": 4
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "46. Časté anti-patterny",
-      "line": 600,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "47. Kompletný príklad HTTP Kerberos loginu",
-      "line": 618,
+      "section": "1. Dominantný lifecycle",
+      "line": 5,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -188075,35 +187265,26 @@
     },
     {
       "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "47. Kompletný príklad HTTP Kerberos loginu",
-      "line": 618,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "47. Kompletný príklad HTTP Kerberos loginu",
-      "line": 618,
+      "section": "1. Dominantný lifecycle",
+      "line": 5,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "47. Kompletný príklad HTTP Kerberos loginu",
-      "line": 618,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
+      "section": "2. Exact Kerberos subject",
+      "line": 32,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "47. Kompletný príklad HTTP Kerberos loginu",
-      "line": 618,
+      "section": "3. Realm, principal a SPN",
+      "line": 62,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -188111,8 +187292,71 @@
     },
     {
       "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "47. Kompletný príklad HTTP Kerberos loginu",
-      "line": 618,
+      "section": "4. KDC, AS a TGS",
+      "line": 85,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Authentication Service — AS — vydávajúcu TGT;`, `principal/key a policy database.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "4. KDC, AS a TGS",
+      "line": 85,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "4. KDC, AS a TGS",
+      "line": 85,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`, `TGT`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "AS exchange",
+      "line": 95,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "TGS exchange",
+      "line": 106,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "AP exchange",
+      "line": 115,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "AP exchange",
+      "line": 115,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "5. Tickets, authenticators a session keys",
+      "line": 124,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -188120,12 +187364,696 @@
     },
     {
       "path": "docs/13-security-and-identity/kerberos.md",
-      "section": "47. Kompletný príklad HTTP Kerberos loginu",
-      "line": 618,
+      "section": "7. Credential cache a keytab sú odlišné secrets",
+      "line": 151,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "7. Credential cache a keytab sú odlišné secrets",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "8. KVNO a service-key rotation",
+      "line": 174,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "9. Encryption types",
+      "line": 199,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "12. PAC a AD group generation",
+      "line": 237,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "13. Kerberos, LDAP a application authorization",
+      "line": 252,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "14. GSS-API, SPNEGO a HTTP Negotiate",
+      "line": 270,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "14. GSS-API, SPNEGO a HTTP Negotiate",
+      "line": 270,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kerberos accepted;`, `NTLM fallback;`, `anonymous/backend header path;`, `mutual-auth result;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "14. GSS-API, SPNEGO a HTTP Negotiate",
+      "line": 270,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "14. GSS-API, SPNEGO a HTTP Negotiate",
+      "line": 270,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "15. Delegation a actor chain",
+      "line": 285,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "15. Delegation a actor chain",
+      "line": 285,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "17. Containers a ephemeral workloads",
+      "line": 314,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "18. Worked failure: fresh ticket, stale authorization data",
+      "line": 320,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Exact subject",
+      "line": 326,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Competing hypotheses",
+      "line": 339,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Competing hypotheses",
+      "line": 339,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Competing hypotheses",
+      "line": 339,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Competing hypotheses",
+      "line": 339,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `browser použil old pre-removal TGT;`, `SPNEGO fallbackol na NTLM;`, `duplicate/wrong SPN mapoval na iný service account;`, `service keytab/KVNO mismatch spôsobil fallback path;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Competing hypotheses",
+      "line": 339,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Competing hypotheses",
+      "line": 339,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Competing hypotheses",
+      "line": 339,
       "severity": "high",
       "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TGT`, `HTTP`, `SPN`, `TGS-`, `SPNEGO`, `GSS`, `HTTPS`, `NTLM`",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TGT`, `SPNEGO`, `NTLM`, `SPN`, `KVNO`, `KDC`, `PAC`, `LDAP`",
       "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Discriminating evidence",
+      "line": 349,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Evidence-preserving containment",
+      "line": 365,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Evidence-preserving containment",
+      "line": 365,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Evidence-preserving containment",
+      "line": 365,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Evidence-preserving containment",
+      "line": 365,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `revoke-nuť application/OAuth sessions odvodené z affected Kerberos ses`, `zastaviť privileged operations pre affected principal/group generation`, `nevynucovať NTLM fallback ako workaround.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Evidence-preserving containment",
+      "line": 365,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Evidence-preserving containment",
+      "line": 365,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Evidence-preserving containment",
+      "line": 365,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Evidence-preserving containment",
+      "line": 365,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TGT`, `KDC`, `PAC`, `SPN`, `KVNO`, `NTLM`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Authoritative recovery",
+      "line": 374,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Authoritative recovery",
+      "line": 374,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Authoritative recovery",
+      "line": 374,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Authoritative recovery",
+      "line": 374,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Authoritative recovery",
+      "line": 374,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Authoritative recovery",
+      "line": 374,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Authoritative recovery",
+      "line": 374,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AD`, `KDC`, `TGT`, `PAC`, `SID`, `JIT`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Acceptance verdict",
+      "line": 384,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Acceptance verdict",
+      "line": 384,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Acceptance verdict",
+      "line": 384,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Acceptance verdict",
+      "line": 384,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Acceptance verdict",
+      "line": 384,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Acceptance verdict",
+      "line": 384,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Acceptance verdict",
+      "line": 384,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`, `TGS`, `AP`, `TGT`, `SPN`, `NTLM`, `KVNO`, `KDC`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "19. Troubleshooting flow",
+      "line": 393,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "20. Compromise a recovery model",
+      "line": 418,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "User ticket/cache compromise",
+      "line": 420,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "User ticket/cache compromise",
+      "line": 420,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "User ticket/cache compromise",
+      "line": 420,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "User ticket/cache compromise",
+      "line": 420,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `revoke application sessions a downstream grants;`, `disable/reset identity podľa incident scope;`, `posúdiť ticket lifetime, renewal, forwarding a copied caches;`, `analyzovať service-ticket use a resource actions.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "User ticket/cache compromise",
+      "line": 420,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "User ticket/cache compromise",
+      "line": 420,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `scope`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Service keytab compromise",
+      "line": 427,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Service keytab compromise",
+      "line": 427,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Service keytab compromise",
+      "line": 427,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Service keytab compromise",
+      "line": 427,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `isolate service cohort;`, `rotate service key/KVNO a distribute trusted keytab;`, `minimalizovať overlap;`, `posúdiť impersonation/decryption exposure;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Service keytab compromise",
+      "line": 427,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Service keytab compromise",
+      "line": 427,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KVNO`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "KDC/realm/domain compromise",
+      "line": 435,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "KDC/realm/domain compromise",
+      "line": 435,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "KDC/realm/domain compromise",
+      "line": 435,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "KDC/realm/domain compromise",
+      "line": 435,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachovať directory/KDC evidence;`, `izolovať affected control plane;`, `použiť platform-specific staged high-value key/forest recovery;`, `reset privileged, service a trust credentials;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "KDC/realm/domain compromise",
+      "line": 435,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "KDC/realm/domain compromise",
+      "line": 435,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KDC`, `control plane`, `delegation`",
+      "score": 4
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "21. Earlier controls",
+      "line": 444,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "21. Earlier controls",
+      "line": 444,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "21. Earlier controls",
+      "line": 444,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "21. Earlier controls",
+      "line": 444,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `KDC/site identity v authentication audite;`, `per-site fresh-group Kerberos canary;`, `SPN uniqueness a ownership validation;`, `KVNO/keytab fleet inventory;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "21. Earlier controls",
+      "line": 444,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "21. Earlier controls",
+      "line": 444,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KDC`, `SPN`, `KVNO`, `NTLM`, `identity`, `delegation`, `resource`",
+      "score": 7
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Platný ticket = permission",
+      "line": 458,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Keytab v image alebo shared Git secret",
+      "line": 462,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "DNS alias bez SPN plánu",
+      "line": 466,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "NTLM fallback ako recovery",
+      "line": 470,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Rotation bez KVNO overlap/retirement contractu",
+      "line": 474,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/13-security-and-identity/kerberos.md",
+      "section": "Group removal bez session revocation",
+      "line": 478,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/13-security-and-identity/ldap.md",

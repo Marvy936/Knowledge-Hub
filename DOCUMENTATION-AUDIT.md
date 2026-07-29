@@ -5,9 +5,9 @@
 ## Summary
 
 - Audited authoritative articles: **257**
-- Audited conceptual sections: **10534**
-- Total words: **636,660**
-- Findings: **21650** (critical 6355, high 7094, medium 2781, low 5420)
+- Audited conceptual sections: **10528**
+- Total words: **634,767**
+- Findings: **21642** (critical 6363, high 7118, medium 2775, low 5386)
 - File grades: A 0, B 0, C 1, D 256
 
 ## Interpretation
@@ -116,6 +116,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 664 | 26 | 37 | 10 | 26 | 2978 | `docs/09-kubernetes/worker-node-components.md` |
 | D | 663 | 30 | 31 | 14 | 7 | 1625 | `docs/11-cloud-and-aws/regions-availability-zones.md` |
 | D | 663 | 29 | 30 | 13 | 20 | 2073 | `docs/13-security-and-identity/ldap.md` |
+| D | 660 | 25 | 41 | 5 | 18 | 2217 | `docs/13-security-and-identity/kerberos.md` |
 | D | 657 | 32 | 28 | 8 | 15 | 1850 | `docs/12-observability/loki.md` |
 | D | 656 | 28 | 35 | 8 | 16 | 1792 | `docs/04-testing-and-quality/smoke-and-regression-tests.md` |
 | D | 655 | 30 | 30 | 11 | 18 | 2326 | `docs/09-kubernetes/service-endpointslice.md` |
@@ -212,7 +213,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 450 | 18 | 25 | 6 | 12 | 1787 | `docs/05-ci-cd-and-release/ring-deployment.md` |
 | D | 446 | 18 | 22 | 10 | 15 | 2170 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | D | 442 | 17 | 23 | 10 | 13 | 1881 | `docs/05-ci-cd-and-release/feature-flags.md` |
-| D | 442 | 17 | 17 | 11 | 52 | 4110 | `docs/13-security-and-identity/kerberos.md` |
 | D | 437 | 18 | 15 | 13 | 43 | 3662 | `docs/00-foundations/three-ways.md` |
 | D | 436 | 21 | 17 | 6 | 21 | 2063 | `docs/09-kubernetes/hpa-autoscaling.md` |
 | D | 434 | 22 | 14 | 12 | 10 | 1931 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
@@ -13992,40 +13992,72 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/13-security-and-identity/kerberos.md`
 
-- **CRITICAL** line 85, `bare-bullet-items` — **7. Ticket anatomy**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client principal;`, `server/service principal;`, `client-service session key;`, `validity interval;`.
-- **CRITICAL** line 219, `bare-bullet-items` — **17. Keytab**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `restrictive owner/mode;`, `no Git, image layer, ticket alebo chat storage;`, `secure automated distribution;`, `minimal principals;`.
-- **CRITICAL** line 250, `bare-bullet-items` — **19. Encryption types**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `enctypes dostupné pre principal long-term keys;`, `enctype ticket encryption;`, `enctype session keyu;`, `application/GSS protection support;`.
-- **CRITICAL** line 272, `bare-bullet-items` — **21. Time synchronization**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Clock skew too great ;`, `ticket je not yet valid alebo expired ;`, `iba časť hosts zlyháva;`, `intermittent failures po VM suspend/resume;`.
-- **CRITICAL** line 286, `bare-bullet-items` — **22. DNS a service discovery**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user-visible hostname;`, `resolved canonical name;`, `requested service principal v klist /trace;`, `registered SPN;`.
-- **CRITICAL** line 312, `outline-instead-of-explanation` — **24. Ticket flags**: 7 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
-- **CRITICAL** line 334, `bare-bullet-items` — **26. Delegation**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `credential forwarding alebo theft;`, `broad transitive authority;`, `compromised front-end impersonuje users downstream;`, `confused deputy;`.
-- **CRITICAL** line 416, `bare-bullet-items` — **34. GSS-API**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `mutual authentication;`, `integrity protection ( wrap /MIC semantics);`, `confidentiality;`, `replay a sequence detection;`.
-- **CRITICAL** line 448, `bare-bullet-items` — **37. Observability**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `AS request rate a pre-auth failures;`, `unknown client principals;`, `TGS request rate a unknown service principals;`, `requested SPNs a enctypes;`.
-- **CRITICAL** line 448, `outline-instead-of-explanation` — **37. Observability**: 13 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **CRITICAL** line 482, `bare-bullet-items` — **39. Service-side troubleshooting**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý SPN client žiada;`, `ktorý account/key SPN vlastní;`, `ktoré principals/KVNO/enctypes obsahuje keytab;`, `pod akou OS identity process beží;`.
-- **CRITICAL** line 482, `outline-instead-of-explanation` — **39. Service-side troubleshooting**: 8 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
-- **CRITICAL** line 548, `bare-bullet-items` — **43. Controls**: 13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required pre-authentication a strong modern authentication;`, `long random/managed service-account credentials;`, `AES enctypes a removal legacy algorithms;`, `protected KDC/domain-controller administration;`.
-- **CRITICAL** line 548, `outline-instead-of-explanation` — **43. Controls**: 13 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
-- **CRITICAL** line 583, `bare-bullet-items` — **45. KDC alebo domain compromise**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `isolation affected domain controllers/KDCs;`, `preservation security logs a directory state;`, `rotation high-value realm keys podľa platform-specific staged procedur`, `reset privileged/user/service credentials;`.
-- **CRITICAL** line 583, `outline-instead-of-explanation` — **45. KDC alebo domain compromise**: 8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
-- **CRITICAL** line 618, `outline-instead-of-explanation` — **47. Kompletný príklad HTTP Kerberos loginu**: 10 odrážok je podopretých iba 8 slovami súvislého vysvetlenia.
-- **HIGH** line 85, `list-heavy-section` — **7. Ticket anatomy**: 7 odrážok a iba 51 slov súvislého vysvetlenia.
-- **HIGH** line 191, `bare-bullet-items` — **15. Session keys**: 3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `client/TGS session key pre TGS exchanges;`, `client/service session key pre application security context;`, `optional negotiated subkeys pre konkrétny application exchange.`.
-- **HIGH** line 219, `list-heavy-section` — **17. Keytab**: 8 odrážok a iba 48 slov súvislého vysvetlenia.
-- **HIGH** line 286, `list-heavy-section` — **22. DNS a service discovery**: 7 odrážok a iba 69 slov súvislého vysvetlenia.
-- **HIGH** line 312, `bare-bullet-items` — **24. Ticket flags**: 4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `pre-authenticated — client použil pre-authentication;`, `proxiable alebo proxy-related semantics podľa implementation;`, `delegation-related flags;`, `invalid/postdated podľa specialized use cases.`.
-- **HIGH** line 334, `list-heavy-section` — **26. Delegation**: 6 odrážok a iba 63 slov súvislého vysvetlenia.
-- **HIGH** line 497, `list-first-introduction` — **40. Failure-domain troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 548, `list-first-introduction` — **43. Controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 618, `single-sentence-concept` — **47. Kompletný príklad HTTP Kerberos loginu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 312, `thin-concept-section` — **24. Ticket flags**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 448, `term-before-explanation` — **37. Observability**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`, `TGS`, `KVNO`, `NTLM`, `delegation`, `availability`
-- **HIGH** line 482, `term-before-explanation` — **39. Service-side troubleshooting**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KVNO`, `OS`, `GSS`, `identity`
-- **HIGH** line 482, `thin-concept-section` — **39. Service-side troubleshooting**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 548, `term-before-explanation` — **43. Controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AES`, `SPN`, `AD`, `NTLM`, `delegation`, `resource`
-- **HIGH** line 548, `thin-concept-section` — **43. Controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 618, `term-before-explanation` — **47. Kompletný príklad HTTP Kerberos loginu**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TGT`, `HTTP`, `SPN`, `TGS-`, `SPNEGO`, `GSS`, `HTTPS`, `NTLM`
-- **HIGH** line 618, `thin-concept-section` — **47. Kompletný príklad HTTP Kerberos loginu**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **CRITICAL** line 270, `bare-bullet-items` — **14. GSS-API, SPNEGO a HTTP Negotiate**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kerberos accepted;`, `NTLM fallback;`, `anonymous/backend header path;`, `mutual-auth result;`.
+- **CRITICAL** line 320, `empty-section` — **18. Worked failure: fresh ticket, stale authorization data**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 326, `empty-section` — **Exact subject**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 339, `bare-bullet-items` — **Competing hypotheses**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `browser použil old pre-removal TGT;`, `SPNEGO fallbackol na NTLM;`, `duplicate/wrong SPN mapoval na iný service account;`, `service keytab/KVNO mismatch spôsobil fallback path;`.
+- **CRITICAL** line 339, `no-prose-concept` — **Competing hypotheses**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 339, `outline-instead-of-explanation` — **Competing hypotheses**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 365, `no-prose-concept` — **Evidence-preserving containment**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 365, `outline-instead-of-explanation` — **Evidence-preserving containment**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 374, `no-prose-concept` — **Authoritative recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 374, `outline-instead-of-explanation` — **Authoritative recovery**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 384, `no-prose-concept` — **Acceptance verdict**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 384, `outline-instead-of-explanation` — **Acceptance verdict**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 418, `empty-section` — **20. Compromise a recovery model**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 420, `bare-bullet-items` — **User ticket/cache compromise**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `revoke application sessions a downstream grants;`, `disable/reset identity podľa incident scope;`, `posúdiť ticket lifetime, renewal, forwarding a copied caches;`, `analyzovať service-ticket use a resource actions.`.
+- **CRITICAL** line 420, `no-prose-concept` — **User ticket/cache compromise**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 420, `outline-instead-of-explanation` — **User ticket/cache compromise**: 4 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 427, `bare-bullet-items` — **Service keytab compromise**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `isolate service cohort;`, `rotate service key/KVNO a distribute trusted keytab;`, `minimalizovať overlap;`, `posúdiť impersonation/decryption exposure;`.
+- **CRITICAL** line 427, `no-prose-concept` — **Service keytab compromise**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 427, `outline-instead-of-explanation` — **Service keytab compromise**: 5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 435, `bare-bullet-items` — **KDC/realm/domain compromise**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `zachovať directory/KDC evidence;`, `izolovať affected control plane;`, `použiť platform-specific staged high-value key/forest recovery;`, `reset privileged, service a trust credentials;`.
+- **CRITICAL** line 435, `no-prose-concept` — **KDC/realm/domain compromise**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 435, `outline-instead-of-explanation` — **KDC/realm/domain compromise**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 444, `bare-bullet-items` — **21. Earlier controls**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `KDC/site identity v authentication audite;`, `per-site fresh-group Kerberos canary;`, `SPN uniqueness a ownership validation;`, `KVNO/keytab fleet inventory;`.
+- **CRITICAL** line 444, `no-prose-concept` — **21. Earlier controls**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 444, `outline-instead-of-explanation` — **21. Earlier controls**: 9 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **HIGH** line 5, `list-first-introduction` — **1. Dominantný lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 5, `single-sentence-concept` — **1. Dominantný lifecycle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 32, `single-sentence-concept` — **2. Exact Kerberos subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 85, `bare-bullet-items` — **4. KDC, AS a TGS**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Authentication Service — AS — vydávajúcu TGT;`, `principal/key a policy database.`.
+- **HIGH** line 95, `list-first-introduction` — **AS exchange**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 106, `list-first-introduction` — **TGS exchange**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 115, `list-first-introduction` — **AP exchange**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 115, `single-sentence-concept` — **AP exchange**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 252, `list-first-introduction` — **13. Kerberos, LDAP a application authorization**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 270, `list-heavy-section` — **14. GSS-API, SPNEGO a HTTP Negotiate**: 6 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 339, `list-first-introduction` — **Competing hypotheses**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 349, `list-first-introduction` — **Discriminating evidence**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 365, `bare-bullet-items` — **Evidence-preserving containment**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `revoke-nuť application/OAuth sessions odvodené z affected Kerberos ses`, `zastaviť privileged operations pre affected principal/group generation`, `nevynucovať NTLM fallback ako workaround.`.
+- **HIGH** line 365, `list-first-introduction` — **Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 374, `list-first-introduction` — **Authoritative recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 384, `list-first-introduction` — **Acceptance verdict**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 393, `list-first-introduction` — **19. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 420, `list-first-introduction` — **User ticket/cache compromise**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 427, `list-first-introduction` — **Service keytab compromise**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 435, `list-first-introduction` — **KDC/realm/domain compromise**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 444, `list-first-introduction` — **21. Earlier controls**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 458, `single-sentence-concept` — **Platný ticket = permission**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 462, `single-sentence-concept` — **Keytab v image alebo shared Git secret**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 466, `single-sentence-concept` — **DNS alias bez SPN plánu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 470, `single-sentence-concept` — **NTLM fallback ako recovery**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 474, `single-sentence-concept` — **Rotation bez KVNO overlap/retirement contractu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 478, `single-sentence-concept` — **Group removal bez session revocation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 85, `thin-concept-section` — **4. KDC, AS a TGS**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 339, `term-before-explanation` — **Competing hypotheses**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TGT`, `SPNEGO`, `NTLM`, `SPN`, `KVNO`, `KDC`, `PAC`, `LDAP`
+- **HIGH** line 339, `thin-concept-section` — **Competing hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 365, `term-before-explanation` — **Evidence-preserving containment**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TGT`, `KDC`, `PAC`, `SPN`, `KVNO`, `NTLM`, `identity`
+- **HIGH** line 365, `thin-concept-section` — **Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 374, `term-before-explanation` — **Authoritative recovery**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AD`, `KDC`, `TGT`, `PAC`, `SID`, `JIT`, `identity`
+- **HIGH** line 374, `thin-concept-section` — **Authoritative recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 384, `term-before-explanation` — **Acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `AS`, `TGS`, `AP`, `TGT`, `SPN`, `NTLM`, `KVNO`, `KDC`
+- **HIGH** line 384, `thin-concept-section` — **Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 420, `thin-concept-section` — **User ticket/cache compromise**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 427, `thin-concept-section` — **Service keytab compromise**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 435, `thin-concept-section` — **KDC/realm/domain compromise**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 444, `term-before-explanation` — **21. Earlier controls**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `KDC`, `SPN`, `KVNO`, `NTLM`, `identity`, `delegation`, `resource`
+- **HIGH** line 444, `thin-concept-section` — **21. Earlier controls**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/13-security-and-identity/ldap.md`
 
@@ -14508,19 +14540,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2502 | 438 | 0 | 0 | 2940 |
-| `outline-instead-of-explanation` | 2441 | 0 | 0 | 0 | 2441 |
-| `term-before-explanation` | 0 | 548 | 1833 | 0 | 2381 |
-| `single-sentence-concept` | 0 | 2290 | 0 | 0 | 2290 |
-| `example-not-explicit` | 0 | 0 | 0 | 2206 | 2206 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2061 | 2061 |
-| `thin-concept-section` | 0 | 2046 | 0 | 0 | 2046 |
-| `list-first-introduction` | 0 | 1293 | 0 | 0 | 1293 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1153 | 1153 |
-| `short-concept-section` | 0 | 0 | 948 | 0 | 948 |
-| `no-prose-concept` | 747 | 0 | 0 | 0 | 747 |
-| `empty-section` | 665 | 0 | 0 | 0 | 665 |
-| `list-heavy-section` | 0 | 479 | 0 | 0 | 479 |
+| `bare-bullet-items` | 2497 | 438 | 0 | 0 | 2935 |
+| `outline-instead-of-explanation` | 2443 | 0 | 0 | 0 | 2443 |
+| `term-before-explanation` | 0 | 549 | 1830 | 0 | 2379 |
+| `single-sentence-concept` | 0 | 2298 | 0 | 0 | 2298 |
+| `example-not-explicit` | 0 | 0 | 0 | 2189 | 2189 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2055 | 2055 |
+| `thin-concept-section` | 0 | 2051 | 0 | 0 | 2051 |
+| `list-first-introduction` | 0 | 1306 | 0 | 0 | 1306 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1142 | 1142 |
+| `short-concept-section` | 0 | 0 | 945 | 0 | 945 |
+| `no-prose-concept` | 755 | 0 | 0 | 0 | 755 |
+| `empty-section` | 668 | 0 | 0 | 0 | 668 |
+| `list-heavy-section` | 0 | 476 | 0 | 0 | 476 |
 
 ## Required remediation pattern
 
