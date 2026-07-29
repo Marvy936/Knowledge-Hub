@@ -3597,6 +3597,20 @@
       "low": 23,
       "score": 653,
       "grade": "D"
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "title": "Reliability, availability a durability",
+      "words": 1867,
+      "headings": 27,
+      "sections": 27,
+      "findings": 77,
+      "critical": 18,
+      "high": 28,
+      "medium": 9,
+      "low": 22,
+      "score": 499,
+      "grade": "D"
     }
   ],
   "findings": [
@@ -198346,6 +198360,699 @@
       "path": "docs/13-security-and-identity/zero-trust.md",
       "section": "Marketing maturity score",
       "line": 511,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "1. Exact reliability subject",
+      "line": 18,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "1. Exact reliability subject",
+      "line": 18,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `konkrétnu business operation alebo journey;`, `actor alebo traffic cohort;`, `vstupné a výstupné conditions;`, `environment, Region a release generation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "1. Exact reliability subject",
+      "line": 18,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "1. Exact reliability subject",
+      "line": 18,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "2. Reliability",
+      "line": 49,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "11 odrážok a iba 56 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "2. Reliability",
+      "line": 49,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 11 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `dostupnosť operácie;`, `správnosť výsledku;`, `bounded latency;`, `data integrity a durability;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "2. Reliability",
+      "line": 49,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "2. Reliability",
+      "line": 49,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "3. Availability",
+      "line": 70,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Time-based availability",
+      "line": 74,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Time-based availability",
+      "line": 74,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Time-based availability",
+      "line": 74,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Time-based availability",
+      "line": 74,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `observation point;`, `eligible service window;`, `planned-maintenance semantics;`, `partial degradation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Time-based availability",
+      "line": 74,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Time-based availability",
+      "line": 74,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Event-based alebo request-based availability",
+      "line": 89,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 45 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Event-based alebo request-based availability",
+      "line": 89,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `validných a invalidných requests;`, `success a failure outcomes;`, `retries;`, `duplicate attempts;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Event-based alebo request-based availability",
+      "line": 89,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "4. Partial availability a user cohorts",
+      "line": 107,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "4. Partial availability a user cohorts",
+      "line": 107,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `iba pre jednu Region alebo Availability Zone;`, `iba pre nový release cohort;`, `iba pre určitý tenant;`, `iba pre write operations;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "4. Partial availability a user cohorts",
+      "line": 107,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "4. Partial availability a user cohorts",
+      "line": 107,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "5. Durability",
+      "line": 121,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "17 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "5. Durability",
+      "line": 121,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "16 z 17 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktoré bytes alebo business facts sú chránené;`, `ktoré copies a logs vstupujú do durability modelu;`, `consistency medzi súvisiacimi records;`, `retention a deletion semantics;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "5. Durability",
+      "line": 121,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "5. Durability",
+      "line": 121,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "5. Durability",
+      "line": 121,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "5. Durability",
+      "line": 121,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `DELETE`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "6. Acknowledgement boundary",
+      "line": 159,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "7. Availability nie je durability",
+      "line": 174,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "8. Connected failure SRE-PAY-52",
+      "line": 188,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Vlastnosti incidentu",
+      "line": 218,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Vlastnosti incidentu",
+      "line": 218,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Vlastnosti incidentu",
+      "line": 218,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Vlastnosti incidentu",
+      "line": 218,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Vlastnosti incidentu",
+      "line": 218,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Vlastnosti incidentu",
+      "line": 218,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `Availability`, `Reliability`, `Durability`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "9. Competing hypotheses a discriminating evidence",
+      "line": 228,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "9. Competing hypotheses a discriminating evidence",
+      "line": 228,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "9. Competing hypotheses a discriminating evidence",
+      "line": 228,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `request sa nikdy nedostal k API;`, `API necommitlo payment row;`, `payment commitol, ale response sa stratila;`, `outbox row existuje a publisher stojí;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "9. Competing hypotheses a discriminating evidence",
+      "line": 228,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "9. Competing hypotheses a discriminating evidence",
+      "line": 228,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "9. Competing hypotheses a discriminating evidence",
+      "line": 228,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "9. Competing hypotheses a discriminating evidence",
+      "line": 228,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "9. Competing hypotheses a discriminating evidence",
+      "line": 228,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `UI`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "10. Evidence-preserving containment",
+      "line": 257,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "10. Evidence-preserving containment",
+      "line": 257,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastaviť cleanup job a odobrať jeho write capability;`, `snapshotnúť current payment, outbox, broker a provider state;`, `oddeliť known completed, pending, unknown a lost-intent cohorts;`, `zabrániť blind replayu bez idempotency a provider reconciliation.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "10. Evidence-preserving containment",
+      "line": 257,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "10. Evidence-preserving containment",
+      "line": 257,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "10. Evidence-preserving containment",
+      "line": 257,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "10. Evidence-preserving containment",
+      "line": 257,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SQL`, `ID`, `WAL`, `CDC`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "11. Authoritative recovery",
+      "line": 270,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "11. Authoritative recovery",
+      "line": 270,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "11. Authoritative recovery",
+      "line": 270,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `všetkých 4 182 intents má authoritative final classification;`, `never-sent commands boli bezpečne vykonané;`, `sent-unknown commands boli reconciled bez duplicate side effectu;`, `completed operations neboli replaynuté;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "11. Authoritative recovery",
+      "line": 270,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "11. Authoritative recovery",
+      "line": 270,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "12. Reliability acceptance verdict",
+      "line": 296,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "12. Reliability acceptance verdict",
+      "line": 296,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "12. Reliability acceptance verdict",
+      "line": 296,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `required function, conditions, period a population sú explicitné;`, `availability, correctness, latency a durability majú oddelené evidence`, `acknowledgement boundary zodpovedá durable state transitionu;`, `partial cohorts a downstream completion sú merané;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "12. Reliability acceptance verdict",
+      "line": 296,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "12. Reliability acceptance verdict",
+      "line": 296,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "12. Reliability acceptance verdict",
+      "line": 296,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "12. Reliability acceptance verdict",
+      "line": 296,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "12. Reliability acceptance verdict",
+      "line": 296,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `availability`, `durability`",
+      "score": 4
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "13. Troubleshooting flow",
+      "line": 311,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "14. Earlier controls",
+      "line": 328,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "14. Earlier controls",
+      "line": 328,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "14. Earlier controls",
+      "line": 328,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "14. Earlier controls",
+      "line": 328,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `user-journey reliability contract;`, `event-based availability namiesto process-up metric;`, `atomic payment + outbox commit;`, `idempotency key od edge po provider;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "14. Earlier controls",
+      "line": 328,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "14. Earlier controls",
+      "line": 328,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "14. Earlier controls",
+      "line": 328,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `reliability`, `availability`, `policy`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Uptime equals reliability",
+      "line": 345,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Viac replicas equals durability",
+      "line": 349,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Backup exists",
+      "line": 353,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Priemer cez všetkých používateľov",
+      "line": 361,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/14-sre-and-operations/reliability-availability-durability.md",
+      "section": "Acknowledged means queued somewhere",
+      "line": 365,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
