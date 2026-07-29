@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **289**
-- Audited conceptual sections: **11688**
-- Total words: **672,228**
-- Findings: **24726** (critical 7446, high 8518, medium 3121, low 5641)
-- File grades: A 0, B 0, C 0, D 289
+- Audited authoritative articles: **290**
+- Audited conceptual sections: **11743**
+- Total words: **675,220**
+- Findings: **24850** (critical 7482, high 8560, medium 3140, low 5668)
+- File grades: A 0, B 0, C 0, D 290
 
 ## Interpretation
 
@@ -55,6 +55,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 889 | 41 | 37 | 21 | 24 | 2682 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
 | D | 889 | 42 | 41 | 14 | 12 | 2083 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | D | 888 | 35 | 47 | 16 | 33 | 3254 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
+| D | 873 | 36 | 42 | 19 | 27 | 2992 | `docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md` |
 | D | 870 | 34 | 52 | 9 | 15 | 2194 | `docs/14-sre-and-operations/backup-and-restore.md` |
 | D | 868 | 41 | 41 | 11 | 13 | 2134 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
 | D | 866 | 41 | 40 | 13 | 11 | 3009 | `docs/03-git-and-automation/powershell-fundamentals.md` |
@@ -16283,6 +16284,87 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 411, `term-before-explanation` — **21. Consistency acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`, `policy`, `freshness`
 - **HIGH** line 411, `thin-concept-section` — **21. Consistency acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md`
+
+- **CRITICAL** line 24, `bare-bullet-items` — **2. Idempotentná operation**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vykoná nulovú prácu;`, `vráti byte-identical response;`, `nevytvorí nové logs/metrics/audit records;`, `nemôže zlyhať;`.
+- **CRITICAL** line 24, `outline-instead-of-explanation` — **2. Idempotentná operation**: 5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **CRITICAL** line 66, `bare-bullet-items` — **4. Exact idempotency subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tenant/merchant/account identity;`, `API operation alebo command type;`, `client-provided idempotency key alebo business operation ID;`, `normalized payload fingerprint;`.
+- **CRITICAL** line 66, `outline-instead-of-explanation` — **4. Exact idempotency subject**: 11 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 112, `bare-bullet-items` — **6. Payload fingerprint**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vráti existujúci operation status/result;`, `nepridá nový business effect.`, `musí byť explicitný conflict;`, `nesmie ticho vrátiť starý response ani prepísať operation.`.
+- **CRITICAL** line 139, `bare-bullet-items` — **7. Atomic claim**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique constraint + INSERT ... ON CONFLICT ;`, `compare-and-swap;`, `serializable transaction;`, `conditional write;`.
+- **CRITICAL** line 139, `outline-instead-of-explanation` — **7. Atomic claim**: 5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 173, `bare-bullet-items` — **8. Idempotency state machine**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `owner/generation;`, `created a updated timestamps;`, `request fingerprint;`, `authoritative operation ID;`.
+- **CRITICAL** line 173, `outline-instead-of-explanation` — **8. Idempotency state machine**: 7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
+- **CRITICAL** line 201, `bare-bullet-items` — **9. Concurrent duplicate behavior**: 7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vrátiť 202 a rovnaký status resource;`, `bounded wait na current result;`, `vrátiť 409/425 podľa API contractu;`, `pripojiť sa ako observer k existujúcej operation.`.
+- **CRITICAL** line 201, `outline-instead-of-explanation` — **9. Concurrent duplicate behavior**: 8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 237, `bare-bullet-items` — **11. Response replay**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact operation ID;`, `current status URL;`, `selected response fields;`, `final result digest;`.
+- **CRITICAL** line 283, `bare-bullet-items` — **13. Idempotent consumer**: 4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable provider idempotency key;`, `durable attempt state;`, `unknown-outcome lookup;`, `reconciliation pred retryom.`.
+- **CRITICAL** line 306, `bare-bullet-items` — **14. Exactly-once scope**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exactly-once record processing v jednej Kafka transaction;`, `one committed database transition per event ID;`, `one provider financial effect per business key;`, `one user-visible notification;`.
+- **CRITICAL** line 334, `empty-section` — **16. Backpressure vs. rate limiting**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 362, `bare-bullet-items` — **17. Little's Law a in-flight work**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `threads/tasks;`, `connections;`, `memory;`, `ephemeral ports;`.
+- **CRITICAL** line 388, `bare-bullet-items` — **18. Bounded queues**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact owner a purpose;`, `item identity a cost;`, `hard capacity;`, `age/deadline limit;`.
+- **CRITICAL** line 388, `outline-instead-of-explanation` — **18. Bounded queues**: 9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.
+- **CRITICAL** line 415, `empty-section` — **19. Push a pull flow**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 426, `bare-bullet-items` — **Push model**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reject;`, `drop podľa contractu;`, `buffer bounded amount;`, `spill do durable queue;`.
+- **CRITICAL** line 426, `outline-instead-of-explanation` — **Push model**: 5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
+- **CRITICAL** line 438, `bare-bullet-items` — **20. Kafka consumer backpressure**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obmedziť max.poll.records ;`, `držať bounded worker permits;`, `pause assigned partitions pri nulových credits;`, `pokračovať v poll() podľa group/liveness contractu;`.
+- **CRITICAL** line 438, `outline-instead-of-explanation` — **20. Kafka consumer backpressure**: 6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.
+- **CRITICAL** line 455, `bare-bullet-items` — **21. Hidden buffers**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client SDK queue;`, `load balancer pending requests;`, `HTTP/2 alebo gRPC stream flow-control windows;`, `server accept/request queue;`.
+- **CRITICAL** line 455, `outline-instead-of-explanation` — **21. Hidden buffers**: 12 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.
+- **CRITICAL** line 474, `bare-bullet-items` — **22. Overflow policies**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reject new create;`, `delay s bounded deadline;`, `drop rebuildable telemetry;`, `sample optional events;`.
+- **CRITICAL** line 474, `outline-instead-of-explanation` — **22. Overflow policies**: 10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 509, `bare-bullet-items` — **24. Feedback oscillation**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `high/low watermarks;`, `hysteresis;`, `gradual credit increase;`, `bounded probes;`.
+- **CRITICAL** line 509, `outline-instead-of-explanation` — **24. Feedback oscillation**: 7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 565, `bare-bullet-items` — **Backpressure topology**: 6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kafka backlog dosiahol 2.7 milióna commands;`, `oldest-command age dosiahol 54 minút ;`, `across-fleet executor queues obsahovali približne 348 000 tasks;`, `17 worker Podov skončilo OOM killom;`.
+- **CRITICAL** line 588, `no-prose-concept` — **Konkurenčné hypotézy**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 588, `outline-instead-of-explanation` — **Konkurenčné hypotézy**: 6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 627, `bare-bullet-items` — **26. Evidence-preserving containment**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `one operation, one effect;`, `duplicate submission mapped na same operation;`, `duplicate operation, provider-never-sent;`, `duplicate operation, one provider effect;`.
+- **CRITICAL** line 627, `outline-instead-of-explanation` — **26. Evidence-preserving containment**: 8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.
+- **CRITICAL** line 736, `outline-instead-of-explanation` — **29. Idempotency/backpressure acceptance verdict**: 14 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.
+- **CRITICAL** line 755, `empty-section` — **30. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 66, `single-sentence-concept` — **4. Exact idempotency subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 201, `single-sentence-concept` — **9. Concurrent duplicate behavior**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 237, `list-heavy-section` — **11. Response replay**: 6 odrážok a iba 41 slov súvislého vysvetlenia.
+- **HIGH** line 336, `single-sentence-concept` — **Rate limiting**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 340, `single-sentence-concept` — **Backpressure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 344, `single-sentence-concept` — **Circuit breaker**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 348, `single-sentence-concept` — **Queue**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 362, `list-heavy-section` — **17. Little's Law a in-flight work**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 362, `single-sentence-concept` — **17. Little's Law a in-flight work**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 417, `single-sentence-concept` — **Pull/credit model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 455, `single-sentence-concept` — **21. Hidden buffers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 509, `single-sentence-concept` — **24. Feedback oscillation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 534, `bare-bullet-items` — **25. Connected incident DB-PAY-60**: 5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `1 906 retries prišlo po 20-minútovej registry expiry;`, `143 concurrent duplicate pairs prešlo cez check-before-insert race;`, `31 duplicate provider effects bolo potvrdených;`, `29 bolo automaticky reversed;`.
+- **HIGH** line 565, `list-heavy-section` — **Backpressure topology**: 7 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 588, `bare-bullet-items` — **Konkurenčné hypotézy**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Kafka stratila records.`, `Provider idempotency nefungovala.`, `Duplicate operations vznikli iba client bugom.`, `Consumer pause chránil fleet, ale metrics boli oneskorené.`.
+- **HIGH** line 588, `list-first-introduction` — **Konkurenčné hypotézy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 619, `single-sentence-concept` — **Primary idempotency root cause**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 623, `single-sentence-concept` — **Primary backpressure root cause**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 627, `list-first-introduction` — **26. Evidence-preserving containment**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 627, `single-sentence-concept` — **26. Evidence-preserving containment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 736, `single-sentence-concept` — **29. Idempotency/backpressure acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 774, `single-sentence-concept` — **Idempotency key = UUID**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 778, `single-sentence-concept` — **SELECT potom INSERT**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 782, `single-sentence-concept` — **Key môže expirovať po 15 minútach**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 786, `single-sentence-concept` — **Provider key podľa attempt ID**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 790, `single-sentence-concept` — **Kafka exactly once vyrieši provider call**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 798, `single-sentence-concept` — **Pause pri 90 % heap**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 802, `single-sentence-concept` — **max.poll.records je concurrency limit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 810, `single-sentence-concept` — **Po poklese queue depth je recovery hotová**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 24, `thin-concept-section` — **2. Idempotentná operation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 66, `thin-concept-section` — **4. Exact idempotency subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 139, `thin-concept-section` — **7. Atomic claim**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 201, `thin-concept-section` — **9. Concurrent duplicate behavior**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 388, `thin-concept-section` — **18. Bounded queues**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 426, `thin-concept-section` — **Push model**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 455, `thin-concept-section` — **21. Hidden buffers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 474, `thin-concept-section` — **22. Overflow policies**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 509, `thin-concept-section` — **24. Feedback oscillation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 588, `thin-concept-section` — **Konkurenčné hypotézy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 627, `thin-concept-section` — **26. Evidence-preserving containment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 736, `thin-concept-section` — **29. Idempotency/backpressure acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md`
 
 - **CRITICAL** line 18, `bare-bullet-items` — **1. Exact index/lock/migration subject**: 12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `database, cluster, schema a table identity;`, `engine/version a topology generation;`, `row count, table/index size a growth;`, `query predicates, joins, ordering a limit;`.
@@ -17151,19 +17233,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2925 | 501 | 0 | 0 | 3426 |
-| `single-sentence-concept` | 0 | 2950 | 0 | 0 | 2950 |
-| `outline-instead-of-explanation` | 2876 | 0 | 0 | 0 | 2876 |
-| `term-before-explanation` | 0 | 604 | 2085 | 0 | 2689 |
-| `thin-concept-section` | 0 | 2428 | 0 | 0 | 2428 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2266 | 2266 |
-| `example-not-explicit` | 0 | 0 | 0 | 2240 | 2240 |
-| `list-first-introduction` | 0 | 1513 | 0 | 0 | 1513 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1135 | 1135 |
-| `short-concept-section` | 0 | 0 | 1036 | 0 | 1036 |
-| `no-prose-concept` | 873 | 0 | 0 | 0 | 873 |
-| `empty-section` | 772 | 0 | 0 | 0 | 772 |
-| `list-heavy-section` | 0 | 522 | 0 | 0 | 522 |
+| `bare-bullet-items` | 2943 | 503 | 0 | 0 | 3446 |
+| `single-sentence-concept` | 0 | 2972 | 0 | 0 | 2972 |
+| `outline-instead-of-explanation` | 2890 | 0 | 0 | 0 | 2890 |
+| `term-before-explanation` | 0 | 604 | 2096 | 0 | 2700 |
+| `thin-concept-section` | 0 | 2440 | 0 | 0 | 2440 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2280 | 2280 |
+| `example-not-explicit` | 0 | 0 | 0 | 2250 | 2250 |
+| `list-first-introduction` | 0 | 1516 | 0 | 0 | 1516 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1138 | 1138 |
+| `short-concept-section` | 0 | 0 | 1044 | 0 | 1044 |
+| `no-prose-concept` | 874 | 0 | 0 | 0 | 874 |
+| `empty-section` | 775 | 0 | 0 | 0 | 775 |
+| `list-heavy-section` | 0 | 525 | 0 | 0 | 525 |
 
 ## Required remediation pattern
 

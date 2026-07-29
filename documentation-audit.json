@@ -3879,6 +3879,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "title": "Idempotency a backpressure",
+      "words": 2992,
+      "headings": 55,
+      "sections": 55,
+      "findings": 124,
+      "critical": 36,
+      "high": 42,
+      "medium": 19,
+      "low": 27,
+      "score": 873,
+      "grade": "D"
+    },
+    {
       "path": "docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md",
       "title": "Indexy, locks a migrations",
       "words": 2104,
@@ -215903,6 +215917,1122 @@
       "path": "docs/15-databases-and-distributed-systems/consistency-models.md",
       "section": "Convergence opraví external effects",
       "line": 472,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "1. Dominantný model",
+      "line": 7,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "2. Idempotentná operation",
+      "line": 24,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "2. Idempotentná operation",
+      "line": 24,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vykoná nulovú prácu;`, `vráti byte-identical response;`, `nevytvorí nové logs/metrics/audit records;`, `nemôže zlyhať;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "2. Idempotentná operation",
+      "line": 24,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "3. HTTP method idempotency vs. business idempotency",
+      "line": 44,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "4. Exact idempotency subject",
+      "line": 66,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "4. Exact idempotency subject",
+      "line": 66,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "11 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "4. Exact idempotency subject",
+      "line": 66,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tenant/merchant/account identity;`, `API operation alebo command type;`, `client-provided idempotency key alebo business operation ID;`, `normalized payload fingerprint;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "4. Exact idempotency subject",
+      "line": 66,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "4. Exact idempotency subject",
+      "line": 66,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "4. Exact idempotency subject",
+      "line": 66,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "4. Exact idempotency subject",
+      "line": 66,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "6. Payload fingerprint",
+      "line": 112,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vráti existujúci operation status/result;`, `nepridá nový business effect.`, `musí byť explicitný conflict;`, `nesmie ticho vrátiť starý response ani prepísať operation.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "6. Payload fingerprint",
+      "line": 112,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "6. Payload fingerprint",
+      "line": 112,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "6. Payload fingerprint",
+      "line": 112,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "7. Atomic claim",
+      "line": 139,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "7. Atomic claim",
+      "line": 139,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `unique constraint + INSERT ... ON CONFLICT ;`, `compare-and-swap;`, `serializable transaction;`, `conditional write;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "7. Atomic claim",
+      "line": 139,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "7. Atomic claim",
+      "line": 139,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `INSERT`, `ON`, `CONFLICT`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "8. Idempotency state machine",
+      "line": 173,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "8. Idempotency state machine",
+      "line": 173,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `owner/generation;`, `created a updated timestamps;`, `request fingerprint;`, `authoritative operation ID;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "8. Idempotency state machine",
+      "line": 173,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "8. Idempotency state machine",
+      "line": 173,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "9. Concurrent duplicate behavior",
+      "line": 201,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "9. Concurrent duplicate behavior",
+      "line": 201,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "9. Concurrent duplicate behavior",
+      "line": 201,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `vrátiť 202 a rovnaký status resource;`, `bounded wait na current result;`, `vrátiť 409/425 podľa API contractu;`, `pripojiť sa ako observer k existujúcej operation.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "9. Concurrent duplicate behavior",
+      "line": 201,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "9. Concurrent duplicate behavior",
+      "line": 201,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "9. Concurrent duplicate behavior",
+      "line": 201,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "9. Concurrent duplicate behavior",
+      "line": 201,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `ID`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "11. Response replay",
+      "line": 237,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "11. Response replay",
+      "line": 237,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact operation ID;`, `current status URL;`, `selected response fields;`, `final result digest;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "11. Response replay",
+      "line": 237,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "11. Response replay",
+      "line": 237,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "11. Response replay",
+      "line": 237,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "11. Response replay",
+      "line": 237,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `URL`, `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "13. Idempotent consumer",
+      "line": 283,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `stable provider idempotency key;`, `durable attempt state;`, `unknown-outcome lookup;`, `reconciliation pred retryom.`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "13. Idempotent consumer",
+      "line": 283,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "14. Exactly-once scope",
+      "line": 306,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exactly-once record processing v jednej Kafka transaction;`, `one committed database transition per event ID;`, `one provider financial effect per business key;`, `one user-visible notification;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "14. Exactly-once scope",
+      "line": 306,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "14. Exactly-once scope",
+      "line": 306,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "14. Exactly-once scope",
+      "line": 306,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "14. Exactly-once scope",
+      "line": 306,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "15. Čo je backpressure",
+      "line": 320,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "16. Backpressure vs. rate limiting",
+      "line": 334,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Rate limiting",
+      "line": 336,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Backpressure",
+      "line": 340,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Circuit breaker",
+      "line": 344,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Queue",
+      "line": 348,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "17. Little's Law a in-flight work",
+      "line": 362,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "17. Little's Law a in-flight work",
+      "line": 362,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 35 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "17. Little's Law a in-flight work",
+      "line": 362,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `threads/tasks;`, `connections;`, `memory;`, `ephemeral ports;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "17. Little's Law a in-flight work",
+      "line": 362,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "18. Bounded queues",
+      "line": 388,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "18. Bounded queues",
+      "line": 388,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact owner a purpose;`, `item identity a cost;`, `hard capacity;`, `age/deadline limit;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "18. Bounded queues",
+      "line": 388,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "18. Bounded queues",
+      "line": 388,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "18. Bounded queues",
+      "line": 388,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`, `durability`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "19. Push a pull flow",
+      "line": 415,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Pull/credit model",
+      "line": 417,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Push model",
+      "line": 426,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Push model",
+      "line": 426,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reject;`, `drop podľa contractu;`, `buffer bounded amount;`, `spill do durable queue;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Push model",
+      "line": 426,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "20. Kafka consumer backpressure",
+      "line": 438,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 32 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "20. Kafka consumer backpressure",
+      "line": 438,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `obmedziť max.poll.records ;`, `držať bounded worker permits;`, `pause assigned partitions pri nulových credits;`, `pokračovať v poll() podľa group/liveness contractu;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "20. Kafka consumer backpressure",
+      "line": 438,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "20. Kafka consumer backpressure",
+      "line": 438,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "21. Hidden buffers",
+      "line": 455,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "21. Hidden buffers",
+      "line": 455,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "21. Hidden buffers",
+      "line": 455,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `client SDK queue;`, `load balancer pending requests;`, `HTTP/2 alebo gRPC stream flow-control windows;`, `server accept/request queue;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "21. Hidden buffers",
+      "line": 455,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "21. Hidden buffers",
+      "line": 455,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "21. Hidden buffers",
+      "line": 455,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`, `HTTP`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "22. Overflow policies",
+      "line": 474,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "22. Overflow policies",
+      "line": 474,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `reject new create;`, `delay s bounded deadline;`, `drop rebuildable telemetry;`, `sample optional events;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "22. Overflow policies",
+      "line": 474,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "22. Overflow policies",
+      "line": 474,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "22. Overflow policies",
+      "line": 474,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "23. Priority, fairness a starvation",
+      "line": 491,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "24. Feedback oscillation",
+      "line": 509,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "24. Feedback oscillation",
+      "line": 509,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "24. Feedback oscillation",
+      "line": 509,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `high/low watermarks;`, `hysteresis;`, `gradual credit increase;`, `bounded probes;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "24. Feedback oscillation",
+      "line": 509,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "25. Connected incident DB-PAY-60",
+      "line": 534,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `1 906 retries prišlo po 20-minútovej registry expiry;`, `143 concurrent duplicate pairs prešlo cez check-before-insert race;`, `31 duplicate provider effects bolo potvrdených;`, `29 bolo automaticky reversed;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "25. Connected incident DB-PAY-60",
+      "line": 534,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Backpressure topology",
+      "line": 565,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 40 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Backpressure topology",
+      "line": 565,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "6 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Kafka backlog dosiahol 2.7 milióna commands;`, `oldest-command age dosiahol 54 minút ;`, `across-fleet executor queues obsahovali približne 348 000 tasks;`, `17 worker Podov skončilo OOM killom;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Backpressure topology",
+      "line": 565,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Backpressure topology",
+      "line": 565,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Backpressure topology",
+      "line": 565,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Backpressure topology",
+      "line": 565,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Backpressure topology",
+      "line": 565,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOM`, `API`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 588,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 588,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 588,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "6 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 588,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Kafka stratila records.`, `Provider idempotency nefungovala.`, `Duplicate operations vznikli iba client bugom.`, `Consumer pause chránil fleet, ale metrics boli oneskorené.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 588,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Konkurenčné hypotézy",
+      "line": 588,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TTL`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Diskriminačné dôkazy",
+      "line": 597,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Diskriminačné dôkazy",
+      "line": 597,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Primary idempotency root cause",
+      "line": 619,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Primary backpressure root cause",
+      "line": 623,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "26. Evidence-preserving containment",
+      "line": 627,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "26. Evidence-preserving containment",
+      "line": 627,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "26. Evidence-preserving containment",
+      "line": 627,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 12 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "26. Evidence-preserving containment",
+      "line": 627,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `one operation, one effect;`, `duplicate submission mapped na same operation;`, `duplicate operation, provider-never-sent;`, `duplicate operation, one provider effect;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "26. Evidence-preserving containment",
+      "line": 627,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "29. Idempotency/backpressure acceptance verdict",
+      "line": 736,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "29. Idempotency/backpressure acceptance verdict",
+      "line": 736,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "14 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "29. Idempotency/backpressure acceptance verdict",
+      "line": 736,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "29. Idempotency/backpressure acceptance verdict",
+      "line": 736,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "29. Idempotency/backpressure acceptance verdict",
+      "line": 736,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "29. Idempotency/backpressure acceptance verdict",
+      "line": 736,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "29. Idempotency/backpressure acceptance verdict",
+      "line": 736,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `scope`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "30. Troubleshooting flow",
+      "line": 755,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Idempotency key = UUID",
+      "line": 774,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "SELECT potom INSERT",
+      "line": 778,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Key môže expirovať po 15 minútach",
+      "line": 782,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Provider key podľa attempt ID",
+      "line": 786,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Kafka exactly once vyrieši provider call",
+      "line": 790,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Pause pri 90 % heap",
+      "line": 798,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "max.poll.records je concurrency limit",
+      "line": 802,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/15-databases-and-distributed-systems/idempotency-and-backpressure.md",
+      "section": "Po poklese queue depth je recovery hotová",
+      "line": 810,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
