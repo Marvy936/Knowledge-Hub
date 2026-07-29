@@ -1,499 +1,504 @@
 # RED method
 
-RED method je service-oriented monitoring metodika zameraná na tri signály každej request-driven služby: **Rate**, **Errors** a **Duration**. Je vhodná najmä pre HTTP/gRPC APIs, microservices, consumers a ďalšie systémy, v ktorých prichádza jednotka práce a očakáva sa výsledok.
+RED je service-oriented measurement model pre workloady, ktoré prijímajú jednotku práce a produkujú caller-visible alebo business-visible outcome. Sleduje **Rate**, **Errors** a **Duration**, ale tieto tri slová nemajú význam bez presnej operation boundary, denominatora a success contractu.
 
-RED nevysvetľuje celý interný stav systému. Poskytuje konzistentný prvý pohľad na user-facing alebo caller-facing správanie služby a vstupný bod pre ďalšiu diagnostiku cez traces, logs, USE metrics a dependency telemetry.
+RED nie je univerzálny dashboard template. Je to spôsob, ako zachovať konzistentný obraz demandu, correctness a latency od logical operation cez technical attempts až po dependency path. Pri zlom scope-e môže RED vyzerať zdravo a súčasne maskovať retry amplification, fast failures alebo dlhý queue wait.
 
-## 1. Mentálny model
+## 1. Dominantný lifecycle
 
 ```text
-koľko práce prichádza?     → Rate
-koľko práce zlyháva?       → Errors
-ako dlho práca trvá?       → Duration
+user alebo caller outcome
+→ exact logical-operation a measurement boundary
+→ valid-operation population
+→ Rate denominator contract
+→ Error numerator a success semantics
+→ Duration boundary a distribution
+→ bounded dimensions a cohort identity
+→ attempt, retry, fan-out a dependency decomposition
+→ SLI/dashboard/alert generation
+→ investigation a capacity correlation
+→ bounded recovery
+→ original a forbidden outcome validation
 ```
 
-Pre každý critical operation definuj všetky tri signály s rovnakým operation scope-om a success semantics.
+Základné rozlíšenie:
 
-## 2. Rate
+```text
+logical operation
+≠ technical attempt
+≠ dependency call
+≠ queue message delivery
+≠ batch item
+```
 
-Rate vyjadruje počet operácií za čas.
+Ak sa tieto jednotky zmiešajú, rate, error ratio aj duration prestanú byť interpretovateľné.
 
-Príklady:
+## 2. Exact RED subject
 
-- HTTP requests za sekundu,
-- gRPC calls za sekundu,
-- messages spracované za minútu,
-- jobs dokončené za hodinu,
-- database queries za sekundu.
+Pre Atlas Payments:
 
-Rate nie je iba load metric. Pomáha rozlíšiť:
+```text
+RED subject: RED-PAY-43
+business capability: CAP-PAY-42
+logical operation: settle(payment_id)
+entry boundary: accepted valid settlement request
+completion boundary: durable ledger + provider outcome reconciled
+release generation: 7.19.1
+RED schema generation: RED-PAY-8
+measurement window: 5 minút a 28-dňové SLO
+cohorts: operation, result class, release, Region/AZ, bounded merchant class
+```
 
-- reálny traffic drop od telemetry failure,
-- error spike pri stabilnom trafficu,
-- latency nárast spôsobený demand burstom,
-- neúspešný deployment, ktorý neprijíma requesty,
-- retry storm zvyšujúci apparent traffic.
+Subject určuje, či meranie reprezentuje client journey, service handler, queue consumer alebo provider attempt. Rovnaký názov „latency“ na týchto boundaries neznamená rovnaký čas.
+
+## 3. Rate: koľko práce skutočne prichádza a dokončuje sa
+
+Rate je počet definovaných units za čas. Najprv pomenuj unit a observation point.
+
+```text
+logical settlement accepted rate
+logical settlement completed rate
+provider attempt rate
+queue delivery rate
+ledger commit rate
+```
+
+Tieto rates sa môžu legitímne líšiť. Jeden settlement môže vytvoriť viac provider attempts a queue redeliveries. Completed rate môže za accepted rate zaostávať pre queue wait a processing latency.
 
 ### Denominator contract
 
-Musí byť jasné, čo sa počíta:
+Rate contract obsahuje:
 
-- prijaté requesty,
-- dokončené requesty,
-- attempts,
-- logical operations,
-- retries,
-- batch items,
-- messages alebo batches.
+- čo vytvorí jednu unit;
+- kde sa počíta;
+- či ide o accepted, started alebo completed operations;
+- ako sa deduplikuje retry alebo redelivery;
+- ako sa spracúva batch;
+- ktoré traffic classes sú validné;
+- čo znamená absent traffic.
 
-Ak jeden logical request vykoná tri retry attempts, rate na client, service a dependency vrstve bude odlišný.
+Traffic drop môže znamenať nižší demand, routing failure, neúspešný deployment alebo telemetry loss. Rate sa preto interpretuje spolu s expected traffic, upstream evidence a telemetry freshness.
 
-## 3. Errors
+## 4. Errors: ktoré outcomes porušili contract
 
-Errors vyjadrujú počet alebo podiel operácií, ktoré nesplnili definovaný contract.
-
-Error nemusí byť iba HTTP `5xx`.
-
-Môže zahŕňať:
-
-- explicitný application failure,
-- timeout,
-- cancellation,
-- invalid response,
-- business rejection podľa SLO contractu,
-- dependency error,
-- dropped message,
-- retry exhaustion,
-- partial batch failure,
-- fallback alebo stale response, ak porušuje user expectation.
-
-### Error rate
+Error je operation, ktorá nesplnila definovaný caller alebo business contract. HTTP status class môže byť observation, nie celý verdict.
 
 ```text
-error rate = failed operations / relevant total operations
+HTTP 200 s nesprávnym settlement resultom = business failure
+HTTP 202 bez následnej completion v deadline = workflow failure
+HTTP 404 pre neexistujúci public resource = môže byť expected outcome
+provider timeout po úspešnom durable commit-e = unknown outcome, nie automaticky safe retry
+fallback response = success alebo degraded failure podľa SLO
 ```
 
-Numerator a denominator musia používať rovnaký scope.
-
-Chybný príklad:
+### Numerator a denominator
 
 ```text
-numerator   = failed payment attempts vrátane retries
-denominator = unique checkout requests
+logical error rate
+= failed valid logical operations
+/ all valid logical operations
 ```
 
-Takáto hodnota môže presiahnuť 100 % alebo zavádzať.
+Numerator a denominator musia používať rovnakú unit, scope a time semantics. `failed provider attempts / unique settlements` nie je error ratio; je to zmiešanie dvoch populations.
 
-### Expected oproti unexpected errors
+### Final, partial a unknown outcomes
 
-Nie každá `4xx` odpoveď je service failure a nie každá `2xx` odpoveď je success.
+Distributed operation môže skončiť:
 
-Príklady:
+- definitive success;
+- definitive failure;
+- partial success;
+- cancellation;
+- deadline exceeded;
+- unknown side-effect outcome;
+- success after retry;
+- unreconciled state.
 
-- `404` pre neexistujúci public resource môže byť expected outcome,
-- `401` po expired session môže byť expected,
-- `200` s chybným business resultom môže byť failure,
-- `202` prijaté do queue nemusí znamenať dokončenú operáciu,
-- fallback response môže byť technically successful, ale degraded.
+RED schema má tieto classes explicitne modelovať. Unknown outcome nesmie byť schovaný medzi generic errors, ak potrebuje reconciliation pred ďalším pokusom.
 
-Error semantics musia vychádzať z contractu a user journey.
+## 5. Duration: ako dlho trvá definovaná práca
 
-## 4. Duration
-
-Duration je čas spracovania operácie.
-
-Môže byť meraná:
-
-- na clientovi,
-- na edge/load balanceri,
-- v service handleri,
-- na dependency call-e,
-- end-to-end cez celý workflow,
-- ako queue wait + processing time.
-
-Tieto boundaries nie sú rovnaké.
-
-### Distribution namiesto average
-
-Average latency môže maskovať tail.
-
-Sleduj podľa use case-u:
-
-- histogram distribution,
-- p50,
-- p90,
-- p95,
-- p99,
-- max iba ako diagnostický doplnok,
-- successful a failed latency oddelene.
-
-Google SRE odporúča odlišovať latency úspešných a neúspešných requestov. Rýchla chyba nesmie zlepšovať celkovú latency metriku.
-
-### Queue time
-
-End-to-end duration môže obsahovať:
+Duration potrebuje začiatok, koniec a population. Pre settlement journey:
 
 ```text
-queue wait
-+ service processing
-+ dependency wait
-+ retry delays
-+ response transfer
+client end-to-end duration
+= edge + acceptance + queue wait + processing + provider attempts
+  + retry backoff + ledger commit + completion delivery
 ```
 
-Service handler duration bez queue wait môže vyzerať zdravo, zatiaľ čo používateľ čaká sekundy.
+Service-handler duration môže byť 80 ms, zatiaľ čo async completion trvá 8 sekúnd. Provider-attempt duration môže byť krátka, ale viac retries predĺži logical-operation duration.
 
-## 5. Operation scope
+### Distribution, nie average
 
-RED metrics musia byť agregovateľné, ale nie natoľko broad, aby zmiešali neporovnateľné operácie.
+Average latency môže zostať stabilná, aj keď malý kritický cohort zažíva výrazný tail. Používaj histogram/distribution, threshold compliance a vhodné percentiles.
 
-Vhodné dimensions:
+Successful a failed duration sleduj oddelene. Fast rejection alebo circuit-breaker failure môže znížiť aggregate p95 a predstierať performance improvement, hoci user success klesol.
 
-- service,
-- operation alebo normalized route,
-- method/protocol,
-- result class,
-- environment,
-- bounded region/zone.
+### Measurement point
 
-Rizikové dimensions:
+Client, edge, server, consumer a dependency merajú rozdielne intervals. Dashboard musí measurement point pomenovať. „Request duration“ bez boundary je neúplný contract.
 
-- raw URL,
-- user ID,
-- request ID,
-- exception message,
-- tenant ID bez jasnej bounded policy.
+## 6. Bounded operation dimensions
 
-Normalized route má byť napríklad `/orders/{id}`, nie `/orders/987654`.
-
-## 6. RED pre HTTP service
-
-Príklad metrics contractu:
+RED musí umožniť zúženie critical cohortu bez unbounded cardinality. Vhodné dimensions:
 
 ```text
-http_server_requests_total{
-  service,
-  method,
-  route,
-  status_class
-}
-
-http_server_request_duration_seconds{
-  service,
-  method,
-  route,
-  status_class
-}
+service.name
+operation alebo normalized route
+protocol/method
+result.class
+release channel alebo bounded version cohort
+Region/AZ
+dependency name
+bounded merchant class
 ```
 
-Queries musia počítať rate a error ratio z counterov a latency z histogramu/distribution.
+Raw URL, payment ID, request ID, trace ID alebo error message do metric labels nepatria. Per-operation detail sa získava cez exemplar, trace a structured logs.
 
-Doplň:
+Operation names majú byť stabilné. `/payments/{id}/settle` je agregovateľný contract; `/payments/938472/settle` vytvára novú series pre každý business object.
 
-- in-flight requests,
-- request/response size,
-- timeout/cancellation reason,
-- retry count,
-- dependency RED,
-- trace exemplars alebo links.
+## 7. Retries a attempt amplification
 
-## 7. RED pre gRPC
+Retry mení všetky tri RED axes:
 
-Error semantics majú vychádzať z gRPC status code-u, nie iba z transportného HTTP statusu.
+```text
+attempt Rate rastie
+attempt Errors rastú
+logical Duration rastie
+successful final outcome môže zostať dočasne stabilný
+```
 
-Sleduj:
+Preto sleduj samostatne:
 
-- method/service,
-- unary oproti streaming,
-- status code,
-- messages sent/received,
-- stream duration,
-- cancellation a deadline exceeded.
+- logical operations;
+- attempts;
+- retry reason;
+- attempts per operation distribution;
+- success after retry;
+- exhausted retries;
+- backoff wait;
+- dependency attempt RED;
+- unknown outcomes a reconciliation.
 
-Streaming call duration môže prirodzene trvať dlho. Potrebuje ďalšie metrics pre message rate, lag a stream health.
+Final success-only dashboard môže skryť rastúce dependency failures a blížiaci sa capacity cliff. Retry nie je bezplatná reliability vrstva; spotrebúva connections, threads, queue slots a downstream quota.
 
-## 8. RED pre queues a consumers
+## 8. Fan-out, batching a caching
 
-Pri queue workload-e definuj jednotku práce.
+Jedna logical operation môže vytvoriť viac parallel dependency calls. Dependency rate preto môže rásť bez rastu user trafficu. Fan-out contract potrebuje expected calls per operation a partial-failure semantics.
 
-Možnosti:
+Batch môže obsahovať desiatky items. Rozlišuj batch attempt, item outcome a final checkpoint. Jeden failed batch nie je automaticky 100 failed business items.
 
-- message received rate,
-- message successfully processed rate,
-- processing error rate,
-- processing duration,
-- end-to-end message age,
-- retry/dead-letter rate.
+Cache mení execution path. Celková service duration môže byť zdravá pri vysokom hit ratio, zatiaľ čo origin miss path je nefunkčný. Sleduj hit/miss rate, hit/miss duration, stale serve, fill errors a origin RED oddelene.
 
-Samotná processing duration nestačí. Message môže stráviť hodiny v queue pred začiatkom spracovania.
+## 9. HTTP a gRPC adaptation
 
-Preto doplň:
+### HTTP
 
-- queue depth,
-- oldest message age,
-- consumer lag,
-- concurrency,
-- redelivery count.
+HTTP RED sa typicky viaže na normalized route a final application semantics. Status class je užitočný bounded dimension, ale business outcome môže vyžadovať ďalšiu result class.
 
-## 9. RED pre batch jobs
+```text
+http.server.request.count
+http.server.request.duration
+logical settlement completion counters
+```
 
-Batch job nie je klasická online service.
+Server request metrics a business completion metrics sa dopĺňajú; jedno nenahrádza druhé.
 
-Prispôsobenie:
+### gRPC
 
-- Rate — items alebo jobs dokončené za obdobie,
-- Errors — failed items/jobs,
-- Duration — job duration alebo item processing duration.
+gRPC error semantics vychádzajú z gRPC statusu a operation contractu, nie iba underlying HTTP transportu. Streaming calls potrebujú message rate, stream age, cancellation, deadline a lag; dlhý duration môže byť normálny healthy channel.
 
-Doplň:
+## 10. Queues a asynchronous consumers
 
-- last successful completion,
-- freshness,
-- expected schedule,
-- backlog,
-- partial success,
-- checkpoint progress.
+Pri queue workload-e je kritické rozlíšiť delivery od logical processingu.
 
-Pre batch systémy je freshness často dôležitejšia než request rate.
+```text
+message received rate
+→ processing attempts
+→ successful logical completions
+→ acknowledgement alebo redelivery
+```
 
-## 10. RED a retries
+Doplň queue depth, oldest message age, consumer lag, redelivery count, concurrency a dead-letter rate. Processing duration bez queue wait môže byť green, hoci business freshness objective je porušený.
 
-Retries môžu skresliť všetky tri signals:
+Span links a logical-operation ID pomáhajú spojiť producer, message a consumer bez falošného synchronous parent-child modelu.
 
-- Rate rastie,
-- Errors na attempt vrstve rastú,
-- Duration logical operation rastie,
-- dependency saturation sa zhoršuje.
+## 11. Batch jobs
 
-Sleduj oddelene:
+Pre batch jobs možno RED prispôsobiť:
 
-- logical operations,
-- attempts,
-- retry count,
-- retry reason,
-- success after retry,
-- exhausted retries.
+- Rate — jobs alebo items completed za obdobie;
+- Errors — failed jobs/items pri správnom partial-success modeli;
+- Duration — job a item processing distribution.
 
-Dashboard, ktorý ukazuje iba final success, môže skryť prebiehajúcu dependency degradáciu.
-
-## 11. RED a caching
-
-Cache mení service path.
-
-Rozlišuj:
-
-- cache hit rate,
-- miss rate,
-- hit latency,
-- miss latency,
-- stale serve,
-- origin error,
-- cache fill error.
-
-Celková latency môže vyzerať zdravo pri vysokom hit ratio, zatiaľ čo origin path je už nefunkčný.
+Batch však potrebuje freshness, last successful completion, expected schedule, checkpoint progress a backlog. Nulový rate mimo schedule nie je incident; nulový rate počas expected window môže byť critical failure.
 
 ## 12. RED a SLO
 
-RED metrics sú často základom request-based SLIs.
+RED signals často tvoria request-based SLIs, ale dashboard nie je automaticky SLO.
 
-Príklady:
-
-### Availability SLI
+Availability SLI:
 
 ```text
-successful valid requests / all valid requests
+valid successful logical operations
+/ all valid logical operations
 ```
 
-### Latency SLI
+Latency SLI:
 
 ```text
-requests dokončené pod threshold / valid requests
+valid successful logical operations dokončené do threshold
+/ all valid logical operations
 ```
 
-SLO contract musí určiť:
+SLO contract určuje valid traffic, success semantics, measurement boundary, latency threshold, window, exclusions, retries, partial/unknown outcomes a no-data behavior.
 
-- valid traffic,
-- excluded synthetic/admin operations,
-- success semantics,
-- latency threshold,
-- measurement point,
-- window,
-- treatment retries a partial failures.
+Attempt metrics sú diagnostické a capacity-relevantné. Logical-operation metrics sú typicky bližšie user outcome-u.
 
-RED dashboard nie je automaticky SLO. Potrebuje explicitný numerator a denominator contract.
+## 13. RED, Golden Signals a USE
 
-## 13. Dashboard design
-
-Odporúčané poradie:
-
-1. total rate,
-2. success/error ratio,
-3. latency distribution a percentiles,
-4. breakdown podľa operation/result,
-5. deployment/version markers,
-6. dependency RED,
-7. traces alebo logs links.
-
-Dashboard má umožniť prechod:
+RED sleduje service work:
 
 ```text
-service symptom
-→ operation
-→ version/zone/tenant class
-→ dependency
-→ trace
-→ logs
+Rate, Errors, Duration
 ```
 
-Nevytváraj samostatný dashboard pre každú metric bez investigation workflowu.
+Golden Signals používajú Traffic, Errors, Latency a Saturation. Saturation dopĺňa otázku, ako blízko je systém k effective capacity boundary.
 
-## 14. Alerting
-
-Alertuj na user-impact alebo SLO risk, nie iba na každú zmenu RED metrics.
-
-Vhodné patterns:
-
-- high error-rate burn,
-- latency SLO burn,
-- complete traffic loss pri očakávanom demand-e,
-- abnormal traffic spike s downstream riskom,
-- sustained zero successful completions,
-- queue age prekračujúci business threshold.
-
-Rate drop môže byť incident alebo normálna sezónnosť. Použi expected traffic, business calendar alebo multi-signal confirmation.
-
-## 15. RED a Golden Signals
-
-RED:
-
-- Rate,
-- Errors,
-- Duration.
-
-Golden Signals:
-
-- Traffic,
-- Errors,
-- Latency,
-- Saturation.
-
-Mapovanie:
+USE sleduje resources cez Utilization, Saturation a Errors. Investigation chain:
 
 ```text
-Rate      ≈ Traffic
-Errors    = Errors
-Duration  ≈ Latency
-Saturation nemá priamy RED ekvivalent
+RED ukáže caller-facing symptom
+→ trace alebo dependency RED lokalizuje component
+→ USE identifikuje resource/enforcement bottleneck
+→ logs alebo profile vysvetlia mechanizmus
 ```
 
-RED je service/request pohľad. Golden Signals pridávajú „ako blízko kapacitnej hranice sa systém nachádza“.
+RED môže byť green tesne pred capacity cliffom. Preto neodstraňuj saturation a queue signals iba preto, že nejde o písmeno v RED.
 
-## 16. RED a USE
+## 14. Dashboard a alert contract
 
-RED sleduje službu a prácu.
-
-USE sleduje resources:
-
-- Utilization,
-- Saturation,
-- Errors.
-
-Incident workflow:
+RED dashboard má podporovať investigation flow:
 
 ```text
-RED ukáže user-facing symptom
-→ trace/dependency RED lokalizuje component
-→ USE ukáže resource bottleneck
-→ logs/profile vysvetlia mechanizmus
+total logical Rate a completion gap
+→ logical Error ratio podľa result class
+→ successful/failed Duration distributions
+→ breakdown operation/release/AZ
+→ attempts per operation a dependency RED
+→ deployment/config events
+→ exemplar/trace/log links
 ```
 
-## 17. Troubleshooting podľa RED
+Alertuj na user impact alebo SLO risk. Vhodné sú fast/slow burn, sustained zero successful completions, excessive queue age alebo abnormal attempt amplification s downstream riskom.
 
-### Rate klesla, errors nerastú
+Rate spike bez error/latency impactu môže byť legitimate growth. Rate drop bez errors môže byť sezónnosť, upstream failure alebo telemetry gap. Alert potrebuje expected traffic alebo multi-signal confirmation.
 
-Over:
+## 15. Worked failure: retry layer rozbije RED semantics
 
-- upstream traffic,
-- DNS/load balancer routing,
-- deployment registration,
-- instrumentation/scrape,
-- queue producer,
-- business sezónnosť.
+### Exact subject
 
-### Errors rastú, duration klesá
+```text
+RED-PAY-43
+release: 7.19.1
+operation: settle(payment_id)
+window: 10:00–10:05 UTC
+logical operations: 10,000
+provider retry policy: max 3 attempts
+RED schema generation: RED-PAY-8
+provider timeout generation: TIMEOUT-12
+```
 
-Možné:
+### Change
 
-- fast rejection,
-- circuit breaker open,
-- authentication failure,
-- validation error,
-- dependency unavailable pred reálnym spracovaním.
+Release `7.19.1` zníži provider timeout a pridá dve immediate retries bez jitteru. Cieľom bolo znížiť final failure rate pri transient provider latency.
 
-### Duration rastie, utilization je nízka
+### Observed counts
 
-Možné:
+```text
+9,100 logical operations succeed on first attempt
+800 logical operations succeed on third attempt
+100 logical operations exhaust three attempts
 
-- downstream latency,
-- lock contention,
-- queueing mimo sledovaného resource-u,
-- connection pool exhaustion,
-- DNS/TLS retries,
-- rate limiting.
+logical operations = 10,000
+logical failures = 100
+provider attempts = 11,800
+failed provider attempts = 1,900
+```
 
-### Rate rastie, errors a duration zatiaľ stabilné
+Správny logical error rate:
 
-Over saturation headroom. RED môže byť zdravé tesne pred capacity cliffom.
+```text
+100 / 10,000 = 1 %
+```
 
-## 18. Anti-patterny
+Attempt failure ratio:
+
+```text
+1,900 / 11,800 ≈ 16.1 %
+```
+
+Chybný mixed ratio:
+
+```text
+1,900 failed attempts / 10,000 logical operations = 19 %
+```
+
+Posledný výpočet nie je error rate žiadnej konzistentnej population.
+
+### False-green duration
+
+Immediate retries a otvorený circuit breaker vytvoria veľa fast rejected attempts. Attempt p95 klesne z `350 ms` na `90 ms`. End-to-end logical-operation p95 však rastie na `4.8 s` pre retry/backoff a pool queueing.
+
+Dashboard sledujúci iba attempt duration preto ukazuje „zlepšenie“, zatiaľ čo user journey sa zhoršila.
+
+### Competing hypotheses
+
+1. reálny client traffic vzrástol o 18 %;
+2. client posiela duplicate logical requests;
+3. metrics pipeline duplikuje samples;
+4. internal retry amplification zvyšuje provider attempts;
+5. fan-out change pridala viac provider calls;
+6. provider latency a connection pool vytvárajú queueing;
+7. logical-operation instrumentation vynecháva časť completions.
+
+### Discriminating evidence
+
+```text
+ingress logical-operation counter
+→ idempotency/logical ID uniqueness
+→ attempts-per-operation histogram
+→ trace spans a retry events
+→ provider connection-pool saturation
+→ retry reason a timeout generation
+→ release event
+→ final business reconciliation
+```
+
+Evidence ukáže stabilných `10,000` logical operations, no `11,800` provider attempts. Traces zobrazia immediate retries rovnakého logical operation ID. Connection pool wait a provider throttling rastú. Final settlements sa oneskorujú a 100 operations zlyhá.
+
+Root cause je retry policy bez jitteru a downstream protection. Measurement defect zmiešal attempts s logical operations a fast failures s successful duration, čím zhoršenie nesprávne prezentoval.
+
+### Evidence-preserving containment
+
+- vrátiť retry policy na bounded previous generation;
+- obmedziť provider concurrency a chrániť connection pool;
+- zachovať attempt/logical counters, traces a pool metrics;
+- nepovažovať broad timeout increase za root-cause fix;
+- pred ďalším pokusom reconciliovať unknown provider outcomes;
+- neodstrániť business-completion monitoring.
+
+### Authoritative recovery
+
+1. oddeliť logical-operation a attempt metrics;
+2. pridať attempts-per-operation histogram;
+3. merať end-to-end logical duration vrátane queue/backoff;
+4. sledovať successful a failed duration oddelene;
+5. zaviesť exponential backoff, jitter a retry budget;
+6. používať idempotency a reconciliation pred retry po unknown outcome;
+7. canary rollout s dependency RED a saturation guardrails;
+8. aktualizovať SLO/dashboard queries na schema `RED-PAY-9`.
+
+### Acceptance verdict
+
+- logical error ratio používa konzistentný numerator/denominator;
+- attempt amplification zostáva v retry budgete;
+- logical p95/p99 a completion SLI sa obnovia;
+- provider pool a throttle saturation majú headroom;
+- final ledger/provider reconciliation obsahuje exactly one outcome;
+- forbidden duplicate authorization nevznikne;
+- sampled traces a logs korelujú s authoritative counters;
+- second canary load wave nevytvorí rovnakú amplification.
+
+### Earlier controls
+
+- schema test zakazujúci mix logical a attempt units;
+- retry-policy load test s dependency throttlingom;
+- dashboard panel pre attempts/logical ratio;
+- explicit successful/failed logical duration;
+- SLO query review pri každej retry alebo async-boundary zmene;
+- alert na retry amplification a connection-pool saturation.
+
+## 16. Troubleshooting podľa RED
+
+### Rate klesne bez rastu errors
+
+Over expected demand, upstream routing, deployment registration, queue producer, signal freshness a seasonality. Nulový rate môže byť incident aj telemetry failure.
+
+### Errors rastú a duration klesá
+
+Hľadaj fast rejection, authentication failure, open circuit breaker, validation failure alebo dependency unavailable pred reálnym spracovaním.
+
+### Duration rastie pri nízkom CPU
+
+Hľadaj downstream wait, lock, connection pool, hidden queue, DNS/TLS retry, rate limiting alebo storage/network latency. CPU nie je univerzálny saturation signal.
+
+### Rate rastie, Errors a Duration sú zatiaľ stabilné
+
+Over queue, pool, quota a failover headroom. Healthy current outcome môže byť tesne pred capacity cliffom.
+
+### Final success je stabilný, attempt rate rastie
+
+Hľadaj retries, hedging, fan-out alebo redelivery. Stabilný final success nemusí znamenať stabilný cost a reliability margin.
+
+## 17. Anti-patterny
 
 ### RED iba na service total
 
-Jedna pomalá kritická operation sa stratí v aggregate.
+Malá kritická operation alebo cohort sa stratí v aggregate.
 
-### Status code ako jediná error definícia
+### Status code ako celý error contract
 
-Business failures a degraded responses zostanú skryté.
+Business, partial a degraded outcomes zostanú skryté.
 
-### Average duration
+### Failed attempts nad logical denominatorom
 
-Tail latency a multimodal distribution sa stratia.
+Výsledok nie je konzistentný error ratio.
 
-### Retry attempts zmiešané s logical operations
+### Average alebo mixed successful/failed duration
 
-Rate a error ratio sú neinterpretovateľné.
+Tail a fast failures skreslia user experience.
 
-### Raw path ako label
+### Raw route alebo business ID ako label
 
-Vytvára vysokú cardinality.
+Vytvára unbounded cardinality.
 
-### RED bez saturation
+### Final success bez attempt a saturation visibility
 
-Služba môže vyzerať zdravo až do náhleho capacity collapse-u.
+Retry amplification zostane neviditeľná až do capacity collapse-u.
 
-## 19. Kontrolné otázky
+### Handler duration ako async end-to-end latency
 
-1. Čo znamenajú Rate, Errors a Duration?
-2. Ako definuješ denominator pre error rate?
-3. Prečo `2xx` nemusí znamenať business success?
-4. Prečo oddeľovať successful a failed latency?
-5. Ako retries skresľujú RED?
-6. Ako prispôsobiť RED pre queue consumer?
-7. Čo pridať pre batch job?
-8. Ako súvisí RED so SLO?
-9. Aký je rozdiel medzi RED a USE?
-10. Prečo RED potrebuje saturation doplnok?
+Queue wait a completion path chýbajú.
+
+### RED ako náhrada za traces, USE a business reconciliation
+
+RED deteguje service symptom, ale nemusí vysvetliť interný mechanizmus ani correctness state.
+
+## 18. Kontrolné otázky
+
+1. Čo musí obsahovať exact RED subject?
+2. Ako sa líši logical operation, attempt a dependency call?
+3. Prečo numerator a denominator musia používať rovnakú population?
+4. Kedy `2xx` nie je business success?
+5. Prečo failed a successful duration sledovať oddelene?
+6. Ako retry mení Rate, Errors a Duration?
+7. Ako sa RED prispôsobí async queue a batch workloadu?
+8. Ako sa RED viaže na SLO, Golden Signals a USE?
+9. Prečo attempt p95 v worked failure predstieral zlepšenie?
+10. Aký acceptance verdict uzavrel incident `RED-PAY-43`?
 
 ## Glossary impact
 
-Relevantné pojmy: RED method, request rate, logical operation, attempt rate, error rate, success semantics, duration distribution, tail latency, normalized route, dependency RED, queue age, consumer lag a request-based SLI.
+Relevantné pojmy: RED subject, logical-operation boundary, measurement population, Rate denominator contract, Error numerator contract, final-outcome class, unknown-outcome class, logical duration, attempt duration, attempt amplification, attempts-per-operation distribution, retry budget, completion gap, dependency RED a RED acceptance verdict.
 
 ## Primárne zdroje
 
-- [Grafana dashboard best practices — RED method](https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/)
-- [Grafana RED metrics concepts](https://grafana.com/docs/grafana/latest/visualizations/simplified-exploration/traces/concepts/)
 - [Prometheus instrumentation practices](https://prometheus.io/docs/practices/instrumentation/)
 - [Google SRE — Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/)
+- [Grafana dashboard best practices — RED method](https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/)
+- [OpenTelemetry HTTP semantic conventions](https://opentelemetry.io/docs/specs/semconv/http/)
+- [OpenTelemetry messaging semantic conventions](https://opentelemetry.io/docs/specs/semconv/messaging/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
