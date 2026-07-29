@@ -317,10 +317,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md)
 - [x] [Error budgets](docs/14-sre-and-operations/error-budgets.md)
 - [x] [Toil](docs/14-sre-and-operations/toil.md)
-- [ ] Capacity planning
-- [ ] Incident management
-- [ ] On-call a escalation
-- [ ] Runbooks a playbooks
+- [x] [Capacity planning](docs/14-sre-and-operations/capacity-planning.md)
+- [x] [Incident management](docs/14-sre-and-operations/incident-management.md)
+- [x] [On-call a escalation](docs/14-sre-and-operations/on-call-and-escalation.md)
+- [x] [Runbooks a playbooks](docs/14-sre-and-operations/runbooks-and-playbooks.md)
 - [ ] Root cause analysis
 - [ ] Blameless postmortems
 - [ ] Backup a restore

@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **265**
 - Audited conceptual sections: **10639**
-- Total words: **622,941**
+- Total words: **622,942**
 - Findings: **22283** (critical 6634, high 7574, medium 2828, low 5247)
 - File grades: A 0, B 0, C 0, D 265
 
@@ -167,7 +167,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 567 | 20 | 32 | 9 | 34 | 2310 | `docs/13-security-and-identity/supply-chain-security.md` |
 | D | 566 | 22 | 33 | 6 | 15 | 1920 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 566 | 25 | 25 | 10 | 27 | 2905 | `docs/11-cloud-and-aws/ecs-eks.md` |
-| D | 557 | 23 | 30 | 8 | 11 | 1833 | `docs/14-sre-and-operations/toil.md` |
+| D | 557 | 23 | 30 | 8 | 11 | 1834 | `docs/14-sre-and-operations/toil.md` |
 | D | 552 | 26 | 23 | 11 | 15 | 2057 | `docs/08-container-fundamentals-and-docker/registries.md` |
 | D | 546 | 25 | 27 | 6 | 9 | 1862 | `docs/12-observability/grafana.md` |
 | D | 544 | 23 | 26 | 11 | 23 | 2520 | `docs/02-networking-and-web/ports-and-sockets.md` |
