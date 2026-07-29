@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **291**
-- Audited conceptual sections: **11774**
-- Total words: **677,254**
-- Findings: **24923** (critical 7500, high 8583, medium 3152, low 5688)
-- File grades: A 0, B 0, C 0, D 291
+- Audited authoritative articles: **292**
+- Audited conceptual sections: **11807**
+- Total words: **679,191**
+- Findings: **25021** (critical 7531, high 8613, medium 3167, low 5710)
+- File grades: A 0, B 0, C 0, D 292
 
 ## Interpretation
 
@@ -116,6 +116,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 695 | 34 | 29 | 14 | 10 | 1929 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | D | 694 | 30 | 35 | 10 | 20 | 2171 | `docs/04-testing-and-quality/shift-right.md` |
 | D | 693 | 30 | 33 | 12 | 22 | 2412 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
+| D | 691 | 31 | 30 | 15 | 22 | 1937 | `docs/16-gitops-and-platform-engineering/pull-based-deployment.md` |
 | D | 688 | 32 | 29 | 15 | 15 | 2130 | `docs/05-ci-cd-and-release/pipeline-as-code.md` |
 | D | 688 | 22 | 47 | 12 | 8 | 1919 | `docs/12-observability/use-method.md` |
 | D | 687 | 32 | 28 | 17 | 18 | 2845 | `docs/03-git-and-automation/python-for-automation.md` |
@@ -17274,23 +17275,87 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 383, `thin-concept-section` — **Causal boundaries**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 405, `thin-concept-section` — **15. Acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
+### `docs/16-gitops-and-platform-engineering/pull-based-deployment.md`
+
+- **CRITICAL** line 24, `empty-section` — **2. Push vs. pull**: Sekcia nemá vysvetľovací obsah.
+- **CRITICAL** line 37, `bare-bullet-items` — **Pull-based deployment**: 5 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `kto drží production write credential;`, `kto rozhoduje, ktorá source generation je aktuálna;`, `či deployment pokračuje po výpadku CI;`, `či target agent vynucuje destination a resource boundaries;`.
+- **CRITICAL** line 37, `outline-instead-of-explanation` — **Pull-based deployment**: 6 odrážok je podopretých iba 18 slovami súvislého vysvetlenia.
+- **CRITICAL** line 60, `bare-bullet-items` — **3. Pull model podľa OpenGitOps**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `desired state je declarative;`, `desired state je versioned a immutable;`, `software agents ho pullujú automaticky;`.
+- **CRITICAL** line 60, `outline-instead-of-explanation` — **3. Pull model podľa OpenGitOps**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 71, `bare-bullet-items` — **4. Deployment subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `environment a application identity;`, `desired repository, path a resolved revisions;`, `source credential a trust roots;`, `destination cluster/namespace a agent identity;`.
+- **CRITICAL** line 71, `outline-instead-of-explanation` — **4. Deployment subject**: 11 odrážok je podopretých iba 14 slovami súvislého vysvetlenia.
+- **CRITICAL** line 89, `bare-bullet-items` — **5. Credential boundary**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `chrániť repository write path;`, `overovať source authenticity;`, `obmedziť agent RBAC;`, `chrániť repository a cluster credentials;`.
+- **CRITICAL** line 115, `bare-bullet-items` — **6. Source polling a webhook**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `periodickým pollingom;`, `Git webhookom;`, `cache invalidation eventom;`, `explicitným refresh requestom.`.
+- **CRITICAL** line 145, `bare-bullet-items` — **7. Pull neznamená automatický sync**: 5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `automatická;`, `manuálne schválená v Argo CD;`, `viazaná na change window;`, `pozastavená pre freeze;`.
+- **CRITICAL** line 145, `outline-instead-of-explanation` — **7. Pull neznamená automatický sync**: 5 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 163, `bare-bullet-items` — **8. Deployment trigger vs. deployment authority**: 6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `agent sám číta source;`, `CI neposiela rendered manifests ako hidden desired state;`, `agent používa vlastnú scoped target identity;`, `requested revision je authoritative a policy-valid;`.
+- **CRITICAL** line 163, `outline-instead-of-explanation` — **8. Deployment trigger vs. deployment authority**: 6 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
+- **CRITICAL** line 184, `bare-bullet-items` — **9. Source authentication a revision resolution**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository endpoint;`, `SSH host key alebo TLS trust;`, `authentication credential scope;`, `commit/tag signature, ak je required;`.
+- **CRITICAL** line 184, `outline-instead-of-explanation` — **9. Source authentication a revision resolution**: 10 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 201, `bare-bullet-items` — **10. Render a policy pred mutation**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trusted source a artifact;`, `namespace/destination;`, `prohibited cluster-scoped resources;`, `image digest a provenance;`.
+- **CRITICAL** line 201, `outline-instead-of-explanation` — **10. Render a policy pred mutation**: 10 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **CRITICAL** line 230, `bare-bullet-items` — **11. Sync operation**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inventory desired resources;`, `inventory tracked live resources;`, `normalizáciu a diff;`, `ordering;`.
+- **CRITICAL** line 230, `outline-instead-of-explanation` — **11. Sync operation**: 8 odrážok je podopretých iba 25 slovami súvislého vysvetlenia.
+- **CRITICAL** line 245, `bare-bullet-items` — **12. Continuous pull a convergence**: 9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manual mutation;`, `failed alebo partial previous apply;`, `controller/defaulting changes;`, `deleted resource;`.
+- **CRITICAL** line 245, `outline-instead-of-explanation` — **12. Continuous pull a convergence**: 9 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 271, `bare-bullet-items` — **13. Offline a disconnected behavior**: 8 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `live workloads zvyčajne pokračujú;`, `agent nemôže potvrdiť newest desired generation;`, `cached source môže byť stale;`, `manual drift môže zostať neopravený;`.
+- **CRITICAL** line 271, `outline-instead-of-explanation` — **13. Offline a disconnected behavior**: 10 odrážok je podopretých iba 9 slovami súvislého vysvetlenia.
+- **CRITICAL** line 333, `bare-bullet-items` — **16. Rollback v pull modeli**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `manifests a image digests;`, `database compatibility;`, `config/secrets generation;`, `hooks a external effects;`.
+- **CRITICAL** line 333, `outline-instead-of-explanation` — **16. Rollback v pull modeli**: 8 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 366, `bare-bullet-items` — **17. Connected incident GITOPS-PAY-61**: 9 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Git webhook dorazil do Argo CD o 20:14:03 ;`, `CI direct apply začal o 20:14:04 ;`, `Argo sync začal o 20:14:07 ;`, `on-call patch prišiel o 20:18:26 ;`.
+- **CRITICAL** line 419, `bare-bullet-items` — **Recovery**: 6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `revoke production kubeconfig z CI;`, `zaviesť project-scoped Argo destination/resource permissions;`, `odstrániť hidden rendered workspace apply;`, `obnoviť one-writer field contract;`.
+- **CRITICAL** line 419, `no-prose-concept` — **Recovery**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
+- **CRITICAL** line 419, `outline-instead-of-explanation` — **Recovery**: 8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
+- **CRITICAL** line 430, `outline-instead-of-explanation` — **18. Pull-based acceptance verdict**: 14 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.
+- **CRITICAL** line 449, `empty-section` — **19. Troubleshooting flow**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 7, `single-sentence-concept` — **1. Dominantný model**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 26, `single-sentence-concept` — **Push-based deployment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 37, `single-sentence-concept` — **Pull-based deployment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 71, `single-sentence-concept` — **4. Deployment subject**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 89, `list-heavy-section` — **5. Credential boundary**: 7 odrážok a iba 37 slov súvislého vysvetlenia.
+- **HIGH** line 115, `list-heavy-section` — **6. Source polling a webhook**: 10 odrážok a iba 48 slov súvislého vysvetlenia.
+- **HIGH** line 271, `single-sentence-concept` — **13. Offline a disconnected behavior**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 289, `single-sentence-concept` — **14. Push/pull hybrid a multi-writer race**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 333, `single-sentence-concept` — **16. Rollback v pull modeli**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 366, `list-heavy-section` — **17. Connected incident GITOPS-PAY-61**: 10 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 419, `list-first-introduction` — **Recovery**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 430, `single-sentence-concept` — **18. Pull-based acceptance verdict**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 479, `single-sentence-concept` — **Agent má cluster-admin, lebo je to jednoduchšie**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 483, `single-sentence-concept` — **Rollback spravíme kubectl rollout undo**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 487, `single-sentence-concept` — **Vypneme Argo počas incidentu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 37, `thin-concept-section` — **Pull-based deployment**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 60, `thin-concept-section` — **3. Pull model podľa OpenGitOps**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 71, `term-before-explanation` — **4. Deployment subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `identity`, `policy`, `resource`
+- **HIGH** line 71, `thin-concept-section` — **4. Deployment subject**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 145, `thin-concept-section` — **7. Pull neznamená automatický sync**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 184, `term-before-explanation` — **9. Source authentication a revision resolution**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SSH`, `TLS`, `OCI`, `scope`
+- **HIGH** line 184, `thin-concept-section` — **9. Source authentication a revision resolution**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 230, `thin-concept-section` — **11. Sync operation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 245, `thin-concept-section` — **12. Continuous pull a convergence**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 271, `thin-concept-section` — **13. Offline a disconnected behavior**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 333, `thin-concept-section` — **16. Rollback v pull modeli**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 419, `thin-concept-section` — **Recovery**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 430, `term-before-explanation` — **18. Pull-based acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CI`, `identity`, `resource`, `policy`
+- **HIGH** line 430, `thin-concept-section` — **18. Pull-based acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `bare-bullet-items` | 2952 | 503 | 0 | 0 | 3455 |
-| `single-sentence-concept` | 0 | 2982 | 0 | 0 | 2982 |
-| `outline-instead-of-explanation` | 2896 | 0 | 0 | 0 | 2896 |
-| `term-before-explanation` | 0 | 606 | 2102 | 0 | 2708 |
-| `thin-concept-section` | 0 | 2444 | 0 | 0 | 2444 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2287 | 2287 |
-| `example-not-explicit` | 0 | 0 | 0 | 2256 | 2256 |
-| `list-first-introduction` | 0 | 1518 | 0 | 0 | 1518 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1145 | 1145 |
-| `short-concept-section` | 0 | 0 | 1050 | 0 | 1050 |
-| `no-prose-concept` | 875 | 0 | 0 | 0 | 875 |
-| `empty-section` | 777 | 0 | 0 | 0 | 777 |
-| `list-heavy-section` | 0 | 530 | 0 | 0 | 530 |
+| `bare-bullet-items` | 2967 | 503 | 0 | 0 | 3470 |
+| `single-sentence-concept` | 0 | 2993 | 0 | 0 | 2993 |
+| `outline-instead-of-explanation` | 2909 | 0 | 0 | 0 | 2909 |
+| `term-before-explanation` | 0 | 609 | 2113 | 0 | 2722 |
+| `thin-concept-section` | 0 | 2455 | 0 | 0 | 2455 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2298 | 2298 |
+| `example-not-explicit` | 0 | 0 | 0 | 2263 | 2263 |
+| `list-first-introduction` | 0 | 1520 | 0 | 0 | 1520 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1149 | 1149 |
+| `short-concept-section` | 0 | 0 | 1054 | 0 | 1054 |
+| `no-prose-concept` | 876 | 0 | 0 | 0 | 876 |
+| `empty-section` | 779 | 0 | 0 | 0 | 779 |
+| `list-heavy-section` | 0 | 533 | 0 | 0 | 533 |
 
 ## Required remediation pattern
 
