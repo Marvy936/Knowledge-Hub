@@ -6,8 +6,8 @@
 
 - Audited authoritative articles: **302**
 - Audited conceptual sections: **12272**
-- Total words: **718,312**
-- Findings: **25535** (critical 7595, high 8789, medium 3226, low 5925)
+- Total words: **718,805**
+- Findings: **25519** (critical 7592, high 8787, medium 3219, low 5921)
 - File grades: A 0, B 0, C 1, D 301
 
 ## Interpretation
@@ -308,21 +308,21 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 158 | 4 | 6 | 9 | 23 | 2750 | `docs/00-foundations/automation-mindset.md` |
 | D | 155 | 4 | 6 | 7 | 28 | 2096 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 155 | 6 | 6 | 2 | 23 | 2364 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
-| D | 154 | 2 | 8 | 11 | 20 | 3446 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | D | 153 | 5 | 6 | 5 | 19 | 2652 | `docs/00-foundations/devops-lifecycle.md` |
 | D | 145 | 6 | 6 | 3 | 15 | 2392 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | D | 144 | 6 | 5 | 4 | 16 | 2481 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
-| D | 134 | 1 | 8 | 9 | 19 | 3589 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
 | D | 133 | 5 | 3 | 4 | 26 | 2820 | `docs/00-foundations/devops.md` |
 | D | 132 | 0 | 11 | 1 | 35 | 5685 | `docs/16-gitops-and-platform-engineering/gitops-secrets.md` |
+| D | 113 | 0 | 8 | 7 | 18 | 3712 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
+| D | 109 | 0 | 7 | 8 | 19 | 3697 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | D | 108 | 3 | 2 | 7 | 22 | 2403 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
 | D | 103 | 0 | 7 | 4 | 26 | 4352 | `docs/16-gitops-and-platform-engineering/flux.md` |
 | D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
-| D | 101 | 1 | 6 | 5 | 19 | 3487 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
+| D | 82 | 1 | 5 | 3 | 17 | 3606 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
 | C | 53 | 0 | 3 | 3 | 16 | 3835 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
 
@@ -17321,18 +17321,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 518, `term-before-explanation` — **19. Argo CD acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RBAC`, `policy`, `identity`, `resource`
 - **HIGH** line 518, `thin-concept-section` — **19. Argo CD acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
-### `docs/16-gitops-and-platform-engineering/developer-experience.md`
-
-- **CRITICAL** line 371, `outline-instead-of-explanation` — **18. Developer-experience acceptance verdict**: 12 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **HIGH** line 49, `list-heavy-section` — **3. Exact developer-experience subject**: 10 odrážok a iba 48 slov súvislého vysvetlenia.
-- **HIGH** line 137, `single-sentence-concept` — **Organizational friction**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 160, `list-heavy-section` — **8. Cognitive load a platform boundaries**: 7 odrážok a iba 54 slov súvislého vysvetlenia.
-- **HIGH** line 176, `list-heavy-section` — **9. Flow, interruptions a work-in-progress**: 6 odrážok a iba 64 slov súvislého vysvetlenia.
-- **HIGH** line 191, `list-heavy-section` — **10. Documentation, discoverability a learning experience**: 6 odrážok a iba 51 slov súvislého vysvetlenia.
-- **HIGH** line 248, `list-heavy-section` — **13. Baseline, cohort a causal inference**: 6 odrážok a iba 45 slov súvislého vysvetlenia.
-- **HIGH** line 283, `list-heavy-section` — **15. DevEx počas incidentu a on-call**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 298, `list-heavy-section` — **16. AI-assisted development ako DevEx intervention**: 6 odrážok a iba 55 slov súvislého vysvetlenia.
-
 ### `docs/16-gitops-and-platform-engineering/git-as-source-of-truth.md`
 
 - **CRITICAL** line 23, `bare-bullet-items` — **2. Exact desired-state subject**: 11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `repository identity a trust boundary;`, `path, branch/tag/ref a resolved commit SHA;`, `environment, cluster, namespace a application identity;`, `manifest, Helm chart, Kustomize overlay alebo generator generation;`.
@@ -17379,13 +17367,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md`
 
-- **CRITICAL** line 268, `outline-instead-of-explanation` — **14. Supply-chain a security boundary**: 8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **CRITICAL** line 272, `outline-instead-of-explanation` — **14. Supply-chain a security boundary**: 8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
 - **HIGH** line 65, `list-heavy-section` — **3. Exact golden-path subject**: 10 odrážok a iba 61 slov súvislého vysvetlenia.
 - **HIGH** line 108, `list-heavy-section` — **5. Opinionated defaults a decision architecture**: 6 odrážok a iba 50 slov súvislého vysvetlenia.
-- **HIGH** line 251, `list-heavy-section` — **13. Testing golden pathu**: 8 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 358, `list-heavy-section` — **17. Golden-path acceptance verdict**: 12 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 268, `term-before-explanation` — **14. Supply-chain a security boundary**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`, `resource`, `scope`
-- **HIGH** line 268, `thin-concept-section` — **14. Supply-chain a security boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 362, `list-heavy-section` — **17. Golden-path acceptance verdict**: 12 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 272, `term-before-explanation` — **14. Supply-chain a security boundary**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `identity`, `resource`, `scope`
+- **HIGH** line 272, `thin-concept-section` — **14. Supply-chain a security boundary**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
 ### `docs/16-gitops-and-platform-engineering/pull-based-deployment.md`
 
@@ -17534,19 +17521,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 464, `term-before-explanation` — **16. Reconciliation acceptance verdict**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HPA`, `resource`, `identity`, `scope`
 - **HIGH** line 464, `thin-concept-section` — **16. Reconciliation acceptance verdict**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
-### `docs/16-gitops-and-platform-engineering/self-service.md`
-
-- **CRITICAL** line 271, `outline-instead-of-explanation` — **15. Self-service a human support**: 5 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.
-- **CRITICAL** line 304, `outline-instead-of-explanation` — **17. Security a abuse model**: 9 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
-- **HIGH** line 50, `list-heavy-section` — **3. Exact self-service request subject**: 10 odrážok a iba 40 slov súvislého vysvetlenia.
-- **HIGH** line 75, `list-heavy-section` — **5. Preflight a plán**: 7 odrážok a iba 67 slov súvislého vysvetlenia.
-- **HIGH** line 113, `list-heavy-section` — **7. Delegated execution identity**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
-- **HIGH** line 211, `list-heavy-section` — **12. Queue, capacity a backpressure**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
-- **HIGH** line 233, `single-sentence-concept` — **Integration verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 237, `single-sentence-concept` — **Developer-functional verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 365, `list-heavy-section` — **19. Self-service acceptance verdict**: 13 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 304, `term-before-explanation` — **17. Security a abuse model**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UI`, `API`, `IAM`, `identity`, `step-up`, `policy`, `scope`
-
 ### `docs/16-gitops-and-platform-engineering/application-promotion.md`
 
 - **HIGH** line 24, `single-sentence-concept` — **2. Deploy, promote, release a expose**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
@@ -17569,6 +17543,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 643, `single-sentence-concept` — **Staging bolo zelené, approval zostáva platný**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 651, `single-sentence-concept` — **Dve production PR sa nejako merge-nú**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 63, `term-before-explanation` — **3. Exact promotion subject**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SBOM`, `API`, `identity`, `resource`, `scope`, `freshness`, `workload`
+
+### `docs/16-gitops-and-platform-engineering/developer-experience.md`
+
+- **HIGH** line 49, `list-heavy-section` — **3. Exact developer-experience subject**: 10 odrážok a iba 48 slov súvislého vysvetlenia.
+- **HIGH** line 137, `single-sentence-concept` — **Organizational friction**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 160, `list-heavy-section` — **8. Cognitive load a platform boundaries**: 7 odrážok a iba 54 slov súvislého vysvetlenia.
+- **HIGH** line 176, `list-heavy-section` — **9. Flow, interruptions a work-in-progress**: 6 odrážok a iba 64 slov súvislého vysvetlenia.
+- **HIGH** line 191, `list-heavy-section` — **10. Documentation, discoverability a learning experience**: 6 odrážok a iba 51 slov súvislého vysvetlenia.
+- **HIGH** line 248, `list-heavy-section` — **13. Baseline, cohort a causal inference**: 6 odrážok a iba 45 slov súvislého vysvetlenia.
+- **HIGH** line 283, `list-heavy-section` — **15. DevEx počas incidentu a on-call**: 6 odrážok a iba 35 slov súvislého vysvetlenia.
+- **HIGH** line 298, `list-heavy-section` — **16. AI-assisted development ako DevEx intervention**: 6 odrážok a iba 55 slov súvislého vysvetlenia.
 
 ### `docs/16-gitops-and-platform-engineering/flux.md`
 
@@ -17619,23 +17604,33 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 158, `list-heavy-section` — **8. Capability contract ako produktový sľub**: 9 odrážok a iba 63 slov súvislého vysvetlenia.
 - **HIGH** line 371, `list-heavy-section` — **17. Platform-as-a-Product acceptance verdict**: 12 odrážok a iba 39 slov súvislého vysvetlenia.
 
+### `docs/16-gitops-and-platform-engineering/self-service.md`
+
+- **HIGH** line 50, `list-heavy-section` — **3. Exact self-service request subject**: 10 odrážok a iba 40 slov súvislého vysvetlenia.
+- **HIGH** line 75, `list-heavy-section` — **5. Preflight a plán**: 7 odrážok a iba 67 slov súvislého vysvetlenia.
+- **HIGH** line 113, `list-heavy-section` — **7. Delegated execution identity**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
+- **HIGH** line 211, `list-heavy-section` — **12. Queue, capacity a backpressure**: 7 odrážok a iba 38 slov súvislého vysvetlenia.
+- **HIGH** line 233, `single-sentence-concept` — **Integration verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 237, `single-sentence-concept` — **Developer-functional verification**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 373, `list-heavy-section` — **19. Self-service acceptance verdict**: 13 odrážok a iba 41 slov súvislého vysvetlenia.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
 | `bare-bullet-items` | 2993 | 509 | 0 | 0 | 3502 |
 | `single-sentence-concept` | 0 | 3089 | 0 | 0 | 3089 |
-| `outline-instead-of-explanation` | 2940 | 0 | 0 | 0 | 2940 |
-| `term-before-explanation` | 0 | 619 | 2152 | 0 | 2771 |
+| `outline-instead-of-explanation` | 2937 | 0 | 0 | 0 | 2937 |
+| `term-before-explanation` | 0 | 618 | 2149 | 0 | 2767 |
 | `thin-concept-section` | 0 | 2479 | 0 | 0 | 2479 |
 | `example-not-explicit` | 0 | 0 | 0 | 2365 | 2365 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2351 | 2351 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2349 | 2349 |
 | `list-first-introduction` | 0 | 1529 | 0 | 0 | 1529 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1209 | 1209 |
-| `short-concept-section` | 0 | 0 | 1074 | 0 | 1074 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1207 | 1207 |
+| `short-concept-section` | 0 | 0 | 1070 | 0 | 1070 |
 | `no-prose-concept` | 877 | 0 | 0 | 0 | 877 |
 | `empty-section` | 785 | 0 | 0 | 0 | 785 |
-| `list-heavy-section` | 0 | 564 | 0 | 0 | 564 |
+| `list-heavy-section` | 0 | 563 | 0 | 0 | 563 |
 
 ## Required remediation pattern
 

@@ -252,6 +252,10 @@ In-place central update znižuje divergence, ale zvyšuje shared blast radius. P
 
 Path testovanie musí pokryť viac než render skeletonu. Test subject má obsahovať exact generation a representative input matrix.
 
+Jednotlivé testovacie vrstvy sledujú ten istý path subject cez odlišné failure boundaries. Schema test môže dokázať, že input vytvorí očakávané súbory, ale nevie preukázať, že delegated identity smie vytvoriť databázu, že composition nevytvorí konflikt ownershipu ani že výsledný workload vykoná business operáciu. Preto sa evidence skladá od lacného deterministického renderu cez sandbox mutation a complete composition až po developer journey a runtime canary.
+
+Rozhodujúca je kontinuita identity: každý result musí uviesť path generation, resolved dependencies, input digest a output inventory. Bez nej môže upgrade testovať inú action image než produkčný scaffolder alebo happy-path demo nevedomky používať oprávnenia platform engineera, ktoré cieľový používateľ nemá. Failure v jednej vrstve preto neobchádza nižšie gates; zužuje presný boundary, na ktorom path contract neplatí.
+
 Testing layers:
 
 - **Schema a template tests** — overujú required inputs, conditions, expressions a generated file structure bez external mutation.

@@ -272,6 +272,10 @@ delete intent
 
 Self-service neodstraňuje podporu. Mení ju z rutinného vykonávania na product assistance, exception handling a incident recovery. Support musí používať rovnakú operation identity a evidence ako používateľ, inak vzniká paralelný neauditovaný proces.
 
+Support boundary začína tam, kde automatizovaný state machine nevie bezpečne rozhodnúť bez nového ľudského vstupu, exception authority alebo externého zásahu. Podpora preto najprv načíta authoritative operation, child-operation IDs, last confirmed state a recovery options; nevytvára nový ticket-only workflow, ktorý by stratil väzbu na pôvodný request. Ak napríklad databáza čaká na kapacitu, support nemá označiť request za hotový ani ju vytvoriť bokom pod inou identity. Má zaznamenať dependency, ownera, next observation time a povolený resume alebo cancel transition.
+
+Tým sa support stáva súčasťou product feedback loopu. Opakovaná manuálna oprava je evidence chýbajúceho preflightu, slabého error modelu alebo absentnej capability, nie trvalý úspešný fallback. Support SLO preto sleduje čas k ďalšiemu dôveryhodnému rozhodnutiu a k usable outcome-u, nie iba čas prvej odpovede.
+
 Dobrá podpora poskytuje:
 
 - **In-context explanation** — status, next action a relevantná dokumentácia sú pri operation, nie v oddelenom knowledge base bez identity.
@@ -304,6 +308,10 @@ SLO môže napríklad merať „95 % eligible low-risk database requests dosiahn
 ## 17. Security a abuse model
 
 Self-service interface je privileged automation surface. Threat model zahŕňa compromised user account, malicious inputs, confused deputy, privilege escalation, resource exhaustion, cross-tenant reference, secret exfiltration a destructive request.
+
+Threat sa realizuje cez celý request-to-mutation chain, nie iba cez formulár. Principal môže byť legitímne autentizovaný, ale požiadať o cudzí namespace; schema-valid input môže vložiť nebezpečný IAM wildcard; delegated orchestrator môže ako confused deputy použiť broad credential nad nesprávnym tenantom; retry po unknown outcome môže zdvojiť drahý resource. Security decision preto viaže requester identity, owner, semantic request digest, approved plan, delegated principal, target inventory a observed outcome.
+
+Controls sa skladajú sekvenčne. Authentication určí kto žiada, authorization a policy rozhodnú čo smie nad ktorým subjectom, semantic validation obmedzí význam vstupu, quota a admission chránia shared capacity a delegated execution vynucuje least privilege pri reálnej mutation. Read-back, audit a anomaly detection potom dokazujú, čo sa skutočne stalo. Vynechanie jednej boundary nemožno kompenzovať skrytím tlačidla v UI; API alebo orchestrator by stále zostali zneužiteľné.
 
 Controls musia byť kompozitné:
 

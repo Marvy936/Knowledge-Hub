@@ -372,6 +372,10 @@ journey baseline
 
 Acceptance verdict musí dokázať zlepšenie konkrétneho developer journey a vysvetliť mechanismus. Nemôže byť založený na jednej activity metrike, voluntary survey úspešných používateľov alebo priemere bez cohortov.
 
+Verdict preto koreluje tri vrstvy. Experience evidence ukazuje, či používateľ rozumel stavu, dôveroval systému a zvládol rozhodnutie bez neprimeranej cognitive load. Flow evidence meria waiting, handoffs, rework a čas k usable outcome-u. Guard outcomes dokazujú, že zdanlivé zrýchlenie nezvýšilo incidenty, security exceptions, support toil alebo downstream business chyby. Zlepšenie je prijaté iba vtedy, keď sa tieto vrstvy vzťahujú na rovnaký cohort, journey generation a časové okno.
+
+Mechanistické vysvetlenie odlišuje koreláciu od príčiny. Ak time-to-first-production klesne po novom path-e, treba ukázať, ktorú wait alebo decision boundary path odstránil, či sa nezmenila zložitosť workloadov a či benefit pretrval pri druhom tíme, prvom failure a druhej zmene. Bez tejto triangulácie môže dashboard pripísať platforme sezónne ľahší workload alebo vylúčiť abandoned requests a vytvoriť false-positive DevEx verdict.
+
 Developer-experience design je prijatý, keď:
 
 - **DevEx subject je exact** — cohort, journey, platform/tool generation, environment, time window a outcome sú explicitné.
