@@ -1,531 +1,391 @@
 # Metrics, logs, traces a events
 
-Observability signals nie sú navzájom zameniteľné formáty rovnakých dát. Každý signal komprimuje alebo zachováva inú časť reality systému a odpovedá na iný typ otázky. Efektívna observability platforma preto nestojí na „čo najväčšom množstve dát“, ale na správnom výbere signals, spoločnom context-e a schopnosti prejsť od agregovaného symptómu ku konkrétnej operácii.
+Metrics, logs, traces, events, audit records a profiles nie sú rôzne vizualizácie toho istého faktu. Každý signal vzniká inou transformáciou system occurrence-u: niečo agreguje, niečo zachová detail, niečo modeluje causal path a niečo chráni actor/action evidence. Signal je užitočný iba vtedy, keď poznáme jeho source observation, schema, coverage, sampling a rozhodnutie, ktoré má podporiť.
 
-## 1. Mentálny model
+## 1. Dominantný lifecycle
 
 ```text
-systém vykonáva operácie
-→ instrumentation vytvára telemetry records
-→ records sú spracované a uložené ako signals
-→ metrics ukážu rozsah a trend
-→ traces ukážu request path a causal context
-→ logs vysvetlia detail udalosti alebo state-u
-→ events ukážu významnú zmenu
-→ audit records ukážu actor a control-plane action
-→ profiles ukážu spotrebu resources na úrovni kódu
+system alebo business occurrence
+→ observation point
+→ telemetry record generation
+→ signal-specific model a kompresia reality
+→ resource, operation, context a schema identity
+→ delivery, processing a storage
+→ query alebo derived signal
+→ evidence quality verdict
+→ operational decision
+→ outcome validation
 ```
 
-Žiadny signal sám osebe nepokrýva celý incident.
+Tento model oddeľuje:
 
-## 2. Signal a telemetry record
+```text
+udalosť v systéme
+≠ telemetry record o udalosti
+≠ uložený signal
+≠ query výsledok
+≠ pravdivý operational verdict
+```
 
-Signal je kategória telemetry s vlastným data modelom, semantics a query patternom.
+Request môže zlyhať bez logu. Log môže existovať, ale nebyť doručený. Trace môže byť doručený, ale sampled subset nereprezentuje všetky requests. Dashboard môže správne zobraziť query, ktorá používa nesprávny denominator.
 
-Telemetry record typicky obsahuje:
+## 2. Exact signal subject
 
-- timestamp alebo časový interval,
-- resource identity,
-- service a environment,
-- operation alebo event name,
-- attributes alebo labels,
-- value, body alebo status,
-- correlation context,
-- instrumentation scope,
-- schema/version metadata.
+Pri každom signale urč:
 
-Kvalita signalu závisí od správnej identity a contextu rovnako ako od samotnej hodnoty.
+```text
+signal subject: SIG-PAY-43
+observed operation: settle(payment_id)
+measurement boundary: client / service / dependency / final business completion
+producer: payments-api, provider-adapter, ledger-writer alebo platform
+release generation: 7.19.0
+instrumentation generation: OTEL-PAY-12
+resource identity: service, environment, Region, AZ, version
+schema generation: name, unit, attributes, event fields
+coverage: all operations alebo sampled/filterovaný subset
+pipeline generation: collector a backend route
+retention a query cut-off
+```
 
-## 3. Metrics
+Bez measurement boundary nie je možné bezpečne porovnať dva signals. `provider request errors` a `failed logical settlements` môžu mať odlišný počet aj semantics, pretože jeden settlement vykonáva viac attempts.
 
-Metric je číselné meranie zachytené v čase a agregované podľa definovaných dimensions.
+## 3. Metrics: agregovaná odpoveď o rozsahu a trende
 
-Typické otázky:
+Metric stream komprimuje veľa observations do time series. Je vhodný na rate, ratio, distribution, utilization, saturation, SLO a capacity. Cena tejto efektívnosti je strata per-operation detailu.
 
-- Koľko requestov prichádza?
-- Aký je error rate?
-- Aká je latency distribution?
-- Koľko CPU alebo memory sa používa?
-- Rastie queue depth?
-- Plní služba SLO?
+### Counter
 
-### Vlastnosti metrics
+Counter reprezentuje kumulatívny počet udalostí alebo množstvo práce. Reštart produceru ho môže resetnúť, preto sa operational význam typicky získava cez rate alebo increase.
 
-- efektívne agregovanie veľkého množstva operácií,
-- time-series query a trend analysis,
-- vhodné na alerting a capacity planning,
-- bounded label set je kritický,
-- detail jednotlivého requestu sa typicky stráca.
+```text
+settlement_logical_operations_total
+settlement_failures_total
+provider_attempts_total
+provider_attempt_failures_total
+```
 
-### Bežné metric semantics
+Tieto štyri counters nesmú byť zlúčené, pretože logical operations a attempts majú rozdielny denominator contract.
 
-#### Counter
+### Gauge
 
-Monotónne rastúca hodnota, ktorá sa resetne pri reštarte processu.
+Gauge môže rásť aj klesať a reprezentuje current observation, napríklad queue depth, in-flight requests, active connections alebo loaded config generation count. Krátky spike sa môže stratiť medzi observations; gauge tiež nemusí byť autoritatívny pre historický total.
 
-Príklady:
+### Histogram alebo distribution
 
-- počet requestov,
-- počet errors,
-- spracované bytes,
-- počet retries.
+Duration, size a queue wait sú distributions. Average odstráni tvar rozdelenia a môže skryť tail latency alebo dve odlišné populations. Histogram alebo iný distribution model umožní vyhodnotiť threshold compliance a percentiles podľa backend semantics.
 
-Operational query typicky používa rate alebo increase za časové okno, nie surovú absolútnu hodnotu.
+### Metric identity
 
-#### Gauge
+Time series je určená metric name a úplnou množinou dimensions. Labels majú byť bounded a decision-relevant:
 
-Hodnota, ktorá môže rásť aj klesať.
+```text
+service.name
+operation
+result.class
+release.channel
+deployment.environment.name
+cloud.region
+cloud.availability_zone
+```
 
-Príklady:
-
-- queue depth,
-- aktuálny počet connections,
-- memory usage,
-- desired replicas.
-
-Gauge môže reprezentovať okamžitý stav, ale bez správneho scrape intervalu nemusí zachytiť krátke spikes.
-
-#### Histogram alebo distribution
-
-Rozdelenie nameraných hodnôt.
-
-Príklady:
-
-- request duration,
-- response size,
-- queue wait time,
-- batch size.
-
-Latency sa nemá redukovať iba na average. Percentiles alebo bucket distributions odhaľujú tail latency a rozdiel medzi bežným a najhorším user experience.
-
-### Metric identity a cardinality
-
-Time series je definovaná kombináciou metric name a labels/attributes.
-
-Rizikové dimensions:
-
-- user ID,
-- request ID,
-- trace ID,
-- full URL s náhodným path segmentom,
-- exception message,
-- container alebo Pod identity bez retention stratégie.
-
-Neobmedzená cardinality môže zvýšiť ingestion, memory, storage a query cost alebo destabilizovať metrics backend.
+Raw payment ID, request ID, trace ID, unbounded URL alebo exception message vytvárajú prakticky neobmedzenú cardinality. Tento detail patrí skôr do protected logs alebo sampled traces.
 
 ### Temporality a aggregation
 
-Metrics môžu používať cumulative alebo delta temporality podľa pipeline a backend contractu.
+Cumulative a delta temporality určujú, kto drží aggregation state a čo export predstavuje. Pri konverzii, reštarte, duplicate delivery alebo backend migration musí byť jasné, či sa hodnoty sčítavajú, resetujú alebo deduplikujú. Unit a temporality sú súčasťou schema contractu, nie iba metadata.
 
-Pri návrhu over:
+## 4. Logs a structured events: detail state transitionu
 
-- kto drží aggregation state,
-- čo sa stane pri reštarte,
-- ako sa riešia duplicate alebo out-of-order samples,
-- či backend očakáva cumulative alebo delta data,
-- ako sa mení semantic pri downsamplingu.
+Log record zachováva detail konkrétneho occurrence-u alebo diagnostického rozhodnutia. Production log má stabilné typed fields, aby query nebola závislá od parsovania meniaceho sa textu.
 
-## 4. Logs
-
-Log je časovo označený record udalosti, state-u alebo diagnostickej správy.
-
-Typické otázky:
-
-- Prečo konkrétna operácia zlyhala?
-- Aký exception alebo error code vznikol?
-- Aké rozhodnutie application vykonala?
-- Ktorá configuration alebo dependency bola použitá?
-- Čo sa dialo tesne pred failure?
-
-### Structured logs
-
-Preferovaný production model používa stabilnú štruktúru:
+Príklad:
 
 ```json
 {
-  "timestamp": "2026-07-21T18:00:00Z",
+  "timestamp": "2026-07-29T09:20:14.183Z",
+  "observed_timestamp": "2026-07-29T09:20:14.201Z",
   "severity": "ERROR",
-  "service.name": "orders-api",
-  "deployment.environment": "production",
-  "event.name": "payment.authorization.failed",
-  "trace_id": "...",
-  "span_id": "...",
-  "order_id": "opaque-business-id",
-  "provider": "payment-a",
-  "error.type": "TimeoutError",
-  "error.code": "UPSTREAM_TIMEOUT",
-  "duration_ms": 2500
+  "event.name": "payment.provider.tls_failed",
+  "service.name": "provider-adapter",
+  "service.version": "7.19.0",
+  "deployment.environment.name": "production",
+  "cloud.availability_zone": "eu-central-1b",
+  "trace_id": "opaque-trace-id",
+  "span_id": "opaque-span-id",
+  "logical_operation_id": "opaque-settlement-id",
+  "config.generation": "PROVIDER-CFG-34",
+  "error.type": "TlsHandshakeError",
+  "error.code": "UNKNOWN_CA",
+  "duration_ms": 47
 }
 ```
 
-Výhody:
+`Timestamp` opisuje čas occurrence-u podľa source clocku. `ObservedTimestamp` môže zachytiť čas, keď collection system record pozoroval. Rozdiel pomáha pri delayed delivery a clock-quality analýze.
 
-- query podľa fields bez parsovania voľného textu,
-- stabilnejší alerting a dashboards,
-- jednoduchšia correlation,
-- kontrolovanejšia redaction,
-- schema validation.
+OpenTelemetry log data model je stable a umožňuje trace/span correlation. V current modeli je pomenovaný structured event reprezentovaný log recordom s event name. Platformové „events“ však môžu mať vlastnú delivery a retention semantics, preto pojem event vždy viaž na konkrétny producer a schema.
 
-Human-readable message môže zostať doplnkom, nie jediným contractom.
+Severity opisuje operational význam occurrence-u. Každý retry attempt logovaný ako `ERROR` môže vytvoriť noise; naopak final business failure bez structured recordu vytvorí diagnostickú medzeru. Message môže zostať human-readable doplnkom, ale nesmie byť jediným contractom.
 
-### Severity
+## 5. Distributed traces: causal path jednej operácie
 
-Severity musí vyjadrovať operational význam:
-
-- `DEBUG` — detail pre vývoj a dočasnú diagnostiku,
-- `INFO` — bežný významný lifecycle alebo business event,
-- `WARN` — degradácia alebo neočakávaný stav bez okamžitého failure,
-- `ERROR` — operácia zlyhala alebo vznikol významný incident signal,
-- `FATAL` — process alebo kritický subsystem nemôže pokračovať.
-
-Logovanie retryable transient erroru pri každom pokuse ako `ERROR` môže vytvoriť alert noise. Naopak zlyhanie requestu bez logu alebo metric counteru vytvára observability gap.
-
-### Log volume a sampling
-
-Kontroluj:
-
-- log level per environment,
-- duplicate stack traces,
-- request/response body logging,
-- retry loops,
-- high-frequency successful events,
-- retention podľa value,
-- sensitive fields,
-- dynamic sampling.
-
-Sampling úspešných low-value logs môže byť prijateľný. Security, audit a critical failure evidence nemusí byť vhodné zahadzovať rovnakým pravidlom.
-
-## 5. Distributed traces
-
-Trace reprezentuje cestu jednej operácie cez services, processes a async boundaries.
-
-Trace sa skladá zo spans.
-
-Span typicky obsahuje:
-
-- trace ID,
-- span ID,
-- parent span ID alebo links,
-- operation name,
-- start a end time,
-- status,
-- attributes,
-- span events,
-- resource a instrumentation scope.
-
-### Typické otázky
-
-- Ktorá dependency vytvorila latency?
-- Kde request zlyhal?
-- Aký fan-out alebo retry pattern vznikol?
-- Ktorá service volala ktorú?
-- Kde sa prerušila context propagation?
-- Ako sa líši úspešná a chybná request path?
-
-### Parent-child a links
-
-Synchronous call často používa parent-child relation.
-
-Async, queue alebo batch systém môže potrebovať span links, pretože:
-
-- jeden producer event spustí viac consumers,
-- jeden batch obsahuje viac pôvodných messages,
-- operation nemá jednoduchého jediného parenta,
-- processing nastane výrazne neskôr.
-
-Vynútenie nepravdivého stromu môže skryť skutočnú causalitu.
-
-### Sampling
-
-Trace sampling kontroluje volume a cost.
-
-Modely:
-
-- head sampling — rozhodnutie pri začiatku trace-u,
-- tail sampling — rozhodnutie po zhromaždení väčšej časti trace-u,
-- probabilistic sampling,
-- rule-based sampling,
-- always keep errors alebo high-latency traces.
-
-Tail sampling môže zachovať zaujímavé failures, ale vyžaduje stateful processing, buffer capacity a failure model collectora.
-
-Sampling decision musí byť propagované konzistentne. Inak vzniknú fragmentované traces.
-
-## 6. Events
-
-Event je časovo označený record významnej zmeny alebo occurrence.
-
-Príklady:
-
-- deployment začal alebo skončil,
-- autoscaling zmenil desired capacity,
-- leader election prebehla,
-- certificate sa obnovil,
-- feature flag sa zmenil,
-- backup alebo restore job zlyhal,
-- Kubernetes Pod bol evicted,
-- incident bol deklarovaný.
-
-V OpenTelemetry data modeli sa event smeruje k pomenovanému a štruktúrovanému typu log recordu. Praktické platformy však môžu označovať ako event aj cloud control-plane records, Kubernetes Events alebo deployment markers.
-
-Preto vždy definuj:
-
-- producer,
-- event schema,
-- delivery semantics,
-- ordering,
-- deduplication identity,
-- retention,
-- correlation fields,
-- či je event audit evidence alebo iba operational hint.
-
-## 7. Span events oproti samostatným events
-
-Span event je bodová udalosť v kontexte konkrétneho span-u.
-
-Príklady:
-
-- exception,
-- cache miss,
-- retry attempt,
-- lock acquisition,
-- message acknowledgement.
-
-Samostatný event je vhodnejší, keď:
-
-- nemá jeden prirodzený request context,
-- musí existovať aj bez trace backendu,
-- má business alebo audit lifecycle,
-- potrebuje vlastnú retention a delivery semantics.
-
-## 8. Audit records
-
-Audit record sa zameriava na actor a control-plane operáciu.
-
-Mal by odpovedať:
-
-- kto,
-- kedy,
-- odkiaľ,
-- voči čomu,
-- akú action,
-- s akým request contextom,
-- s akým výsledkom,
-- cez akú delegated identity alebo session.
-
-Audit trail má odlišné požiadavky než application log:
-
-- vyššia integrita,
-- dlhšia alebo regulovaná retention,
-- obmedzený write access,
-- centralizácia mimo workload blast radiusu,
-- identity resolution,
-- tamper evidence.
-
-## 9. Profiles
-
-Profile zachytáva spotrebu resources na úrovni code paths.
-
-Príklady:
-
-- CPU samples,
-- memory allocations,
-- lock contention,
-- goroutine/thread state,
-- off-CPU wait,
-- garbage collection.
-
-Profiles odpovedajú na otázku „ktorý kód spotreboval resource“, ktorú metric CPU utilization ani trace duration nemusia samy vysvetliť.
-
-Profiles sú vznikajúca observability vrstva a ich presná OpenTelemetry podpora sa má pri implementácii overiť podľa aktuálnej specification a language SDK statusu.
-
-## 10. Porovnanie signals
-
-| Signal | Silná stránka | Slabá stránka | Typický operational use |
-|---|---|---|---|
-| Metrics | agregácia, trends, alerting | málo per-request detailu | SLO, saturation, capacity |
-| Logs | detail eventu a state-u | volume, parsing, noise | exception a decision diagnostics |
-| Traces | causal request path | sampling a storage cost | distributed latency a dependency failures |
-| Events | významná zmena v čase | nejednotné schemas | deployment, lifecycle a change correlation |
-| Audit records | actor a control-plane action | nie sú performance signal | security a change investigation |
-| Profiles | code-level resource usage | overhead a interpretácia | CPU, memory a contention diagnosis |
-
-## 11. Correlation
-
-Signals musia zdieľať stabilný context.
-
-Odporúčané fields:
-
-- `service.name`,
-- environment,
-- service version alebo deployment revision,
-- Region, zone, cluster, namespace,
-- trace ID a span ID,
-- request alebo correlation ID,
-- tenant alebo business key iba v bezpečnej bounded forme,
-- workload/resource identity,
-- change/deployment ID.
-
-Incident workflow:
+Trace modeluje execution path jednej logical operation cez synchronous aj asynchronous boundaries. Span reprezentuje konkrétnu operation a nesie timing, status, attributes, resource a instrumentation scope.
 
 ```text
-SLO alebo metric alert
-→ relevantný time window a deployment marker
-→ exemplár alebo trace ID
-→ trace path
-→ konkrétny span a dependency
-→ korelované structured logs
-→ audit/change event
-→ profile pri resource bottlenecku
+client settlement
+→ payments-api acceptance span
+→ queue publish span
+→ consumer process span linked k producer contextu
+→ provider authorization attempts
+→ ledger commit
+→ completion event
 ```
 
-Bez correlation sa responder spolieha na časové odhady a manuálne matching patterns.
+Parent-child relation je vhodná pre priame call stack-like väzby. Async fan-out, batching alebo redelivery môže potrebovať span links. Vynútenie falošného jediného parenta skryje causalitu medzi producer message a neskorším consumer processingom.
 
-## 12. Derived signals
+Span event zachytáva bodový occurrence v rámci span-u, napríklad retry, exception, lock wait alebo acknowledgement. Samostatný structured event je vhodnejší, keď potrebuje vlastný lifecycle, retention, delivery alebo existenciu nezávislú od zachovania trace-u.
 
-Z jedného signalu možno odvodiť iný:
+### Sampling contract
 
-- metrics z logs,
-- metrics z spans,
-- service graph z traces,
-- events z audit records,
-- alerts z metric alebo log query,
-- profiles korelované s spans.
+Head sampling rozhoduje pri začiatku trace-u, keď ešte nepozná final outcome. Tail sampling rozhoduje po zhromaždení väčšej časti trace-u a môže zachovať errors alebo high-latency paths. Tail sampling však potrebuje state, trace affinity, buffer capacity a explicitný failure model.
 
-Derived signal musí mať jasný source-of-truth contract.
+Sampling mení coverage. Sampled traces preto nemajú automaticky nahradiť unsampled request counters pre SLO denominator. Sampling decision a trace context sa musia propagovať konzistentne, inak vzniknú fragmented traces.
 
-Príklad: error rate odvodený iba zo sampled traces nemusí reprezentovať všetky requesty. Na SLO môže byť vhodnejší request counter z application alebo edge vrstvy.
+## 6. Events: významná zmena v čase
 
-## 13. Signal selection podľa otázky
+Operational event opisuje zmenu, ktorá poskytuje context pre behavior:
 
-### „Je služba dostupná?“
+- deployment alebo rollback;
+- configuration generation transition;
+- scaling alebo failover;
+- feature-flag change;
+- certificate rotation;
+- queue redrive;
+- incident declaration.
 
-- black-box success/latency metric,
-- request rate/error rate,
-- SLO burn,
-- dependency health.
+Event contract potrebuje producer identity, occurred/observed time, schema version, deduplication key, ordering expectations, delivery semantics, retention a correlation fields. „Deployment marker“ bez release ID alebo affected scope je slabý hint.
 
-### „Prečo je request pomalý?“
+Events sú často mostom medzi symptomom a zmenou. Neznamená to, že každá časová korelácia je príčina. Event zúži hypotézu; mechanismus sa musí preukázať ďalším evidence pathom.
 
-- latency histogram,
-- distributed trace,
-- downstream spans,
-- correlated logs,
-- profile pri CPU alebo lock probléme.
+## 7. Audit records: actor, request a control-plane action
 
-### „Kto zmenil konfiguráciu?“
+Audit record odpovedá na otázky kto, cez akú session, odkiaľ, čo zmenil, voči akému resource-u a s akým API výsledkom. Má inú integritu a access boundary než application diagnostics.
 
-- audit record,
-- deployment event,
-- Git/IaC revision,
-- controller reconciliation log.
+Audit success často dokazuje prijatie control-plane requestu, nie úplnú runtime realizáciu. Napríklad úspešná config update action nepreukazuje, že všetky tasks načítali novú generation.
 
-### „Prečo rastie memory?“
+Pre kritické audit evidence používaj centralizáciu, write protection, identity resolution, dlhšiu retention a tamper-evident model mimo workload blast radiusu.
 
-- memory metrics,
-- allocation/heap profile,
-- GC metrics,
-- deployment correlation,
-- workload-specific logs.
+## 8. Profiles: code-level resource attribution
 
-## 14. Signal quality
+Profile odpovedá na otázku, ktorý code path spotrebúva CPU, alokuje memory alebo čaká na lock/I/O. Metric môže ukázať 95 % CPU a trace pomalý span, ale profile lokalizuje konkrétnu funkciu alebo stack.
 
-Každý signal hodnoti podľa:
+OpenTelemetry Profiles specification je aktuálne Alpha. Pri produkčnom návrhu preto over language agent, transport, backend, schema a overhead maturity; nepovažuj všeobecnú existenciu specification za garanciu rovnakých capabilities vo všetkých SDKs.
 
-- correctness,
-- completeness,
-- freshness,
-- context,
-- correlation,
-- bounded cardinality,
-- schema stability,
-- delivery reliability,
-- retention,
-- security,
-- cost,
-- ownera.
+## 9. Correlation contract
 
-Signal bez ownera a decision use case-u sa často stane drahým neudržiavaným dátovým tokom.
-
-## 15. Troubleshooting chýbajúceho signalu
+Signals majú zdieľať minimálne sufficient identity bez kopírovania high-cardinality detailu do každej vrstvy.
 
 ```text
-producer skutočne vykonal operáciu?
-→ instrumentation vytvorila record?
-→ sampling/filtering ho zachovali?
-→ agent/collector ho prijal?
-→ processor ho nezahodil alebo nezmenil?
-→ exporter ho odoslal?
-→ network/auth/TLS fungujú?
-→ backend ho ingestoval a indexoval?
-→ správny tenant/time range/query?
-→ retention alebo compaction?
+metric alert podľa service/operation/AZ/version
+→ exemplar alebo bounded time/cohort filter
+→ trace ID
+→ failing span a dependency
+→ logs s trace/span/logical-operation ID
+→ deployment/config event
+→ audit actor
+→ profile pri resource mechanism-e
 ```
 
-Zachovaj:
+Resource identity opisuje observed entity, napríklad logical service, process, Pod alebo cloud resource. Instrumentation scope opisuje library alebo component, ktorý record vytvoril. Operation attributes opisujú konkrétny occurrence. Ich zamenenie vedie k nestabilným service names a neinterpretovateľným queries.
 
-- sample timestamp,
-- trace/request ID,
-- producer logs,
-- collector self-telemetry,
-- exporter errors,
-- backend ingestion metrics,
-- exact query a time zone.
+## 10. Derived signals a source-of-truth contract
 
-## 16. Anti-patterny
+Z logs alebo spans možno odvodiť metrics, z traces service graph a z audit recordov change events. Derived signal dedí coverage, sampling, delay a chyby source signalu.
+
+Príklad:
+
+```text
+error ratio zo sampled traces
+≠ automaticky error ratio všetkých valid requests
+```
+
+Pred použitím derived signalu pre SLO alebo page urč:
+
+- autoritatívny source occurrence;
+- sampling a filtering;
+- duplicate a late-data behavior;
+- derivation version;
+- refresh/ingestion latency;
+- comparison proti nezávislému oracle-u.
+
+## 11. Signal quality verdict
+
+Signal hodnoti podľa correctness, completeness, freshness, contextu, correlation, bounded cardinality, schema stability, delivery reliability, retention, security, cost a ownershipu.
+
+Praktický verdict môže byť:
+
+```text
+complete and authoritative
+partial but useful
+stale
+sampled and non-authoritative for denominator
+missing due to pipeline failure
+unknown coverage
+```
+
+Takéto pomenovanie je presnejšie než univerzálne „data available“.
+
+## 12. Worked failure: sampled trace metric predstiera recovery
+
+### Exact subject
+
+```text
+SIG-PAY-43
+operation: settle(payment_id)
+release: 7.19.0
+window: 09:12–09:22 UTC
+logical operations: 20,000
+instrumentation generation: OTEL-PAY-12
+trace policy: tail sampling
+metric source A: unsampled application counters
+metric source B: derived metric zo zachovaných traces
+```
+
+### Symptom
+
+Authoritative counters ukazujú `4.8 %` failed logical settlements. Dashboard odvodený zo traces ukazuje iba `0.4 %` errors a po niekoľkých minútach zdanlivé zlepšenie.
+
+### Competing hypotheses
+
+1. application counter duplicitne počíta retries;
+2. trace-derived query používa nesprávny denominator;
+3. tail sampler zahadzuje fast failures;
+4. traces strácajú status na provider span-e;
+5. metric pipeline má duplicate samples;
+6. service sa skutočne zotavila a counter je stale.
+
+### Discriminating evidence
+
+```text
+logical-operation counter source
+→ trace keep/drop counters podľa policy reason
+→ raw provider-adapter logs
+→ sampled a non-sampled request cohort test
+→ span status a event fields
+→ collector tail-sampling config generation
+→ backend ingestion timestamps
+```
+
+Zistenia:
+
+- application counter má jeden increment pri final logical outcome a retries počíta osobitne;
+- TLS handshake failures končia rýchlo;
+- auto-instrumentation vytvorí exception event, ale custom wrapper nenastaví final span status na error;
+- tail policy zachováva explicit errors a high latency, takže fast spans s unset statusom väčšinou dropne;
+- derived trace metric preto reprezentuje selected subset, nie všetky settlements;
+- logs a unsampled counters zostávajú konzistentné s reálnym `4.8 %` failure rate.
+
+Root cause nie je uzdravenie služby. Je to kombinácia incomplete span error semantics a nesprávneho source-of-truth rozhodnutia pre SLO dashboard.
+
+### Containment
+
+- odstrániť trace-derived ratio z paging a SLO verdictu;
+- označiť panel ako sampled diagnostic signal;
+- zachovať collector policy, keep/drop counters a raw example traces;
+- nevypnúť sampling plošne počas incidentu bez capacity analýzy;
+- používať unsampled logical-operation counters pre aktuálny impact.
+
+### Recovery
+
+1. explicitne nastaviť span status podľa final provider operation contractu;
+2. pridať bounded `error.type` a structured event;
+3. vytvoriť canary pre fast TLS failure aj slow failure;
+4. overiť tail policy keep reason a trace completeness;
+5. porovnať trace-derived diagnostic ratio s authoritative counterom;
+6. versionovať derivation query a dashboard.
+
+### Acceptance verdict
+
+- logical-operation counter a business reconciliation sú zhodné;
+- fast aj slow failures majú správny span status;
+- sampled trace coverage je viditeľná a nepoužíva sa ako úplný denominator;
+- trace, log, deployment event a audit record sa korelujú;
+- forbidden duplicate counting retries ako logical failures nevzniká;
+- no-data alebo collector drop stav nevytvára false-green panel.
+
+## 13. Troubleshooting chýbajúceho alebo sporného signalu
+
+```text
+occurrence skutočne nastal?
+→ správny observation point?
+→ producer vytvoril record?
+→ schema/resource/operation identity?
+→ sampling alebo filtering?
+→ queue, exporter, network, auth a TLS?
+→ backend ingestion a indexing?
+→ tenant/time range/time zone?
+→ query a derivation generation?
+→ source coverage postačuje pre daný verdict?
+```
+
+Zachovaj sample operation ID, occurred a observed timestamps, producer logs, collector self-telemetry, exporter errors, backend ingestion metrics, exact query a source generation.
+
+## 14. Anti-patterny
 
 ### Všetko ako log
 
-SLO a trends sa počítajú draho a neefektívne z textových records.
+Agregované SLO a capacity queries sú drahé a závislé od parsing/schema stability.
 
 ### Všetko ako metric
 
-Per-request causal detail a error context sa stráca.
+Per-operation causal detail a error context sa stratia.
 
 ### Trace ID ako metric label
 
-Vytvára prakticky neobmedzenú cardinality.
+Vytvára unbounded series cardinality.
 
-### Average latency bez distribution
+### Sampled trace metric ako úplný SLO denominator
 
-Maskuje tail latency.
+Coverage závisí od sampling policy a instrumentation semantics.
 
-### Events bez stabilnej schema
+### Average latency
 
-Nie je možné spoľahlivo filtrovať, deduplikovať ani automatizovať reakciu.
+Maskuje tail a rozdiel medzi successful a failed paths.
 
-### Audit a application logs v rovnakom blast radiuse
+### Event bez identity a schema
 
-Compromise workloadu môže poškodiť aj evidence.
+Nie je spoľahlivo queryable, deduplicable ani korelovateľný.
 
-### Correlation iba podľa timestampu
+### Audit a application diagnostics v rovnakom blast radiuse
 
-Clock skew, queues a retry patterns vedú k nesprávnym záverom.
+Workload compromise môže poškodiť incident evidence.
 
-## 17. Kontrolné otázky
+### Resource identity zamenená za process instance
 
-1. Ktoré otázky najlepšie riešia metrics, logs a traces?
-2. Prečo average latency nestačí?
-3. Aký je rozdiel medzi eventom a audit recordom?
-4. Kedy použiť span event a kedy samostatný event?
-5. Ako head a tail sampling menia trace coverage?
-6. Prečo trace ID nepatrí do metric labels?
-7. Čo musí obsahovať structured log schema?
-8. Ako koreluješ metric alert s konkrétnym requestom?
-9. Kedy potrebuješ profile?
-10. Ako diagnostikuješ chýbajúci telemetry record?
+Logical service sa rozpadne na ephemeral Pod alebo host names.
+
+## 15. Kontrolné otázky
+
+1. Aký je rozdiel medzi system occurrence, telemetry record a query verdict?
+2. Čo musí obsahovať exact signal subject?
+3. Prečo logical-operation a attempt counters potrebujú samostatný contract?
+4. Ako sa líši resource identity, instrumentation scope a operation attributes?
+5. Kedy použiť span event a kedy samostatný structured event?
+6. Prečo sampled traces nemusia byť vhodný SLO denominator?
+7. Čo audit API success nepreukazuje o runtime stave?
+8. Aký je aktuálny maturity status OpenTelemetry Profiles specification?
+9. Ako hodnotíš signal quality?
+10. Ako bol false-green trace dashboard v `SIG-PAY-43` opravený?
 
 ## Glossary impact
 
-Relevantné pojmy: metric, counter, gauge, histogram, distribution, temporality, structured log, severity, distributed trace, span, span link, span event, head sampling, tail sampling, event, audit record, profile, correlation, derived signal a signal quality.
+Relevantné pojmy: signal subject, occurrence-to-record boundary, measurement boundary, metric stream identity, logical-operation counter, attempt counter, occurred timestamp, observed timestamp, named telemetry event, sampled coverage, derived-signal authority, signal-quality verdict, resource-versus-scope identity a profile maturity boundary.
 
 ## Primárne zdroje
 
 - [OpenTelemetry signals](https://opentelemetry.io/docs/concepts/signals/)
-- [OpenTelemetry metrics](https://opentelemetry.io/docs/concepts/signals/metrics/)
-- [OpenTelemetry observability primer](https://opentelemetry.io/docs/concepts/observability-primer/)
-- [OpenTelemetry logging specification](https://opentelemetry.io/docs/specs/otel/logs/)
-- [OpenTelemetry profiles](https://opentelemetry.io/docs/concepts/signals/profiles/)
+- [OpenTelemetry metrics data model](https://opentelemetry.io/docs/specs/otel/metrics/data-model/)
+- [OpenTelemetry logs data model](https://opentelemetry.io/docs/specs/otel/logs/data-model/)
+- [OpenTelemetry Profiles specification](https://opentelemetry.io/docs/specs/otel/profiles/)
 - [Prometheus instrumentation practices](https://prometheus.io/docs/practices/instrumentation/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
