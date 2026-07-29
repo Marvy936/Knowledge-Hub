@@ -3209,15 +3209,15 @@
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
       "title": "Instrumentation a telemetry",
-      "words": 1692,
-      "headings": 51,
-      "sections": 51,
-      "findings": 137,
-      "critical": 52,
-      "high": 52,
-      "medium": 21,
-      "low": 12,
-      "score": 1123,
+      "words": 2371,
+      "headings": 43,
+      "sections": 43,
+      "findings": 86,
+      "critical": 23,
+      "high": 32,
+      "medium": 11,
+      "low": 20,
+      "score": 596,
       "grade": "D"
     },
     {
@@ -182414,8 +182414,8 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -182423,8 +182423,8 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "1. Mentálny model",
-      "line": 5,
+      "section": "1. Dominantný lifecycle",
+      "line": 7,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -182432,206 +182432,26 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "2. Instrumentation oproti telemetry",
-      "line": 22,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Instrumentation",
-      "line": 24,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Instrumentation",
-      "line": 24,
+      "section": "3. Requirements vznikajú z journey a failure modelu",
+      "line": 56,
       "severity": "critical",
       "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
+      "detail": "7 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
       "score": 12
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Instrumentation",
-      "line": 24,
+      "section": "3. Requirements vznikajú z journey a failure modelu",
+      "line": 56,
       "severity": "critical",
       "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application counter pre dokončené objednávky,`, `HTTP middleware vytvárajúci spans,`, `log appender dopĺňajúci trace ID,`, `runtime agent zbierajúci JVM metrics,`.",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `logical-operation counters a duration distribution;`, `provider-attempt metrics oddelené od logical outcomes;`, `server, messaging, provider a ledger spans;`, `structured final-outcome a error events;`.",
       "score": 12
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Instrumentation",
-      "line": 24,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Instrumentation",
-      "line": 24,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `ID`, `JVM`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Telemetry",
-      "line": 38,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 15 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Telemetry",
-      "line": 38,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metric measurements,`, `log records,`, `spans a traces,`, `events,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Telemetry",
-      "line": 38,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Telemetry",
-      "line": 38,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "3. Business-first instrumentation",
-      "line": 52,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "3. Business-first instrumentation",
-      "line": 52,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "3. Business-first instrumentation",
-      "line": 52,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `úspešné checkouty,`, `payment authorization outcomes,`, `queue processing age,`, `document indexing success,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "3. Business-first instrumentation",
-      "line": 52,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "3. Business-first instrumentation",
-      "line": 52,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "3. Business-first instrumentation",
-      "line": 52,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLI`, `failure semantics`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "4. Code-based instrumentation",
-      "line": 77,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 22 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "4. Code-based instrumentation",
-      "line": 77,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `business semantics,`, `vlastné operation names,`, `presné error a status pravidlá,`, `custom metrics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "4. Code-based instrumentation",
-      "line": 77,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "4. Code-based instrumentation",
-      "line": 77,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "5. Zero-code a automatic instrumentation",
-      "line": 100,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "16 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "5. Zero-code a automatic instrumentation",
-      "line": 100,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "16 z 16 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inbound a outbound HTTP,`, `database clients,`, `messaging libraries,`, `runtime metrics,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "5. Zero-code a automatic instrumentation",
-      "line": 100,
+      "section": "3. Requirements vznikajú z journey a failure modelu",
+      "line": 56,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -182639,8 +182459,116 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "5. Zero-code a automatic instrumentation",
-      "line": 100,
+      "section": "3. Requirements vznikajú z journey a failure modelu",
+      "line": 56,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "3. Requirements vznikajú z journey a failure modelu",
+      "line": 56,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "3. Requirements vznikajú z journey a failure modelu",
+      "line": 56,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`, `resource`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "4. Observation points a authority",
+      "line": 82,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "5. Code-based instrumentation",
+      "line": 101,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 60 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "5. Code-based instrumentation",
+      "line": 101,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `začiatok a final outcome logical operation;`, `idempotency alebo reconciliation result;`, `partial success;`, `fallback považovaný za degraded outcome;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "5. Code-based instrumentation",
+      "line": 101,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "5. Code-based instrumentation",
+      "line": 101,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "6. Zero-code a automatic instrumentation",
+      "line": 117,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `inbound/outbound HTTP a RPC;`, `database a messaging libraries;`, `runtime metrics;`, `common framework operations;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "6. Zero-code a automatic instrumentation",
+      "line": 117,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "8. Resource identity",
+      "line": 139,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "9. Instrumentation scope",
+      "line": 158,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application-owned settlement instrumentation;`, `HTTP framework instrumentation;`, `database client library;`, `messaging instrumentation;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "9. Instrumentation scope",
+      "line": 158,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HTTP`",
@@ -182648,584 +182576,8 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "6. Manual, generated a platform telemetry",
-      "line": 131,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Manual instrumentation",
-      "line": 133,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Generated instrumentation",
-      "line": 137,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "7. OpenTelemetry architecture",
-      "line": 147,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "7. OpenTelemetry architecture",
-      "line": 147,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `instrumentation libraries,`, `auto-instrumentation agents,`, `context propagation,`, `semantic conventions,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "7. OpenTelemetry architecture",
-      "line": 147,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "7. OpenTelemetry architecture",
-      "line": 147,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "7. OpenTelemetry architecture",
-      "line": 147,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `API`, `SDK`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "8. API oproti SDK",
-      "line": 164,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "8. API oproti SDK",
-      "line": 164,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `ktorý SDK sa použije,`, `sampling,`, `exporters,`, `processors,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "8. API oproti SDK",
-      "line": 164,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "8. API oproti SDK",
-      "line": 164,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "9. Instrumentation scope",
-      "line": 181,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "9. Instrumentation scope",
-      "line": 181,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `name,`, `version,`, `schema URL alebo ďalšie metadata.`, `application-owned instrumentation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "9. Instrumentation scope",
-      "line": 181,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "9. Instrumentation scope",
-      "line": 181,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `URL`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "10. Resource identity",
-      "line": 201,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "10. Resource identity",
-      "line": 201,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "6 z 6 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `service.name ,`, `service.version ,`, `deployment.environment.name ,`, `host alebo cloud resource identity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "10. Resource identity",
-      "line": 201,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "11. Semantic conventions",
-      "line": 216,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 19 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "11. Semantic conventions",
-      "line": 216,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `interoperabilita,`, `reusable dashboards,`, `konzistentné queries,`, `cross-language correlation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "11. Semantic conventions",
-      "line": 216,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "11. Semantic conventions",
-      "line": 216,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "12. Context propagation",
-      "line": 236,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "12. Context propagation",
-      "line": 236,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `trace ID,`, `parent span ID,`, `sampling decision,`, `tracestate,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "12. Context propagation",
-      "line": 236,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "12. Context propagation",
-      "line": 236,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "12. Context propagation",
-      "line": 236,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`, `HTTP`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "13. Baggage",
-      "line": 260,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "9 odrážok je podopretých iba 20 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "13. Baggage",
-      "line": 260,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tenant class,`, `experiment cohort,`, `region routing context,`, `business workflow ID.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "13. Baggage",
-      "line": 260,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "13. Baggage",
-      "line": 260,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "14. Telemetry pipeline",
-      "line": 281,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Receivers",
-      "line": 295,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Processors",
-      "line": 299,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Processors",
-      "line": 299,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "8 odrážok je podopretých iba 2 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Processors",
-      "line": 299,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `batching,`, `memory limiting,`, `filtering,`, `attribute transformation,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Processors",
-      "line": 299,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Processors",
-      "line": 299,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "15. Agent, sidecar a gateway deployment",
-      "line": 318,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Agent alebo DaemonSet",
-      "line": 320,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Agent alebo DaemonSet",
-      "line": 320,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 5 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Agent alebo DaemonSet",
-      "line": 320,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `local collection,`, `host/container metadata,`, `kratšia network path,`, `rozdelenie loadu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Agent alebo DaemonSet",
-      "line": 320,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Sidecar",
-      "line": 331,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Sidecar",
-      "line": 331,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "5 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Sidecar",
-      "line": 331,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "5 z 5 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `silná isolation,`, `application-specific config.`, `resource overhead,`, `vysoký počet instances,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Sidecar",
-      "line": 331,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Sidecar",
-      "line": 331,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Gateway",
-      "line": 346,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "7 odrážok je podopretých iba 16 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Gateway",
-      "line": 346,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `tail sampling,`, `centralized policy,`, `backend fan-out,`, `tenant routing.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Gateway",
-      "line": 346,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Gateway",
-      "line": 346,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HA`, `policy`, `blast radius`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "16. Push a pull",
-      "line": 365,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Pull",
-      "line": 367,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Pull",
-      "line": 367,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 6 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Pull",
-      "line": 367,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `target discovery,`, `explicitná scrape health,`, `central control intervalu,`, `jednoduché detection chýbajúceho targetu.`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Pull",
-      "line": 367,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Push",
-      "line": 378,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "3 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `prirodzené pre traces/logs/events,`, `funguje pre ephemeral alebo outbound-only sources,`, `async batching.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Push",
-      "line": 378,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "17. Batching, queue a backpressure",
-      "line": 390,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 33 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "17. Batching, queue a backpressure",
-      "line": 390,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `batch size,`, `flush interval,`, `memory queue,`, `persistent queue,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "17. Batching, queue a backpressure",
-      "line": 390,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "17. Batching, queue a backpressure",
-      "line": 390,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "17. Batching, queue a backpressure",
-      "line": 390,
+      "section": "10. Semantic conventions ako versionovaný contract",
+      "line": 172,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -183233,8 +182585,62 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "17. Batching, queue a backpressure",
-      "line": 390,
+      "section": "10. Semantic conventions ako versionovaný contract",
+      "line": 172,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "11. Context propagation",
+      "line": 189,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "12. Local SDK a agent failure behavior",
+      "line": 207,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "12. Local SDK a agent failure behavior",
+      "line": 207,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `synchronous alebo asynchronous export;`, `batch size a flush interval;`, `memory queue a max age;`, `retry policy;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "12. Local SDK a agent failure behavior",
+      "line": 207,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "12. Local SDK a agent failure behavior",
+      "line": 207,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "12. Local SDK a agent failure behavior",
+      "line": 207,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
@@ -183242,35 +182648,17 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "18. Sampling a filtering",
-      "line": 414,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "18. Sampling a filtering",
-      "line": 414,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `health-check traffic,`, `low-value debug logs,`, `noisy framework spans,`, `sensitive fields,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "18. Sampling a filtering",
-      "line": 414,
+      "section": "13. Collector topology",
+      "line": 223,
       "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "18. Sampling a filtering",
-      "line": 414,
+      "section": "15. Sampling, filtering a views",
+      "line": 257,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -183278,260 +182666,35 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "18. Sampling a filtering",
-      "line": 414,
+      "section": "16. Privacy a security boundaries",
+      "line": 273,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 34 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "16. Privacy a security boundaries",
+      "line": 273,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "9 z 9 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `producer-side minimization;`, `attribute allowlist;`, `source-near redaction;`, `TLS a authenticated export;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "16. Privacy a security boundaries",
+      "line": 273,
       "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
       "score": 4
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "19. Telemetry self-observability",
-      "line": 436,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "19. Telemetry self-observability",
-      "line": 436,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "11 odrážok je podopretých iba 13 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "19. Telemetry self-observability",
-      "line": 436,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "11 z 11 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `accepted records,`, `refused records,`, `dropped records,`, `queue size a capacity,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "19. Telemetry self-observability",
-      "line": 436,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "19. Telemetry self-observability",
-      "line": 436,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "20. Overhead",
-      "line": 454,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "20. Overhead",
-      "line": 454,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "13 odrážok je podopretých iba 11 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "20. Overhead",
-      "line": 454,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "13 z 13 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `CPU,`, `allocations a memory,`, `request latency,`, `network bandwidth,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "20. Overhead",
-      "line": 454,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "20. Overhead",
-      "line": 454,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CPU`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "21. Security a privacy",
-      "line": 477,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "21. Security a privacy",
-      "line": 477,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "18 odrážok je podopretých iba 17 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "21. Security a privacy",
-      "line": 477,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "18 z 18 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `authorization headers,`, `cookies,`, `database statements,`, `request bodies,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "21. Security a privacy",
-      "line": 477,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "21. Security a privacy",
-      "line": 477,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "21. Security a privacy",
-      "line": 477,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "22. Versioning a change management",
-      "line": 505,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "22. Versioning a change management",
-      "line": 505,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "15 odrážok je podopretých iba 10 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "22. Versioning a change management",
-      "line": 505,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "15 z 15 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `metric rename,`, `label rename,`, `unit change,`, `histogram bucket change,`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "22. Versioning a change management",
-      "line": 505,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "22. Versioning a change management",
-      "line": 505,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "22. Versioning a change management",
-      "line": 505,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
-      "score": 4
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "23. Instrumentation review checklist",
-      "line": 530,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "23. Instrumentation review checklist",
-      "line": 530,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "12 odrážok je podopretých iba 4 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "23. Instrumentation review checklist",
-      "line": 530,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "12 z 12 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `Ktoré user journeys sú kritické?`, `Aké SLIs a operational decisions potrebujeme?`, `Máme rate, errors a latency distribution?`, `Sú dependency calls traced?`.",
-      "score": 12
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "23. Instrumentation review checklist",
-      "line": 530,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "23. Instrumentation review checklist",
-      "line": 530,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "23. Instrumentation review checklist",
-      "line": 530,
+      "section": "16. Privacy a security boundaries",
+      "line": 273,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -183539,8 +182702,17 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "24. Troubleshooting instrumentation gapu",
-      "line": 547,
+      "section": "16. Privacy a security boundaries",
+      "line": 273,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `TLS`, `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "17. Telemetry self-observability",
+      "line": 291,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183548,8 +182720,35 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "24. Troubleshooting instrumentation gapu",
-      "line": 547,
+      "section": "19. Worked failure: stable service identity prepísaná Pod menom",
+      "line": 329,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Exact subject",
+      "line": 331,
+      "severity": "critical",
+      "rule": "empty-section",
+      "detail": "Sekcia nemá vysvetľovací obsah.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Competing hypotheses",
+      "line": 350,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Competing hypotheses",
+      "line": 350,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -183557,8 +182756,368 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Traces končia na service boundary",
-      "line": 564,
+      "section": "Competing hypotheses",
+      "line": 350,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Competing hypotheses",
+      "line": 350,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `application SDK sa nenačítal v nových Pods;`, `OTLP traffic blokuje network alebo authentication;`, `agent prijíma records, ale gateway ich filtruje;`, `backend tenant alebo query scope je nesprávny;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Competing hypotheses",
+      "line": 350,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Competing hypotheses",
+      "line": 350,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SDK`, `OTLP`, `scope`, `resource`, `identity`",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Discriminating observations",
+      "line": 360,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Discriminating observations",
+      "line": 360,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Discriminating observations",
+      "line": 360,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `application emituje service.name=provider-adapter ;`, `agent receiver record prijme správne;`, `exporter a backend fungujú;`, `backend preto indexuje provider-adapter-7f9... ako nové logical servic`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Discriminating observations",
+      "line": 360,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Discriminating observations",
+      "line": 360,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Discriminating observations",
+      "line": 360,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Discriminating observations",
+      "line": 360,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Discriminating observations",
+      "line": 360,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `RP-7`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Evidence-preserving containment",
+      "line": 383,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Evidence-preserving containment",
+      "line": 383,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Evidence-preserving containment",
+      "line": 383,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "5 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Evidence-preserving containment",
+      "line": 383,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "3 z 5 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `zastaviť collector/config rollout;`, `zachovať raw receiver sample a post-processor sample;`, `nedovoliť telemetry exportu blokovať business traffic.`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Evidence-preserving containment",
+      "line": 383,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Evidence-preserving containment",
+      "line": 383,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `SLO`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "4 z 7 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `vrátiť service.name na application-owned stable logical identity;`, `ponechať k8s.pod.name ako instance attribute;`, `pridať processor policy, ktorá stable service name neprepisuje;`, `rollout-nuť po bounded cohortách;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Authoritative recovery",
+      "line": 391,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Acceptance verdict",
+      "line": 401,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Acceptance verdict",
+      "line": 401,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Acceptance verdict",
+      "line": 401,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Acceptance verdict",
+      "line": 401,
+      "severity": "high",
+      "rule": "bare-bullet-items",
+      "detail": "5 z 8 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `všetky current Pods reportujú stable service.name=provider-adapter ;`, `Pod identity zostáva dostupná samostatne;`, `service count a cardinality sa vrátia do budgetu;`, `forbidden overwrite sa pri config regression test-e odmietne;`.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Acceptance verdict",
+      "line": 401,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Acceptance verdict",
+      "line": 401,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Acceptance verdict",
+      "line": 401,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Acceptance verdict",
+      "line": 401,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Earlier controls",
+      "line": 412,
+      "severity": "critical",
+      "rule": "no-prose-concept",
+      "detail": "Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Earlier controls",
+      "line": 412,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Earlier controls",
+      "line": 412,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Earlier controls",
+      "line": 412,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `golden telemetry fixture pred/po processors;`, `policy test nad required a forbidden resource attributes;`, `end-to-end metric/log/trace canary;`, `consumer inventory pre identity/schema changes;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Earlier controls",
+      "line": 412,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Earlier controls",
+      "line": 412,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`, `resource`, `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "20. Troubleshooting instrumentation gapu",
+      "line": 422,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Auto-instrumentation je hotová observability",
+      "line": 442,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183566,8 +183125,8 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Metrics existujú, ale labels chýbajú",
-      "line": 568,
+      "section": "Stable service identity odvodená z Pod name",
+      "line": 446,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183575,35 +183134,8 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Logs nemajú trace ID",
-      "line": 572,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Collector dropuje records",
-      "line": 576,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Auto-instrumentation považovaná za hotovú observability",
-      "line": 582,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Custom instrumentation bez conventions",
-      "line": 586,
+      "section": "Semantic conventions bez version/stability evidence",
+      "line": 450,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183612,7 +183144,7 @@
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
       "section": "Collector ako neobmedzený buffer",
-      "line": 590,
+      "line": 454,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183620,8 +183152,8 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Telemetry zlyhanie blokuje business request",
-      "line": 594,
+      "section": "Export success ako backend visibility verdict",
+      "line": 458,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183629,8 +183161,8 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Secret redaction iba v dashboarde",
-      "line": 598,
+      "section": "Telemetry failure blokuje business operation",
+      "line": 462,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
@@ -183638,8 +183170,17 @@
     },
     {
       "path": "docs/12-observability/instrumentation-telemetry.md",
-      "section": "Zmena metric unit bez migration",
-      "line": 602,
+      "section": "Redaction iba v UI",
+      "line": 466,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/12-observability/instrumentation-telemetry.md",
+      "section": "Configured generation ako loaded-state dôkaz",
+      "line": 470,
       "severity": "high",
       "rule": "single-sentence-concept",
       "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
